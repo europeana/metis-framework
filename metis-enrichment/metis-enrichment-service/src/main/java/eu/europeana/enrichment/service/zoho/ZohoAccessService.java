@@ -40,8 +40,9 @@ public class ZohoAccessService {
 	private static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
 	private static final String UNDEFINED_LANGUAGE_KEY = "def";
 	private final ZohoAccessClientDao zohoAccessClientDao;
-//	private SimpleDateFormat dateFormatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
-	
+	// private SimpleDateFormat dateFormatter = new
+	// SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
+
 	/**
 	 * Constructor of class with required parameters
 	 *
@@ -66,16 +67,21 @@ public class ZohoAccessService {
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
-	protected Organization getOrganization(String organizationId) throws ZohoAccessException {
+	protected Organization getOrganization(String organizationId)
+			throws ZohoAccessException {
 
 		JsonNode jsonRecordsResponse;
 		try {
-			jsonRecordsResponse = zohoAccessClientDao.getOrganizationById(organizationId);
+			jsonRecordsResponse = zohoAccessClientDao
+					.getOrganizationById(organizationId);
 		} catch (GenericMetisException e) {
-			throw new ZohoAccessException("Cannot get organization by id: " + organizationId, e);
+			throw new ZohoAccessException(
+					"Cannot get organization by id: " + organizationId, e);
 		}
-		JsonNode accountsNode = findRecordsByType(jsonRecordsResponse, ZohoApiFields.ACCOUNTS_MODULE_STRING);
-		JsonNode jsonRecord = accountsNode.findValue(ZohoApiFields.FIELDS_LABEL);
+		JsonNode accountsNode = findRecordsByType(jsonRecordsResponse,
+				ZohoApiFields.ACCOUNTS_MODULE_STRING);
+		JsonNode jsonRecord = accountsNode
+				.findValue(ZohoApiFields.FIELDS_LABEL);
 
 		return getOrganizationFromJsonNode(jsonRecord);
 	}
@@ -89,67 +95,83 @@ public class ZohoAccessService {
 	 * @return {@link JsonNode} representation of the organization
 	 */
 	JsonNode findRecordsByType(JsonNode jsonLeadsResponse, String type) {
-		if (jsonLeadsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING) == null) {
+		if (jsonLeadsResponse.get(ZohoApiFields.RESPONSE_STRING)
+				.get(ZohoApiFields.RESULT_STRING) == null) {
 			return null;
 		}
-		return jsonLeadsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING).get(type)
+		return jsonLeadsResponse.get(ZohoApiFields.RESPONSE_STRING)
+				.get(ZohoApiFields.RESULT_STRING).get(type)
 				.get(ZohoApiFields.ROW_STRING);
 	}
 
-	Organization getOrganizationFromJsonNode(JsonNode jsonRecord) throws ZohoAccessException {
+	Organization getOrganizationFromJsonNode(JsonNode jsonRecord)
+			throws ZohoAccessException {
 		OrganizationImpl org = new OrganizationImpl();
 
 		ZohoOrganizationAdapter zoa = new ZohoOrganizationAdapter(jsonRecord);
-		
+
 		org.setAbout(URL_ORGANIZATION_PREFFIX + zoa.getZohoId());
-		org.setDcIdentifier(createMapOfStringList(UNDEFINED_LANGUAGE_KEY, zoa.getZohoId()));
-		String isoLanguage = toIsoLanguage(zoa.getLanguageForOrganizationName());
-		org.setPrefLabel(createMapOfStringList(isoLanguage, zoa.getOrganizationName()));
-		org.setAltLabel(createLanguageMapOfStringList(zoa.getAlternativeLanguage(), zoa.getAlternativeOrganizationName()));
-		org.setEdmAcronym(createLanguageMapOfStringList(zoa.getLangAcronym(), zoa.getAcronym()));
+		org.setDcIdentifier(
+				createMapOfStringList(UNDEFINED_LANGUAGE_KEY, zoa.getZohoId()));
+		String isoLanguage = toIsoLanguage(
+				zoa.getLanguageForOrganizationName());
+		org.setPrefLabel(
+				createMapOfStringList(isoLanguage, zoa.getOrganizationName()));
+		org.setAltLabel(
+				createLanguageMapOfStringList(zoa.getAlternativeLanguage(),
+						zoa.getAlternativeOrganizationName()));
+		org.setEdmAcronym(createLanguageMapOfStringList(zoa.getLangAcronym(),
+				zoa.getAcronym()));
 		org.setFoafLogo(zoa.getLogo());
 		org.setFoafHomepage(zoa.getWebsite());
 		String[] role = zoa.getRole().split(";");
-		org.setEdmEuropeanaRole(createLanguageMapOfStringList(Locale.ENGLISH.getLanguage(), Arrays.asList(role)));
-		org.setEdmOrganizationDomain(createMap(Locale.ENGLISH.getLanguage(), zoa.getDomain()));
-		org.setEdmOrganizationSector(createMap(Locale.ENGLISH.getLanguage(), zoa.getSector()));
-		org.setEdmOrganizationScope(createMap(Locale.ENGLISH.getLanguage(), zoa.getScope()));
-		org.setEdmGeorgraphicLevel(createMap(Locale.ENGLISH.getLanguage(), zoa.getGeographicLevel()));
+		org.setEdmEuropeanaRole(createLanguageMapOfStringList(
+				Locale.ENGLISH.getLanguage(), Arrays.asList(role)));
+		org.setEdmOrganizationDomain(
+				createMap(Locale.ENGLISH.getLanguage(), zoa.getDomain()));
+		org.setEdmOrganizationSector(
+				createMap(Locale.ENGLISH.getLanguage(), zoa.getSector()));
+		org.setEdmOrganizationScope(
+				createMap(Locale.ENGLISH.getLanguage(), zoa.getScope()));
+		org.setEdmGeorgraphicLevel(createMap(Locale.ENGLISH.getLanguage(),
+				zoa.getGeographicLevel()));
 		String organizationCountry = toEdmCountry(zoa.getOrganizationCountry());
-		org.setEdmCountry(createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
+		org.setEdmCountry(
+				createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
 		org.setModified(zoa.getModified());
 		org.setCreated(zoa.getCreated());
-		
-		//address
+
+		// address
 		Address address = new AddressImpl();
-	
-		address.setAbout(org.getAbout()+"#address");
+
+		address.setAbout(org.getAbout() + "#address");
 		address.setVcardStreetAddress(zoa.getStreet());
 		address.setVcardLocality(zoa.getCity());
 		address.setVcardCountryName(zoa.getCountry());
 		address.setVcardPostalCode(zoa.getZipCode());
 		address.setVcardPostOfficeBox(zoa.getPostBox());
-		
+
 		org.setAddress(address);
-		
+
 		return org;
 	}
 
 	String toEdmCountry(String organizationCountry) {
-		if(StringUtils.isBlank(organizationCountry))
+		if (StringUtils.isBlank(organizationCountry))
 			return null;
 		int separatorPos = organizationCountry.indexOf("(");
-		if(separatorPos < 0)
+		if (separatorPos < 0)
 			return organizationCountry;
 		else
 			return organizationCountry.substring(0, separatorPos);
 	}
 
 	String toIsoLanguage(String language) {
-		if(StringUtils.isBlank(language))
+		if (StringUtils.isBlank(language))
 			return UNDEFINED_LANGUAGE_KEY;
-		
-		//TODO we might want to validate the language using Locale.getISOLanguages()
+
+		// TODO we might want to validate the language using
+		// Locale.getISOLanguages()
 		return language.substring(0, 2).toLowerCase();
 	}
 
@@ -162,21 +184,25 @@ public class ZohoAccessService {
 	 * @return
 	 * @throws ZohoAccessException
 	 */
-	public List<Organization> getOrganizations(int start, int rows, Date lastModified) throws ZohoAccessException {
+	public List<Organization> getOrganizations(int start, int rows,
+			Date lastModified) throws ZohoAccessException {
 
 		if (start < 1)
-			throw new ZohoAccessException("Invalid start index. Index must be >= 1",
+			throw new ZohoAccessException(
+					"Invalid start index. Index must be >= 1",
 					new IllegalArgumentException("start: " + start));
 
 		JsonNode jsonRecordsResponse;
 		String lastModifiedTime = null;
-		if(lastModified != null)
+		if (lastModified != null)
 			lastModifiedTime = getDateFormatter().format(lastModified);
-			
+
 		try {
-			jsonRecordsResponse = zohoAccessClientDao.getOrganizations(start, rows, lastModifiedTime);
+			jsonRecordsResponse = zohoAccessClientDao.getOrganizations(start,
+					rows, lastModifiedTime);
 		} catch (GenericMetisException e) {
-			throw new ZohoAccessException("Cannot get organization list from: " + start + " rows :" + rows, e);
+			throw new ZohoAccessException("Cannot get organization list from: "
+					+ start + " rows :" + rows, e);
 		}
 		return getOrganizationsListFromJsonNode(jsonRecordsResponse);
 
@@ -189,22 +215,23 @@ public class ZohoAccessService {
 	 * @return map representation of the records
 	 * @throws ZohoAccessException
 	 */
-	protected List<Organization> getOrganizationsListFromJsonNode(JsonNode jsonRecordsResponse)
-			throws ZohoAccessException {
+	protected List<Organization> getOrganizationsListFromJsonNode(
+			JsonNode jsonRecordsResponse) throws ZohoAccessException {
 
-		JsonNode accountsNode = findRecordsByType(jsonRecordsResponse, ZohoApiFields.ACCOUNTS_MODULE_STRING);
+		JsonNode accountsNode = findRecordsByType(jsonRecordsResponse,
+				ZohoApiFields.ACCOUNTS_MODULE_STRING);
 		List<Organization> res = new ArrayList<Organization>();
 		if (accountsNode == null)
 			return res;
 
-		//one result in the response
+		// one result in the response
 		boolean oneResult = accountsNode.get(0) == null;
-		if(oneResult){
+		if (oneResult) {
 			addAccountToOrgList(accountsNode, res);
 			return res;
-		}	
-		
-		//a list of results in the response 
+		}
+
+		// a list of results in the response
 		for (JsonNode accountNode : accountsNode) {
 			addAccountToOrgList(accountNode, res);
 		}
@@ -212,7 +239,8 @@ public class ZohoAccessService {
 		return res;
 	}
 
-	private void addAccountToOrgList(JsonNode accountNode, List<Organization> res) throws ZohoAccessException {
+	private void addAccountToOrgList(JsonNode accountNode,
+			List<Organization> res) throws ZohoAccessException {
 		JsonNode organizationNode = accountNode.get(ZohoApiFields.FIELDS_LABEL);
 		res.add(getOrganizationFromJsonNode(organizationNode));
 	}
@@ -231,16 +259,15 @@ public class ZohoAccessService {
 		return createMapOfStringList(key, valueList);
 	}
 
-	Map<String, String> createMap(String key, String value){
+	Map<String, String> createMap(String key, String value) {
 		Map<String, String> resMap = new HashMap<String, String>();
 		resMap.put(key, value);
 		return resMap;
 	}
-	
+
 	List<String> createList(String value) {
 		return Collections.singletonList(value);
 	}
-	
 
 	/**
 	 * Create OrganizationImpl map from list of values
@@ -251,30 +278,35 @@ public class ZohoAccessService {
 	 *            The list of values
 	 * @return map of strings and lists
 	 */
-	Map<String, List<String>> createMapOfStringList(String key, List<String> value) {
+	Map<String, List<String>> createMapOfStringList(String key,
+			List<String> value) {
 		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
 		resMap.put(key, value);
 		return resMap;
 	}
 
-	Map<String, List<String>> createLanguageMapOfStringList(List<String> languages, List<String> values) {
-		if(languages == null)
+	Map<String, List<String>> createLanguageMapOfStringList(
+			List<String> languages, List<String> values) {
+		if (languages == null)
 			return null;
-		
+
 		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
 		for (int i = 0; i < languages.size(); i++) {
-			resMap.put(toIsoLanguage(languages.get(i)), createList(values.get(i)));
+			resMap.put(toIsoLanguage(languages.get(i)),
+					createList(values.get(i)));
 		}
 		return resMap;
 	}
-	
-	Map<String, List<String>> createLanguageMapOfStringList(String language, String value) {
+
+	Map<String, List<String>> createLanguageMapOfStringList(String language,
+			String value) {
 		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
 		resMap.put(toIsoLanguage(language), createList(value));
 		return resMap;
 	}
-	
-	Map<String, List<String>> createLanguageMapOfStringList(String language, List<String> value) {
+
+	Map<String, List<String>> createLanguageMapOfStringList(String language,
+			List<String> value) {
 		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
 		resMap.put(toIsoLanguage(language), value);
 		return resMap;

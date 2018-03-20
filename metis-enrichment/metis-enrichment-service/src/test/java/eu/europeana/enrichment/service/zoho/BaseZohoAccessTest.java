@@ -17,26 +17,26 @@ public abstract class BaseZohoAccessTest {
 
 	ZohoAccessService zohoAccessService;
 	ZohoAccessClientDao zohoAccessClientDao;
-	
+
 	final Logger LOGGER = LoggerFactory.getLogger(getClass());
 	final String TEST_ORGANIZATION_ID = "1482250000002112001";
-	
-	
+
 	public void setUp() throws Exception {
-		//TODO use constant for authentication properties, if possible in a common interface an reuse it everywhere
+		// TODO use constant for authentication properties, if possible in a
+		// common interface an reuse it everywhere
 		String propertiesFile = "/authentication.properties";
 		Properties appProps = loadProperties(propertiesFile);
-		//TODO use constants for property keys
-		zohoAccessClientDao = new ZohoAccessClientDao(appProps.getProperty("zoho.base.url"),
+		// TODO use constants for property keys
+		zohoAccessClientDao = new ZohoAccessClientDao(
+				appProps.getProperty("zoho.base.url"),
 				appProps.getProperty("zoho.authentication.token"));
 		zohoAccessService = new ZohoAccessService(zohoAccessClientDao);
 	}
 
-
 	protected Properties loadProperties(String propertiesFile)
 			throws URISyntaxException, IOException, FileNotFoundException {
 		Properties appProps = new Properties();
-		URI propLocation = getClass().getResource(propertiesFile). toURI();
+		URI propLocation = getClass().getResource(propertiesFile).toURI();
 		appProps.load(new FileInputStream(new File(propLocation)));
 		return appProps;
 	}

@@ -17,10 +17,9 @@ import eu.europeana.enrichment.api.external.model.zoho.ZohoResponseField;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import eu.europeana.metis.authentication.dao.ZohoApiFields;
 
-
-
 /**
  * This class provides interface to Zoho orgnization object.
+ * 
  * @author GrafR
  *
  */
@@ -58,26 +57,30 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	private static final int MAX_SAME_AS = 3;
 
 	private List<ZohoResponseField> organizationFields = null;
-	
-	public ZohoOrganizationAdapter(JsonNode response) throws ZohoAccessException{
-		ObjectMapper mapper = new ObjectMapper();		
+
+	public ZohoOrganizationAdapter(JsonNode response)
+			throws ZohoAccessException {
+		ObjectMapper mapper = new ObjectMapper();
 		try {
-			organizationFields = mapper.readValue(
-					response.toString(), new TypeReference<List<ZohoResponseField>>(){});
+			organizationFields = mapper.readValue(response.toString(),
+					new TypeReference<List<ZohoResponseField>>() {
+					});
 		} catch (IOException e) {
-			throw new ZohoAccessException("Cannot parse zoho response ", e); 
-		} 
+			throw new ZohoAccessException("Cannot parse zoho response ", e);
+		}
 	}
-	
+
 	/**
-	 * This method retrieves 'content' value from array of Zoho 'value'/'content' pairs,
-	 * if such a value exists.
-	 * @param fieldName The name of the Zoho organization 'val' field.
+	 * This method retrieves 'content' value from array of Zoho
+	 * 'value'/'content' pairs, if such a value exists.
+	 * 
+	 * @param fieldName
+	 *            The name of the Zoho organization 'val' field.
 	 * @return The value of Zoho 'content' field for passed 'val' field
 	 */
 	private String getContent(String fieldName) {
 		String res = "";
-		
+
 		ZohoResponseField zohoFieldObject = new ZohoResponseField();
 		zohoFieldObject.setVal(fieldName);
 		int fieldIndex = organizationFields.indexOf(zohoFieldObject);
@@ -85,7 +88,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 			res = organizationFields.get(fieldIndex).getContent();
 		return res;
 	}
-	
+
 	@Override
 	public String toString() {
 		return getZohoId() + ", " + getOrganizationName();
@@ -156,10 +159,14 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	}
 
 	/**
-	 * This methods retrieves multiple values of one base field (e.g. alternatives).
-	 * It checks maximal number of such fields limited by passed size parameter.
-	 * @param fieldBaseName The base field that can have multiple values
-	 * @param size The maximal number of fields
+	 * This methods retrieves multiple values of one base field (e.g.
+	 * alternatives). It checks maximal number of such fields limited by passed
+	 * size parameter.
+	 * 
+	 * @param fieldBaseName
+	 *            The base field that can have multiple values
+	 * @param size
+	 *            The maximal number of fields
 	 * @return list of the field values
 	 */
 	private List<String> getFieldArray(String fieldBaseName, int size) {
@@ -167,8 +174,8 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		String fieldName = fieldBaseName + " " + "%d";
 		for (int i = 0; i < size; i++) {
 			String fieldValue = getContent(String.format(fieldName, i));
-			//add only existing values
-			if(StringUtils.isNotBlank(fieldValue))
+			// add only existing values
+			if (StringUtils.isNotBlank(fieldValue))
 				res.add(fieldValue);
 		}
 		return res;
@@ -225,19 +232,20 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	}
 
 	@Override
-	public Date getModified(){
+	public Date getModified() {
 		String modified = getContent(MODIFIED);
 		return getDateOrDefault(modified);
 	}
 
 	protected Date getDateOrDefault(String dateTime) {
-		if(StringUtils.isBlank(dateTime))
+		if (StringUtils.isBlank(dateTime))
 			return new Date(0);
-		
+
 		try {
-			return ZohoApiFields.getZohoTimeFormatter().parse(dateTime);			
+			return ZohoApiFields.getZohoTimeFormatter().parse(dateTime);
 		} catch (ParseException e) {
-			throw new IllegalArgumentException("Cannot parse modified date. Wrong format: " + dateTime, e);
+			throw new IllegalArgumentException(
+					"Cannot parse modified date. Wrong format: " + dateTime, e);
 		}
 	}
 
@@ -256,9 +264,9 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		return organizationFields;
 	}
 
-	protected void setOrganizationFields(List<ZohoResponseField> organizationFields) {
+	protected void setOrganizationFields(
+			List<ZohoResponseField> organizationFields) {
 		this.organizationFields = organizationFields;
 	}
 
 }
-

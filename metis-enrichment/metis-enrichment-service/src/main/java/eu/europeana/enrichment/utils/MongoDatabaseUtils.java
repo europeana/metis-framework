@@ -42,411 +42,465 @@ import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.api.internal.PlaceTermList;
 import eu.europeana.enrichment.api.internal.TimespanTermList;
 
-
 /**
- * Util class for saving and retrieving TermLists from Mongo It is used to bypass the memory-based
- * Annocultor enrichment, for use within UIM. The TermList uses MongoTerm, MongoTermList, PlaceTerm
- * and PeriodTerm to reflect the stored Entities.
+ * Util class for saving and retrieving TermLists from Mongo It is used to
+ * bypass the memory-based Annocultor enrichment, for use within UIM. The
+ * TermList uses MongoTerm, MongoTermList, PlaceTerm and PeriodTerm to reflect
+ * the stored Entities.
  *
  * @author Yorgos.Mamakis@ kb.nl
  */
 public class MongoDatabaseUtils {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MongoDatabaseUtils.class);
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(MongoDatabaseUtils.class);
 
-  private static final String ENTITY_TYPE_PROPERTY = "entityType";
-  private static final String PLACE_TYPE = "PlaceImpl";
-  private static final String CONCEPT_TYPE = "ConceptImpl";
-  private static final String AGENT_TYPE = "AgentImpl";
-  private static final String TIMESPAN_TYPE = "TimespanImpl";
-  private static final String ORGANIZATION_TYPE = "OrganizationImpl";
-  
-  private static final String AGENT_TABLE = "people";
-  private static final String CONCEPT_TABLE = "concept";
-  private static final String PLACE_TABLE = "place";
-  private static final String TIMESPAN_TABLE = "period";
-  private static final String ORGANIZATION_TABLE = "organization";
-  private static final String TERMLIST_TABLE = "TermList";
+	private static final String ENTITY_TYPE_PROPERTY = "entityType";
+	private static final String PLACE_TYPE = "PlaceImpl";
+	private static final String CONCEPT_TYPE = "ConceptImpl";
+	private static final String AGENT_TYPE = "AgentImpl";
+	private static final String TIMESPAN_TYPE = "TimespanImpl";
+	private static final String ORGANIZATION_TYPE = "OrganizationImpl";
 
-  private static final String UNIQUE_PROPERTY = "unique";
-  private static final String TERM_SAME_AS = "owlSameAs";
-  private static final String TERM_CODE_URI = "codeUri";
-  private static final String TERM_LANG = "lang";
-  private static final String TERM_LABEL = "label";
-  private static final String TERM_MODIFIED = "modified";
+	private static final String AGENT_TABLE = "people";
+	private static final String CONCEPT_TABLE = "concept";
+	private static final String PLACE_TABLE = "place";
+	private static final String TIMESPAN_TABLE = "period";
+	private static final String ORGANIZATION_TABLE = "organization";
+	private static final String TERMLIST_TABLE = "TermList";
 
-  private static JacksonDBCollection<ConceptTermList, String> cColl;
-  private static JacksonDBCollection<PlaceTermList, String> pColl;
-  private static JacksonDBCollection<TimespanTermList, String> tColl;
-  private static JacksonDBCollection<AgentTermList, String> aColl;
-  private static JacksonDBCollection<OrganizationTermList, String> oColl;
-  
-  // TODO the DB class is (effectively) deprecated (see MongoClient.getDB), but
-  // this object is still needed for MongoJack. Upgrade MongoJack and migrate this 
-  // object to MongoDatabase.
-  private static DB db;
+	private static final String UNIQUE_PROPERTY = "unique";
+	private static final String TERM_SAME_AS = "owlSameAs";
+	private static final String TERM_CODE_URI = "codeUri";
+	private static final String TERM_LANG = "lang";
+	private static final String TERM_LABEL = "label";
+	private static final String TERM_MODIFIED = "modified";
 
-  private MongoDatabaseUtils() {}
-  
-  /**
-   * Check if DB exists and initialization of the db
-   * 
-   * @param host
-   * @param port
-   * @return whether the DB exists.
-   */
-  public static synchronized boolean dbExists(String host, int port) {
-    if (db != null) {
-      return true;
-    }
-    try {
-      LOGGER.info("Creating Mongo connection to host {}.", host);
-      
-      MongoClient mongo = new MongoClient(host, port);
-      db = mongo.getDB("annocultor_db"); // See TODO above.
+	private static JacksonDBCollection<ConceptTermList, String> cColl;
+	private static JacksonDBCollection<PlaceTermList, String> pColl;
+	private static JacksonDBCollection<TimespanTermList, String> tColl;
+	private static JacksonDBCollection<AgentTermList, String> aColl;
+	private static JacksonDBCollection<OrganizationTermList, String> oColl;
 
-      boolean exist = db.collectionExists(TERMLIST_TABLE);
-      
-      cColl = JacksonDBCollection.wrap(
-          db.getCollection(TERMLIST_TABLE),
-          ConceptTermList.class, String.class);
+	// TODO the DB class is (effectively) deprecated (see MongoClient.getDB),
+	// but
+	// this object is still needed for MongoJack. Upgrade MongoJack and migrate
+	// this
+	// object to MongoDatabase.
+	private static DB db;
 
-      aColl = JacksonDBCollection.wrap(
-          db.getCollection(TERMLIST_TABLE), AgentTermList.class,
-          String.class);
+	private MongoDatabaseUtils() {
+	}
 
-      tColl = JacksonDBCollection.wrap(
-          db.getCollection(TERMLIST_TABLE),
-          TimespanTermList.class, String.class);
+	/**
+	 * Check if DB exists and initialization of the db
+	 * 
+	 * @param host
+	 * @param port
+	 * @return whether the DB exists.
+	 */
+	public static synchronized boolean dbExists(String host, int port) {
+		if (db != null) {
+			return true;
+		}
+		try {
+			LOGGER.info("Creating Mongo connection to host {}.", host);
 
-      pColl = JacksonDBCollection.wrap(
-          db.getCollection(TERMLIST_TABLE), PlaceTermList.class,
-          String.class);
+			MongoClient mongo = new MongoClient(host, port);
+			db = mongo.getDB("annocultor_db"); // See TODO above.
 
-      oColl = JacksonDBCollection.wrap(
-          db.getCollection(TERMLIST_TABLE), OrganizationTermList.class,
-          String.class);
+			boolean exist = db.collectionExists(TERMLIST_TABLE);
 
-      //TODO: Sergiu looks like the following commands need to be updated. All c,a,t,p,oColl are mapped to the TermList table 
-      // so there is a lot o redundancy in the commands. Shouldn't these collections be mapped to the corresponding concept/agent/timespan/person/organization tables?  
-      if (!exist) {
-        cColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        cColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        cColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+			cColl = JacksonDBCollection.wrap(db.getCollection(TERMLIST_TABLE),
+					ConceptTermList.class, String.class);
 
-        aColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        aColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        aColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+			aColl = JacksonDBCollection.wrap(db.getCollection(TERMLIST_TABLE),
+					AgentTermList.class, String.class);
 
-        tColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        tColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        tColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+			tColl = JacksonDBCollection.wrap(db.getCollection(TERMLIST_TABLE),
+					TimespanTermList.class, String.class);
 
-        pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        pColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        pColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+			pColl = JacksonDBCollection.wrap(db.getCollection(TERMLIST_TABLE),
+					PlaceTermList.class, String.class);
 
-        oColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        oColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        oColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-      }
-      return exist;
-    } catch (MongoException e) {
-      LOGGER.error("Error accessing mongo", e);
-    }
-    return false;
-  }
+			oColl = JacksonDBCollection.wrap(db.getCollection(TERMLIST_TABLE),
+					OrganizationTermList.class, String.class);
 
-  /**
-   * Delete entities by uri
-   *
-   * @param uris list of uris to delete
-   * @return deleted uris
-   */
-  public static List<String> delete(List<String> uris) {
-    List<String> retUris = new ArrayList<>();
-    for (String uri : uris) {
-      retUris.add(uri);
-      retUris.addAll(deletePlaces(uri));
-      retUris.addAll(deleteConcepts(uri));
-      retUris.addAll(deleteAgents(uri));
-      retUris.addAll(deleteTimespan(uri));
-      retUris.addAll(deleteOrganizations(uri));
-    }
-    return retUris;
-  }
+			// TODO: Sergiu looks like the following commands need to be
+			// updated. All c,a,t,p,oColl are mapped to the TermList table
+			// so there is a lot o redundancy in the commands. Shouldn't these
+			// collections be mapped to the corresponding
+			// concept/agent/timespan/person/organization tables?
+			if (!exist) {
+				cColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				cColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				cColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
 
-  private static List<String> deleteTimespan( String uri) {
-    List<String> retUris = new ArrayList<>();
-    tColl.remove(tColl.find().is(TERM_CODE_URI, uri).getQuery());
-    JacksonDBCollection<MongoTerm, String> termT = JacksonDBCollection
-        .wrap(db.getCollection(TIMESPAN_TABLE), MongoTerm.class, String.class);
-    termT.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
-    termT.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
-    termT.remove(termT.find().is(TERM_CODE_URI, uri).getQuery());
-    DBCursor<TimespanTermList> objT = tColl
-        .find(new BasicDBObject(TERM_SAME_AS, uri).append(ENTITY_TYPE_PROPERTY, TIMESPAN_TYPE));
-    if (objT.hasNext()) {
-      String origT = objT.next().getCodeUri();
-      retUris.add(origT);
-      tColl.remove(new BasicDBObject(TERM_CODE_URI, origT));
-      termT.remove(new BasicDBObject(TERM_CODE_URI, origT));
-    }
-    return retUris;
-  }
+				aColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				aColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				aColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
 
-  private static List<String> deleteAgents(String uri) {
-    List<String> retUris = new ArrayList<>();
+				tColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				tColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				tColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
 
-    aColl.remove(aColl.find().is(TERM_CODE_URI, uri).getQuery());
-    JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection
-        .wrap(db.getCollection(AGENT_TABLE), MongoTerm.class, String.class);
-    termA.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
-    termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
-    termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
-    DBCursor<AgentTermList> objA = aColl
-        .find(new BasicDBObject(TERM_SAME_AS, uri).append(ENTITY_TYPE_PROPERTY, AGENT_TYPE));
-    if (objA.hasNext()) {
-      String origA = objA.next().getCodeUri();
-      retUris.add(origA);
-      aColl.remove(new BasicDBObject(TERM_CODE_URI, origA));
-      termA.remove(new BasicDBObject(TERM_CODE_URI, origA));
-    }
-    return retUris;
-  }
+				pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				pColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				pColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
 
-  //TODO: rename to deleteOrganization
-  public static List<String> deleteOrganizations(String uri) {
-    List<String> retUris = new ArrayList<>();
+				oColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				oColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+				oColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
+						new BasicDBObject(UNIQUE_PROPERTY, false));
+			}
+			return exist;
+		} catch (MongoException e) {
+			LOGGER.error("Error accessing mongo", e);
+		}
+		return false;
+	}
 
-    oColl.remove(oColl.find().is(TERM_CODE_URI, uri).getQuery());
-    JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection
-        .wrap(db.getCollection(ORGANIZATION_TABLE), MongoTerm.class, String.class);
-    termA.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
-    termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
-    termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
-    DBCursor<OrganizationTermList> objA = oColl
-        .find(new BasicDBObject(TERM_SAME_AS, uri).append(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE));
-    if (objA.hasNext()) {
-      String origA = objA.next().getCodeUri();
-      retUris.add(origA);
-      oColl.remove(new BasicDBObject(TERM_CODE_URI, origA));
-      termA.remove(new BasicDBObject(TERM_CODE_URI, origA));
-    }
-    return retUris;
-  }
+	/**
+	 * Delete entities by uri
+	 *
+	 * @param uris
+	 *            list of uris to delete
+	 * @return deleted uris
+	 */
+	public static List<String> delete(List<String> uris) {
+		List<String> retUris = new ArrayList<>();
+		for (String uri : uris) {
+			retUris.add(uri);
+			retUris.addAll(deletePlaces(uri));
+			retUris.addAll(deleteConcepts(uri));
+			retUris.addAll(deleteAgents(uri));
+			retUris.addAll(deleteTimespan(uri));
+			retUris.addAll(deleteOrganizations(uri));
+		}
+		return retUris;
+	}
 
-  private static List<String> deleteConcepts(String uri) {
-    List<String> retUris = new ArrayList<>();
+	private static List<String> deleteTimespan(String uri) {
+		List<String> retUris = new ArrayList<>();
+		tColl.remove(tColl.find().is(TERM_CODE_URI, uri).getQuery());
+		JacksonDBCollection<MongoTerm, String> termT = JacksonDBCollection.wrap(
+				db.getCollection(TIMESPAN_TABLE), MongoTerm.class,
+				String.class);
+		termT.createIndex(
+				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
+						.append(TERM_CODE_URI, 1),
+				new BasicDBObject(UNIQUE_PROPERTY, true));
+		termT.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
+		termT.remove(termT.find().is(TERM_CODE_URI, uri).getQuery());
+		DBCursor<TimespanTermList> objT = tColl
+				.find(new BasicDBObject(TERM_SAME_AS, uri)
+						.append(ENTITY_TYPE_PROPERTY, TIMESPAN_TYPE));
+		if (objT.hasNext()) {
+			String origT = objT.next().getCodeUri();
+			retUris.add(origT);
+			tColl.remove(new BasicDBObject(TERM_CODE_URI, origT));
+			termT.remove(new BasicDBObject(TERM_CODE_URI, origT));
+		}
+		return retUris;
+	}
 
-    cColl.remove(cColl.find().is(TERM_CODE_URI, uri).getQuery());
-    JacksonDBCollection<MongoTerm, String> termC = JacksonDBCollection
-        .wrap(db.getCollection(CONCEPT_TABLE), MongoTerm.class, String.class);
-    termC.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
-    termC.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
-    termC.remove(termC.find().is(TERM_CODE_URI, uri).getQuery());
-    DBCursor<ConceptTermList> objC = cColl
-        .find(new BasicDBObject(TERM_SAME_AS, uri).append(ENTITY_TYPE_PROPERTY, CONCEPT_TYPE));
-    if (objC.hasNext()) {
-      String origC = objC.next().getCodeUri();
-      retUris.add(origC);
-      cColl.remove(new BasicDBObject(TERM_CODE_URI, origC));
-      termC.remove(new BasicDBObject(TERM_CODE_URI, origC));
-    }
-    return retUris;
-  }
+	private static List<String> deleteAgents(String uri) {
+		List<String> retUris = new ArrayList<>();
 
-  private static List<String> deletePlaces(String uri) {
-    List<String> retUris = new ArrayList<>();
+		aColl.remove(aColl.find().is(TERM_CODE_URI, uri).getQuery());
+		JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection.wrap(
+				db.getCollection(AGENT_TABLE), MongoTerm.class, String.class);
+		termA.createIndex(
+				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
+						.append(TERM_CODE_URI, 1),
+				new BasicDBObject(UNIQUE_PROPERTY, true));
+		termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
+		termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
+		DBCursor<AgentTermList> objA = aColl
+				.find(new BasicDBObject(TERM_SAME_AS, uri)
+						.append(ENTITY_TYPE_PROPERTY, AGENT_TYPE));
+		if (objA.hasNext()) {
+			String origA = objA.next().getCodeUri();
+			retUris.add(origA);
+			aColl.remove(new BasicDBObject(TERM_CODE_URI, origA));
+			termA.remove(new BasicDBObject(TERM_CODE_URI, origA));
+		}
+		return retUris;
+	}
 
-    pColl.remove(pColl.find().is(TERM_CODE_URI, uri).getQuery());
-    JacksonDBCollection<MongoTerm, String> termP = JacksonDBCollection
-        .wrap(db.getCollection(PLACE_TABLE), MongoTerm.class, String.class);
-    termP.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
-    termP.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
-    termP.remove(termP.find().is(TERM_CODE_URI, uri).getQuery());
-    DBCursor<PlaceTermList> objP = pColl
-        .find(new BasicDBObject(TERM_SAME_AS, uri).append(ENTITY_TYPE_PROPERTY, PLACE_TYPE));
-    if (objP.hasNext()) {
-      String origP = objP.next().getCodeUri();
-      retUris.add(origP);
-      pColl.remove(new BasicDBObject(TERM_CODE_URI, origP));
-      termP.remove(new BasicDBObject(TERM_CODE_URI, origP));
-    }
-    return retUris;
-  }
+	// TODO: rename to deleteOrganization
+	public static List<String> deleteOrganizations(String uri) {
+		List<String> retUris = new ArrayList<>();
 
-  /**
-   * Find TermList by codeURI
-   * 
-   * @param codeUri
-   * @param entityClass
-   * @return the term list.
-   */
-  public static MongoTermList<ContextualClassImpl> findByCode(String codeUri, EntityClass entityClass) {
-    final MongoTermList<? extends ContextualClassImpl> result;
-    switch (entityClass) {
-      case CONCEPT:
-        result = findConceptByCode(codeUri);
-        break;
-      case PLACE:
-        result = findPlaceByCode(codeUri);
-        break;
-      case AGENT:
-        result = findAgentByCode(codeUri);
-        break;
-      case TIMESPAN:
-        result = findTimespanByCode(codeUri);
-        break;
-      case ORGANIZATION:
-        result = findOrganizationByCode(codeUri);
-        break;
-      default:
-        result = null;
-        break;
-    }
-    return MongoTermList.cast(result);
-  }
+		oColl.remove(oColl.find().is(TERM_CODE_URI, uri).getQuery());
+		JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection.wrap(
+				db.getCollection(ORGANIZATION_TABLE), MongoTerm.class,
+				String.class);
+		termA.createIndex(
+				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
+						.append(TERM_CODE_URI, 1),
+				new BasicDBObject(UNIQUE_PROPERTY, true));
+		termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
+		termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
+		DBCursor<OrganizationTermList> objA = oColl
+				.find(new BasicDBObject(TERM_SAME_AS, uri)
+						.append(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE));
+		if (objA.hasNext()) {
+			String origA = objA.next().getCodeUri();
+			retUris.add(origA);
+			oColl.remove(new BasicDBObject(TERM_CODE_URI, origA));
+			termA.remove(new BasicDBObject(TERM_CODE_URI, origA));
+		}
+		return retUris;
+	}
 
-  private static TimespanTermList findTimespanByCode(String codeUri) {
-    DBCursor<TimespanTermList> curs = tColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, TIMESPAN_TYPE))
-        .is(TERM_CODE_URI, codeUri);
-    if (curs.hasNext()) {
-      return curs.next();
-    }
-    return null;
-  }
+	private static List<String> deleteConcepts(String uri) {
+		List<String> retUris = new ArrayList<>();
 
-  private static AgentTermList findAgentByCode(String codeUri) {
-    DBCursor<AgentTermList> curs = aColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, AGENT_TYPE))
-        .is(TERM_CODE_URI, codeUri);
+		cColl.remove(cColl.find().is(TERM_CODE_URI, uri).getQuery());
+		JacksonDBCollection<MongoTerm, String> termC = JacksonDBCollection.wrap(
+				db.getCollection(CONCEPT_TABLE), MongoTerm.class, String.class);
+		termC.createIndex(
+				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
+						.append(TERM_CODE_URI, 1),
+				new BasicDBObject(UNIQUE_PROPERTY, true));
+		termC.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
+		termC.remove(termC.find().is(TERM_CODE_URI, uri).getQuery());
+		DBCursor<ConceptTermList> objC = cColl
+				.find(new BasicDBObject(TERM_SAME_AS, uri)
+						.append(ENTITY_TYPE_PROPERTY, CONCEPT_TYPE));
+		if (objC.hasNext()) {
+			String origC = objC.next().getCodeUri();
+			retUris.add(origC);
+			cColl.remove(new BasicDBObject(TERM_CODE_URI, origC));
+			termC.remove(new BasicDBObject(TERM_CODE_URI, origC));
+		}
+		return retUris;
+	}
 
-    if (curs.hasNext()) {
-      return curs.next();
-    }
-    return null;
-  }
+	private static List<String> deletePlaces(String uri) {
+		List<String> retUris = new ArrayList<>();
 
-  private static PlaceTermList findPlaceByCode(String codeUri) {
-    DBCursor<PlaceTermList> curs = pColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, PLACE_TYPE))
-        .is(TERM_CODE_URI, codeUri);
-    if (curs.hasNext()) {
-      return curs.next();
-    }
-    return null;
-  }
+		pColl.remove(pColl.find().is(TERM_CODE_URI, uri).getQuery());
+		JacksonDBCollection<MongoTerm, String> termP = JacksonDBCollection.wrap(
+				db.getCollection(PLACE_TABLE), MongoTerm.class, String.class);
+		termP.createIndex(
+				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
+						.append(TERM_CODE_URI, 1),
+				new BasicDBObject(UNIQUE_PROPERTY, true));
+		termP.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
+		termP.remove(termP.find().is(TERM_CODE_URI, uri).getQuery());
+		DBCursor<PlaceTermList> objP = pColl
+				.find(new BasicDBObject(TERM_SAME_AS, uri)
+						.append(ENTITY_TYPE_PROPERTY, PLACE_TYPE));
+		if (objP.hasNext()) {
+			String origP = objP.next().getCodeUri();
+			retUris.add(origP);
+			pColl.remove(new BasicDBObject(TERM_CODE_URI, origP));
+			termP.remove(new BasicDBObject(TERM_CODE_URI, origP));
+		}
+		return retUris;
+	}
 
-  private static ConceptTermList findConceptByCode(String codeUri) {
-    DBCursor<ConceptTermList> curs = cColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, CONCEPT_TYPE))
-        .is(TERM_CODE_URI, codeUri);
-    if (curs.hasNext()) {
-      return curs.next();
-    }
-    return null;
-  }
+	/**
+	 * Find TermList by codeURI
+	 * 
+	 * @param codeUri
+	 * @param entityClass
+	 * @return the term list.
+	 */
+	public static MongoTermList<ContextualClassImpl> findByCode(String codeUri,
+			EntityClass entityClass) {
+		final MongoTermList<? extends ContextualClassImpl> result;
+		switch (entityClass) {
+			case CONCEPT :
+				result = findConceptByCode(codeUri);
+				break;
+			case PLACE :
+				result = findPlaceByCode(codeUri);
+				break;
+			case AGENT :
+				result = findAgentByCode(codeUri);
+				break;
+			case TIMESPAN :
+				result = findTimespanByCode(codeUri);
+				break;
+			case ORGANIZATION :
+				result = findOrganizationByCode(codeUri);
+				break;
+			default :
+				result = null;
+				break;
+		}
+		return MongoTermList.cast(result);
+	}
 
-  private static OrganizationTermList findOrganizationByCode(String codeUri) {
-    DBCursor<OrganizationTermList> curs = oColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE))
-        .is(TERM_CODE_URI, codeUri);
-    if (curs.hasNext()) {
-      return curs.next();
-    }
-    return null;
-  }
+	private static TimespanTermList findTimespanByCode(String codeUri) {
+		DBCursor<TimespanTermList> curs = tColl
+				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, TIMESPAN_TYPE))
+				.is(TERM_CODE_URI, codeUri);
+		if (curs.hasNext()) {
+			return curs.next();
+		}
+		return null;
+	}
 
-  private static String getTableName(EntityClass entityClass) {
-    final String result;
-    switch (entityClass) {
-      case AGENT:
-        result = AGENT_TABLE;
-        break;
-      case CONCEPT:
-        result = CONCEPT_TABLE;
-        break;
-      case PLACE:
-        result = PLACE_TABLE;
-        break;
-      case TIMESPAN:
-        result = TIMESPAN_TABLE;
-        break;
-      case ORGANIZATION:
-        result = ORGANIZATION_TABLE;
-        break;
-      default:
-        throw new IllegalStateException("Unknown entity: " + entityClass);
-    }
-    return result;
-  }
+	private static AgentTermList findAgentByCode(String codeUri) {
+		DBCursor<AgentTermList> curs = aColl
+				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, AGENT_TYPE))
+				.is(TERM_CODE_URI, codeUri);
 
-  private static String getTypeName(EntityClass entityClass) {
-    final String result;
-    switch (entityClass) {
-      case ORGANIZATION:
-        result = ORGANIZATION_TYPE;
-        break;
-      default:
-        throw new IllegalStateException("Unknown entity: " + entityClass);
-    }
-    return result;
-  }
+		if (curs.hasNext()) {
+			return curs.next();
+		}
+		return null;
+	}
 
-  public static List<MongoTerm> getAllMongoTerms(EntityClass entityClass) {
-    JacksonDBCollection<MongoTerm, String> pColl = JacksonDBCollection
-        .wrap(db.getCollection(getTableName(entityClass)), MongoTerm.class, String.class);
-    DBCursor<MongoTerm> curs = pColl.find();
-    List<MongoTerm> lst = new ArrayList<>();
+	private static PlaceTermList findPlaceByCode(String codeUri) {
+		DBCursor<PlaceTermList> curs = pColl
+				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, PLACE_TYPE))
+				.is(TERM_CODE_URI, codeUri);
+		if (curs.hasNext()) {
+			return curs.next();
+		}
+		return null;
+	}
 
-    while (curs.hasNext()) {
-      MongoTerm mTerm = curs.next();
-      lst.add(mTerm);
-    }
+	private static ConceptTermList findConceptByCode(String codeUri) {
+		DBCursor<ConceptTermList> curs = cColl
+				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, CONCEPT_TYPE))
+				.is(TERM_CODE_URI, codeUri);
+		if (curs.hasNext()) {
+			return curs.next();
+		}
+		return null;
+	}
 
-    return lst;
-  }
-  
-  public static MongoTermList<? extends ContextualClassImpl> insertMongoTermList(
+	private static OrganizationTermList findOrganizationByCode(String codeUri) {
+		DBCursor<OrganizationTermList> curs = oColl.find(
+				new BasicDBObject(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE))
+				.is(TERM_CODE_URI, codeUri);
+		if (curs.hasNext()) {
+			return curs.next();
+		}
+		return null;
+	}
+
+	private static String getTableName(EntityClass entityClass) {
+		final String result;
+		switch (entityClass) {
+			case AGENT :
+				result = AGENT_TABLE;
+				break;
+			case CONCEPT :
+				result = CONCEPT_TABLE;
+				break;
+			case PLACE :
+				result = PLACE_TABLE;
+				break;
+			case TIMESPAN :
+				result = TIMESPAN_TABLE;
+				break;
+			case ORGANIZATION :
+				result = ORGANIZATION_TABLE;
+				break;
+			default :
+				throw new IllegalStateException(
+						"Unknown entity: " + entityClass);
+		}
+		return result;
+	}
+
+	private static String getTypeName(EntityClass entityClass) {
+		final String result;
+		switch (entityClass) {
+			case ORGANIZATION :
+				result = ORGANIZATION_TYPE;
+				break;
+			default :
+				throw new IllegalStateException(
+						"Unknown entity: " + entityClass);
+		}
+		return result;
+	}
+
+	public static List<MongoTerm> getAllMongoTerms(EntityClass entityClass) {
+		JacksonDBCollection<MongoTerm, String> pColl = JacksonDBCollection.wrap(
+				db.getCollection(getTableName(entityClass)), MongoTerm.class,
+				String.class);
+		DBCursor<MongoTerm> curs = pColl.find();
+		List<MongoTerm> lst = new ArrayList<>();
+
+		while (curs.hasNext()) {
+			MongoTerm mTerm = curs.next();
+			lst.add(mTerm);
+		}
+
+		return lst;
+	}
+
+	public static MongoTermList<? extends ContextualClassImpl> insertMongoTermList(
 			MongoTermList<? extends ContextualClassImpl> termList) {
-		
+
 		String type = termList.getEntityType();
 		switch (type) {
-		case ORGANIZATION_TYPE:
-			return insertOrganization((OrganizationTermList) termList);
+			case ORGANIZATION_TYPE :
+				return insertOrganization((OrganizationTermList) termList);
 
-		default: // TODO add support for other entity types
-			throw new IllegalArgumentException("insertion of MongoTermList of type: " + type + " not supported yet!");
+			default : // TODO add support for other entity types
+				throw new IllegalArgumentException(
+						"insertion of MongoTermList of type: " + type
+								+ " not supported yet!");
 
 		}
 
 	}
 
-	private static OrganizationTermList insertOrganization(OrganizationTermList termList) {
-//		JacksonDBCollection<OrganizationTermList, String> termColl = JacksonDBCollection.wrap(db.getCollection(TERMLIST_TABLE), OrganizationTermList.class, String.class);
+	private static OrganizationTermList insertOrganization(
+			OrganizationTermList termList) {
+		// JacksonDBCollection<OrganizationTermList, String> termColl =
+		// JacksonDBCollection.wrap(db.getCollection(TERMLIST_TABLE),
+		// OrganizationTermList.class, String.class);
 		return oColl.insert(termList).getSavedObject();
 	}
-	
-	public static int storeEntityLabels(ContextualClassImpl entity, EntityClass entityClass){
-		//select collection
+
+	public static int storeEntityLabels(ContextualClassImpl entity,
+			EntityClass entityClass) {
+		// select collection
 		String collection = getTableName(entityClass);
-		JacksonDBCollection<MongoTerm, String> termColl = JacksonDBCollection.wrap(db.getCollection(collection), MongoTerm.class, String.class);
-		
-		//store terms
+		JacksonDBCollection<MongoTerm, String> termColl = JacksonDBCollection
+				.wrap(db.getCollection(collection), MongoTerm.class,
+						String.class);
+
+		// store terms
 		List<MongoTerm> terms = createListOfMongoTerms(entity);
 		WriteResult<MongoTerm, String> res = termColl.insert(terms);
-		
+
 		return res.getN();
 	}
 
-	private static List<MongoTerm> createListOfMongoTerms(ContextualClassImpl entity) {
+	private static List<MongoTerm> createListOfMongoTerms(
+			ContextualClassImpl entity) {
 		MongoTerm term;
-		List<MongoTerm> terms= new ArrayList<MongoTerm>();
+		List<MongoTerm> terms = new ArrayList<MongoTerm>();
 		String lang;
-		
-		for (Map.Entry<String, List<String>> prefLabel : entity.getPrefLabel().entrySet()) {
+
+		for (Map.Entry<String, List<String>> prefLabel : entity.getPrefLabel()
+				.entrySet()) {
 			for (String label : prefLabel.getValue()) {
 				term = new MongoTerm();
 				term.setCodeUri(entity.getAbout());
@@ -460,25 +514,26 @@ public class MongoDatabaseUtils {
 		}
 		return terms;
 	}
-	
+
 	/**
 	 * This method returns last modified date for passed entity class.
-	 * @param entityClass The type of the entity e.g. organization
+	 * 
+	 * @param entityClass
+	 *            The type of the entity e.g. organization
 	 * @return the last modified date for passed entity class
 	 */
 	public static Date getLastModifiedDate(EntityClass entityClass) {
 		DBCursor<OrganizationTermList> cursor = oColl
-				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, getTypeName(entityClass)))
-				.sort(DBSort.desc(TERM_MODIFIED))
-				.limit(1);
-		//empty results
+				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY,
+						getTypeName(entityClass)))
+				.sort(DBSort.desc(TERM_MODIFIED)).limit(1);
+		// empty results
 		if (cursor.size() == 0)
 			return null;
-		//last imported item
-		OrganizationTermList lastModifiedOrg = cursor.toArray()
-				.get(0);
-			
+		// last imported item
+		OrganizationTermList lastModifiedOrg = cursor.toArray().get(0);
+
 		return lastModifiedOrg.getModified();
 	}
-	
+
 }

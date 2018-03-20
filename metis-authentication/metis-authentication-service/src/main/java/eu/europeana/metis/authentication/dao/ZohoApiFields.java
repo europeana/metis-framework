@@ -3,6 +3,11 @@ package eu.europeana.metis.authentication.dao;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
+/**
+ * Fields used in the Zoho request and response fields, but not Model fields. see @link{ZohoOrganizationAdapter} 
+ * @author GordeaS
+ *
+ */
 public abstract class ZohoApiFields {
 
 	public static final String CONTACTS_MODULE_STRING = "Contacts";
@@ -36,11 +41,11 @@ public abstract class ZohoApiFields {
 	private static SimpleDateFormat formatter;
 
 	public static SimpleDateFormat getZohoTimeFormatter() {
-		if(formatter == null){
+		if (formatter == null) {
 			formatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
 			formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
 		}
-			
+
 		return formatter;
 	}
 }

@@ -14,51 +14,58 @@ import eu.europeana.enrichment.utils.MongoDatabaseUtils;
 public class EntityService {
 
 	private final String mongoHost;
-    private final int mongoPort;
-    private static final Logger LOGGER = LoggerFactory.getLogger(EntityService.class);
-    
-	public EntityService(String mongoHost, int mongoPort){
-		this.mongoHost=mongoHost;
-		this.mongoPort=mongoPort;
+	private final int mongoPort;
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(EntityService.class);
+
+	public EntityService(String mongoHost, int mongoPort) {
+		this.mongoHost = mongoHost;
+		this.mongoPort = mongoPort;
 	}
-	
-	public OrganizationTermList storeOrganization(Organization org){
+
+	public OrganizationTermList storeOrganization(Organization org) {
 		MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
-		
-		//delete old references
+
+		// delete old references
 		MongoDatabaseUtils.deleteOrganizations(org.getAbout());
-		
-		//build term list
-		OrganizationTermList termList = organizationToOrganizationTermList((OrganizationImpl) org);
+
+		// build term list
+		OrganizationTermList termList = organizationToOrganizationTermList(
+				(OrganizationImpl) org);
 		Date now = new Date();
 		termList.setCreated(now);
 		termList.setModified(now);
-		
-		//store labels
-		int newLabels = MongoDatabaseUtils.storeEntityLabels((OrganizationImpl)org, EntityClass.ORGANIZATION);
+
+		// store labels
+		int newLabels = MongoDatabaseUtils.storeEntityLabels(
+				(OrganizationImpl) org, EntityClass.ORGANIZATION);
 		LOGGER.trace("{}", "Stored new lables: " + newLabels);
-		
-		//store term list
-		return (OrganizationTermList) MongoDatabaseUtils.insertMongoTermList(termList);
+
+		// store term list
+		return (OrganizationTermList) MongoDatabaseUtils
+				.insertMongoTermList(termList);
 	}
-	
-	private OrganizationTermList organizationToOrganizationTermList(OrganizationImpl organization){
+
+	private OrganizationTermList organizationToOrganizationTermList(
+			OrganizationImpl organization) {
 		OrganizationTermList termList = new OrganizationTermList();
-		if (organization.getPrefLabel() == null || organization.getPrefLabel().entrySet().size()==0)
+		if (organization.getPrefLabel() == null
+				|| organization.getPrefLabel().entrySet().size() == 0)
 			return null;
 		termList.setCodeUri(organization.getAbout());
 		termList.setRepresentation(organization);
 		termList.setEntityType(OrganizationImpl.class.getSimpleName());
 		return termList;
 	}
-	
+
 	/**
 	 * This method returns last modified date for organizations.
+	 * 
 	 * @return the last modified date
 	 */
 	public Date getLastOrganizationImportDate() {
 		MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
 		return MongoDatabaseUtils.getLastModifiedDate(EntityClass.ORGANIZATION);
 	}
-	
+
 }
