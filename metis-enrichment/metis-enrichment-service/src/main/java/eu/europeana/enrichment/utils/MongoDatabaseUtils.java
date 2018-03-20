@@ -529,7 +529,7 @@ public class MongoDatabaseUtils {
 		if (cursor.size() == 0)
 			return null;
 		// last imported item
-		OrganizationTermList lastModifiedOrg = cursor.toArray().get(0);
+		OrganizationTermList lastModifiedOrg = cursor.next();
 
 		return lastModifiedOrg.getModified();
 	}
