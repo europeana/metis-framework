@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "Concept")
+@XmlRootElement(namespace = "http://www.w3.org/2004/02/skos/core#", name = "Concept")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Concept extends EnrichmentBase {
   @XmlElement(name = "hiddenLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
