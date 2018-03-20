@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
@@ -17,6 +18,12 @@ import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.service.EntityService;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
+/**
+ * Disabled integration. Need to implement betamax with https connectivity for Zoho
+ * @author GordeaS
+ *
+ */
+@Ignore
 public class ZohoImportTest extends BaseZohoAccessTest{
 
 	String mongoHost;

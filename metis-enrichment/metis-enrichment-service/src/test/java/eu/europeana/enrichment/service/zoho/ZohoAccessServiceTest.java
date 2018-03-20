@@ -12,11 +12,18 @@ import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
+/**
+ * Disabled integration. Need to implement betamax with https connectivity for Zoho
+ * @author GordeaS
+ *
+ */
+@Ignore
 public class ZohoAccessServiceTest extends BaseZohoAccessTest{
 
 	@Before
