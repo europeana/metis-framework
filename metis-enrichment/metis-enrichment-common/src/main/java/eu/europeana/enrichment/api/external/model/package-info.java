@@ -1,6 +1,4 @@
 @XmlSchema(
-    namespace = "http://www.europeana.eu/schemas/metis",
-    elementFormDefault = XmlNsForm.QUALIFIED,
     xmlns = {
         @XmlNs(prefix = "metis", namespaceURI = "http://www.europeana.eu/schemas/metis"),
         @XmlNs(prefix = "edm", namespaceURI = "http://www.europeana.eu/schemas/edm/"),
@@ -14,8 +12,9 @@
         @XmlNs(prefix = "owl", namespaceURI = "http://www.w3.org/2002/07/owl#"),
         @XmlNs(prefix = "xml", namespaceURI = "http://www.w3.org/XML/1998/namespace"),
         @XmlNs(prefix = "dc", namespaceURI = "http://purl.org/dc/elements/1.1/"),
-        @XmlNs(prefix = "rdaGr2", namespaceURI = "http://RDVocab.info/ElementsGr2/")
-    })
+        @XmlNs(prefix = "rdaGr2", namespaceURI = "http://RDVocab.info/ElementsGr2/")},
+    namespace = "http://www.europeana.eu/schemas/metis", 
+    elementFormDefault = XmlNsForm.QUALIFIED)
 package eu.europeana.enrichment.api.external.model;
 
 import javax.xml.bind.annotation.XmlNs;

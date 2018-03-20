@@ -1,7 +1,5 @@
 package eu.europeana.metis.core.rest;
 
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
@@ -16,11 +14,8 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
-import java.util.List;
 import java.util.Set;
-import javax.ws.rs.QueryParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,10 +182,11 @@ public class OrchestratorController {
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType)
       throws GenericMetisException {
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
-        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType, enforcedPluginType);
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType,
+            enforcedPluginType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId != null) {
       LOGGER.info("Latest Plugin WorkflowExecution with id '{}' found",
-              latestFinishedPluginWorkflowExecutionByDatasetId.getId());
+          latestFinishedPluginWorkflowExecutionByDatasetId.getId());
     } else if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
       LOGGER.info("PluginType allowed by default");
     }
@@ -228,7 +224,11 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
-      @RequestParam(value = "workflowStatus", required = false) WorkflowStatus workflowStatus,
+      @RequestParam(value = "workflowOwner", required = false) String workflowOwner,
+      @RequestParam(value = "workflowName", required = false) String workflowName,
+      @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
+      @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
+      @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
     if (nextPage < 0) {
@@ -236,7 +236,8 @@ public class OrchestratorController {
     }
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllWorkflowExecutions(workflowStatus, nextPage),
+            .getAllWorkflowExecutions(-1, workflowOwner, workflowName, workflowStatuses,
+                orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
@@ -314,35 +315,5 @@ public class OrchestratorController {
     LOGGER.info(
         "ScheduledWorkflowExecution for datasetId '{}' deleted",
         datasetId);
-  }
-
-  //PROXIES
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_LOGS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  public List<SubTaskInfo> getExternalTaskLogs(
-      @PathVariable("topologyName") String topologyName,
-      @PathVariable("externalTaskId") long externalTaskId,
-      @RequestParam(value = "from") int from,
-      @RequestParam(value = "to") int to) throws ExternalTaskException {
-    LOGGER.info(
-        "Requesting proxy call task logs for topologyName: {}, externalTaskId: {}, from: {}, to: {}",
-        topologyName, externalTaskId, from, to);
-    return orchestratorService.getExternalTaskLogs(topologyName, externalTaskId, from, to);
-  }
-
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  public TaskErrorsInfo getExternalTaskReport(
-      @PathVariable("topologyName") String topologyName,
-      @PathVariable("externalTaskId") long externalTaskId,
-      @QueryParam("idsPerError") int idsPerError) throws ExternalTaskException {
-    LOGGER.info(
-        "Requesting proxy call task reports for topologyName: {}, externalTaskId: {}",
-        topologyName, externalTaskId);
-    return orchestratorService.getExternalTaskReport(topologyName, externalTaskId, idsPerError);
   }
 }

@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import eu.europeana.metis.CommonStringValues;
 import java.util.Date;
 
 /**
@@ -12,20 +13,13 @@ public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   private String url;
   private String metadataFormat;
   private String setSpec;
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date fromDate;
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date untilDate;
 
   public OaipmhHarvestPluginMetadata() {
     //Required for json serialization
-  }
-
-  public OaipmhHarvestPluginMetadata(boolean mocked, String url, String metadataFormat, String setSpec) {
-    setMocked(mocked);
-    this.url = url;
-    this.metadataFormat = metadataFormat;
-    this.setSpec = setSpec;
   }
 
   public String getUrl() {

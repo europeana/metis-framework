@@ -9,6 +9,7 @@ public class EnrichmentPluginMetadata extends AbstractMetisPluginMetadata {
   private static final PluginType pluginType = PluginType.ENRICHMENT;
 
   public EnrichmentPluginMetadata() {
+    //Required for json serialization
   }
 
   @Override

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ZipService {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(ZipService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ZipService.class);
 
   public List<String> readFileToStringList(InputStream inputStream) throws ZipFileException {
 
@@ -33,27 +34,22 @@ public class ZipService {
       String prefix = String.valueOf(new Date().getTime());
       File tempFile = File.createTempFile(prefix, ".zip");
       FileUtils.copyInputStreamToFile(inputStream, tempFile);
-      LOGGER.info("Temp file: " + tempFile + " created.");
+      LOGGER.info("Temp file: {} created.", tempFile);
 
       ZipFile zipFile = new ZipFile(tempFile);
       File unzippedDirectory = new File(tempFile.getParent(), prefix + "-unzipped");
       zipFile.extractAll(unzippedDirectory.getAbsolutePath());
-      LOGGER.info("Unzipped contents into: " + unzippedDirectory);
+      LOGGER.info("Unzipped contents into: {}", unzippedDirectory);
       FileUtils.deleteQuietly(tempFile);
       File[] files = unzippedDirectory.listFiles();
 
       for (File input : files) {
-        xmls.add(IOUtils.toString(new FileInputStream(input)));
+        xmls.add(IOUtils.toString(new FileInputStream(input), "UTF-8"));
       }
       FileUtils.deleteQuietly(unzippedDirectory);
-    }
-    catch (IOException ex) {
+    } catch (IOException | ZipException ex) {
       LOGGER.error("Error reading from zipfile. ", ex);
-      throw new ZipFileException("Error reading from zipfile. Details: "+ ex.getMessage());
-    }
-    catch (ZipException ex) {
-      LOGGER.error("Error unzipping file. ", ex);
-      throw new ZipFileException("Error unzipping file. Details: " + ex.getMessage());
+      throw new ZipFileException("Error reading from zipfile. Details: " + ex.getMessage());
     }
     return xmls;
   }

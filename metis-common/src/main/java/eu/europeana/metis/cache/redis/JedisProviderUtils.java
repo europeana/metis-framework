@@ -1,5 +1,6 @@
 package eu.europeana.metis.cache.redis;
 
+import java.util.Collections;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
@@ -11,7 +12,7 @@ import redis.clients.jedis.Jedis;
 @Component
 public class JedisProviderUtils {
 
-  private Jedis jedis;
+  private final Jedis jedis;
 
   public JedisProviderUtils(Jedis jedis) {
     this.jedis = jedis;
@@ -27,7 +28,7 @@ public class JedisProviderUtils {
     if (jedis.exists(key)) {
       return jedis.hvals(key);
     }
-    return null;
+    return Collections.emptyList();
   }
 
   /**

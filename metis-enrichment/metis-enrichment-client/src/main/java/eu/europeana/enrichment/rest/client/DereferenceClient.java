@@ -1,26 +1,5 @@
-/*
- * Copyright 2007-2013 The Europeana Foundation
- *
- *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
- *  by the European Commission;
- *  You may not use this work except in compliance with the Licence.
- *
- *  You may obtain a copy of the Licence at:
- *  http://joinup.ec.europa.eu/software/page/eupl
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under
- *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
- *  any kind, either express or implied.
- *  See the Licence for the specific language governing permissions and limitations under
- *  the Licence.
- */
 package eu.europeana.enrichment.rest.client;
 
-import static eu.europeana.metis.RestEndpoints.DEREFERENCE;
-import static eu.europeana.metis.RestEndpoints.ENTITY;
-import static eu.europeana.metis.RestEndpoints.ENTITY_DELETE;
-import static eu.europeana.metis.RestEndpoints.VOCABULARIES;
-import static eu.europeana.metis.RestEndpoints.VOCABULARY;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,7 +13,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.RestEndpoints;
@@ -60,7 +38,7 @@ public class DereferenceClient {
      * @param voc The vocabulary to persist
      */
     public void createVocabulary(Vocabulary voc) {
-        restTemplate.postForObject(hostUrl + VOCABULARY, voc, Void.class);
+        restTemplate.postForObject(hostUrl + RestEndpoints.VOCABULARY, voc, Void.class);
     }
 
     /**
@@ -103,7 +81,7 @@ public class DereferenceClient {
      */
 	public List<Vocabulary> getAllVocabularies() {
 		@SuppressWarnings("unchecked")
-		final List<Vocabulary> result = restTemplate.getForObject(hostUrl + VOCABULARIES, List.class);
+		final List<Vocabulary> result = restTemplate.getForObject(hostUrl + RestEndpoints.VOCABULARIES, List.class);
 		return result;
     }
 
@@ -115,7 +93,7 @@ public class DereferenceClient {
 	public void deleteEntity(String uri) {
 		try {
 			String encodedUri = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
-			restTemplate.delete(hostUrl + RestEndpoints.resolve(ENTITY_DELETE, encodedUri));
+			restTemplate.delete(hostUrl + RestEndpoints.resolve(RestEndpoints.ENTITY_DELETE, encodedUri));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -131,33 +109,31 @@ public class DereferenceClient {
         Map<String, String> params = new HashMap<>();
         params.put("uri", uri);
         params.put("xml", xml);
-        restTemplate.postForEntity(hostUrl + ENTITY, params, null);
+        restTemplate.postForEntity(hostUrl + RestEndpoints.ENTITY, params, null);
     }
 
     /**
      * Dereference an entity
      *
-     * @param uri the uri to dereference
+     * @param resourceId the resource ID (URI) to dereference
      * @return A string of the referenced response
      */
-	public EnrichmentResultList dereference(String uri) {
-		final String uriString;
+	public EnrichmentResultList dereference(String resourceId) {
+		final String resourceString;
 		try {
-			uriString = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
+		    resourceString = URLEncoder.encode(resourceId, StandardCharsets.UTF_8.name());
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalStateException(e);
 		}
 		
-		if (!uriString.startsWith("http") && !uriString.startsWith("https"))
+		if (!resourceString.startsWith("http") && !resourceString.startsWith("https"))
 			return null;
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-		ResponseEntity<EnrichmentResultList> response = restTemplate.exchange(hostUrl + DEREFERENCE + "?uri=" + uriString, HttpMethod.GET, entity, EnrichmentResultList.class);
-		EnrichmentResultList responseBody = response.getBody();
-		
-		return responseBody;
+		final String dereferenceUrl = hostUrl + RestEndpoints.DEREFERENCE + "?uri=" + resourceString;
+		return restTemplate.exchange(dereferenceUrl, HttpMethod.GET, entity, EnrichmentResultList.class).getBody();
 	}
 }

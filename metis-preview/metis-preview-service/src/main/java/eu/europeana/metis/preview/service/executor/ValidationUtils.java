@@ -1,31 +1,28 @@
 package eu.europeana.metis.preview.service.executor;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import org.apache.solr.client.solrj.SolrServerException;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
-import eu.europeana.metis.identifier.RestClient;
+import eu.europeana.corelib.utils.EuropeanaUriUtils;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import org.apache.solr.client.solrj.SolrServerException;
 
 public class ValidationUtils {
 
-  private final RestClient identifierClient;
   private final ValidationClient validationClient;
   private final RecordDao recordDao;
   private final String schemaBeforeTransformation;
   private final String schemaAfterTransformation;
   private final String defaultTransformationFile;
 
-  public ValidationUtils(RestClient identifierClient, ValidationClient validationClient,
+  public ValidationUtils(ValidationClient validationClient,
       RecordDao recordDao, String schemaBeforeTransformation, String schemaAfterTransformation,
       String defaultTransformationFile) {
-    this.identifierClient = identifierClient;
     this.validationClient = validationClient;
     this.recordDao = recordDao;
     this.schemaBeforeTransformation = schemaBeforeTransformation;
@@ -33,16 +30,17 @@ public class ValidationUtils {
     this.defaultTransformationFile = defaultTransformationFile;
   }
 
-  public ValidationResult validateRecord(String record, boolean needsTransformation) {
-    final String currentSchema =
-        needsTransformation ? schemaBeforeTransformation : schemaAfterTransformation;
-    return validationClient.validateRecord(currentSchema, record);
+  public ValidationResult validateRecordBeforeTransformation(String record) {
+    return validationClient.validateRecord(schemaBeforeTransformation, record);
   }
 
-  public String generateIdentifier(String collectionId, RDF rdf)
-      throws UnsupportedEncodingException {
-    return identifierClient
-        .generateIdentifier(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
+  public ValidationResult validateRecordAfterTransformation(String record) {
+    return validationClient.validateRecord(schemaAfterTransformation, record);
+  }
+
+  public String generateIdentifier(String collectionId, RDF rdf) {
+    return EuropeanaUriUtils
+        .createSanitizedEuropeanaId(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
         .replace("\"", "");
   }
 

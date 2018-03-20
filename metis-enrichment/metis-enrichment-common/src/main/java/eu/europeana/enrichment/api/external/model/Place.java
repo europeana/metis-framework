@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Place", namespace = "http://www.europeana.eu/schemas/edm/")
+@XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "Place")
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class Place extends EnrichmentBase {
@@ -27,27 +27,27 @@ public class Place extends EnrichmentBase {
 
 
   public List<Part> getIsPartOfList() {
-    return isPartOfList;
+    return unmodifiableListAcceptingNull(isPartOfList);
   }
 
   public void setIsPartOfList(List<Part> isPartOfList) {
-    this.isPartOfList = isPartOfList;
+    this.isPartOfList = cloneListAcceptingNull(isPartOfList);
   }
 
   public List<Part> getHasPartsList() {
-    return hasPartsList;
+    return unmodifiableListAcceptingNull(hasPartsList);
   }
 
   public void setHasPartsList(List<Part> hasPartsList) {
-    this.hasPartsList = hasPartsList;
+    this.hasPartsList = cloneListAcceptingNull(hasPartsList);
   }
 
   public List<Part> getSameAs() {
-    return sameAs;
+    return unmodifiableListAcceptingNull(sameAs);
   }
 
   public void setSameAs(List<Part> sameAs) {
-    this.sameAs = sameAs;
+    this.sameAs = cloneListAcceptingNull(sameAs);
   }
 
   public String getLat() {

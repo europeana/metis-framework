@@ -8,6 +8,7 @@ public class TransformationPluginMetadata extends AbstractMetisPluginMetadata {
 
   private static final PluginType pluginType = PluginType.TRANSFORMATION;
   private String xsltUrl;
+  private boolean customXslt = false;
 
   public TransformationPluginMetadata() {
     //Required for json serialization
@@ -16,6 +17,14 @@ public class TransformationPluginMetadata extends AbstractMetisPluginMetadata {
   @Override
   public PluginType getPluginType() {
     return pluginType;
+  }
+
+  public boolean isCustomXslt() {
+    return customXslt;
+  }
+
+  public void setCustomXslt(boolean customXslt) {
+    this.customXslt = customXslt;
   }
 
   public String getXsltUrl() {

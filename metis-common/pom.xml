@@ -9,6 +9,17 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 	<artifactId>metis-common</artifactId>
+  
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <!-- inherits config from parent: can override if required -->
+        </plugin>
+    </plugins>
+</build>
+  
 	<dependencies>
 		<dependency>
 			<groupId>org.mongodb</groupId>

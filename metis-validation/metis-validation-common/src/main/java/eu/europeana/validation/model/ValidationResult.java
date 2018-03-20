@@ -1,19 +1,3 @@
-/*
- * Copyright 2007-2013 The Europeana Foundation
- *
- *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
- *  by the European Commission;
- *  You may not use this work except in compliance with the Licence.
- *
- *  You may obtain a copy of the Licence at:
- *  http://joinup.ec.europa.eu/software/page/eupl
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under
- *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
- *  any kind, either express or implied.
- *  See the Licence for the specific language governing permissions and limitations under
- *  the Licence.
- */
 package eu.europeana.validation.model;
 
 import io.swagger.annotations.ApiModel;
@@ -49,11 +33,20 @@ public class ValidationResult {
     private String message;
 
     /**
+     * Id of a node for which error occured. Null if success
+     */
+    @XmlElement
+    @ApiModelProperty(value = "The node identifier message", required = false)
+    private String nodeId;
+
+    /**
      * The service result. true if success, false if failure
      */
     @ApiModelProperty(value = "Failed or successful operation", required = true)
     @XmlElement
     private boolean success;
+
+
 
     public String getRecordId() {
         return recordId;
@@ -71,6 +64,10 @@ public class ValidationResult {
         this.message = message;
     }
 
+    public String getNodeId() { return nodeId; }
+
+    public void setNodeId(String nodeId) { this.nodeId = nodeId; }
+
     public boolean isSuccess() {
         return success;
     }
@@ -78,4 +75,5 @@ public class ValidationResult {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+
 }

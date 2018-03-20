@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.europeana.enrichment.service;
 
 import eu.europeana.enrichment.utils.MongoDatabaseUtils;
@@ -19,7 +14,7 @@ public class EntityRemover {
 
     private final String mongoHost;
     private final int mongoPort;
-    private RedisInternalEnricher enricher;
+    private final RedisInternalEnricher enricher;
 
     @Autowired
     public EntityRemover(RedisInternalEnricher enricher, String mongoHost, int mongoPort){

@@ -6,20 +6,13 @@ package eu.europeana.metis.core.workflow.plugins;
  */
 public class ValidationExternalPluginMetadata extends AbstractMetisPluginMetadata {
 
-  private final PluginType pluginType = PluginType.VALIDATION_EXTERNAL;
+  private static final PluginType pluginType = PluginType.VALIDATION_EXTERNAL;
   private String urlOfSchemasZip;
   private String schemaRootPath;
   private String schematronRootPath;
 
   public ValidationExternalPluginMetadata() {
     //Required for json serialization
-  }
-
-  public ValidationExternalPluginMetadata(String urlOfSchemasZip, String schemaRootPath,
-      String schematronRootPath) {
-    this.urlOfSchemasZip = urlOfSchemasZip;
-    this.schemaRootPath = schemaRootPath;
-    this.schematronRootPath = schematronRootPath;
   }
 
   @Override

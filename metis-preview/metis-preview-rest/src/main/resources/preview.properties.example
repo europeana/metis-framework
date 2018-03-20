@@ -7,9 +7,11 @@ socks.proxy.password=
 
 mongo.hosts=
 mongo.port=
+mongo.authentication.db=
 mongo.username=
 mongo.password=
 mongo.db=
+mongo.enableSSL=
 
 solr.search.url=
 

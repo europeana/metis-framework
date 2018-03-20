@@ -1,30 +1,13 @@
-/*
- * Copyright 2007-2013 The Europeana Foundation
- *
- *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
- *  by the European Commission;
- *  You may not use this work except in compliance with the Licence.
- *
- *  You may obtain a copy of the Licence at:
- *  http://joinup.ec.europa.eu/software/page/eupl
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under
- *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
- *  any kind, either express or implied.
- *  See the Licence for the specific language governing permissions and limitations under
- *  the Licence.
- */
 package eu.europeana.metis.dereference.service.dao;
 
-import com.mongodb.MongoClient;
-import eu.europeana.metis.dereference.Vocabulary;
-import org.apache.commons.lang.StringUtils;
+import java.util.List;
+import java.util.regex.Pattern;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
-
-import java.util.List;
+import com.mongodb.MongoClient;
+import eu.europeana.metis.dereference.Vocabulary;
 
 /**
  * Dao for vocabularies
@@ -43,14 +26,14 @@ public class VocabularyDao {
     }
 
     /**
-     * Retrieve a list of vocabularies for a given URI
+     * Retrieve the vocabularies for which the URL contains the given search string.
      *
-     * @param uri The uri to search on
-     * @return The list of URIs that conform to that. They need to be further refined by the internal rules
-     * after the entity has been retrieved
+     * @param searchString The string to search on
+     * @return The list of vocabularies. Is not null.
      */
-    public List<Vocabulary> getByUri(String uri) {
-        return ds.find(Vocabulary.class).filter("URI", uri).asList();
+    public List<Vocabulary> getByUriSearch(String searchString) {
+        final Pattern pattern = Pattern.compile(Pattern.quote(searchString)); 
+        return ds.find(Vocabulary.class).filter("uri", pattern).asList();
     }
 
     /**
@@ -94,8 +77,9 @@ public class VocabularyDao {
         if(entity.getType()!=null) {
             ops.set("type", entity.getType());
         }
-        ops.set("URI", entity.getURI());
+        ops.set("uri", entity.getUri());
         ops.set("xslt", entity.getXslt());
+        ops.set("suffix", entity.getSuffix());
         ds.update(query, ops);
     }
 
@@ -106,24 +90,6 @@ public class VocabularyDao {
      */
     public List<Vocabulary> getAll() {
         return ds.find(Vocabulary.class).asList();
-    }
-
-    /**
-     * Once the entity has been retrieved decide on the actual vocabulary that you want
-     *
-     * @param vocs The vocabularies to choose from
-     * @param xml  The actual retrieved entity
-     * @param uri  The uri of the record to check for rules
-     * @return The corresponding vocabulary
-     */
-    public Vocabulary findByEntity(List<Vocabulary> vocs, String xml, String uri) {
-        for (Vocabulary vocabulary : vocs) {
-            if (StringUtils.equals(vocabulary.getRules(), "*")
-                    || StringUtils.contains(uri, vocabulary.getRules()) || StringUtils.contains(xml, vocabulary.getTypeRules())) {
-                return vocabulary;
-            }
-        }
-        return null;
     }
 
     /**

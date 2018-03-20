@@ -1,30 +1,5 @@
-/*
- * Copyright 2007-2013 The Europeana Foundation
- *
- *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
- *  by the European Commission;
- *  You may not use this work except in compliance with the Licence.
- *
- *  You may obtain a copy of the Licence at:
- *  http://joinup.ec.europa.eu/software/page/eupl
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under
- *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
- *  any kind, either express or implied.
- *  See the Licence for the specific language governing permissions and limitations under
- *  the Licence.
- */
 package eu.europeana.enrichment.rest.config;
 
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.enrichment.service.Converter;
-import eu.europeana.enrichment.service.Enricher;
-import eu.europeana.enrichment.service.EntityRemover;
-import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.metis.cache.redis.RedisProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +13,13 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.enrichment.service.Converter;
+import eu.europeana.enrichment.service.Enricher;
+import eu.europeana.enrichment.service.EntityRemover;
+import eu.europeana.enrichment.service.RedisInternalEnricher;
+import eu.europeana.metis.cache.redis.RedisProvider;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -57,7 +39,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
-  private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")

@@ -1,15 +1,5 @@
 package eu.europeana.enrichment.rest.client;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.function.ObjIntConsumer;
-import org.jibx.runtime.JiBXException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -18,12 +8,22 @@ import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
 import eu.europeana.metis.dereference.DereferenceUtils;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.function.ObjIntConsumer;
+import org.apache.commons.collections.CollectionUtils;
+import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class performs the task of dereferencing and enrichment for a given RDF document.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public class EnrichmentWorker {
 
@@ -39,22 +39,24 @@ public class EnrichmentWorker {
 
   /**
    * Constructor.
-   * 
+   *
    * @param dereferenceUrl The URL of the dereference service.
    * @param enrichmentUrl The URL of the enrichment service.
    */
   public EnrichmentWorker(String dereferenceUrl, String enrichmentUrl) {
-    this(new DereferenceClient(dereferenceUrl), new EnrichmentClient(enrichmentUrl), new EntityMergeEngine());
+    this(new DereferenceClient(dereferenceUrl), new EnrichmentClient(enrichmentUrl),
+        new EntityMergeEngine());
   }
 
   /**
    * Constructor.
-   * 
+   *
    * @param dereferenceClient The dereference client.
    * @param enrichmentClient The enrichment client.
    * @param entityMergeEngine The engine to be used for merging entities into the RDF.
    */
-  EnrichmentWorker(DereferenceClient dereferenceClient, EnrichmentClient enrichmentClient, EntityMergeEngine entityMergeEngine) {
+  EnrichmentWorker(DereferenceClient dereferenceClient, EnrichmentClient enrichmentClient,
+      EntityMergeEngine entityMergeEngine) {
     this.dereferenceClient = dereferenceClient;
     this.enrichmentClient = enrichmentClient;
     this.entityMergeEngine = entityMergeEngine;
@@ -63,12 +65,12 @@ public class EnrichmentWorker {
   /**
    * Performs dereference and enrichment on an input String to produce a target String. This is a
    * wrapper for {@link #process(RDF)}.
-   * 
+   *
    * @param inputString The RDF to be processed as a String.
    * @return The processed RDF as a String.
    * @throws JiBXException In case there is a problem converting to or from RDF format.
    * @throws UnsupportedEncodingException In case something goes wrong with converting the result
-   *         RDF back to a String.
+   * RDF back to a String.
    * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
    */
   public String process(final String inputString)
@@ -84,7 +86,7 @@ public class EnrichmentWorker {
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF. This is a wrapper
    * for {@link #process(RDF, Mode)} where the mode is {@link Mode#DEREFERENCE_AND_ENRICHMENT}.
-   * 
+   *
    * @param inputRdf The RDF to be processed.
    * @return The processed RDF. Note: this may be the same object as the input object.
    * @throws DereferenceOrEnrichException In case something goes wrong.
@@ -95,7 +97,7 @@ public class EnrichmentWorker {
 
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF.
-   * 
+   *
    * @param rdf The RDF to be processed.
    * @param mode The processing mode to be applied.
    * @return The processed RDF. Note: this will be the same object as the input object.
@@ -169,7 +171,9 @@ public class EnrichmentWorker {
 
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
-    entityMergeEngine.mergeEntities(rdf, enrichmentInformation.getResult());
+    if (enrichmentInformation != null && CollectionUtils.isNotEmpty(enrichmentInformation.getResult())) {
+      entityMergeEngine.mergeEntities(rdf, enrichmentInformation.getResult());
+    }
     LOGGER.debug("Merging completed.");
   }
 
@@ -187,19 +191,19 @@ public class EnrichmentWorker {
 
     // [1] Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
-    Set<String> fieldsForDereferencing = extractValuesForDereferencing(rdf);
+    Set<String> resourceIds = extractValuesForDereferencing(rdf);
     if (LOGGER.isDebugEnabled()) {
-      logExtractionResult(fieldsForDereferencing, EnrichmentWorker::logStringWithCounter);
+      logExtractionResult(resourceIds, EnrichmentWorker::logStringWithCounter);
     }
 
     // [2] Get the information with which to enrich (via dereferencing) the RDF using the extracted
     // fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
-    List<EnrichmentResultList> dereferenceInformation = dereferenceFields(fieldsForDereferencing);
+    List<EnrichmentResultList> dereferenceInformation = dereferenceFields(resourceIds);
     if (LOGGER.isDebugEnabled()) {
       logDereferencingOrEnrichmentResult(dereferenceInformation);
     }
-    
+
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
     for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
@@ -211,20 +215,20 @@ public class EnrichmentWorker {
     LOGGER.debug("Merging completed.");
   }
 
-  private List<EnrichmentResultList> dereferenceFields(Set<String> fieldsForDereferencing)
+  private List<EnrichmentResultList> dereferenceFields(Set<String> resourceIds)
       throws DereferenceOrEnrichException {
     List<EnrichmentResultList> dereferenceInformation = new ArrayList<>();
     try {
-      for (String url : fieldsForDereferencing) {
-        if (url == null) {
+      for (String resourceId : resourceIds) {
+        if (resourceId == null) {
           continue;
         }
-        LOGGER.debug("== Processing {}", url);
-        EnrichmentResultList result = dereferenceClient.dereference(url);
+        LOGGER.debug("== Processing {}", resourceId);
+        EnrichmentResultList result = dereferenceClient.dereference(resourceId);
         if (result != null && result.getResult() != null && !result.getResult().isEmpty()) {
           dereferenceInformation.add(result);
         } else {
-          LOGGER.debug("==== Null or empty value received for reference {}", url);
+          LOGGER.debug("==== Null or empty value received for reference {}", resourceId);
         }
       }
     } catch (RuntimeException e) {
@@ -291,11 +295,11 @@ public class EnrichmentWorker {
   Set<String> extractValuesForDereferencing(RDF rdf) {
     return DereferenceUtils.extractValuesForDereferencing(rdf);
   }
-  
+
   String convertRdfToString(RDF rdf) throws UnsupportedEncodingException, JiBXException {
     return RdfConversionUtils.convertRdfToString(rdf);
   }
-  
+
   RDF convertStringToRdf(String xml) throws JiBXException {
     return RdfConversionUtils.convertStringToRdf(xml);
   }

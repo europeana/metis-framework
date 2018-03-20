@@ -2,9 +2,11 @@ package eu.europeana.metis.core.execution;
 
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -79,7 +81,8 @@ public class FailsafeExecutor {
     do {
       userWorkflowExecutionResponseListWrapper.clear();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(orchestratorService
-              .getAllWorkflowExecutions(workflowStatus, nextPage),
+              .getAllWorkflowExecutions(-1, null, null, EnumSet.of(workflowStatus),
+                  OrderField.ID, true, nextPage),
           orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
       workflowExecutions
           .addAll(userWorkflowExecutionResponseListWrapper.getResults());

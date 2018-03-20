@@ -82,12 +82,10 @@ public class MongoDatabaseUtils {
 	private static JacksonDBCollection<AgentTermList, String> aColl;
 	private static JacksonDBCollection<OrganizationTermList, String> oColl;
 
-	// TODO the DB class is (effectively) deprecated (see MongoClient.getDB),
-	// but
-	// this object is still needed for MongoJack. Upgrade MongoJack and migrate
-	// this
+  	// TODO the DB class is (effectively) deprecated (see MongoClient.getDB), but
+  	// this object is still needed for MongoJack. Upgrade MongoJack and migrate this 
 	// object to MongoDatabase.
-	private static DB db;
+  	private static DB db;
 
 	private MongoDatabaseUtils() {
 	}

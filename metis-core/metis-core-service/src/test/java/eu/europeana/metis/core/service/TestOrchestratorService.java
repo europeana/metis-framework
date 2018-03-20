@@ -13,18 +13,16 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.cloud.client.dps.rest.DpsClient;
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
@@ -48,10 +46,9 @@ import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.Topology;
+import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.ExternalTaskException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -79,10 +76,10 @@ public class TestOrchestratorService {
   private static WorkflowDao workflowDao;
   private static ScheduledWorkflowDao scheduledWorkflowDao;
   private static DatasetDao datasetDao;
+  private static DatasetXsltDao datasetXsltDao;
   private static WorkflowExecutorManager workflowExecutorManager;
   private static OrchestratorService orchestratorService;
   private static DataSetServiceClient ecloudDataSetServiceClient;
-  private static DpsClient dpsClient;
   private static RedissonClient redissonClient;
 
   @BeforeClass
@@ -91,15 +88,17 @@ public class TestOrchestratorService {
     workflowDao = Mockito.mock(WorkflowDao.class);
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
     datasetDao = Mockito.mock(DatasetDao.class);
+    datasetXsltDao = Mockito.mock(DatasetXsltDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
-    dpsClient = Mockito.mock(DpsClient.class);
     redissonClient = Mockito.mock(RedissonClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
-        dpsClient, redissonClient);
+        scheduledWorkflowDao, datasetDao, datasetXsltDao, workflowExecutorManager,
+        ecloudDataSetServiceClient,
+        redissonClient);
     orchestratorService.setEcloudProvider("ecloudProvider");
+    orchestratorService.setMetisCoreUrl("https://some.url.com");
   }
 
   @After
@@ -110,6 +109,7 @@ public class TestOrchestratorService {
     Mockito.reset(datasetDao);
     Mockito.reset(workflowExecutorManager);
     Mockito.reset(ecloudDataSetServiceClient);
+    Mockito.reset(redissonClient);
   }
 
   @Test
@@ -212,6 +212,39 @@ public class TestOrchestratorService {
     doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
+    DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
+    datasetXslt.setId(new ObjectId(TestObjectFactory.XSLTID));
+    when(datasetXsltDao.getLatestXsltForDatasetId(-1)).thenReturn(datasetXslt);
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    doNothing().when(rlock).unlock();
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+  }
+
+  @Test
+  public void addWorkflowInQueueOfWorkflowExecutions_TransformationUsesCustomXslt()
+      throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
+    workflow.getMetisPluginsMetadata().forEach(abstractMetisPluginMetadata -> {
+      if (abstractMetisPluginMetadata instanceof TransformationPluginMetadata) {
+        ((TransformationPluginMetadata) abstractMetisPluginMetadata).setCustomXslt(true);
+      }
+    });
+    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    when(workflowDao
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .thenReturn(workflow);
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
+    doNothing().when(rlock).lock();
+    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
+    String objectId = new ObjectId().toString();
+    DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
+    datasetXslt.setId(new ObjectId(TestObjectFactory.XSLTID));
+    dataset.setXsltId(datasetXslt.getId());
+    when(datasetXsltDao.getById(dataset.getXsltId().toString())).thenReturn(datasetXslt);
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
@@ -229,6 +262,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -322,22 +356,6 @@ public class TestOrchestratorService {
         workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
-  @Test(expected = PluginExecutionNotAllowed.class)
-  public void addWorkflowInQueueOfWorkflowExecutions_PluginShouldNotBeSupported()
-      throws Exception {
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
-    metisPluginsMetadata.add(new EnrichmentPluginMetadata());
-    workflow.setMetisPluginsMetadata(metisPluginsMetadata);
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
-        .thenReturn(workflow);
-    orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
-  }
-
   @Test
   public void addWorkflowInQueueOfWorkflowExecutionsEcloudDatasetAlreadyGenerated()
       throws Exception {
@@ -348,6 +366,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -390,6 +409,7 @@ public class TestOrchestratorService {
         .thenReturn(workflow);
     when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
         .thenThrow(new MCSException());
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -430,6 +450,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()))
         .thenReturn(new ObjectId().toString());
     orchestratorService
@@ -601,23 +622,15 @@ public class TestOrchestratorService {
   }
 
   @Test
-  public void getAllWorkflowExecutions() {
+  public void getAllWorkflowExecutionsByDatasetId() {
     HashSet<WorkflowStatus> workflowStatuses = new HashSet<>();
     workflowStatuses.add(WorkflowStatus.INQUEUE);
     orchestratorService.getAllWorkflowExecutions(TestObjectFactory.DATASETID,
         TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
         workflowStatuses, OrderField.ID, false, 0);
     verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutionsByDatasetId(anyInt(), anyString(), anyString(), anySet(),
+        .getAllWorkflowExecutions(anyInt(), anyString(), anyString(), anySet(),
             any(OrderField.class), anyBoolean(), anyInt());
-    verifyNoMoreInteractions(workflowExecutionDao);
-  }
-
-  @Test
-  public void getAllWorkflowExecutionsByWorkflowStatus() {
-    orchestratorService.getAllWorkflowExecutions(WorkflowStatus.RUNNING, 0);
-    verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutions(any(WorkflowStatus.class), anyInt());
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
@@ -839,62 +852,5 @@ public class TestOrchestratorService {
         .deleteScheduledWorkflow(TestObjectFactory.DATASETID);
     verify(scheduledWorkflowDao, times(1))
         .deleteScheduledWorkflow(anyInt());
-  }
-
-  @Test
-  public void getExternalTaskLogs() throws Exception {
-    List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
-
-    when(dpsClient
-        .getDetailedTaskReportBetweenChunks(Topology.OAIPMH_HARVEST.getTopologyName(),
-            2070373127078497810L,
-            1, 100)).thenReturn(listOfSubTaskInfo);
-    orchestratorService
-        .getExternalTaskLogs(Topology.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L, 1,
-            100);
-    Assert.assertEquals(2, listOfSubTaskInfo.size());
-    Assert.assertTrue(listOfSubTaskInfo.get(0).getAdditionalInformations() == null);
-    Assert.assertTrue(listOfSubTaskInfo.get(1).getAdditionalInformations() == null);
-  }
-
-  @Test(expected = ExternalTaskException.class)
-  public void getExternalTaskLogs_ExternalTaskException() throws Exception {
-    when(dpsClient
-        .getDetailedTaskReportBetweenChunks(Topology.OAIPMH_HARVEST.getTopologyName(),
-            2070373127078497810L, 1, 100)).thenThrow(new DpsException());
-    orchestratorService
-        .getExternalTaskLogs(Topology.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L, 1,
-            100);
-  }
-
-  @Test
-  public void getExternalTaskReport() throws Exception {
-    TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithoutIdentifiers(2);
-    TaskErrorsInfo taskErrorsInfoWithIdentifiers = TestObjectFactory
-        .createTaskErrorsInfoWithIdentifiers(taskErrorsInfo.getErrors().get(0).getErrorType(),
-            taskErrorsInfo.getErrors().get(0).getMessage());
-
-    when(dpsClient
-        .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, null, 10))
-        .thenReturn(taskErrorsInfoWithIdentifiers);
-
-    TaskErrorsInfo externalTaskReport = orchestratorService
-        .getExternalTaskReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, 10);
-
-    Assert.assertEquals(1, externalTaskReport.getErrors().size());
-    Assert.assertTrue(externalTaskReport.getErrors().get(0).getIdentifiers().size() != 0);
-  }
-
-  @Test(expected = ExternalTaskException.class)
-  public void getExternalTaskReport_ExternalTaskException() throws Exception {
-    when(dpsClient
-        .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, null, 10))
-        .thenThrow(new DpsException());
-    orchestratorService
-        .getExternalTaskReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, 10);
   }
 }

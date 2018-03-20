@@ -38,6 +38,7 @@ mongo.db=
 redis.host=
 redis.port=0
 redis.password=
+redis.enableSSL=
 
 solr.url=
 
@@ -53,3 +54,6 @@ authentication.baseUrl=
 
 #CORS
 allowed.cors.hosts=*
+
+#Use this to specify the FQDN where the application will be hosted under
+metis.core.baseUrl=

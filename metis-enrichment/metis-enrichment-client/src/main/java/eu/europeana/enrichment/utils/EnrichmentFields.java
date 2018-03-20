@@ -21,6 +21,7 @@ import eu.europeana.corelib.definitions.jibx.Spatial;
 import eu.europeana.corelib.definitions.jibx.Subject;
 import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.Type;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by gmamakis on 8-3-17.
@@ -77,7 +78,7 @@ public enum EnrichmentFields {
         .filter(choiceContentHandler.choiceChecker)
         .map(choiceContentHandler.contentGetter)
         .filter(Objects::nonNull)
-        .filter(content -> content.getString() != null)
+        .filter(content -> StringUtils.isNotEmpty(content.getString()))
         .map(this::convert)
         .collect(Collectors.toList());
   }

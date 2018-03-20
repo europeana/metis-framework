@@ -20,12 +20,12 @@ import io.swagger.annotations.ApiOperation;
 @Controller
 public class EnrichmentCacheController {
 
+    private final RedisInternalEnricher enricher;
+
     @Autowired
     public EnrichmentCacheController(RedisInternalEnricher enricher) {
         this.enricher = enricher;
     }
-
-    private RedisInternalEnricher enricher;
 
     /**
      * Recreate the redis cache from the mongo datastore. This will take some time
