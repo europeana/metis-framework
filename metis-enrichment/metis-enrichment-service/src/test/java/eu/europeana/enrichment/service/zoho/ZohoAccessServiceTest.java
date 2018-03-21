@@ -4,16 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import eu.europeana.metis.authentication.dao.ZohoApiFields;
@@ -50,9 +53,11 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
     LOGGER.info("BNF about: " + bnf.getAbout());
 
     Set<Entry<String, List<String>>> roles = bnf.getEdmEuropeanaRole().entrySet();
-    List<String> role = roles.iterator().next().getValue();
-    LOGGER.info("Role1: " + role.get(0) + ", Role2: " + role.get(1));
-    assertTrue(role.size() == 2);
+    List<String> roleList = roles.iterator().next().getValue();
+    for (String role : roleList) {
+    	LOGGER.info("Role: " + role);
+    }
+    assertTrue(roleList.size() > 0);
   }
 
   @Test
@@ -128,19 +133,16 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
   @Test
   public void getOrganizationsModifiedTest() throws ZohoAccessException {
     List<Organization> orgList = zohoAccessService.getOrganizations(1, 5, null);
-    // by default it seems that the records are ordered by lastModified desc
-    String firstOrgId = orgList.get(0).getAbout();
+    // by default it seems that the records are ordered by lastModified asc
     Organization thirdOrg = orgList.get(2);
 
-    int oneSecond = 1000;
-    Date modifiedDate = new Date(thirdOrg.getModified().getTime() + oneSecond);
+    Date modifiedDate = new Date(thirdOrg.getModified().getTime());
 
     orgList = zohoAccessService.getOrganizations(1, 5, modifiedDate);
     assertNotNull(orgList);
     assertFalse(orgList.isEmpty());
 
-    assertEquals(2, orgList.size());
     String orgId = orgList.get(0).getAbout();
-    assertEquals(orgId, firstOrgId);
+    assertEquals(orgId, thirdOrg.getAbout());
   }
 }
