@@ -3,16 +3,14 @@ package eu.europeana.metis.authentication.dao;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Iterator;
-
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -232,6 +230,24 @@ public class ZohoAccessClientDao {
 	}
 
 	/**
+	 * This method adds filters to the Zoho query
+	 * if values exist in properties.
+	 * @param builder
+     * @param filterMap
+	 */
+	private void applyFilters(UriComponentsBuilder builder, Map<String,String> filterMap) {
+	  for (Map.Entry<String, String> entry : filterMap.entrySet())
+	  {
+	    String key = entry.getKey();
+        if(!StringUtils.isBlank(key))
+          builder.queryParam(ZohoApiFields.CRITERIA_STRING,
+            String.format("(%s:%s)",
+                    key,
+                    entry.getValue()));
+	  }	  
+	}
+	
+	/**
 	 * Retrieve Zoho organization by ID.
 	 * <p>
 	 * It will try to fetch the organization from the external Zoho CRM. This
@@ -304,6 +320,7 @@ public class ZohoAccessClientDao {
 	 *            If specified, only records created or modified after the given
 	 *            time will be fetched. The value must be provided in yyyy-MM-dd
 	 *            HH:mm:ss format
+     * @param searchCriteria The map with filter settings
 	 * @return the list of the organizations
 	 * @throws GenericMetisException
 	 *             which can be one of:
@@ -316,11 +333,11 @@ public class ZohoAccessClientDao {
 	 * @throws IOException
 	 */
 	public JsonNode getOrganizations(int start, int rows,
-			String lastModifiedTime) throws GenericMetisException {
+			String lastModifiedTime, Map<String,String> searchCriteria) throws GenericMetisException {
 
 		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl,
 				ZohoApiFields.JSON_STRING, ZohoApiFields.ACCOUNTS_MODULE_STRING,
-				ZohoApiFields.GET_RECORDS_STRING);
+                ZohoApiFields.SEARCH_RECORDS_STRING);
 		UriComponentsBuilder builder = UriComponentsBuilder
 				.fromHttpUrl(contactsSearchUrl)
 				.queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING,
@@ -337,6 +354,8 @@ public class ZohoAccessClientDao {
 		if (!StringUtils.isBlank(lastModifiedTime))
 			builder.queryParam(ZohoApiFields.LAST_MODIFIED_TIME,
 					lastModifiedTime);
+
+		applyFilters(builder, searchCriteria);
 
 		RestTemplate restTemplate = new RestTemplate();
 		URI uri = builder.build().encode().toUri();

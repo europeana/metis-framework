@@ -41,7 +41,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	private static final String LANG_ALTERNATIVE = "Lang Alternative";
 	private static final String SCOPE = "Scope";
 	private static final String SAME_AS = "SameAs";
-	private static final String ORGANIZATION_ROLE = "Organisation Role";
+	private static final String ORGANIZATION_ROLE = ZohoApiFields.ORGANIZATION_ROLE;
 	private static final String GEOGRAPHIC_LEVEL = "Geographic Level";
 	private static final String ACRONYM = "Acronym";
 	private static final String LANG_ACRONYM = "Lang Acronym";
@@ -170,7 +170,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	 * @return list of the field values
 	 */
 	private List<String> getFieldArray(String fieldBaseName, int size) {
-		List<String> res = new ArrayList<String>();
+		List<String> res = new ArrayList<String>(size);
 		String fieldName = fieldBaseName + " " + "%d";
 		for (int i = 0; i < size; i++) {
 			String fieldValue = getContent(String.format(fieldName, i));

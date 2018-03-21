@@ -139,7 +139,8 @@ public class ZohoAccessService {
 		org.setEdmCountry(
 				createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
 		
-		org.setOwlSameAs((String[]) zoa.getSameAs().toArray());
+		if(zoa.getSameAs() != null && !zoa.getSameAs().isEmpty())
+		    org.setOwlSameAs(zoa.getSameAs().toArray(new String[] {}));
 		
 		// address
 		Address address = new AddressImpl();
@@ -179,17 +180,33 @@ public class ZohoAccessService {
 		return language.substring(0, 2).toLowerCase();
 	}
 
+    /**
+     * 
+     * @param start
+     *            first index starts with 1
+     * @param rows
+     *            the number of entries to be returned
+     * @return
+     * @throws ZohoAccessException
+     */
+    public List<Organization> getOrganizations(int start, int rows,
+            Date lastModified) throws ZohoAccessException {
+      return getOrganizations(start, rows, lastModified, null);
+    }
+    
 	/**
 	 * 
 	 * @param start
 	 *            first index starts with 1
 	 * @param rows
 	 *            the number of entries to be returned
+     * @param lastModified
+     * @param searchCriteria
 	 * @return
 	 * @throws ZohoAccessException
 	 */
 	public List<Organization> getOrganizations(int start, int rows,
-			Date lastModified) throws ZohoAccessException {
+			Date lastModified, Map<String,String> searchCriteria) throws ZohoAccessException {
 
 		if (start < 1)
 			throw new ZohoAccessException(
@@ -203,7 +220,7 @@ public class ZohoAccessService {
 
 		try {
 			jsonRecordsResponse = zohoAccessClientDao.getOrganizations(start,
-					rows, lastModifiedTime);
+					rows, lastModifiedTime, searchCriteria);
 		} catch (GenericMetisException e) {
 			throw new ZohoAccessException("Cannot get organization list from: "
 					+ start + " rows :" + rows, e);
