@@ -35,7 +35,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
   @After
   public void tearDown() throws Exception {}
 
-   @Test
+  @Test
   public void getOrganizationTest() throws ZohoAccessException {
     Organization bnf = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
     assertNotNull(bnf.getEdmAcronym());
@@ -55,7 +55,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
     assertTrue(role.size() == 2);
   }
 
-   @Test
+  @Test
   public void getOrganizationsTest() throws ZohoAccessException {
     List<Organization> orgList = zohoAccessService.getOrganizations(1, 5, null);
 

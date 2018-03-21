@@ -219,8 +219,12 @@ public class ZohoAccessService {
 			lastModifiedTime = getDateFormatter().format(lastModified);
 
 		try {
-			jsonRecordsResponse = zohoAccessClientDao.getOrganizations(start,
-					rows, lastModifiedTime, searchCriteria);
+		    if (searchCriteria != null && !searchCriteria.isEmpty())
+    			jsonRecordsResponse = zohoAccessClientDao.searchOrganizations(start,
+    					rows, lastModifiedTime, searchCriteria);
+		    else
+	            jsonRecordsResponse = zohoAccessClientDao.getOrganizations(start,
+                    rows, lastModifiedTime);
 		} catch (GenericMetisException e) {
 			throw new ZohoAccessException("Cannot get organization list from: "
 					+ start + " rows :" + rows, e);
