@@ -1,9 +1,6 @@
 package eu.europeana.metis.core.test.utils;
 
-import eu.europeana.cloud.common.model.dps.States;
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
+import eu.europeana.cloud.common.model.dps.*;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
@@ -237,10 +234,10 @@ public class TestObjectFactory {
     for (int i = 0; i < numberOfErrorTypes; i++) {
       TaskErrorInfo taskErrorInfo = new TaskErrorInfo("be39ef50-f77d-11e7-af0f-fa163e77119a",
           String.format("Error%s", i), 2);
-      ArrayList<String> identifiers = new ArrayList<>();
-      identifiers.add("identifier1");
-      identifiers.add("identifier2");
-      taskErrorInfo.setIdentifiers(identifiers);
+      ArrayList<ErrorDetails> errorDetails = new ArrayList<>();
+      errorDetails.add(new ErrorDetails("identifier1", "error1"));
+      errorDetails.add(new ErrorDetails("identifier2", "error2"));
+      taskErrorInfo.setErrorDetails(errorDetails);
       taskErrorInfos.add(taskErrorInfo);
     }
     return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
@@ -248,11 +245,11 @@ public class TestObjectFactory {
 
   public static TaskErrorsInfo createTaskErrorsInfoWithIdentifiers(String errorType,
       String message) {
-    ArrayList<String> identifiers1 = new ArrayList<>();
-    identifiers1.add("identifier1");
-    identifiers1.add("identifier2");
+    ArrayList<ErrorDetails> errorDetails = new ArrayList<>();
+    errorDetails.add(new ErrorDetails("identifier1", "error1"));
+    errorDetails.add(new ErrorDetails("identifier2", "error2"));
     TaskErrorInfo taskErrorInfo1 = new TaskErrorInfo(errorType,
-        message, 2, identifiers1);
+        message, 2, errorDetails);
     ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
     taskErrorInfos.add(taskErrorInfo1);
 
