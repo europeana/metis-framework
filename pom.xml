@@ -184,6 +184,7 @@
     <module>metis-preview</module>
     <module>metis-normalization</module>
     <module>metis-authentication</module>
+    <module>metis-transformation</module>
   </modules>
   <repositories>
 
