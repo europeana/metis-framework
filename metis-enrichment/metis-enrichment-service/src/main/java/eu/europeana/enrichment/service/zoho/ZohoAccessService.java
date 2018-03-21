@@ -138,9 +138,9 @@ public class ZohoAccessService {
 		String organizationCountry = toEdmCountry(zoa.getOrganizationCountry());
 		org.setEdmCountry(
 				createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
-		org.setModified(zoa.getModified());
-		org.setCreated(zoa.getCreated());
-
+		
+		org.setOwlSameAs((String[]) zoa.getSameAs().toArray());
+		
 		// address
 		Address address = new AddressImpl();
 
@@ -152,6 +152,10 @@ public class ZohoAccessService {
 		address.setVcardPostOfficeBox(zoa.getPostBox());
 
 		org.setAddress(address);
+
+		//technical fields
+		org.setModified(zoa.getModified());
+		org.setCreated(zoa.getCreated());
 
 		return org;
 	}

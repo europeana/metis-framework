@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.metis.preview.common.exception.PreviewServiceException;
 import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.persistence.RecordDao;
@@ -50,7 +51,7 @@ public class PreviewServiceTest {
   @Test
   public void test()
       throws NoSuchMethodException, MongoRuntimeException, MongoDBException, IllegalAccessException,
-      IOException, InvocationTargetException, SolrServerException, PreviewServiceException {
+      IOException, InvocationTargetException, SolrServerException, PreviewServiceException, MongoUpdateException {
     String record = IOUtils.toString(
         Thread.currentThread().getContextClassLoader().getResourceAsStream("Item_5791754.xml"),
         "UTF-8");

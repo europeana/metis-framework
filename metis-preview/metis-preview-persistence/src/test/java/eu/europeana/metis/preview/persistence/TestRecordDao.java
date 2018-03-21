@@ -3,6 +3,7 @@ package eu.europeana.metis.preview.persistence;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import java.io.IOException;
@@ -79,7 +80,9 @@ public class TestRecordDao {
             e.printStackTrace();
         } catch (MongoRuntimeException e) {
             e.printStackTrace();
-        }
+        } catch (MongoUpdateException e) {
+			e.printStackTrace();
+		}
     }
 
 //    @After

@@ -25,7 +25,7 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
  * @author GordeaS
  *
  */
-@Ignore
+//@Ignore
 public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 
 	@Before

@@ -3,6 +3,7 @@ package eu.europeana.metis.preview.service.executor;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.validation.model.ValidationResult;
@@ -66,11 +67,12 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
 
   /**
    * Execution of transformation, id-generation and validation for Europeana Preview Service
+ * @throws MongoUpdateException 
    */
   @Override
   public ValidationTaskResult call()
       throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, JiBXException,
-      IllegalAccessException, MongoRuntimeException, MongoDBException, TransformerException, SolrServerException {
+      IllegalAccessException, MongoRuntimeException, MongoDBException, TransformerException, SolrServerException, MongoUpdateException {
     try {
       return invoke();
     } catch (JiBXException | IOException | IllegalAccessException | InstantiationException | NoSuchMethodException |
@@ -106,7 +108,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
 
   private ValidationTaskResult invoke() throws JiBXException, TransformerException, IOException,
       InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException,
-      InvocationTargetException, MongoDBException, MongoRuntimeException {
+      InvocationTargetException, MongoDBException, MongoRuntimeException, MongoUpdateException {
 
     final ValidationResult validationResult =
         applyCrosswalk ? validationUtils.validateRecordBeforeTransformation(incomingRecord)
@@ -127,7 +129,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
   private ValidationTaskResult handleValidatedResult(final ValidationResult validationResult)
       throws JiBXException, TransformerException, IOException, InstantiationException,
       IllegalAccessException, SolrServerException, NoSuchMethodException, InvocationTargetException,
-      MongoDBException, MongoRuntimeException {
+      MongoDBException, MongoRuntimeException, MongoUpdateException {
 
     // Transform the record (apply crosswalk) if necessary.
     final String resultRecord = applyCrosswalk ? transformRecord() : incomingRecord;
