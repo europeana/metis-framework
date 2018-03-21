@@ -256,6 +256,13 @@ public class TestObjectFactory {
     return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
   }
 
+  public static StatisticsReport createTaskStatisticsReport() {
+    List<NodeStatistics> nodeStatistics = new ArrayList<>();
+    nodeStatistics.add(new NodeStatistics("parentpath1", "path1", "value1", 1));
+    nodeStatistics.add(new NodeStatistics("parentpath2", "path2", "value2", 2));
+    return new StatisticsReport(EXTERNAL_TASK_ID, nodeStatistics);
+  }
+  
   public static DatasetXslt createXslt(Dataset dataset) {
     return new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
   }
