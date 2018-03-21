@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
+import java.io.*;
 import java.net.URL;
 
 /**
@@ -25,52 +22,46 @@ public class XsltTransformer {
     /**
      * Transforms given file based on a provided url to xslt file.
      *
-     * @param xsltUrl url to xslt file
+     * @param xsltUrl     url to xslt file
      * @param fileContent content of the file
-     * @param datasetIdValue value that will be injected to datasetId field
-     *
      * @return transformed file
-     *
      * @throws TransformationException
      */
-    public StringWriter transform(String xsltUrl, byte[] fileContent, String datasetIdValue) throws TransformationException {
-        Transformer transformer = null;
-        try {
-            transformer = getTransformer(xsltUrl);
-            addParameter(transformer, "datasetId", datasetIdValue);
-            return executeTransformation(transformer, fileContent);
-        } catch (IOException | TransformerException e) {
-            LOGGER.error("Exception during transformation", e);
-            throw new TransformationException(e);
-        }
+    public StringWriter transform(String xsltUrl, byte[] fileContent) throws TransformationException {
+        return transform(xsltUrl, fileContent, null);
     }
 
     /**
      * Transforms given file based on a provided url to xslt file.
      *
-     * @param xsltUrl url to xslt file
-     * @param fileContent content of the file
-     *
+     * @param xsltUrl        url to xslt file
+     * @param fileContent    content of the file
+     * @param datasetIdValue value that will be injected to datasetId field
      * @return transformed file
-     *
      * @throws TransformationException
      */
-    public StringWriter transform(String xsltUrl, byte[] fileContent) throws TransformationException {
-        Transformer transformer = null;
+    public StringWriter transform(String xsltUrl, byte[] fileContent, String datasetIdValue) throws TransformationException {
+        InputStream xsltStream = null;
+        InputStream contentStream = null;
         try {
-            transformer = getTransformer(xsltUrl);
-            return executeTransformation(transformer, fileContent);
+            xsltStream = new URL(xsltUrl).openStream();
+            Transformer transformer = getTransformer(xsltUrl, xsltStream);
+            addParameter(transformer, "datasetId", datasetIdValue);
+            contentStream = new ByteArrayInputStream(fileContent);
+            return executeTransformation(transformer, contentStream);
         } catch (IOException | TransformerException e) {
             LOGGER.error("Exception during transformation", e);
             throw new TransformationException(e);
+        } finally {
+            close(xsltStream);
+            close(contentStream);
         }
     }
 
-    private Transformer getTransformer(String xsltUrl) throws IOException, TransformerConfigurationException {
+    private Transformer getTransformer(String xsltUrl, InputStream xsltStream) throws TransformerConfigurationException {
         if (cache.containsKey(xsltUrl)) {
             return cache.get(xsltUrl);
         } else {
-            InputStream xsltStream = new URL(xsltUrl).openStream();
             Source xslDoc = new StreamSource(xsltStream);
             TransformerFactory tFactory = TransformerFactory.newInstance();
             Transformer transformer = tFactory.newTransformer(xslDoc);
@@ -79,9 +70,8 @@ public class XsltTransformer {
         }
     }
 
-    private StringWriter executeTransformation(Transformer transformer, byte[] fileContent) throws TransformerException {
-        InputStream stream = new ByteArrayInputStream(fileContent);
-        Source xmlDoc = new StreamSource(stream);
+    private StringWriter executeTransformation(Transformer transformer, InputStream contentStream) throws TransformerException {
+        Source xmlDoc = new StreamSource(contentStream);
         StringWriter writer = new StringWriter();
         transformer.transform(xmlDoc, new StreamResult(writer));
         return writer;
@@ -91,6 +81,16 @@ public class XsltTransformer {
 
         if (parameterValue != null && !parameterValue.isEmpty()) {
             transformer.setParameter(parameterName, parameterValue);
+        }
+    }
+
+    private void close(Closeable resource) {
+        if (resource != null) {
+            try {
+                resource.close();
+            } catch (IOException e) {
+                LOGGER.error("Exception while closing resource", e);
+            }
         }
     }
 }
