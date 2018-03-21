@@ -91,10 +91,10 @@ public class TestProxiesController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.id", is(TestObjectFactory.EXTERNAL_TASK_ID)))
         .andExpect(jsonPath("$.errors", hasSize(taskErrorsInfo.getErrors().size())))
-        .andExpect(jsonPath("$.errors[0].identifiers",
-            hasSize(taskErrorsInfo.getErrors().get(0).getIdentifiers().size())))
-        .andExpect(jsonPath("$.errors[1].identifiers",
-            hasSize(taskErrorsInfo.getErrors().get(1).getIdentifiers().size())));
+        .andExpect(jsonPath("$.errors[0].errorDetails",
+            hasSize(taskErrorsInfo.getErrors().get(0).getErrorDetails().size())))
+        .andExpect(jsonPath("$.errors[1].errorDetails",
+            hasSize(taskErrorsInfo.getErrors().get(1).getErrorDetails().size())));
   }
 
   @Test

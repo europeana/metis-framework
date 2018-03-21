@@ -1,10 +1,6 @@
 package eu.europeana.metis.dereference.rest;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
@@ -35,8 +31,6 @@ public class DereferencingController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingController.class);
 
-  private static final Charset URI_CHARSET = StandardCharsets.UTF_8;
-
   private final DereferenceService dereferenceService;
 
   /**
@@ -61,10 +55,9 @@ public class DereferencingController {
   @ApiOperation(value = "Dereference a URI", response = EnrichmentResultList.class)
   public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId) {
     try {
-      return dereferenceService.dereference(URLDecoder.decode(resourceId, URI_CHARSET.name()));
-    } catch (RuntimeException | JAXBException | TransformerException | IOException
-        | URISyntaxException e) {
-      LOGGER.debug("Problem occurred while dereferencing resource " + resourceId + ".", e);
+      return dereferenceService.dereference(resourceId);
+    } catch (RuntimeException | JAXBException | TransformerException | URISyntaxException e) {
+      LOGGER.warn("Problem occurred while dereferencing resource " + resourceId + ".", e);
       throw new DereferenceException(e.getMessage(), resourceId);
     }
   }

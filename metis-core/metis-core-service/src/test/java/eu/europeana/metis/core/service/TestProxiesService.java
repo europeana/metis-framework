@@ -116,7 +116,7 @@ public class TestProxiesService {
             TestObjectFactory.EXTERNAL_TASK_ID, 10);
 
     Assert.assertEquals(1, externalTaskReport.getErrors().size());
-    Assert.assertTrue(externalTaskReport.getErrors().get(0).getIdentifiers().size() != 0);
+    Assert.assertTrue(externalTaskReport.getErrors().get(0).getErrorDetails().size() != 0);
   }
 
   @Test(expected = ExternalTaskException.class)

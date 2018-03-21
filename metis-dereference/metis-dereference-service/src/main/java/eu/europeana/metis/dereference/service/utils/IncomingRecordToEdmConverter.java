@@ -2,6 +2,7 @@ package eu.europeana.metis.dereference.service.utils;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.regex.Pattern;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -19,6 +20,9 @@ import eu.europeana.metis.dereference.Vocabulary;
 public class IncomingRecordToEdmConverter {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IncomingRecordToEdmConverter.class);
+
+  private static final String EMPTY_XML_REGEX = "\\A(<\\?.*?\\?>|<!--.*?-->|\\s)*\\Z";
+  private static final Pattern EMPTY_XML_CHECKER = Pattern.compile(EMPTY_XML_REGEX, Pattern.DOTALL);
 
   /** Vocabulary XSLs require the resource ID as a parameter. This is the parameter name. **/
   private static final String TARGET_ID_PARAMETER_NAME = "targetId";
@@ -46,16 +50,38 @@ public class IncomingRecordToEdmConverter {
    */
   public String convert(String record, String recordId) {
     try {
+
+      // Perform the transformation.
       final Source source = new StreamSource(new StringReader(record));
       final StringWriter stringWriter = new StringWriter();
       final Transformer transformer = template.newTransformer();
       transformer.setParameter(TARGET_ID_PARAMETER_NAME, recordId);
       transformer.transform(source, new StreamResult(stringWriter));
-      return stringWriter.toString();
+      final String result = stringWriter.toString();
+
+      // Check whether there is a result (any tag in the file).
+      final boolean isEmpty = isEmptyXml(result);
+      if (isEmpty) {
+        LOGGER.info("Could not transform entity {} as it results is an empty XML.", recordId);
+      }
+      return isEmpty ? null : result;
+
     } catch (TransformerException e) {
       LOGGER.warn("Error transforming entity: {} with message: {}", recordId, e.getMessage());
       LOGGER.debug("Transformation issue: ", e);
       return null;
     }
+  }
+
+  /**
+   * This method analyzes the XML file and decides whether or not it has any content. Excluded are
+   * space characters, the XML header and XML comments. Note: if this method returns true, the input
+   * is not technically a valid XML as it doesn't have a root node.
+   * 
+   * @param file The input XML.
+   * @return Whether the XML has any content.
+   */
+  static boolean isEmptyXml(String file) {
+    return EMPTY_XML_CHECKER.matcher(file).matches();
   }
 }
