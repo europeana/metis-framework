@@ -37,8 +37,6 @@ public class WorkflowExecution implements HasMongoObjectId {
   @Indexed
   private String workflowOwner;
   @Indexed
-  private String workflowName;
-  @Indexed
   private WorkflowStatus workflowStatus;
   @Indexed
   private String ecloudDatasetId;
@@ -76,7 +74,6 @@ public class WorkflowExecution implements HasMongoObjectId {
       List<AbstractMetisPlugin> metisPlugins,
       int workflowPriority) {
     this.workflowOwner = workflow.getWorkflowOwner();
-    this.workflowName = workflow.getWorkflowName();
     this.datasetId = dataset.getDatasetId();
     this.ecloudDatasetId = dataset.getEcloudDatasetId();
     this.workflowPriority = workflowPriority;
@@ -146,14 +143,6 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   public void setWorkflowOwner(String workflowOwner) {
     this.workflowOwner = workflowOwner;
-  }
-
-  public String getWorkflowName() {
-    return workflowName;
-  }
-
-  public void setWorkflowName(String workflowName) {
-    this.workflowName = workflowName;
   }
 
   public WorkflowStatus getWorkflowStatus() {
@@ -235,8 +224,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     int result = 1;
     result = prime * result + ((id == null) ? 0 : id.hashCode());
     result = prime * result + Integer.hashCode(datasetId);
-    result = prime * result + ((workflowOwner == null) ? 0 : workflowOwner.hashCode());
-    return prime * result + ((workflowName == null) ? 0 : workflowName.hashCode());
+    return prime * result + ((workflowOwner == null) ? 0 : workflowOwner.hashCode());
   }
 
   @Override
@@ -249,8 +237,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     }
     WorkflowExecution that = (WorkflowExecution) obj;
     return (id == that.getId() && datasetId == that.datasetId && workflowOwner
-        .equals(that.workflowOwner)
-        && workflowName.equals(that.workflowName));
+        .equals(that.workflowOwner));
   }
 }
 

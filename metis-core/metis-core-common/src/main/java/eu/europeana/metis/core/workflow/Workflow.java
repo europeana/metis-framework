@@ -25,19 +25,16 @@ import org.mongodb.morphia.annotations.Indexes;
  */
 @Entity
 @Indexes(@Index(fields = {@Field("workflowOwner"),
-    @Field("workflowName")}, options = @IndexOptions(unique = true)))
-@JsonPropertyOrder({"id", "workflowOwner", "workflowName", "harvestPlugin", "transformPlugin",
-    "metisPluginMetadata"})
+    @Field("datasetId")}, options = @IndexOptions(unique = true)))
+@JsonPropertyOrder({"id", "datasetId", "workflowOwner", "metisPluginMetadata"})
 public class Workflow implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
+  private int datasetId;
   @Indexed
   private String workflowOwner;
-  @Indexed
-  private String workflowName;
-  private boolean harvestPlugin;
 
   @JacksonXmlElementWrapper(localName = "metisPluginsMetadatas")
   @JacksonXmlProperty(localName = "metisPluginsMetadata")
@@ -54,12 +51,12 @@ public class Workflow implements HasMongoObjectId {
     this.id = id;
   }
 
-  public boolean isHarvestPlugin() {
-    return harvestPlugin;
+  public int getDatasetId() {
+    return datasetId;
   }
 
-  public void setHarvestPlugin(boolean harvestPlugin) {
-    this.harvestPlugin = harvestPlugin;
+  public void setDatasetId(int datasetId) {
+    this.datasetId = datasetId;
   }
 
   public String getWorkflowOwner() {
@@ -68,14 +65,6 @@ public class Workflow implements HasMongoObjectId {
 
   public void setWorkflowOwner(String workflowOwner) {
     this.workflowOwner = workflowOwner;
-  }
-
-  public String getWorkflowName() {
-    return workflowName;
-  }
-
-  public void setWorkflowName(String workflowName) {
-    this.workflowName = workflowName;
   }
 
   public List<AbstractMetisPluginMetadata> getMetisPluginsMetadata() {
@@ -93,8 +82,7 @@ public class Workflow implements HasMongoObjectId {
    * @return {@link AbstractMetisPluginMetadata} corresponding to the concrete class
    */
   public AbstractMetisPluginMetadata getPluginMetadata(PluginType pluginType) {
-    for (AbstractMetisPluginMetadata metisPluginMetadata : metisPluginsMetadata
-        ) {
+    for (AbstractMetisPluginMetadata metisPluginMetadata : metisPluginsMetadata) {
       if (metisPluginMetadata.getPluginType() == pluginType) {
         return metisPluginMetadata;
       }

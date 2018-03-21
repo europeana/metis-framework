@@ -154,7 +154,7 @@ public class Application extends WebMvcConfigurerAdapter {
   public DatasetService getDatasetService(DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
-    return new DatasetService(datasetDao, datasetXsltDao, workflowExecutionDao,
+    return new DatasetService(datasetDao, datasetXsltDao, workflowDao, workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
   }
 

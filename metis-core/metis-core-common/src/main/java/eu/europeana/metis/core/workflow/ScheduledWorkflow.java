@@ -33,8 +33,6 @@ public class ScheduledWorkflow implements HasMongoObjectId {
   private Date pointerDate;
   @Indexed
   private String workflowOwner;
-  @Indexed
-  private String workflowName;
   private ScheduleFrequence scheduleFrequence;
   private int workflowPriority;
 
@@ -48,16 +46,13 @@ public class ScheduledWorkflow implements HasMongoObjectId {
    * @param pointerDate the {@link Date} that will be used as a pointer Date
    * @param datasetId identifier of the dataset for the scheduled workflow
    * @param workflowOwner the owner of the workflow
-   * @param workflowName the name of the workflow
    * @param scheduleFrequence the {@link ScheduleFrequence} for the workflow
    * @param workflowPriority the priority of the workflow when it is run
    */
-  public ScheduledWorkflow(Date pointerDate, int datasetId, String workflowOwner,
-      String workflowName, ScheduleFrequence scheduleFrequence, int workflowPriority) {
+  public ScheduledWorkflow(Date pointerDate, int datasetId, String workflowOwner, ScheduleFrequence scheduleFrequence, int workflowPriority) {
     this.pointerDate = pointerDate == null?null:new Date(pointerDate.getTime());
     this.datasetId = datasetId;
     this.workflowOwner = workflowOwner;
-    this.workflowName = workflowName;
     this.scheduleFrequence = scheduleFrequence;
     this.workflowPriority = workflowPriority;
   }
@@ -86,14 +81,6 @@ public class ScheduledWorkflow implements HasMongoObjectId {
 
   public void setWorkflowOwner(String workflowOwner) {
     this.workflowOwner = workflowOwner;
-  }
-
-  public String getWorkflowName() {
-    return workflowName;
-  }
-
-  public void setWorkflowName(String workflowName) {
-    this.workflowName = workflowName;
   }
 
   public Date getPointerDate() {

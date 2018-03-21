@@ -58,7 +58,8 @@ public class TestDatasetService {
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
 
-    datasetService = new DatasetService(datasetDao, datasetXsltDao, workflowExecutionDao,
+    datasetService = new DatasetService(datasetDao, datasetXsltDao, workflowDao,
+        workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
   }
 

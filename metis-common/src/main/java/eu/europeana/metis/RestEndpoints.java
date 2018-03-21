@@ -34,7 +34,7 @@ public final class RestEndpoints {
   public static final String AUTHENTICATION_USERS = "/authentication/users";
 
   //ORCHESTRATION
-  public static final String ORCHESTRATOR_WORKFLOWS = "/orchestrator/workflows";
+  public static final String ORCHESTRATOR_WORKFLOWS_DATASETID = "/orchestrator/workflows/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_OWNER = "/orchestrator/workflows/{workflowOwner}";
   public static final String ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE = "/orchestrator/workflows/{datasetId}/execute";
   public static final String ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT = "/orchestrator/workflows/{datasetId}/execute/direct";

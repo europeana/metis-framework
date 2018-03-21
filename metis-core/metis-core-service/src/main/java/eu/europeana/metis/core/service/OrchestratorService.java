@@ -6,10 +6,10 @@ import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -47,6 +47,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.redisson.api.RLock;
@@ -99,24 +101,53 @@ public class OrchestratorService {
     this.workflowExecutorManager.initiateConsumer();
   }
 
-  public void createWorkflow(Workflow workflow)
-      throws WorkflowAlreadyExistsException {
+  public void createWorkflow(int datasetId, Workflow workflow)
+      throws WorkflowAlreadyExistsException, NoDatasetFoundException {
+    if (datasetDao.getDatasetByDatasetId(datasetId) == null)
+      throw new NoDatasetFoundException(
+          String.format("Dataset with datasetId: %s does NOT exist", datasetId));
+    workflow.setDatasetId(datasetId);
     checkRestrictionsOnWorkflowCreate(workflow);
+    workflow.getMetisPluginsMetadata()
+        .forEach(abstractMetisPluginMetadata -> abstractMetisPluginMetadata.setEnabled(true));
     workflowDao.create(workflow);
   }
 
-  public void updateWorkflow(Workflow workflow) throws NoWorkflowFoundException {
-    String storedId = checkRestrictionsOnWorkflowUpdate(workflow);
-    workflow.setId(new ObjectId(storedId));
+  public void updateWorkflow(int datasetId, Workflow workflow)
+      throws NoWorkflowFoundException, NoDatasetFoundException {
+    if (datasetDao.getDatasetByDatasetId(datasetId) == null)
+      throw new NoDatasetFoundException(
+          String.format("Dataset with datasetId: %s does NOT exist", datasetId));
+    workflow.setDatasetId(datasetId);
+    Workflow storedWorkflow = checkRestrictionsOnWorkflowUpdate(workflow);
+    workflow.setId(storedWorkflow.getId());
+    overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(workflow, storedWorkflow);
+
     workflowDao.update(workflow);
   }
 
-  public void deleteWorkflow(String workflowOwner, String workflowName) {
-    workflowDao.deleteWorkflow(workflowOwner, workflowName);
+  private void overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(Workflow workflow,
+      Workflow storedWorkflow) {
+    //Overwrite only ones provided and disable the rest, already stored, plugins
+    workflow.getMetisPluginsMetadata()
+        .forEach(abstractMetisPluginMetadata -> abstractMetisPluginMetadata.setEnabled(true));
+    List<AbstractMetisPluginMetadata> storedPluginsExcludingNewPlugins = storedWorkflow
+        .getMetisPluginsMetadata()
+        .stream().filter(abstractMetisPluginMetadata ->
+            workflow.getPluginMetadata(abstractMetisPluginMetadata.getPluginType()) == null)
+        .peek(abstractMetisPluginMetadata -> abstractMetisPluginMetadata.setEnabled(false))
+        .collect(Collectors.toList());
+    storedPluginsExcludingNewPlugins.addAll(workflow.getMetisPluginsMetadata());
+    workflow.setMetisPluginsMetadata(Stream.concat(storedPluginsExcludingNewPlugins.stream(),
+        workflow.getMetisPluginsMetadata().stream()).collect(Collectors.toList()));
   }
 
-  public Workflow getWorkflow(String workflowOwner, String workflowName) {
-    return workflowDao.getWorkflow(workflowOwner, workflowName);
+  public void deleteWorkflow(String workflowOwner, int datasetId) {
+    workflowDao.deleteWorkflow(workflowOwner, datasetId);
+  }
+
+  public Workflow getWorkflow(String workflowOwner, int datasetId) {
+    return workflowDao.getWorkflow(workflowOwner, datasetId);
   }
 
   public List<Workflow> getAllWorkflows(String workflowOwner, int nextPage) {
@@ -128,12 +159,11 @@ public class OrchestratorService {
   }
 
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
-      String workflowOwner, String workflowName,
-      PluginType enforcedPluginType, int priority)
+      String workflowOwner, PluginType enforcedPluginType, int priority)
       throws GenericMetisException {
 
     Dataset dataset = checkDatasetExistence(datasetId);
-    Workflow workflow = checkWorkflowExistence(workflowOwner, workflowName);
+    Workflow workflow = checkWorkflowExistence(workflowOwner, datasetId);
     checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
@@ -164,7 +194,6 @@ public class OrchestratorService {
       throws GenericMetisException {
     Dataset dataset = checkDatasetExistence(datasetId);
     //Generate uuid workflowName and check if by any chance it exists.
-    workflow.setWorkflowName(new ObjectId().toString());
     checkRestrictionsOnWorkflowCreate(workflow);
     checkAndCreateDatasetInEcloud(dataset);
 
@@ -195,31 +224,29 @@ public class OrchestratorService {
       throws PluginExecutionNotAllowed {
     List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
 
-    boolean firstPluginDefined = addHarvestingPlugin(dataset, workflow, metisPlugins);
+    boolean firstPluginDefined = addHarvestingPlugin(workflow, metisPlugins);
     addProcessPlugins(dataset, workflow, enforcedPluginType, metisPlugins, firstPluginDefined);
     return metisPlugins;
   }
 
-  private boolean addHarvestingPlugin(Dataset dataset, Workflow workflow,
+  private boolean addHarvestingPlugin(Workflow workflow,
       List<AbstractMetisPlugin> metisPlugins) {
-    AbstractMetisPluginMetadata harvestingMetadata = dataset.getHarvestingMetadata();
-    if (workflow.isHarvestPlugin()) {
-      switch (harvestingMetadata.getPluginType()) {
-        case HTTP_HARVEST:
-          HTTPHarvestPlugin httpHarvestPlugin = new HTTPHarvestPlugin(harvestingMetadata);
-          httpHarvestPlugin
-              .setId(new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
-          metisPlugins.add(httpHarvestPlugin);
-          return true;
-        case OAIPMH_HARVEST:
-          OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(harvestingMetadata);
-          oaipmhHarvestPlugin
-              .setId(new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
-          metisPlugins.add(oaipmhHarvestPlugin);
-          return true;
-        default:
-          break;
-      }
+    AbstractMetisPluginMetadata pluginMetadata = workflow
+        .getPluginMetadata(PluginType.OAIPMH_HARVEST);
+    if (pluginMetadata != null && pluginMetadata.isEnabled()) {
+      OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(pluginMetadata);
+      oaipmhHarvestPlugin
+          .setId(new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
+      metisPlugins.add(oaipmhHarvestPlugin);
+      return true;
+    }
+    pluginMetadata = workflow.getPluginMetadata(PluginType.HTTP_HARVEST);
+    if (pluginMetadata != null && pluginMetadata.isEnabled()) {
+      HTTPHarvestPlugin httpHarvestPlugin = new HTTPHarvestPlugin(pluginMetadata);
+      httpHarvestPlugin
+          .setId(new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
+      metisPlugins.add(httpHarvestPlugin);
+      return true;
     }
     return false;
   }
@@ -243,7 +270,7 @@ public class OrchestratorService {
       PluginType enforcedPluginType, List<AbstractMetisPlugin> metisPlugins,
       boolean firstPluginDefined, PluginType pluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPluginMetadata pluginMetadata = workflow.getPluginMetadata(pluginType);
-    if (pluginMetadata != null) {
+    if (pluginMetadata != null && pluginMetadata.isEnabled()) {
       if (!firstPluginDefined) {
         AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
             dataset.getDatasetId(), pluginMetadata.getPluginType(), enforcedPluginType);
@@ -321,24 +348,23 @@ public class OrchestratorService {
 
     if (StringUtils.isNotEmpty(workflowExists(workflow))) {
       throw new WorkflowAlreadyExistsException(String.format(
-          "Workflow with workflowOwner: %s, and workflowName: %s, already exists",
-          workflow.getWorkflowOwner(), workflow.getWorkflowName()));
+          "Workflow with workflowOwner: %s, and datasetId: %s, already exists",
+          workflow.getWorkflowOwner(), workflow.getDatasetId()));
     }
   }
 
-  private String checkRestrictionsOnWorkflowUpdate(Workflow workflow)
+  private Workflow checkRestrictionsOnWorkflowUpdate(Workflow workflow)
       throws NoWorkflowFoundException {
 
-    String storedId = workflowExists(workflow);
-    if (StringUtils.isEmpty(storedId)) {
+    Workflow storedWorkflow = getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId());
+    if (storedWorkflow == null) {
       throw new NoWorkflowFoundException(String.format(
-          "Workflow with workflowOwner: %s, and workflowName: %s, not found",
+          "Workflow with workflowOwner: %s, and datasetId: %s, not found",
           workflow.getWorkflowOwner(),
-          workflow
-              .getWorkflowName()));
+          workflow.getDatasetId()));
     }
 
-    return storedId;
+    return storedWorkflow;
   }
 
   private String workflowExists(Workflow workflow) {
@@ -380,11 +406,10 @@ public class OrchestratorService {
 
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
       String workflowOwner,
-      String workflowName,
       Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending,
       int nextPage) {
     return workflowExecutionDao
-        .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName,
+        .getAllWorkflowExecutions(datasetId, workflowOwner,
             workflowStatuses,
             orderField, ascending, nextPage);
   }
@@ -420,14 +445,14 @@ public class OrchestratorService {
     return dataset;
   }
 
-  private Workflow checkWorkflowExistence(String workflowOwner, String workflowName)
+  private Workflow checkWorkflowExistence(String workflowOwner, int datasetId)
       throws NoWorkflowFoundException {
     Workflow workflow = workflowDao
-        .getWorkflow(workflowOwner, workflowName);
+        .getWorkflow(workflowOwner, datasetId);
     if (workflow == null) {
       throw new NoWorkflowFoundException(String.format(
-          "No workflow found with workflowOwner: %s, and workflowName: %s, in METIS",
-          workflowOwner, workflowName));
+          "No workflow found with workflowOwner: %s, and datasetId: %s, in METIS",
+          workflowOwner, datasetId));
     }
     return workflow;
   }
@@ -454,7 +479,7 @@ public class OrchestratorService {
       NoWorkflowFoundException, NoDatasetFoundException, ScheduledWorkflowAlreadyExistsException, BadContentException {
     checkDatasetExistence(scheduledWorkflow.getDatasetId());
     checkWorkflowExistence(scheduledWorkflow.getWorkflowOwner(),
-        scheduledWorkflow.getWorkflowName());
+        scheduledWorkflow.getDatasetId());
     checkScheduledWorkflowExistenceForDatasetId(scheduledWorkflow.getDatasetId());
     if (scheduledWorkflow.getPointerDate() == null) {
       throw new BadContentException("PointerDate cannot be null");
@@ -469,7 +494,7 @@ public class OrchestratorService {
       ScheduledWorkflow scheduledWorkflow)
       throws NoScheduledWorkflowFoundException, BadContentException, NoWorkflowFoundException {
     checkWorkflowExistence(scheduledWorkflow.getWorkflowOwner(),
-        scheduledWorkflow.getWorkflowName());
+        scheduledWorkflow.getDatasetId());
     String storedId = scheduledWorkflowDao.existsForDatasetId(scheduledWorkflow.getDatasetId());
     if (StringUtils.isEmpty(storedId)) {
       throw new NoScheduledWorkflowFoundException(String.format(
