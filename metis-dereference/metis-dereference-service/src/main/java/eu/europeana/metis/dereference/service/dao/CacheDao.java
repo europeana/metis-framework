@@ -1,12 +1,12 @@
 package eu.europeana.metis.dereference.service.dao;
 
+import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.dereference.ProcessedEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
-import java.io.IOException;
 
 
 /**
@@ -43,7 +43,7 @@ public class CacheDao implements AbstractDao<ProcessedEntity> {
   @Override
   public void save(ProcessedEntity entity) {
     try {
-      jedis.set(entity.getURI(), om.writeValueAsString(entity));
+      jedis.set(entity.getResourceId(), om.writeValueAsString(entity));
     } catch (JsonProcessingException e) {
       LOGGER.warn("Unable to save entity", e);
     }

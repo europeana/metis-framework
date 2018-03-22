@@ -2,12 +2,11 @@ package eu.europeana.metis.dereference.service;
 
 import java.io.StringReader;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
-import eu.europeana.metis.dereference.service.utils.VocabularyMatchUtils;
+import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
 
 /**
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.
@@ -81,17 +80,35 @@ public class MongoDereferenceService implements DereferenceService {
   private EnrichmentBase retrieveCachedEntity(String resourceId)
       throws JAXBException, TransformerException, URISyntaxException {
 
-    // Try to get it from the cache.
+    // Try to get the entity and its vocabulary from the cache.
     final ProcessedEntity cachedEntity = cacheDao.get(resourceId);
-    String entityString = cachedEntity != null ? cachedEntity.getXml() : null;
+    String entityString = null;
+    Vocabulary vocabulary = null;
+    if (cachedEntity != null) {
+      entityString = cachedEntity.getXml();
+      vocabulary = cachedEntity.getVocabularyId() == null ? null
+          : vocabularyDao.get(cachedEntity.getVocabularyId());
+    }
 
-    // If it is not in the cache, get it from the source vocabulary and cache it.
-    if (entityString == null) {
-      entityString = retrieveTransformedEntity(resourceId);
-      if (entityString != null) {
+    // If we have the entity, but the vocabulary ID is no longer registered, try to get the
+    // vocabulary without resolving the resource.
+    final VocabularyCandidates candidates =
+        VocabularyCandidates.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
+    if (entityString != null && vocabulary == null) {
+      vocabulary = candidates.findVocabularyWithoutTypeRules();
+    }
+
+    // If not in the cache, or no vocabulary was found, we need to resolve the resource.
+    if (entityString == null || vocabulary == null) {
+      final Pair<String, Vocabulary> transformedEntity =
+          retrieveTransformedEntity(resourceId, candidates);
+      if (transformedEntity != null) {
+        entityString = transformedEntity.getLeft();
+        vocabulary = transformedEntity.getRight();
         final ProcessedEntity entityToCache = new ProcessedEntity();
         entityToCache.setXml(entityString);
-        entityToCache.setURI(resourceId);
+        entityToCache.setResourceId(resourceId);
+        entityToCache.setVocabularyId(vocabulary.getId());
         cacheDao.save(entityToCache);
       }
     }
@@ -110,59 +127,37 @@ public class MongoDereferenceService implements DereferenceService {
     return result;
   }
 
-  private String retrieveTransformedEntity(String resourceId)
-      throws URISyntaxException, TransformerException {
-
-    // Get the vocabularies that potentially match the given resource ID.
-    final List<Vocabulary> vocabularyCandidates =
-        VocabularyMatchUtils.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
+  private Pair<String, Vocabulary> retrieveTransformedEntity(String resourceId,
+      VocabularyCandidates candidates) throws TransformerException {
 
     // Get the original entity given the list of vocabulary candidates
-    final String originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
+    final String originalEntity = retrieveOriginalEntity(resourceId, candidates);
+
+    // If we could not resolve the entity, or there was no vocabulary, we are done.
     if (originalEntity == null) {
       return null;
     }
-    
-    // Try to find the vocabulary.
-    final Vocabulary vocabulary;
-    if (vocabularyCandidates.isEmpty()) {
-      vocabulary = null;
-    } else {
-      vocabulary = VocabularyMatchUtils.findVocabularyForType(vocabularyCandidates, originalEntity,
-          resourceId);
-    }
 
-    // Check vocabulary existence
+    // Try to find the vocabulary.
+    final Vocabulary vocabulary = candidates.findVocabularyForType(originalEntity);
     if (vocabulary == null) {
-      LOGGER.debug("Could not find vocabulary for resource {}.", resourceId);
       return null;
     }
 
     // Transform the original entity.
-    return new IncomingRecordToEdmConverter(vocabulary).convert(originalEntity, resourceId);
+    final IncomingRecordToEdmConverter converter = new IncomingRecordToEdmConverter(vocabulary);
+    final String transformedEntity = converter.convert(originalEntity, resourceId);
+    return new ImmutablePair<>(transformedEntity, vocabulary);
   }
 
-  private String retrieveOriginalEntity(String resourceId, List<Vocabulary> vocabularyCandidates) {
-
-    // Sanity check
-    if (vocabularyCandidates.isEmpty()) {
+  private String retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates) {
+    if (candidates.isEmpty()) {
       return null;
     }
-
-    // Obtain the possible suffixes to check from the vocabulary candidates. Note that all the
-    // vocabulary candidates must at this point represent the same vocabulary, so the number of
-    // suffixes should be very limited (1, if all vocabularies are configured the same way).
-    final Set<String> possibleSuffixes = vocabularyCandidates.stream()
-        .map(vocabulary -> vocabulary.getSuffix() == null ? "" : vocabulary.getSuffix())
-        .collect(Collectors.toSet());
-
-    // Obtain the original entity
-    final String originalEntity = retriever.retrieve(resourceId, possibleSuffixes);
+    final String originalEntity = retriever.retrieve(resourceId, candidates.getCandidateSuffixes());
     if (originalEntity == null) {
       LOGGER.info("No entity XML for uri {}", resourceId);
     }
-
-    // Done
     return originalEntity;
   }
 }
