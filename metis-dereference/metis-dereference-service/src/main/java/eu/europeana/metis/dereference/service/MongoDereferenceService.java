@@ -2,6 +2,12 @@ package eu.europeana.metis.dereference.service;
 
 import java.io.StringReader;
 import java.net.URISyntaxException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Stream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
@@ -10,13 +16,19 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Part;
+import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.enrichment.api.external.model.Resource;
+import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.service.utils.GraphUtils;
 import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
@@ -59,25 +71,89 @@ public class MongoDereferenceService implements DereferenceService {
       throw new IllegalArgumentException("Parameter resourceId cannot be null.");
     }
 
-    // First try to get the entity from the entity collection.
-    EnrichmentBase enrichedEntity = enrichmentClient.getByUri(resourceId);
-
-    // Otherwise, get it from the source.
+    // First look in the Europeana entity collection. Otherwise get it from the source.
+    final EnrichmentBase enrichedEntity = enrichmentClient.getByUri(resourceId);
+    final Collection<EnrichmentBase> resultList;
     if (enrichedEntity == null) {
-      enrichedEntity = retrieveCachedEntity(resourceId);
+      resultList = dereferenceFromSource(resourceId);
+    } else {
+      resultList = Collections.singleton(enrichedEntity);
     }
 
     // Prepare the result: empty if we didn't find an entity.
-    final EnrichmentResultList result = new EnrichmentResultList();
-    if (enrichedEntity != null) {
-      result.getResult().add(enrichedEntity);
+    return new EnrichmentResultList(resultList);
+  }
+
+  /**
+   * <p>
+   * This method dereferences a resource. If the resource's vocabulary specifies a positive
+   * iteration count, this method also repeatedly retrieves the 'broader' resources and returns
+   * those as well.
+   * </p>
+   * <p>
+   * A resource has references to its 'broader' resources (see
+   * {@link #extractBroaderResources(EnrichmentBase, Set)}). As such, the resources form a directed
+   * graph and the iteration count is the distance from the requested resource. This method performs
+   * a breadth-first search through this graph to retrieve all resources within a certain distance
+   * from the requested resource.
+   * </p>
+   * 
+   * @param resourceId The resource to dereference.
+   * @return A collection of dereferenced resources.
+   * @throws JAXBException
+   * @throws TransformerException
+   * @throws URISyntaxException
+   */
+  private Collection<EnrichmentBase> dereferenceFromSource(String resourceId)
+      throws JAXBException, TransformerException, URISyntaxException {
+
+    // Get the main object to dereference. If null, we are done.
+    final Pair<EnrichmentBase, Vocabulary> resource = retrieveCachedEntity(resourceId);
+    if (resource == null) {
+      return Collections.emptyList();
     }
 
-    // Done.
+    // Create value resolver that catches exceptions and logs them.
+    final Function<String, EnrichmentBase> valueResolver = key -> {
+      Pair<EnrichmentBase, Vocabulary> result;
+      try {
+        result = retrieveCachedEntity(key);
+        return result == null ? null : result.getLeft();
+      } catch (JAXBException | TransformerException | URISyntaxException e) {
+        LOGGER.warn("Problem occurred while dereferencing broader resource " + key + ".", e);
+        return null;
+      }
+    };
+
+    // Perform the breadth-first search to search for broader terms (if needed).
+    final int iterations = resource.getRight().getIterations();
+    final Collection<EnrichmentBase> result;
+    if (iterations > 0) {
+      result = GraphUtils.breadthFirstSearch(resourceId, resource.getLeft(),
+          resource.getRight().getIterations(), valueResolver, this::extractBroaderResources);
+    } else {
+      result = Collections.singleton(resource.getLeft());
+    }
+
+    // Done
     return result;
   }
 
-  private EnrichmentBase retrieveCachedEntity(String resourceId)
+  private void extractBroaderResources(EnrichmentBase resource, Set<String> destination) {
+    final Stream<String> resourceIdStream;
+    if (resource instanceof Concept) {
+      resourceIdStream = ((Concept) resource).getBroader().stream().map(Resource::getResource);
+    } else if (resource instanceof Timespan) {
+      resourceIdStream = ((Timespan) resource).getIsPartOfList().stream().map(Part::getResource);
+    } else if (resource instanceof Place) {
+      resourceIdStream = ((Place) resource).getIsPartOfList().stream().map(Part::getResource);
+    } else {
+      resourceIdStream = Stream.empty();
+    }
+    resourceIdStream.filter(Objects::nonNull).forEach(destination::add);
+  }
+
+  private Pair<EnrichmentBase, Vocabulary> retrieveCachedEntity(String resourceId)
       throws JAXBException, TransformerException, URISyntaxException {
 
     // Try to get the entity and its vocabulary from the cache.
@@ -114,11 +190,13 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     // Parse the entity.
-    final EnrichmentBase result;
-    if (entityString != null) {
+    final Pair<EnrichmentBase, Vocabulary> result;
+    if (entityString != null && vocabulary != null) {
       final StringReader reader = new StringReader(entityString);
       final JAXBContext context = JAXBContext.newInstance(EnrichmentBase.class);
-      result = (EnrichmentBase) context.createUnmarshaller().unmarshal(reader);
+      final EnrichmentBase resource =
+          (EnrichmentBase) context.createUnmarshaller().unmarshal(reader);
+      result = new ImmutablePair<>(resource, vocabulary);
     } else {
       result = null;
     }
