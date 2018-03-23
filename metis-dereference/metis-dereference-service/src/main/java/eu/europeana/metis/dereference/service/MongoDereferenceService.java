@@ -142,15 +142,19 @@ public class MongoDereferenceService implements DereferenceService {
   private void extractBroaderResources(EnrichmentBase resource, Set<String> destination) {
     final Stream<String> resourceIdStream;
     if (resource instanceof Concept) {
-      resourceIdStream = ((Concept) resource).getBroader().stream().map(Resource::getResource);
+      resourceIdStream = getStream(((Concept) resource).getBroader()).map(Resource::getResource);
     } else if (resource instanceof Timespan) {
-      resourceIdStream = ((Timespan) resource).getIsPartOfList().stream().map(Part::getResource);
+      resourceIdStream = getStream(((Timespan) resource).getIsPartOfList()).map(Part::getResource);
     } else if (resource instanceof Place) {
-      resourceIdStream = ((Place) resource).getIsPartOfList().stream().map(Part::getResource);
+      resourceIdStream = getStream(((Place) resource).getIsPartOfList()).map(Part::getResource);
     } else {
       resourceIdStream = Stream.empty();
     }
     resourceIdStream.filter(Objects::nonNull).forEach(destination::add);
+  }
+
+  private static <T> Stream<T> getStream(Collection<T> collection) {
+    return collection == null ? Stream.empty() : collection.stream();
   }
 
   private Pair<EnrichmentBase, Vocabulary> retrieveCachedEntity(String resourceId)
