@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -23,7 +24,7 @@ public class EnrichmentResultList {
 
   public EnrichmentResultList() {}
 
-  public EnrichmentResultList(List<EnrichmentBase> result) {
+  public EnrichmentResultList(Collection<EnrichmentBase> result) {
     this.result.addAll(result);
   }
 

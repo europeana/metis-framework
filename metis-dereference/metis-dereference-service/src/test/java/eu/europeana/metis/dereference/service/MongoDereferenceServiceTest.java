@@ -69,7 +69,7 @@ public class MongoDereferenceServiceTest {
         geonames.setUri("http://sws.geonames.org/");
         geonames.setXslt(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")));
         geonames.setName("Geonames");
-        geonames.setIterations(0);
+        geonames.setIterations(1);
         String geonamesId = vocabularyDao.save(geonames);
         
         EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
