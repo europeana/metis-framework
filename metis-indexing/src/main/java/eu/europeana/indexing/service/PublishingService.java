@@ -1,5 +1,30 @@
 package eu.europeana.indexing.service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.io.IOUtils;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrInputDocument;
+import org.jibx.runtime.BindingDirectory;
+import org.jibx.runtime.IBindingFactory;
+import org.jibx.runtime.IMarshallingContext;
+import org.jibx.runtime.IUnmarshallingContext;
+import org.jibx.runtime.JiBXException;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import eu.europeana.corelib.definitions.edm.entity.Proxy;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.definitions.solr.DocType;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.edm.utils.construct.AgentUpdater;
 import eu.europeana.corelib.edm.utils.construct.AggregationUpdater;
 import eu.europeana.corelib.edm.utils.construct.ConceptUpdater;
@@ -9,11 +34,6 @@ import eu.europeana.corelib.edm.utils.construct.PlaceUpdater;
 import eu.europeana.corelib.edm.utils.construct.ProvidedChoUpdater;
 import eu.europeana.corelib.edm.utils.construct.ProxyUpdater;
 import eu.europeana.corelib.edm.utils.construct.ServiceUpdater;
-import eu.europeana.corelib.definitions.edm.entity.Proxy;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.solr.DocType;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.edm.utils.construct.TimespanUpdater;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
@@ -29,28 +49,8 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import eu.europeana.indexing.IndexingException;
 import eu.europeana.indexing.service.dao.FullBeanDao;
-import eu.europeana.metis.exception.IndexingException;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-import org.apache.commons.io.IOUtils;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrInputDocument;
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IMarshallingContext;
-import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PublishingService {
   
@@ -74,7 +74,7 @@ public class PublishingService {
   	  this.solrServer = solrServer;
     }
 
-    public boolean process(String record) throws IndexingException
+    public void process(String record) throws IndexingException
     {    	
     	LOGGER.info("Processing record...");
 		
@@ -87,7 +87,7 @@ public class PublishingService {
 		try {
 			rdf = toRDF(record);
 		} catch (JiBXException e) {
-			throw new IndexingException("Could not convert record to RDF.", e.getCause());
+			throw new IndexingException("Could not convert record to RDF.", e);
 		} 
     	
     	FullBeanImpl fBean = null;
@@ -96,18 +96,17 @@ public class PublishingService {
     		try {
     			fBean = new MongoConstructor().constructFullBean(rdf);
     		} catch (InstantiationException | IllegalAccessException | IOException e) {
-    			throw new IndexingException("Could not construct FullBean using MongoConstructor.", e.getCause());
+    			throw new IndexingException("Could not construct FullBean using MongoConstructor.", e);
     		}
     	}
     	      	
     	if (fBean != null) {
     		processFullBean(fBean, fullBeanDao, solrServer);
     		LOGGER.info("Successfully processed record.");
-            return true;
+    	} else {
+    	  // This should not happen.
+          throw new IndexingException("Could not construct FullBean using MongoConstructor: null was returned.", null);
     	}
-    	
-		LOGGER.debug("Failed to process record.");
-    	return false;
     }
     
     private static void processFullBean(FullBeanImpl fBean, FullBeanDao fullBeanDao, SolrServer cloudSolrServer) throws IndexingException {
@@ -119,20 +118,20 @@ public class PublishingService {
 		try {
 			solrInputDoc = solrDocHandler.generate(fBean);
 		} catch (SolrServerException e) {
-			throw new IndexingException("Could not generate Solr input document.", e.getCause());
+			throw new IndexingException("Could not generate Solr input document.", e);
 		}
 
 		try {
 			cloudSolrServer.add(solrInputDoc);
 		} catch (IOException | SolrServerException e) {
-			throw new IndexingException("Could not add Solr input document to Solr server.", e.getCause());
+			throw new IndexingException("Could not add Solr input document to Solr server.", e);
 		}
 		    		  
         if (fBean.getAbout() == null) {
             try {
 				saveEdmClasses(fBean, true, fullBeanDao);
 			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | MongoDBException e) {
-				throw new IndexingException("Could not save EDM classes of FullBean to Mongo.", e.getCause());
+				throw new IndexingException("Could not save EDM classes of FullBean to Mongo.", e);
 			}
             
             fullBeanDao.save(fBean);
@@ -140,7 +139,7 @@ public class PublishingService {
             try {
 				updateFullBean(fBean, fullBeanDao);
 			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | MongoDBException e) {
-				throw new IndexingException("Could not update FullBean.", e.getCause());
+				throw new IndexingException("Could not update FullBean.", e);
 			}
         } 
     }
