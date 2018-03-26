@@ -23,7 +23,7 @@ public class EntityService {
 		this.mongoPort = mongoPort;
 	}
 
-	public OrganizationTermList storeOrganization(Organization org) {
+	public OrganizationTermList storeOrganization(Organization org, Date created, Date modified) {
 		MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
 
 		// delete old references
@@ -32,9 +32,12 @@ public class EntityService {
 		// build term list
 		OrganizationTermList termList = organizationToOrganizationTermList(
 				(OrganizationImpl) org);
-		Date now = new Date();
-		termList.setCreated(now);
-		termList.setModified(now);
+		//enforce created not null
+		if(created != null)
+			termList.setCreated(created);
+		else 
+			termList.setCreated(new Date());
+		termList.setModified(modified);
 
 		// store labels
 		int newLabels = MongoDatabaseUtils.storeEntityLabels(

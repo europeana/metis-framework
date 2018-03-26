@@ -79,14 +79,12 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	 * @return The value of Zoho 'content' field for passed 'val' field
 	 */
 	private String getContent(String fieldName) {
-		String res = "";
-
 		ZohoResponseField zohoFieldObject = new ZohoResponseField();
 		zohoFieldObject.setVal(fieldName);
 		int fieldIndex = organizationFields.indexOf(zohoFieldObject);
-		if (fieldIndex != -1)
-			res = organizationFields.get(fieldIndex).getContent();
-		return res;
+		if (fieldIndex > -1)
+			return organizationFields.get(fieldIndex).getContent();
+		return null;
 	}
 
 	@Override
@@ -178,6 +176,8 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 			if (StringUtils.isNotBlank(fieldValue))
 				res.add(fieldValue);
 		}
+		if(res.isEmpty())
+			return null;
 		return res;
 	}
 
