@@ -205,7 +205,7 @@ public class MediaProcessor implements Closeable {
 					audioStream = stream;
 			}
 			if (videoStream != null) {
-				resource.setDuration(videoStream.getDouble("duration") * 1000);
+				resource.setDuration(videoStream.getDouble("duration"));
 				resource.setBitrate(videoStream.getInt("bit_rate"));
 				resource.setWidth(videoStream.getInt("width"));
 				resource.setHeight(videoStream.getInt("height"));
@@ -215,7 +215,7 @@ public class MediaProcessor implements Closeable {
 				double frameRate = Double.parseDouble(frameRateParts[0]) / Double.parseDouble(frameRateParts[1]);
 				resource.setFrameRete(frameRate);
 			} else if (audioStream != null) {
-				resource.setDuration(audioStream.getDouble("duration") * 1000);
+				resource.setDuration(audioStream.getDouble("duration"));
 				resource.setBitrate(audioStream.getInt("bit_rate"));
 				resource.setCahhnels(audioStream.getInt("channels"));
 				resource.setSampleRate(audioStream.getInt("sample_rate"));

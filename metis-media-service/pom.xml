@@ -21,6 +21,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>eu.europeana.corelib</groupId>
+			<artifactId>corelib-edm-definitions</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20171018</version>

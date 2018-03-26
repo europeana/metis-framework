@@ -1,140 +1,160 @@
 package eu.europeana.metis.mediaservice;
 
-import java.util.ArrayList;
+import java.math.BigInteger;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import eu.europeana.corelib.definitions.jibx.AudioChannelNumber;
+import eu.europeana.corelib.definitions.jibx.BitRate;
+import eu.europeana.corelib.definitions.jibx.CodecName;
+import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
+import eu.europeana.corelib.definitions.jibx.DoubleType;
+import eu.europeana.corelib.definitions.jibx.Duration;
+import eu.europeana.corelib.definitions.jibx.HasColorSpace;
+import eu.europeana.corelib.definitions.jibx.HasMimeType;
+import eu.europeana.corelib.definitions.jibx.Height;
+import eu.europeana.corelib.definitions.jibx.HexBinaryType;
+import eu.europeana.corelib.definitions.jibx.IntegerType;
+import eu.europeana.corelib.definitions.jibx.LongType;
+import eu.europeana.corelib.definitions.jibx.NonNegativeIntegerType;
+import eu.europeana.corelib.definitions.jibx.OrientationType;
+import eu.europeana.corelib.definitions.jibx.SampleRate;
+import eu.europeana.corelib.definitions.jibx.SampleSize;
+import eu.europeana.corelib.definitions.jibx.SpatialResolution;
+import eu.europeana.corelib.definitions.jibx.StringType;
+import eu.europeana.corelib.definitions.jibx.Type1;
+import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.corelib.definitions.jibx.Width;
 
 public class WebResource {
-	private final Element element;
+	private final WebResourceType resource;
 	
-	WebResource(Element element) {
-		this.element = element;
+	WebResource(WebResourceType resource) {
+		this.resource = resource;
 	}
 	
 	public void setWidth(int width) {
-		setValues(NS.EBUCORE, "width", Type.INT, width);
+		resource.setWidth(intVal(new Width(), width));
 	}
 	
 	public void setHeight(int height) {
-		setValues(NS.EBUCORE, "height", Type.INT, height);
+		resource.setHeight(intVal(new Height(), height));
 	}
 
 	public void setMimeType(String mimeType) {
-		setValues(NS.EBUCORE, "hasMimeType", null, mimeType);
+		HasMimeType hasMimeType = new HasMimeType();
+		hasMimeType.setHasMimeType(mimeType);
+		resource.setHasMimeType(hasMimeType);
 	}
 	
 	public void setFileSize(long fileSize) {
-		setValues(NS.EBUCORE, "fileByteSize", Type.LONG, fileSize);
+		resource.setFileByteSize(longVal(fileSize));
 	}
 	
 	public void setColorspace(String colorspace) {
 		if (!"grayscale".equals(colorspace) && !"sRGB".equals(colorspace))
 			throw new IllegalArgumentException("Unrecognized color space: " + colorspace);
-		setValues(NS.EDM, "hasColorSpace", null, colorspace);
+		HasColorSpace hasColorSpace = new HasColorSpace();
+		hasColorSpace.setHasColorSpace("sRGB".equals(colorspace) ? ColorSpaceType.S_RGB : ColorSpaceType.GRAYSCALE);
+		resource.setHasColorSpace(hasColorSpace);
 	}
 	
 	public void setOrientation(boolean landscape) {
-		setValues(NS.EDM, "orientation", Type.STRING, landscape ? "landscape" : "portrait");
+		resource.setOrientation(stringVal(new OrientationType(), landscape ? "landscape" : "portrait"));
 	}
 	
 	public void setDominantColors(List<String> dominantColors) {
-		setValues(NS.EDM, "componentColor", null, dominantColors.stream()
+		resource.setComponentColorList(dominantColors.stream()
 				.peek(c -> {
 					if (!c.matches("[0-9A-F]{6}"))
 						throw new IllegalArgumentException();
 				})
 				.map(c -> "#" + c) // TODO dominant colors start with '#' due to legacy systems
-				.toArray());
+				.map(c -> {
+					HexBinaryType hex = new HexBinaryType();
+					hex.setString(c);
+					hex.setDatatype("http://www.w3.org/2001/XMLSchema#hexBinary");
+					return hex;
+				})
+				.collect(Collectors.toList()));
 	}
 	
+	/** @param duration duration in seconds */
 	public void setDuration(double duration) {
-		setValues(NS.EDM, "duration", null, duration);
+		Duration duration2 = new Duration();
+		duration2.setDuration(Integer.toString((int) Math.round(duration * 1000)));
+		resource.setDuration(duration2);
 	}
 	
 	public void setBitrate(int bitrate) {
-		setValues(NS.EDM, "bitRate", Type.UINT, bitrate);
+		resource.setBitRate(uintVal(new BitRate(), bitrate));
 	}
 
 	public void setFrameRete(double frameRate) {
-		setValues(NS.EDM, "frameRate", Type.DOUBLE, frameRate);
+		resource.setFrameRate(doubleVal(frameRate));
 	}
 
 	public void setCodecName(String codecName) {
-		setValues(NS.EDM, "codecName", null, codecName);
+		CodecName codecName2 = new CodecName();
+		codecName2.setCodecName(codecName);
+		resource.setCodecName(codecName2);
 	}
 	
 	public void setCahhnels(int channels) {
-		setValues(NS.EDM, "audioChannelNumber", Type.UINT, channels);
+		resource.setAudioChannelNumber(uintVal(new AudioChannelNumber(), channels));
 	}
 	
 	public void setSampleRate(int sampleRate) {
-		setValues(NS.EDM, "sampleRate", Type.INT, sampleRate);
+		resource.setSampleRate(intVal(new SampleRate(), sampleRate));
 	}
 	
 	public void setSampleSize(int sampleSize) {
-		setValues(NS.EDM, "sampleSize", Type.INT, sampleSize);
+		resource.setSampleSize(intVal(new SampleSize(), sampleSize));
 	}
 	
 	public void setContainsText(boolean containsText) {
 		if (containsText) {
-			Element typeElement = setValues(NS.RDF, "type", null, (Object) null).get(0); // create empty rdf:type
-			typeElement.setAttribute("rdf:resource", "http://www.europeana.eu/schemas/edm/FullTextResource");
+			Type1 type = new Type1();
+			type.setResource("http://www.europeana.eu/schemas/edm/FullTextResource");
+			resource.setType(type);
 		} else {
-			setValues(NS.RDF, "type", null); // remove rdf:type
+			resource.setType(null);
 		}
 	}
 	
 	public void setResolution(Integer resolution) {
-		if (resolution != null) {
-			setValues(NS.EDM, "spatialResolution", Type.UINT, resolution);
-		} else {
-			setValues(NS.EDM, "spatialResolution", null); // remove resolution
-		}
+		resource.setSpatialResolution(resolution != null ? uintVal(new SpatialResolution(), resolution) : null);
 	}
 	
-	private List<Element> setValues(NS namespace, String fieldName, String dataType, Object... values) {
-		NodeList nodeList = element.getElementsByTagName(fieldName);
-		for (int i = 0; i < nodeList.getLength(); i++)
-			element.removeChild(nodeList.item(i));
-		
-		ArrayList<Element> children = new ArrayList<>();
-		for (Object val : values) {
-			Element child = element.getOwnerDocument().createElementNS(namespace.uri, fieldName);
-			children.add(child);
-			element.appendChild(child);
-			if (dataType != null)
-				child.setAttribute("rdf:datatype", "http://www.w3.org/2001/XMLSchema#" + dataType);
-			if (val != null)
-				child.setTextContent(val.toString());
-		}
-		return children;
+	private static <T extends IntegerType> T intVal(T element, int value) {
+		element.setLong(value);
+		element.setDatatype("http://www.w3.org/2001/XMLSchema#integer");
+		return element;
 	}
 	
-	/** Xml name spaces */
-	static enum NS {
-		EBUCORE("http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"),
-		EDM("http://www.europeana.eu/schemas/edm/"),
-		RDF("http://www.w3.org/1999/02/22-rdf-syntax-ns#"),
-		;
-		
-		public final String uri;
-		
-		NS(String uri) {
-			this.uri = uri;
-		}
-		
-		public String prefix() {
-			return name().toLowerCase();
-		}
+	private static <T extends NonNegativeIntegerType> T uintVal(T element, int value) {
+		element.setInteger(BigInteger.valueOf(value));
+		element.setDatatype("http://www.w3.org/2001/XMLSchema#nonNegativeInteger");
+		return element;
 	}
 	
-	private static class Type {
-		static final String STRING = "string";
-		static final String LONG = "long";
-		static final String INT = "integer";
-		static final String DOUBLE = "double";
-		static final String UINT = "nonNegativeInteger";
+	private static LongType longVal(long value) {
+		LongType element = new LongType();
+		element.setLong(value);
+		element.setDatatype("http://www.w3.org/2001/XMLSchema#long");
+		return element;
+	}
+	
+	private static DoubleType doubleVal(double value) {
+		DoubleType element = new DoubleType();
+		element.setDouble(value);
+		element.setDatatype("http://www.w3.org/2001/XMLSchema#double");
+		return element;
+	}
+	
+	private static <T extends StringType> T stringVal(T element, String value) {
+		element.setString(value);
+		element.setDatatype("http://www.w3.org/2001/XMLSchema#string");
+		return element;
 	}
 }

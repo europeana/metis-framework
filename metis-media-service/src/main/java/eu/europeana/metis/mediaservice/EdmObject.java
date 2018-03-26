@@ -9,70 +9,67 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import org.jibx.runtime.BindingDirectory;
+import org.jibx.runtime.IBindingFactory;
+import org.jibx.runtime.IMarshallingContext;
+import org.jibx.runtime.IUnmarshallingContext;
+import org.jibx.runtime.JiBXException;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import eu.europeana.metis.mediaservice.WebResource.NS;
+import eu.europeana.corelib.definitions.jibx.Aggregation;
+import eu.europeana.corelib.definitions.jibx.HasView;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.definitions.jibx.WebResourceType;
 
 public class EdmObject implements Serializable {
 	
-	private final Document document;
-	private boolean namespacesAdded = false;
+	private static IBindingFactory rdfBindingFactory;
 	
-	private EdmObject(Document document) {
-		if (!(document instanceof Serializable))
-			throw new IllegalArgumentException("XML document must be serializable");
-		this.document = document;
+	static {
+		try {
+			rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
+		} catch (JiBXException e) {
+			throw new RuntimeException("Unable to create binding factory", e);
+		}
+	}
+	
+	private final RDF rdf;
+	
+	private EdmObject(RDF rdf) {
+		this.rdf = rdf;
 	}
 	
 	public Map<String, List<UrlType>> getResourceUrls(Collection<UrlType> urlTypes) {
 		Map<String, List<UrlType>> urls = new HashMap<>();
-		for (UrlType urlType : urlTypes) {
-			NodeList list = document.getElementsByTagName(urlType.tagName);
-			for (int i = 0; i < list.getLength(); i++) {
-				String url = ((Element) list.item(i)).getAttribute("rdf:resource");
-				urls.computeIfAbsent(url, k -> new ArrayList<>()).add(urlType);
+		Function<String, List<UrlType>> listProd = k -> new ArrayList<>();
+		for (Aggregation aggregation : rdf.getAggregationList()) {
+			if (urlTypes.contains(UrlType.OBJECT) && aggregation.getObject() != null) {
+				urls.computeIfAbsent(aggregation.getObject().getResource(), listProd).add(UrlType.OBJECT);
+			}
+			if (urlTypes.contains(UrlType.HAS_VIEW) && aggregation.getHasViewList() != null) {
+				for (HasView hv : aggregation.getHasViewList())
+					urls.computeIfAbsent(hv.getResource(), listProd).add(UrlType.HAS_VIEW);
+			}
+			if (urlTypes.contains(UrlType.IS_SHOWN_BY) && aggregation.getIsShownBy() != null) {
+				urls.computeIfAbsent(aggregation.getIsShownBy().getResource(), listProd).add(UrlType.IS_SHOWN_BY);
+			}
+			if (urlTypes.contains(UrlType.IS_SHOWN_AT) && aggregation.getIsShownAt() != null) {
+				urls.computeIfAbsent(aggregation.getIsShownAt().getResource(), listProd).add(UrlType.IS_SHOWN_AT);
 			}
 		}
 		return urls;
 	}
 	
 	WebResource getWebResource(String url) {
-		Element resourceElement = null;
-		NodeList nList = document.getElementsByTagName("edm:WebResource");
-		for (int i = 0; i < nList.getLength(); i++) {
-			Element node = (Element) nList.item(i);
-			if (node.getAttributes().getNamedItem("rdf:about").getNodeValue().equals(url)) {
-				resourceElement = node;
-				break;
-			}
+		for (WebResourceType resource : rdf.getWebResourceList()) {
+			if (resource.getAbout().equals(url))
+				return new WebResource(resource);
 		}
-		if (resourceElement == null) {
-			resourceElement = document.createElement("edm:WebResource");
-			resourceElement.setAttribute("rdf:about", url);
-			document.getDocumentElement().appendChild(resourceElement);
-		}
-		
-		if (!namespacesAdded) {
-			for (NS ns : NS.values())
-				document.getDocumentElement().setAttribute("xmlns:" + ns.prefix(), ns.uri);
-			namespacesAdded = true;
-		}
-		return new WebResource(resourceElement);
+		WebResourceType resource = new WebResourceType();
+		resource.setAbout(url);
+		rdf.getWebResourceList().add(resource);
+		return new WebResource(resource);
 	}
 	
 	/**
@@ -83,22 +80,20 @@ public class EdmObject implements Serializable {
 	 * It's not thread safe.
 	 */
 	public static class Parser {
-		private final DocumentBuilder documentBuilder;
+		private final IUnmarshallingContext context;
 		
 		public Parser() {
 			try {
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				dbFactory.setNamespaceAware(true);
-				documentBuilder = dbFactory.newDocumentBuilder();
-			} catch (ParserConfigurationException e) {
-				throw new RuntimeException("xml doc builder problem", e);
+				context = rdfBindingFactory.createUnmarshallingContext();
+			} catch (JiBXException e) {
+				throw new AssertionError("JiBX unmarshalling problem", e);
 			}
 		}
 		
 		public EdmObject parseXml(InputStream inputStream) throws MediaException {
 			try {
-				return new EdmObject(documentBuilder.parse(inputStream));
-			} catch (SAXException | IOException e) {
+				return new EdmObject((RDF) context.unmarshalDocument(inputStream, "UTF-8"));
+			} catch (JiBXException e) {
 				throw new MediaException("Edm parsing error", "EDM PARSE", e);
 			}
 		}
@@ -112,21 +107,22 @@ public class EdmObject implements Serializable {
 	 * It's not thread safe.
 	 */
 	public static class Writer {
-		private final Transformer xmlTtransformer;
+		private final IMarshallingContext context;
 		
 		public Writer() {
 			try {
-				xmlTtransformer = TransformerFactory.newInstance().newTransformer();
-			} catch (TransformerConfigurationException | TransformerFactoryConfigurationError e) {
-				throw new AssertionError("xml transformer problem", e);
+				context = rdfBindingFactory.createMarshallingContext();
+				context.setIndent(2);
+			} catch (JiBXException e) {
+				throw new AssertionError("JiBX marshalling problem", e);
 			}
 		}
 		
 		public byte[] toXmlBytes(EdmObject edm) {
 			try (ByteArrayOutputStream byteStream = new ByteArrayOutputStream()) {
-				xmlTtransformer.transform(new DOMSource(edm.document), new StreamResult(byteStream));
+				context.marshalDocument(edm.rdf, "UTF-8", null, byteStream);
 				return byteStream.toByteArray();
-			} catch (IOException | TransformerException e) {
+			} catch (IOException | JiBXException e) {
 				throw new RuntimeException("Result EDM XML generation error", e);
 			}
 		}
