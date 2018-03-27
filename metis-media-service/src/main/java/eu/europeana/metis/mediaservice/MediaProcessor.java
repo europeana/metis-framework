@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -109,17 +111,9 @@ public class MediaProcessor implements Closeable {
 	}
 	
 	private void processImage(String url, String mimeType, File content) throws MediaException, IOException {
-		List<File> thumbs = new ArrayList<>();
-		int sizes = THUMB_SIZE.length;
-		String md5 = DigestUtils.md5Hex(url);
-		String ext = Arrays.asList("application/pdf", "image/png").contains(mimeType) ? ".png" : ".jpeg";
-		for (int i = 0; i < sizes; i++) {
-			File f = new File(tempDir, md5 + THUMB_SUFFIX[i] + ext);
-			if (!f.isFile() && !f.createNewFile())
-				throw new MediaException("Could not create thumbnail file " + f, "THUMBNAIL ERROR");
-			thumbs.add(f);
-		}
+		List<File> thumbs = prepareThumbnailFiles(url, mimeType);
 		
+		int sizes = THUMB_SIZE.length;
 		ArrayList<String> command = new ArrayList<>(Arrays.asList(
 				magickCmd, content.getPath() + "[0]", "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:"));
 		if ("application/pdf".equals(mimeType))
@@ -165,6 +159,42 @@ public class MediaProcessor implements Closeable {
 			}
 			thumbnails.put(thumb, url);
 		}
+	}
+	
+	/**
+	 * Thumbnails are put directly in temp dir with names that should be used in the
+	 * target storage. It's a problem when multiple EDMs share the same resource -
+	 * we can't use the same thumbnail files because system won't know when they can
+	 * be removed. So duplicate thumbnails are stored in subdirectories with
+	 * increasing numbers.
+	 */
+	private List<File> prepareThumbnailFiles(String url, String mimeType) throws IOException {
+		List<File> thumbs = new ArrayList<>();
+		String md5 = DigestUtils.md5Hex(url);
+		String ext = Arrays.asList("application/pdf", "image/png").contains(mimeType) ? ".png" : ".jpeg";
+		for (int i = 0; i < THUMB_SUFFIX.length; i++) {
+			File temp = File.createTempFile("thumb", null);
+			for (int j = 0; j < 1000; j++) {
+				File dir = j == 0 ? tempDir : new File(tempDir, "media_thumbnail_duplicates_" + j);
+				if (!dir.isDirectory() && !dir.mkdir())
+					throw new IOException("Could not create thumbnails subdirectory: " + dir);
+				try {
+					File f = new File(dir, md5 + THUMB_SUFFIX[i] + ext);
+					Files.move(temp.toPath(), f.toPath());
+					thumbs.add(f);
+					break;
+				} catch (FileAlreadyExistsException e) {
+					log.trace(j + " duplicates of " + url, e);
+					// try next dir
+				}
+			}
+			if (thumbs.size() < i + 1) {
+				if (!temp.delete())
+					log.warn("Could not remove temp file " + temp);
+				throw new IOException("Too many duplicates of url " + url);
+			}
+		}
+		return thumbs;
 	}
 	
 	private List<String> extractDominantColors(List<String> results) {
@@ -311,7 +341,7 @@ public class MediaProcessor implements Closeable {
 			
 			// load colormap
 			try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
-				colormapFile = File.createTempFile("colormap", "png");
+				colormapFile = File.createTempFile("colormap", ".png");
 				colormapFile.deleteOnExit();
 				try (FileOutputStream out = new FileOutputStream(colormapFile)) {
 					IOUtils.copy(is, out);
