@@ -131,35 +131,35 @@ public class MongoDatabaseUtils {
 			// concept/agent/timespan/person/organization tables?
 			if (!exist) {
 				cColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, true));
 				cColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 				cColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 
 				aColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, true));
 				aColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 				aColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 
 				tColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, true));
 				tColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 				tColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 
 				pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, true));
 				pColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 				pColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 
 				oColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, true));
 				oColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 				oColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
@@ -245,15 +245,15 @@ public class MongoDatabaseUtils {
 		List<String> retUris = new ArrayList<>();
 
 		oColl.remove(oColl.find().is(TERM_CODE_URI, uri).getQuery());
-		JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection.wrap(
-				db.getCollection(ORGANIZATION_TABLE), MongoTerm.class,
-				String.class);
+		
+		JacksonDBCollection<MongoTerm, String> termA = deleteOrganizationTerms(
+				uri);
+		
 		termA.createIndex(
 				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
 						.append(TERM_CODE_URI, 1),
 				new BasicDBObject(UNIQUE_PROPERTY, true));
 		termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
-		termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
 		DBCursor<OrganizationTermList> objA = oColl
 				.find(new BasicDBObject(TERM_SAME_AS, uri)
 						.append(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE));
@@ -264,6 +264,15 @@ public class MongoDatabaseUtils {
 			termA.remove(new BasicDBObject(TERM_CODE_URI, origA));
 		}
 		return retUris;
+	}
+
+	public static JacksonDBCollection<MongoTerm, String> deleteOrganizationTerms(
+			String uri) {
+		JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection.wrap(
+				db.getCollection(ORGANIZATION_TABLE), MongoTerm.class,
+				String.class);
+		termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
+		return termA;
 	}
 
 	private static List<String> deleteConcepts(String uri) {
@@ -451,13 +460,18 @@ public class MongoDatabaseUtils {
 		return lst;
 	}
 
-	public static MongoTermList<? extends ContextualClassImpl> insertMongoTermList(
+	/**
+	 * This method stores the provided object in the database. If the _id is present, it will overwrite the existing database record
+	 * @param termList
+	 * @return
+	 */
+	public static MongoTermList<? extends ContextualClassImpl> storeMongoTermList(
 			MongoTermList<? extends ContextualClassImpl> termList) {
 
 		String type = termList.getEntityType();
 		switch (type) {
 			case ORGANIZATION_TYPE :
-				return insertOrganization((OrganizationTermList) termList);
+				return saveOrganization((OrganizationTermList) termList);
 
 			default : // TODO add support for other entity types
 				throw new IllegalArgumentException(
@@ -468,12 +482,9 @@ public class MongoDatabaseUtils {
 
 	}
 
-	private static OrganizationTermList insertOrganization(
+	private static OrganizationTermList saveOrganization(
 			OrganizationTermList termList) {
-		// JacksonDBCollection<OrganizationTermList, String> termColl =
-		// JacksonDBCollection.wrap(db.getCollection(TERMLIST_TABLE),
-		// OrganizationTermList.class, String.class);
-		return oColl.insert(termList).getSavedObject();
+		return oColl.save(termList).getSavedObject();
 	}
 
 	public static int storeEntityLabels(ContextualClassImpl entity,

@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.ContextualClassImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.utils.EntityClass;
 import eu.europeana.enrichment.utils.MongoDatabaseUtils;
@@ -23,21 +25,26 @@ public class EntityService {
 		this.mongoPort = mongoPort;
 	}
 
-	public OrganizationTermList storeOrganization(Organization org, Date created, Date modified) {
+	public OrganizationTermList storeOrganization(Organization org,
+			Date created, Date modified) {
 		MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
-
-		// delete old references
-		MongoDatabaseUtils.deleteOrganizations(org.getAbout());
 
 		// build term list
 		OrganizationTermList termList = organizationToOrganizationTermList(
-				(OrganizationImpl) org);
-		//enforce created not null
-		if(created != null)
-			termList.setCreated(created);
-		else 
-			termList.setCreated(new Date());
-		termList.setModified(modified);
+				(OrganizationImpl) org, created, modified);
+
+		MongoTermList<ContextualClassImpl> storedOrg = MongoDatabaseUtils
+				.findByCode(org.getAbout(), EntityClass.ORGANIZATION);
+
+		// it is an update
+		if (storedOrg != null) {
+			// set database id
+			termList.setId(storedOrg.getId());
+		}
+
+		// delete old terms (labels), also when the termList is not found to
+		// will avoid problems when manually deleting the entries in the database
+		MongoDatabaseUtils.deleteOrganizationTerms(org.getAbout());
 
 		// store labels
 		int newLabels = MongoDatabaseUtils.storeEntityLabels(
@@ -46,11 +53,12 @@ public class EntityService {
 
 		// store term list
 		return (OrganizationTermList) MongoDatabaseUtils
-				.insertMongoTermList(termList);
+				.storeMongoTermList(termList);
+
 	}
 
 	private OrganizationTermList organizationToOrganizationTermList(
-			OrganizationImpl organization) {
+			OrganizationImpl organization, Date created, Date modified) {
 		OrganizationTermList termList = new OrganizationTermList();
 		if (organization.getPrefLabel() == null
 				|| organization.getPrefLabel().entrySet().size() == 0)
@@ -58,6 +66,14 @@ public class EntityService {
 		termList.setCodeUri(organization.getAbout());
 		termList.setRepresentation(organization);
 		termList.setEntityType(OrganizationImpl.class.getSimpleName());
+
+		// enforce created not null
+		if (created != null)
+			termList.setCreated(created);
+		else
+			termList.setCreated(new Date());
+		termList.setModified(modified);
+
 		return termList;
 	}
 
