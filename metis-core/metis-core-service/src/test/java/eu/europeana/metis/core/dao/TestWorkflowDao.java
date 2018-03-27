@@ -115,8 +115,7 @@ public class TestWorkflowDao {
   public void getUserWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
-    Assert.assertNotNull(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()));
+    Assert.assertNotNull(workflowDao.getWorkflow(workflow.getDatasetId()));
   }
 
   @Test

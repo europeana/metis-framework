@@ -80,11 +80,9 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public Workflow getWorkflow(@PathVariable("datasetId") int datasetId,
-      @RequestParam("workflowOwner") String workflowOwner) {
-    Workflow workflow = orchestratorService.getWorkflow(workflowOwner, datasetId);
-    LOGGER.info("Workflow with workflowOwner '{}' and datasetId '{}' found", workflowOwner,
-        datasetId);
+  public Workflow getWorkflow(@PathVariable("datasetId") int datasetId) {
+    Workflow workflow = orchestratorService.getWorkflow(datasetId);
+    LOGGER.info("Workflow with datasetId '{}' found", datasetId);
     return workflow;
   }
 

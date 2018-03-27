@@ -103,9 +103,10 @@ public class OrchestratorService {
 
   public void createWorkflow(int datasetId, Workflow workflow)
       throws WorkflowAlreadyExistsException, NoDatasetFoundException {
-    if (datasetDao.getDatasetByDatasetId(datasetId) == null)
+    if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
           String.format("Dataset with datasetId: %s does NOT exist", datasetId));
+    }
     workflow.setDatasetId(datasetId);
     checkRestrictionsOnWorkflowCreate(workflow);
     workflow.getMetisPluginsMetadata()
@@ -115,9 +116,10 @@ public class OrchestratorService {
 
   public void updateWorkflow(int datasetId, Workflow workflow)
       throws NoWorkflowFoundException, NoDatasetFoundException {
-    if (datasetDao.getDatasetByDatasetId(datasetId) == null)
+    if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
           String.format("Dataset with datasetId: %s does NOT exist", datasetId));
+    }
     workflow.setDatasetId(datasetId);
     Workflow storedWorkflow = checkRestrictionsOnWorkflowUpdate(workflow);
     workflow.setId(storedWorkflow.getId());
@@ -145,8 +147,8 @@ public class OrchestratorService {
     workflowDao.deleteWorkflow(workflowOwner, datasetId);
   }
 
-  public Workflow getWorkflow(String workflowOwner, int datasetId) {
-    return workflowDao.getWorkflow(workflowOwner, datasetId);
+  public Workflow getWorkflow(int datasetId) {
+    return workflowDao.getWorkflow(datasetId);
   }
 
   public List<Workflow> getAllWorkflows(String workflowOwner, int nextPage) {
@@ -162,7 +164,7 @@ public class OrchestratorService {
       throws GenericMetisException {
 
     Dataset dataset = checkDatasetExistence(datasetId);
-    Workflow workflow = checkWorkflowExistence(workflowOwner, datasetId);
+    Workflow workflow = checkWorkflowExistence(datasetId);
     checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
@@ -355,7 +357,7 @@ public class OrchestratorService {
   private Workflow checkRestrictionsOnWorkflowUpdate(Workflow workflow)
       throws NoWorkflowFoundException {
 
-    Workflow storedWorkflow = getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId());
+    Workflow storedWorkflow = getWorkflow(workflow.getDatasetId());
     if (storedWorkflow == null) {
       throw new NoWorkflowFoundException(String.format(
           "Workflow with workflowOwner: %s, and datasetId: %s, not found",
@@ -444,14 +446,13 @@ public class OrchestratorService {
     return dataset;
   }
 
-  private Workflow checkWorkflowExistence(String workflowOwner, int datasetId)
+  private Workflow checkWorkflowExistence(int datasetId)
       throws NoWorkflowFoundException {
     Workflow workflow = workflowDao
-        .getWorkflow(workflowOwner, datasetId);
+        .getWorkflow(datasetId);
     if (workflow == null) {
-      throw new NoWorkflowFoundException(String.format(
-          "No workflow found with workflowOwner: %s, and datasetId: %s, in METIS",
-          workflowOwner, datasetId));
+      throw new NoWorkflowFoundException(
+          String.format("No workflow found with datasetId: %s, in METIS", datasetId));
     }
     return workflow;
   }
@@ -477,8 +478,7 @@ public class OrchestratorService {
       throws
       NoWorkflowFoundException, NoDatasetFoundException, ScheduledWorkflowAlreadyExistsException, BadContentException {
     checkDatasetExistence(scheduledWorkflow.getDatasetId());
-    checkWorkflowExistence(scheduledWorkflow.getWorkflowOwner(),
-        scheduledWorkflow.getDatasetId());
+    checkWorkflowExistence(scheduledWorkflow.getDatasetId());
     checkScheduledWorkflowExistenceForDatasetId(scheduledWorkflow.getDatasetId());
     if (scheduledWorkflow.getPointerDate() == null) {
       throw new BadContentException("PointerDate cannot be null");
@@ -492,8 +492,7 @@ public class OrchestratorService {
   private String checkRestrictionsOnScheduledWorkflowUpdate(
       ScheduledWorkflow scheduledWorkflow)
       throws NoScheduledWorkflowFoundException, BadContentException, NoWorkflowFoundException {
-    checkWorkflowExistence(scheduledWorkflow.getWorkflowOwner(),
-        scheduledWorkflow.getDatasetId());
+    checkWorkflowExistence(scheduledWorkflow.getDatasetId());
     String storedId = scheduledWorkflowDao.existsForDatasetId(scheduledWorkflow.getDatasetId());
     if (StringUtils.isEmpty(storedId)) {
       throw new NoScheduledWorkflowFoundException(String.format(

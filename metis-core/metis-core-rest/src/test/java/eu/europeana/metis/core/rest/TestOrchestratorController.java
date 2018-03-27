@@ -144,7 +144,7 @@ public class TestOrchestratorController {
   @Test
   public void getWorkflow() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(orchestratorService.getWorkflow(anyString(), anyInt())).thenReturn(workflow);
+    when(orchestratorService.getWorkflow(anyInt())).thenReturn(workflow);
     orchestratorControllerMock.perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID)
         .param("workflowOwner", "owner")
         .param("datasetId", Integer.toString(workflow.getDatasetId()))
@@ -153,7 +153,7 @@ public class TestOrchestratorController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.datasetId", is(Integer.toString(workflow.getDatasetId()))));
 
-    verify(orchestratorService, times(1)).getWorkflow(anyString(), anyInt());
+    verify(orchestratorService, times(1)).getWorkflow(anyInt());
   }
 
   @Test

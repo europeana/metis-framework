@@ -104,13 +104,11 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   /**
    * Get a workflow using a workflowOwner and a datasetId.
    *
-   * @param workflowOwner the workflow owner
    * @param datasetId the dataset id
    * @return {@link Workflow}
    */
-  public Workflow getWorkflow(String workflowOwner, int datasetId) {
-    return morphiaDatastoreProvider.getDatastore().find(Workflow.class).field(WORKFLOW_OWNER)
-        .equal(workflowOwner)
+  public Workflow getWorkflow(int datasetId) {
+    return morphiaDatastoreProvider.getDatastore().find(Workflow.class)
         .field(DATASET_ID).equal(datasetId)
         .get();
   }
