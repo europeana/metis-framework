@@ -58,7 +58,8 @@ public class SchedulerExecutor {
       for (ScheduledWorkflow scheduledWorkflow : allCleanedScheduledWorkflows) {
         LOGGER.info(
             "Adding ScheduledWorkflow with DatasetId: {}, workflowOwner: {}, pointerDate: {}, frequence: {}",
-            scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(), scheduledWorkflow.getPointerDate(),
+            scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
+            scheduledWorkflow.getPointerDate(),
             scheduledWorkflow.getScheduleFrequence());
 
         tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledWorkflow);
@@ -210,8 +211,7 @@ public class SchedulerExecutor {
       ScheduledWorkflow scheduledWorkflow) {
     try {
       orchestratorService.addWorkflowInQueueOfWorkflowExecutions(
-          scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
-          null, scheduledWorkflow.getWorkflowPriority());
+          scheduledWorkflow.getDatasetId(), null, scheduledWorkflow.getWorkflowPriority());
     } catch (GenericMetisException e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);
     }

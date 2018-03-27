@@ -160,7 +160,7 @@ public class OrchestratorService {
   }
 
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
-      String workflowOwner, PluginType enforcedPluginType, int priority)
+      PluginType enforcedPluginType, int priority)
       throws GenericMetisException {
 
     Dataset dataset = checkDatasetExistence(datasetId);

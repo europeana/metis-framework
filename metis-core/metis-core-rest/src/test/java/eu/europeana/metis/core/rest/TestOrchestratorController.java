@@ -197,7 +197,7 @@ public class TestOrchestratorController {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), isNull(), anyInt())).thenReturn(workflowExecution);
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt())).thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
@@ -212,7 +212,7 @@ public class TestOrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions_WorkflowExecutionAlreadyExistsException()
       throws Exception {
     doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
@@ -227,7 +227,7 @@ public class TestOrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions_NoDatasetFoundException()
       throws Exception {
     doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
@@ -242,7 +242,7 @@ public class TestOrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions_NoWorkflowFoundException()
       throws Exception {
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)

@@ -113,16 +113,12 @@ public class OrchestratorController {
   @ResponseBody
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @PathVariable("datasetId") int datasetId,
-      @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws GenericMetisException {
     WorkflowExecution workflowExecution = orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflowOwner, enforcedPluginType,
-            priority);
-    LOGGER.info(
-        "WorkflowExecution for datasetId '{}' with workflowOwner '{}' added to queue",
-        datasetId, workflowOwner);
+        .addWorkflowInQueueOfWorkflowExecutions(datasetId, enforcedPluginType, priority);
+    LOGGER.info("WorkflowExecution for datasetId '{}' added to queue", datasetId);
     return workflowExecution;
   }
 

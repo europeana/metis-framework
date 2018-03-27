@@ -2,7 +2,6 @@ package eu.europeana.metis.core.execution;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doNothing;
@@ -87,8 +86,8 @@ public class TestSchedulerExecutor {
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
-    when(orchestratorService.addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(),
-        isNull(), anyInt())).thenThrow(new NoDatasetFoundException("Some Error"))
+    when(orchestratorService.addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt()))
+        .thenThrow(new NoDatasetFoundException("Some Error"))
         .thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
@@ -101,8 +100,7 @@ public class TestSchedulerExecutor {
     verify(orchestratorService, times(3))
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, atMost(listSize * 4))
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(),
-            isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
   }
 
   @Test
@@ -139,7 +137,7 @@ public class TestSchedulerExecutor {
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), isNull(), anyInt()))
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt()))
         .thenThrow(new NoDatasetFoundException("Some Error"))
         .thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
@@ -153,7 +151,7 @@ public class TestSchedulerExecutor {
     verify(orchestratorService, times(3))
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, times(0))
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
   }
 
   @Test
