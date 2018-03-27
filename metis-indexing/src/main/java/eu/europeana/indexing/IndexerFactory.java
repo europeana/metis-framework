@@ -1,9 +1,11 @@
 package eu.europeana.indexing;
 
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.apache.solr.client.solrj.impl.LBHttpSolrServer;
@@ -48,13 +50,19 @@ public class IndexerFactory {
     try {
       final LBHttpSolrServer httpSolrServer = new LBHttpSolrServer(
           settings.getSolrHosts().stream().map(URI::toString).toArray(String[]::new));
-      // TODO JOCHEN only use ONE zookeeper host?
-      // TODO JOCHEN also support Non-zookeeper setting (i.e. return httpSolrServer)!
-      final CloudSolrServer cloudSolrServer =
-          new CloudSolrServer(settings.getZookeeperHost().toString(), httpSolrServer);
-      cloudSolrServer.setDefaultCollection(settings.getSolrCollectionName());
-      cloudSolrServer.connect();
-      solrServer = cloudSolrServer;
+      if (settings.getZookeeperHosts().isEmpty()) {
+        solrServer = httpSolrServer;
+      } else {
+        final String zookeeperHostString = settings.getZookeeperHosts().stream()
+            .map(InetSocketAddress::toString).collect(Collectors.joining(","));
+        final String zookeeperChrootString =
+            settings.getZookeeperChroot() == null ? "" : settings.getZookeeperChroot();
+        final CloudSolrServer cloudSolrServer =
+            new CloudSolrServer(zookeeperHostString + zookeeperChrootString, httpSolrServer);
+        cloudSolrServer.setDefaultCollection(settings.getSolrCollectionName());
+        cloudSolrServer.connect();
+        solrServer = cloudSolrServer;
+      }
     } catch (MalformedURLException e) {
       throw new IndexerConfigurationException("Malformed URL provided in indexer settings.", e);
     }
@@ -76,7 +84,7 @@ public class IndexerFactory {
     } catch (MongoDBException e) {
       throw new IndexerConfigurationException("Could not set up mongo server.", e);
     }
-    
+
     // Set up the indexer.
     final FullBeanDao fullBeanDao = new FullBeanDao(mongoServer);
     final PublishingService publishingService = new PublishingService(fullBeanDao, solrServer);

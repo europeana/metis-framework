@@ -22,14 +22,15 @@ public final class IndexingSettings {
   private boolean mongoEnableSsl = false;
 
   // Zookeeper settings
-  private URI zookeeperHost = null;
+  private List<InetSocketAddress> zookeeperHosts = null;
+  private String zookeeperChroot = null;
 
   // Solr settings
   private final List<URI> solrHosts = new ArrayList<>();
   private String solrCollectionName = null;
 
   /**
-   * Add a mongo host.
+   * Add a Mongo host. This method must be called at least once.
    * 
    * @param host Mongo host.
    * @throws IndexerConfigurationException In case the provided value is null.
@@ -39,7 +40,7 @@ public final class IndexingSettings {
   }
 
   /**
-   * Set the Mongo database name.
+   * Set the Mongo database name. This method must be called.
    * 
    * @param mongoDatabaseName Mongo database name.
    * @throws IndexerConfigurationException In case the provided value is null.
@@ -49,7 +50,7 @@ public final class IndexingSettings {
   }
 
   /**
-   * Set Mongo credentials. By default, there are no credentials set.
+   * Set Mongo credentials. This method is optional: by default, there are no credentials set.
    * 
    * @param username Username.
    * @param password Password.
@@ -64,24 +65,46 @@ public final class IndexingSettings {
   }
 
   /**
-   * Enable SSL for the Mongo connection. By default this is disabled.
+   * Enable SSL for the Mongo connection. This method is optional: by default this is disabled.
    */
   public void setMongoEnableSsl() {
     this.mongoEnableSsl = true;
   }
 
   /**
-   * Add a Zookeeper host.
+   * Add a Zookeeper host. This method is optional. By default the list is empty, signifying that a
+   * direct connection is to be made with Solr (i.e. not via zookeeper). Any value set through
+   * {@link #setZookeeperChroot(String)} will be ignored in this case.
    * 
    * @param host Zookeeper host.
    * @throws IndexerConfigurationException In case the provided value is null.
    */
-  public void addZookeeperHost(URI host) throws IndexerConfigurationException {
-    zookeeperHost = nonNull(host, "host");
+  public void addZookeeperHost(InetSocketAddress host) throws IndexerConfigurationException {
+    zookeeperHosts.add(nonNull(host, "host"));
   }
 
   /**
-   * Add a Solr host.
+   * Set the Zookeeper chroot (which would apply to all the zookeeper hosts). See the documentation
+   * of {@link org.apache.zookeeper.ZooKeeper} constructors, for instance
+   * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}.
+   * The chroot must start with a '/' character. This method is optional: by default, there is no
+   * chroot.
+   * 
+   * @param chroot The chroot.
+   * @throws IndexerConfigurationException
+   */
+  public void setZookeeperChroot(String chroot) throws IndexerConfigurationException {
+    if (chroot == null || chroot.trim().isEmpty()) {
+      this.zookeeperChroot = null;
+    } else if (chroot.startsWith("/")) {
+      this.zookeeperChroot = chroot;
+    } else {
+      throw new IndexerConfigurationException("A chroot, if provided, must start with '/'.");
+    }
+  }
+
+  /**
+   * Add a Solr host. This method must be called at least once.
    * 
    * @param host Solr host.
    * @throws IndexerConfigurationException In case the provided value is null.
@@ -91,7 +114,7 @@ public final class IndexingSettings {
   }
 
   /**
-   * Set the Solr collection name.
+   * Set the Solr collection name. This method must be called at least once.
    * 
    * @param solrCollectionName Solr collection name.
    * @throws IndexerConfigurationException
@@ -101,6 +124,12 @@ public final class IndexingSettings {
     this.solrCollectionName = nonNull(solrCollectionName, "solrCollectionName");
   }
 
+  /**
+   * This method returns the list of Mongo hosts.
+   * 
+   * @return The Mongo hosts.
+   * @throws IndexerConfigurationException In case no such hosts were set.
+   */
   List<ServerAddress> getMongoHosts() throws IndexerConfigurationException {
     if (mongoHosts.isEmpty()) {
       throw new IndexerConfigurationException("Please provide at least one Mongo host.");
@@ -108,6 +137,12 @@ public final class IndexingSettings {
     return Collections.unmodifiableList(mongoHosts);
   }
 
+  /**
+   * This method returns the Mongo database name.
+   * 
+   * @return The Mongo database name.
+   * @throws IndexerConfigurationException In case no Mongo database name was set.
+   */
   String getMongoDatabaseName() throws IndexerConfigurationException {
     if (mongoDatabaseName == null) {
       throw new IndexerConfigurationException("Please provide a Mongo database name.");
@@ -115,21 +150,49 @@ public final class IndexingSettings {
     return mongoDatabaseName;
   }
 
+  /**
+   * This method returns the Mongo credentials.
+   * 
+   * @return The credentials, or null if no such credentials were set.
+   */
   MongoCredential getMongoCredentials() {
     return mongoCredentials;
   }
 
+  /**
+   * This method returns whether SSL is to be enabled for the Mongo connection.
+   * 
+   * @return Whether SSL is to be enabled for the Mongo connection.
+   */
   boolean mongoEnableSsl() {
     return mongoEnableSsl;
   }
 
-  URI getZookeeperHost() throws IndexerConfigurationException {
-    if (zookeeperHost == null) {
-      throw new IndexerConfigurationException("Please provide a Zookeeper host.");
-    }
-    return zookeeperHost;
+  /**
+   * This method returns the Zookeeper hosts.
+   * 
+   * @return The Zookeeper hosts. Or empty, if no Zookeeper connection is to be used.
+   */
+  List<InetSocketAddress> getZookeeperHosts() {
+    return Collections.unmodifiableList(zookeeperHosts);
   }
 
+  /**
+   * This method returns the Zookeeper chroot.
+   * 
+   * @return The Zookeeper chroot, or null if no Zookeeper chroot is to be applied (or if no
+   *         Zookeeper connection is to be established).
+   */
+  public String getZookeeperChroot() {
+    return zookeeperHosts.isEmpty() ? null : zookeeperChroot;
+  }
+
+  /**
+   * This method returns the Solr hosts.
+   * 
+   * @return The solr hosts.
+   * @throws IndexerConfigurationException In case no such hosts were set.
+   */
   List<URI> getSolrHosts() throws IndexerConfigurationException {
     if (solrHosts.isEmpty()) {
       throw new IndexerConfigurationException("Please provide at least one Solr host.");
@@ -137,6 +200,12 @@ public final class IndexingSettings {
     return Collections.unmodifiableList(solrHosts);
   }
 
+  /**
+   * This method returns the Solr collection name.
+   * 
+   * @return The Solr collection name.
+   * @throws IndexerConfigurationException In case no Solr collection name was set.
+   */
   String getSolrCollectionName() throws IndexerConfigurationException {
     if (solrCollectionName == null) {
       throw new IndexerConfigurationException("Please provide a Solr collection name.");
