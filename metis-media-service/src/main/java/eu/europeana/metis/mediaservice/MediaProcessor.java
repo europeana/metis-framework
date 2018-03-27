@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ import org.apache.pdfbox.pdmodel.common.PDMetadata;
 import org.apache.pdfbox.pdmodel.graphics.PDXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.tika.Tika;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.slf4j.Logger;
@@ -49,6 +51,7 @@ public class MediaProcessor implements Closeable {
 	private static File colormapFile;
 	private static String magickCmd;
 	private static String ffprobeCmd;
+	private static Tika tika;
 	
 	private ExecutorService commandIOThreadPool = Executors.newFixedThreadPool(2);
 	
@@ -78,7 +81,16 @@ public class MediaProcessor implements Closeable {
 	 * @param contents downloaded file, can be {@code null} for mime types accepted
 	 *        by {@link #supportsLinkProcessing(String)}
 	 */
-	public void processResource(String url, String mimeType, File contents) throws MediaException {
+	public void processResource(String url, String providedMimeType, File contents) throws MediaException {
+		String mimeType;
+		try {
+			mimeType = contents != null ? tika.detect(contents) : tika.detect(URI.create(url).toURL());
+		} catch (IOException e) {
+			throw new MediaException("Mime type checking error", "IOException " + e.getMessage(), e, contents == null);
+		}
+		
+		if (!mimeType.equals(providedMimeType))
+			log.info("Invalid mime type provided (should be {}, was {}): {}", mimeType, providedMimeType, url);
 		if (contents == null && !supportsLinkProcessing(mimeType))
 			throw new IllegalArgumentException("Contents file is required for mime type " + mimeType);
 		
@@ -147,7 +159,7 @@ public class MediaProcessor implements Closeable {
 			}
 		} catch (Exception e) {
 			log.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
-			throw new MediaException("File seems to be corrupted: " + url, "IMAGE ERROR");
+			throw new MediaException("File seems to be corrupted", "IMAGE ERROR");
 		}
 		
 		for (int i = 0; i < sizes; i++) {
@@ -221,6 +233,9 @@ public class MediaProcessor implements Closeable {
 		
 		try {
 			JSONObject result = new JSONObject(new JSONTokener(String.join("", resultLines)));
+			if (result.length() == 0 && contents == null) {
+				throw new MediaException("Probably downlaod failed", "", null, true);
+			}
 			WebResource resource = edm.getWebResource(url);
 			resource.setMimeType(mimeType);
 			resource.setFileSize(result.getJSONObject("format").getLong("size"));
@@ -253,9 +268,11 @@ public class MediaProcessor implements Closeable {
 			} else {
 				throw new Exception("No media streams");
 			}
+		} catch (MediaException e) {
+			throw e;
 		} catch (Exception e) {
 			log.info("Could not parse ffprobe response:\n" + StringUtils.join(resultLines, "\n"), e);
-			throw new MediaException("File seems to be corrupted: " + url, "AUDIOVIDEO ERROR");
+			throw new MediaException("File seems to be corrupted", "AUDIOVIDEO ERROR");
 		}
 	}
 	
@@ -295,6 +312,8 @@ public class MediaProcessor implements Closeable {
 		}
 		
 		WebResource resource = edm.getWebResource(url);
+		resource.setMimeType(mimeType);
+		resource.setFileSize(contents.length());
 		resource.setContainsText(containsText);
 		resource.setResolution(resolution);
 	}
@@ -338,6 +357,9 @@ public class MediaProcessor implements Closeable {
 				return;
 			// get temp dir
 			tempDir = new File(System.getProperty("java.io.tmpdir"));
+			
+			// init tika
+			tika = new Tika();
 			
 			// load colormap
 			try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
@@ -387,7 +409,7 @@ public class MediaProcessor implements Closeable {
 	private static boolean shouldExtractMetadata(Collection<UrlType> resourceTypes) {
 		return resourceTypes.stream().anyMatch(t -> t == UrlType.HAS_VIEW || t == UrlType.IS_SHOWN_BY);
 	}
-
+	
 	/**
 	 * @return if true, resources of given type don't need to be downloaded before
 	 *         processing.
