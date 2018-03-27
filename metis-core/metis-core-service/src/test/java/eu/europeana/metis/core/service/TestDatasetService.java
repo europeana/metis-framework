@@ -18,6 +18,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
@@ -43,6 +44,7 @@ public class TestDatasetService {
 
   private DatasetDao datasetDao;
   private DatasetXsltDao datasetXsltDao;
+  private WorkflowDao workflowDao;
   private WorkflowExecutionDao workflowExecutionDao;
   private ScheduledWorkflowDao scheduledWorkflowDao;
   private DatasetService datasetService;

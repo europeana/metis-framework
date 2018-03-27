@@ -17,10 +17,10 @@ import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -115,7 +115,7 @@ public class TestOrchestratorService {
   @Test
   public void createWorkflow() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorService.createWorkflow(workflow);
+    orchestratorService.createWorkflow(workflow.getDatasetId(), workflow);
 
     InOrder inOrder = Mockito.inOrder(workflowDao);
     inOrder.verify(workflowDao, times(1)).exists(workflow);
@@ -128,7 +128,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(workflowDao.exists(workflow)).thenReturn(new ObjectId().toString());
 
-    orchestratorService.createWorkflow(workflow);
+    orchestratorService.createWorkflow(workflow.getDatasetId(), workflow);
 
     InOrder inOrder = Mockito.inOrder(workflowDao);
     inOrder.verify(workflowDao, times(1)).exists(workflow);
@@ -139,7 +139,7 @@ public class TestOrchestratorService {
   public void updateWorkflow() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(workflowDao.exists(workflow)).thenReturn(new ObjectId().toString());
-    orchestratorService.updateWorkflow(workflow);
+    orchestratorService.updateWorkflow(workflow.getDatasetId(), workflow);
     InOrder inOrder = Mockito.inOrder(workflowDao);
     inOrder.verify(workflowDao, times(1)).exists(workflow);
     inOrder.verify(workflowDao, times(1)).update(workflow);
@@ -149,7 +149,7 @@ public class TestOrchestratorService {
   @Test(expected = NoWorkflowFoundException.class)
   public void updateUserWorkflow_NoUserWorkflowFound() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorService.updateWorkflow(workflow);
+    orchestratorService.updateWorkflow(workflow.getDatasetId(), workflow);
     InOrder inOrder = Mockito.inOrder(workflowDao);
     inOrder.verify(workflowDao, times(1)).exists(workflow);
     inOrder.verifyNoMoreInteractions();
@@ -159,25 +159,25 @@ public class TestOrchestratorService {
   public void deleteWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorService
-        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName());
+        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId());
 
     ArgumentCaptor<String> workflowOwnerArgumentCaptor = ArgumentCaptor.forClass(String.class);
-    ArgumentCaptor<String> workflowNameArgumentCaptor = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<Integer> workflowDatasetIdArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
     verify(workflowDao, times(1)).deleteWorkflow(workflowOwnerArgumentCaptor.capture(),
-        workflowNameArgumentCaptor.capture());
+        workflowDatasetIdArgumentCaptor.capture());
     Assert.assertEquals(workflow.getWorkflowOwner(), workflowOwnerArgumentCaptor.getValue());
-    Assert.assertEquals(workflow.getWorkflowName(), workflowNameArgumentCaptor.getValue());
+    Assert.assertEquals(workflow.getDatasetId(), workflowDatasetIdArgumentCaptor.getValue().intValue());
   }
 
   @Test
   public void getWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
 
     Workflow retrievedWorkflow = orchestratorService
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName());
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId());
     Assert.assertSame(workflow, retrievedWorkflow);
   }
 
@@ -199,13 +199,12 @@ public class TestOrchestratorService {
   }
 
   @Test
-  public void addWorkflowInQueueOfWorkflowExecutions()
-      throws Exception {
+  public void addWorkflowInQueueOfWorkflowExecutions() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
@@ -219,7 +218,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+        workflow.getWorkflowOwner(), null, 0);
   }
 
   @Test
@@ -234,7 +233,7 @@ public class TestOrchestratorService {
     });
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
@@ -249,7 +248,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+        workflow.getWorkflowOwner(), null, 0);
   }
 
   @Test
@@ -260,7 +259,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
@@ -268,7 +267,7 @@ public class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+        workflow.getWorkflowOwner(), null, 0);
   }
 
   @Test
@@ -279,7 +278,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
     OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin();
     oaipmhHarvestPlugin.setStartedDate(new Date());
@@ -298,7 +297,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+        workflow.getWorkflowOwner(), null, 0);
   }
 
   @Test
@@ -306,11 +305,10 @@ public class TestOrchestratorService {
       throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    workflow.setHarvestPlugin(false);
 
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
     OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin();
     oaipmhHarvestPlugin.setStartedDate(new Date());
@@ -329,7 +327,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+        workflow.getWorkflowOwner(), null, 0);
   }
 
   @Test(expected = PluginExecutionNotAllowed.class)
@@ -337,7 +335,6 @@ public class TestOrchestratorService {
       throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    workflow.setHarvestPlugin(false);
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
     EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
     abstractMetisPluginMetadata.add(enrichmentPluginMetadata);
@@ -345,7 +342,7 @@ public class TestOrchestratorService {
 
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
     OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin();
     oaipmhHarvestPlugin.setStartedDate(new Date());
@@ -353,7 +350,7 @@ public class TestOrchestratorService {
         .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(dataset.getDatasetId(),
             ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+        workflow.getWorkflowOwner(), null, 0);
   }
 
   @Test
@@ -364,7 +361,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
@@ -372,7 +369,7 @@ public class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+        workflow.getWorkflowOwner(), null, 0);
   }
 
   @Test
@@ -382,7 +379,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
     when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
         .thenThrow(new DataSetAlreadyExistsException());
@@ -395,7 +392,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+        workflow.getWorkflowOwner(), null, 0);
   }
 
   @Test
@@ -405,7 +402,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()))
         .thenReturn(workflow);
     when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
         .thenThrow(new MCSException());
@@ -415,7 +412,7 @@ public class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+        workflow.getWorkflowOwner(), null, 0);
   }
 
   @Test(expected = NoDatasetFoundException.class)
@@ -424,7 +421,7 @@ public class TestOrchestratorService {
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(null);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME, null, 0);
+            TestObjectFactory.WORKFLOWOWNER, null, 0);
   }
 
   @Test(expected = NoWorkflowFoundException.class)
@@ -434,11 +431,11 @@ public class TestOrchestratorService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(null);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME, null, 0);
+            TestObjectFactory.WORKFLOWOWNER, null, 0);
   }
 
   @Test(expected = WorkflowExecutionAlreadyExistsException.class)
@@ -448,14 +445,14 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()))
         .thenReturn(new ObjectId().toString());
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME, null, 0);
+            TestObjectFactory.WORKFLOWOWNER, null, 0);
   }
 
   @Test
@@ -626,10 +623,9 @@ public class TestOrchestratorService {
     HashSet<WorkflowStatus> workflowStatuses = new HashSet<>();
     workflowStatuses.add(WorkflowStatus.INQUEUE);
     orchestratorService.getAllWorkflowExecutions(TestObjectFactory.DATASETID,
-        TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
-        workflowStatuses, OrderField.ID, false, 0);
+        TestObjectFactory.WORKFLOWOWNER, workflowStatuses, OrderField.ID, false, 0);
     verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutions(anyInt(), anyString(), anyString(), anySet(),
+        .getAllWorkflowExecutions(anyInt(), anyString(), anySet(),
             any(OrderField.class), anyBoolean(), anyInt());
     verifyNoMoreInteractions(workflowExecutionDao);
   }
@@ -649,7 +645,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(null);
@@ -673,7 +669,7 @@ public class TestOrchestratorService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(null);
     orchestratorService.scheduleWorkflow(scheduledWorkflow);
   }
@@ -686,7 +682,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(new ObjectId().toString());
@@ -702,7 +698,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(null);
@@ -718,7 +714,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(null);
@@ -734,7 +730,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(null);
@@ -766,7 +762,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(new ObjectId().toString());
@@ -780,7 +776,7 @@ public class TestOrchestratorService {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(null);
     orchestratorService.updateScheduledWorkflow(scheduledWorkflow);
   }
@@ -792,7 +788,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(null);
@@ -807,7 +803,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(new ObjectId().toString());
@@ -823,7 +819,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(new ObjectId().toString());
@@ -839,7 +835,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
     when(workflowDao
-        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.DATASETID))
         .thenReturn(workflow);
     when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
         .thenReturn(new ObjectId().toString());

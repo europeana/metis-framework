@@ -137,7 +137,6 @@ public class OrchestratorService {
             workflow.getPluginMetadata(abstractMetisPluginMetadata.getPluginType()) == null)
         .peek(abstractMetisPluginMetadata -> abstractMetisPluginMetadata.setEnabled(false))
         .collect(Collectors.toList());
-    storedPluginsExcludingNewPlugins.addAll(workflow.getMetisPluginsMetadata());
     workflow.setMetisPluginsMetadata(Stream.concat(storedPluginsExcludingNewPlugins.stream(),
         workflow.getMetisPluginsMetadata().stream()).collect(Collectors.toList()));
   }

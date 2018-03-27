@@ -21,7 +21,7 @@ import org.mongodb.morphia.annotations.Indexes;
  * @since 2017-09-25
  */
 @Entity
-@Indexes({@Index(fields = {@Field("datasetId"), @Field("workflowOwner"), @Field("workflowName")})})
+@Indexes({@Index(fields = {@Field("datasetId"), @Field("workflowOwner")})})
 public class ScheduledWorkflow implements HasMongoObjectId {
 
   @Id

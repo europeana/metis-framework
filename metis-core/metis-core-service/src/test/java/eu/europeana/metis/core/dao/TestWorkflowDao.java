@@ -63,12 +63,11 @@ public class TestWorkflowDao {
   public void testUpdateUserWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
-    String updatedWorkflowName = "updatedWorkflowName";
-    workflow.setWorkflowName(updatedWorkflowName);
+    workflow.setMetisPluginsMetadata(null);
     String objectId = workflowDao.update(workflow);
     Assert.assertNotNull(objectId);
     Workflow updatedWorkflow = workflowDao.getById(objectId);
-    Assert.assertEquals(updatedWorkflowName, updatedWorkflow.getWorkflowName());
+    Assert.assertNull(updatedWorkflow.getMetisPluginsMetadata());
   }
 
   @Test
@@ -77,8 +76,6 @@ public class TestWorkflowDao {
     String objectId = workflowDao.create(workflow);
     Workflow retrievedWorkflow = workflowDao.getById(objectId);
     Assert.assertEquals(workflow.getWorkflowOwner(), retrievedWorkflow.getWorkflowOwner());
-    Assert.assertEquals(workflow.getWorkflowName(), retrievedWorkflow.getWorkflowName());
-    Assert.assertEquals(workflow.isHarvestPlugin(), retrievedWorkflow.isHarvestPlugin());
 
     List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
     List<AbstractMetisPluginMetadata> retrievedUserWorkflowMetisPluginsMetadata = retrievedWorkflow
@@ -102,9 +99,9 @@ public class TestWorkflowDao {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
     Assert.assertTrue(workflowDao
-        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
+        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()));
     Assert.assertFalse(workflowDao
-        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
+        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()));
   }
 
   @Test
@@ -119,7 +116,7 @@ public class TestWorkflowDao {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
     Assert.assertNotNull(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()));
   }
 
   @Test
@@ -129,7 +126,7 @@ public class TestWorkflowDao {
     for (int i = 0; i < userWorkflowsToCreate; i++)
     {
       Workflow workflow = TestObjectFactory.createWorkflowObject();
-      workflow.setWorkflowName(String.format("%s%s", TestObjectFactory.WORKFLOWNAME, i));
+      workflow.setDatasetId(TestObjectFactory.DATASETID + i);
       workflowDao.create(workflow);
     }
     int nextPage = 0;

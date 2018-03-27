@@ -41,9 +41,8 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     Key<ScheduledWorkflow> scheduledWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
         scheduledWorkflow);
     LOGGER.debug(
-        "ScheduledWorkflow for datasetName: '{}' with workflowName: '{}' and owner: '{}' created in Mongo",
-        scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowName(),
-        scheduledWorkflow.getWorkflowOwner());
+        "ScheduledWorkflow for datasetName: '{}' and owner: '{}' created in Mongo",
+        scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner());
     return scheduledWorkflowKey.getId().toString();
   }
 
@@ -52,9 +51,8 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     Key<ScheduledWorkflow> scheduledWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
         scheduledWorkflow);
     LOGGER.debug(
-        "ScheduledWorkflow with datasetId: '{}', workflowName: '{}' and workflowOwner '{}' updated in Mongo",
-        scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowName(),
-        scheduledWorkflow.getWorkflowOwner());
+        "ScheduledWorkflow with datasetId: '{}' and workflowOwner '{}' updated in Mongo",
+        scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner());
     return scheduledWorkflowKey.getId().toString();
   }
 
@@ -71,13 +69,11 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     return false;
   }
 
-  public ScheduledWorkflow getScheduledWorkflow(int datasetId, String workflowOwner,
-      String workflowName) {
+  public ScheduledWorkflow getScheduledWorkflow(int datasetId, String workflowOwner) {
     return morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class).field(DATASET_ID)
         .equal(datasetId).field("workflowOwner")
-        .equal(workflowOwner).field("workflowName")
-        .equal(workflowName).get();
+        .equal(workflowOwner).get();
   }
 
   public ScheduledWorkflow getScheduledWorkflowByDatasetId(int datasetId) {
@@ -90,8 +86,8 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     return morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class).field(DATASET_ID)
         .equal(scheduledWorkflow.getDatasetId()).field("workflowOwner")
-        .equal(scheduledWorkflow.getWorkflowOwner()).field("workflowName")
-        .equal(scheduledWorkflow.getWorkflowName())
+        .equal(scheduledWorkflow.getWorkflowOwner()).field("datasetId")
+        .equal(scheduledWorkflow.getDatasetId())
         .project("_id", true).get() != null;
   }
 

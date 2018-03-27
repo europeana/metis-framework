@@ -49,9 +49,8 @@ public class TestObjectFactory {
 
   public static Workflow createWorkflowObject() {
     Workflow workflow = new Workflow();
-    workflow.setHarvestPlugin(true);
     workflow.setWorkflowOwner(WORKFLOWOWNER);
-    workflow.setWorkflowName(WORKFLOWNAME);
+    workflow.setDatasetId(DATASETID);
     ValidationExternalPluginMetadata validationExternalPluginMetadata = new ValidationExternalPluginMetadata();
     TransformationPluginMetadata transformationPluginMetadata = new TransformationPluginMetadata();
     ValidationInternalPluginMetadata validationInternalPluginMetadata = new ValidationInternalPluginMetadata();
@@ -65,14 +64,14 @@ public class TestObjectFactory {
     return workflow;
   }
 
-  public static List<Workflow> createListOfUserWorkflowsSameOwner(String workflowOwner,
+  public static List<Workflow> createListOfWorkflowsSameOwner(String workflowOwner,
       int size) {
     List<Workflow> workflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
       workflow.setWorkflowOwner(workflowOwner);
-      workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
+      workflow.setDatasetId(DATASETID + i);
       workflows.add(workflow);
     }
     return workflows;
@@ -112,7 +111,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
-      workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
+      workflow.setDatasetId(DATASETID + i);
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
       dataset.setDatasetId(DATASETID + i);
       WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset,
@@ -134,7 +133,7 @@ public class TestObjectFactory {
     ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
     scheduledWorkflow.setDatasetId(DATASETID);
     scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
-    scheduledWorkflow.setWorkflowName(WORKFLOWNAME);
+    scheduledWorkflow.setDatasetId(DATASETID);
     scheduledWorkflow.setPointerDate(new Date());
     scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);
     scheduledWorkflow.setWorkflowPriority(0);

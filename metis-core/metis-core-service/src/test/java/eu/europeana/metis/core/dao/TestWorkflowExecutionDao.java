@@ -153,8 +153,6 @@ public class TestWorkflowExecutionDao {
         retrievedWorkflowExecution.getDatasetId());
     Assert.assertEquals(workflowExecution.getWorkflowOwner(),
         retrievedWorkflowExecution.getWorkflowOwner());
-    Assert.assertEquals(workflowExecution.getWorkflowName(),
-        retrievedWorkflowExecution.getWorkflowName());
     Assert.assertEquals(workflowExecution.getWorkflowPriority(),
         retrievedWorkflowExecution.getWorkflowPriority());
     Assert.assertFalse(retrievedWorkflowExecution.isCancelling());
@@ -275,8 +273,7 @@ public class TestWorkflowExecutionDao {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
               .getAllWorkflowExecutions(TestObjectFactory.DATASETID,
-                  TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
-                  workflowStatuses, OrderField.ID, false, nextPage),
+                  TestObjectFactory.WORKFLOWOWNER, workflowStatuses, OrderField.ID, false, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
@@ -302,8 +299,8 @@ public class TestWorkflowExecutionDao {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
               .getAllWorkflowExecutions(TestObjectFactory.DATASETID,
-                  TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
-                  workflowStatuses, OrderField.CREATED_DATE, true, nextPage),
+                  TestObjectFactory.WORKFLOWOWNER, workflowStatuses, OrderField.CREATED_DATE, true,
+                  nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       WorkflowExecution beforeWorkflowExecution = userWorkflowExecutionResponseListWrapper
           .getResults().get(0);

@@ -58,7 +58,8 @@ public class TestSchedulerExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
+    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
+        redissonClient);
 
     int userWorkflowExecutionsPerRequest = 3;
     int listSize = userWorkflowExecutionsPerRequest - 1; //To not trigger paging
@@ -69,9 +70,11 @@ public class TestSchedulerExecutor {
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateDAILY = TestObjectFactory
         .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.DAILY);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateWEEKLY = TestObjectFactory
-        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.WEEKLY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now,
+            ScheduleFrequence.WEEKLY);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateMONTHLY = TestObjectFactory
-        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.MONTHLY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now,
+            ScheduleFrequence.MONTHLY);
 
     when(orchestratorService.getScheduledWorkflowsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest);
@@ -84,8 +87,9 @@ public class TestSchedulerExecutor {
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
-    when(orchestratorService.addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-        isNull(), anyInt())).thenThrow(new NoDatasetFoundException("Some Error")).thenReturn(null); //Throw an exception as well, should continue execution after that
+    when(orchestratorService.addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(),
+        isNull(), anyInt())).thenThrow(new NoDatasetFoundException("Some Error"))
+        .thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
     schedulerExecutor.performScheduling();
@@ -97,7 +101,7 @@ public class TestSchedulerExecutor {
     verify(orchestratorService, times(3))
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, atMost(listSize * 4))
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(),
             isNull(), anyInt());
   }
 
@@ -106,18 +110,22 @@ public class TestSchedulerExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
+    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
+        redissonClient);
 
     int userWorkflowExecutionsPerRequest = 3;
     int listSize = userWorkflowExecutionsPerRequest - 1; //To not trigger paging
     Date past = new Date();
     past.setTime(past.getTime() - periodicSchedulerCheckInSecs * 1000);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateDAILY = TestObjectFactory
-        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.DAILY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past,
+            ScheduleFrequence.DAILY);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateWEEKLY = TestObjectFactory
-        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.WEEKLY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past,
+            ScheduleFrequence.WEEKLY);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateMONTHLY = TestObjectFactory
-        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.MONTHLY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past,
+            ScheduleFrequence.MONTHLY);
 
     when(orchestratorService.getScheduledWorkflowsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest);
@@ -131,8 +139,9 @@ public class TestSchedulerExecutor {
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            isNull(), anyInt())).thenThrow(new NoDatasetFoundException("Some Error")).thenReturn(null); //Throw an exception as well, should continue execution after that
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), isNull(), anyInt()))
+        .thenThrow(new NoDatasetFoundException("Some Error"))
+        .thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
     schedulerExecutor.performScheduling();
@@ -144,15 +153,15 @@ public class TestSchedulerExecutor {
     verify(orchestratorService, times(3))
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, times(0))
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), isNull(), anyInt());
   }
 
   @Test
   public void runThatThrowsExceptionDuringLockAndContinues() {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
-    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
+    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
+        redissonClient);
     doNothing().when(rlock).lock();
     doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
     schedulerExecutor.performScheduling();
@@ -163,7 +172,8 @@ public class TestSchedulerExecutor {
   public void runThatThrowsExceptionDuringLockAndUnlockAndContinues() {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
-    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
+    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
+        redissonClient);
     doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
     doThrow(new RedisConnectionException("Connection error")).when(rlock).unlock();
     schedulerExecutor.performScheduling();
