@@ -47,7 +47,6 @@ import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -248,41 +247,14 @@ public class TestOrchestratorService {
   public void addWorkflowInQueueOfWorkflowExecutions_AddHTTPHarvest()
       throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setHarvestingMetadata(new HTTPHarvestPluginMetadata());
     Workflow workflow = TestObjectFactory.createWorkflowObject();
+    workflow.getMetisPluginsMetadata().add(0, new HTTPHarvestPluginMetadata());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao.getWorkflow(workflow.getDatasetId())).thenReturn(workflow);
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
-    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
-    orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(), null, 0);
-  }
-
-  @Test
-  public void addWorkflowInQueueOfWorkflowExecutions_AddFakeHarvest()
-      throws Exception {
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setHarvestingMetadata(new ValidationExternalPluginMetadata());
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(workflowDao.getWorkflow(workflow.getDatasetId())).thenReturn(workflow);
-    OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin();
-    oaipmhHarvestPlugin.setStartedDate(new Date());
-    ExecutionProgress executionProgress = new ExecutionProgress();
-    executionProgress.setProcessedRecords(5);
-    oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
-    when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(dataset.getDatasetId(),
-            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
-    RLock rlock = mock(RLock.class);
-    when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
-    doNothing().when(rlock).lock();
-    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    String objectId = new ObjectId().toString();
-    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
-    doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(), null, 0);
   }

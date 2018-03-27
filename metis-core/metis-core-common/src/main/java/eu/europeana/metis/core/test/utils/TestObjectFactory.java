@@ -184,7 +184,6 @@ public class TestObjectFactory {
     ds.setLanguage(Language.AR);
     ds.setDescription("description");
     ds.setNotes("Notes");
-    ds.setHarvestingMetadata(new OaipmhHarvestPluginMetadata());
     return ds;
   }
 

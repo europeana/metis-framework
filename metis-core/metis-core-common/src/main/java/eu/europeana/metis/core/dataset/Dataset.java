@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
 import org.bson.types.ObjectId;
@@ -19,7 +18,6 @@ import org.mongodb.morphia.annotations.Indexes;
 
 /**
  * Dataset model that contains all the required fields for Dataset functionality.
- * It also contains the harvesting metadata required when executing a harvesting plugin.
  */
 @Entity
 @Indexes(@Index(fields = {@Field("organizationId"),
@@ -76,8 +74,6 @@ public class Dataset implements HasMongoObjectId {
 
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId xsltId;
-
-  private AbstractMetisPluginMetadata harvestingMetadata;
 
   @Override
   public ObjectId getId() {
@@ -223,15 +219,6 @@ public class Dataset implements HasMongoObjectId {
 
   public void setNotes(String notes) {
     this.notes = notes;
-  }
-
-  public AbstractMetisPluginMetadata getHarvestingMetadata() {
-    return harvestingMetadata;
-  }
-
-  public void setHarvestingMetadata(
-      AbstractMetisPluginMetadata harvestingMetadata) {
-    this.harvestingMetadata = harvestingMetadata;
   }
 
   public ObjectId getXsltId() {
