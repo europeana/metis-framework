@@ -58,7 +58,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     Key<WorkflowExecution> workflowExecutionKey = morphiaDatastoreProvider.getDatastore().save(
         workflowExecution);
     LOGGER.debug(
-        "WorkflowExecution for datasetId '{}' with workflowOwner '{}' and workflowName '{}' created in Mongo",
+        "WorkflowExecution for datasetId '{}' with workflowOwner '{}' created in Mongo",
         workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner());
     return workflowExecutionKey.getId().toString();
   }

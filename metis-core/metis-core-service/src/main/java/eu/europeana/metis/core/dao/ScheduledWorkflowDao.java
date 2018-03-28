@@ -86,7 +86,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     return morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class).field(DATASET_ID)
         .equal(scheduledWorkflow.getDatasetId()).field("workflowOwner")
-        .equal(scheduledWorkflow.getWorkflowOwner()).field("datasetId")
+        .equal(scheduledWorkflow.getWorkflowOwner()).field(DATASET_ID)
         .equal(scheduledWorkflow.getDatasetId())
         .project("_id", true).get() != null;
   }
