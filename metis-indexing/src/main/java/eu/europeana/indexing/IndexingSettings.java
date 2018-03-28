@@ -186,7 +186,7 @@ public final class IndexingSettings {
    *         Zookeeper connection is to be established).
    */
   public String getZookeeperChroot() {
-    return zookeeperHosts.isEmpty() ? null : zookeeperChroot;
+    return establishZookeeperConnection() ? zookeeperChroot : null;
   }
 
   /**
@@ -198,7 +198,7 @@ public final class IndexingSettings {
    *         no default collection name was set.
    */
   String getZookeeperDefaultCollection() throws IndexerConfigurationException {
-    if (zookeeperHosts.isEmpty()) {
+    if (!establishZookeeperConnection()) {
       return null;
     }
     if (zookeeperDefaultCollection == null) {
@@ -219,6 +219,15 @@ public final class IndexingSettings {
       throw new IndexerConfigurationException("Please provide at least one Solr host.");
     }
     return Collections.unmodifiableList(solrHosts);
+  }
+
+  /**
+   * This method returns whether or not a Zookeeper connection is to be established.
+   * 
+   * @return Whether a Zookeeper connection is to be established.
+   */
+  boolean establishZookeeperConnection() {
+    return !zookeeperHosts.isEmpty();
   }
 
   private static <T> T nonNull(T value, String fieldName) throws IndexerConfigurationException {

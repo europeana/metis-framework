@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import java.net.InetSocketAddress;
 import org.junit.Test;
 
-public class IndexerFactoryTest {
+public class IndexingConnectionProviderTest {
 
   @Test
   public void testInetSocketAddressToString() {
@@ -13,13 +13,13 @@ public class IndexerFactoryTest {
     final String domainNameInput = "europeana.eu";
     final int port = 1234;
 
-    final IndexerFactory factory = new IndexerFactory(new IndexingSettings());
-
     final InetSocketAddress domainName = new InetSocketAddress(domainNameInput, port);
-    assertEquals(domainNameInput + ":" + port, factory.toZookeeperAddressString(domainName));
+    assertEquals(domainNameInput + ":" + port,
+        IndexingConnectionProvider.toZookeeperAddressString(domainName));
 
     final InetSocketAddress ipAddress = new InetSocketAddress(ipAddressInput, port);
-    assertEquals(ipAddressInput + ":" + port, factory.toZookeeperAddressString(ipAddress));
+    assertEquals(ipAddressInput + ":" + port,
+        IndexingConnectionProvider.toZookeeperAddressString(ipAddress));
   }
 
 }
