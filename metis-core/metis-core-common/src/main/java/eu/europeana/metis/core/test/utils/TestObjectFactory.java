@@ -15,6 +15,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
@@ -51,14 +52,23 @@ public class TestObjectFactory {
     Workflow workflow = new Workflow();
     workflow.setWorkflowOwner(WORKFLOWOWNER);
     workflow.setDatasetId(DATASETID);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setEnabled(true);
     ValidationExternalPluginMetadata validationExternalPluginMetadata = new ValidationExternalPluginMetadata();
+    validationExternalPluginMetadata.setEnabled(true);
     TransformationPluginMetadata transformationPluginMetadata = new TransformationPluginMetadata();
+    transformationPluginMetadata.setEnabled(true);
     ValidationInternalPluginMetadata validationInternalPluginMetadata = new ValidationInternalPluginMetadata();
+    validationInternalPluginMetadata.setEnabled(true);
+    EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
+    enrichmentPluginMetadata.setEnabled(true);
 
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
+    abstractMetisPluginMetadata.add(oaipmhHarvestPluginMetadata);
     abstractMetisPluginMetadata.add(validationExternalPluginMetadata);
     abstractMetisPluginMetadata.add(transformationPluginMetadata);
     abstractMetisPluginMetadata.add(validationInternalPluginMetadata);
+    abstractMetisPluginMetadata.add(enrichmentPluginMetadata);
     workflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 
     return workflow;

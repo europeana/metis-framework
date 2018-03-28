@@ -143,8 +143,8 @@ public class OrchestratorService {
         workflow.getMetisPluginsMetadata().stream()).collect(Collectors.toList()));
   }
 
-  public void deleteWorkflow(String workflowOwner, int datasetId) {
-    workflowDao.deleteWorkflow(workflowOwner, datasetId);
+  public void deleteWorkflow(int datasetId) {
+    workflowDao.deleteWorkflow(datasetId);
   }
 
   public Workflow getWorkflow(int datasetId) {
@@ -360,9 +360,7 @@ public class OrchestratorService {
     Workflow storedWorkflow = getWorkflow(workflow.getDatasetId());
     if (storedWorkflow == null) {
       throw new NoWorkflowFoundException(String.format(
-          "Workflow with workflowOwner: %s, and datasetId: %s, not found",
-          workflow.getWorkflowOwner(),
-          workflow.getDatasetId()));
+          "Workflow with datasetId: %s, not found", workflow.getDatasetId()));
     }
 
     return storedWorkflow;

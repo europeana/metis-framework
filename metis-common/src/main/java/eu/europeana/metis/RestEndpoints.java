@@ -62,14 +62,6 @@ public final class RestEndpoints {
   public static final String ENRICHMENT_BYURI = "/getByUri";
   public static final String ENRICHMENT_ENRICH = "/enrich";
 
-  /* METIS IDENTIFIER ITEMIZATION Endpoint */
-  public static final String IDENTIFIER_GENERATE = "/identifier/generate/{collectionId}";
-  public static final String IDENTIFIER_NORMALIZE_SINGLE = "/identifier/normalize/single";
-  public static final String IDENTIFIER_NORMALIZE_BATCH = "/identifier/normalize/batch";
-  public static final String ITEMIZE_URL = "/itemize/url";
-  public static final String ITEMIZE_RECORDS = "/itemize/records";
-  public static final String ITEMIZE_FILE = "/itemize/file";
-
   /*METIS REDIRECTS Endpoint*/
   public static final String REDIRECT_SINGLE = "/redirect/single";
   public static final String REDIRECT_BATCH = "/redirect/batch";
@@ -122,6 +114,7 @@ public final class RestEndpoints {
   /**
    * Resolves an endpoint with parameters wrapped around "{" and "}" by providing the endpoint and
    * all the required parameters.
+   *
    * @param endpoint the endpoint to resolve
    * @param params all the parameters specified
    * @return the resolved endpoint

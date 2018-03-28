@@ -69,10 +69,9 @@ public class OrchestratorController {
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteWorkflow(@PathVariable("datasetId") int datasetId,
-      @RequestParam("workflowOwner") String workflowOwner) {
-    orchestratorService.deleteWorkflow(workflowOwner, datasetId);
-    LOGGER.info("Workflow with workflowOwner '{}' and datasetId '{}' deleted", workflowOwner,
+  public void deleteWorkflow(@PathVariable("datasetId") int datasetId) {
+    orchestratorService.deleteWorkflow(datasetId);
+    LOGGER.info("Workflow with datasetId '{}' deleted",
         datasetId);
   }
 

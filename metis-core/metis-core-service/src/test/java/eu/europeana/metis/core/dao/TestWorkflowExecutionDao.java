@@ -289,6 +289,7 @@ public class TestWorkflowExecutionDao {
     for (int i = 0; i < userWorkflowExecutionsToCreate; i++) {
       WorkflowExecution workflowExecution = TestObjectFactory
           .createWorkflowExecutionObject();
+      workflowExecution.setCreatedDate(new Date(1000 * i));
       workflowExecutionDao.create(workflowExecution);
     }
     HashSet<WorkflowStatus> workflowStatuses = new HashSet<>();

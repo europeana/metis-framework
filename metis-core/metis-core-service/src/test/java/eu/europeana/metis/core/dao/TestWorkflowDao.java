@@ -67,7 +67,7 @@ public class TestWorkflowDao {
     String objectId = workflowDao.update(workflow);
     Assert.assertNotNull(objectId);
     Workflow updatedWorkflow = workflowDao.getById(objectId);
-    Assert.assertNull(updatedWorkflow.getMetisPluginsMetadata());
+    Assert.assertEquals(0, updatedWorkflow.getMetisPluginsMetadata().size());
   }
 
   @Test
@@ -98,10 +98,8 @@ public class TestWorkflowDao {
   public void deleteUserWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
-    Assert.assertTrue(workflowDao
-        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()));
-    Assert.assertFalse(workflowDao
-        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getDatasetId()));
+    Assert.assertTrue(workflowDao.deleteWorkflow(workflow.getDatasetId()));
+    Assert.assertFalse(workflowDao.deleteWorkflow(workflow.getDatasetId()));
   }
 
   @Test

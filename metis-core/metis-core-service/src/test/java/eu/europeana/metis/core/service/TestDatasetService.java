@@ -56,6 +56,7 @@ public class TestDatasetService {
   public void prepare() {
     datasetDao = Mockito.mock(DatasetDao.class);
     datasetXsltDao = Mockito.mock(DatasetXsltDao.class);
+    workflowDao = Mockito.mock(WorkflowDao.class);
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
