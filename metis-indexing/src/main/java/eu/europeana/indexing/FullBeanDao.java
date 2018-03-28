@@ -1,4 +1,4 @@
-package eu.europeana.indexing.service.dao;
+package eu.europeana.indexing;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 
-public class FullBeanDao {
+class FullBeanDao {
 
   private final EdmMongoServer mongoServer;
   private static final String ABOUT = "about";

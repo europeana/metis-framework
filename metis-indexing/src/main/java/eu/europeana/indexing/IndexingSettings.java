@@ -22,12 +22,12 @@ public final class IndexingSettings {
   private boolean mongoEnableSsl = false;
 
   // Zookeeper settings
-  private List<InetSocketAddress> zookeeperHosts = null;
+  private List<InetSocketAddress> zookeeperHosts = new ArrayList<>();
   private String zookeeperChroot = null;
+  private String zookeeperDefaultCollection = null;
 
   // Solr settings
   private final List<URI> solrHosts = new ArrayList<>();
-  private String solrCollectionName = null;
 
   /**
    * Add a Mongo host. This method must be called at least once.
@@ -104,6 +104,19 @@ public final class IndexingSettings {
   }
 
   /**
+   * Set the Zookeeper default collection name. This method must be called if zookeeper is to be
+   * used (i.e. if {@link #addZookeeperHost(InetSocketAddress)} is called).
+   * 
+   * @param zookeeperDefaultCollection Zookeeper default collection. Cannot be null.
+   * @throws IndexerConfigurationException
+   */
+  public void setZookeeperDefaultCollection(String zookeeperDefaultCollection)
+      throws IndexerConfigurationException {
+    this.zookeeperDefaultCollection =
+        nonNull(zookeeperDefaultCollection, "zookeeperDefaultCollection");
+  }
+
+  /**
    * Add a Solr host. This method must be called at least once.
    * 
    * @param host Solr host.
@@ -111,17 +124,6 @@ public final class IndexingSettings {
    */
   public void addSolrHost(URI host) throws IndexerConfigurationException {
     solrHosts.add(nonNull(host, "host"));
-  }
-
-  /**
-   * Set the Solr collection name. This method must be called at least once.
-   * 
-   * @param solrCollectionName Solr collection name.
-   * @throws IndexerConfigurationException
-   */
-  public void setSolrCollectionName(String solrCollectionName)
-      throws IndexerConfigurationException {
-    this.solrCollectionName = nonNull(solrCollectionName, "solrCollectionName");
   }
 
   /**
@@ -188,6 +190,25 @@ public final class IndexingSettings {
   }
 
   /**
+   * This method returns the Zookeeper default collection name.
+   * 
+   * @return The Zookeeper default collection name, or null if no Zookeeper connection is to be
+   *         established.
+   * @throws IndexerConfigurationException In case a Zookeeper connection is to be established, but
+   *         no default collection name was set.
+   */
+  String getZookeeperDefaultCollection() throws IndexerConfigurationException {
+    if (zookeeperHosts.isEmpty()) {
+      return null;
+    }
+    if (zookeeperDefaultCollection == null) {
+      throw new IndexerConfigurationException(
+          "Please provide a Zookeeper default collection name.");
+    }
+    return zookeeperDefaultCollection;
+  }
+
+  /**
    * This method returns the Solr hosts.
    * 
    * @return The solr hosts.
@@ -198,19 +219,6 @@ public final class IndexingSettings {
       throw new IndexerConfigurationException("Please provide at least one Solr host.");
     }
     return Collections.unmodifiableList(solrHosts);
-  }
-
-  /**
-   * This method returns the Solr collection name.
-   * 
-   * @return The Solr collection name.
-   * @throws IndexerConfigurationException In case no Solr collection name was set.
-   */
-  String getSolrCollectionName() throws IndexerConfigurationException {
-    if (solrCollectionName == null) {
-      throw new IndexerConfigurationException("Please provide a Solr collection name.");
-    }
-    return solrCollectionName;
   }
 
   private static <T> T nonNull(T value, String fieldName) throws IndexerConfigurationException {

@@ -1,6 +1,8 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.service.PublishingService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 
 /**
  * Implementation of {@link Indexer}.
@@ -12,14 +14,29 @@ import eu.europeana.indexing.service.PublishingService;
  */
 class IndexerImpl implements Indexer {
 
-  private final PublishingService publishingService;
+  private static final Logger LOGGER = LoggerFactory.getLogger(IndexerImpl.class);
 
-  IndexerImpl(PublishingService publishingService) {
-    this.publishingService = publishingService;
+  private final FullBeanPublisher publisher;
+
+  IndexerImpl(FullBeanPublisher publishingService) {
+    this.publisher = publishingService;
   }
 
   @Override
   public void index(String record) throws IndexingException {
-    this.publishingService.process(record);
+    LOGGER.info("Processing record...");
+
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("Record to process: " + record);
+    }
+
+    final FullBeanImpl fullBean = convertStringToFullBean(record);
+    publisher.publish(fullBean);
+
+    LOGGER.info("Successfully processed record.");
+  }
+
+  FullBeanImpl convertStringToFullBean(String record) throws IndexingException {
+    return new FullBeanCreator().convertStringToFullBean(record);
   }
 }

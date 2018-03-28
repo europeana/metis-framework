@@ -1,22 +1,11 @@
-package eu.europeana.indexing.service;
+package eu.europeana.indexing;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.edm.utils.construct.AgentUpdater;
 import eu.europeana.corelib.edm.utils.construct.AggregationUpdater;
 import eu.europeana.corelib.edm.utils.construct.ConceptUpdater;
@@ -39,61 +28,18 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
-import eu.europeana.indexing.IndexingException;
-import eu.europeana.indexing.service.dao.FullBeanDao;
 
-public class PublishingService {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(PublishingService.class);
+class FullBeanPublisher {
 
   private final FullBeanDao fullBeanDao;
-  private static IBindingFactory rdfBindingFactory;
-  private static final String UTF8 = StandardCharsets.UTF_8.name();
   private final SolrServer solrServer;
 
-  static {
-    try {
-      rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-    } catch (JiBXException e) {
-      LOGGER.warn("Error creating the JibX factory.", e);
-    }
-  }
-
-  public PublishingService(FullBeanDao fullBeanDao, SolrServer solrServer) {
+  public FullBeanPublisher(FullBeanDao fullBeanDao, SolrServer solrServer) {
     this.fullBeanDao = fullBeanDao;
     this.solrServer = solrServer;
   }
 
-  public void process(String record) throws IndexingException {
-    LOGGER.info("Processing record...");
-
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Record to process: " + record);
-    }
-
-    final RDF rdf = toRDF(record);
-    FullBeanImpl fBean = null;
-    if (rdf != null) {
-      try {
-        fBean = new MongoConstructor().constructFullBean(rdf);
-      } catch (InstantiationException | IllegalAccessException | IOException e) {
-        throw new IndexingException("Could not construct FullBean using MongoConstructor.", e);
-      }
-    }
-
-    if (fBean != null) {
-      processFullBean(fBean);
-      LOGGER.info("Successfully processed record.");
-    } else {
-      // This should not happen.
-      throw new IndexingException(
-          "Could not construct FullBean using MongoConstructor: null was returned.", null);
-    }
-  }
-
-  private void processFullBean(FullBeanImpl fBean) throws IndexingException {
-    fBean.setEuropeanaCollectionName(new String[100]); // To prevent potential null pointer
-                                                       // exceptions
+  public void publish(FullBeanImpl fBean) throws IndexingException {
 
     SolrDocumentHandler solrDocHandler = new SolrDocumentHandler(solrServer);
     SolrInputDocument solrInputDoc;
@@ -112,8 +58,7 @@ public class PublishingService {
 
     try {
       saveEdmClasses(fBean);
-    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-        | MongoDBException e) {
+    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
       throw new IndexingException("Could not save/update EDM classes of FullBean to Mongo.", e);
     }
 
@@ -124,29 +69,8 @@ public class PublishingService {
     }
   }
 
-  private static RDF toRDF(String xml) throws IndexingException {
-    try {
-      IUnmarshallingContext context = getRdfBindingFactory().createUnmarshallingContext();
-      return (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), UTF8);
-    } catch (JiBXException e) {
-      throw new IndexingException("Could not convert record to RDF.", e);
-    }
-  }
-
-  private static IBindingFactory getRdfBindingFactory() throws IndexingException {
-    if (rdfBindingFactory == null) {
-      try {
-        rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-      } catch (JiBXException e) {
-        LOGGER.warn("Error creating the JibX factory.", e);
-        throw new IndexingException("Error creating the JibX factory.", e);
-      }
-    }
-    return rdfBindingFactory;
-  }
-  
-  private void saveEdmClasses(FullBeanImpl fullBean) throws NoSuchMethodException,
-      IllegalAccessException, InvocationTargetException, MongoDBException {
+  private void saveEdmClasses(FullBeanImpl fullBean)
+      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
     final boolean isFirstSave = fullBean.getAbout() == null;
 
@@ -176,7 +100,7 @@ public class PublishingService {
     fullBean.setLicenses(licenses);
     fullBean.setServices(services);
   }
-  
+
   private void executeFirstSave(FullBeanImpl fullBean) {
     fullBeanDao.save(fullBean.getProvidedCHOs());
     fullBeanDao.save(fullBean.getEuropeanaAggregation());
