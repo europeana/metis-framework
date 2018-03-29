@@ -96,7 +96,7 @@ public class TestProxiesController {
         .andExpect(jsonPath("$.errors[1].errorDetails",
             hasSize(taskErrorsInfo.getErrors().get(1).getErrorDetails().size())));
   }
-
+  
   @Test
   public void getExternalTaskStatistics() throws Exception {
     final StatisticsReport taskStatistics = TestObjectFactory.createTaskStatisticsReport();

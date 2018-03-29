@@ -26,6 +26,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -38,6 +39,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 @PrepareForTest({CollectionMongoServerImpl.class,
         CloudSolrServer.class,QueryResponse.class,EuropeanaIdMongoServer.class,SolrDocumentList.class,
         SolrDocument.class,ModifiableSolrParams.class})
+@PowerMockIgnore({"org.apache.logging.log4j.*"})
 public class MongoRedirectServiceTest {
     private CollectionMongoServer collectionMongo;
     private EuropeanaIdMongoServer mongoServer;

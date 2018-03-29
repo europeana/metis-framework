@@ -4,6 +4,7 @@ import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.utils.EuropeanaUriUtils;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.validation.client.ValidationClient;
@@ -46,7 +47,7 @@ public class ValidationUtils {
 
   public void persistFullBean(FullBean fBean)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-      MongoDBException, MongoRuntimeException, SolrServerException, IOException {
+      MongoDBException, MongoRuntimeException, SolrServerException, IOException, MongoUpdateException {
     recordDao.createRecord(fBean);
   }
 

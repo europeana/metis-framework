@@ -21,6 +21,7 @@ import eu.europeana.corelib.definitions.edm.entity.ProvidedCHO;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
 import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
@@ -61,10 +62,11 @@ public class RecordDao {
    * Persist a record in mongo and solr
    *
    * @param fBean The record
+ * @throws MongoUpdateException 
    */
   public void createRecord(FullBean fBean)
       throws SolrServerException, NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-      IOException, MongoDBException, MongoRuntimeException {
+      IOException, MongoDBException, MongoRuntimeException, MongoUpdateException {
     SolrInputDocument doc = solrDocumentHandler.generate((FullBeanImpl) fBean);
     doc.setField("europeana_id", fBean.getAbout());
     solrServer.add(doc);
@@ -128,10 +130,11 @@ public class RecordDao {
    * Create records
    *
    * @param fBeans The records to create
+ * @throws MongoUpdateException 
    */
   public void createRecords(List<FullBean> fBeans)
       throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, SolrServerException,
-      IOException, MongoDBException, MongoRuntimeException {
+      IOException, MongoDBException, MongoRuntimeException, MongoUpdateException {
     for (FullBean fBean : fBeans) {
       createRecord(fBean);
     }

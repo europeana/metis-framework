@@ -13,6 +13,7 @@ import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.solr.DocType;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.edm.utils.construct.TimespanUpdater;
@@ -135,7 +136,7 @@ public class PublishingService {
         if (fBean.getAbout() == null) {
             try {
 				saveEdmClasses(fBean, true, fullBeanDao);
-			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | MongoDBException e) {
+			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | MongoDBException | MongoUpdateException e) {
 				throw new IndexingException("Could not save EDM classes of FullBean to Mongo.", e.getCause());
 			}
             
@@ -143,7 +144,7 @@ public class PublishingService {
         } else {
             try {
 				updateFullBean(fBean, fullBeanDao);
-			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | MongoDBException e) {
+			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | MongoDBException | MongoUpdateException e) {
 				throw new IndexingException("Could not update FullBean.", e.getCause());
 			}
         } 
@@ -169,7 +170,7 @@ public class PublishingService {
     	return out.toString(UTF8);
     }
     
-    private static void saveEdmClasses(FullBeanImpl fullBean, boolean isFirstSave, FullBeanDao fullBeanDao) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoDBException {
+    private static void saveEdmClasses(FullBeanImpl fullBean, boolean isFirstSave, FullBeanDao fullBeanDao) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoDBException, MongoUpdateException {
     	List<AgentImpl> agents = new ArrayList<>();
     	List<ConceptImpl> concepts = new ArrayList<>();
     	List<TimespanImpl> timespans = new ArrayList<>();
@@ -210,7 +211,7 @@ public class PublishingService {
     	fullBean.setServices(services);
     }
     
-    private static void updateAgents(List<AgentImpl> agentsToAdd, List<AgentImpl> agents, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {    	
+    private static void updateAgents(List<AgentImpl> agentsToAdd, List<AgentImpl> agents, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoUpdateException {    	
     	for (AgentImpl agent : agentsToAdd) {
     		AgentImpl retAgent = fullBeanDao.searchByAbout(AgentImpl.class, agent.getAbout());
     		if (retAgent != null) {
@@ -226,7 +227,7 @@ public class PublishingService {
     	}
     }
     
-    private static void updatePlaces(List<PlaceImpl> placesToAdd, List<PlaceImpl> places, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private static void updatePlaces(List<PlaceImpl> placesToAdd, List<PlaceImpl> places, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoUpdateException {
     	for (PlaceImpl place : placesToAdd) {
     		PlaceImpl retPlace = fullBeanDao.searchByAbout(PlaceImpl.class, place.getAbout());
     		if (retPlace != null) {
@@ -242,7 +243,7 @@ public class PublishingService {
     	}
     }
         
-    private static void updateConcepts(List<ConceptImpl> conceptsToAdd, List<ConceptImpl> concepts, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private static void updateConcepts(List<ConceptImpl> conceptsToAdd, List<ConceptImpl> concepts, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoUpdateException {
     	for (ConceptImpl concept : conceptsToAdd) {
     		ConceptImpl retConcept = fullBeanDao.searchByAbout(ConceptImpl.class, concept.getAbout());
     		if (retConcept != null) {
@@ -258,7 +259,7 @@ public class PublishingService {
     	}
     }
 
-    private static void updateTimespans(List<TimespanImpl> timespansToAdd, List<TimespanImpl> timespans, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private static void updateTimespans(List<TimespanImpl> timespansToAdd, List<TimespanImpl> timespans, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoUpdateException {
     	for (TimespanImpl timespan : timespansToAdd) {
     		TimespanImpl retTimespan = fullBeanDao.searchByAbout(TimespanImpl.class, timespan.getAbout());
     		if (retTimespan != null) {
@@ -274,7 +275,7 @@ public class PublishingService {
     	}
     }
     
-    private static void updateLicenses(List<LicenseImpl> licensesToAdd, List<LicenseImpl> licenses, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private static void updateLicenses(List<LicenseImpl> licensesToAdd, List<LicenseImpl> licenses, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoUpdateException {
     	for(LicenseImpl license : licensesToAdd) {
     		LicenseImpl retLicense = fullBeanDao.searchByAbout(LicenseImpl.class, license.getAbout());
 
@@ -291,7 +292,7 @@ public class PublishingService {
     	}
     }
     	
-    private static void updateServices(List<ServiceImpl> servicesToAdd, List<ServiceImpl> services, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private static void updateServices(List<ServiceImpl> servicesToAdd, List<ServiceImpl> services, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoUpdateException {
     	for(ServiceImpl service : servicesToAdd) {
     		ServiceImpl retService = fullBeanDao.searchByAbout(ServiceImpl.class, service.getAbout());
     		if(retService!=null) {
@@ -322,7 +323,7 @@ public class PublishingService {
     	}
     }
     
-    private static void executeUpdate(FullBeanImpl fullBean, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private static void executeUpdate(FullBeanImpl fullBean, FullBeanDao fullBeanDao, EdmMongoServer mongoServer) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoUpdateException {
     	List<ProvidedCHOImpl> pChos = new ArrayList<>();
 		List<ProxyImpl> proxies = new ArrayList<>();
 		List<AggregationImpl> aggregations = new ArrayList<>();
@@ -360,7 +361,7 @@ public class PublishingService {
     }
     		    
     // Modified and appended legacy code
-    public static FullBeanImpl updateFullBean(FullBeanImpl fullBean, FullBeanDao fullBeanDao) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoDBException {
+    public static FullBeanImpl updateFullBean(FullBeanImpl fullBean, FullBeanDao fullBeanDao) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoDBException, MongoUpdateException {
         saveEdmClasses(fullBean, false, fullBeanDao);
         
         EdmMongoServer mongoServer = new EdmMongoServerImpl(fullBeanDao.getMongo(), fullBeanDao.getDBName());
