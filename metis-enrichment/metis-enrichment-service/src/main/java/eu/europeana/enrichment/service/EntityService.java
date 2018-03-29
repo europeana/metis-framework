@@ -49,7 +49,7 @@ public class EntityService {
 		// store labels
 		int newLabels = MongoDatabaseUtils.storeEntityLabels(
 				(OrganizationImpl) org, EntityClass.ORGANIZATION);
-		LOGGER.trace("{}", "Stored new lables: " + newLabels);
+		LOGGER.trace("Stored new lables: {}", newLabels);
 
 		// store term list
 		return (OrganizationTermList) MongoDatabaseUtils
@@ -61,7 +61,7 @@ public class EntityService {
 			OrganizationImpl organization, Date created, Date modified) {
 		OrganizationTermList termList = new OrganizationTermList();
 		if (organization.getPrefLabel() == null
-				|| organization.getPrefLabel().entrySet().size() == 0)
+				|| organization.getPrefLabel().isEmpty())
 			return null;
 		termList.setCodeUri(organization.getAbout());
 		termList.setRepresentation(organization);

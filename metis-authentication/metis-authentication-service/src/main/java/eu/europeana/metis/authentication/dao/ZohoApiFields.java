@@ -40,13 +40,13 @@ public abstract class ZohoApiFields {
 	public static final String ORGANIZATION_ROLE = "Organisation Role";
 	  
 	private static SimpleDateFormat formatter;
+	
+	static{
+	  formatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
+      formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+	}
 
 	public static SimpleDateFormat getZohoTimeFormatter() {
-		if (formatter == null) {
-			formatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
-			formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-		}
-
 		return formatter;
 	}
 }

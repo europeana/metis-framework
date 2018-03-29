@@ -163,6 +163,7 @@ public class ZohoAccessService {
 			return null;
 
 		int commaSeparatorPos = organizationCountry.indexOf(",");
+		//TODO: remove the support for FR(France), when Zoho data is updated and consistent. 
 		int bracketSeparatorPos = organizationCountry.indexOf("(");
 
 		if (commaSeparatorPos > 0)
