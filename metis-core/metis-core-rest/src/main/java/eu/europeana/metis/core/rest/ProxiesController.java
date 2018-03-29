@@ -1,13 +1,5 @@
 package eu.europeana.metis.core.rest;
 
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
-import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.cloud.service.mcs.exception.MCSException;
-import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.core.service.ProxiesService;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -22,6 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import eu.europeana.cloud.common.model.dps.StatisticsReport;
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
+import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.cloud.service.mcs.exception.MCSException;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.core.service.ProxiesService;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.exception.ExternalTaskException;
 
 /**
  * Proxies Controller which encapsulates functionality that has to be proxied to an external resource.
@@ -97,6 +98,31 @@ public class ProxiesController {
         "Requesting proxy call task reports for topologyName: {}, externalTaskId: {}",
         topologyName, externalTaskId);
     return proxiesService.getExternalTaskReport(topologyName, externalTaskId, idsPerError);
+  }
+
+  /**
+   * Get the statistics on the given task.
+   * 
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @return the task statistics
+   * @throws ExternalTaskException can be one of:
+   *         <ul>
+   *         <li>{@link DpsException} if an error occurred while retrieving the statistics from the
+   *         external resource</li>
+   *         </ul>
+   */
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_STATISTICS,
+      method = RequestMethod.GET,
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public StatisticsReport getExternalTaskStatistics(
+      @PathVariable("topologyName") String topologyName,
+      @PathVariable("externalTaskId") long externalTaskId) throws ExternalTaskException {
+    LOGGER.info("Requesting proxy call task statistics for topologyName: {}, externalTaskId: {}",
+        topologyName, externalTaskId);
+    return proxiesService.getExternalTaskStatistics(topologyName, externalTaskId);
   }
 
   /**
