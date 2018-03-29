@@ -1,10 +1,7 @@
 package eu.europeana.metis.authentication.dao;
 
-import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.TimeZone;
 import org.apache.commons.lang3.time.FastDateFormat;
-import org.apache.logging.log4j.core.util.datetime.FastDateParser;
 
 /**
  * Fields used in the Zoho request and response fields, but not Model fields. see @link{ZohoOrganizationAdapter} 
@@ -46,5 +43,9 @@ public abstract class ZohoApiFields {
 	
 	public static FastDateFormat getZohoTimeFormatter() {
 		return formatter;
+	}
+	
+	private ZohoApiFields(){
+	  //this class is "static" and should never be instantiated or subclassed 
 	}
 }

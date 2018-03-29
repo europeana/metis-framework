@@ -163,18 +163,20 @@ public class ZohoAccessService {
 		if (StringUtils.isBlank(organizationCountry))
 			return null;
 
+		String isoCode = null;
 		int commaSeparatorPos = organizationCountry.indexOf(",");
 		//TODO: remove the support for FR(France), when Zoho data is updated and consistent. 
 		int bracketSeparatorPos = organizationCountry.indexOf("(");
 
-		if (commaSeparatorPos > 0)
+		if (commaSeparatorPos > 0){
 			// example: FR(France)
-			return organizationCountry.substring(commaSeparatorPos + 1).trim();
-		else if (bracketSeparatorPos > 0)
+			isoCode = organizationCountry.substring(commaSeparatorPos + 1).trim();
+		} else if (bracketSeparatorPos > 0){
 			// example: France, FR
-			return organizationCountry.substring(0, bracketSeparatorPos).trim();
-		else
-			return organizationCountry;
+			isoCode = organizationCountry.substring(0, bracketSeparatorPos).trim();
+		}
+		
+		return isoCode;
 	}
 
 	String toIsoLanguage(String language) {

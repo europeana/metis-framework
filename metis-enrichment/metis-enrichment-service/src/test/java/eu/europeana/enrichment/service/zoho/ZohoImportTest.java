@@ -71,6 +71,8 @@ public class ZohoImportTest extends BaseZohoAccessTest {
 		ZohoOrganization org = zohoAccessService
 				.getOrganization(TEST_ORGANIZATION_ID);
 		assertNotNull(org);
+		assertNotNull(org.getOrganizationName());
+		
 		OrganizationTermList termList = entityService
 				.storeOrganization(zohoAccessService.toEdmOrganization(org), org.getCreated(), org.getModified());
 		assertNotNull(termList);

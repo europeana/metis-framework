@@ -43,7 +43,8 @@ public class EntityService {
 		}
 
 		// delete old terms (labels), also when the termList is not found to
-		// will avoid problems when manually deleting the entries in the database
+		// will avoid problems when manually deleting the entries in the
+		// database
 		MongoDatabaseUtils.deleteOrganizationTerms(org.getAbout());
 
 		// store labels
@@ -60,9 +61,7 @@ public class EntityService {
 	private OrganizationTermList organizationToOrganizationTermList(
 			OrganizationImpl organization, Date created, Date modified) {
 		OrganizationTermList termList = new OrganizationTermList();
-		if (organization.getPrefLabel() == null
-				|| organization.getPrefLabel().isEmpty())
-			return null;
+
 		termList.setCodeUri(organization.getAbout());
 		termList.setRepresentation(organization);
 		termList.setEntityType(OrganizationImpl.class.getSimpleName());
@@ -72,6 +71,7 @@ public class EntityService {
 			termList.setCreated(created);
 		else
 			termList.setCreated(new Date());
+
 		termList.setModified(modified);
 
 		return termList;
