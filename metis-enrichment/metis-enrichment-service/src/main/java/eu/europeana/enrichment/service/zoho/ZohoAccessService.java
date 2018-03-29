@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -357,7 +358,7 @@ public class ZohoAccessService {
 		return resMap;
 	}
 
-	public SimpleDateFormat getDateFormatter() {
+	public FastDateFormat getDateFormatter() {
 		return ZohoApiFields.getZohoTimeFormatter();
 	}
 }

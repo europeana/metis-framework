@@ -29,7 +29,7 @@ import eu.europeana.metis.authentication.dao.ZohoApiFields;
  * @author GordeaS
  *
  */
- @Ignore
+@Ignore
 public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 
 	@Before
@@ -58,13 +58,17 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 		LOGGER.info("BNF identifiers: " + identifiers);
 		LOGGER.info("BNF about: " + bnf.getAbout());
 
-		Set<Entry<String, List<String>>> roles = bnf.getEdmEuropeanaRole()
-				.entrySet();
-		List<String> roleList = roles.iterator().next().getValue();
-		for (String role : roleList) {
-			LOGGER.info("Role: " + role);
+		if (bnf.getEdmEuropeanaRole() != null) {
+			Set<Entry<String, List<String>>> roles = bnf.getEdmEuropeanaRole()
+					.entrySet();
+			List<String> roleList = roles.iterator().next().getValue();
+			for (String role : roleList) {
+				LOGGER.info("Role: " + role);
+			}
+			
+			assertTrue(roleList.size() > 0);
 		}
-		assertTrue(roleList.size() > 0);
+		
 	}
 
 	@Test
