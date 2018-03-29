@@ -15,6 +15,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
@@ -49,30 +50,38 @@ public class TestObjectFactory {
 
   public static Workflow createWorkflowObject() {
     Workflow workflow = new Workflow();
-    workflow.setHarvestPlugin(true);
     workflow.setWorkflowOwner(WORKFLOWOWNER);
-    workflow.setWorkflowName(WORKFLOWNAME);
+    workflow.setDatasetId(DATASETID);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setEnabled(true);
     ValidationExternalPluginMetadata validationExternalPluginMetadata = new ValidationExternalPluginMetadata();
+    validationExternalPluginMetadata.setEnabled(true);
     TransformationPluginMetadata transformationPluginMetadata = new TransformationPluginMetadata();
+    transformationPluginMetadata.setEnabled(true);
     ValidationInternalPluginMetadata validationInternalPluginMetadata = new ValidationInternalPluginMetadata();
+    validationInternalPluginMetadata.setEnabled(true);
+    EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
+    enrichmentPluginMetadata.setEnabled(true);
 
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
+    abstractMetisPluginMetadata.add(oaipmhHarvestPluginMetadata);
     abstractMetisPluginMetadata.add(validationExternalPluginMetadata);
     abstractMetisPluginMetadata.add(transformationPluginMetadata);
     abstractMetisPluginMetadata.add(validationInternalPluginMetadata);
+    abstractMetisPluginMetadata.add(enrichmentPluginMetadata);
     workflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 
     return workflow;
   }
 
-  public static List<Workflow> createListOfUserWorkflowsSameOwner(String workflowOwner,
+  public static List<Workflow> createListOfWorkflowsSameOwner(String workflowOwner,
       int size) {
     List<Workflow> workflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
       workflow.setWorkflowOwner(workflowOwner);
-      workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
+      workflow.setDatasetId(DATASETID + i);
       workflows.add(workflow);
     }
     return workflows;
@@ -112,7 +121,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
-      workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
+      workflow.setDatasetId(DATASETID + i);
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
       dataset.setDatasetId(DATASETID + i);
       WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset,
@@ -134,7 +143,7 @@ public class TestObjectFactory {
     ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
     scheduledWorkflow.setDatasetId(DATASETID);
     scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
-    scheduledWorkflow.setWorkflowName(WORKFLOWNAME);
+    scheduledWorkflow.setDatasetId(DATASETID);
     scheduledWorkflow.setPointerDate(new Date());
     scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);
     scheduledWorkflow.setWorkflowPriority(0);
@@ -185,7 +194,6 @@ public class TestObjectFactory {
     ds.setLanguage(Language.AR);
     ds.setDescription("description");
     ds.setNotes("Notes");
-    ds.setHarvestingMetadata(new OaipmhHarvestPluginMetadata());
     return ds;
   }
 

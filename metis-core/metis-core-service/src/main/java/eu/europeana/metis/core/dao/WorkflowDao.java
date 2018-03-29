@@ -23,7 +23,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowDao.class);
   private static final String WORKFLOW_OWNER = "workflowOwner";
-  private static final String WORKFLOW_NAME = "workflowName";
+  private static final String DATASET_ID = "datasetId";
   private int workflowsPerRequest = RequestLimits.WORKFLOWS_PER_REQUEST.getLimit();
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
@@ -40,8 +40,8 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   public String create(Workflow workflow) {
     Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(
         workflow);
-    LOGGER.info("Workflow '{}' created with workflowOwner '{}' in Mongo",
-        workflow.getWorkflowName(), workflow
+    LOGGER.info("Workflow for datasetId '{}' created with workflowOwner '{}' in Mongo",
+        workflow.getDatasetId(), workflow
             .getWorkflowOwner());
     return workflowKey.getId().toString();
   }
@@ -51,9 +51,8 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   public String update(Workflow workflow) {
     Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(
         workflow);
-    LOGGER.info("Workflow '{}' updated with workflowOwner '{}' in Mongo",
-        workflow.getWorkflowName(), workflow
-            .getWorkflowOwner());
+    LOGGER.info("Workflow for datasetId '{}' updated with workflowOwner '{}' in Mongo",
+        workflow.getDatasetId(), workflow.getWorkflowOwner());
     return workflowKey.getId().toString();
   }
 
@@ -67,53 +66,47 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   @Override
   public boolean delete(Workflow workflow) {
-    return deleteWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName());
+    return deleteWorkflow(workflow.getDatasetId());
   }
 
   /**
-   * Delete a workflow using a workflowOwner and a workflowName.
+   * Delete a workflow using datasetId.
    *
-   * @param workflowOwner the workflow owner
-   * @param workflowName the workflow name
+   * @param datasetId the dataset identifier
    * @return true if the workflow was found and deleted
    */
-  public boolean deleteWorkflow(String workflowOwner, String workflowName) {
+  public boolean deleteWorkflow(int datasetId) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore().createQuery(Workflow.class);
-    query.field(WORKFLOW_OWNER).equal(workflowOwner);
-    query.field(WORKFLOW_NAME).equal(workflowName);
+    query.field(DATASET_ID).equal(datasetId);
     WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
-    LOGGER.info("Workflow with workflowOwner: {}, and workflowName {}, deleted from Mongo",
-        workflowOwner, workflowName);
+    LOGGER.info("Workflow with datasetId {}, deleted from Mongo", datasetId);
     return delete.getN() == 1;
   }
 
   /**
    * Check existence of a workflow using a {@link Workflow} class.
-   * <p>It will check based on the {@link Workflow#getWorkflowOwner()} and {@link Workflow#getWorkflowName()}</p>
+   * <p>It will check based on the {@link Workflow#getWorkflowOwner()} and {@link Workflow#getDatasetId()} ()}</p>
    * @param workflow the {@link Workflow}
    * @return null or the {@link ObjectId} of the object
    */
   public String exists(Workflow workflow) {
     Workflow storedWorkflow = morphiaDatastoreProvider.getDatastore().find(Workflow.class)
         .field(WORKFLOW_OWNER)
-        .equal(
-            workflow.getWorkflowOwner()).field(WORKFLOW_NAME)
-        .equal(workflow.getWorkflowName())
+        .equal(workflow.getWorkflowOwner()).field(DATASET_ID)
+        .equal(workflow.getDatasetId())
         .project("_id", true).get();
     return storedWorkflow != null ? storedWorkflow.getId().toString() : null;
   }
 
   /**
-   * Get a workflow using a workflowOwner and a workflowName.
+   * Get a workflow using a workflowOwner and a datasetId.
    *
-   * @param workflowOwner the workflow owner
-   * @param workflowName the workflow name
+   * @param datasetId the dataset id
    * @return {@link Workflow}
    */
-  public Workflow getWorkflow(String workflowOwner, String workflowName) {
-    return morphiaDatastoreProvider.getDatastore().find(Workflow.class).field(WORKFLOW_OWNER)
-        .equal(workflowOwner)
-        .field(WORKFLOW_NAME).equal(workflowName)
+  public Workflow getWorkflow(int datasetId) {
+    return morphiaDatastoreProvider.getDatastore().find(Workflow.class)
+        .field(DATASET_ID).equal(datasetId)
         .get();
   }
 

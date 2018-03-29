@@ -18,6 +18,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
@@ -43,6 +44,7 @@ public class TestDatasetService {
 
   private DatasetDao datasetDao;
   private DatasetXsltDao datasetXsltDao;
+  private WorkflowDao workflowDao;
   private WorkflowExecutionDao workflowExecutionDao;
   private ScheduledWorkflowDao scheduledWorkflowDao;
   private DatasetService datasetService;
@@ -54,11 +56,13 @@ public class TestDatasetService {
   public void prepare() {
     datasetDao = Mockito.mock(DatasetDao.class);
     datasetXsltDao = Mockito.mock(DatasetXsltDao.class);
+    workflowDao = Mockito.mock(WorkflowDao.class);
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
 
-    datasetService = new DatasetService(datasetDao, datasetXsltDao, workflowExecutionDao,
+    datasetService = new DatasetService(datasetDao, datasetXsltDao, workflowDao,
+        workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
   }
 

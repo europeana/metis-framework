@@ -10,6 +10,7 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
@@ -67,11 +68,13 @@ public class Application extends WebMvcConfigurerAdapter {
     if (StringUtils.isNotEmpty(propertiesHolder.getTruststorePath()) && StringUtils
         .isNotEmpty(propertiesHolder.getTruststorePassword())) {
       CustomTruststoreAppender
-          .appendCustomTrustoreToDefault(propertiesHolder.getTruststorePath(), propertiesHolder.getTruststorePassword());
+          .appendCustomTrustoreToDefault(propertiesHolder.getTruststorePath(),
+              propertiesHolder.getTruststorePassword());
     }
     if (propertiesHolder.isSocksProxyEnabled()) {
-      new SocksProxy(propertiesHolder.getSocksProxyHost(), propertiesHolder.getSocksProxyPort(), propertiesHolder
-          .getSocksProxyUsername(),
+      new SocksProxy(propertiesHolder.getSocksProxyHost(), propertiesHolder.getSocksProxyPort(),
+          propertiesHolder
+              .getSocksProxyUsername(),
           propertiesHolder.getSocksProxyPassword()).init();
     }
 
@@ -84,22 +87,26 @@ public class Application extends WebMvcConfigurerAdapter {
     for (int i = 0; i < propertiesHolder.getMongoHosts().length; i++) {
       ServerAddress address;
       if (propertiesHolder.getMongoHosts().length == propertiesHolder.getMongoPorts().length) {
-        address = new ServerAddress(propertiesHolder.getMongoHosts()[i], propertiesHolder.getMongoPorts()[i]);
+        address = new ServerAddress(propertiesHolder.getMongoHosts()[i],
+            propertiesHolder.getMongoPorts()[i]);
       } else { // Same port for all
-        address = new ServerAddress(propertiesHolder.getMongoHosts()[i], propertiesHolder.getMongoPorts()[0]);
+        address = new ServerAddress(propertiesHolder.getMongoHosts()[i],
+            propertiesHolder.getMongoPorts()[0]);
       }
       serverAddresses.add(address);
     }
 
     MongoClientOptions.Builder optionsBuilder = new Builder();
     optionsBuilder.sslEnabled(propertiesHolder.isMongoEnableSSL());
-    if (StringUtils.isEmpty(propertiesHolder.getMongoDb()) || StringUtils.isEmpty(propertiesHolder.getMongoUsername())
+    if (StringUtils.isEmpty(propertiesHolder.getMongoDb()) || StringUtils
+        .isEmpty(propertiesHolder.getMongoUsername())
         || StringUtils
         .isEmpty(propertiesHolder.getMongoPassword())) {
       mongoClient = new MongoClient(serverAddresses, optionsBuilder.build());
     } else {
       MongoCredential mongoCredential = MongoCredential
-          .createCredential(propertiesHolder.getMongoUsername(), propertiesHolder.getMongoAuthenticationDb(),
+          .createCredential(propertiesHolder.getMongoUsername(),
+              propertiesHolder.getMongoAuthenticationDb(),
               propertiesHolder.getMongoPassword().toCharArray());
       mongoClient = new MongoClient(serverAddresses, mongoCredential, optionsBuilder.build());
     }
@@ -152,9 +159,9 @@ public class Application extends WebMvcConfigurerAdapter {
    */
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
-      WorkflowExecutionDao workflowExecutionDao,
+      WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
-    return new DatasetService(datasetDao, datasetXsltDao, workflowExecutionDao,
+    return new DatasetService(datasetDao, datasetXsltDao, workflowDao, workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
   }
 
