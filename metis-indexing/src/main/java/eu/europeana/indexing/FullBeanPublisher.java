@@ -1,12 +1,6 @@
 package eu.europeana.indexing;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.Objects;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrInputDocument;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.construct.AgentUpdater;
 import eu.europeana.corelib.edm.utils.construct.AggregationUpdater;
 import eu.europeana.corelib.edm.utils.construct.ConceptUpdater;
@@ -29,6 +23,12 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrInputDocument;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
@@ -78,7 +78,7 @@ class FullBeanPublisher {
 
     try {
       saveEdmClasses(fullBean);
-    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+    } catch (MongoUpdateException e) {
       throw new IndexingException("Could not save/update EDM classes of FullBean to Mongo.", e);
     }
 
@@ -90,7 +90,7 @@ class FullBeanPublisher {
   }
 
   private void saveEdmClasses(FullBeanImpl fullBean)
-      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+      throws MongoUpdateException {
 
     final boolean isFirstSave = fullBean.getAbout() == null;
 
@@ -135,8 +135,7 @@ class FullBeanPublisher {
         .filter(Objects::nonNull).forEach(fullBeanDao::save);
   }
 
-  private void executeUpdate(FullBeanImpl fullBean)
-      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+  private void executeUpdate(FullBeanImpl fullBean) throws MongoUpdateException {
     final List<ProvidedCHOImpl> pChos = fullBeanDao.update(fullBean.getProvidedCHOs(),
         ProvidedCHOImpl.class, new ProvidedChoUpdater(), false);
     final List<AggregationImpl> aggregations = fullBeanDao.update(fullBean.getAggregations(),

@@ -1,14 +1,9 @@
 package eu.europeana.indexing;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import org.mongodb.morphia.Key;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.corelib.definitions.solr.DocType;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.construct.Updater;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -17,6 +12,11 @@ import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import java.util.ArrayList;
+import java.util.List;
+import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 
 /**
  * DAO object for saving and updating Full Beans (instances of {@link FullBeanImpl}) and all its
@@ -89,13 +89,11 @@ class FullBeanDao {
    * @param saveNewRecordIfNotFound Whether, if the object doesn't already exist, it should be added
    *        (i.e. saved).
    * @return The persisted object.
-   * @throws NoSuchMethodException In case an exception occurred in the supplied updater.
-   * @throws IllegalAccessException In case an exception occurred in the supplied updater.
-   * @throws InvocationTargetException In case an exception occurred in the supplied updater.
+   * @throws MongoUpdateException In case an exception occurred in the supplied updater.
    */
   public <T extends AbstractEdmEntity> T update(T data, Class<T> clazz, Updater<T> updater,
       boolean saveNewRecordIfNotFound)
-      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+      throws MongoUpdateException {
     if (data == null) {
       return null;
     }
@@ -122,13 +120,11 @@ class FullBeanDao {
    * @param saveNewRecordIfNotFound Whether, if the object doesn't already exist, it should be added
    *        (i.e. saved).
    * @return The persisted objects.
-   * @throws NoSuchMethodException In case an exception occurred in the supplied updater.
-   * @throws IllegalAccessException In case an exception occurred in the supplied updater.
-   * @throws InvocationTargetException In case an exception occurred in the supplied updater.
+   * @throws MongoUpdateException In case an exception occurred in the supplied updater.
    */
   public <T extends AbstractEdmEntity> List<T> update(List<T> dataToAdd, Class<T> clazz,
       Updater<T> updater, boolean saveNewRecordIfNotFound)
-      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+      throws MongoUpdateException {
     final List<T> result = new ArrayList<>();
     if (dataToAdd == null) {
       return result;
