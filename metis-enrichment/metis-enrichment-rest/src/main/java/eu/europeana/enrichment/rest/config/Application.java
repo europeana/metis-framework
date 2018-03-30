@@ -19,7 +19,7 @@ import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.EntityRemover;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.enrichment.utils.EntityDao;
+import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -104,8 +104,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  EntityDao getEntityDao() {
-    return new EntityDao(enrichmentMongo, enrichmentMongoPort);
+  EnrichmentEntityDao getEntityDao() {
+    return new EnrichmentEntityDao(enrichmentMongo, enrichmentMongoPort);
   }
   
   @Bean

@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.service;
 
-import eu.europeana.enrichment.utils.EntityDao;
+import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EntityRemover {
 
-    private final EntityDao entityDao;
+    private final EnrichmentEntityDao entityDao;
     private final RedisInternalEnricher enricher;
 
     @Autowired
-    public EntityRemover(RedisInternalEnricher enricher, EntityDao entityDao){
+    public EntityRemover(RedisInternalEnricher enricher, EnrichmentEntityDao entityDao){
         this.entityDao = entityDao;
         this.enricher = enricher;
     }

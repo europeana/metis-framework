@@ -17,7 +17,7 @@ import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.utils.EntityClass;
-import eu.europeana.enrichment.utils.EntityDao;
+import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import redis.clients.jedis.Jedis;
@@ -74,10 +74,10 @@ public class RedisInternalEnricher {
     }
   }
 
-  private final EntityDao entityDao;
+  private final EnrichmentEntityDao entityDao;
   private final RedisProvider redisProvider;
 
-  public RedisInternalEnricher(EntityDao entityDao, RedisProvider provider,
+  public RedisInternalEnricher(EnrichmentEntityDao entityDao, RedisProvider provider,
       boolean populate) {
     this.entityDao = entityDao;
     SimpleModule sm = new SimpleModule("test", Version.unknownVersion());

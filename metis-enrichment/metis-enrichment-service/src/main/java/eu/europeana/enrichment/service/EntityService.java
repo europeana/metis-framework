@@ -13,16 +13,16 @@ import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.utils.EntityClass;
-import eu.europeana.enrichment.utils.EntityDao;
+import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 
 public class EntityService implements Closeable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EntityService.class);
   
-    private final EntityDao entityDao;
+    private final EnrichmentEntityDao entityDao;
 
 	public EntityService(String mongoHost, int mongoPort) {
-	    this.entityDao = new EntityDao(mongoHost, mongoPort);
+	    this.entityDao = new EnrichmentEntityDao(mongoHost, mongoPort);
 	}
 
     @Override

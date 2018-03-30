@@ -52,10 +52,10 @@ import eu.europeana.enrichment.api.internal.TimespanTermList;
  *
  * @author Yorgos.Mamakis@ kb.nl
  */
-public class EntityDao implements Closeable {
+public class EnrichmentEntityDao implements Closeable {
 
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(EntityDao.class);
+			.getLogger(EnrichmentEntityDao.class);
 
 	private static final String ENTITY_TYPE_PROPERTY = "entityType";
 	private static final String PLACE_TYPE = "PlaceImpl";
@@ -91,7 +91,7 @@ public class EntityDao implements Closeable {
   	
   	private final MongoClient mongo;
 
-    public EntityDao(String host, int port) {
+    public EnrichmentEntityDao(String host, int port) {
       this.mongo = new MongoClient(host, port);
     }
   
