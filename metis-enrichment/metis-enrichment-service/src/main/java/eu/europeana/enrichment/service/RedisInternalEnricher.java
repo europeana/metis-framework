@@ -180,45 +180,48 @@ public class RedisInternalEnricher {
     LOGGER.info("Found entities of type {}: {}", entityType.entityClass, termCount);
     int i = 0;
     for (MongoTerm term : terms) {
-      MongoTermList<?> termList =
-          entityDao.findByCode(term.getCodeUri(), entityType.entityClass);
-      if (termList != null) {
-        try {
-          EntityWrapper entityWrapper = new EntityWrapper();
-          entityWrapper.setOriginalField("");
-          entityWrapper.setEntityClass(entityType.entityClass);
-          entityWrapper.setContextualEntity(
-              this.getObjectMapper().writeValueAsString(termList.getRepresentation()));
-          entityWrapper.setOriginalValue(term.getOriginalLabel());
-          entityWrapper.setUrl(term.getCodeUri());
-          jedis.sadd(entityType.cachedEntityPrefix + CACHED_ENTITY_DEF + term.getLabel(),
-              term.getCodeUri());
-          if (term.getLang() != null) {
-            jedis.sadd(entityType.cachedEntityPrefix + CACHED_ENTITY + term.getLang() + ":"
-                + term.getLabel(), term.getCodeUri());
-          }
-          jedis.hset(entityType.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
-              OBJECT_MAPPER.writeValueAsString(entityWrapper));
-          List<String> parents = this.findParents(termList.getParent(), entityType.entityClass);
-          if (parents != null && !parents.isEmpty()) {
-            jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
-                parents.toArray(new String[] {}));
-          }
-          if (termList.getOwlSameAs() != null) {
-            for (String sameAs : termList.getOwlSameAs()) {
-              jedis.hset(entityType.cachedEntityPrefix + CACHED_SAMEAS, sameAs, term.getCodeUri());
-            }
-          }
-        } catch (IOException exception) {
-          LOGGER.warn("", exception);
-        }
-      }
+      loadEntity(entityType, term, jedis);
       i++;
       if (i % 100 == 0) {
         LOGGER.info("Elements added: {} out of: {}", i, termCount);
       }
     }
     jedis.close();
+  }
+  
+  private void loadEntity(EntityType entityType, MongoTerm term, Jedis jedis) {
+    MongoTermList<?> termList = entityDao.findByCode(term.getCodeUri(), entityType.entityClass);
+    if (termList != null) {
+      try {
+        EntityWrapper entityWrapper = new EntityWrapper();
+        entityWrapper.setOriginalField("");
+        entityWrapper.setEntityClass(entityType.entityClass);
+        entityWrapper.setContextualEntity(
+            this.getObjectMapper().writeValueAsString(termList.getRepresentation()));
+        entityWrapper.setOriginalValue(term.getOriginalLabel());
+        entityWrapper.setUrl(term.getCodeUri());
+        jedis.sadd(entityType.cachedEntityPrefix + CACHED_ENTITY_DEF + term.getLabel(),
+            term.getCodeUri());
+        if (term.getLang() != null) {
+          jedis.sadd(entityType.cachedEntityPrefix + CACHED_ENTITY + term.getLang() + ":"
+              + term.getLabel(), term.getCodeUri());
+        }
+        jedis.hset(entityType.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
+            OBJECT_MAPPER.writeValueAsString(entityWrapper));
+        List<String> parents = this.findParents(termList.getParent(), entityType.entityClass);
+        if (parents != null && !parents.isEmpty()) {
+          jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
+              parents.toArray(new String[] {}));
+        }
+        if (termList.getOwlSameAs() != null) {
+          for (String sameAs : termList.getOwlSameAs()) {
+            jedis.hset(entityType.cachedEntityPrefix + CACHED_SAMEAS, sameAs, term.getCodeUri());
+          }
+        }
+      } catch (IOException exception) {
+        LOGGER.warn("", exception);
+      }
+    }
   }
 
   /**
