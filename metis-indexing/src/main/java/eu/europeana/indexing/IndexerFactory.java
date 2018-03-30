@@ -1,9 +1,14 @@
 package eu.europeana.indexing;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * This class creates instances of {@link Indexer}.
  */
 public class IndexerFactory {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(IndexerFactory.class);
 
   private final IndexingSettings settings;
 
@@ -23,6 +28,11 @@ public class IndexerFactory {
    * @throws IndexerConfigurationException
    */
   public Indexer getIndexer() throws IndexerConfigurationException {
-    return new IndexerImpl(settings);
+    try {
+      return new IndexerImpl(settings);
+    } catch (IndexerConfigurationException e) {
+      LOGGER.warn("Error while setting up an indexer.", e);
+      throw e;
+    }
   }
 }

@@ -3,6 +3,7 @@ package eu.europeana.indexing;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Objects;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
@@ -29,23 +30,42 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 
+/**
+ * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
+ * searchable for external agents.
+ * 
+ * @author jochen
+ *
+ */
 class FullBeanPublisher {
 
   private final FullBeanDao fullBeanDao;
   private final SolrServer solrServer;
 
-  public FullBeanPublisher(FullBeanDao fullBeanDao, SolrServer solrServer) {
+  /**
+   * Constructor.
+   * 
+   * @param fullBeanDao DAO object for saving and updating Full Beans.
+   * @param solrServer The searchable persistence.
+   */
+  FullBeanPublisher(FullBeanDao fullBeanDao, SolrServer solrServer) {
     this.fullBeanDao = fullBeanDao;
     this.solrServer = solrServer;
   }
 
-  public void publish(FullBeanImpl fBean) throws IndexingException {
+  /**
+   * Publishes a bean.
+   * 
+   * @param fullBean Bean to publish.
+   * @throws IndexingException In case an error occurred during publication.
+   */
+  public void publish(FullBeanImpl fullBean) throws IndexingException {
 
-    SolrDocumentHandler solrDocHandler = new SolrDocumentHandler(solrServer);
+    final SolrDocumentHandler solrDocHandler = new SolrDocumentHandler(solrServer);
     SolrInputDocument solrInputDoc;
 
     try {
-      solrInputDoc = solrDocHandler.generate(fBean);
+      solrInputDoc = solrDocHandler.generate(fullBean);
     } catch (SolrServerException e) {
       throw new IndexingException("Could not generate Solr input document.", e);
     }
@@ -57,15 +77,15 @@ class FullBeanPublisher {
     }
 
     try {
-      saveEdmClasses(fBean);
+      saveEdmClasses(fullBean);
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
       throw new IndexingException("Could not save/update EDM classes of FullBean to Mongo.", e);
     }
 
-    if (fBean.getAbout() == null) {
-      fullBeanDao.save(fBean);
+    if (fullBean.getAbout() == null) {
+      fullBeanDao.save(fullBean);
     } else {
-      fullBeanDao.updateFullBean(fBean);
+      fullBeanDao.updateFullBean(fullBean);
     }
   }
 
@@ -107,13 +127,12 @@ class FullBeanPublisher {
     fullBeanDao.save(fullBean.getProxies());
     fullBeanDao.save(fullBean.getAggregations());
 
-    if (fullBean.getEuropeanaAggregation().getWebResources() != null)
+    if (fullBean.getEuropeanaAggregation().getWebResources() != null) {
       fullBeanDao.save(fullBean.getEuropeanaAggregation().getWebResources());
-
-    for (AggregationImpl aggr : fullBean.getAggregations()) {
-      if (aggr.getWebResources() != null)
-        fullBeanDao.save(aggr.getWebResources());
     }
+
+    fullBean.getAggregations().stream().map(AggregationImpl::getWebResources)
+        .filter(Objects::nonNull).forEach(fullBeanDao::save);
   }
 
   private void executeUpdate(FullBeanImpl fullBean)

@@ -1,7 +1,6 @@
 package eu.europeana.indexing;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -16,13 +15,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientOptions.Builder;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
-import com.mongodb.MongoClientOptions.Builder;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 
+/**
+ * <p>
+ * This class is maintainable for providing an instance of {@link Indexer} with the required
+ * connections to persistence storage. It is responsible for maintaining the connections and
+ * providing access to the following functionality:
+ * <ol>
+ * <li>A DAO object (instance of {@link FullBeanDao}) for storing Full Beans.</li>
+ * <li>A Publisher object (instance of {@link FullBeanPublisher}) for publishing Full Beans to be
+ * accessed by external agents.</li>
+ * </ol>
+ * </p>
+ * <p>
+ * Please note that this class is {@link Closeable} and must be closed to release it's resources.
+ * </p>
+ * 
+ * @author jochen
+ *
+ */
 class IndexingConnectionProvider implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexingConnectionProvider.class);
@@ -31,6 +48,12 @@ class IndexingConnectionProvider implements Closeable {
   private final CloudSolrServer zookeeperServer;
   private final EdmMongoServer mongoServer;
 
+  /**
+   * Constructor. Sets up the required connections using the supplied settings.
+   * 
+   * @param settings The indexing settings (connection settings).
+   * @throws IndexerConfigurationException In case the connections could not be set up.
+   */
   IndexingConnectionProvider(IndexingSettings settings) throws IndexerConfigurationException {
 
     // Create Solr and Zookeeper connections.
@@ -96,11 +119,8 @@ class IndexingConnectionProvider implements Closeable {
       LBHttpSolrServer httpSolrServer) throws IndexerConfigurationException {
 
     // Compile Zookeeper-specific connection string
-    final String zookeeperHostString = settings.getZookeeperHosts().stream()
-        .map(IndexingConnectionProvider::toZookeeperAddressString).collect(Collectors.joining(","));
-    final String zookeeperChrootString =
-        settings.getZookeeperChroot() == null ? "" : settings.getZookeeperChroot();
-    final String zookeeperConnectionString = zookeeperHostString + zookeeperChrootString;
+    final String zookeeperConnectionString =
+        toZookeeperAddressString(settings.getZookeeperHosts(), settings.getZookeeperChroot());
     final String zookeeperDefaultCollection = settings.getZookeeperDefaultCollection();
 
     // Set up Zookeeper connection.
@@ -115,21 +135,57 @@ class IndexingConnectionProvider implements Closeable {
     return cloudSolrServer;
   }
 
+  /**
+   * This utility method converts a list of addresses (host plus port) and a chroot to a string that
+   * is accepted by Zookeeper. See the documentation of {@link org.apache.zookeeper.ZooKeeper}
+   * constructors, for instance
+   * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}.
+   * 
+   * @param zookeeperHosts The hosts.
+   * @param zookeeperChroot The chroot.
+   * @return The Zookeeper-compliant string.
+   */
+  static String toZookeeperAddressString(List<InetSocketAddress> zookeeperHosts,
+      String zookeeperChroot) {
+    final String zookeeperHostString = zookeeperHosts.stream()
+        .map(IndexingConnectionProvider::toZookeeperAddressString).collect(Collectors.joining(","));
+    return zookeeperHostString + (zookeeperChroot == null ? "" : zookeeperChroot);
+  }
+
+  /**
+   * This utility method converts an address (host plus port) to a string that is accepted by
+   * Zookeeper. See the documentation of {@link org.apache.zookeeper.ZooKeeper} constructors, for
+   * instance
+   * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}.
+   * 
+   * @param address The address to convert.
+   * @return The Zookeeper-compliant string.
+   */
   static String toZookeeperAddressString(InetSocketAddress address) {
     return address.getHostString() + ":" + address.getPort();
   }
 
+  /**
+   * Provides a DAO object for storing (saving or updating) Full Beans.
+   * 
+   * @return A DAO.
+   */
   FullBeanDao getFullBeanDao() {
     return new FullBeanDao(mongoServer);
   }
 
+  /**
+   * Provides a Publisher object for publishing Full Beans so that they may be found by users.
+   * 
+   * @return A publisher.
+   */
   FullBeanPublisher getFullBeanPublisher() {
     final SolrServer solrServer = zookeeperServer == null ? httpSolrServer : zookeeperServer;
     return new FullBeanPublisher(getFullBeanDao(), solrServer);
   }
 
   @Override
-  public void close() throws IOException {
+  public void close() {
     httpSolrServer.shutdown();
     if (zookeeperServer != null) {
       zookeeperServer.shutdown();

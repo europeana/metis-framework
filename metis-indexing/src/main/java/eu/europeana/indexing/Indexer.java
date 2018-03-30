@@ -4,8 +4,9 @@ import java.io.Closeable;
 import java.util.List;
 
 /**
- * This interface allows access to this library's indexing functionality. Note: the objec must be
- * closed after use by calling {@link #close()}.
+ * This interface allows access to this library's indexing functionality. Note: the object is
+ * {@link Closeable} and must be closed after use by calling {@link #close()} (or by using a try
+ * block).
  * 
  * @author jochen
  */

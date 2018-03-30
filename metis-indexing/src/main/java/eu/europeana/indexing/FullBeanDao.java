@@ -18,35 +18,81 @@ import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 
+/**
+ * DAO object for saving and updating Full Beans (instances of {@link FullBeanImpl}) and all its
+ * child objects.
+ * 
+ * @author jochen
+ *
+ */
 class FullBeanDao {
 
   private final EdmMongoServer mongoServer;
-  private static final String ABOUT = "about";
+  private static final String ABOUT_FIELD = "about";
 
-  public FullBeanDao(EdmMongoServer mongoServer) {
+  /**
+   * Constructor.
+   * 
+   * @param mongoServer The persistence.
+   */
+  FullBeanDao(EdmMongoServer mongoServer) {
     this.mongoServer = mongoServer;
   }
 
+  /**
+   * Searches an object by the value of its about field.
+   * 
+   * @param clazz The object type to find.
+   * @param about The value of the about field to find.
+   * @return The object, or null if no such object could be found.
+   */
   public <T> T searchByAbout(Class<T> clazz, String about) {
-    return mongoServer.getDatastore().find(clazz).filter(ABOUT, about).get();
+    return mongoServer.getDatastore().find(clazz).field(ABOUT_FIELD).equal(about).get();
   }
 
-  public List<FullBeanImpl> getAll() {
-    return mongoServer.getDatastore().find(FullBeanImpl.class).asList();
-  }
-
+  /**
+   * Searches a Full Bean by its ID.
+   * 
+   * @param id The ID of the full bean to find.
+   * @return The Full Bean, or null if no such full bean could be found.
+   */
   public FullBeanImpl getFullBean(String id) {
-    return mongoServer.getDatastore().find(FullBeanImpl.class).field(ABOUT).equal(id).get();
+    return searchByAbout(FullBeanImpl.class, id);
   }
 
+  /**
+   * Saves the object (for new objects only).
+   * 
+   * @param data The object to save.
+   * @return The key under which the object was saved.
+   */
   public <T> Key<T> save(T data) {
     return mongoServer.getDatastore().save(data);
   }
 
+  /**
+   * Saves multiple objects (for new objects only).
+   * 
+   * @param data The objects to save.
+   */
   public void save(Iterable<?> data) {
     data.forEach(this::save);
   }
 
+  /**
+   * Checks whether the given object is already known. If it is, updates the object. If it isn't, it
+   * saves the object as a new object (if this is desired, otherwise do nothing).
+   * 
+   * @param data The object to save.
+   * @param clazz The type of the object.
+   * @param updater The helper class to update the object.
+   * @param saveNewRecordIfNotFound Whether, if the object doesn't already exist, it should be added
+   *        (i.e. saved).
+   * @return The persisted object.
+   * @throws NoSuchMethodException In case an exception occurred in the supplied updater.
+   * @throws IllegalAccessException In case an exception occurred in the supplied updater.
+   * @throws InvocationTargetException In case an exception occurred in the supplied updater.
+   */
   public <T extends AbstractEdmEntity> T update(T data, Class<T> clazz, Updater<T> updater,
       boolean saveNewRecordIfNotFound)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -66,6 +112,20 @@ class FullBeanDao {
     return newData;
   }
 
+  /**
+   * Convenience method for {@link #update(AbstractEdmEntity, Class, Updater, boolean)} that accepts
+   * multiple objects.
+   * 
+   * @param dataToAdd The object to save.
+   * @param clazz The type of the object.
+   * @param updater The helper class to update the object.
+   * @param saveNewRecordIfNotFound Whether, if the object doesn't already exist, it should be added
+   *        (i.e. saved).
+   * @return The persisted objects.
+   * @throws NoSuchMethodException In case an exception occurred in the supplied updater.
+   * @throws IllegalAccessException In case an exception occurred in the supplied updater.
+   * @throws InvocationTargetException In case an exception occurred in the supplied updater.
+   */
   public <T extends AbstractEdmEntity> List<T> update(List<T> dataToAdd, Class<T> clazz,
       Updater<T> updater, boolean saveNewRecordIfNotFound)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -81,12 +141,17 @@ class FullBeanDao {
     }
     return result;
   }
-  
-  // Modified and appended legacy code
+
+  /**
+   * This method updates a Full Bean. If the bean is not already known, this method does nothing.
+   * 
+   * @param fullBean The Full Bean to update.
+   * @return The persisted version of the Full Bean.
+   */
   public FullBeanImpl updateFullBean(FullBeanImpl fullBean) {
 
     Query<FullBeanImpl> updateQuery = mongoServer.getDatastore().createQuery(FullBeanImpl.class)
-        .field(ABOUT).equal(fullBean.getAbout().replace("/item", ""));
+        .field(ABOUT_FIELD).equal(fullBean.getAbout().replace("/item", ""));
 
     UpdateOperations<FullBeanImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(FullBeanImpl.class);
