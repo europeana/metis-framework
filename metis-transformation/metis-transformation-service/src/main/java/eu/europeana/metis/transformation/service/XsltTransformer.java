@@ -41,20 +41,15 @@ public class XsltTransformer {
      * @throws TransformationException
      */
     public StringWriter transform(String xsltUrl, byte[] fileContent, String datasetIdValue) throws TransformationException {
-        InputStream xsltStream = null;
-        InputStream contentStream = null;
-        try {
-            xsltStream = new URL(xsltUrl).openStream();
-            Transformer transformer = getTransformer(xsltUrl, xsltStream);
+        try(final InputStream xsltStream = new URL(xsltUrl).openStream()) {
+            final Transformer transformer = getTransformer(xsltUrl, xsltStream);
             addParameter(transformer, "datasetId", datasetIdValue);
-            contentStream = new ByteArrayInputStream(fileContent);
-            return executeTransformation(transformer, contentStream);
+            try(final InputStream contentStream = new ByteArrayInputStream(fileContent)) {
+                return executeTransformation(transformer, contentStream);
+            }
         } catch (IOException | TransformerException e) {
             LOGGER.error("Exception during transformation", e);
             throw new TransformationException(e);
-        } finally {
-            close(xsltStream);
-            close(contentStream);
         }
     }
 
@@ -81,16 +76,6 @@ public class XsltTransformer {
 
         if (parameterValue != null && !parameterValue.isEmpty()) {
             transformer.setParameter(parameterName, parameterValue);
-        }
-    }
-
-    private void close(Closeable resource) {
-        if (resource != null) {
-            try {
-                resource.close();
-            } catch (IOException e) {
-                LOGGER.error("Exception while closing resource", e);
-            }
         }
     }
 }

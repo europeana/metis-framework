@@ -38,16 +38,25 @@ public class Converter {
   }
 
   public EnrichmentBase convert(EntityWrapper wrapper) throws IOException {
-    if (wrapper.getClassName().equals(ConceptImpl.class.getName())) {
-      return convertConcept(wrapper.getContextualEntity());
-    } else if (wrapper.getClassName().equals(AgentImpl.class.getName())) {
-      return convertAgent(wrapper.getContextualEntity());
-    } else if (wrapper.getClassName().equals(PlaceImpl.class.getName())) {
-      return convertPlace(wrapper.getContextualEntity());
-    } else if (wrapper.getClassName().equals(TimespanImpl.class.getName())) {
-      return convertTimespan(wrapper.getContextualEntity());
+    final EnrichmentBase result;
+    switch (wrapper.getEntityClass()) {
+      case AGENT:
+        result = convertAgent(wrapper.getContextualEntity());
+        break;
+      case CONCEPT:
+        result = convertConcept(wrapper.getContextualEntity());
+        break;
+      case PLACE:
+        result = convertPlace(wrapper.getContextualEntity());
+        break;
+      case TIMESPAN:
+        result = convertTimespan(wrapper.getContextualEntity());
+        break;
+      default:
+        result = null;
+        break;
     }
-    return null;
+    return result;
   }
 
   private Timespan convertTimespan(String contextualEntity)
