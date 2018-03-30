@@ -13,7 +13,8 @@ public class Config {
     public Config(){
         Properties props = new Properties();
         try {
-            props.load(Config.class.getClassLoader().getResourceAsStream("redirect.properties"));
+            props.load(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("redirect.properties"));
             redirectsPath= props.getProperty("redirect.path");
         } catch (IOException e) {
             e.printStackTrace();
