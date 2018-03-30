@@ -232,7 +232,8 @@ public final class IndexingSettings {
 
   private static <T> T nonNull(T value, String fieldName) throws IndexerConfigurationException {
     if (value == null) {
-      throw new IndexerConfigurationException("Value '" + fieldName + "' cannot be null.");
+      throw new IndexerConfigurationException(
+          String.format("Value '%s' cannot be null.", fieldName));
     }
     return value;
   }

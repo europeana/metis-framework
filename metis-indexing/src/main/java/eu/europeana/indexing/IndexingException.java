@@ -20,4 +20,13 @@ public class IndexingException extends Exception {
   public IndexingException(String message, Exception cause) {
     super(message, cause);
   }
+
+  /**
+   * Constructor.
+   * 
+   * @param message The message. Can be null.
+   */
+  public IndexingException(String message) {
+    super(message);
+  }
 }

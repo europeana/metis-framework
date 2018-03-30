@@ -45,7 +45,7 @@ class IndexingConnectionProvider implements Closeable {
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexingConnectionProvider.class);
 
   private final LBHttpSolrServer httpSolrServer;
-  private final CloudSolrServer zookeeperServer;
+  private final CloudSolrServer cloudSolrServer;
   private final EdmMongoServer mongoServer;
 
   /**
@@ -57,11 +57,11 @@ class IndexingConnectionProvider implements Closeable {
   IndexingConnectionProvider(IndexingSettings settings) throws IndexerConfigurationException {
 
     // Create Solr and Zookeeper connections.
-    this.httpSolrServer = setUpSolrConnection(settings);
+    this.httpSolrServer = setUpHttpSolrConnection(settings);
     if (settings.establishZookeeperConnection()) {
-      this.zookeeperServer = setUpZookeeperConnection(settings, httpSolrServer);
+      this.cloudSolrServer = setUpCloudSolrConnection(settings, httpSolrServer);
     } else {
-      this.zookeeperServer = null;
+      this.cloudSolrServer = null;
     }
 
     // Create mongo connection.
@@ -102,7 +102,7 @@ class IndexingConnectionProvider implements Closeable {
     }
   }
 
-  private static LBHttpSolrServer setUpSolrConnection(IndexingSettings settings)
+  private static LBHttpSolrServer setUpHttpSolrConnection(IndexingSettings settings)
       throws IndexerConfigurationException {
     try {
       final String[] solrHosts =
@@ -115,7 +115,7 @@ class IndexingConnectionProvider implements Closeable {
     }
   }
 
-  private static CloudSolrServer setUpZookeeperConnection(IndexingSettings settings,
+  private static CloudSolrServer setUpCloudSolrConnection(IndexingSettings settings,
       LBHttpSolrServer httpSolrServer) throws IndexerConfigurationException {
 
     // Compile Zookeeper-specific connection string
@@ -137,8 +137,8 @@ class IndexingConnectionProvider implements Closeable {
 
   /**
    * This utility method converts a list of addresses (host plus port) and a chroot to a string that
-   * is accepted by Zookeeper. See the documentation of {@link org.apache.zookeeper.ZooKeeper}
-   * constructors, for instance
+   * is accepted by Zookeeper, and hence by {@link CloudSolrServer}. See the documentation of
+   * {@link org.apache.zookeeper.ZooKeeper} constructors, for instance
    * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}.
    * 
    * @param zookeeperHosts The hosts.
@@ -154,8 +154,8 @@ class IndexingConnectionProvider implements Closeable {
 
   /**
    * This utility method converts an address (host plus port) to a string that is accepted by
-   * Zookeeper. See the documentation of {@link org.apache.zookeeper.ZooKeeper} constructors, for
-   * instance
+   * Zookeeper, and hence by {@link CloudSolrServer}. See the documentation of
+   * {@link org.apache.zookeeper.ZooKeeper} constructors, for instance
    * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}.
    * 
    * @param address The address to convert.
@@ -180,15 +180,15 @@ class IndexingConnectionProvider implements Closeable {
    * @return A publisher.
    */
   FullBeanPublisher getFullBeanPublisher() {
-    final SolrServer solrServer = zookeeperServer == null ? httpSolrServer : zookeeperServer;
+    final SolrServer solrServer = cloudSolrServer == null ? httpSolrServer : cloudSolrServer;
     return new FullBeanPublisher(getFullBeanDao(), solrServer);
   }
 
   @Override
   public void close() {
     httpSolrServer.shutdown();
-    if (zookeeperServer != null) {
-      zookeeperServer.shutdown();
+    if (cloudSolrServer != null) {
+      cloudSolrServer.shutdown();
     }
     mongoServer.close();
   }

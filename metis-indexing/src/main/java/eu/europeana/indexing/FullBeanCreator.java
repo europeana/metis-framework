@@ -74,7 +74,7 @@ public class FullBeanCreator {
 
     // Sanity check - shouldn't happen
     if (rdf == null) {
-      throw new IndexingException("Could not convert record to RDF: null was returned.", null);
+      throw new IndexingException("Could not convert record to RDF: null was returned.");
     }
 
     // Convert RDF to FullBean
@@ -87,7 +87,7 @@ public class FullBeanCreator {
 
     // Sanity Check - shouldn't happen
     if (fBean == null) {
-      throw new IndexingException("Could not construct FullBean: null was returned.", null);
+      throw new IndexingException("Could not construct FullBean: null was returned.");
     }
 
     // TODO Hack to prevent potential null pointer exceptions
