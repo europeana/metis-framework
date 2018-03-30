@@ -12,17 +12,13 @@ import org.codehaus.jackson.map.module.SimpleModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import eu.europeana.corelib.solr.entity.AgentImpl;
-import eu.europeana.corelib.solr.entity.ConceptImpl;
-import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.utils.EntityClass;
-import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.EntityDao;
+import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import redis.clients.jedis.Jedis;
 
@@ -61,22 +57,20 @@ public class RedisInternalEnricher {
 
   private enum EntityType {
 
-    AGENT(EntityClass.AGENT, CACHED_AGENT, AgentImpl.class.getName()),
+    AGENT(EntityClass.AGENT, CACHED_AGENT),
 
-    CONCEPT(EntityClass.CONCEPT, CACHED_CONCEPT, ConceptImpl.class.getName()),
+    CONCEPT(EntityClass.CONCEPT, CACHED_CONCEPT),
 
-    PLACE(EntityClass.PLACE, CACHED_PLACE, PlaceImpl.class.getName()),
+    PLACE(EntityClass.PLACE, CACHED_PLACE),
 
-    TIMESTAMP(EntityClass.TIMESPAN, CACHED_TIMESPAN, TimespanImpl.class.getName());
+    TIMESTAMP(EntityClass.TIMESPAN, CACHED_TIMESPAN);
 
     public final EntityClass entityClass;
     public final String cachedEntityPrefix;
-    public final String entityClassName;
 
-    private EntityType(EntityClass entityClass, String cachedEntityPrefix, String entityClassName) {
+    private EntityType(EntityClass entityClass, String cachedEntityPrefix) {
       this.entityClass = entityClass;
       this.cachedEntityPrefix = cachedEntityPrefix;
-      this.entityClassName = entityClassName;
     }
   }
 
@@ -192,7 +186,7 @@ public class RedisInternalEnricher {
         try {
           EntityWrapper entityWrapper = new EntityWrapper();
           entityWrapper.setOriginalField("");
-          entityWrapper.setClassName(entityType.entityClassName);
+          entityWrapper.setEntityClass(entityType.entityClass);
           entityWrapper.setContextualEntity(
               this.getObjectMapper().writeValueAsString(termList.getRepresentation()));
           entityWrapper.setOriginalValue(term.getOriginalLabel());
