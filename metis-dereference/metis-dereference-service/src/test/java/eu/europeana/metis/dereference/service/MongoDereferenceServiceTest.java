@@ -69,8 +69,8 @@ public class MongoDereferenceServiceTest {
         geonames.setUri("http://sws.geonames.org/");
         geonames.setXslt(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")));
         geonames.setName("Geonames");
-        geonames.setIterations(0);
-        vocabularyDao.save(geonames);
+        geonames.setIterations(1);
+        String geonamesId = vocabularyDao.save(geonames);
         
         EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
         
@@ -92,13 +92,17 @@ public class MongoDereferenceServiceTest {
         Assert.assertNotNull(entity.getURI());
                               
         ProcessedEntity entity2 = new ProcessedEntity();
-        entity2.setURI(entityId);
+        entity2.setResourceId(entityId);
         entity2.setXml(serialize(place));
+        entity2.setVocabularyId(geonamesId);
                     
-        Mockito.when(jedis.get(Mockito.anyString())).thenReturn(new ObjectMapper().writeValueAsString(entity2));
+        Mockito.when(jedis.get(entityId)).thenReturn(new ObjectMapper().writeValueAsString(entity2));
         
         ProcessedEntity entity1 = cacheDao.get(entityId);
         Assert.assertNotNull(entity1);
+        Assert.assertNotNull(entity1.getResourceId());
+        Assert.assertNotNull(entity1.getXml());
+        Assert.assertNotNull(entity1.getVocabularyId());
     }
 
     @After

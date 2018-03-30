@@ -2,7 +2,8 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:gn="http://www.geonames.org/ontology#" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-	xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:edm="http://www.europeana.eu/schemas/edm/">
+	xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:edm="http://www.europeana.eu/schemas/edm/"
+	xmlns:dc="http://purl.org/dc/terms/">
 	<xsl:param name="targetId"></xsl:param>
 	<xsl:output indent="yes" encoding="UTF-8"></xsl:output>
 	<xsl:template match="/rdf:RDF">
@@ -96,6 +97,17 @@
 								<xsl:value-of select="normalize-space(.)"></xsl:value-of>
 							</xsl:for-each>
 						</wgs84_pos:lat>
+					</xsl:for-each>
+					<!-- Tag mapping: gn:parentCountry -> dc:isPartOf -->
+					<xsl:for-each select="./gn:parentCountry">
+						<dc:isPartOf>
+							<!-- Attribute mapping: rdf:resource -> rdf:resource -->
+							<xsl:if test="@rdf:resource">
+								<xsl:attribute name="rdf:resource">
+									<xsl:value-of select="@rdf:resource" />
+								</xsl:attribute>
+							</xsl:if>
+						</dc:isPartOf>
 					</xsl:for-each>
 				</edm:Place>
 			</xsl:if>
