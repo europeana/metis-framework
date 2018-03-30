@@ -33,7 +33,8 @@ public class ZohoImportTest extends BaseZohoAccessTest {
 	int mongoPort;
 	EntityService entityService;
 
-	@Before
+	@Override
+    @Before
 	public void setUp() throws Exception {
 		super.setUp();
 		Properties props = loadProperties("/metis.properties");
@@ -44,6 +45,7 @@ public class ZohoImportTest extends BaseZohoAccessTest {
 
 	@After
 	public void tearDown() throws Exception {
+	    entityService.close();
 	}
 
 	@Test

@@ -16,6 +16,8 @@
  */
 package eu.europeana.enrichment.utils;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,10 +52,10 @@ import eu.europeana.enrichment.api.internal.TimespanTermList;
  *
  * @author Yorgos.Mamakis@ kb.nl
  */
-public class MongoDatabaseUtils {
+public class EntityDao implements Closeable {
 
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(MongoDatabaseUtils.class);
+			.getLogger(EntityDao.class);
 
 	private static final String ENTITY_TYPE_PROPERTY = "entityType";
 	private static final String PLACE_TYPE = "PlaceImpl";
@@ -75,36 +77,39 @@ public class MongoDatabaseUtils {
 	private static final String TERM_LANG = "lang";
 	private static final String TERM_LABEL = "label";
 	private static final String TERM_MODIFIED = "modified";
-
-	private static JacksonDBCollection<ConceptTermList, String> cColl;
-	private static JacksonDBCollection<PlaceTermList, String> pColl;
-	private static JacksonDBCollection<TimespanTermList, String> tColl;
-	private static JacksonDBCollection<AgentTermList, String> aColl;
-	private static JacksonDBCollection<OrganizationTermList, String> oColl;
+	
+	private JacksonDBCollection<ConceptTermList, String> cColl;
+	private JacksonDBCollection<PlaceTermList, String> pColl;
+	private JacksonDBCollection<TimespanTermList, String> tColl;
+	private JacksonDBCollection<AgentTermList, String> aColl;
+	private JacksonDBCollection<OrganizationTermList, String> oColl;
 
   	// TODO the DB class is (effectively) deprecated (see MongoClient.getDB), but
   	// this object is still needed for MongoJack. Upgrade MongoJack and migrate this 
 	// object to MongoDatabase.
-  	private static DB db;
+  	private DB db;
+  	
+  	private final MongoClient mongo;
 
-	private MongoDatabaseUtils() {
-	}
+    public EntityDao(String host, int port) {
+      this.mongo = new MongoClient(host, port);
+    }
+  
+    @Override
+    public void close() throws IOException {
+      mongo.close();
+    }
 
-	/**
-	 * Check if DB exists and initialization of the db
-	 * 
-	 * @param host
-	 * @param port
-	 * @return whether the DB exists.
-	 */
-	public static synchronized boolean dbExists(String host, int port) {
+    /*
+     * This method is currently called at the start of all incoming public methods.
+     */
+	private synchronized void initDbIfNeeded() {
 		if (db != null) {
-			return true;
+			return;
 		}
 		try {
-			LOGGER.info("Creating Mongo connection to host {}.", host);
+			LOGGER.info("Creating Mongo connection to host {}.", mongo.getAddress().toString());
 
-			MongoClient mongo = new MongoClient(host, port);
 			db = mongo.getDB("annocultor_db"); // See TODO above.
 
 			boolean exist = db.collectionExists(TERMLIST_TABLE);
@@ -165,11 +170,9 @@ public class MongoDatabaseUtils {
 				oColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
 						new BasicDBObject(UNIQUE_PROPERTY, false));
 			}
-			return exist;
 		} catch (MongoException e) {
 			LOGGER.error("Error accessing mongo", e);
 		}
-		return false;
 	}
 
 	/**
@@ -179,7 +182,8 @@ public class MongoDatabaseUtils {
 	 *            list of uris to delete
 	 * @return deleted uris
 	 */
-	public static List<String> delete(List<String> uris) {
+	public List<String> delete(List<String> uris) {
+	    initDbIfNeeded();	  
 		List<String> retUris = new ArrayList<>();
 		for (String uri : uris) {
 			retUris.add(uri);
@@ -192,7 +196,7 @@ public class MongoDatabaseUtils {
 		return retUris;
 	}
 
-	private static List<String> deleteTimespan(String uri) {
+	private List<String> deleteTimespan(String uri) {
 		List<String> retUris = new ArrayList<>();
 		tColl.remove(tColl.find().is(TERM_CODE_URI, uri).getQuery());
 		JacksonDBCollection<MongoTerm, String> termT = JacksonDBCollection.wrap(
@@ -216,7 +220,7 @@ public class MongoDatabaseUtils {
 		return retUris;
 	}
 
-	private static List<String> deleteAgents(String uri) {
+	private List<String> deleteAgents(String uri) {
 		List<String> retUris = new ArrayList<>();
 
 		aColl.remove(aColl.find().is(TERM_CODE_URI, uri).getQuery());
@@ -241,7 +245,8 @@ public class MongoDatabaseUtils {
 	}
 
 	// TODO: rename to deleteOrganization
-	public static List<String> deleteOrganizations(String uri) {
+	public List<String> deleteOrganizations(String uri) {
+	    initDbIfNeeded();     
 		List<String> retUris = new ArrayList<>();
 
 		oColl.remove(oColl.find().is(TERM_CODE_URI, uri).getQuery());
@@ -266,8 +271,9 @@ public class MongoDatabaseUtils {
 		return retUris;
 	}
 
-	public static JacksonDBCollection<MongoTerm, String> deleteOrganizationTerms(
+	public JacksonDBCollection<MongoTerm, String> deleteOrganizationTerms(
 			String uri) {
+	    initDbIfNeeded();     
 		JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection.wrap(
 				db.getCollection(ORGANIZATION_TABLE), MongoTerm.class,
 				String.class);
@@ -275,7 +281,7 @@ public class MongoDatabaseUtils {
 		return termA;
 	}
 
-	private static List<String> deleteConcepts(String uri) {
+	private List<String> deleteConcepts(String uri) {
 		List<String> retUris = new ArrayList<>();
 
 		cColl.remove(cColl.find().is(TERM_CODE_URI, uri).getQuery());
@@ -299,7 +305,7 @@ public class MongoDatabaseUtils {
 		return retUris;
 	}
 
-	private static List<String> deletePlaces(String uri) {
+	private List<String> deletePlaces(String uri) {
 		List<String> retUris = new ArrayList<>();
 
 		pColl.remove(pColl.find().is(TERM_CODE_URI, uri).getQuery());
@@ -330,8 +336,9 @@ public class MongoDatabaseUtils {
 	 * @param entityClass
 	 * @return the term list.
 	 */
-	public static MongoTermList<ContextualClassImpl> findByCode(String codeUri,
+	public MongoTermList<ContextualClassImpl> findByCode(String codeUri,
 			EntityClass entityClass) {
+	    initDbIfNeeded();     
 		final MongoTermList<? extends ContextualClassImpl> result;
 		switch (entityClass) {
 			case CONCEPT :
@@ -356,7 +363,7 @@ public class MongoDatabaseUtils {
 		return MongoTermList.cast(result);
 	}
 
-	private static TimespanTermList findTimespanByCode(String codeUri) {
+	private TimespanTermList findTimespanByCode(String codeUri) {
 		DBCursor<TimespanTermList> curs = tColl
 				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, TIMESPAN_TYPE))
 				.is(TERM_CODE_URI, codeUri);
@@ -366,7 +373,7 @@ public class MongoDatabaseUtils {
 		return null;
 	}
 
-	private static AgentTermList findAgentByCode(String codeUri) {
+	private AgentTermList findAgentByCode(String codeUri) {
 		DBCursor<AgentTermList> curs = aColl
 				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, AGENT_TYPE))
 				.is(TERM_CODE_URI, codeUri);
@@ -377,7 +384,7 @@ public class MongoDatabaseUtils {
 		return null;
 	}
 
-	private static PlaceTermList findPlaceByCode(String codeUri) {
+	private PlaceTermList findPlaceByCode(String codeUri) {
 		DBCursor<PlaceTermList> curs = pColl
 				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, PLACE_TYPE))
 				.is(TERM_CODE_URI, codeUri);
@@ -387,7 +394,7 @@ public class MongoDatabaseUtils {
 		return null;
 	}
 
-	private static ConceptTermList findConceptByCode(String codeUri) {
+	private ConceptTermList findConceptByCode(String codeUri) {
 		DBCursor<ConceptTermList> curs = cColl
 				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, CONCEPT_TYPE))
 				.is(TERM_CODE_URI, codeUri);
@@ -397,7 +404,7 @@ public class MongoDatabaseUtils {
 		return null;
 	}
 
-	private static OrganizationTermList findOrganizationByCode(String codeUri) {
+	private OrganizationTermList findOrganizationByCode(String codeUri) {
 		DBCursor<OrganizationTermList> curs = oColl.find(
 				new BasicDBObject(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE))
 				.is(TERM_CODE_URI, codeUri);
@@ -407,7 +414,7 @@ public class MongoDatabaseUtils {
 		return null;
 	}
 
-	private static String getTableName(EntityClass entityClass) {
+	private String getTableName(EntityClass entityClass) {
 		final String result;
 		switch (entityClass) {
 			case AGENT :
@@ -445,7 +452,8 @@ public class MongoDatabaseUtils {
 		return result;
 	}
 
-	public static List<MongoTerm> getAllMongoTerms(EntityClass entityClass) {
+	public List<MongoTerm> getAllMongoTerms(EntityClass entityClass) {
+	    initDbIfNeeded();     
 		JacksonDBCollection<MongoTerm, String> pColl = JacksonDBCollection.wrap(
 				db.getCollection(getTableName(entityClass)), MongoTerm.class,
 				String.class);
@@ -465,9 +473,9 @@ public class MongoDatabaseUtils {
 	 * @param termList
 	 * @return
 	 */
-	public static MongoTermList<? extends ContextualClassImpl> storeMongoTermList(
+	public MongoTermList<? extends ContextualClassImpl> storeMongoTermList(
 			MongoTermList<? extends ContextualClassImpl> termList) {
-
+        initDbIfNeeded();     
 		String type = termList.getEntityType();
 		switch (type) {
 			case ORGANIZATION_TYPE :
@@ -482,13 +490,14 @@ public class MongoDatabaseUtils {
 
 	}
 
-	private static OrganizationTermList saveOrganization(
+	private OrganizationTermList saveOrganization(
 			OrganizationTermList termList) {
 		return oColl.save(termList).getSavedObject();
 	}
 
-	public static int storeEntityLabels(ContextualClassImpl entity,
+	public int storeEntityLabels(ContextualClassImpl entity,
 			EntityClass entityClass) {
+	    initDbIfNeeded();     
 		// select collection
 		String collection = getTableName(entityClass);
 		JacksonDBCollection<MongoTerm, String> termColl = JacksonDBCollection
@@ -531,7 +540,8 @@ public class MongoDatabaseUtils {
 	 *            The type of the entity e.g. organization
 	 * @return the last modified date for passed entity class
 	 */
-	public static Date getLastModifiedDate(EntityClass entityClass) {
+	public Date getLastModifiedDate(EntityClass entityClass) {
+	    initDbIfNeeded();     
 		DBCursor<OrganizationTermList> cursor = oColl
 				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY,
 						getTypeName(entityClass)))

@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.service;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -11,29 +13,31 @@ import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.utils.EntityClass;
-import eu.europeana.enrichment.utils.MongoDatabaseUtils;
+import eu.europeana.enrichment.utils.EntityDao;
 
-public class EntityService {
+public class EntityService implements Closeable {
 
-	private final String mongoHost;
-	private final int mongoPort;
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(EntityService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EntityService.class);
+  
+    private final EntityDao entityDao;
 
 	public EntityService(String mongoHost, int mongoPort) {
-		this.mongoHost = mongoHost;
-		this.mongoPort = mongoPort;
+	    this.entityDao = new EntityDao(mongoHost, mongoPort);
 	}
 
+    @Override
+    public void close() throws IOException {
+        this.entityDao.close();
+    }
+	  
 	public OrganizationTermList storeOrganization(Organization org,
 			Date created, Date modified) {
-		MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
 
 		// build term list
 		OrganizationTermList termList = organizationToOrganizationTermList(
 				(OrganizationImpl) org, created, modified);
 
-		MongoTermList<ContextualClassImpl> storedOrg = MongoDatabaseUtils
+		MongoTermList<ContextualClassImpl> storedOrg = entityDao
 				.findByCode(org.getAbout(), EntityClass.ORGANIZATION);
 
 		// it is an update
@@ -45,15 +49,15 @@ public class EntityService {
 		// delete old terms (labels), also when the termList is not found to
 		// will avoid problems when manually deleting the entries in the
 		// database
-		MongoDatabaseUtils.deleteOrganizationTerms(org.getAbout());
+		entityDao.deleteOrganizationTerms(org.getAbout());
 
 		// store labels
-		int newLabels = MongoDatabaseUtils.storeEntityLabels(
+		int newLabels = entityDao.storeEntityLabels(
 				(OrganizationImpl) org, EntityClass.ORGANIZATION);
 		LOGGER.trace("Stored new lables: {}", newLabels);
 
 		// store term list
-		return (OrganizationTermList) MongoDatabaseUtils
+		return (OrganizationTermList) entityDao
 				.storeMongoTermList(termList);
 
 	}
@@ -83,8 +87,6 @@ public class EntityService {
 	 * @return the last modified date
 	 */
 	public Date getLastOrganizationImportDate() {
-		MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
-		return MongoDatabaseUtils.getLastModifiedDate(EntityClass.ORGANIZATION);
+		return entityDao.getLastModifiedDate(EntityClass.ORGANIZATION);
 	}
-
 }

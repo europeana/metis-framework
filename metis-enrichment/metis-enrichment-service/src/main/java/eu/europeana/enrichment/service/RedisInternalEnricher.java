@@ -22,7 +22,7 @@ import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.utils.EntityClass;
 import eu.europeana.enrichment.utils.InputValue;
-import eu.europeana.enrichment.utils.MongoDatabaseUtils;
+import eu.europeana.enrichment.utils.EntityDao;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import redis.clients.jedis.Jedis;
 
@@ -80,14 +80,12 @@ public class RedisInternalEnricher {
     }
   }
 
-  private final int mongoPort;
-  private final String mongoHost;
+  private final EntityDao entityDao;
   private final RedisProvider redisProvider;
 
-  public RedisInternalEnricher(String mongoHost, int mongoPort, RedisProvider provider,
+  public RedisInternalEnricher(EntityDao entityDao, RedisProvider provider,
       boolean populate) {
-    this.mongoHost = mongoHost;
-    this.mongoPort = mongoPort;
+    this.entityDao = entityDao;
     SimpleModule sm = new SimpleModule("test", Version.unknownVersion());
     sm.addSerializer(new ObjectIdSerializer());
     OBJECT_MAPPER.registerModule(sm);
@@ -164,7 +162,6 @@ public class RedisInternalEnricher {
 
   private void populate() {
     long startTime = System.currentTimeMillis();
-    MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
     setStatus("started");
     for (EntityType type : EntityType.values()) {
       loadEntities(type);
@@ -184,13 +181,13 @@ public class RedisInternalEnricher {
 
   private void loadEntities(EntityType entityType) {
     Jedis jedis = redisProvider.getJedis();
-    List<MongoTerm> terms = MongoDatabaseUtils.getAllMongoTerms(entityType.entityClass);
+    List<MongoTerm> terms = entityDao.getAllMongoTerms(entityType.entityClass);
     int termCount = terms.size();
     LOGGER.info("Found entities of type {}: {}", entityType.entityClass, termCount);
     int i = 0;
     for (MongoTerm term : terms) {
       MongoTermList<?> termList =
-          MongoDatabaseUtils.findByCode(term.getCodeUri(), entityType.entityClass);
+          entityDao.findByCode(term.getCodeUri(), entityType.entityClass);
       if (termList != null) {
         try {
           EntityWrapper entityWrapper = new EntityWrapper();
@@ -257,7 +254,7 @@ public class RedisInternalEnricher {
 
   private List<String> findParents(String parent, EntityClass entityClass) throws IOException {
     List<String> parentEntities = new ArrayList<>();
-    MongoTermList<?> parents = MongoDatabaseUtils.findByCode(parent, entityClass);
+    MongoTermList<?> parents = entityDao.findByCode(parent, entityClass);
     if (parents != null) {
       parentEntities.add(parents.getCodeUri());
       if (parents.getParent() != null && !parent.equals(parents.getParent())) {
