@@ -1,4 +1,4 @@
-package eu.europeana.metis.dereference;
+package eu.europeana.enrichment.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,6 +54,7 @@ import eu.europeana.corelib.definitions.jibx.Relation;
 import eu.europeana.corelib.definitions.jibx.Replaces;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
+import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.corelib.definitions.jibx.SameAs;
 import eu.europeana.corelib.definitions.jibx.Source;
 import eu.europeana.corelib.definitions.jibx.Spatial;
