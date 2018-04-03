@@ -46,6 +46,7 @@ class IndexingConnectionProvider implements Closeable {
 
   private final LBHttpSolrServer httpSolrServer;
   private final CloudSolrServer cloudSolrServer;
+  private final MongoClient mongoClient;
   private final EdmMongoServer mongoServer;
 
   /**
@@ -64,11 +65,12 @@ class IndexingConnectionProvider implements Closeable {
       this.cloudSolrServer = null;
     }
 
-    // Create mongo connection.
-    this.mongoServer = setUpMongoConnection(settings);
+    // Create Mongo connection.
+    this.mongoClient = setUpMongoClient(settings);
+    this.mongoServer = setUpMongoServer(settings, mongoClient);
   }
 
-  private static EdmMongoServer setUpMongoConnection(IndexingSettings settings)
+  private static MongoClient setUpMongoClient(IndexingSettings settings)
       throws IndexerConfigurationException {
 
     // Create credentials
@@ -83,20 +85,26 @@ class IndexingConnectionProvider implements Closeable {
     final boolean enableSsl = settings.mongoEnableSsl();
     final MongoClientOptions.Builder optionsBuilder = new Builder().sslEnabled(enableSsl);
 
-    // Create client
+    // Perform logging
     final List<ServerAddress> hosts = settings.getMongoHosts();
-    final MongoClient client = new MongoClient(hosts, credentials, optionsBuilder.build());
+    LOGGER.info("Connecting to Mongo hosts: [{}], with{} authentication, with{} SSL.",
+        hosts.stream().map(ServerAddress::toString).collect(Collectors.joining(", ")),
+        credentials.isEmpty() ? "out" : "", enableSsl ? "" : "out");
+
+    // Create client
+    return new MongoClient(hosts, credentials, optionsBuilder.build());
+  }
+
+  private static EdmMongoServer setUpMongoServer(IndexingSettings settings, MongoClient mongoClient)
+      throws IndexerConfigurationException {
 
     // Perform logging
     final String databaseName = settings.getMongoDatabaseName();
-    LOGGER.info(
-        "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
-        hosts.stream().map(ServerAddress::toString).collect(Collectors.joining(", ")), databaseName,
-        credentials.isEmpty() ? "out" : "", enableSsl ? "" : "out");
+    LOGGER.info("Connecting to Mongo database: [{}].", databaseName);
 
     // Create server
     try {
-      return new EdmMongoServerImpl(client, databaseName);
+      return new EdmMongoServerImpl(mongoClient, databaseName);
     } catch (MongoDBException e) {
       throw new IndexerConfigurationException("Could not set up mongo server.", e);
     }
@@ -191,5 +199,6 @@ class IndexingConnectionProvider implements Closeable {
       cloudSolrServer.shutdown();
     }
     mongoServer.close();
+ //   mongoClient.close();
   }
 }

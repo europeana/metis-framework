@@ -30,6 +30,11 @@
 			<artifactId>corelib-storage</artifactId>
 		</dependency>
 		<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+			<version>${version.httpclient}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${version.commons.lang}</version>
