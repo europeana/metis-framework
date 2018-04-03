@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,6 +27,8 @@ import eu.europeana.metis.dereference.Vocabulary;
  */
 public class DereferenceClient {
 	
+    private static final Logger LOGGER = LoggerFactory.getLogger(DereferenceClient.class);
+
     private final String hostUrl;
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -119,6 +123,8 @@ public class DereferenceClient {
      * @return A string of the referenced response
      */
 	public EnrichmentResultList dereference(String resourceId) {
+	  
+	    // Encode the resource ID.
 		final String resourceString;
 		try {
 		    resourceString = URLEncoder.encode(resourceId, StandardCharsets.UTF_8.name());
@@ -126,14 +132,26 @@ public class DereferenceClient {
 			throw new IllegalStateException(e);
 		}
 		
-		if (!resourceString.startsWith("http") && !resourceString.startsWith("https"))
-			return null;
+		// Check that it has the right scheme.
+        if (!resourceString.startsWith("http") && !resourceString.startsWith("https")) {
+          return null;
+        }
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
-		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-
-		final String dereferenceUrl = hostUrl + RestEndpoints.DEREFERENCE + "?uri=" + resourceString;
+        // Compile the dereference URI.
+        final String dereferenceUrlString = hostUrl + RestEndpoints.DEREFERENCE + "?uri=" + resourceString;
+        final URI dereferenceUrl;
+        try {
+          dereferenceUrl = new URI(hostUrl + RestEndpoints.DEREFERENCE + "?uri=" + resourceString);
+        } catch (URISyntaxException e) {
+          // Cannot really happen.
+          LOGGER.warn("URL [" + dereferenceUrlString + "] is not valid.", e);
+          return null;
+        }
+        
+        // Execute the dereference call.				
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+        final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 		return restTemplate.exchange(dereferenceUrl, HttpMethod.GET, entity, EnrichmentResultList.class).getBody();
 	}
 }
