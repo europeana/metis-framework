@@ -69,36 +69,36 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
   }
 
 //  @Test
-  public void processWikidataWorkflowTest() 
-      throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException {
-  
-    Date now = new Date();
-
-    /** 1. Get organization from Zoho */ 
-    Organization org = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
-    assertNotNull(org);
-    assertTrue(org.getCreated().getTime() > 0);
-    assertTrue(org.getModified().getTime() > 0);
-    
-    /** 2. Retrieve wikidata for given organization */
-    /** 3. Store retrieved wikidata in XML format (applying XSLT) */
-    String uri = org.getOwlSameAs()[0];  
-    wikidataAccessService.retrieveWikidataToXsltXmlFile(uri, WIKIDATA_TEST_OUTPUT_FILE);
-        
-    /** 4. Parse wikidata to OrganizationWikidata object */
-    WikidataOrganization wikidataOrganization = 
-        wikidataAccessService.parseWikidataFromXsltXmlFile(WIKIDATA_TEST_OUTPUT_FILE);
-    assertNotNull(wikidataOrganization);
-
-    /** 5. Merge both organization objects */
-    
-    /** 6. Store merged data in OrganizationImpl object in Metis */
-//    OrganizationTermList termList = entityService.storeOrganization(org);
-//    assertNotNull(termList);
-//    assertEquals(org.getAbout(), termList.getCodeUri());
-//    assertEquals(termList.getCreated(), termList.getModified());
-//    assertTrue(termList.getCreated().getTime() > now.getTime());
-  }
+//  public void processWikidataWorkflowTest() 
+//      throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException {
+//  
+//    Date now = new Date();
+//
+//    /** 1. Get organization from Zoho */ 
+//    Organization org = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
+//    assertNotNull(org);
+//    assertTrue(org.getCreated().getTime() > 0);
+//    assertTrue(org.getModified().getTime() > 0);
+//    
+//    /** 2. Retrieve wikidata for given organization */
+//    /** 3. Store retrieved wikidata in XML format (applying XSLT) */
+//    String uri = org.getOwlSameAs()[0];  
+//    wikidataAccessService.retrieveWikidataToXsltXmlFile(uri, WIKIDATA_TEST_OUTPUT_FILE);
+//        
+//    /** 4. Parse wikidata to OrganizationWikidata object */
+//    WikidataOrganization wikidataOrganization = 
+//        wikidataAccessService.parseWikidataFromXsltXmlFile(WIKIDATA_TEST_OUTPUT_FILE);
+//    assertNotNull(wikidataOrganization);
+//
+//    /** 5. Merge both organization objects */
+//    
+//    /** 6. Store merged data in OrganizationImpl object in Metis */
+////    OrganizationTermList termList = entityService.storeOrganization(org);
+////    assertNotNull(termList);
+////    assertEquals(org.getAbout(), termList.getCodeUri());
+////    assertEquals(termList.getCreated(), termList.getModified());
+////    assertTrue(termList.getCreated().getTime() > now.getTime());
+//  }
 
 //  @Test
   public void retrieveWikidataToXsltXmlFileTest() 
@@ -123,16 +123,16 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
     assertNotNull(wikidataOrganization.getOrganization().getHomepage().getResource().toString());
   }
     
-  @Test
-  public void mergeZohoAndWikidataOrganizationObjectsTest() 
-      throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException {
-    
-    Organization zohoOrganization = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
-    WikidataOrganization wikidataOrganization = 
-        wikidataAccessService.parseWikidataFromXsltXmlFile(WIKIDATA_TEST_OUTPUT_FILE);
-    Organization mergedOrganization = wikidataAccessService.mergeZohoAndWikidataOrganizationObjects(
-        zohoOrganization, wikidataOrganization);
-    assertNotNull(mergedOrganization);
-  }
+//  @Test
+//  public void mergeZohoAndWikidataOrganizationObjectsTest() 
+//      throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException {
+//    
+//    Organization zohoOrganization = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
+//    WikidataOrganization wikidataOrganization = 
+//        wikidataAccessService.parseWikidataFromXsltXmlFile(WIKIDATA_TEST_OUTPUT_FILE);
+//    Organization mergedOrganization = wikidataAccessService.mergeZohoAndWikidataOrganizationObjects(
+//        zohoOrganization, wikidataOrganization);
+//    assertNotNull(mergedOrganization);
+//  }
     
 }
