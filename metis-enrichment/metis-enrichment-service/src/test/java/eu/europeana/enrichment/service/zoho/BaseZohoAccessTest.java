@@ -15,11 +15,11 @@ import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 
 public abstract class BaseZohoAccessTest {
 
-	ZohoAccessService zohoAccessService;
+	protected ZohoAccessService zohoAccessService;
 	ZohoAccessClientDao zohoAccessClientDao;
 
 	final Logger LOGGER = LoggerFactory.getLogger(getClass());
-	final String TEST_ORGANIZATION_ID = "1482250000002112001";
+	protected final String TEST_ORGANIZATION_ID = "1482250000002112001";
 
 	public void setUp() throws Exception {
 		// TODO use constant for authentication properties, if possible in a

@@ -209,6 +209,26 @@ public class ZohoAccessClientDao {
   }
 
   /**
+   * This method builds organization URI for passed ID.
+   * @param organizationId
+   * @return organization URI
+   */
+  public URI buildOrganizationUriById(String organizationId) {
+
+    URI uri = null;
+    String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
+        ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.GET_RECORDS_STRING);
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
+        .queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
+        .queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
+        .queryParam(ZohoApiFields.ID, organizationId);
+
+    uri = builder.build().encode().toUri();
+    LOGGER.trace("{}", uri);
+    return uri;
+  }
+  
+  /**
    * Retrieve Zoho organization by ID.
    * <p>
    * It will try to fetch the organization from the external Zoho CRM. This method returns an
@@ -230,16 +250,8 @@ public class ZohoAccessClientDao {
    */
   public JsonNode getOrganizationById(String organizationId) throws GenericMetisException {
 
-    String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
-        ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.GET_RECORDS_STRING);
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
-        .queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-        .queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
-        .queryParam(ZohoApiFields.ID, organizationId);
-
     RestTemplate restTemplate = new RestTemplate();
-    URI uri = builder.build().encode().toUri();
-    LOGGER.trace("{}", uri);
+    URI uri = buildOrganizationUriById(organizationId);
 
     String organisationsResponse = restTemplate.getForObject(uri, String.class);
     LOGGER.debug(organisationsResponse);
