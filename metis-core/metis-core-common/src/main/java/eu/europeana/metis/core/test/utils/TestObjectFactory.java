@@ -76,7 +76,7 @@ public class TestObjectFactory {
 
   public static List<Workflow> createListOfWorkflowsSameOwner(String workflowOwner,
       int size) {
-    List<Workflow> workflows = new ArrayList<>();
+    List<Workflow> workflows = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
@@ -117,7 +117,7 @@ public class TestObjectFactory {
   }
 
   public static List<WorkflowExecution> createListOfWorkflowExecutions(int size) {
-    List<WorkflowExecution> workflowExecutions = new ArrayList<>();
+    List<WorkflowExecution> workflowExecutions = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
@@ -151,7 +151,7 @@ public class TestObjectFactory {
   }
 
   public static List<ScheduledWorkflow> createListOfScheduledWorkflows(int size) {
-    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
+    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
@@ -163,7 +163,7 @@ public class TestObjectFactory {
 
   public static List<ScheduledWorkflow> createListOfScheduledWorkflowsWithDateAndFrequence(
       int size, Date date, ScheduleFrequence scheduleFrequence) {
-    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
+    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());

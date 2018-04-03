@@ -86,6 +86,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   /**
    * Check existence of a workflow using a {@link Workflow} class.
    * <p>It will check based on the {@link Workflow#getWorkflowOwner()} and {@link Workflow#getDatasetId()} ()}</p>
+   *
    * @param workflow the {@link Workflow}
    * @return null or the {@link ObjectId} of the object
    */
@@ -126,12 +127,12 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .limit(workflowsPerRequest));
   }
 
-  public int getWorkflowsPerRequest() {
-    return workflowsPerRequest;
+  public synchronized int getWorkflowsPerRequest() {
+      return workflowsPerRequest;
   }
 
-  public void setWorkflowsPerRequest(int workflowsPerRequest) {
-    this.workflowsPerRequest = workflowsPerRequest;
+  public synchronized void setWorkflowsPerRequest(int workflowsPerRequest) {
+      this.workflowsPerRequest = workflowsPerRequest;
   }
 }
 

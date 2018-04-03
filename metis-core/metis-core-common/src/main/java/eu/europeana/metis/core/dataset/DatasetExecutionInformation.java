@@ -18,22 +18,23 @@ public class DatasetExecutionInformation {
   private int lastHarvestedRecords;
 
   public DatasetExecutionInformation() {
+    //Required for json serialization
   }
 
   public Date getFirstPublishedDate() {
-    return firstPublishedDate;
+    return firstPublishedDate == null?null:new Date(firstPublishedDate.getTime());
   }
 
   public void setFirstPublishedDate(Date firstPublishedDate) {
-    this.firstPublishedDate = firstPublishedDate;
+    this.firstPublishedDate = firstPublishedDate == null?null:new Date(firstPublishedDate.getTime());
   }
 
   public Date getLastPublishedDate() {
-    return lastPublishedDate;
+    return lastPublishedDate == null?null:new Date(lastPublishedDate.getTime());
   }
 
   public void setLastPublishedDate(Date lastPublishedDate) {
-    this.lastPublishedDate = lastPublishedDate;
+    this.lastPublishedDate = lastPublishedDate == null?null:new Date(lastPublishedDate.getTime());
   }
 
   public int getLastPublishedRecords() {
@@ -45,11 +46,11 @@ public class DatasetExecutionInformation {
   }
 
   public Date getLastHarvestedDate() {
-    return lastHarvestedDate;
+    return lastHarvestedDate == null?null:new Date(lastHarvestedDate.getTime());
   }
 
   public void setLastHarvestedDate(Date lastHarvestedDate) {
-    this.lastHarvestedDate = lastHarvestedDate;
+    this.lastHarvestedDate = lastHarvestedDate == null?null:new Date(lastHarvestedDate.getTime());
   }
 
   public int getLastHarvestedRecords() {
