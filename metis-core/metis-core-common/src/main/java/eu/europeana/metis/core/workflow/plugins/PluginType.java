@@ -14,7 +14,8 @@ public enum PluginType{
   VALIDATION_EXTERNAL,
   TRANSFORMATION,
   VALIDATION_INTERNAL,
-  INDEX_TO_PREVIEW;
+  PREVIEW,
+  PUBLISH;
 
   /**
    * Lookup of a {@link PluginType} enum from a provided enum String representation of the enum value.

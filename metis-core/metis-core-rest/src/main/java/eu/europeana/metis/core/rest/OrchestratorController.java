@@ -2,6 +2,7 @@ package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.execution.ExecutionRules;
@@ -182,6 +183,16 @@ public class OrchestratorController {
       LOGGER.info("PluginType allowed by default");
     }
     return latestFinishedPluginWorkflowExecutionByDatasetId;
+  }
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public DatasetExecutionInformation getDatasetExecutionInformation(
+      @PathVariable("datasetId") int datasetId) {
+    LOGGER.info("Requesting dataset execution information for datasetId: {}", datasetId);
+    return orchestratorService.getDatasetExecutionInformation(datasetId);
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID, method = RequestMethod.GET, produces = {

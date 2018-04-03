@@ -22,6 +22,7 @@ import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
@@ -44,7 +45,10 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.IndexToPublishPlugin;
+import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
@@ -52,6 +56,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -302,7 +307,7 @@ public class TestOrchestratorService {
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(dataset.getDatasetId(),
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(dataset.getDatasetId(),
             ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
@@ -332,7 +337,7 @@ public class TestOrchestratorService {
     OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin();
     oaipmhHarvestPlugin.setStartedDate(new Date());
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(dataset.getDatasetId(),
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(dataset.getDatasetId(),
             ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(), null, 0);
   }
@@ -557,7 +562,7 @@ public class TestOrchestratorService {
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
             ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     Assert.assertEquals(PluginType.OAIPMH_HARVEST, orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
@@ -568,7 +573,7 @@ public class TestOrchestratorService {
   public void getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution_PluginExecutionNotAllowed()
       throws Exception {
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
             ExecutionRules.getHarvestPluginGroup())).thenReturn(null);
     orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
@@ -579,7 +584,7 @@ public class TestOrchestratorService {
   public void getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution_PluginExecutionNotAllowed_ProcessedRecordSameAsErrors()
       throws Exception {
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
             ExecutionRules.getHarvestPluginGroup())).thenReturn(new OaipmhHarvestPlugin());
     orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
@@ -596,6 +601,44 @@ public class TestOrchestratorService {
         .getAllWorkflowExecutions(anyInt(), anyString(), anySet(),
             any(OrderField.class), anyBoolean(), anyInt());
     verifyNoMoreInteractions(workflowExecutionDao);
+  }
+
+  @Test
+  public void getDatasetExecutionInformation() {
+    ExecutionProgress executionProgress = new ExecutionProgress();
+    executionProgress.setProcessedRecords(100);
+    executionProgress.setErrors(20);
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(
+        new OaipmhHarvestPluginMetadata());
+    oaipmhHarvestPlugin.setFinishedDate(new Date(1000));
+    oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
+    IndexToPublishPlugin firstPublishPlugin = new IndexToPublishPlugin(
+        new IndexToPublishPluginMetadata());
+    firstPublishPlugin.setFinishedDate(new Date(2000));
+    firstPublishPlugin.setExecutionProgress(executionProgress);
+    IndexToPublishPlugin lastPublishPlugin = new IndexToPublishPlugin(
+        new IndexToPublishPluginMetadata());
+    lastPublishPlugin.setFinishedDate(new Date(3000));
+    lastPublishPlugin.setExecutionProgress(executionProgress);
+
+    when(workflowExecutionDao
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID, EnumSet
+            .of(PluginType.HTTP_HARVEST, PluginType.OAIPMH_HARVEST))).thenReturn(oaipmhHarvestPlugin);
+    when(workflowExecutionDao
+        .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID, EnumSet
+            .of(PluginType.PUBLISH))).thenReturn(firstPublishPlugin);
+    when(workflowExecutionDao
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID, EnumSet
+            .of(PluginType.PUBLISH))).thenReturn(lastPublishPlugin);
+
+    DatasetExecutionInformation datasetExecutionInformation = orchestratorService
+        .getDatasetExecutionInformation(TestObjectFactory.DATASETID);
+
+    Assert.assertEquals(oaipmhHarvestPlugin.getFinishedDate(), datasetExecutionInformation.getLastHarvestedDate());
+    Assert.assertEquals(oaipmhHarvestPlugin.getExecutionProgress().getProcessedRecords() - oaipmhHarvestPlugin.getExecutionProgress().getErrors(), datasetExecutionInformation.getLastHarvestedRecords());
+    Assert.assertEquals(firstPublishPlugin.getFinishedDate(), datasetExecutionInformation.getFirstPublishedDate());
+    Assert.assertEquals(lastPublishPlugin.getFinishedDate(), datasetExecutionInformation.getLastPublishedDate());
+    Assert.assertEquals(lastPublishPlugin.getExecutionProgress().getProcessedRecords() - lastPublishPlugin.getExecutionProgress().getErrors(), datasetExecutionInformation.getLastPublishedRecords());
   }
 
   @Test

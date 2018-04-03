@@ -17,7 +17,7 @@ public final class ExecutionRules {
   private static final Set<PluginType> PROCESS_PLUGIN_GROUP = EnumSet
       .of(PluginType.VALIDATION_EXTERNAL, PluginType.TRANSFORMATION,
           PluginType.VALIDATION_INTERNAL, PluginType.ENRICHMENT);
-  private static final Set<PluginType> INDEX_PLUGIN_GROUP = EnumSet.of(PluginType.INDEX_TO_PREVIEW);
+  private static final Set<PluginType> INDEX_PLUGIN_GROUP = EnumSet.of(PluginType.PREVIEW);
 
   private ExecutionRules() {
     //Private constructor
@@ -43,7 +43,7 @@ public final class ExecutionRules {
     AbstractMetisPlugin abstractMetisPlugin = null;
     if (enforcedPluginType != null) {
       abstractMetisPlugin = workflowExecutionDao
-          .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
+          .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
               EnumSet.of(enforcedPluginType));
     } else if (PROCESS_PLUGIN_GROUP
         .contains(pluginType)) { //Get latest FINISHED plugin for datasetId
@@ -81,7 +81,7 @@ public final class ExecutionRules {
     }
     if (latestPreviousPluginTypesSet != null) {
       latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-          .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
+          .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
               latestPreviousPluginTypesSet);
     }
     return latestFinishedWorkflowExecutionByDatasetIdAndPluginType;

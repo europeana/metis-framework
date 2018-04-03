@@ -86,7 +86,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .update(query, workflowExecutionUpdateOperations);
     LOGGER.debug(
         "WorkflowExecution metisPlugins for datasetId '{}' with workflowOwner '{}'  updated in Mongo. (UpdateResults: {})",
-        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner(), updateResults.getUpdatedCount());
+        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner(),
+        updateResults.getUpdatedCount());
   }
 
   public void updateMonitorInformation(WorkflowExecution workflowExecution) {
@@ -112,7 +113,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .update(query, workflowExecutionUpdateOperations);
     LOGGER.debug(
         "WorkflowExecution monitor information for datasetId '{}' with workflowOwner '{}' updated in Mongo. (UpdateResults: {})",
-        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner(), updateResults.getUpdatedCount());
+        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner(),
+        updateResults.getUpdatedCount());
   }
 
   public void setCancellingState(WorkflowExecution workflowExecution) {
@@ -127,7 +129,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .update(query, workflowExecutionUpdateOperations);
     LOGGER.debug(
         "WorkflowExecution cancelling for datasetId '{}' with workflowOwner '{}' set to true in Mongo. (UpdateResults: {})",
-        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner(), updateResults.getUpdatedCount());
+        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner(),
+        updateResults.getUpdatedCount());
   }
 
   @Override
@@ -177,9 +180,18 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return null;
   }
 
-  public AbstractMetisPlugin getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(
-      int datasetId,
-      Set<PluginType> pluginTypes) {
+  public AbstractMetisPlugin getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      int datasetId, Set<PluginType> pluginTypes) {
+    return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, pluginTypes, true);
+  }
+
+  public AbstractMetisPlugin getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      int datasetId, Set<PluginType> pluginTypes) {
+    return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, pluginTypes, false);
+  }
+
+  private AbstractMetisPlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      int datasetId, Set<PluginType> pluginTypes, boolean firstFinished) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
 
@@ -205,7 +217,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     Iterator<WorkflowExecution> metisPluginsIterator = aggregation.match(query)
         .unwind(METIS_PLUGINS)
-        .match(query).sort(Sort.descending("metisPlugins.finishedDate"))
+        .match(query).sort(firstFinished ? Sort.ascending("metisPlugins.finishedDate")
+            : Sort.descending("metisPlugins.finishedDate"))
         .aggregate(WorkflowExecution.class);
 
     if (metisPluginsIterator.hasNext()) {
