@@ -36,7 +36,8 @@ public class ValidationClient {
         Properties props = new Properties();
         try {
             template.setErrorHandler(new ValidationResponseHandler());
-            props.load(this.getClass().getClassLoader().getResourceAsStream("validation.properties"));
+            props.load(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("validation.properties"));
             validationEndpoint = props.getProperty("validation.endpoint");
         } catch (IOException e) {
             LOGGER.error(e.getMessage());

@@ -16,13 +16,11 @@ package eu.europeana.enrichment.api.internal;
 import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.bson.types.ObjectId;
 import org.mongojack.DBRef;
-import org.mongojack.ObjectId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
-import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 
 /**
  * Basic Class linking a number of MongoTerms. This class enables searching by CodeUri for fetching
@@ -47,23 +45,19 @@ public abstract class MongoTermList<T extends AbstractEdmEntityImpl> implements 
   @JsonIgnore
   @XmlTransient
   private List<DBRef<? extends MongoTerm, String>> terms;
-  @ObjectId
-  @JsonProperty("_id")
-  @JsonSerialize(using = ObjectIdSerializer.class)
-  private String id;
 
-  public String _id;
+  @JsonProperty("_id")
+  private ObjectId id;
+
   protected T representation;
   private String entityType;
 
-
-  public String getId() {
+  public ObjectId getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(ObjectId id) {
     this.id = id;
-    this._id = id;
   }
 
   public String getCodeUri() {

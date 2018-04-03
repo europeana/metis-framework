@@ -65,9 +65,9 @@ public class TestFailsafeExecutor {
     List<WorkflowExecution> listOfWorkflowExecutionsWithInqueueStatuses = TestObjectFactory
         .createListOfWorkflowExecutions(listSize); //To not trigger paging
 
-    when(orchestratorService.getAllWorkflowExecutions(-1, null, null, EnumSet.of(WorkflowStatus.RUNNING), OrderField.ID, true, 0))
+    when(orchestratorService.getAllWorkflowExecutions(-1, null, EnumSet.of(WorkflowStatus.RUNNING), OrderField.ID, true, 0))
         .thenReturn(listOfWorkflowExecutionsWithRunningStatuses);
-    when(orchestratorService.getAllWorkflowExecutions(-1, null, null, EnumSet.of(WorkflowStatus.INQUEUE), OrderField.ID, true, 0))
+    when(orchestratorService.getAllWorkflowExecutions(-1, null, EnumSet.of(WorkflowStatus.INQUEUE), OrderField.ID, true, 0))
         .thenReturn(listOfWorkflowExecutionsWithInqueueStatuses);
     when(orchestratorService.getWorkflowExecutionsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest).thenReturn(userWorkflowExecutionsPerRequest);

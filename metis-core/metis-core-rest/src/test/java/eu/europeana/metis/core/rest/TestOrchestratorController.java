@@ -80,81 +80,82 @@ public class TestOrchestratorController {
   @Test
   public void createWorkflow() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
+    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(201))
         .andExpect(content().string(""));
 
-    verify(orchestratorService, times(1)).createWorkflow(any(Workflow.class));
+    verify(orchestratorService, times(1)).createWorkflow(anyInt(), any(Workflow.class));
   }
 
   @Test
   public void createWorkflow_WorkflowAlreadyExistsException() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
-        .createWorkflow(any(Workflow.class));
-    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
+        .createWorkflow(anyInt(), any(Workflow.class));
+    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
 
-    verify(orchestratorService, times(1)).createWorkflow(any(Workflow.class));
+    verify(orchestratorService, times(1)).createWorkflow(anyInt(), any(Workflow.class));
   }
 
   @Test
   public void updateWorkflow() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
+    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
 
-    verify(orchestratorService, times(1)).updateWorkflow(any(Workflow.class));
+    verify(orchestratorService, times(1)).updateWorkflow(anyInt(), any(Workflow.class));
   }
 
   @Test
   public void updateWorkflow_NoWorkflowFoundException() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
-        .updateWorkflow(any(Workflow.class));
-    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
+        .updateWorkflow(anyInt(), any(Workflow.class));
+    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
 
-    verify(orchestratorService, times(1)).updateWorkflow(any(Workflow.class));
+    verify(orchestratorService, times(1)).updateWorkflow(anyInt(), any(Workflow.class));
   }
 
   @Test
   public void deleteWorkflow() throws Exception {
-    orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
-        .param("workflowOwner", "owner")
-        .param("workflowName", "workflow")
+    orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
-    verify(orchestratorService, times(1)).deleteWorkflow(anyString(), anyString());
+    verify(orchestratorService, times(1)).deleteWorkflow(anyInt());
   }
 
   @Test
   public void getWorkflow() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    String workflowName = workflow.getWorkflowName();
-    when(orchestratorService.getWorkflow(anyString(), anyString())).thenReturn(workflow);
-    orchestratorControllerMock.perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
-        .param("workflowOwner", "owner")
-        .param("workflowName", "workflow")
+    when(orchestratorService.getWorkflow(anyInt())).thenReturn(workflow);
+    orchestratorControllerMock.perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
         .andExpect(status().is(200))
-        .andExpect(jsonPath("$.workflowName", is(workflowName)));
+        .andExpect(jsonPath("$.datasetId", is(workflow.getDatasetId())));
 
-    verify(orchestratorService, times(1)).getWorkflow(anyString(), anyString());
+    verify(orchestratorService, times(1)).getWorkflow(anyInt());
   }
 
   @Test
@@ -162,7 +163,7 @@ public class TestOrchestratorController {
     String workflowOwner = "owner";
     int listSize = 2;
     List<Workflow> listOfWorkflowsSameOwner = TestObjectFactory
-        .createListOfUserWorkflowsSameOwner(workflowOwner,
+        .createListOfWorkflowsSameOwner(workflowOwner,
             listSize + 1); //To get the effect of next page
     when(orchestratorService.getWorkflowsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllWorkflows(anyString(), anyInt()))
@@ -175,9 +176,9 @@ public class TestOrchestratorController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
         .andExpect(jsonPath("$.results[0].workflowOwner", is(workflowOwner)))
-        .andExpect(jsonPath("$.results[0].workflowName", is("workflowName0")))
+        .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID)))
         .andExpect(jsonPath("$.results[1].workflowOwner", is(workflowOwner)))
-        .andExpect(jsonPath("$.results[1].workflowName", is("workflowName1")))
+        .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 1)))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }
 
@@ -198,13 +199,12 @@ public class TestOrchestratorController {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            (PluginType) isNull(), anyInt())).thenReturn(workflowExecution);
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt()))
+        .thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
-            .param("workflowName", "workflow")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(201))
@@ -215,13 +215,11 @@ public class TestOrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions_WorkflowExecutionAlreadyExistsException()
       throws Exception {
     doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            (PluginType) isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
-            .param("workflowName", "workflow")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(409))
@@ -232,13 +230,11 @@ public class TestOrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions_NoDatasetFoundException()
       throws Exception {
     doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            (PluginType) isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
-            .param("workflowName", "workflow")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(404))
@@ -249,13 +245,11 @@ public class TestOrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions_NoWorkflowFoundException()
       throws Exception {
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            (PluginType) isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
-            .param("workflowName", "workflow")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(404))
@@ -267,8 +261,8 @@ public class TestOrchestratorController {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
-            (PluginType) isNull(), anyInt())).thenReturn(workflowExecution);
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class), isNull(), anyInt()))
+        .thenReturn(workflowExecution);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
@@ -283,8 +277,7 @@ public class TestOrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions_direct_WorkflowExecutionAlreadyExistsException()
       throws Exception {
     doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
-            (PluginType) isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class), isNull(), anyInt());
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
@@ -299,8 +292,7 @@ public class TestOrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions_direct_NoDatasetFoundException()
       throws Exception {
     doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
-            (PluginType) isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class), isNull(), anyInt());
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
@@ -315,8 +307,7 @@ public class TestOrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions_direct_WorkflowAlreadyExistsException()
       throws Exception {
     doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
-            (PluginType) isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class), isNull(), anyInt());
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
@@ -412,14 +403,14 @@ public class TestOrchestratorController {
         .createListOfWorkflowExecutions(listSize + 1); //To get the effect of next page
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getAllWorkflowExecutions(anyInt(), anyString(), anyString(),
-        ArgumentMatchers.<WorkflowStatus>anySet(), any(OrderField.class), anyBoolean(), anyInt()))
+    when(orchestratorService
+        .getAllWorkflowExecutions(anyInt(), anyString(), ArgumentMatchers.<WorkflowStatus>anySet(),
+            any(OrderField.class), anyBoolean(), anyInt()))
         .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
-            .param("workflowName", "workflow")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -427,10 +418,10 @@ public class TestOrchestratorController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
         .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID)))
-        .andExpect(jsonPath("$.results[0].workflowName", is("workflowName0")))
+        .andExpect(jsonPath("$.results[0].workflowOwner", is("workflowOwner")))
         .andExpect(jsonPath("$.results[0].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 1)))
-        .andExpect(jsonPath("$.results[1].workflowName", is("workflowName1")))
+        .andExpect(jsonPath("$.results[1].workflowOwner", is("workflowOwner")))
         .andExpect(jsonPath("$.results[1].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }
@@ -441,7 +432,6 @@ public class TestOrchestratorController {
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
-            .param("workflowName", "workflow")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "-1")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -456,12 +446,13 @@ public class TestOrchestratorController {
         .createListOfWorkflowExecutions(listSize + 1); //To get the effect of next page
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getAllWorkflowExecutions(anyInt(), anyString(), anyString(), ArgumentMatchers.<WorkflowStatus>anySet(), any(OrderField.class), anyBoolean(), anyInt()))
+    when(orchestratorService
+        .getAllWorkflowExecutions(anyInt(), anyString(), ArgumentMatchers.<WorkflowStatus>anySet(),
+            any(OrderField.class), anyBoolean(), anyInt()))
         .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)
             .param("workflowOwner", "owner")
-            .param("workflowName", "workflow")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -470,11 +461,9 @@ public class TestOrchestratorController {
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
         .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID)))
         .andExpect(jsonPath("$.results[0].workflowOwner", is("workflowOwner")))
-        .andExpect(jsonPath("$.results[0].workflowName", is("workflowName0")))
         .andExpect(jsonPath("$.results[0].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 1)))
         .andExpect(jsonPath("$.results[1].workflowOwner", is("workflowOwner")))
-        .andExpect(jsonPath("$.results[1].workflowName", is("workflowName1")))
         .andExpect(jsonPath("$.results[1].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }
@@ -591,10 +580,8 @@ public class TestOrchestratorController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
         .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID)))
-        .andExpect(jsonPath("$.results[0].workflowName", is(TestObjectFactory.WORKFLOWNAME)))
         .andExpect(jsonPath("$.results[0].scheduleFrequence", is(ScheduleFrequence.ONCE.name())))
         .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 1)))
-        .andExpect(jsonPath("$.results[1].workflowName", is(TestObjectFactory.WORKFLOWNAME)))
         .andExpect(jsonPath("$.results[1].scheduleFrequence", is(ScheduleFrequence.ONCE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }

@@ -33,7 +33,8 @@ public class Languages {
   private Languages() throws NormalizationConfigurationException {
 
     // Read the languages file into a DOM tree.
-    InputStream nalFileIn = getClass().getClassLoader().getResourceAsStream("languages.xml");
+    InputStream nalFileIn =
+        Thread.currentThread().getContextClassLoader().getResourceAsStream("languages.xml");
     Document langNalDom;
     try {
       langNalDom = XmlUtil.parseDom(new InputStreamReader(nalFileIn, "UTF-8"));

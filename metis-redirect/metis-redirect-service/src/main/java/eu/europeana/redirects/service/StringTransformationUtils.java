@@ -11,13 +11,13 @@ public class StringTransformationUtils {
 
     /**
      * Apply transformations on a string
-     * @param val The value to transform
+     * @param input The value to transform
      * @param transformations The transformations to apply. These expose the functionality of StringUtils functions
      * @return
      */
-    public static String applyTransformations(String val, String transformations) {
+    public static String applyTransformations(final String input, String transformations) {
         if (transformations == null) {
-            return val;
+            return input;
         }
         String[] transforms = null;
         if (transformations.contains(").")) {
@@ -25,58 +25,40 @@ public class StringTransformationUtils {
         } else if (!transformations.contains(").") && transformations.endsWith(")")) {
             transforms = new String[]{transformations};
         }
+        String result = input;
         for (String transform : transforms) {
             if (!transform.endsWith(")")) {
                 transform = transform + ")";
             }
-            if (StringUtils.startsWith(transform, "replace")) {
-                String[] replacements = StringUtils.split(
-                        StringUtils.substringBetween(transform, "(", ")"),
-                        ",");
-                val = StringUtils.replace(val, replacements[0],
-                        replacements[1]);
-            }
-            if (StringUtils.startsWith(transform, "substringBetween(")) {
-                String[] replacements = StringUtils.split(
-                        StringUtils.substringBetween(transform, "(", ")"),
-                        ",");
-                val = StringUtils.substringBetween(val, replacements[0],
-                        replacements[1]);
-            }
-            if (StringUtils.startsWith(transform, "substringBeforeFirst(")) {
-                String replacements = StringUtils.substringBetween(
-                        transform, "(", ")");
-                val = StringUtils.substringBefore(val, replacements);
-            }
-            if (StringUtils.startsWith(transform, "substringBeforeLast(")) {
-                String replacements = StringUtils.substringBetween(
-                        transform, "(", ")");
-                val = StringUtils.substringBeforeLast(val, replacements);
-            }
-            if (StringUtils.startsWith(transform, "substringAfterLast(")) {
-                String replacements = StringUtils.substringBetween(
-                        transform, "(", ")");
-                val = StringUtils.substringAfterLast(val, replacements);
-            }
-            if (StringUtils.startsWith(transform, "substringAfterFirst(")) {
-                String replacements = StringUtils.substringBetween(
-                        transform, "(", ")");
-                val = StringUtils.substringAfter(val, replacements);
-            }
-            if (StringUtils.startsWith(transform, "concatBefore(")) {
-                String replacements = StringUtils.substringBetween(
-                        transform, "(", ")");
-                val = replacements + val;
-            }
-            if (StringUtils.startsWith(transform, "concatAfter(")) {
-                String replacements = StringUtils.substringBetween(
-                        transform, "(", ")");
-                val = val + replacements;
-            }
-
+            result = applyTransformation(result, transform);
         }
-
-        return val;
+        return result;
     }
-
+    
+  private static String applyTransformation(final String input, final String transform) {
+    final String argument = StringUtils.substringBetween(transform, "(", ")");
+    final String result;
+    if (StringUtils.startsWith(transform, "replace")) {
+      String[] replacements = StringUtils.split(argument, ",");
+      result = StringUtils.replace(input, replacements[0], replacements[1]);
+    } else if (StringUtils.startsWith(transform, "substringBetween(")) {
+      String[] replacements = StringUtils.split(argument, ",");
+      result = StringUtils.substringBetween(input, replacements[0], replacements[1]);
+    } else if (StringUtils.startsWith(transform, "substringBeforeFirst(")) {
+      result = StringUtils.substringBefore(input, argument);
+    } else if (StringUtils.startsWith(transform, "substringBeforeLast(")) {
+      result = StringUtils.substringBeforeLast(input, argument);
+    } else if (StringUtils.startsWith(transform, "substringAfterLast(")) {
+      result = StringUtils.substringAfterLast(input, argument);
+    } else if (StringUtils.startsWith(transform, "substringAfterFirst(")) {
+      result = StringUtils.substringAfter(input, argument);
+    } else if (StringUtils.startsWith(transform, "concatBefore(")) {
+      result = argument + input;
+    } else if (StringUtils.startsWith(transform, "concatAfter(")) {
+      result = input + argument;
+    } else {
+      result = input;
+    }
+    return result;
+  }
 }

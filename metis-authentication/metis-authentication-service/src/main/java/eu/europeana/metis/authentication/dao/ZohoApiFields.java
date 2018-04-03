@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.dao;
 
-import java.text.SimpleDateFormat;
 import java.util.TimeZone;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 /**
  * Fields used in the Zoho request and response fields, but not Model fields. see @link{ZohoOrganizationAdapter} 
@@ -39,14 +39,13 @@ public abstract class ZohoApiFields {
 	public static final String MODIFIED_TIME = "Modified Time";
 	public static final String ORGANIZATION_ROLE = "Organisation Role";
 	  
-	private static SimpleDateFormat formatter;
-
-	public static SimpleDateFormat getZohoTimeFormatter() {
-		if (formatter == null) {
-			formatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
-			formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-		}
-
+	private static final FastDateFormat formatter = FastDateFormat.getInstance(ZOHO_TIME_FORMAT, TimeZone.getTimeZone("GMT")) ; 
+	
+	public static FastDateFormat getZohoTimeFormatter() {
 		return formatter;
+	}
+	
+	private ZohoApiFields(){
+	  //this class is "static" and should never be instantiated or subclassed 
 	}
 }

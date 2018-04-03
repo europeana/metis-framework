@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.RestEndpoints;
@@ -95,6 +95,20 @@ public class TestProxiesController {
             hasSize(taskErrorsInfo.getErrors().get(0).getErrorDetails().size())))
         .andExpect(jsonPath("$.errors[1].errorDetails",
             hasSize(taskErrorsInfo.getErrors().get(1).getErrorDetails().size())));
+  }
+  
+  @Test
+  public void getExternalTaskStatistics() throws Exception {
+    final StatisticsReport taskStatistics = TestObjectFactory.createTaskStatisticsReport();
+    when(proxiesService.getExternalTaskStatistics(TestObjectFactory.TOPOLOGY_NAME,
+        TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(taskStatistics);
+    proxiesControllerMock.perform(
+        get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_STATISTICS,
+            TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
+        .contentType(MediaType.APPLICATION_JSON_UTF8).content(""))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.taskId", is(TestObjectFactory.EXTERNAL_TASK_ID)))
+        .andExpect(jsonPath("$.nodeStatistics", hasSize(taskStatistics.getNodeStatistics().size())));
   }
 
   @Test

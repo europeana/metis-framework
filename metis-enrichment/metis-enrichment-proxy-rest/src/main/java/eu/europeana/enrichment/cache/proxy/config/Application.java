@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.cache.proxy.config;
 
 import eu.europeana.enrichment.service.RedisInternalEnricher;
+import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -75,9 +76,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return redisProvider;
   }
 
+  @Bean
+  EnrichmentEntityDao getEntityDao() {
+    return new EnrichmentEntityDao(enrichmentMongo, enrichmentPort);
+  }
+
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
-    return new RedisInternalEnricher(enrichmentMongo, enrichmentPort, getRedisProvider(), true);
+    return new RedisInternalEnricher(getEntityDao(), getRedisProvider(), true);
   }
 
   @Bean
