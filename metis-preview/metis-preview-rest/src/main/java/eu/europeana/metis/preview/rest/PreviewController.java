@@ -73,13 +73,7 @@ public class PreviewController {
                                                   @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",required=false) String crosswalkPath,
                                                   @ApiParam(name="individualRecords")@RequestParam(value = "individualRecords",defaultValue = "true")boolean requestIndividualRecordsIds)
         throws ZipFileException, PreviewServiceException, PreviewValidationException {
-        final List<String> records;
-        try {
-            records = zipService.readFileToStringList(file.getInputStream());
-        } catch(IOException ex) {
-            LOGGER.error("Cannot read from stream", ex);
-            throw new ZipFileException("Cannot read from stream");
-        }
+        final List<String> records = zipService.readFileToStringList(file);
         final Long start = System.currentTimeMillis();
         final String collectionId = collectionIdGenerator.get();
         final ExtendedValidationResult result = service.createRecords(records, collectionId, applyCrosswalk,
