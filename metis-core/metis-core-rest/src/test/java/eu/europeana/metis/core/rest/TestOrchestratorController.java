@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
@@ -43,7 +44,10 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.exception.BadContentException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -394,6 +398,34 @@ public class TestOrchestratorController {
             .param("pluginType", "OAIPMH_HARVEST")
             .content(""))
         .andExpect(status().is(200));
+  }
+
+  @Test
+  public void getDatasetExecutionInformation() throws Exception {
+    DatasetExecutionInformation datasetExecutionInformation = new DatasetExecutionInformation();
+    datasetExecutionInformation.setLastHarvestedDate(new Date(1000));
+    datasetExecutionInformation.setLastHarvestedRecords(100);
+    datasetExecutionInformation.setFirstPublishedDate(new Date(2000));
+    datasetExecutionInformation.setLastPublishedDate(new Date(3000));
+    datasetExecutionInformation.setLastPublishedRecords(100);
+    when(orchestratorService
+        .getDatasetExecutionInformation(TestObjectFactory.DATASETID))
+        .thenReturn(datasetExecutionInformation);
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+    simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+    orchestratorControllerMock.perform(
+        get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION,
+            TestObjectFactory.DATASETID)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.lastHarvestedDate", is(simpleDateFormat.format(datasetExecutionInformation.getLastHarvestedDate()))))
+        .andExpect(jsonPath("$.lastHarvestedRecords", is(datasetExecutionInformation.getLastHarvestedRecords())))
+        .andExpect(jsonPath("$.firstPublishedDate", is(simpleDateFormat.format(datasetExecutionInformation.getFirstPublishedDate()))))
+        .andExpect(jsonPath("$.lastPublishedDate", is(simpleDateFormat.format(datasetExecutionInformation.getLastPublishedDate()))))
+        .andExpect(jsonPath("$.lastPublishedRecords", is(datasetExecutionInformation.getLastPublishedRecords())));
   }
 
   @Test

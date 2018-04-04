@@ -11,6 +11,7 @@ import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
@@ -44,6 +45,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -411,6 +413,36 @@ public class OrchestratorService {
         .getAllWorkflowExecutions(datasetId, workflowOwner,
             workflowStatuses,
             orderField, ascending, nextPage);
+  }
+
+  public DatasetExecutionInformation getDatasetExecutionInformation(int datasetId) {
+    AbstractMetisPlugin lastHarvestPlugin = workflowExecutionDao
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
+            .of(PluginType.HTTP_HARVEST, PluginType.OAIPMH_HARVEST));
+    AbstractMetisPlugin firstPublishPlugin = workflowExecutionDao
+        .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
+            .of(PluginType.PUBLISH));
+    AbstractMetisPlugin lastPublishPlugin = workflowExecutionDao
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
+            .of(PluginType.PUBLISH));
+
+    DatasetExecutionInformation datasetExecutionInformation = new DatasetExecutionInformation();
+    if (lastHarvestPlugin != null) {
+      datasetExecutionInformation.setLastHarvestedDate(lastHarvestPlugin.getFinishedDate());
+      datasetExecutionInformation.setLastHarvestedRecords(
+          lastHarvestPlugin.getExecutionProgress().getProcessedRecords() - lastHarvestPlugin
+              .getExecutionProgress().getErrors());
+    }
+    datasetExecutionInformation.setFirstPublishedDate(firstPublishPlugin != null ?
+        firstPublishPlugin.getFinishedDate() : null);
+    if (lastPublishPlugin != null) {
+      datasetExecutionInformation.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
+      datasetExecutionInformation.setLastPublishedRecords(
+          lastPublishPlugin.getExecutionProgress().getProcessedRecords() - lastPublishPlugin
+              .getExecutionProgress().getErrors());
+    }
+
+    return datasetExecutionInformation;
   }
 
   public ScheduledWorkflow getScheduledWorkflowByDatasetId(int datasetId) {

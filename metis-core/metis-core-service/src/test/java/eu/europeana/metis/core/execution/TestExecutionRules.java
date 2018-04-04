@@ -43,7 +43,7 @@ public class TestExecutionRules {
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_ValidationExternalPlugin() {
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
             ExecutionRules.getHarvestPluginGroup())).thenReturn(new OaipmhHarvestPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.VALIDATION_EXTERNAL,
@@ -53,7 +53,7 @@ public class TestExecutionRules {
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_TransformationPlugin() {
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
             EnumSet.of(PluginType.VALIDATION_EXTERNAL))).thenReturn(new ValidationExternalPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.TRANSFORMATION,
@@ -63,7 +63,7 @@ public class TestExecutionRules {
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_TransformationPlugin_EnforcedPluginType() {
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
             EnumSet.of(PluginType.OAIPMH_HARVEST))).thenReturn(new OaipmhHarvestPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.TRANSFORMATION,
@@ -73,7 +73,7 @@ public class TestExecutionRules {
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_ValidationInternalPlugin() {
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
             EnumSet.of(PluginType.TRANSFORMATION))).thenReturn(new ValidationExternalPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.VALIDATION_INTERNAL,
@@ -83,7 +83,7 @@ public class TestExecutionRules {
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_EnrichmentPlugin() {
     when(workflowExecutionDao
-        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
             EnumSet.of(PluginType.VALIDATION_INTERNAL))).thenReturn(new EnrichmentPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.ENRICHMENT,
@@ -93,7 +93,7 @@ public class TestExecutionRules {
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_IndexPlugin() {
     Assert.assertNull(ExecutionRules
-        .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.INDEX_TO_PREVIEW,
+        .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.PREVIEW,
             null, TestObjectFactory.DATASETID, workflowExecutionDao));
   }
 
