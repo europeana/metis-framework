@@ -1,4 +1,4 @@
-package eu.europeana.indexing;
+package eu.europeana.indexing.exception;
 
 /**
  * Exception that may occur during configuration and setup of an indexer.
@@ -16,7 +16,7 @@ public class IndexerConfigurationException extends Exception {
    * 
    * @param message The message. Can be null.
    */
-  IndexerConfigurationException(String message) {
+  public IndexerConfigurationException(String message) {
     super(message);
   }
 
@@ -26,7 +26,7 @@ public class IndexerConfigurationException extends Exception {
    * @param message The message. Can be null.
    * @param cause The cause. Can be null.
    */
-  IndexerConfigurationException(String message, Exception cause) {
+  public IndexerConfigurationException(String message, Exception cause) {
     super(message, cause);
   }
 }

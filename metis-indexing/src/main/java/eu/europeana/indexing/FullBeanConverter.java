@@ -12,6 +12,7 @@ import org.jibx.runtime.JiBXException;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.exception.IndexingException;
 
 /**
  * This class converts String representations of RDF (XML) to instances of {@link FullBeanImpl}.
@@ -19,7 +20,7 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
  * @author jochen
  *
  */
-public class FullBeanCreator {
+public class FullBeanConverter {
 
   private static IBindingFactory globalRdfBindingFactory;
 
@@ -32,8 +33,8 @@ public class FullBeanCreator {
   /**
    * Constructor.
    */
-  public FullBeanCreator() {
-    this(FullBeanCreator::getRdfBindingFactory, MongoConstructor::new);
+  public FullBeanConverter() {
+    this(FullBeanConverter::getRdfBindingFactory, MongoConstructor::new);
   }
 
   /**
@@ -46,7 +47,7 @@ public class FullBeanCreator {
    *        convert an instance of {@link RDF} to an instance of {@link FullBeanImpl}. Will be
    *        called once during every call to convert a string.
    */
-  FullBeanCreator(IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier,
+  FullBeanConverter(IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier,
       Supplier<MongoConstructor> mongoConstructorSupplier) {
     this.rdfBindingFactorySupplier = rdfBindingFactorySupplier;
     this.mongoConstructorSupplier = mongoConstructorSupplier;
@@ -59,7 +60,7 @@ public class FullBeanCreator {
    * @return The Full Bean.
    * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
-  public FullBeanImpl convertStringToFullBean(String record) throws IndexingException {
+  public FullBeanImpl convertFromRdfString(String record) throws IndexingException {
 
     // Convert string to RDF
     final RDF rdf;

@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import eu.europeana.indexing.exception.IndexerConfigurationException;
 
 /**
  * This class contains all settings needed for indexing. These settings are not thread-safe.

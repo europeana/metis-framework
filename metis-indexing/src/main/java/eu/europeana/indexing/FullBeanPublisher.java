@@ -19,7 +19,6 @@ import eu.europeana.corelib.edm.utils.construct.PlaceUpdater;
 import eu.europeana.corelib.edm.utils.construct.ProvidedChoUpdater;
 import eu.europeana.corelib.edm.utils.construct.ProxyUpdater;
 import eu.europeana.corelib.edm.utils.construct.ServiceUpdater;
-import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.edm.utils.construct.TimespanUpdater;
 import eu.europeana.corelib.edm.utils.construct.Updater;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -33,6 +32,8 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.solr.SolrDocumentCreator;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
@@ -66,13 +67,7 @@ class FullBeanPublisher {
   public void publish(FullBeanImpl fullBean) throws IndexingException {
 
     // Create Solr document.
-    final SolrDocumentHandler solrDocHandler = new SolrDocumentHandler(solrServer);
-    final SolrInputDocument solrInputDoc;
-    try {
-      solrInputDoc = solrDocHandler.generate(fullBean);
-    } catch (SolrServerException e) {
-      throw new IndexingException("Could not generate Solr input document.", e);
-    }
+    final SolrInputDocument solrInputDoc = new SolrDocumentCreator().generate(fullBean);
 
     // Save Solr document.
     try {

@@ -6,6 +6,8 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.exception.IndexerConfigurationException;
+import eu.europeana.indexing.exception.IndexingException;
 
 /**
  * Implementation of {@link Indexer}.
@@ -19,7 +21,7 @@ class IndexerImpl implements Indexer {
 
   private final IndexingConnectionProvider connectionProvider;
 
-  private final Supplier<FullBeanCreator> fullBeanCreatorSupplier;
+  private final Supplier<FullBeanConverter> fullBeanConverterSupplier;
 
   /**
    * Constructor.
@@ -29,22 +31,22 @@ class IndexerImpl implements Indexer {
    *         indexer.
    */
   IndexerImpl(IndexingSettings settings) throws IndexerConfigurationException {
-    this(settings, FullBeanCreator::new);
+    this(settings, FullBeanConverter::new);
   }
 
   /**
    * Constructor for testing purposes.
    * 
    * @param settings The settings for this indexer.
-   * @param fullBeanCreatorSupplier Supplies an instance of {@link FullBeanCreator} used to parse
+   * @param fullBeanConverterSupplier Supplies an instance of {@link FullBeanConverter} used to parse
    *        strings to instances of {@link FullBeanImpl}. Will be called once during every index.
    * @throws IndexerConfigurationException In case an exception occurred while setting up the
    *         indexer.
    */
-  IndexerImpl(IndexingSettings settings, Supplier<FullBeanCreator> fullBeanCreatorSupplier)
+  IndexerImpl(IndexingSettings settings, Supplier<FullBeanConverter> fullBeanConverterSupplier)
       throws IndexerConfigurationException {
     this.connectionProvider = new IndexingConnectionProvider(settings);
-    this.fullBeanCreatorSupplier = fullBeanCreatorSupplier;
+    this.fullBeanConverterSupplier = fullBeanConverterSupplier;
   }
 
   @Override
@@ -55,11 +57,11 @@ class IndexerImpl implements Indexer {
   @Override
   public void index(List<String> records) throws IndexingException {
     LOGGER.info("Processing {} records...", records.size());
-    final FullBeanCreator fullBeanCreator = fullBeanCreatorSupplier.get();
+    final FullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
     try {
       final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher();
       for (String record : records) {
-        publisher.publish(fullBeanCreator.convertStringToFullBean(record));
+        publisher.publish(fullBeanConverter.convertFromRdfString(record));
       }
       LOGGER.info("Successfully processed {} records.", records.size());
     } catch (IndexingException e) {

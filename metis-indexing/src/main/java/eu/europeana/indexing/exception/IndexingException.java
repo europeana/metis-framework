@@ -1,4 +1,4 @@
-package eu.europeana.indexing;
+package eu.europeana.indexing.exception;
 
 /**
  * Exception that may occur during indexing.
