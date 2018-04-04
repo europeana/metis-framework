@@ -22,8 +22,10 @@ rabbitmq.host=
 rabbitmq.port=
 rabbitmq.username=
 rabbitmq.password=
+rabbitmq.virtual.host=
 rabbitmq.queue.name=
 rabbitmq.highest.priority=
+rabbitmq.enableSSL=
 
 #Mongo
 mongo.hosts=
