@@ -9,15 +9,10 @@ import eu.europeana.corelib.definitions.edm.entity.Timespan;
  * @author Yorgos.Mamakis@ europeana.eu
  *
  */
-public class TimespanSolrCreator {
-  
-  /**
-   * Create SOLR fields from a Mongo concept
-   * 
-   * @param doc The solr document to modify
-   * @param ts The timespan mongo entity to append
-   */
-  public void create(SolrInputDocument doc, Timespan ts) {
+public class TimespanSolrCreator extends PropertySolrCreator<Timespan> {
+
+  @Override
+  public void addToDocument(SolrInputDocument doc, Timespan ts) {
     SolrUtils.addValue(doc, EdmLabel.EDM_TIMESPAN, ts.getAbout());
     SolrUtils.addValues(doc, EdmLabel.TS_SKOS_PREF_LABEL, ts.getPrefLabel());
     SolrUtils.addValues(doc, EdmLabel.TS_SKOS_ALT_LABEL, ts.getAltLabel());

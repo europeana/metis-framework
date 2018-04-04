@@ -5,16 +5,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.solr.common.SolrInputDocument;
-import eu.europeana.corelib.definitions.edm.entity.Agent;
-import eu.europeana.corelib.definitions.edm.entity.Concept;
-import eu.europeana.corelib.definitions.edm.entity.License;
-import eu.europeana.corelib.definitions.edm.entity.Place;
-import eu.europeana.corelib.definitions.edm.entity.Proxy;
-import eu.europeana.corelib.definitions.edm.entity.Timespan;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.corelib.solr.entity.ServiceImpl;
 
 public class SolrDocumentCreator {
 
@@ -28,54 +21,31 @@ public class SolrDocumentCreator {
 
     final SolrInputDocument doc = new SolrInputDocument();
 
-    final Set<String> licenceIds;
+    final Set<String> licenseIds;
     if (fBean.getLicenses() != null) {
-      licenceIds =
+      licenseIds =
           fBean.getLicenses().stream().map(LicenseImpl::getAbout).collect(Collectors.toSet());
     } else {
-      licenceIds = Collections.emptySet();
+      licenseIds = Collections.emptySet();
     }
 
-    new ProvidedChoSolrCreator().create(doc, fBean.getProvidedCHOs().get(0));
-    new AggregationSolrCreator().create(doc, fBean.getAggregations().get(0), licenceIds);
-    new EuropeanaAggregationSolrCreator().create(doc, fBean.getEuropeanaAggregation());
-    for (Proxy prx : fBean.getProxies()) {
-      new ProxySolrCreator().create(doc, prx);
-    }
-    if (fBean.getConcepts() != null) {
-      for (Concept concept : fBean.getConcepts()) {
-        new ConceptSolrCreator().create(doc, concept);
-      }
-    }
-    if (fBean.getTimespans() != null) {
-      for (Timespan ts : fBean.getTimespans()) {
-        new TimespanSolrCreator().create(doc, ts);
-      }
-    }
-    if (fBean.getAgents() != null) {
-      for (Agent agent : fBean.getAgents()) {
-        new AgentSolrCreator().create(doc, agent);
-      }
-    }
-    if (fBean.getPlaces() != null) {
-      for (Place place : fBean.getPlaces()) {
-        new PlaceSolrCreator().create(doc, place);
-      }
-    }
-    if (fBean.getLicenses() != null) {
-      final Set<String> defRights = fBean.getAggregations().stream()
-          .map(AggregationImpl::getEdmRights).filter(Objects::nonNull)
-          .flatMap(SolrUtils::getRightsFromMap).collect(Collectors.toSet());
-      for (License lic : fBean.getLicenses()) {
-        final boolean isAggregation = defRights.contains(lic.getAbout());
-        new LicenseSolrCreator().create(doc, lic, isAggregation);
-      }
-    }
-    if (fBean.getServices() != null) {
-      for (ServiceImpl service : fBean.getServices()) {
-        new ServiceSolrCreator().create(doc, service);
-      }
-    }
+    new ProvidedChoSolrCreator().addToDocument(doc, fBean.getProvidedCHOs().get(0));
+    new AggregationSolrCreator(licenseIds::contains).addToDocument(doc,
+        fBean.getAggregations().get(0));
+    new EuropeanaAggregationSolrCreator().addToDocument(doc, fBean.getEuropeanaAggregation());
+    new ProxySolrCreator().addAllToDocument(doc, fBean.getProxies());
+    new ConceptSolrCreator().addAllToDocument(doc, fBean.getConcepts());
+    new TimespanSolrCreator().addAllToDocument(doc, fBean.getTimespans());
+    new AgentSolrCreator().addAllToDocument(doc, fBean.getAgents());
+    new PlaceSolrCreator().addAllToDocument(doc, fBean.getPlaces());
+    new ServiceSolrCreator().addAllToDocument(doc, fBean.getServices());
+
+    final Set<String> defRights =
+        fBean.getAggregations().stream().map(AggregationImpl::getEdmRights).filter(Objects::nonNull)
+            .flatMap(SolrUtils::getRightsFromMap).collect(Collectors.toSet());
+    new LicenseSolrCreator(license -> defRights.contains(license.getAbout())).addAllToDocument(doc,
+        fBean.getLicenses());
+
     doc.addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(), fBean.getEuropeanaCompleteness());
     doc.addField(EdmLabel.EUROPEANA_COLLECTIONNAME.toString(),
         fBean.getEuropeanaCollectionName()[0]);
@@ -83,6 +53,7 @@ public class SolrDocumentCreator {
     doc.addField("timestamp_update", fBean.getTimestampUpdated());
 
     extractCRFFields(doc);
+    
     return doc;
   }
 

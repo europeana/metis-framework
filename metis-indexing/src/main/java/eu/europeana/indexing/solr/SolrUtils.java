@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import org.apache.solr.common.SolrInputDocument;
 
@@ -22,7 +22,7 @@ public final class SolrUtils {
 
   }
 
-  private static void addValues(SolrInputDocument document, String label, String[] values) {
+  private static void addValues(SolrInputDocument document, String label, Object[] values) {
 
     // Sanity check
     if (values == null) {
@@ -46,7 +46,13 @@ public final class SolrUtils {
 
   public static void addValue(SolrInputDocument document, EdmLabel label, String value) {
     if (value != null) {
-      addValues(document, label, new String[] {value});
+      addValues(document, label.toString(), new String[] {value});
+    }
+  }
+
+  public static void addValue(SolrInputDocument document, EdmLabel label, Float value) {
+    if (value != null) {
+      addValues(document, label.toString(), new Float[] {value});
     }
   }
 
@@ -69,8 +75,8 @@ public final class SolrUtils {
   }
 
   public static boolean hasLicenseForRights(Map<String, List<String>> edmRights,
-      Set<String> licenseIds) {
+      Predicate<String> hasLicense) {
     final boolean noRightsImposed = getRightsFromMap(edmRights).count() == 0;
-    return noRightsImposed || getRightsFromMap(edmRights).anyMatch(licenseIds::contains);
+    return noRightsImposed || getRightsFromMap(edmRights).anyMatch(hasLicense);
   }
 }

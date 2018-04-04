@@ -1,11 +1,20 @@
 package eu.europeana.indexing.solr;
 
+import java.util.function.Predicate;
 import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.License;
 
-public class LicenseSolrCreator {
+public class LicenseSolrCreator extends PropertySolrCreator<License> {
 
-  public void create(SolrInputDocument doc, License agent, boolean isAggregation) {
+  private final Predicate<License> isAggregationResolver;
+
+  public LicenseSolrCreator(Predicate<License> isAggregationResolver) {
+    this.isAggregationResolver = isAggregationResolver;
+  }
+
+  @Override
+  public void addToDocument(SolrInputDocument doc, License agent) {
+    final boolean isAggregation = isAggregationResolver.test(agent);
     final EdmLabel licenseLabel =
         isAggregation ? EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE : EdmLabel.WR_CC_LICENSE;
     final EdmLabel deprecatedLabel = isAggregation ? EdmLabel.PROVIDER_AGGREGATION_CC_DEPRECATED_ON

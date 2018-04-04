@@ -9,15 +9,10 @@ import eu.europeana.corelib.definitions.edm.entity.Agent;
  * @author Yorgos.Mamakis@ europeana.eu
  *
  */
-public class AgentSolrCreator {
+public class AgentSolrCreator extends PropertySolrCreator<Agent> {
 
-  /**
-   * Create SOLR fields from a Mongo Agent
-   *
-   * @param doc The solr document to modify
-   * @param agent The agent mongo entity to append
-   */
-  public void create(SolrInputDocument doc, Agent agent) {
+  @Override
+  public void addToDocument(SolrInputDocument doc, Agent agent) {
 
     SolrUtils.addValue(doc, EdmLabel.EDM_AGENT, agent.getAbout());
     SolrUtils.addValues(doc, EdmLabel.AG_SKOS_PREF_LABEL, agent.getPrefLabel());

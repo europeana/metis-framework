@@ -1,6 +1,6 @@
 package eu.europeana.indexing.solr;
 
-import java.util.Set;
+import java.util.function.Predicate;
 import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 
@@ -8,12 +8,19 @@ import eu.europeana.corelib.definitions.edm.entity.WebResource;
  *
  * @author Yorgos.Mamakis@ europeana.eu
  */
-public class WebResourceSolrCreator {
+public class WebResourceSolrCreator extends PropertySolrCreator<WebResource>{
+  
+  private final Predicate<String> hasLicense;
 
-  public void create(SolrInputDocument doc, WebResource wr, Set<String> licIds) {
+  public WebResourceSolrCreator(Predicate<String> hasLicense) {
+    this.hasLicense = hasLicense;
+  }
+
+  @Override
+  public void addToDocument(SolrInputDocument doc, WebResource wr) {
     SolrUtils.addValue(doc, EdmLabel.EDM_WEB_RESOURCE, wr.getAbout());
     SolrUtils.addValue(doc, EdmLabel.WR_EDM_IS_NEXT_IN_SEQUENCE, wr.getIsNextInSequence());
-    if (SolrUtils.hasLicenseForRights(wr.getWebResourceEdmRights(), licIds)) {
+    if (SolrUtils.hasLicenseForRights(wr.getWebResourceEdmRights(), hasLicense)) {
       SolrUtils.addValues(doc, EdmLabel.WR_EDM_RIGHTS, wr.getWebResourceEdmRights());
     }
     SolrUtils.addValues(doc, EdmLabel.WR_DC_RIGHTS, wr.getWebResourceDcRights());

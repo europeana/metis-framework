@@ -7,9 +7,10 @@ import eu.europeana.corelib.definitions.edm.entity.Proxy;
  *
  * @author Yorgos.Mamakis@ europeana.eu
  */
-public class ProxySolrCreator {
+public class ProxySolrCreator extends PropertySolrCreator<Proxy> {
 
-  public void create(SolrInputDocument doc, Proxy proxy) {
+  @Override
+  public void addToDocument(SolrInputDocument doc, Proxy proxy) {
     SolrUtils.addValue(doc, EdmLabel.ORE_PROXY, proxy.getAbout());
     SolrUtils.addValues(doc, EdmLabel.PROXY_EDM_CURRENT_LOCATION, proxy.getEdmCurrentLocation());
     SolrUtils.addValue(doc, EdmLabel.PROXY_EDM_ISREPRESENTATIONOF,

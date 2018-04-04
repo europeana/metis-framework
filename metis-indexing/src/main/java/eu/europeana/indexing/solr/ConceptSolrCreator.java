@@ -9,15 +9,10 @@ import eu.europeana.corelib.definitions.edm.entity.Concept;
  * @author Yorgos.Mamakis@ europeana.eu
  *
  */
-public class ConceptSolrCreator {
-  
-  /**
-   * Create SOLR fields from a Mongo concept
-   * 
-   * @param doc The solr document to modify
-   * @param concept The concept mongo entity to append
-   */
-  public void create(SolrInputDocument doc, Concept concept) {
+public class ConceptSolrCreator extends PropertySolrCreator<Concept> {
+
+  @Override
+  public void addToDocument(SolrInputDocument doc, Concept concept) {
     SolrUtils.addValue(doc, EdmLabel.SKOS_CONCEPT, concept.getAbout());
     SolrUtils.addValues(doc, EdmLabel.CC_SKOS_PREF_LABEL, concept.getPrefLabel());
     SolrUtils.addValues(doc, EdmLabel.CC_SKOS_ALT_LABEL, concept.getAltLabel());
