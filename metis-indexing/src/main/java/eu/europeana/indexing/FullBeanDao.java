@@ -46,7 +46,7 @@ class FullBeanDao {
    * @param about The value of the about field to find.
    * @return The object, or null if no such object could be found.
    */
-  public <T> T searchByAbout(Class<T> clazz, String about) {
+  public <T> T get(Class<T> clazz, String about) {
     return mongoServer.getDatastore().find(clazz).field(ABOUT_FIELD).equal(about).get();
   }
 
@@ -57,7 +57,7 @@ class FullBeanDao {
    * @return The Full Bean, or null if no such full bean could be found.
    */
   public FullBeanImpl getFullBean(String id) {
-    return searchByAbout(FullBeanImpl.class, id);
+    return get(FullBeanImpl.class, id);
   }
 
   /**
@@ -97,7 +97,7 @@ class FullBeanDao {
     if (data == null) {
       return null;
     }
-    final T existingData = searchByAbout(clazz, data.getAbout());
+    final T existingData = get(clazz, data.getAbout());
     final T newData;
     if (existingData != null) {
       newData = updater.update(existingData, data, mongoServer);
