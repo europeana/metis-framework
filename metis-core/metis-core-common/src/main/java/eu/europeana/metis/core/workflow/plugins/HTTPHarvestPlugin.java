@@ -53,7 +53,9 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
 
 		Map<String, String> parameters = new HashMap<>();
 		parameters.put("PROVIDER_ID", ecloudProvider);
-		parameters.put("OUTPUT_DATA_SETS", String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE));		
+		parameters.put("OUTPUT_DATA_SETS", String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, 
+				ecloudBaseUrl, ecloudProvider, ecloudDataset));
+		parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());		
 		dpsTask.setParameters(parameters);
 
 		dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider));				
