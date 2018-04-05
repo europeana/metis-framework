@@ -31,9 +31,12 @@ public class ZipService {
     try {
     	String fileName = "/tmp/" + file.getName() + "/" + new Date().getTime();
         FileUtils.copyInputStreamToFile(file.getInputStream(), new File(fileName + ".zip"));
+        LOGGER.info("Temp file: {} created.", fileName + ".zip");
 
         ZipFile zipFile = new ZipFile(fileName + ".zip");
         zipFile.extractAll(fileName);
+        LOGGER.info("Unzipped contents into: {}", fileName);
+        
         FileUtils.deleteQuietly(new File(fileName + ".zip"));
         File[] files = new File(fileName).listFiles();
         
