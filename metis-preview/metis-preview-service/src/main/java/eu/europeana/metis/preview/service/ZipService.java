@@ -29,27 +29,31 @@ public class ZipService {
     List<String> records = new ArrayList<>();
     
     try {
-    	String fileName = "/tmp/" + file.getName() + "/" + new Date().getTime();
-        FileUtils.copyInputStreamToFile(file.getInputStream(), new File(fileName + ".zip"));
-        LOGGER.info("Temp file: {} created.", fileName + ".zip");
+    	String prefix = String.valueOf(new Date().getTime());
+    	File tempFile = File.createTempFile(prefix, ".zip");
+    	FileUtils.copyInputStreamToFile(file.getInputStream(), tempFile);
+    	LOGGER.info("Temp file: {} created.", tempFile);
 
-        ZipFile zipFile = new ZipFile(fileName + ".zip");
-        zipFile.extractAll(fileName);
-        LOGGER.info("Unzipped contents into: {}", fileName);
-        
-        FileUtils.deleteQuietly(new File(fileName + ".zip"));
-        File[] files = new File(fileName).listFiles();
-        
-        for (File input : files) {
-            if(!input.isDirectory()){
-                FileInputStream stream = new FileInputStream(input);
-                records.add(IOUtils.toString(stream));
-                stream.close();
-            }
-        }
+    	ZipFile zipFile = new ZipFile(tempFile);
+    	File unzippedDirectory = new File(tempFile.getParent(), prefix + "-unzipped");
+    	zipFile.extractAll(unzippedDirectory.getAbsolutePath());
+    	LOGGER.info("Unzipped contents into: {}", unzippedDirectory);        
+
+    	FileUtils.deleteQuietly(tempFile);
+    	File[] files = unzippedDirectory.listFiles();
+
+    	for (File input : files) {
+    		if(!input.isDirectory()) {
+    			FileInputStream stream = new FileInputStream(input);
+    			records.add(IOUtils.toString(stream));
+    			stream.close();
+    		}
+    	}
+
+    	FileUtils.deleteQuietly(unzippedDirectory);
     } catch (IOException | ZipException ex) {
-      LOGGER.error("Error reading from zipfile. ", ex);
-      throw new ZipFileException("Error reading from zipfile. Details: " + ex.getMessage());
+    	LOGGER.error("Error reading from zipfile. ", ex);
+    	throw new ZipFileException("Error reading from zipfile. Details: " + ex.getMessage());
     }
     
     return records;
