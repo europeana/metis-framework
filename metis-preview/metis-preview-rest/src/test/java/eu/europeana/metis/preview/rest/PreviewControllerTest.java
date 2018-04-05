@@ -28,6 +28,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import eu.europeana.metis.preview.common.exception.PreviewServiceException;
@@ -71,7 +72,7 @@ public class PreviewControllerTest {
 
     ExtendedValidationResult result = getExtendedValidationResult();
 
-    when(zipService.readFileToStringList(any(InputStream.class))).thenReturn(list);
+    when(zipService.readFileToStringList(any(MultipartFile.class))).thenReturn(list);
     when(previewService.createRecords(eq(list), eq(COLLECTION_ID), anyBoolean(),
         any(), anyBoolean())).thenReturn(result);
 
@@ -82,7 +83,7 @@ public class PreviewControllerTest {
         .andExpect(jsonPath("$.success", is(true))).andExpect(jsonPath("$.portalUrl", is("myUri")))
         .andExpect(jsonPath("$.records[0]", is("myRecord")));
 
-    verify(zipService, times(1)).readFileToStringList(any(InputStream.class));
+    verify(zipService, times(1)).readFileToStringList(any(MultipartFile.class));
     verify(previewService, times(1)).createRecords(anyList(), eq(COLLECTION_ID), eq(true),
         isNull(), eq(true));
     verifyNoMoreInteractions(previewService, zipService);
@@ -92,7 +93,7 @@ public class PreviewControllerTest {
   public void previewUpload_zipServiceFails_throwsZipException() throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
 
-    when(zipService.readFileToStringList(any(InputStream.class)))
+    when(zipService.readFileToStringList(any(MultipartFile.class)))
         .thenThrow(new ZipFileException("myZipException"));
 
     datasetControllerMock
@@ -106,7 +107,7 @@ public class PreviewControllerTest {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
 
-    when(zipService.readFileToStringList(any(InputStream.class))).thenReturn(list);
+    when(zipService.readFileToStringList(any(MultipartFile.class))).thenReturn(list);
     when(previewService.createRecords(eq(list), eq(COLLECTION_ID), anyBoolean(),
         any(), anyBoolean())).thenThrow(new PreviewServiceException("myException"));
 
