@@ -14,6 +14,8 @@ public enum EdmLabel {
   EUROPEANA_COMPLETENESS("europeana_completeness"),
   EUROPEANA_COLLECTIONNAME("europeana_collectionName"), 
   EUROPEANA_ID("europeana_id"), 
+  TIMESTAMP_CREATED("timestamp_created"), 
+  TIMESTAMP_UPDATED("timestamp_update"), 
   
   // Provider Aggregation Fields
   PROVIDER_AGGREGATION_ORE_AGGREGATION("provider_aggregation_ore_aggregation"), 

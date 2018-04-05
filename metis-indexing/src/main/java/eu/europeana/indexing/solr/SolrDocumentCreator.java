@@ -46,14 +46,14 @@ public class SolrDocumentCreator {
     new LicenseSolrCreator(license -> defRights.contains(license.getAbout())).addAllToDocument(doc,
         fBean.getLicenses());
 
+    extractCRFFields(doc);
+    
     doc.addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(), fBean.getEuropeanaCompleteness());
     doc.addField(EdmLabel.EUROPEANA_COLLECTIONNAME.toString(),
         fBean.getEuropeanaCollectionName()[0]);
-    doc.addField("timestamp_created", fBean.getTimestampCreated());
-    doc.addField("timestamp_update", fBean.getTimestampUpdated());
+    doc.addField(EdmLabel.TIMESTAMP_CREATED.toString(), fBean.getTimestampCreated());
+    doc.addField(EdmLabel.TIMESTAMP_UPDATED.toString(), fBean.getTimestampUpdated());
 
-    extractCRFFields(doc);
-    
     return doc;
   }
 
