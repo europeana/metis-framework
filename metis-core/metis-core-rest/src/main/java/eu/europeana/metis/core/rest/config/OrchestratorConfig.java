@@ -19,6 +19,7 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
+import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import io.netty.util.ThreadDeathWatcher;
 import io.netty.util.concurrent.FastThreadLocal;
 import io.netty.util.internal.InternalThreadLocalMap;
@@ -126,18 +127,22 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao,
-      ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
       WorkflowExecutorManager workflowExecutorManager,
       DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
-        workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, datasetXsltDao, workflowExecutorManager,
+        workflowExecutionDao, datasetDao, datasetXsltDao, workflowExecutorManager,
         ecloudDataSetServiceClient,
         redissonClient);
     orchestratorService.setEcloudProvider(propertiesHolder.getEcloudProvider());
     orchestratorService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     return orchestratorService;
+  }
+
+  @Bean
+  public ScheduleWorkflowService getScheduleWorkflowService(
+      ScheduledWorkflowDao scheduledWorkflowDao, WorkflowDao workflowDao, DatasetDao datasetDao) {
+    return new ScheduleWorkflowService(scheduledWorkflowDao, workflowDao, datasetDao);
   }
 
   @Bean
@@ -198,8 +203,10 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   public SchedulerExecutor getSchedulingExecutor(OrchestratorService orchestratorService,
+      ScheduleWorkflowService scheduleWorkflowService,
       RedissonClient redissonClient) {
-    schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
+    schedulerExecutor = new SchedulerExecutor(orchestratorService, scheduleWorkflowService,
+        redissonClient);
     return schedulerExecutor;
   }
 

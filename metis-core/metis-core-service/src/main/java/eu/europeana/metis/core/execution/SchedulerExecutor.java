@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.execution;
 
+import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.OrchestratorService;
@@ -27,6 +28,7 @@ public class SchedulerExecutor {
 
   private final RLock lock;
   private final OrchestratorService orchestratorService;
+  private final ScheduleWorkflowService scheduleWorkflowService;
   private static final String SCHEDULER_LOCK = "schedulerLock";
   private LocalDateTime lastExecutionTime = LocalDateTime.now();
 
@@ -34,11 +36,13 @@ public class SchedulerExecutor {
    * Constructs the executor
    *
    * @param orchestratorService {@link OrchestratorService}
+   * @param scheduleWorkflowService {@link ScheduleWorkflowService}
    * @param redissonClient {@link RedissonClient}
    */
   @Autowired
-  public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
+  public SchedulerExecutor(OrchestratorService orchestratorService, ScheduleWorkflowService scheduleWorkflowService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
+    this.scheduleWorkflowService = scheduleWorkflowService;
     this.lock = redissonClient.getFairLock(SCHEDULER_LOCK);
   }
 
@@ -98,9 +102,9 @@ public class SchedulerExecutor {
     do {
       scheduledUserWorkflowResponseListWrapper.clear();
       scheduledUserWorkflowResponseListWrapper
-          .setResultsAndLastPage(orchestratorService
+          .setResultsAndLastPage(scheduleWorkflowService
                   .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
-              orchestratorService.getScheduledWorkflowsPerRequest(), nextPage);
+              scheduleWorkflowService.getScheduledWorkflowsPerRequest(), nextPage);
       scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
@@ -197,9 +201,9 @@ public class SchedulerExecutor {
     do {
       scheduledUserWorkflowResponseListWrapper.clear();
       scheduledUserWorkflowResponseListWrapper
-          .setResultsAndLastPage(orchestratorService
+          .setResultsAndLastPage(scheduleWorkflowService
                   .getAllScheduledWorkflows(scheduleFrequence, nextPage),
-              orchestratorService.getScheduledWorkflowsPerRequest(), nextPage);
+              scheduleWorkflowService.getScheduledWorkflowsPerRequest(), nextPage);
       scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();

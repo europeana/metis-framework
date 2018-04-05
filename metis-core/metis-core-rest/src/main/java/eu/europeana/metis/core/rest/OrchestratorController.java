@@ -8,8 +8,6 @@ import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.OrderField;
-import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -242,75 +240,5 @@ public class OrchestratorController {
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
-  }
-
-  //SCHEDULED WORKFLOWS
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.CREATED)
-  @ResponseBody
-  public void scheduleWorkflowExecution(@RequestBody ScheduledWorkflow scheduledWorkflow)
-      throws GenericMetisException {
-    orchestratorService.scheduleWorkflow(scheduledWorkflow);
-    LOGGER.info(
-        "ScheduledWorkflowExecution for datasetId '{}', workflowOwner '{}', pointerDate at '{}', scheduled '{}'",
-        scheduledWorkflow.getDatasetId(),
-        scheduledWorkflow.getWorkflowOwner(),
-        scheduledWorkflow.getPointerDate(),
-        scheduledWorkflow.getScheduleFrequence().name());
-  }
-
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  public ScheduledWorkflow getScheduledWorkflow(
-      @PathVariable("datasetId") int datasetId) {
-    ScheduledWorkflow scheduledWorkflow = orchestratorService
-        .getScheduledWorkflowByDatasetId(datasetId);
-    LOGGER.info("ScheduledWorkflow with with datasetId '{}' found", datasetId);
-    return scheduledWorkflow;
-  }
-
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  public ResponseListWrapper<ScheduledWorkflow> getAllScheduledWorkflows(
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
-      throws GenericMetisException {
-    if (nextPage < 0) {
-      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
-    }
-    ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllScheduledWorkflows(ScheduleFrequence.NULL, nextPage),
-        orchestratorService.getScheduledWorkflowsPerRequest(), nextPage);
-    LOGGER.info("Batch of: {} scheduledWorkflows returned, using batch nextPage: {}",
-        responseListWrapper.getListSize(), nextPage);
-    return responseListWrapper;
-  }
-
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.PUT, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  @ResponseBody
-  public void updateScheduledWorkflow(
-      @RequestBody ScheduledWorkflow scheduledWorkflow)
-      throws GenericMetisException {
-    orchestratorService.updateScheduledWorkflow(scheduledWorkflow);
-    LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
-        scheduledWorkflow.getDatasetId());
-  }
-
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, method = RequestMethod.DELETE, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  @ResponseBody
-  public void deleteScheduledWorkflowExecution(
-      @PathVariable("datasetId") int datasetId) {
-    orchestratorService.deleteScheduledWorkflow(datasetId);
-    LOGGER.info("ScheduledWorkflowExecution for datasetId '{}' deleted", datasetId);
   }
 }

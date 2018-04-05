@@ -7,25 +7,20 @@ import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
-import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
-import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.OrderField;
-import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -39,10 +34,8 @@ import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPlugin;
-import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
@@ -73,7 +66,6 @@ public class OrchestratorService {
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowDao workflowDao;
-  private final ScheduledWorkflowDao scheduledWorkflowDao;
   private final DatasetDao datasetDao;
   private final DatasetXsltDao datasetXsltDao;
   private final WorkflowExecutorManager workflowExecutorManager;
@@ -85,7 +77,6 @@ public class OrchestratorService {
   @Autowired
   public OrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao,
-      ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
       DatasetXsltDao datasetXsltDao,
       WorkflowExecutorManager workflowExecutorManager,
@@ -93,7 +84,6 @@ public class OrchestratorService {
       RedissonClient redissonClient) throws IOException {
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
-    this.scheduledWorkflowDao = scheduledWorkflowDao;
     this.datasetDao = datasetDao;
     this.datasetXsltDao = datasetXsltDao;
     this.workflowExecutorManager = workflowExecutorManager;
@@ -376,10 +366,6 @@ public class OrchestratorService {
     return workflowExecutionDao.getWorkflowExecutionsPerRequest();
   }
 
-  public int getScheduledWorkflowsPerRequest() {
-    return scheduledWorkflowDao.getScheduledWorkflowPerRequest();
-  }
-
   public int getWorkflowsPerRequest() {
     return workflowDao.getWorkflowsPerRequest();
   }
@@ -445,28 +431,6 @@ public class OrchestratorService {
     return datasetExecutionInformation;
   }
 
-  public ScheduledWorkflow getScheduledWorkflowByDatasetId(int datasetId) {
-    return scheduledWorkflowDao.getScheduledWorkflowByDatasetId(datasetId);
-  }
-
-  public void scheduleWorkflow(ScheduledWorkflow scheduledWorkflow)
-      throws GenericMetisException {
-    checkRestrictionsOnScheduleWorkflow(scheduledWorkflow);
-    scheduledWorkflowDao.create(scheduledWorkflow);
-  }
-
-  public List<ScheduledWorkflow> getAllScheduledWorkflows(
-      ScheduleFrequence scheduleFrequence, int nextPage) {
-    return scheduledWorkflowDao.getAllScheduledWorkflows(scheduleFrequence, nextPage);
-  }
-
-  public List<ScheduledWorkflow> getAllScheduledWorkflowsByDateRangeONCE(
-      LocalDateTime lowerBound,
-      LocalDateTime upperBound, int nextPage) {
-    return scheduledWorkflowDao
-        .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage);
-  }
-
   private Dataset checkDatasetExistence(int datasetId) throws NoDatasetFoundException {
     Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (dataset == null) {
@@ -485,61 +449,6 @@ public class OrchestratorService {
           String.format("No workflow found with datasetId: %s, in METIS", datasetId));
     }
     return workflow;
-  }
-
-  private void checkScheduledWorkflowExistenceForDatasetId(int datasetId)
-      throws ScheduledWorkflowAlreadyExistsException {
-    String id = scheduledWorkflowDao.existsForDatasetId(datasetId);
-    if (id != null) {
-      throw new ScheduledWorkflowAlreadyExistsException(String.format(
-          "ScheduledWorkflow for datasetId: %s with id %s, already exists",
-          datasetId, id));
-    }
-  }
-
-  public void updateScheduledWorkflow(ScheduledWorkflow scheduledWorkflow)
-      throws GenericMetisException {
-    String storedId = checkRestrictionsOnScheduledWorkflowUpdate(scheduledWorkflow);
-    scheduledWorkflow.setId(new ObjectId(storedId));
-    scheduledWorkflowDao.update(scheduledWorkflow);
-  }
-
-  private void checkRestrictionsOnScheduleWorkflow(ScheduledWorkflow scheduledWorkflow)
-      throws
-      NoWorkflowFoundException, NoDatasetFoundException, ScheduledWorkflowAlreadyExistsException, BadContentException {
-    checkDatasetExistence(scheduledWorkflow.getDatasetId());
-    checkWorkflowExistence(scheduledWorkflow.getDatasetId());
-    checkScheduledWorkflowExistenceForDatasetId(scheduledWorkflow.getDatasetId());
-    if (scheduledWorkflow.getPointerDate() == null) {
-      throw new BadContentException("PointerDate cannot be null");
-    }
-    if (scheduledWorkflow.getScheduleFrequence() == null
-        || scheduledWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
-      throw new BadContentException("NULL or null is not a valid scheduleFrequence");
-    }
-  }
-
-  private String checkRestrictionsOnScheduledWorkflowUpdate(
-      ScheduledWorkflow scheduledWorkflow)
-      throws NoScheduledWorkflowFoundException, BadContentException, NoWorkflowFoundException {
-    checkWorkflowExistence(scheduledWorkflow.getDatasetId());
-    String storedId = scheduledWorkflowDao.existsForDatasetId(scheduledWorkflow.getDatasetId());
-    if (StringUtils.isEmpty(storedId)) {
-      throw new NoScheduledWorkflowFoundException(String.format(
-          "Workflow with datasetId: %s, not found", scheduledWorkflow.getDatasetId()));
-    }
-    if (scheduledWorkflow.getPointerDate() == null) {
-      throw new BadContentException("PointerDate cannot be null");
-    }
-    if (scheduledWorkflow.getScheduleFrequence() == null
-        || scheduledWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
-      throw new BadContentException("NULL or null is not a valid scheduleFrequence");
-    }
-    return storedId;
-  }
-
-  public void deleteScheduledWorkflow(int datasetId) {
-    scheduledWorkflowDao.deleteScheduledWorkflow(datasetId);
   }
 
   private String checkAndCreateDatasetInEcloud(Dataset dataset) {
