@@ -128,8 +128,6 @@ public class MediaProcessor implements Closeable {
 		int sizes = THUMB_SIZE.length;
 		ArrayList<String> command = new ArrayList<>(Arrays.asList(
 				magickCmd, content.getPath() + "[0]", "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:"));
-		if ("application/pdf".equals(mimeType))
-			command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
 		for (int i = 0; i < sizes - 1; i++) {
 			command.addAll(Arrays.asList(
 					"(", "+clone", "-thumbnail", THUMB_SIZE[i] + "x", "-write", thumbs.get(i).getPath(), "+delete",
@@ -183,7 +181,7 @@ public class MediaProcessor implements Closeable {
 	private List<File> prepareThumbnailFiles(String url, String mimeType) throws IOException {
 		List<File> thumbs = new ArrayList<>();
 		String md5 = DigestUtils.md5Hex(url);
-		String ext = Arrays.asList("application/pdf", "image/png").contains(mimeType) ? ".png" : ".jpeg";
+		String ext = "image/png".equals(mimeType) ? ".png" : ".jpeg";
 		for (int i = 0; i < THUMB_SUFFIX.length; i++) {
 			File temp = File.createTempFile("thumb", null);
 			for (int j = 0; j < 1000; j++) {
@@ -419,8 +417,7 @@ public class MediaProcessor implements Closeable {
 	}
 	
 	public static boolean isImage(String mimeType) {
-		// TODO pdf is not an image? https://europeana.atlassian.net/browse/MMS-34
-		return mimeType.equals("application/pdf") || mimeType.startsWith("image/");
+		return mimeType.startsWith("image/");
 	}
 	
 	public static boolean isAudioVideo(String mimeType) {
