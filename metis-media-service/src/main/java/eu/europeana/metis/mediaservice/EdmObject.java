@@ -3,7 +3,6 @@ package eu.europeana.metis.mediaservice;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ import eu.europeana.corelib.definitions.jibx.HasView;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 
-public class EdmObject implements Serializable {
+public final class EdmObject {
 	
 	private static IBindingFactory rdfBindingFactory;
 	
@@ -112,7 +111,6 @@ public class EdmObject implements Serializable {
 		public Writer() {
 			try {
 				context = rdfBindingFactory.createMarshallingContext();
-				context.setIndent(2);
 			} catch (JiBXException e) {
 				throw new AssertionError("JiBX marshalling problem", e);
 			}
@@ -123,7 +121,7 @@ public class EdmObject implements Serializable {
 				context.marshalDocument(edm.rdf, "UTF-8", null, byteStream);
 				return byteStream.toByteArray();
 			} catch (IOException | JiBXException e) {
-				throw new RuntimeException("Result EDM XML generation error", e);
+				throw new AssertionError("RDF should always be able to marshall", e);
 			}
 		}
 	}

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -16,13 +17,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -30,7 +31,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDResources;
-import org.apache.pdfbox.pdmodel.common.PDMetadata;
 import org.apache.pdfbox.pdmodel.graphics.PDXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -40,18 +40,32 @@ import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import eu.europeana.metis.mediaservice.WebResource.Orientation;
+
 public class MediaProcessor implements Closeable {
 	
-	private static final Logger log = LoggerFactory.getLogger(MediaProcessor.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MediaProcessor.class);
 	
 	private static final int[] THUMB_SIZE = { 200, 400 };
 	private static final String[] THUMB_SUFFIX = { "-MEDIUM", "-LARGE" };
 	
-	private static File tempDir;
-	private static File colormapFile;
+	private static final File tempDir = new File(System.getProperty("java.io.tmpdir"));
+	private static final Tika tika = new Tika();
+	private static final File colormapFile;
 	private static String magickCmd;
 	private static String ffprobeCmd;
-	private static Tika tika;
+	
+	static {
+		try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
+			colormapFile = File.createTempFile("colormap", ".png");
+			colormapFile.deleteOnExit();
+			try (FileOutputStream out = new FileOutputStream(colormapFile)) {
+				IOUtils.copy(is, out);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("colormap.png can't be loaded", e);
+		}
+	}
 	
 	private ExecutorService commandIOThreadPool = Executors.newFixedThreadPool(2);
 	
@@ -60,7 +74,12 @@ public class MediaProcessor implements Closeable {
 	private Map<File, String> thumbnails = new HashMap<>();
 	
 	public MediaProcessor() {
-		staticInit();
+		if (magickCmd == null) {
+			synchronized (MediaProcessor.class) {
+				if (magickCmd == null)
+					staticInit();
+			}
+		}
 	}
 	
 	/**
@@ -90,7 +109,7 @@ public class MediaProcessor implements Closeable {
 		}
 		
 		if (!mimeType.equals(providedMimeType))
-			log.info("Invalid mime type provided (should be {}, was {}): {}", mimeType, providedMimeType, url);
+			LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", mimeType, providedMimeType, url);
 		if (contents == null && !supportsLinkProcessing(mimeType))
 			throw new IllegalArgumentException("Contents file is required for mime type " + mimeType);
 		
@@ -124,10 +143,15 @@ public class MediaProcessor implements Closeable {
 	
 	private void processImage(String url, String mimeType, File content) throws MediaException, IOException {
 		List<File> thumbs = prepareThumbnailFiles(url, mimeType);
-		
 		int sizes = THUMB_SIZE.length;
+		
+		final String FORMAT = "%w\n%h\n%[colorspace]\n";
+		final int WIDTH_LINE = 0;
+		final int HEIGHT_LINE = 1;
+		final int COLORSPACE_LINE = 2;
+		final int COLORS_LINE = 3;
 		ArrayList<String> command = new ArrayList<>(Arrays.asList(
-				magickCmd, content.getPath() + "[0]", "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:"));
+				magickCmd, content.getPath() + "[0]", "-format", FORMAT, "-write", "info:"));
 		for (int i = 0; i < sizes - 1; i++) {
 			command.addAll(Arrays.asList(
 					"(", "+clone", "-thumbnail", THUMB_SIZE[i] + "x", "-write", thumbs.get(i).getPath(), "+delete",
@@ -143,20 +167,20 @@ public class MediaProcessor implements Closeable {
 		
 		int width;
 		try {
-			width = Integer.parseInt(results.get(0));
-			int height = Integer.parseInt(results.get(1));
+			width = Integer.parseInt(results.get(WIDTH_LINE));
+			int height = Integer.parseInt(results.get(HEIGHT_LINE));
 			if (shouldExtractMetadata(urlTypes.get(url))) {
 				WebResource resource = edm.getWebResource(url);
 				resource.setMimeType(mimeType);
 				resource.setFileSize(content.length());
 				resource.setWidth(width);
 				resource.setHeight(height);
-				resource.setOrientation(width > height);
-				resource.setColorspace(results.get(2));
-				resource.setDominantColors(extractDominantColors(results));
+				resource.setOrientation(width > height ? Orientation.LANDSCAPE : Orientation.PORTRAIT);
+				resource.setColorspace(results.get(COLORSPACE_LINE));
+				resource.setDominantColors(extractDominantColors(results, COLORS_LINE));
 			}
 		} catch (Exception e) {
-			log.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
+			LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
 			throw new MediaException("File seems to be corrupted", "IMAGE ERROR");
 		}
 		
@@ -179,13 +203,14 @@ public class MediaProcessor implements Closeable {
 	 * increasing numbers.
 	 */
 	private List<File> prepareThumbnailFiles(String url, String mimeType) throws IOException {
+		final int MAX_DIRS = 1000;
 		List<File> thumbs = new ArrayList<>();
 		String md5 = DigestUtils.md5Hex(url);
 		String ext = "image/png".equals(mimeType) ? ".png" : ".jpeg";
 		for (int i = 0; i < THUMB_SUFFIX.length; i++) {
 			File temp = File.createTempFile("thumb", null);
-			for (int j = 0; j < 1000; j++) {
-				File dir = j == 0 ? tempDir : new File(tempDir, "media_thumbnail_duplicates_" + j);
+			for (int j = 0; j < MAX_DIRS; j++) {
+				File dir = new File(tempDir, "media_thumbnails_" + j);
 				if (!dir.isDirectory() && !dir.mkdir())
 					throw new IOException("Could not create thumbnails subdirectory: " + dir);
 				try {
@@ -194,25 +219,25 @@ public class MediaProcessor implements Closeable {
 					thumbs.add(f);
 					break;
 				} catch (FileAlreadyExistsException e) {
-					log.trace(j + " duplicates of " + url, e);
+					LOGGER.trace(j + " duplicates of " + url, e);
 					// try next dir
 				}
 			}
 			if (thumbs.size() < i + 1) {
-				if (!temp.delete())
-					log.warn("Could not remove temp file " + temp);
+				Files.delete(temp.toPath());
 				throw new IOException("Too many duplicates of url " + url);
 			}
 		}
 		return thumbs;
 	}
 	
-	private List<String> extractDominantColors(List<String> results) {
+	private List<String> extractDominantColors(List<String> results, int skipLines) {
+		final int MAX_COLORS = 6;
 		final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
 		return results.stream()
-				.skip(3)
+				.skip(skipLines)
 				.sorted(Collections.reverseOrder())
-				.limit(6)
+				.limit(MAX_COLORS)
 				.map(line -> {
 					Matcher m = pattern.matcher(line);
 					m.find();
@@ -238,15 +263,8 @@ public class MediaProcessor implements Closeable {
 			resource.setMimeType(mimeType);
 			resource.setFileSize(result.getJSONObject("format").getLong("size"));
 			
-			JSONObject videoStream = null;
-			JSONObject audioStream = null;
-			for (Object streamObject : result.getJSONArray("streams")) {
-				JSONObject stream = (JSONObject) streamObject;
-				if (videoStream == null && "video".equals(stream.getString("codec_type")))
-					videoStream = stream;
-				if (audioStream == null && "audio".equals(stream.getString("codec_type")))
-					audioStream = stream;
-			}
+			JSONObject videoStream = findStream(result, "video");
+			JSONObject audioStream = findStream(result, "audio");
 			if (videoStream != null) {
 				resource.setDuration(videoStream.getDouble("duration"));
 				resource.setBitrate(videoStream.getInt("bit_rate"));
@@ -264,14 +282,23 @@ public class MediaProcessor implements Closeable {
 				resource.setSampleRate(audioStream.getInt("sample_rate"));
 				resource.setSampleSize(audioStream.getInt("bits_per_sample"));
 			} else {
-				throw new Exception("No media streams");
+				throw new MediaException("No media streams", "AUDIOVIDEO ERROR");
 			}
 		} catch (MediaException e) {
 			throw e;
 		} catch (Exception e) {
-			log.info("Could not parse ffprobe response:\n" + StringUtils.join(resultLines, "\n"), e);
+			LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(resultLines, "\n"), e);
 			throw new MediaException("File seems to be corrupted", "AUDIOVIDEO ERROR");
 		}
+	}
+	
+	private JSONObject findStream(JSONObject data, String codecType) {
+		for (Object streamObject : data.getJSONArray("streams")) {
+			JSONObject stream = (JSONObject) streamObject;
+			if (codecType.equals(stream.getString("codec_type")))
+				return stream;
+		}
+		return null;
 	}
 	
 	private void processText(String url, String mimeType, File contents) throws IOException {
@@ -281,30 +308,19 @@ public class MediaProcessor implements Closeable {
 		boolean containsText = mimeType.startsWith("text/");
 		Integer resolution = null;
 		
-		if (mimeType.equals("application/pdf")) {
+		if ("application/pdf".equals(mimeType)) {
 			try (PDDocument document = PDDocument.load(contents)) {
 				PDFTextStripper pdfStripper = new PDFTextStripper();
 				String text = pdfStripper.getText(document).replaceAll("\\s", "");
 				containsText = !text.isEmpty();
 				
-				firstImageSearch:
-				for (int i = 0; i < document.getNumberOfPages(); i++) {
-					PDResources res = document.getPage(i).getResources();
-					Iterator<COSName> it = res.getXObjectNames().iterator();
-					while (it.hasNext()) {
-						PDXObject xObject = res.getXObject(it.next());
-						if (!(xObject instanceof PDImageXObject))
-							continue;
-						PDMetadata pdMetadata = ((PDImageXObject) xObject).getMetadata();
-						if (pdMetadata == null)
-							break firstImageSearch;
-						String metadata = IOUtils.toString(pdMetadata.createInputStream(), "UTF-8");
-						Matcher resolutionMatcher = Pattern
-								.compile("<exif:XResolution>\\s*([0-9]+)\\s*</exif:XResolution>").matcher(metadata);
-						if (resolutionMatcher.find())
-							resolution = Integer.valueOf(resolutionMatcher.group(1));
-						break firstImageSearch;
-					}
+				PDImageXObject image = findFirstImage(document);
+				if (image != null && image.getMetadata() != null) {
+					String metadata = IOUtils.toString(image.getMetadata().createInputStream(), "UTF-8");
+					Matcher resolutionMatcher = Pattern
+							.compile("<exif:XResolution>\\s*([0-9]+)\\s*</exif:XResolution>").matcher(metadata);
+					if (resolutionMatcher.find())
+						resolution = Integer.valueOf(resolutionMatcher.group(1));
 				}
 			}
 		}
@@ -316,6 +332,19 @@ public class MediaProcessor implements Closeable {
 		resource.setResolution(resolution);
 	}
 	
+	private PDImageXObject findFirstImage(PDDocument document) throws IOException {
+		for (int i = 0; i < document.getNumberOfPages(); i++) {
+			PDResources res = document.getPage(i).getResources();
+			Iterator<COSName> it = res.getXObjectNames().iterator();
+			while (it.hasNext()) {
+				PDXObject xObject = res.getXObject(it.next());
+				if (xObject instanceof PDImageXObject)
+					return (PDImageXObject) xObject;
+			}
+		}
+		return null;
+	}
+	
 	private List<String> runCommand(List<String> command, boolean mergeError) throws IOException {
 		return runCommand(command, mergeError, null);
 	}
@@ -325,11 +354,11 @@ public class MediaProcessor implements Closeable {
 		if (!mergeError) {
 			commandIOThreadPool.execute(() -> {
 				try (InputStream errorStream = process.getErrorStream()) {
-					String output = IOUtils.toString(errorStream);
+					String output = IOUtils.toString(errorStream, Charset.defaultCharset());
 					if (!StringUtils.isBlank(output))
-						log.warn("Command: {}\nerror output:\n{}", command, output);
+						LOGGER.warn("Command: {}\nerror output:\n{}", command, output);
 				} catch (IOException e) {
-					log.error("Error stream reading faild for command " + command, e);
+					LOGGER.error("Error stream reading faild for command " + command, e);
 				}
 			});
 		}
@@ -338,69 +367,50 @@ public class MediaProcessor implements Closeable {
 				try (OutputStream processInput = process.getOutputStream()) {
 					processInput.write(inputBytes);
 				} catch (IOException e) {
-					log.error("Pushing data to process input stream failed for command " + command, e);
+					LOGGER.error("Pushing data to process input stream failed for command " + command, e);
 				}
 			});
 		}
 		try (InputStream in = process.getInputStream()) {
-			return IOUtils.readLines(in);
+			return IOUtils.readLines(in, Charset.defaultCharset());
 		}
 	}
 	
+	/**
+	 * This is a non-static method because it needs access to
+	 * {@link #runCommand(List, boolean)}.
+	 */
 	private void staticInit() {
-		if (tempDir != null)
-			return;
-		synchronized (MediaProcessor.class) {
-			if (tempDir != null)
-				return;
-			// get temp dir
-			tempDir = new File(System.getProperty("java.io.tmpdir"));
-			
-			// init tika
-			tika = new Tika();
-			
-			// load colormap
-			try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
-				colormapFile = File.createTempFile("colormap", ".png");
-				colormapFile.deleteOnExit();
-				try (FileOutputStream out = new FileOutputStream(colormapFile)) {
-					IOUtils.copy(is, out);
-				}
-			} catch (IOException e) {
-				throw new RuntimeException("colormap.png can't be loaded", e);
-			}
-			
-			// find ffprobe
-			try {
-				List<String> lines = runCommand(Arrays.asList("ffprobe"), true);
-				if (lines.isEmpty() || !lines.get(0).startsWith("ffprobe version 2"))
-					throw new RuntimeException("ffprobe 2.x not found");
-				ffprobeCmd = "ffprobe";
-			} catch (IOException e) {
-				throw new RuntimeException("Error while looking for ffprobe tools", e);
-			}
-			
-			// find image magick
-			try {
-				List<String> lines = runCommand(Arrays.asList("magick", "-version"), true);
-				if (!lines.isEmpty() && lines.get(0).startsWith("Version: ImageMagick 7")) {
-					magickCmd = "magick";
-				} else { // try convert, but careful about conflict with a windows tool
-					boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
-					List<String> paths = runCommand(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
-					for (String path : paths) {
-						lines = runCommand(Arrays.asList(path, "-version"), true);
-						if (!lines.isEmpty() && lines.get(0).startsWith("Version: ImageMagick 6")) {
-							magickCmd = path;
-							break;
-						}
+		// find ffprobe
+		try {
+			List<String> lines = runCommand(Arrays.asList("ffprobe"), true);
+			if (!String.join("", lines).startsWith("ffprobe version 2"))
+				throw new RuntimeException("ffprobe 2.x not found");
+			ffprobeCmd = "ffprobe";
+		} catch (IOException e) {
+			throw new RuntimeException("Error while looking for ffprobe tools", e);
+		}
+		
+		// find image magick
+		try {
+			List<String> lines = runCommand(Arrays.asList("magick", "-version"), true);
+			if (String.join("", lines).startsWith("Version: ImageMagick 7")) {
+				magickCmd = "magick";
+			} else { // try convert, but careful about conflict with a windows tool
+				boolean isWindows = System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win");
+				List<String> paths = runCommand(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
+				for (String path : paths) {
+					lines = runCommand(Arrays.asList(path, "-version"), true);
+					if (String.join("", lines).startsWith("Version: ImageMagick 6")) {
+						magickCmd = path;
+						break;
 					}
 				}
-				if (magickCmd == null)
-					throw new RuntimeException("ImageMagick version 6/7 not found");
-			} catch (IOException e) {
-				throw new RuntimeException("Error while looking for ImageMagick tools", e);
 			}
+			if (magickCmd == null)
+				throw new RuntimeException("ImageMagick version 6/7 not found");
+		} catch (IOException e) {
+			throw new RuntimeException("Error while looking for ImageMagick tools", e);
 		}
 	}
 	

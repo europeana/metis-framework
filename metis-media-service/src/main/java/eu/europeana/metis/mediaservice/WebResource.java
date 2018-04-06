@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaservice;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import eu.europeana.corelib.definitions.jibx.AudioChannelNumber;
@@ -27,6 +28,11 @@ import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.definitions.jibx.Width;
 
 public class WebResource {
+	
+	public enum Orientation {
+		PORTRAIT, LANDSCAPE;
+	}
+	
 	private final WebResourceType resource;
 	
 	WebResource(WebResourceType resource) {
@@ -59,8 +65,8 @@ public class WebResource {
 		resource.setHasColorSpace(hasColorSpace);
 	}
 	
-	public void setOrientation(boolean landscape) {
-		resource.setOrientation(stringVal(new OrientationType(), landscape ? "landscape" : "portrait"));
+	public void setOrientation(Orientation orientation) {
+		resource.setOrientation(stringVal(new OrientationType(), orientation.name().toLowerCase(Locale.ENGLISH)));
 	}
 	
 	public void setDominantColors(List<String> dominantColors) {
@@ -79,10 +85,10 @@ public class WebResource {
 				.collect(Collectors.toList()));
 	}
 	
-	/** @param duration duration in seconds */
-	public void setDuration(double duration) {
+	public void setDuration(double seconds) {
+		final int millisInSecond = 1000;
 		Duration duration2 = new Duration();
-		duration2.setDuration(Integer.toString((int) Math.round(duration * 1000)));
+		duration2.setDuration(Integer.toString((int) Math.round(seconds * millisInSecond)));
 		resource.setDuration(duration2);
 	}
 	
