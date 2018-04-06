@@ -128,13 +128,10 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao,
       DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
-      WorkflowExecutorManager workflowExecutorManager,
-      DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
+      WorkflowExecutorManager workflowExecutorManager) throws IOException {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
         workflowExecutionDao, datasetDao, datasetXsltDao, workflowExecutorManager,
-        ecloudDataSetServiceClient,
         redissonClient);
-    orchestratorService.setEcloudProvider(propertiesHolder.getEcloudProvider());
     orchestratorService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     return orchestratorService;
   }

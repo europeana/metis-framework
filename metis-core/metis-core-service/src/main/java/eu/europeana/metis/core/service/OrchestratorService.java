@@ -1,8 +1,5 @@
 package eu.europeana.metis.core.service;
 
-import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
-import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -41,7 +38,6 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
@@ -69,25 +65,19 @@ public class OrchestratorService {
   private final DatasetDao datasetDao;
   private final DatasetXsltDao datasetXsltDao;
   private final WorkflowExecutorManager workflowExecutorManager;
-  private final DataSetServiceClient ecloudDataSetServiceClient;
   private final RedissonClient redissonClient;
-  private String ecloudProvider; //Initialize with setter
   private String metisCoreUrl; //Initialize with setter
 
   @Autowired
   public OrchestratorService(WorkflowDao workflowDao,
-      WorkflowExecutionDao workflowExecutionDao,
-      DatasetDao datasetDao,
-      DatasetXsltDao datasetXsltDao,
-      WorkflowExecutorManager workflowExecutorManager,
-      DataSetServiceClient ecloudDataSetServiceClient,
+      WorkflowExecutionDao workflowExecutionDao, DatasetDao datasetDao,
+      DatasetXsltDao datasetXsltDao, WorkflowExecutorManager workflowExecutorManager,
       RedissonClient redissonClient) throws IOException {
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.datasetDao = datasetDao;
     this.datasetXsltDao = datasetXsltDao;
     this.workflowExecutorManager = workflowExecutorManager;
-    this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
     this.redissonClient = redissonClient;
 
     this.workflowExecutorManager.initiateConsumer();
@@ -157,7 +147,7 @@ public class OrchestratorService {
 
     Dataset dataset = checkDatasetExistence(datasetId);
     Workflow workflow = checkWorkflowExistence(datasetId);
-    checkAndCreateDatasetInEcloud(dataset);
+    datasetDao.checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         createMetisPluginsList(dataset, workflow, enforcedPluginType), priority);
@@ -188,7 +178,7 @@ public class OrchestratorService {
     Dataset dataset = checkDatasetExistence(datasetId);
     //Generate uuid workflowName and check if by any chance it exists.
     checkRestrictionsOnWorkflowCreate(workflow);
-    checkAndCreateDatasetInEcloud(dataset);
+    datasetDao.checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         createMetisPluginsList(dataset, workflow, enforcedPluginType), priority);
@@ -449,34 +439,6 @@ public class OrchestratorService {
           String.format("No workflow found with datasetId: %s, in METIS", datasetId));
     }
     return workflow;
-  }
-
-  private String checkAndCreateDatasetInEcloud(Dataset dataset) {
-    if (StringUtils.isEmpty(dataset.getEcloudDatasetId()) || dataset.getEcloudDatasetId()
-        .startsWith("NOT_CREATED_YET")) {
-      final String uuid = UUID.randomUUID().toString();
-      dataset.setEcloudDatasetId(uuid);
-      datasetDao.update(dataset);
-      try {
-        ecloudDataSetServiceClient
-            .createDataSet(ecloudProvider, uuid, "Metis generated dataset");
-        return uuid;
-      } catch (DataSetAlreadyExistsException e) {
-        LOGGER.info("Dataset already exist, not recreating", e);
-      } catch (MCSException e) {
-        LOGGER.error("An error has occurred during ecloud dataset creation.", e);
-      }
-    } else {
-      LOGGER
-          .info(
-              "Dataset with datasetId {} already has a dataset initialized in Ecloud with id {}",
-              dataset.getDatasetId(), dataset.getEcloudDatasetId());
-    }
-    return dataset.getEcloudDatasetId();
-  }
-
-  public void setEcloudProvider(String ecloudProvider) {
-    this.ecloudProvider = ecloudProvider;
   }
 
   public void setMetisCoreUrl(String metisCoreUrl) {

@@ -1,11 +1,17 @@
 package eu.europeana.metis.core.dao;
 
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
+import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.OrderField;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.List;
+import java.util.UUID;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;
@@ -18,6 +24,8 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Dataset Access Object for datasets using Mongo.
+ * It also contains the {@link DataSetServiceClient} which is used to access functionality of the
+ * ECloud datasets.
  */
 @Repository
 public class DatasetDao implements MetisDao<Dataset, String> {
@@ -28,15 +36,20 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   private int datasetsPerRequest = RequestLimits.DATASETS_PER_REQUEST.getLimit();
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
+  private final DataSetServiceClient ecloudDataSetServiceClient;
+  private String ecloudProvider; //Initialize with setter
 
   /**
    * Constructs the DAO
    *
    * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider} used to access Mongo
+   * @param ecloudDataSetServiceClient {@link DataSetServiceClient} to access the ecloud dataset functionality
    */
   @Autowired
-  public DatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+  public DatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
+      DataSetServiceClient ecloudDataSetServiceClient) {
     this.morphiaDatastoreProvider = morphiaDatastoreProvider;
+    this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
   }
 
   /**
@@ -264,5 +277,34 @@ public class DatasetDao implements MetisDao<Dataset, String> {
         .set("sequence", datasetIdSequence.getSequence());
     morphiaDatastoreProvider.getDatastore().update(updateQuery, updateOperations);
     return datasetIdSequence.getSequence();
+  }
+
+  public String checkAndCreateDatasetInEcloud(Dataset dataset) throws ExternalTaskException {
+    if (StringUtils.isEmpty(dataset.getEcloudDatasetId()) || dataset.getEcloudDatasetId()
+        .startsWith("NOT_CREATED_YET")) {
+      final String uuid = UUID.randomUUID().toString();
+      dataset.setEcloudDatasetId(uuid);
+      try {
+        ecloudDataSetServiceClient
+            .createDataSet(ecloudProvider, uuid, "Metis generated dataset");
+        update(dataset);
+      } catch (DataSetAlreadyExistsException e) {
+        LOGGER.info("Dataset already exist, not recreating", e);
+        throw new ExternalTaskException("Dataset already exist, not recreating", e);
+      } catch (MCSException e) {
+        LOGGER.error("An error has occurred during ecloud dataset creation.", e);
+        throw new ExternalTaskException("An error has occurred during ecloud dataset creation.", e);
+      }
+    } else {
+      LOGGER
+          .info(
+              "Dataset with datasetId {} already has a dataset initialized in Ecloud with id {}",
+              dataset.getDatasetId(), dataset.getEcloudDatasetId());
+    }
+    return dataset.getEcloudDatasetId();
+  }
+
+  public void setEcloudProvider(String ecloudProvider) {
+    this.ecloudProvider = ecloudProvider;
   }
 }

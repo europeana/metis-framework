@@ -5,6 +5,7 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientOptions.Builder;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -129,9 +130,10 @@ public class Application extends WebMvcConfigurerAdapter {
    * @return {@link DatasetDao} used to access the database for datasets
    */
   @Bean
-  public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider);
+  public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider, DataSetServiceClient ecloudDataSetServiceClient) {
+    DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider, ecloudDataSetServiceClient);
     datasetDao.setDatasetsPerRequest(RequestLimits.DATASETS_PER_REQUEST.getLimit());
+    datasetDao.setEcloudProvider(propertiesHolder.getEcloudProvider());
     return datasetDao;
   }
 

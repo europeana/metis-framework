@@ -13,9 +13,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
-import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -52,6 +49,7 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Assert;
@@ -75,7 +73,6 @@ public class TestOrchestratorService {
   private static DatasetXsltDao datasetXsltDao;
   private static WorkflowExecutorManager workflowExecutorManager;
   private static OrchestratorService orchestratorService;
-  private static DataSetServiceClient ecloudDataSetServiceClient;
   private static RedissonClient redissonClient;
 
   @BeforeClass
@@ -85,14 +82,11 @@ public class TestOrchestratorService {
     datasetDao = Mockito.mock(DatasetDao.class);
     datasetXsltDao = Mockito.mock(DatasetXsltDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
-    ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
     redissonClient = Mockito.mock(RedissonClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao, datasetDao,
         datasetXsltDao, workflowExecutorManager,
-        ecloudDataSetServiceClient,
         redissonClient);
-    orchestratorService.setEcloudProvider("ecloudProvider");
     orchestratorService.setMetisCoreUrl("https://some.url.com");
   }
 
@@ -102,7 +96,6 @@ public class TestOrchestratorService {
     Mockito.reset(workflowDao);
     Mockito.reset(datasetDao);
     Mockito.reset(workflowExecutorManager);
-    Mockito.reset(ecloudDataSetServiceClient);
     Mockito.reset(redissonClient);
   }
 
@@ -355,8 +348,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao.getWorkflow(workflow.getDatasetId())).thenReturn(workflow);
-    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
-        .thenThrow(new DataSetAlreadyExistsException());
+    when(datasetDao.checkAndCreateDatasetInEcloud(any(Dataset.class))).thenReturn(UUID.randomUUID().toString());
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
     doNothing().when(rlock).lock();
@@ -375,8 +367,7 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao.getWorkflow(workflow.getDatasetId())).thenReturn(workflow);
-    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
-        .thenThrow(new MCSException());
+    when(datasetDao.checkAndCreateDatasetInEcloud(any(Dataset.class))).thenReturn(UUID.randomUUID().toString());
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
