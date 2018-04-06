@@ -9,6 +9,7 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
+import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.construct.AgentUpdater;
 import eu.europeana.corelib.edm.utils.construct.AggregationUpdater;
@@ -44,6 +45,8 @@ import eu.europeana.indexing.solr.SolrDocumentCreator;
  */
 class FullBeanPublisher {
 
+  private final Supplier<FullBeanConverter> fullBeanConverterSupplier;
+
   private final FullBeanDao fullBeanDao;
   private final SolrServer solrServer;
 
@@ -54,28 +57,50 @@ class FullBeanPublisher {
    * @param solrServer The searchable persistence.
    */
   FullBeanPublisher(FullBeanDao fullBeanDao, SolrServer solrServer) {
-    this.fullBeanDao = fullBeanDao;
-    this.solrServer = solrServer;
+    this(fullBeanDao, solrServer, FullBeanConverter::new);
   }
 
   /**
-   * Publishes a bean.
+   * Constructor for testing purposes.
    * 
-   * @param fullBean Bean to publish.
+   * @param fullBeanDao DAO object for saving and updating Full Beans.
+   * @param solrServer The searchable persistence.
+   * @param fullBeanConverterSupplier Supplies an instance of {@link FullBeanConverter} used to
+   *        parse strings to instances of {@link FullBeanImpl}. Will be called once during every
+   *        publish.
+   */
+  FullBeanPublisher(FullBeanDao fullBeanDao, SolrServer solrServer,
+      Supplier<FullBeanConverter> fullBeanConverterSupplier) {
+    this.fullBeanDao = fullBeanDao;
+    this.solrServer = solrServer;
+    this.fullBeanConverterSupplier = fullBeanConverterSupplier;
+  }
+
+  /**
+   * Publishes an RDF.
+   * 
+   * @param rdf RDF to publish.
    * @throws IndexingException In case an error occurred during publication.
    */
-  public void publish(FullBeanImpl fullBean) throws IndexingException {
+  public void publish(RDF rdf) throws IndexingException {
+
+    // Convert RDF to Full Bean.
+    final FullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
+    final FullBeanImpl fullBean = fullBeanConverter.convertFromRdf(rdf);
 
     // Create Solr document.
-    final SolrInputDocument solrInputDoc = new SolrDocumentCreator().generate(fullBean);
+    final SolrDocumentCreator documentPopulator = new SolrDocumentCreator();
+    final SolrInputDocument document = new SolrInputDocument();
+    documentPopulator.populateWithProperties(document, fullBean);
+    documentPopulator.populateWithCrfFields(document, rdf);
 
     // Save Solr document.
     try {
-      solrServer.add(solrInputDoc);
+      solrServer.add(document);
     } catch (IOException | SolrServerException e) {
       throw new IndexingException("Could not add Solr input document to Solr server.", e);
     }
-    
+
     // Save properties/dependencies to Mongo.
     try {
       saveEdmClasses(fullBean);

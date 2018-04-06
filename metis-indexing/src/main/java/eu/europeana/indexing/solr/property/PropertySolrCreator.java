@@ -1,4 +1,4 @@
-package eu.europeana.indexing.solr;
+package eu.europeana.indexing.solr.property;
 
 import java.util.Collection;
 import org.apache.solr.common.SolrInputDocument;

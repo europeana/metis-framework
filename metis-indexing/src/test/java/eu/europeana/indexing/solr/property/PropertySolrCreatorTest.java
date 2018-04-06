@@ -1,4 +1,4 @@
-package eu.europeana.indexing.solr;
+package eu.europeana.indexing.solr.property;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -10,6 +10,7 @@ import java.util.Arrays;
 import org.apache.solr.common.SolrInputDocument;
 import org.junit.Test;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
+import eu.europeana.indexing.solr.property.PropertySolrCreator;
 
 public class PropertySolrCreatorTest {
 

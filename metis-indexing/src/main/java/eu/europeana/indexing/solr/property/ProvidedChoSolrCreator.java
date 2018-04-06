@@ -1,8 +1,9 @@
-package eu.europeana.indexing.solr;
+package eu.europeana.indexing.solr.property;
 
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.util.StringUtils;
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
+import eu.europeana.indexing.solr.EdmLabel;
 
 /**
  *
@@ -12,8 +13,8 @@ public class ProvidedChoSolrCreator extends PropertySolrCreator<ProvidedCHOImpl>
 
   @Override
   public void addToDocument(SolrInputDocument doc, ProvidedCHOImpl pCho) {
-    SolrUtils.addValue(doc, EdmLabel.EUROPEANA_ID,
+    SolrPropertyUtils.addValue(doc, EdmLabel.EUROPEANA_ID,
         StringUtils.replace(pCho.getAbout(), "/item/", "/"));
-    SolrUtils.addValues(doc, EdmLabel.PROXY_OWL_SAMEAS, pCho.getOwlSameAs());
+    SolrPropertyUtils.addValues(doc, EdmLabel.PROXY_OWL_SAMEAS, pCho.getOwlSameAs());
   }
 }

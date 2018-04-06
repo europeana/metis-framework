@@ -17,6 +17,14 @@ public enum EdmLabel {
   TIMESTAMP_CREATED("timestamp_created"), 
   TIMESTAMP_UPDATED("timestamp_update"), 
   
+  // CRF Fields
+  CRF_HAS_THUMBNAILS("has_thumbnails"),
+  CRF_HAS_LANDING_PAGE("has_landingpage"),
+  CRF_HAS_MEDIA("has_media"),
+  CRF_IS_FULL_TEXT("is_fulltext"),
+  CRF_FILTER_TAGS("filter_tags"),
+  CRF_FACET_TAGS("facet_tags"),
+  
   // Provider Aggregation Fields
   PROVIDER_AGGREGATION_ORE_AGGREGATION("provider_aggregation_ore_aggregation"), 
   PROVIDER_AGGREGATION_ORE_AGGREGATES("provider_aggregation_ore_aggregates"), 

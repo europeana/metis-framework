@@ -1,4 +1,4 @@
-package eu.europeana.indexing.solr;
+package eu.europeana.indexing.solr.property;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import org.apache.solr.common.SolrInputDocument;
+import eu.europeana.indexing.solr.EdmLabel;
 
 /**
  * Set of utils for SOLR queries
@@ -16,9 +17,9 @@ import org.apache.solr.common.SolrInputDocument;
  * @author Yorgos.Mamakis@ kb.nl
  *
  */
-public final class SolrUtils {
+public final class SolrPropertyUtils {
   
-  private SolrUtils() {
+  private SolrPropertyUtils() {
 
   }
 
