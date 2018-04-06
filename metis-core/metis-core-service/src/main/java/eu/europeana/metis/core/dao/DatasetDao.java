@@ -41,6 +41,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
 
   /**
    * Constructs the DAO
+   * <p>Initialize {@link #ecloudProvider} using the setter class.
+   * Use setter for {@link #setDatasetsPerRequest(int)} to overwrite the default value</p>
    *
    * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider} used to access Mongo
    * @param ecloudDataSetServiceClient {@link DataSetServiceClient} to access the ecloud dataset functionality
@@ -183,8 +185,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("provider").equal(provider);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
-        .limit(datasetsPerRequest));
+    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
+        .limit(getDatasetsPerRequest()));
   }
 
   /**
@@ -199,8 +201,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("intermediateProvider").equal(intermediateProvider);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
-        .limit(datasetsPerRequest));
+    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
+        .limit(getDatasetsPerRequest()));
   }
 
   /**
@@ -214,8 +216,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("dataProvider").equal(dataProvider);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
-        .limit(datasetsPerRequest));
+    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
+        .limit(getDatasetsPerRequest()));
   }
 
   /**
@@ -229,8 +231,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationId").equal(organizationId);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
-        .limit(datasetsPerRequest));
+    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
+        .limit(getDatasetsPerRequest()));
   }
 
   /**
@@ -244,16 +246,20 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationName").equal(organizationName);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
-        .limit(datasetsPerRequest));
+    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
+        .limit(getDatasetsPerRequest()));
   }
 
   public int getDatasetsPerRequest() {
-    return datasetsPerRequest;
+    synchronized (this) {
+      return datasetsPerRequest;
+    }
   }
 
   public void setDatasetsPerRequest(int datasetsPerRequest) {
-    this.datasetsPerRequest = datasetsPerRequest;
+    synchronized (this) {
+      this.datasetsPerRequest = datasetsPerRequest;
+    }
   }
 
   /**

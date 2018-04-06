@@ -212,7 +212,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       }
     }
     if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[criteriaContainer.size()]));
     }
 
     Iterator<WorkflowExecution> metisPluginsIterator = aggregation.match(query)
@@ -258,16 +258,20 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         query.order("-" + orderField.getOrderFieldName());
       }
     }
-    return query.asList(new FindOptions().skip(nextPage * workflowExecutionsPerRequest)
-        .limit(workflowExecutionsPerRequest));
+    return query.asList(new FindOptions().skip(nextPage * getWorkflowExecutionsPerRequest())
+        .limit(getWorkflowExecutionsPerRequest()));
   }
 
   public int getWorkflowExecutionsPerRequest() {
-    return workflowExecutionsPerRequest;
+    synchronized (this) {
+      return workflowExecutionsPerRequest;
+    }
   }
 
   public void setWorkflowExecutionsPerRequest(int workflowExecutionsPerRequest) {
-    this.workflowExecutionsPerRequest = workflowExecutionsPerRequest;
+    synchronized (this) {
+      this.workflowExecutionsPerRequest = workflowExecutionsPerRequest;
+    }
   }
 
   public boolean isCancelled(ObjectId id) {

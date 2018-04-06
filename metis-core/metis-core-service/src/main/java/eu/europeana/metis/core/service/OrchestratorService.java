@@ -391,6 +391,11 @@ public class OrchestratorService {
             orderField, ascending, nextPage);
   }
 
+  /**
+   * Retrieve dataset level information of past executions {@link DatasetExecutionInformation}
+   * @param datasetId the dataset identifier to generate the information for
+   * @return the structured class containing all the execution information
+   */
   public DatasetExecutionInformation getDatasetExecutionInformation(int datasetId) {
     AbstractMetisPlugin lastHarvestPlugin = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet

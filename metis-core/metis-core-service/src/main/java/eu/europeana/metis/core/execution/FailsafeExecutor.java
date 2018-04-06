@@ -13,7 +13,6 @@ import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -33,7 +32,6 @@ public class FailsafeExecutor {
    * @param orchestratorService {@link OrchestratorService}
    * @param redissonClient {@link RedissonClient}
    */
-  @Autowired
   public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
     this.lock = redissonClient.getFairLock(FAILSAFE_LOCK);

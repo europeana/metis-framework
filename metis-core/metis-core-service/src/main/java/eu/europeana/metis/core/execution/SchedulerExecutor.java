@@ -1,11 +1,11 @@
 package eu.europeana.metis.core.execution;
 
-import eu.europeana.metis.core.service.ScheduleWorkflowService;
-import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
+import eu.europeana.metis.exception.GenericMetisException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -39,7 +38,6 @@ public class SchedulerExecutor {
    * @param scheduleWorkflowService {@link ScheduleWorkflowService}
    * @param redissonClient {@link RedissonClient}
    */
-  @Autowired
   public SchedulerExecutor(OrchestratorService orchestratorService, ScheduleWorkflowService scheduleWorkflowService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
     this.scheduleWorkflowService = scheduleWorkflowService;
