@@ -1,6 +1,7 @@
 package eu.europeana.indexing.solr;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -10,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.HasMimeType;
 import eu.europeana.corelib.definitions.jibx.HasView;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
@@ -19,7 +19,12 @@ import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
+import eu.europeana.indexing.solr.crf.ImageTagExtractor;
 import eu.europeana.indexing.solr.crf.MediaType;
+import eu.europeana.indexing.solr.crf.SoundTagExtractor;
+import eu.europeana.indexing.solr.crf.TagExtractor;
+import eu.europeana.indexing.solr.crf.TextTagExtractor;
+import eu.europeana.indexing.solr.crf.VideoTagExtractor;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
 import eu.europeana.indexing.solr.property.AggregationSolrCreator;
 import eu.europeana.indexing.solr.property.ConceptSolrCreator;
@@ -32,9 +37,9 @@ import eu.europeana.indexing.solr.property.ServiceSolrCreator;
 import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 
-public class SolrDocumentCreator {
+public class SolrDocumentPopulator {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(SolrDocumentCreator.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SolrDocumentPopulator.class);
 
   /**
    * Populates a Solr document with the properties of the full bean. Please note: this method should
@@ -117,8 +122,7 @@ public class SolrDocumentCreator {
     // has_media is true if and only if there is at least one web resource of type 'view'
     // representing technical metadata (except those of type 'text/html')
     final boolean hasMedia =
-        views.stream().map(WebResourceType::getHasMimeType).filter(Objects::nonNull)
-            .map(HasMimeType::getHasMimeType).filter(mimeType -> !"text/html".equals(mimeType))
+        views.stream().map(this::getMimeType).filter(mimeType -> !"text/html".equals(mimeType))
             .map(MediaType::getType).anyMatch(type -> !type.equals(MediaType.OTHER));
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
@@ -129,8 +133,46 @@ public class SolrDocumentCreator {
         .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
     document.addField(EdmLabel.CRF_IS_FULL_TEXT.toString(), isFullText);
 
-    // TODO JOCHEN fill the other fields as well!
+    // Compose the filter and facet tags.
+    final Set<Integer> filterTags = new HashSet<>();
+    final Set<Integer> facetTags = new HashSet<>();
+    for (WebResourceType webResource : views) {
+      final TagExtractor tagExtractor = getTagExtractor(webResource);
+      filterTags.addAll(tagExtractor.getFilterTags(webResource));
+      facetTags.addAll(tagExtractor.getFacetTags(webResource));
+    }
 
+    // Add the filter and facet tags to the Solr document.
+    for (Integer tag : filterTags) {
+      document.addField(EdmLabel.CRF_FILTER_TAGS.toString(), tag);
+    }
+    for (Integer tag : facetTags) {
+      document.addField(EdmLabel.CRF_FACET_TAGS.toString(), tag);
+    }
+  }
+
+  private final TagExtractor getTagExtractor(WebResourceType webResource) {
+    // TODO JOCHEN do this more elegantly. Maybe have it as part of the MediaType enum?
+    final String mimeType = getMimeType(webResource);
+    final TagExtractor result;
+    switch (MediaType.getType(mimeType)) {
+      case IMAGE:
+        result = new ImageTagExtractor(mimeType);
+        break;
+      case VIDEO:
+        result = new VideoTagExtractor(mimeType);
+        break;
+      case AUDIO:
+        result = new SoundTagExtractor(mimeType);
+        break;
+      case TEXT:
+        result = new TextTagExtractor(mimeType);
+        break;
+      default:
+        result = null;
+        break;
+    }
+    return result;
   }
 
   private final List<WebResourceType> getViews(RDF rdf) {
@@ -142,7 +184,7 @@ public class SolrDocumentCreator {
     if (rdf.getAggregationList() != null) {
       urls = rdf.getAggregationList().stream().map(Aggregation::getHasViewList)
           .filter(Objects::nonNull).flatMap(List::stream).map(HasView::getResource)
-          .collect(Collectors.toSet());
+          .filter(Objects::nonNull).collect(Collectors.toSet());
     } else {
       urls = Collections.emptySet();
     }
@@ -161,5 +203,14 @@ public class SolrDocumentCreator {
   private boolean isEmpty(ResourceType resourceType) {
     return resourceType == null || resourceType.getResource() == null
         || resourceType.getResource().trim().isEmpty();
+  }
+
+  public String getMimeType(WebResourceType webResource) {
+    if (webResource.getHasMimeType() == null
+        || webResource.getHasMimeType().getHasMimeType() == null
+        || webResource.getHasMimeType().getHasMimeType().trim().isEmpty()) {
+      return "application/octet-stream";
+    }
+    return webResource.getHasMimeType().getHasMimeType();
   }
 }

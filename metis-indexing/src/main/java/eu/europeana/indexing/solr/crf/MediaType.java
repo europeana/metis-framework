@@ -9,24 +9,34 @@ package eu.europeana.indexing.solr.crf;
 public enum MediaType {
 
   /** Audio (sound only) **/
-  AUDIO,
+  AUDIO(2),
 
   /** Video **/
-  VIDEO,
+  VIDEO(3),
 
   /** Images **/
-  IMAGE,
+  IMAGE(1),
 
   /** Text **/
-  TEXT,
+  TEXT(4),
 
   /** Unknown type: not supported **/
-  OTHER;
+  OTHER(0);
+
+  private final int value;
+
+  MediaType(final int value) {
+    this.value = value;
+  }
+
+  public int getEncodedValue() {
+    return value << TagEncoding.MEDIA_TYPE.getBitPos();
+  }
 
   // TODO JOCHEN Merge and make library method for existing methods isText, isAudio/Video and
   // isImage in class MediaProcessor.
   /**
-   * Converts the mime type to a media type.
+   * Converts the MIME type to a media type.
    * 
    * @param mimeType The mime type to convert. Can be null.
    * @return The media type corresponding to the mime type. Does not return null, but may return

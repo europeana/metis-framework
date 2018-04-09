@@ -34,7 +34,7 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.solr.SolrDocumentCreator;
+import eu.europeana.indexing.solr.SolrDocumentPopulator;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
@@ -89,7 +89,7 @@ class FullBeanPublisher {
     final FullBeanImpl fullBean = fullBeanConverter.convertFromRdf(rdf);
 
     // Create Solr document.
-    final SolrDocumentCreator documentPopulator = new SolrDocumentCreator();
+    final SolrDocumentPopulator documentPopulator = new SolrDocumentPopulator();
     final SolrInputDocument document = new SolrInputDocument();
     documentPopulator.populateWithProperties(document, fullBean);
     documentPopulator.populateWithCrfFields(document, rdf);
