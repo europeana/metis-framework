@@ -44,6 +44,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.jibx</groupId>
+			<artifactId>jibx-run</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+
+		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>${version.commons.codec}</version>
@@ -57,6 +63,18 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${version.commons.lang}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${version.mockito.core}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

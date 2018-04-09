@@ -50,10 +50,10 @@ public class MediaProcessor implements Closeable {
 	private static final String[] THUMB_SUFFIX = { "-MEDIUM", "-LARGE" };
 	
 	private static final File tempDir = new File(System.getProperty("java.io.tmpdir"));
-	private static final Tika tika = new Tika();
-	private static final File colormapFile;
-	private static String magickCmd;
-	private static String ffprobeCmd;
+	static final File colormapFile;
+	static Tika tika = new Tika();
+	static String magickCmd;
+	static String ffprobeCmd;
 	
 	static {
 		try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
@@ -71,7 +71,7 @@ public class MediaProcessor implements Closeable {
 	
 	private EdmObject edm;
 	private Map<String, List<UrlType>> urlTypes;
-	private Map<File, String> thumbnails = new HashMap<>();
+	private Map<String, String> thumbnails = new HashMap<>();
 	
 	public MediaProcessor() {
 		if (magickCmd == null) {
@@ -127,12 +127,12 @@ public class MediaProcessor implements Closeable {
 	
 	/**
 	 * @return thumbnails for all the image resources processed since the last call
-	 *         to {@link #setEdm(EdmObject)}. The map's key is the thumbnail file,
-	 *         with the name it should be stored under. The value is the resource's
-	 *         original url. Remember to remove the files when they are no longer
-	 *         needed.
+	 *         to {@link #setEdm(EdmObject)}. The map's key is the thumbnail file
+	 *         absolute path, with the name it should be stored under. The value is
+	 *         the resource's original url. Remember to remove the files when they
+	 *         are no longer needed.
 	 */
-	public Map<File, String> getThumbnails() {
+	public Map<String, String> getThumbnails() {
 		return new HashMap<>(thumbnails);
 	}
 	
@@ -191,7 +191,7 @@ public class MediaProcessor implements Closeable {
 			if (width < THUMB_SIZE[i]) {
 				FileUtils.copyFile(content, thumb);
 			}
-			thumbnails.put(thumb, url);
+			thumbnails.put(thumb.getAbsolutePath(), url);
 		}
 	}
 	
@@ -345,11 +345,11 @@ public class MediaProcessor implements Closeable {
 		return null;
 	}
 	
-	private List<String> runCommand(List<String> command, boolean mergeError) throws IOException {
+	List<String> runCommand(List<String> command, boolean mergeError) throws IOException {
 		return runCommand(command, mergeError, null);
 	}
 	
-	private List<String> runCommand(List<String> command, boolean mergeError, byte[] inputBytes) throws IOException {
+	List<String> runCommand(List<String> command, boolean mergeError, byte[] inputBytes) throws IOException {
 		Process process = new ProcessBuilder(command).redirectErrorStream(mergeError).start();
 		if (!mergeError) {
 			commandIOThreadPool.execute(() -> {
