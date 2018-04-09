@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.api.external.model.zoho;
 
+import eu.europeana.enrichment.api.external.model.TextProperty;
+
 /**
  * This class supports representation of Zoho organization fields for API to Zoho organization
  * object that contains array of 'val'/'content' fields.
@@ -7,7 +9,7 @@ package eu.europeana.enrichment.api.external.model.zoho;
  * @author GrafR
  *
  */
-public class ZohoResponseField {
+public class ZohoResponseField implements TextProperty {
 
   private String val;
   private String content;
@@ -36,6 +38,16 @@ public class ZohoResponseField {
   @Override
   public int hashCode() {
     return val.hashCode();
+  }
+
+  @Override
+  public String getKey() {
+    return getVal();
+  }
+
+  @Override
+  public String getValue() {
+    return getContent();
   }
 
 }

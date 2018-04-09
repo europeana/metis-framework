@@ -225,7 +225,21 @@
             <!-- BabelNet ID -->
             <xsl:for-each select="wdt:P2581">
                 <xsl:element name="owl:sameAs">
-                    <xsl:attribute name="rdf:resource">http://babelnet.org/rdf/s<xsl:value-of select="text()"/>/</xsl:attribute>
+                    <xsl:attribute name="rdf:resource">http://babelnet.org/rdf/s<xsl:value-of select="text()"/></xsl:attribute>
+                </xsl:element>
+            </xsl:for-each>
+
+            <!-- BNE ID -->
+            <xsl:for-each select="wdt:P950">
+                <xsl:element name="owl:sameAs">
+                    <xsl:attribute name="rdf:resource">http://datos.bne.es/resource/<xsl:value-of select="text()"/></xsl:attribute>
+                </xsl:element>
+            </xsl:for-each>
+
+            <!-- Nomisma ID -->
+            <xsl:for-each select="wdt:P2950">
+                <xsl:element name="owl:sameAs">
+                    <xsl:attribute name="rdf:resource">http://nomisma.org/id/<xsl:value-of select="text()"/></xsl:attribute>
                 </xsl:element>
             </xsl:for-each>
 

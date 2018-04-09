@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.service.wikidata;
+package eu.europeana.enrichment.service.dao;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

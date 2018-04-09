@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.service.wikidata;
+package eu.europeana.enrichment.service.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Resource;
 
 /**
@@ -27,7 +26,7 @@ public class EdmOrganization extends EnrichmentBase {
   private Resource homepage;
 
   @XmlElement(name = "sameAs", namespace = "http://www.w3.org/2002/07/owl#")
-  private List<Part> sameAs = new ArrayList<>();
+  private List<Resource> sameAs = new ArrayList<>();
 
   @XmlElement(name = "description", namespace = "http://purl.org/dc/elements/1.1/")
   private List<Label> descriptions = new ArrayList<>();
@@ -51,11 +50,11 @@ public class EdmOrganization extends EnrichmentBase {
     this.descriptions = cloneListAcceptingNull(descriptions);
   }
   
-  public List<Part> getSameAs() {
+  public List<Resource> getSameAs() {
     return unmodifiableListAcceptingNull(sameAs);
   }
 
-  public void setSameAs(List<Part> sameAs) {
+  public void setSameAs(List<Resource> sameAs) {
     this.sameAs = cloneListAcceptingNull(sameAs);
   }
 

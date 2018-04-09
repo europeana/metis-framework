@@ -1,30 +1,25 @@
 package eu.europeana.enrichment.service.zoho;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
-
 import eu.europeana.corelib.definitions.edm.entity.Address;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
+import eu.europeana.enrichment.service.EntityConverterUtils;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import eu.europeana.enrichment.service.zoho.model.ZohoOrganizationAdapter;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
@@ -45,6 +40,12 @@ public class ZohoAccessService {
 	// private SimpleDateFormat dateFormatter = new
 	// SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
 
+  EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
+	  
+  public EntityConverterUtils getEntityConverterUtils() {
+    return entityConverterUtils;
+  }
+	
 	/**
 	 * Constructor of class with required parameters
 	 *
@@ -69,7 +70,7 @@ public class ZohoAccessService {
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
-	protected ZohoOrganization getOrganization(String organizationId)
+	public ZohoOrganization getOrganization(String organizationId)
 			throws ZohoAccessException {
 
 		JsonNode jsonRecordsResponse;
@@ -113,35 +114,38 @@ public class ZohoAccessService {
 
 		org.setAbout(URL_ORGANIZATION_PREFFIX + zoa.getZohoId());
 		org.setDcIdentifier(
-				createMapOfStringList(UNDEFINED_LANGUAGE_KEY, zoa.getZohoId()));
+		    getEntityConverterUtils().createMapOfStringList(UNDEFINED_LANGUAGE_KEY, zoa.getZohoId()));
 		String isoLanguage = toIsoLanguage(
 				zoa.getLanguageForOrganizationName());
 		org.setPrefLabel(
-				createMapOfStringList(isoLanguage, zoa.getOrganizationName()));
+		    getEntityConverterUtils().createMapOfStringList(isoLanguage, zoa.getOrganizationName()));
 		org.setAltLabel(
-				createLanguageMapOfStringList(zoa.getAlternativeLanguage(),
+		    getEntityConverterUtils().createLanguageMapOfStringList(zoa.getAlternativeLanguage(),
 						zoa.getAlternativeOrganizationName()));
-		org.setEdmAcronym(createLanguageMapOfStringList(zoa.getLangAcronym(),
+		org.setEdmAcronym(
+		    getEntityConverterUtils().createLanguageMapOfStringList(zoa.getLangAcronym(),
 				zoa.getAcronym()));
 		org.setFoafLogo(zoa.getLogo());
 		org.setFoafHomepage(zoa.getWebsite());
 
 		if (zoa.getRole() != null) {
 			String[] role = zoa.getRole().split(";");
-			org.setEdmEuropeanaRole(createLanguageMapOfStringList(
+			org.setEdmEuropeanaRole(
+			    getEntityConverterUtils().createLanguageMapOfStringList(
 					Locale.ENGLISH.getLanguage(), Arrays.asList(role)));
 		}
 		org.setEdmOrganizationDomain(
-				createMap(Locale.ENGLISH.getLanguage(), zoa.getDomain()));
+		    getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(), zoa.getDomain()));
 		org.setEdmOrganizationSector(
-				createMap(Locale.ENGLISH.getLanguage(), zoa.getSector()));
+		    getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(), zoa.getSector()));
 		org.setEdmOrganizationScope(
-				createMap(Locale.ENGLISH.getLanguage(), zoa.getScope()));
-		org.setEdmGeorgraphicLevel(createMap(Locale.ENGLISH.getLanguage(),
+		    getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(), zoa.getScope()));
+		org.setEdmGeorgraphicLevel(
+		    getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(),
 				zoa.getGeographicLevel()));
 		String organizationCountry = toEdmCountry(zoa.getOrganizationCountry());
 		org.setEdmCountry(
-				createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
+		    getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
 
 		if (zoa.getSameAs() != null && !zoa.getSameAs().isEmpty())
 			org.setOwlSameAs(zoa.getSameAs().toArray(new String[]{}));
@@ -276,88 +280,6 @@ public class ZohoAccessService {
 		JsonNode organizationNode = accountNode.get(ZohoApiFields.FIELDS_LABEL);
 		ZohoOrganization zoa = new ZohoOrganizationAdapter(organizationNode);
 		res.add(zoa);
-	}
-
-	/**
-	 * Create OrganizationImpl map from value
-	 * 
-	 * @param key
-	 *            The field name
-	 * @param value
-	 *            The value
-	 * @return map of strings and lists
-	 */
-	Map<String, List<String>> createMapOfStringList(String key, String value) {
-		if (value == null)
-			return null;
-		List<String> valueList = createList(value);
-		return createMapOfStringList(key, valueList);
-	}
-
-	Map<String, String> createMap(String key, String value) {
-		if (value == null)
-			return null;
-		Map<String, String> resMap = new HashMap<String, String>();
-		resMap.put(key, value);
-		return resMap;
-	}
-
-	List<String> createList(String value) {
-		if (value == null)
-			return null;
-
-		return Collections.singletonList(value);
-	}
-
-	/**
-	 * Create OrganizationImpl map from list of values
-	 * 
-	 * @param key
-	 *            The field name
-	 * @param value
-	 *            The list of values
-	 * @return map of strings and lists
-	 */
-	Map<String, List<String>> createMapOfStringList(String key,
-			List<String> value) {
-		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
-		resMap.put(key, value);
-		return resMap;
-	}
-
-	Map<String, List<String>> createLanguageMapOfStringList(
-			List<String> languages, List<String> values) {
-		if (languages == null)
-			return null;
-
-		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
-		for (int i = 0; i < languages.size(); i++) {
-			resMap.put(toIsoLanguage(languages.get(i)),
-					createList(values.get(i)));
-		}
-		return resMap;
-	}
-
-	Map<String, List<String>> createLanguageMapOfStringList(String language,
-			String value) {
-
-		if (value == null)
-			return null;
-
-		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
-		resMap.put(toIsoLanguage(language), createList(value));
-		return resMap;
-	}
-
-	Map<String, List<String>> createLanguageMapOfStringList(String language,
-			List<String> value) {
-
-		if (value == null)
-			return null;
-
-		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
-		resMap.put(toIsoLanguage(language), value);
-		return resMap;
 	}
 
 	public FastDateFormat getDateFormatter() {
