@@ -30,11 +30,11 @@ public enum MediaType {
   }
 
   public int getEncodedValue() {
-    return value << TagEncoding.MEDIA_TYPE.getBitPos();
+    return value << TechnicalFacet.MEDIA_TYPE.getBitPos();
   }
 
   // TODO JOCHEN Merge and make library method for existing methods isText, isAudio/Video and
-  // isImage in class MediaProcessor.
+  // isImage in class MediaProcessor. Use this class there.
   /**
    * Converts the MIME type to a media type.
    * 

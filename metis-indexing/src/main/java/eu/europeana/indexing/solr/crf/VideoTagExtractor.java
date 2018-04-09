@@ -2,9 +2,6 @@ package eu.europeana.indexing.solr.crf;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.apache.commons.lang3.StringUtils;
-import eu.europeana.corelib.definitions.jibx.Duration;
-import eu.europeana.corelib.definitions.jibx.Height;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 
 /**
@@ -14,28 +11,6 @@ public class VideoTagExtractor extends TagExtractor {
 
   // TODO JOCHEN Don't create extractor for every single web resource! Goes also for other extractors.
 
-  public VideoTagExtractor(String mimeType) {
-    super(mimeType);
-  }
-
-    public static Integer getQualityCode(Height height) {
-        if (height == null || height.getLong() < 576) return 0;
-        else return 1;
-    }
-
-    public static Integer getDurationCode(Duration duration) {
-        if (duration == null || StringUtils.isBlank(duration.getDuration())) return 0;
-        final long durationNumber;
-        try {
-            durationNumber = Long.parseLong(duration.getDuration());
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-        if (durationNumber <= 240000) return 1;
-        else if (durationNumber <= 800000) return 2;
-        else return 3;
-    }
-
     @Override
     public Set<Integer> getFilterTags(WebResourceType webResource) {
         final Set<Integer> filterTags = new HashSet<>();
@@ -44,28 +19,25 @@ public class VideoTagExtractor extends TagExtractor {
 
         final Integer mediaTypeCode = MediaType.VIDEO.getEncodedValue();
 
-        final Integer qualityCode = getQualityCode(webResource.getHeight());
-        final Integer durationCode = getDurationCode(webResource.getDuration());
-
         final Set<Integer> mimeTypeCodes = new HashSet<>();
-        mimeTypeCodes.add(getMimeTypeCode());
+        mimeTypeCodes.addAll(TechnicalFacetUtils.getMimeTypeCode(webResource));
         mimeTypeCodes.add(0);
 
         final Set<Integer> qualityCodes = new HashSet<>();
-        qualityCodes.add(qualityCode);
+        qualityCodes.addAll(TechnicalFacetUtils.getVideoQualityCode(webResource));
         qualityCodes.add(0);
 
         final Set<Integer> durationCodes = new HashSet<>();
-        durationCodes.add(durationCode);
+        durationCodes.addAll(TechnicalFacetUtils.getVideoDurationCode(webResource));
         durationCodes.add(0);
 
         for (Integer mimeType : mimeTypeCodes) {
             for (Integer quality : qualityCodes) {
                 for (Integer duration : durationCodes) {
                     final Integer result = mediaTypeCode |
-                                          (mimeType << TagEncoding.MIME_TYPE.getBitPos()) |
-                                          (quality  << TagEncoding.VIDEO_QUALITY.getBitPos()) |
-                                          (duration << TagEncoding.VIDEO_DURATION.getBitPos());
+                                          (mimeType << TechnicalFacet.MIME_TYPE.getBitPos()) |
+                                          (quality  << TechnicalFacet.VIDEO_QUALITY.getBitPos()) |
+                                          (duration << TechnicalFacet.VIDEO_DURATION.getBitPos());
 
                     filterTags.add(result);
                 }
@@ -93,17 +65,21 @@ public class VideoTagExtractor extends TagExtractor {
 
         Integer facetTag;
 
-        facetTag = mediaTypeCode | (getMimeTypeCode() << TagEncoding.MIME_TYPE.getBitPos());
-        facetTags.add(facetTag);
+        for (Integer mimeTypeCode: TechnicalFacetUtils.getMimeTypeCode(webResource)) {
+            facetTag = mediaTypeCode | (mimeTypeCode << TechnicalFacet.MIME_TYPE.getBitPos());
+            facetTags.add(facetTag);
+        }
 
-        final Integer qualityCode = getQualityCode(webResource.getHeight());
-        facetTag = mediaTypeCode | (qualityCode << TagEncoding.VIDEO_QUALITY.getBitPos());
-        facetTags.add(facetTag);
+        for(Integer qualityCode: TechnicalFacetUtils.getVideoQualityCode(webResource)) {
+            facetTag = mediaTypeCode | (qualityCode << TechnicalFacet.VIDEO_QUALITY.getBitPos());
+            facetTags.add(facetTag);
+        }
 
-        final Integer durationCode = getDurationCode(webResource.getDuration());
-        facetTag = mediaTypeCode | (durationCode << TagEncoding.VIDEO_DURATION.getBitPos());
-        facetTags.add(facetTag);
-
+        for (Integer durationCode: TechnicalFacetUtils.getVideoDurationCode(webResource)) {
+            facetTag = mediaTypeCode | (durationCode << TechnicalFacet.VIDEO_DURATION.getBitPos());
+            facetTags.add(facetTag);
+        }
+        
         return facetTags;
     }
 

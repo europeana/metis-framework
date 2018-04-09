@@ -23,6 +23,7 @@ import eu.europeana.indexing.solr.crf.ImageTagExtractor;
 import eu.europeana.indexing.solr.crf.MediaType;
 import eu.europeana.indexing.solr.crf.SoundTagExtractor;
 import eu.europeana.indexing.solr.crf.TagExtractor;
+import eu.europeana.indexing.solr.crf.TechnicalFacetUtils;
 import eu.europeana.indexing.solr.crf.TextTagExtractor;
 import eu.europeana.indexing.solr.crf.VideoTagExtractor;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
@@ -121,9 +122,9 @@ public class SolrDocumentPopulator {
 
     // has_media is true if and only if there is at least one web resource of type 'view'
     // representing technical metadata (except those of type 'text/html')
-    final boolean hasMedia =
-        views.stream().map(this::getMimeType).filter(mimeType -> !"text/html".equals(mimeType))
-            .map(MediaType::getType).anyMatch(type -> !type.equals(MediaType.OTHER));
+    final boolean hasMedia = views.stream().map(TechnicalFacetUtils::getMimeType)
+        .filter(mimeType -> !"text/html".equals(mimeType)).map(MediaType::getType)
+        .anyMatch(type -> !type.equals(MediaType.OTHER));
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
     // is_fulltext is true if and only if there is at least one web resource of type 'view'
@@ -153,20 +154,20 @@ public class SolrDocumentPopulator {
 
   private final TagExtractor getTagExtractor(WebResourceType webResource) {
     // TODO JOCHEN do this more elegantly. Maybe have it as part of the MediaType enum?
-    final String mimeType = getMimeType(webResource);
+    final String mimeType = TechnicalFacetUtils.getMimeType(webResource);
     final TagExtractor result;
     switch (MediaType.getType(mimeType)) {
       case IMAGE:
-        result = new ImageTagExtractor(mimeType);
+        result = new ImageTagExtractor();
         break;
       case VIDEO:
-        result = new VideoTagExtractor(mimeType);
+        result = new VideoTagExtractor();
         break;
       case AUDIO:
-        result = new SoundTagExtractor(mimeType);
+        result = new SoundTagExtractor();
         break;
       case TEXT:
-        result = new TextTagExtractor(mimeType);
+        result = new TextTagExtractor();
         break;
       default:
         result = null;
@@ -203,14 +204,5 @@ public class SolrDocumentPopulator {
   private boolean isEmpty(ResourceType resourceType) {
     return resourceType == null || resourceType.getResource() == null
         || resourceType.getResource().trim().isEmpty();
-  }
-
-  public String getMimeType(WebResourceType webResource) {
-    if (webResource.getHasMimeType() == null
-        || webResource.getHasMimeType().getHasMimeType() == null
-        || webResource.getHasMimeType().getHasMimeType().trim().isEmpty()) {
-      return "application/octet-stream";
-    }
-    return webResource.getHasMimeType().getHasMimeType();
   }
 }
