@@ -1,0 +1,60 @@
+{
+    "streams": [
+        {
+            "index": 0,
+            "codec_name": "mp3",
+            "codec_long_name": "MP3 (MPEG audio layer 3)",
+            "codec_type": "audio",
+            "codec_time_base": "1/44100",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "sample_fmt": "s16p",
+            "sample_rate": "44100",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/14112000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 2541035650,
+            "duration": "180.062050",
+            "bit_rate": "320000",
+            "disposition": {
+                "default": 0,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0
+            }
+        }
+    ],
+    "format": {
+        "filename": "http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3",
+        "nb_streams": 1,
+        "nb_programs": 0,
+        "format_name": "mp3",
+        "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
+        "start_time": "0.000000",
+        "duration": "180.062050",
+        "size": "7205015",
+        "bit_rate": "320112",
+        "probe_score": 51,
+        "tags": {
+            "title": "bogota_30_tercer_milenio_parade",
+            "artist": "Tixier & alii",
+            "TCM": "CRESSON - Centre de recherche sur l'espace sonore et l'environnement urbain",
+            "album": "Bogota case study",
+            "encoded_by": "iTunes 10.6.1",
+            "genre": "Environnement sonore",
+            "date": "2009"
+        }
+    }
+}

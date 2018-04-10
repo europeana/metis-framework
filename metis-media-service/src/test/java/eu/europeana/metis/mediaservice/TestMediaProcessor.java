@@ -11,13 +11,17 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class TestMediaProcessor {
 	
+	static File tempDir = new File(System.getProperty("java.io.tmpdir"));
 	static MediaProcessor originalProcessor;
+	
 	EdmObject.Parser parser = new EdmObject.Parser();
 	EdmObject.Writer writer = new EdmObject.Writer();
 	
@@ -38,8 +42,8 @@ public class TestMediaProcessor {
 		return IOUtils.readLines(getClass().getClassLoader().getResourceAsStream(resource), "UTF-8");
 	}
 	
-	private byte[] bytes(String resource) throws IOException {
-		return IOUtils.toByteArray(getClass().getClassLoader().getResourceAsStream(resource));
+	private String string(String resource) throws IOException {
+		return IOUtils.toString(getClass().getClassLoader().getResourceAsStream(resource), "UTF-8");
 	}
 	
 	private EdmObject edm(String resource) throws MediaException {
@@ -50,11 +54,11 @@ public class TestMediaProcessor {
 	public void processImage() throws IOException, MediaException {
 		String url = "http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg";
 		String md5 = "6d27e9f0dcdbf33afc07d952cc5c2833";
-		File file = spy(new File("/tmp/media8313043870723212585.tmp"));
+		File file = spy(new File(tempDir, "media8313043870723212585.tmp"));
 		when(file.length()).thenReturn(83943L);
 		
-		File thumb1 = spy(new File("/tmp/media_thumbnails_0/" + md5 + "-MEDIUM.jpeg"));
-		File thumb2 = spy(new File("/tmp/media_thumbnails_0/" + md5 + "-LARGE.jpeg"));
+		File thumb1 = new File(tempDir, "media_thumbnails_0/" + md5 + "-MEDIUM.jpeg");
+		File thumb2 = new File(tempDir, "media_thumbnails_0/" + md5 + "-LARGE.jpeg");
 		
 		MediaProcessor processor = spy(originalProcessor);
 		List<String> command1 = Arrays.asList("magick", file.getPath() + "[0]",
@@ -63,11 +67,11 @@ public class TestMediaProcessor {
 				"-thumbnail", "400x", "-write", thumb2.getPath(),
 				"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", MediaProcessor.colormapFile.getPath(),
 				"-format", "\n%c", "histogram:info:");
-		when(processor.runCommand(command1, false)).thenAnswer(i -> {
+		doAnswer(i -> {
 			FileUtils.writeByteArrayToFile(thumb1, new byte[] { 0 });
 			FileUtils.writeByteArrayToFile(thumb2, new byte[] { 0 });
 			return lines("image1-magick-output1.txt");
-		});
+		}).when(processor).runCommand(command1, false);
 		
 		doReturn("image/jpeg").when(MediaProcessor.tika).detect(file);
 		
@@ -81,11 +85,59 @@ public class TestMediaProcessor {
 			assertTrue(thumb2.delete());
 		}
 		
-		assertArrayEquals(bytes("image1-output.xml"), writer.toXmlBytes(edm));
+		assertEquals(string("image1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
 		
 		Map<String, String> thumbs = processor.getThumbnails();
 		assertEquals(2, thumbs.size());
 		assertEquals(url, thumbs.get(thumb1.getAbsolutePath()));
 		assertEquals(url, thumbs.get(thumb2.getAbsolutePath()));
+	}
+	
+	@Test
+	public void processAudio() throws IOException, MediaException {
+		String url = "http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3";
+		
+		MediaProcessor processor = spy(originalProcessor);
+		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
+				"-show_format", "-show_streams", "-hide_banner", url);
+		doReturn(lines("audio1-ffprobe-output1.txt")).when(processor).runCommand(command, false);
+		
+		doReturn("audio/mpeg").when(MediaProcessor.tika).detect(any(URL.class));
+		
+		EdmObject edm = edm("audio1-input.xml");
+		processor.setEdm(edm);
+		processor.processResource(url, "audio/mpeg", null);
+		
+		assertEquals(string("audio1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
+	}
+	
+	@Test
+	public void processVideo() throws IOException, MediaException {
+		String url = "http://maccinema.com/info/filmovi/dae.mp4";
+		
+		MediaProcessor processor = spy(originalProcessor);
+		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
+				"-show_format", "-show_streams", "-hide_banner", url);
+		doReturn(lines("video1-ffprobe-outptu1.txt")).when(processor).runCommand(command, false);
+		
+		doReturn("video/mp4").when(MediaProcessor.tika).detect(any(URL.class));
+		
+		EdmObject edm = edm("video1-input.xml");
+		processor.setEdm(edm);
+		processor.processResource(url, "audio/mpeg", null);
+		
+		assertEquals(string("video1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
+	}
+	
+	@Test
+	public void processPdf() throws MediaException, IOException, URISyntaxException {
+		MediaProcessor processor = spy(originalProcessor);
+		
+		EdmObject edm = edm("pdf1-input.xml");
+		processor.setEdm(edm);
+		processor.processResource("http://sample.edu.eu/data/sample1.pdf", "application/pdf",
+				new File(getClass().getClassLoader().getResource("pdf1.pdf").toURI()));
+		
+		assertEquals(string("pdf1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
 	}
 }

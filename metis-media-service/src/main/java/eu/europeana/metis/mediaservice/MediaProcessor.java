@@ -35,6 +35,7 @@ import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.ImageRenderInfo;
 import com.itextpdf.text.pdf.parser.Matrix;
@@ -50,9 +51,13 @@ public class MediaProcessor implements Closeable {
 	private static final String[] THUMB_SUFFIX = { "-MEDIUM", "-LARGE" };
 	
 	private static final File tempDir = new File(System.getProperty("java.io.tmpdir"));
+	@VisibleForTesting
 	static final File colormapFile;
+	@VisibleForTesting
 	static Tika tika = new Tika();
+	@VisibleForTesting
 	static String magickCmd;
+	@VisibleForTesting
 	static String ffprobeCmd;
 	
 	static {
