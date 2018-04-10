@@ -1,12 +1,15 @@
 package eu.europeana.indexing.solr.crf;
 
+import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+/**
+ * This enum contains all supported colors.
+ */
 public enum ColorEncoding {
 
-  COLOR_0("", 0),
   COLOR_1("F0F8FF", 1),
   COLOR_2("FAEBD7", 2),
   COLOR_3("00FFFF", 3),
@@ -167,14 +170,31 @@ public enum ColorEncoding {
   }
 
   /**
-   * Codifies the given color
    * 
-   * @param hexString the hexadecimal string representation of the color
-   * @return the integer representation of the color
+   * @return The hexadecimal string representing this color.
    */
-  public static Integer getColorCode(final String hexString) {
+  String getHexString() {
+    return hexString;
+  }
+
+  /**
+   * 
+   * @return The code (unshifted) that is assigned to this color.
+   */
+  int getCode() {
+    return code;
+  }
+
+  /**
+   * Codifies the given color (but doesn't shift the code).
+   * 
+   * @param hexString The hexadecimal string representation of the color
+   * @return The integer represantation of the color, or 0 if the color could not be found.
+   */
+  static Integer getColorCode(final String hexString) {
     final Integer retval =
-        StringUtils.isNotBlank(hexString) ? getColorMap().get(hexString.toUpperCase()) : null;
-    return retval == null ? COLOR_0.code : retval;
+        StringUtils.isNotBlank(hexString) ? getColorMap().get(hexString.toUpperCase(Locale.ENGLISH))
+            : null;
+    return retval == null ? 0 : retval;
   }
 }

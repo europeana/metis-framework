@@ -1,15 +1,15 @@
 package eu.europeana.indexing.solr.crf;
 
+import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 /**
- * Generates the common pure tags (mimetype and mediatype)
+ * This enum contains all supported mime types.
  */
 public enum MimeTypeEncoding {
 
-  TYPE_0("", 0),
   TYPE_1("application/andrew-inset", 1),
   TYPE_2("application/applixware", 2),
   TYPE_3("application/atom+xml", 3),
@@ -780,7 +780,6 @@ public enum MimeTypeEncoding {
   TYPE_768("audio/flac", 768),
   TYPE_769("pdf", 769),
   TYPE_770("image", 770),
-  TYPE_771("image/pjpeg", 771),
   TYPE_772("image/jpg", 772),
   TYPE_773("audio/x-mpeg", 773),
   TYPE_774("audio/mpeg3", 774),
@@ -807,13 +806,31 @@ public enum MimeTypeEncoding {
   }
 
   /**
-   * Codifies the given mimetype
    * 
-   * @param type the mimetype of the resource
-   * @return the integer represantation of the mimetype
+   * @return The mime type represented by this encoding.
    */
-  public static Integer getMimeTypeCode(final String type) {
-    final Integer retval = StringUtils.isNotBlank(type) ? getMimeTypeMap().get(type.toLowerCase()) : null;
+  String getMimeType() {
+    return mimeType;
+  }
+  
+  /**
+   * 
+   * @return The code (unshifted) that is assigned to this mime type.
+   */
+  int getCode() {
+    return code;
+  }
+  
+  /**
+   * Codifies the given mimetype (but doesn't shift the code).
+   * 
+   * @param type The mimetype of the resource
+   * @return The integer represantation of the mimetype, or 0 if the mime type could not be found.
+   */
+  static Integer getMimeTypeCode(final String type) {
+    final Integer retval =
+        StringUtils.isNotBlank(type) ? getMimeTypeMap().get(type.toLowerCase(Locale.ENGLISH))
+            : null;
     return retval == null ? 0 : retval;
   }
 }
