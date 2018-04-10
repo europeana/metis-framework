@@ -4,14 +4,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
+import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import org.junit.After;
@@ -19,6 +25,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mongodb.morphia.Datastore;
 
 public class TestDatasetDao {
@@ -27,6 +34,7 @@ public class TestDatasetDao {
   private static Dataset dataset;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
   private static MorphiaDatastoreProvider provider;
+  private static DataSetServiceClient ecloudDataSetServiceClient;
 
   @BeforeClass
   public static void prepare() throws IOException {
@@ -37,9 +45,11 @@ public class TestDatasetDao {
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
     provider = new MorphiaDatastoreProvider(mongoClient, "test");
+    ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
 
-    datasetDao = new DatasetDao(provider);
+    datasetDao = new DatasetDao(provider, ecloudDataSetServiceClient);
     datasetDao.setDatasetsPerRequest(1);
+    datasetDao.setEcloudProvider("ecloudProvider");
 
     dataset = TestObjectFactory.createDataset("testName");
   }
@@ -54,6 +64,7 @@ public class TestDatasetDao {
     Datastore datastore = provider.getDatastore();
     datastore.delete(datastore.createQuery(Dataset.class));
     datastore.delete(datastore.createQuery(DatasetIdSequence.class));
+    Mockito.reset(ecloudDataSetServiceClient);
   }
 
   @Test
@@ -345,4 +356,40 @@ public class TestDatasetDao {
     assertEquals(3, nextInSequenceDatasetId);
   }
 
+  @Test
+  public void testCheckAndCreateDatasetInEcloud() throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset("datasetName");
+    datasetDao.create(dataset);
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenReturn(null);
+
+    datasetDao.checkAndCreateDatasetInEcloud(dataset);
+  }
+
+  @Test
+  public void testCheckAndCreateDatasetInEcloud_FieldWithEcloudIdIsAlreadyPresent() throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset("datasetName");
+    dataset.setEcloudDatasetId("f525f64c-fea0-44bf-8c56-88f30962734c");
+    datasetDao.create(dataset);
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenReturn(null);
+
+    datasetDao.checkAndCreateDatasetInEcloud(dataset);
+  }
+
+  @Test(expected = ExternalTaskException.class)
+  public void testCheckAndCreateDatasetInEcloud_DataSetAlreadyExistsException() throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset("datasetName");
+    datasetDao.create(dataset);
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenThrow(new DataSetAlreadyExistsException("Dataset already exist, not recreating"));
+
+    datasetDao.checkAndCreateDatasetInEcloud(dataset);
+  }
+
+  @Test(expected = ExternalTaskException.class)
+  public void testCheckAndCreateDatasetInEcloud_MCSException() throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset("datasetName");
+    datasetDao.create(dataset);
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenThrow(new MCSException("An error has occurred during ecloud dataset creation."));
+
+    datasetDao.checkAndCreateDatasetInEcloud(dataset);
+  }
 }

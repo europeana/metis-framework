@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -37,18 +38,21 @@ public class TestSchedulerExecutor {
 
   private static int periodicSchedulerCheckInSecs = 1;
   private static OrchestratorService orchestratorService;
+  private static ScheduleWorkflowService scheduleWorkflowService;
   private static RedissonClient redissonClient;
   private static final String SCHEDULER_LOCK = "schedulerLock";
 
   @BeforeClass
   public static void prepare() {
     orchestratorService = Mockito.mock(OrchestratorService.class);
+    scheduleWorkflowService = Mockito.mock(ScheduleWorkflowService.class);
     redissonClient = Mockito.mock(RedissonClient.class);
   }
 
   @After
   public void cleanUp() {
     Mockito.reset(orchestratorService);
+    Mockito.reset(scheduleWorkflowService);
     Mockito.reset(redissonClient);
   }
 
@@ -58,6 +62,7 @@ public class TestSchedulerExecutor {
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
+        scheduleWorkflowService,
         redissonClient);
 
     int userWorkflowExecutionsPerRequest = 3;
@@ -75,14 +80,14 @@ public class TestSchedulerExecutor {
         .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now,
             ScheduleFrequence.MONTHLY);
 
-    when(orchestratorService.getScheduledWorkflowsPerRequest())
+    when(scheduleWorkflowService.getScheduledWorkflowsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest);
 
-    when(orchestratorService.getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
+    when(scheduleWorkflowService.getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
         any(LocalDateTime.class), anyInt()))
         .thenReturn(listOfScheduledWorkflowsWithDateONCE);
     when(
-        orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt()))
+        scheduleWorkflowService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt()))
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
@@ -93,11 +98,11 @@ public class TestSchedulerExecutor {
 
     schedulerExecutor.performScheduling();
 
-    verify(orchestratorService, times(4)).getScheduledWorkflowsPerRequest();
-    verify(orchestratorService, times(1))
+    verify(scheduleWorkflowService, times(4)).getScheduledWorkflowsPerRequest();
+    verify(scheduleWorkflowService, times(1))
         .getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
             any(LocalDateTime.class), anyInt());
-    verify(orchestratorService, times(3))
+    verify(scheduleWorkflowService, times(3))
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, atMost(listSize * 4))
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
@@ -109,6 +114,7 @@ public class TestSchedulerExecutor {
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
+        scheduleWorkflowService,
         redissonClient);
 
     int userWorkflowExecutionsPerRequest = 3;
@@ -125,14 +131,14 @@ public class TestSchedulerExecutor {
         .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past,
             ScheduleFrequence.MONTHLY);
 
-    when(orchestratorService.getScheduledWorkflowsPerRequest())
+    when(scheduleWorkflowService.getScheduledWorkflowsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest);
 
-    when(orchestratorService.getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
+    when(scheduleWorkflowService.getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
         any(LocalDateTime.class), anyInt()))
         .thenReturn(new ArrayList<>());
     when(
-        orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt()))
+        scheduleWorkflowService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt()))
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
@@ -144,11 +150,11 @@ public class TestSchedulerExecutor {
 
     schedulerExecutor.performScheduling();
 
-    verify(orchestratorService, times(4)).getScheduledWorkflowsPerRequest();
-    verify(orchestratorService, times(1))
+    verify(scheduleWorkflowService, times(4)).getScheduledWorkflowsPerRequest();
+    verify(scheduleWorkflowService, times(1))
         .getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
             any(LocalDateTime.class), anyInt());
-    verify(orchestratorService, times(3))
+    verify(scheduleWorkflowService, times(3))
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, times(0))
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), isNull(), anyInt());
@@ -159,6 +165,7 @@ public class TestSchedulerExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
+        scheduleWorkflowService,
         redissonClient);
     doNothing().when(rlock).lock();
     doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
@@ -171,7 +178,7 @@ public class TestSchedulerExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
-        redissonClient);
+        scheduleWorkflowService, redissonClient);
     doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
     doThrow(new RedisConnectionException("Connection error")).when(rlock).unlock();
     schedulerExecutor.performScheduling();

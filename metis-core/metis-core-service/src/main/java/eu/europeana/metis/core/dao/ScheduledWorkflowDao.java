@@ -28,7 +28,8 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledWorkflowDao.class);
   private static final String DATASET_ID = "datasetId";
-  private int scheduledWorkflowPerRequest = RequestLimits.SCHEDULED_EXECUTIONS_PER_REQUEST.getLimit();
+  private int scheduledWorkflowPerRequest = RequestLimits.SCHEDULED_EXECUTIONS_PER_REQUEST
+      .getLimit();
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
   @Autowired
@@ -143,16 +144,20 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
         query.criteria("pointerDate")
             .lessThan(Date.from(upperBound.atZone(ZoneId.systemDefault()).toInstant())));
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * scheduledWorkflowPerRequest)
-        .limit(scheduledWorkflowPerRequest));
+    return query.asList(new FindOptions().skip(nextPage * getScheduledWorkflowPerRequest())
+        .limit(getScheduledWorkflowPerRequest()));
 
   }
 
   public int getScheduledWorkflowPerRequest() {
-    return scheduledWorkflowPerRequest;
+    synchronized (this) {
+      return scheduledWorkflowPerRequest;
+    }
   }
 
   public void setScheduledWorkflowPerRequest(int scheduledWorkflowPerRequest) {
-    this.scheduledWorkflowPerRequest = scheduledWorkflowPerRequest;
+    synchronized (this) {
+      this.scheduledWorkflowPerRequest = scheduledWorkflowPerRequest;
+    }
   }
 }

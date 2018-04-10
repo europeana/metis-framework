@@ -96,7 +96,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .equal(workflow.getWorkflowOwner()).field(DATASET_ID)
         .equal(workflow.getDatasetId())
         .project("_id", true).get();
-    return storedWorkflow != null ? storedWorkflow.getId().toString() : null;
+    return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }
 
   /**
@@ -123,16 +123,20 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .createQuery(Workflow.class);
     query.field(WORKFLOW_OWNER).equal(workflowOwner);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * workflowsPerRequest)
-        .limit(workflowsPerRequest));
+    return query.asList(new FindOptions().skip(nextPage * getWorkflowsPerRequest())
+        .limit(getWorkflowsPerRequest()));
   }
 
-  public synchronized int getWorkflowsPerRequest() {
+  public int getWorkflowsPerRequest() {
+    synchronized (this) {
       return workflowsPerRequest;
+    }
   }
 
-  public synchronized void setWorkflowsPerRequest(int workflowsPerRequest) {
+  public void setWorkflowsPerRequest(int workflowsPerRequest) {
+    synchronized (this) {
       this.workflowsPerRequest = workflowsPerRequest;
+    }
   }
 }
 
