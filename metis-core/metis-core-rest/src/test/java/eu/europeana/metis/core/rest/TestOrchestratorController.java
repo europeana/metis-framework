@@ -256,68 +256,6 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void addWorkflowInQueueOfWorkflowExecutions_direct() throws Exception {
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class), isNull(), anyInt()))
-        .thenReturn(workflowExecution);
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(
-        post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
-            TestObjectFactory.DATASETID)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(workflow)))
-        .andExpect(status().is(201))
-        .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.INQUEUE.name())));
-  }
-
-  @Test
-  public void addWorkflowInQueueOfWorkflowExecutions_direct_WorkflowExecutionAlreadyExistsException()
-      throws Exception {
-    doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class), isNull(), anyInt());
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(
-        post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
-            TestObjectFactory.DATASETID)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(workflow)))
-        .andExpect(status().is(409))
-        .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
-  }
-
-  @Test
-  public void addWorkflowInQueueOfWorkflowExecutions_direct_NoDatasetFoundException()
-      throws Exception {
-    doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class), isNull(), anyInt());
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(
-        post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
-            TestObjectFactory.DATASETID)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(workflow)))
-        .andExpect(status().is(404))
-        .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
-  }
-
-  @Test
-  public void addWorkflowInQueueOfWorkflowExecutions_direct_WorkflowAlreadyExistsException()
-      throws Exception {
-    doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class), isNull(), anyInt());
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(
-        post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
-            TestObjectFactory.DATASETID)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(workflow)))
-        .andExpect(status().is(409))
-        .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
-  }
-
-  @Test
   public void cancelWorkflowExecution() throws Exception {
     doNothing().when(orchestratorService).cancelWorkflowExecution(anyString());
     orchestratorControllerMock.perform(

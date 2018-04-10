@@ -195,27 +195,6 @@ public class OrchestratorController {
   }
 
   /**
-   * @deprecated
-   */
-  @Deprecated
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT, method = RequestMethod.POST, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.CREATED)
-  @ResponseBody
-  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
-      @PathVariable("datasetId") int datasetId, @RequestBody Workflow workflow,
-      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType,
-      @RequestParam(value = "priority", defaultValue = "0") int priority)
-      throws GenericMetisException {
-    WorkflowExecution workflowExecution = orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflow, enforcedPluginType, priority);
-    LOGGER.info(
-        "WorkflowExecution for datasetId '{}' with workflowOwner '{}' started", datasetId,
-        workflow.getWorkflowOwner());
-    return workflowExecution;
-  }
-
-  /**
    * Request to cancel a workflow execution.
    * The execution will go into a cancelling state until it's properly {@link WorkflowStatus#CANCELLED} from the system
    *

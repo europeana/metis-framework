@@ -253,42 +253,6 @@ public class OrchestratorService {
     return workflowExecutionDao.getById(objectId);
   }
 
-  /**
-   * @deprecated
-   */
-  @Deprecated
-  //Used for direct, on the fly provided, execution of a Workflow
-  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
-      Workflow workflow, PluginType enforcedPluginType,
-      int priority)
-      throws GenericMetisException {
-    Dataset dataset = checkDatasetExistence(datasetId);
-    //Generate uuid workflowName and check if by any chance it exists.
-    checkRestrictionsOnWorkflowCreate(workflow);
-    datasetDao.checkAndCreateDatasetInEcloud(dataset);
-
-    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
-        createMetisPluginsList(dataset, workflow, enforcedPluginType), priority);
-    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    RLock executionDatasetIdLock = redissonClient
-        .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
-    executionDatasetIdLock.lock();
-    String storedWorkflowExecutionId = workflowExecutionDao.existsAndNotCompleted(datasetId);
-    if (storedWorkflowExecutionId != null) {
-      executionDatasetIdLock.unlock();
-      throw new WorkflowExecutionAlreadyExistsException(
-          String.format(
-              "Workflow execution for datasetId: %s, already exists with id: %s, and is not completed",
-              datasetId, storedWorkflowExecutionId));
-    }
-    workflowExecution.setCreatedDate(new Date());
-    String objectId = workflowExecutionDao.create(workflowExecution);
-    executionDatasetIdLock.unlock();
-    workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
-    LOGGER.info("WorkflowExecution with id: {}, added to execution queue", objectId);
-    return workflowExecutionDao.getById(objectId);
-  }
-
   private List<AbstractMetisPlugin> createMetisPluginsList(Dataset dataset, Workflow workflow,
       PluginType enforcedPluginType)
       throws PluginExecutionNotAllowed {

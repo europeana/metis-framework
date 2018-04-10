@@ -410,67 +410,6 @@ public class TestOrchestratorService {
   }
 
   @Test
-  public void addWorkflowInQueueOfWorkflowExecutionsByWorkflow()
-      throws Exception {
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(workflowDao.exists(workflow)).thenReturn(null);
-    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    RLock rlock = mock(RLock.class);
-    when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
-    doNothing().when(rlock).lock();
-    String objectId = new ObjectId().toString();
-    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
-    doNothing().when(rlock).unlock();
-    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
-    orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(), workflow,
-            null, 0);
-  }
-
-  @Test(expected = NoDatasetFoundException.class)
-  public void addWorkflowInQueueOfWorkflowExecutionsByWorkflow_NoDatasetFoundException()
-      throws Exception {
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(null);
-    orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID, workflow,
-            null, 0);
-  }
-
-  @Test(expected = WorkflowAlreadyExistsException.class)
-  public void addWorkflowInQueueOfWorkflowExecutionsByWorkflow_WorkflowAlreadyExistsException()
-      throws Exception {
-
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.exists(workflow)).thenReturn(new ObjectId().toString());
-    orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            workflow, null, 0);
-  }
-
-  @Test(expected = WorkflowExecutionAlreadyExistsException.class)
-  public void addWorkflowInQueueOfWorkflowExecutionsByWorkflow_WorkflowExecutionAlreadyExistsException()
-      throws Exception {
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.exists(workflow)).thenReturn(null);
-    RLock rlock = mock(RLock.class);
-    when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
-    doNothing().when(rlock).lock();
-    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()))
-        .thenReturn(new ObjectId().toString());
-    doNothing().when(rlock).unlock();
-    orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            workflow, null, 0);
-  }
-
-  @Test
   public void cancelWorkflowExecution() throws Exception {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
