@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaservice;
 
+import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,7 +16,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -24,22 +24,22 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.pdfbox.cos.COSName;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDResources;
-import org.apache.pdfbox.pdmodel.graphics.PDXObject;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
-import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.tika.Tika;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.parser.ImageRenderInfo;
+import com.itextpdf.text.pdf.parser.Matrix;
+import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
+import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
 import eu.europeana.metis.mediaservice.WebResource.Orientation;
 
 public class MediaProcessor implements Closeable {
@@ -309,19 +309,19 @@ public class MediaProcessor implements Closeable {
 		Integer resolution = null;
 		
 		if ("application/pdf".equals(mimeType)) {
-			try (PDDocument document = PDDocument.load(contents)) {
-				PDFTextStripper pdfStripper = new PDFTextStripper();
-				String text = pdfStripper.getText(document).replaceAll("\\s", "");
-				containsText = !text.isEmpty();
-				
-				PDImageXObject image = findFirstImage(document);
-				if (image != null && image.getMetadata() != null) {
-					String metadata = IOUtils.toString(image.getMetadata().createInputStream(), "UTF-8");
-					Matcher resolutionMatcher = Pattern
-							.compile("<exif:XResolution>\\s*([0-9]+)\\s*</exif:XResolution>").matcher(metadata);
-					if (resolutionMatcher.find())
-						resolution = Integer.valueOf(resolutionMatcher.group(1));
+			PdfReader reader = new PdfReader(contents.getAbsolutePath());
+			try {
+				PdfReaderContentParser parser = new PdfReaderContentParser(reader);
+				PdfListener pdfListener = new PdfListener();
+				for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+					parser.processContent(i, pdfListener);
+					resolution = pdfListener.dpi;
+					containsText = !StringUtils.isBlank(pdfListener.getResultantText());
+					if (resolution != null && containsText)
+						break;
 				}
+			} finally {
+				reader.close();
 			}
 		}
 		
@@ -330,19 +330,6 @@ public class MediaProcessor implements Closeable {
 		resource.setFileSize(contents.length());
 		resource.setContainsText(containsText);
 		resource.setResolution(resolution);
-	}
-	
-	private PDImageXObject findFirstImage(PDDocument document) throws IOException {
-		for (int i = 0; i < document.getNumberOfPages(); i++) {
-			PDResources res = document.getPage(i).getResources();
-			Iterator<COSName> it = res.getXObjectNames().iterator();
-			while (it.hasNext()) {
-				PDXObject xObject = res.getXObject(it.next());
-				if (xObject instanceof PDImageXObject)
-					return (PDImageXObject) xObject;
-			}
-		}
-		return null;
 	}
 	
 	List<String> runCommand(List<String> command, boolean mergeError) throws IOException {
@@ -443,6 +430,32 @@ public class MediaProcessor implements Closeable {
 			return true;
 		default:
 			return mimeType.startsWith("text/");
+		}
+	}
+	
+	private static class PdfListener extends SimpleTextExtractionStrategy {
+		Integer dpi;
+		
+		@Override
+		public void renderImage(ImageRenderInfo iri) {
+			try {
+				if (dpi != null)
+					return;
+				BufferedImage image = iri.getImage().getBufferedImage();
+				int wPx = image.getWidth();
+				int hPx = image.getHeight();
+				
+				Matrix m = iri.getImageCTM();
+				final int displayDpi = 72;
+				double wInch = (double) m.get(Matrix.I11) / displayDpi;
+				double hInch = (double) m.get(Matrix.I22) / displayDpi;
+				
+				long xdpi = Math.abs(Math.round(wPx / wInch));
+				long ydpi = Math.abs(Math.round(hPx / hInch));
+				dpi = (int) Math.min(xdpi, ydpi);
+			} catch (IOException e) {
+				LOGGER.info("Could not extract PDF image", e);
+			}
 		}
 	}
 }

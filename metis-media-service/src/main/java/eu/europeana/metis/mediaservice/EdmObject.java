@@ -61,6 +61,8 @@ public final class EdmObject {
 	}
 	
 	WebResource getWebResource(String url) {
+		if (rdf.getWebResourceList() == null)
+			rdf.setWebResourceList(new ArrayList<>());
 		for (WebResourceType resource : rdf.getWebResourceList()) {
 			if (resource.getAbout().equals(url))
 				return new WebResource(resource);
