@@ -148,7 +148,8 @@ public class WorkflowExecutorManager {
       LOGGER.info("WorkflowExecution id: {} received from queue.", objectId);
       //Clean thread pool, some executions might have already finished
       if (threadsCounter >= maxConcurrentThreads) {
-        LOGGER.debug("Trying to clean thread pool, found thread pool full with threadsCounter: {}, maxConcurrentThreads: {}",
+        LOGGER.debug(
+            "Trying to clean thread pool, found thread pool full with threadsCounter: {}, maxConcurrentThreads: {}",
             threadsCounter, maxConcurrentThreads);
         checkAndCleanCompletionService();
       }
@@ -176,7 +177,8 @@ public class WorkflowExecutorManager {
               workflowExecution.getId());
         }
         rabbitmqChannel
-            .basicAck(rabbitmqEnvelope.getDeliveryTag(), false);//Send ACK back to remove from queue asap.
+            .basicAck(rabbitmqEnvelope.getDeliveryTag(),
+                false);//Send ACK back to remove from queue asap.
         LOGGER.debug("ACK sent for {} with tag {}", workflowExecution.getId(),
             rabbitmqEnvelope.getDeliveryTag());
       }
@@ -198,7 +200,8 @@ public class WorkflowExecutorManager {
         LOGGER.error(
             "Interrupted while polling for taking a Future from the ExecutorCompletionService",
             e);
-        throw new IOException("Interrupted while polling for taking a Future from the ExecutorCompletionService", e);
+        throw new IOException(
+            "Interrupted while polling for taking a Future from the ExecutorCompletionService", e);
       }
     }
   }

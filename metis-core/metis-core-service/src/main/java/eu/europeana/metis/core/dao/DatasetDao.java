@@ -285,6 +285,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return datasetIdSequence.getSequence();
   }
 
+  /**
+   * Checks if the ecloud dataset identifier already exists in ECloud and if it does not, it will try to create a new one and
+   * add the identifier inside the metis Dataset object and store.
+   * @param dataset the Datase object to check
+   * @return the ECloud dataset identifier
+   * @throws ExternalTaskException if an error occurred during the creation of the dataset identifier on ECloud
+   */
   public String checkAndCreateDatasetInEcloud(Dataset dataset) throws ExternalTaskException {
     if (StringUtils.isEmpty(dataset.getEcloudDatasetId()) || dataset.getEcloudDatasetId()
         .startsWith("NOT_CREATED_YET")) {

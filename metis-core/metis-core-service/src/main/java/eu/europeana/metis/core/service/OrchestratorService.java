@@ -31,6 +31,7 @@ import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPlugin;
+import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Service class that controls the communication between the different DAOs of the system.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-24
  */
@@ -68,6 +71,17 @@ public class OrchestratorService {
   private final RedissonClient redissonClient;
   private String metisCoreUrl; //Initialize with setter
 
+  /**
+   * Constructor with all the required parameters
+   *
+   * @param workflowDao the Dao instance to access the Workflow database
+   * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
+   * @param datasetDao the Dao instance to access the Dataset database
+   * @param datasetXsltDao the Dao instance to access the DatasetXslt database
+   * @param workflowExecutorManager the instance that handles the production and consumption of workflowExecutions
+   * @param redissonClient the instance of Redisson library that handles distributed locks
+   * @throws IOException that can be thrown when initializing the {@link WorkflowExecutorManager}
+   */
   @Autowired
   public OrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao, DatasetDao datasetDao,
@@ -83,8 +97,20 @@ public class OrchestratorService {
     this.workflowExecutorManager.initiateConsumer();
   }
 
+  /**
+   * Create a workflow using a datasetId and the {@link Workflow} that contains the requested plugins.
+   * When creating a new workflow all the plugins specified will be automatically enabled.
+   *
+   * @param datasetId the identifier of the dataset for which the workflow should be created
+   * @param workflow the workflow with the plugins requested
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link WorkflowAlreadyExistsException} if a workflow for the dataset identifier provided already exists</li>
+   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   * </ul>
+   */
   public void createWorkflow(int datasetId, Workflow workflow)
-      throws WorkflowAlreadyExistsException, NoDatasetFoundException {
+      throws GenericMetisException {
     if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
           String.format("Dataset with datasetId: %s does NOT exist", datasetId));
@@ -96,8 +122,21 @@ public class OrchestratorService {
     workflowDao.create(workflow);
   }
 
+  /**
+   * Update an already existent workflow using a datasetId and the {@link Workflow} that contains the requested plugins.
+   * When updating an existent workflow all specified plugins will be enabled and all plugins that were existent in the system
+   * beforehand will be kept with their configuration but will be disabled.
+   *
+   * @param datasetId the identifier of the dataset for which the workflow should be updated
+   * @param workflow the workflow with the plugins requested
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does not exist</li>
+   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   * </ul>
+   */
   public void updateWorkflow(int datasetId, Workflow workflow)
-      throws NoWorkflowFoundException, NoDatasetFoundException {
+      throws GenericMetisException {
     if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
           String.format("Dataset with datasetId: %s does NOT exist", datasetId));
@@ -125,22 +164,66 @@ public class OrchestratorService {
         workflow.getMetisPluginsMetadata().stream()).collect(Collectors.toList()));
   }
 
+  /**
+   * Deletes a workflow.
+   *
+   * @param datasetId the dataset identifier that corresponds to the workflow to be deleted
+   */
   public void deleteWorkflow(int datasetId) {
     workflowDao.deleteWorkflow(datasetId);
   }
 
+  /**
+   * Get a workflow for a dataset identifier.
+   *
+   * @param datasetId the dataset identifier
+   * @return the Workflow object
+   */
   public Workflow getWorkflow(int datasetId) {
     return workflowDao.getWorkflow(datasetId);
   }
 
+  /**
+   * Get all workflows for a workflow owner paged.
+   *
+   * @param workflowOwner the workflow owner used as a fielter
+   * @param nextPage the nextPage token or -1
+   * @return a list of the Workflow objects
+   */
   public List<Workflow> getAllWorkflows(String workflowOwner, int nextPage) {
     return workflowDao.getAllWorkflows(workflowOwner, nextPage);
   }
 
+  /**
+   * Get a WorkflowExecution using an execution identifier.
+   *
+   * @param executionId the execution identifier
+   * @return the WorkflowExecution object
+   */
   public WorkflowExecution getWorkflowExecutionByExecutionId(String executionId) {
     return workflowExecutionDao.getById(executionId);
   }
 
+  /**
+   * Does checking, prepares and adds a WorkflowExecution in the queue.
+   * That means it updates the status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database
+   * and also it's identifier goes into the distributed queue of WorkflowExecutions.
+   * The source data for the first plugin in the workflow can be controlled, if required, from the {@code enforcedPluginType},
+   * which means that the last valid plugin that is provided with that parameter, will be used as the source data.
+   *
+   * @param datasetId the dataset identifier for which the execution will take place
+   * @param enforcedPluginType optional, the plugin type to be used as source data
+   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10 highest
+   * @return the WorkflowExecution object that was generated
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does not exist</li>
+   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   * <li>{@link ExternalTaskException} if there was an exception when contacting the external resource(ECloud)</li>
+   * <li>{@link PluginExecutionNotAllowed} if the execution of the first plugin was not allowed, because a valid source plugin could not be found</li>
+   * <li>{@link WorkflowExecutionAlreadyExistsException} if a workflow execution for the generated execution identifier already exists, almost impossible to happen since ids are UUIDs</li>
+   * </ul>
+   */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       PluginType enforcedPluginType, int priority)
       throws GenericMetisException {
@@ -170,6 +253,10 @@ public class OrchestratorService {
     return workflowExecutionDao.getById(objectId);
   }
 
+  /**
+   * @deprecated
+   */
+  @Deprecated
   //Used for direct, on the fly provided, execution of a Workflow
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       Workflow workflow, PluginType enforcedPluginType,
@@ -297,6 +384,13 @@ public class OrchestratorService {
     }
   }
 
+  /**
+   * Request to cancel a workflow execution.
+   * The execution will go into a cancelling state until it's properly {@link WorkflowStatus#CANCELLED} from the system
+   *
+   * @param executionId the execution identifier of the execution to cancel
+   * @throws NoWorkflowExecutionFoundException if no worklfowExecution could be found
+   */
   public void cancelWorkflowExecution(String executionId)
       throws NoWorkflowExecutionFoundException {
 
@@ -313,6 +407,11 @@ public class OrchestratorService {
     }
   }
 
+  /**
+   * Cleans a workflowExecutions list and removes active executions.
+   *
+   * @param workflowExecutions the list of workflowExecutions to clean
+   */
   public void removeActiveWorkflowExecutionsFromList(
       List<WorkflowExecution> workflowExecutions) {
     workflowExecutionDao
@@ -320,6 +419,12 @@ public class OrchestratorService {
             workflowExecutorManager.getMonitorCheckIntervalInSecs());
   }
 
+  /**
+   * Adds the workflowExecution identifier to the distributed queue.
+   *
+   * @param workflowExecutionObjectId the workflowExecution identifier
+   * @param priority the priority of the execution in the queue, 0 lowest, 10 highest
+   */
   public void addWorkflowExecutionToQueue(String workflowExecutionObjectId,
       int priority) {
     workflowExecutorManager
@@ -352,14 +457,35 @@ public class OrchestratorService {
     return workflowDao.exists(workflow);
   }
 
+  /**
+   * The number of WorkflowExecutions that would be returned if a get all request would be performed.
+   *
+   * @return the number representing the size during a get all request
+   */
   public int getWorkflowExecutionsPerRequest() {
     return workflowExecutionDao.getWorkflowExecutionsPerRequest();
   }
 
+  /**
+   * The number of Workflows that would be returned if a get all request would be performed.
+   *
+   * @return the number representing the size during a get all request
+   */
   public int getWorkflowsPerRequest() {
     return workflowDao.getWorkflowsPerRequest();
   }
 
+  /**
+   * Check if a specified {@code pluginType} is allowed for execution.
+   * This is checked based on, if there was a previous successful finished plugin that follows a specific order unless the {@code enforcedPluginType} is used.
+   *
+   * @param datasetId the dataset identifier of which the executions are based on
+   * @param pluginType the pluginType to be checked for allowance of execution
+   * @param enforcedPluginType optional, the plugin type to be used as source data
+   * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can be null if the
+   * {@code pluginType} is the first one in the total order of executions e.g. One of the harvesting plugins.
+   * @throws PluginExecutionNotAllowed if the no plugin was found so the {@code pluginType} will be based upon.
+   */
   public AbstractMetisPlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
       int datasetId, PluginType pluginType,
       PluginType enforcedPluginType) throws PluginExecutionNotAllowed {
@@ -381,8 +507,18 @@ public class OrchestratorService {
         .getExecutionProgress().getErrors();
   }
 
-  public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
-      String workflowOwner,
+  /**
+   * Get all WorkflowExecutions paged.
+   *
+   * @param datasetId the dataset identifier filter, can be -1 to get all datasets
+   * @param workflowOwner the workflow owner, can be null
+   * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
+   * @param orderField the field to be used to sort the results
+   * @param ascending a boolean value to request the ordering to ascending or descending
+   * @param nextPage the nextPage token
+   * @return a list of all the WorkflowExecutions found
+   */
+  public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId, String workflowOwner,
       Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending,
       int nextPage) {
     return workflowExecutionDao
@@ -393,6 +529,7 @@ public class OrchestratorService {
 
   /**
    * Retrieve dataset level information of past executions {@link DatasetExecutionInformation}
+   *
    * @param datasetId the dataset identifier to generate the information for
    * @return the structured class containing all the execution information
    */
