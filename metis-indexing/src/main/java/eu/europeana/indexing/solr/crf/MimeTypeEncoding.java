@@ -813,7 +813,7 @@ public enum MimeTypeEncoding {
    * @return the integer represantation of the mimetype
    */
   public static Integer getMimeTypeCode(final String type) {
-    Integer retval = StringUtils.isNotBlank(type) ? getMimeTypeMap().get(type.toLowerCase()) : null;
+    final Integer retval = StringUtils.isNotBlank(type) ? getMimeTypeMap().get(type.toLowerCase()) : null;
     return retval == null ? 0 : retval;
   }
 }

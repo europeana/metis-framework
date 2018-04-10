@@ -1,12 +1,100 @@
 package eu.europeana.indexing.solr.crf;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.indexing.utils.SetUtils;
 
-public abstract class TagExtractor {
+public class TagExtractor {
 
-  public abstract Set<Integer> getFilterTags(WebResourceType webResource);
+  /**
+   * <p>
+   * This method returns all possible combinations of the facet tags: each facet's code(s) for the
+   * given web resource will be collected and combined ('or'-ed) so that the web resource may be
+   * queried on any combination of facet codes (as long as this combination consists of codes from
+   * different facets).
+   * </p>
+   * <p>
+   * As an example: suppose the web resource has values a1 and a2 for facet a, and b1 for facet b.
+   * Then this method will return the following six possible combinations:
+   * <ol>
+   * <li>0 (the empty code)</li>
+   * <li>a1</li>
+   * <li>a2</li>
+   * <li>b1</li>
+   * <li>a1 | b1</li>
+   * <li>a2 | b1</li>
+   * </ol>
+   * So it will not return [a1 | a2] or [a1 | a2 | b1] as this would combine multiple codes for the
+   * same facets.
+   * </p>
+   * <p>
+   * Note that all resulting codes will be shifted to the right position and will also have the bits
+   * set that mark the media type (see {@link MediaType}).
+   * </p>
+   * 
+   * @param webResource The web resource for which to retrieve the facet codes.
+   * @return The set of facet codes.
+   */
+  public final Set<Integer> getFilterTags(WebResourceType webResource) {
 
-  public abstract Set<Integer> getFacetTags(WebResourceType webResource);
+    // Get and check the media type.
+    final MediaType mediaType = TechnicalFacetUtils.getMediaType(webResource);
+    if (MediaType.OTHER.equals(mediaType)) {
+      return Collections.emptySet();
+    }
 
+    // Get all the individual codes from all the facets.
+    final List<Set<Integer>> codes = mediaType.getFacets().stream()
+        .map(facet -> facet.evaluateAndShift(webResource)).collect(Collectors.toList());
+
+    // Find all the combinations.
+    return SetUtils.generateCombinations(codes, mediaType.getEncodedValue(),
+        (combination, code) -> combination | code);
+  }
+
+  /**
+   * <p>
+   * This method returns all the web resource's facet codes: each facet's code(s) for the given web
+   * resource will be collected and returned, so that they may be used to list and search through
+   * the facet values of the web resource.
+   * </p>
+   * <p>
+   * As an example: suppose the web resource has values a1 and a2 for facet a, and b1 for facet b.
+   * Then this method will return the following three codes:
+   * <ol>
+   * <li>a1</li>
+   * <li>a2</li>
+   * <li>b1</li>
+   * </ol>
+   * As opposed to {@link #getFilterTags(WebResourceType)}, this method returns only the individual
+   * codes, not any combination of them. As such, this result will be a subset of the result of
+   * {@link #getFilterTags(WebResourceType)}.
+   * </p>
+   * <p>
+   * Note that all resulting codes will be shifted to the right position and will also have the bits
+   * set that mark the media type (see {@link MediaType}).
+   * </p>
+   * 
+   * @param webResource The web resource for which to retrieve the facet codes.
+   * @return The set of facet codes.
+   */
+  public final Set<Integer> getFacetTags(WebResourceType webResource) {
+
+    // Get and check the media type.
+    final MediaType mediaType = TechnicalFacetUtils.getMediaType(webResource);
+    if (MediaType.OTHER.equals(mediaType)) {
+      return Collections.emptySet();
+    }
+
+    // Get all the individual codes from all the facets and make sure there is always the media type
+    // code 'or'-ed into them.
+    final Integer mediaTypeCode = mediaType.getEncodedValue();
+    return mediaType.getFacets().stream()
+        .flatMap(facet -> facet.evaluateAndShift(webResource).stream())
+        .map(code -> mediaTypeCode | code).collect(Collectors.toSet());
+
+  }
 }

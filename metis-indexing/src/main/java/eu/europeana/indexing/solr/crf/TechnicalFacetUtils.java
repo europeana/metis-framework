@@ -130,13 +130,16 @@ public final class TechnicalFacetUtils {
     return Collections.singleton(MimeTypeEncoding.getMimeTypeCode(getMimeType(webResource)));
   }
 
-  public static String getMimeType(WebResourceType webResource) {
+  private static String getMimeType(WebResourceType webResource) {
+    
+    // If there is no mime type, return the generic one.
     if (webResource.getHasMimeType() == null
-        || webResource.getHasMimeType().getHasMimeType() == null
-        || webResource.getHasMimeType().getHasMimeType().trim().isEmpty()) {
+        || StringUtils.isBlank(webResource.getHasMimeType().getHasMimeType())) {
       return "application/octet-stream";
     }
-    return webResource.getHasMimeType().getHasMimeType();
+
+    // Otherwise, we return the base type (without parameters).
+    return webResource.getHasMimeType().getHasMimeType().split(";")[0].trim().toLowerCase();
   }
 
   public static Set<Integer> getImageSizeCode(final WebResourceType webResource) {

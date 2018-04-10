@@ -19,13 +19,9 @@ import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.indexing.solr.crf.ImageTagExtractor;
 import eu.europeana.indexing.solr.crf.MediaType;
-import eu.europeana.indexing.solr.crf.SoundTagExtractor;
 import eu.europeana.indexing.solr.crf.TagExtractor;
 import eu.europeana.indexing.solr.crf.TechnicalFacetUtils;
-import eu.europeana.indexing.solr.crf.TextTagExtractor;
-import eu.europeana.indexing.solr.crf.VideoTagExtractor;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
 import eu.europeana.indexing.solr.property.AggregationSolrCreator;
 import eu.europeana.indexing.solr.property.ConceptSolrCreator;
@@ -143,8 +139,8 @@ public class SolrDocumentPopulator {
     // Compose the filter and facet tags.
     final Set<Integer> filterTags = new HashSet<>();
     final Set<Integer> facetTags = new HashSet<>();
+    final TagExtractor tagExtractor = new TagExtractor();
     for (WebResourceType webResource : webResources) {
-      final TagExtractor tagExtractor = getTagExtractor(webResource);
       filterTags.addAll(tagExtractor.getFilterTags(webResource));
       facetTags.addAll(tagExtractor.getFacetTags(webResource));
     }
@@ -157,33 +153,10 @@ public class SolrDocumentPopulator {
       document.addField(EdmLabel.CRF_FACET_TAGS.toString(), tag);
     }
   }
-
-  private final TagExtractor getTagExtractor(WebResourceType webResource) {
-    // TODO JOCHEN do this more elegantly. Maybe have it as part of the MediaType enum?
-    final TagExtractor result;
-    switch (TechnicalFacetUtils.getMediaType(webResource)) {
-      case IMAGE:
-        result = new ImageTagExtractor();
-        break;
-      case VIDEO:
-        result = new VideoTagExtractor();
-        break;
-      case AUDIO:
-        result = new SoundTagExtractor();
-        break;
-      case TEXT:
-        result = new TextTagExtractor();
-        break;
-      default:
-        result = null;
-        break;
-    }
-    return result;
-  }
   
   // TODO JOCHEN: can be done by potential library method EdmObject.getResourceUrls:
   // urls = getResourceUrls(Arrays.asList(UrlType.HAS_VIEW, ...)).keySet()
-  public Set<String> getResourceUrlsForHasMedia(RDF rdf) {
+  private Set<String> getResourceUrlsForHasMedia(RDF rdf) {
     Set<String> urls = new HashSet<>();
     for (Aggregation aggregation : rdf.getAggregationList()) {
       if (aggregation.getObject() != null) {

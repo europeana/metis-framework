@@ -35,8 +35,7 @@ public enum TechnicalFacet {
     this.facetExtractor = facetExtractor;
   }
 
-  // TODO JOCHEN should become private method?
-  public int shift(int value) {
+  int shift(int value) {
 
     // Check that the input fits in the required segment length.
     final int mask = ((1 << numOfBits) - 1);

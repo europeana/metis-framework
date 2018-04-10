@@ -167,22 +167,13 @@ class IndexingConnectionProvider implements Closeable {
   }
 
   /**
-   * Provides a DAO object for storing (saving or updating) Full Beans.
-   * 
-   * @return A DAO.
-   */
-  FullBeanDao getFullBeanDao() {
-    return new FullBeanDao(mongoServer);
-  }
-
-  /**
    * Provides a Publisher object for publishing Full Beans so that they may be found by users.
    * 
    * @return A publisher.
    */
   FullBeanPublisher getFullBeanPublisher() {
     final SolrServer solrServer = cloudSolrServer == null ? httpSolrServer : cloudSolrServer;
-    return new FullBeanPublisher(getFullBeanDao(), solrServer);
+    return new FullBeanPublisher(new FullBeanDao(mongoServer), solrServer);
   }
 
   @Override

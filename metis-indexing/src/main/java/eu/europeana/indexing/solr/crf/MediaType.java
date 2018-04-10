@@ -1,5 +1,6 @@
 package eu.europeana.indexing.solr.crf;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,5 +47,9 @@ public enum MediaType {
 
   public int getEncodedValue() {
     return TechnicalFacet.MEDIA_TYPE.shift(value);
+  }
+
+  public Set<TechnicalFacet> getFacets() {
+    return Collections.unmodifiableSet(facets);
   }
 }
