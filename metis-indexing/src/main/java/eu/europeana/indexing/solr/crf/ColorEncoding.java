@@ -175,6 +175,6 @@ public enum ColorEncoding {
   public static Integer getColorCode(final String hexString) {
     final Integer retval =
         StringUtils.isNotBlank(hexString) ? getColorMap().get(hexString.toUpperCase()) : null;
-    return retval == null ? 0 : retval;
+    return retval == null ? COLOR_0.code : retval;
   }
 }

@@ -19,27 +19,21 @@ public class SoundTagExtractor extends TagExtractor {
         final Integer mediaTypeCode = MediaType.AUDIO.getEncodedValue();
 
         final Set<Integer> mimeTypeCodes = new HashSet<>();
-        mimeTypeCodes.addAll(TechnicalFacetUtils.getMimeTypeCode(webResource));
+        mimeTypeCodes.addAll(TechnicalFacet.MIME_TYPE.evaluateAndShift(webResource));
         mimeTypeCodes.add(0);
 
         final Set<Integer> qualityCodes = new HashSet<>();
-        qualityCodes.addAll(TechnicalFacetUtils.getAudioQualityCode(webResource));
+        qualityCodes.addAll(TechnicalFacet.SOUND_QUALITY.evaluateAndShift(webResource));
         qualityCodes.add(0);
 
         final Set<Integer> durationCodes = new HashSet<>();
-        durationCodes.addAll(TechnicalFacetUtils.getAudioDurationCode(webResource));
+        durationCodes.addAll(TechnicalFacet.SOUND_DURATION.evaluateAndShift(webResource));
         durationCodes.add(0);
 
         for (Integer mimeType : mimeTypeCodes) {
             for (Integer quality : qualityCodes) {
                 for (Integer duration : durationCodes) {
-                    final Integer result = mediaTypeCode |
-                            (mimeType << TechnicalFacet.MIME_TYPE.getBitPos()) |
-                            (quality << TechnicalFacet.SOUND_QUALITY.getBitPos()) |
-                            (duration << TechnicalFacet.SOUND_DURATION.getBitPos());
-
-                    filterTags.add(result);
-
+                    filterTags.add(mediaTypeCode | mimeType | quality | duration);
                 }
             }
         }
@@ -52,21 +46,16 @@ public class SoundTagExtractor extends TagExtractor {
         final Set<Integer> facetTags = new HashSet<>();
         final Integer mediaTypeCode = MediaType.AUDIO.getEncodedValue();
 
-        Integer facetTag;
-        
-        for (Integer mimeTypeCode: TechnicalFacetUtils.getMimeTypeCode(webResource)) {
-            facetTag = mediaTypeCode | (mimeTypeCode << TechnicalFacet.MIME_TYPE.getBitPos());
-            facetTags.add(facetTag);
+        for (Integer mimeTypeCode: TechnicalFacet.MIME_TYPE.evaluateAndShift(webResource)) {
+            facetTags.add(mediaTypeCode | mimeTypeCode);
         }
 
-        for (Integer qualityCode: TechnicalFacetUtils.getAudioQualityCode(webResource)) {
-            facetTag = mediaTypeCode | (qualityCode << TechnicalFacet.SOUND_QUALITY.getBitPos());
-            facetTags.add(facetTag);
+        for (Integer qualityCode: TechnicalFacet.SOUND_QUALITY.evaluateAndShift(webResource)) {
+            facetTags.add(mediaTypeCode | qualityCode);
         }
 
-        for (Integer durationCode: TechnicalFacetUtils.getAudioDurationCode(webResource)) {
-            facetTag = mediaTypeCode | (durationCode << TechnicalFacet.SOUND_DURATION.getBitPos());
-            facetTags.add(facetTag);
+        for (Integer durationCode: TechnicalFacet.SOUND_DURATION.evaluateAndShift(webResource)) {
+            facetTags.add(mediaTypeCode | durationCode);
         }
         
         return facetTags;

@@ -117,27 +117,33 @@ public class SolrDocumentPopulator {
     final ResourceType landingPage = aggregation == null ? null : aggregation.getLandingPage();
     document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), !isEmpty(landingPage));
 
-    // Extract the web resources that constitute views.
-    final List<WebResourceType> views = getViews(rdf);
-
-    // has_media is true if and only if there is at least one web resource of type 'view'
-    // representing technical metadata (except those of type 'text/html')
-    final boolean hasMedia = views.stream().map(TechnicalFacetUtils::getMimeType)
-        .filter(mimeType -> !"text/html".equals(mimeType)).map(MediaType::getType)
-        .anyMatch(type -> !type.equals(MediaType.OTHER));
+    // Get the web resources.
+    final List<WebResourceType> webResources;
+    if (rdf.getWebResourceList() == null) {
+      webResources = Collections.emptyList();
+    } else {
+      webResources = rdf.getWebResourceList();
+    }
+    
+    // has_media is true if and only if there is at least one web resource, not of type
+    // 'is_shown_at', representing technical metadata.
+    final Set<String> urls = getResourceUrlsForHasMedia(rdf);
+    final boolean hasMedia =
+        webResources.stream().filter(resource -> urls.contains(resource.getAbout()))
+            .map(TechnicalFacetUtils::getMediaType).anyMatch(type -> !type.equals(MediaType.OTHER));
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
-    // is_fulltext is true if and only if there is at least one web resource of type 'view'
-    // with 'rdf:type' equal to 'edm:FullTextResource'.
-    final boolean isFullText = views.stream().map(WebResourceType::getType).filter(Objects::nonNull)
-        .map(Type1::getResource)
+    // is_fulltext is true if and only if there is at least one web resource with 'rdf:type' equal
+    // to 'edm:FullTextResource'.
+    final boolean isFullText = webResources.stream().map(WebResourceType::getType)
+        .filter(Objects::nonNull).map(Type1::getResource)
         .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
     document.addField(EdmLabel.CRF_IS_FULL_TEXT.toString(), isFullText);
 
     // Compose the filter and facet tags.
     final Set<Integer> filterTags = new HashSet<>();
     final Set<Integer> facetTags = new HashSet<>();
-    for (WebResourceType webResource : views) {
+    for (WebResourceType webResource : webResources) {
       final TagExtractor tagExtractor = getTagExtractor(webResource);
       filterTags.addAll(tagExtractor.getFilterTags(webResource));
       facetTags.addAll(tagExtractor.getFacetTags(webResource));
@@ -154,9 +160,8 @@ public class SolrDocumentPopulator {
 
   private final TagExtractor getTagExtractor(WebResourceType webResource) {
     // TODO JOCHEN do this more elegantly. Maybe have it as part of the MediaType enum?
-    final String mimeType = TechnicalFacetUtils.getMimeType(webResource);
     final TagExtractor result;
-    switch (MediaType.getType(mimeType)) {
+    switch (TechnicalFacetUtils.getMediaType(webResource)) {
       case IMAGE:
         result = new ImageTagExtractor();
         break;
@@ -175,30 +180,25 @@ public class SolrDocumentPopulator {
     }
     return result;
   }
-
-  private final List<WebResourceType> getViews(RDF rdf) {
-
-    // Obtain the URLs of type view.
-    // TODO JOCHEN: can be done by potential library method EdmObject.getResourceUrls:
-    // urls = getResourceUrls(Collections.singleton(UrlType.HAS_VIEW)).keySet()
-    final Set<String> urls;
-    if (rdf.getAggregationList() != null) {
-      urls = rdf.getAggregationList().stream().map(Aggregation::getHasViewList)
-          .filter(Objects::nonNull).flatMap(List::stream).map(HasView::getResource)
-          .filter(Objects::nonNull).collect(Collectors.toSet());
-    } else {
-      urls = Collections.emptySet();
+  
+  // TODO JOCHEN: can be done by potential library method EdmObject.getResourceUrls:
+  // urls = getResourceUrls(Arrays.asList(UrlType.HAS_VIEW, ...)).keySet()
+  public Set<String> getResourceUrlsForHasMedia(RDF rdf) {
+    Set<String> urls = new HashSet<>();
+    for (Aggregation aggregation : rdf.getAggregationList()) {
+      if (aggregation.getObject() != null) {
+        urls.add(aggregation.getObject().getResource());
+      }
+      if (aggregation.getHasViewList() != null) {
+        for (HasView hv : aggregation.getHasViewList()) {
+          urls.add(hv.getResource());
+        }
+      }
+      if (aggregation.getIsShownBy() != null) {
+        urls.add(aggregation.getIsShownBy().getResource());
+      }
     }
-
-    // Return the web resources that match the view URLs.
-    final List<WebResourceType> result;
-    if (rdf.getWebResourceList() == null) {
-      result = Collections.emptyList();
-    } else {
-      result = rdf.getWebResourceList().stream()
-          .filter(resource -> urls.contains(resource.getAbout())).collect(Collectors.toList());
-    }
-    return result;
+    return urls;
   }
 
   private boolean isEmpty(ResourceType resourceType) {

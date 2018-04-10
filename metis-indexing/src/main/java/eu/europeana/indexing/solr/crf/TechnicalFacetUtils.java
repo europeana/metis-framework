@@ -20,16 +20,17 @@ public final class TechnicalFacetUtils {
 
   private static final Integer UNKNOWN = 0;
 
-  private static final Integer IMAGE_TINY = 1;
-  private static final Integer IMAGE_SMALL = 2;
-  private static final Integer IMAGE_MEDIUM = 3;
-  private static final Integer IMAGE_LARGE = 4;
+  private static final Integer IMAGE_TINY = 0;
+  private static final Integer IMAGE_SMALL = 1;
+  private static final Integer IMAGE_MEDIUM = 2;
+  private static final Integer IMAGE_LARGE = 3;
+  private static final Integer IMAGE_HUGE = 4;
 
   private static final Integer IMAGE_SRGB = 1;
   private static final Integer IMAGE_GREYSCALE = 2;
 
-  private static final Integer IMAGE_LANDSCAPE = 1;
-  private static final Integer IMAGE_PORTRAIT = 2;
+  private static final Integer IMAGE_PORTRAIT = 1;
+  private static final Integer IMAGE_LANDSCAPE = 2;
 
   private static final Integer VIDEO_AUDIO_HIGH_QUALITY_FALSE = 0;
   private static final Integer VIDEO_AUDIO_HIGH_QUALITY_TRUE = 1;
@@ -43,45 +44,88 @@ public final class TechnicalFacetUtils {
   private static final Integer AUDIO_MEDIUM = 2;
   private static final Integer AUDIO_LONG = 3;
 
-  /** Image area (in pixels) that is considered large: 2^22. **/
-  private static final long IMAGE_LARGE_AREA = 4_194_304;
+  /** Image area (in pixels) that is considered huge: 4mp. **/
+  private static final long IMAGE_HUGE_AREA = 4_000_000;
 
-  /** Image area (in pixels) that is considered medium size: 2^20. **/
-  private static final long IMAGE_MEDIUM_AREA = 1_048_576;
+  /** Image area (in pixels) that is considered large: 0.95mp. **/
+  private static final long IMAGE_LARGE_AREA = 950_000;
 
-  /** Image area (in pixels) that is considered small: 2^19. **/
-  private static final long IMAGE_SMALL_AREA = 524_288;
+  /** Image area (in pixels) that is considered medium size: 0.42mp. **/
+  private static final long IMAGE_MEDIUM_AREA = 420_000;
+
+  /** Image area (in pixels) that is considered small: 0.1mp. **/
+  private static final long IMAGE_SMALL_AREA = 100_000;
 
   /** Video height that is considered high-quality. **/
   private static final int VIDEO_HIGH_QUALITY_HEIGHT = 480;
 
-  /** Video duration (in milliseconds) that is considered medium. **/
+  /** Video duration (in milliseconds) that is considered medium: 4 mins. **/
   private static final long VIDEO_MEDIUM_DURATION = 240_000;
 
-  /** Video duration (in milliseconds) that is considered long. **/
+  /** Video duration (in milliseconds) that is considered long: 20 mins. **/
   private static final long VIDEO_LONG_DURATION = 1_200_000;
 
-  /** Audiio sample size that is considered high-quality. **/
+  /** Audio sample size that is considered high-quality. **/
   private static final long AUDIO_HIGH_QUALITY_SAMPLE_SIZE = 16;
 
-  /** Audiio sample rate that is considered high-quality. **/
+  /** Audio sample rate that is considered high-quality. **/
   private static final long AUDIO_HIGH_QUALITY_SAMPLE_RATE = 44_100;
 
   /** Audio formats that are lossless and are therefore considered high-quality. **/
   private static final Set<String> LOSSLESS_AUDIO_FILE_TYPES = Stream
       .of("alac", "flac", "ape", "shn", "wav", "wma", "aiff", "dsd").collect(Collectors.toSet());
 
-  /** Audio duration (in milliseconds) that is considered short. **/
+  /** Audio duration (in milliseconds) that is considered shortlong: 1/2 min. **/
   private static final long AUDIO_SHORT_DURATION = 30_000;
 
-  /** Audio duration (in milliseconds) that is considered medium. **/
+  /** Audio duration (in milliseconds) that is considered medium: 3 mins. **/
   private static final long AUDIO_MEDIUM_DURATION = 180_000;
 
-  /** Audio duration (in milliseconds) that is considered long. **/
+  /** Audio duration (in milliseconds) that is considered long: 6 mins. **/
   private static final long AUDIO_LONG_DURATION = 360_000;
 
   private TechnicalFacetUtils() {}
 
+  // TODO JOCHEN Merge and make library method for existing methods isText, isAudio/Video and
+  // isImage in class MediaProcessor. Use this class there.
+  /**
+   * Determines the media type of the web resource (based on the MIME type).
+   * 
+   * @param webResource The web resource for which to determine the media type.
+   * @return The media type corresponding to the mime type. Does not return null, but may return
+   *         {@link MediaType#OTHER}.
+   */
+  public static MediaType getMediaType(WebResourceType webResource) {
+    final String mimeType = getMimeType(webResource);
+    final MediaType result;
+    if (mimeType == null) {
+      result = MediaType.OTHER;
+    } else if (mimeType.startsWith("image/")) {
+      result = MediaType.IMAGE;
+    } else if (mimeType.startsWith("audio/")) {
+      result = MediaType.AUDIO;
+    } else if (mimeType.startsWith("video/")) {
+      result = MediaType.VIDEO;
+    } else if (isText(mimeType)) {
+      result = MediaType.TEXT;
+    } else {
+      result = MediaType.OTHER;
+    }
+    return result;
+  }
+
+  private static boolean isText(String mimeType) {
+    switch (mimeType) {
+      case "application/xml":
+      case "application/rtf":
+      case "application/epub":
+      case "application/pdf":
+        return true;
+      default:
+        return mimeType.startsWith("text/");
+    }
+  }
+  
   public static Set<Integer> getMimeTypeCode(final WebResourceType webResource) {
     return Collections.singleton(MimeTypeEncoding.getMimeTypeCode(getMimeType(webResource)));
   }
@@ -112,9 +156,11 @@ public final class TechnicalFacetUtils {
     } else if (size < IMAGE_MEDIUM_AREA) {
       result = IMAGE_SMALL;
     } else if (size < IMAGE_LARGE_AREA) {
-      result = IMAGE_MEDIUM; // 2048^2?
-    } else {
+      result = IMAGE_MEDIUM;
+    } else if (size < IMAGE_HUGE_AREA) {
       result = IMAGE_LARGE;
+    } else {
+      result = IMAGE_HUGE;
     }
     return Collections.singleton(result);
   }
@@ -139,17 +185,17 @@ public final class TechnicalFacetUtils {
     final Integer result;
     if (orientation == null || orientation.getString() == null) {
       result = UNKNOWN;
-    } else if ("landscape".equals(orientation.getString())) {
-      result = IMAGE_LANDSCAPE;
     } else if ("portrait".equals(orientation.getString())) {
       result = IMAGE_PORTRAIT;
+    } else if ("landscape".equals(orientation.getString())) {
+      result = IMAGE_LANDSCAPE;
     } else {
       result = UNKNOWN;
     }
     return Collections.singleton(result);
   }
 
-  public static Set<Integer> getImageColorCodes(final WebResourceType webResource) {
+  public static Set<Integer> getImageColorPalette(final WebResourceType webResource) {
     return webResource.getComponentColorList().stream()
         .map(color -> color == null ? UNKNOWN : ColorEncoding.getColorCode(color.getString()))
         .collect(Collectors.toSet());
@@ -158,7 +204,7 @@ public final class TechnicalFacetUtils {
   public static Set<Integer> getVideoQualityCode(final WebResourceType webResource) {
     final Height height = webResource.getHeight();
     final Integer result;
-    if (height == null || height.getLong() < VIDEO_HIGH_QUALITY_HEIGHT) {
+    if (height == null || height.getLong() <= VIDEO_HIGH_QUALITY_HEIGHT) {
       result = VIDEO_AUDIO_HIGH_QUALITY_FALSE;
     } else {
       result = VIDEO_AUDIO_HIGH_QUALITY_TRUE;

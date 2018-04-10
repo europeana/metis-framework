@@ -15,23 +15,23 @@ public class ImageTagExtractor extends TagExtractor {
         final Integer mediaTypeCode = MediaType.IMAGE.getEncodedValue();
 
         final Set<Integer> colorCodes = new HashSet<>();
-        colorCodes.addAll(TechnicalFacetUtils.getImageColorCodes(webResource));
+        colorCodes.addAll(TechnicalFacet.IMAGE_COLOUR_PALETTE.evaluateAndShift(webResource));
         colorCodes.add(0);
 
         final Set<Integer> mimeTypeCodes = new HashSet<>();
-        mimeTypeCodes.addAll(TechnicalFacetUtils.getMimeTypeCode(webResource));
+        mimeTypeCodes.addAll(TechnicalFacet.MIME_TYPE.evaluateAndShift(webResource));
         mimeTypeCodes.add(0);
 
         final Set<Integer> fileSizeCodes = new HashSet<>();
-        fileSizeCodes.addAll(TechnicalFacetUtils.getImageSizeCode(webResource));
+        fileSizeCodes.addAll(TechnicalFacet.IMAGE_SIZE.evaluateAndShift(webResource));
         fileSizeCodes.add(0);
 
         final Set<Integer> colorSpaceCodes = new HashSet<>();
-        colorSpaceCodes.addAll(TechnicalFacetUtils.getImageColorSpaceCode(webResource));
+        colorSpaceCodes.addAll(TechnicalFacet.IMAGE_COLOUR_SPACE.evaluateAndShift(webResource));
         colorSpaceCodes.add(0);
 
         final Set<Integer> aspectRatioCodes = new HashSet<>();
-        aspectRatioCodes.addAll(TechnicalFacetUtils.getImageAspectRatioCode(webResource));
+        aspectRatioCodes.addAll(TechnicalFacet.IMAGE_ASPECT_RATIO.evaluateAndShift(webResource));
         aspectRatioCodes.add(0);
 
         for (Integer mimeType : mimeTypeCodes) {
@@ -39,15 +39,7 @@ public class ImageTagExtractor extends TagExtractor {
                 for (Integer colorSpace : colorSpaceCodes) {
                     for (Integer aspectRatio : aspectRatioCodes) {
                         for (Integer color : colorCodes) {
-                            final Integer result = mediaTypeCode |
-                                                    (mimeType << TechnicalFacet.MIME_TYPE.getBitPos())  |
-                                                    (fileSize << TechnicalFacet.IMAGE_SIZE.getBitPos()) |
-                                                    (colorSpace << TechnicalFacet.IMAGE_COLOUR_SPACE.getBitPos()) |
-                                                    (aspectRatio << TechnicalFacet.IMAGE_ASPECT_RATIO.getBitPos()) |
-                                                    (color << TechnicalFacet.IMAGE_COLOUR_PALETTE.getBitPos());
-
-                            filterTags.add(result);
-
+                            filterTags.add(mediaTypeCode | mimeType | fileSize | colorSpace | aspectRatio | color);
                         }
                     }
                 }
@@ -63,31 +55,24 @@ public class ImageTagExtractor extends TagExtractor {
 
         final Integer mediaTypeCode = MediaType.IMAGE.getEncodedValue();
 
-        Integer facetTag;
-
-        for (Integer mimeTypeCode: TechnicalFacetUtils.getMimeTypeCode(webResource)) {
-            facetTag = mediaTypeCode | (mimeTypeCode << TechnicalFacet.MIME_TYPE.getBitPos());
-            facetTags.add(facetTag);
+        for (Integer mimeTypeCode: TechnicalFacet.MIME_TYPE.evaluateAndShift(webResource)) {
+            facetTags.add(mediaTypeCode | mimeTypeCode);
         }
 
-        for (Integer fileSizeCode: TechnicalFacetUtils.getImageSizeCode(webResource)) {
-            facetTag = mediaTypeCode | (fileSizeCode << TechnicalFacet.IMAGE_SIZE.getBitPos());
-            facetTags.add(facetTag);
+        for (Integer fileSizeCode: TechnicalFacet.IMAGE_SIZE.evaluateAndShift(webResource)) {
+            facetTags.add(mediaTypeCode | fileSizeCode);
         }
 
-        for (Integer colorSpaceCode : TechnicalFacetUtils.getImageColorSpaceCode(webResource)) {
-            facetTag = mediaTypeCode | (colorSpaceCode << TechnicalFacet.IMAGE_COLOUR_SPACE.getBitPos());
-            facetTags.add(facetTag);
+        for (Integer colorSpaceCode : TechnicalFacet.IMAGE_COLOUR_SPACE.evaluateAndShift(webResource)) {
+            facetTags.add(mediaTypeCode | colorSpaceCode);
         }
 
-        for (Integer aspectRatioCode : TechnicalFacetUtils.getImageAspectRatioCode(webResource)) {
-            facetTag = mediaTypeCode | (aspectRatioCode << TechnicalFacet.IMAGE_ASPECT_RATIO.getBitPos());
-            facetTags.add(facetTag);
+        for (Integer aspectRatioCode : TechnicalFacet.IMAGE_ASPECT_RATIO.evaluateAndShift(webResource)) {
+            facetTags.add(mediaTypeCode | aspectRatioCode);
         }
 
-        for(final Integer colorCode : TechnicalFacetUtils.getImageColorCodes(webResource)) {
-            facetTag = mediaTypeCode | (colorCode << TechnicalFacet.IMAGE_COLOUR_PALETTE.getBitPos());
-            facetTags.add(facetTag);
+        for(final Integer colorCode : TechnicalFacet.IMAGE_COLOUR_PALETTE.evaluateAndShift(webResource)) {
+            facetTags.add(mediaTypeCode | colorCode);
         }
 
         return facetTags;
