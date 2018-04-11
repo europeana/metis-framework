@@ -12,6 +12,7 @@ import eu.europeana.redirects.params.ControlledParams;
 import eu.europeana.redirects.service.RedirectService;
 import eu.europeana.redirects.service.StringTransformationUtils;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
@@ -21,6 +22,8 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -29,6 +32,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by ymamakis on 1/13/16.
  */
 public class MongoRedirectService implements RedirectService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoRedirectService.class);
+    private static final String EUROPEANA_ID = "europeana_id";
+
     @Autowired
     private EuropeanaIdMongoServer mongoServer;
     @Autowired
@@ -52,8 +59,8 @@ public class MongoRedirectService implements RedirectService {
 
 
         //FIRST CHECK IF THERE IS A COLLECTION NAME CHANGE
-        CollectionMongoServer mongoServer = collectionMongoServer;
-        String oldCollectionId = mongoServer.findOldCollectionId(request.getCollection());
+        CollectionMongoServer collecitonMongoServer = collectionMongoServer;
+        String oldCollectionId = collecitonMongoServer.findOldCollectionId(request.getCollection());
         if (oldCollectionId != null) {
             finalId = EuropeanaUriUtils.createEuropeanaId(oldCollectionId, StringUtils.substringAfterLast(newId, "/"));
             if (request.getParameters() != null) {
@@ -74,7 +81,7 @@ public class MongoRedirectService implements RedirectService {
             finalId = StringTransformationUtils.applyTransformations(newId,
                     request.getParameters().get(ControlledParams.REDIRECT_USE_CUSTOM_FUNCTIONS.toString()));
         }
-        if (finalId != null && checkIdExists("europeana_id", finalId) != null) {
+        if (finalId != null && checkIdExists(EUROPEANA_ID, finalId) != null) {
             response.setOldId(generateEuropeanaId(newId, finalId));
         }
         return response;
@@ -92,15 +99,15 @@ public class MongoRedirectService implements RedirectService {
         ModifiableSolrParams params = new ModifiableSolrParams();
         params.set("q", ClientUtils.escapeQueryChars(field + ":" + value));
         params.set("rows", 1);
-        params.set("fl", "europeana_id");
+        params.set("fl", EUROPEANA_ID);
         try {
             QueryResponse resp = productionSolrServer.query(params);
             SolrDocumentList list = resp.getResults();
             if (list.getNumFound() == 1) {
-                return list.get(0).getFieldValue("europeana_id").toString();
+                return list.get(0).getFieldValue(EUROPEANA_ID).toString();
             }
         } catch (SolrServerException e) {
-            e.printStackTrace();
+            LOGGER.error("Solr exception when querying" , e);
         }
         return null;
     }
@@ -113,7 +120,7 @@ public class MongoRedirectService implements RedirectService {
      * @return The old identifier or null if the redirect was not generated (already existing EuropeanaId)
      */
     private String generateEuropeanaId(String newId, String oldId) {
-        EuropeanaId id = mongoServer.retrieveEuropeanaIdFromOld(oldId);
+        EuropeanaId id = mongoServer.retrieveEuropeanaIdFromOld(Collections.singletonList(oldId));
         if (id == null || !StringUtils.equals(id.getNewId(), newId)) {
             EuropeanaId europeanaId = new EuropeanaId();
             europeanaId.setOldId(oldId);
@@ -133,7 +140,7 @@ public class MongoRedirectService implements RedirectService {
      */
     public RedirectResponseList createRedirects(RedirectRequestList requests) {
         RedirectResponseList list = new RedirectResponseList();
-        List<RedirectResponse> responseList = new ArrayList<>();
+        List<RedirectResponse> responseList = new ArrayList<>(requests.getRequestList().size());
         for (RedirectRequest req : requests.getRequestList()) {
             responseList.add(createRedirect(req));
         }

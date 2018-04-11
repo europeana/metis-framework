@@ -42,7 +42,7 @@ class NormalizerImpl implements Normalizer {
     }
 
     // Normalize all records.
-    final List<NormalizationResult> result = new ArrayList<>();
+    final List<NormalizationResult> result = new ArrayList<>(edmRecords.size());
     for (String record : edmRecords) {
       result.add(normalize(record));
     }
@@ -61,11 +61,11 @@ class NormalizerImpl implements Normalizer {
     try {
       return normalizeInternal(edmRecord);
     } catch (XmlException e) {
-      LOGGER.warn(e.getMessage(), e);
+      LOGGER.warn("Parsing of xml exception", e);
       return NormalizationResult.createInstanceForError("Error parsing XML: " + e.getMessage(),
           edmRecord);
     } catch (RuntimeException e) {
-      LOGGER.error(e.getMessage(), e);
+      LOGGER.error("Unexpected runtime exception", e);
       return NormalizationResult.createInstanceForError("Unexpected problem: " + e.getMessage(),
           edmRecord);
     }

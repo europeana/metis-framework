@@ -515,8 +515,8 @@ public class OrchestratorService {
           lastHarvestPlugin.getExecutionProgress().getProcessedRecords() - lastHarvestPlugin
               .getExecutionProgress().getErrors());
     }
-    datasetExecutionInformation.setFirstPublishedDate(firstPublishPlugin != null ?
-        firstPublishPlugin.getFinishedDate() : null);
+    datasetExecutionInformation.setFirstPublishedDate(firstPublishPlugin == null ? null :
+        firstPublishPlugin.getFinishedDate());
     if (lastPublishPlugin != null) {
       datasetExecutionInformation.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       datasetExecutionInformation.setLastPublishedRecords(
@@ -548,6 +548,8 @@ public class OrchestratorService {
   }
 
   public void setMetisCoreUrl(String metisCoreUrl) {
-    this.metisCoreUrl = metisCoreUrl;
+    synchronized (this) {
+      this.metisCoreUrl = metisCoreUrl;
+    }
   }
 }

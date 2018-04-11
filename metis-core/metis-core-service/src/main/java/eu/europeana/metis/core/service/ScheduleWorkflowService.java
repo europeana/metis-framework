@@ -130,10 +130,8 @@ public class ScheduleWorkflowService {
     return dataset;
   }
 
-  private Workflow checkWorkflowExistence(int datasetId)
-      throws NoWorkflowFoundException {
-    Workflow workflow = workflowDao
-        .getWorkflow(datasetId);
+  private Workflow checkWorkflowExistence(int datasetId) throws NoWorkflowFoundException {
+    Workflow workflow = workflowDao.getWorkflow(datasetId);
     if (workflow == null) {
       throw new NoWorkflowFoundException(
           String.format("No workflow found with datasetId: %s, in METIS", datasetId));
