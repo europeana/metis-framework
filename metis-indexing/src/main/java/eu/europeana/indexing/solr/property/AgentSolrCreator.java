@@ -5,12 +5,12 @@ import eu.europeana.corelib.definitions.edm.entity.Agent;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
- * Generate Agent SOLR fields from Mongo
+ * Property Solr Creator for 'edm:Agent' tags.
  *
  * @author Yorgos.Mamakis@ europeana.eu
  *
  */
-public class AgentSolrCreator extends PropertySolrCreator<Agent> {
+public class AgentSolrCreator implements PropertySolrCreator<Agent> {
 
   @Override
   public void addToDocument(SolrInputDocument doc, Agent agent) {

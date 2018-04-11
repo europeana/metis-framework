@@ -5,12 +5,12 @@ import eu.europeana.corelib.definitions.edm.entity.Place;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
- * Generate Place SOLR fields from Mongo
+ * Property Solr Creator for 'edm:Place' tags.
  *
  * @author Yorgos.Mamakis@ europeana.eu
  *
  */
-public class PlaceSolrCreator extends PropertySolrCreator<Place> {
+public class PlaceSolrCreator implements PropertySolrCreator<Place> {
 
   @Override
   public void addToDocument(SolrInputDocument doc, Place place) {

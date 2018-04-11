@@ -5,7 +5,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * This enum contains all supported colors.
+ * This enum contains all supported facets, including the functionality to evaluate them and shift
+ * them into their assigned position.
  */
 public enum TechnicalFacet {
 

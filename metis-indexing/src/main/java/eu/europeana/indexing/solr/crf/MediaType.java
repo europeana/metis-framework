@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * This class contains the types that are supported as technical metadata within records.
+ * This class contains the types that are supported as technical metadata within records, along with
+ * the facets that are to be applied to web resources of the given type.
  * 
  * @author jochen
  *
@@ -45,10 +46,18 @@ public enum MediaType {
     this.facets = Stream.of(facets).collect(Collectors.toSet());
   }
 
-  public int getEncodedValue() {
-    return TechnicalFacet.MEDIA_TYPE.shift(value);
+  /**
+   * Codifies the given media type (but doesn't shift the code).
+   * 
+   * @return The integer representation of this media type.
+   */
+  public int getCode() {
+    return value;
   }
 
+  /**
+   * @return The facets that are to be applied to web resources of this type.
+   */
   public Set<TechnicalFacet> getFacets() {
     return Collections.unmodifiableSet(facets);
   }

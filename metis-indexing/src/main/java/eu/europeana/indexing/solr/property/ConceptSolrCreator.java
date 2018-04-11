@@ -5,12 +5,12 @@ import eu.europeana.corelib.definitions.edm.entity.Concept;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
- * Generate Concept SOLR fields from Mongo
+ * Property Solr Creator for 'skos:Concept' tags.
  * 
  * @author Yorgos.Mamakis@ europeana.eu
  *
  */
-public class ConceptSolrCreator extends PropertySolrCreator<Concept> {
+public class ConceptSolrCreator implements PropertySolrCreator<Concept> {
 
   @Override
   public void addToDocument(SolrInputDocument doc, Concept concept) {

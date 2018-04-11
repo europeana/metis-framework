@@ -6,13 +6,20 @@ import eu.europeana.corelib.definitions.edm.entity.Aggregation;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
+ * Property Solr Creator for 'ore:Aggregation' tags.
  *
  * @author Yorgos.Mamakis@ europeana.eu
  */
-public class AggregationSolrCreator extends PropertySolrCreator<Aggregation> {
+public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> {
 
   private final Predicate<String> hasLicense;
 
+  /**
+   * Constructor.
+   * 
+   * @param hasLicense Predicate to evaluate whether there is a license available for any given web
+   *        resource (URI).
+   */
   public AggregationSolrCreator(Predicate<String> hasLicense) {
     this.hasLicense = hasLicense;
   }

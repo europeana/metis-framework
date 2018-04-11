@@ -5,10 +5,19 @@ import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.License;
 import eu.europeana.indexing.solr.EdmLabel;
 
-public class LicenseSolrCreator extends PropertySolrCreator<License> {
+/**
+ * Property Solr Creator for 'cc:License' tags.
+ */
+public class LicenseSolrCreator implements PropertySolrCreator<License> {
 
   private final Predicate<License> isAggregationResolver;
 
+  /**
+   * Constructor.
+   * 
+   * @param isAggregationResolver Predicate that evaluates whether the given license (URI) is an
+   *        aggregation license.
+   */
   public LicenseSolrCreator(Predicate<License> isAggregationResolver) {
     this.isAggregationResolver = isAggregationResolver;
   }

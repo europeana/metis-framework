@@ -6,7 +6,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 /**
- * This enum contains all supported mime types.
+ * This enum contains all supported mime types along with the code that they are assigned.
  */
 public enum MimeTypeEncoding {
 
@@ -806,7 +806,6 @@ public enum MimeTypeEncoding {
   }
 
   /**
-   * 
    * @return The mime type represented by this encoding.
    */
   String getMimeType() {
@@ -814,7 +813,6 @@ public enum MimeTypeEncoding {
   }
   
   /**
-   * 
    * @return The code (unshifted) that is assigned to this mime type.
    */
   int getCode() {
@@ -825,12 +823,12 @@ public enum MimeTypeEncoding {
    * Codifies the given mimetype (but doesn't shift the code).
    * 
    * @param type The mimetype of the resource
-   * @return The integer represantation of the mimetype, or 0 if the mime type could not be found.
+   * @return The integer representation of the mimetype, or 0 if the mime type could not be found.
    */
   static Integer getMimeTypeCode(final String type) {
-    final Integer retval =
+    final Integer result =
         StringUtils.isNotBlank(type) ? getMimeTypeMap().get(type.toLowerCase(Locale.ENGLISH))
             : null;
-    return retval == null ? 0 : retval;
+    return result == null ? 0 : result;
   }
 }

@@ -1,15 +1,13 @@
 package eu.europeana.indexing.solr;
 
 /**
- * Enumeration holding the Solr Structure and field definitions
+ * Enumeration holding the Solr field definitions
  * 
  * @author Yorgos.Mamakis@ kb.nl
  * 
  */
 public enum EdmLabel {
 
-  // TODO JOCHEN these are just string constants!
-  
   // GENERAL
   EUROPEANA_COMPLETENESS("europeana_completeness"),
   EUROPEANA_COLLECTIONNAME("europeana_collectionName"), 
@@ -80,7 +78,7 @@ public enum EdmLabel {
   WR_DCTERMS_ISREFERENCEDBY("wr_dcterms_isReferencedBy"),
 
   //SERVICE
-  SV_RDF_ABOUT("svcs_service"),
+  SV_SERVICE("svcs_service"),
   SV_DCTERMS_CONFORMS_TO("sv_dcterms_conformsTo"),
   SV_DOAP_IMPLEMENTS("sv_doap_implements"),
 

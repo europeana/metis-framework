@@ -6,7 +6,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 /**
- * This enum contains all supported colors.
+ * This enum contains all supported colors along with the code that they are assigned.
  */
 public enum ColorEncoding {
 

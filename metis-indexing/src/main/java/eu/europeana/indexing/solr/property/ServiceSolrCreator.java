@@ -5,13 +5,13 @@ import eu.europeana.corelib.definitions.edm.entity.Service;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
- * Created by ymamakis on 1/12/16.
+ * Property Solr Creator for 'svcs:Service' tags.
  */
-public class ServiceSolrCreator extends PropertySolrCreator<Service> {
+public class ServiceSolrCreator implements PropertySolrCreator<Service> {
 
   @Override
   public void addToDocument(SolrInputDocument doc, Service service) {
-    SolrPropertyUtils.addValue(doc, EdmLabel.SV_RDF_ABOUT, service.getAbout());
+    SolrPropertyUtils.addValue(doc, EdmLabel.SV_SERVICE, service.getAbout());
     SolrPropertyUtils.addValues(doc, EdmLabel.SV_DCTERMS_CONFORMS_TO, service.getDctermsConformsTo());
     SolrPropertyUtils.addValues(doc, EdmLabel.SV_DOAP_IMPLEMENTS, service.getDoapImplements());
   }

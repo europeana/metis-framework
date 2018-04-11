@@ -6,6 +6,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import eu.europeana.indexing.utils.SetUtils;
 
+/**
+ * This class provides functionality to extract the facet codes from web resources and combine them
+ * into facet and/or filter tags that may be added to the web resource's persistence and thus allow
+ * categorizing, filtering and searching them based on the facets' values.
+ * 
+ * @author jochen
+ *
+ */
 public class TagExtractor {
 
   /**
@@ -50,7 +58,8 @@ public class TagExtractor {
         .map(facet -> facet.evaluateAndShift(webResource)).collect(Collectors.toList());
 
     // Find all the combinations.
-    return SetUtils.generateCombinations(codes, mediaType.getEncodedValue(),
+    final int shiftedMediaTypeCode = getShiftedMediaTypeCode(mediaType);
+    return SetUtils.generateCombinations(codes, shiftedMediaTypeCode,
         (combination, code) -> combination | code);
   }
 
@@ -68,9 +77,9 @@ public class TagExtractor {
    * <li>a2</li>
    * <li>b1</li>
    * </ol>
-   * As opposed to {@link #getFilterTags(WebResourceWrapper)}, this method returns only the individual
-   * codes, not any combination of them. As such, this result will be a subset of the result of
-   * {@link #getFilterTags(WebResourceWrapper)}.
+   * As opposed to {@link #getFilterTags(WebResourceWrapper)}, this method returns only the
+   * individual codes, not any combination of them. As such, this result will be a subset of the
+   * result of {@link #getFilterTags(WebResourceWrapper)}.
    * </p>
    * <p>
    * Note that all resulting codes will be shifted to the right position and will also have the bits
@@ -90,10 +99,14 @@ public class TagExtractor {
 
     // Get all the individual codes from all the facets and make sure there is always the media type
     // code 'or'-ed into them.
-    final Integer mediaTypeCode = mediaType.getEncodedValue();
+    final int shiftedMediaTypeCode = getShiftedMediaTypeCode(mediaType);
     return mediaType.getFacets().stream()
         .flatMap(facet -> facet.evaluateAndShift(webResource).stream())
-        .map(code -> mediaTypeCode | code).collect(Collectors.toSet());
+        .map(code -> shiftedMediaTypeCode | code).collect(Collectors.toSet());
 
+  }
+
+  private static int getShiftedMediaTypeCode(MediaType mediaType) {
+    return TechnicalFacet.MEDIA_TYPE.shift(mediaType.getCode());
   }
 }

@@ -32,6 +32,16 @@ import eu.europeana.indexing.solr.property.ServiceSolrCreator;
 import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 
+/**
+ * This class provides functionality to populate Solr documents. Both methods in this class should
+ * be called to fill the Solr document. The method
+ * {@link #populateWithProperties(SolrInputDocument, FullBeanImpl)} copies properties from the
+ * source to the Solr document. The method {@link #populateWithCrfFields(SolrInputDocument, RDF)} on
+ * the other hand performs some analysis and sets technical metadata.
+ * 
+ * @author jochen
+ *
+ */
 public class SolrDocumentPopulator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SolrDocumentPopulator.class);
@@ -112,8 +122,8 @@ public class SolrDocumentPopulator {
     document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), !isEmpty(landingPage));
 
     // Get the web resources.
-    final List<WebResourceWrapper> webResources = WebResourceWrapper.getListFromRdf(rdf); 
-    
+    final List<WebResourceWrapper> webResources = WebResourceWrapper.getListFromRdf(rdf);
+
     // has_media is true if and only if there is at least one web resource, not of type
     // 'is_shown_at', representing technical metadata.
     final Set<String> isShownAtUrls;
@@ -151,7 +161,7 @@ public class SolrDocumentPopulator {
       document.addField(EdmLabel.CRF_FACET_TAGS.toString(), tag);
     }
   }
-  
+
   private boolean isEmpty(ResourceType resourceType) {
     return resourceType == null || resourceType.getResource() == null
         || resourceType.getResource().trim().isEmpty();

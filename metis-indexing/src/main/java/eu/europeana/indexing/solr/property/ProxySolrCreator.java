@@ -5,10 +5,11 @@ import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
+ * Property Solr Creator for 'ore:Proxy' tags.
  *
  * @author Yorgos.Mamakis@ europeana.eu
  */
-public class ProxySolrCreator extends PropertySolrCreator<Proxy> {
+public class ProxySolrCreator implements PropertySolrCreator<Proxy> {
 
   @Override
   public void addToDocument(SolrInputDocument doc, Proxy proxy) {

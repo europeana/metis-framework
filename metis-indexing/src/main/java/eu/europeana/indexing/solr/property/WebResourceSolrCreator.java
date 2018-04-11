@@ -6,13 +6,20 @@ import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
+ * Property Solr Creator for 'edm:WebResource' tags.
  *
  * @author Yorgos.Mamakis@ europeana.eu
  */
-public class WebResourceSolrCreator extends PropertySolrCreator<WebResource>{
-  
+public class WebResourceSolrCreator implements PropertySolrCreator<WebResource> {
+
   private final Predicate<String> hasLicense;
 
+  /**
+   * Constructor.
+   * 
+   * @param hasLicense Predicate to evaluate whether there is a license available for any given web
+   *        resource (URI).
+   */
   public WebResourceSolrCreator(Predicate<String> hasLicense) {
     this.hasLicense = hasLicense;
   }

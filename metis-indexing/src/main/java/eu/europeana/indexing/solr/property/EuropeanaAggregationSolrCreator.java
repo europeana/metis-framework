@@ -5,7 +5,10 @@ import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.indexing.solr.EdmLabel;
 
-public class EuropeanaAggregationSolrCreator extends PropertySolrCreator<EuropeanaAggregation> {
+/**
+ * Property Solr Creator for 'edm:EuropeanaAggregation' tags.
+ */
+public class EuropeanaAggregationSolrCreator implements PropertySolrCreator<EuropeanaAggregation> {
 
   private static final String PORTAL_PREFIX = "http://europeana.eu/portal/record/";
   private static final String PORTAL_SUFFIX = ".html";

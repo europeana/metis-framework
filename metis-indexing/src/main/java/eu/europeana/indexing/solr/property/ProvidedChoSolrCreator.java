@@ -6,10 +6,11 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
+ * Property Solr Creator for 'edm:providedCHO' tags.
  *
  * @author gmamakis
  */
-public class ProvidedChoSolrCreator extends PropertySolrCreator<ProvidedCHOImpl> {
+public class ProvidedChoSolrCreator implements PropertySolrCreator<ProvidedCHOImpl> {
 
   @Override
   public void addToDocument(SolrInputDocument doc, ProvidedCHOImpl pCho) {

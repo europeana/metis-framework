@@ -85,10 +85,22 @@ public final class FacetCodeUtils {
 
   private FacetCodeUtils() {}
 
+  /**
+   * Codify the mime type of the given web resource.
+   * 
+   * @param webResource The web resource.
+   * @return The (non-shifted) code.
+   */
   public static Set<Integer> getMimeTypeCode(final WebResourceWrapper webResource) {
     return Collections.singleton(MimeTypeEncoding.getMimeTypeCode(webResource.getMimeType()));
   }
 
+  /**
+   * Codify the size of the given image.
+   * 
+   * @param webResource The web resource.
+   * @return The (non-shifted) code.
+   */
   public static Set<Integer> getImageSizeCode(final WebResourceWrapper webResource) {
     final long size = webResource.getWidth() * webResource.getHeight();
     final Integer result;
@@ -108,6 +120,12 @@ public final class FacetCodeUtils {
     return Collections.singleton(result);
   }
 
+  /**
+   * Codify the color space of the given image.
+   * 
+   * @param webResource The web resource.
+   * @return The (non-shifted) code.
+   */
   public static Set<Integer> getImageColorSpaceCode(final WebResourceWrapper webResource) {
     final ColorSpace colorSpace = webResource.getColorSpace();
     final Integer result;
@@ -121,6 +139,12 @@ public final class FacetCodeUtils {
     return Collections.singleton(result);
   }
 
+  /**
+   * Codify the aspect ratio of the given image.
+   * 
+   * @param webResource The web resource.
+   * @return The (non-shifted) code.
+   */
   public static Set<Integer> getImageAspectRatioCode(final WebResourceWrapper webResource) {
     final Orientation orientation = webResource.getOrientation();
     final Integer result;
@@ -134,6 +158,12 @@ public final class FacetCodeUtils {
     return Collections.singleton(result);
   }
 
+  /**
+   * Codify the color palette of the given image.
+   * 
+   * @param webResource The web resource.
+   * @return The (non-shifted) code.
+   */
   public static Set<Integer> getImageColorPalette(final WebResourceWrapper webResource) {
     final Set<String> colorCodes = webResource.getColorHexCodes();
     if (colorCodes.isEmpty()) {
@@ -143,6 +173,12 @@ public final class FacetCodeUtils {
         .collect(Collectors.toSet());
   }
 
+  /**
+   * Codify the quality of the given video.
+   * 
+   * @param webResource The web resource.
+   * @return The (non-shifted) code.
+   */
   public static Set<Integer> getVideoQualityCode(final WebResourceWrapper webResource) {
     final Integer result;
     if (webResource.getHeight() <= VIDEO_HIGH_QUALITY_HEIGHT) {
@@ -153,6 +189,12 @@ public final class FacetCodeUtils {
     return Collections.singleton(result);
   }
 
+  /**
+   * Codify the quality of the given audio.
+   * 
+   * @param webResource The web resource.
+   * @return The (non-shifted) code.
+   */
   public static Set<Integer> getAudioQualityCode(final WebResourceWrapper webResource) {
 
     // Determine whether the format is high-definition sampling or lossless.
@@ -174,6 +216,12 @@ public final class FacetCodeUtils {
     return Collections.singleton(result);
   }
 
+  /**
+   * Codify the duration of the given video.
+   * 
+   * @param webResource The web resource.
+   * @return The (non-shifted) code.
+   */
   public static Set<Integer> getVideoDurationCode(final WebResourceWrapper webResource) {
     final long duration = webResource.getDuration();
     final Integer result;
@@ -189,6 +237,12 @@ public final class FacetCodeUtils {
     return Collections.singleton(result);
   }
 
+  /**
+   * Codify the duration of the given audio.
+   * 
+   * @param webResource The web resource.
+   * @return The (non-shifted) code.
+   */
   public static Set<Integer> getAudioDurationCode(final WebResourceWrapper webResource) {
     final long duration = webResource.getDuration();
     final Integer result;

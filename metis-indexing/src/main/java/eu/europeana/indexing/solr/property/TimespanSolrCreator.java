@@ -5,12 +5,12 @@ import eu.europeana.corelib.definitions.edm.entity.Timespan;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
- * Generate Timespan SOLR fields from Mongo
+ * Property Solr Creator for 'edm:TimeSpan' tags.
  * 
  * @author Yorgos.Mamakis@ europeana.eu
  *
  */
-public class TimespanSolrCreator extends PropertySolrCreator<Timespan> {
+public class TimespanSolrCreator implements PropertySolrCreator<Timespan> {
 
   @Override
   public void addToDocument(SolrInputDocument doc, Timespan ts) {
