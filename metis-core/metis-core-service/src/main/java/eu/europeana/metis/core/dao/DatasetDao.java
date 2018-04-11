@@ -320,6 +320,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   }
 
   public void setEcloudProvider(String ecloudProvider) {
-    this.ecloudProvider = ecloudProvider;
+    synchronized (this) {
+      this.ecloudProvider = ecloudProvider;
+    }
   }
 }

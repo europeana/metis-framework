@@ -1,19 +1,4 @@
-package eu.europeana.metis.mongo;/*
- * Copyright 2007-2013 The Europeana Foundation
- *
- *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
- *  by the European Commission;
- *  You may not use this work except in compliance with the Licence.
- *
- *  You may obtain a copy of the Licence at:
- *  http://joinup.ec.europa.eu/software/page/eupl
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under
- *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
- *  any kind, either express or implied.
- *  See the Licence for the specific language governing permissions and limitations under
- *  the Licence.
- */
+package eu.europeana.metis.mongo;
 
 import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
@@ -30,17 +15,36 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Created by ymamakis on 3/17/16.
  */
 public class EmbeddedLocalhostMongo {
-  private MongodExecutable mongodExecutable;
-  private final String mongoHost = "127.0.0.1";
-  private int mongoPort;
-  private final Logger LOGGER = LoggerFactory.getLogger(EmbeddedLocalhostMongo.class);
 
-  public void start() throws IOException {
+  private MongodExecutable mongodExecutable;
+  private final String mongoHost;
+  private int mongoPort;
+  private static final Logger LOGGER = LoggerFactory.getLogger(EmbeddedLocalhostMongo.class);
+
+  /**
+   * Constructor for default object for localhost mongo
+   */
+  public EmbeddedLocalhostMongo() {
+    mongoHost = "127.0.0.1";
+  }
+
+  /**
+   * Constructor with option to provide a custom monog host ip if required.
+   *
+   * @param mongoHost the ip of the mongo host that should be used
+   */
+  public EmbeddedLocalhostMongo(String mongoHost) {
+    this.mongoHost = mongoHost;
+  }
+
+  /**
+   * Starts a local host mongo.
+   */
+  public void start() {
     if (mongodExecutable == null) {
       try {
         mongoPort = NetworkUtil.getAvailableLocalPort();
@@ -54,7 +58,7 @@ public class EmbeddedLocalhostMongo {
             .net(new Net(mongoHost, mongoPort, Network.localhostIsIPv6())).build());
         mongodExecutable.start();
       } catch (IOException e) {
-        e.printStackTrace();
+        LOGGER.error("Exception when starting embedded mongo", e);
       }
     }
   }
@@ -67,6 +71,9 @@ public class EmbeddedLocalhostMongo {
     return mongoPort;
   }
 
+  /**
+   * Stop a previously started local host mongo.
+   */
   public void stop() {
     mongodExecutable.stop();
   }

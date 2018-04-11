@@ -1,8 +1,11 @@
 package eu.europeana.normalization.languages;
 
+import eu.europeana.normalization.util.NormalizationConfigurationException;
+import eu.europeana.normalization.util.XmlException;
+import eu.europeana.normalization.util.XmlUtil;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,9 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import eu.europeana.normalization.util.NormalizationConfigurationException;
-import eu.europeana.normalization.util.XmlException;
-import eu.europeana.normalization.util.XmlUtil;
 
 /**
  * Holds data from the European Languages NAL dump, which is used to support the normalization of
@@ -25,7 +25,7 @@ public class Languages {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Languages.class);
 
-  private static Languages instance = null;
+  private static Languages instance;
 
   private final List<Language> activeLanguages = new ArrayList<>();
   private final List<Language> deprecatedLanguages = new ArrayList<>();
@@ -37,8 +37,8 @@ public class Languages {
         Thread.currentThread().getContextClassLoader().getResourceAsStream("languages.xml");
     Document langNalDom;
     try {
-      langNalDom = XmlUtil.parseDom(new InputStreamReader(nalFileIn, "UTF-8"));
-    } catch (XmlException | UnsupportedEncodingException e) {
+      langNalDom = XmlUtil.parseDom(new InputStreamReader(nalFileIn, StandardCharsets.UTF_8));
+    } catch (XmlException e) {
       LOGGER.error("Unexpected error while setting up the language repository.", e);
       throw new NormalizationConfigurationException(
           "Unexpected error while setting up the language repository: " + e.getMessage(), e);
@@ -101,11 +101,13 @@ public class Languages {
    * @return The language list.
    * @throws NormalizationConfigurationException In case the languages list could not be configured.
    */
-  public static synchronized Languages getLanguages() throws NormalizationConfigurationException {
-    if (instance == null) {
-      instance = new Languages();
+  public static Languages getLanguages() throws NormalizationConfigurationException {
+    synchronized (Languages.class) {
+      if (instance == null) {
+        instance = new Languages();
+      }
+      return instance;
     }
-    return instance;
   }
 
   public List<Language> getActiveLanguages() {

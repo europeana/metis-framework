@@ -30,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -53,7 +54,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     private String socksProxyPassword;
 
     @Value("${mongo.hosts}")
-    private String mongoHosts;
+    private String[] mongoHosts;
     @Value("${mongo.port}")
     private int mongoPort;
     @Value("${mongo.username}")
@@ -79,22 +80,19 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
      * Used for overwriting properties if cloud foundry environment is used
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         if (socksProxyEnabled) {
             new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
         }
 
-        String[] mongoHostsArray = mongoHosts.split(",");
-        StringBuilder mongoPorts = new StringBuilder();
-        for (int i = 0; i < mongoHostsArray.length; i++) {
-            mongoPorts.append(mongoPort + ",");
+        String[] mongoPorts = new String[mongoHosts.length];
+        for (int i = 0; i < mongoHosts.length; i++) {
+            mongoPorts[i]= Integer.toString(mongoPort);
         }
-        mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
         MongoClientOptions.Builder options = MongoClientOptions.builder();
-        options.socketKeepAlive(true);
-        mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
+        mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts, mongoDb, mongoUsername,
             mongoPassword, options);
-        mongoProviderCollections = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoCollectionsDb, mongoUsername,
+        mongoProviderCollections = new MongoProviderImpl(mongoHosts, mongoPorts, mongoCollectionsDb, mongoUsername,
             mongoPassword, options);
     }
 
@@ -162,15 +160,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
 
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo(
-                "Metis redirects REST API",
-                "Metis redirects REST API for Europeana",
-                "v1",
-                "API TOS",
-                "development@europeana.eu",
-                "EUPL Licence v1.1",
-                ""
+        return new ApiInfo(
+            "Metis redirects REST API",
+            "Metis redirects REST API for Europeana",
+            "v1",
+            "API TOS",
+            new Contact("development", "europeana.eu", "development@europeana.eu"),
+            "EUPL Licence v1.1",
+            ""
         );
-        return apiInfo;
     }
 }

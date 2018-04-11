@@ -52,6 +52,12 @@ public class Application extends WebMvcConfigurerAdapter {
   private ConfigurationPropertiesHolder propertiesHolder;
   private MongoClient mongoClient;
 
+  /**
+   * Autowired constructor for Spring Configuration class.
+   *
+   * @param propertiesHolder the object that holds all boot configuration values
+   * @throws TrustStoreConfigurationException if the configuration of the truststore failed
+   */
   @Autowired
   public Application(ConfigurationPropertiesHolder propertiesHolder)
       throws TrustStoreConfigurationException {
@@ -84,7 +90,7 @@ public class Application extends WebMvcConfigurerAdapter {
       throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
     }
 
-    List<ServerAddress> serverAddresses = new ArrayList<>();
+    List<ServerAddress> serverAddresses = new ArrayList<>(propertiesHolder.getMongoHosts().length);
     for (int i = 0; i < propertiesHolder.getMongoHosts().length; i++) {
       ServerAddress address;
       if (propertiesHolder.getMongoHosts().length == propertiesHolder.getMongoPorts().length) {

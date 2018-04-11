@@ -116,7 +116,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
     }
 
-    List<ServerAddress> serverAddresses = new ArrayList<>();
+    List<ServerAddress> serverAddresses = new ArrayList<>(mongoHosts.length);
     for (int i = 0; i < mongoHosts.length; i++) {
       ServerAddress address;
       if (mongoHosts.length == mongoPorts.length) {

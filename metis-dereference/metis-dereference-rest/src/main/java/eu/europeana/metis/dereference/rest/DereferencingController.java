@@ -35,7 +35,7 @@ public class DereferencingController {
 
   /**
    * Constructor.
-   * 
+   *
    * @param dereferenceService An instance for processing dereference requests.
    */
   @Autowired
@@ -58,7 +58,8 @@ public class DereferencingController {
       return dereferenceService.dereference(resourceId);
     } catch (RuntimeException | JAXBException | TransformerException | URISyntaxException e) {
       LOGGER.warn("Problem occurred while dereferencing resource " + resourceId + ".", e);
-      throw new DereferenceException(e.getMessage(), resourceId);
+      throw new DereferenceException(
+          "Dereferencing failed for uri: " + resourceId + " with root cause: " + e.getMessage(), e);
     }
   }
 

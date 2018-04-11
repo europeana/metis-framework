@@ -3,13 +3,14 @@ package eu.europeana.redirects.client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.redirects.model.RedirectRequest;
 import eu.europeana.redirects.model.RedirectResponse;
+import java.io.IOException;
 
 /**
  * Created by ymamakis on 8/2/16.
  */
 public class RestClientTest {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         RedirectsClient client = new RedirectsClient();
         RedirectRequest request = new RedirectRequest();
         request.setFieldName("title");

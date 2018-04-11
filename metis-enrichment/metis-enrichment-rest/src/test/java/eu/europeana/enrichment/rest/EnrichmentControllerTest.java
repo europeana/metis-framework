@@ -2,16 +2,15 @@ package eu.europeana.enrichment.rest;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.rest.exception.RestResponseExceptionHandler;
@@ -105,7 +103,7 @@ public class EnrichmentControllerTest {
         .param("uri", "http://www.fennek-it.nl")
         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
         .andExpect(status().is(400))
-        .andExpect(jsonPath("$.errorMessage", is("MyException")));
+        .andExpect(jsonPath("$.errorMessage", is("Error converting object to EnrichmentBase")));
   }
 
   @Test
@@ -178,7 +176,7 @@ public class EnrichmentControllerTest {
         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
         .andExpect(status().is(400))
-        .andExpect(jsonPath("$.errorMessage", is("myException")));
+        .andExpect(jsonPath("$.errorMessage", is("Error converting object.")));
   }
 
   private Agent getAgent(String uri) {
