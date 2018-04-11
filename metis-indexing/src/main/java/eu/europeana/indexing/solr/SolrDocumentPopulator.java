@@ -11,17 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.HasView;
+import eu.europeana.corelib.definitions.jibx.IsShownAt;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
-import eu.europeana.corelib.definitions.jibx.Type1;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
 import eu.europeana.indexing.solr.crf.MediaType;
 import eu.europeana.indexing.solr.crf.TagExtractor;
-import eu.europeana.indexing.solr.crf.TechnicalFacetUtils;
+import eu.europeana.indexing.solr.crf.WebResourceWrapper;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
 import eu.europeana.indexing.solr.property.AggregationSolrCreator;
 import eu.europeana.indexing.solr.property.ConceptSolrCreator;
@@ -114,25 +112,25 @@ public class SolrDocumentPopulator {
     document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), !isEmpty(landingPage));
 
     // Get the web resources.
-    final List<WebResourceType> webResources;
-    if (rdf.getWebResourceList() == null) {
-      webResources = Collections.emptyList();
-    } else {
-      webResources = rdf.getWebResourceList();
-    }
+    final List<WebResourceWrapper> webResources = WebResourceWrapper.getListFromRdf(rdf); 
     
     // has_media is true if and only if there is at least one web resource, not of type
     // 'is_shown_at', representing technical metadata.
-    final Set<String> urls = getResourceUrlsForHasMedia(rdf);
+    final Set<String> isShownAtUrls;
+    if (rdf.getAggregationList() == null) {
+      isShownAtUrls = Collections.emptySet();
+    } else {
+      isShownAtUrls = rdf.getAggregationList().stream().map(Aggregation::getIsShownAt)
+          .filter(Objects::nonNull).map(IsShownAt::getResource).collect(Collectors.toSet());
+    }
     final boolean hasMedia =
-        webResources.stream().filter(resource -> urls.contains(resource.getAbout()))
-            .map(TechnicalFacetUtils::getMediaType).anyMatch(type -> !type.equals(MediaType.OTHER));
+        webResources.stream().filter(resource -> !isShownAtUrls.contains(resource.getAbout()))
+            .map(WebResourceWrapper::getMediaType).anyMatch(type -> !type.equals(MediaType.OTHER));
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
     // is_fulltext is true if and only if there is at least one web resource with 'rdf:type' equal
     // to 'edm:FullTextResource'.
-    final boolean isFullText = webResources.stream().map(WebResourceType::getType)
-        .filter(Objects::nonNull).map(Type1::getResource)
+    final boolean isFullText = webResources.stream().map(WebResourceWrapper::getType)
         .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
     document.addField(EdmLabel.CRF_IS_FULL_TEXT.toString(), isFullText);
 
@@ -140,7 +138,7 @@ public class SolrDocumentPopulator {
     final Set<Integer> filterTags = new HashSet<>();
     final Set<Integer> facetTags = new HashSet<>();
     final TagExtractor tagExtractor = new TagExtractor();
-    for (WebResourceType webResource : webResources) {
+    for (WebResourceWrapper webResource : webResources) {
       filterTags.addAll(tagExtractor.getFilterTags(webResource));
       facetTags.addAll(tagExtractor.getFacetTags(webResource));
     }
@@ -154,26 +152,6 @@ public class SolrDocumentPopulator {
     }
   }
   
-  // TODO JOCHEN: can be done by potential library method EdmObject.getResourceUrls:
-  // urls = getResourceUrls(Arrays.asList(UrlType.HAS_VIEW, ...)).keySet()
-  private Set<String> getResourceUrlsForHasMedia(RDF rdf) {
-    Set<String> urls = new HashSet<>();
-    for (Aggregation aggregation : rdf.getAggregationList()) {
-      if (aggregation.getObject() != null) {
-        urls.add(aggregation.getObject().getResource());
-      }
-      if (aggregation.getHasViewList() != null) {
-        for (HasView hv : aggregation.getHasViewList()) {
-          urls.add(hv.getResource());
-        }
-      }
-      if (aggregation.getIsShownBy() != null) {
-        urls.add(aggregation.getIsShownBy().getResource());
-      }
-    }
-    return urls;
-  }
-
   private boolean isEmpty(ResourceType resourceType) {
     return resourceType == null || resourceType.getResource() == null
         || resourceType.getResource().trim().isEmpty();

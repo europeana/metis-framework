@@ -3,7 +3,6 @@ package eu.europeana.indexing.solr.crf;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
 
 /**
  * This enum contains all supported colors.
@@ -14,30 +13,30 @@ public enum TechnicalFacet {
     throw new UnsupportedOperationException();
   }),
 
-  MIME_TYPE(15, 10, TechnicalFacetUtils::getMimeTypeCode),
+  MIME_TYPE(15, 10, FacetCodeUtils::getMimeTypeCode),
 
-  IMAGE_SIZE(12, 3, TechnicalFacetUtils::getImageSizeCode),
+  IMAGE_SIZE(12, 3, FacetCodeUtils::getImageSizeCode),
 
-  IMAGE_COLOUR_SPACE(10, 2, TechnicalFacetUtils::getImageColorSpaceCode),
+  IMAGE_COLOUR_SPACE(10, 2, FacetCodeUtils::getImageColorSpaceCode),
 
-  IMAGE_ASPECT_RATIO(8, 2, TechnicalFacetUtils::getImageAspectRatioCode),
+  IMAGE_ASPECT_RATIO(8, 2, FacetCodeUtils::getImageAspectRatioCode),
 
-  IMAGE_COLOUR_PALETTE(0, 8, TechnicalFacetUtils::getImageColorPalette),
+  IMAGE_COLOUR_PALETTE(0, 8, FacetCodeUtils::getImageColorPalette),
 
-  SOUND_QUALITY(13, 2, TechnicalFacetUtils::getAudioQualityCode),
+  SOUND_QUALITY(13, 2, FacetCodeUtils::getAudioQualityCode),
 
-  VIDEO_QUALITY(13, 2, TechnicalFacetUtils::getVideoQualityCode),
+  VIDEO_QUALITY(13, 2, FacetCodeUtils::getVideoQualityCode),
 
-  SOUND_DURATION(10, 3, TechnicalFacetUtils::getAudioDurationCode),
+  SOUND_DURATION(10, 3, FacetCodeUtils::getAudioDurationCode),
 
-  VIDEO_DURATION(10, 3, TechnicalFacetUtils::getVideoDurationCode);
+  VIDEO_DURATION(10, 3, FacetCodeUtils::getVideoDurationCode);
 
   private final int bitPosition;
   private final int numberOfBits;
-  private final Function<WebResourceType, Set<Integer>> facetExtractor;
+  private final Function<WebResourceWrapper, Set<Integer>> facetExtractor;
 
   private TechnicalFacet(final int bitPosition, final int numberOfBits,
-      Function<WebResourceType, Set<Integer>> facetExtractor) {
+      Function<WebResourceWrapper, Set<Integer>> facetExtractor) {
     this.bitPosition = bitPosition;
     this.numberOfBits = numberOfBits;
     this.facetExtractor = facetExtractor;
@@ -74,7 +73,7 @@ public enum TechnicalFacet {
    * @param webResource The web resource to evaluate this facet on.
    * @return The codes. May be empty.
    */
-  public Set<Integer> evaluateAndShift(WebResourceType webResource) {
+  public Set<Integer> evaluateAndShift(WebResourceWrapper webResource) {
     return facetExtractor.apply(webResource).stream().map(this::shift).collect(Collectors.toSet());
   }
 }

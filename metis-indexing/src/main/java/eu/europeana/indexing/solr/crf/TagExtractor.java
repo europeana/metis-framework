@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.indexing.utils.SetUtils;
 
 public class TagExtractor {
@@ -38,10 +37,10 @@ public class TagExtractor {
    * @param webResource The web resource for which to retrieve the facet codes.
    * @return The set of facet codes.
    */
-  public final Set<Integer> getFilterTags(WebResourceType webResource) {
+  public final Set<Integer> getFilterTags(WebResourceWrapper webResource) {
 
     // Get and check the media type.
-    final MediaType mediaType = TechnicalFacetUtils.getMediaType(webResource);
+    final MediaType mediaType = webResource.getMediaType();
     if (MediaType.OTHER.equals(mediaType)) {
       return Collections.emptySet();
     }
@@ -69,9 +68,9 @@ public class TagExtractor {
    * <li>a2</li>
    * <li>b1</li>
    * </ol>
-   * As opposed to {@link #getFilterTags(WebResourceType)}, this method returns only the individual
+   * As opposed to {@link #getFilterTags(WebResourceWrapper)}, this method returns only the individual
    * codes, not any combination of them. As such, this result will be a subset of the result of
-   * {@link #getFilterTags(WebResourceType)}.
+   * {@link #getFilterTags(WebResourceWrapper)}.
    * </p>
    * <p>
    * Note that all resulting codes will be shifted to the right position and will also have the bits
@@ -81,10 +80,10 @@ public class TagExtractor {
    * @param webResource The web resource for which to retrieve the facet codes.
    * @return The set of facet codes.
    */
-  public final Set<Integer> getFacetTags(WebResourceType webResource) {
+  public final Set<Integer> getFacetTags(WebResourceWrapper webResource) {
 
     // Get and check the media type.
-    final MediaType mediaType = TechnicalFacetUtils.getMediaType(webResource);
+    final MediaType mediaType = webResource.getMediaType();
     if (MediaType.OTHER.equals(mediaType)) {
       return Collections.emptySet();
     }
