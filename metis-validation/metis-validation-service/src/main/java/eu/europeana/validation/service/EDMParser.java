@@ -32,6 +32,7 @@ final class EDMParser {
             temp.setNamespaceAware(true);
             temp.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
             temp.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
+            temp.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
         } catch (ParserConfigurationException e) {
             LOGGER.error("Unable to create DocumentBuilderFactory", e);
         }
