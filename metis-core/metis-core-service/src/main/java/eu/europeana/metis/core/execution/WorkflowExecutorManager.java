@@ -32,10 +32,13 @@ import org.springframework.stereotype.Component;
 public class WorkflowExecutorManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutorManager.class);
+  private static final int DEFAULT_MAX_CONCURRENT_THREADS = 10;
+  private static final int DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS = 5;
+  private static final int DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS = 10;
 
-  private int maxConcurrentThreads = 10; //Use setter otherwise default
-  private int monitorCheckIntervalInSecs = 5; //Use setter otherwise default
-  private int pollingTimeoutForCleaningCompletionServiceInSecs = 10; //Use setter otherwise default
+  private int maxConcurrentThreads = DEFAULT_MAX_CONCURRENT_THREADS; //Use setter otherwise default
+  private int monitorCheckIntervalInSecs = DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS; //Use setter otherwise default
+  private int pollingTimeoutForCleaningCompletionServiceInSecs = DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS; //Use setter otherwise default
   private final Channel rabbitmqChannel;
   private String rabbitmqQueueName; //Initialize with setter
   private int threadsCounter;
