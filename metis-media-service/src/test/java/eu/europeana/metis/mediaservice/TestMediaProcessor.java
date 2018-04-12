@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaservice;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.tika.Tika;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,22 +21,26 @@ import java.util.Map;
 public class TestMediaProcessor {
 	
 	static File tempDir = new File(System.getProperty("java.io.tmpdir"));
-	static MediaProcessor originalProcessor;
+	static Tika tika;
+	static CommandExecutor commandExecutor;
+	static MediaProcessor testedProcessor;
 	
 	EdmObject.Parser parser = new EdmObject.Parser();
 	EdmObject.Writer writer = new EdmObject.Writer();
 	
 	@BeforeClass
 	public static void setUp() {
-		MediaProcessor.ffprobeCmd = "ffprobe";
-		MediaProcessor.magickCmd = "magick";
-		MediaProcessor.tika = spy(MediaProcessor.tika);
-		originalProcessor = new MediaProcessor();
+		AudioVideoProcessor.setCommand("ffprobe");
+		ImageProcessor.setCommand("magick");
+		tika = mock(Tika.class);
+		MediaProcessor.setTika(tika);
+		commandExecutor = mock(CommandExecutor.class);
+		testedProcessor = new MediaProcessor(commandExecutor);
 	}
 	
 	@AfterClass
 	public static void cleanUp() {
-		originalProcessor.close();
+		testedProcessor.close();
 	}
 	
 	private List<String> lines(String resource) throws IOException {
@@ -60,26 +65,25 @@ public class TestMediaProcessor {
 		File thumb1 = new File(tempDir, "media_thumbnails_0/" + md5 + "-MEDIUM.jpeg");
 		File thumb2 = new File(tempDir, "media_thumbnails_0/" + md5 + "-LARGE.jpeg");
 		
-		MediaProcessor processor = spy(originalProcessor);
 		List<String> command1 = Arrays.asList("magick", file.getPath() + "[0]",
 				"-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
 				"(", "+clone", "-thumbnail", "200x", "-write", thumb1.getPath(), "+delete", ")",
 				"-thumbnail", "400x", "-write", thumb2.getPath(),
-				"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", MediaProcessor.colormapFile.getPath(),
+				"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", ImageProcessor.getColormapFile().getPath(),
 				"-format", "\n%c", "histogram:info:");
 		doAnswer(i -> {
 			FileUtils.writeByteArrayToFile(thumb1, new byte[] { 0 });
 			FileUtils.writeByteArrayToFile(thumb2, new byte[] { 0 });
 			return lines("image1-magick-output1.txt");
-		}).when(processor).runCommand(command1, false);
+		}).when(commandExecutor).runCommand(command1, false);
 		
-		doReturn("image/jpeg").when(MediaProcessor.tika).detect(file);
+		doReturn("image/jpeg").when(tika).detect(file);
 		
 		EdmObject edm;
 		try {
 			edm = edm("image1-input.xml");
-			processor.setEdm(edm);
-			processor.processResource(url, "image/jpeg", file);
+			testedProcessor.setEdm(edm);
+			testedProcessor.processResource(url, "image/jpeg", file);
 		} finally {
 			assertTrue(thumb1.delete());
 			assertTrue(thumb2.delete());
@@ -87,7 +91,7 @@ public class TestMediaProcessor {
 		
 		assertEquals(string("image1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
 		
-		Map<String, String> thumbs = processor.getThumbnails();
+		Map<String, String> thumbs = testedProcessor.getThumbnails();
 		assertEquals(2, thumbs.size());
 		assertEquals(url, thumbs.get(thumb1.getAbsolutePath()));
 		assertEquals(url, thumbs.get(thumb2.getAbsolutePath()));
@@ -97,16 +101,15 @@ public class TestMediaProcessor {
 	public void processAudio() throws IOException, MediaException {
 		String url = "http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3";
 		
-		MediaProcessor processor = spy(originalProcessor);
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
 				"-show_format", "-show_streams", "-hide_banner", url);
-		doReturn(lines("audio1-ffprobe-output1.txt")).when(processor).runCommand(command, false);
+		when(commandExecutor.runCommand(command, false)).thenReturn(lines("audio1-ffprobe-output1.txt"));
 		
-		doReturn("audio/mpeg").when(MediaProcessor.tika).detect(any(URL.class));
+		when(tika.detect(any(URL.class))).thenReturn("audio/mpeg");
 		
 		EdmObject edm = edm("audio1-input.xml");
-		processor.setEdm(edm);
-		processor.processResource(url, "audio/mpeg", null);
+		testedProcessor.setEdm(edm);
+		testedProcessor.processResource(url, "audio/mpeg", null);
 		
 		assertEquals(string("audio1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
 	}
@@ -115,28 +118,28 @@ public class TestMediaProcessor {
 	public void processVideo() throws IOException, MediaException {
 		String url = "http://maccinema.com/info/filmovi/dae.mp4";
 		
-		MediaProcessor processor = spy(originalProcessor);
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
 				"-show_format", "-show_streams", "-hide_banner", url);
-		doReturn(lines("video1-ffprobe-outptu1.txt")).when(processor).runCommand(command, false);
+		when(commandExecutor.runCommand(command, false)).thenReturn(lines("video1-ffprobe-outptu1.txt"));
 		
-		doReturn("video/mp4").when(MediaProcessor.tika).detect(any(URL.class));
+		when(tika.detect(any(URL.class))).thenReturn("video/mp4");
 		
 		EdmObject edm = edm("video1-input.xml");
-		processor.setEdm(edm);
-		processor.processResource(url, "audio/mpeg", null);
+		testedProcessor.setEdm(edm);
+		testedProcessor.processResource(url, "audio/mpeg", null);
 		
 		assertEquals(string("video1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
 	}
 	
 	@Test
 	public void processPdf() throws MediaException, IOException, URISyntaxException {
-		MediaProcessor processor = spy(originalProcessor);
+		File contents = new File(getClass().getClassLoader().getResource("pdf1.pdf").toURI());
+		when(tika.detect(contents)).thenReturn("application/pdf");
 		
 		EdmObject edm = edm("pdf1-input.xml");
-		processor.setEdm(edm);
-		processor.processResource("http://sample.edu.eu/data/sample1.pdf", "application/pdf",
-				new File(getClass().getClassLoader().getResource("pdf1.pdf").toURI()));
+		testedProcessor.setEdm(edm);
+		testedProcessor.processResource("http://sample.edu.eu/data/sample1.pdf", "application/pdf",
+				contents);
 		
 		assertEquals(string("pdf1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
 	}

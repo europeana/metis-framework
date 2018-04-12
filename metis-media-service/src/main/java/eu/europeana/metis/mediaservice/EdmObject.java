@@ -21,6 +21,10 @@ import eu.europeana.corelib.definitions.jibx.HasView;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 
+/**
+ * Objects of this class represent contents of EDM XML documents that can be
+ * modified by {@link MediaProcessor}.
+ */
 public final class EdmObject {
 	
 	private static IBindingFactory rdfBindingFactory;
@@ -39,6 +43,12 @@ public final class EdmObject {
 		this.rdf = rdf;
 	}
 	
+	/**
+	 * Finds links to resources listed in this EDM. Each resource can be listed
+	 * under some URL type.
+	 * @param urlTypes types of URLs to find
+	 * @return resource URLs mapped to their types
+	 */
 	public Map<String, List<UrlType>> getResourceUrls(Collection<UrlType> urlTypes) {
 		Map<String, List<UrlType>> urls = new HashMap<>();
 		Function<String, List<UrlType>> listProd = k -> new ArrayList<>();

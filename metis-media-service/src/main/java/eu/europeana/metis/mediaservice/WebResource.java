@@ -27,9 +27,12 @@ import eu.europeana.corelib.definitions.jibx.Type1;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.definitions.jibx.Width;
 
-public class WebResource {
+/**
+ * Helper class for manipulating {@link WebResourceType}
+ */
+class WebResource {
 	
-	public enum Orientation {
+	enum Orientation {
 		PORTRAIT, LANDSCAPE;
 	}
 	
