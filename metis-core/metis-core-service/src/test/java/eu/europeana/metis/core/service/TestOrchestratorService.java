@@ -415,8 +415,8 @@ public class TestOrchestratorService {
         .createWorkflowExecutionObject();
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID))
         .thenReturn(workflowExecution);
-    doNothing().when(workflowExecutorManager)
-        .cancelWorkflowExecution(workflowExecution);
+    doNothing().when(workflowExecutionDao)
+        .setCancellingState(workflowExecution);
     orchestratorService.cancelWorkflowExecution(TestObjectFactory.EXECUTIONID);
   }
 

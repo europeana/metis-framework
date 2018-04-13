@@ -363,7 +363,9 @@ public class OrchestratorService {
     if (workflowExecution != null && (
         workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
             || workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE)) {
-      workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
+      workflowExecutionDao.setCancellingState(workflowExecution);
+      LOGGER.info(
+          "Cancelling user workflow execution with id: {}", workflowExecution.getId());
     } else {
       throw new NoWorkflowExecutionFoundException(String.format(
           "Running workflowExecution with executionId: %s, does not exist or not active",
