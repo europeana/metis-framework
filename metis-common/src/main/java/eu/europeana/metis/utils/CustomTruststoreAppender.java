@@ -1,7 +1,9 @@
 package eu.europeana.metis.utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -73,14 +75,13 @@ public final class CustomTruststoreAppender {
     return defaultX509TrustManager;
   }
 
-  private static X509TrustManager getCustomX509TrustManager(String trustorePath,
+  private static X509TrustManager getCustomX509TrustManager(String truststorePath,
       String truststorePassword)
       throws IOException, KeyStoreException, CertificateException, NoSuchAlgorithmException {
     KeyStore customTrustStore;
-    try (FileInputStream truststoreFileInputStream = new FileInputStream(trustorePath)) {
+    try (InputStream truststoreInputStream = Files.newInputStream(Paths.get(truststorePath))) {
       customTrustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-      customTrustStore.load(truststoreFileInputStream, truststorePassword.toCharArray());
-      truststoreFileInputStream.close();
+      customTrustStore.load(truststoreInputStream, truststorePassword.toCharArray());
     }
 
     TrustManagerFactory trustManagerFactory = TrustManagerFactory
