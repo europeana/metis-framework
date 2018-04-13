@@ -1,5 +1,6 @@
 package eu.europeana.indexing;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -85,7 +86,7 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void close() {
+  public void close() throws IOException {
     this.connectionProvider.close();
   }
 

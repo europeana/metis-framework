@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
@@ -48,7 +48,7 @@ class FullBeanPublisher {
   private final Supplier<FullBeanConverter> fullBeanConverterSupplier;
 
   private final FullBeanDao fullBeanDao;
-  private final SolrServer solrServer;
+  private final SolrClient solrServer;
 
   /**
    * Constructor.
@@ -56,7 +56,7 @@ class FullBeanPublisher {
    * @param fullBeanDao DAO object for saving and updating Full Beans.
    * @param solrServer The searchable persistence.
    */
-  FullBeanPublisher(FullBeanDao fullBeanDao, SolrServer solrServer) {
+  FullBeanPublisher(FullBeanDao fullBeanDao, SolrClient solrServer) {
     this(fullBeanDao, solrServer, FullBeanConverter::new);
   }
 
@@ -69,7 +69,7 @@ class FullBeanPublisher {
    *        parse strings to instances of {@link FullBeanImpl}. Will be called once during every
    *        publish.
    */
-  FullBeanPublisher(FullBeanDao fullBeanDao, SolrServer solrServer,
+  FullBeanPublisher(FullBeanDao fullBeanDao, SolrClient solrServer,
       Supplier<FullBeanConverter> fullBeanConverterSupplier) {
     this.fullBeanDao = fullBeanDao;
     this.solrServer = solrServer;
