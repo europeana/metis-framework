@@ -363,7 +363,9 @@ public class OrchestratorService {
     if (workflowExecution != null && (
         workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
             || workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE)) {
-      workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
+      workflowExecutionDao.setCancellingState(workflowExecution);
+      LOGGER.info(
+          "Cancelling user workflow execution with id: {}", workflowExecution.getId());
     } else {
       throw new NoWorkflowExecutionFoundException(String.format(
           "Running workflowExecution with executionId: %s, does not exist or not active",
@@ -515,8 +517,8 @@ public class OrchestratorService {
           lastHarvestPlugin.getExecutionProgress().getProcessedRecords() - lastHarvestPlugin
               .getExecutionProgress().getErrors());
     }
-    datasetExecutionInformation.setFirstPublishedDate(firstPublishPlugin != null ?
-        firstPublishPlugin.getFinishedDate() : null);
+    datasetExecutionInformation.setFirstPublishedDate(firstPublishPlugin == null ? null :
+        firstPublishPlugin.getFinishedDate());
     if (lastPublishPlugin != null) {
       datasetExecutionInformation.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       datasetExecutionInformation.setLastPublishedRecords(
@@ -548,6 +550,8 @@ public class OrchestratorService {
   }
 
   public void setMetisCoreUrl(String metisCoreUrl) {
-    this.metisCoreUrl = metisCoreUrl;
+    synchronized (this) {
+      this.metisCoreUrl = metisCoreUrl;
+    }
   }
 }

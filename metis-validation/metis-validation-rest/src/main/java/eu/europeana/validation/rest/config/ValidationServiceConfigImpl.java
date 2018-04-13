@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-@Service()
+/**
+ * Reads configuration file and provides methods to retrieve properties.
+ */
+@Service
 @PropertySource("classpath:validation.properties")
 public class ValidationServiceConfigImpl implements ValidationServiceConfig {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ValidationServiceConfig.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ValidationServiceConfigImpl.class);
   public static final int DEFAULT_THREADS_COUNT = 10;
 
   @Value("${validation.executor.threadCount:10}")

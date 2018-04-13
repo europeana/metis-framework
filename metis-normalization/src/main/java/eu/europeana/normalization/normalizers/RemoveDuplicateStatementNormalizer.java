@@ -48,9 +48,11 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
   @Override
   public NormalizationReport normalize(Document edm) throws NormalizationException {
     final InternalNormalizationReport report = new InternalNormalizationReport();
+    final List<Element> elements = new ArrayList<>();
+    final Set<TextLanguagePair> foundPairs = new HashSet<>();
     for (XpathQuery[] fieldSet : FIELD_SETS_TO_EVALUATE) {
 
-      final List<Element> elements = new ArrayList<>();
+      elements.clear();
       for (XpathQuery query : fieldSet) {
         try {
           elements.addAll(XmlUtil.getAsElementList(query.execute(edm)));
@@ -63,7 +65,7 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
         continue;
       }
 
-      final Set<TextLanguagePair> foundPairs = new HashSet<>();
+      foundPairs.clear();
       for (Element element : elements) {
         final TextLanguagePair pair = new TextLanguagePair(element);
         if (foundPairs.contains(pair)) {
@@ -83,13 +85,13 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
     private final String text;
     private final String language;
 
-    private TextLanguagePair(Element element) {
+    TextLanguagePair(Element element) {
       this.text = XmlUtil.getElementText(element);
       this.language = element.getAttributeNS(Namespace.XML.getUri(), "lang");
     }
 
     @Override
-    public final boolean equals(Object otherObject) {
+    public boolean equals(Object otherObject) {
       if (otherObject == this) {
         return true;
       }

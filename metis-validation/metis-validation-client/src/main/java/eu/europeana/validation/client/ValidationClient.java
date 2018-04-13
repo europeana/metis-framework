@@ -3,6 +3,9 @@ package eu.europeana.validation.client;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
@@ -12,10 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Properties;
 
 /**
  * Rest client for the Schema validation REST API
@@ -31,8 +30,9 @@ public class ValidationClient {
     /**
      * Creates validation client based on properties file taken from resource
      *
+     * @throws IOException if there was a failure during configuration of client
      */
-    public ValidationClient() {
+    public ValidationClient() throws IOException {
         Properties props = new Properties();
         try {
             template.setErrorHandler(new ValidationResponseHandler());
@@ -40,8 +40,8 @@ public class ValidationClient {
                 .getResourceAsStream("validation.properties"));
             validationEndpoint = props.getProperty("validation.endpoint");
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-
+            LOGGER.error("Failed during initialization of configuration.", e);
+            throw e;
         }
     }
 

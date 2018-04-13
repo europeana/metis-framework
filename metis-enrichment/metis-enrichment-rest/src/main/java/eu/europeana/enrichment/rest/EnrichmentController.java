@@ -42,6 +42,13 @@ public class EnrichmentController {
   private final Enricher enricher;
   private final EntityRemover remover;
 
+  /**
+   * Autowired constructor.
+   *
+   * @param enricher class that handles enrichment functionality
+   * @param remover class that removed values from mongo and redis
+   * @param converter utility class for conversion between different classes
+   */
   @Autowired
   public EnrichmentController(Enricher enricher, EntityRemover remover, Converter converter) {
     this.converter = converter;
@@ -68,6 +75,8 @@ public class EnrichmentController {
    * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch
    *
    * @param uri The URI to retrieve
+   * @return the structured result of the enrichment
+   * @throws EnrichmentException if an exception occurred during enrichment
    */
   @RequestMapping(value = RestEndpoints.ENRICHMENT_BYURI, method = RequestMethod.GET,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -87,8 +96,8 @@ public class EnrichmentController {
     try {
       return converter.convert(wrapper);
     } catch (IOException e) {
-      LOGGER.error("Error converting object.", e);
-      throw new EnrichmentException(e.getMessage());
+      LOGGER.error("Error converting object to EnrichmentBase", e);
+      throw new EnrichmentException("Error converting object to EnrichmentBase", e);
     }
   }
 
@@ -96,6 +105,8 @@ public class EnrichmentController {
    * Enrich a number of values
    *
    * @param input A list of values
+   * @return the enrichment values in a wrapped structured list
+   * @throws EnrichmentException if an exception occurred during enrichment
    */
   @RequestMapping(value = RestEndpoints.ENRICHMENT_ENRICH, method = RequestMethod.POST,
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
@@ -119,7 +130,7 @@ public class EnrichmentController {
       return result;
     } catch (IOException e) {
       LOGGER.error("Error converting object.", e);
-      throw new EnrichmentException(e.getMessage());
+      throw new EnrichmentException("Error converting object.", e);
     }
   }
 }

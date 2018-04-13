@@ -1,13 +1,12 @@
 package eu.europeana.validation.model;
 
-import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Wrapper class for the batch service
@@ -16,9 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @ApiModel(value="Validation Result List",description = "Batch service result")
-public class ValidationResultList implements Serializable{
-
-    private static final long serialVersionUID = -8670240754211591813L;
+public class ValidationResultList{
 
     /**
      * List of service results. If the list is empty then we assume success == true

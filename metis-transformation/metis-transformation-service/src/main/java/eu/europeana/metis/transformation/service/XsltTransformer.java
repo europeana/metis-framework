@@ -25,7 +25,7 @@ public class XsltTransformer {
      * @param xsltUrl     url to xslt file
      * @param fileContent content of the file
      * @return transformed file
-     * @throws TransformationException
+     * @throws TransformationException if a problem occurred during transformation
      */
     public StringWriter transform(String xsltUrl, byte[] fileContent) throws TransformationException {
         return transform(xsltUrl, fileContent, null);
@@ -38,7 +38,7 @@ public class XsltTransformer {
      * @param fileContent    content of the file
      * @param datasetIdValue value that will be injected to datasetId field
      * @return transformed file
-     * @throws TransformationException
+     * @throws TransformationException if a problem occurred during transformation
      */
     public StringWriter transform(String xsltUrl, byte[] fileContent, String datasetIdValue) throws TransformationException {
         try(final InputStream xsltStream = new URL(xsltUrl).openStream()) {
