@@ -2,6 +2,7 @@ package eu.europeana.indexing;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.indexing.exception.IndexerConfigurationException;
 
 /**
  * This class creates instances of {@link Indexer}.

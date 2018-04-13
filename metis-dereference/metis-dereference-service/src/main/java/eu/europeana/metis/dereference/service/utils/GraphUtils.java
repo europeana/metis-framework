@@ -33,6 +33,8 @@ public final class GraphUtils {
    * @param neighborExtractor A function that accepts two parameters: a value and a set of keys. The
    *        function extracts all neighbors (keys) from the provided value and adds them to the set
    *        of keys.
+   * @param <K> The type of the node keys.
+   * @param <V> The type of the node values.
    * @return The values that are within the specified distance from the source node.
    */
   public static <K, V> Collection<V> breadthFirstSearch(K sourceNodeKey, V sourceNodeValue,
