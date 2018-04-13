@@ -69,7 +69,7 @@ public class WikidataAccessService {
    * @throws IOException 
    * @throws JAXBException 
    */
-  public WikidataOrganization parseWikidataFromXsltXmlFile(String inputFile)
+  public WikidataOrganization parseWikidataFromXsltXmlFile(File inputFile)
       throws IOException, JAXBException {
 
     return wikidataAccessDao.parseWikidataFromXsltXmlFile(inputFile);
@@ -127,9 +127,9 @@ public class WikidataAccessService {
    * @return XML content in string format
    * @throws IOException
    */
-  public String readXmlFile(String path) throws IOException {
+  public String readXmlFile(File contentFile) throws IOException {
     StringBuilder sb = new StringBuilder();
-    try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(contentFile))) {
       String line;
       while ((line = br.readLine()) != null) {
         sb.append(line);
@@ -142,15 +142,14 @@ public class WikidataAccessService {
   /**
    * This method saves XML content to a passed file.
    * @param xml The XML content
-   * @param fileName The name of the output file
+   * @param contentFile The output file
    * @return true if successfully written
    * @throws WikidataAccessException
    */
-  public boolean saveXmlToFile(String xml, String fileName) throws WikidataAccessException {
+  public boolean saveXmlToFile(String xml, File contentFile) throws WikidataAccessException {
     boolean res = false;
     try {
-      File file = new File(fileName);
-      FileWriter fileWriter = new FileWriter(file);
+      FileWriter fileWriter = new FileWriter(contentFile);
       fileWriter.write(xml);
       fileWriter.flush();
       fileWriter.close();

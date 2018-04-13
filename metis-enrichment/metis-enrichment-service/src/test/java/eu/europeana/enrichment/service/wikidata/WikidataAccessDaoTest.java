@@ -3,7 +3,10 @@ package eu.europeana.enrichment.service.wikidata;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.Locale;
 import javax.xml.bind.JAXBException;
@@ -18,6 +21,7 @@ import eu.europeana.enrichment.service.dao.WikidataAccessService;
 import eu.europeana.enrichment.service.dao.WikidataOrganization;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.enrichment.service.zoho.BaseZohoAccessTest;
 
 /**
  * Test class for Wikidata Access Dao.
@@ -26,10 +30,8 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
  *
  */
 // @Ignore
-public class WikidataAccessDaoTest { 
+public class WikidataAccessDaoTest extends BaseZohoAccessTest { 
 
-  final String WIKIDATA_TEST_OUTPUT_FILE = "test.out";
-  final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
   final String TEST_WIKIDATA_URL = "http://www.wikidata.org/entity/Q" + TEST_WIKIDATA_ORGANIZATION_ID;
   final String TEST_ACRONYM = "BNF";
   final String TEST_COUNTRY = "FR";
@@ -51,14 +53,19 @@ public class WikidataAccessDaoTest {
    * This method initializes classes needed for Wikidata related activities
    * 
    * @throws WikidataAccessException
+   * @throws IOException 
+   * @throws URISyntaxException 
+   * @throws FileNotFoundException 
    */
-  private void initializeWikidataInfrastucture() throws WikidataAccessException {
-    wikidataAccessService = new WikidataAccessService(new WikidataAccessDao());
+  private void initializeWikidataInfrastucture()
+      throws WikidataAccessException, FileNotFoundException, URISyntaxException, IOException {
+    File templateFile = loadFile(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE);
+    wikidataAccessService = new WikidataAccessService(new WikidataAccessDao(templateFile));
   }
 
   @Test
   public void dereferenceInsertTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, JAXBException, IOException {
+      ParseException, JAXBException, IOException, URISyntaxException {
 
     /** create Wikidata URI from ID */
     String uri =
@@ -70,7 +77,8 @@ public class WikidataAccessDaoTest {
     assertNotNull(wikidataXml);
     
     /** write XML to a file */
-    boolean isWritten = wikidataAccessService.saveXmlToFile(wikidataXml, WIKIDATA_TEST_OUTPUT_FILE);
+    File wikidataOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);    
+    boolean isWritten = wikidataAccessService.saveXmlToFile(wikidataXml, wikidataOutputFile);
     assertTrue(isWritten == true);
     
     /** insert XML in Wikidata organization object */
@@ -81,7 +89,8 @@ public class WikidataAccessDaoTest {
     assertEquals(wikidataOrganization.getOrganization().getCountry(), TEST_COUNTRY);
     
     /** read organization XML from file */
-    String savedWikidataXml = wikidataAccessService.readXmlFile(WIKIDATA_TEST_OUTPUT_FILE);
+    File wikidataTestOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);    
+    String savedWikidataXml = wikidataAccessService.readXmlFile(wikidataTestOutputFile);
     assertEquals(wikidataXml, savedWikidataXml);
     
     /** convert Wikidata organization to OrganizationImpl object */

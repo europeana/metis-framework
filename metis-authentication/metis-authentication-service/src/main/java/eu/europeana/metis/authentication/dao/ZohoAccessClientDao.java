@@ -1,6 +1,10 @@
 package eu.europeana.metis.authentication.dao;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.Iterator;
 import java.util.Map;
@@ -264,6 +268,54 @@ public class ZohoAccessClientDao {
     }
   }
 
+  /**
+   * Retrieve Zoho organization from file by given path.
+   * <p>
+   * It will try to fetch the organization from the given file. This method returns an
+   * organization in JSON format.
+   * </p>
+   *
+   * @param contentFile The zoho organization file
+   * @return the Zoho organizations in JsonNode format
+   * @throws GenericMetisException which can be one of:
+   *         <ul>
+   *         <li>{@link BadContentException} if any other problem occurred while constructing the
+   *         user, like an organization did not have a role defined or the response cannot be
+   *         converted to {@link JsonNode}</li>
+   *         </ul>
+   * @throws IOException
+   */
+  public JsonNode getOrganizationFromFile(File contentFile) throws GenericMetisException, IOException {
+
+    String organisationsResponse = readFile(contentFile);
+    LOGGER.debug(organisationsResponse);
+
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      return mapper.readTree(organisationsResponse);
+    } catch (IOException e) {
+      throw new GenericMetisException("Cannot parse zoho response: " + organisationsResponse, e);
+    }
+  }
+  
+  /**
+   * This method reads organization data stored in a file
+   * @param contentFile
+   * @return organization in string format
+   * @throws IOException
+   */
+  public String readFile(File contentFile) throws IOException {
+    BufferedReader in = new BufferedReader(
+        new InputStreamReader(new FileInputStream(contentFile), "UTF8"));
+    String res = "";
+    String line;
+    while((line = in.readLine()) != null) {
+      res = res + line;
+    }
+    in.close();    
+    return res;
+  }
+    
   /**
    * Retrieve organizations using getRecords query, start and end index. 
    * The organizations are pre-ordered by modified time ascending

@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -15,11 +17,15 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.input.CharSequenceReader;
 import org.apache.commons.io.output.StringBuilderWriter;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFWriter;
 import org.apache.jena.riot.RiotException;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
+import eu.europeana.corelib.definitions.edm.entity.ContextualClass;
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.enrichment.service.EntityConverterUtils;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
 
@@ -29,25 +35,34 @@ import eu.europeana.enrichment.service.exception.WikidataAccessException;
  */
 public class WikidataAccessDao {
 
-  private static final String WIKIDATA_ORGANIZATION_XSLT_TEMPLATE = "wkd2org.xsl";
   private static String SPARQL = "https://query.wikidata.org/sparql";
   private static int SIZE = 1024 * 1024;
 
   private Transformer transformer;
 
-  public WikidataAccessDao() throws WikidataAccessException {
+  private File templateFile;
+  
+  EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
+   
+  public EntityConverterUtils getEntityConverterUtils() {
+    return entityConverterUtils;
+  }
+  
+  public WikidataAccessDao(File templateFile) throws WikidataAccessException {
+    this.templateFile = templateFile;
     init();
   }
   
   /**
    * This method initializes classes needed for Wikidata related activities
    * 
+   * @param file The template file
    * @throws WikidataAccessException
    */
   public void init() throws WikidataAccessException {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     try {     
-      Source xslt = new StreamSource(new File(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE));
+      Source xslt = new StreamSource(templateFile);
       transformer = transformerFactory.newTransformer(xslt);
       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");             
     } catch (TransformerConfigurationException e) {
@@ -76,7 +91,20 @@ public class WikidataAccessDao {
   /**
    * This method converts XML string to Wikidata organization object.
    * 
-   * @param xml The Wikidata organization object in XML format
+   * @param xmlFile The Wikidata organization object in XML format
+   * @return Wikidata organization object
+   * @throws JAXBException
+   * @throws IOException
+   */
+  public WikidataOrganization parse(File xmlFile) throws JAXBException, IOException {
+    String xml = getEntityConverterUtils().readFile(xmlFile);
+    return parse(xml);
+  }
+
+  /**
+   * This method converts XML string to Wikidata organization object.
+   * 
+   * @param xml The Wikidata organization object in string XML format
    * @return Wikidata organization object
    * @throws JAXBException
    * @throws IOException
@@ -150,14 +178,13 @@ public class WikidataAccessDao {
    * @throws IOException
    * @throws JAXBException
    */
-  public WikidataOrganization parseWikidataFromXsltXmlFile(String inputFile)
+  public WikidataOrganization parseWikidataFromXsltXmlFile(File inputFile)
       throws IOException, JAXBException {
 
     JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
 
     Unmarshaller unmarshaller = jc.createUnmarshaller();
-    File xml = new File(inputFile);
-    WikidataOrganization result = (WikidataOrganization) unmarshaller.unmarshal(xml);
+    WikidataOrganization result = (WikidataOrganization) unmarshaller.unmarshal(inputFile);
 
     return result;
   }
@@ -172,5 +199,92 @@ public class WikidataAccessDao {
   public void translate(String uri, StreamResult res) throws WikidataAccessException {
     transformer.setParameter("rdf_about", uri);
     transform(getModelFromSPARQL(uri), transformer, res);
+  }
+  
+  /**
+   * This method performs merging between Zoho and Wikidata inputs according to predefined rules
+   * listed below.
+   * @param zohoOrganization
+   * @param wikidataOrganization
+   * @return merged organization object based on Zoho organization
+   */
+  public Organization merge(Organization zohoOrganization, Organization wikidataOrganization) {
+    
+    /** 
+     * prefLabel (if a different pref label exists for the given language, 
+     * add the label to alt label list for the same language, if it is also not a duplicate)
+     */
+    if (!getEntityConverterUtils().isEqualLanguageListMap(
+        zohoOrganization.getPrefLabel(), wikidataOrganization.getPrefLabel())) {      
+      Map<String, List<String>> diffLanguageListMap = getEntityConverterUtils().extractValuesNotIncludedInBaseMap(
+          zohoOrganization.getPrefLabel(), wikidataOrganization.getPrefLabel());
+      Map<String, List<String>> mergedLanguageListMap = getEntityConverterUtils().mergeLanguageListMap(
+          ((ContextualClass) zohoOrganization).getAltLabel(), diffLanguageListMap);
+      ((ContextualClass) zohoOrganization).setAltLabel(mergedLanguageListMap);
+    }
+    
+    /**
+     * altLabel (merge labels for each language if they are not duplicates)
+     */
+    Map<String, List<String>> mergedLanguageListMap = getEntityConverterUtils().mergeLanguageListMap(
+        ((ContextualClass) zohoOrganization).getAltLabel(), ((ContextualClass) wikidataOrganization).getAltLabel());
+    ((ContextualClass) zohoOrganization).setAltLabel(mergedLanguageListMap);
+      
+    /**
+     * edm:acronym (if not available in Zoho)
+     */
+    if (zohoOrganization.getEdmAcronym().size() == 0 && wikidataOrganization.getEdmAcronym().size() > 0) 
+      zohoOrganization.setEdmAcronym(wikidataOrganization.getEdmAcronym());    
+    
+    /**
+     * logo (if not available in zoho)
+     */
+    if (StringUtils.isEmpty(zohoOrganization.getFoafLogo()) && !StringUtils.isEmpty(wikidataOrganization.getFoafLogo())) 
+      zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());    
+        
+    /**
+     * homepage (if not available in zoho)
+     */
+    if (StringUtils.isEmpty(zohoOrganization.getFoafHomepage()) 
+        && !StringUtils.isEmpty(wikidataOrganization.getFoafHomepage())) 
+      zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());    
+        
+    /**
+     * phone (if not duplicate)
+     */
+    List<String> diffList = getEntityConverterUtils().mergeStringLists(
+        zohoOrganization.getFoafPhone(), wikidataOrganization.getFoafPhone());
+    if (diffList != null && diffList.size() > 0) 
+      zohoOrganization.setFoafPhone(diffList);   
+        
+    /**
+     * mbox (if not duplicate)
+     */
+    List<String> diffMboxList = getEntityConverterUtils().mergeStringLists(
+        zohoOrganization.getFoafMbox(), wikidataOrganization.getFoafMbox());
+    if (diffMboxList != null && diffMboxList.size() > 0) 
+      zohoOrganization.setFoafMbox(diffMboxList);   
+        
+    /**
+     * country (ignore as it is mandatory in Zoho)
+     */
+//    Map<String, String> mergedLanguageStringListMap = getEntityConverterUtils().mergeLanguageListMap(
+//        zohoOrganization.getEdmCountry(), wikidataOrganization.getEdmCountry());
+//    zohoOrganization.setEdmCountry(mergedLanguageStringListMap);
+        
+    /**
+     * sameAs (add non duplicate labels)
+     */
+//    String[] both = (String[]) ArrayUtils.addAll(zohoOrganization.getOwlSameAs(), wikidataOrganization.getOwlSameAs());
+    String[] mergedStringArray = getEntityConverterUtils().concatenateStringArrays(
+        zohoOrganization.getOwlSameAs(), wikidataOrganization.getOwlSameAs());
+    zohoOrganization.setOwlSameAs(mergedStringArray);
+        
+    /**                                          
+     * description (always as not present in Zoho)      
+     */
+    zohoOrganization.setDcDescription(wikidataOrganization.getDcDescription());
+    
+    return (Organization) zohoOrganization;
   }
 }

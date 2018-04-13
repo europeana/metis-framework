@@ -1,10 +1,13 @@
 package eu.europeana.enrichment.service.wikidata;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.Properties;
 import javax.xml.bind.JAXBException;
 import org.junit.After;
@@ -13,11 +16,13 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.service.EntityService;
 import eu.europeana.enrichment.service.dao.WikidataAccessDao;
 import eu.europeana.enrichment.service.dao.WikidataAccessService;
 import eu.europeana.enrichment.service.dao.WikidataOrganization;
+import eu.europeana.enrichment.service.exception.EntityConverterException;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import eu.europeana.enrichment.service.zoho.BaseZohoAccessTest;
@@ -38,10 +43,7 @@ import eu.europeana.enrichment.service.zoho.BaseZohoAccessTest;
  */
 //@Ignore
 public class WikidataWorkflowTest extends BaseZohoAccessTest {
-
-  final String WIKIDATA_TEST_OUTPUT_FILE = "test.out";
-  final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
-  
+   
   String mongoHost;
   int mongoPort;
   EntityService entityService;
@@ -67,17 +69,66 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
    * This method initializes classes needed for Wikidata related activities
    * 
    * @throws WikidataAccessException
+   * @throws IOException 
+   * @throws URISyntaxException 
+   * @throws FileNotFoundException 
    */
-  private void initializeWikidataInfrastucture() throws WikidataAccessException {
-    wikidataAccessService = new WikidataAccessService(new WikidataAccessDao());
+  private void initializeWikidataInfrastucture()
+      throws WikidataAccessException, FileNotFoundException, URISyntaxException, IOException {
+    File templateFile = loadFile(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE);
+    wikidataAccessService = new WikidataAccessService(new WikidataAccessDao(templateFile));
   }
 
+  @Test
+  public void mergeOrganizationsFromFilesTest() throws WikidataAccessException, ZohoAccessException,
+      ParseException, IOException, JAXBException, EntityConverterException, URISyntaxException {
+
+  /** 1. Get organization from Zoho file */ 
+  File zohoTestInputFile = loadFile(ZOHO_TEST_INPUT_FILE);
+  ZohoOrganization org = zohoAccessService.getOrganizationFromFile(zohoTestInputFile);
+  assertNotNull(org);
+  assertNotNull(org.getSameAs());
+  assertNotNull(org.getSameAs().get(0));
+  
+  /** 2. Get organization from Wikidata file */
+  File wikidataTestInputFile = loadFile(WIKIDATA_TEST_INPUT_FILE);
+  WikidataOrganization wikidataOrganization = 
+      wikidataAccessService.getWikidataAccessDao().
+        parseWikidataFromXsltXmlFile(wikidataTestInputFile);  
+  assertNotNull(wikidataOrganization);
+
+  /** 3. Convert both organization objects to OrganizationImpl format */
+  Organization zohoOrganizationImpl = zohoAccessService.toEdmOrganization(org);
+  Organization wikidataOrganizationImpl = wikidataAccessService.toOrganizationImpl(wikidataOrganization);
+  
+  /** remove object IDs because they are always unique and are not needed for this test */
+  zohoOrganizationImpl.setId(null);
+  wikidataOrganizationImpl.setId(null);
+
+  /** 4. Merge both organization objects */
+  Organization mergedOrganization = wikidataAccessService.getWikidataAccessDao().
+      merge(zohoOrganizationImpl, wikidataOrganizationImpl);
+  assertNotNull(mergedOrganization);
+  
+  /** 5. Store merged OrganizationImpl object in output file */
+  String serializedOrganizationImpl = wikidataAccessService.getEntityConverterUtils().
+      serialize((OrganizationImpl) mergedOrganization);
+  assertNotNull(serializedOrganizationImpl);
+  File organizationImplOutputFile = loadFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
+  writeToFile(serializedOrganizationImpl, organizationImplOutputFile);
+
+  /** 6. Compare output file with expected file */
+  File organizationImplTestOutputFile = loadFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
+  File organizationImplTestExpectedFile = loadFile(ORGANIZATION_IMPL_TEST_EXPECTED_FILE);
+  String outputOrganizationImplStr = getEntityConverterUtils().readFile(organizationImplTestOutputFile);
+  String expectedOrganizationImplStr = getEntityConverterUtils().readFile(organizationImplTestExpectedFile);
+  assertEquals(outputOrganizationImplStr,expectedOrganizationImplStr);
+  }
+  
 //  @Test
   public void processWikidataWorkflowTest() 
-      throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException {
+      throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
   
-    Date now = new Date();
-
     /** 1. Get organization from Zoho */ 
     ZohoOrganization org = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
     assertNotNull(org);
@@ -90,13 +141,20 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
     wikidataAccessService.getWikidataAccessDao().dereference(uri);
         
     /** 4. Parse wikidata to OrganizationWikidata object */
+    File wikidataTestOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);
     WikidataOrganization wikidataOrganization = 
-        wikidataAccessService.getWikidataAccessDao().parse(WIKIDATA_TEST_OUTPUT_FILE);
+        wikidataAccessService.getWikidataAccessDao().parse(wikidataTestOutputFile);
     assertNotNull(wikidataOrganization);
 
     /** 5. Merge both organization objects */
+    Organization zohoOrganizationImpl = zohoAccessService.toEdmOrganization(org);
+    Organization wikidataOrganizationImpl = wikidataAccessService.toOrganizationImpl(wikidataOrganization);
+    Organization mergedOrganization = wikidataAccessService.getWikidataAccessDao().
+        merge(zohoOrganizationImpl, wikidataOrganizationImpl);
+    assertNotNull(mergedOrganization);
     
     /** 6. Store merged data in OrganizationImpl object in Metis */
+//    Date now = new Date();
 //    OrganizationTermList termList = entityService.storeOrganization(org);
 //    assertNotNull(termList);
 //    assertEquals(org.getAbout(), termList.getCodeUri());
@@ -104,7 +162,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
 //    assertTrue(termList.getCreated().getTime() > now.getTime());
   }
 
-  @Test
+//  @Test
   public void retrieveWikidataToXsltXmlFileTest() 
       throws WikidataAccessException, ZohoAccessException, ParseException, IOException {
     
@@ -115,31 +173,37 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
   }
   
 //  @Test
-  public void parseWikidataFromXsltXmlFileTest() 
-      throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException {
-    
-    WikidataOrganization wikidataOrganization = 
-        wikidataAccessService.getWikidataAccessDao().
-          parseWikidataFromXsltXmlFile(WIKIDATA_TEST_OUTPUT_FILE);
+  public void parseWikidataFromXsltXmlFileTest() throws WikidataAccessException,
+      ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
+
+    File wikidataTestOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);
+    WikidataOrganization wikidataOrganization = wikidataAccessService.getWikidataAccessDao()
+        .parseWikidataFromXsltXmlFile(wikidataTestOutputFile);
     assertNotNull(wikidataOrganization);
-    LOGGER.info("wikidata organization about: " + wikidataOrganization.getOrganization().getAbout());    
-    LOGGER.info("wikidata organization country: " + wikidataOrganization.getOrganization().getCountry());    
-    LOGGER.info("wikidata organization homepage: " + 
-        wikidataOrganization.getOrganization().getHomepage().getResource().toString());    
+    LOGGER
+        .info("wikidata organization about: " + wikidataOrganization.getOrganization().getAbout());
+    LOGGER.info(
+        "wikidata organization country: " + wikidataOrganization.getOrganization().getCountry());
+    LOGGER.info("wikidata organization homepage: "
+        + wikidataOrganization.getOrganization().getHomepage().getResource().toString());
     assertNotNull(wikidataOrganization.getOrganization().getCountry());
     assertNotNull(wikidataOrganization.getOrganization().getHomepage().getResource().toString());
   }
     
 //  @Test
-//  public void mergeZohoAndWikidataOrganizationObjectsTest() 
-//      throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException {
-//    
-//    Organization zohoOrganization = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
-//    WikidataOrganization wikidataOrganization = 
-//        wikidataAccessService.parseWikidataFromXsltXmlFile(WIKIDATA_TEST_OUTPUT_FILE);
-//    Organization mergedOrganization = wikidataAccessService.mergeZohoAndWikidataOrganizationObjects(
-//        zohoOrganization, wikidataOrganization);
-//    assertNotNull(mergedOrganization);
-//  }
+  public void mergeZohoAndWikidataOrganizationObjectsTest() throws WikidataAccessException,
+      ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
+
+    ZohoOrganization zohoOrganization = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
+    Organization zohoOrganizationImpl = zohoAccessService.toEdmOrganization(zohoOrganization);
+    File wikidataTestOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);
+    WikidataOrganization wikidataOrganization =
+        wikidataAccessService.parseWikidataFromXsltXmlFile(wikidataTestOutputFile);
+    Organization wikidataOrganizationImpl =
+        wikidataAccessService.toOrganizationImpl(wikidataOrganization);
+    Organization mergedOrganization = wikidataAccessService.getWikidataAccessDao()
+        .merge(zohoOrganizationImpl, wikidataOrganizationImpl);
+    assertNotNull(mergedOrganization);
+  }
     
 }

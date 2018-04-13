@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.service.zoho;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,6 +89,39 @@ public class ZohoAccessService {
 
 		return new ZohoOrganizationAdapter(jsonRecord);
 	}
+
+    /**
+     * This method retrieves OrganizationImpl object for Zoho organization
+     * record from given file.
+     * 
+     * @param content file
+     * @return representation of the Zoho organization record in OrganizatinImpl
+     *         format
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonParseException
+     */
+    public ZohoOrganization getOrganizationFromFile(File contentFile)
+            throws ZohoAccessException {
+
+        JsonNode jsonRecordsResponse;
+        try {
+            jsonRecordsResponse = zohoAccessClientDao
+                    .getOrganizationFromFile(contentFile);
+        } catch (IOException e) {
+          throw new ZohoAccessException(
+                  "Cannot get organization from file. ", e);
+        } catch (GenericMetisException e) {
+          throw new ZohoAccessException(
+                  "Cannot extract organization from file. ", e);
+        }
+        JsonNode accountsNode = findRecordsByType(jsonRecordsResponse,
+                ZohoApiFields.ACCOUNTS_MODULE_STRING);
+        JsonNode jsonRecord = accountsNode
+                .findValue(ZohoApiFields.FIELDS_LABEL);
+
+        return new ZohoOrganizationAdapter(jsonRecord);
+    }
 
 	/**
 	 * This method retrieves a list of Zoho records in {@link JsonNode} format.
