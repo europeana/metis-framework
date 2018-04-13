@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:edm="http://www.europeana.eu/schemas/edm/">
+	<edm:ProvidedCHO
+		rdf:about="http://data.europeana.eu/item/9200260/BibliographicResource_3000058482371" />
+	<edm:WebResource
+		rdf:about="http://images.is.ed.ac.uk/luna/servlet/detail/UoEcar~4~4~51399~102760">
+		<edm:rights rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
+	</edm:WebResource>
+	<edm:WebResource
+		rdf:about="http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg">
+		<edm:rights rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
+	</edm:WebResource>
+	<ore:Aggregation xmlns:ore="http://www.openarchives.org/ore/terms/"
+		rdf:about="http://data.europeana.eu/aggregation/provider/9200260/BibliographicResource_3000058482371">
+		<edm:aggregatedCHO
+			rdf:resource="http://data.europeana.eu/item/9200260/BibliographicResource_3000058482371" />
+		<edm:dataProvider>University of Edinburgh</edm:dataProvider>
+		<edm:isShownAt
+			rdf:resource="http://images.is.ed.ac.uk/luna/servlet/detail/UoEcar~4~4~51399~102760" />
+		<edm:isShownBy
+			rdf:resource="http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg" />
+		<edm:object
+			rdf:resource="http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg" />
+		<edm:provider xml:lang="en">The European Library</edm:provider>
+		<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">© The University of Edinburgh</dc:rights>
+		<edm:rights rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
+	</ore:Aggregation>
+	<ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/"
+		rdf:about="http://data.europeana.eu/proxy/provider/9200260/BibliographicResource_3000058482371">
+		<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Hill, David Octavius &amp; Adamson, Robert</dc:creator>
+		<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">Call Number - 0012127</dc:description>
+		<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">Shelf Mark - Coll-1073</dc:description>
+		<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">http://images.is.ed.ac.uk/luna/servlet/detail/UoEcar~4~4~51399~102760</dc:identifier>
+		<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">© The University of Edinburgh</dc:rights>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">Adamson, Robert</dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">Archives</dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">Centre for Research Collections/Main Library</dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">Hill, David Octavius</dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">Scotland</dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">Stevens, John</dc:subject>
+		<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Calotypes and Portraits</dc:title>
+		<dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/"
+			rdf:resource="http://data.theeuropeanlibrary.org/Collection/a1170"></dcterms:isPartOf>
+		<edm:europeanaProxy>false</edm:europeanaProxy>
+		<ore:proxyFor
+			rdf:resource="http://data.europeana.eu/item/9200260/BibliographicResource_3000058482371" />
+		<ore:proxyIn
+			rdf:resource="http://data.europeana.eu/aggregation/provider/9200260/BibliographicResource_3000058482371" />
+		<edm:type>IMAGE</edm:type>
+	</ore:Proxy>
+	<ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/"
+		rdf:about="http://data.europeana.eu/proxy/europeana/9200260/BibliographicResource_3000058482371">
+		<edm:europeanaProxy>true</edm:europeanaProxy>
+		<ore:proxyFor
+			rdf:resource="http://data.europeana.eu/item/9200260/BibliographicResource_3000058482371" />
+		<ore:proxyIn
+			rdf:resource="http://data.europeana.eu/aggregation/europeana/9200260/BibliographicResource_3000058482371" />
+		<edm:type>IMAGE</edm:type>
+	</ore:Proxy>
+	<edm:EuropeanaAggregation
+		rdf:about="http://data.europeana.eu/aggregation/europeana/9200260/BibliographicResource_3000058482371">
+		<edm:aggregatedCHO
+			rdf:resource="http://data.europeana.eu/item/9200260/BibliographicResource_3000058482371" />
+		<edm:collectionName>9200260_Ag_EU_TEL_eCloud_a1170_Edinburgh</edm:collectionName>
+		<edm:country>United Kingdom</edm:country>
+		<edm:preview
+			rdf:resource="http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg" />
+		<edm:landingPage
+			rdf:resource="http://europeana.eu/portal/record/9200260/BibliographicResource_3000058482371.html" />
+		<edm:language>en</edm:language>
+		<edm:rights rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
+	</edm:EuropeanaAggregation>
+</rdf:RDF>
