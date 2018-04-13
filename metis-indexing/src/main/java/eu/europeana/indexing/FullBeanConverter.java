@@ -15,6 +15,8 @@ import eu.europeana.indexing.exception.IndexingException;
  */
 public class FullBeanConverter {
 
+  private static final int MAX_COLLECTION_NAME_LENGTH = 100;
+  
   private final Supplier<MongoConstructor> mongoConstructorSupplier;
 
   /**
@@ -58,7 +60,7 @@ public class FullBeanConverter {
     }
 
     // TODO Hack to prevent potential null pointer exceptions
-    fBean.setEuropeanaCollectionName(new String[100]);
+    fBean.setEuropeanaCollectionName(new String[MAX_COLLECTION_NAME_LENGTH]);
 
     // Done.
     return fBean;
