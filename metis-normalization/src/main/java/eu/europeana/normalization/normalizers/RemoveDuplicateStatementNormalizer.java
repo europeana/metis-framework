@@ -1,13 +1,20 @@
 package eu.europeana.normalization.normalizers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.xml.xpath.XPathExpressionException;
+import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import eu.europeana.normalization.model.ConfidenceLevel;
 import eu.europeana.normalization.model.NormalizationReport;
 import eu.europeana.normalization.util.Namespace;
@@ -48,11 +55,9 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
   @Override
   public NormalizationReport normalize(Document edm) throws NormalizationException {
     final InternalNormalizationReport report = new InternalNormalizationReport();
-    final List<Element> elements = new ArrayList<>();
-    final Set<TextLanguagePair> foundPairs = new HashSet<>();
     for (XpathQuery[] fieldSet : FIELD_SETS_TO_EVALUATE) {
 
-      elements.clear();
+      final List<Element> elements = new ArrayList<>();
       for (XpathQuery query : fieldSet) {
         try {
           elements.addAll(XmlUtil.getAsElementList(query.execute(edm)));
@@ -65,9 +70,9 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
         continue;
       }
 
-      foundPairs.clear();
+      final Set<TextAttributesPair> foundPairs = new HashSet<>();
       for (Element element : elements) {
-        final TextLanguagePair pair = new TextLanguagePair(element);
+        final TextAttributesPair pair = new TextAttributesPair(element);
         if (foundPairs.contains(pair)) {
           element.getParentNode().removeChild(element);
           report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
@@ -80,14 +85,24 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
     return report;
   }
 
-  private static final class TextLanguagePair {
+  static final class TextAttributesPair {
 
     private final String text;
-    private final String language;
+    private Map<String, String> attributes;
 
-    TextLanguagePair(Element element) {
-      this.text = XmlUtil.getElementText(element);
-      this.language = element.getAttributeNS(Namespace.XML.getUri(), "lang");
+    TextAttributesPair(Element element) {
+      this(XmlUtil.getElementText(element), convertToMap(element.getAttributes()));
+    }
+
+    TextAttributesPair(String text, Map<String, String> attributes) {
+      this.text = text == null ? "" : text;
+      this.attributes = attributes == null ? Collections.emptyMap() : attributes;
+    }
+
+    static Map<String, String> convertToMap(NamedNodeMap attributeNodeMap) {
+      return IntStream.range(0, attributeNodeMap.getLength()).mapToObj(attributeNodeMap::item)
+          .map(node -> (Attr) node).filter(node -> StringUtils.isNotBlank(node.getNodeValue()))
+          .collect(Collectors.toMap(Attr::getNodeName, Attr::getNodeValue));
     }
 
     @Override
@@ -95,18 +110,16 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
       if (otherObject == this) {
         return true;
       }
-      if (!(otherObject instanceof TextLanguagePair)) {
+      if (!(otherObject instanceof TextAttributesPair)) {
         return false;
       }
-      final TextLanguagePair otherPair = (TextLanguagePair) otherObject;
-      final boolean languageEquals = this.language == null ? (otherPair.language == null)
-          : this.language.equals(otherPair.language);
-      return languageEquals && this.text.equals(otherPair.text);
+      final TextAttributesPair otherPair = (TextAttributesPair) otherObject;
+      return this.attributes.equals(otherPair.attributes) && this.text.equals(otherPair.text);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(language, text);
+      return Objects.hash(attributes, text);
     }
   }
 }
