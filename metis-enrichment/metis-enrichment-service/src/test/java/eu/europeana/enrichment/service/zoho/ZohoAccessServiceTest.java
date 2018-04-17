@@ -29,7 +29,7 @@ import eu.europeana.metis.authentication.dao.ZohoApiFields;
  * @author GordeaS
  *
  */
-@Ignore
+//@Ignore
 public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 
 	@Before
@@ -41,7 +41,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+//	@Test
 	public void getOrganizationTest() throws ZohoAccessException {
 		ZohoOrganization bnfZoho = zohoAccessService
 				.getOrganization(TEST_ORGANIZATION_ID);
@@ -71,7 +71,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 		
 	}
 
-	@Test
+//	@Test
 	public void getOrganizationsTest() throws ZohoAccessException {
 		List<ZohoOrganization> orgList = zohoAccessService.getOrganizations(1,
 				5, null);
@@ -110,7 +110,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 	public void getFilteredOrganizationsTest() throws ZohoAccessException {
 
 		Map<String, String> searchCriteria = new HashMap<String, String>();
-		searchCriteria.put(ZohoApiFields.ORGANIZATION_ROLE, "Data Provider");
+		searchCriteria.put(ZohoApiFields.ORGANIZATION_ROLE, "Provider, Test, Aggregator");
 		List<ZohoOrganization> orgList = zohoAccessService.getOrganizations(1,
 				5, null, searchCriteria);
 
@@ -144,7 +144,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 
 	}
 
-	@Test
+//	@Test
 	public void getOrganizationsSizeOneTest() throws ZohoAccessException {
 		List<ZohoOrganization> orgList = zohoAccessService.getOrganizations(1,
 				1, null);
@@ -158,7 +158,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 		LOGGER.info("First entry about: " + org.getZohoId());
 	}
 
-	@Test
+//	@Test
 	public void getOrganizationsModifiedTest() throws ZohoAccessException {
 		List<ZohoOrganization> orgList = zohoAccessService.getOrganizations(1,
 				5, null);
