@@ -21,9 +21,6 @@ import eu.europeana.metis.exception.GenericMetisException;
  */
 public class ZohoAccessClientDao {
 
-  private final String DELIMITER_COMMA = ",";
-  private final String OR = "OR";
-
   private static final Logger LOGGER = LoggerFactory.getLogger(ZohoAccessClientDao.class);
 
   private final String zohoBaseUrl;
@@ -212,15 +209,15 @@ public class ZohoAccessClientDao {
 
     for (Map.Entry<String, String> entry : searchCriteria.entrySet()) {
       filterBuilder = new StringBuilder();
-      filterCriteria = entry.getValue().split(DELIMITER_COMMA);
+      filterCriteria = entry.getValue().split(ZohoApiFields.DELIMITER_COMMA);
 
       for (String filter : filterCriteria) {
         filterBuilder.append(String.format("(%s:%s)", entry.getKey(), filter.trim()));
-        filterBuilder.append(OR);
+        filterBuilder.append(ZohoApiFields.OR);
       }
 
       // remove last OR
-      filterBuilder.delete(filterBuilder.length() - OR.length(), filterBuilder.length());
+      filterBuilder.delete(filterBuilder.length() - ZohoApiFields.OR.length(), filterBuilder.length());
       builder.queryParam(ZohoApiFields.CRITERIA_STRING,
           String.format("(%s)", filterBuilder.toString()));
 
