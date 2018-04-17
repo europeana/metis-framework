@@ -37,7 +37,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
   private final DataSetServiceClient ecloudDataSetServiceClient;
-  private String ecloudProvider; //Initialize with setter
+  private String ecloudProvider; // Use getter and setter for this field!
 
   /**
    * Constructs the DAO
@@ -300,8 +300,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       final String uuid = UUID.randomUUID().toString();
       dataset.setEcloudDatasetId(uuid);
       try {
-        ecloudDataSetServiceClient
-            .createDataSet(ecloudProvider, uuid, "Metis generated dataset");
+        ecloudDataSetServiceClient.createDataSet(getEcloudProvider(), uuid,
+            "Metis generated dataset");
         update(dataset);
       } catch (DataSetAlreadyExistsException e) {
         LOGGER.info("Dataset already exist, not recreating", e);
@@ -322,6 +322,12 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public void setEcloudProvider(String ecloudProvider) {
     synchronized (this) {
       this.ecloudProvider = ecloudProvider;
+    }
+  }
+
+  private String getEcloudProvider() {
+    synchronized (this) {
+      return this.ecloudProvider;
     }
   }
 }
