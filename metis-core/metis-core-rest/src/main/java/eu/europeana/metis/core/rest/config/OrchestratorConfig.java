@@ -19,11 +19,14 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
+import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import io.netty.util.ThreadDeathWatcher;
 import io.netty.util.concurrent.FastThreadLocal;
 import io.netty.util.internal.InternalThreadLocalMap;
 import java.io.File;
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -69,17 +72,25 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  Channel getRabbitmqChannel() throws IOException, TimeoutException {
+  Channel getRabbitmqChannel()
+      throws IOException, TimeoutException, KeyManagementException, NoSuchAlgorithmException {
     ConnectionFactory factory = new ConnectionFactory();
     factory.setHost(propertiesHolder.getRabbitmqHost());
     factory.setPort(propertiesHolder.getRabbitmqPort());
+    factory.setVirtualHost(
+        StringUtils.isNotBlank(propertiesHolder.getRabbitmqVirtualHost()) ? propertiesHolder
+            .getRabbitmqVirtualHost() : "/");
     factory.setUsername(propertiesHolder.getRabbitmqUsername());
     factory.setPassword(propertiesHolder.getRabbitmqPassword());
     factory.setAutomaticRecoveryEnabled(true);
+    if (propertiesHolder.isRabbitmqEnableSSL()) {
+      factory.useSslProtocol();
+    }
     connection = factory.newConnection();
     channel = connection.createChannel();
     Map<String, Object> args = new HashMap<>();
-    args.put("x-max-priority", propertiesHolder.getRabbitmqHighestPriority());//Higher number means higher priority
+    args.put("x-max-priority",
+        propertiesHolder.getRabbitmqHighestPriority());//Higher number means higher priority
     //Second boolean durable to false
     channel.queueDeclare(propertiesHolder.getRabbitmqQueueName(), false, false, false, args);
     return channel;
@@ -92,20 +103,23 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     SingleServerConfig singleServerConfig;
     if (propertiesHolder.isRedisEnableSSL()) {
       singleServerConfig = config.useSingleServer()
-          .setAddress(String.format("rediss://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
-              .getRedisPort()))
+          .setAddress(
+              String.format("rediss://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
+                  .getRedisPort()))
           .setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI())
           .setSslTruststorePassword(propertiesHolder.getTruststorePassword());
     } else {
       singleServerConfig = config.useSingleServer()
-          .setAddress(String.format("redis://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
-              .getRedisPort()));
+          .setAddress(
+              String.format("redis://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
+                  .getRedisPort()));
     }
     if (StringUtils.isNotEmpty(propertiesHolder.getRedisPassword())) {
       singleServerConfig.setPassword(propertiesHolder.getRedisPassword());
     }
     config.setLockWatchdogTimeout(TimeUnit.SECONDS.toMillis(
-        propertiesHolder.getRedissonLockWatchdogTimeoutInSecs())); //Give some secs to unlock if connection lost, or if too long to unlock
+        propertiesHolder
+            .getRedissonLockWatchdogTimeoutInSecs())); //Give some secs to unlock if connection lost, or if too long to unlock
     redissonClient = Redisson.create(config);
     return redissonClient;
   }
@@ -113,18 +127,19 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao,
-      ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
-      WorkflowExecutorManager workflowExecutorManager,
-      DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
+      WorkflowExecutorManager workflowExecutorManager) throws IOException {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
-        workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, datasetXsltDao, workflowExecutorManager,
-        ecloudDataSetServiceClient,
+        workflowExecutionDao, datasetDao, datasetXsltDao, workflowExecutorManager,
         redissonClient);
-    orchestratorService.setEcloudProvider(propertiesHolder.getEcloudProvider());
     orchestratorService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     return orchestratorService;
+  }
+
+  @Bean
+  public ScheduleWorkflowService getScheduleWorkflowService(
+      ScheduledWorkflowDao scheduledWorkflowDao, WorkflowDao workflowDao, DatasetDao datasetDao) {
+    return new ScheduleWorkflowService(scheduledWorkflowDao, workflowDao, datasetDao);
   }
 
   @Bean
@@ -144,7 +159,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
         workflowExecutionDao, rabbitmqChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName(propertiesHolder.getRabbitmqQueueName());
     workflowExecutorManager.setMaxConcurrentThreads(propertiesHolder.getMaxConcurrentThreads());
-    workflowExecutorManager.setMonitorCheckIntervalInSecs(propertiesHolder.getMonitorCheckIntervalInSecs());
+    workflowExecutorManager
+        .setMonitorCheckIntervalInSecs(propertiesHolder.getMonitorCheckIntervalInSecs());
     workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
         propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInSecs());
     workflowExecutorManager.setEcloudBaseUrl(propertiesHolder.getEcloudBaseUrl());
@@ -184,8 +200,10 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   public SchedulerExecutor getSchedulingExecutor(OrchestratorService orchestratorService,
+      ScheduleWorkflowService scheduleWorkflowService,
       RedissonClient redissonClient) {
-    schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
+    schedulerExecutor = new SchedulerExecutor(orchestratorService, scheduleWorkflowService,
+        redissonClient);
     return schedulerExecutor;
   }
 

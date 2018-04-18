@@ -85,7 +85,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
   private String transformRecord() throws TransformerException, IOException {
 
     // Obtain the XSL transform.
-    final String transformationFilePath;
+    String transformationFilePath;
     if (StringUtils.isEmpty(crosswalkPath)) {
       transformationFilePath = validationUtils.getDefaultTransformationFile();
     } else {
@@ -115,7 +115,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
             : validationUtils.validateRecordAfterTransformation(incomingRecord);
 
     // If successful, we handle the result.
-    final ValidationTaskResult result;
+    ValidationTaskResult result;
     if (validationResult.isSuccess()) {
       result = handleValidatedResult(validationResult);
     } else {
@@ -140,7 +140,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     final String recordId = validationUtils.generateIdentifier(collectionId, rdf);
 
     // Obtain the result.
-    final ValidationTaskResult result;
+    ValidationTaskResult result;
     if (StringUtils.isNotEmpty(recordId)) {
 
       // If we have obtained a record ID we return a successful result.

@@ -2,10 +2,9 @@ package eu.europeana.metis.preview.service;
 
 import eu.europeana.metis.preview.common.exception.ZipFileException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +15,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by erikkonijnenburg on 27/07/2017.
@@ -24,33 +24,43 @@ import org.springframework.stereotype.Service;
 public class ZipService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ZipService.class);
+  private static final String UNZIPPED_SUFFIX = "-unzipped";
 
-  public List<String> readFileToStringList(InputStream inputStream) throws ZipFileException {
+  public List<String> readFileToStringList(MultipartFile file) throws ZipFileException {
 
-    //TODO use a different zip library based on streams so we don't have to create files
-    //and delete them afterward
-    List<String> xmls = new ArrayList<>();
+    List<String> records = new ArrayList<>();
+    
     try {
-      String prefix = String.valueOf(new Date().getTime());
-      File tempFile = File.createTempFile(prefix, ".zip");
-      FileUtils.copyInputStreamToFile(inputStream, tempFile);
-      LOGGER.info("Temp file: {} created.", tempFile);
+    	String prefix = String.valueOf(new Date().getTime());
+    	File tempFile = File.createTempFile(prefix, ".zip");
+    	FileUtils.copyInputStreamToFile(file.getInputStream(), tempFile);
+    	LOGGER.info("Temp file: {} created.", tempFile);
 
-      ZipFile zipFile = new ZipFile(tempFile);
-      File unzippedDirectory = new File(tempFile.getParent(), prefix + "-unzipped");
-      zipFile.extractAll(unzippedDirectory.getAbsolutePath());
-      LOGGER.info("Unzipped contents into: {}", unzippedDirectory);
-      FileUtils.deleteQuietly(tempFile);
-      File[] files = unzippedDirectory.listFiles();
+    	ZipFile zipFile = new ZipFile(tempFile);
+    	File unzippedDirectory = new File(tempFile.getParent(), prefix + UNZIPPED_SUFFIX);
+    	zipFile.extractAll(unzippedDirectory.getAbsolutePath());
+    	LOGGER.info("Unzipped contents into: {}", unzippedDirectory);        
 
-      for (File input : files) {
-        xmls.add(IOUtils.toString(new FileInputStream(input), "UTF-8"));
-      }
-      FileUtils.deleteQuietly(unzippedDirectory);
+    	FileUtils.deleteQuietly(tempFile);
+    	File[] files = unzippedDirectory.listFiles();
+    	if (files == null) {
+				throw new IOException("Zipped directory returned null files");
+			}
+
+    	for (File input : files) {
+    		if(!input.isDirectory()) {
+					InputStream stream = Files.newInputStream(input.toPath());
+    			records.add(IOUtils.toString(stream, "UTF-8"));
+    			stream.close();
+    		}
+    	}
+
+    	FileUtils.deleteQuietly(unzippedDirectory);
     } catch (IOException | ZipException ex) {
-      LOGGER.error("Error reading from zipfile. ", ex);
-      throw new ZipFileException("Error reading from zipfile. Details: " + ex.getMessage());
+    	LOGGER.error("Error reading from zipfile. ", ex);
+    	throw new ZipFileException("Error reading from zipfile.", ex);
     }
-    return xmls;
+    
+    return records;
   }
 }

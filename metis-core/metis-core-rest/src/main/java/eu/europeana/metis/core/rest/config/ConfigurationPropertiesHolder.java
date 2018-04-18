@@ -45,10 +45,14 @@ public class ConfigurationPropertiesHolder {
   private String rabbitmqUsername;
   @Value("${rabbitmq.password}")
   private String rabbitmqPassword;
+  @Value("${rabbitmq.virtual.host}")
+  private String rabbitmqVirtualHost;
   @Value("${rabbitmq.queue.name}")
   private String rabbitmqQueueName;
   @Value("${rabbitmq.highest.priority}")
   private int rabbitmqHighestPriority;
+  @Value("${rabbitmq.enableSSL}")
+  private boolean rabbitmqEnableSSL;
 
   @Value("${metis.core.baseUrl}")
   private String metisCoreBaseUrl;
@@ -158,6 +162,14 @@ public class ConfigurationPropertiesHolder {
 
   public String getRabbitmqPassword() {
     return rabbitmqPassword;
+  }
+
+  public String getRabbitmqVirtualHost() {
+    return rabbitmqVirtualHost;
+  }
+
+  public boolean isRabbitmqEnableSSL() {
+    return rabbitmqEnableSSL;
   }
 
   public String getRabbitmqQueueName() {

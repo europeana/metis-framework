@@ -86,6 +86,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   /**
    * Check existence of a workflow using a {@link Workflow} class.
    * <p>It will check based on the {@link Workflow#getWorkflowOwner()} and {@link Workflow#getDatasetId()} ()}</p>
+   *
    * @param workflow the {@link Workflow}
    * @return null or the {@link ObjectId} of the object
    */
@@ -95,7 +96,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .equal(workflow.getWorkflowOwner()).field(DATASET_ID)
         .equal(workflow.getDatasetId())
         .project("_id", true).get();
-    return storedWorkflow != null ? storedWorkflow.getId().toString() : null;
+    return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }
 
   /**
@@ -122,16 +123,20 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .createQuery(Workflow.class);
     query.field(WORKFLOW_OWNER).equal(workflowOwner);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * workflowsPerRequest)
-        .limit(workflowsPerRequest));
+    return query.asList(new FindOptions().skip(nextPage * getWorkflowsPerRequest())
+        .limit(getWorkflowsPerRequest()));
   }
 
   public int getWorkflowsPerRequest() {
-    return workflowsPerRequest;
+    synchronized (this) {
+      return workflowsPerRequest;
+    }
   }
 
   public void setWorkflowsPerRequest(int workflowsPerRequest) {
-    this.workflowsPerRequest = workflowsPerRequest;
+    synchronized (this) {
+      this.workflowsPerRequest = workflowsPerRequest;
+    }
   }
 }
 

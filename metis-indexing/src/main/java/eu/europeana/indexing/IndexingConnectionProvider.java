@@ -1,16 +1,16 @@
 package eu.europeana.indexing;
 
 import java.io.Closeable;
+import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.impl.CloudSolrServer;
-import org.apache.solr.client.solrj.impl.LBHttpSolrServer;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.impl.CloudSolrClient;
+import org.apache.solr.client.solrj.impl.LBHttpSolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.mongodb.MongoClient;
@@ -21,6 +21,7 @@ import com.mongodb.ServerAddress;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
+import eu.europeana.indexing.exception.IndexerConfigurationException;
 
 /**
  * <p>
@@ -44,8 +45,8 @@ class IndexingConnectionProvider implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexingConnectionProvider.class);
 
-  private final LBHttpSolrServer httpSolrServer;
-  private final CloudSolrServer cloudSolrServer;
+  private final LBHttpSolrClient httpSolrClient;
+  private final CloudSolrClient cloudSolrClient;
   private final MongoClient mongoClient;
   private final EdmMongoServer mongoServer;
 
@@ -58,128 +59,98 @@ class IndexingConnectionProvider implements Closeable {
   IndexingConnectionProvider(IndexingSettings settings) throws IndexerConfigurationException {
 
     // Create Solr and Zookeeper connections.
-    this.httpSolrServer = setUpHttpSolrConnection(settings);
+    this.httpSolrClient = setUpHttpSolrConnection(settings);
     if (settings.establishZookeeperConnection()) {
-      this.cloudSolrServer = setUpCloudSolrConnection(settings, httpSolrServer);
+      this.cloudSolrClient = setUpCloudSolrConnection(settings, this.httpSolrClient);
     } else {
-      this.cloudSolrServer = null;
+      this.cloudSolrClient = null;
     }
 
-    // Create Mongo connection.
-    this.mongoClient = setUpMongoClient(settings);
-    this.mongoServer = setUpMongoServer(settings, mongoClient);
+    // Create mongo connection.
+    this.mongoClient = createMongoClient(settings);
+    this.mongoServer = setUpMongoConnection(settings, this.mongoClient);
   }
 
-  private static MongoClient setUpMongoClient(IndexingSettings settings)
+  private static MongoClient createMongoClient(IndexingSettings settings)
       throws IndexerConfigurationException {
 
-    // Create credentials
-    final List<MongoCredential> credentials;
-    if (settings.getMongoCredentials() == null) {
-      credentials = Collections.emptyList();
-    } else {
-      credentials = Collections.singletonList(settings.getMongoCredentials());
-    }
-
-    // Create options
-    final boolean enableSsl = settings.mongoEnableSsl();
-    final MongoClientOptions.Builder optionsBuilder = new Builder().sslEnabled(enableSsl);
-
-    // Perform logging
+    // Extract data from settings
     final List<ServerAddress> hosts = settings.getMongoHosts();
-    LOGGER.info("Connecting to Mongo hosts: [{}], with{} authentication, with{} SSL.",
-        hosts.stream().map(ServerAddress::toString).collect(Collectors.joining(", ")),
-        credentials.isEmpty() ? "out" : "", enableSsl ? "" : "out");
-
-    // Create client
-    return new MongoClient(hosts, credentials, optionsBuilder.build());
-  }
-
-  private static EdmMongoServer setUpMongoServer(IndexingSettings settings, MongoClient mongoClient)
-      throws IndexerConfigurationException {
+    final MongoCredential credentials = settings.getMongoCredentials();
+    final boolean enableSsl = settings.mongoEnableSsl();
 
     // Perform logging
     final String databaseName = settings.getMongoDatabaseName();
-    LOGGER.info("Connecting to Mongo database: [{}].", databaseName);
+    LOGGER.info(
+        "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
+        hosts.stream().map(ServerAddress::toString).collect(Collectors.joining(", ")), databaseName,
+        credentials == null ? "out" : "", enableSsl ? "" : "out");
 
-    // Create server
+    // Create client
+    final MongoClientOptions.Builder optionsBuilder = new Builder().sslEnabled(enableSsl);
+    if (credentials == null) {
+      return new MongoClient(hosts, optionsBuilder.build());
+    } else {
+      return new MongoClient(hosts, settings.getMongoCredentials(), optionsBuilder.build());
+    }
+  }
+
+  private static EdmMongoServer setUpMongoConnection(IndexingSettings settings, MongoClient client)
+      throws IndexerConfigurationException {
     try {
-      return new EdmMongoServerImpl(mongoClient, databaseName);
+      return new EdmMongoServerImpl(client, settings.getMongoDatabaseName());
     } catch (MongoDBException e) {
       throw new IndexerConfigurationException("Could not set up mongo server.", e);
     }
   }
 
-  private static LBHttpSolrServer setUpHttpSolrConnection(IndexingSettings settings)
+  private static LBHttpSolrClient setUpHttpSolrConnection(IndexingSettings settings)
       throws IndexerConfigurationException {
-    try {
-      final String[] solrHosts =
-          settings.getSolrHosts().stream().map(URI::toString).toArray(String[]::new);
-      LOGGER.info("Connecting to Solr hosts: [{}]",
-          Arrays.stream(solrHosts).collect(Collectors.joining(",")));
-      return new LBHttpSolrServer(solrHosts);
-    } catch (MalformedURLException e) {
-      throw new IndexerConfigurationException("Malformed URL provided in indexer settings.", e);
-    }
+    final String[] solrHosts =
+        settings.getSolrHosts().stream().map(URI::toString).toArray(String[]::new);
+    LOGGER.info("Connecting to Solr hosts: [{}]",
+        Arrays.stream(solrHosts).collect(Collectors.joining(", ")));
+    return new LBHttpSolrClient.Builder().withBaseSolrUrls(solrHosts).build();
   }
 
-  private static CloudSolrServer setUpCloudSolrConnection(IndexingSettings settings,
-      LBHttpSolrServer httpSolrServer) throws IndexerConfigurationException {
+  private static CloudSolrClient setUpCloudSolrConnection(IndexingSettings settings,
+      LBHttpSolrClient httpSolrClient) throws IndexerConfigurationException {
 
-    // Compile Zookeeper-specific connection string
-    final String zookeeperConnectionString =
-        toZookeeperAddressString(settings.getZookeeperHosts(), settings.getZookeeperChroot());
-    final String zookeeperDefaultCollection = settings.getZookeeperDefaultCollection();
+    // Get information from settings
+    final Set<String> hosts = settings.getZookeeperHosts().stream()
+        .map(IndexingConnectionProvider::toCloudSolrClientAddressString)
+        .collect(Collectors.toSet());
+    final String chRoot = settings.getZookeeperChroot();
+    final String defaultCollection = settings.getZookeeperDefaultCollection();
 
-    // Set up Zookeeper connection.
-    LOGGER.info("Connecting to Zookeeper: [{}] with default collection [{}]",
-        zookeeperConnectionString, zookeeperDefaultCollection);
-    final CloudSolrServer cloudSolrServer =
-        new CloudSolrServer(zookeeperConnectionString, httpSolrServer);
-    cloudSolrServer.setDefaultCollection(zookeeperDefaultCollection);
-    cloudSolrServer.connect();
+    // Configure connection builder
+    final CloudSolrClient.Builder builder = new CloudSolrClient.Builder();
+    builder.withZkHost(hosts);
+    if (chRoot != null) {
+      builder.withZkChroot(chRoot);
+    }
+    builder.withLBHttpSolrClient(httpSolrClient);
+
+    // Set up Zookeeper connection
+    LOGGER.info("Connecting to Zookeeper hosts: [{}] with chRoot [{}] and default connection [{}].",
+        hosts.stream().collect(Collectors.joining(", ")), chRoot, defaultCollection);
+    final CloudSolrClient cloudSolrClient = builder.build();
+    cloudSolrClient.setDefaultCollection(defaultCollection);
+    cloudSolrClient.connect();
 
     // Done
-    return cloudSolrServer;
-  }
-
-  /**
-   * This utility method converts a list of addresses (host plus port) and a chroot to a string that
-   * is accepted by Zookeeper, and hence by {@link CloudSolrServer}. See the documentation of
-   * {@link org.apache.zookeeper.ZooKeeper} constructors, for instance
-   * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}.
-   * 
-   * @param zookeeperHosts The hosts.
-   * @param zookeeperChroot The chroot.
-   * @return The Zookeeper-compliant string.
-   */
-  static String toZookeeperAddressString(List<InetSocketAddress> zookeeperHosts,
-      String zookeeperChroot) {
-    final String zookeeperHostString = zookeeperHosts.stream()
-        .map(IndexingConnectionProvider::toZookeeperAddressString).collect(Collectors.joining(","));
-    return zookeeperHostString + (zookeeperChroot == null ? "" : zookeeperChroot);
+    return cloudSolrClient;
   }
 
   /**
    * This utility method converts an address (host plus port) to a string that is accepted by
-   * Zookeeper, and hence by {@link CloudSolrServer}. See the documentation of
-   * {@link org.apache.zookeeper.ZooKeeper} constructors, for instance
-   * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}.
+   * {@link CloudSolrClient}.
    * 
    * @param address The address to convert.
-   * @return The Zookeeper-compliant string.
+   * @return The compliant string.
    */
-  static String toZookeeperAddressString(InetSocketAddress address) {
+  static String toCloudSolrClientAddressString(InetSocketAddress address) {
     return address.getHostString() + ":" + address.getPort();
-  }
-
-  /**
-   * Provides a DAO object for storing (saving or updating) Full Beans.
-   * 
-   * @return A DAO.
-   */
-  FullBeanDao getFullBeanDao() {
-    return new FullBeanDao(mongoServer);
   }
 
   /**
@@ -188,17 +159,17 @@ class IndexingConnectionProvider implements Closeable {
    * @return A publisher.
    */
   FullBeanPublisher getFullBeanPublisher() {
-    final SolrServer solrServer = cloudSolrServer == null ? httpSolrServer : cloudSolrServer;
-    return new FullBeanPublisher(getFullBeanDao(), solrServer);
+    final SolrClient solrServer = cloudSolrClient == null ? httpSolrClient : cloudSolrClient;
+    return new FullBeanPublisher(new FullBeanDao(mongoServer), solrServer);
   }
 
   @Override
-  public void close() {
-    httpSolrServer.shutdown();
-    if (cloudSolrServer != null) {
-      cloudSolrServer.shutdown();
-    }
+  public void close() throws IOException {
     mongoServer.close();
- //   mongoClient.close();
+    mongoClient.close();
+    httpSolrClient.close();
+    if (cloudSolrClient != null) {
+      cloudSolrClient.close();
+    }
   }
 }

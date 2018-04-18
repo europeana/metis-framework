@@ -17,10 +17,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.util.List;
-
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +42,15 @@ public class EnrichmentController {
   private final Enricher enricher;
   private final EntityRemover remover;
 
+  /**
+   * Autowired constructor.
+   *
+   * @param enricher class that handles enrichment functionality
+   * @param remover class that removed values from mongo and redis
+   * @param converter utility class for conversion between different classes
+   */
   @Autowired
-  public  EnrichmentController(Enricher enricher, EntityRemover remover, Converter converter) {
+  public EnrichmentController(Enricher enricher, EntityRemover remover, Converter converter) {
     this.converter = converter;
     this.enricher = enricher;
     this.remover = remover;
@@ -62,9 +65,9 @@ public class EnrichmentController {
   @RequestMapping(value = RestEndpoints.ENRICHMENT_DELETE, method = RequestMethod.DELETE)
   @ApiOperation(value = "Delete a list of URIs")
   @ApiResponses(value = {
-		  @ApiResponse(code = 400, message = "Error processing the result")
+      @ApiResponse(code = 400, message = "Error processing the result")
   })
-  public void delete(@RequestBody UriList values)  {
+  public void delete(@RequestBody UriList values) {
     remover.remove(values.getUris());
   }
 
@@ -72,17 +75,18 @@ public class EnrichmentController {
    * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch
    *
    * @param uri The URI to retrieve
+   * @return the structured result of the enrichment
+   * @throws EnrichmentException if an exception occurred during enrichment
    */
   @RequestMapping(value = RestEndpoints.ENRICHMENT_BYURI, method = RequestMethod.GET,
-      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
-  @ApiOperation(value = "Retrieve an entity by URI or its sameAs", response = EnrichmentBase.class )
-  @Produces({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ApiOperation(value = "Retrieve an entity by URI or its sameAs", response = EnrichmentBase.class)
   @ResponseBody
   @ApiResponses(value = {
-		  @ApiResponse(code = 400, message = "Error processing the result")
+      @ApiResponse(code = 400, message = "Error processing the result")
   })
   public EnrichmentBase getByUri(@ApiParam("uri") @RequestParam("uri") String uri)
-      throws EnrichmentException{
+      throws EnrichmentException {
 
     EntityWrapper wrapper = enricher.getByUri(uri);
     if (wrapper == null) {
@@ -90,10 +94,10 @@ public class EnrichmentController {
     }
 
     try {
-     return converter.convert(wrapper);
+      return converter.convert(wrapper);
     } catch (IOException e) {
-      LOGGER.error("Error converting object.", e);
-      throw new EnrichmentException(e.getMessage());
+      LOGGER.error("Error converting object to EnrichmentBase", e);
+      throw new EnrichmentException("Error converting object to EnrichmentBase", e);
     }
   }
 
@@ -101,33 +105,32 @@ public class EnrichmentController {
    * Enrich a number of values
    *
    * @param input A list of values
+   * @return the enrichment values in a wrapped structured list
+   * @throws EnrichmentException if an exception occurred during enrichment
    */
   @RequestMapping(value = RestEndpoints.ENRICHMENT_ENRICH, method = RequestMethod.POST,
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  @Consumes({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @Produces({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
   @ApiOperation(value = "Enrich a series of field value pairs", response = EnrichmentResultList.class)
   @ApiResponses(value = {
-		  @ApiResponse(code = 400, message = "Error processing the result")
+      @ApiResponse(code = 400, message = "Error processing the result")
   })
   public EnrichmentResultList enrich(@ApiParam("input") @RequestBody InputValueList input)
       throws EnrichmentException {
-	  
-	  try {
-		  List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValueList());
 
-		  EnrichmentResultList result = converter.convert(wrapperList);
-		  
-		  if (result.getResult().isEmpty()) {
-			  return null;
-		  }
-		  
-		  return result;
-	  } catch (IOException e) {
-		  LOGGER.error("Error converting object.", e);
-		  throw new EnrichmentException(e.getMessage());
-	  }
+    try {
+      List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValueList());
+      EnrichmentResultList result = converter.convert(wrapperList);
+
+      if (result.getResult().isEmpty()) {
+        return null;
+      }
+
+      return result;
+    } catch (IOException e) {
+      LOGGER.error("Error converting object.", e);
+      throw new EnrichmentException("Error converting object.", e);
+    }
   }
 }

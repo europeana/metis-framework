@@ -29,7 +29,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final int MONITOR_ITERATIONS_TO_FAKE = 2;
   private static final int FAKE_RECORDS_PER_ITERATION = 100;
   private static final int MAX_MONITOR_FAILURES = 3;
-  private Date startDate;
   private Date finishDate;
   private boolean firstPluginExecution;
   private int monitorCheckIntervalInSecs;
@@ -99,8 +98,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   }
 
   private void runInQueueStateWorkflowExecution(RLock lock) {
-    startDate = new Date();
-    workflowExecution.setStartedDate(startDate);
+    workflowExecution.setStartedDate(new Date());
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecutionDao.updateMonitorInformation(workflowExecution);
     lock.unlock(); //Unlock as soon as possible
@@ -163,7 +161,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
           if (firstPluginExecution) {
             firstPluginExecution = false;
-            abstractMetisPlugin.setStartedDate(startDate);
+            abstractMetisPlugin.setStartedDate(workflowExecution.getStartedDate());
           } else {
             abstractMetisPlugin.setStartedDate(new Date());
           }

@@ -1,3 +1,5 @@
+import static org.mockito.ArgumentMatchers.any;
+
 import eu.europeana.corelib.lookup.impl.CollectionMongoServerImpl;
 import eu.europeana.corelib.lookup.impl.EuropeanaIdMongoServerImpl;
 import eu.europeana.corelib.tools.lookuptable.CollectionMongoServer;
@@ -72,7 +74,7 @@ public class MongoRedirectServiceTest {
         QueryResponse resp = PowerMockito.mock(QueryResponse.class);
         Object response = Mockito.mock(Object.class);
         Mockito.when(collectionMongo.findOldCollectionId("test_collection")).thenReturn(null);
-        Mockito.when(solrServer.query(Mockito.any(ModifiableSolrParams.class))).thenReturn(resp);
+        Mockito.when(solrServer.query(any(ModifiableSolrParams.class))).thenReturn(resp);
         Mockito.when(resp.getResults()).thenReturn(list);
         Mockito.when(list.getNumFound()).thenReturn(new Long(1));
         Mockito.when(list.get(0)).thenReturn(doc);
@@ -105,7 +107,7 @@ public class MongoRedirectServiceTest {
         QueryResponse resp = PowerMockito.mock(QueryResponse.class);
         Object response = Mockito.mock(Object.class);
         Mockito.when(collectionMongo.findOldCollectionId("test_collection")).thenReturn("test_collection2");
-        Mockito.when(solrServer.query(Mockito.any(ModifiableSolrParams.class))).thenReturn(resp);
+        Mockito.when(solrServer.query(any(ModifiableSolrParams.class))).thenReturn(resp);
         Mockito.when(resp.getResults()).thenReturn(list);
         Mockito.when(list.getNumFound()).thenReturn(new Long(1));
         Mockito.when(list.get(0)).thenReturn(doc);
@@ -139,7 +141,7 @@ public class MongoRedirectServiceTest {
         QueryResponse resp = PowerMockito.mock(QueryResponse.class);
         Object response = Mockito.mock(Object.class);
         Mockito.when(collectionMongo.findOldCollectionId("test_collection")).thenReturn(null);
-        Mockito.when(solrServer.query(Mockito.any(ModifiableSolrParams.class))).thenReturn(resp);
+        Mockito.when(solrServer.query(any(ModifiableSolrParams.class))).thenReturn(resp);
         Mockito.when(resp.getResults()).thenReturn(list);
         Mockito.when(list.getNumFound()).thenReturn(new Long(1));
         Mockito.when(list.get(0)).thenReturn(doc);
@@ -170,7 +172,7 @@ public class MongoRedirectServiceTest {
         QueryResponse resp = PowerMockito.mock(QueryResponse.class);
         Object response = Mockito.mock(Object.class);
         Mockito.when(collectionMongo.findOldCollectionId("test_collection")).thenReturn("test_collection2");
-        Mockito.when(solrServer.query(Mockito.any(ModifiableSolrParams.class))).thenReturn(resp);
+        Mockito.when(solrServer.query(any(ModifiableSolrParams.class))).thenReturn(resp);
         Mockito.when(resp.getResults()).thenReturn(list);
         Mockito.when(list.getNumFound()).thenReturn(new Long(1));
         Mockito.when(list.get(0)).thenReturn(doc);
@@ -201,7 +203,7 @@ public class MongoRedirectServiceTest {
         QueryResponse resp = PowerMockito.mock(QueryResponse.class);
         Object response = Mockito.mock(Object.class);
         Mockito.when(collectionMongo.findOldCollectionId("test_collection")).thenReturn(null);
-        Mockito.when(solrServer.query(Mockito.any(ModifiableSolrParams.class))).thenReturn(resp);
+        Mockito.when(solrServer.query(any(ModifiableSolrParams.class))).thenReturn(resp);
         Mockito.when(resp.getResults()).thenReturn(list);
         Mockito.when(list.getNumFound()).thenReturn(new Long(1));
         Mockito.when(list.get(0)).thenReturn(doc);
@@ -232,7 +234,7 @@ public class MongoRedirectServiceTest {
 
         QueryResponse resp = PowerMockito.mock(QueryResponse.class);
         Mockito.when(collectionMongo.findOldCollectionId("test_collection")).thenReturn(null);
-        Mockito.when(solrServer.query(Mockito.any(ModifiableSolrParams.class))).thenReturn(resp);
+        Mockito.when(solrServer.query(any(ModifiableSolrParams.class))).thenReturn(resp);
         Mockito.when(resp.getResults()).thenReturn(list);
         Mockito.when(list.getNumFound()).thenReturn(new Long(0));
 
@@ -264,13 +266,13 @@ public class MongoRedirectServiceTest {
         QueryResponse resp = PowerMockito.mock(QueryResponse.class);
         Object response = Mockito.mock(Object.class);
         Mockito.when(collectionMongo.findOldCollectionId("test_collection")).thenReturn(null);
-        Mockito.when(solrServer.query(Mockito.any(ModifiableSolrParams.class))).thenReturn(resp);
+        Mockito.when(solrServer.query(any(ModifiableSolrParams.class))).thenReturn(resp);
         Mockito.when(resp.getResults()).thenReturn(list);
         Mockito.when(list.getNumFound()).thenReturn(new Long(1));
         Mockito.when(list.get(0)).thenReturn(doc);
         Mockito.when(doc.getFieldValue("europeana_id")).thenReturn(response);
         Mockito.when(response.toString()).thenReturn("/id2");
-        Mockito.when(mongoServer.retrieveEuropeanaIdFromOld("/id2")).thenReturn(id);
+        Mockito.when(mongoServer.retrieveEuropeanaIdFromOld(any(List.class))).thenReturn(id);
 
 
         RedirectResponse redirectResponse = service.createRedirect(request);
@@ -301,7 +303,7 @@ public class MongoRedirectServiceTest {
         QueryResponse resp = PowerMockito.mock(QueryResponse.class);
         Object response = Mockito.mock(Object.class);
         Mockito.when(collectionMongo.findOldCollectionId("test_collection")).thenReturn(null);
-        Mockito.when(solrServer.query(Mockito.any(ModifiableSolrParams.class))).thenReturn(resp);
+        Mockito.when(solrServer.query(any(ModifiableSolrParams.class))).thenReturn(resp);
         Mockito.when(resp.getResults()).thenReturn(docList);
         Mockito.when(docList.getNumFound()).thenReturn(new Long(1));
         Mockito.when(docList.get(0)).thenReturn(doc);

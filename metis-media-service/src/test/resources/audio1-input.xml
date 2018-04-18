@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:edm="http://www.europeana.eu/schemas/edm/">
+	<edm:ProvidedCHO rdf:about="http://data.europeana.eu/item/2059220/opac_index_php_lvl_notice_display_id_5617" />
+	<edm:WebResource rdf:about="http://doc.cresson.grenoble.archi.fr/opac/index.php?lvl=notice_display&amp;id=5617" />
+	<edm:WebResource rdf:about="http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3" />
+	<edm:WebResource rdf:about="http://cressound.grenoble.archi.fr/son/rap076/bogota.jpg" />
+	<edm:Place rdf:about="http://doc.cresson.grenoble.archi.fr/opac/index.php?lvl=notice_display&amp;id=5617#Place">
+		<wgs84:lat xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#">4.598788</wgs84:lat>
+		<wgs84:long xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#">-74.08135</wgs84:long>
+		<skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">Bogotà</skos:prefLabel>
+	</edm:Place>
+	<skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://data.europeana.eu/concept/soundgenres/soundgenres/Environment_recordings">
+		<skos:prefLabel xml:lang="de">Tonaufnahmen der Umwelt</skos:prefLabel>
+		<skos:prefLabel xml:lang="en">Environment recordings</skos:prefLabel>
+		<skos:prefLabel xml:lang="it">Registrazioni sonore dell'ambiente</skos:prefLabel>
+		<skos:prefLabel xml:lang="pl">Nagrania dźwiękowe środowiska</skos:prefLabel>
+		<skos:prefLabel xml:lang="fr">Enregistrements sonores de l'environnement</skos:prefLabel>
+		<skos:prefLabel xml:lang="es">Grabaciones sonoras del entorno</skos:prefLabel>
+		<skos:note xml:lang="en">Recordings of the natural and built environment.</skos:note>
+		<skos:narrower rdf:resource="http://data.europeana.eu/concept/soundgenres/Environment_recordings/Nature_sounds" />
+		<skos:narrower rdf:resource="http://data.europeana.eu/concept/soundgenres/Environment_recordings/Soundscapes" />
+	</skos:Concept>
+	<ore:Aggregation xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="http://data.europeana.eu/aggregation/provider/2059220/opac_index_php_lvl_notice_display_id_5617">
+		<edm:aggregatedCHO rdf:resource="http://data.europeana.eu/item/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<edm:dataProvider>CNRS-CRESSON</edm:dataProvider>
+		<edm:isShownAt rdf:resource="http://doc.cresson.grenoble.archi.fr/opac/index.php?lvl=notice_display&amp;id=5617" />
+		<edm:isShownBy rdf:resource="http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3" />
+		<edm:object rdf:resource="http://cressound.grenoble.archi.fr/son/rap076/bogota.jpg" />
+		<edm:provider>Europeana Sounds</edm:provider>
+		<edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+	</ore:Aggregation>
+	<ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="http://data.europeana.eu/proxy/provider/2059220/opac_index_php_lvl_notice_display_id_5617">
+		<dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">McOisans juL. Tixier Nicolas (Preneurs de son)</dc:contributor>
+		<dc:coverage xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="http://doc.cresson.grenoble.archi.fr/opac/index.php?lvl=notice_display&amp;id=5617#Place"></dc:coverage>
+		<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Tixier Nicolas (dir.)</dc:creator>
+		<dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">2009-04</dc:date>
+		<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">Parc Tercer Milenio. Parade de soutien aux réfugiés, percussions, maracas et chants qui progressent à travers la foule qui l’accompagne en "clappant" des mains.
+
+</dc:description>
+		<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">Matériel utilisé : M-Audio – Microtrack II, Microphone : tête artificielle : Sound Man – OKM II Klassic ; Qualité du son : bon ; Nature de l'enregistrement : prise de son in situ ; Genre de l'enregistrement : environnement sonore Type de prise de son : dynamique</dc:format>
+		<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">5617</dc:identifier>
+		<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Grenoble : CRESSON</dc:publisher>
+		<dc:relation xmlns:dc="http://purl.org/dc/elements/1.1/">Bogotá : case study : research 2009-2010. Nicolas Tixier, Editeur scientifique ; Camilo Andres Cifuentes Quin, Collaborateur ; Ida Assefa, Collaborateur ; Sandra Fiori, Collaborateur ; Céline Rouchy, Auteur . - Grenoble : CRESSON, 2010 . - 251 p. : Bibliogr., annexes sous forme de DVD ; 21 cm /29,7 cm + 3 DVD. - (Rapport de Recherche; 76) .</dc:relation>
+		<dc:relation xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="http://doc.cresson.grenoble.archi.fr/opac/index.php?lvl=notice_display&amp;id=3253"></dc:relation>
+		<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/"> Paternité - Pas d’Utilisation Commerciale - Pas de Modification </dc:rights>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">Environnement sonore</dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"> [Effet sonore]Phonotonie</dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"> [Lieu]Bogotá</dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"> [Lieu]Parc-Tercer-Milenio</dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/"> Manifestation musicale </dc:subject>
+		<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="http://data.europeana.eu/concept/soundgenres/soundgenres/Environment_recordings"></dc:subject>
+		<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Parade</dc:title>
+		<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">site d'études autour du parc Tercer Milenio</dc:title>
+		<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">3min</dcterms:extent>
+		<dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/"> Bogotá case study</dcterms:isPartOf>
+		<dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://doc.cresson.grenoble.archi.fr/opac/index.php?lvl=notice_display&amp;id=5286"></dcterms:isPartOf>
+		<dcterms:provenance xmlns:dcterms="http://purl.org/dc/terms/">Centre de recherche sur l'espace sonore et l'environnement urbain, Ecole Nationale Supérieure d’Architecture de Grenoble (UMR 1563 AAU - CNRS, ENSAN, ECN)</dcterms:provenance>
+		<dcterms:spatial xmlns:dcterms="http://purl.org/dc/terms/">Bogotá</dcterms:spatial>
+		<edm:europeanaProxy>false</edm:europeanaProxy>
+		<ore:proxyFor rdf:resource="http://data.europeana.eu/item/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<ore:proxyIn rdf:resource="http://data.europeana.eu/aggregation/provider/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<edm:type>SOUND</edm:type>
+	</ore:Proxy>
+	<ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="http://data.europeana.eu/proxy/europeana/2059220/opac_index_php_lvl_notice_display_id_5617">
+		<edm:europeanaProxy>true</edm:europeanaProxy>
+		<ore:proxyFor rdf:resource="http://data.europeana.eu/item/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<ore:proxyIn rdf:resource="http://data.europeana.eu/aggregation/europeana/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<edm:type>SOUND</edm:type>
+	</ore:Proxy>
+	<edm:EuropeanaAggregation rdf:about="http://data.europeana.eu/aggregation/europeana/2059220/opac_index_php_lvl_notice_display_id_5617">
+		<edm:aggregatedCHO rdf:resource="http://data.europeana.eu/item/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<edm:collectionName>2059220_Ag_EU_eSOUNDS_1029_Cresson</edm:collectionName>
+		<edm:country>France</edm:country>
+		<edm:landingPage rdf:resource="http://europeana.eu/portal/record/2059220/opac_index_php_lvl_notice_display_id_5617.html" />
+		<edm:language>fr</edm:language>
+	</edm:EuropeanaAggregation>
+</rdf:RDF>

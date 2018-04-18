@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,7 +35,12 @@ public final class XmlUtil {
   private static final DocumentBuilderFactory FACTORY = DocumentBuilderFactory.newInstance();
 
   static {
-    FACTORY.setNamespaceAware(true);
+    try {
+      FACTORY.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      FACTORY.setNamespaceAware(true);
+    } catch (ParserConfigurationException e) {
+      e.printStackTrace();
+    }
   }
 
   private XmlUtil() {}

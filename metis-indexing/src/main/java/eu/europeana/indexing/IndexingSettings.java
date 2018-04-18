@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import eu.europeana.indexing.exception.IndexerConfigurationException;
 
 /**
  * This class contains all settings needed for indexing. These settings are not thread-safe.
@@ -132,7 +133,7 @@ public final class IndexingSettings {
    * @return The Mongo hosts.
    * @throws IndexerConfigurationException In case no such hosts were set.
    */
-  List<ServerAddress> getMongoHosts() throws IndexerConfigurationException {
+  public List<ServerAddress> getMongoHosts() throws IndexerConfigurationException {
     if (mongoHosts.isEmpty()) {
       throw new IndexerConfigurationException("Please provide at least one Mongo host.");
     }
@@ -145,7 +146,7 @@ public final class IndexingSettings {
    * @return The Mongo database name.
    * @throws IndexerConfigurationException In case no Mongo database name was set.
    */
-  String getMongoDatabaseName() throws IndexerConfigurationException {
+  public String getMongoDatabaseName() throws IndexerConfigurationException {
     if (mongoDatabaseName == null) {
       throw new IndexerConfigurationException("Please provide a Mongo database name.");
     }
@@ -157,7 +158,7 @@ public final class IndexingSettings {
    * 
    * @return The credentials, or null if no such credentials were set.
    */
-  MongoCredential getMongoCredentials() {
+  public MongoCredential getMongoCredentials() {
     return mongoCredentials;
   }
 
@@ -166,7 +167,7 @@ public final class IndexingSettings {
    * 
    * @return Whether SSL is to be enabled for the Mongo connection.
    */
-  boolean mongoEnableSsl() {
+  public boolean mongoEnableSsl() {
     return mongoEnableSsl;
   }
 
@@ -175,7 +176,7 @@ public final class IndexingSettings {
    * 
    * @return The Zookeeper hosts. Or empty, if no Zookeeper connection is to be used.
    */
-  List<InetSocketAddress> getZookeeperHosts() {
+  public List<InetSocketAddress> getZookeeperHosts() {
     return Collections.unmodifiableList(zookeeperHosts);
   }
 

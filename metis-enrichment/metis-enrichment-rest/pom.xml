@@ -69,6 +69,12 @@
             <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-enrichment-service</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jsr311-api</artifactId>
+                    <groupId>javax.ws.rs</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mongojack</groupId>

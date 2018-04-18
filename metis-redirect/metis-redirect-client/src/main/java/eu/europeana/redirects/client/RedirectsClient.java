@@ -6,6 +6,7 @@ import eu.europeana.redirects.model.RedirectRequest;
 import eu.europeana.redirects.model.RedirectRequestList;
 import eu.europeana.redirects.model.RedirectResponse;
 import eu.europeana.redirects.model.RedirectResponseList;
+import java.io.IOException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -18,31 +19,41 @@ import org.springframework.web.client.RestTemplate;
  */
 public class RedirectsClient {
 
-    private RestTemplate restTemplate = new RestTemplate();
-    private Config config = new Config();
+  private RestTemplate restTemplate;
+  private Config config;
 
-    /**
-     * Request for a redirect for a single record
-     * @param request The request for a redirect
-     * @return A response with the redirect generated if any
-     * @throws JsonProcessingException
-     */
+  public RedirectsClient() throws IOException {
+    restTemplate = new RestTemplate();
+    config = new Config();
+  }
 
-    public RedirectResponse redirectSingle(RedirectRequest request) throws JsonProcessingException{
+  /**
+   * Request for a redirect for a single record
+   *
+   * @param request The request for a redirect
+   * @return A response with the redirect generated if any
+   */
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<RedirectRequest> req = new HttpEntity<>(request, headers);
-       return restTemplate.postForEntity(config.getRedirectsPath()+ RestEndpoints.REDIRECT_SINGLE,req,RedirectResponse.class).getBody();
-    }
+  public RedirectResponse redirectSingle(RedirectRequest request) throws JsonProcessingException {
 
-    /**
-     * Request for batch redirects
-     * @param requests The list of redirect requests
-     * @return A list of responses for each redirect
-     * @throws JsonProcessingException
-     */
-    public RedirectResponseList redirectBatch(RedirectRequestList requests) throws JsonProcessingException{
-        return restTemplate.postForObject(config.getRedirectsPath()+ RestEndpoints.REDIRECT_BATCH,requests,RedirectResponseList.class);
-    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    HttpEntity<RedirectRequest> req = new HttpEntity<>(request, headers);
+    return restTemplate
+        .postForEntity(config.getRedirectsPath() + RestEndpoints.REDIRECT_SINGLE, req,
+            RedirectResponse.class).getBody();
+  }
+
+  /**
+   * Request for batch redirects
+   *
+   * @param requests The list of redirect requests
+   * @return A list of responses for each redirect
+   */
+  public RedirectResponseList redirectBatch(RedirectRequestList requests)
+      throws JsonProcessingException {
+    return restTemplate
+        .postForObject(config.getRedirectsPath() + RestEndpoints.REDIRECT_BATCH, requests,
+            RedirectResponseList.class);
+  }
 }

@@ -46,18 +46,8 @@ class FullBeanDao {
    * @param about The value of the about field to find.
    * @return The object, or null if no such object could be found.
    */
-  public <T> T searchByAbout(Class<T> clazz, String about) {
+  private <T> T get(Class<T> clazz, String about) {
     return mongoServer.getDatastore().find(clazz).field(ABOUT_FIELD).equal(about).get();
-  }
-
-  /**
-   * Searches a Full Bean by its ID.
-   * 
-   * @param id The ID of the full bean to find.
-   * @return The Full Bean, or null if no such full bean could be found.
-   */
-  public FullBeanImpl getFullBean(String id) {
-    return searchByAbout(FullBeanImpl.class, id);
   }
 
   /**
@@ -97,7 +87,7 @@ class FullBeanDao {
     if (data == null) {
       return null;
     }
-    final T existingData = searchByAbout(clazz, data.getAbout());
+    final T existingData = get(clazz, data.getAbout());
     final T newData;
     if (existingData != null) {
       newData = updater.update(existingData, data, mongoServer);
@@ -183,7 +173,7 @@ class FullBeanDao {
     ops.set("europeanaCollectionName", fullBean.getEuropeanaCollectionName());
 
     mongoServer.getDatastore().update(updateQuery, ops);
-
-    return getFullBean(fullBean.getAbout());
+    
+    return get(FullBeanImpl.class, fullBean.getAbout());
   }
 }

@@ -30,7 +30,7 @@ import org.apache.commons.io.IOUtils;
 
 /**
  * Proxies Service which encapsulates functionality that has to be proxied to an external resource.
- * 
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-26
  */
@@ -73,10 +73,10 @@ public class ProxiesService {
    * @param to integer until where logs should be received
    * @return the list of logs
    * @throws ExternalTaskException can be one of:
-   *         <ul>
-   *         <li>{@link DpsException} if an error occurred while retrieving the logs from the
-   *         external resource</li>
-   *         </ul>
+   * <ul>
+   * <li>{@link DpsException} if an error occurred while retrieving the logs from the
+   * external resource</li>
+   * </ul>
    */
   public List<SubTaskInfo> getExternalTaskLogs(String topologyName, long externalTaskId, int from,
       int to) throws ExternalTaskException {
@@ -98,16 +98,16 @@ public class ProxiesService {
   /**
    * Get the final report that includes all the errors grouped. The number of ids per error can be
    * specified through the parameters.
-   * 
+   *
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
    * @param idsPerError the number of ids that should be displayed per error group
    * @return the list of errors grouped
    * @throws ExternalTaskException can be one of:
-   *         <ul>
-   *         <li>{@link DpsException} if an error occurred while retrieving the report from the
-   *         external resource</li>
-   *         </ul>
+   * <ul>
+   * <li>{@link DpsException} if an error occurred while retrieving the report from the
+   * external resource</li>
+   * </ul>
    */
   public TaskErrorsInfo getExternalTaskReport(String topologyName, long externalTaskId,
       int idsPerError) throws ExternalTaskException {
@@ -125,15 +125,15 @@ public class ProxiesService {
 
   /**
    * Get the statistics of an external task.
-   * 
+   *
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
    * @return the list of errors grouped
    * @throws ExternalTaskException can be one of:
-   *         <ul>
-   *         <li>{@link DpsException} if an error occurred while retrieving the statistics from the
-   *         external resource</li>
-   *         </ul>
+   * <ul>
+   * <li>{@link DpsException} if an error occurred while retrieving the statistics from the
+   * external resource</li>
+   * </ul>
    */
   public StatisticsReport getExternalTaskStatistics(String topologyName, long externalTaskId)
       throws ExternalTaskException {
@@ -149,18 +149,18 @@ public class ProxiesService {
   /**
    * Get a list with record contents from the external resource based on an workflow execution and
    * {@link PluginType}
-   * 
+   *
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link PluginType} that is to be located inside the workflow
    * @param nextPage the string representation of the next page which is provided from the response
-   *        and can be used to get the next page of results
+   * and can be used to get the next page of results
    * @param numberOfRecords the number of records per response
    * @return the list of records from the external resource
    * @throws ExternalTaskException can be one of:
-   *         <ul>
-   *         <li>{@link MCSException} if an error occurred while retrieving the records from the
-   *         external resource</li>
-   *         </ul>
+   * <ul>
+   * <li>{@link MCSException} if an error occurred while retrieving the records from the
+   * external resource</li>
+   * </ul>
    */
   public RecordsResponse getListOfFileContentsFromPluginExecution(String workflowExecutionId,
       PluginType pluginType, String nextPage, int numberOfRecords) throws ExternalTaskException {

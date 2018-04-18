@@ -15,6 +15,7 @@ import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.ZipService;
 import eu.europeana.metis.preview.service.executor.ValidationUtils;
 import eu.europeana.validation.client.ValidationClient;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
@@ -116,7 +117,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
     }
 
-    List<ServerAddress> serverAddresses = new ArrayList<>();
+    List<ServerAddress> serverAddresses = new ArrayList<>(mongoHosts.length);
     for (int i = 0; i < mongoHosts.length; i++) {
       ServerAddress address;
       if (mongoHosts.length == mongoPorts.length) {
@@ -154,7 +155,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  ValidationClient validationClient() {
+  ValidationClient validationClient() throws IOException {
     return new ValidationClient();
   }
 
@@ -216,7 +217,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public ValidationUtils getValidationUtils() throws MongoDBException {
+  public ValidationUtils getValidationUtils() throws MongoDBException, IOException {
     return new ValidationUtils(validationClient(), recordDao(), schemaBeforeTransformation,
         schemaAfterTransformation, defaultTransformationFile);
   }

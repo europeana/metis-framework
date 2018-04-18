@@ -2,6 +2,7 @@ package eu.europeana.indexing;
 
 import java.io.Closeable;
 import java.util.List;
+import eu.europeana.indexing.exception.IndexingException;
 
 /**
  * This interface allows access to this library's indexing functionality. Note: the object is

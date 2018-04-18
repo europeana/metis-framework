@@ -1,4 +1,4 @@
-package eu.europeana.metis.dereference;
+package eu.europeana.enrichment.utils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import org.apache.commons.lang3.StringUtils;
-import org.jibx.runtime.JiBXException;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
@@ -17,7 +16,6 @@ import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.enrichment.utils.RdfConversionUtils;
 
 /**
  * Created by gmamakis on 9-3-17.
@@ -82,18 +80,6 @@ public class DereferenceUtils {
     }
   }
 
-  /**
-   * 
-   * @param xml
-   * @return The RDF
-   * @throws JiBXException
-   * @Deprecated use {@link RdfConversionUtils#convertStringToRdf(String)} instead.
-   */
-  @Deprecated
-  public static RDF toRDF(String xml) throws JiBXException {
-    return RdfConversionUtils.convertStringToRdf(xml);
-  }
-  
   private static void dereferenceProxy(ProxyType proxyType, Set<String> values) {
     convertValues(proxyType.getHasMetList(), RESOURCE_EXTRACTOR, values);
     convertValues(proxyType.getHasTypeList(), RESOURCE_OR_LITERAL_EXTRACTOR, values);

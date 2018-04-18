@@ -86,7 +86,8 @@ public class PsqlMetisUserDao {
   public MetisUser getMetisUserByEmail(String email) {
     Session session = sessionFactory.openSession();
 
-    Query query = session.createQuery(String.format("FROM MetisUser WHERE email = :%s", EMAIL_STRING));
+    Query query = session
+        .createQuery(String.format("FROM MetisUser WHERE email = :%s", EMAIL_STRING));
     query.setString(EMAIL_STRING, email);
     MetisUser metisUser = null;
     if (!query.list().isEmpty()) {
@@ -107,7 +108,8 @@ public class PsqlMetisUserDao {
     Session session = sessionFactory.openSession();
 
     Query query = session
-        .createQuery(String.format("FROM MetisUserAccessToken WHERE access_token = :%s", ACCESS_TOKEN_STRING));
+        .createQuery(String
+            .format("FROM MetisUserAccessToken WHERE access_token = :%s", ACCESS_TOKEN_STRING));
     query.setString(ACCESS_TOKEN_STRING, accessToken);
     MetisUserAccessToken metisUserAccessToken = null;
     if (!query.list().isEmpty()) {
@@ -185,7 +187,9 @@ public class PsqlMetisUserDao {
           if (afterAddingTenMins.compareTo(date) <= 0) {
             //Remove access token
             Query deleteQuery = session
-                .createQuery(String.format("DELETE FROM MetisUserAccessToken WHERE access_token=:%s", ACCESS_TOKEN_STRING));
+                .createQuery(String
+                    .format("DELETE FROM MetisUserAccessToken WHERE access_token=:%s",
+                        ACCESS_TOKEN_STRING));
             deleteQuery.setString(ACCESS_TOKEN_STRING, metisUserAccessToken.getAccessToken());
             int i = deleteQuery.executeUpdate();
             LOGGER.info("Removed {} Access Token: {}", i, metisUserAccessToken.getAccessToken());
@@ -200,11 +204,15 @@ public class PsqlMetisUserDao {
   }
 
   public void setAccessTokenExpireTimeInMins(int accessTokenExpireTimeInMins) {
-    this.accessTokenExpireTimeInMins = accessTokenExpireTimeInMins;
+    synchronized (this) {
+      this.accessTokenExpireTimeInMins = accessTokenExpireTimeInMins;
+    }
   }
 
   public int getAccessTokenExpireTimeInMins() {
-    return accessTokenExpireTimeInMins;
+    synchronized (this) {
+      return accessTokenExpireTimeInMins;
+    }
   }
 
   /**
@@ -216,12 +224,14 @@ public class PsqlMetisUserDao {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
     //Remove tokens
-    Query deleteQuery = session.createQuery(String.format("DELETE FROM MetisUserAccessToken WHERE email=:%s", EMAIL_STRING));
+    Query deleteQuery = session.createQuery(
+        String.format("DELETE FROM MetisUserAccessToken WHERE email=:%s", EMAIL_STRING));
     deleteQuery.setString(EMAIL_STRING, email);
     int i = deleteQuery.executeUpdate();
     LOGGER.info("Removed {} Access Token with email: {}", i, email);
 
-    deleteQuery = session.createQuery(String.format("DELETE FROM MetisUser WHERE email=:%s", EMAIL_STRING));
+    deleteQuery = session
+        .createQuery(String.format("DELETE FROM MetisUser WHERE email=:%s", EMAIL_STRING));
     deleteQuery.setString(EMAIL_STRING, email);
     i = deleteQuery.executeUpdate();
     LOGGER.info("Removed {} User with email: {}", i, email);
@@ -240,7 +250,8 @@ public class PsqlMetisUserDao {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
     Query updateQuery = session
-        .createQuery(String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE email=:%s", TIMESTAMP_STRING , EMAIL_STRING));
+        .createQuery(String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE email=:%s",
+            TIMESTAMP_STRING, EMAIL_STRING));
     updateQuery.setTimestamp(TIMESTAMP_STRING, new Date());
     updateQuery.setString(EMAIL_STRING, email);
     int i = updateQuery.executeUpdate();
@@ -259,7 +270,8 @@ public class PsqlMetisUserDao {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
     Query updateQuery = session.createQuery(
-        String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE access_token=:%s", TIMESTAMP_STRING, ACCESS_TOKEN_STRING));
+        String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE access_token=:%s",
+            TIMESTAMP_STRING, ACCESS_TOKEN_STRING));
     updateQuery.setTimestamp(TIMESTAMP_STRING, new Date());
     updateQuery.setString(ACCESS_TOKEN_STRING, accessToken);
     int i = updateQuery.executeUpdate();
@@ -277,7 +289,9 @@ public class PsqlMetisUserDao {
   public void updateMetisUserToMakeAdmin(String userEmailToMakeAdmin) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
-    Query updateQuery = session.createQuery(String.format("UPDATE MetisUser SET account_role=:%s WHERE email=:%s", ACCESS_ROLE_STRING, EMAIL_STRING));
+    Query updateQuery = session.createQuery(String
+        .format("UPDATE MetisUser SET account_role=:%s WHERE email=:%s", ACCESS_ROLE_STRING,
+            EMAIL_STRING));
     updateQuery.setString(ACCESS_ROLE_STRING, AccountRole.METIS_ADMIN.name());
     updateQuery.setString(EMAIL_STRING, userEmailToMakeAdmin);
     int i = updateQuery.executeUpdate();
@@ -294,8 +308,9 @@ public class PsqlMetisUserDao {
    */
   public List<MetisUser> getAllMetisUsers() {
     Session session = sessionFactory.openSession();
-    List<MetisUser> metisUsers = new ArrayList<>();
-    for (Object object : session.createCriteria(MetisUser.class).list()) {
+    List metisUsersObjects = session.createCriteria(MetisUser.class).list();
+    List<MetisUser> metisUsers = new ArrayList<>(metisUsersObjects.size());
+    for (Object object : metisUsersObjects) {
       metisUsers.add((MetisUser) object);
     }
     session.flush();

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:edm="http://www.europeana.eu/schemas/edm/">
+	<ore:Aggregation xmlns:ore="http://www.openarchives.org/ore/terms/"
+		rdf:about="http://data.europeana.eu/aggregation/provider/9200260/BibliographicResource_3000058482371">
+		<edm:aggregatedCHO
+			rdf:resource="http://data.europeana.eu/item/9200260/BibliographicResource_3000058482371" />
+		<edm:dataProvider>University of Edinburgh</edm:dataProvider>
+		<edm:hasView
+			rdf:resource="http://sample.edu.eu/data/sample1.pdf" />
+		<edm:provider xml:lang="en">The European Library</edm:provider>
+		<dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">© The University of Edinburgh</dc:rights>
+		<edm:rights rdf:resource="http://creativecommons.org/licenses/by/3.0/" />
+	</ore:Aggregation>
+</rdf:RDF>

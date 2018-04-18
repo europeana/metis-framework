@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.cache.proxy;
 
-import static eu.europeana.metis.RestEndpoints.CACHE_EMPTY;
+import eu.europeana.metis.RestEndpoints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -55,7 +55,7 @@ public class EnrichmentCacheController {
      * is used for multiple services then the cache for other services is cleared as well.
      * @return OK
      */
-    @RequestMapping(value=CACHE_EMPTY, method = RequestMethod.DELETE)
+    @RequestMapping(value=RestEndpoints.CACHE_EMPTY, method = RequestMethod.DELETE)
     @ResponseBody
     @ApiOperation(value = "Empty the cache", notes = "This will remove ALL entries in the cache (Redis). If the same redis instance/cluster "
         + "is used for multiple services then the cache for other services is cleared as well." )

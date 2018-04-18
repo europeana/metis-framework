@@ -5,6 +5,7 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientOptions.Builder;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -51,6 +52,12 @@ public class Application extends WebMvcConfigurerAdapter {
   private ConfigurationPropertiesHolder propertiesHolder;
   private MongoClient mongoClient;
 
+  /**
+   * Autowired constructor for Spring Configuration class.
+   *
+   * @param propertiesHolder the object that holds all boot configuration values
+   * @throws TrustStoreConfigurationException if the configuration of the truststore failed
+   */
   @Autowired
   public Application(ConfigurationPropertiesHolder propertiesHolder)
       throws TrustStoreConfigurationException {
@@ -83,7 +90,7 @@ public class Application extends WebMvcConfigurerAdapter {
       throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
     }
 
-    List<ServerAddress> serverAddresses = new ArrayList<>();
+    List<ServerAddress> serverAddresses = new ArrayList<>(propertiesHolder.getMongoHosts().length);
     for (int i = 0; i < propertiesHolder.getMongoHosts().length; i++) {
       ServerAddress address;
       if (propertiesHolder.getMongoHosts().length == propertiesHolder.getMongoPorts().length) {
@@ -126,12 +133,14 @@ public class Application extends WebMvcConfigurerAdapter {
    * Get the DAO for datasets.
    *
    * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider}
+   * @param ecloudDataSetServiceClient the ecloud dataset client
    * @return {@link DatasetDao} used to access the database for datasets
    */
   @Bean
-  public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider);
+  public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider, DataSetServiceClient ecloudDataSetServiceClient) {
+    DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider, ecloudDataSetServiceClient);
     datasetDao.setDatasetsPerRequest(RequestLimits.DATASETS_PER_REQUEST.getLimit());
+    datasetDao.setEcloudProvider(propertiesHolder.getEcloudProvider());
     return datasetDao;
   }
 
@@ -150,12 +159,13 @@ public class Application extends WebMvcConfigurerAdapter {
    * Get the Service for datasets.
    * <p>It encapsulates several DAOs and combines their functionality into methods</p>
    *
-   * @param datasetDao {@link DatasetDao}
-   * @param datasetXsltDao {@link DatasetXsltDao}
-   * @param workflowExecutionDao {@link WorkflowExecutionDao}
-   * @param scheduledWorkflowDao {@link ScheduledWorkflowDao}
+   * @param datasetDao the Dao instance to access the Dataset database
+   * @param datasetXsltDao the Dao instance to access the DatasetXslt database
+   * @param workflowDao the Dao instance to access the Workflow database
+   * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
+   * @param scheduledWorkflowDao the Dao instance to access the ScheduledWorkflow database
    * @param redissonClient {@link RedissonClient}
-   * @return {@link DatasetService}
+   * @return the dataset service instance instantiated
    */
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,

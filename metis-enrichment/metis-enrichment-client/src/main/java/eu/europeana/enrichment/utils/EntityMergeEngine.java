@@ -339,7 +339,7 @@ public class EntityMergeEngine {
   }
 
   /**
-   * TODO JOCHEN This method is NEVER called with non-null (nonempty) field name? I would expect
+   * TODO JV This method is NEVER called with non-null (nonempty) field name? I would expect
    * that particularly during enrichment (given the history of this method) there may be a need to
    * provide this parameter.
    * 

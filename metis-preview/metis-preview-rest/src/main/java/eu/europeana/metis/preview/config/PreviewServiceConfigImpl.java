@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 @PropertySource("classpath:preview.properties")
 public class PreviewServiceConfigImpl implements PreviewServiceConfig {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(PreviewServiceConfig.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(PreviewServiceConfigImpl.class);
+  private static final int DEFAULT_EXECUTOR_THREAD_COUNT = 10;
 
   @Value("${preview.portal.url}")
   private String previewPortalUrl;
@@ -37,7 +38,7 @@ public class PreviewServiceConfigImpl implements PreviewServiceConfig {
       LOGGER.warn(
           "Failed to parse preview.executor.threadCount with value '{}'. Taking 10 as default",
           executorThreadCount);
-      return 10;
+      return DEFAULT_EXECUTOR_THREAD_COUNT;
     }
   }
 }

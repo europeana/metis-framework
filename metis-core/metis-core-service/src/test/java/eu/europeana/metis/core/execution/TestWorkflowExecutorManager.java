@@ -25,7 +25,6 @@ import com.rabbitmq.client.Envelope;
 import com.rabbitmq.client.MessageProperties;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.execution.WorkflowExecutorManager.QueueConsumer;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -131,23 +130,6 @@ public class TestWorkflowExecutorManager {
   }
 
   @Test
-  public void cancelUserWorkflowExecutionWasINQUEUE() {
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution);
-    workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
-  }
-
-  @Test
-  public void cancelUserWorkflowExecutionWasRUNNING() {
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution);
-    workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
-  }
-
-  @Test
   public void handleDelivery() throws Exception {
     String objectId = new ObjectId().toString();
     int priority = 0;
@@ -160,7 +142,7 @@ public class TestWorkflowExecutorManager {
     when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
     doNothing().when(rabbitmqChannel).basicAck(envelope.getDeliveryTag(), false);
 
-    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties,
         objectId.getBytes("UTF-8"));
   }
@@ -179,7 +161,7 @@ public class TestWorkflowExecutorManager {
     when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
     doNothing().when(rabbitmqChannel).basicAck(envelope.getDeliveryTag(), false);
 
-    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties,
         objectId.getBytes("UTF-8"));
 
@@ -230,7 +212,7 @@ public class TestWorkflowExecutorManager {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
     when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
     Awaitility.await().atMost(30, TimeUnit.SECONDS)
@@ -240,7 +222,7 @@ public class TestWorkflowExecutorManager {
     queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
     Awaitility.await().atMost(30, TimeUnit.SECONDS)
         .until(() -> workflowExecution3.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    assertEquals(1, workflowExecutorManager.getThreadsCounter());
+    assertEquals(1, queueConsumer.getThreadsCounter());
   }
 
   @Test
@@ -288,10 +270,10 @@ public class TestWorkflowExecutorManager {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
     when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
-    assertEquals(2, workflowExecutorManager.getThreadsCounter());
+    assertEquals(2, queueConsumer.getThreadsCounter());
     queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
 //    verify(rabbitmqChannel, times(1)).basicNack(envelope.getDeliveryTag(), false, true);
     Awaitility.await().atMost(30, TimeUnit.SECONDS)
@@ -344,7 +326,7 @@ public class TestWorkflowExecutorManager {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
     when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
 
@@ -362,7 +344,7 @@ public class TestWorkflowExecutorManager {
         .until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
     Awaitility.await().atMost(30, TimeUnit.SECONDS)
         .until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    assertEquals(2, workflowExecutorManager.getThreadsCounter());
+    assertEquals(2, queueConsumer.getThreadsCounter());
   }
 
 }

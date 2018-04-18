@@ -34,11 +34,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Created by ymamakis on 12-2-16.
  */
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest", "eu.europeana.metis.dereference.rest.exceptions"})
+@ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest",
+    "eu.europeana.metis.dereference.rest.exceptions"})
 @PropertySource("classpath:dereferencing.properties")
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+
   //Socks proxy
   @Value("${socks.proxy.enabled}")
   private boolean socksProxyEnabled;
@@ -61,7 +63,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   //Mongo
   @Value("${mongo.hosts}")
-  private String mongoHosts;
+  private String[] mongoHosts;
   @Value("${mongo.port}")
   private int mongoPort;
   @Value("${mongo.username}")
@@ -75,7 +77,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Value("${enrichment.url}")
   private String enrichmentUrl;
-  
+
   private MongoProviderImpl mongoProviderEntity;
   private MongoProviderImpl mongoProviderVocabulary;
   private RedisProvider redisProvider;
@@ -84,22 +86,20 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    * Used for overwriting properties if cloud foundry environment is used
    */
   @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet() {
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
 
-    String[] mongoHostsArray = mongoHosts.split(",");
-    StringBuilder mongoPorts = new StringBuilder();
-    for (int i = 0; i < mongoHostsArray.length; i++) {
-      mongoPorts.append(mongoPort + ",");
+    String[] mongoPorts = new String[mongoHosts.length];
+    for (int i = 0; i < mongoHosts.length; i++) {
+      mongoPorts[i]= Integer.toString(mongoPort);
     }
-    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
     MongoClientOptions.Builder options = MongoClientOptions.builder();
-    mongoProviderEntity = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), entityDb,
+    mongoProviderEntity = new MongoProviderImpl(mongoHosts, mongoPorts, entityDb,
         mongoUsername,
         mongoPassword, options);
-    mongoProviderVocabulary = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), vocabularyDb,
+    mongoProviderVocabulary = new MongoProviderImpl(mongoHosts, mongoPorts, vocabularyDb,
         mongoUsername,
         mongoPassword, options);
 
@@ -165,13 +165,17 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .apiInfo(apiInfo());
   }
 
+  /**
+   * Closes any connections previous acquired.
+   */
   @PreDestroy
-  public void close()
-  {
-    if (mongoProviderVocabulary != null)
+  public void close() {
+    if (mongoProviderVocabulary != null) {
       mongoProviderVocabulary.close();
-    if (mongoProviderEntity != null)
+    }
+    if (mongoProviderEntity != null) {
       mongoProviderEntity.close();
+    }
   }
 
   private ApiInfo apiInfo() {

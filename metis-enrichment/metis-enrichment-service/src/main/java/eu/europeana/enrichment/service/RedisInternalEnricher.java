@@ -51,7 +51,7 @@ public class RedisInternalEnricher {
   private static final String CACHED_ENRICHMENT_STATUS = "enrichmentstatus";
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-  
+
   private static final int SECONDS_PER_MINUTE = 60;
   private static final int MILLISECONDS_PER_SECOND = 1000;
 
@@ -88,18 +88,25 @@ public class RedisInternalEnricher {
       Jedis jedis = redisProvider.getJedis();
       if (!jedis.exists(CACHED_ENRICHMENT_STATUS)
           || (!StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "started")
-              && !StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "finished"))) {
+          && !StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "finished"))) {
         LOGGER.info(
             "Redis status 'enrichmentstatus' does not exist or is not in a 'started' or 'finished' state.");
         LOGGER.info("Re-populating Redis from Mongo");
         jedis.close();
         populate();
       } else {
-        LOGGER.info("Status 'enrichmentstatus' exists with value: {}", check());
+        if (LOGGER.isInfoEnabled()) {
+          LOGGER.info("Status 'enrichmentstatus' exists with value: {}", check());
+        }
       }
     }
   }
 
+  /**
+   * Checks the status of the operation of populating fields from Mongo to Redis
+   *
+   * @return the status, can be "started" or "finished"
+   */
   public final String check() {
     Jedis jedis = redisProvider.getJedis();
     String status = jedis.get(CACHED_ENRICHMENT_STATUS);
@@ -107,6 +114,9 @@ public class RedisInternalEnricher {
     return status;
   }
 
+  /**
+   * Restarts the population of Mongo to Redis
+   */
   public void recreate() {
     LOGGER.info("Recreate triggered.");
     Jedis jedis = redisProvider.getJedis();
@@ -115,6 +125,9 @@ public class RedisInternalEnricher {
     populate();
   }
 
+  /**
+   * Removes all information from Redis
+   */
   public void emptyCache() {
     LOGGER.info("Empty cache");
     Jedis jedis = redisProvider.getJedis();
@@ -123,6 +136,11 @@ public class RedisInternalEnricher {
     populate();
   }
 
+  /**
+   * Remove a list of uris from redis.
+   *
+   * @param uris the list of uris to be removed
+   */
   public void remove(List<String> uris) {
     Jedis jedis = redisProvider.getJedis();
     for (String str : uris) {
@@ -224,7 +242,7 @@ public class RedisInternalEnricher {
     }
   }
 
-  /**
+    /**
    * The internal enrichment functionality not to be exposed yet as there is a strong dependency to
    * the external resources to recreate the DB The enrichment is performed by lowercasing every
    * value so that searchability in the DB is enhanced, but the Capitalized version is always
