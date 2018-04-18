@@ -125,7 +125,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
   assertEquals(outputOrganizationImplStr,expectedOrganizationImplStr);
   }
   
-//  @Test
+  @Test
   public void processWikidataWorkflowTest() 
       throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
   
@@ -162,7 +162,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
 //    assertTrue(termList.getCreated().getTime() > now.getTime());
   }
 
-//  @Test
+  @Test
   public void retrieveWikidataToXsltXmlFileTest() 
       throws WikidataAccessException, ZohoAccessException, ParseException, IOException {
     
@@ -172,7 +172,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
     assertNotNull(wikidataXml);
   }
   
-//  @Test
+  @Test
   public void parseWikidataFromXsltXmlFileTest() throws WikidataAccessException,
       ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
 
@@ -190,7 +190,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
     assertNotNull(wikidataOrganization.getOrganization().getHomepage().getResource().toString());
   }
     
-//  @Test
+  @Test
   public void mergeZohoAndWikidataOrganizationObjectsTest() throws WikidataAccessException,
       ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
 
