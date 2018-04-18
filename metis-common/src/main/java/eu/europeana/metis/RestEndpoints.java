@@ -12,6 +12,8 @@ public final class RestEndpoints {
   public static final String DATASETS = "/datasets";
   public static final String DATASETS_DATASETID = "/datasets/{datasetId}";
   public static final String DATASETS_DATASETID_XSLT = "/datasets/{datasetId}/xslt";
+  public static final String DATASETS_DATASETID_XSLT_TRANSFORM = "/datasets/{datasetId}/xslt/transform";
+  public static final String DATASETS_DATASETID_XSLT_TRANSFORM_DEFAULT = "/datasets/{datasetId}/xslt/transform/default";
   public static final String DATASETS_XSLT_DEFAULT = "/datasets/xslt/default";
   public static final String DATASETS_XSLT_XSLTID = "/datasets/xslt/{xsltId}";
   public static final String DATASETS_DATASETNAME = "/datasets/dataset_name/{datasetName}";

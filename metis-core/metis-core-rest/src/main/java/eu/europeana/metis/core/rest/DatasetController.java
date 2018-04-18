@@ -12,12 +12,13 @@ import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.core.exceptions.NoXsltFoundException;
 import eu.europeana.metis.core.service.DatasetService;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.core.exceptions.NoXsltFoundException;
 import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
@@ -201,7 +202,8 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     DatasetXslt datasetXslt = datasetService.getDatasetXsltByDatasetId(metisUser, datasetId);
-    LOGGER.info("Dataset XSLT with datasetId '{}' and xsltId: '{}' found", datasetId, datasetXslt.getId());
+    LOGGER.info("Dataset XSLT with datasetId '{}' and xsltId: '{}' found", datasetId,
+        datasetXslt.getId());
     return datasetXslt;
   }
 
@@ -272,7 +274,7 @@ public class DatasetController {
    * transformation topology is using it. {@link TransformationPlugin}
    * </p>
    *
-   * @return the text representaion of the String xslt non escaped
+   * @return the text representation of the String xslt non escaped
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
@@ -283,9 +285,74 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String getLatestDefaultXslt() throws GenericMetisException {
-    DatasetXslt datasetXslt = datasetService.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID);
+    DatasetXslt datasetXslt = datasetService
+        .getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID);
     LOGGER.info("Default XSLT with xsltId '{}' found", datasetXslt.getId());
     return datasetXslt.getXslt();
+  }
+
+  /**
+   * Transform a list of xmls using the latest dataset xslt stored.
+   * <p>
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, PluginType, String)}
+   * to try a transformation on a list of xmls just after validation external to preview an example result.
+   * </p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
+   * @param records the list of {@link Record} that contain the xml fields {@link Record#xmlRecord}.
+   * @return a list of {@link Record}s with the field {@link Record#xmlRecord} containing the transformed xml
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated.</li>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
+   * <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM, method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<Record> transformRecordsUsingLatestDatasetXslt(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") int datasetId,
+      @RequestBody List<Record> records) throws GenericMetisException {
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return datasetService.transformRecordsUsingLatestDatasetXslt(metisUser, datasetId, records);
+  }
+
+  /**
+   * Transform a list of xmls using the latest default xslt stored.
+   * <p>
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, PluginType, String)}
+   * to try a transformation on a list of xmls just after validation external to preview an example result.
+   * </p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
+   * @param records the list of {@link Record} that contain the xml fields {@link Record#xmlRecord}.
+   * @return a list of {@link Record}s with the field {@link Record#xmlRecord} containing the transformed xml
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated.</li>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
+   * <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM_DEFAULT, method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<Record> transformRecordsUsingLatestDefaultXslt(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") int datasetId,
+      @RequestBody List<Record> records) throws GenericMetisException {
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return datasetService.transformRecordsUsingLatestDefaultXslt(metisUser, datasetId, records);
   }
 
   /**

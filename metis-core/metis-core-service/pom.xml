@@ -46,6 +46,11 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <artifactId>metis-transformation-service</artifactId>
+      <groupId>eu.europeana.metis</groupId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>eu.europeana.cloud</groupId>
       <artifactId>ecloud-service-mcs-rest-client-java</artifactId>
       <version>${version.ecloud}</version>
