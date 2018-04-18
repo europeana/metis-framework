@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -336,7 +337,8 @@ public class TestDatasetController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
+        "<xslt attribute:\"value\"></xslt>");
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -401,7 +403,8 @@ public class TestDatasetController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
+        "<xslt attribute:\"value\"></xslt>");
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
@@ -422,7 +425,8 @@ public class TestDatasetController {
   @Test
   public void getXsltByXsltId() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
+        "<xslt attribute:\"value\"></xslt>");
 
     when(datasetServiceMock.getDatasetXsltByXsltId(TestObjectFactory.XSLTID))
         .thenReturn(xsltObject);
@@ -462,7 +466,8 @@ public class TestDatasetController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
+        "<xslt attribute:\"value\"></xslt>");
     xsltObject.setId(new ObjectId(TestObjectFactory.XSLTID));
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -486,7 +491,8 @@ public class TestDatasetController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
+        "<xslt attribute:\"value\"></xslt>");
     xsltObject.setId(new ObjectId(TestObjectFactory.XSLTID));
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -507,7 +513,8 @@ public class TestDatasetController {
   @Test
   public void getLatestDefaultXslt() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
+        "<xslt attribute:\"value\"></xslt>");
 
     when(datasetServiceMock.getLatestXsltForDatasetId(-1)).thenReturn(xsltObject);
     datasetControllerMock.perform(get("/datasets/xslt/default")
@@ -531,6 +538,78 @@ public class TestDatasetController {
         .andExpect(status().is(404));
 
     verify(datasetServiceMock, times(1)).getLatestXsltForDatasetId(-1);
+  }
+
+  @Test
+  public void transformRecordsUsingLatestDatasetXslt() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
+    when(datasetServiceMock
+        .transformRecordsUsingLatestDatasetXslt(any(MetisUser.class), anyInt(), anyList()))
+        .thenReturn(listOfRecords);
+    datasetControllerMock
+        .perform(post("/datasets/{datasetId}/xslt/transform", TestObjectFactory.DATASETID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .content(TestUtils.convertObjectToJsonBytes(listOfRecords)))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$", hasSize(5)));
+  }
+
+  @Test
+  public void transformRecordsUsingLatestDatasetXslt_UserUnauthorizedException() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenThrow(new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN));
+    datasetControllerMock
+        .perform(post("/datasets/{datasetId}/xslt/transform", TestObjectFactory.DATASETID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .content(TestUtils.convertObjectToJsonBytes(TestObjectFactory.createListOfRecords(5))))
+        .andExpect(status().is(401))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
+  }
+
+  @Test
+  public void transformRecordsUsingLatestDefaultXslt() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
+    when(datasetServiceMock
+        .transformRecordsUsingLatestDefaultXslt(any(MetisUser.class), anyInt(), anyList()))
+        .thenReturn(listOfRecords);
+    datasetControllerMock
+        .perform(post("/datasets/{datasetId}/xslt/transform/default", TestObjectFactory.DATASETID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .content(TestUtils.convertObjectToJsonBytes(listOfRecords)))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$", hasSize(5)));
+  }
+
+  @Test
+  public void transformRecordsUsingLatestDefaultXslt_UserUnauthorizedException() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenThrow(new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN));
+    datasetControllerMock
+        .perform(post("/datasets/{datasetId}/xslt/transform/default", TestObjectFactory.DATASETID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .content(TestUtils.convertObjectToJsonBytes(TestObjectFactory.createListOfRecords(5))))
+        .andExpect(status().is(401))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
   }
 
   @Test
