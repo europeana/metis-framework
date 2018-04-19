@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +57,7 @@ public abstract class BaseZohoAccessTest {
     
     File propsFile = getClasspathFile(propertiesFile);
     //fall back to template file for travis tests
-    if(!propsFile.exists()){
+    if(propsFile == null){
     	String templateFile = propertiesFile + ".template";
 		LOGGER.warn("{}", "The peroperties file is not available, using template: " + templateFile);
     	propsFile = getClasspathFile(templateFile);
@@ -76,7 +77,10 @@ public abstract class BaseZohoAccessTest {
    */
   protected File getClasspathFile(String fileName)
       throws URISyntaxException, IOException, FileNotFoundException {
-    URI fileLocation = getClass().getResource(fileName).toURI();
+    URL resource = getClass().getResource(fileName);
+    if(resource == null)
+      return null;
+    URI fileLocation = resource.toURI();
     return (new File(fileLocation));
   }
 

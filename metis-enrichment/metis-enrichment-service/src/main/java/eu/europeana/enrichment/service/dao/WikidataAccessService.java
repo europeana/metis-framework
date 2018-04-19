@@ -52,7 +52,7 @@ public class WikidataAccessService {
    * @param organizationId
    * @return organization URI
    */
-  public URI buildOrganizationUriById(String organizationId) {
+  public URI buildOrganizationUri(String organizationId) {
 
     URI uri = null;
     String contactsSearchUrl = String.format("%s%s", WIKIDATA_BASE_URL, organizationId);
@@ -69,10 +69,10 @@ public class WikidataAccessService {
    * @throws IOException 
    * @throws JAXBException 
    */
-  public WikidataOrganization parseWikidataFromXsltXmlFile(File inputFile)
+  public WikidataOrganization parseWikidataOrganization(File inputFile)
       throws IOException, JAXBException {
 
-    return wikidataAccessDao.parseWikidataFromXsltXmlFile(inputFile);
+    return wikidataAccessDao.parseWikidataOrganization(inputFile);
   }
 
   /**

@@ -59,7 +59,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
     mongoHost = props.getProperty("mongo.hosts");
     mongoPort = Integer.valueOf(props.getProperty("mongo.port"));
     entityService = new EntityService(mongoHost, mongoPort);
-    initializeWikidataInfrastucture();
+    initializeWikidataAccessService();
   }
 
   @After
@@ -73,7 +73,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
    * @throws URISyntaxException 
    * @throws FileNotFoundException 
    */
-  private void initializeWikidataInfrastucture()
+  private void initializeWikidataAccessService()
       throws WikidataAccessException, FileNotFoundException, URISyntaxException, IOException {
     File templateFile = getClasspathFile(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE);
     wikidataAccessService = new WikidataAccessService(new WikidataAccessDao(templateFile));
@@ -94,7 +94,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
   File wikidataTestInputFile = getClasspathFile(WIKIDATA_TEST_INPUT_FILE);
   WikidataOrganization wikidataOrganization = 
       wikidataAccessService.getWikidataAccessDao().
-        parseWikidataFromXsltXmlFile(wikidataTestInputFile);  
+        parseWikidataOrganization(wikidataTestInputFile);  
   assertNotNull(wikidataOrganization);
 
   /** 3. Convert both organization objects to OrganizationImpl format */
@@ -125,7 +125,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
   assertEquals(outputOrganizationImplStr,expectedOrganizationImplStr);
   }
   
-  @Test
+//  @Test
   public void processWikidataWorkflowTest() 
       throws WikidataAccessException, ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
   
@@ -166,7 +166,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
   public void retrieveWikidataToXsltXmlFileTest() 
       throws WikidataAccessException, ZohoAccessException, ParseException, IOException {
     
-    String uri = wikidataAccessService.buildOrganizationUriById(TEST_WIKIDATA_ORGANIZATION_ID).toString();
+    String uri = wikidataAccessService.buildOrganizationUri(TEST_WIKIDATA_ORGANIZATION_ID).toString();
     String wikidataXml = wikidataAccessService.getWikidataAccessDao()
         .dereference(uri).toString();
     assertNotNull(wikidataXml);
@@ -178,7 +178,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
 
     File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
     WikidataOrganization wikidataOrganization = wikidataAccessService.getWikidataAccessDao()
-        .parseWikidataFromXsltXmlFile(wikidataTestOutputFile);
+        .parseWikidataOrganization(wikidataTestOutputFile);
     assertNotNull(wikidataOrganization);
     LOGGER
         .info("wikidata organization about: " + wikidataOrganization.getOrganization().getAbout());
@@ -190,7 +190,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
     assertNotNull(wikidataOrganization.getOrganization().getHomepage().getResource().toString());
   }
     
-  @Test
+//  @Test
   public void mergeZohoAndWikidataOrganizationObjectsTest() throws WikidataAccessException,
       ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
 
@@ -198,7 +198,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
     Organization zohoOrganizationImpl = zohoAccessService.toEdmOrganization(zohoOrganization);
     File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
     WikidataOrganization wikidataOrganization =
-        wikidataAccessService.parseWikidataFromXsltXmlFile(wikidataTestOutputFile);
+        wikidataAccessService.parseWikidataOrganization(wikidataTestOutputFile);
     Organization wikidataOrganizationImpl =
         wikidataAccessService.toOrganizationImpl(wikidataOrganization);
     Organization mergedOrganization = wikidataAccessService.getWikidataAccessDao()

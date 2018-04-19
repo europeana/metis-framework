@@ -69,7 +69,7 @@ public class WikidataAccessDaoTest extends BaseZohoAccessTest {
 
     /** create Wikidata URI from ID */
     String uri =
-        wikidataAccessService.buildOrganizationUriById(TEST_WIKIDATA_ORGANIZATION_ID).toString();
+        wikidataAccessService.buildOrganizationUri(TEST_WIKIDATA_ORGANIZATION_ID).toString();
     
     /** dereference Wikidata URI */
     String wikidataXml =

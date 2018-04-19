@@ -170,7 +170,7 @@ public class WikidataAccessDao {
   }
 
   /**
-   * This method parses wikidata organization content stored in XSLT/XML file into EdmOrganization
+   * This method parses wikidata organization content stored in XSLT/XML file
    * object
    * 
    * @param inputFile The file containing the wikidata
@@ -178,7 +178,7 @@ public class WikidataAccessDao {
    * @throws IOException
    * @throws JAXBException
    */
-  public WikidataOrganization parseWikidataFromXsltXmlFile(File inputFile)
+  public WikidataOrganization parseWikidataOrganization(File inputFile)
       throws IOException, JAXBException {
 
     JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
