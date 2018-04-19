@@ -60,12 +60,6 @@
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-core</artifactId>
             <version>4.10.4</version>
-            <exclusions>
-            	<exclusion>
-            		<groupId>jdk.tools</groupId>
-            		<artifactId>jdk.tools</artifactId>
-            	</exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
