@@ -2,6 +2,7 @@ package eu.europeana.metis.core.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -58,8 +59,8 @@ public class TestScheduleWorkflowService {
 
   @Test
   public void getScheduledWorkflowByDatasetName() {
-    scheduleWorkflowService.getScheduledWorkflowByDatasetId(TestObjectFactory.DATASETID);
-    verify(scheduledWorkflowDao, times(1)).getScheduledWorkflowByDatasetId(anyInt());
+    scheduleWorkflowService.getScheduledWorkflowByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    verify(scheduledWorkflowDao, times(1)).getScheduledWorkflowByDatasetId(anyString());
     verifyNoMoreInteractions(scheduledWorkflowDao);
   }
 
@@ -69,9 +70,9 @@ public class TestScheduleWorkflowService {
         .createScheduledWorkflowObject();
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(null);
     when(scheduledWorkflowDao.create(scheduledWorkflow))
         .thenReturn(new ObjectId().toString());
@@ -82,7 +83,7 @@ public class TestScheduleWorkflowService {
   public void scheduleWorkflow_NoDatasetFoundException() throws Exception {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(null);
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
     scheduleWorkflowService.scheduleWorkflow(scheduledWorkflow);
   }
 
@@ -91,8 +92,8 @@ public class TestScheduleWorkflowService {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(null);
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
     scheduleWorkflowService.scheduleWorkflow(scheduledWorkflow);
   }
 
@@ -102,9 +103,9 @@ public class TestScheduleWorkflowService {
         .createScheduledWorkflowObject();
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(new ObjectId().toString());
     scheduleWorkflowService.scheduleWorkflow(scheduledWorkflow);
   }
@@ -116,9 +117,9 @@ public class TestScheduleWorkflowService {
     scheduledWorkflow.setPointerDate(null);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(null);
     scheduleWorkflowService.scheduleWorkflow(scheduledWorkflow);
   }
@@ -130,9 +131,9 @@ public class TestScheduleWorkflowService {
     scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.NULL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(null);
     scheduleWorkflowService.scheduleWorkflow(scheduledWorkflow);
   }
@@ -144,9 +145,9 @@ public class TestScheduleWorkflowService {
     scheduledWorkflow.setScheduleFrequence(null);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(null);
     scheduleWorkflowService.scheduleWorkflow(scheduledWorkflow);
   }
@@ -175,8 +176,8 @@ public class TestScheduleWorkflowService {
         .createScheduledWorkflowObject();
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(new ObjectId().toString());
     when(scheduledWorkflowDao.update(scheduledWorkflow))
         .thenReturn(new ObjectId().toString());
@@ -187,7 +188,7 @@ public class TestScheduleWorkflowService {
   public void updateScheduledUserWorkflow_NoUserWorkflowFoundException() throws Exception {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(null);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
     scheduleWorkflowService.updateScheduledWorkflow(scheduledWorkflow);
   }
 
@@ -197,8 +198,8 @@ public class TestScheduleWorkflowService {
         .createScheduledWorkflowObject();
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(null);
     scheduleWorkflowService.updateScheduledWorkflow(scheduledWorkflow);
   }
@@ -210,8 +211,8 @@ public class TestScheduleWorkflowService {
     scheduledWorkflow.setPointerDate(null);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(new ObjectId().toString());
     scheduleWorkflowService.updateScheduledWorkflow(scheduledWorkflow);
   }
@@ -224,8 +225,8 @@ public class TestScheduleWorkflowService {
     scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.NULL);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(new ObjectId().toString());
     scheduleWorkflowService.updateScheduledWorkflow(scheduledWorkflow);
   }
@@ -238,8 +239,8 @@ public class TestScheduleWorkflowService {
     scheduledWorkflow.setScheduleFrequence(null);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETID))
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
+    when(scheduledWorkflowDao.existsForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(new ObjectId().toString());
     scheduleWorkflowService.updateScheduledWorkflow(scheduledWorkflow);
   }
@@ -247,9 +248,9 @@ public class TestScheduleWorkflowService {
   @Test
   public void deleteScheduledWorkflow() {
     scheduleWorkflowService
-        .deleteScheduledWorkflow(TestObjectFactory.DATASETID);
+        .deleteScheduledWorkflow(Integer.toString(TestObjectFactory.DATASETID));
     verify(scheduledWorkflowDao, times(1))
-        .deleteScheduledWorkflow(anyInt());
+        .deleteScheduledWorkflow(anyString());
   }
 
   @Test

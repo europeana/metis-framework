@@ -19,7 +19,7 @@ public class DatasetXslt {
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
 
-  private int datasetId;
+  private String datasetId;
   private String xslt;
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date createdDate;
@@ -28,7 +28,7 @@ public class DatasetXslt {
     //Required for json serialization
   }
 
-  public DatasetXslt(int datasetId, String xslt) {
+  public DatasetXslt(String datasetId, String xslt) {
     this.datasetId = datasetId;
     this.xslt = xslt;
     this.createdDate = new Date();
@@ -42,11 +42,11 @@ public class DatasetXslt {
     this.id = id;
   }
 
-  public int getDatasetId() {
+  public String getDatasetId() {
     return datasetId;
   }
 
-  public void setDatasetId(int datasetId) {
+  public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
   }
 

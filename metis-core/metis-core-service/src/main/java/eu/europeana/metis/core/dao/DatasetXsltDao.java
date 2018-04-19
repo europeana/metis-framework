@@ -22,7 +22,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetXsltDao.class);
   private static final String ID = "_id";
   private static final String DATASET_ID = "datasetId";
-  public static final int DEFAULT_DATASET_ID = -1;
+  public static final String DEFAULT_DATASET_ID = "-1";
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
@@ -71,7 +71,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
    * @param datasetId the dataset identifier
    * @return true if something was found and deleted or false
    */
-  public boolean deleteAllByDatasetId(int datasetId) {
+  public boolean deleteAllByDatasetId(String datasetId) {
     Query<DatasetXslt> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(DatasetXslt.class);
     query.field(DATASET_ID).equal(datasetId);
@@ -86,7 +86,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
    * @param datasetId the dataset identifier
    * @return the {@link DatasetXslt} object
    */
-  public DatasetXslt getLatestXsltForDatasetId(int datasetId) {
+  public DatasetXslt getLatestXsltForDatasetId(String datasetId) {
     return morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
         .filter(DATASET_ID, datasetId).order(Sort.descending("createdDate")).get();
   }
