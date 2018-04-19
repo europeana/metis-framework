@@ -166,7 +166,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param datasetId the dataset identifier
    * @return the WorkflowExecution if found
    */
-  public WorkflowExecution getRunningOrInQueueExecution(int datasetId) {
+  public WorkflowExecution getRunningOrInQueueExecution(String datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
         .field(DATASET_ID).equal(
@@ -196,7 +196,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param datasetId the dataset identifier
    * @return the identifier of the execution if found, otherwise null
    */
-  public String existsAndNotCompleted(int datasetId) {
+  public String existsAndNotCompleted(String datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class).field(DATASET_ID).equal(datasetId);
     query.or(query.criteria(WORKFLOW_STATUS).equal(WorkflowStatus.INQUEUE),
@@ -219,7 +219,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @return the first plugin found
    */
   public AbstractMetisPlugin getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      int datasetId, Set<PluginType> pluginTypes) {
+      String datasetId, Set<PluginType> pluginTypes) {
     return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
         pluginTypes, true);
   }
@@ -232,13 +232,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @return the last plugin found
    */
   public AbstractMetisPlugin getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      int datasetId, Set<PluginType> pluginTypes) {
+      String datasetId, Set<PluginType> pluginTypes) {
     return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
         pluginTypes, false);
   }
 
   private AbstractMetisPlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      int datasetId, Set<PluginType> pluginTypes, boolean firstFinished) {
+      String datasetId, Set<PluginType> pluginTypes, boolean firstFinished) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
 
@@ -278,7 +278,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   /**
    * Get all WorkflowExecutions paged.
    *
-   * @param datasetId the dataset identifier filter, can be -1 to get all datasets
+   * @param datasetId the dataset identifier filter, can be null to get all datasets
    * @param workflowOwner the workflow owner, can be null
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
    * @param orderField the field to be used to sort the results
@@ -286,12 +286,12 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param nextPage the nextPage token
    * @return a list of all the WorkflowExecutions found
    */
-  public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
+  public List<WorkflowExecution> getAllWorkflowExecutions(String datasetId,
       String workflowOwner, Set<WorkflowStatus> workflowStatuses,
       OrderField orderField, boolean ascending, int nextPage) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
-    if (datasetId > 0) {
+    if (StringUtils.isNotBlank(datasetId)) {
       query.field(DATASET_ID).equal(datasetId);
     }
     if (StringUtils.isNotEmpty(workflowOwner)) {
@@ -433,7 +433,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param datasetId the dataset identifier
    * @return true if at least one was removed
    */
-  public boolean deleteAllByDatasetId(int datasetId) {
+  public boolean deleteAllByDatasetId(String datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
     query.field(DATASET_ID).equal(datasetId);

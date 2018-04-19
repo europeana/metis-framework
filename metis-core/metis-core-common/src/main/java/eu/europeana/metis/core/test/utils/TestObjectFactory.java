@@ -59,7 +59,7 @@ public class TestObjectFactory {
   public static Workflow createWorkflowObject() {
     Workflow workflow = new Workflow();
     workflow.setWorkflowOwner(WORKFLOWOWNER);
-    workflow.setDatasetId(DATASETID);
+    workflow.setDatasetId(Integer.toString(DATASETID));
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
     oaipmhHarvestPluginMetadata.setEnabled(true);
     ValidationExternalPluginMetadata validationExternalPluginMetadata = new ValidationExternalPluginMetadata();
@@ -89,7 +89,7 @@ public class TestObjectFactory {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
       workflow.setWorkflowOwner(workflowOwner);
-      workflow.setDatasetId(DATASETID + i);
+      workflow.setDatasetId(Integer.toString(DATASETID + i));
       workflows.add(workflow);
     }
     return workflows;
@@ -129,9 +129,9 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
-      workflow.setDatasetId(DATASETID + i);
+      workflow.setDatasetId(Integer.toString(DATASETID + i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
-      dataset.setDatasetId(DATASETID + i);
+      dataset.setDatasetId(Integer.toString(DATASETID + i));
       WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset,
           workflow);
       workflowExecution.setId(new ObjectId());
@@ -149,9 +149,9 @@ public class TestObjectFactory {
 
   public static ScheduledWorkflow createScheduledWorkflowObject() {
     ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
-    scheduledWorkflow.setDatasetId(DATASETID);
+    scheduledWorkflow.setDatasetId(Integer.toString(DATASETID));
     scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
-    scheduledWorkflow.setDatasetId(DATASETID);
+    scheduledWorkflow.setDatasetId(Integer.toString(DATASETID));
     scheduledWorkflow.setPointerDate(new Date());
     scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);
     scheduledWorkflow.setWorkflowPriority(0);
@@ -163,7 +163,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
-      scheduledWorkflow.setDatasetId(DATASETID + i);
+      scheduledWorkflow.setDatasetId(Integer.toString(DATASETID + i));
       scheduledWorkflows.add(scheduledWorkflow);
     }
     return scheduledWorkflows;
@@ -175,7 +175,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
-      scheduledWorkflow.setDatasetId(DATASETID + i);
+      scheduledWorkflow.setDatasetId(Integer.toString(DATASETID + i));
       scheduledWorkflow.setPointerDate(date);
       scheduledWorkflow.setScheduleFrequence(scheduleFrequence);
       scheduledWorkflows.add(scheduledWorkflow);
@@ -186,7 +186,7 @@ public class TestObjectFactory {
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
     ds.setEcloudDatasetId("NOT_CREATED_YET-f525f64c-fea0-44bf-8c56-88f30962734c");
-    ds.setDatasetId(DATASETID);
+    ds.setDatasetId(Integer.toString(DATASETID));
     ds.setDatasetName(datasetName);
     ds.setOrganizationId("1234567890");
     ds.setOrganizationName("OrganizationName");

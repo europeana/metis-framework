@@ -37,64 +37,64 @@ public class TestExecutionRules {
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_HarvestPlugin() {
     Assert.assertNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.OAIPMH_HARVEST,
-            null, TestObjectFactory.DATASETID, workflowExecutionDao));
+            null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
 
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_ValidationExternalPlugin() {
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             ExecutionRules.getHarvestPluginGroup())).thenReturn(new OaipmhHarvestPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.VALIDATION_EXTERNAL,
-            null, TestObjectFactory.DATASETID, workflowExecutionDao));
+            null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
 
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_TransformationPlugin() {
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.VALIDATION_EXTERNAL))).thenReturn(new ValidationExternalPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.TRANSFORMATION,
-            null, TestObjectFactory.DATASETID, workflowExecutionDao));
+            null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
 
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_TransformationPlugin_EnforcedPluginType() {
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST))).thenReturn(new OaipmhHarvestPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.TRANSFORMATION,
-            PluginType.OAIPMH_HARVEST, TestObjectFactory.DATASETID, workflowExecutionDao));
+            PluginType.OAIPMH_HARVEST, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
 
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_ValidationInternalPlugin() {
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.TRANSFORMATION))).thenReturn(new ValidationExternalPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.VALIDATION_INTERNAL,
-            null, TestObjectFactory.DATASETID, workflowExecutionDao));
+            null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
 
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_EnrichmentPlugin() {
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.VALIDATION_INTERNAL))).thenReturn(new EnrichmentPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.ENRICHMENT,
-            null, TestObjectFactory.DATASETID, workflowExecutionDao));
+            null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
 
   @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_IndexPlugin() {
     Assert.assertNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.PREVIEW,
-            null, TestObjectFactory.DATASETID, workflowExecutionDao));
+            null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
 
 }

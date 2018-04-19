@@ -174,7 +174,7 @@ public class TestScheduledWorkflowDao {
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
       ScheduledWorkflow scheduledWorkflow = TestObjectFactory
           .createScheduledWorkflowObject();
-      scheduledWorkflow.setDatasetId(TestObjectFactory.DATASETID + i);
+      scheduledWorkflow.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + i));
       scheduledWorkflowDao.create(scheduledWorkflow);
     }
     int nextPage = 0;
@@ -203,7 +203,7 @@ public class TestScheduledWorkflowDao {
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
       ScheduledWorkflow scheduledWorkflow = TestObjectFactory
           .createScheduledWorkflowObject();
-      scheduledWorkflow.setDatasetId(TestObjectFactory.DATASETID + i);
+      scheduledWorkflow.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + i));
       int plusMinutes = ThreadLocalRandom.current().nextInt(1, minutesRange);
       Date pointerDate = Date
           .from(lowerBound.plusMinutes(plusMinutes).atZone(ZoneId.systemDefault()).toInstant());

@@ -44,7 +44,7 @@ public class ScheduleWorkflowService {
     return scheduledWorkflowDao.getScheduledWorkflowPerRequest();
   }
 
-  public ScheduledWorkflow getScheduledWorkflowByDatasetId(int datasetId) {
+  public ScheduledWorkflow getScheduledWorkflowByDatasetId(String datasetId) {
     return scheduledWorkflowDao.getScheduledWorkflowByDatasetId(datasetId);
   }
 
@@ -66,7 +66,7 @@ public class ScheduleWorkflowService {
         .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage);
   }
 
-  private void checkScheduledWorkflowExistenceForDatasetId(int datasetId)
+  private void checkScheduledWorkflowExistenceForDatasetId(String datasetId)
       throws ScheduledWorkflowAlreadyExistsException {
     String id = scheduledWorkflowDao.existsForDatasetId(datasetId);
     if (id != null) {
@@ -117,11 +117,11 @@ public class ScheduleWorkflowService {
     return storedId;
   }
 
-  public void deleteScheduledWorkflow(int datasetId) {
+  public void deleteScheduledWorkflow(String datasetId) {
     scheduledWorkflowDao.deleteScheduledWorkflow(datasetId);
   }
 
-  private Dataset checkDatasetExistence(int datasetId) throws NoDatasetFoundException {
+  private Dataset checkDatasetExistence(String datasetId) throws NoDatasetFoundException {
     Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (dataset == null) {
       throw new NoDatasetFoundException(
@@ -130,7 +130,7 @@ public class ScheduleWorkflowService {
     return dataset;
   }
 
-  private Workflow checkWorkflowExistence(int datasetId) throws NoWorkflowFoundException {
+  private Workflow checkWorkflowExistence(String datasetId) throws NoWorkflowFoundException {
     Workflow workflow = workflowDao.getWorkflow(datasetId);
     if (workflow == null) {
       throw new NoWorkflowFoundException(

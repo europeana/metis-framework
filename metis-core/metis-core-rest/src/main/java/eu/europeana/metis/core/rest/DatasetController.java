@@ -141,7 +141,7 @@ public class DatasetController {
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteDataset(@RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") int datasetId)
+      @PathVariable("datasetId") String datasetId)
       throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -168,7 +168,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public Dataset getByDatasetId(@RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") int datasetId)
+      @PathVariable("datasetId") String datasetId)
       throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -197,7 +197,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public DatasetXslt getDatasetXsltByDatasetId(@RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") int datasetId) throws GenericMetisException {
+      @PathVariable("datasetId") String datasetId) throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
@@ -317,7 +317,7 @@ public class DatasetController {
   @ResponseBody
   public List<Record> transformRecordsUsingLatestDatasetXslt(
       @RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") int datasetId,
+      @PathVariable("datasetId") String datasetId,
       @RequestBody List<Record> records) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return datasetService.transformRecordsUsingLatestDatasetXslt(metisUser, datasetId, records);
@@ -349,7 +349,7 @@ public class DatasetController {
   @ResponseBody
   public List<Record> transformRecordsUsingLatestDefaultXslt(
       @RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") int datasetId,
+      @PathVariable("datasetId") String datasetId,
       @RequestBody List<Record> records) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return datasetService.transformRecordsUsingLatestDefaultXslt(metisUser, datasetId, records);
