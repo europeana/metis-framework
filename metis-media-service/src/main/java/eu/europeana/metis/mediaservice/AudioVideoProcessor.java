@@ -29,9 +29,9 @@ class AudioVideoProcessor {
 		if (ffprobeCmd != null)
 			return;
 		try {
-			List<String> lines = ce.runCommand(Arrays.asList("ffprobe"), true);
-			if (!String.join("", lines).startsWith("ffprobe version 2"))
-				throw new RuntimeException("ffprobe 2.x not found");
+			String output = String.join("", ce.runCommand(Arrays.asList("ffprobe"), true));
+			if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3"))
+				throw new RuntimeException("ffprobe 2.x/3.x not found");
 			ffprobeCmd = "ffprobe";
 		} catch (IOException e) {
 			throw new RuntimeException("Error while looking for ffprobe tools", e);
