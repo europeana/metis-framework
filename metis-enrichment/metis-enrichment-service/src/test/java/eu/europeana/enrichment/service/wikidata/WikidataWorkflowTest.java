@@ -75,7 +75,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
    */
   private void initializeWikidataInfrastucture()
       throws WikidataAccessException, FileNotFoundException, URISyntaxException, IOException {
-    File templateFile = loadFile(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE);
+    File templateFile = getClasspathFile(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE);
     wikidataAccessService = new WikidataAccessService(new WikidataAccessDao(templateFile));
   }
 
@@ -84,14 +84,14 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
       ParseException, IOException, JAXBException, EntityConverterException, URISyntaxException {
 
   /** 1. Get organization from Zoho file */ 
-  File zohoTestInputFile = loadFile(ZOHO_TEST_INPUT_FILE);
+  File zohoTestInputFile = getClasspathFile(ZOHO_TEST_INPUT_FILE);
   ZohoOrganization org = zohoAccessService.getOrganizationFromFile(zohoTestInputFile);
   assertNotNull(org);
   assertNotNull(org.getSameAs());
   assertNotNull(org.getSameAs().get(0));
   
   /** 2. Get organization from Wikidata file */
-  File wikidataTestInputFile = loadFile(WIKIDATA_TEST_INPUT_FILE);
+  File wikidataTestInputFile = getClasspathFile(WIKIDATA_TEST_INPUT_FILE);
   WikidataOrganization wikidataOrganization = 
       wikidataAccessService.getWikidataAccessDao().
         parseWikidataFromXsltXmlFile(wikidataTestInputFile);  
@@ -114,12 +114,12 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
   String serializedOrganizationImpl = wikidataAccessService.getEntityConverterUtils().
       serialize((OrganizationImpl) mergedOrganization);
   assertNotNull(serializedOrganizationImpl);
-  File organizationImplOutputFile = loadFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
+  File organizationImplOutputFile = getClasspathFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
   writeToFile(serializedOrganizationImpl, organizationImplOutputFile);
 
   /** 6. Compare output file with expected file */
-  File organizationImplTestOutputFile = loadFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
-  File organizationImplTestExpectedFile = loadFile(ORGANIZATION_IMPL_TEST_EXPECTED_FILE);
+  File organizationImplTestOutputFile = getClasspathFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
+  File organizationImplTestExpectedFile = getClasspathFile(ORGANIZATION_IMPL_TEST_EXPECTED_FILE);
   String outputOrganizationImplStr = getEntityConverterUtils().readFile(organizationImplTestOutputFile);
   String expectedOrganizationImplStr = getEntityConverterUtils().readFile(organizationImplTestExpectedFile);
   assertEquals(outputOrganizationImplStr,expectedOrganizationImplStr);
@@ -141,7 +141,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
     wikidataAccessService.getWikidataAccessDao().dereference(uri);
         
     /** 4. Parse wikidata to OrganizationWikidata object */
-    File wikidataTestOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);
+    File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
     WikidataOrganization wikidataOrganization = 
         wikidataAccessService.getWikidataAccessDao().parse(wikidataTestOutputFile);
     assertNotNull(wikidataOrganization);
@@ -176,7 +176,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
   public void parseWikidataFromXsltXmlFileTest() throws WikidataAccessException,
       ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
 
-    File wikidataTestOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);
+    File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
     WikidataOrganization wikidataOrganization = wikidataAccessService.getWikidataAccessDao()
         .parseWikidataFromXsltXmlFile(wikidataTestOutputFile);
     assertNotNull(wikidataOrganization);
@@ -196,7 +196,7 @@ public class WikidataWorkflowTest extends BaseZohoAccessTest {
 
     ZohoOrganization zohoOrganization = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
     Organization zohoOrganizationImpl = zohoAccessService.toEdmOrganization(zohoOrganization);
-    File wikidataTestOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);
+    File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
     WikidataOrganization wikidataOrganization =
         wikidataAccessService.parseWikidataFromXsltXmlFile(wikidataTestOutputFile);
     Organization wikidataOrganizationImpl =

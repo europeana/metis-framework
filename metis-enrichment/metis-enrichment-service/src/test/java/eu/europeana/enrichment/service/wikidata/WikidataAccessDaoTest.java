@@ -59,7 +59,7 @@ public class WikidataAccessDaoTest extends BaseZohoAccessTest {
    */
   private void initializeWikidataInfrastucture()
       throws WikidataAccessException, FileNotFoundException, URISyntaxException, IOException {
-    File templateFile = loadFile(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE);
+    File templateFile = getClasspathFile(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE);
     wikidataAccessService = new WikidataAccessService(new WikidataAccessDao(templateFile));
   }
 
@@ -77,7 +77,7 @@ public class WikidataAccessDaoTest extends BaseZohoAccessTest {
     assertNotNull(wikidataXml);
     
     /** write XML to a file */
-    File wikidataOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);    
+    File wikidataOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);    
     boolean isWritten = wikidataAccessService.saveXmlToFile(wikidataXml, wikidataOutputFile);
     assertTrue(isWritten == true);
     
@@ -89,7 +89,7 @@ public class WikidataAccessDaoTest extends BaseZohoAccessTest {
     assertEquals(wikidataOrganization.getOrganization().getCountry(), TEST_COUNTRY);
     
     /** read organization XML from file */
-    File wikidataTestOutputFile = loadFile(WIKIDATA_TEST_OUTPUT_FILE);    
+    File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);    
     String savedWikidataXml = wikidataAccessService.readXmlFile(wikidataTestOutputFile);
     assertEquals(wikidataXml, savedWikidataXml);
     

@@ -1,0 +1,9 @@
+#Truststore
+#truststore.path=
+#truststore.password=
+
+zoho.base.url=https://crm.zoho.com/crm/private
+zoho.authentication.token=faketoken
+access.token.expire.time.in.mins=
+#Comma separated value, or '*'
+allowed.cors.hosts=*

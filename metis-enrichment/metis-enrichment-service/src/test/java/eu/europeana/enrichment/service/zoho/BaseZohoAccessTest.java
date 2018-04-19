@@ -53,22 +53,30 @@ public abstract class BaseZohoAccessTest {
   protected Properties loadProperties(String propertiesFile)
       throws URISyntaxException, IOException, FileNotFoundException {
     Properties appProps = new Properties();
-    URI propLocation = getClass().getResource(propertiesFile).toURI();
-    appProps.load(new FileInputStream(new File(propLocation)));
+    
+    File propsFile = getClasspathFile(propertiesFile);
+    //fall back to template file for travis tests
+    if(!propsFile.exists()){
+    	String templateFile = propertiesFile + ".template";
+		LOGGER.warn("{}", "The peroperties file is not available, using template: " + templateFile);
+    	propsFile = getClasspathFile(templateFile);
+    }	
+    		
+	appProps.load(new FileInputStream(propsFile));
     return appProps;
   }
 
   /**
    * This method loads content from a file for given file name.
-   * @param contentFile
+   * @param fileName
    * @return the content file
    * @throws URISyntaxException
    * @throws IOException
    * @throws FileNotFoundException
    */
-  protected File loadFile(String contentFile)
+  protected File getClasspathFile(String fileName)
       throws URISyntaxException, IOException, FileNotFoundException {
-    URI fileLocation = getClass().getResource(contentFile).toURI();
+    URI fileLocation = getClass().getResource(fileName).toURI();
     return (new File(fileLocation));
   }
 
