@@ -56,7 +56,7 @@ public class ScheduleWorkflowController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ScheduledWorkflow getScheduledWorkflow(
-      @PathVariable("datasetId") int datasetId) {
+      @PathVariable("datasetId") String datasetId) {
     ScheduledWorkflow scheduledWorkflow = scheduleWorkflowService
         .getScheduledWorkflowByDatasetId(datasetId);
     LOGGER.info("ScheduledWorkflow with with datasetId '{}' found", datasetId);
@@ -99,7 +99,7 @@ public class ScheduleWorkflowController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void deleteScheduledWorkflowExecution(
-      @PathVariable("datasetId") int datasetId) {
+      @PathVariable("datasetId") String datasetId) {
     scheduleWorkflowService.deleteScheduledWorkflow(datasetId);
     LOGGER.info("ScheduledWorkflowExecution for datasetId '{}' deleted", datasetId);
   }

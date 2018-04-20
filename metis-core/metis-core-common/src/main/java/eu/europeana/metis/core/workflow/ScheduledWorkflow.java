@@ -27,7 +27,7 @@ public class ScheduledWorkflow implements HasMongoObjectId {
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
-  private int datasetId;
+  private String datasetId;
   @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT_FOR_SCHEDULING)
   private Date pointerDate;
@@ -49,7 +49,7 @@ public class ScheduledWorkflow implements HasMongoObjectId {
    * @param scheduleFrequence the {@link ScheduleFrequence} for the workflow
    * @param workflowPriority the priority of the workflow when it is run
    */
-  public ScheduledWorkflow(Date pointerDate, int datasetId, String workflowOwner, ScheduleFrequence scheduleFrequence, int workflowPriority) {
+  public ScheduledWorkflow(Date pointerDate, String datasetId, String workflowOwner, ScheduleFrequence scheduleFrequence, int workflowPriority) {
     this.pointerDate = pointerDate == null?null:new Date(pointerDate.getTime());
     this.datasetId = datasetId;
     this.workflowOwner = workflowOwner;
@@ -67,11 +67,11 @@ public class ScheduledWorkflow implements HasMongoObjectId {
     this.id = id;
   }
 
-  public int getDatasetId() {
+  public String getDatasetId() {
     return datasetId;
   }
 
-  public void setDatasetId(int datasetId) {
+  public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
   }
 

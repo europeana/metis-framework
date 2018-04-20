@@ -1,6 +1,12 @@
 package eu.europeana.metis.core.test.utils;
 
-import eu.europeana.cloud.common.model.dps.*;
+import eu.europeana.cloud.common.model.dps.ErrorDetails;
+import eu.europeana.cloud.common.model.dps.NodeStatistics;
+import eu.europeana.cloud.common.model.dps.States;
+import eu.europeana.cloud.common.model.dps.StatisticsReport;
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
@@ -8,6 +14,7 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
+import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -25,6 +32,7 @@ import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import org.bson.types.ObjectId;
 
 /**
@@ -51,7 +59,7 @@ public class TestObjectFactory {
   public static Workflow createWorkflowObject() {
     Workflow workflow = new Workflow();
     workflow.setWorkflowOwner(WORKFLOWOWNER);
-    workflow.setDatasetId(DATASETID);
+    workflow.setDatasetId(Integer.toString(DATASETID));
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
     oaipmhHarvestPluginMetadata.setEnabled(true);
     ValidationExternalPluginMetadata validationExternalPluginMetadata = new ValidationExternalPluginMetadata();
@@ -81,7 +89,7 @@ public class TestObjectFactory {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
       workflow.setWorkflowOwner(workflowOwner);
-      workflow.setDatasetId(DATASETID + i);
+      workflow.setDatasetId(Integer.toString(DATASETID + i));
       workflows.add(workflow);
     }
     return workflows;
@@ -121,9 +129,9 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
-      workflow.setDatasetId(DATASETID + i);
+      workflow.setDatasetId(Integer.toString(DATASETID + i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
-      dataset.setDatasetId(DATASETID + i);
+      dataset.setDatasetId(Integer.toString(DATASETID + i));
       WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset,
           workflow);
       workflowExecution.setId(new ObjectId());
@@ -141,9 +149,9 @@ public class TestObjectFactory {
 
   public static ScheduledWorkflow createScheduledWorkflowObject() {
     ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
-    scheduledWorkflow.setDatasetId(DATASETID);
+    scheduledWorkflow.setDatasetId(Integer.toString(DATASETID));
     scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
-    scheduledWorkflow.setDatasetId(DATASETID);
+    scheduledWorkflow.setDatasetId(Integer.toString(DATASETID));
     scheduledWorkflow.setPointerDate(new Date());
     scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);
     scheduledWorkflow.setWorkflowPriority(0);
@@ -155,7 +163,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
-      scheduledWorkflow.setDatasetId(DATASETID + i);
+      scheduledWorkflow.setDatasetId(Integer.toString(DATASETID + i));
       scheduledWorkflows.add(scheduledWorkflow);
     }
     return scheduledWorkflows;
@@ -167,7 +175,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
-      scheduledWorkflow.setDatasetId(DATASETID + i);
+      scheduledWorkflow.setDatasetId(Integer.toString(DATASETID + i));
       scheduledWorkflow.setPointerDate(date);
       scheduledWorkflow.setScheduleFrequence(scheduleFrequence);
       scheduledWorkflows.add(scheduledWorkflow);
@@ -178,7 +186,7 @@ public class TestObjectFactory {
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
     ds.setEcloudDatasetId("NOT_CREATED_YET-f525f64c-fea0-44bf-8c56-88f30962734c");
-    ds.setDatasetId(DATASETID);
+    ds.setDatasetId(Integer.toString(DATASETID));
     ds.setDatasetName(datasetName);
     ds.setOrganizationId("1234567890");
     ds.setOrganizationName("OrganizationName");
@@ -270,9 +278,27 @@ public class TestObjectFactory {
     nodeStatistics.add(new NodeStatistics("parentpath2", "path2", "value2", 2));
     return new StatisticsReport(EXTERNAL_TASK_ID, nodeStatistics);
   }
-  
+
   public static DatasetXslt createXslt(Dataset dataset) {
-    return new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt datasetXslt = new DatasetXslt(dataset.getDatasetId(),
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+            + "<xsl:stylesheet version=\"2.0\"\n"
+            + "xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n"
+            + "<xsl:template match=\"/\">\n"
+            + "<xsl:copy-of select=\"node()\"/>\n"
+            + "</xsl:template>\n"
+            + "</xsl:stylesheet>");
+    datasetXslt.setId(new ObjectId());
+    return datasetXslt;
+  }
+
+  public static List<Record> createListOfRecords(int numberOfRecords) {
+    List<Record> records = new ArrayList<>();
+    for (int i = 0; i < numberOfRecords; i++) {
+      records.add(new Record(UUID.randomUUID().toString(),
+          String.format("<record><element attr=\"test\">%d</element></record>", i)));
+    }
+    return records;
   }
 }
 

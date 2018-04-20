@@ -33,7 +33,7 @@ public class WorkflowExecution implements HasMongoObjectId {
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
-  private int datasetId;
+  private String datasetId;
   @Indexed
   private String workflowOwner;
   @Indexed
@@ -153,11 +153,11 @@ public class WorkflowExecution implements HasMongoObjectId {
     this.workflowStatus = workflowStatus;
   }
 
-  public int getDatasetId() {
+  public String getDatasetId() {
     return datasetId;
   }
 
-  public void setDatasetId(int datasetId) {
+  public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
   }
 
@@ -223,7 +223,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     int prime = 31;
     int result = 1;
     result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + Integer.hashCode(datasetId);
+    result = prime * result + datasetId.hashCode();
     return prime * result + ((workflowOwner == null) ? 0 : workflowOwner.hashCode());
   }
 
@@ -236,7 +236,7 @@ public class WorkflowExecution implements HasMongoObjectId {
       return false;
     }
     WorkflowExecution that = (WorkflowExecution) obj;
-    return (id == that.getId() && datasetId == that.datasetId && workflowOwner
+    return (id == that.getId() && datasetId.equals(that.datasetId) && workflowOwner
         .equals(that.workflowOwner));
   }
 }

@@ -109,7 +109,7 @@ public class OrchestratorService {
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
    * </ul>
    */
-  public void createWorkflow(int datasetId, Workflow workflow)
+  public void createWorkflow(String datasetId, Workflow workflow)
       throws GenericMetisException {
     if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
@@ -135,7 +135,7 @@ public class OrchestratorService {
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
    * </ul>
    */
-  public void updateWorkflow(int datasetId, Workflow workflow)
+  public void updateWorkflow(String datasetId, Workflow workflow)
       throws GenericMetisException {
     if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
@@ -169,7 +169,7 @@ public class OrchestratorService {
    *
    * @param datasetId the dataset identifier that corresponds to the workflow to be deleted
    */
-  public void deleteWorkflow(int datasetId) {
+  public void deleteWorkflow(String datasetId) {
     workflowDao.deleteWorkflow(datasetId);
   }
 
@@ -179,7 +179,7 @@ public class OrchestratorService {
    * @param datasetId the dataset identifier
    * @return the Workflow object
    */
-  public Workflow getWorkflow(int datasetId) {
+  public Workflow getWorkflow(String datasetId) {
     return workflowDao.getWorkflow(datasetId);
   }
 
@@ -224,7 +224,7 @@ public class OrchestratorService {
    * <li>{@link WorkflowExecutionAlreadyExistsException} if a workflow execution for the generated execution identifier already exists, almost impossible to happen since ids are UUIDs</li>
    * </ul>
    */
-  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
+  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(String datasetId,
       PluginType enforcedPluginType, int priority)
       throws GenericMetisException {
 
@@ -453,7 +453,7 @@ public class OrchestratorService {
    * @throws PluginExecutionNotAllowed if the no plugin was found so the {@code pluginType} will be based upon.
    */
   public AbstractMetisPlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-      int datasetId, PluginType pluginType,
+      String datasetId, PluginType pluginType,
       PluginType enforcedPluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPlugin latestFinishedPluginIfRequestedPluginAllowedForExecution = ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, enforcedPluginType,
@@ -476,7 +476,7 @@ public class OrchestratorService {
   /**
    * Get all WorkflowExecutions paged.
    *
-   * @param datasetId the dataset identifier filter, can be -1 to get all datasets
+   * @param datasetId the dataset identifier filter, can be null to get all datasets
    * @param workflowOwner the workflow owner, can be null
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
    * @param orderField the field to be used to sort the results
@@ -484,7 +484,7 @@ public class OrchestratorService {
    * @param nextPage the nextPage token
    * @return a list of all the WorkflowExecutions found
    */
-  public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId, String workflowOwner,
+  public List<WorkflowExecution> getAllWorkflowExecutions(String datasetId, String workflowOwner,
       Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending,
       int nextPage) {
     return workflowExecutionDao
@@ -499,7 +499,7 @@ public class OrchestratorService {
    * @param datasetId the dataset identifier to generate the information for
    * @return the structured class containing all the execution information
    */
-  public DatasetExecutionInformation getDatasetExecutionInformation(int datasetId) {
+  public DatasetExecutionInformation getDatasetExecutionInformation(String datasetId) {
     AbstractMetisPlugin lastHarvestPlugin = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
             .of(PluginType.HTTP_HARVEST, PluginType.OAIPMH_HARVEST));
@@ -529,7 +529,7 @@ public class OrchestratorService {
     return datasetExecutionInformation;
   }
 
-  private Dataset checkDatasetExistence(int datasetId) throws NoDatasetFoundException {
+  private Dataset checkDatasetExistence(String datasetId) throws NoDatasetFoundException {
     Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (dataset == null) {
       throw new NoDatasetFoundException(
@@ -538,7 +538,7 @@ public class OrchestratorService {
     return dataset;
   }
 
-  private Workflow checkWorkflowExistence(int datasetId)
+  private Workflow checkWorkflowExistence(String datasetId)
       throws NoWorkflowFoundException {
     Workflow workflow = workflowDao
         .getWorkflow(datasetId);

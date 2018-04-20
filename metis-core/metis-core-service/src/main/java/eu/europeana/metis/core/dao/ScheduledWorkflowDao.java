@@ -84,7 +84,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    * @param workflowOwner the workflow owner
    * @return the found ScheduledWorkflow or null
    */
-  public ScheduledWorkflow getScheduledWorkflow(int datasetId, String workflowOwner) {
+  public ScheduledWorkflow getScheduledWorkflow(String datasetId, String workflowOwner) {
     return morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class).field(DATASET_ID)
         .equal(datasetId).field("workflowOwner")
@@ -97,7 +97,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    * @param datasetId the dataset identifier
    * @return the found ScheduledWorkflow or null
    */
-  public ScheduledWorkflow getScheduledWorkflowByDatasetId(int datasetId) {
+  public ScheduledWorkflow getScheduledWorkflowByDatasetId(String datasetId) {
     return morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class).field(DATASET_ID)
         .equal(datasetId).get();
@@ -123,7 +123,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    * @param datasetId the dataset identifier
    * @return the String representation of the ScheduledWorkflow identifier
    */
-  public String existsForDatasetId(int datasetId) {
+  public String existsForDatasetId(String datasetId) {
     ScheduledWorkflow storedScheduledWorkflow = morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class).field(DATASET_ID)
         .equal(datasetId).project("_id", true).get();
@@ -137,7 +137,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    * @param datasetId the dataset identifier
    * @return true if one was deleted, false if none was deleted
    */
-  public boolean deleteScheduledWorkflow(int datasetId) {
+  public boolean deleteScheduledWorkflow(String datasetId) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(ScheduledWorkflow.class);
     query.field(DATASET_ID).equal(datasetId);
@@ -154,7 +154,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    * @param datasetId the dataset identifier
    * @return true if at least one was deleted, false if none
    */
-  public boolean deleteAllByDatasetId(int datasetId) {
+  public boolean deleteAllByDatasetId(String datasetId) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(ScheduledWorkflow.class);
     query.field(DATASET_ID).equal(datasetId);

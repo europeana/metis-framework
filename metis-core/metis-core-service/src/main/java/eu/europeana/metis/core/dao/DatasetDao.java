@@ -120,7 +120,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @param datasetId the identifier used to delete a dataset from the database
    * @return always true
    */
-  public boolean deleteByDatasetId(int datasetId) {
+  public boolean deleteByDatasetId(String datasetId) {
     Dataset dataset = new Dataset();
     dataset.setDatasetId(datasetId);
     return delete(dataset);
@@ -143,7 +143,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @param datasetId the String to search for
    * @return {@link Dataset} or null
    */
-  public Dataset getDatasetByDatasetId(int datasetId) {
+  public Dataset getDatasetByDatasetId(String datasetId) {
     return morphiaDatastoreProvider.getDatastore().find(Dataset.class)
         .filter(DATASET_ID, datasetId).get();
   }
@@ -274,7 +274,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
         .find(DatasetIdSequence.class).get();
     do {
       datasetIdSequence.setSequence(datasetIdSequence.getSequence() + 1);
-      dataset = this.getDatasetByDatasetId(datasetIdSequence.getSequence());
+      dataset = this.getDatasetByDatasetId(Integer.toString(datasetIdSequence.getSequence()));
     } while (dataset != null);
     Query<DatasetIdSequence> updateQuery = morphiaDatastoreProvider.getDatastore()
         .createQuery(DatasetIdSequence.class).field("_id").equal(datasetIdSequence.getId());

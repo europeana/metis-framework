@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -13,16 +14,24 @@ import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
+import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.transformation.service.TransformationException;
+import eu.europeana.metis.transformation.service.XsltTransformer;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +41,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DatasetService {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
   private static final String DATASET_CREATION_LOCK = "datasetCreationLock";
 
   private final DatasetDao datasetDao;
@@ -40,6 +50,7 @@ public class DatasetService {
   private final WorkflowExecutionDao workflowExecutionDao;
   private final ScheduledWorkflowDao scheduledWorkflowDao;
   private final RedissonClient redissonClient;
+  private String metisCoreUrl; //Initialize with setter
 
   /**
    * Constructs the service.
@@ -110,7 +121,7 @@ public class DatasetService {
       dataset.setEcloudDatasetId(String.format("NOT_CREATED_YET-%s", UUID.randomUUID().toString()));
 
       int nextInSequenceDatasetId = datasetDao.findNextInSequenceDatasetId();
-      dataset.setDatasetId(nextInSequenceDatasetId);
+      dataset.setDatasetId(Integer.toString(nextInSequenceDatasetId));
       datasetObjectId = datasetDao.getById(datasetDao.create(dataset));
     } finally {
       lock.unlock();
@@ -194,8 +205,7 @@ public class DatasetService {
    * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
    * </ul>
    */
-  public void deleteDatasetByDatasetId(MetisUser metisUser,
-      int datasetId)
+  public void deleteDatasetByDatasetId(MetisUser metisUser, String datasetId)
       throws GenericMetisException {
     if (metisUser.getAccountRole() == null
         || metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER) {
@@ -266,7 +276,7 @@ public class DatasetService {
    * </ul>
    */
   public Dataset getDatasetByDatasetId(MetisUser metisUser,
-      int datasetId) throws GenericMetisException {
+      String datasetId) throws GenericMetisException {
     if (metisUser.getAccountRole() == null
         || metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER) {
       throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
@@ -297,7 +307,7 @@ public class DatasetService {
    * </ul>
    */
   public DatasetXslt getDatasetXsltByDatasetId(MetisUser metisUser,
-      int datasetId) throws GenericMetisException {
+      String datasetId) throws GenericMetisException {
     Dataset storedDataset = getDatasetByDatasetId(metisUser, datasetId);
     DatasetXslt datasetXslt = datasetXsltDao
         .getById(storedDataset.getXsltId() == null ? null : storedDataset.getXsltId().toString());
@@ -380,12 +390,101 @@ public class DatasetService {
    * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
    * </ul>
    */
-  public DatasetXslt getLatestXsltForDatasetId(int datasetId) throws GenericMetisException {
+  public DatasetXslt getLatestXsltForDatasetId(String datasetId) throws GenericMetisException {
     DatasetXslt datasetXslt = datasetXsltDao.getLatestXsltForDatasetId(datasetId);
     if (datasetXslt == null) {
       throw new NoXsltFoundException("No default datasetXslt found");
     }
     return datasetXslt;
+  }
+
+  /**
+   * Transform a list of xmls using the latest default xslt stored.
+   * <p>
+   * This method can be used, for example, after a response from {@link ProxiesService#getListOfFileContentsFromPluginExecution(String, PluginType, String, int)}
+   * to try a transformation on a list of xmls just after validation external to preview an example result.
+   * </p>
+   *
+   * @param metisUser the {@link MetisUser} to authorize with
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
+   * @param records the list of {@link Record} that contain the xml fields {@link Record#xmlRecord}
+   * @return a list of {@link Record}s with the field {@link Record#xmlRecord} containing the transformed xml
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated.</li>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
+   * <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   * </ul>
+   */
+  public List<Record> transformRecordsUsingLatestDefaultXslt(MetisUser metisUser, String datasetId,
+      List<Record> records) throws GenericMetisException {
+    //Used for authentication and dataset existence
+    this.getDatasetByDatasetId(metisUser, datasetId);
+
+    //Using default dataset identifier
+    DatasetXslt datasetXslt = datasetXsltDao
+        .getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID);
+    if (datasetXslt == null) {
+      throw new NoXsltFoundException("Could not find default xslt");
+    }
+
+    String xsltUrl = metisCoreUrl + RestEndpoints
+        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+
+    XsltTransformer xsltTransformer = new XsltTransformer();
+    return transformRecords(datasetId, records, xsltUrl, xsltTransformer);
+  }
+
+  /**
+   * Transform a list of xmls using the latest dataset xslt stored.
+   * <p>
+   * This method can be used, for example, after a response from {@link ProxiesService#getListOfFileContentsFromPluginExecution(String, PluginType, String, int)}
+   * to try a transformation on a list of xmls just after validation external to preview an example result.
+   * </p>
+   *
+   * @param metisUser the {@link MetisUser} to authorize with
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
+   * @param records the list of {@link Record} that contain the xml fields {@link Record#xmlRecord}
+   * @return a list of {@link Record}s with the field {@link Record#xmlRecord} containing the transformed xml
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated.</li>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
+   * <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   * </ul>
+   */
+  public List<Record> transformRecordsUsingLatestDatasetXslt(MetisUser metisUser, String datasetId,
+      List<Record> records) throws GenericMetisException {
+    //Used for authentication and dataset existence
+    Dataset dataset = this.getDatasetByDatasetId(metisUser, datasetId);
+    if (dataset.getXsltId() == null) {
+      throw new NoXsltFoundException(
+          String.format("Could not find xslt for datasetId %s", datasetId));
+    }
+    DatasetXslt datasetXslt = datasetXsltDao.getById(dataset.getXsltId().toString());
+
+    String xsltUrl = metisCoreUrl + RestEndpoints
+        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+
+    XsltTransformer xsltTransformer = new XsltTransformer();
+    return transformRecords(datasetId, records, xsltUrl, xsltTransformer);
+  }
+
+  private List<Record> transformRecords(String datasetId, List<Record> records, String xsltUrl,
+      XsltTransformer xsltTransformer) {
+    return records.stream().map(record -> {
+          try {
+            return new Record(record.getEcloudId(), xsltTransformer
+                .transform(xsltUrl, record.getXmlRecord().getBytes(StandardCharsets.UTF_8), datasetId)
+                .toString());
+          } catch (TransformationException e) {
+            LOGGER.info("Record from list failed transformation", e);
+            return new Record(record.getEcloudId(), e.getMessage());
+          }
+        }
+    ).collect(Collectors.toList());
   }
 
   /**
@@ -511,5 +610,9 @@ public class DatasetService {
 
   public int getDatasetsPerRequestLimit() {
     return datasetDao.getDatasetsPerRequest();
+  }
+
+  public void setMetisCoreUrl(String metisCoreUrl) {
+    this.metisCoreUrl = metisCoreUrl;
   }
 }

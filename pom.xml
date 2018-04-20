@@ -110,6 +110,7 @@
     <version.spring.plugin.metadata>1.2.0.RELEASE</version.spring.plugin.metadata>
     <version.spring.plugin.core>1.2.0.RELEASE</version.spring.plugin.core>
     <version.spring.ldap>2.3.1.RELEASE</version.spring.ldap>
+    <version.saxon.he>9.8.0-11</version.saxon.he>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 

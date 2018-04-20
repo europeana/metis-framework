@@ -123,7 +123,7 @@ public class TestWorkflowDao {
     for (int i = 0; i < userWorkflowsToCreate; i++)
     {
       Workflow workflow = TestObjectFactory.createWorkflowObject();
-      workflow.setDatasetId(TestObjectFactory.DATASETID + i);
+      workflow.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + i));
       workflowDao.create(workflow);
     }
     int nextPage = 0;

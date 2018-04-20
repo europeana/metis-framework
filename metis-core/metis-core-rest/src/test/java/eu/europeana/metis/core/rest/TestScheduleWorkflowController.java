@@ -4,6 +4,7 @@ import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -133,17 +134,17 @@ public class TestScheduleWorkflowController {
   public void getScheduledWorkflow() throws Exception {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
-    when(scheduleWorkflowService.getScheduledWorkflowByDatasetId(anyInt()))
+    when(scheduleWorkflowService.getScheduledWorkflowByDatasetId(anyString()))
         .thenReturn(scheduledWorkflow);
     scheduleWorkflowControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
-            TestObjectFactory.DATASETID)
+            Integer.toString(TestObjectFactory.DATASETID))
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.scheduleFrequence", is(ScheduleFrequence.ONCE.name())));
 
-    verify(scheduleWorkflowService, times(1)).getScheduledWorkflowByDatasetId(anyInt());
+    verify(scheduleWorkflowService, times(1)).getScheduledWorkflowByDatasetId(anyString());
   }
 
   @Test
@@ -162,9 +163,9 @@ public class TestScheduleWorkflowController {
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
-        .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID)))
+        .andExpect(jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
         .andExpect(jsonPath("$.results[0].scheduleFrequence", is(ScheduleFrequence.ONCE.name())))
-        .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 1)))
+        .andExpect(jsonPath("$.results[1].datasetId", is(Integer.toString(TestObjectFactory.DATASETID + 1))))
         .andExpect(jsonPath("$.results[1].scheduleFrequence", is(ScheduleFrequence.ONCE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }
@@ -234,12 +235,12 @@ public class TestScheduleWorkflowController {
   @Test
   public void deleteScheduledWorkflowExecution() throws Exception {
     scheduleWorkflowControllerMock.perform(
-        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, TestObjectFactory.DATASETID)
+        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
-    verify(scheduleWorkflowService, times(1)).deleteScheduledWorkflow(anyInt());
+    verify(scheduleWorkflowService, times(1)).deleteScheduledWorkflow(anyString());
   }
 
 }
