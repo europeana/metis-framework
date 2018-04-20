@@ -37,11 +37,7 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
  */
 public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
 
-  String mongoHost;
-  int mongoPort;
   EntityService entityService;
-  WikidataAccessService wikidataAccessService;
-
   final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
 
@@ -49,8 +45,8 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   public void setUp() throws Exception {
     super.setUp();
     Properties props = loadProperties("/metis.properties");
-    mongoHost = props.getProperty("mongo.hosts");
-    mongoPort = Integer.valueOf(props.getProperty("mongo.port"));
+    String mongoHost = props.getProperty("mongo.hosts");
+    int mongoPort = Integer.valueOf(props.getProperty("mongo.port"));
     entityService = new EntityService(mongoHost, mongoPort);
     initWikidataAccessService();
   }
@@ -106,12 +102,14 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     assertEquals(outputOrganizationImplStr, expectedOrganizationImplStr);
   }
 
-  // @Test
-  public void processWikidataWorkflowTest() throws WikidataAccessException, ZohoAccessException,
+  @Test
+  public void mergeZohoAndWikidataOrganizationsTest() throws WikidataAccessException, ZohoAccessException,
       ParseException, IOException, JAXBException, URISyntaxException {
 
-    /** 1. Get organization from Zoho */
-    ZohoOrganization org = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
+    /** 1. Get Zoho organization */
+    File zohoTestInputFile = getClasspathFile(ZOHO_TEST_INPUT_FILE);
+    ZohoOrganization org = zohoAccessService.getOrganizationFromFile(zohoTestInputFile);
+//    ZohoOrganization org = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
     assertNotNull(org);
     assertTrue(org.getCreated().getTime() > 0);
     assertTrue(org.getModified().getTime() > 0);
@@ -145,7 +143,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   }
 
   @Test
-  public void retrieveWikidataToXsltXmlFileTest()
+  public void retrieveWikidataOrganigationXmlTest()
       throws WikidataAccessException, ZohoAccessException, ParseException, IOException {
 
     String uri =
@@ -155,7 +153,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   }
 
   @Test
-  public void parseWikidataFromXsltXmlFileTest() throws WikidataAccessException,
+  public void parseWikidataFromXmlFileTest() throws WikidataAccessException,
       ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
 
     File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
@@ -172,11 +170,14 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     assertNotNull(wikidataOrganization.getOrganization().getHomepage().getResource().toString());
   }
 
-  // @Test
-  public void mergeZohoAndWikidataOrganizationObjectsTest() throws WikidataAccessException,
+  @Test
+  public void mergeZohoAndWikidataOrganizationFromFilesTest() throws WikidataAccessException,
       ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
 
-    ZohoOrganization zohoOrganization = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
+//    ZohoOrganization zohoOrganization = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
+    File zohoTestInputFile = getClasspathFile(ZOHO_TEST_INPUT_FILE);
+    ZohoOrganization zohoOrganization = zohoAccessService.getOrganizationFromFile(zohoTestInputFile);
+    
     Organization zohoOrganizationImpl = zohoAccessService.toEdmOrganization(zohoOrganization);
     File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
     WikidataOrganization wikidataOrganization =

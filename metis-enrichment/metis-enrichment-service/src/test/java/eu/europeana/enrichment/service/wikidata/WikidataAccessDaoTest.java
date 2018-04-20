@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -13,15 +12,10 @@ import javax.xml.bind.JAXBException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.enrichment.service.dao.WikidataAccessDao;
-import eu.europeana.enrichment.service.dao.WikidataAccessService;
 import eu.europeana.enrichment.service.dao.WikidataOrganization;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import eu.europeana.enrichment.service.zoho.BaseZohoAccessSetup;
 
 /**
  * Test class for Wikidata Access Dao.

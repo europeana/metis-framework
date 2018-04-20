@@ -288,7 +288,7 @@ public class ZohoAccessClientDao {
   public JsonNode getOrganizationFromFile(File contentFile) throws GenericMetisException, IOException {
 
     String organisationsResponse = readFile(contentFile);
-    LOGGER.debug(organisationsResponse);
+    LOGGER.debug("{}", "Content of Zoho response file: " + organisationsResponse);
 
     ObjectMapper mapper = new ObjectMapper();
     try {
