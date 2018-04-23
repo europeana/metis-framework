@@ -23,8 +23,20 @@ import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.util.XpathQuery;
 
 /**
+ * <p>
  * This normalizer removes duplicate statements from within the proxy nodes. Only certain statements
- * are considered.
+ * are considered:
+ * <ul>
+ * <li>The title(s) and its alternative(s)</li>
+ * <li>The subject(s)</li>
+ * <li>The identifier(s)</li>
+ * <li>The type(s)</li>
+ * </ul>
+ * Note that only duplicates <b>within</b> these groups are removed. For instance, it will look for
+ * duplicates among all subject statements, but it will not compare any subject statement with a
+ * type statement.
+ * </p>
+ * 
  */
 public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction {
 
@@ -54,10 +66,19 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
 
   @Override
   public NormalizationReport normalize(Document edm) throws NormalizationException {
+
+    // Create the new report.
     final InternalNormalizationReport report = new InternalNormalizationReport();
+
+    // Allocate lists here and clear in the loop: for performance reasons.
+    final List<Element> elements = new ArrayList<>();
+    final Set<TextAttributesPair> foundPairs = new HashSet<>();
+
+    // Try each combination separately: we don't want to compare across sets.
     for (XpathQuery[] fieldSet : FIELD_SETS_TO_EVALUATE) {
 
-      final List<Element> elements = new ArrayList<>();
+      // Collect all the elements.
+      elements.clear();
       for (XpathQuery query : fieldSet) {
         try {
           elements.addAll(XmlUtil.getAsElementList(query.execute(edm)));
@@ -66,11 +87,13 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
         }
       }
 
+      // If there are no duplicates because the list is too small, we are done.
       if (elements.size() <= 1) {
         continue;
       }
 
-      final Set<TextAttributesPair> foundPairs = new HashSet<>();
+      // Make inventory of elements for uniqueness. Delete duplicate elements.
+      foundPairs.clear();
       for (Element element : elements) {
         final TextAttributesPair pair = new TextAttributesPair(element);
         if (foundPairs.contains(pair)) {
@@ -82,9 +105,18 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
       }
     }
 
+    // Return report.
     return report;
   }
 
+  /**
+   * Class that represents an XML element with its attributes. This class can check for equality: an
+   * element is considered equal if it has the same text, as well as exactly the same attributes
+   * with the same values.
+   * 
+   * @author jochen
+   *
+   */
   static final class TextAttributesPair {
 
     private final String text;
