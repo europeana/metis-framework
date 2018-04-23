@@ -106,12 +106,12 @@ public final class XmlUtil {
   /**
    * Gets the text content of the given element.
    *
-   * @param n the node get the text from
-   * @return The text in the various text child nodes, concatenated.
+   * @param element the element get the text from
+   * @return The text in the various text child nodes, concatenated. Is not null, but can be empty.
    */
-  public static String getElementText(Element n) {
-    NodeList childNodes = n.getChildNodes();
-    StringBuilder result = new StringBuilder();
+  public static String getElementText(Element element) {
+    final NodeList childNodes = element.getChildNodes();
+    final StringBuilder result = new StringBuilder();
     for (int i = 0; i < childNodes.getLength(); i++) {
       Node node = childNodes.item(i);
       if (node.getNodeType() == Node.TEXT_NODE) {
