@@ -1,8 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -37,10 +35,7 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
 
   @Override
   DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-      Map<String, String> parameters = new HashMap<>();
-    // TODO: 20-4-18 This parameter should not be required.
-      parameters.put("MIME_TYPE", "text/xml");
-    return createDpsTaskForProcessPlugin(parameters, ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    return createDpsTaskForProcessPlugin(null, ecloudBaseUrl, ecloudProvider, ecloudDataset);
   }
 
 }
