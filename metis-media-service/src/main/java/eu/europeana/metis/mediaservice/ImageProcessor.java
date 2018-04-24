@@ -4,16 +4,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -25,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 import eu.europeana.metis.mediaservice.WebResource.Orientation;
 
 class ImageProcessor {
@@ -53,7 +50,7 @@ class ImageProcessor {
 	
 	private CommandExecutor ce;
 	
-	protected Map<String, String> thumbnails = new HashMap<>();
+	protected ArrayList<Thumbnail> thumbnails = new ArrayList<>();
 	
 	ImageProcessor(CommandExecutor ce) {
 		this.ce = ce;
@@ -93,7 +90,7 @@ class ImageProcessor {
 			throws MediaException, IOException {
 		if (content == null)
 			throw new IllegalArgumentException("content cannot be null");
-		List<File> thumbs = prepareThumbnailFiles(url, mimeType);
+		List<Thumbnail> thumbs = prepareThumbnailFiles(url, mimeType);
 		int sizes = THUMB_SIZE.length;
 		
 		final String FORMAT = "%w\n%h\n%[colorspace]\n";
@@ -104,12 +101,11 @@ class ImageProcessor {
 		ArrayList<String> command = new ArrayList<>(Arrays.asList(
 				magickCmd, content.getPath() + "[0]", "-format", FORMAT, "-write", "info:"));
 		for (int i = 0; i < sizes - 1; i++) {
-			command.addAll(Arrays.asList(
-					"(", "+clone", "-thumbnail", THUMB_SIZE[i] + "x", "-write", thumbs.get(i).getPath(), "+delete",
-					")"));
+			command.addAll(Arrays.asList("(", "+clone", "-thumbnail", THUMB_SIZE[i] + "x", "-write",
+					thumbs.get(i).content.getPath(), "+delete", ")"));
 		} // do not +delete the last one, use it to find dominant colors (smaller=quicker)
 		command.addAll(Arrays.asList(
-				"-thumbnail", THUMB_SIZE[sizes - 1] + "x", "-write", thumbs.get(sizes - 1).getPath()));
+				"-thumbnail", THUMB_SIZE[sizes - 1] + "x", "-write", thumbs.get(sizes - 1).content.getPath()));
 		command.addAll(Arrays.asList(
 				"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", colormapFile.getPath(),
 				"-format", "\n%c", "histogram:info:"));
@@ -136,48 +132,25 @@ class ImageProcessor {
 		}
 		
 		for (int i = 0; i < sizes; i++) {
-			File thumb = thumbs.get(i);
+			File thumb = thumbs.get(i).content;
 			if (thumb.length() == 0)
 				throw new MediaException("Thumbnail file empty: " + thumb, "THUMBNAIL ERROR");
-			if (width < THUMB_SIZE[i]) {
+			if (width < THUMB_SIZE[i])
 				FileUtils.copyFile(content, thumb);
-			}
-			thumbnails.put(thumb.getAbsolutePath(), url);
 		}
+		thumbnails.addAll(thumbs);
 	}
 	
-	/**
-	 * Thumbnails are put directly in temp dir with names that should be used in the
-	 * target storage. It's a problem when multiple EDMs share the same resource -
-	 * we can't use the same thumbnail files because system won't know when they can
-	 * be removed. So duplicate thumbnails are stored in subdirectories with
-	 * increasing numbers.
-	 */
-	private List<File> prepareThumbnailFiles(String url, String mimeType) throws IOException {
-		final int MAX_DIRS = 1000;
-		List<File> thumbs = new ArrayList<>();
+	private List<Thumbnail> prepareThumbnailFiles(String url, String mimeType) throws IOException {
+		File thumbsDir = new File(tempDir, "media_thumbnails");
+		if (!thumbsDir.isDirectory() && !thumbsDir.mkdir())
+			throw new IOException("Could not create thumbnails subdirectory: " + thumbsDir);
+		List<Thumbnail> thumbs = new ArrayList<>();
 		String md5 = DigestUtils.md5Hex(url);
 		String ext = "image/png".equals(mimeType) ? ".png" : ".jpeg";
 		for (int i = 0; i < THUMB_SUFFIX.length; i++) {
-			File temp = File.createTempFile("thumb", null);
-			for (int j = 0; j < MAX_DIRS; j++) {
-				File dir = new File(tempDir, "media_thumbnails_" + j);
-				if (!dir.isDirectory() && !dir.mkdir())
-					throw new IOException("Could not create thumbnails subdirectory: " + dir);
-				try {
-					File f = new File(dir, md5 + THUMB_SUFFIX[i] + ext);
-					Files.move(temp.toPath(), f.toPath());
-					thumbs.add(f);
-					break;
-				} catch (FileAlreadyExistsException e) {
-					LOGGER.trace(j + " duplicates of " + url, e);
-					// try next dir
-				}
-			}
-			if (thumbs.size() < i + 1) {
-				Files.delete(temp.toPath());
-				throw new IOException("Too many duplicates of url " + url);
-			}
+			File f = File.createTempFile("thumb", ext, thumbsDir);
+			thumbs.add(new Thumbnail(url, md5 + THUMB_SUFFIX[i] + ext, f));
 		}
 		return thumbs;
 	}

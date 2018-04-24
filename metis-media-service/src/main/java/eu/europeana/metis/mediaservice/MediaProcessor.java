@@ -4,16 +4,33 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.tika.Tika;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/** Extracts technical metadata and generates thumbnails for web resources. */
 public class MediaProcessor implements Closeable {
+	
+	/** Information about a generated thumbnail */
+	public static class Thumbnail {
+		/** The original resource url */
+		public final String url;
+		/** The name this thumbnail should be stored under */
+		public final String targetName;
+		/** Temporary file with the thumbnail content. Don't forget to remove it! */
+		public final File content;
+		
+		Thumbnail(String url, String targetName, File content) {
+			this.url = url;
+			this.targetName = targetName;
+			this.content = content;
+		}
+	}
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(MediaProcessor.class);
 	
@@ -83,13 +100,11 @@ public class MediaProcessor implements Closeable {
 	
 	/**
 	 * @return thumbnails for all the image resources processed since the last call
-	 *         to {@link #setEdm(EdmObject)}. The map's key is the thumbnail file
-	 *         absolute path, with the name it should be stored under. The value is
-	 *         the resource's original url. Remember to remove the files when they
+	 *         to {@link #setEdm(EdmObject)}. Remember to remove the files when they
 	 *         are no longer needed.
 	 */
-	public Map<String, String> getThumbnails() {
-		return new HashMap<>(imageProcessor.thumbnails);
+	public List<Thumbnail> getThumbnails() {
+		return new ArrayList<>(imageProcessor.thumbnails);
 	}
 	
 	@Override

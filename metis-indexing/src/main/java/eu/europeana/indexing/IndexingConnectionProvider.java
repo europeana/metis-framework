@@ -22,6 +22,7 @@ import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.indexing.exception.IndexerConfigurationException;
+import eu.europeana.indexing.mongo.FullBeanDao;
 
 /**
  * <p>

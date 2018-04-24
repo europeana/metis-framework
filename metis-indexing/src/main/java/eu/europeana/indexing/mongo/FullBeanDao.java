@@ -1,4 +1,4 @@
-package eu.europeana.indexing;
+package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
@@ -12,8 +12,10 @@ import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import eu.europeana.indexing.exception.IndexingException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -25,29 +27,64 @@ import org.mongodb.morphia.query.UpdateOperations;
  * @author jochen
  *
  */
-class FullBeanDao {
+public class FullBeanDao {
+
+  private static final String ABOUT_FIELD = "about";
+
+  private static final String ABOUT_PREFIX = "/item";
 
   private final EdmMongoServer mongoServer;
-  private static final String ABOUT_FIELD = "about";
 
   /**
    * Constructor.
    * 
    * @param mongoServer The persistence.
    */
-  FullBeanDao(EdmMongoServer mongoServer) {
+  public FullBeanDao(EdmMongoServer mongoServer) {
     this.mongoServer = mongoServer;
   }
 
   /**
-   * Searches an object by the value of its about field.
+   * Searches an object by the value of its about field. This method shouldn't be called directly:
+   * please use one of the public methods in this class.
    * 
    * @param clazz The object type to find.
    * @param about The value of the about field to find.
    * @return The object, or null if no such object could be found.
    */
-  private <T> T get(Class<T> clazz, String about) {
+  <T> T get(Class<T> clazz, String about) {
     return mongoServer.getDatastore().find(clazz).field(ABOUT_FIELD).equal(about).get();
+  }
+
+  /**
+   * Determines whether a given full bean exists (i.e. is persisted).
+   * 
+   * @param fullBean The full bean that we wish to check.
+   * @return The 'about' attribute value of the full bean, or null in case the bean does not exist.
+   * @throws IndexingException In case the full bean does not have an 'about' value.
+   */
+  public String getPersistedAbout(FullBeanImpl fullBean) throws IndexingException {
+
+    // Get the base value (without the prefix).
+    if (StringUtils.isBlank(fullBean.getAbout())) {
+      throw new IndexingException("Full bean does not have an 'about' value.");
+    }
+    final String originalValue = fullBean.getAbout().trim();
+    final String baseValue =
+        (originalValue.startsWith(ABOUT_PREFIX) ? originalValue.substring(ABOUT_PREFIX.length())
+            : originalValue).trim();
+    final String valueWithPrefix = ABOUT_PREFIX + baseValue;
+
+    // Check with or without the prefix.
+    final String result;
+    if (null != get(FullBeanImpl.class, baseValue)) {
+      result = baseValue;
+    } else if (null != get(FullBeanImpl.class, valueWithPrefix)) {
+      result = valueWithPrefix;
+    } else {
+      result = null;
+    }
+    return result;
   }
 
   /**
@@ -82,8 +119,7 @@ class FullBeanDao {
    * @throws MongoUpdateException In case an exception occurred in the supplied updater.
    */
   public <T extends AbstractEdmEntity> T update(T data, Class<T> clazz, Updater<T> updater,
-      boolean saveNewRecordIfNotFound)
-      throws MongoUpdateException {
+      boolean saveNewRecordIfNotFound) throws MongoUpdateException {
     if (data == null) {
       return null;
     }
@@ -113,8 +149,7 @@ class FullBeanDao {
    * @throws MongoUpdateException In case an exception occurred in the supplied updater.
    */
   public <T extends AbstractEdmEntity> List<T> update(List<T> dataToAdd, Class<T> clazz,
-      Updater<T> updater, boolean saveNewRecordIfNotFound)
-      throws MongoUpdateException {
+      Updater<T> updater, boolean saveNewRecordIfNotFound) throws MongoUpdateException {
     final List<T> result = new ArrayList<>();
     if (dataToAdd == null) {
       return result;
@@ -129,16 +164,22 @@ class FullBeanDao {
   }
 
   /**
-   * This method updates a Full Bean. If the bean is not already known, this method does nothing.
+   * This method updates a Full Bean. If the bean does not yet exist (i.e. is persisted), this
+   * method does nothing.
    * 
    * @param fullBean The Full Bean to update.
-   * @return The persisted version of the Full Bean.
+   * @return The persisted version of the Full Bean. Or null if the bean does not exist.
+   * @throws IndexingException In case the full bean does not have an 'about' value.
    */
-  public FullBeanImpl updateFullBean(FullBeanImpl fullBean) {
+  public FullBeanImpl updateFullBean(FullBeanImpl fullBean) throws IndexingException {
+
+    final String persistedAboutValue = getPersistedAbout(fullBean);
+    if (persistedAboutValue == null) {
+      return null;
+    }
 
     Query<FullBeanImpl> updateQuery = mongoServer.getDatastore().createQuery(FullBeanImpl.class)
-        .field(ABOUT_FIELD).equal(fullBean.getAbout().replace("/item", ""));
-
+        .field(ABOUT_FIELD).equal(persistedAboutValue);
     UpdateOperations<FullBeanImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(FullBeanImpl.class);
 
@@ -173,7 +214,7 @@ class FullBeanDao {
     ops.set("europeanaCollectionName", fullBean.getEuropeanaCollectionName());
 
     mongoServer.getDatastore().update(updateQuery, ops);
-    
-    return get(FullBeanImpl.class, fullBean.getAbout());
+
+    return get(FullBeanImpl.class, persistedAboutValue);
   }
 }
