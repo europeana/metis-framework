@@ -142,7 +142,7 @@ public class TestWorkflowExecutorManager {
     when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
     doNothing().when(rabbitmqChannel).basicAck(envelope.getDeliveryTag(), false);
 
-    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager, workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties,
         objectId.getBytes("UTF-8"));
   }
@@ -161,7 +161,7 @@ public class TestWorkflowExecutorManager {
     when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
     doNothing().when(rabbitmqChannel).basicAck(envelope.getDeliveryTag(), false);
 
-    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager, workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties,
         objectId.getBytes("UTF-8"));
 
@@ -212,7 +212,7 @@ public class TestWorkflowExecutorManager {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
     when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager, workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
     Awaitility.await().atMost(30, TimeUnit.SECONDS)
@@ -270,7 +270,7 @@ public class TestWorkflowExecutorManager {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
     when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager, workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
     assertEquals(2, queueConsumer.getThreadsCounter());
@@ -326,7 +326,7 @@ public class TestWorkflowExecutorManager {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
     when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager);
+    QueueConsumer queueConsumer = new QueueConsumer(workflowExecutorManager, workflowExecutorManager);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
 

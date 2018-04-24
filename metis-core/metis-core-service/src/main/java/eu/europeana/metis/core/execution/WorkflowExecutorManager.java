@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * @since 2017-05-30
  */
 @Component
-public class WorkflowExecutorManager {
+public class WorkflowExecutorManager extends PersistenceProvider implements WorkflowExecutionSettings {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutorManager.class);
   private static final int DEFAULT_MAX_CONCURRENT_THREADS = 10;
@@ -29,14 +29,11 @@ public class WorkflowExecutorManager {
   private int maxConcurrentThreads = DEFAULT_MAX_CONCURRENT_THREADS; //Use setter otherwise default
   private int monitorCheckIntervalInSecs = DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS; //Use setter otherwise default
   private int pollingTimeoutForCleaningCompletionServiceInSecs = DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS; //Use setter otherwise default
-  private final Channel rabbitmqChannel;
-  private String rabbitmqQueueName; //Initialize with setter
 
-  private final WorkflowExecutionDao workflowExecutionDao;
-  private final RedissonClient redissonClient;
-  private final DpsClient dpsClient;
+  private String rabbitmqQueueName; //Initialize with setter
   private String ecloudBaseUrl; //Initialize with setter
   private String ecloudProvider; //Initialize with setter
+  
   private QueueConsumer queueConsumer;
 
   /**
@@ -51,11 +48,8 @@ public class WorkflowExecutorManager {
   public WorkflowExecutorManager(
       WorkflowExecutionDao workflowExecutionDao, Channel rabbitmqChannel,
       RedissonClient redissonClient, DpsClient dpsClient) {
-    this.workflowExecutionDao = workflowExecutionDao;
-    this.rabbitmqChannel = rabbitmqChannel;
-    this.redissonClient = redissonClient;
-    this.dpsClient = dpsClient;
-    queueConsumer = new QueueConsumer(this); //Keep the reference to be able to close the resources on shutdown
+    super(rabbitmqChannel, workflowExecutionDao, redissonClient, dpsClient);
+    queueConsumer = new QueueConsumer(this, this); //Keep the reference to be able to close the resources on shutdown
   }
 
   /**
@@ -65,9 +59,9 @@ public class WorkflowExecutorManager {
    */
   public void initiateConsumer() throws IOException {
     //For correct priority. Keep in mind this pre-fetches a message before going into handleDelivery
-    rabbitmqChannel.basicQos(1);
+    getRabbitmqChannel().basicQos(1);
     //Auto acknowledge false(second parameter) because of Qos.
-    rabbitmqChannel.basicConsume(rabbitmqQueueName, false, queueConsumer);
+    getRabbitmqChannel().basicConsume(rabbitmqQueueName, false, queueConsumer);
   }
 
   /**
@@ -85,7 +79,7 @@ public class WorkflowExecutorManager {
           .build();
       try {
         //First parameter is the ExchangeName which is not used
-        rabbitmqChannel.basicPublish("", rabbitmqQueueName, basicProperties,
+        getRabbitmqChannel().basicPublish("", rabbitmqQueueName, basicProperties,
             userWorkflowExecutionObjectId.getBytes(StandardCharsets.UTF_8));
       } catch (IOException e) {
         LOGGER.error("WorkflowExecution with objectId: {} not added in queue..",
@@ -110,10 +104,6 @@ public class WorkflowExecutorManager {
     this.ecloudProvider = ecloudProvider;
   }
 
-  public int getMonitorCheckIntervalInSecs() {
-    return monitorCheckIntervalInSecs;
-  }
-
   public void setMonitorCheckIntervalInSecs(int monitorCheckIntervalInSecs) {
     this.monitorCheckIntervalInSecs = monitorCheckIntervalInSecs;
   }
@@ -123,35 +113,28 @@ public class WorkflowExecutorManager {
     this.pollingTimeoutForCleaningCompletionServiceInSecs = pollingTimeoutForCleaningCompletionServiceInSecs;
   }
 
-  int getMaxConcurrentThreads() {
+  @Override
+  public int getMonitorCheckIntervalInSecs() {
+    return monitorCheckIntervalInSecs;
+  }
+
+  @Override
+  public int getMaxConcurrentThreads() {
     return maxConcurrentThreads;
   }
 
-  int getPollingTimeoutForCleaningCompletionServiceInSecs() {
+  @Override
+  public int getPollingTimeoutForCleaningCompletionServiceInSecs() {
     return pollingTimeoutForCleaningCompletionServiceInSecs;
   }
 
-  public WorkflowExecutionDao getWorkflowExecutionDao() {
-    return workflowExecutionDao;
-  }
-
-  DpsClient getDpsClient() {
-    return dpsClient;
-  }
-
-  public RedissonClient getRedissonClient() {
-    return redissonClient;
-  }
-
-  Channel getRabbitmqChannel() {
-    return rabbitmqChannel;
-  }
-
-  String getEcloudBaseUrl() {
+  @Override
+  public String getEcloudBaseUrl() {
     return ecloudBaseUrl;
   }
 
-  String getEcloudProvider() {
+  @Override
+  public String getEcloudProvider() {
     return ecloudProvider;
   }
 

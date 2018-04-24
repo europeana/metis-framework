@@ -21,17 +21,21 @@ import org.slf4j.LoggerFactory;
 public class QueueConsumer extends DefaultConsumer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(QueueConsumer.class);
-  private final WorkflowExecutorManager workflowExecutorManager;
+  
+  private final WorkflowExecutionSettings workflowExecutionSettings;
+  private final PersistenceProvider persistenceProvider;
 
   private final ExecutorService threadPool;
   private final ExecutorCompletionService<WorkflowExecution> completionService;
   private int threadsCounter;
 
-  QueueConsumer(WorkflowExecutorManager workflowExecutorManager) {
-    super(workflowExecutorManager.getRabbitmqChannel());
-    this.workflowExecutorManager = workflowExecutorManager;
+  QueueConsumer(WorkflowExecutionSettings workflowExecutionSettings,
+      PersistenceProvider persistenceProvider) {
+    super(persistenceProvider.getRabbitmqChannel());
+    this.workflowExecutionSettings = workflowExecutionSettings;
+    this.persistenceProvider = persistenceProvider;
     threadPool = Executors
-        .newFixedThreadPool(this.workflowExecutorManager.getMaxConcurrentThreads());
+        .newFixedThreadPool(this.workflowExecutionSettings.getMaxConcurrentThreads());
     completionService = new ExecutorCompletionService<>(threadPool);
   }
 
@@ -42,39 +46,39 @@ public class QueueConsumer extends DefaultConsumer {
     String objectId = new String(body, StandardCharsets.UTF_8);
     LOGGER.info("WorkflowExecution id: {} received from queue.", objectId);
     //Clean thread pool, some executions might have already finished
-    if (threadsCounter >= workflowExecutorManager.getMaxConcurrentThreads()) {
+    if (threadsCounter >= workflowExecutionSettings.getMaxConcurrentThreads()) {
       LOGGER.debug(
           "Trying to clean thread pool, found thread pool full with threadsCounter: {}, maxConcurrentThreads: {}",
-          threadsCounter, workflowExecutorManager.getMaxConcurrentThreads());
+          threadsCounter, workflowExecutionSettings.getMaxConcurrentThreads());
       checkAndCleanCompletionService();
     }
 
-    WorkflowExecution workflowExecution = workflowExecutorManager.getWorkflowExecutionDao()
+    WorkflowExecution workflowExecution = persistenceProvider.getWorkflowExecutionDao()
         .getById(objectId);
     //If the thread pool is still full, executions are still active. Send the message back to the queue.
-    if (threadsCounter >= workflowExecutorManager.getMaxConcurrentThreads()) {
+    if (threadsCounter >= workflowExecutionSettings.getMaxConcurrentThreads()) {
       //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
       //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
-      workflowExecutorManager.getRabbitmqChannel()
+      persistenceProvider.getRabbitmqChannel()
           .basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
       LOGGER.debug("NACK sent for {} with tag {}", workflowExecution.getId(),
           rabbitmqEnvelope.getDeliveryTag());
     } else {
       if (!workflowExecution.isCancelling()) { //Submit for execution
         WorkflowExecutor workflowExecutor = new WorkflowExecutor(
-            workflowExecution, workflowExecutorManager.getWorkflowExecutionDao(),
-            workflowExecutorManager.getMonitorCheckIntervalInSecs(),
-            workflowExecutorManager.getRedissonClient(), workflowExecutorManager.getDpsClient(),
-            workflowExecutorManager.getEcloudBaseUrl(), workflowExecutorManager.getEcloudProvider());
+            workflowExecution, persistenceProvider.getWorkflowExecutionDao(),
+            workflowExecutionSettings.getMonitorCheckIntervalInSecs(),
+            persistenceProvider.getRedissonClient(), persistenceProvider.getDpsClient(),
+            workflowExecutionSettings.getEcloudBaseUrl(), workflowExecutionSettings.getEcloudProvider());
         completionService.submit(workflowExecutor);
         threadsCounter++;
       } else { //Has been cancelled, do not execute
         workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
-        workflowExecutorManager.getWorkflowExecutionDao().update(workflowExecution);
+        persistenceProvider.getWorkflowExecutionDao().update(workflowExecution);
         LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
             workflowExecution.getId());
       }
-      workflowExecutorManager.getRabbitmqChannel()
+      persistenceProvider.getRabbitmqChannel()
           .basicAck(rabbitmqEnvelope.getDeliveryTag(),
               false);//Send ACK back to remove from queue asap.
       LOGGER.debug("ACK sent for {} with tag {}", workflowExecution.getId(),
@@ -86,7 +90,7 @@ public class QueueConsumer extends DefaultConsumer {
     //Block for a small period and try cleaning up
     try {
       Future<WorkflowExecution> userWorkflowExecutionFuture = completionService
-          .poll(workflowExecutorManager.getPollingTimeoutForCleaningCompletionServiceInSecs(),
+          .poll(workflowExecutionSettings.getPollingTimeoutForCleaningCompletionServiceInSecs(),
               TimeUnit.SECONDS);
       if (userWorkflowExecutionFuture != null) {
         threadsCounter--;
