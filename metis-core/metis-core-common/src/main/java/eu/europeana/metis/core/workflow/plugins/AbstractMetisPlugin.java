@@ -7,10 +7,18 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
+import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.exception.ExternalTaskException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
 import org.slf4j.Logger;
@@ -30,7 +38,8 @@ import org.slf4j.LoggerFactory;
     @JsonSubTypes.Type(value = ValidationInternalPlugin.class, name = "VALIDATION_INTENRAL"),
     @JsonSubTypes.Type(value = TransformationPlugin.class, name = "TRANSFORMATION"),
     @JsonSubTypes.Type(value = ValidationExternalPlugin.class, name = "VALIDATION_EXTERNAL"),
-    @JsonSubTypes.Type(value = EnrichmentPlugin.class, name = "ENRICHMENT")
+    @JsonSubTypes.Type(value = EnrichmentPlugin.class, name = "ENRICHMENT"),
+    @JsonSubTypes.Type(value = MediaProcessPlugin.class, name = "MEDIA_PROCESS")
 })
 @Embedded
 public abstract class AbstractMetisPlugin {
@@ -209,6 +218,38 @@ public abstract class AbstractMetisPlugin {
   Revision createOutputRevisionForExecution(String ecloudProvider) {
     return new Revision(getPluginType().name(), ecloudProvider, getStartedDate(), false, false,
         false);
+  }
+
+  DpsTask createDpsTaskForProcessPlugin(Map<String, String> extraParameters, String ecloudBaseUrl,
+      String ecloudProvider,
+      String ecloudDataset) {
+    DpsTask dpsTask = new DpsTask();
+
+    Map<InputDataType, List<String>> inputDataTypeListHashMap = new EnumMap<>(
+        InputDataType.class);
+    inputDataTypeListHashMap.put(InputDataType.DATASET_URLS,
+        Collections.singletonList(
+            String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+                ecloudBaseUrl, ecloudProvider, ecloudDataset)));
+    dpsTask.setInputData(inputDataTypeListHashMap);
+
+    Map<String, String> parameters = new HashMap<>();
+    if (extraParameters != null) {
+      parameters.putAll(extraParameters);
+    }
+    parameters.put("REPRESENTATION_NAME", getRepresentationName());
+    parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
+    parameters.put("REVISION_PROVIDER", ecloudProvider);
+    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT);
+    parameters.put("REVISION_TIMESTAMP",
+        dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
+    parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
+    parameters.put("OUTPUT_DATA_SETS",
+        String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+            ecloudBaseUrl, ecloudProvider, ecloudDataset));
+    dpsTask.setParameters(parameters);
+    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider));
+    return dpsTask;
   }
 
   /**

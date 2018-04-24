@@ -4,28 +4,28 @@ import eu.europeana.cloud.service.dps.DpsTask;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-26
+ * @since 2018-04-20
  */
-public class EnrichmentPlugin extends AbstractMetisPlugin {
+public class MediaProcessPlugin extends AbstractMetisPlugin {
 
-  private final String topologyName = Topology.ENRICHMENT.getTopologyName();
+  private final String topologyName = Topology.MEDIA_PROCESS.getTopologyName();
 
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  public EnrichmentPlugin() {
+  public MediaProcessPlugin() {
     //Required for json serialization
-    super(PluginType.ENRICHMENT);
+    super(PluginType.MEDIA_PROCESS);
   }
 
   /**
    * Constructor to initialize the plugin with pluginMetadata.
    * <p>Initializes the {@link #pluginType} as well.</p>
    *
-   * @param pluginMetadata should be {@link EnrichmentPluginMetadata}
+   * @param pluginMetadata should be {@link MediaProcessPluginMetadata}
    */
-  public EnrichmentPlugin(AbstractMetisPluginMetadata pluginMetadata) {
-    super(PluginType.ENRICHMENT, pluginMetadata);
+  public MediaProcessPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+    super(PluginType.MEDIA_PROCESS, pluginMetadata);
   }
 
   @Override
@@ -37,4 +37,5 @@ public class EnrichmentPlugin extends AbstractMetisPlugin {
   DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
     return createDpsTaskForProcessPlugin(null, ecloudBaseUrl, ecloudProvider, ecloudDataset);
   }
+
 }

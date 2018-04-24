@@ -16,7 +16,7 @@ public final class ExecutionRules {
       .of(PluginType.OAIPMH_HARVEST, PluginType.HTTP_HARVEST);
   private static final Set<PluginType> PROCESS_PLUGIN_GROUP = EnumSet
       .of(PluginType.VALIDATION_EXTERNAL, PluginType.TRANSFORMATION,
-          PluginType.VALIDATION_INTERNAL, PluginType.ENRICHMENT);
+          PluginType.VALIDATION_INTERNAL, PluginType.ENRICHMENT, PluginType.MEDIA_PROCESS);
   private static final Set<PluginType> INDEX_PLUGIN_GROUP = EnumSet.of(PluginType.PREVIEW);
 
   private ExecutionRules() {
@@ -73,6 +73,9 @@ public final class ExecutionRules {
         break;
       case ENRICHMENT:
         latestPreviousPluginTypesSet = EnumSet.of(PluginType.VALIDATION_INTERNAL);
+        break;
+      case MEDIA_PROCESS:
+        latestPreviousPluginTypesSet = EnumSet.of(PluginType.ENRICHMENT);
         break;
       default:
         break;

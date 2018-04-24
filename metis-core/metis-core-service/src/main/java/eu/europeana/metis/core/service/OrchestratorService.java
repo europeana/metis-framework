@@ -25,6 +25,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.MediaProcessPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
@@ -297,6 +298,8 @@ public class OrchestratorService {
         firstPluginDefined, PluginType.VALIDATION_INTERNAL);
     firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.ENRICHMENT);
+    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+        firstPluginDefined, PluginType.MEDIA_PROCESS);
     return firstPluginDefined;
   }
 
@@ -321,6 +324,8 @@ public class OrchestratorService {
         abstractMetisPlugin = new ValidationInternalPlugin(pluginMetadata);
       } else if (pluginType == PluginType.ENRICHMENT) {
         abstractMetisPlugin = new EnrichmentPlugin(pluginMetadata);
+      } else if (pluginType == PluginType.MEDIA_PROCESS) {
+        abstractMetisPlugin = new MediaProcessPlugin(pluginMetadata);
       } else {
         //This is practically impossible to happen since the pluginMetadata has to be valid in the Workflow using a pluginType, before reaching this state.
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
