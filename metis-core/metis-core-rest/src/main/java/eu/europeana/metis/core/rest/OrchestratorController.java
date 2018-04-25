@@ -69,7 +69,7 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void createWorkflow(@PathVariable("datasetId") int datasetId,
+  public void createWorkflow(@PathVariable("datasetId") String datasetId,
       @RequestBody Workflow workflow)
       throws GenericMetisException {
     orchestratorService.createWorkflow(datasetId, workflow);
@@ -92,7 +92,7 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public void updateWorkflow(@PathVariable("datasetId") int datasetId,
+  public void updateWorkflow(@PathVariable("datasetId") String datasetId,
       @RequestBody Workflow workflow) throws GenericMetisException {
     orchestratorService.updateWorkflow(datasetId, workflow);
   }
@@ -104,7 +104,7 @@ public class OrchestratorController {
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteWorkflow(@PathVariable("datasetId") int datasetId) {
+  public void deleteWorkflow(@PathVariable("datasetId") String datasetId) {
     orchestratorService.deleteWorkflow(datasetId);
     LOGGER.info("Workflow with datasetId '{}' deleted",
         datasetId);
@@ -120,7 +120,7 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public Workflow getWorkflow(@PathVariable("datasetId") int datasetId) {
+  public Workflow getWorkflow(@PathVariable("datasetId") String datasetId) {
     Workflow workflow = orchestratorService.getWorkflow(datasetId);
     LOGGER.info("Workflow with datasetId '{}' found", datasetId);
     return workflow;
@@ -184,7 +184,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
-      @PathVariable("datasetId") int datasetId,
+      @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws GenericMetisException {
@@ -254,7 +254,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
-      @PathVariable("datasetId") int datasetId,
+      @PathVariable("datasetId") String datasetId,
       @RequestParam("pluginType") PluginType pluginType,
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType)
       throws GenericMetisException {
@@ -281,7 +281,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public DatasetExecutionInformation getDatasetExecutionInformation(
-      @PathVariable("datasetId") int datasetId) {
+      @PathVariable("datasetId") String datasetId) {
     LOGGER.info("Requesting dataset execution information for datasetId: {}", datasetId);
     return orchestratorService.getDatasetExecutionInformation(datasetId);
   }
@@ -306,7 +306,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(
-      @PathVariable("datasetId") int datasetId,
+      @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "workflowOwner", required = false) String workflowOwner,
       @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
       @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
@@ -357,7 +357,7 @@ public class OrchestratorController {
     }
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllWorkflowExecutions(-1, workflowOwner, workflowStatuses,
+            .getAllWorkflowExecutions(null, workflowOwner, workflowStatuses,
                 orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",

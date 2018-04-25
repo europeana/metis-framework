@@ -38,7 +38,7 @@ public final class ExecutionRules {
    */
   public static AbstractMetisPlugin getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
       PluginType pluginType, PluginType enforcedPluginType,
-      int datasetId,
+      String datasetId,
       WorkflowExecutionDao workflowExecutionDao) {
     AbstractMetisPlugin abstractMetisPlugin = null;
     if (enforcedPluginType != null) {
@@ -56,9 +56,7 @@ public final class ExecutionRules {
   }
 
   private static AbstractMetisPlugin getLatestFinishedPluginAllowedForExecutionProcess(
-      PluginType pluginType,
-      int datasetId,
-      WorkflowExecutionDao workflowExecutionDao) {
+      PluginType pluginType, String datasetId, WorkflowExecutionDao workflowExecutionDao) {
 
     AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = null;
 

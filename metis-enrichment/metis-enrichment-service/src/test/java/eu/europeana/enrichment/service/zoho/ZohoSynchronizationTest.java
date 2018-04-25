@@ -30,7 +30,7 @@ import eu.europeana.metis.authentication.dao.ZohoApiFields;
  *
  */
 @Ignore
-public class ZohoSynchronizationTest extends BaseZohoAccessTest {
+public class ZohoSynchronizationTest extends BaseZohoAccessSetup {
 
   String mongoHost;
   int mongoPort;

@@ -30,7 +30,7 @@ import eu.europeana.metis.authentication.dao.ZohoApiFields;
  *
  */
 @Ignore
-public class ZohoAccessServiceTest extends BaseZohoAccessTest {
+public class ZohoAccessServiceTest extends BaseZohoAccessSetup {
 
 	@Before
 	public void setUp() throws Exception {

@@ -26,7 +26,6 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
  * @author GrafR
  *
  */
-// @Ignore
 public class EntityConverterUtilsTest { 
 
   final String WIKIDATA_TEST_OUTPUT_FILE = "test.out";

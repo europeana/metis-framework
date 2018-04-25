@@ -161,21 +161,21 @@ public class TestDatasetDao {
     //add some required fields (indexed)
     ds1.setProvider("myProvider");
     ds1.setEcloudDatasetId("id1");
-    ds1.setDatasetId(TestObjectFactory.DATASETID + 1);
+    ds1.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 1));
     datasetDao.create(ds1);
 
     Dataset ds2 = TestObjectFactory.createDataset("dataset2");
     //add some required fields (indexed)
     ds2.setProvider("myProvider");
     ds2.setEcloudDatasetId("id2");
-    ds2.setDatasetId(TestObjectFactory.DATASETID + 2);
+    ds2.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 2));
     datasetDao.create(ds2);
 
     Dataset ds3 = TestObjectFactory.createDataset("dataset3");
     //add some required fields (indexed)
     ds3.setProvider("otherProvider");
     ds3.setEcloudDatasetId("id3");
-    ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
+    ds3.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 3));
     datasetDao.create(ds3);
 
     int nextPage = 0;
@@ -198,21 +198,21 @@ public class TestDatasetDao {
     //add some required fields (indexed)
     ds1.setIntermediateProvider("myProvider");
     ds1.setEcloudDatasetId("id1");
-    ds1.setDatasetId(TestObjectFactory.DATASETID + 1);
+    ds1.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 1));
     datasetDao.create(ds1);
 
     Dataset ds2 = TestObjectFactory.createDataset("dataset2");
     //add some required fields (indexed)
     ds2.setIntermediateProvider("myProvider");
     ds2.setEcloudDatasetId("id2");
-    ds2.setDatasetId(TestObjectFactory.DATASETID + 2);
+    ds2.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 2));
     datasetDao.create(ds2);
 
     Dataset ds3 = TestObjectFactory.createDataset("dataset3");
     //add some required fields (indexed)
     ds3.setIntermediateProvider("otherProvider");
     ds3.setEcloudDatasetId("id3");
-    ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
+    ds3.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 3));
     datasetDao.create(ds3);
 
     int nextPage = 0;
@@ -235,21 +235,21 @@ public class TestDatasetDao {
     //add some required fields (indexed)
     ds1.setDataProvider("myProvider");
     ds1.setEcloudDatasetId("id1");
-    ds1.setDatasetId(TestObjectFactory.DATASETID + 1);
+    ds1.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 1));
     datasetDao.create(ds1);
 
     Dataset ds2 = TestObjectFactory.createDataset("dataset2");
     //add some required fields (indexed)
     ds2.setDataProvider("myProvider");
     ds2.setEcloudDatasetId("id2");
-    ds2.setDatasetId(TestObjectFactory.DATASETID + 2);
+    ds2.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 2));
     datasetDao.create(ds2);
 
     Dataset ds3 = TestObjectFactory.createDataset("dataset3");
     //add some required fields (indexed)
     ds3.setDataProvider("otherProvider");
     ds3.setEcloudDatasetId("id3");
-    ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
+    ds3.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 3));
     datasetDao.create(ds3);
 
     int nextPage = 0;
@@ -272,21 +272,21 @@ public class TestDatasetDao {
     //add some required fields (indexed)
     ds1.setOrganizationId("organizationId1");
     ds1.setEcloudDatasetId("id1");
-    ds1.setDatasetId(TestObjectFactory.DATASETID + 1);
+    ds1.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 1));
     datasetDao.create(ds1);
 
     Dataset ds2 = TestObjectFactory.createDataset("dataset2");
     //add some required fields (indexed)
     ds2.setOrganizationId("organizationId1");
     ds2.setEcloudDatasetId("id2");
-    ds2.setDatasetId(TestObjectFactory.DATASETID + 2);
+    ds2.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 2));
     datasetDao.create(ds2);
 
     Dataset ds3 = TestObjectFactory.createDataset("dataset3");
     //add some required fields (indexed)
     ds3.setOrganizationId("organizationId2");
     ds3.setEcloudDatasetId("id3");
-    ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
+    ds3.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 3));
     datasetDao.create(ds3);
 
     int nextPage = 0;
@@ -309,21 +309,21 @@ public class TestDatasetDao {
     //add some required fields (indexed)
     ds1.setOrganizationName("organizationName1");
     ds1.setEcloudDatasetId("id1");
-    ds1.setDatasetId(TestObjectFactory.DATASETID + 1);
+    ds1.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 1));
     datasetDao.create(ds1);
 
     Dataset ds2 = TestObjectFactory.createDataset("dataset2");
     //add some required fields (indexed)
     ds2.setOrganizationName("organizationName1");
     ds2.setEcloudDatasetId("id2");
-    ds2.setDatasetId(TestObjectFactory.DATASETID + 2);
+    ds2.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 2));
     datasetDao.create(ds2);
 
     Dataset ds3 = TestObjectFactory.createDataset("dataset3");
     //add some required fields (indexed)
     ds3.setOrganizationName("organizationName2");
     ds3.setEcloudDatasetId("id3");
-    ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
+    ds3.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 3));
     datasetDao.create(ds3);
 
     int nextPage = 0;
@@ -349,7 +349,7 @@ public class TestDatasetDao {
     assertEquals(1, nextInSequenceDatasetId);
 
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setDatasetId(2);
+    dataset.setDatasetId("2");
     datasetDao.create(dataset);
 
     nextInSequenceDatasetId = datasetDao.findNextInSequenceDatasetId();

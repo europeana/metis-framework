@@ -8,6 +8,10 @@ public class Record {
   private String ecloudId;
   private String xmlRecord;
 
+  public Record() {
+    //Required for json serialization
+  }
+
   /**
    * Constructore with the required arguments
    * @param ecloudId the ecloudId representing the record

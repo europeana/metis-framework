@@ -177,11 +177,11 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorService
         .deleteWorkflow(workflow.getDatasetId());
-    ArgumentCaptor<Integer> workflowDatasetIdArgumentCaptor = ArgumentCaptor
-        .forClass(Integer.class);
+    ArgumentCaptor<String> workflowDatasetIdArgumentCaptor = ArgumentCaptor
+        .forClass(String.class);
     verify(workflowDao, times(1)).deleteWorkflow(workflowDatasetIdArgumentCaptor.capture());
     Assert.assertEquals(workflow.getDatasetId(),
-        workflowDatasetIdArgumentCaptor.getValue().intValue());
+        workflowDatasetIdArgumentCaptor.getValue());
   }
 
   @Test
@@ -223,7 +223,7 @@ public class TestOrchestratorService {
     String objectId = new ObjectId().toString();
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
     datasetXslt.setId(new ObjectId(TestObjectFactory.XSLTID));
-    when(datasetXsltDao.getLatestXsltForDatasetId(-1)).thenReturn(datasetXslt);
+    when(datasetXsltDao.getLatestXsltForDatasetId("-1")).thenReturn(datasetXslt);
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
@@ -379,9 +379,9 @@ public class TestOrchestratorService {
   @Test(expected = NoDatasetFoundException.class)
   public void addWorkflowInQueueOfWorkflowExecutions_NoDatasetFoundException()
       throws Exception {
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(null);
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID, null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(Integer.toString(TestObjectFactory.DATASETID), null, 0);
   }
 
   @Test(expected = NoWorkflowFoundException.class)
@@ -389,10 +389,10 @@ public class TestOrchestratorService {
       throws Exception {
 
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(null);
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID, null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(Integer.toString(TestObjectFactory.DATASETID), null, 0);
   }
 
   @Test(expected = WorkflowExecutionAlreadyExistsException.class)
@@ -400,13 +400,13 @@ public class TestOrchestratorService {
       throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
-    when(workflowDao.getWorkflow(TestObjectFactory.DATASETID)).thenReturn(workflow);
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()))
         .thenReturn(new ObjectId().toString());
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID, null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(Integer.toString(TestObjectFactory.DATASETID), null, 0);
   }
 
   @Test
@@ -465,7 +465,7 @@ public class TestOrchestratorService {
       throws Exception {
     Assert.assertNull(orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            TestObjectFactory.DATASETID, PluginType.OAIPMH_HARVEST, null));
+            Integer.toString(TestObjectFactory.DATASETID), PluginType.OAIPMH_HARVEST, null));
   }
 
   @Test
@@ -476,43 +476,43 @@ public class TestOrchestratorService {
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     Assert.assertEquals(PluginType.OAIPMH_HARVEST, orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL, null).getPluginType());
+            Integer.toString(TestObjectFactory.DATASETID), PluginType.VALIDATION_EXTERNAL, null).getPluginType());
   }
 
   @Test(expected = PluginExecutionNotAllowed.class)
   public void getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution_PluginExecutionNotAllowed()
       throws Exception {
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             ExecutionRules.getHarvestPluginGroup())).thenReturn(null);
     orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL, null);
+            Integer.toString(TestObjectFactory.DATASETID), PluginType.VALIDATION_EXTERNAL, null);
   }
 
   @Test(expected = PluginExecutionNotAllowed.class)
   public void getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution_PluginExecutionNotAllowed_ProcessedRecordSameAsErrors()
       throws Exception {
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             ExecutionRules.getHarvestPluginGroup())).thenReturn(new OaipmhHarvestPlugin());
     orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL, null);
+            Integer.toString(TestObjectFactory.DATASETID), PluginType.VALIDATION_EXTERNAL, null);
   }
 
   @Test
   public void getAllWorkflowExecutionsByDatasetId() {
     HashSet<WorkflowStatus> workflowStatuses = new HashSet<>();
     workflowStatuses.add(WorkflowStatus.INQUEUE);
-    orchestratorService.getAllWorkflowExecutions(TestObjectFactory.DATASETID,
+    orchestratorService.getAllWorkflowExecutions(Integer.toString(TestObjectFactory.DATASETID),
         TestObjectFactory.WORKFLOWOWNER, workflowStatuses, OrderField.ID, false, 0);
     verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutions(anyInt(), anyString(), anySet(),
+        .getAllWorkflowExecutions(anyString(), anyString(), anySet(),
             any(OrderField.class), anyBoolean(), anyInt());
     verifyNoMoreInteractions(workflowExecutionDao);
   }
@@ -536,21 +536,21 @@ public class TestOrchestratorService {
     lastPublishPlugin.setExecutionProgress(executionProgress);
 
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet
                 .of(PluginType.HTTP_HARVEST, PluginType.OAIPMH_HARVEST)))
         .thenReturn(oaipmhHarvestPlugin);
     when(workflowExecutionDao
         .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-            TestObjectFactory.DATASETID, EnumSet
+            Integer.toString(TestObjectFactory.DATASETID), EnumSet
                 .of(PluginType.PUBLISH))).thenReturn(firstPublishPlugin);
     when(workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet
                 .of(PluginType.PUBLISH))).thenReturn(lastPublishPlugin);
 
     DatasetExecutionInformation datasetExecutionInformation = orchestratorService
-        .getDatasetExecutionInformation(TestObjectFactory.DATASETID);
+        .getDatasetExecutionInformation(Integer.toString(TestObjectFactory.DATASETID));
 
     Assert.assertEquals(oaipmhHarvestPlugin.getFinishedDate(),
         datasetExecutionInformation.getLastHarvestedDate());

@@ -17,7 +17,7 @@ import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
 import eu.europeana.enrichment.service.exception.EntityConverterException;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 
-public abstract class BaseZohoAccessTest {
+public abstract class BaseZohoAccessSetup {
 
   public final String CONTENT_DIR = "/content/";
   public final String ZOHO_TEST_INPUT_FILE = CONTENT_DIR + "bnf-zoho.json";
@@ -27,26 +27,22 @@ public abstract class BaseZohoAccessTest {
   public final String WIKIDATA_TEST_OUTPUT_FILE = CONTENT_DIR + "test.out";
   public final String WIKIDATA_ORGANIZATION_XSLT_TEMPLATE = CONTENT_DIR + "wkd2org.xsl";
   public final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
+  protected final String TEST_ORGANIZATION_ID = "1482250000002112001";
+  
   public final String TEST_BNF_URL = "http://data.europeana.eu/organization/1482250000002112001";
   public final String TEST_BNF_URL_TMP_1 = "http://data.europeana.eu/organization/1482250000002112222";
   public final String TEST_BNF_URL_TMP_2 = "http://data.europeana.eu/organization/1482250000002112223";
   public final String TEST_BNF_PREF_LABEL_1 = "Test BnF 1";
   public final String TEST_BNF_PREF_LABEL_2 = "Test BnF 2";
 
-  
+  protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
+
   protected ZohoAccessService zohoAccessService;
   ZohoAccessClientDao zohoAccessClientDao;
   ZohoV2AccessDao zohoV2AccessDao;
 
   EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
   
-  public EntityConverterUtils getEntityConverterUtils() {
-    return entityConverterUtils;
-  }
-  
-  final Logger LOGGER = LoggerFactory.getLogger(getClass());
-  protected final String TEST_ORGANIZATION_ID = "1482250000002112001";
-
   public void setUp() throws Exception {
     // TODO use constant for authentication properties, if possible in a
     // common interface an reuse it everywhere
@@ -57,8 +53,13 @@ public abstract class BaseZohoAccessTest {
         appProps.getProperty("zoho.authentication.token"));
     zohoV2AccessDao = new ZohoV2AccessDao(appProps.getProperty("zoho.base.url.v2"),
         appProps.getProperty("zoho.authentication.token"));
-    zohoAccessService = new ZohoAccessService(zohoAccessClientDao, zohoV2AccessDao);
+    zohoAccessService = new ZohoAccessService(zohoAccessClientDao, zohoV2AccessDao); 
   }
+  
+  public EntityConverterUtils getEntityConverterUtils() {
+	    return entityConverterUtils;
+	  }
+
 
   protected Properties loadProperties(String propertiesFile)
       throws URISyntaxException, IOException, FileNotFoundException {

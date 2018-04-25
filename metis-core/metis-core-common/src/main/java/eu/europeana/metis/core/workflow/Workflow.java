@@ -32,7 +32,7 @@ public class Workflow implements HasMongoObjectId {
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
-  private int datasetId;
+  private String datasetId;
   @Indexed
   private String workflowOwner;
 
@@ -51,11 +51,11 @@ public class Workflow implements HasMongoObjectId {
     this.id = id;
   }
 
-  public int getDatasetId() {
+  public String getDatasetId() {
     return datasetId;
   }
 
-  public void setDatasetId(int datasetId) {
+  public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
   }
 

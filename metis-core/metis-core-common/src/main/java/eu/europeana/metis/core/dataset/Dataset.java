@@ -31,7 +31,7 @@ public class Dataset implements HasMongoObjectId {
   @Indexed(options = @IndexOptions(unique = true))
   private String ecloudDatasetId;
 
-  private int datasetId;
+  private String datasetId;
 
   @Indexed
   private String datasetName;
@@ -93,11 +93,11 @@ public class Dataset implements HasMongoObjectId {
     this.ecloudDatasetId = ecloudDatasetId;
   }
 
-  public int getDatasetId() {
+  public String getDatasetId() {
     return datasetId;
   }
 
-  public void setDatasetId(int datasetId) {
+  public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
   }
 

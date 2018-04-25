@@ -1,18 +1,23 @@
 package eu.europeana.metis.core.service;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -25,22 +30,32 @@ import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
+import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 public class TestDatasetService {
+
+  @Rule
+  public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8080));
 
   private DatasetDao datasetDao;
   private DatasetXsltDao datasetXsltDao;
@@ -64,6 +79,7 @@ public class TestDatasetService {
     datasetService = new DatasetService(datasetDao, datasetXsltDao, workflowDao,
         workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
+    datasetService.setMetisCoreUrl("http://localhost:8080");
   }
 
   @Test
@@ -125,13 +141,16 @@ public class TestDatasetService {
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
     when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.XSLTID);
-    datasetService.updateDataset(metisUser, dataset, TestObjectFactory.createXslt(TestObjectFactory.createDataset(dataset.getDatasetName())).getXslt());
+    datasetService.updateDataset(metisUser, dataset,
+        TestObjectFactory.createXslt(TestObjectFactory.createDataset(dataset.getDatasetName()))
+            .getXslt());
 
     ArgumentCaptor<Dataset> dataSetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
     verify(datasetDao, times(1)).update(dataSetArgumentCaptor.capture());
     assertEquals(dataset.getProvider(), dataSetArgumentCaptor.getValue().getProvider());
     assertEquals(dataset.getUpdatedDate(), dataSetArgumentCaptor.getValue().getUpdatedDate());
-    assertEquals(storedDataset.getCreatedByUserId(), dataSetArgumentCaptor.getValue().getCreatedByUserId());
+    assertEquals(storedDataset.getCreatedByUserId(),
+        dataSetArgumentCaptor.getValue().getCreatedByUserId());
     assertNotEquals(storedDataset.getUpdatedDate(),
         dataSetArgumentCaptor.getValue().getUpdatedDate());
   }
@@ -154,7 +173,8 @@ public class TestDatasetService {
     verify(datasetDao, times(1)).update(dataSetArgumentCaptor.capture());
     assertEquals(dataset.getProvider(), dataSetArgumentCaptor.getValue().getProvider());
     assertEquals(dataset.getUpdatedDate(), dataSetArgumentCaptor.getValue().getUpdatedDate());
-    assertEquals(storedDataset.getCreatedByUserId(), dataSetArgumentCaptor.getValue().getCreatedByUserId());
+    assertEquals(storedDataset.getCreatedByUserId(),
+        dataSetArgumentCaptor.getValue().getCreatedByUserId());
     assertNotEquals(storedDataset.getUpdatedDate(),
         dataSetArgumentCaptor.getValue().getUpdatedDate());
   }
@@ -189,10 +209,12 @@ public class TestDatasetService {
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
-    Dataset storedDataset = TestObjectFactory.createDataset(String.format("%s%s", TestObjectFactory.DATASETNAME, 10));
+    Dataset storedDataset = TestObjectFactory
+        .createDataset(String.format("%s%s", TestObjectFactory.DATASETNAME, 10));
     storedDataset.setOrganizationId(metisUser.getOrganizationId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
-    when(datasetDao.getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(), dataset.getDatasetName())).thenReturn(new Dataset());
+    when(datasetDao.getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(),
+        dataset.getDatasetName())).thenReturn(new Dataset());
     datasetService.updateDataset(metisUser, dataset, null);
   }
 
@@ -223,28 +245,28 @@ public class TestDatasetService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(workflowExecutionDao.existsAndNotCompleted(TestObjectFactory.DATASETID)).thenReturn(null);
-    datasetService.deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
-    verify(datasetDao, times(1)).deleteByDatasetId(TestObjectFactory.DATASETID);
-    verify(workflowExecutionDao, times(1)).deleteAllByDatasetId(TestObjectFactory.DATASETID);
-    verify(scheduledWorkflowDao, times(1)).deleteAllByDatasetId(TestObjectFactory.DATASETID);
+    when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
+    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+    verify(datasetDao, times(1)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    verify(workflowExecutionDao, times(1)).deleteAllByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    verify(scheduledWorkflowDao, times(1)).deleteAllByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
   }
 
   @Test(expected = UserUnauthorizedException.class)
   public void testDeleteDatasetByDatasetIdUnauthorizedUserAccountRole() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(null);
-    datasetService.deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
-    verify(datasetDao, times(0)).deleteByDatasetId(TestObjectFactory.DATASETID);
+    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+    verify(datasetDao, times(0)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
   }
 
   @Test(expected = NoDatasetFoundException.class)
   public void testDeleteDatasetByDatasetIdNoDatasetFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    when(datasetDao.getDatasetByDatasetId(anyInt())).thenReturn(null);
-    datasetService.deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
-    verify(datasetDao, times(0)).deleteByDatasetId(TestObjectFactory.DATASETID);
+    when(datasetDao.getDatasetByDatasetId(anyString())).thenReturn(null);
+    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+    verify(datasetDao, times(0)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
   }
 
   @Test(expected = UserUnauthorizedException.class)
@@ -253,9 +275,9 @@ public class TestDatasetService {
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(workflowExecutionDao.existsAndNotCompleted(TestObjectFactory.DATASETID)).thenReturn(null);
-    datasetService.deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
-    verify(datasetDao, times(0)).deleteByDatasetId(TestObjectFactory.DATASETID);
+    when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
+    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+    verify(datasetDao, times(0)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
   }
 
   @Test(expected = BadContentException.class)
@@ -265,9 +287,9 @@ public class TestDatasetService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(workflowExecutionDao.existsAndNotCompleted(TestObjectFactory.DATASETID))
+    when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn("ObjectId");
-    datasetService.deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
+    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
   }
 
   @Test
@@ -341,8 +363,8 @@ public class TestDatasetService {
   public void testGetDatasetByDatasetIdNoDatasetFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(null);
-    datasetService.getDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
+    datasetService.getDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
   }
 
   @Test
@@ -385,8 +407,8 @@ public class TestDatasetService {
   public void getDatasetXsltByDatasetIdNoDatasetFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(null);
-    datasetService.getDatasetXsltByDatasetId(metisUser, TestObjectFactory.DATASETID);
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
+    datasetService.getDatasetXsltByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
   }
 
   @Test
@@ -413,10 +435,11 @@ public class TestDatasetService {
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     DatasetXslt datasetXslt = TestObjectFactory
         .createXslt(TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME));
-    datasetXslt.setDatasetId(-1);
+    datasetXslt.setDatasetId("-1");
     when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.XSLTID);
     when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(datasetXslt);
-    DatasetXslt defaultDatasetXslt = datasetService.createDefaultXslt(metisUser, datasetXslt.getXslt());
+    DatasetXslt defaultDatasetXslt = datasetService
+        .createDefaultXslt(metisUser, datasetXslt.getXslt());
     Assert.assertEquals(datasetXslt.getDatasetId(), defaultDatasetXslt.getDatasetId());
   }
 
@@ -433,10 +456,11 @@ public class TestDatasetService {
   public void getLatestXsltForDatasetId() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
-    when(datasetXsltDao.getLatestXsltForDatasetId(TestObjectFactory.DATASETID)).thenReturn(datasetXslt);
+    when(datasetXsltDao.getLatestXsltForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
+        .thenReturn(datasetXslt);
 
     DatasetXslt datasetXsltByDatasetId = datasetService
-        .getLatestXsltForDatasetId(TestObjectFactory.DATASETID);
+        .getLatestXsltForDatasetId(Integer.toString(TestObjectFactory.DATASETID));
     Assert.assertEquals(datasetXslt.getXslt(), datasetXsltByDatasetId.getXslt());
     Assert.assertEquals(datasetXslt.getDatasetId(), datasetXsltByDatasetId.getDatasetId());
   }
@@ -444,7 +468,101 @@ public class TestDatasetService {
   @Test(expected = NoXsltFoundException.class)
   public void getLatestXsltForDatasetIdNoXsltFoundException() throws Exception {
     when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(null);
-    datasetService.getLatestXsltForDatasetId(TestObjectFactory.DATASETID);
+    datasetService.getLatestXsltForDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+  }
+
+  @Test
+  public void transformRecordsUsingLatestDefaultXslt() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    dataset.setOrganizationId(metisUser.getOrganizationId());
+    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
+    when(datasetXsltDao.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID))
+        .thenReturn(datasetXslt);
+    List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
+    listOfRecords.get(0).setXmlRecord("invalid xml");
+
+    String xsltUrl = RestEndpoints
+        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+    wireMockRule.stubFor(get(urlEqualTo(xsltUrl))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "text/plain")
+            .withBody(datasetXslt.getXslt())));
+
+    List<Record> records = datasetService
+        .transformRecordsUsingLatestDefaultXslt(metisUser, dataset.getDatasetId(), listOfRecords);
+    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+    Document doc;
+    Assert.assertTrue(!records.get(0).getXmlRecord().contains("record")); //First record is invalid
+    for (int i = 1; i < records.size(); i++) {
+      doc = dBuilder.parse(new InputSource(new StringReader(records.get(i).getXmlRecord())));
+      Assert.assertEquals(1, doc.getElementsByTagName("record").getLength());
+      Assert.assertEquals(Integer.toString(i),
+          doc.getElementsByTagName("element").item(0).getTextContent());
+    }
+  }
+
+  @Test(expected = NoXsltFoundException.class)
+  public void transformRecordsUsingLatestDefaultXslt_NoXsltFoundException() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    dataset.setOrganizationId(metisUser.getOrganizationId());
+    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    when(datasetXsltDao.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID))
+        .thenReturn(null);
+    List<Record> listOfRecords = TestObjectFactory.createListOfRecords(1);
+    datasetService
+        .transformRecordsUsingLatestDefaultXslt(metisUser, dataset.getDatasetId(), listOfRecords);
+  }
+
+  @Test
+  public void transformRecordsUsingLatestDatasetXslt() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    dataset.setOrganizationId(metisUser.getOrganizationId());
+    dataset.setXsltId(new ObjectId());
+    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
+    when(datasetXsltDao.getById(dataset.getXsltId().toString())).thenReturn(datasetXslt);
+    List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
+
+    String xsltUrl = RestEndpoints
+        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+    wireMockRule.stubFor(get(urlEqualTo(xsltUrl))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "text/plain")
+            .withBody(datasetXslt.getXslt())));
+
+    List<Record> records = datasetService
+        .transformRecordsUsingLatestDatasetXslt(metisUser, dataset.getDatasetId(), listOfRecords);
+    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+    Document doc;
+    for (int i = 0; i < records.size(); i++) {
+      doc = dBuilder.parse(new InputSource(new StringReader(records.get(i).getXmlRecord())));
+      Assert.assertEquals(1, doc.getElementsByTagName("record").getLength());
+      Assert.assertEquals(Integer.toString(i),
+          doc.getElementsByTagName("element").item(0).getTextContent());
+    }
+  }
+
+  @Test(expected = NoXsltFoundException.class)
+  public void transformRecordsUsingLatestDatasetXslt_NoXsltFoundException() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    dataset.setOrganizationId(metisUser.getOrganizationId());
+    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    List<Record> listOfRecords = TestObjectFactory.createListOfRecords(1);
+    datasetService
+        .transformRecordsUsingLatestDatasetXslt(metisUser, dataset.getDatasetId(), listOfRecords);
   }
 
   @Test
@@ -499,7 +617,7 @@ public class TestDatasetService {
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
-    int  nextPage = 1;
+    int nextPage = 1;
     when(datasetDao.getAllDatasetsByDataProvider(provider, nextPage)).thenReturn(list);
     List<Dataset> retList = datasetService
         .getAllDatasetsByDataProvider(metisUser, provider, nextPage);

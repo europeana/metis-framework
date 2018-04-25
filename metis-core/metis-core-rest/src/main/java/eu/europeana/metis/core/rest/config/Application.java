@@ -171,8 +171,11 @@ public class Application extends WebMvcConfigurerAdapter {
   public DatasetService getDatasetService(DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
       WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
-    return new DatasetService(datasetDao, datasetXsltDao, workflowDao, workflowExecutionDao,
+    DatasetService datasetService = new DatasetService(datasetDao, datasetXsltDao, workflowDao,
+        workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
+    datasetService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
+    return datasetService;
   }
 
   /**
