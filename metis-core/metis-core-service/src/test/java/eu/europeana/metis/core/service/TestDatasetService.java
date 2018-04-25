@@ -34,6 +34,8 @@ import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.NetworkUtil;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,8 +56,9 @@ import org.xml.sax.InputSource;
 
 public class TestDatasetService {
 
+  private final int portForWireMock = NetworkUtil.getAvailableLocalPort();
   @Rule
-  public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(8080));
+  public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(portForWireMock));
 
   private DatasetDao datasetDao;
   private DatasetXsltDao datasetXsltDao;
@@ -66,6 +69,9 @@ public class TestDatasetService {
   private RedissonClient redissonClient;
 
   private static final String DATASET_CREATION_LOCK = "datasetCreationLock";
+
+  public TestDatasetService() throws IOException {
+  }
 
   @Before
   public void prepare() {
@@ -79,7 +85,7 @@ public class TestDatasetService {
     datasetService = new DatasetService(datasetDao, datasetXsltDao, workflowDao,
         workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
-    datasetService.setMetisCoreUrl("http://localhost:8080");
+    datasetService.setMetisCoreUrl(String.format("http://localhost:%d", portForWireMock));
   }
 
   @Test

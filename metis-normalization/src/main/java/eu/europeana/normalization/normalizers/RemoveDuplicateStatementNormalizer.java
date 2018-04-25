@@ -1,13 +1,20 @@
 package eu.europeana.normalization.normalizers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.xml.xpath.XPathExpressionException;
+import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import eu.europeana.normalization.model.ConfidenceLevel;
 import eu.europeana.normalization.model.NormalizationReport;
 import eu.europeana.normalization.util.Namespace;
@@ -16,8 +23,20 @@ import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.util.XpathQuery;
 
 /**
+ * <p>
  * This normalizer removes duplicate statements from within the proxy nodes. Only certain statements
- * are considered.
+ * are considered:
+ * <ul>
+ * <li>The title(s) and its alternative(s)</li>
+ * <li>The subject(s)</li>
+ * <li>The identifier(s)</li>
+ * <li>The type(s)</li>
+ * </ul>
+ * Note that only duplicates <b>within</b> these groups are removed. For instance, it will look for
+ * duplicates among all subject statements, but it will not compare any subject statement with a
+ * type statement.
+ * </p>
+ * 
  */
 public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction {
 
@@ -47,11 +66,18 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
 
   @Override
   public NormalizationReport normalize(Document edm) throws NormalizationException {
+
+    // Create the new report.
     final InternalNormalizationReport report = new InternalNormalizationReport();
+
+    // Allocate lists here and clear in the loop: for performance reasons.
     final List<Element> elements = new ArrayList<>();
-    final Set<TextLanguagePair> foundPairs = new HashSet<>();
+    final Set<TextAttributesPair> foundPairs = new HashSet<>();
+
+    // Try each combination separately: we don't want to compare across sets.
     for (XpathQuery[] fieldSet : FIELD_SETS_TO_EVALUATE) {
 
+      // Collect all the elements.
       elements.clear();
       for (XpathQuery query : fieldSet) {
         try {
@@ -61,13 +87,15 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
         }
       }
 
+      // If there are no duplicates because the list is too small, we are done.
       if (elements.size() <= 1) {
         continue;
       }
 
+      // Make inventory of elements for uniqueness. Delete duplicate elements.
       foundPairs.clear();
       for (Element element : elements) {
-        final TextLanguagePair pair = new TextLanguagePair(element);
+        final TextAttributesPair pair = new TextAttributesPair(element);
         if (foundPairs.contains(pair)) {
           element.getParentNode().removeChild(element);
           report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
@@ -77,17 +105,36 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
       }
     }
 
+    // Return report.
     return report;
   }
 
-  private static final class TextLanguagePair {
+  /**
+   * Class that represents an XML element with its attributes. This class can check for equality: an
+   * element is considered equal if it has the same text, as well as exactly the same attributes
+   * with the same values.
+   * 
+   * @author jochen
+   *
+   */
+  static final class TextAttributesPair {
 
     private final String text;
-    private final String language;
+    private Map<String, String> attributes;
 
-    TextLanguagePair(Element element) {
-      this.text = XmlUtil.getElementText(element);
-      this.language = element.getAttributeNS(Namespace.XML.getUri(), "lang");
+    TextAttributesPair(Element element) {
+      this(XmlUtil.getElementText(element), convertToMap(element.getAttributes()));
+    }
+
+    TextAttributesPair(String text, Map<String, String> attributes) {
+      this.text = text == null ? "" : text;
+      this.attributes = attributes == null ? Collections.emptyMap() : attributes;
+    }
+
+    static Map<String, String> convertToMap(NamedNodeMap attributeNodeMap) {
+      return IntStream.range(0, attributeNodeMap.getLength()).mapToObj(attributeNodeMap::item)
+          .map(node -> (Attr) node).filter(node -> StringUtils.isNotBlank(node.getNodeValue()))
+          .collect(Collectors.toMap(Attr::getNodeName, Attr::getNodeValue));
     }
 
     @Override
@@ -95,18 +142,16 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
       if (otherObject == this) {
         return true;
       }
-      if (!(otherObject instanceof TextLanguagePair)) {
+      if (!(otherObject instanceof TextAttributesPair)) {
         return false;
       }
-      final TextLanguagePair otherPair = (TextLanguagePair) otherObject;
-      final boolean languageEquals = this.language == null ? (otherPair.language == null)
-          : this.language.equals(otherPair.language);
-      return languageEquals && this.text.equals(otherPair.text);
+      final TextAttributesPair otherPair = (TextAttributesPair) otherObject;
+      return this.attributes.equals(otherPair.attributes) && this.text.equals(otherPair.text);
     }
 
     @Override
     public int hashCode() {
-      return Objects.hash(language, text);
+      return Objects.hash(attributes, text);
     }
   }
 }

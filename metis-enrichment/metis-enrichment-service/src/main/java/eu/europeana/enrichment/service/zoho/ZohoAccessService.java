@@ -46,6 +46,7 @@ public class ZohoAccessService {
     return entityConverterUtils;
   }
 
+  
   /**
    * Constructor of class with required parameters
    *
@@ -259,7 +260,6 @@ public class ZohoAccessService {
           + start + " rows :" + rows, e);
     }
     return getOrganizationsListFromJsonNode(jsonRecordsResponse);
-
   }
 
   /**

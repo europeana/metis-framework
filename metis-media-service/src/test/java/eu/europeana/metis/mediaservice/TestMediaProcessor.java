@@ -7,6 +7,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
+
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
@@ -16,7 +18,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class TestMediaProcessor {
 	
@@ -62,20 +63,23 @@ public class TestMediaProcessor {
 		File file = spy(new File(tempDir, "media8313043870723212585.tmp"));
 		when(file.length()).thenReturn(83943L);
 		
-		File thumb1 = new File(tempDir, "media_thumbnails_0/" + md5 + "-MEDIUM.jpeg");
-		File thumb2 = new File(tempDir, "media_thumbnails_0/" + md5 + "-LARGE.jpeg");
+		File[] thumbs = new File[2];
 		
-		List<String> command1 = Arrays.asList("magick", file.getPath() + "[0]",
-				"-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
-				"(", "+clone", "-thumbnail", "200x", "-write", thumb1.getPath(), "+delete", ")",
-				"-thumbnail", "400x", "-write", thumb2.getPath(),
-				"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", ImageProcessor.getColormapFile().getPath(),
-				"-format", "\n%c", "histogram:info:");
 		doAnswer(i -> {
-			FileUtils.writeByteArrayToFile(thumb1, new byte[] { 0 });
-			FileUtils.writeByteArrayToFile(thumb2, new byte[] { 0 });
+			List<String> command = i.getArgument(0);
+			thumbs[0] = new File(command.get(11));
+			thumbs[1] = new File(command.get(17));
+			assertEquals(Arrays.asList("magick", file.getPath() + "[0]",
+					"-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
+					"(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
+					"-thumbnail", "400x", "-write", thumbs[1].getPath(),
+					"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", ImageProcessor.getColormapFile().getPath(),
+					"-format", "\n%c", "histogram:info:"),
+					command);
+			FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
+			FileUtils.writeByteArrayToFile(thumbs[1], new byte[] { 0 });
 			return lines("image1-magick-output1.txt");
-		}).when(commandExecutor).runCommand(command1, false);
+		}).when(commandExecutor).runCommand(any(), eq(false));
 		
 		doReturn("image/jpeg").when(tika).detect(file);
 		
@@ -85,16 +89,20 @@ public class TestMediaProcessor {
 			testedProcessor.setEdm(edm);
 			testedProcessor.processResource(url, "image/jpeg", file);
 		} finally {
-			assertTrue(thumb1.delete());
-			assertTrue(thumb2.delete());
+			assertTrue(thumbs[0].delete());
+			assertTrue(thumbs[1].delete());
 		}
 		
 		assertEquals(string("image1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
 		
-		Map<String, String> thumbs = testedProcessor.getThumbnails();
-		assertEquals(2, thumbs.size());
-		assertEquals(url, thumbs.get(thumb1.getAbsolutePath()));
-		assertEquals(url, thumbs.get(thumb2.getAbsolutePath()));
+		List<Thumbnail> thumbnails = testedProcessor.getThumbnails();
+		assertEquals(2, thumbnails.size());
+		assertEquals(url, thumbnails.get(0).url);
+		assertEquals(url, thumbnails.get(1).url);
+		assertEquals(md5 + "-MEDIUM.jpeg", thumbnails.get(0).targetName);
+		assertEquals(md5 + "-LARGE.jpeg", thumbnails.get(1).targetName);
+		
+		reset(commandExecutor);
 	}
 	
 	@Test

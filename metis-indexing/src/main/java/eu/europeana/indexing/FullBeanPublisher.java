@@ -34,6 +34,7 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.mongo.FullBeanDao;
 import eu.europeana.indexing.solr.SolrDocumentPopulator;
 
 /**
@@ -88,6 +89,13 @@ class FullBeanPublisher {
     final FullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
     final FullBeanImpl fullBean = fullBeanConverter.convertFromRdf(rdf);
 
+    // Publish
+    publishToMongo(fullBean);
+    publishToSolr(rdf, fullBean);
+  }
+
+  private void publishToSolr(RDF rdf, FullBeanImpl fullBean) throws IndexingException {
+
     // Create Solr document.
     final SolrDocumentPopulator documentPopulator = new SolrDocumentPopulator();
     final SolrInputDocument document = new SolrInputDocument();
@@ -100,19 +108,25 @@ class FullBeanPublisher {
     } catch (IOException | SolrServerException e) {
       throw new IndexingException("Could not add Solr input document to Solr server.", e);
     }
+  }
 
-    // Save properties/dependencies to Mongo.
+  private void publishToMongo(FullBeanImpl fullBean) throws IndexingException {
     try {
-      saveEdmClasses(fullBean);
+
+      // Publish shared properties/dependencies.
+      saveOrUpdateSharedProperties(fullBean);
+
+      // Publish private properties as well as the bean itself.
+      final boolean alreadyPersisted = fullBeanDao.getPersistedAbout(fullBean) != null;
+      if (alreadyPersisted) {
+        updatePrivateProperties(fullBean);
+        fullBeanDao.updateFullBean(fullBean);
+      } else {
+        savePrivateProperties(fullBean);
+        fullBeanDao.save(fullBean);
+      }
     } catch (MongoUpdateException e) {
       throw new IndexingException("Could not save/update EDM classes of FullBean to Mongo.", e);
-    }
-
-    // Save object itself to Mongo.
-    if (fullBean.getAbout() == null) {
-      fullBeanDao.save(fullBean);
-    } else {
-      fullBeanDao.updateFullBean(fullBean);
     }
   }
 
@@ -121,9 +135,7 @@ class FullBeanPublisher {
     setter.accept(fullBeanDao.update(getter.get(), clazz, updater, true));
   }
 
-  private void saveEdmClasses(FullBeanImpl fullBean) throws MongoUpdateException {
-
-    // Save or update shared properties.
+  private void saveOrUpdateSharedProperties(FullBeanImpl fullBean) throws MongoUpdateException {
     saveOrUpdateSharedProperty(fullBean::getAgents, fullBean::setAgents, AgentImpl.class,
         new AgentUpdater());
     saveOrUpdateSharedProperty(fullBean::getPlaces, fullBean::setPlaces, PlaceImpl.class,
@@ -136,14 +148,6 @@ class FullBeanPublisher {
         new LicenseUpdater());
     saveOrUpdateSharedProperty(fullBean::getServices, fullBean::setServices, ServiceImpl.class,
         new ServiceUpdater());
-
-    // Save or update private properties.
-    final boolean isFirstSave = fullBean.getAbout() == null;
-    if (isFirstSave) {
-      savePrivateProperties(fullBean);
-    } else {
-      updatePrivateProperties(fullBean);
-    }
   }
 
   private void savePrivateProperties(FullBeanImpl fullBean) {

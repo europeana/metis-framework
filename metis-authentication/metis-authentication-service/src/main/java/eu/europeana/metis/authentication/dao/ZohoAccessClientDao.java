@@ -197,19 +197,36 @@ public class ZohoAccessClientDao {
   }
 
   /**
-   * This method adds filters to the Zoho query if values exist in properties.
+   * This method adds filters to the Zoho query if values exist in properties. e.g.
+   * &criteria=((Organisation Role:Data Provider)OR (Organisation Role:Provider)OR(Organisation
+   * Role:Aggregator))
    * 
    * @param builder
    * @param searchCriteria
    */
   private void applyFilters(UriComponentsBuilder builder, Map<String, String> searchCriteria) {
-    if (searchCriteria != null && !searchCriteria.isEmpty())
-      for (Map.Entry<String, String> entry : searchCriteria.entrySet()) {
-        String key = entry.getKey();
-        if (!StringUtils.isBlank(key))
-          builder.queryParam(ZohoApiFields.CRITERIA_STRING,
-              String.format("(%s:%s)", key, entry.getValue()));
+    if (searchCriteria == null || searchCriteria.isEmpty())
+      return;
+
+    String[] filterCriteria;
+    StringBuilder filterBuilder;
+
+    for (Map.Entry<String, String> entry : searchCriteria.entrySet()) {
+      filterBuilder = new StringBuilder();
+      filterCriteria = entry.getValue().split(ZohoApiFields.DELIMITER_COMMA);
+
+      for (String filter : filterCriteria) {
+        filterBuilder.append(String.format("(%s:%s)", entry.getKey(), filter.trim()));
+        filterBuilder.append(ZohoApiFields.OR);
       }
+
+      // remove last OR
+      filterBuilder.delete(filterBuilder.length() - ZohoApiFields.OR.length(), filterBuilder.length());
+      builder.queryParam(ZohoApiFields.CRITERIA_STRING,
+          String.format("(%s)", filterBuilder.toString()));
+
+    }
+
   }
 
   /**
@@ -269,6 +286,7 @@ public class ZohoAccessClientDao {
   }
 
   /**
+<<<<<<< HEAD
    * Retrieve Zoho organization from file by given path.
    * <p>
    * It will try to fetch the organization from the given file. This method returns an
@@ -319,6 +337,10 @@ public class ZohoAccessClientDao {
   /**
    * Retrieve organizations using getRecords query, start and end index. 
    * The organizations are pre-ordered by modified time ascending
+=======
+   * Retrieve organizations using getRecords query, start and end index. The organizations are
+   * pre-ordered by modified time ascending
+>>>>>>> refs/remotes/origin/develop
    * <p>
    * It will try to fetch the organizations from the external CRM. This method returns a list of
    * organizations in json format.
@@ -326,7 +348,7 @@ public class ZohoAccessClientDao {
    * 
    * Example query:
    * https://crm.zoho.com/crm/private/json/Accounts/getRecords?authtoken=<token>&scope=crmapi&fromIndex=1
-   *    &toIndex=10
+   * &toIndex=10
    *
    * @param start to start search from this index
    * @param rows to end search by this index
@@ -341,7 +363,8 @@ public class ZohoAccessClientDao {
    *         </ul>
    * @throws IOException
    */
-  public JsonNode getOrganizations(int start, int rows, String lastModifiedTime) throws GenericMetisException {
+  public JsonNode getOrganizations(int start, int rows, String lastModifiedTime)
+      throws GenericMetisException {
 
     String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
         ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.GET_RECORDS_STRING);
@@ -369,10 +392,10 @@ public class ZohoAccessClientDao {
       throw new GenericMetisException("Cannot parse zoho response: " + organisationsResponse, e);
     }
   }
-  
+
   /**
-   * Retrieve organizations using searchRecords query, search criteria, start and end index. 
-   * The organizations are pre-ordered by modified time ascending
+   * Retrieve organizations using searchRecords query, search criteria, start and end index. The
+   * organizations are pre-ordered by modified time ascending
    * <p>
    * It will try to fetch the organizations from the external CRM. This method returns a list of
    * organizations in json format.
@@ -380,8 +403,8 @@ public class ZohoAccessClientDao {
    * 
    * Example query:
    * https://crm.zoho.com/crm/private/json/Accounts/searchRecords?authtoken=<token>&scope=crmapi&fromIndex=1
-   *    &toIndex=5&sortColumnString=Modified%20Time&sortOrderString=asc
-   *    &criteria=(Organisation%20Role:Data%20Provider)
+   * &toIndex=5&sortColumnString=Modified%20Time&sortOrderString=asc
+   * &criteria=(Organisation%20Role:Data%20Provider)
    *
    * @param start to start search from this index
    * @param rows to end search by this index
@@ -428,5 +451,5 @@ public class ZohoAccessClientDao {
       throw new GenericMetisException("Cannot parse zoho response: " + organisationsResponse, e);
     }
   }
-  
+
 }
