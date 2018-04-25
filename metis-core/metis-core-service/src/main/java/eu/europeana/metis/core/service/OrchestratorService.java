@@ -32,6 +32,7 @@ import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPlugin;
+import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
@@ -219,6 +220,7 @@ public class OrchestratorService {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does not exist</li>
+   * <li>{@link BadContentException} if the workflow is empty or no plugin enabled</li>
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
    * <li>{@link ExternalTaskException} if there was an exception when contacting the external resource(ECloud)</li>
    * <li>{@link PluginExecutionNotAllowed} if the execution of the first plugin was not allowed, because a valid source plugin could not be found</li>
@@ -231,10 +233,17 @@ public class OrchestratorService {
 
     Dataset dataset = checkDatasetExistence(datasetId);
     Workflow workflow = checkWorkflowExistence(datasetId);
-    datasetDao.checkAndCreateDatasetInEcloud(dataset);
 
-    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
-        createMetisPluginsList(dataset, workflow, enforcedPluginType), priority);
+    List<AbstractMetisPlugin> metisPlugins = createMetisPluginsList(dataset, workflow,
+        enforcedPluginType);
+    //metisPlugins will be empty if the workflow was empty or all the plugins inside the workflow were disabled.
+    if (metisPlugins.isEmpty()) {
+      throw new BadContentException("Workflow has either no plugins or are all disabled");
+    }
+
+    datasetDao.checkAndCreateDatasetInEcloud(dataset);
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow, metisPlugins,
+        priority);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     RLock executionDatasetIdLock = redissonClient
         .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));

@@ -43,6 +43,7 @@ import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -391,6 +392,18 @@ public class TestOrchestratorService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
     when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
+    orchestratorService
+        .addWorkflowInQueueOfWorkflowExecutions(Integer.toString(TestObjectFactory.DATASETID), null, 0);
+  }
+
+  @Test(expected = BadContentException.class)
+  public void addWorkflowInQueueOfWorkflowExecutions_WorkflowIsEmpty()
+      throws Exception {
+
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    Workflow workflow = new Workflow();
+    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(dataset);
+    when(workflowDao.getWorkflow(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(workflow);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(Integer.toString(TestObjectFactory.DATASETID), null, 0);
   }
