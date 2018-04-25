@@ -13,6 +13,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.enrichment.service.EntityConverterUtils;
+import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
 import eu.europeana.enrichment.service.exception.EntityConverterException;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 
@@ -26,10 +27,16 @@ public abstract class BaseZohoAccessTest {
   public final String WIKIDATA_TEST_OUTPUT_FILE = CONTENT_DIR + "test.out";
   public final String WIKIDATA_ORGANIZATION_XSLT_TEMPLATE = CONTENT_DIR + "wkd2org.xsl";
   public final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
+  public final String TEST_BNF_URL = "http://data.europeana.eu/organization/1482250000002112001";
+  public final String TEST_BNF_URL_TMP_1 = "http://data.europeana.eu/organization/1482250000002112222";
+  public final String TEST_BNF_URL_TMP_2 = "http://data.europeana.eu/organization/1482250000002112223";
+  public final String TEST_BNF_PREF_LABEL_1 = "Test BnF 1";
+  public final String TEST_BNF_PREF_LABEL_2 = "Test BnF 2";
 
   
   protected ZohoAccessService zohoAccessService;
   ZohoAccessClientDao zohoAccessClientDao;
+  ZohoV2AccessDao zohoV2AccessDao;
 
   EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
   
@@ -48,7 +55,9 @@ public abstract class BaseZohoAccessTest {
     // TODO use constants for property keys
     zohoAccessClientDao = new ZohoAccessClientDao(appProps.getProperty("zoho.base.url"),
         appProps.getProperty("zoho.authentication.token"));
-    zohoAccessService = new ZohoAccessService(zohoAccessClientDao);
+    zohoV2AccessDao = new ZohoV2AccessDao(appProps.getProperty("zoho.base.url.v2"),
+        appProps.getProperty("zoho.authentication.token"));
+    zohoAccessService = new ZohoAccessService(zohoAccessClientDao, zohoV2AccessDao);
   }
 
   protected Properties loadProperties(String propertiesFile)

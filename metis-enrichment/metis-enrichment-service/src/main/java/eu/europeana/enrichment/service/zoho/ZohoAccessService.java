@@ -19,9 +19,12 @@ import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.service.EntityConverterUtils;
+import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.enrichment.service.zoho.model.DeletedZohoOrganizationAdapter;
 import eu.europeana.enrichment.service.zoho.model.ZohoOrganizationAdapter;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
+import eu.europeana.metis.authentication.dao.ZohoApi2Fields;
 import eu.europeana.metis.authentication.dao.ZohoApiFields;
 import eu.europeana.metis.exception.GenericMetisException;
 
@@ -35,6 +38,7 @@ public class ZohoAccessService {
   private static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
   private static final String UNDEFINED_LANGUAGE_KEY = "def";
   private final ZohoAccessClientDao zohoAccessClientDao;
+  private final ZohoV2AccessDao zohoV2AccessDao;
 
   EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
 
@@ -46,10 +50,12 @@ public class ZohoAccessService {
    * Constructor of class with required parameters
    *
    * @param zohoAccessClientDao {@link ZohoAccessClientDao}
+   * @param zohoV2AccessDao {@link ZohoV2AccessDao}
    */
   @Autowired
-  public ZohoAccessService(ZohoAccessClientDao zohoAccessClientDao) {
+  public ZohoAccessService(ZohoAccessClientDao zohoAccessClientDao, ZohoV2AccessDao zohoV2AccessDao) {
     this.zohoAccessClientDao = zohoAccessClientDao;
+    this.zohoV2AccessDao = zohoV2AccessDao;
   }
 
   /**
@@ -257,6 +263,53 @@ public class ZohoAccessService {
   }
 
   /**
+   * Get deleted organizations paged.
+   *
+   * @param startPage The number of start page first index starts with 1. Zoho response
+   * has maximal 200 items
+   * @return the list of deleted Zoho Organizations
+   * @throws ZohoAccessException if an error occurred during accessing Zoho
+   */
+  public List<String> getDeletedOrganizations(int startPage)
+      throws ZohoAccessException {
+
+    if (startPage < 1) {
+      throw new ZohoAccessException(
+          "Invalid start page index. Index must be >= 1",
+          new IllegalArgumentException("start page: " + startPage));
+    }
+
+    JsonNode jsonRecordsResponse;
+    try {
+      jsonRecordsResponse = zohoV2AccessDao
+          .getDeletedOrganizations(startPage);
+    } catch (GenericMetisException e) {
+      throw new ZohoAccessException("Cannot get deleted organization list from: "
+          + startPage, e);
+    }
+    
+    List<DeletedZohoOrganizationAdapter> deletedOrganizationsList = 
+         getDeletedOrganizationsListFromJsonNode(jsonRecordsResponse);
+    return extractIdsFromDeletedZohoOrganizations(deletedOrganizationsList);
+  }
+
+  /**
+   * This method extracts organization URIs from deleted organizations.
+   * @param deletedOrganizationsList The list of deleted organizations
+   * @return ID list
+   */
+  private List<String> extractIdsFromDeletedZohoOrganizations(
+      List<DeletedZohoOrganizationAdapter> deletedOrganizationsList) {
+    List<String> idList = new ArrayList<String>(deletedOrganizationsList.size());
+    
+    for (DeletedZohoOrganizationAdapter deletedOrganization : deletedOrganizationsList) {
+      idList.add(deletedOrganization.getZohoId());
+    }
+    return idList;
+  }
+  
+  
+  /**
    * This method retrieves map of records.
    * 
    * @param jsonRecordsResponse
@@ -288,6 +341,36 @@ public class ZohoAccessService {
     return res;
   }
 
+  /**
+   * This method retrieves map of records for deleted organizations.
+   * 
+   * @param jsonRecordsResponse
+   * @return map representation of the records
+   * @throws ZohoAccessException
+   */
+  protected List<DeletedZohoOrganizationAdapter> getDeletedOrganizationsListFromJsonNode(
+      JsonNode jsonRecordsResponse) throws ZohoAccessException {
+
+    JsonNode accountsNode = jsonRecordsResponse.get(ZohoApi2Fields.DATA_STRING);
+    List<DeletedZohoOrganizationAdapter> res = new ArrayList<>();
+    if (accountsNode == null) {
+      return res;
+    }
+
+    // one result in the response
+    boolean oneResult = accountsNode.get(0) == null;
+    if (oneResult) {
+      res.add(new DeletedZohoOrganizationAdapter(accountsNode));
+      return res;
+    }
+
+    // a list of results in the response
+    for (JsonNode accountNode : accountsNode) {
+      res.add(new DeletedZohoOrganizationAdapter(accountNode));
+    }
+
+    return res;
+  }
 
   private void addAccountToOrgList(JsonNode accountNode,
       List<ZohoOrganization> res) throws ZohoAccessException {
