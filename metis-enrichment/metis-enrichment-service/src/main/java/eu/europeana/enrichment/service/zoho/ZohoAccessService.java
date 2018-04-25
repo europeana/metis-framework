@@ -1,16 +1,5 @@
 package eu.europeana.enrichment.service.zoho;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import eu.europeana.corelib.definitions.edm.entity.Address;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.AddressImpl;
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import eu.europeana.enrichment.service.zoho.model.ZohoOrganizationAdapter;
-import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
-import eu.europeana.metis.authentication.dao.ZohoApiFields;
-import eu.europeana.metis.exception.GenericMetisException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,6 +12,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.JsonNode;
+import eu.europeana.corelib.definitions.edm.entity.Address;
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.AddressImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
+import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.enrichment.service.zoho.model.ZohoOrganizationAdapter;
+import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
+import eu.europeana.metis.authentication.dao.ZohoApiFields;
+import eu.europeana.metis.exception.GenericMetisException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -35,6 +35,7 @@ public class ZohoAccessService {
   private static final String UNDEFINED_LANGUAGE_KEY = "def";
   private final ZohoAccessClientDao zohoAccessClientDao;
 
+  
   /**
    * Constructor of class with required parameters
    *
@@ -223,7 +224,6 @@ public class ZohoAccessService {
           + start + " rows :" + rows, e);
     }
     return getOrganizationsListFromJsonNode(jsonRecordsResponse);
-
   }
 
   /**

@@ -110,7 +110,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest {
 	public void getFilteredOrganizationsTest() throws ZohoAccessException {
 
 		Map<String, String> searchCriteria = new HashMap<String, String>();
-		searchCriteria.put(ZohoApiFields.ORGANIZATION_ROLE, "Data Provider");
+		searchCriteria.put(ZohoApiFields.ORGANIZATION_ROLE, "Provider, Test, Aggregator");
 		List<ZohoOrganization> orgList = zohoAccessService.getOrganizations(1,
 				5, null, searchCriteria);
 
