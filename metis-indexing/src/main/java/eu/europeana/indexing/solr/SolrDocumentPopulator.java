@@ -135,7 +135,7 @@ public class SolrDocumentPopulator {
     }
     final boolean hasMedia =
         webResources.stream().filter(resource -> !isShownAtUrls.contains(resource.getAbout()))
-            .map(WebResourceWrapper::getMediaType).anyMatch(type -> !type.equals(MediaType.OTHER));
+            .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != MediaType.OTHER);
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
     // is_fulltext is true if and only if there is at least one web resource with 'rdf:type' equal

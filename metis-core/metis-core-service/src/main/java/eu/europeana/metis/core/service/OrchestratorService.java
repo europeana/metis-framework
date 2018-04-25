@@ -71,7 +71,7 @@ public class OrchestratorService {
   private final DatasetXsltDao datasetXsltDao;
   private final WorkflowExecutorManager workflowExecutorManager;
   private final RedissonClient redissonClient;
-  private String metisCoreUrl; //Initialize with setter
+  private String metisCoreUrl; // Use getter and setter for this field!
 
   /**
    * Constructor with all the required parameters
@@ -357,7 +357,7 @@ public class OrchestratorService {
     }
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
       ((TransformationPluginMetadata) abstractMetisPluginMetadata)
-          .setXsltUrl(metisCoreUrl + RestEndpoints
+          .setXsltUrl(getMetisCoreUrl() + RestEndpoints
               .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, xsltObject.getId().toString()));
     }
   }
@@ -566,6 +566,12 @@ public class OrchestratorService {
   public void setMetisCoreUrl(String metisCoreUrl) {
     synchronized (this) {
       this.metisCoreUrl = metisCoreUrl;
+    }
+  }
+
+  private String getMetisCoreUrl() {
+    synchronized (this) {
+      return this.metisCoreUrl;
     }
   }
 }

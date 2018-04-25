@@ -75,7 +75,7 @@ public class WebResourceWrapper {
 
   /**
    * @return The 'ebucore:hasMimeType' value of the web resource as String, or
-   *         {@value #DEFAULT_MIME_TYPE} if none is set.
+   *         {@value #DEFAULT_MIME_TYPE} if none is set. Does not return null.
    */
   public String getMimeType() {
 
@@ -102,9 +102,7 @@ public class WebResourceWrapper {
   public MediaType getMediaType() {
     final String mimeType = getMimeType();
     final MediaType result;
-    if (mimeType == null) {
-      result = MediaType.OTHER;
-    } else if (mimeType.startsWith("image/")) {
+    if (mimeType.startsWith("image/")) {
       result = MediaType.IMAGE;
     } else if (mimeType.startsWith("audio/")) {
       result = MediaType.AUDIO;
@@ -186,9 +184,9 @@ public class WebResourceWrapper {
     final ColorSpace result;
     if (colorSpace == null || colorSpace.getHasColorSpace() == null) {
       result = null;
-    } else if (ColorSpaceType.S_RGB.equals(colorSpace.getHasColorSpace())) {
+    } else if (colorSpace.getHasColorSpace() == ColorSpaceType.S_RGB) {
       result = ColorSpace.SRGB;
-    } else if (ColorSpaceType.GRAYSCALE.equals(colorSpace.getHasColorSpace())) {
+    } else if (colorSpace.getHasColorSpace() == ColorSpaceType.GRAYSCALE) {
       result = ColorSpace.GRAYSCALE;
     } else {
       result = null;

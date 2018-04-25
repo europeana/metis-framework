@@ -1,6 +1,7 @@
 package eu.europeana.normalization.languages;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +18,7 @@ public class LanguagesTest {
     final Languages languages = Languages.getLanguages();
 
     // Test that the second time we load we get the same instance.
-    assertTrue(languages == Languages.getLanguages());
+    assertSame(languages, Languages.getLanguages());
 
     // Find Dutch - a language with lots of information.
     final List<Language> dutchList = languages.getActiveLanguages().stream()

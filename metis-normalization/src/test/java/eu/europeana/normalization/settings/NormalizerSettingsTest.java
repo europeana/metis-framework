@@ -2,6 +2,7 @@ package eu.europeana.normalization.settings;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import eu.europeana.normalization.languages.LanguagesVocabulary;
@@ -29,23 +30,23 @@ public class NormalizerSettingsTest {
     // Check setters
     NormalizerSettings newSettings = settings.setCleanMarkupTagsMode(CleanMarkupTagsMode.HTML_ONLY);
     assertEquals(CleanMarkupTagsMode.HTML_ONLY, settings.getCleanMarkupTagsMode());
-    assertTrue(newSettings == settings);
+    assertSame(settings, newSettings);
     newSettings = settings.setLanguageAmbiguityHandling(AmbiguityHandling.CHOOSE_FIRST);
     assertEquals(AmbiguityHandling.CHOOSE_FIRST, settings.getLanguageAmbiguityHandling());
-    assertTrue(newSettings == settings);
+    assertSame(settings, newSettings);
     newSettings = settings.setLanguageElementsToNormalize(LanguageElement.XML_LANG);
     assertArrayEquals(new LanguageElement[] {LanguageElement.XML_LANG},
         settings.getLanguageElementsToNormalize());
-    assertTrue(newSettings == settings);
+    assertSame(settings, newSettings);
     newSettings = settings.setMinLanguageLabelLength(6);
     assertEquals(6, settings.getMinLanguageLabelLength());
-    assertTrue(newSettings == settings);
+    assertSame(settings, newSettings);
     newSettings = settings.setMinimumConfidence(0.1F);
     assertEquals(0.1F, settings.getMinimumConfidence(), 0.000001);
-    assertTrue(newSettings == settings);
+    assertSame(settings, newSettings);
     newSettings = settings.setTargetLanguageVocabulary(LanguagesVocabulary.ISO_639_2B);
     assertEquals(LanguagesVocabulary.ISO_639_2B, settings.getTargetLanguageVocabulary());
-    assertTrue(newSettings == settings);
+    assertSame(settings, newSettings);
 
     // Check negative label length
     settings.setMinLanguageLabelLength(-6);

@@ -19,6 +19,8 @@ class TextProcessor {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(TextProcessor.class);
 	
+    private final static int DISPLAY_DPI = 72;
+    
 	static boolean isText(String mimeType) {
 		switch (mimeType) {
 		case "application/xml":
@@ -33,7 +35,7 @@ class TextProcessor {
 	
 	void processText(String url, Collection<UrlType> urlTypes, String mimeType, File content, EdmObject edm)
 			throws IOException {
-		if (!MediaProcessor.shouldExtractMetadata(urlTypes))
+		if (!UrlType.shouldExtractMetadata(urlTypes))
 			return;
 		if (content == null)
 			throw new IllegalArgumentException("content cannot be null");
@@ -78,9 +80,8 @@ class TextProcessor {
 				int hPx = image.getHeight();
 				
 				Matrix m = iri.getImageCTM();
-				final int displayDpi = 72;
-				double wInch = (double) m.get(Matrix.I11) / displayDpi;
-				double hInch = (double) m.get(Matrix.I22) / displayDpi;
+				double wInch = (double) m.get(Matrix.I11) / DISPLAY_DPI;
+				double hInch = (double) m.get(Matrix.I22) / DISPLAY_DPI;
 				
 				long xdpi = Math.abs(Math.round(wPx / wInch));
 				long ydpi = Math.abs(Math.round(hPx / hInch));

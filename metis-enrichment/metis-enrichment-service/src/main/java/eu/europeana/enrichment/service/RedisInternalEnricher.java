@@ -227,7 +227,7 @@ public class RedisInternalEnricher {
         jedis.hset(entityType.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
             OBJECT_MAPPER.writeValueAsString(entityWrapper));
         List<String> parents = this.findParents(termList.getParent(), entityType.entityClass);
-        if (parents != null && !parents.isEmpty()) {
+        if (!parents.isEmpty()) {
           jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
               parents.toArray(new String[]{}));
         }
@@ -273,7 +273,7 @@ public class RedisInternalEnricher {
       parentEntities.add(parents.getCodeUri());
       if (parents.getParent() != null && !parent.equals(parents.getParent())) {
         // TODO why is this necessary in this particular case?
-        if (entityClass.equals(EntityClass.TIMESPAN)) {
+        if (entityClass == EntityClass.TIMESPAN) {
           try {
             Thread.sleep(10L);
           } catch (InterruptedException var5) {
