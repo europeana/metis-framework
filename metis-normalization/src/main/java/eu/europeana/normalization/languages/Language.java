@@ -14,11 +14,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public class Language {
 
-  private String iso6391 = null;
-  private String iso6392b = null;
-  private String iso6392t = null;
-  private String iso6393 = null;
-  private String authorityCode = null;
+  private String iso6391;
+  private String iso6392b;
+  private String iso6392t;
+  private String iso6393;
+  private String authorityCode;
   private final List<LanguageLabel> originalNames = new ArrayList<>();
   private final List<LanguageLabel> alternativeNames = new ArrayList<>();
   private final List<LanguageLabel> labels = new ArrayList<>();

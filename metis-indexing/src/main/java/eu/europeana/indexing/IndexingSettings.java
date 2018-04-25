@@ -18,14 +18,14 @@ public final class IndexingSettings {
 
   // Mongo settings
   private final List<ServerAddress> mongoHosts = new ArrayList<>();
-  private String mongoDatabaseName = null;
-  private MongoCredential mongoCredentials = null;
-  private boolean mongoEnableSsl = false;
+  private String mongoDatabaseName;
+  private MongoCredential mongoCredentials;
+  private boolean mongoEnableSsl;
 
   // Zookeeper settings
-  private List<InetSocketAddress> zookeeperHosts = new ArrayList<>();
-  private String zookeeperChroot = null;
-  private String zookeeperDefaultCollection = null;
+  private final List<InetSocketAddress> zookeeperHosts = new ArrayList<>();
+  private String zookeeperChroot;
+  private String zookeeperDefaultCollection;
 
   // Solr settings
   private final List<URI> solrHosts = new ArrayList<>();

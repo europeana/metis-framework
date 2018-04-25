@@ -41,7 +41,7 @@ public class ProxiesService {
   private final RecordServiceClient recordServiceClient;
   private final FileServiceClient fileServiceClient;
   private final DpsClient dpsClient;
-  private String ecloudProvider;
+  private final String ecloudProvider;
 
   /**
    * Constructor with required parameters.

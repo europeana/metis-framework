@@ -51,7 +51,7 @@ class ImageProcessor {
 	
 	private static String magickCmd;
 	
-	private CommandExecutor ce;
+	private final CommandExecutor ce;
 	
 	protected Map<String, String> thumbnails = new HashMap<>();
 	

@@ -34,7 +34,7 @@ public class WorkflowExecutorManager extends PersistenceProvider implements Work
   private String ecloudBaseUrl; //Initialize with setter
   private String ecloudProvider; //Initialize with setter
   
-  private QueueConsumer queueConsumer;
+  private final QueueConsumer queueConsumer;
 
   /**
    * Autowired constructor.

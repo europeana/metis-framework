@@ -23,7 +23,7 @@ import org.mongodb.morphia.Morphia;
  */
 public class MorphiaDatastoreProvider {
 
-  private Datastore datastore;
+  private final Datastore datastore;
 
   /**
    * Constructor to initialize the mongo mappings/collections and the {@link Datastore} connection.
