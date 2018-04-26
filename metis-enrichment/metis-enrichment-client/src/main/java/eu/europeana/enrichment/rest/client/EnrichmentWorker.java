@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.ObjIntConsumer;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jibx.runtime.JiBXException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class performs the task of dereferencing and enrichment for a given RDF document.
@@ -27,8 +27,9 @@ import org.slf4j.LoggerFactory;
  */
 public class EnrichmentWorker {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
-
+  private static final Logger LOGGER = LogManager.getLogger(EnrichmentWorker.class);
+	  
+  
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
   private final EntityMergeEngine entityMergeEngine;
@@ -59,7 +60,7 @@ public class EnrichmentWorker {
       EntityMergeEngine entityMergeEngine) {
     this.dereferenceClient = dereferenceClient;
     this.enrichmentClient = enrichmentClient;
-    this.entityMergeEngine = entityMergeEngine;
+    this.entityMergeEngine = entityMergeEngine;   
   }
 
   /**
@@ -75,6 +76,9 @@ public class EnrichmentWorker {
    */
   public String process(final String inputString)
       throws DereferenceOrEnrichException, JiBXException, UnsupportedEncodingException {
+	  
+	  
+	    
     if (inputString == null) {
       throw new IllegalArgumentException("Input RDF string cannot be null.");
     }
@@ -289,7 +293,7 @@ public class EnrichmentWorker {
   }
 
   List<InputValue> extractFieldsForEnrichment(RDF rdf) {
-    return EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
+	  return EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
   }
 
   Set<String> extractValuesForDereferencing(RDF rdf) {

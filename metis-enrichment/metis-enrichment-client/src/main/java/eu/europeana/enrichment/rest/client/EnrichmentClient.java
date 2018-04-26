@@ -24,6 +24,7 @@ import eu.europeana.enrichment.utils.InputValue;
  */
 public class EnrichmentClient {
     private final String path;
+    private RestTemplate template = new RestTemplate();
   
 	public EnrichmentClient(String path) {
 		this.path = path;
@@ -37,8 +38,6 @@ public class EnrichmentClient {
 	 * @return The enrichments generated for the input values
 	 */
 	public EnrichmentResultList enrich(List<InputValue> values) {
-		RestTemplate template = new RestTemplate();
-
 		InputValueList inList = new InputValueList();
 	    inList.setInputValueList(values);
 	        
@@ -50,8 +49,6 @@ public class EnrichmentClient {
     }
 
     public EnrichmentBase getByUri(String uri) {    	   
-		RestTemplate template = new RestTemplate();
-
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI).queryParam("uri", uri);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -62,5 +59,9 @@ public class EnrichmentClient {
 				request, EnrichmentBase.class);
 
 		return response.getBody();
+    }
+    
+    public void setRestTemplate(RestTemplate template) {
+    	this.template = template;
     }
 }

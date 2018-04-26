@@ -17,6 +17,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.jibx.runtime.JiBXException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,10 +39,6 @@ import eu.europeana.enrichment.utils.EntityClass;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
 
-// TODO Tests that could be added:
-// 1. What if there is nothing to process (empty or null lists are returned when extracting or when
-// enriching/dereferencing).
-// 2. Throwing exceptions
 @RunWith(MockitoJUnitRunner.class)
 public class EnrichmentWorkerTest {
 
@@ -83,13 +83,23 @@ public class EnrichmentWorkerTest {
   
   @Test
   public void testEnrichmentWorkerHappyFlow() throws DereferenceOrEnrichException {
-    for (Mode mode : Mode.values()) {
-      testEnrichmentWorkerHappyFlow(mode);
-    }
+	  Logger logger = LogManager.getLogger(EnrichmentWorker.class);
+	  Level origLevel = logger.getLevel();
+	  
+	  Configurator.setLevel(logger.getName(), Level.DEBUG);
+	  for (Mode mode : Mode.values()) {
+		  testEnrichmentWorkerHappyFlow(mode);
+	  }
+	  
+	  Configurator.setLevel(logger.getName(), Level.INFO);
+	  for (Mode mode : Mode.values()) {
+		  testEnrichmentWorkerHappyFlow(mode);
+	  }
+	  	  
+	  Configurator.setLevel(logger.getName(), origLevel);
   }
-
-  private void testEnrichmentWorkerHappyFlow(Mode mode) throws DereferenceOrEnrichException {
-
+  
+  private void testEnrichmentWorkerHappyFlow(Mode mode) throws DereferenceOrEnrichException {	  	
     // Create mocks of the dependencies
     final EnrichmentClient enrichmentClient = Mockito.mock(EnrichmentClient.class);
     doReturn(ENRICHMENT_RESULT).when(enrichmentClient).enrich(any());
@@ -239,7 +249,6 @@ public class EnrichmentWorkerTest {
 
   @Test
   public void testEnrichmentWorkerNullValues() throws DereferenceOrEnrichException {
-
     // Create enrichment worker
     final EnrichmentWorker worker = new EnrichmentWorker(null, null, null);
 
