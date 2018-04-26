@@ -35,7 +35,7 @@ import eu.europeana.metis.exception.GenericMetisException;
 @Service
 public class ZohoAccessService {
 
-  private static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
+  public static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
   private static final String UNDEFINED_LANGUAGE_KEY = "def";
   private final ZohoAccessClientDao zohoAccessClientDao;
   private final ZohoV2AccessDao zohoV2AccessDao;
@@ -303,7 +303,7 @@ public class ZohoAccessService {
     List<String> idList = new ArrayList<String>(deletedOrganizationsList.size());
     
     for (DeletedZohoOrganizationAdapter deletedOrganization : deletedOrganizationsList) {
-      idList.add(deletedOrganization.getZohoId());
+      idList.add(ZohoAccessService.URL_ORGANIZATION_PREFFIX + deletedOrganization.getZohoId());
     }
     return idList;
   }

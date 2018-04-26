@@ -286,7 +286,6 @@ public class ZohoAccessClientDao {
   }
 
   /**
-<<<<<<< HEAD
    * Retrieve Zoho organization from file by given path.
    * <p>
    * It will try to fetch the organization from the given file. This method returns an
@@ -306,8 +305,8 @@ public class ZohoAccessClientDao {
   public JsonNode getOrganizationFromFile(File contentFile) throws GenericMetisException, IOException {
 
     String organisationsResponse = readFile(contentFile);
-    LOGGER.debug("{}", "Content of Zoho response file: " + organisationsResponse);
-
+    LOGGER.debug("Content of Zoho response file: {}", organisationsResponse);
+    
     ObjectMapper mapper = new ObjectMapper();
     try {
       return mapper.readTree(organisationsResponse);
@@ -323,24 +322,21 @@ public class ZohoAccessClientDao {
    * @throws IOException
    */
   public String readFile(File contentFile) throws IOException {
-    BufferedReader in = new BufferedReader(
-        new InputStreamReader(new FileInputStream(contentFile), "UTF8"));
-    String res = "";
-    String line;
-    while((line = in.readLine()) != null) {
-      res = res + line;
+    try (BufferedReader in = new BufferedReader(
+        new InputStreamReader(new FileInputStream(contentFile), "UTF8"))) {
+      
+      StringBuilder resBuilder = new StringBuilder();
+      String line;
+      while((line = in.readLine()) != null) {        
+        resBuilder.append(line);
+      }   
+      return resBuilder.toString();
     }
-    in.close();    
-    return res;
   }
     
   /**
    * Retrieve organizations using getRecords query, start and end index. 
    * The organizations are pre-ordered by modified time ascending
-=======
-   * Retrieve organizations using getRecords query, start and end index. The organizations are
-   * pre-ordered by modified time ascending
->>>>>>> refs/remotes/origin/develop
    * <p>
    * It will try to fetch the organizations from the external CRM. This method returns a list of
    * organizations in json format.

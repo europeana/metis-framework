@@ -12,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -23,8 +24,11 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFWriter;
 import org.apache.jena.riot.RiotException;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.edm.entity.ContextualClass;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.service.EntityConverterUtils;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
@@ -35,36 +39,38 @@ import eu.europeana.enrichment.service.exception.WikidataAccessException;
  */
 public class WikidataAccessDao {
 
-  private static String SPARQL = "https://query.wikidata.org/sparql";
-  private static int SIZE = 1024 * 1024;
+  private static final String SPARQL = "https://query.wikidata.org/sparql";
+  private static final int SIZE = 1024 * 1024;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(WikidataAccessDao.class);
 
   private Transformer transformer;
 
   private File templateFile;
-  
+
   EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
-   
-  public EntityConverterUtils getEntityConverterUtils() {
-    return entityConverterUtils;
-  }
-  
+
   public WikidataAccessDao(File templateFile) throws WikidataAccessException {
     this.templateFile = templateFile;
     init();
   }
-  
+
+  public EntityConverterUtils getEntityConverterUtils() {
+    return entityConverterUtils;
+  }
+
   /**
    * This method initializes classes needed for Wikidata related activities
    * 
    * @param file The template file
    * @throws WikidataAccessException
    */
-  public void init() throws WikidataAccessException {
+  public final void init() throws WikidataAccessException {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
-    try {     
+    try {
       Source xslt = new StreamSource(templateFile);
       transformer = transformerFactory.newTransformer(xslt);
-      transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");             
+      transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
     } catch (TransformerConfigurationException e) {
       throw new WikidataAccessException(WikidataAccessException.TRANSFORMER_CONFIGURATION_ERROR, e);
     }
@@ -133,7 +139,7 @@ public class WikidataAccessDao {
     try {
       return endpoint.execDescribe(m);
     } catch (RiotException e) {
-      System.out.println("Error: " + e.getMessage());
+      LOGGER.error("Interrupted while querying Wikidata from the WikidataAccessDao", e);
     } finally {
       endpoint.close();
     }
@@ -153,25 +159,23 @@ public class WikidataAccessDao {
       throws WikidataAccessException {
 
     StringBuilder sb = new StringBuilder(SIZE);
-    StringBuilderWriter sbw = new StringBuilderWriter(sb);
-    try {
+
+    try (StringBuilderWriter sbw = new StringBuilderWriter(sb)) {
       RDFWriter writer = m.getWriter("RDF/XML");
       writer.setProperty("tab", "0");
       writer.setProperty("allowBadURIs", "true");
       writer.setProperty("relativeURIs", "");
       writer.write(m, sbw, "RDF/XML");
       t.transform(new StreamSource(new CharSequenceReader(sb)), res);
-    } catch (Exception e) {
+      sb.setLength(0);
+    } catch (TransformerException e) {
       throw new WikidataAccessException(WikidataAccessException.TRANSFORM_WIKIDATA_TO_RDF_XML_ERROR,
           e);
-    } finally {
-      sb.setLength(0);
     }
   }
 
   /**
-   * This method parses wikidata organization content stored in XSLT/XML file
-   * object
+   * This method parses wikidata organization content stored in XSLT/XML file object
    * 
    * @param inputFile The file containing the wikidata
    * @return WikidataOrganization object
@@ -200,91 +204,71 @@ public class WikidataAccessDao {
     transformer.setParameter("rdf_about", uri);
     transform(getModelFromSPARQL(uri), transformer, res);
   }
-  
+
   /**
    * This method performs merging between Zoho and Wikidata inputs according to predefined rules
    * listed below.
+   * 
    * @param zohoOrganization
    * @param wikidataOrganization
    * @return merged organization object based on Zoho organization
    */
   public Organization merge(Organization zohoOrganization, Organization wikidataOrganization) {
-    
-    /** 
-     * prefLabel (if a different pref label exists for the given language, 
-     * add the label to alt label list for the same language, if it is also not a duplicate)
-     */
-    if (!getEntityConverterUtils().isEqualLanguageListMap(
-        zohoOrganization.getPrefLabel(), wikidataOrganization.getPrefLabel())) {      
-      Map<String, List<String>> diffLanguageListMap = getEntityConverterUtils().extractValuesNotIncludedInBaseMap(
-          zohoOrganization.getPrefLabel(), wikidataOrganization.getPrefLabel());
-      Map<String, List<String>> mergedLanguageListMap = getEntityConverterUtils().mergeLanguageListMap(
-          ((ContextualClass) zohoOrganization).getAltLabel(), diffLanguageListMap);
+
+    //prefLabel (if a different pref label exists for the given language, add the label to alt
+    //label list for the same language, if it is also not a duplicate)
+    if (!getEntityConverterUtils().isEqualLanguageListMap(zohoOrganization.getPrefLabel(),
+        wikidataOrganization.getPrefLabel())) {
+      Map<String, List<String>> diffLanguageListMap =
+          getEntityConverterUtils().extractValuesNotIncludedInBaseMap(
+              zohoOrganization.getPrefLabel(), wikidataOrganization.getPrefLabel());
+      Map<String, List<String>> mergedLanguageListMap =
+          getEntityConverterUtils().mergeLanguageListMap(
+              ((ContextualClass) zohoOrganization).getAltLabel(), diffLanguageListMap);
       ((ContextualClass) zohoOrganization).setAltLabel(mergedLanguageListMap);
     }
-    
-    /**
-     * altLabel (merge labels for each language if they are not duplicates)
-     */
-    Map<String, List<String>> mergedLanguageListMap = getEntityConverterUtils().mergeLanguageListMap(
-        ((ContextualClass) zohoOrganization).getAltLabel(), ((ContextualClass) wikidataOrganization).getAltLabel());
+
+    // altLabel (merge labels for each language if they are not duplicates)
+    Map<String, List<String>> mergedLanguageListMap = getEntityConverterUtils()
+        .mergeLanguageListMap(((ContextualClass) zohoOrganization).getAltLabel(),
+            ((ContextualClass) wikidataOrganization).getAltLabel());
     ((ContextualClass) zohoOrganization).setAltLabel(mergedLanguageListMap);
-      
-    /**
-     * edm:acronym (if not available in Zoho)
-     */
-    if (zohoOrganization.getEdmAcronym().size() == 0 && wikidataOrganization.getEdmAcronym().size() > 0) 
-      zohoOrganization.setEdmAcronym(wikidataOrganization.getEdmAcronym());    
-    
-    /**
-     * logo (if not available in zoho)
-     */
-    if (StringUtils.isEmpty(zohoOrganization.getFoafLogo()) && !StringUtils.isEmpty(wikidataOrganization.getFoafLogo())) 
-      zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());    
-        
-    /**
-     * homepage (if not available in zoho)
-     */
-    if (StringUtils.isEmpty(zohoOrganization.getFoafHomepage()) 
-        && !StringUtils.isEmpty(wikidataOrganization.getFoafHomepage())) 
-      zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());    
-        
-    /**
-     * phone (if not duplicate)
-     */
-    List<String> diffList = getEntityConverterUtils().mergeStringLists(
-        zohoOrganization.getFoafPhone(), wikidataOrganization.getFoafPhone());
-    if (diffList != null && diffList.size() > 0) 
-      zohoOrganization.setFoafPhone(diffList);   
-        
-    /**
-     * mbox (if not duplicate)
-     */
-    List<String> diffMboxList = getEntityConverterUtils().mergeStringLists(
-        zohoOrganization.getFoafMbox(), wikidataOrganization.getFoafMbox());
-    if (diffMboxList != null && diffMboxList.size() > 0) 
-      zohoOrganization.setFoafMbox(diffMboxList);   
-        
-    /**
-     * country (ignore as it is mandatory in Zoho)
-     */
-//    Map<String, String> mergedLanguageStringListMap = getEntityConverterUtils().mergeLanguageListMap(
-//        zohoOrganization.getEdmCountry(), wikidataOrganization.getEdmCountry());
-//    zohoOrganization.setEdmCountry(mergedLanguageStringListMap);
-        
-    /**
-     * sameAs (add non duplicate labels)
-     */
-//    String[] both = (String[]) ArrayUtils.addAll(zohoOrganization.getOwlSameAs(), wikidataOrganization.getOwlSameAs());
+
+    // edm:acronym (if not available in Zoho)
+    if (zohoOrganization.getEdmAcronym().size() == 0
+        && wikidataOrganization.getEdmAcronym().size() > 0)
+      zohoOrganization.setEdmAcronym(wikidataOrganization.getEdmAcronym());
+
+     // logo (if not available in zoho)
+    if (StringUtils.isEmpty(zohoOrganization.getFoafLogo())
+        && !StringUtils.isEmpty(wikidataOrganization.getFoafLogo()))
+      zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());
+
+     // homepage (if not available in zoho)
+    if (StringUtils.isEmpty(zohoOrganization.getFoafHomepage())
+        && !StringUtils.isEmpty(wikidataOrganization.getFoafHomepage()))
+      zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());
+
+    // phone (if not duplicate)
+    List<String> diffList = getEntityConverterUtils()
+        .mergeStringLists(zohoOrganization.getFoafPhone(), wikidataOrganization.getFoafPhone());
+    if (diffList != null && diffList.size() > 0)
+      zohoOrganization.setFoafPhone(diffList);
+
+    // mbox (if not duplicate)
+    List<String> diffMboxList = getEntityConverterUtils()
+        .mergeStringLists(zohoOrganization.getFoafMbox(), wikidataOrganization.getFoafMbox());
+    if (diffMboxList != null && diffMboxList.size() > 0)
+      zohoOrganization.setFoafMbox(diffMboxList);
+
+    // sameAs (add non duplicate labels)
     String[] mergedStringArray = getEntityConverterUtils().concatenateStringArrays(
         zohoOrganization.getOwlSameAs(), wikidataOrganization.getOwlSameAs());
     zohoOrganization.setOwlSameAs(mergedStringArray);
-        
-    /**                                          
-     * description (always as not present in Zoho)      
-     */
+
+    // description (always as not present in Zoho)
     zohoOrganization.setDcDescription(wikidataOrganization.getDcDescription());
-    
+
     return (Organization) zohoOrganization;
   }
 }

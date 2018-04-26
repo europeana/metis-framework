@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.service.dao;
+package eu.europeana.enrichment.service;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,9 +13,11 @@ import org.apache.maven.shared.utils.StringUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.model.EdmOrganization;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.service.EntityConverterUtils;
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
+import eu.europeana.enrichment.service.dao.WikidataAccessDao;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
 
@@ -28,17 +30,16 @@ import eu.europeana.enrichment.service.exception.WikidataAccessException;
  */
 public class WikidataAccessService {
 
-  String WIKIDATA_BASE_URL = "http://www.wikidata.org/entity/Q";
+  private static final String WIKIDATA_BASE_URL = "http://www.wikidata.org/entity/Q";
   
   WikidataAccessDao wikidataAccessDao;
-  
-  EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
   
   public WikidataAccessService(WikidataAccessDao wikidataAccessDao) {
     this.wikidataAccessDao = wikidataAccessDao;
   }
   
-  
+  private EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
+    
   public EntityConverterUtils getEntityConverterUtils() {
     return entityConverterUtils;
   }
@@ -148,8 +149,7 @@ public class WikidataAccessService {
    */
   public boolean saveXmlToFile(String xml, File contentFile) throws WikidataAccessException {
     boolean res = false;
-    try {
-      FileWriter fileWriter = new FileWriter(contentFile);
+    try (FileWriter fileWriter = new FileWriter(contentFile)) {
       fileWriter.write(xml);
       fileWriter.flush();
       fileWriter.close();

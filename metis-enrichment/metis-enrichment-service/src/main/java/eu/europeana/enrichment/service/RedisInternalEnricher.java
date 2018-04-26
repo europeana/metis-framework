@@ -227,10 +227,8 @@ public class RedisInternalEnricher {
         jedis.hset(entityType.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
             OBJECT_MAPPER.writeValueAsString(entityWrapper));
         List<String> parents = this.findParents(termList.getParent(), entityType.entityClass);
-        if (parents != null && !parents.isEmpty()) {
-          jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
-              parents.toArray(new String[] {}));
-        }
+        jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
+            parents.toArray(new String[] {}));
         if (termList.getOwlSameAs() != null) {
           for (String sameAs : termList.getOwlSameAs()) {
             jedis.hset(entityType.cachedEntityPrefix + CACHED_SAMEAS, sameAs, term.getCodeUri());
