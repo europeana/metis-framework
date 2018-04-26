@@ -6,8 +6,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.Map;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.CharSet;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -286,7 +289,6 @@ public class ZohoAccessClientDao {
   }
 
   /**
-<<<<<<< HEAD
    * Retrieve Zoho organization from file by given path.
    * <p>
    * It will try to fetch the organization from the given file. This method returns an
@@ -305,9 +307,9 @@ public class ZohoAccessClientDao {
    */
   public JsonNode getOrganizationFromFile(File contentFile) throws GenericMetisException, IOException {
 
-    String organisationsResponse = readFile(contentFile);
-    LOGGER.debug("{}", "Content of Zoho response file: " + organisationsResponse);
-
+    String organisationsResponse = FileUtils.readFileToString(contentFile, "UTF-8");
+    LOGGER.debug("Content of Zoho response file: {}", organisationsResponse);
+    
     ObjectMapper mapper = new ObjectMapper();
     try {
       return mapper.readTree(organisationsResponse);
@@ -315,32 +317,10 @@ public class ZohoAccessClientDao {
       throw new GenericMetisException("Cannot parse zoho response: " + organisationsResponse, e);
     }
   }
-  
-  /**
-   * This method reads organization data stored in a file
-   * @param contentFile
-   * @return organization in string format
-   * @throws IOException
-   */
-  public String readFile(File contentFile) throws IOException {
-    BufferedReader in = new BufferedReader(
-        new InputStreamReader(new FileInputStream(contentFile), "UTF8"));
-    String res = "";
-    String line;
-    while((line = in.readLine()) != null) {
-      res = res + line;
-    }
-    in.close();    
-    return res;
-  }
     
   /**
    * Retrieve organizations using getRecords query, start and end index. 
    * The organizations are pre-ordered by modified time ascending
-=======
-   * Retrieve organizations using getRecords query, start and end index. The organizations are
-   * pre-ordered by modified time ascending
->>>>>>> refs/remotes/origin/develop
    * <p>
    * It will try to fetch the organizations from the external CRM. This method returns a list of
    * organizations in json format.

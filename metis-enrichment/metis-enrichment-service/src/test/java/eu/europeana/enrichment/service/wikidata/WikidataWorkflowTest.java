@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.Properties;
 import javax.xml.bind.JAXBException;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.service.EntityService;
-import eu.europeana.enrichment.service.dao.WikidataAccessService;
-import eu.europeana.enrichment.service.dao.WikidataOrganization;
 import eu.europeana.enrichment.service.exception.EntityConverterException;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
@@ -96,9 +96,10 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     File organizationImplTestOutputFile = getClasspathFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
     File organizationImplTestExpectedFile = getClasspathFile(ORGANIZATION_IMPL_TEST_EXPECTED_FILE);
     String outputOrganizationImplStr =
-        getEntityConverterUtils().readFile(organizationImplTestOutputFile);
+        FileUtils.readFileToString(organizationImplTestOutputFile, "UTF-8");
     String expectedOrganizationImplStr =
-        getEntityConverterUtils().readFile(organizationImplTestExpectedFile);
+        FileUtils.readFileToString(organizationImplTestExpectedFile, "UTF-8");
+
     assertEquals(outputOrganizationImplStr, expectedOrganizationImplStr);
   }
 

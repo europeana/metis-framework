@@ -1,10 +1,6 @@
 package eu.europeana.enrichment.service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -221,36 +217,7 @@ public class EntityConverterUtils {
   /********************** 
    * Merging methods 
    **********************/
-  
-  /**
-   * This method compares two language maps of type Map<String, List<String>> 
-   * @param zohoOrganization
-   * @param wikidataOrganization
-   * @return true if language maps are equal, false otherwise
-   */
-  public boolean isEqualLanguageListMap(     
-      Map<String, List<String>> zohoOrganization
-      , Map<String, List<String>> wikidataOrganization) {
     
-    boolean res = false;
-    
-    for (Map.Entry<String, List<String>> entry : zohoOrganization.entrySet()) {
-        String zohoLanguage = entry.getKey();
-        List<String> zohoList = entry.getValue();
-        List<String> wikidataList = wikidataOrganization.get(zohoLanguage);
-        if (zohoList != null && wikidataList != null) {
-          res = (zohoList.size() == wikidataList.size()) && zohoList.containsAll(wikidataList);
-          if (res) {
-            res = compareMapsByValues(zohoOrganization, wikidataOrganization);
-          }
-        } else {
-          /** no such key */
-          return false;
-        }
-    }
-    return res;
-  }
-  
   /**
    * This method performs comparison of Map values for 
    * different possible types e.g. Map<String, List<String>>
@@ -267,9 +234,9 @@ public class EntityConverterUtils {
     if (baseMap == null || addMap == null || baseMap.size() != addMap.size()) 
       return false;
     
-    for (String key : baseMap.keySet()) {
-      T baseValue = baseMap.get(key);
-      T addValue = addMap.get(key);
+    for (Map.Entry<String, T> entry : baseMap.entrySet()) {
+      T baseValue = entry.getValue();
+      T addValue = addMap.get(entry.getKey());
       if (baseValue == null && addValue == null)
           continue;
       else if (baseValue == null || addValue == null)
@@ -307,9 +274,10 @@ public class EntityConverterUtils {
     }
     
     /** go through all keys of the base map and extract not equal values from the add map */
-    for (String key : baseMap.keySet()) {
-      T baseValue = baseMap.get(key);
-      T addValue = addMap.get(key);
+    for (Map.Entry<String, T> entry : baseMap.entrySet()) {
+      String key = entry.getKey();
+      T baseValue = entry.getValue();
+      T addValue = addMap.get(entry.getKey());
       if (baseValue == null && addValue == null)
           continue;
       else if (baseValue == null && addValue != null) {
@@ -331,8 +299,8 @@ public class EntityConverterUtils {
     diffEntrySet.removeAll(baseMap.entrySet());
     
     /** add extracted keys with their values to the result map */
-    for(Entry<String, T> entry : diffEntrySet) {
-        resMap.put(entry.getKey(), entry.getValue());
+    for(Entry<String, T> diffEntry : diffEntrySet) {
+        resMap.put(diffEntry.getKey(), diffEntry.getValue());
     }
     
     return resMap;
@@ -377,47 +345,61 @@ public class EntityConverterUtils {
   }
   
   /**
-   * This method extends base language map in format Map<String, List<String>> 
+   * This method extends base language map in format Map<String, List<String>> or Map<String, String> 
    * by additional map values if they are not duplicates
-   * @param baseMap
+   * @param baseMap The original map
    * @param addMap
    * @return enriched base map
    */
-  @SuppressWarnings("unchecked")
   public <T> Map<String, T> mergeLanguageListMap(
       Map<String, T> baseMap
       , Map<String, T> addMap) {
     
     if (baseMap == null) {
-      /** if base map is empty and add map not - result is add map */
+      // if base map is empty and add map not - result is add map 
       return addMap;
     }
     
-    /** go through all keys of the add map and add not equal values to the base map */
-    for (String key : addMap.keySet()) {
-      T baseValue = baseMap.get(key);
-      T addValue = addMap.get(key);
-      if (baseValue == null && addValue == null)
-          continue;
-      else if (baseValue == null && addValue != null) {
-        /** use value from add list for given key if it is not null and base value is null */
-        baseMap.put(key, addValue);
-        continue;
-      }
-      
-      if (!addValue.getClass().equals(List.class)) {
-        /** add all elements to add list from base list */
-        List<String> addValueList = new ArrayList<String>((List<String>) addValue);
-        List<String> baseValueList = new ArrayList<String>((List<String>) baseValue);
-        addValueList.addAll(baseValueList);
-        T addValuesWithoutDuplicates = (T) new ArrayList<String>(new HashSet<String>(addValueList));
-        baseMap.put(key, addValuesWithoutDuplicates);
-      }
-      if (!baseValue.equals(addValue))
-        baseMap.put(key, addValue);
-    }   
-    
+    // go through all keys of the add map and add not equal values to the base map 
+    for (Map.Entry<String, T> entry : addMap.entrySet()) {
+      String key = entry.getKey();
+      if (!baseMap.keySet().contains(key)) {
+        baseMap.put(key, entry.getValue());
+      } 
+    }       
     return baseMap;
+  }
+ 
+  /**
+   * This method adds new data from Wikidata to Zoho prefLabel, assuming
+   * that Zoho prefLabel should have only one value for one language.
+   * If a value for the particular language already exists, prefLabel
+   * from Wikidata will be added to altLabel of Zoho if it is not 
+   * existing for particular language.
+   * @param zohoMap The prefLabel in Zoho organization
+   * @param wikidataMap The prefLabel in Wikidata organization
+   * @param addToAltLabelMap The values that could not be added to Zoho prefLabel and should be added to Zoho altLabel
+   * @return the new Zoho prefLabel value that should
+   */
+  public Map<String, List<String>> mergePrefLabel(
+      Map<String, List<String>> zohoMap
+      , Map<String, List<String>> wikidataMap, Map<String, List<String>> addToAltLabelMap) {
+    
+    if (zohoMap == null) {
+      // if Zoho map is empty and Wikidata map not - result is the Wikidata map 
+      return wikidataMap;
+    }
+    
+    // go through all keys of the Wikidata map and add not equal values to the Zoho map 
+    for (Map.Entry<String, List<String>> entry : wikidataMap.entrySet()) {
+      String key = entry.getKey();
+      if (!zohoMap.keySet().contains(key)) {
+        zohoMap.put(key, entry.getValue());
+      } else {
+        addToAltLabelMap.put(key, entry.getValue());
+      }
+    }       
+    return zohoMap;
   }
  
   /**
@@ -468,22 +450,5 @@ public class EntityConverterUtils {
     return res;
   }
   
-  /**
-   * This method reads organization data stored in a file
-   * @param contentFile
-   * @return organization in string format
-   * @throws IOException
-   */
-  public String readFile(File contentFile) throws IOException {
-    BufferedReader in = new BufferedReader(
-        new InputStreamReader(new FileInputStream(contentFile), "UTF8"));
-    String res = "";
-    String line;
-    while((line = in.readLine()) != null) {
-      res = res + line;
-    }
-    in.close();    
-    return res;
-  }
   
 }

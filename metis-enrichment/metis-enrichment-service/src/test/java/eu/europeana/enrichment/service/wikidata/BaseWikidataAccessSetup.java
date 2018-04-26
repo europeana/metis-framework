@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import eu.europeana.enrichment.service.WikidataAccessService;
 import eu.europeana.enrichment.service.dao.WikidataAccessDao;
-import eu.europeana.enrichment.service.dao.WikidataAccessService;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import eu.europeana.enrichment.service.zoho.BaseZohoAccessSetup;
 

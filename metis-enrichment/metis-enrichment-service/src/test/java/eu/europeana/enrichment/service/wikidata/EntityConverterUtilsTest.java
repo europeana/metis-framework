@@ -85,20 +85,12 @@ public class EntityConverterUtilsTest {
       ParseException, JAXBException, IOException {
 
     init();
-    
-    /** check two equal prefLabels */
-    boolean compareEqualMaps = getEntityConverterUtils().isEqualLanguageListMap(prefLabel, prefLabel);
-    assertTrue(compareEqualMaps == true);
-    
+       
     /** merge two equal prefLabels */
     Map<String, List<String>> mergedFromEqualMap = getEntityConverterUtils().mergeLanguageListMap(
         prefLabel, prefLabel);
     assertNotNull(mergedFromEqualMap);
     
-    /** check unequal prefLabels */
-    boolean compareDifferentMaps = getEntityConverterUtils().isEqualLanguageListMap(prefLabel, addPrefLabel);
-    assertTrue(compareDifferentMaps == false);
-
     /** extract not equal values */
     Map<String, List<String>> diffMap = getEntityConverterUtils().extractValuesNotIncludedInBaseMap(
         prefLabel, addPrefLabel);

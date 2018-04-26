@@ -2,6 +2,7 @@ package eu.europeana.enrichment.service;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -87,6 +88,23 @@ public class EntityService implements Closeable {
     if (storedOrg == null)
       return null;
     return ((OrganizationImpl) storedOrg.getRepresentation());
+  }
+
+  /**
+   * This method returns the list of ids for existing organizations from database
+   * 
+   * @param organizationIds The organization IDs to search for
+   * @return list of ids for existing organization
+   */
+  public List<String> findExistingOrganizations(List<String> organizationIds) {
+    List<String> res = new ArrayList<String>();
+    for (String id : organizationIds) {
+      Organization organization = getOrganizationById(id);
+      if (organization != null) {
+        res.add(organization.getAbout());
+      }
+    }
+    return res;
   }
 
   /**

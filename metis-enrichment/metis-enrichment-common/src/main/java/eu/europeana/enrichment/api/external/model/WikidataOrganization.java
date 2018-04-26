@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.service.dao;
+package eu.europeana.enrichment.api.external.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

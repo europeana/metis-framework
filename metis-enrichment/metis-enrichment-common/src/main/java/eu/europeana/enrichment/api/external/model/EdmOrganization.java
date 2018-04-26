@@ -1,13 +1,10 @@
-package eu.europeana.enrichment.service.dao;
+package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.Resource;
 
 /**
  * This class stores result of the parsing of XSLT/XML 
