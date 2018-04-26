@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
     @JsonSubTypes.Type(value = ValidationInternalPlugin.class, name = "VALIDATION_INTENRAL"),
     @JsonSubTypes.Type(value = TransformationPlugin.class, name = "TRANSFORMATION"),
     @JsonSubTypes.Type(value = ValidationExternalPlugin.class, name = "VALIDATION_EXTERNAL"),
+    @JsonSubTypes.Type(value = NormalizationPlugin.class, name = "NORMALIZATION"),
     @JsonSubTypes.Type(value = EnrichmentPlugin.class, name = "ENRICHMENT"),
     @JsonSubTypes.Type(value = MediaProcessPlugin.class, name = "MEDIA_PROCESS")
 })

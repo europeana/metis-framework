@@ -23,6 +23,7 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
@@ -68,6 +69,8 @@ public class TestObjectFactory {
     transformationPluginMetadata.setEnabled(true);
     ValidationInternalPluginMetadata validationInternalPluginMetadata = new ValidationInternalPluginMetadata();
     validationInternalPluginMetadata.setEnabled(true);
+    NormalizationPluginMetadata normalizationPluginMetadata = new NormalizationPluginMetadata();
+    normalizationPluginMetadata.setEnabled(true);
     EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
     enrichmentPluginMetadata.setEnabled(true);
 
@@ -76,6 +79,7 @@ public class TestObjectFactory {
     abstractMetisPluginMetadata.add(validationExternalPluginMetadata);
     abstractMetisPluginMetadata.add(transformationPluginMetadata);
     abstractMetisPluginMetadata.add(validationInternalPluginMetadata);
+    abstractMetisPluginMetadata.add(normalizationPluginMetadata);
     abstractMetisPluginMetadata.add(enrichmentPluginMetadata);
     workflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 
