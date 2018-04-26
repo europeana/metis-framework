@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
+import eu.europeana.metis.core.workflow.plugins.NormalizationPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
@@ -81,10 +82,20 @@ public class TestExecutionRules {
   }
 
   @Test
+  public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_NormalizationPlugin() {
+    when(workflowExecutionDao
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
+            EnumSet.of(PluginType.VALIDATION_INTERNAL))).thenReturn(new NormalizationPlugin());
+    Assert.assertNotNull(ExecutionRules
+        .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.NORMALIZATION,
+            null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
+  }
+
+  @Test
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_EnrichmentPlugin() {
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
-            EnumSet.of(PluginType.VALIDATION_INTERNAL))).thenReturn(new EnrichmentPlugin());
+            EnumSet.of(PluginType.NORMALIZATION))).thenReturn(new EnrichmentPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.ENRICHMENT,
             null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));

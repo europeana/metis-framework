@@ -26,6 +26,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.MediaProcessPlugin;
+import eu.europeana.metis.core.workflow.plugins.NormalizationPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
@@ -306,6 +307,8 @@ public class OrchestratorService {
     firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.VALIDATION_INTERNAL);
     firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+        firstPluginDefined, PluginType.NORMALIZATION);
+    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.ENRICHMENT);
     firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.MEDIA_PROCESS);
@@ -331,6 +334,8 @@ public class OrchestratorService {
         abstractMetisPlugin = new TransformationPlugin(pluginMetadata);
       } else if (pluginType == PluginType.VALIDATION_INTERNAL) {
         abstractMetisPlugin = new ValidationInternalPlugin(pluginMetadata);
+      } else if (pluginType == PluginType.NORMALIZATION) {
+        abstractMetisPlugin = new NormalizationPlugin(pluginMetadata);
       } else if (pluginType == PluginType.ENRICHMENT) {
         abstractMetisPlugin = new EnrichmentPlugin(pluginMetadata);
       } else if (pluginType == PluginType.MEDIA_PROCESS) {
