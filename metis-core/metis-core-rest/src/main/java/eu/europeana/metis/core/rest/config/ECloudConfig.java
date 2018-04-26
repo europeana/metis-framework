@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
 public class ECloudConfig extends WebMvcConfigurerAdapter {
 
-  private ConfigurationPropertiesHolder propertiesHolder;
+  private final ConfigurationPropertiesHolder propertiesHolder;
 
   @Autowired
   public ECloudConfig(ConfigurationPropertiesHolder propertiesHolder) {

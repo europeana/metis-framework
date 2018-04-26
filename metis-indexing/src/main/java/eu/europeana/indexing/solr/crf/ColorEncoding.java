@@ -148,6 +148,8 @@ public enum ColorEncoding {
   COLOR_136("F5F5F5", 136),
   COLOR_137("FFFF00", 137),
   COLOR_138("9ACD32", 138);
+  
+  private static final Integer VALUE_UNKNOWN = 0;
 
   private static BiMap<String, Integer> colorMap;
 
@@ -195,6 +197,6 @@ public enum ColorEncoding {
     final Integer retval =
         StringUtils.isNotBlank(hexString) ? getColorMap().get(hexString.toUpperCase(Locale.ENGLISH))
             : null;
-    return retval == null ? 0 : retval;
+    return retval == null ? VALUE_UNKNOWN : retval;
   }
 }

@@ -56,7 +56,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	private static final int MAX_LANG_ALTERNATIVES = 5;
 	private static final int MAX_SAME_AS = 3;
 
-	private List<ZohoResponseField> organizationFields = null;
+	private List<ZohoResponseField> organizationFields;
 
 	public ZohoOrganizationAdapter(JsonNode response)
 			throws ZohoAccessException {

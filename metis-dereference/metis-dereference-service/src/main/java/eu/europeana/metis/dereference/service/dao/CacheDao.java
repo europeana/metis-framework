@@ -15,8 +15,8 @@ import redis.clients.jedis.Jedis;
 public class CacheDao implements AbstractDao<ProcessedEntity> {
   
   private static final Logger LOGGER = LoggerFactory.getLogger(CacheDao.class);
-  private Jedis jedis;
-  private ObjectMapper om = new ObjectMapper();
+  private final Jedis jedis;
+  private final ObjectMapper om = new ObjectMapper();
 
   /**
    * Constructor.

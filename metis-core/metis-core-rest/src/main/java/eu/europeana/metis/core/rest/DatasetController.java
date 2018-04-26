@@ -620,6 +620,6 @@ public class DatasetController {
   public List<Language> getDatasetsLanguages(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return Arrays.asList(Language.values());
+    return Language.getLanguageListSortedByName();
   }
 }

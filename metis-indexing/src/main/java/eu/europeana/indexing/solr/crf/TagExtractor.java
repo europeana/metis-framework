@@ -49,7 +49,7 @@ public class TagExtractor {
 
     // Get and check the media type.
     final MediaType mediaType = webResource.getMediaType();
-    if (MediaType.OTHER.equals(mediaType)) {
+    if (mediaType == MediaType.OTHER) {
       return Collections.emptySet();
     }
 
@@ -93,7 +93,7 @@ public class TagExtractor {
 
     // Get and check the media type.
     final MediaType mediaType = webResource.getMediaType();
-    if (MediaType.OTHER.equals(mediaType)) {
+    if (mediaType == MediaType.OTHER) {
       return Collections.emptySet();
     }
 

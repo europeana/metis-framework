@@ -112,10 +112,6 @@ public class MediaProcessor implements Closeable {
 		commandExecutor.shutdown();
 	}
 	
-	static boolean shouldExtractMetadata(Collection<UrlType> resourceTypes) {
-		return resourceTypes.stream().anyMatch(t -> t == UrlType.HAS_VIEW || t == UrlType.IS_SHOWN_BY);
-	}
-	
 	/**
 	 * @return if true, resources of given type don't need to be downloaded before
 	 *         processing.

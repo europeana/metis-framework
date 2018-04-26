@@ -58,7 +58,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrchestratorConfig.class);
 
-  private ConfigurationPropertiesHolder propertiesHolder;
+  private final ConfigurationPropertiesHolder propertiesHolder;
   private SchedulerExecutor schedulerExecutor;
   private FailsafeExecutor failsafeExecutor;
 
