@@ -49,7 +49,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @EnableWebMvc
 public class Application extends WebMvcConfigurerAdapter {
 
-  private ConfigurationPropertiesHolder propertiesHolder;
+  private final ConfigurationPropertiesHolder propertiesHolder;
   private MongoClient mongoClient;
 
   /**

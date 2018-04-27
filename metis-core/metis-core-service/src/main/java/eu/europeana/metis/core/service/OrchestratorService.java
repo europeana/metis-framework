@@ -26,12 +26,14 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.MediaProcessPlugin;
+import eu.europeana.metis.core.workflow.plugins.NormalizationPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPlugin;
+import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
@@ -70,7 +72,7 @@ public class OrchestratorService {
   private final DatasetXsltDao datasetXsltDao;
   private final WorkflowExecutorManager workflowExecutorManager;
   private final RedissonClient redissonClient;
-  private String metisCoreUrl; //Initialize with setter
+  private String metisCoreUrl; // Use getter and setter for this field!
 
   /**
    * Constructor with all the required parameters
@@ -219,6 +221,7 @@ public class OrchestratorService {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does not exist</li>
+   * <li>{@link BadContentException} if the workflow is empty or no plugin enabled</li>
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
    * <li>{@link ExternalTaskException} if there was an exception when contacting the external resource(ECloud)</li>
    * <li>{@link PluginExecutionNotAllowed} if the execution of the first plugin was not allowed, because a valid source plugin could not be found</li>
@@ -231,10 +234,17 @@ public class OrchestratorService {
 
     Dataset dataset = checkDatasetExistence(datasetId);
     Workflow workflow = checkWorkflowExistence(datasetId);
-    datasetDao.checkAndCreateDatasetInEcloud(dataset);
 
-    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
-        createMetisPluginsList(dataset, workflow, enforcedPluginType), priority);
+    List<AbstractMetisPlugin> metisPlugins = createMetisPluginsList(dataset, workflow,
+        enforcedPluginType);
+    //metisPlugins will be empty if the workflow was empty or all the plugins inside the workflow were disabled.
+    if (metisPlugins.isEmpty()) {
+      throw new BadContentException("Workflow has either no plugins or are all disabled");
+    }
+
+    datasetDao.checkAndCreateDatasetInEcloud(dataset);
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow, metisPlugins,
+        priority);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     RLock executionDatasetIdLock = redissonClient
         .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
@@ -297,6 +307,8 @@ public class OrchestratorService {
     firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.VALIDATION_INTERNAL);
     firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+        firstPluginDefined, PluginType.NORMALIZATION);
+    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.ENRICHMENT);
     firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.MEDIA_PROCESS);
@@ -322,6 +334,8 @@ public class OrchestratorService {
         abstractMetisPlugin = new TransformationPlugin(pluginMetadata);
       } else if (pluginType == PluginType.VALIDATION_INTERNAL) {
         abstractMetisPlugin = new ValidationInternalPlugin(pluginMetadata);
+      } else if (pluginType == PluginType.NORMALIZATION) {
+        abstractMetisPlugin = new NormalizationPlugin(pluginMetadata);
       } else if (pluginType == PluginType.ENRICHMENT) {
         abstractMetisPlugin = new EnrichmentPlugin(pluginMetadata);
       } else if (pluginType == PluginType.MEDIA_PROCESS) {
@@ -348,7 +362,7 @@ public class OrchestratorService {
     }
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
       ((TransformationPluginMetadata) abstractMetisPluginMetadata)
-          .setXsltUrl(metisCoreUrl + RestEndpoints
+          .setXsltUrl(getMetisCoreUrl() + RestEndpoints
               .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, xsltObject.getId().toString()));
     }
   }
@@ -557,6 +571,12 @@ public class OrchestratorService {
   public void setMetisCoreUrl(String metisCoreUrl) {
     synchronized (this) {
       this.metisCoreUrl = metisCoreUrl;
+    }
+  }
+
+  private String getMetisCoreUrl() {
+    synchronized (this) {
+      return this.metisCoreUrl;
     }
   }
 }

@@ -31,14 +31,14 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final int MAX_MONITOR_FAILURES = 3;
   private Date finishDate;
   private boolean firstPluginExecution;
-  private int monitorCheckIntervalInSecs;
+  private final int monitorCheckIntervalInSecs;
 
   private final WorkflowExecution workflowExecution;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final RedissonClient redissonClient;
   private final DpsClient dpsClient;
-  private String ecloudBaseUrl;
-  private String ecloudProvider;
+  private final String ecloudBaseUrl;
+  private final String ecloudProvider;
 
   WorkflowExecutor(WorkflowExecution workflowExecution,
       WorkflowExecutionDao workflowExecutionDao, int monitorCheckIntervalInSecs,

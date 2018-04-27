@@ -48,7 +48,7 @@ class ImageProcessor {
 	
 	private static String magickCmd;
 	
-	private CommandExecutor ce;
+	private final CommandExecutor ce;
 	
 	protected ArrayList<Thumbnail> thumbnails = new ArrayList<>();
 	
@@ -116,7 +116,7 @@ class ImageProcessor {
 		try {
 			width = Integer.parseInt(results.get(WIDTH_LINE));
 			int height = Integer.parseInt(results.get(HEIGHT_LINE));
-			if (MediaProcessor.shouldExtractMetadata(urlTypes)) {
+			if (UrlType.shouldExtractMetadata(urlTypes)) {
 				WebResource resource = edm.getWebResource(url);
 				resource.setMimeType(mimeType);
 				resource.setFileSize(content.length());

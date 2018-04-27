@@ -173,7 +173,7 @@ public class PsqlMetisUserDao {
 
     int offset = 0;
     int pageSize = DEFAULT_PAGE_SIZE_FOR_ACCESS_TOKENS;
-    List metisUserAccessTokens;
+    List<?> metisUserAccessTokens;
     do {
       Criteria criteria = session.createCriteria(MetisUserAccessToken.class).setFirstResult(offset)
           .setMaxResults(pageSize);
@@ -183,7 +183,7 @@ public class PsqlMetisUserDao {
           MetisUserAccessToken metisUserAccessToken = (MetisUserAccessToken) object;
           long accessTokenInMillis = metisUserAccessToken.getTimestamp().getTime();
           Date afterAddingTenMins = new Date(
-              accessTokenInMillis + (accessTokenExpireTimeInMins * ONE_MINUTE_IN_MILLIS));
+              accessTokenInMillis + (getAccessTokenExpireTimeInMins() * ONE_MINUTE_IN_MILLIS));
           if (afterAddingTenMins.compareTo(date) <= 0) {
             //Remove access token
             Query deleteQuery = session
@@ -308,7 +308,7 @@ public class PsqlMetisUserDao {
    */
   public List<MetisUser> getAllMetisUsers() {
     Session session = sessionFactory.openSession();
-    List metisUsersObjects = session.createCriteria(MetisUser.class).list();
+    List<?> metisUsersObjects = session.createCriteria(MetisUser.class).list();
     List<MetisUser> metisUsers = new ArrayList<>(metisUsersObjects.size());
     for (Object object : metisUsersObjects) {
       metisUsers.add((MetisUser) object);

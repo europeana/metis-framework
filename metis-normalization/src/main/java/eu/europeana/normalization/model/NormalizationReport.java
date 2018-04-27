@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class NormalizationReport {
 
-  private Map<String, NormalizationOperationReport> operations = new HashMap<>();
+  private final Map<String, NormalizationOperationReport> operations = new HashMap<>();
 
   /**
    * This method merges the report with another one, also merging the underlying operation reports.

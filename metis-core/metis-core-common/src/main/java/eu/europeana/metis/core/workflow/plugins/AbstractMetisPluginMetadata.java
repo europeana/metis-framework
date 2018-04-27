@@ -20,6 +20,7 @@ import org.mongodb.morphia.annotations.Embedded;
     @JsonSubTypes.Type(value = ValidationExternalPluginMetadata.class, name = "VALIDATION_EXTERNAL"),
     @JsonSubTypes.Type(value = TransformationPluginMetadata.class, name = "TRANSFORMATION"),
     @JsonSubTypes.Type(value = ValidationInternalPluginMetadata.class, name = "VALIDATION_INTERNAL"),
+    @JsonSubTypes.Type(value = NormalizationPluginMetadata.class, name = "NORMALIZATION"),
     @JsonSubTypes.Type(value = EnrichmentPluginMetadata.class, name = "ENRICHMENT"),
     @JsonSubTypes.Type(value = MediaProcessPluginMetadata.class, name = "MEDIA_PROCESS")
 })
@@ -27,7 +28,7 @@ import org.mongodb.morphia.annotations.Embedded;
 public abstract class AbstractMetisPluginMetadata {
 
   private boolean mocked = true;
-  private boolean enabled = false;
+  private boolean enabled;
   private String revisionNamePreviousPlugin;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date revisionTimestampPreviousPlugin;

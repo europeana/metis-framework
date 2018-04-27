@@ -272,7 +272,7 @@ public class RedisInternalEnricher {
       parentEntities.add(parents.getCodeUri());
       if (parents.getParent() != null && !parent.equals(parents.getParent())) {
         // TODO why is this necessary in this particular case?
-        if (entityClass.equals(EntityClass.TIMESPAN)) {
+        if (entityClass == EntityClass.TIMESPAN) {
           try {
             Thread.sleep(10L);
           } catch (InterruptedException var5) {

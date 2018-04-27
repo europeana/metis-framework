@@ -173,6 +173,7 @@ public class OrchestratorController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowFoundException} if a workflow for the dataset identifier provided does not exist</li>
+   * <li>{@link BadContentException} if the workflow is empty or no plugin enabled</li>
    * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
    * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if there was an exception when contacting the external resource(ECloud)</li>
    * <li>{@link eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed} if the execution of the first plugin was not allowed, because a valid source plugin could not be found</li>

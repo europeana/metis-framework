@@ -44,7 +44,7 @@ class AudioVideoProcessor {
 	
 	void processAudioVideo(String url, Collection<UrlType> urlTypes, String mimeType, File contents, EdmObject edm)
 			throws MediaException, IOException {
-		if (!MediaProcessor.shouldExtractMetadata(urlTypes))
+		if (!UrlType.shouldExtractMetadata(urlTypes))
 			return;
 		
 		List<String> command = Arrays.asList(ffprobeCmd, "-v", "quiet", "-print_format", "json",

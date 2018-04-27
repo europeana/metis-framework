@@ -2,6 +2,9 @@ package eu.europeana.metis.core.common;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * The name of the dataset (enumerated)
@@ -38,6 +41,7 @@ public enum Language {
   /**
    * Lookup of a {@link Language} enum from a provided enum String representation of the enum value.
    * <p>e.g. if provided enumName is EL then the returned Language will be Language.EL</p>
+   *
    * @param enumName the String representation of an enum value
    * @return the {@link Language} that represents the provided value or null if not found
    */
@@ -48,5 +52,16 @@ public enum Language {
       }
     }
     return null;
+  }
+
+  /**
+   * Provides the languages sorted by the {@link #getName()} field
+   *
+   * @return the list of languages sorted
+   */
+  public static List<Language> getLanguageListSortedByName() {
+    List<Language> languages = Arrays.asList(Language.values());
+    languages.sort(Comparator.comparing(Language::getName));
+    return languages;
   }
 }

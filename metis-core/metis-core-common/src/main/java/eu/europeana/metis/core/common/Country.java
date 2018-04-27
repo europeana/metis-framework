@@ -18,8 +18,8 @@ public enum Country {
       "Denmark", "DK"), ESTONIA("Estonia", "EE"), EUROPE("Europe", "EU"), FINLAND("Finland",
       "FI"), FRANCE("France", "FR"), GEORGIA("Georgia", "GE"), GERMANY("Germany", "DE"), GREECE(
       "Greece", "GR"), HOLY_SEE_VATICAN_CITY_STATE("Holy See (Vatican City State)", "VA"), HUNGARY(
-      "Hungary", "HU"), ICELAND("Iceland", "IS"), INDIA("India", "IN"), ITALY("ITALY",
-      "IT"), ISRAEL("Israel", "IL"), JAPAN("Japan", "JP"), KAZAKHSTAN("Kazakhstan", "KZ"), KOREA(
+      "Hungary", "HU"), ICELAND("Iceland", "IS"), INDIA("India", "IN"), IRELAND("Ireland",
+      "IE"), ITALY("Italy", "IT"), ISRAEL("Israel", "IL"), JAPAN("Japan", "JP"), KAZAKHSTAN("Kazakhstan", "KZ"), KOREA(
       "Republic of Korea", "KR"), LATVIA("Latvia", "LV"), LEBANON("Lebanon", "LB"), LIECHTENSTEIN(
       "Liecthenstein", "LI"), LITHUANIA("Lithuania", "LT"), LUXEMBOURG("Luxembourg",
       "LU"), MACEDONIA("Macedonia (the former Yugoslav Republic of)", "MK"), MALTA("Malta",
