@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,9 @@ import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 
 import eu.europeana.corelib.definitions.jibx.Aggregation;
+import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.HasView;
+import eu.europeana.corelib.definitions.jibx.Preview;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 
@@ -68,6 +71,17 @@ public final class EdmObject {
 			}
 		}
 		return urls;
+	}
+	
+	public void updateEdmPreview(String url) {
+		Preview preview = new Preview();
+		preview.setResource(url);
+		
+		if (rdf.getEuropeanaAggregationList() == null || rdf.getEuropeanaAggregationList().isEmpty()) {
+			EuropeanaAggregationType aggregationType = new EuropeanaAggregationType();
+			rdf.setEuropeanaAggregationList(Arrays.asList(aggregationType));
+		}
+		rdf.getEuropeanaAggregationList().get(0).setPreview(preview);
 	}
 	
 	WebResource getWebResource(String url) {
