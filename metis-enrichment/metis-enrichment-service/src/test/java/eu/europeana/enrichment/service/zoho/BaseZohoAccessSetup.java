@@ -25,7 +25,7 @@ public abstract class BaseZohoAccessSetup {
   public final String ORGANIZATION_IMPL_TEST_OUTPUT_FILE = CONTENT_DIR + "bnf-organization-impl-output.json";
   public final String ORGANIZATION_IMPL_TEST_EXPECTED_FILE = CONTENT_DIR + "bnf-organization-impl-expected.json";
   public final String WIKIDATA_TEST_OUTPUT_FILE = CONTENT_DIR + "test.out";
-  public final String WIKIDATA_ORGANIZATION_XSLT_TEMPLATE = CONTENT_DIR + "wkd2org.xsl";
+  public final String WIKIDATA_ORGANIZATION_XSLT_TEMPLATE = "/wkd2org.xsl";
   public final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
   protected final String TEST_ORGANIZATION_ID = "1482250000002112001";
   

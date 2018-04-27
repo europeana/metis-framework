@@ -87,7 +87,7 @@ public class EntityConverterUtilsTest {
     init();
        
     /** merge two equal prefLabels */
-    Map<String, List<String>> mergedFromEqualMap = getEntityConverterUtils().mergeLanguageListMap(
+    Map<String, List<String>> mergedFromEqualMap = getEntityConverterUtils().mergeLanguageMap(
         prefLabel, prefLabel);
     assertNotNull(mergedFromEqualMap);
     
@@ -105,7 +105,7 @@ public class EntityConverterUtilsTest {
     diffMap.put(Locale.FRENCH.getLanguage(), listValues);
     
     /** merge unequal prefLabels to an altLabel and check resulting altLabel */
-    Map<String, List<String>> mergedMap = getEntityConverterUtils().mergeLanguageListMap(altLabel, diffMap);
+    Map<String, List<String>> mergedMap = getEntityConverterUtils().mergeLanguageMap(altLabel, diffMap);
     assertNotNull(mergedMap);
     assertTrue(mergedMap.size() == 3);
     assertEquals(mergedMap.get(Locale.ENGLISH.getLanguage()).get(0), TEST_LABEL_EN);
@@ -116,7 +116,7 @@ public class EntityConverterUtilsTest {
     /** merge unequal string arrays and remove duplicates */
     String[] base = {"a","b","c"};
     String[] add = {"d","b"};    
-    String[] mergedArray = getEntityConverterUtils().concatenateStringArrays(base, add);
+    String[] mergedArray = getEntityConverterUtils().mergeStringArrays(base, add);
     assertNotNull(mergedArray);
     assertTrue(mergedArray.length == 4);    
   }

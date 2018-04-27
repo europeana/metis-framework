@@ -7,8 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import javax.xml.bind.JAXBException;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -53,6 +57,16 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
 
   @After
   public void tearDown() throws Exception {}
+  
+  @Test
+  public void testMergeLists(){
+    List<String> list1 = Arrays.asList( new String[]{"a", "b" , "c"}); 
+    List<String> list2 = Arrays.asList( new String[]{"b" , "c", "d"});
+    List<String> list3 = Arrays.asList( new String[]{"a", "b" , "c", "d"});
+    @SuppressWarnings("unchecked")
+    List<String> res = ListUtils.sum(list1, list2);
+    assertTrue(list3.equals(res));
+  }
 
   @Test
   public void mergeOrganizationsFromFilesTest() throws WikidataAccessException, ZohoAccessException,
@@ -81,13 +95,13 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     wikidataOrganizationImpl.setId(null);
 
     /** 4. Merge both organization objects */
-    Organization mergedOrganization = wikidataAccessService.getWikidataAccessDao()
-        .merge(zohoOrganizationImpl, wikidataOrganizationImpl);
-    assertNotNull(mergedOrganization);
+    wikidataAccessService.getWikidataAccessDao()
+        .mergePropsFromWikidata(zohoOrganizationImpl, wikidataOrganizationImpl);
+    assertNotNull(zohoOrganizationImpl);
 
     /** 5. Store merged OrganizationImpl object in output file */
     String serializedOrganizationImpl = wikidataAccessService.getEntityConverterUtils()
-        .serialize((OrganizationImpl) mergedOrganization);
+        .serialize((OrganizationImpl) zohoOrganizationImpl);
     assertNotNull(serializedOrganizationImpl);
     File organizationImplOutputFile = getClasspathFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
     writeToFile(serializedOrganizationImpl, organizationImplOutputFile);
@@ -130,9 +144,9 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     Organization zohoOrganizationImpl = zohoAccessService.toEdmOrganization(org);
     Organization wikidataOrganizationImpl =
         wikidataAccessService.toOrganizationImpl(wikidataOrganization);
-    Organization mergedOrganization = wikidataAccessService.getWikidataAccessDao()
-        .merge(zohoOrganizationImpl, wikidataOrganizationImpl);
-    assertNotNull(mergedOrganization);
+    wikidataAccessService.getWikidataAccessDao()
+        .mergePropsFromWikidata(zohoOrganizationImpl, wikidataOrganizationImpl);
+    assertNotNull(zohoOrganizationImpl);
 
     /** 6. Store merged data in OrganizationImpl object in Metis */
     // Date now = new Date();
@@ -185,9 +199,9 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
         wikidataAccessService.parseWikidataOrganization(wikidataTestOutputFile);
     Organization wikidataOrganizationImpl =
         wikidataAccessService.toOrganizationImpl(wikidataOrganization);
-    Organization mergedOrganization = wikidataAccessService.getWikidataAccessDao()
-        .merge(zohoOrganizationImpl, wikidataOrganizationImpl);
-    assertNotNull(mergedOrganization);
+    wikidataAccessService.getWikidataAccessDao()
+        .mergePropsFromWikidata(zohoOrganizationImpl, wikidataOrganizationImpl);
+    assertNotNull(zohoOrganizationImpl);
   }
 
 }

@@ -28,7 +28,6 @@ import org.apache.jena.riot.RiotException;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.corelib.definitions.edm.entity.ContextualClass;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.service.EntityConverterUtils;
@@ -208,69 +207,66 @@ public class WikidataAccessDao {
   }
 
   /**
-   * This method performs merging between Zoho and Wikidata inputs according to predefined rules
-   * listed below.
+   * This method performs merging of Wikidata properties into the Zoho organizations according to predefined rules
+   * specified in EA-1045.
    * 
-   * @param zohoOrganization
+   * @param zohoOrganization the organization object to which the Wikidata values will be added 
    * @param wikidataOrganization
-   * @return merged organization object based on Zoho organization
    */
-  public Organization merge(Organization zohoOrganization, Organization wikidataOrganization) {
-
+  public void mergePropsFromWikidata(Organization zohoOrganization, Organization wikidataOrganization) {
+    //see EA-1045 for individual specs
     // prefLabel (if a different pref label exists for the given language, add the label to alt
     // label list for the same language, if it is also not a duplicate)
     Map<String, List<String>> addToAltLabelMap = new HashMap<String, List<String>>();
-    Map<String, List<String>> mergedPrefLabelMap = getEntityConverterUtils()
-        .mergePrefLabel(((ContextualClass) zohoOrganization).getPrefLabel(),
-            ((ContextualClass) wikidataOrganization).getPrefLabel(), addToAltLabelMap);
-    ((ContextualClass) zohoOrganization).setPrefLabel(mergedPrefLabelMap);
+    //results are set directly in prefLabel and addToAltLabelMap maps
+    getEntityConverterUtils()
+        .mergePrefLabel(zohoOrganization.getPrefLabel(),
+            wikidataOrganization.getPrefLabel(), addToAltLabelMap);
     
-    // merge labels produced by prefLabel merge with organization altLabel
-    Map<String, List<String>> mergedZohoAltLabelMap = getEntityConverterUtils()
-        .mergeLanguageListMap(((ContextualClass) zohoOrganization).getAltLabel(),
-            addToAltLabelMap);
+    // merge all alternative labels from wikidata
+    Map<String, List<String>> allWikidataAltLabels = getEntityConverterUtils()
+        .mergeLanguageMap(wikidataOrganization.getAltLabel(), addToAltLabelMap);
 
-    // altLabel (merge labels for each language if they are not duplicates)
+    //merge all wikidata alternative labels to zoho alternative labels
     Map<String, List<String>> mergedAltLabelMap = getEntityConverterUtils()
-        .mergeLanguageListMap(mergedZohoAltLabelMap,
-            ((ContextualClass) wikidataOrganization).getAltLabel());
-    ((ContextualClass) zohoOrganization).setAltLabel(mergedAltLabelMap);
+        .mergeLanguageMap(allWikidataAltLabels, zohoOrganization.getAltLabel());
+   zohoOrganization.setAltLabel(mergedAltLabelMap);
 
-    // edm:acronym (if not available in Zoho)
-    if (zohoOrganization.getEdmAcronym().size() == 0
-        && wikidataOrganization.getEdmAcronym().size() > 0)
-      zohoOrganization.setEdmAcronym(wikidataOrganization.getEdmAcronym());
+   // edm:acronym (if not available in Zoho for each language)
+   Map<String, List<String>> acronyms = getEntityConverterUtils()
+       .mergeLanguageMap(zohoOrganization.getEdmAcronym(), wikidataOrganization.getEdmAcronym());   
+   zohoOrganization.setEdmAcronym(acronyms);
 
      // logo (if not available in zoho)
-    if (StringUtils.isEmpty(zohoOrganization.getFoafLogo())
-        && !StringUtils.isEmpty(wikidataOrganization.getFoafLogo()))
+    if (StringUtils.isEmpty(zohoOrganization.getFoafLogo())){
       zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());
+    }
 
      // homepage (if not available in zoho)
-    if (StringUtils.isEmpty(zohoOrganization.getFoafHomepage())
-        && !StringUtils.isEmpty(wikidataOrganization.getFoafHomepage()))
+    if (StringUtils.isEmpty(zohoOrganization.getFoafHomepage())){
       zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());
+    }  
 
     // phone (if not duplicate)
-    List<String> diffList = getEntityConverterUtils()
+    List<String> phoneList = getEntityConverterUtils()
         .mergeStringLists(zohoOrganization.getFoafPhone(), wikidataOrganization.getFoafPhone());
-    if (diffList != null && diffList.size() > 0)
-      zohoOrganization.setFoafPhone(diffList);
+    zohoOrganization.setFoafPhone(phoneList);
 
     // mbox (if not duplicate)
-    List<String> diffMboxList = getEntityConverterUtils()
+    List<String> mbox = getEntityConverterUtils()
         .mergeStringLists(zohoOrganization.getFoafMbox(), wikidataOrganization.getFoafMbox());
-    if (diffMboxList != null && diffMboxList.size() > 0)
-      zohoOrganization.setFoafMbox(diffMboxList);
+    zohoOrganization.setFoafMbox(mbox);
 
     // sameAs (add non duplicate labels)
-    String[] mergedStringArray = getEntityConverterUtils().concatenateStringArrays(
+    String[] sameAs = getEntityConverterUtils().mergeStringArrays(
         zohoOrganization.getOwlSameAs(), wikidataOrganization.getOwlSameAs());
-    zohoOrganization.setOwlSameAs(mergedStringArray);
+    zohoOrganization.setOwlSameAs(sameAs);
 
     // description (always as not present in Zoho)
     zohoOrganization.setDcDescription(wikidataOrganization.getDcDescription());
-
-    return (Organization) zohoOrganization;
+    
+    //address
+    getEntityConverterUtils().mergeAddress(zohoOrganization, wikidataOrganization);
+    
   }
 }
