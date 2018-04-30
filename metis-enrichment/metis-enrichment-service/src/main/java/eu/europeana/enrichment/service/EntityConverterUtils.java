@@ -338,22 +338,30 @@ public class EntityConverterUtils {
     Map<String, List<String>> ret = new TreeMap<String, List<String>>();
     if (langMap == null) {
       //init baseMap if needed
-      ret.putAll(newValuesMap);
+      if(newValuesMap != null){
+        ret.putAll(newValuesMap);
+      }
     }else{
       ret.putAll(langMap);
       // go through all keys of the add map and add not equal values to the base map
-      List<String> mergedList;
-      for (Map.Entry<String, List<String>> entry : newValuesMap.entrySet()) {
-        if (!langMap.containsKey(entry.getKey())) {
-          //add new languages
-          ret.put(entry.getKey(), entry.getValue());
-        }else{
-          //merge values for existing languages
-          mergedList = mergeStringLists(langMap.get(entry.getKey()), entry.getValue());
-          ret.put(entry.getKey(), mergedList);
+      //only if new values are available
+      if(newValuesMap != null){
+        List<String> mergedList;
+        for (Map.Entry<String, List<String>> entry : newValuesMap.entrySet()) {
+          if (!langMap.containsKey(entry.getKey())) {
+            //add new languages
+            ret.put(entry.getKey(), entry.getValue());
+          }else{
+            //merge values for existing languages
+            mergedList = mergeStringLists(langMap.get(entry.getKey()), entry.getValue());
+            ret.put(entry.getKey(), mergedList);
+          }
         }
       }  
     }
+    
+    if(ret.isEmpty())
+      return null;
     
     return ret;
   }

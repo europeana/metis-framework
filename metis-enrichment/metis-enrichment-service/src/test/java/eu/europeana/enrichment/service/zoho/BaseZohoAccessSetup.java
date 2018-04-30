@@ -13,6 +13,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.enrichment.service.EntityConverterUtils;
+import eu.europeana.enrichment.service.WikidataAccessService;
 import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
 import eu.europeana.enrichment.service.exception.EntityConverterException;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
@@ -25,7 +26,7 @@ public abstract class BaseZohoAccessSetup {
   public final String ORGANIZATION_IMPL_TEST_OUTPUT_FILE = CONTENT_DIR + "bnf-organization-impl-output.json";
   public final String ORGANIZATION_IMPL_TEST_EXPECTED_FILE = CONTENT_DIR + "bnf-organization-impl-expected.json";
   public final String WIKIDATA_TEST_OUTPUT_FILE = CONTENT_DIR + "test.out";
-  public final String WIKIDATA_ORGANIZATION_XSLT_TEMPLATE = "/wkd2org.xsl";
+  public final String WIKIDATA_ORGANIZATION_XSLT_TEMPLATE = WikidataAccessService.WIKIDATA_ORGANIZATION_XSL_FILE;
   public final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
   protected final String TEST_ORGANIZATION_ID = "1482250000002112001";
   
@@ -78,9 +79,9 @@ public abstract class BaseZohoAccessSetup {
   }
 
   /**
-   * This method loads content from a file for given file name.
-   * @param fileName
-   * @return the content file
+   * This method returns the classpath file for the give path name
+   * @param fileName the name of the file to be searched in the classpath
+   * @return the File object 
    * @throws URISyntaxException
    * @throws IOException
    * @throws FileNotFoundException

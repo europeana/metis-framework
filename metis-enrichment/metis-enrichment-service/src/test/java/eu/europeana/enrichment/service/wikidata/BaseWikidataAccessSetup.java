@@ -12,6 +12,7 @@ import eu.europeana.enrichment.service.zoho.BaseZohoAccessSetup;
 public class BaseWikidataAccessSetup extends BaseZohoAccessSetup {
 
   WikidataAccessService wikidataAccessService;
+  WikidataAccessDao wikidataAccessDao;
 
   /**
    * This method initializes classes needed for Wikidata related activities
@@ -24,6 +25,7 @@ public class BaseWikidataAccessSetup extends BaseZohoAccessSetup {
   protected void initWikidataAccessService()
       throws WikidataAccessException, FileNotFoundException, URISyntaxException, IOException {
     File templateFile = getClasspathFile(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE);
-    wikidataAccessService = new WikidataAccessService(new WikidataAccessDao(templateFile));
+    wikidataAccessDao = new WikidataAccessDao(templateFile);
+    wikidataAccessService = new WikidataAccessService(wikidataAccessDao);
   }
 }

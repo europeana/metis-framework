@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.Locale;
 import javax.xml.bind.JAXBException;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +48,7 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
         wikidataAccessService.buildOrganizationUri(TEST_WIKIDATA_ORGANIZATION_ID).toString();
 
     /** dereference Wikidata URI */
-    String wikidataXml = wikidataAccessService.getWikidataAccessDao().dereference(uri).toString();
+    String wikidataXml = wikidataAccessDao.getEntity(uri).toString();
     assertNotNull(wikidataXml);
 
     /** write XML to a file */
@@ -57,14 +58,14 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
 
     /** insert XML in Wikidata organization object */
     WikidataOrganization wikidataOrganization =
-        wikidataAccessService.getWikidataAccessDao().parse(wikidataXml);
+        wikidataAccessDao.parse(wikidataXml);
     assertNotNull(wikidataOrganization);
     assertEquals(wikidataOrganization.getOrganization().getAbout(), TEST_WIKIDATA_URL);
     assertEquals(wikidataOrganization.getOrganization().getCountry(), TEST_COUNTRY);
 
     /** read organization XML from file */
     File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
-    String savedWikidataXml = wikidataAccessService.readXmlFile(wikidataTestOutputFile);
+    String savedWikidataXml = FileUtils.readFileToString(wikidataTestOutputFile, "UTF-8"); 
     assertEquals(wikidataXml, savedWikidataXml);
 
     /** convert Wikidata organization to OrganizationImpl object */
