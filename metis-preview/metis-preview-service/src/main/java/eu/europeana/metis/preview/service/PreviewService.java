@@ -21,10 +21,10 @@ import org.springframework.stereotype.Service;
 import com.google.common.base.Strings;
 import eu.europeana.metis.preview.common.exception.PreviewServiceException;
 import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
-import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.executor.ValidationTask;
 import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
 import eu.europeana.metis.preview.service.executor.ValidationTaskResult;
+import eu.europeana.metis.preview.service.persistence.RecordDao;
 import eu.europeana.validation.model.ValidationResult;
 
 /**

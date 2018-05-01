@@ -52,16 +52,31 @@
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-storage</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>eu.europeana.metis</groupId>
-            <artifactId>metis-preview-persistence</artifactId>
-            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>de.flapdoodle.embed</groupId>
+                    <artifactId>de.flapdoodle.embed.mongo</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mongodb</groupId>
+                    <artifactId>mongo-java-driver</artifactId>
+                </exclusion>
+                <exclusion>
+				    <groupId>org.apache.solr</groupId>
+				    <artifactId>solr-solrj</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-preview-common</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mongodb</groupId>
+                    <artifactId>mongo-java-driver</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>eu.europeana.metis</groupId>
@@ -71,6 +86,11 @@
         <dependency>
             <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-validation-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-indexing</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

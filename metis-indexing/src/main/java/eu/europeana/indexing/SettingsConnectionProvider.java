@@ -31,7 +31,7 @@ import eu.europeana.indexing.exception.IndexerConfigurationException;
  */
 public class SettingsConnectionProvider extends ConnectionProvider {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionProvider.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SettingsConnectionProvider.class);
 
   private final LBHttpSolrClient httpSolrClient;
   private final CloudSolrClient cloudSolrClient;

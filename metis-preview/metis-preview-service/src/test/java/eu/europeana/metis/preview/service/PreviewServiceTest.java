@@ -1,17 +1,6 @@
 package eu.europeana.metis.preview.service;
 
 import static org.mockito.Mockito.when;
-
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
-import eu.europeana.metis.preview.common.exception.PreviewServiceException;
-import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
-import eu.europeana.metis.preview.persistence.RecordDao;
-import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
-import eu.europeana.metis.preview.service.executor.ValidationUtils;
-import eu.europeana.validation.client.ValidationClient;
-import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -22,6 +11,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
+import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
+import eu.europeana.metis.preview.common.exception.PreviewServiceException;
+import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
+import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
+import eu.europeana.metis.preview.service.executor.ValidationUtils;
+import eu.europeana.metis.preview.service.persistence.RecordDao;
+import eu.europeana.validation.client.ValidationClient;
+import eu.europeana.validation.model.ValidationResult;
 
 /**
  * Created by ymamakis on 9/6/16.
@@ -40,7 +39,6 @@ public class PreviewServiceTest {
     mockValidationClient = Mockito.mock(ValidationClient.class);
     final ValidationUtils validationUtils = new ValidationUtils(mockValidationClient, mockDao,
         "EDM-EXTERNAL", "EDM-INTERNAL", "EDM_external2internal_v2.xsl");
-
     ValidationTaskFactory taskFactory = new ValidationTaskFactory(validationUtils);
     Mockito.mock(ValidationTaskFactory.class);
     when(mockConfig.getPreviewUrl()).thenReturn("test/");
@@ -58,7 +56,6 @@ public class PreviewServiceTest {
     ValidationResult result = new ValidationResult();
     result.setSuccess(true);
     when(mockValidationClient.validateRecord("EDM-INTERNAL", record)).thenReturn(result);
-    Mockito.doAnswer(invocationOnMock -> null).when(mockDao).createRecord(Mockito.anyObject());
     List<String> records = new ArrayList<>();
     records.add(record);
 

@@ -1,27 +1,12 @@
 package eu.europeana.metis.preview.config;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientOptions.Builder;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
-import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
-import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.preview.persistence.RecordDao;
-import eu.europeana.metis.preview.service.ZipService;
-import eu.europeana.metis.preview.service.executor.ValidationUtils;
-import eu.europeana.validation.client.ValidationClient;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -39,6 +24,21 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientOptions.Builder;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
+import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
+import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.indexing.exception.IndexerConfigurationException;
+import eu.europeana.metis.preview.service.ZipService;
+import eu.europeana.metis.preview.service.executor.ValidationUtils;
+import eu.europeana.metis.preview.service.persistence.RecordDao;
+import eu.europeana.validation.client.ValidationClient;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -102,7 +102,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String defaultTransformationFile;
 
   private MongoClient mongoClient;
-  private HttpSolrServer solrServer;
+  private SolrClient solrServer;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -175,22 +175,16 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new EdmMongoServerImpl(mongoClient, mongoDb);
   }
 
-  @Bean
-  @DependsOn(value = "solrServer")
-  SolrDocumentHandler solrDocumentHandler() {
-    return new SolrDocumentHandler(solrServer());
-  }
-
   @Bean(name = "solrServer")
-  SolrServer solrServer() {
-    solrServer = new HttpSolrServer(solrSearchUrl);
+  SolrClient solrServer() {
+    solrServer = new HttpSolrClient.Builder().withBaseSolrUrl(solrSearchUrl).build();
     return solrServer;
   }
-
+  
   @Bean
   @DependsOn(value = "solrServer")
-  RecordDao recordDao() throws MongoDBException {
-    return new RecordDao(fullBeanHandler(), solrDocumentHandler(), solrServer(), edmMongoServer());
+  RecordDao recordDao() throws MongoDBException, IndexerConfigurationException {
+    return new RecordDao(solrServer(), edmMongoServer());
   }
 
   @Bean
@@ -217,19 +211,19 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public ValidationUtils getValidationUtils() throws MongoDBException, IOException {
+  public ValidationUtils getValidationUtils() throws MongoDBException, IOException, IndexerConfigurationException {
     return new ValidationUtils(validationClient(), recordDao(), schemaBeforeTransformation,
         schemaAfterTransformation, defaultTransformationFile);
   }
 
   @PreDestroy
-  public void close() {
+  public void close() throws IOException {
     LOGGER.info("Closing connections..");
     if (mongoClient != null) {
       mongoClient.close();
     }
     if (solrServer != null) {
-      solrServer.shutdown();
+      solrServer.close();
     }
   }
 
