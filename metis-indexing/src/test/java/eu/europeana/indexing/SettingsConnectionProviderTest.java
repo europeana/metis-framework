@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import java.net.InetSocketAddress;
 import org.junit.Test;
 
-public class IndexingConnectionProviderTest {
+public class SettingsConnectionProviderTest {
 
   @Test
   public void testInetSocketAddressToString() {
@@ -19,12 +19,12 @@ public class IndexingConnectionProviderTest {
     final InetSocketAddress domainInput = new InetSocketAddress(domainName, port1);
     final String domainOutput = domainName + ":" + port1;
     assertEquals(domainOutput,
-        IndexingConnectionProvider.toCloudSolrClientAddressString(domainInput));
+        SettingsConnectionProvider.toCloudSolrClientAddressString(domainInput));
 
     // Test single ip address name
     final InetSocketAddress ipInput = new InetSocketAddress(ipAddress, port2);
     final String ipOutput = ipAddress + ":" + port2;
-    assertEquals(ipOutput, IndexingConnectionProvider.toCloudSolrClientAddressString(ipInput));
+    assertEquals(ipOutput, SettingsConnectionProvider.toCloudSolrClientAddressString(ipInput));
   }
 
 }

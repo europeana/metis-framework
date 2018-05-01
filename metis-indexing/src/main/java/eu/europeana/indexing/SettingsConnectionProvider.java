@@ -1,6 +1,5 @@
 package eu.europeana.indexing;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -22,29 +21,17 @@ import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.indexing.exception.IndexerConfigurationException;
-import eu.europeana.indexing.mongo.FullBeanDao;
 
 /**
- * <p>
- * This class is maintainable for providing an instance of {@link Indexer} with the required
- * connections to persistence storage. It is responsible for maintaining the connections and
- * providing access to the following functionality:
- * <ol>
- * <li>A DAO object (instance of {@link FullBeanDao}) for storing Full Beans.</li>
- * <li>A Publisher object (instance of {@link FullBeanPublisher}) for publishing Full Beans to be
- * accessed by external agents.</li>
- * </ol>
- * </p>
- * <p>
- * Please note that this class is {@link Closeable} and must be closed to release it's resources.
- * </p>
+ * This class is an implementation of {@link ConnectionProvider} that sets up the connection
+ * using an {@link IndexingSettings} object.
  * 
  * @author jochen
  *
  */
-class IndexingConnectionProvider implements Closeable {
+public class SettingsConnectionProvider extends ConnectionProvider {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(IndexingConnectionProvider.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionProvider.class);
 
   private final LBHttpSolrClient httpSolrClient;
   private final CloudSolrClient cloudSolrClient;
@@ -57,7 +44,7 @@ class IndexingConnectionProvider implements Closeable {
    * @param settings The indexing settings (connection settings).
    * @throws IndexerConfigurationException In case the connections could not be set up.
    */
-  IndexingConnectionProvider(IndexingSettings settings) throws IndexerConfigurationException {
+  SettingsConnectionProvider(IndexingSettings settings) throws IndexerConfigurationException {
 
     // Create Solr and Zookeeper connections.
     this.httpSolrClient = setUpHttpSolrConnection(settings);
@@ -119,7 +106,7 @@ class IndexingConnectionProvider implements Closeable {
 
     // Get information from settings
     final Set<String> hosts = settings.getZookeeperHosts().stream()
-        .map(IndexingConnectionProvider::toCloudSolrClientAddressString)
+        .map(SettingsConnectionProvider::toCloudSolrClientAddressString)
         .collect(Collectors.toSet());
     final String chRoot = settings.getZookeeperChroot();
     final String defaultCollection = settings.getZookeeperDefaultCollection();
@@ -154,14 +141,14 @@ class IndexingConnectionProvider implements Closeable {
     return address.getHostString() + ":" + address.getPort();
   }
 
-  /**
-   * Provides a Publisher object for publishing Full Beans so that they may be found by users.
-   * 
-   * @return A publisher.
-   */
-  FullBeanPublisher getFullBeanPublisher() {
-    final SolrClient solrServer = cloudSolrClient == null ? httpSolrClient : cloudSolrClient;
-    return new FullBeanPublisher(new FullBeanDao(mongoServer), solrServer);
+  @Override
+  SolrClient getSolrClient() {
+    return cloudSolrClient == null ? httpSolrClient : cloudSolrClient;
+  }
+
+  @Override
+  EdmMongoServer getMongoClient() {
+    return mongoServer;
   }
 
   @Override

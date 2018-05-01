@@ -2,6 +2,7 @@ package eu.europeana.indexing;
 
 import java.io.Closeable;
 import java.util.List;
+import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
 
 /**
@@ -19,12 +20,28 @@ public interface Indexer extends Closeable {
    * @param record The record to index.
    * @throws IndexingException In case a problem occurred during indexing.
    */
+  public void indexRdf(RDF record) throws IndexingException;
+
+  /**
+   * This method indexes a list of records, publishing it to the provided data stores.
+   * 
+   * @param records The records to index.
+   * @throws IndexingException In case a problem occurred during indexing.
+   */
+  public void indexRdfs(List<RDF> records) throws IndexingException;
+
+  /**
+   * This method indexes a single record, publishing it to the provided data stores.
+   * 
+   * @param record The record to index (can be parsed to RDF).
+   * @throws IndexingException In case a problem occurred during indexing.
+   */
   public void index(String record) throws IndexingException;
 
   /**
    * This method indexes a list of records, publishing it to the provided data stores.
    * 
-   * @param records The record to index.
+   * @param records The records to index (can be parsed to RDF).
    * @throws IndexingException In case a problem occurred during indexing.
    */
   public void index(List<String> records) throws IndexingException;
