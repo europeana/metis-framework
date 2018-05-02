@@ -36,7 +36,7 @@ public class WikidataAccessService {
   public static final String WIKIDATA_ORGANIZATION_XSL_FILE = "/wkd2org.xsl";
   private static final Logger LOGGER = LoggerFactory.getLogger(WikidataAccessService.class);
 
-  WikidataAccessDao wikidataAccessDao;
+  private WikidataAccessDao wikidataAccessDao;
   
   public WikidataAccessService(WikidataAccessDao wikidataAccessDao) {
     this.wikidataAccessDao = wikidataAccessDao;

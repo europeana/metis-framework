@@ -23,7 +23,6 @@ import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 import eu.europeana.enrichment.api.external.model.TextProperty;
 import eu.europeana.enrichment.api.external.model.WebResource;
-import net.sf.saxon.type.StringConverter.StringToAnyURI;
 
 /**
  * This class supports conversion of different organization objects into OrganizationImpl object.
@@ -219,39 +218,7 @@ public class EntityConverterUtils {
     return language.substring(0, 2).toLowerCase();
   }
 
-  /**********************
-   * Merging methods
-   **********************/
-
-  /**
-   * This method performs comparison of Map values for different possible types e.g. Map<String,
-   * List<String>> or Map<String, String>
-   * 
-   * @param baseMap
-   * @param addMap
-   * @return return true if map values are the same
-   */
-  @SuppressWarnings("unchecked")
-  public <T> boolean compareMapsByValues(Map<String, T> baseMap, Map<String, T> addMap) {
-
-    if (baseMap == null || addMap == null || baseMap.size() != addMap.size())
-      return false;
-
-    for (Map.Entry<String, T> entry : baseMap.entrySet()) {
-      T baseValue = entry.getValue();
-      T addValue = addMap.get(entry.getKey());
-      if (baseValue == null && addValue == null)
-        continue;
-      else if (baseValue == null || addValue == null)
-        return false;
-      if (!baseValue.getClass().equals(List.class))
-        return compareLists((List<String>) baseValue, (List<String>) addValue);
-      if (!baseValue.equals(addValue))
-        return false;
-    }
-    return false;
-  }
-
+  
   /**
    * This method creates a map of values, which are different to the base map for different possible
    * types e.g. Map<String, List<String>> or Map<String, String>
@@ -261,7 +228,7 @@ public class EntityConverterUtils {
    * @return map of differences to the base map
    */
   @SuppressWarnings("unchecked")
-  public <T> Map<String, T> extractValuesNotIncludedInBaseMap(Map<String, T> baseMap,
+  public <T> Map<String, T> extractDiffMap(Map<String, T> baseMap,
       Map<String, T> addMap) {
 
     Map<String, T> resMap = new HashMap<String, T>();

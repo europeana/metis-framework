@@ -114,7 +114,7 @@
             </xsl:if>
 
             <!-- Address -->
-            <xsl:if test="wdt:P276 or wdt:P969 or wdt:P281 or wdt:P2918">
+            <xsl:if test="wdt:P276 or wdt:P669 or wdt:P281 or wdt:P2918">
                 <xsl:variable name="countryName" select="lib:toCountryName(wdt:P17[1]/@rdf:resource)"/>
                 <xsl:variable name="locality"    select="wdt:P276[1]/@rdf:resource"/>
                 <xsl:variable name="street"      select="wdt:P969[1]/text()"/>

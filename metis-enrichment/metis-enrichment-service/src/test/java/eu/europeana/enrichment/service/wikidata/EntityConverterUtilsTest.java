@@ -92,7 +92,7 @@ public class EntityConverterUtilsTest {
     assertNotNull(mergedFromEqualMap);
     
     /** extract not equal values */
-    Map<String, List<String>> diffMap = getEntityConverterUtils().extractValuesNotIncludedInBaseMap(
+    Map<String, List<String>> diffMap = getEntityConverterUtils().extractDiffMap(
         prefLabel, addPrefLabel);
     assertNotNull(diffMap);
     assertTrue(diffMap.size() == 2);
