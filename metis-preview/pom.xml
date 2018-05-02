@@ -16,7 +16,6 @@
         <module>metis-preview-service</module>
         <module>metis-preview-rest</module>
         <module>metis-preview-client</module>
-        <module>metis-preview-persistence</module>
     </modules>
 
 <build>

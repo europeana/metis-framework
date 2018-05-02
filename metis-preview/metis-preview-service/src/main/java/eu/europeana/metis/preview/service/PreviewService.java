@@ -87,19 +87,21 @@ public class PreviewService {
     final List<Future<ValidationTaskResult>> taskResultFutures = tasks.stream()
         .map(executorCompletionService::submit).collect(Collectors.toList());
 
-    // Wait until the tasks are finished.
+    // Wait until the tasks are finished, then commit the changes.
     final List<ValidationTaskResult> taskResults = waitForTasksToComplete(taskResultFutures);
+    commitChanges();
 
-    // Commit the changes made by the tasks.
+    // Done: compile the results.
+    return compileResult(taskResults, collectionId, individualRecords);
+  }
+  
+  private void commitChanges() throws PreviewServiceException {
     try {
       dao.commit();
     } catch (IOException | SolrServerException e) {
       LOGGER.error("Updating search engine failed", e);
       throw new PreviewServiceException("Updating search engine failed", e);
     }
-
-    // Done: compile the results.
-    return compileResult(taskResults, collectionId, individualRecords);
   }
 
   private List<ValidationTaskResult> waitForTasksToComplete(
