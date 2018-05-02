@@ -164,12 +164,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new ZipService();
   }
 
-  @Bean
-  @DependsOn("edmMongoServer")
-  FullBeanHandler fullBeanHandler() throws MongoDBException {
-    return new FullBeanHandler(edmMongoServer());
-  }
-
   @Bean(name = "edmMongoServer")
   EdmMongoServer edmMongoServer() throws MongoDBException {
     return new EdmMongoServerImpl(mongoClient, mongoDb);
