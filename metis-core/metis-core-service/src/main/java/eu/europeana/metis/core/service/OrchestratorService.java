@@ -1,5 +1,21 @@
 package eu.europeana.metis.core.service;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -23,35 +39,11 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
-import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.MediaProcessPlugin;
-import eu.europeana.metis.core.workflow.plugins.NormalizationPlugin;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
-import eu.europeana.metis.core.workflow.plugins.ValidationInternalPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * Service class that controls the communication between the different DAOs of the system.
@@ -270,52 +262,53 @@ public class OrchestratorService {
     List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
 
     boolean firstPluginDefined = addHarvestingPlugin(workflow, metisPlugins);
-    addProcessPlugins(dataset, workflow, enforcedPluginType, metisPlugins, firstPluginDefined);
+    addNonHarvestPlugins(dataset, workflow, enforcedPluginType, metisPlugins, firstPluginDefined);
     return metisPlugins;
   }
 
-  private boolean addHarvestingPlugin(Workflow workflow,
-      List<AbstractMetisPlugin> metisPlugins) {
-    AbstractMetisPluginMetadata pluginMetadata = workflow
-        .getPluginMetadata(PluginType.OAIPMH_HARVEST);
-    if (pluginMetadata != null && pluginMetadata.isEnabled()) {
-      OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(pluginMetadata);
-      oaipmhHarvestPlugin
-          .setId(new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
-      metisPlugins.add(oaipmhHarvestPlugin);
-      return true;
+  private boolean addHarvestingPlugin(Workflow workflow, List<AbstractMetisPlugin> metisPlugins) {
+    AbstractMetisPluginMetadata oaipmhMetadata =
+        workflow.getPluginMetadata(PluginType.OAIPMH_HARVEST);
+    AbstractMetisPluginMetadata httpMetadata = workflow.getPluginMetadata(PluginType.HTTP_HARVEST);
+    final AbstractMetisPlugin plugin;
+    if (oaipmhMetadata != null && oaipmhMetadata.isEnabled()) {
+      plugin = PluginType.OAIPMH_HARVEST.getNewPlugin(oaipmhMetadata);
+    } else if (httpMetadata != null && httpMetadata.isEnabled()) {
+      plugin = PluginType.HTTP_HARVEST.getNewPlugin(oaipmhMetadata);
+    } else {
+      plugin = null;
     }
-    pluginMetadata = workflow.getPluginMetadata(PluginType.HTTP_HARVEST);
-    if (pluginMetadata != null && pluginMetadata.isEnabled()) {
-      HTTPHarvestPlugin httpHarvestPlugin = new HTTPHarvestPlugin(pluginMetadata);
-      httpHarvestPlugin
-          .setId(new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
-      metisPlugins.add(httpHarvestPlugin);
+    if (plugin != null) {
+      plugin.setId(new ObjectId().toString() + "-" + plugin.getPluginType().name());
+      metisPlugins.add(plugin);
       return true;
     }
     return false;
   }
 
-  private boolean addProcessPlugins(Dataset dataset, Workflow workflow,
-      PluginType enforcedPluginType,
-      List<AbstractMetisPlugin> metisPlugins,
+  private boolean addNonHarvestPlugins(Dataset dataset, Workflow workflow,
+      PluginType enforcedPluginType, List<AbstractMetisPlugin> metisPlugins,
       boolean firstPluginDefined) throws PluginExecutionNotAllowed {
-    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.VALIDATION_EXTERNAL);
-    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.TRANSFORMATION);
-    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.VALIDATION_INTERNAL);
-    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.NORMALIZATION);
-    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.ENRICHMENT);
-    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.MEDIA_PROCESS);
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+        firstPluginDefined, PluginType.PREVIEW);
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+        firstPluginDefined, PluginType.PUBLISH);
     return firstPluginDefined;
   }
 
-  private boolean addProcessPlugin(Dataset dataset, Workflow workflow,
+  private boolean addNonHarvestPlugin(Dataset dataset, Workflow workflow,
       PluginType enforcedPluginType, List<AbstractMetisPlugin> metisPlugins,
       boolean firstPluginDefined, PluginType pluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPluginMetadata pluginMetadata = workflow.getPluginMetadata(pluginType);
@@ -326,24 +319,17 @@ public class OrchestratorService {
         pluginMetadata.setRevisionNamePreviousPlugin(previousPlugin.getPluginType().name());
         pluginMetadata.setRevisionTimestampPreviousPlugin(previousPlugin.getStartedDate());
       }
-      AbstractMetisPlugin abstractMetisPlugin;
-      if (pluginType == PluginType.VALIDATION_EXTERNAL) {
-        abstractMetisPlugin = new ValidationExternalPlugin(pluginMetadata);
-      } else if (pluginType == PluginType.TRANSFORMATION) {
-        setupXsltUrlForPluginMetadata(dataset, pluginMetadata);
-        abstractMetisPlugin = new TransformationPlugin(pluginMetadata);
-      } else if (pluginType == PluginType.VALIDATION_INTERNAL) {
-        abstractMetisPlugin = new ValidationInternalPlugin(pluginMetadata);
-      } else if (pluginType == PluginType.NORMALIZATION) {
-        abstractMetisPlugin = new NormalizationPlugin(pluginMetadata);
-      } else if (pluginType == PluginType.ENRICHMENT) {
-        abstractMetisPlugin = new EnrichmentPlugin(pluginMetadata);
-      } else if (pluginType == PluginType.MEDIA_PROCESS) {
-        abstractMetisPlugin = new MediaProcessPlugin(pluginMetadata);
-      } else {
+      
+      if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
         //This is practically impossible to happen since the pluginMetadata has to be valid in the Workflow using a pluginType, before reaching this state.
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
       }
+      
+      if (pluginType == PluginType.TRANSFORMATION) {
+        setupXsltUrlForPluginMetadata(dataset, pluginMetadata);
+      }
+      
+      AbstractMetisPlugin abstractMetisPlugin = pluginType.getNewPlugin(pluginMetadata);
       abstractMetisPlugin
           .setId(new ObjectId().toString() + "-" + abstractMetisPlugin.getPluginType().name());
       metisPlugins.add(abstractMetisPlugin);

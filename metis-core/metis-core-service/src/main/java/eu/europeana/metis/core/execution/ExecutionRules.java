@@ -18,7 +18,8 @@ public final class ExecutionRules {
       .of(PluginType.VALIDATION_EXTERNAL, PluginType.TRANSFORMATION,
           PluginType.VALIDATION_INTERNAL, PluginType.NORMALIZATION, PluginType.ENRICHMENT,
           PluginType.MEDIA_PROCESS);
-  private static final Set<PluginType> INDEX_PLUGIN_GROUP = EnumSet.of(PluginType.PREVIEW);
+  private static final Set<PluginType> INDEX_PLUGIN_GROUP =
+      EnumSet.of(PluginType.PREVIEW, PluginType.PUBLISH);
 
   private ExecutionRules() {
     //Private constructor
@@ -46,17 +47,15 @@ public final class ExecutionRules {
       abstractMetisPlugin = workflowExecutionDao
           .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
               EnumSet.of(enforcedPluginType));
-    } else if (PROCESS_PLUGIN_GROUP
-        .contains(pluginType)) { //Get latest FINISHED plugin for datasetId
-      abstractMetisPlugin = getLatestFinishedPluginAllowedForExecutionProcess(pluginType, datasetId,
+    } else if (PROCESS_PLUGIN_GROUP.contains(pluginType) || INDEX_PLUGIN_GROUP.contains(pluginType)) { 
+      // Get latest FINISHED plugin for datasetId
+      abstractMetisPlugin = getLatestFinishedPluginAllowedForExecution(pluginType, datasetId,
           workflowExecutionDao);
-    } else if (INDEX_PLUGIN_GROUP.contains(pluginType)) {
-      // TODO: 29-1-18 Implement when index plugins ready
     }
     return abstractMetisPlugin;
   }
 
-  private static AbstractMetisPlugin getLatestFinishedPluginAllowedForExecutionProcess(
+  private static AbstractMetisPlugin getLatestFinishedPluginAllowedForExecution(
       PluginType pluginType, String datasetId, WorkflowExecutionDao workflowExecutionDao) {
 
     AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = null;
@@ -80,6 +79,12 @@ public final class ExecutionRules {
         break;
       case MEDIA_PROCESS:
         latestPreviousPluginTypesSet = EnumSet.of(PluginType.ENRICHMENT);
+        break;
+      case PREVIEW:
+        latestPreviousPluginTypesSet = EnumSet.of(PluginType.MEDIA_PROCESS);
+        break;
+      case PUBLISH:
+        latestPreviousPluginTypesSet = EnumSet.of(PluginType.PREVIEW);
         break;
       default:
         break;

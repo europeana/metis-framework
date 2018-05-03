@@ -13,7 +13,7 @@ public class EnrichmentPlugin extends AbstractMetisPlugin {
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  public EnrichmentPlugin() {
+  EnrichmentPlugin() {
     //Required for json serialization
     super(PluginType.ENRICHMENT);
   }
@@ -24,7 +24,7 @@ public class EnrichmentPlugin extends AbstractMetisPlugin {
    *
    * @param pluginMetadata should be {@link EnrichmentPluginMetadata}
    */
-  public EnrichmentPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  EnrichmentPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.ENRICHMENT, pluginMetadata);
   }
 

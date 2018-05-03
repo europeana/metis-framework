@@ -13,7 +13,7 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  public MediaProcessPlugin() {
+  MediaProcessPlugin() {
     //Required for json serialization
     super(PluginType.MEDIA_PROCESS);
   }
@@ -24,7 +24,7 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
    *
    * @param pluginMetadata should be {@link MediaProcessPluginMetadata}
    */
-  public MediaProcessPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  MediaProcessPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.MEDIA_PROCESS, pluginMetadata);
   }
 

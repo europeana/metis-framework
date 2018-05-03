@@ -13,7 +13,7 @@ public class NormalizationPlugin extends AbstractMetisPlugin {
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  public NormalizationPlugin() {
+  NormalizationPlugin() {
     //Required for json serialization
     super(PluginType.NORMALIZATION);
   }
@@ -24,7 +24,7 @@ public class NormalizationPlugin extends AbstractMetisPlugin {
    *
    * @param pluginMetadata should be {@link NormalizationPluginMetadata}
    */
-  public NormalizationPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  NormalizationPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.NORMALIZATION, pluginMetadata);
   }
 
