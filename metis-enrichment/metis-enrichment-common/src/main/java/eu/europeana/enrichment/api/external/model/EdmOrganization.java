@@ -30,7 +30,27 @@ public class EdmOrganization extends EnrichmentBase {
   
   @XmlElement(name = "acronym", namespace = "http://www.europeana.eu/schemas/edm/")
   private List<Label> acronyms = new ArrayList<>();
+
+  @XmlElement(name = "logo", namespace = "http://xmlns.com/foaf/0.1/")
+  private Resource logo;
+
+  @XmlElement(name = "phone", namespace = "http://xmlns.com/foaf/0.1/")
+  private String phone;
+
+  @XmlElement(name = "mbox", namespace = "http://xmlns.com/foaf/0.1/")
+  private String mbox;
+
+  @XmlElement(name = "hasAddress", namespace = "http://www.w3.org/2006/vcard/ns#")
+  private VcardAddresses hasAddress;
   
+  public VcardAddresses getHasAddress() {
+    return hasAddress;
+  }
+  
+  public void setHasAddress(VcardAddresses hasAddress) {
+    this.hasAddress = hasAddress;
+  }
+
   public List<Label> getAcronyms() {
     return unmodifiableListAcceptingNull(acronyms);
   }
@@ -69,6 +89,30 @@ public class EdmOrganization extends EnrichmentBase {
 
   public void setCountry(String country) {
     this.country = country;
+  }
+  
+  public Resource getLogo() {
+    return logo;
+  }
+
+  public void setLogo(Resource logo) {
+    this.logo = logo;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+  
+  public String getMbox() {
+    return mbox;
+  }
+
+  public void setMbox(String mbox) {
+    this.mbox = mbox;
   }
   
 }

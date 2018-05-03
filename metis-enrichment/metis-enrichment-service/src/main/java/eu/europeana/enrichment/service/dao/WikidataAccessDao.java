@@ -115,7 +115,7 @@ public class WikidataAccessDao {
     JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
 
     Unmarshaller unmarshaller = jc.createUnmarshaller();
-    InputStream stream = new ByteArrayInputStream(xml.getBytes());
+    InputStream stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
     WikidataOrganization result = (WikidataOrganization) unmarshaller.unmarshal(stream);
 
     return result;
@@ -132,6 +132,7 @@ public class WikidataAccessDao {
 
     Model m = ModelFactory.createDefaultModel();
     QueryEngineHTTP endpoint = new QueryEngineHTTP(SPARQL, sDescribe);
+    
     try {
       return endpoint.execDescribe(m);
     } catch (RiotException e) {
