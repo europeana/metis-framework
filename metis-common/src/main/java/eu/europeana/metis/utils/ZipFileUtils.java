@@ -21,7 +21,7 @@ import net.lingala.zip4j.exception.ZipException;
  * @author jochen
  *
  */
-public class ZipFileUtils {
+public final class ZipFileUtils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ZipFileUtils.class);
   private static final String UNZIPPED_SUFFIX = "-unzipped";

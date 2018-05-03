@@ -31,7 +31,7 @@ class IndexerImpl implements Indexer {
 
   private static IBindingFactory globalRdfBindingFactory;
 
-  private final ConnectionProvider connectionProvider;
+  private final AbstractConnectionProvider connectionProvider;
 
   private final IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier;
 
@@ -40,7 +40,7 @@ class IndexerImpl implements Indexer {
    * 
    * @param connectionProvider The connection provider for this indexer.
    */
-  IndexerImpl(ConnectionProvider connectionProvider) {
+  IndexerImpl(AbstractConnectionProvider connectionProvider) {
     this(connectionProvider, IndexerImpl::getRdfBindingFactory);
   }
 
@@ -52,7 +52,7 @@ class IndexerImpl implements Indexer {
    *        Factory) used to parse strings to instances of {@link RDF}. Will be called once during
    *        every index.
    */
-  IndexerImpl(ConnectionProvider connectionProvider,
+  IndexerImpl(AbstractConnectionProvider connectionProvider,
       IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier) {
     this.connectionProvider = connectionProvider;
     this.rdfBindingFactorySupplier = rdfBindingFactorySupplier;

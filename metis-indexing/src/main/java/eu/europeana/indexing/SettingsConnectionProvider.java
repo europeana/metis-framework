@@ -23,13 +23,13 @@ import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.indexing.exception.IndexerConfigurationException;
 
 /**
- * This class is an implementation of {@link ConnectionProvider} that sets up the connection
+ * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection
  * using an {@link IndexingSettings} object.
  * 
  * @author jochen
  *
  */
-public class SettingsConnectionProvider extends ConnectionProvider {
+public class SettingsConnectionProvider extends AbstractConnectionProvider {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SettingsConnectionProvider.class);
 

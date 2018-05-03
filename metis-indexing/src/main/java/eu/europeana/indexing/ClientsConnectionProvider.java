@@ -6,13 +6,13 @@ import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.indexing.exception.IndexerConfigurationException;
 
 /**
- * This class is an implementation of {@link ConnectionProvider} that sets up the connection using
+ * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection using
  * provided Solr and Mongo clients. Note: the caller is responsible for closing those connections.
  * 
  * @author jochen
  *
  */
-class ClientsConnectionProvider extends ConnectionProvider {
+class ClientsConnectionProvider extends AbstractConnectionProvider {
 
   private final EdmMongoServer mongoClient;
   private final SolrClient solrClient;
@@ -47,5 +47,7 @@ class ClientsConnectionProvider extends ConnectionProvider {
   }
 
   @Override
-  public void close() throws IOException {}
+  public void close() throws IOException {
+    // Nothing to do: the two clients are to be closed by the caller.
+  }
 }

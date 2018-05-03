@@ -14,7 +14,7 @@ public class IndexerFactory {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexerFactory.class);
 
-  private final IndexerConfigurationSupplier<ConnectionProvider> connectionProviderSupplier;
+  private final IndexerConfigurationSupplier<AbstractConnectionProvider> connectionProviderSupplier;
 
   /**
    * Constructor for setting up a factory using an {@link IndexingSettings} object.

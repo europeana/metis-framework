@@ -19,14 +19,14 @@ import eu.europeana.indexing.mongo.FullBeanDao;
  * @author jochen
  *
  */
-abstract class ConnectionProvider implements Closeable {
+abstract class AbstractConnectionProvider implements Closeable {
 
   /**
    * Provides a Publisher object for publishing Full Beans so that they may be found by users.
    * 
    * @return A publisher.
    */
-  FullBeanPublisher getFullBeanPublisher() {
+  final FullBeanPublisher getFullBeanPublisher() {
     return new FullBeanPublisher(new FullBeanDao(getMongoClient()), getSolrClient());
   }
 
