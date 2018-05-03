@@ -13,11 +13,14 @@ import org.apache.maven.shared.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
+import eu.europeana.corelib.definitions.edm.entity.Address;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.EdmOrganization;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Resource;
+import eu.europeana.enrichment.api.external.model.VcardAddress;
 import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.service.dao.WikidataAccessDao;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
@@ -129,6 +132,26 @@ public class WikidataAccessService {
       org.setFoafHomepage(homepage);
     }     
 
+    if (edmOrganization.getLogo() != null) {
+      String logo = edmOrganization.getLogo().getResource();
+      org.setFoafLogo(logo);
+    }     
+
+    if (edmOrganization.getMbox() != null) {
+      String mbox = edmOrganization.getMbox();
+      org.setFoafMbox(getEntityConverterUtils().createList(mbox));
+    }     
+
+    if (edmOrganization.getPhone() != null) {
+      String phone = edmOrganization.getPhone();
+      org.setFoafPhone(getEntityConverterUtils().createList(phone));
+    }     
+
+    if (edmOrganization.getLogo() != null) {
+      String logo = edmOrganization.getLogo().getResource();
+      org.setFoafLogo(logo);
+    }     
+
     List<Label> acronymLabel = edmOrganization.getAcronyms();
     org.setEdmAcronym(getEntityConverterUtils().createLanguageMapFromTextPropertyList(acronymLabel));
     
@@ -143,7 +166,19 @@ public class WikidataAccessService {
     
     List<Label> altLabel = edmOrganization.getAltLabelList();
     org.setAltLabel(getEntityConverterUtils().createLanguageMapFromTextPropertyList(altLabel));
-    
+
+    if (edmOrganization.getHasAddress() != null && edmOrganization.getHasAddress().getVcardAddresses() != null) {
+      VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddresses().get(0);
+      Address address = new AddressImpl();
+      address.setAbout(org.getAbout() + "#address");
+      address.setVcardStreetAddress(vcardAddress.getStreetAddress());
+      address.setVcardLocality(vcardAddress.getLocality());
+      address.setVcardCountryName(vcardAddress.getCountryName());
+      address.setVcardPostalCode(vcardAddress.getPostalCode());
+      address.setVcardPostOfficeBox(vcardAddress.getPostOfficeBox());
+      org.setAddress(address);
+    }     
+
     return org;
   }  
   

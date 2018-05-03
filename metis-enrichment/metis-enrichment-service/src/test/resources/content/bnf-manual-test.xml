@@ -144,10 +144,17 @@
       <dc:description xml:lang="ja">フランス・パリにある国立図書館</dc:description>
       <dc:description xml:lang="pl">francuska biblioteka narodowa z siedzibą w Paryżu</dc:description>
       <foaf:homepage rdf:resource="http://www.bnf.fr"/>
+      <foaf:logo rdf:resource="http://www.bnf-logo.fr"/>
+      <foaf:phone>33(0)1 53 79 59 59</foaf:phone>
+      <foaf:mbox>accueil@bnf.fr</foaf:mbox>
       <edm:country>FR</edm:country>
       <vcard:hasAddress>
          <vcard:Address rdf:about="http://www.wikidata.org/entity/Q193563#address">
-            <vcard:country>France</vcard:country>
+            <vcard:country-name>France</vcard:country-name>
+            <vcard:locality>Paris</vcard:locality>
+            <vcard:street-address>58, rue de Richelieu</vcard:street-address>
+            <vcard:postal-code>75706</vcard:postal-code>
+            <vcard:post-office-box>Cedex 13</vcard:post-office-box>
          </vcard:Address>
       </vcard:hasAddress>
       <owl:sameAs rdf:resource="http://isni.org/isni/0000000123531945"/>

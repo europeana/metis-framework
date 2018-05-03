@@ -132,6 +132,7 @@ public class WikidataAccessDao {
 
     Model m = ModelFactory.createDefaultModel();
     QueryEngineHTTP endpoint = new QueryEngineHTTP(SPARQL, sDescribe);
+    
     try {
       return endpoint.execDescribe(m);
     } catch (RiotException e) {

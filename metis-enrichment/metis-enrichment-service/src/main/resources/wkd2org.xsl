@@ -117,7 +117,7 @@
             <xsl:if test="wdt:P276 or wdt:P669 or wdt:P281 or wdt:P2918">
                 <xsl:variable name="countryName" select="lib:toCountryName(wdt:P17[1]/@rdf:resource)"/>
                 <xsl:variable name="locality"    select="wdt:P276[1]/@rdf:resource"/>
-                <xsl:variable name="street"      select="wdt:P969[1]/text()"/>
+                <xsl:variable name="street"      select="wdt:P669[1]/text()"/>
                 <xsl:variable name="postal"      select="wdt:P281[1]/text()"/>
                 <xsl:variable name="pobox"       select="wdt:P2918[1]/text()"/>
 
