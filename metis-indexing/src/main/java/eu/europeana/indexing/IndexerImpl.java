@@ -3,6 +3,7 @@ package eu.europeana.indexing;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
@@ -14,7 +15,6 @@ import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.indexing.exception.IndexerConfigurationException;
 import eu.europeana.indexing.exception.IndexingException;
 
 /**
@@ -31,52 +31,40 @@ class IndexerImpl implements Indexer {
 
   private static IBindingFactory globalRdfBindingFactory;
 
-  private final IndexingConnectionProvider connectionProvider;
+  private final AbstractConnectionProvider connectionProvider;
 
   private final IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier;
 
   /**
    * Constructor.
    * 
-   * @param settings The settings for this indexer.
-   * @throws IndexerConfigurationException In case an exception occurred while setting up the
-   *         indexer.
+   * @param connectionProvider The connection provider for this indexer.
    */
-  IndexerImpl(IndexingSettings settings) throws IndexerConfigurationException {
-    this(settings, IndexerImpl::getRdfBindingFactory);
+  IndexerImpl(AbstractConnectionProvider connectionProvider) {
+    this(connectionProvider, IndexerImpl::getRdfBindingFactory);
   }
 
   /**
    * Constructor for testing purposes.
    * 
-   * @param settings The settings for this indexer.
+   * @param connectionProvider The connection provider for this indexer.
    * @param rdfBindingFactorySupplier Supplies an instance of {@link IBindingFactory} (RDF Binding
    *        Factory) used to parse strings to instances of {@link RDF}. Will be called once during
    *        every index.
-   * @throws IndexerConfigurationException In case an exception occurred while setting up the
-   *         indexer.
    */
-  IndexerImpl(IndexingSettings settings,
-      IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier)
-      throws IndexerConfigurationException {
-    this.connectionProvider = new IndexingConnectionProvider(settings);
+  IndexerImpl(AbstractConnectionProvider connectionProvider,
+      IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier) {
+    this.connectionProvider = connectionProvider;
     this.rdfBindingFactorySupplier = rdfBindingFactorySupplier;
   }
 
   @Override
-  public void index(String record) throws IndexingException {
-    index(Collections.singletonList(record));
-  }
-
-  @Override
-  public void index(List<String> records) throws IndexingException {
+  public void indexRdfs(List<RDF> records) throws IndexingException {
     LOGGER.info("Processing {} records...", records.size());
-    final IBindingFactory rdfBindingFactory = rdfBindingFactorySupplier.get();
     try {
       final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher();
-      for (String record : records) {
-        final RDF rdf = convertStringToRdf(record, rdfBindingFactory);
-        publisher.publish(rdf);
+      for (RDF record : records) {
+        publisher.publish(record);
       }
       LOGGER.info("Successfully processed {} records.", records.size());
     } catch (IndexingException e) {
@@ -86,11 +74,33 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
+  public void indexRdf(RDF record) throws IndexingException {
+    indexRdfs(Collections.singletonList(record));
+  }
+
+  @Override
+  public void index(List<String> records) throws IndexingException {
+    LOGGER.info("Parsing {} records...", records.size());
+    final IBindingFactory rdfBindingFactory = rdfBindingFactorySupplier.get();
+    final List<RDF> rdfs = new ArrayList<>();
+    for (String record : records) {
+      rdfs.add(convertStringToRdf(record, rdfBindingFactory));
+    }
+    indexRdfs(rdfs);
+  }
+
+  @Override
+  public void index(String record) throws IndexingException {
+    index(Collections.singletonList(record));
+  }
+
+  @Override
   public void close() throws IOException {
     this.connectionProvider.close();
   }
 
-  private RDF convertStringToRdf(String record, IBindingFactory rdfBindingFactory) throws IndexingException {
+  private RDF convertStringToRdf(String record, IBindingFactory rdfBindingFactory)
+      throws IndexingException {
 
     // Convert string to RDF
     final RDF rdf;

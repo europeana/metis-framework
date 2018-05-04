@@ -1,17 +1,9 @@
 package eu.europeana.metis.preview.service.executor;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
-import eu.europeana.corelib.edm.utils.MongoConstructor;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.validation.model.ValidationResult;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.Callable;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -21,12 +13,14 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.validation.model.ValidationResult;
 
 /**
  * Task for the multi-threaded implementation of the validation service
@@ -67,16 +61,13 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
 
   /**
    * Execution of transformation, id-generation and validation for Europeana Preview Service
- * @throws MongoUpdateException 
    */
   @Override
   public ValidationTaskResult call()
-      throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, JiBXException,
-      IllegalAccessException, MongoRuntimeException, MongoDBException, TransformerException, SolrServerException, MongoUpdateException {
+      throws JiBXException, TransformerException, IndexingException, IOException {
     try {
       return invoke();
-    } catch (JiBXException | IOException | IllegalAccessException | InstantiationException | NoSuchMethodException |
-        SolrServerException | InvocationTargetException | TransformerException | MongoDBException | MongoRuntimeException e) {
+    } catch (JiBXException | TransformerException | IndexingException | IOException e) {
       LOGGER.error("An error occurred while validating", e);
       throw e;
     }
@@ -106,9 +97,8 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     return stringWriter.toString();
   }
 
-  private ValidationTaskResult invoke() throws JiBXException, TransformerException, IOException,
-      InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException,
-      InvocationTargetException, MongoDBException, MongoRuntimeException, MongoUpdateException {
+  private ValidationTaskResult invoke()
+      throws JiBXException, TransformerException, IndexingException, IOException {
 
     final ValidationResult validationResult =
         applyCrosswalk ? validationUtils.validateRecordBeforeTransformation(incomingRecord)
@@ -127,9 +117,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
   }
 
   private ValidationTaskResult handleValidatedResult(final ValidationResult validationResult)
-      throws JiBXException, TransformerException, IOException, InstantiationException,
-      IllegalAccessException, SolrServerException, NoSuchMethodException, InvocationTargetException,
-      MongoDBException, MongoRuntimeException, MongoUpdateException {
+      throws IndexingException, JiBXException, TransformerException, IOException {
 
     // Transform the record (apply crosswalk) if necessary.
     final String resultRecord = applyCrosswalk ? transformRecord() : incomingRecord;
@@ -140,15 +128,12 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     final String recordId = validationUtils.generateIdentifier(collectionId, rdf);
 
     // Obtain the result.
-    ValidationTaskResult result;
+    final ValidationTaskResult result;
     if (StringUtils.isNotEmpty(recordId)) {
 
       // If we have obtained a record ID we return a successful result.
       rdf.getProvidedCHOList().get(0).setAbout(recordId);
-      final FullBeanImpl fBean = new MongoConstructor().constructFullBean(rdf);
-      fBean.setAbout(recordId);
-      fBean.setEuropeanaCollectionName(new String[]{collectionId});
-      validationUtils.persistFullBean(fBean);
+      validationUtils.persist(rdf);
       result = new ValidationTaskResult(recordId, validationResult, true);
     } else {
 
