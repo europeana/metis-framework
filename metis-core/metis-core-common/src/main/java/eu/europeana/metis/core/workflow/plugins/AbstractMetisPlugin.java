@@ -35,12 +35,14 @@ import org.slf4j.LoggerFactory;
 @JsonSubTypes({
     @JsonSubTypes.Type(value = OaipmhHarvestPlugin.class, name = "OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value = HTTPHarvestPlugin.class, name = "HTTP_HARVEST"),
-    @JsonSubTypes.Type(value = ValidationInternalPlugin.class, name = "VALIDATION_INTENRAL"),
+    @JsonSubTypes.Type(value = ValidationInternalPlugin.class, name = "VALIDATION_INTERNAL"),
     @JsonSubTypes.Type(value = TransformationPlugin.class, name = "TRANSFORMATION"),
     @JsonSubTypes.Type(value = ValidationExternalPlugin.class, name = "VALIDATION_EXTERNAL"),
     @JsonSubTypes.Type(value = NormalizationPlugin.class, name = "NORMALIZATION"),
     @JsonSubTypes.Type(value = EnrichmentPlugin.class, name = "ENRICHMENT"),
-    @JsonSubTypes.Type(value = MediaProcessPlugin.class, name = "MEDIA_PROCESS")
+    @JsonSubTypes.Type(value = MediaProcessPlugin.class, name = "MEDIA_PROCESS"),
+    @JsonSubTypes.Type(value = IndexToPreviewPlugin.class, name = "PREVIEW"),
+    @JsonSubTypes.Type(value = IndexToPublishPlugin.class, name = "PUBLISH")
 })
 @Embedded
 public abstract class AbstractMetisPlugin {
