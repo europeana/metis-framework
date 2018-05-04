@@ -100,8 +100,6 @@
     <version.morphia>1.3.2</version.morphia>
     <version.xsom>20140925</version.xsom>
     <version.commonscompress>1.11</version.commonscompress>
-    <version.solr.core>6.6.1</version.solr.core>
-    <version.solr.test.framework>6.6.1</version.solr.test.framework>
     <version.spring.security>4.2.3.RELEASE</version.spring.security>
     <version.spring>4.3.11.RELEASE</version.spring>
     <version.spring.context>4.3.11.RELEASE</version.spring.context>
