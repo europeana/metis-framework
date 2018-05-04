@@ -279,10 +279,9 @@ public abstract class AbstractMetisPlugin {
 
   DpsTask createDpsTaskForIndexPlugin(String targetDatabase, String ecloudBaseUrl,
       String ecloudProvider, String ecloudDataset) {
-    Map<String, String> parameters = new HashMap<>();
-    parameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
-    return createDpsTaskForPluginWithExistingDataset(parameters, ecloudBaseUrl, ecloudProvider,
-        ecloudDataset, true);
+    Map<String, String> extraParameters = new HashMap<>();
+    extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
+    return createDpsTaskForProcessPlugin(extraParameters, ecloudBaseUrl, ecloudProvider, ecloudDataset);
   }
 
   /**
