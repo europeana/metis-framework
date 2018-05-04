@@ -18,7 +18,7 @@ public enum Topology {
 
   MEDIA_PROCESS("media_process"),
 
-  INDEX("index"),
+  INDEX("indexer"),
 
   HTTP_HARVEST("http_harvest");
 
