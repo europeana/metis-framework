@@ -15,7 +15,7 @@ public class TransformationPlugin extends AbstractMetisPlugin {
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  public TransformationPlugin() {
+  TransformationPlugin() {
     //Required for json serialization
     super(PluginType.TRANSFORMATION);
   }
@@ -26,7 +26,7 @@ public class TransformationPlugin extends AbstractMetisPlugin {
    *
    * @param pluginMetadata should be {@link TransformationPluginMetadata}
    */
-  public TransformationPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  TransformationPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.TRANSFORMATION, pluginMetadata);
   }
 

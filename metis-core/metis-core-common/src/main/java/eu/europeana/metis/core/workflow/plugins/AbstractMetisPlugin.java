@@ -35,12 +35,14 @@ import org.slf4j.LoggerFactory;
 @JsonSubTypes({
     @JsonSubTypes.Type(value = OaipmhHarvestPlugin.class, name = "OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value = HTTPHarvestPlugin.class, name = "HTTP_HARVEST"),
-    @JsonSubTypes.Type(value = ValidationInternalPlugin.class, name = "VALIDATION_INTENRAL"),
+    @JsonSubTypes.Type(value = ValidationInternalPlugin.class, name = "VALIDATION_INTERNAL"),
     @JsonSubTypes.Type(value = TransformationPlugin.class, name = "TRANSFORMATION"),
     @JsonSubTypes.Type(value = ValidationExternalPlugin.class, name = "VALIDATION_EXTERNAL"),
     @JsonSubTypes.Type(value = NormalizationPlugin.class, name = "NORMALIZATION"),
     @JsonSubTypes.Type(value = EnrichmentPlugin.class, name = "ENRICHMENT"),
-    @JsonSubTypes.Type(value = MediaProcessPlugin.class, name = "MEDIA_PROCESS")
+    @JsonSubTypes.Type(value = MediaProcessPlugin.class, name = "MEDIA_PROCESS"),
+    @JsonSubTypes.Type(value = IndexToPreviewPlugin.class, name = "PREVIEW"),
+    @JsonSubTypes.Type(value = IndexToPublishPlugin.class, name = "PUBLISH")
 })
 @Embedded
 public abstract class AbstractMetisPlugin {
@@ -71,7 +73,7 @@ public abstract class AbstractMetisPlugin {
    *
    * @param pluginType {@link PluginType}
    */
-  public AbstractMetisPlugin(PluginType pluginType) {
+  AbstractMetisPlugin(PluginType pluginType) {
     //Required for json serialization
     this.pluginType = pluginType;
   }
@@ -82,7 +84,7 @@ public abstract class AbstractMetisPlugin {
    * @param pluginMetadata one of the implemented {@link AbstractMetisPluginMetadata}
    * @param pluginType a {@link PluginType} related to the implemented plugin
    */
-  public AbstractMetisPlugin(PluginType pluginType, AbstractMetisPluginMetadata pluginMetadata) {
+  AbstractMetisPlugin(PluginType pluginType, AbstractMetisPluginMetadata pluginMetadata) {
     this.pluginType = pluginType;
     this.pluginMetadata = pluginMetadata;
   }
@@ -216,24 +218,49 @@ public abstract class AbstractMetisPlugin {
    */
   public abstract String getTopologyName();
 
-  Revision createOutputRevisionForExecution(String ecloudProvider) {
-    return new Revision(getPluginType().name(), ecloudProvider, getStartedDate(), false, false,
+  private Revision createOutputRevisionForExecution(String ecloudProvider, boolean published) {
+    return new Revision(getPluginType().name(), ecloudProvider, getStartedDate(), false, published,
         false);
   }
 
-  DpsTask createDpsTaskForProcessPlugin(Map<String, String> extraParameters, String ecloudBaseUrl,
-      String ecloudProvider,
+  private DpsTask createDpsTaskForPluginWithExistingDataset(Map<String, String> parameters,
+      String ecloudBaseUrl, String ecloudProvider, String ecloudDataset, boolean publish) {
+    DpsTask dpsTask = new DpsTask();
+
+    Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
+    dataEntries.put(InputDataType.DATASET_URLS,
+        Collections
+            .singletonList(String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+                ecloudBaseUrl, ecloudProvider, ecloudDataset)));
+    dpsTask.setInputData(dataEntries);
+
+    dpsTask.setParameters(parameters);
+    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider, publish));
+    return dpsTask;
+  }
+  
+  DpsTask createDpsTaskForHarvestPlugin(String targetUrl, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
     DpsTask dpsTask = new DpsTask();
 
-    Map<InputDataType, List<String>> inputDataTypeListHashMap = new EnumMap<>(
-        InputDataType.class);
-    inputDataTypeListHashMap.put(InputDataType.DATASET_URLS,
-        Collections.singletonList(
-            String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
-                ecloudBaseUrl, ecloudProvider, ecloudDataset)));
-    dpsTask.setInputData(inputDataTypeListHashMap);
+    Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
+    dataEntries.put(InputDataType.REPOSITORY_URLS, Collections.singletonList(targetUrl));
+    dpsTask.setInputData(dataEntries);
 
+    Map<String, String> parameters = new HashMap<>();
+    parameters.put("PROVIDER_ID", ecloudProvider);
+    parameters.put("OUTPUT_DATA_SETS",
+        String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, ecloudBaseUrl,
+            ecloudProvider, ecloudDataset));
+    parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
+    dpsTask.setParameters(parameters);
+
+    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider, false));
+    return dpsTask;
+  }
+  
+  DpsTask createDpsTaskForProcessPlugin(Map<String, String> extraParameters, String ecloudBaseUrl,
+      String ecloudProvider, String ecloudDataset) {
     Map<String, String> parameters = new HashMap<>();
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
@@ -248,9 +275,15 @@ public abstract class AbstractMetisPlugin {
     parameters.put("OUTPUT_DATA_SETS",
         String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
             ecloudBaseUrl, ecloudProvider, ecloudDataset));
-    dpsTask.setParameters(parameters);
-    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider));
-    return dpsTask;
+    return createDpsTaskForPluginWithExistingDataset(parameters, ecloudBaseUrl, ecloudProvider,
+        ecloudDataset, false);
+  }
+
+  DpsTask createDpsTaskForIndexPlugin(String targetDatabase, String ecloudBaseUrl,
+      String ecloudProvider, String ecloudDataset) {
+    Map<String, String> extraParameters = new HashMap<>();
+    extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
+    return createDpsTaskForProcessPlugin(extraParameters, ecloudBaseUrl, ecloudProvider, ecloudDataset);
   }
 
   /**

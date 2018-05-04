@@ -22,7 +22,9 @@ import org.mongodb.morphia.annotations.Embedded;
     @JsonSubTypes.Type(value = ValidationInternalPluginMetadata.class, name = "VALIDATION_INTERNAL"),
     @JsonSubTypes.Type(value = NormalizationPluginMetadata.class, name = "NORMALIZATION"),
     @JsonSubTypes.Type(value = EnrichmentPluginMetadata.class, name = "ENRICHMENT"),
-    @JsonSubTypes.Type(value = MediaProcessPluginMetadata.class, name = "MEDIA_PROCESS")
+    @JsonSubTypes.Type(value = MediaProcessPluginMetadata.class, name = "MEDIA_PROCESS"),
+    @JsonSubTypes.Type(value = IndexToPreviewPluginMetadata.class, name = "PREVIEW"),
+    @JsonSubTypes.Type(value = IndexToPublishPluginMetadata.class, name = "PUBLISH")
 })
 @Embedded
 public abstract class AbstractMetisPluginMetadata {
