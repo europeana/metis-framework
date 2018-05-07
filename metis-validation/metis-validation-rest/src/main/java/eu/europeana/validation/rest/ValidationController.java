@@ -1,6 +1,5 @@
 package eu.europeana.validation.rest;
 
-
 import static eu.europeana.metis.RestEndpoints.SCHEMA_BATCH_VALIDATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
@@ -30,7 +29,6 @@ import eu.europeana.validation.service.ValidationExecutionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.lingala.zip4j.exception.ZipException;
 
 /**
  * REST API Implementation of the Validation Service
@@ -112,8 +110,8 @@ public class ValidationController {
 
     final List<String> records;
     try {
-      records = ZipFileUtils.getRecordsFromZipFile(providedZipFile);
-    } catch (IOException | ZipException e) {
+      records = ZipFileUtils.getRecordsFromZipFile(providedZipFile.getInputStream());
+    } catch (IOException e) {
       throw new ServerException(e);
     }
         

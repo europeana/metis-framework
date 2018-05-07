@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import eu.europeana.metis.preview.common.exception.ZipFileException;
 import eu.europeana.metis.utils.ZipFileUtils;
-import net.lingala.zip4j.exception.ZipException;
 
 /**
  * Created by erikkonijnenburg on 27/07/2017.
@@ -20,8 +19,8 @@ public class ZipService {
 
   public List<String> readFileToStringList(MultipartFile providedZipFile) throws ZipFileException {
     try {
-      return ZipFileUtils.getRecordsFromZipFile(providedZipFile);
-    } catch (IOException | ZipException ex) {
+      return ZipFileUtils.getRecordsFromZipFile(providedZipFile.getInputStream());
+    } catch (IOException ex) {
       LOGGER.error("Error reading from zipfile. ", ex);
       throw new ZipFileException("Error reading from zipfile.", ex);
     }
