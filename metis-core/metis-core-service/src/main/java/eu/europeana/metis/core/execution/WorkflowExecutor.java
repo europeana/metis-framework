@@ -81,16 +81,18 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     }
 
     //Cancel workflow and all other than finished plugins if the workflow was cancelled during execution
-    if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+    //Check there is no finished date to make sure the workflow hasn't actually already finished
+    if (workflowExecutionDao.isCancelling(workflowExecution.getId()) && finishDate == null) {
       workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
       LOGGER.info(
           "Cancelled running user workflow execution with id: {}", workflowExecution.getId());
     } else if (finishDate != null) { //finishedDate can be null in case of Exception
       workflowExecution.setFinishedDate(finishDate);
       workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
+      workflowExecution.setCancelling(false);
       LOGGER.info("Finished user workflow execution with id: {}", workflowExecution.getId());
     } else {
-      workflowExecution.checkAndSetAllRunningAndInqueuePluginsToFailedIfOnePluginHasFailed();
+      workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
     }
     //The only full update is used here. The rest of the execution uses partial updates to avoid losing the cancelling state field
     workflowExecutionDao.update(workflowExecution);
@@ -105,7 +107,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     AbstractMetisPlugin previousMetisPlugin = null;
     for (AbstractMetisPlugin metisPlugin : workflowExecution.getMetisPlugins()) {
       finishDate = runMetisPlugin(previousMetisPlugin, metisPlugin);
-      if (workflowExecutionDao.isCancelling(workflowExecution.getId())
+      if ((workflowExecutionDao.isCancelling(workflowExecution.getId()) && finishDate == null)
           || metisPlugin.getPluginStatus() == PluginStatus.FAILED) {
         break;
       }
@@ -136,11 +138,13 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     }
     AbstractMetisPlugin previousMetisPlugin = null;
     for (int i = firstPluginPositionToStart; i < workflowExecution.getMetisPlugins().size(); i++) {
-      if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+      AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
+      finishDate = runMetisPlugin(previousMetisPlugin, metisPlugin);
+      if ((workflowExecutionDao.isCancelling(workflowExecution.getId()) && finishDate == null)
+          || metisPlugin.getPluginStatus() == PluginStatus.FAILED) {
         break;
       }
-      finishDate = runMetisPlugin(previousMetisPlugin, workflowExecution.getMetisPlugins().get(i));
-      previousMetisPlugin = workflowExecution.getMetisPlugins().get(i);
+      previousMetisPlugin = metisPlugin;
     }
   }
 
