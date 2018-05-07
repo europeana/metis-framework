@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 import org.apache.commons.io.IOUtils;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
@@ -130,6 +131,15 @@ class IndexerImpl implements Indexer {
       }
     }
     return globalRdfBindingFactory;
+  }
+
+  @Override
+  public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException {
+    try {
+      this.connectionProvider.triggerFlushOfPendingChanges(blockUntilComplete);
+    } catch (SolrServerException | IOException e) {
+      throw new IndexingException("Error while flushing changes.", e);
+    }
   }
 
   /**
