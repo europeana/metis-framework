@@ -16,19 +16,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class provides utility methods for managing zip files.
+ * This class provides the functionality of reading zip files.
  * 
  * @author jochen
  *
  */
-public final class ZipFileUtils {
+public class ZipFileReader {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ZipFileUtils.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ZipFileReader.class);
 
   private static final String MAC_TEMP_FOLDER = "__MACOSX";
   private static final String MAC_TEMP_FILE = ".DS_Store";
 
-  private ZipFileUtils() {}
+  /**
+   * Constructor.
+   */
+  public ZipFileReader() {
+    // Nothing to do.
+  }
 
   /**
    * This method extracts all files from a ZIP file and returns them as strings. This method only
@@ -39,7 +44,7 @@ public final class ZipFileUtils {
    * @return A list of records.
    * @throws IOException In case of problems with the temporary file or with reading the zip file.
    */
-  public static List<String> getRecordsFromZipFile(InputStream providedZipFile) throws IOException {
+  public List<String> getRecordsFromZipFile(InputStream providedZipFile) throws IOException {
 
     // Create temporary file.
     final String prefix = UUID.randomUUID().toString();
@@ -53,7 +58,7 @@ public final class ZipFileUtils {
     }
   }
 
-  static List<String> getRecordsFromZipFile(ZipFile zipFile) throws IOException {
+  List<String> getRecordsFromZipFile(ZipFile zipFile) throws IOException {
     final List<String> result = new ArrayList<>();
     final Iterator<? extends ZipEntry> entries = zipFile.stream().iterator();
     while (entries.hasNext()) {
@@ -66,7 +71,7 @@ public final class ZipFileUtils {
     return result;
   }
 
-  static boolean accept(ZipEntry zipEntry) {
+  boolean accept(ZipEntry zipEntry) {
     return !zipEntry.isDirectory() && !zipEntry.getName().startsWith(MAC_TEMP_FOLDER)
         && !zipEntry.getName().endsWith(MAC_TEMP_FILE);
   }
