@@ -62,14 +62,11 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       LOGGER.info("Starting user workflow execution with id: {} and priority {}",
           workflowExecution.getId(), workflowExecution.getWorkflowPriority());
       firstPluginExecution = true;
-      if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
+      if ((workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
+          || workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING)
           && !workflowExecutionDao
           .isExecutionActive(this.workflowExecution, monitorCheckIntervalInSecs)) {
-        runInQueueStateWorkflowExecution(lock);
-      } else if (workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
-          && !workflowExecutionDao
-          .isExecutionActive(this.workflowExecution, monitorCheckIntervalInSecs)) {
-        runRunningStateWorkflowExecution(lock);
+        runInqueueOrRunningStateWorkflowExecution(lock);
       } else {
         LOGGER.info(
             "Discarding user workflow execution with id: {}, it's not INQUEUE or RUNNNING and not active",
@@ -99,25 +96,13 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     return workflowExecution;
   }
 
-  private void runInQueueStateWorkflowExecution(RLock lock) {
-    workflowExecution.setStartedDate(new Date());
-    workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    workflowExecutionDao.updateMonitorInformation(workflowExecution);
-    lock.unlock(); //Unlock as soon as possible
-    AbstractMetisPlugin previousMetisPlugin = null;
-    for (AbstractMetisPlugin metisPlugin : workflowExecution.getMetisPlugins()) {
-      finishDate = runMetisPlugin(previousMetisPlugin, metisPlugin);
-      if ((workflowExecutionDao.isCancelling(workflowExecution.getId()) && finishDate == null)
-          || metisPlugin.getPluginStatus() == PluginStatus.FAILED) {
-        break;
-      }
-      previousMetisPlugin = metisPlugin;
-    }
-  }
-
-  private void runRunningStateWorkflowExecution(RLock lock) {
+  private void runInqueueOrRunningStateWorkflowExecution(RLock lock) {
     //Run if the workflowExecution was retrieved from the queue in RUNNING state. Another process released it and came back into the queue
-    workflowExecution.setUpdatedDate(new Date());
+    if (workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
+      workflowExecution.setUpdatedDate(new Date());
+    } else {
+      workflowExecution.setStartedDate(new Date());
+    }
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecutionDao.updateMonitorInformation(workflowExecution);
     lock.unlock(); //Unlock as soon as possible
@@ -132,8 +117,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       }
     }
     if (firstPluginPositionToStart != 0
-        || workflowExecution.getMetisPlugins().get(0).getPluginStatus()
-        == PluginStatus.RUNNING) {
+        || workflowExecution.getMetisPlugins().get(0).getPluginStatus() == PluginStatus.RUNNING) {
       firstPluginExecution = false;
     }
     AbstractMetisPlugin previousMetisPlugin = null;
