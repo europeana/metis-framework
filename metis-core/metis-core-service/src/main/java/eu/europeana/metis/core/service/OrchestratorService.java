@@ -274,7 +274,7 @@ public class OrchestratorService {
     if (oaipmhMetadata != null && oaipmhMetadata.isEnabled()) {
       plugin = PluginType.OAIPMH_HARVEST.getNewPlugin(oaipmhMetadata);
     } else if (httpMetadata != null && httpMetadata.isEnabled()) {
-      plugin = PluginType.HTTP_HARVEST.getNewPlugin(oaipmhMetadata);
+      plugin = PluginType.HTTP_HARVEST.getNewPlugin(httpMetadata);
     } else {
       plugin = null;
     }
