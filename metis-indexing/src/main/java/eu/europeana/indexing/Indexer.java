@@ -46,4 +46,15 @@ public interface Indexer extends Closeable {
    */
   public void index(List<String> records) throws IndexingException;
 
+  /**
+   * This method will trigger a flush operation on pending changes/updates to the persistent data,
+   * causing it to become permanent as well as available to other processes. Calling this method is
+   * not obligatory, and indexing will work without it. This just allows the caller to determine the
+   * moment when changes are written to disk rather than wait for this to be triggered by the
+   * infrastructure/library itself at its own discretion.
+   * 
+   * @param blockUntilComplete If true, the call blocks until the flush is complete.
+   * @throws IndexingException In case something went wrong.
+   */
+  public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException;
 }
