@@ -28,7 +28,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final String EXECUTION_CHECK_LOCK = "EXECUTION_CHECK_LOCK";
   private static final int MONITOR_ITERATIONS_TO_FAKE = 2;
   private static final int FAKE_RECORDS_PER_ITERATION = 100;
-  private static final int MAX_MONITOR_FAILURES = 3;
+  private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 3;
   private Date finishDate;
   private boolean firstPluginExecution;
   private final int monitorCheckIntervalInSecs;
@@ -178,15 +178,17 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   private Date periodicCheckingLoop(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
     TaskState taskState = null;
-    int consecutiveMonitorFailures = 0;
+    int consecutiveCancelOrMonitorFailures = 0;
+    boolean externalCancelCallSent = false;
     do {
       try {
-        if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
-          return null;
-        }
         Thread.sleep(sleepTime);
+        if (workflowExecutionDao.isCancelling(workflowExecution.getId()) && !externalCancelCallSent) {
+          abstractMetisPlugin.cancel(dpsClient);
+          externalCancelCallSent = true;
+        }
         taskState = abstractMetisPlugin.monitor(dpsClient).getStatus();
-        consecutiveMonitorFailures = 0;
+        consecutiveCancelOrMonitorFailures = 0;
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         workflowExecution.setUpdatedDate(updatedDate);
@@ -196,23 +198,26 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         Thread.currentThread().interrupt();
         return null;
       } catch (ExternalTaskException e) {
-        consecutiveMonitorFailures++;
+        consecutiveCancelOrMonitorFailures++;
         LOGGER.warn(
-            String.format("Monitoring of external task failed %s/%s", consecutiveMonitorFailures,
-                MAX_MONITOR_FAILURES), e);
-        if (consecutiveMonitorFailures == MAX_MONITOR_FAILURES) {
+            String.format("Monitoring of external task failed %s/%s", consecutiveCancelOrMonitorFailures,
+                MAX_CANCEL_OR_MONITOR_FAILURES), e);
+        if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
           break;
         }
       }
     } while (taskState == null || (taskState != TaskState.DROPPED
         && taskState != TaskState.PROCESSED));
-    if (taskState == TaskState.DROPPED || consecutiveMonitorFailures == MAX_MONITOR_FAILURES) {
-      abstractMetisPlugin.setFinishedDate(null);
-      abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
-    } else {
+
+    if (taskState == TaskState.PROCESSED) {
       abstractMetisPlugin.setFinishedDate(new Date());
       abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
+    } else if ((taskState == TaskState.DROPPED && !workflowExecutionDao
+        .isCancelling(workflowExecution.getId()))
+        || consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
+      abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
     }
+
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     return abstractMetisPlugin.getFinishedDate();
   }
