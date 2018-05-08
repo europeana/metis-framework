@@ -1,6 +1,5 @@
 package eu.europeana.validation.rest;
 
-
 import static eu.europeana.metis.RestEndpoints.SCHEMA_BATCH_VALIDATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.utils.ZipFileUtils;
+import eu.europeana.metis.utils.ZipFileReader;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.exceptions.BatchValidationException;
@@ -30,7 +29,6 @@ import eu.europeana.validation.service.ValidationExecutionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.lingala.zip4j.exception.ZipException;
 
 /**
  * REST API Implementation of the Validation Service
@@ -112,9 +110,12 @@ public class ValidationController {
 
     final List<String> records;
     try {
-      records = ZipFileUtils.getRecordsFromZipFile(providedZipFile);
-    } catch (IOException | ZipException e) {
+      records = new ZipFileReader().getRecordsFromZipFile(providedZipFile.getInputStream());
+    } catch (IOException e) {
       throw new ServerException(e);
+    }
+    if (records.isEmpty()) {
+      throw new ServerException("No suitable records found in zip file.");
     }
         
     try {

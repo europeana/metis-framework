@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import eu.europeana.metis.preview.common.exception.ZipFileException;
-import eu.europeana.metis.utils.ZipFileUtils;
-import net.lingala.zip4j.exception.ZipException;
+import eu.europeana.metis.utils.ZipFileReader;
 
 /**
  * Created by erikkonijnenburg on 27/07/2017.
@@ -19,11 +18,17 @@ public class ZipService {
   private static final Logger LOGGER = LoggerFactory.getLogger(ZipService.class);
 
   public List<String> readFileToStringList(MultipartFile providedZipFile) throws ZipFileException {
+    final List<String> result;
     try {
-      return ZipFileUtils.getRecordsFromZipFile(providedZipFile);
-    } catch (IOException | ZipException ex) {
+      result = new ZipFileReader().getRecordsFromZipFile(providedZipFile.getInputStream());
+    } catch (IOException ex) {
       LOGGER.error("Error reading from zipfile. ", ex);
       throw new ZipFileException("Error reading from zipfile.", ex);
     }
+    if (result.isEmpty()) {
+      throw new ZipFileException(
+          "Error reading from zipfile: zipfile contains no suitable records.");
+    }
+    return result;
   }
 }
