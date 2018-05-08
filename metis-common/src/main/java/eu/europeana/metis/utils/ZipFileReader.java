@@ -66,7 +66,7 @@ public class ZipFileReader {
       if (!accept(zipEntry)) {
         continue;
       }
-      result.add(IOUtils.toString(zipFile.getInputStream(zipEntry), StandardCharsets.UTF_8));
+      result.add(IOUtils.toString(zipFile.getInputStream(zipEntry), StandardCharsets.UTF_8.name()));
     }
     return result;
   }
