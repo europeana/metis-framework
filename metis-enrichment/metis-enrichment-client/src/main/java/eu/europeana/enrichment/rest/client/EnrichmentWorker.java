@@ -174,7 +174,11 @@ public class EnrichmentWorker {
     if (enrichmentInformation != null && CollectionUtils.isNotEmpty(enrichmentInformation.getResult())) {
       entityMergeEngine.mergeEntities(rdf, enrichmentInformation.getResult());
     }
-    LOGGER.debug("Merging completed.");
+    
+    // [4] Setting additional field values and set them in the RDF.
+    LOGGER.debug("Setting additional data in the RDF...");
+    EnrichmentUtils.setAdditionalData(rdf);
+    LOGGER.debug("Enrichment completed.");
   }
 
   private EnrichmentResultList enrichFields(List<InputValue> fieldsForEnrichment)
@@ -212,7 +216,7 @@ public class EnrichmentWorker {
         entityMergeEngine.mergeEntities(rdf, dereferenceResultList.getResult());
       }
     }
-    LOGGER.debug("Merging completed.");
+    LOGGER.debug("Dereference completed.");
   }
 
   private List<EnrichmentResultList> dereferenceFields(Set<String> resourceIds)
