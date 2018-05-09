@@ -94,7 +94,7 @@ public class YearParser {
   /**
    * This method parses a list of strings to a year.
    * 
-   * @param input The list of input strings.
+   * @param input The list of input strings. Is not null.
    * @return A (possibly empty) set of years. The set is not null, nor does it contain null entries.
    */
   public Set<Integer> parse(List<String> input) {
@@ -104,7 +104,7 @@ public class YearParser {
   /**
    * This method parses a string to a year.
    * 
-   * @param input The input string.
+   * @param input The input string. Is not null.
    * @return The year, or null if it could not parse the string.
    */
   public Integer parse(String input) {

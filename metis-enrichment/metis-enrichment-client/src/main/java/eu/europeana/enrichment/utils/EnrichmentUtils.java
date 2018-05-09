@@ -2,6 +2,7 @@ package eu.europeana.enrichment.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import eu.europeana.corelib.definitions.jibx.EuropeanaProxy;
@@ -64,7 +65,8 @@ public final class EnrichmentUtils {
 
     // Obtain the date strings from the various proxy fields.
     final List<String> dateStrings = providerProxy.getChoiceList().stream()
-        .map(EnrichmentUtils::getDateFromChoice).collect(Collectors.toList());
+        .map(EnrichmentUtils::getDateFromChoice).filter(Objects::nonNull)
+        .collect(Collectors.toList());
 
     // Parse them and set them in the europeana proxy.
     final List<Year> yearList = new YearParser().parse(dateStrings).stream()
