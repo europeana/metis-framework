@@ -120,7 +120,7 @@ public class EnrichmentWorker {
     }
 
     // Dereferencing
-    if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.DEREFERENCE_ONLY.equals(mode)) {
+    if (Mode.DEREFERENCE_AND_ENRICHMENT == mode || Mode.DEREFERENCE_ONLY == mode) {
       LOGGER.debug("Performing dereferencing...");
       performDereferencing(rdf);
       LOGGER.debug("Dereferencing completed.");
@@ -130,7 +130,7 @@ public class EnrichmentWorker {
     }
 
     // Enrichment
-    if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.ENRICHMENT_ONLY.equals(mode)) {
+    if (Mode.DEREFERENCE_AND_ENRICHMENT == mode || Mode.ENRICHMENT_ONLY == mode) {
       LOGGER.debug("Performing enrichment...");
       performEnrichment(rdf);
       LOGGER.debug("Enrichment completed.");

@@ -296,7 +296,7 @@ public class TestObjectFactory {
   }
 
   public static List<Record> createListOfRecords(int numberOfRecords) {
-    List<Record> records = new ArrayList<>();
+    List<Record> records = new ArrayList<>(numberOfRecords);
     for (int i = 0; i < numberOfRecords; i++) {
       records.add(new Record(UUID.randomUUID().toString(),
           String.format("<record><element attr=\"test\">%d</element></record>", i)));

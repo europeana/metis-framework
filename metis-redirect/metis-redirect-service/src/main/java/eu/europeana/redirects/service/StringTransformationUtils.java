@@ -32,7 +32,7 @@ public final class StringTransformationUtils {
         for (String transform : transforms) {
           StringBuilder stringBuilder = new StringBuilder(transform);
           if (!transform.endsWith(")")) {
-            stringBuilder.append(")");
+            stringBuilder.append(')');
           }
           result = applyTransformation(result, stringBuilder.toString());
         }

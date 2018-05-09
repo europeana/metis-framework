@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.InputValueList;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -38,15 +37,9 @@ public class EnrichmentClient {
 	 */
 	public EnrichmentResultList enrich(List<InputValue> values) {
 		RestTemplate template = new RestTemplate();
-
 		InputValueList inList = new InputValueList();
 	    inList.setInputValueList(values);
-	        
-        try {
-        	return template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
-        } catch (Exception e){
-            throw new UnknownException(e.getMessage());
-        }
+       	return template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
     }
 
     public EnrichmentBase getByUri(String uri) {    	   
