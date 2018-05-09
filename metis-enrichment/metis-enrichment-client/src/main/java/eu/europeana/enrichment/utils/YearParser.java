@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -11,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +69,8 @@ public class YearParser {
     // Read the lines from the file.
     final List<String> readLines;
     try {
-      readLines = FileUtils.readLines(new File(filePath), StandardCharsets.UTF_8.name());
+      readLines = IOUtils.readLines(YearParser.class.getClassLoader().getResourceAsStream(filePath),
+          StandardCharsets.UTF_8.name());
     } catch (IOException e) {
       LOGGER.error("Problem reading file '" + filePath + "'", e);
       return Collections.emptyList();
