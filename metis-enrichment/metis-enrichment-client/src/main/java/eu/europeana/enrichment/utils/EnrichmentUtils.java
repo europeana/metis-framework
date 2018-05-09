@@ -64,9 +64,9 @@ public final class EnrichmentUtils {
     final ProxyType europeanaProxy = ensureEuropeanaProxy(rdf, providerProxy);
 
     // Obtain the date strings from the various proxy fields.
-    final List<String> dateStrings = providerProxy.getChoiceList().stream()
-        .map(EnrichmentUtils::getDateFromChoice).filter(Objects::nonNull)
-        .collect(Collectors.toList());
+    final List<String> dateStrings =
+        providerProxy.getChoiceList().stream().map(EnrichmentUtils::getDateFromChoice)
+            .filter(Objects::nonNull).collect(Collectors.toList());
 
     // Parse them and set them in the europeana proxy.
     final List<Year> yearList = new YearParser().parse(dateStrings).stream()

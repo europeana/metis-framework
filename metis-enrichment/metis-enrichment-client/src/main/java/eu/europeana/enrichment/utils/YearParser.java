@@ -81,7 +81,8 @@ public class YearParser {
         .filter(line -> !line.isEmpty()).collect(Collectors.toSet());
 
     // Create patterns: either the year digits come before, or they come after.
-    return eraLines.stream().flatMap(YearParser::composeEraRegexPatterns).map(Pattern::compile)
+    return eraLines.stream().flatMap(YearParser::composeEraRegexPatterns)
+        .map(regex -> Pattern.compile(regex, Pattern.CASE_INSENSITIVE))
         .collect(Collectors.toList());
   }
 
