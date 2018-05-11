@@ -112,6 +112,7 @@ public class PreviewService {
       taskResults = new ArrayList<>(taskResultFutures.size());
       for (Future<ValidationTaskResult> taskResultFuture : taskResultFutures) {
         LOGGER.info("Retrieving validation result {} of {}.", counter, taskResultFutures.size());
+        counter++;
         taskResults.add(taskResultFuture.get());
       }
     } catch (InterruptedException e) {

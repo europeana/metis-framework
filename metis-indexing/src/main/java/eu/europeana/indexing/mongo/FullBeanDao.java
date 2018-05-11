@@ -2,9 +2,11 @@ package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
+import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.solr.DocType;
 import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.construct.Updater;
+import eu.europeana.corelib.edm.utils.construct.WebResourceCreator;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
@@ -12,9 +14,12 @@ import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.exception.IndexingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
@@ -107,19 +112,17 @@ public class FullBeanDao {
   }
 
   /**
-   * Checks whether the given object is already known. If it is, updates the object. If it isn't, it
-   * saves the object as a new object (if this is desired, otherwise do nothing).
+   * Updatres an object in the mongo database. Checks whether the given object is already known. If
+   * it is, updates the object. If it isn't, it saves the object as a new object.
    * 
    * @param data The object to save.
    * @param clazz The type of the object.
    * @param updater The helper class to update the object.
-   * @param saveNewRecordIfNotFound Whether, if the object doesn't already exist, it should be added
-   *        (i.e. saved).
    * @return The persisted object.
    * @throws MongoUpdateException In case an exception occurred in the supplied updater.
    */
-  public <T extends AbstractEdmEntity> T update(T data, Class<T> clazz, Updater<T> updater,
-      boolean saveNewRecordIfNotFound) throws MongoUpdateException {
+  public <T extends AbstractEdmEntity> T update(T data, Class<T> clazz, Updater<T> updater)
+      throws MongoUpdateException {
     if (data == null) {
       return null;
     }
@@ -127,40 +130,58 @@ public class FullBeanDao {
     final T newData;
     if (existingData != null) {
       newData = updater.update(existingData, data, mongoServer);
-    } else if (saveNewRecordIfNotFound) {
+    } else {
       final Key<T> key = save(data);
       newData = mongoServer.getDatastore().getByKey(clazz, key);
-    } else {
-      newData = null;
     }
     return newData;
   }
 
   /**
-   * Convenience method for {@link #update(AbstractEdmEntity, Class, Updater, boolean)} that accepts
+   * Convenience method for {@link #update(AbstractEdmEntity, Class, Updater)} that accepts
    * multiple objects.
    * 
    * @param dataToAdd The object to save.
    * @param clazz The type of the object.
    * @param updater The helper class to update the object.
-   * @param saveNewRecordIfNotFound Whether, if the object doesn't already exist, it should be added
-   *        (i.e. saved).
    * @return The persisted objects.
    * @throws MongoUpdateException In case an exception occurred in the supplied updater.
    */
-  public <T extends AbstractEdmEntity> List<T> update(List<T> dataToAdd, Class<T> clazz,
-      Updater<T> updater, boolean saveNewRecordIfNotFound) throws MongoUpdateException {
+  public <T extends AbstractEdmEntity> List<T> update(List<? extends T> dataToAdd,
+      Class<T> clazz, Updater<T> updater) throws MongoUpdateException {
     final List<T> result = new ArrayList<>();
     if (dataToAdd == null) {
       return result;
     }
     for (T data : dataToAdd) {
-      final T newData = update(data, clazz, updater, saveNewRecordIfNotFound);
+      final T newData = update(data, clazz, updater);
       if (newData != null) {
         result.add(newData);
       }
     }
     return result;
+  }
+  
+  /**
+   * Updates a web resource in the mongo database. Checks whether the given web resource is already
+   * known. If it is, updates the web resource. If it isn't, it saves the web resource as a new web
+   * resource.
+   * 
+   * @param dataToAdd The web resource to save.
+   * @return The persisted web resource.
+   * @throws MongoUpdateException In case an exception occurred while saving.
+   */
+  public List<WebResourceImpl> updateWebResources(List<? extends WebResource> dataToAdd)
+      throws MongoUpdateException {
+    if (dataToAdd == null) {
+      return Collections.emptyList();
+    }
+    final WebResourceCreator webResourceCreator = new WebResourceCreator();
+    for (WebResource data : dataToAdd) {
+      webResourceCreator.saveWebResource(data, mongoServer);
+    }
+    return dataToAdd.stream().map(data -> get(WebResourceImpl.class, data.getAbout()))
+        .collect(Collectors.toList());
   }
 
   /**
