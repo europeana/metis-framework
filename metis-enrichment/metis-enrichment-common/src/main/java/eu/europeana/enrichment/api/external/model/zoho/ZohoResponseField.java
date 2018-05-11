@@ -30,7 +30,10 @@ public class ZohoResponseField {
 
   @Override
   public boolean equals(Object obj) {
-    return (obj instanceof ZohoResponseField && this.val.equals(((ZohoResponseField) obj).val));
+    if (obj == null) {
+      return false;
+    }
+    return (obj.getClass() == this.getClass() && this.val.equals(((ZohoResponseField) obj).val));
   }
 
   @Override

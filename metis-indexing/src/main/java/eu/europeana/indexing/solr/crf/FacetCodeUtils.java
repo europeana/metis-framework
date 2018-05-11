@@ -129,9 +129,9 @@ public final class FacetCodeUtils {
   public static Set<Integer> getImageColorSpaceCode(final WebResourceWrapper webResource) {
     final ColorSpace colorSpace = webResource.getColorSpace();
     final Integer result;
-    if (ColorSpace.SRGB.equals(colorSpace)) {
+    if (ColorSpace.SRGB == colorSpace) {
       result = IMAGE_SRGB;
-    } else if (ColorSpace.GRAYSCALE.equals(colorSpace)) {
+    } else if (ColorSpace.GRAYSCALE == colorSpace) {
       result = IMAGE_GRAYSCALE;
     } else {
       result = UNKNOWN;
@@ -148,9 +148,9 @@ public final class FacetCodeUtils {
   public static Set<Integer> getImageAspectRatioCode(final WebResourceWrapper webResource) {
     final Orientation orientation = webResource.getOrientation();
     final Integer result;
-    if (Orientation.PORTRAIT.equals(orientation)) {
+    if (Orientation.PORTRAIT == orientation) {
       result = IMAGE_PORTRAIT;
-    } else if (Orientation.LANDSCAPE.equals(orientation)) {
+    } else if (Orientation.LANDSCAPE == orientation) {
       result = IMAGE_LANDSCAPE;
     } else {
       result = UNKNOWN;

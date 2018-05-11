@@ -120,7 +120,7 @@ public class EnrichmentWorker {
     }
 
     // Dereferencing
-    if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.DEREFERENCE_ONLY.equals(mode)) {
+    if (Mode.DEREFERENCE_AND_ENRICHMENT == mode || Mode.DEREFERENCE_ONLY == mode) {
       LOGGER.debug("Performing dereferencing...");
       performDereferencing(rdf);
       LOGGER.debug("Dereferencing completed.");
@@ -130,7 +130,7 @@ public class EnrichmentWorker {
     }
 
     // Enrichment
-    if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.ENRICHMENT_ONLY.equals(mode)) {
+    if (Mode.DEREFERENCE_AND_ENRICHMENT == mode || Mode.ENRICHMENT_ONLY == mode) {
       LOGGER.debug("Performing enrichment...");
       performEnrichment(rdf);
       LOGGER.debug("Enrichment completed.");
@@ -174,7 +174,11 @@ public class EnrichmentWorker {
     if (enrichmentInformation != null && CollectionUtils.isNotEmpty(enrichmentInformation.getResult())) {
       entityMergeEngine.mergeEntities(rdf, enrichmentInformation.getResult());
     }
-    LOGGER.debug("Merging completed.");
+    
+    // [4] Setting additional field values and set them in the RDF.
+    LOGGER.debug("Setting additional data in the RDF...");
+    EnrichmentUtils.setAdditionalData(rdf);
+    LOGGER.debug("Enrichment completed.");
   }
 
   private EnrichmentResultList enrichFields(List<InputValue> fieldsForEnrichment)
@@ -212,7 +216,7 @@ public class EnrichmentWorker {
         entityMergeEngine.mergeEntities(rdf, dereferenceResultList.getResult());
       }
     }
-    LOGGER.debug("Merging completed.");
+    LOGGER.debug("Dereference completed.");
   }
 
   private List<EnrichmentResultList> dereferenceFields(Set<String> resourceIds)

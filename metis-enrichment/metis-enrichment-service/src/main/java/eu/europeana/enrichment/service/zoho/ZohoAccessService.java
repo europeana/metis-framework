@@ -274,24 +274,20 @@ public class ZohoAccessService {
     if (value == null) {
       return null;
     }
-    List<String> valueList = createList(value);
-    return createMapOfStringList(key, valueList);
+    return createMapOfStringList(key, createList(value));
   }
 
   Map<String, String> createMap(String key, String value) {
     if (value == null) {
       return null;
     }
-    Map<String, String> resMap = new HashMap<>();
-    resMap.put(key, value);
-    return resMap;
+    return Collections.singletonMap(key, value);
   }
 
   List<String> createList(String value) {
     if (value == null) {
       return null;
     }
-
     return Collections.singletonList(value);
   }
 
@@ -304,47 +300,35 @@ public class ZohoAccessService {
    */
   Map<String, List<String>> createMapOfStringList(String key,
       List<String> value) {
-    Map<String, List<String>> resMap = new HashMap<>();
-    resMap.put(key, value);
-    return resMap;
+    return Collections.singletonMap(key, value);
   }
 
-  Map<String, List<String>> createLanguageMapOfStringList(
-      List<String> languages, List<String> values) {
+  Map<String, List<String>> createLanguageMapOfStringList(List<String> languages,
+      List<String> values) {
     if (languages == null) {
       return null;
     }
-
-    Map<String, List<String>> resMap = new HashMap<>();
+    Map<String, List<String>> resMap = new HashMap<>(languages.size());
     for (int i = 0; i < languages.size(); i++) {
-      resMap.put(toIsoLanguage(languages.get(i)),
-          createList(values.get(i)));
+      resMap.put(toIsoLanguage(languages.get(i)), createList(values.get(i)));
     }
     return resMap;
   }
 
   Map<String, List<String>> createLanguageMapOfStringList(String language,
       String value) {
-
     if (value == null) {
       return null;
     }
-
-    Map<String, List<String>> resMap = new HashMap<>();
-    resMap.put(toIsoLanguage(language), createList(value));
-    return resMap;
+    return Collections.singletonMap(toIsoLanguage(language), createList(value));
   }
 
   Map<String, List<String>> createLanguageMapOfStringList(String language,
       List<String> value) {
-
     if (value == null) {
       return null;
     }
-
-    Map<String, List<String>> resMap = new HashMap<>();
-    resMap.put(toIsoLanguage(language), value);
-    return resMap;
+    return Collections.singletonMap(toIsoLanguage(language), value);
   }
 
   public FastDateFormat getDateFormatter() {

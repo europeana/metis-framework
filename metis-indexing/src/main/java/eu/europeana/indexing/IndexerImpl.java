@@ -83,7 +83,7 @@ class IndexerImpl implements Indexer {
   public void index(List<String> records) throws IndexingException {
     LOGGER.info("Parsing {} records...", records.size());
     final IBindingFactory rdfBindingFactory = rdfBindingFactorySupplier.get();
-    final List<RDF> rdfs = new ArrayList<>();
+    final List<RDF> rdfs = new ArrayList<>(records.size());
     for (String record : records) {
       rdfs.add(convertStringToRdf(record, rdfBindingFactory));
     }
