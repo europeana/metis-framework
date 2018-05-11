@@ -100,7 +100,7 @@ public class WorkflowExecution implements HasMongoObjectId {
    * Checks if one of the plugins has {@link PluginStatus#FAILED} and if yes sets all other plugins
    * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
    */
-  public void checkAndSetAllRunningAndInqueuePluginsToFailedIfOnePluginHasFailed() {
+  public void checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed() {
     boolean hasAPluginFailed = false;
     for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
       if (metisPlugin.getPluginStatus() == PluginStatus.FAILED) {

@@ -318,7 +318,7 @@ public abstract class AbstractMetisPlugin {
 
       try {
         setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
-      } catch (DpsException e) {
+      } catch (DpsException | RuntimeException e) {
         throw new ExternalTaskException("Submitting task failed", e);
       }
       LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
@@ -337,9 +337,24 @@ public abstract class AbstractMetisPlugin {
     TaskInfo taskInfo;
     try {
       taskInfo = dpsClient.getTaskProgress(getTopologyName(), Long.parseLong(getExternalTaskId()));
-    } catch (DpsException e) {
+    } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task progress failed", e);
     }
     return getExecutionProgress().copyExternalTaskInformation(taskInfo);
+  }
+
+  /**
+   * Request a cancel call to the external execution.
+   *
+   * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
+   * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
+   */
+  public void cancel(DpsClient dpsClient) throws ExternalTaskException {
+    LOGGER.info("Cancel execution for externalTaskId: {}", getExternalTaskId());
+    try {
+      dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()));
+    } catch (DpsException | RuntimeException e) {
+      throw new ExternalTaskException("Requesting task cancellation failed", e);
+    }
   }
 }
