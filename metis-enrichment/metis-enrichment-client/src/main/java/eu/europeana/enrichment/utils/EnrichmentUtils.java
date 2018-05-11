@@ -19,6 +19,8 @@ import eu.europeana.corelib.definitions.jibx.Year;
  * Utilities for enrichment and dereferencing Created by gmamakis on 8-3-17.
  */
 public final class EnrichmentUtils {
+  
+  private static final String PROVIDER_ABOUT_PREFIX = "/item";
 
   private EnrichmentUtils() {}
 
@@ -118,13 +120,22 @@ public final class EnrichmentUtils {
       newEuropeanaProxy.setType(type);
     }
 
-    // Set some URIs.
-    newEuropeanaProxy.setAbout(providerProxy.getAbout());
+    // Get the about
+    final String providerAbout = rdf.getProvidedCHOList().get(0).getAbout();
+    final String about;
+    if (providerAbout.startsWith(PROVIDER_ABOUT_PREFIX)) {
+      about = providerAbout.substring(PROVIDER_ABOUT_PREFIX.length());
+    } else {
+      about = providerAbout;
+    }
+
+    // Set the about
+    newEuropeanaProxy.setAbout("/proxy/europeana" + about);
     final ProxyFor proxyFor = new ProxyFor();
-    proxyFor.setResource(providerProxy.getAbout());
+    proxyFor.setResource(PROVIDER_ABOUT_PREFIX + about);
     newEuropeanaProxy.setProxyFor(proxyFor);
     final ProxyIn proxyIn = new ProxyIn();
-    proxyIn.setResource(providerProxy.getAbout());
+    proxyIn.setResource("/aggregation/europeana" + about);
     newEuropeanaProxy.setProxyInList(Stream.of(proxyIn).collect(Collectors.toList()));
 
     // Add new proxy to RDF.
