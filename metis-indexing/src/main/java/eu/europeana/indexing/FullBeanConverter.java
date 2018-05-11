@@ -2,6 +2,9 @@ package eu.europeana.indexing;
 
 import java.io.IOException;
 import java.util.function.Supplier;
+
+import eu.europeana.corelib.definitions.jibx.DatasetName;
+import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -14,8 +17,6 @@ import eu.europeana.indexing.exception.IndexingException;
  *
  */
 public class FullBeanConverter {
-
-  private static final int MAX_COLLECTION_NAME_LENGTH = 100;
   
   private final Supplier<MongoConstructor> mongoConstructorSupplier;
 
@@ -59,8 +60,12 @@ public class FullBeanConverter {
       throw new IndexingException("Could not construct FullBean: null was returned.");
     }
 
-    // TODO Hack to prevent potential null pointer exceptions
-    fBean.setEuropeanaCollectionName(new String[MAX_COLLECTION_NAME_LENGTH]);
+    // Set the collection name from the dataset name.
+    final EuropeanaAggregationType aggregation = rdf.getEuropeanaAggregationList().isEmpty() ? null
+        : rdf.getEuropeanaAggregationList().get(0);
+    final DatasetName datasetNameObject = aggregation == null ? null : aggregation.getDatasetName();
+    final String datasetName = datasetNameObject == null ? "" : datasetNameObject.getString();
+    fBean.setEuropeanaCollectionName(new String[] {datasetName});
 
     // Done.
     return fBean;
