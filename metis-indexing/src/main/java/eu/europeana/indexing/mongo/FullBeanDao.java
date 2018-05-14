@@ -147,8 +147,8 @@ public class FullBeanDao {
    * @return The persisted objects.
    * @throws MongoUpdateException In case an exception occurred in the supplied updater.
    */
-  public <T extends AbstractEdmEntity> List<T> update(List<? extends T> dataToAdd,
-      Class<T> clazz, Updater<T> updater) throws MongoUpdateException {
+  public <T extends AbstractEdmEntity> List<T> update(List<T> dataToAdd, Class<T> clazz,
+      Updater<T> updater) throws MongoUpdateException {
     final List<T> result = new ArrayList<>();
     if (dataToAdd == null) {
       return result;

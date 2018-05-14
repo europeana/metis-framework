@@ -128,9 +128,8 @@ class FullBeanPublisher {
     }
   }
 
-  private <T extends AbstractEdmEntity> void saveOrUpdate(Supplier<List<? extends T>> getter,
-      Consumer<List<? extends T>> setter, Class<T> clazz, Updater<T> updater)
-      throws MongoUpdateException {
+  private <T extends AbstractEdmEntity> void saveOrUpdate(Supplier<List<T>> getter,
+      Consumer<List<T>> setter, Class<T> clazz, Updater<T> updater) throws MongoUpdateException {
     setter.accept(fullBeanDao.update(getter.get(), clazz, updater));
   }
 
