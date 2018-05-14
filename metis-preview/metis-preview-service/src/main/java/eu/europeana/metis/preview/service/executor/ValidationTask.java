@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Collections;
 import java.util.concurrent.Callable;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -18,6 +19,9 @@ import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.corelib.definitions.jibx.CollectionName;
+import eu.europeana.corelib.definitions.jibx.DatasetName;
+import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.validation.model.ValidationResult;
@@ -49,8 +53,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
    * resides. Can be Null, in which case the default is used.
    */
   public ValidationTask(ValidationUtils validationUtils, boolean applyCrosswalk,
-      IBindingFactory bFact,
-      String incomingRecord, String collectionId, String crosswalkPath) {
+      IBindingFactory bFact, String incomingRecord, String collectionId, String crosswalkPath) {
     this.validationUtils = validationUtils;
     this.applyCrosswalk = applyCrosswalk;
     this.bFact = bFact;
@@ -127,25 +130,29 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     final RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(resultRecord));
     final String recordId = validationUtils.generateIdentifier(collectionId, rdf);
 
-    // Obtain the result.
-    final ValidationTaskResult result;
-    if (StringUtils.isNotEmpty(recordId)) {
-
-      // If we have obtained a record ID we return a successful result.
-      rdf.getProvidedCHOList().get(0).setAbout(recordId);
-      validationUtils.persist(rdf);
-      result = new ValidationTaskResult(recordId, validationResult, true);
-    } else {
-
-      // If we couldn't obtain a record ID we return a failed result.
+    // If we couldn't obtain a record ID we return a failed result.
+    if (StringUtils.isEmpty(recordId)) {
       ValidationResult noIdValidationResult = new ValidationResult();
       noIdValidationResult.setSuccess(false);
       noIdValidationResult.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
       noIdValidationResult.setMessage("Id generation failed. Record not persisted");
-      result = new ValidationTaskResult(null, noIdValidationResult, false);
+      return new ValidationTaskResult(null, noIdValidationResult, false);
     }
 
-    // Done
-    return result;
+    // Set the record ID.
+    rdf.getProvidedCHOList().get(0).setAbout(recordId);
+    
+    // Set the collection name.
+    if (rdf.getEuropeanaAggregationList() == null
+        || rdf.getEuropeanaAggregationList().isEmpty()) {
+      rdf.setEuropeanaAggregationList(Collections.singletonList(new EuropeanaAggregationType()));
+    }
+    final DatasetName datasetName = new DatasetName();
+    datasetName.setString(collectionId);
+    rdf.getEuropeanaAggregationList().get(0).setDatasetName(datasetName);
+
+    // Persist and return a successful result.
+    validationUtils.persist(rdf);
+    return new ValidationTaskResult(recordId, validationResult, true);
   }
 }
