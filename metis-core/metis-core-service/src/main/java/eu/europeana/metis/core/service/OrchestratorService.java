@@ -302,6 +302,8 @@ public class OrchestratorService {
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.MEDIA_PROCESS);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+        firstPluginDefined, PluginType.LINK_CHECKING);
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.PREVIEW);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.PUBLISH);

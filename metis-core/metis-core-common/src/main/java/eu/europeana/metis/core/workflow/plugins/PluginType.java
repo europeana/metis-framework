@@ -18,6 +18,8 @@ public enum PluginType {
 
   MEDIA_PROCESS(MediaProcessPlugin::new),
 
+  LINK_CHECKING(LinkCheckingPlugin::new),
+
   VALIDATION_EXTERNAL(ValidationExternalPlugin::new),
 
   TRANSFORMATION(TransformationPlugin::new),

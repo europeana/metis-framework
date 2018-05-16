@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
     @JsonSubTypes.Type(value = NormalizationPlugin.class, name = "NORMALIZATION"),
     @JsonSubTypes.Type(value = EnrichmentPlugin.class, name = "ENRICHMENT"),
     @JsonSubTypes.Type(value = MediaProcessPlugin.class, name = "MEDIA_PROCESS"),
+    @JsonSubTypes.Type(value = LinkCheckingPlugin.class, name = "LINK_CHECKING"),
     @JsonSubTypes.Type(value = IndexToPreviewPlugin.class, name = "PREVIEW"),
     @JsonSubTypes.Type(value = IndexToPublishPlugin.class, name = "PUBLISH")
 })

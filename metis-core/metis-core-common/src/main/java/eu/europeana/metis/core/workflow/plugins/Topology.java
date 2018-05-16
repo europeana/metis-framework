@@ -18,6 +18,8 @@ public enum Topology {
 
   MEDIA_PROCESS("media_process"),
 
+  LINK_CHECKING("link_checker"),
+
   INDEX("indexer"),
 
   HTTP_HARVEST("http_harvest");
