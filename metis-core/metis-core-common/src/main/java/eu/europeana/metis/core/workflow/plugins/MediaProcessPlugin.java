@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
+import java.util.Map;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -35,7 +36,11 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
 
   @Override
   DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    return createDpsTaskForProcessPlugin(null, ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    Map<String, Integer> connectionLimitToDomains = ((MediaProcessPluginMetadata) getPluginMetadata())
+        .getConnectionLimitToDomains();
+    return createDpsTaskForProcessPlugin(
+        createParametersForHostConncetionLimits(connectionLimitToDomains), ecloudBaseUrl,
+        ecloudProvider, ecloudDataset);
   }
 
 }

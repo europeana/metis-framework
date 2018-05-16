@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -39,9 +38,8 @@ public class LinkCheckingPlugin extends AbstractMetisPlugin {
   DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
     Map<String, Integer> connectionLimitToDomains = ((LinkCheckingPluginMetadata) getPluginMetadata())
         .getConnectionLimitToDomains();
-    Map<String, String> parameters = new HashMap<>();
-    connectionLimitToDomains.forEach((domain, connectionLimit) -> parameters
-        .put("host.limit." + domain.trim(), Integer.toString(connectionLimit)));
-    return createDpsTaskForProcessPlugin(parameters, ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    return createDpsTaskForProcessPlugin(
+        createParametersForHostConncetionLimits(connectionLimitToDomains), ecloudBaseUrl,
+        ecloudProvider, ecloudDataset);
   }
 }

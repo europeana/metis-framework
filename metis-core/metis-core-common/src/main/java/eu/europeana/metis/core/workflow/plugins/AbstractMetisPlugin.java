@@ -239,8 +239,9 @@ public abstract class AbstractMetisPlugin {
     dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider, publish));
     return dpsTask;
   }
-  
-  DpsTask createDpsTaskForHarvestPlugin(String targetUrl, String ecloudBaseUrl, String ecloudProvider,
+
+  DpsTask createDpsTaskForHarvestPlugin(String targetUrl, String ecloudBaseUrl,
+      String ecloudProvider,
       String ecloudDataset) {
     DpsTask dpsTask = new DpsTask();
 
@@ -259,7 +260,7 @@ public abstract class AbstractMetisPlugin {
     dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider, false));
     return dpsTask;
   }
-  
+
   DpsTask createDpsTaskForProcessPlugin(Map<String, String> extraParameters, String ecloudBaseUrl,
       String ecloudProvider, String ecloudDataset) {
     Map<String, String> parameters = new HashMap<>();
@@ -284,7 +285,16 @@ public abstract class AbstractMetisPlugin {
       String ecloudProvider, String ecloudDataset) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
-    return createDpsTaskForProcessPlugin(extraParameters, ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    return createDpsTaskForProcessPlugin(extraParameters, ecloudBaseUrl, ecloudProvider,
+        ecloudDataset);
+  }
+
+  Map<String, String> createParametersForHostConncetionLimits(
+      Map<String, Integer> connectionLimitToDomains) {
+    Map<String, String> parameters = new HashMap<>();
+    connectionLimitToDomains.forEach((domain, connectionLimit) -> parameters
+        .put("host.limit." + domain.trim(), Integer.toString(connectionLimit)));
+    return parameters;
   }
 
   /**
