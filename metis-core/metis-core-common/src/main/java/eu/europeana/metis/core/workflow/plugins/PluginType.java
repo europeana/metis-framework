@@ -10,37 +10,40 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public enum PluginType {
 
-  HTTP_HARVEST(HTTPHarvestPlugin::new),
+  HTTP_HARVEST(HTTPHarvestPlugin::new, false),
 
-  OAIPMH_HARVEST(OaipmhHarvestPlugin::new),
+  OAIPMH_HARVEST(OaipmhHarvestPlugin::new, false),
 
-  ENRICHMENT(EnrichmentPlugin::new),
+  ENRICHMENT(EnrichmentPlugin::new, false),
 
-  MEDIA_PROCESS(MediaProcessPlugin::new),
+  MEDIA_PROCESS(MediaProcessPlugin::new, false),
 
-  LINK_CHECKING(LinkCheckingPlugin::new),
+  LINK_CHECKING(LinkCheckingPlugin::new, true),
 
-  VALIDATION_EXTERNAL(ValidationExternalPlugin::new),
+  VALIDATION_EXTERNAL(ValidationExternalPlugin::new, false),
 
-  TRANSFORMATION(TransformationPlugin::new),
+  TRANSFORMATION(TransformationPlugin::new, false),
 
-  VALIDATION_INTERNAL(ValidationInternalPlugin::new),
+  VALIDATION_INTERNAL(ValidationInternalPlugin::new, false),
 
-  NORMALIZATION(NormalizationPlugin::new),
+  NORMALIZATION(NormalizationPlugin::new, false),
 
-  PREVIEW(IndexToPreviewPlugin::new),
+  PREVIEW(IndexToPreviewPlugin::new, false),
 
-  PUBLISH(IndexToPublishPlugin::new);
+  PUBLISH(IndexToPublishPlugin::new, false);
 
   private final Function<AbstractMetisPluginMetadata, AbstractMetisPlugin> pluginCreator;
+  private final boolean revisionLess;
 
-  private PluginType(Function<AbstractMetisPluginMetadata, AbstractMetisPlugin> pluginCreator) {
+  private PluginType(Function<AbstractMetisPluginMetadata, AbstractMetisPlugin> pluginCreator,
+      boolean revisionLess) {
     this.pluginCreator = pluginCreator;
+    this.revisionLess = revisionLess;
   }
 
   /**
    * This method creates a new plugin of this type.
-   * 
+   *
    * @param metaData The metadata for this plugin type.
    * @return A new pluing instance.
    */
@@ -49,9 +52,17 @@ public enum PluginType {
   }
 
   /**
+   * Describes if a PluginType has executions that contain revision information.
+   * @return true if there are not revision related with the particular PluginType
+   */
+  public boolean isRevisionLess() {
+    return revisionLess;
+  }
+
+  /**
    * Lookup of a {@link PluginType} enum from a provided enum String representation of the enum
    * value.
-   * 
+   *
    * @param enumName the String representation of an enum value
    * @return the {@link PluginType} that represents the provided value or null if not found
    */

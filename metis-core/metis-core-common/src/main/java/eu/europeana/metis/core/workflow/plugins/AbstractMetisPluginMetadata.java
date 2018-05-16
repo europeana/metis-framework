@@ -66,10 +66,25 @@ public abstract class AbstractMetisPluginMetadata {
   }
 
   public Date getRevisionTimestampPreviousPlugin() {
-    return revisionTimestampPreviousPlugin == null?null:new Date(revisionTimestampPreviousPlugin.getTime());
+    return revisionTimestampPreviousPlugin == null ? null
+        : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
   public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
-    this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null?null:new Date(revisionTimestampPreviousPlugin.getTime());
+    this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null ? null
+        : new Date(revisionTimestampPreviousPlugin.getTime());
+  }
+
+  public void setPreviousRevisionInformation(AbstractMetisPlugin previousAbstractMetisPlugin) {
+    if (previousAbstractMetisPlugin.getPluginType()
+        .isRevisionLess()) { //If previous plugin is revisionLess use the previous plugin of that instead
+      this.setRevisionNamePreviousPlugin(
+          previousAbstractMetisPlugin.getPluginMetadata().getRevisionNamePreviousPlugin());
+      this.setRevisionTimestampPreviousPlugin(
+          previousAbstractMetisPlugin.getPluginMetadata().getRevisionTimestampPreviousPlugin());
+    } else {
+      this.setRevisionNamePreviousPlugin(previousAbstractMetisPlugin.getPluginType().name());
+      this.setRevisionTimestampPreviousPlugin(previousAbstractMetisPlugin.getStartedDate());
+    }
   }
 }

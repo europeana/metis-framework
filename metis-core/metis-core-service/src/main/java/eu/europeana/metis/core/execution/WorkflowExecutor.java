@@ -159,11 +159,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private Date runMetisPlugin(AbstractMetisPlugin previousAbstractMetisPlugin,
       AbstractMetisPlugin abstractMetisPlugin) {
 
+
     if (previousAbstractMetisPlugin != null) { //Get previous plugin revision information
-      abstractMetisPlugin.getPluginMetadata().setRevisionNamePreviousPlugin(
-          previousAbstractMetisPlugin.getPluginType().name());
-      abstractMetisPlugin.getPluginMetadata().setRevisionTimestampPreviousPlugin(
-          previousAbstractMetisPlugin.getStartedDate());
+      abstractMetisPlugin.getPluginMetadata().setPreviousRevisionInformation(previousAbstractMetisPlugin);
     }
 
     //Start execution and periodical check
