@@ -13,11 +13,10 @@ import eu.europeana.metis.authentication.dao.ZohoApiFields;
  */
 public class DeletedZohoOrganizationAdapter{
 
-  String id;
-  String name;
+  private final String id;
+  private final String name;
 
-  public DeletedZohoOrganizationAdapter(JsonNode response) throws ZohoAccessException {
-
+  public DeletedZohoOrganizationAdapter(JsonNode response) {
     id = response.path(ZohoApiFields.ID).asText();
     name = response.path(ZohoApi2Fields.DISPLAY_NAME).asText();
   }
@@ -34,5 +33,4 @@ public class DeletedZohoOrganizationAdapter{
   public String getOrganizationName() {
     return name;
   }
-
 }

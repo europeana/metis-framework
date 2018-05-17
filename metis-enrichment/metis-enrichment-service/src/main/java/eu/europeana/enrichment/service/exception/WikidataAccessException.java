@@ -9,7 +9,6 @@ package eu.europeana.enrichment.service.exception;
 public class WikidataAccessException extends Exception {
 
   public static final String TRANSFORMER_CONFIGURATION_ERROR = "Transformer could not be initialized.";
-  public static final String OUTPUT_WIKIDATA_FILE_NOT_FOUND_ERROR = "Output file for wikidata results not found.";
   public static final String TRANSFORM_WIKIDATA_TO_RDF_XML_ERROR = "Error by transforming of Wikidata in RDF/XML.";
   public static final String XML_COULD_NOT_BE_WRITTEN_TO_FILE_ERROR = "XML could not be written to a file.";
     

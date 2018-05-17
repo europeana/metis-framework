@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import eu.europeana.enrichment.service.EntityConverterUtils;
 import eu.europeana.enrichment.service.WikidataAccessService;
 import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
-import eu.europeana.enrichment.service.exception.EntityConverterException;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 
 public abstract class BaseZohoAccessSetup {
@@ -102,18 +101,10 @@ public abstract class BaseZohoAccessSetup {
    * @param content
    * @param contentFile
    * @throws IOException
-   * @throws EntityConverterException
    */
-  public void writeToFile(String content, File contentFile)
-      throws IOException, EntityConverterException {
-    BufferedWriter out = new BufferedWriter(new FileWriter(contentFile));
-    try {
+  public void writeToFile(String content, File contentFile) throws IOException {
+    try (BufferedWriter out = new BufferedWriter(new FileWriter(contentFile))) {
       out.write(content);
-    } catch (IOException e) {
-      throw new EntityConverterException(
-          EntityConverterException.COULD_NOT_BE_WRITTEN_TO_FILE_ERROR, e);
-    } finally {
-      out.close();
     }
   }
 }

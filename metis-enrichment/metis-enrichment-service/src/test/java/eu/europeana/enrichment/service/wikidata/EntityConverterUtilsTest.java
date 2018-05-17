@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -87,25 +89,16 @@ public class EntityConverterUtilsTest {
     init();
        
     /** merge two equal prefLabels */
-    Map<String, List<String>> mergedFromEqualMap = getEntityConverterUtils().mergeLanguageMap(
+    Map<String, List<String>> mergedFromEqualMap = getEntityConverterUtils().mergeMapsWithLists(
         prefLabel, prefLabel);
     assertNotNull(mergedFromEqualMap);
     
-    /** extract not equal values */
-    Map<String, List<String>> diffMap = getEntityConverterUtils().extractDiffMap(
-        prefLabel, addPrefLabel);
-    assertNotNull(diffMap);
-    assertTrue(diffMap.size() == 2);
-    assertEquals(diffMap.get(Locale.ENGLISH.getLanguage()).get(0), TEST_LABEL_EN);
-    assertEquals(diffMap.get(Locale.FRENCH.getLanguage()).get(0), TEST_LABEL_FR2);
-
-    /** add additional value for duplicate check */
-    List<String> listValues = diffMap.get(Locale.FRENCH.getLanguage());
-    listValues.add(TEST_LABEL_FR);
-    diffMap.put(Locale.FRENCH.getLanguage(), listValues);
-    
     /** merge unequal prefLabels to an altLabel and check resulting altLabel */
-    Map<String, List<String>> mergedMap = getEntityConverterUtils().mergeLanguageMap(altLabel, diffMap);
+    Map<String, List<String>> newValuesMap = new HashMap<>();
+    newValuesMap.put(Locale.ENGLISH.getLanguage(), Collections.singletonList(TEST_LABEL_EN));
+    newValuesMap.put(Locale.FRENCH.getLanguage(), Arrays.asList(TEST_LABEL_FR, TEST_LABEL_FR2));
+    Map<String, List<String>> mergedMap =
+        getEntityConverterUtils().mergeMapsWithLists(altLabel, newValuesMap);
     assertNotNull(mergedMap);
     assertTrue(mergedMap.size() == 3);
     assertEquals(mergedMap.get(Locale.ENGLISH.getLanguage()).get(0), TEST_LABEL_EN);

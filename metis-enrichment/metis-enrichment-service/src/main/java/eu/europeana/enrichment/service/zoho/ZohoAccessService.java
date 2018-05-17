@@ -31,6 +31,7 @@ import eu.europeana.metis.exception.GenericMetisException;
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
+ * TODO JV currently this class seems to be only used by test code. Move it there?
  */
 @Service
 public class ZohoAccessService {
@@ -131,12 +132,12 @@ public class ZohoAccessService {
     OrganizationImpl org = new OrganizationImpl();
 
     org.setAbout(URL_ORGANIZATION_PREFFIX + zohoOrganization.getZohoId());
-    org.setDcIdentifier(getEntityConverterUtils().createMapOfStringList(UNDEFINED_LANGUAGE_KEY,
+    org.setDcIdentifier(getEntityConverterUtils().createMapWithLists(UNDEFINED_LANGUAGE_KEY,
         zohoOrganization.getZohoId()));
     String isoLanguage = toIsoLanguage(zohoOrganization.getLanguageForOrganizationName());
-    org.setPrefLabel(getEntityConverterUtils().createMapOfStringList(isoLanguage,
+    org.setPrefLabel(getEntityConverterUtils().createMapWithLists(isoLanguage,
         zohoOrganization.getOrganizationName()));
-    org.setAltLabel(getEntityConverterUtils().createLanguageMapOfStringList(
+    org.setAltLabel(getEntityConverterUtils().createMapWithLists(
         zohoOrganization.getAlternativeLanguage(),
         zohoOrganization.getAlternativeOrganizationName()));
     org.setEdmAcronym(getEntityConverterUtils().createLanguageMapOfStringList(
@@ -346,10 +347,9 @@ public class ZohoAccessService {
    * 
    * @param jsonRecordsResponse
    * @return map representation of the records
-   * @throws ZohoAccessException
    */
   protected List<DeletedZohoOrganizationAdapter> getDeletedOrganizationsListFromJsonNode(
-      JsonNode jsonRecordsResponse) throws ZohoAccessException {
+      JsonNode jsonRecordsResponse) {
 
     JsonNode accountsNode = jsonRecordsResponse.get(ZohoApi2Fields.DATA_STRING);
     List<DeletedZohoOrganizationAdapter> res = new ArrayList<>();

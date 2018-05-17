@@ -31,6 +31,7 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
   final String TEST_ACRONYM = "BNF";
   final String TEST_COUNTRY = "FR";
 
+  @Override
   @Before
   public void setUp() throws Exception {
     super.initWikidataAccessService();
@@ -51,10 +52,9 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     String wikidataXml = wikidataAccessDao.getEntity(uri).toString();
     assertNotNull(wikidataXml);
 
-    //write XML to a file 
+    //write XML to a file (if it fails, it throws an exception). 
     File wikidataOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
-    boolean isWritten = wikidataAccessService.saveXmlToFile(wikidataXml, wikidataOutputFile);
-    assertTrue(isWritten == true);
+    wikidataAccessService.saveXmlToFile(wikidataXml, wikidataOutputFile);
 
     //insert XML in Wikidata organization object 
     WikidataOrganization wikidataOrganization =

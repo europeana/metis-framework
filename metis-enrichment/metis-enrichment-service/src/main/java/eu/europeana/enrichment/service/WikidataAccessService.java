@@ -1,17 +1,16 @@
 package eu.europeana.enrichment.service;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.xml.bind.JAXBException;
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.shared.utils.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 import eu.europeana.corelib.definitions.edm.entity.Address;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
@@ -37,16 +36,14 @@ public class WikidataAccessService {
 
   public static final String WIKIDATA_BASE_URL = "http://www.wikidata.org/entity/Q";
   public static final String WIKIDATA_ORGANIZATION_XSL_FILE = "/wkd2org.xsl";
-  private static final Logger LOGGER = LoggerFactory.getLogger(WikidataAccessService.class);
 
-  private WikidataAccessDao wikidataAccessDao;
+  private final WikidataAccessDao wikidataAccessDao;
+  private final EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
   
   public WikidataAccessService(WikidataAccessDao wikidataAccessDao) {
     this.wikidataAccessDao = wikidataAccessDao;
   }
   
-  private EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
-    
   public EntityConverterUtils getEntityConverterUtils() {
     return entityConverterUtils;
   }
@@ -67,29 +64,6 @@ public class WikidataAccessService {
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl);
     uri = builder.build().encode().toUri();
     return uri;
-  }
-  
-  public Organization dereference(String wikidataUri) throws WikidataAccessException {
-    
-    StringBuilder wikidataXml = null;
-    WikidataOrganization wikidataOrganization = null;
-    
-    try {
-      wikidataXml = getWikidataAccessDao().getEntity(wikidataUri);
-      wikidataOrganization = getWikidataAccessDao().parse(wikidataXml.toString());
-    } catch (IOException e) {
-      LOGGER.warn("Cannot fetch wikidata entity with uri: {}", wikidataUri, e);
-    } catch (JAXBException e) {
-      LOGGER.debug("Cannot parse wikidata response: {}", wikidataXml);
-      throw new WikidataAccessException("Cannot parse wikidata xml response for uri: " + wikidataUri, e);
-    }
-    
-    //convert to OrganizationImpl
-    if(wikidataOrganization == null){
-      return null;
-    }else{
-      return toOrganizationImpl(wikidataOrganization);
-    }
   }
   
   /**
@@ -153,19 +127,19 @@ public class WikidataAccessService {
     }     
 
     List<Label> acronymLabel = edmOrganization.getAcronyms();
-    org.setEdmAcronym(getEntityConverterUtils().createLanguageMapFromTextPropertyList(acronymLabel));
+    org.setEdmAcronym(getEntityConverterUtils().createMapWithListsFromTextPropertyList(acronymLabel));
     
     List<Resource> sameAs = edmOrganization.getSameAs();
     org.setOwlSameAs(getEntityConverterUtils().createStringArrayFromPartList(sameAs));
     
     List<Label> descriptions = edmOrganization.getDescriptions();
-    org.setDcDescription(getEntityConverterUtils().createStringStringMapFromTextPropertyList(descriptions));
+    org.setDcDescription(getEntityConverterUtils().createMapFromTextPropertyList(descriptions));
     
     List<Label> prefLabel = edmOrganization.getPrefLabelList();
-    org.setPrefLabel(getEntityConverterUtils().createLanguageMapFromTextPropertyList(prefLabel));
+    org.setPrefLabel(getEntityConverterUtils().createMapWithListsFromTextPropertyList(prefLabel));
     
     List<Label> altLabel = edmOrganization.getAltLabelList();
-    org.setAltLabel(getEntityConverterUtils().createLanguageMapFromTextPropertyList(altLabel));
+    org.setAltLabel(getEntityConverterUtils().createMapWithListsFromTextPropertyList(altLabel));
 
     if (edmOrganization.getHasAddress() != null && edmOrganization.getHasAddress().getVcardAddresses() != null) {
       VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddresses().get(0);
@@ -186,20 +160,14 @@ public class WikidataAccessService {
    * This method saves XML content to a passed file.
    * @param xml The XML content
    * @param contentFile The output file
-   * @return true if successfully written
    * @throws WikidataAccessException
    */
-  public boolean saveXmlToFile(String xml, File contentFile) throws WikidataAccessException {
-    boolean res = false;
-    try (FileWriter fileWriter = new FileWriter(contentFile)) {
-      fileWriter.write(xml);
-      fileWriter.flush();
-      fileWriter.close();
-      res = true;
+  public void saveXmlToFile(String xml, File contentFile) throws WikidataAccessException {
+    try {
+      FileUtils.write(contentFile, xml, StandardCharsets.UTF_8.name());
     } catch (IOException e) {
       throw new WikidataAccessException(WikidataAccessException.XML_COULD_NOT_BE_WRITTEN_TO_FILE_ERROR, e);
     }
-    return res;
   }
   
   /**
@@ -210,35 +178,33 @@ public class WikidataAccessService {
    * @param wikidataOrganization
    */
   public void mergePropsFromWikidata(Organization zohoOrganization, Organization wikidataOrganization) {
-    //see EA-1045 for individual specs
-    // prefLabel (if a different pref label exists for the given language, add the label to alt
-    // label list for the same language, if it is also not a duplicate)
-    Map<String, List<String>> addToAltLabelMap = new HashMap<String, List<String>>();
-    //results are set directly in prefLabel and addToAltLabelMap maps
-    getEntityConverterUtils()
-        .mergePrefLabel(zohoOrganization.getPrefLabel(),
-            wikidataOrganization.getPrefLabel(), addToAltLabelMap);
     
-    // merge all alternative labels from wikidata
+    // Merge the pref label maps. There may be some values that could not be merged, they will later
+    // be added as alternative label.
+    final Map<String, List<String>> addToAltLabelMap = new HashMap<>();
+    final Map<String, List<String>> newPrefLabelMap =
+        getEntityConverterUtils().mergeMapsWithSingletonLists(zohoOrganization.getPrefLabel(),
+            wikidataOrganization.getPrefLabel(), addToAltLabelMap);
+    zohoOrganization.setPrefLabel(newPrefLabelMap);
+    
+    // merge all alternative labels (zoho, wikidata and result of previous operation).
     Map<String, List<String>> allWikidataAltLabels = getEntityConverterUtils()
-        .mergeLanguageMap(wikidataOrganization.getAltLabel(), addToAltLabelMap);
-
-    //merge all wikidata alternative labels to zoho alternative labels
+        .mergeMapsWithLists(wikidataOrganization.getAltLabel(), addToAltLabelMap);
     Map<String, List<String>> mergedAltLabelMap = getEntityConverterUtils()
-        .mergeLanguageMap(allWikidataAltLabels, zohoOrganization.getAltLabel());
-   zohoOrganization.setAltLabel(mergedAltLabelMap);
+        .mergeMapsWithLists(allWikidataAltLabels, zohoOrganization.getAltLabel());
+    zohoOrganization.setAltLabel(mergedAltLabelMap);
 
-   // edm:acronym (if not available in Zoho for each language)
-   Map<String, List<String>> acronyms = getEntityConverterUtils()
-       .mergeLanguageMap(zohoOrganization.getEdmAcronym(), wikidataOrganization.getEdmAcronym());   
-   zohoOrganization.setEdmAcronym(acronyms);
+    // edm:acronym (if not available in Zoho for each language)
+    Map<String, List<String>> acronyms = getEntityConverterUtils()
+        .mergeMapsWithLists(zohoOrganization.getEdmAcronym(), wikidataOrganization.getEdmAcronym());
+    zohoOrganization.setEdmAcronym(acronyms);
 
-     // logo (if not available in zoho)
+    // logo (if not available in zoho)
     if (StringUtils.isEmpty(zohoOrganization.getFoafLogo())){
       zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());
     }
 
-     // homepage (if not available in zoho)
+    // homepage (if not available in zoho)
     if (StringUtils.isEmpty(zohoOrganization.getFoafHomepage())){
       zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());
     }  

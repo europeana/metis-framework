@@ -13,6 +13,9 @@ import java.util.Properties;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.io.FileUtils;
+import org.codehaus.jackson.Version;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.module.SimpleModule;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +23,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.service.EntityService;
-import eu.europeana.enrichment.service.exception.EntityConverterException;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
@@ -43,7 +46,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   EntityService entityService;
   final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-
+  @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();
@@ -69,7 +72,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
 
   @Test
   public void mergeOrganizationsFromFilesTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, IOException, JAXBException, EntityConverterException, URISyntaxException {
+      ParseException, IOException, JAXBException, URISyntaxException {
 
     /** 1. Get organization from Zoho file */
     File zohoTestInputFile = getClasspathFile(ZOHO_TEST_INPUT_FILE);
@@ -99,8 +102,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     assertNotNull(zohoOrganizationImpl);
 
     /** 5. Store merged OrganizationImpl object in output file */
-    String serializedOrganizationImpl = wikidataAccessService.getEntityConverterUtils()
-        .serialize((OrganizationImpl) zohoOrganizationImpl);
+    String serializedOrganizationImpl = serialize((OrganizationImpl) zohoOrganizationImpl);
     assertNotNull(serializedOrganizationImpl);
     File organizationImplOutputFile = getClasspathFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
     writeToFile(serializedOrganizationImpl, organizationImplOutputFile);
@@ -114,6 +116,23 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
         FileUtils.readFileToString(organizationImplTestExpectedFile, "UTF-8");
 
     assertEquals(outputOrganizationImplStr, expectedOrganizationImplStr);
+  }
+
+  /**
+   * This method serializes an OrganizationImpl object to a string.
+   * 
+   * @param organization
+   * @return wikidata organization
+   * @throws JAXBException
+   * @throws IOException
+   */
+  private static String serialize(OrganizationImpl organization) throws JAXBException, IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    SimpleModule sm = new SimpleModule("objId", Version.unknownVersion());
+    sm.addSerializer(new ObjectIdSerializer());
+    mapper.registerModule(sm);
+    String res = mapper.writeValueAsString(organization);
+    return res;
   }
 
   @Test
