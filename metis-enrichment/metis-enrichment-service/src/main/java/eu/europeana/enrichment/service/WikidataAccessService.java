@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.shared.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 import eu.europeana.corelib.definitions.edm.entity.Address;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
@@ -36,6 +38,7 @@ public class WikidataAccessService {
 
   public static final String WIKIDATA_BASE_URL = "http://www.wikidata.org/entity/Q";
   public static final String WIKIDATA_ORGANIZATION_XSL_FILE = "/wkd2org.xsl";
+  private static final Logger LOGGER = LoggerFactory.getLogger(WikidataAccessService.class);
 
   private final WikidataAccessDao wikidataAccessDao;
   private final EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
@@ -64,6 +67,29 @@ public class WikidataAccessService {
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl);
     uri = builder.build().encode().toUri();
     return uri;
+  }
+  
+  public Organization dereference(String wikidataUri) throws WikidataAccessException {
+    
+    StringBuilder wikidataXml = null;
+    WikidataOrganization wikidataOrganization = null;
+    
+    try {
+      wikidataXml = getWikidataAccessDao().getEntity(wikidataUri);
+      wikidataOrganization = getWikidataAccessDao().parse(wikidataXml.toString());
+    } catch (IOException e) {
+      LOGGER.warn("Cannot fetch wikidata entity with uri: {}", wikidataUri, e);
+    } catch (JAXBException e) {
+      LOGGER.debug("Cannot parse wikidata response: {}", wikidataXml);
+      throw new WikidataAccessException("Cannot parse wikidata xml response for uri: " + wikidataUri, e);
+    }
+    
+    //convert to OrganizationImpl
+    if(wikidataOrganization == null){
+      return null;
+    }else{
+      return toOrganizationImpl(wikidataOrganization);
+    }
   }
   
   /**
