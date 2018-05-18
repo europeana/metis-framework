@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import eu.europeana.corelib.definitions.edm.entity.Address;
@@ -88,22 +89,40 @@ public class EntityConverterUtils {
   }
 
   /**
-   * This method creates language map from text property object list.
+   * This method creates language map from text property object list. Lists are <b>not</b>
+   * concatenated: if two properties with the same language are passed, one of them will be ignored.
    * 
    * @param textPropertyList The list of text property objects
+   * @param mergeLists Determines what to do in case two properties with the same language are
+   *        found. If true, the lists will be merged. If false, one of the properties will be
+   *        ignored.
    * @return The language map
    */
   public Map<String, List<String>> createMapWithListsFromTextPropertyList(
-      List<? extends TextProperty> textPropertyList) {
+      List<? extends TextProperty> textPropertyList, boolean mergeLists) {
+    
+    // Sanity check.
     if (textPropertyList == null) {
       return null;
     }
-    return textPropertyList.stream().collect(Collectors.toMap(
-        property -> toIsoLanguage(property.getKey()), property -> createList(property.getValue())));
+    
+    // Determine what to do with language collisions.
+    final BinaryOperator<List<String>> mergeOperator;
+    if (mergeLists) {
+      mergeOperator = this::mergeStringLists;
+    } else {
+      mergeOperator = (list1, list2) -> list1;
+    }
+    
+    // Convert the list to a map.
+    return textPropertyList.stream()
+        .collect(Collectors.toMap(property -> toIsoLanguage(property.getKey()),
+            property -> createList(property.getValue()), mergeOperator));
   }
 
   /**
-   * This method creates language map from text property object list.
+   * This method creates language map from text property object list. Note: if two properties with
+   * the same language are passed, one of them will be ignored.
    * 
    * @param textPropertyList The list of text property objects
    * @return The language map
@@ -113,8 +132,9 @@ public class EntityConverterUtils {
     if (textPropertyList == null) {
       return null;
     }
-    return textPropertyList.stream().collect(
-        Collectors.toMap(property -> toIsoLanguage(property.getKey()), TextProperty::getValue));
+    return textPropertyList.stream()
+        .collect(Collectors.toMap(property -> toIsoLanguage(property.getKey()),
+            TextProperty::getValue, (value1, value2) -> value1));
   }
 
   /**

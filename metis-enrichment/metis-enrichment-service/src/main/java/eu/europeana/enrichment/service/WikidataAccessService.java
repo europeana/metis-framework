@@ -153,7 +153,7 @@ public class WikidataAccessService {
     }     
 
     List<Label> acronymLabel = edmOrganization.getAcronyms();
-    org.setEdmAcronym(getEntityConverterUtils().createMapWithListsFromTextPropertyList(acronymLabel));
+    org.setEdmAcronym(getEntityConverterUtils().createMapWithListsFromTextPropertyList(acronymLabel, true));
     
     List<Resource> sameAs = edmOrganization.getSameAs();
     org.setOwlSameAs(getEntityConverterUtils().createStringArrayFromPartList(sameAs));
@@ -162,10 +162,10 @@ public class WikidataAccessService {
     org.setDcDescription(getEntityConverterUtils().createMapFromTextPropertyList(descriptions));
     
     List<Label> prefLabel = edmOrganization.getPrefLabelList();
-    org.setPrefLabel(getEntityConverterUtils().createMapWithListsFromTextPropertyList(prefLabel));
+    org.setPrefLabel(getEntityConverterUtils().createMapWithListsFromTextPropertyList(prefLabel, false));
     
     List<Label> altLabel = edmOrganization.getAltLabelList();
-    org.setAltLabel(getEntityConverterUtils().createMapWithListsFromTextPropertyList(altLabel));
+    org.setAltLabel(getEntityConverterUtils().createMapWithListsFromTextPropertyList(altLabel, true));
 
     if (edmOrganization.getHasAddress() != null && edmOrganization.getHasAddress().getVcardAddresses() != null) {
       VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddresses().get(0);
