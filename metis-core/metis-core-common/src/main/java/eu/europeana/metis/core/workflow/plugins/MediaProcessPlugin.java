@@ -39,7 +39,7 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
     Map<String, Integer> connectionLimitToDomains = ((MediaProcessPluginMetadata) getPluginMetadata())
         .getConnectionLimitToDomains();
     return createDpsTaskForProcessPlugin(
-        createParametersForHostConncetionLimits(connectionLimitToDomains), ecloudBaseUrl,
+        createParametersForHostConnectionLimits(connectionLimitToDomains), ecloudBaseUrl,
         ecloudProvider, ecloudDataset);
   }
 
