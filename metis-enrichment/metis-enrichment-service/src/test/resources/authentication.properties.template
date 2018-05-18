@@ -1,0 +1,6 @@
+zoho.base.url=https://crm.zoho.com/crm/private
+zoho.base.url.v2=https://www.zohoapis.com/crm/v2
+zoho.authentication.token=faketoken
+access.token.expire.time.in.mins=
+#Comma separated value, or '*'
+allowed.cors.hosts=*

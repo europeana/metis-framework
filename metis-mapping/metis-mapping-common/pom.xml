@@ -81,8 +81,8 @@
         </dependency>
         <dependency>
             <groupId>net.sf.saxon</groupId>
-            <artifactId>saxon</artifactId>
-            <version>8.7</version>
+            <artifactId>Saxon-HE</artifactId>
+            <version>${version.saxon}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>

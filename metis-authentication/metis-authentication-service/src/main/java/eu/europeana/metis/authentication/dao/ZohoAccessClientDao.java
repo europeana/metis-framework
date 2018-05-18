@@ -1,9 +1,11 @@
 package eu.europeana.metis.authentication.dao;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Iterator;
 import java.util.Map;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -226,6 +228,26 @@ public class ZohoAccessClientDao {
   }
 
   /**
+   * This method builds organization URI for passed ID.
+   * @param organizationId
+   * @return organization URI
+   */
+  public URI buildOrganizationUriById(String organizationId) {
+
+    URI uri = null;
+    String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
+        ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.GET_RECORDS_STRING);
+    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
+        .queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
+        .queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
+        .queryParam(ZohoApiFields.ID, organizationId);
+
+    uri = builder.build().encode().toUri();
+    LOGGER.trace("{}", uri);
+    return uri;
+  }
+  
+  /**
    * Retrieve Zoho organization by ID.
    * <p>
    * It will try to fetch the organization from the external Zoho CRM. This method returns an
@@ -247,16 +269,8 @@ public class ZohoAccessClientDao {
    */
   public JsonNode getOrganizationById(String organizationId) throws GenericMetisException {
 
-    String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
-        ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.GET_RECORDS_STRING);
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
-        .queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-        .queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
-        .queryParam(ZohoApiFields.ID, organizationId);
-
     RestTemplate restTemplate = new RestTemplate();
-    URI uri = builder.build().encode().toUri();
-    LOGGER.trace("{}", uri);
+    URI uri = buildOrganizationUriById(organizationId);
 
     String organisationsResponse = restTemplate.getForObject(uri, String.class);
     LOGGER.debug(organisationsResponse);
@@ -270,8 +284,39 @@ public class ZohoAccessClientDao {
   }
 
   /**
-   * Retrieve organizations using getRecords query, start and end index. The organizations are
-   * pre-ordered by modified time ascending
+   * Retrieve Zoho organization from file by given path.
+   * <p>
+   * It will try to fetch the organization from the given file. This method returns an
+   * organization in JSON format.
+   * </p>
+   *
+   * @param contentFile The zoho organization file
+   * @return the Zoho organizations in JsonNode format
+   * @throws GenericMetisException which can be one of:
+   *         <ul>
+   *         <li>{@link BadContentException} if any other problem occurred while constructing the
+   *         user, like an organization did not have a role defined or the response cannot be
+   *         converted to {@link JsonNode}</li>
+   *         </ul>
+   * @throws IOException
+   */
+  public JsonNode getOrganizationFromFile(File contentFile) throws GenericMetisException, IOException {
+
+    String organisationsResponse = FileUtils.readFileToString(contentFile, "UTF-8");
+
+    LOGGER.debug("Content of Zoho response file: {}", organisationsResponse);
+    
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+      return mapper.readTree(organisationsResponse);
+    } catch (IOException e) {
+      throw new GenericMetisException("Cannot parse zoho response: " + organisationsResponse, e);
+    }
+  }
+    
+  /**
+   * Retrieve organizations using getRecords query, start and end index. 
+   * The organizations are pre-ordered by modified time ascending
    * <p>
    * It will try to fetch the organizations from the external CRM. This method returns a list of
    * organizations in json format.
