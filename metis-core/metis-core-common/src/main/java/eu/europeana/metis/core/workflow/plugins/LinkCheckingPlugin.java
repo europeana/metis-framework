@@ -39,7 +39,7 @@ public class LinkCheckingPlugin extends AbstractMetisPlugin {
     Map<String, Integer> connectionLimitToDomains = ((LinkCheckingPluginMetadata) getPluginMetadata())
         .getConnectionLimitToDomains();
     return createDpsTaskForProcessPlugin(
-        createParametersForHostConncetionLimits(connectionLimitToDomains), ecloudBaseUrl,
+        createParametersForHostConnectionLimits(connectionLimitToDomains), ecloudBaseUrl,
         ecloudProvider, ecloudDataset);
   }
 }

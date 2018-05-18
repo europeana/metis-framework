@@ -61,7 +61,7 @@ public abstract class AbstractMetisPluginMetadata {
     return revisionNamePreviousPlugin;
   }
 
-  public void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
+  private void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
     this.revisionNamePreviousPlugin = revisionNamePreviousPlugin;
   }
 
@@ -70,11 +70,21 @@ public abstract class AbstractMetisPluginMetadata {
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
-  public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
+  private void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
     this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null ? null
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
+  /**
+   * For the current plugin, setup the source/previous revision information.
+   * <p>
+   * The source revision information that this plugin will be based on, is coming from the {@code previousAbstractMetisPlugin} plugin metadata.
+   * The {@code previousAbstractMetisPlugin} can be a RevisionLess plugin, in which case the revision information for the current plugin
+   * will take the source revision information that the {@code previousAbstractMetisPlugin} was based on.
+   * </p>
+   *
+   * @param previousAbstractMetisPlugin the source/previous plugin that is used to base the current plugin on
+   */
   public void setPreviousRevisionInformation(AbstractMetisPlugin previousAbstractMetisPlugin) {
     if (previousAbstractMetisPlugin.getPluginType()
         .isRevisionLess()) { //If previous plugin is revisionLess use the previous plugin of that instead

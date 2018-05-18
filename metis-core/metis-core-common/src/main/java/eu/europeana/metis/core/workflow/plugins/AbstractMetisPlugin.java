@@ -289,7 +289,7 @@ public abstract class AbstractMetisPlugin {
         ecloudDataset);
   }
 
-  Map<String, String> createParametersForHostConncetionLimits(
+  Map<String, String> createParametersForHostConnectionLimits(
       Map<String, Integer> connectionLimitToDomains) {
     Map<String, String> parameters = new HashMap<>();
     connectionLimitToDomains.forEach((domain, connectionLimit) -> parameters
