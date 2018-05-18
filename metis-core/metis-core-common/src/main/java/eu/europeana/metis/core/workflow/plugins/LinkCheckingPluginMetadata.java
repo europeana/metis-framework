@@ -5,14 +5,14 @@ import java.util.Map;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-04-20
+ * @since 2018-05-16
  */
-public class MediaProcessPluginMetadata extends AbstractMetisPluginMetadata {
+public class LinkCheckingPluginMetadata extends AbstractMetisPluginMetadata {
 
-  private static final PluginType pluginType = PluginType.MEDIA_PROCESS;
+  private static final PluginType pluginType = PluginType.LINK_CHECKING;
   private Map<String, Integer> connectionLimitToDomains = new HashMap<>();
 
-  public MediaProcessPluginMetadata() {
+  public LinkCheckingPluginMetadata() {
     //Required for json serialization
   }
 

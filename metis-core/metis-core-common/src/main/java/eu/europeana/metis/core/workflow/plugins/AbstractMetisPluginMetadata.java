@@ -23,6 +23,7 @@ import org.mongodb.morphia.annotations.Embedded;
     @JsonSubTypes.Type(value = NormalizationPluginMetadata.class, name = "NORMALIZATION"),
     @JsonSubTypes.Type(value = EnrichmentPluginMetadata.class, name = "ENRICHMENT"),
     @JsonSubTypes.Type(value = MediaProcessPluginMetadata.class, name = "MEDIA_PROCESS"),
+    @JsonSubTypes.Type(value = LinkCheckingPluginMetadata.class, name = "LINK_CHECKING"),
     @JsonSubTypes.Type(value = IndexToPreviewPluginMetadata.class, name = "PREVIEW"),
     @JsonSubTypes.Type(value = IndexToPublishPluginMetadata.class, name = "PUBLISH")
 })
@@ -65,10 +66,25 @@ public abstract class AbstractMetisPluginMetadata {
   }
 
   public Date getRevisionTimestampPreviousPlugin() {
-    return revisionTimestampPreviousPlugin == null?null:new Date(revisionTimestampPreviousPlugin.getTime());
+    return revisionTimestampPreviousPlugin == null ? null
+        : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
   public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
-    this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null?null:new Date(revisionTimestampPreviousPlugin.getTime());
+    this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null ? null
+        : new Date(revisionTimestampPreviousPlugin.getTime());
+  }
+
+  public void setPreviousRevisionInformation(AbstractMetisPlugin previousAbstractMetisPlugin) {
+    if (previousAbstractMetisPlugin.getPluginType()
+        .isRevisionLess()) { //If previous plugin is revisionLess use the previous plugin of that instead
+      this.setRevisionNamePreviousPlugin(
+          previousAbstractMetisPlugin.getPluginMetadata().getRevisionNamePreviousPlugin());
+      this.setRevisionTimestampPreviousPlugin(
+          previousAbstractMetisPlugin.getPluginMetadata().getRevisionTimestampPreviousPlugin());
+    } else {
+      this.setRevisionNamePreviousPlugin(previousAbstractMetisPlugin.getPluginType().name());
+      this.setRevisionTimestampPreviousPlugin(previousAbstractMetisPlugin.getStartedDate());
+    }
   }
 }

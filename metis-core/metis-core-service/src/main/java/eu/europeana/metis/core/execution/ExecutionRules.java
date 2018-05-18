@@ -17,7 +17,7 @@ public final class ExecutionRules {
   private static final Set<PluginType> PROCESS_PLUGIN_GROUP = EnumSet
       .of(PluginType.VALIDATION_EXTERNAL, PluginType.TRANSFORMATION,
           PluginType.VALIDATION_INTERNAL, PluginType.NORMALIZATION, PluginType.ENRICHMENT,
-          PluginType.MEDIA_PROCESS);
+          PluginType.MEDIA_PROCESS, PluginType.LINK_CHECKING);
   private static final Set<PluginType> INDEX_PLUGIN_GROUP =
       EnumSet.of(PluginType.PREVIEW, PluginType.PUBLISH);
 
@@ -80,8 +80,11 @@ public final class ExecutionRules {
       case MEDIA_PROCESS:
         latestPreviousPluginTypesSet = EnumSet.of(PluginType.ENRICHMENT);
         break;
-      case PREVIEW:
+      case LINK_CHECKING:
         latestPreviousPluginTypesSet = EnumSet.of(PluginType.MEDIA_PROCESS);
+        break;
+      case PREVIEW:
+        latestPreviousPluginTypesSet = EnumSet.of(PluginType.LINK_CHECKING);
         break;
       case PUBLISH:
         latestPreviousPluginTypesSet = EnumSet.of(PluginType.PREVIEW);

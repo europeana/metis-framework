@@ -302,6 +302,8 @@ public class OrchestratorService {
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.MEDIA_PROCESS);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+        firstPluginDefined, PluginType.LINK_CHECKING);
+    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.PREVIEW);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.PUBLISH);
@@ -316,19 +318,18 @@ public class OrchestratorService {
       if (!firstPluginDefined) {
         AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
             dataset.getDatasetId(), pluginMetadata.getPluginType(), enforcedPluginType);
-        pluginMetadata.setRevisionNamePreviousPlugin(previousPlugin.getPluginType().name());
-        pluginMetadata.setRevisionTimestampPreviousPlugin(previousPlugin.getStartedDate());
+        pluginMetadata.setPreviousRevisionInformation(previousPlugin); //Set all previous revision information
       }
-      
+
       if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
         //This is practically impossible to happen since the pluginMetadata has to be valid in the Workflow using a pluginType, before reaching this state.
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
       }
-      
+
       if (pluginType == PluginType.TRANSFORMATION) {
         setupXsltUrlForPluginMetadata(dataset, pluginMetadata);
       }
-      
+
       AbstractMetisPlugin abstractMetisPlugin = pluginType.getNewPlugin(pluginMetadata);
       abstractMetisPlugin
           .setId(new ObjectId().toString() + "-" + abstractMetisPlugin.getPluginType().name());

@@ -5,28 +5,28 @@ import java.util.Map;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-04-20
+ * @since 2018-05-16
  */
-public class MediaProcessPlugin extends AbstractMetisPlugin {
+public class LinkCheckingPlugin extends AbstractMetisPlugin {
 
-  private final String topologyName = Topology.MEDIA_PROCESS.getTopologyName();
+  private final String topologyName = Topology.LINK_CHECKING.getTopologyName();
 
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  MediaProcessPlugin() {
+  LinkCheckingPlugin() {
     //Required for json serialization
-    super(PluginType.MEDIA_PROCESS);
+    super(PluginType.LINK_CHECKING);
   }
 
   /**
    * Constructor to initialize the plugin with pluginMetadata.
    * <p>Initializes the {@link #pluginType} as well.</p>
    *
-   * @param pluginMetadata should be {@link MediaProcessPluginMetadata}
+   * @param pluginMetadata should be {@link LinkCheckingPluginMetadata}
    */
-  MediaProcessPlugin(AbstractMetisPluginMetadata pluginMetadata) {
-    super(PluginType.MEDIA_PROCESS, pluginMetadata);
+  LinkCheckingPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+    super(PluginType.LINK_CHECKING, pluginMetadata);
   }
 
   @Override
@@ -36,11 +36,10 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
 
   @Override
   DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    Map<String, Integer> connectionLimitToDomains = ((MediaProcessPluginMetadata) getPluginMetadata())
+    Map<String, Integer> connectionLimitToDomains = ((LinkCheckingPluginMetadata) getPluginMetadata())
         .getConnectionLimitToDomains();
     return createDpsTaskForProcessPlugin(
         createParametersForHostConncetionLimits(connectionLimitToDomains), ecloudBaseUrl,
         ecloudProvider, ecloudDataset);
   }
-
 }
