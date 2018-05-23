@@ -15,6 +15,7 @@ import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.service.Authorizer;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
@@ -129,6 +130,11 @@ public class Application extends WebMvcConfigurerAdapter {
     return new MorphiaDatastoreProvider(mongoClient, propertiesHolder.getMongoDb());
   }
 
+  @Bean
+  Authorizer geAuthorizer(DatasetDao datasetDao) {
+    return new Authorizer(datasetDao);
+  }
+
   /**
    * Get the DAO for datasets.
    *
@@ -165,15 +171,16 @@ public class Application extends WebMvcConfigurerAdapter {
    * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
    * @param scheduledWorkflowDao the Dao instance to access the ScheduledWorkflow database
    * @param redissonClient {@link RedissonClient}
+   * @param authorizer the authorizer for this service
    * @return the dataset service instance instantiated
    */
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
       WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
-      ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
+      ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient,
+      Authorizer authorizer) {
     DatasetService datasetService = new DatasetService(datasetDao, datasetXsltDao, workflowDao,
-        workflowExecutionDao,
-        scheduledWorkflowDao, redissonClient);
+        workflowExecutionDao, scheduledWorkflowDao, redissonClient, authorizer);
     datasetService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     return datasetService;
   }

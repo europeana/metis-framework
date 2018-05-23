@@ -8,17 +8,33 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.bson.types.ObjectId;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
@@ -33,26 +49,9 @@ import eu.europeana.metis.core.exceptions.NoXsltFoundException;
 import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.NetworkUtil;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.bson.types.ObjectId;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 public class TestDatasetService {
 
@@ -67,31 +66,47 @@ public class TestDatasetService {
   private ScheduledWorkflowDao scheduledWorkflowDao;
   private DatasetService datasetService;
   private RedissonClient redissonClient;
+  private Authorizer authenticator;
 
   private static final String DATASET_CREATION_LOCK = "datasetCreationLock";
 
   public TestDatasetService() throws IOException {
   }
 
+  private static void expectException(Class<? extends GenericMetisException> exceptionType,
+      TestAction action) throws GenericMetisException {
+    try {
+      action.test();
+      fail();
+    } catch (GenericMetisException e) {
+      if (!e.getClass().equals(exceptionType)) {
+        throw e;
+      }
+    }
+  }
+
+  private interface TestAction {
+    void test() throws GenericMetisException;
+  }
+  
   @Before
   public void prepare() {
-    datasetDao = Mockito.mock(DatasetDao.class);
-    datasetXsltDao = Mockito.mock(DatasetXsltDao.class);
-    workflowDao = Mockito.mock(WorkflowDao.class);
-    workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
-    scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
-    redissonClient = Mockito.mock(RedissonClient.class);
+    datasetDao = mock(DatasetDao.class);
+    datasetXsltDao = mock(DatasetXsltDao.class);
+    workflowDao = mock(WorkflowDao.class);
+    workflowExecutionDao = mock(WorkflowExecutionDao.class);
+    scheduledWorkflowDao = mock(ScheduledWorkflowDao.class);
+    redissonClient = mock(RedissonClient.class);
+    authenticator = mock(Authorizer.class);
 
     datasetService = new DatasetService(datasetDao, datasetXsltDao, workflowDao,
-        workflowExecutionDao,
-        scheduledWorkflowDao, redissonClient);
+        workflowExecutionDao, scheduledWorkflowDao, redissonClient, authenticator);
     datasetService.setMetisCoreUrl(String.format("http://localhost:%d", portForWireMock));
   }
 
   @Test
   public void testCreateDataset() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(DATASET_CREATION_LOCK)).thenReturn(rlock);
@@ -111,26 +126,29 @@ public class TestDatasetService {
         datasetArgumentCaptor.getValue().getOrganizationName());
   }
 
-  @Test(expected = UserUnauthorizedException.class)
+  @Test
   public void testCreateDatasetUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    datasetService.createDataset(metisUser, dataset);
+    doThrow(UserUnauthorizedException.class).when(authenticator).authorizeNewDataset(metisUser);
+    expectException(UserUnauthorizedException.class, () -> {
+      datasetService.createDataset(metisUser, dataset);
+    });
     verify(datasetDao, times(0)).create(dataset);
   }
 
-  @Test(expected = DatasetAlreadyExistsException.class)
+  @Test
   public void testCreateDatasetAlreadyExists() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(DATASET_CREATION_LOCK)).thenReturn(rlock);
     when(datasetDao.getDatasetByOrganizationIdAndDatasetName(metisUser.getOrganizationId(),
         dataset.getDatasetName())).thenReturn(dataset);
-    datasetService.createDataset(metisUser, dataset);
+    expectException(DatasetAlreadyExistsException.class, () -> {
+      datasetService.createDataset(metisUser, dataset);
+    });
     verify(datasetDao, times(0)).create(any(Dataset.class));
     verify(datasetDao, times(0)).getById(null);
   }
@@ -138,14 +156,14 @@ public class TestDatasetService {
   @Test
   public void testUpdateDataset() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setProvider("newProvider");
     Dataset storedDataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     storedDataset.setUpdatedDate(new Date(-1000));
     storedDataset.setOrganizationId(metisUser.getOrganizationId());
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(storedDataset);
     when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.XSLTID);
     datasetService.updateDataset(metisUser, dataset,
         TestObjectFactory.createXslt(TestObjectFactory.createDataset(dataset.getDatasetName()))
@@ -164,14 +182,14 @@ public class TestDatasetService {
   @Test
   public void testUpdateDatasetNonNullXslt() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setProvider("newProvider");
     Dataset storedDataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     storedDataset.setUpdatedDate(new Date(-1000));
     storedDataset.setOrganizationId(metisUser.getOrganizationId());
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(storedDataset);
     when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.XSLTID);
     datasetService.updateDataset(metisUser, dataset, null);
 
@@ -185,40 +203,28 @@ public class TestDatasetService {
         dataSetArgumentCaptor.getValue().getUpdatedDate());
   }
 
-  @Test(expected = UserUnauthorizedException.class)
-  public void testUpdateDatasetUnauthorizedUserAccountRole() throws Exception {
+  @Test
+  public void testUpdateDatasetUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setProvider("newProvider");
-    datasetService.updateDataset(metisUser, dataset, null);
-    verify(datasetDao, times(0)).update(dataset);
-  }
-
-  @Test(expected = UserUnauthorizedException.class)
-  public void testUpdateDatasetUnauthorizedUserForDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    dataset.setProvider("newProvider");
-    Dataset storedDataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    storedDataset.setUpdatedDate(new Date(-1000));
-    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
-    datasetService.updateDataset(metisUser, dataset, null);
+    doThrow(UserUnauthorizedException.class).when(authenticator)
+        .authorizeExistingDatasetById(metisUser, dataset.getDatasetId());
+    expectException(UserUnauthorizedException.class, () -> {
+      datasetService.updateDataset(metisUser, dataset, null);
+    });
     verify(datasetDao, times(0)).update(dataset);
   }
 
   @Test(expected = DatasetAlreadyExistsException.class)
   public void testUpdateDatasetDatasetAlreadyExistsException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
     Dataset storedDataset = TestObjectFactory
         .createDataset(String.format("%s%s", TestObjectFactory.DATASETNAME, 10));
     storedDataset.setOrganizationId(metisUser.getOrganizationId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(storedDataset);
     when(datasetDao.getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(),
         dataset.getDatasetName())).thenReturn(new Dataset());
     datasetService.updateDataset(metisUser, dataset, null);
@@ -227,30 +233,32 @@ public class TestDatasetService {
   @Test(expected = BadContentException.class)
   public void testUpdateDatasetDatasetExecutionIsActive() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    dataset.setOrganizationId(metisUser.getOrganizationId());
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(dataset);
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn("ObjectId");
     datasetService.updateDataset(metisUser, dataset, null);
   }
 
-  @Test(expected = NoDatasetFoundException.class)
+  @Test
   public void testUpdateDatasetNoDatasetFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(null);
-    datasetService.updateDataset(metisUser, dataset, null);
+    doThrow(UserUnauthorizedException.class).when(authenticator)
+        .authorizeExistingDatasetById(metisUser, dataset.getDatasetId());
+    expectException(UserUnauthorizedException.class, () -> {
+      datasetService.updateDataset(metisUser, dataset, null);
+    });
   }
-
+  
   @Test
   public void testDeleteDatasetByDatasetId() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(dataset);
     when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
     datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
     verify(datasetDao, times(1)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
@@ -258,41 +266,37 @@ public class TestDatasetService {
     verify(scheduledWorkflowDao, times(1)).deleteAllByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
   }
 
-  @Test(expected = UserUnauthorizedException.class)
-  public void testDeleteDatasetByDatasetIdUnauthorizedUserAccountRole() throws Exception {
+  @Test
+  public void testDeleteDatasetByDatasetIdUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
-    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
-    verify(datasetDao, times(0)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    doThrow(UserUnauthorizedException.class).when(authenticator)
+        .authorizeExistingDatasetById(metisUser, datasetId);
+    expectException(UserUnauthorizedException.class, () -> {
+      datasetService.deleteDatasetByDatasetId(metisUser, datasetId);
+    });
+    verify(datasetDao, times(0)).deleteByDatasetId(datasetId);
   }
 
-  @Test(expected = NoDatasetFoundException.class)
+  @Test
   public void testDeleteDatasetByDatasetIdNoDatasetFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    when(datasetDao.getDatasetByDatasetId(anyString())).thenReturn(null);
-    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
-    verify(datasetDao, times(0)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
-  }
-
-  @Test(expected = UserUnauthorizedException.class)
-  public void testDeleteDatasetByDatasetIdUnauthorizedUserForDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
-    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
-    verify(datasetDao, times(0)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    doThrow(NoDatasetFoundException.class).when(authenticator)
+        .authorizeExistingDatasetById(metisUser, datasetId);
+    expectException(NoDatasetFoundException.class, () -> {
+      datasetService.deleteDatasetByDatasetId(metisUser, datasetId);
+    });
+    verify(datasetDao, times(0)).deleteByDatasetId(datasetId);
   }
 
   @Test(expected = BadContentException.class)
   public void testDeleteDatasetDatasetExecutionIsActive() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(dataset);
     when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn("ObjectId");
     datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
@@ -301,86 +305,80 @@ public class TestDatasetService {
   @Test
   public void testGetDatasetByDatasetName() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(datasetDao.getDatasetByDatasetName(TestObjectFactory.DATASETNAME)).thenReturn(dataset);
+    when(authenticator.authorizeExistingDatasetByName(metisUser, TestObjectFactory.DATASETNAME))
+        .thenReturn(dataset);
     Dataset returnedDataset = datasetService
         .getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
     assertNotNull(returnedDataset);
   }
 
-  @Test(expected = UserUnauthorizedException.class)
-  public void testGetDatasetByDatasetNameUnauthorizedUserAccountRole() throws Exception {
+  @Test
+  public void testGetDatasetByDatasetNameUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
-    datasetService.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
-    verify(datasetDao, times(0)).getDatasetByDatasetName(TestObjectFactory.DATASETNAME);
-  }
-
-  @Test(expected = UserUnauthorizedException.class)
-  public void testGetDatasetByDatasetNameUnauthorizedUserForDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    when(datasetDao.getDatasetByDatasetName(TestObjectFactory.DATASETNAME)).thenReturn(dataset);
-    datasetService.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
+    doThrow(UserUnauthorizedException.class).when(authenticator)
+        .authorizeExistingDatasetByName(metisUser, TestObjectFactory.DATASETNAME);
+    expectException(UserUnauthorizedException.class, () -> {
+      datasetService.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
+    });
     verify(datasetDao, times(0)).getDatasetByDatasetName(TestObjectFactory.DATASETNAME);
   }
 
   @Test(expected = NoDatasetFoundException.class)
   public void testGetDatasetByDatasetNameNoDatasetFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    when(datasetDao.getDatasetByDatasetName(TestObjectFactory.DATASETNAME)).thenReturn(null);
+    doThrow(NoDatasetFoundException.class).when(authenticator)
+        .authorizeExistingDatasetByName(metisUser, TestObjectFactory.DATASETNAME);
+    expectException(NoDatasetFoundException.class, () -> {
+      datasetService.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
+    });
     datasetService.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
   }
 
   @Test
   public void testGetDatasetByDatasetId() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    datasetService.getDatasetByDatasetId(metisUser, dataset.getDatasetId());
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(dataset);
+    Dataset returnedDataset =
+        datasetService.getDatasetByDatasetId(metisUser, dataset.getDatasetId());
+    assertNotNull(returnedDataset);
   }
 
-  @Test(expected = UserUnauthorizedException.class)
-  public void testGetDatasetByDatasetIdUnauthorizedUserAccountRole() throws Exception {
+  @Test
+  public void testGetDatasetByDatasetIdUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    datasetService.getDatasetByDatasetId(metisUser, dataset.getDatasetId());
-    verify(datasetDao, times(0)).getDatasetByDatasetId(dataset.getDatasetId());
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    doThrow(UserUnauthorizedException.class).when(authenticator)
+        .authorizeExistingDatasetById(metisUser, datasetId);
+    expectException(UserUnauthorizedException.class, () -> {
+      datasetService.getDatasetByDatasetId(metisUser, datasetId);
+    });
+    verify(datasetDao, times(0)).getDatasetByDatasetId(datasetId);
   }
 
-  @Test(expected = UserUnauthorizedException.class)
-  public void testGetDatasetByDatasetIdUnauthorizedUserForDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    datasetService.getDatasetByDatasetId(metisUser, dataset.getDatasetId());
-    verify(datasetDao, times(0)).getDatasetByDatasetId(dataset.getDatasetId());
-  }
-
-  @Test(expected = NoDatasetFoundException.class)
+  @Test
   public void testGetDatasetByDatasetIdNoDatasetFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
-    datasetService.getDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    doThrow(NoDatasetFoundException.class).when(authenticator)
+        .authorizeExistingDatasetById(metisUser, datasetId);
+    expectException(NoDatasetFoundException.class, () -> {
+      datasetService.getDatasetByDatasetId(metisUser, datasetId);
+    });
   }
 
   @Test
   public void getDatasetXsltByDatasetId() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     dataset.setXsltId(new ObjectId());
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(dataset);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
     when(datasetXsltDao.getById(dataset.getXsltId().toString())).thenReturn(datasetXslt);
 
@@ -390,31 +388,37 @@ public class TestDatasetService {
     Assert.assertEquals(datasetXslt.getDatasetId(), datasetXsltByDatasetId.getDatasetId());
   }
 
-  @Test(expected = UserUnauthorizedException.class)
-  public void getDatasetXsltByDatasetIdUserUnauthorizedException() throws Exception {
+  @Test
+  public void getDatasetXsltByDatasetIdUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.PROVIDER_VIEWER);
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    datasetService.getDatasetXsltByDatasetId(metisUser, dataset.getDatasetId());
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    doThrow(UserUnauthorizedException.class).when(authenticator)
+        .authorizeExistingDatasetById(metisUser, datasetId);
+    expectException(UserUnauthorizedException.class, () -> {
+      datasetService.getDatasetXsltByDatasetId(metisUser, datasetId);
+    });
   }
 
   @Test(expected = NoXsltFoundException.class)
   public void getDatasetXsltByDatasetIdNoXsltFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(dataset);
     when(datasetXsltDao.getById(anyString())).thenReturn(null);
     datasetService.getDatasetXsltByDatasetId(metisUser, dataset.getDatasetId());
   }
 
-  @Test(expected = NoDatasetFoundException.class)
+  @Test
   public void getDatasetXsltByDatasetIdNoDatasetFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    when(datasetDao.getDatasetByDatasetId(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
-    datasetService.getDatasetXsltByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    doThrow(NoDatasetFoundException.class).when(authenticator)
+        .authorizeExistingDatasetById(metisUser, datasetId);
+    expectException(NoDatasetFoundException.class, () -> {
+      datasetService.getDatasetXsltByDatasetId(metisUser, datasetId);
+    });
   }
 
   @Test
@@ -434,11 +438,10 @@ public class TestDatasetService {
     when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(null);
     datasetService.getDatasetXsltByXsltId(TestObjectFactory.XSLTID);
   }
-
+  
   @Test
   public void createDefaultXslt() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     DatasetXslt datasetXslt = TestObjectFactory
         .createXslt(TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME));
     datasetXslt.setDatasetId("-1");
@@ -449,15 +452,17 @@ public class TestDatasetService {
     Assert.assertEquals(datasetXslt.getDatasetId(), defaultDatasetXslt.getDatasetId());
   }
 
-  @Test(expected = UserUnauthorizedException.class)
+  @Test
   public void createDefaultXsltUserUnauthorizedException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     DatasetXslt datasetXslt = TestObjectFactory
         .createXslt(TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME));
-    datasetService.createDefaultXslt(metisUser, datasetXslt.getXslt());
+    doThrow(UserUnauthorizedException.class).when(authenticator).authorizeDefaultXslt(metisUser);
+    expectException(UserUnauthorizedException.class, () -> {
+      datasetService.createDefaultXslt(metisUser, datasetXslt.getXslt());
+    });
   }
-
+  
   @Test
   public void getLatestXsltForDatasetId() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
@@ -480,7 +485,6 @@ public class TestDatasetService {
   @Test
   public void transformRecordsUsingLatestDefaultXslt() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
@@ -515,7 +519,6 @@ public class TestDatasetService {
   @Test(expected = NoXsltFoundException.class)
   public void transformRecordsUsingLatestDefaultXslt_NoXsltFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
@@ -529,11 +532,11 @@ public class TestDatasetService {
   @Test
   public void transformRecordsUsingLatestDatasetXslt() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
     dataset.setXsltId(new ObjectId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(dataset);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
     when(datasetXsltDao.getById(dataset.getXsltId().toString())).thenReturn(datasetXslt);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
@@ -562,19 +565,18 @@ public class TestDatasetService {
   @Test(expected = NoXsltFoundException.class)
   public void transformRecordsUsingLatestDatasetXslt_NoXsltFoundException() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    when(authenticator.authorizeExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(dataset);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(1);
-    datasetService
-        .transformRecordsUsingLatestDatasetXslt(metisUser, dataset.getDatasetId(), listOfRecords);
+    datasetService.transformRecordsUsingLatestDatasetXslt(metisUser, dataset.getDatasetId(),
+        listOfRecords);
   }
 
   @Test
   public void testGetAllDatasetsByProvider() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
     int nextPage = 1;
@@ -583,20 +585,21 @@ public class TestDatasetService {
     assertSame(list, retList);
   }
 
-  @Test(expected = UserUnauthorizedException.class)
+  @Test
   public void testGetAllDatasetsByProviderUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
     String provider = "myProvider";
     int nextPage = 1;
-    datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage);
+    doThrow(NoDatasetFoundException.class).when(authenticator).authorizeAllDatasets(metisUser);
+    expectException(NoDatasetFoundException.class, () -> {
+      datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage);
+    });
     verify(datasetDao, times(0)).getAllDatasetsByProvider(provider, nextPage);
   }
 
   @Test
   public void testGetAllDatasetsByIntermidiateProvider() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
     int nextPage = 1;
@@ -606,21 +609,23 @@ public class TestDatasetService {
     assertSame(list, retList);
   }
 
-  @Test(expected = UserUnauthorizedException.class)
+  @Test
   public void testGetAllDatasetsByIntermidiateProviderUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
     String intermediateProvider = "myProvider";
     int nextPage = 1;
-    datasetService.getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider, nextPage);
-    verify(datasetDao, times(0))
-        .getAllDatasetsByIntermediateProvider(intermediateProvider, nextPage);
+    doThrow(NoDatasetFoundException.class).when(authenticator).authorizeAllDatasets(metisUser);
+    expectException(NoDatasetFoundException.class, () -> {
+      datasetService.getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider,
+          nextPage);
+    });
+    verify(datasetDao, times(0)).getAllDatasetsByIntermediateProvider(intermediateProvider,
+        nextPage);
   }
 
   @Test
   public void testGetAllDatasetsByDataProvider() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
     int nextPage = 1;
@@ -630,20 +635,21 @@ public class TestDatasetService {
     assertSame(list, retList);
   }
 
-  @Test(expected = UserUnauthorizedException.class)
+  @Test
   public void testGetAllDatasetsByDataProviderUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
     String dataProvider = "myProvider";
     int nextPage = 1;
-    datasetService.getAllDatasetsByDataProvider(metisUser, dataProvider, nextPage);
+    doThrow(NoDatasetFoundException.class).when(authenticator).authorizeAllDatasets(metisUser);
+    expectException(NoDatasetFoundException.class, () -> {
+      datasetService.getAllDatasetsByDataProvider(metisUser, dataProvider, nextPage);
+    });
     verify(datasetDao, times(0)).getAllDatasetsByDataProvider(dataProvider, nextPage);
   }
 
   @Test
   public void testGetAllDatasetsByOrganizationId() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String organizationId = "organizationId";
     int nextPage = 1;
@@ -653,20 +659,21 @@ public class TestDatasetService {
     assertSame(list, retList);
   }
 
-  @Test(expected = UserUnauthorizedException.class)
+  @Test
   public void testGetAllDatasetsByOrganizationIdUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
     String organizationId = "organizationId";
     int nextPage = 1;
-    datasetService.getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage);
+    doThrow(NoDatasetFoundException.class).when(authenticator).authorizeAllDatasets(metisUser);
+    expectException(NoDatasetFoundException.class, () -> {
+      datasetService.getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage);
+    });
     verify(datasetDao, times(0)).getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
 
   @Test
   public void testGetAllDatasetsByOrganizationName() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String organizationName = "organizationName";
     int nextPage = 1;
@@ -677,21 +684,16 @@ public class TestDatasetService {
     assertSame(list, retList);
   }
 
-  @Test(expected = UserUnauthorizedException.class)
+  @Test
   public void testGetAllDatasetsByOrganizationNameUnauthorized() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(null);
     String organizationName = "organizationName";
     int nextPage = 1;
-    datasetService.getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage);
+    doThrow(NoDatasetFoundException.class).when(authenticator).authorizeAllDatasets(metisUser);
+    expectException(NoDatasetFoundException.class, () -> {
+      datasetService.getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage);
+    });
     verify(datasetDao, times(0)).getAllDatasetsByOrganizationName(organizationName, nextPage);
-
-  }
-
-  @Test
-  public void testExistsDatasetByDatasetName() {
-    when(datasetDao.existsDatasetByDatasetName(TestObjectFactory.DATASETNAME)).thenReturn(true);
-    assertTrue(datasetService.existsDatasetByDatasetName(TestObjectFactory.DATASETNAME));
   }
 
   @Test
