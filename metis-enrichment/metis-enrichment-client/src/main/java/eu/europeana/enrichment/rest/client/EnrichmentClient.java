@@ -43,7 +43,7 @@ public class EnrichmentClient {
 	        
         try {
         	return template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new UnknownException(e.getMessage());
         }
     }
@@ -61,7 +61,7 @@ public class EnrichmentClient {
 		return response.getBody();
     }
     
-    public void setRestTemplate(RestTemplate template) {
+    void setRestTemplate(RestTemplate template) {
     	this.template = template;
     }
 }

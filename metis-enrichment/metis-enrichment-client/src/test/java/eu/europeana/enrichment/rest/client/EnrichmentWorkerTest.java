@@ -10,6 +10,16 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
+import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.enrichment.utils.InputValue;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,17 +37,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
-import eu.europeana.enrichment.utils.EntityClass;
-import eu.europeana.enrichment.utils.EntityMergeEngine;
-import eu.europeana.enrichment.utils.InputValue;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EnrichmentWorkerTest {

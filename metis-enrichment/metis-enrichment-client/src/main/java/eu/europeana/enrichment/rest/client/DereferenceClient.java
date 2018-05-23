@@ -158,7 +158,7 @@ public class DereferenceClient {
         .getBody();
   }
   
-  public void setRestTemplate(RestTemplate restTemplate) {
+  void setRestTemplate(RestTemplate restTemplate) {
   	this.restTemplate = restTemplate;
   }
 }
