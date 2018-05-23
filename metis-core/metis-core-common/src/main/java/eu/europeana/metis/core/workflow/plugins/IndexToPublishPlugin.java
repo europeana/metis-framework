@@ -13,9 +13,9 @@ public class IndexToPublishPlugin extends AbstractMetisPlugin {
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  public IndexToPublishPlugin() {
+  IndexToPublishPlugin() {
     //Required for json serialization
-    super(PluginType.PUBLISH);
+    this(null);
   }
 
   /**
@@ -24,8 +24,8 @@ public class IndexToPublishPlugin extends AbstractMetisPlugin {
    *
    * @param pluginMetadata should be {@link IndexToPublishPluginMetadata}
    */
-  public IndexToPublishPlugin(AbstractMetisPluginMetadata pluginMetadata) {
-    super(PluginType.PREVIEW, pluginMetadata);
+  IndexToPublishPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+    super(PluginType.PUBLISH, pluginMetadata);
   }
 
   /**
@@ -40,7 +40,6 @@ public class IndexToPublishPlugin extends AbstractMetisPlugin {
 
   @Override
   public DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    // TODO: 3-4-18 Needs to be implemented
-    return null;
+    return createDpsTaskForIndexPlugin("PUBLISH", ecloudBaseUrl, ecloudProvider, ecloudDataset);
   }
 }

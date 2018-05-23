@@ -2,13 +2,13 @@ package eu.europeana.indexing;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
+import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.edm.utils.construct.AgentUpdater;
@@ -113,16 +113,14 @@ class FullBeanPublisher {
   private void publishToMongo(FullBeanImpl fullBean) throws IndexingException {
     try {
 
-      // Publish shared properties/dependencies.
-      saveOrUpdateSharedProperties(fullBean);
+      // Publish properties/dependencies.
+      saveOrUpdateProperties(fullBean);
 
       // Publish private properties as well as the bean itself.
       final boolean alreadyPersisted = fullBeanDao.getPersistedAbout(fullBean) != null;
       if (alreadyPersisted) {
-        updatePrivateProperties(fullBean);
         fullBeanDao.updateFullBean(fullBean);
       } else {
-        savePrivateProperties(fullBean);
         fullBeanDao.save(fullBean);
       }
     } catch (MongoUpdateException e) {
@@ -130,56 +128,41 @@ class FullBeanPublisher {
     }
   }
 
-  private <T extends AbstractEdmEntity> void saveOrUpdateSharedProperty(Supplier<List<T>> getter,
+  private <T extends AbstractEdmEntity> void saveOrUpdate(Supplier<List<T>> getter,
       Consumer<List<T>> setter, Class<T> clazz, Updater<T> updater) throws MongoUpdateException {
-    setter.accept(fullBeanDao.update(getter.get(), clazz, updater, true));
+    setter.accept(fullBeanDao.update(getter.get(), clazz, updater));
   }
 
-  private void saveOrUpdateSharedProperties(FullBeanImpl fullBean) throws MongoUpdateException {
-    saveOrUpdateSharedProperty(fullBean::getAgents, fullBean::setAgents, AgentImpl.class,
-        new AgentUpdater());
-    saveOrUpdateSharedProperty(fullBean::getPlaces, fullBean::setPlaces, PlaceImpl.class,
-        new PlaceUpdater());
-    saveOrUpdateSharedProperty(fullBean::getConcepts, fullBean::setConcepts, ConceptImpl.class,
-        new ConceptUpdater());
-    saveOrUpdateSharedProperty(fullBean::getTimespans, fullBean::setTimespans, TimespanImpl.class,
-        new TimespanUpdater());
-    saveOrUpdateSharedProperty(fullBean::getLicenses, fullBean::setLicenses, LicenseImpl.class,
-        new LicenseUpdater());
-    saveOrUpdateSharedProperty(fullBean::getServices, fullBean::setServices, ServiceImpl.class,
-        new ServiceUpdater());
-  }
+  private void saveOrUpdateProperties(FullBeanImpl bean) throws MongoUpdateException {
 
-  private void savePrivateProperties(FullBeanImpl fullBean) {
-    fullBeanDao.save(fullBean.getProvidedCHOs());
-    fullBeanDao.save(fullBean.getEuropeanaAggregation());
-    fullBeanDao.save(fullBean.getProxies());
-    fullBeanDao.save(fullBean.getAggregations());
+    // The shared properties
+    saveOrUpdate(bean::getAgents, bean::setAgents, AgentImpl.class, new AgentUpdater());
+    saveOrUpdate(bean::getPlaces, bean::setPlaces, PlaceImpl.class, new PlaceUpdater());
+    saveOrUpdate(bean::getConcepts, bean::setConcepts, ConceptImpl.class, new ConceptUpdater());
+    saveOrUpdate(bean::getTimespans, bean::setTimespans, TimespanImpl.class, new TimespanUpdater());
+    saveOrUpdate(bean::getLicenses, bean::setLicenses, LicenseImpl.class, new LicenseUpdater());
+    saveOrUpdate(bean::getServices, bean::setServices, ServiceImpl.class, new ServiceUpdater());
 
-    if (fullBean.getEuropeanaAggregation().getWebResources() != null) {
-      fullBeanDao.save(fullBean.getEuropeanaAggregation().getWebResources());
+    // The aggregator web resources
+    saveWebResources(bean.getEuropeanaAggregation()::getWebResources,
+        bean.getEuropeanaAggregation()::setWebResources);
+    for (AggregationImpl aggregation : bean.getAggregations()) {
+      saveWebResources(aggregation::getWebResources, aggregation::setWebResources);
     }
 
-    fullBean.getAggregations().stream().map(AggregationImpl::getWebResources)
-        .filter(Objects::nonNull).forEach(fullBeanDao::save);
+    // The private properties (incluiding the aggregators)
+    saveOrUpdate(bean::getProvidedCHOs, bean::setProvidedCHOs, ProvidedCHOImpl.class,
+        new ProvidedChoUpdater());
+    saveOrUpdate(bean::getAggregations, bean::setAggregations, AggregationImpl.class,
+        new AggregationUpdater());
+    bean.setEuropeanaAggregation(
+        fullBeanDao.update((EuropeanaAggregationImpl) bean.getEuropeanaAggregation(),
+            EuropeanaAggregationImpl.class, new EuropeanaAggregationUpdater()));
+    saveOrUpdate(bean::getProxies, bean::setProxies, ProxyImpl.class, new ProxyUpdater());
   }
 
-  private void updatePrivateProperties(FullBeanImpl fullBean) throws MongoUpdateException {
-    final List<ProvidedCHOImpl> pChos = fullBeanDao.update(fullBean.getProvidedCHOs(),
-        ProvidedCHOImpl.class, new ProvidedChoUpdater(), false);
-    final List<AggregationImpl> aggregations = fullBeanDao.update(fullBean.getAggregations(),
-        AggregationImpl.class, new AggregationUpdater(), false);
-    final EuropeanaAggregationImpl europeanaAggregation =
-        fullBeanDao.update((EuropeanaAggregationImpl) fullBean.getEuropeanaAggregation(),
-            EuropeanaAggregationImpl.class, new EuropeanaAggregationUpdater(), false);
-    final List<ProxyImpl> proxies =
-        fullBeanDao.update(fullBean.getProxies(), ProxyImpl.class, new ProxyUpdater(), false);
-
-    fullBean.setProvidedCHOs(pChos);
-    fullBean.setAggregations(aggregations);
-    if (europeanaAggregation != null) {
-      fullBean.setEuropeanaAggregation(europeanaAggregation);
-    }
-    fullBean.setProxies(proxies);
+  private void saveWebResources(Supplier<List<? extends WebResource>> getter,
+      Consumer<List<? extends WebResource>> setter) throws MongoUpdateException {
+    setter.accept(fullBeanDao.updateWebResources(getter.get()));
   }
 }

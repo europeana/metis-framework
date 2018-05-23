@@ -21,10 +21,10 @@ import org.springframework.stereotype.Service;
 import com.google.common.base.Strings;
 import eu.europeana.metis.preview.common.exception.PreviewServiceException;
 import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
-import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.executor.ValidationTask;
 import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
 import eu.europeana.metis.preview.service.executor.ValidationTaskResult;
+import eu.europeana.metis.preview.service.persistence.RecordDao;
 import eu.europeana.validation.model.ValidationResult;
 
 /**
@@ -87,19 +87,21 @@ public class PreviewService {
     final List<Future<ValidationTaskResult>> taskResultFutures = tasks.stream()
         .map(executorCompletionService::submit).collect(Collectors.toList());
 
-    // Wait until the tasks are finished.
+    // Wait until the tasks are finished, then commit the changes.
     final List<ValidationTaskResult> taskResults = waitForTasksToComplete(taskResultFutures);
+    commitChanges();
 
-    // Commit the changes made by the tasks.
+    // Done: compile the results.
+    return compileResult(taskResults, collectionId, individualRecords);
+  }
+  
+  private void commitChanges() throws PreviewServiceException {
     try {
       dao.commit();
     } catch (IOException | SolrServerException e) {
       LOGGER.error("Updating search engine failed", e);
       throw new PreviewServiceException("Updating search engine failed", e);
     }
-
-    // Done: compile the results.
-    return compileResult(taskResults, collectionId, individualRecords);
   }
 
   private List<ValidationTaskResult> waitForTasksToComplete(
@@ -110,6 +112,7 @@ public class PreviewService {
       taskResults = new ArrayList<>(taskResultFutures.size());
       for (Future<ValidationTaskResult> taskResultFuture : taskResultFutures) {
         LOGGER.info("Retrieving validation result {} of {}.", counter, taskResultFutures.size());
+        counter++;
         taskResults.add(taskResultFuture.get());
       }
     } catch (InterruptedException e) {

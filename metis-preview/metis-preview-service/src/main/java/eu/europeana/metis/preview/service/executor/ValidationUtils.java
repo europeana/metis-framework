@@ -1,17 +1,11 @@
 package eu.europeana.metis.preview.service.executor;
 
-import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.utils.EuropeanaUriUtils;
-import eu.europeana.metis.preview.persistence.RecordDao;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.metis.preview.service.persistence.RecordDao;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import org.apache.solr.client.solrj.SolrServerException;
 
 public class ValidationUtils {
 
@@ -21,8 +15,8 @@ public class ValidationUtils {
   private final String schemaAfterTransformation;
   private final String defaultTransformationFile;
 
-  public ValidationUtils(ValidationClient validationClient,
-      RecordDao recordDao, String schemaBeforeTransformation, String schemaAfterTransformation,
+  public ValidationUtils(ValidationClient validationClient, RecordDao recordDao,
+      String schemaBeforeTransformation, String schemaAfterTransformation,
       String defaultTransformationFile) {
     this.validationClient = validationClient;
     this.recordDao = recordDao;
@@ -45,10 +39,8 @@ public class ValidationUtils {
         .replace("\"", "");
   }
 
-  public void persistFullBean(FullBean fBean)
-      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-      MongoDBException, MongoRuntimeException, SolrServerException, IOException, MongoUpdateException {
-    recordDao.createRecord(fBean);
+  public void persist(RDF rdf) throws IndexingException {
+    recordDao.createRecord(rdf);
   }
 
   public String getDefaultTransformationFile() {

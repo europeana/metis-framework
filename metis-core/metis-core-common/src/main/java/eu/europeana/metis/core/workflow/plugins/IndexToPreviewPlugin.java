@@ -12,9 +12,9 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  public IndexToPreviewPlugin() {
+  IndexToPreviewPlugin() {
     //Required for json serialization
-    super(PluginType.PREVIEW);
+    this(null);
   }
 
     /**
@@ -23,7 +23,7 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
      *
      * @param pluginMetadata should be {@link IndexToPreviewPluginMetadata}
      */
-  public IndexToPreviewPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  IndexToPreviewPlugin(AbstractMetisPluginMetadata pluginMetadata) {
       super(PluginType.PREVIEW, pluginMetadata);
     }
 
@@ -39,7 +39,6 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
 
   @Override
   public DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    // TODO: 3-4-18 Needs to be implemented
-    return null;
+    return createDpsTaskForIndexPlugin("PREVIEW", ecloudBaseUrl, ecloudProvider, ecloudDataset);
   }
 }

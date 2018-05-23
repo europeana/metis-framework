@@ -135,7 +135,7 @@ public class Language {
     final LanguageLabel label =
         Stream.of(originalNames, alternativeNames, labels).flatMap(List::stream)
             .filter(language -> StringUtils.equals(resultLanguageCode, language.getLanguage()))
-            .findFirst().orElse(originalNames.get(0));
+            .findFirst().orElseGet(() -> originalNames.get(0));
     return label.getLabel();
   }
 }

@@ -22,19 +22,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.mongojack.DBCursor;
 import org.mongojack.DBSort;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
-
 import eu.europeana.corelib.solr.entity.ContextualClassImpl;
 import eu.europeana.enrichment.api.internal.AgentTermList;
 import eu.europeana.enrichment.api.internal.ConceptTermList;
@@ -108,7 +107,7 @@ public class EnrichmentEntityDao implements Closeable {
 			return;
 		}
 		try {
-			LOGGER.info("Creating Mongo connection to host {}.", mongo.getAddress().toString());
+			LOGGER.info("Creating Mongo connection to host {}.", mongo.getAddress());
 
 			db = mongo.getDB("annocultor_db"); // See TODO above.
 
@@ -136,39 +135,39 @@ public class EnrichmentEntityDao implements Closeable {
 			// concept/agent/timespan/person/organization tables?
 			if (!exist) {
 				cColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, true));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 				cColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 				cColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 
 				aColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, true));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 				aColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 				aColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 
 				tColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, true));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 				tColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 				tColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 
 				pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, true));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 				pColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 				pColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 
 				oColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, true));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 				oColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 				oColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1),
-						new BasicDBObject(UNIQUE_PROPERTY, false));
+						new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
 			}
 		} catch (MongoException e) {
 			LOGGER.error("Error accessing mongo", e);
@@ -205,7 +204,7 @@ public class EnrichmentEntityDao implements Closeable {
 		termT.createIndex(
 				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
 						.append(TERM_CODE_URI, 1),
-				new BasicDBObject(UNIQUE_PROPERTY, true));
+				new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 		termT.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
 		termT.remove(termT.find().is(TERM_CODE_URI, uri).getQuery());
 		DBCursor<TimespanTermList> objT = tColl
@@ -229,7 +228,7 @@ public class EnrichmentEntityDao implements Closeable {
 		termA.createIndex(
 				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
 						.append(TERM_CODE_URI, 1),
-				new BasicDBObject(UNIQUE_PROPERTY, true));
+				new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 		termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
 		termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
 		DBCursor<AgentTermList> objA = aColl
@@ -257,7 +256,7 @@ public class EnrichmentEntityDao implements Closeable {
 		termA.createIndex(
 				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
 						.append(TERM_CODE_URI, 1),
-				new BasicDBObject(UNIQUE_PROPERTY, true));
+				new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 		termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
 		DBCursor<OrganizationTermList> objA = oColl
 				.find(new BasicDBObject(TERM_SAME_AS, uri)
@@ -290,7 +289,7 @@ public class EnrichmentEntityDao implements Closeable {
 		termC.createIndex(
 				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
 						.append(TERM_CODE_URI, 1),
-				new BasicDBObject(UNIQUE_PROPERTY, true));
+				new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 		termC.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
 		termC.remove(termC.find().is(TERM_CODE_URI, uri).getQuery());
 		DBCursor<ConceptTermList> objC = cColl
@@ -314,7 +313,7 @@ public class EnrichmentEntityDao implements Closeable {
 		termP.createIndex(
 				new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1)
 						.append(TERM_CODE_URI, 1),
-				new BasicDBObject(UNIQUE_PROPERTY, true));
+				new BasicDBObject(UNIQUE_PROPERTY, Boolean.TRUE));
 		termP.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
 		termP.remove(termP.find().is(TERM_CODE_URI, uri).getQuery());
 		DBCursor<PlaceTermList> objP = pColl
@@ -458,14 +457,7 @@ public class EnrichmentEntityDao implements Closeable {
 				db.getCollection(getTableName(entityClass)), MongoTerm.class,
 				String.class);
 		DBCursor<MongoTerm> curs = pColl.find();
-		List<MongoTerm> lst = new ArrayList<>();
-
-		while (curs.hasNext()) {
-			MongoTerm mTerm = curs.next();
-			lst.add(mTerm);
-		}
-
-		return lst;
+		return StreamSupport.stream(curs.spliterator(), false).collect(Collectors.toList());
 	}
 
 	/**

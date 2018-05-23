@@ -53,7 +53,7 @@ class AudioVideoProcessor {
 		
 		try {
 			JSONObject result = new JSONObject(new JSONTokener(String.join("", resultLines)));
-			if (result.length() == 0 && contents == null) {
+			if (contents == null && result.length() == 0) {
 				throw new MediaException("Probably downlaod failed", "", null, true);
 			}
 			WebResource resource = edm.getWebResource(url);
@@ -83,9 +83,9 @@ class AudioVideoProcessor {
 			}
 		} catch (MediaException e) {
 			throw e;
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
 			LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(resultLines, "\n"), e);
-			throw new MediaException("File seems to be corrupted", "AUDIOVIDEO ERROR");
+			throw new MediaException("File seems to be corrupted", "AUDIOVIDEO ERROR", e);
 		}
 	}
 	

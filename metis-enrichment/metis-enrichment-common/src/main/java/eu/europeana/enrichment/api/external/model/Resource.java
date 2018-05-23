@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Resource {
+public class Resource implements WebResource {
 
   @XmlAttribute(name = "resource", namespace = "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
   private String resource;
@@ -23,5 +23,15 @@ public class Resource {
 
   public void setResource(String resource) {
     this.resource = resource;
+  }
+
+  @Override
+  public String getResourceUri() {
+    return getResource();
+  }
+
+  @Override
+  public void setResourceUri(String resource) {
+    setResource(resource);
   }
 }

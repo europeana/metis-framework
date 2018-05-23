@@ -5,13 +5,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoResponseField;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
@@ -117,7 +114,8 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		return getContent(ACRONYM);
 	}
 
-	public String getLangAcronym() {
+	@Override
+    public String getLangAcronym() {
 		return getContent(LANG_ACRONYM);
 	}
 
@@ -237,7 +235,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		return getDateOrDefault(modified);
 	}
 
-	protected Date getDateOrDefault(String dateTime) {
+	private Date getDateOrDefault(String dateTime) {
 		if (StringUtils.isBlank(dateTime))
 			return new Date(0);
 
@@ -259,14 +257,4 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	public String getModifiedBy() {
 		return getContent(MODIFIED_BY);
 	}
-
-	protected List<ZohoResponseField> getOrganizationFields() {
-		return organizationFields;
-	}
-
-	protected void setOrganizationFields(
-			List<ZohoResponseField> organizationFields) {
-		this.organizationFields = organizationFields;
-	}
-
 }

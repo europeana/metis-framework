@@ -1,6 +1,5 @@
 package eu.europeana.metis.preview.rest;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.function.Supplier;
 import org.slf4j.Logger;

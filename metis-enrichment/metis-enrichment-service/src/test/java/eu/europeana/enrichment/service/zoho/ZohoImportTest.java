@@ -27,7 +27,7 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
  *
  */
 @Ignore
-public class ZohoImportTest extends BaseZohoAccessTest {
+public class ZohoImportTest extends BaseZohoAccessSetup {
 
 	String mongoHost;
 	int mongoPort;

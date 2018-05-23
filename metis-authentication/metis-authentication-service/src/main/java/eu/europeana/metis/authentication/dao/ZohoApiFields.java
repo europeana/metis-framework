@@ -38,8 +38,8 @@ public abstract class ZohoApiFields {
 	public static final String SORT_ORDER_ASC = "asc";
 	public static final String MODIFIED_TIME = "Modified Time";
     public static final String ORGANIZATION_ROLE = "Organisation Role";
+    public static final String DELIMITER_COMMA = ",";
     public static final String SEMICOLON = ";";
-    public final static String DELIMITER_COMMA = ",";
     public final static String OR = "OR";
 
 	  
