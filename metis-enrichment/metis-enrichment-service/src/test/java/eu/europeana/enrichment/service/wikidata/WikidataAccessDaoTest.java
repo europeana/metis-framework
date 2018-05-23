@@ -2,7 +2,6 @@ package eu.europeana.enrichment.service.wikidata;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -40,6 +39,8 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
   @After
   public void tearDown() throws Exception {}
 
+  // TODO JV it is not a good idea to test on real-time data that comes from a external source. This
+  // can break our tests if the data is changed.
   @Test
   public void dereferenceInsertTest() throws WikidataAccessException, ZohoAccessException,
       ParseException, JAXBException, IOException, URISyntaxException {
@@ -57,8 +58,7 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     wikidataAccessService.saveXmlToFile(wikidataXml, wikidataOutputFile);
 
     //insert XML in Wikidata organization object 
-    WikidataOrganization wikidataOrganization =
-        wikidataAccessDao.parse(wikidataXml);
+    WikidataOrganization wikidataOrganization = wikidataAccessDao.parse(wikidataXml);
     assertNotNull(wikidataOrganization);
     assertEquals(wikidataOrganization.getOrganization().getAbout(), TEST_WIKIDATA_URL);
     assertEquals(wikidataOrganization.getOrganization().getCountry(), TEST_COUNTRY);
@@ -71,10 +71,9 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     //convert Wikidata organization to OrganizationImpl object
     Organization organizationImpl = wikidataAccessService.toOrganizationImpl(wikidataOrganization);
     assertNotNull(organizationImpl);
-    assertTrue(organizationImpl.getPrefLabel().values().size() == 37);
+    assertEquals(38, organizationImpl.getPrefLabel().values().size());
     assertEquals(organizationImpl.getAbout(), TEST_WIKIDATA_URL);
-    assertTrue(organizationImpl.getEdmAcronym().get(Locale.FRENCH.getLanguage()).get(0)
-        .equals(TEST_ACRONYM));
+    assertEquals(TEST_ACRONYM, organizationImpl.getEdmAcronym().get(Locale.FRENCH.getLanguage()).get(0));
   }
 
   @Test
@@ -87,8 +86,7 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     assertNotNull(wikidataXml);
 
     //insert XML in Wikidata organization object 
-    WikidataOrganization wikidataOrganization =
-        wikidataAccessDao.parse(wikidataXml);
+    WikidataOrganization wikidataOrganization = wikidataAccessDao.parse(wikidataXml);
     assertNotNull(wikidataOrganization);
     assertEquals(TEST_WIKIDATA_URL, wikidataOrganization.getOrganization().getAbout());
     assertEquals(TEST_COUNTRY, wikidataOrganization.getOrganization().getCountry());
