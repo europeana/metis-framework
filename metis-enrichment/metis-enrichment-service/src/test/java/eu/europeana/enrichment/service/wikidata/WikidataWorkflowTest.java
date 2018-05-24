@@ -105,7 +105,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     String serializedOrganizationImpl = serialize((OrganizationImpl) zohoOrganizationImpl);
     assertNotNull(serializedOrganizationImpl);
     File organizationImplOutputFile = getClasspathFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
-    writeToFile(serializedOrganizationImpl, organizationImplOutputFile);
+    FileUtils.write(organizationImplOutputFile, serializedOrganizationImpl, "UTF-8");
 
     /** 6. Compare output file with expected file */
     File organizationImplTestOutputFile = getClasspathFile(ORGANIZATION_IMPL_TEST_OUTPUT_FILE);
@@ -115,8 +115,8 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     String expectedOrganizationImplStr =
         FileUtils.readFileToString(organizationImplTestExpectedFile, "UTF-8");
 
-    // TODO Cannot really compare to json files like this: they may be serialized differently.
-    // assertEquals(outputOrganizationImplStr, expectedOrganizationImplStr);
+    // TODO try to switch to object comparison (eventually using Map deserialization)
+    assertEquals(outputOrganizationImplStr, expectedOrganizationImplStr);
   }
 
   /**

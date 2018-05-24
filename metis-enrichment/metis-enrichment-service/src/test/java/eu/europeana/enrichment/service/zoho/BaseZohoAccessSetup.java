@@ -1,10 +1,8 @@
 package eu.europeana.enrichment.service.zoho;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -95,16 +93,4 @@ public abstract class BaseZohoAccessSetup {
     return (new File(fileLocation));
   }
 
-  /**
-   * This method saves organization content to a given file.
-   * 
-   * @param content
-   * @param contentFile
-   * @throws IOException
-   */
-  public void writeToFile(String content, File contentFile) throws IOException {
-    try (BufferedWriter out = new BufferedWriter(new FileWriter(contentFile))) {
-      out.write(content);
-    }
-  }
 }
