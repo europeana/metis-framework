@@ -37,7 +37,7 @@ public class Authorizer {
    * @param metisUser The user wishing to gain access.
    * @throws UserUnauthorizedException In case the user is not authorized.
    */
-  void authorizeDefaultXslt(MetisUser metisUser) throws UserUnauthorizedException {
+  void authorizeWriteDefaultXslt(MetisUser metisUser) throws UserUnauthorizedException {
     if (metisUser == null || metisUser.getAccountRole() != AccountRole.METIS_ADMIN) {
       throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
@@ -49,11 +49,26 @@ public class Authorizer {
    * @param metisUser The user wishing to gain access.
    * @throws UserUnauthorizedException In case the user is not authorized.
    */
-  void authorizeAllDatasets(MetisUser metisUser) throws UserUnauthorizedException {
+  void authorizeReadAllDatasets(MetisUser metisUser) throws UserUnauthorizedException {
     if (metisUser == null || (metisUser.getAccountRole() != AccountRole.METIS_ADMIN
         && metisUser.getAccountRole() != AccountRole.EUROPEANA_DATA_OFFICER)) {
       throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
+  }
+
+  /**
+   * Authorizes reading access to an existing dataset. Will return quietly if authorization
+   * succeeds.
+   * 
+   * @param metisUser The user wishing to gain access.
+   * @param datasetId The ID of the dataset to which the user wishes to gain access.
+   * @return The dataset in question.
+   * @throws UserUnauthorizedException In case the user is not authorized.
+   * @throws NoDatasetFoundException In case the dataset with the given ID could not be found.
+   */
+  Dataset authorizeReadExistingDatasetById(MetisUser metisUser, String datasetId)
+      throws UserUnauthorizedException, NoDatasetFoundException {
+    return authorizeExistingDatasetById(metisUser, datasetId, true);
   }
 
   /**
@@ -66,9 +81,14 @@ public class Authorizer {
    * @throws UserUnauthorizedException In case the user is not authorized.
    * @throws NoDatasetFoundException In case the dataset with the given ID could not be found.
    */
-  Dataset authorizeExistingDatasetById(MetisUser metisUser, String datasetId)
+  Dataset authorizeWriteExistingDatasetById(MetisUser metisUser, String datasetId)
       throws UserUnauthorizedException, NoDatasetFoundException {
-    return authorizeExistingDataset(metisUser, () -> {
+    return authorizeExistingDatasetById(metisUser, datasetId, false);
+  }
+
+  private Dataset authorizeExistingDatasetById(MetisUser metisUser, String datasetId,
+      boolean allowView) throws UserUnauthorizedException, NoDatasetFoundException {
+    return authorizeExistingDataset(metisUser, allowView, () -> {
       final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
       if (dataset == null) {
         throw new NoDatasetFoundException(
@@ -79,7 +99,7 @@ public class Authorizer {
   }
 
   /**
-   * Authorizes writing access to an existing dataset. Will return quietly if authorization
+   * Authorizes reading access to an existing dataset. Will return quietly if authorization
    * succeeds.
    * 
    * @param metisUser The user wishing to gain access.
@@ -88,9 +108,9 @@ public class Authorizer {
    * @throws UserUnauthorizedException In case the user is not authorized.
    * @throws NoDatasetFoundException In case the dataset with the given name could not be found.
    */
-  Dataset authorizeExistingDatasetByName(MetisUser metisUser, String datasetName)
+  Dataset authorizeReadExistingDatasetByName(MetisUser metisUser, String datasetName)
       throws UserUnauthorizedException, NoDatasetFoundException {
-    return authorizeExistingDataset(metisUser, () -> {
+    return authorizeExistingDataset(metisUser, true, () -> {
       final Dataset dataset = datasetDao.getDatasetByDatasetName(datasetName);
       if (dataset == null) {
         throw new NoDatasetFoundException(
@@ -100,10 +120,10 @@ public class Authorizer {
     });
   }
 
-  private Dataset authorizeExistingDataset(MetisUser metisUser, DatasetSupplier datasetSupplier)
-      throws UserUnauthorizedException, NoDatasetFoundException {
-    checkUserRoleForIndividualDatasetManagement(metisUser);
-    Dataset dataset = datasetSupplier.get();
+  private Dataset authorizeExistingDataset(MetisUser metisUser, boolean allowView,
+      DatasetSupplier datasetSupplier) throws UserUnauthorizedException, NoDatasetFoundException {
+    checkUserRoleForIndividualDatasetManagement(metisUser, allowView);
+    final Dataset dataset = datasetSupplier.get();
     if (metisUser.getAccountRole() != AccountRole.METIS_ADMIN
         && !metisUser.getOrganizationId().equals(dataset.getOrganizationId())) {
       throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
@@ -117,14 +137,14 @@ public class Authorizer {
    * @param metisUser The user wishing to gain access.
    * @throws UserUnauthorizedException In case the user is not authorized.
    */
-  void authorizeNewDataset(MetisUser metisUser) throws UserUnauthorizedException {
-    checkUserRoleForIndividualDatasetManagement(metisUser);
+  void authorizeWriteNewDataset(MetisUser metisUser) throws UserUnauthorizedException {
+    checkUserRoleForIndividualDatasetManagement(metisUser, false);
   }
 
-  private void checkUserRoleForIndividualDatasetManagement(MetisUser metisUser)
+  private void checkUserRoleForIndividualDatasetManagement(MetisUser metisUser, boolean allowView)
       throws UserUnauthorizedException {
     if (metisUser == null || metisUser.getAccountRole() == null
-        || metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER) {
+        || (!allowView && metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER)) {
       throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
   }

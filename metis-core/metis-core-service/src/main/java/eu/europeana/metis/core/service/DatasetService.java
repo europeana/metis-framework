@@ -91,7 +91,7 @@ public class DatasetService {
    */
   public Dataset createDataset(MetisUser metisUser, Dataset dataset)
       throws GenericMetisException {
-    authorizer.authorizeNewDataset(metisUser);
+    authorizer.authorizeWriteNewDataset(metisUser);
     
     dataset.setOrganizationId(metisUser.getOrganizationId());
     dataset.setOrganizationName(metisUser.getOrganizationName());
@@ -146,7 +146,7 @@ public class DatasetService {
       throws GenericMetisException {
     
     // Find existing dataset and check authentication.
-    Dataset storedDataset = authorizer.authorizeExistingDatasetById(metisUser, dataset.getDatasetId());
+    Dataset storedDataset = authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     
     // Check that the new dataset name does not already exist.
     final String newDatasetName = dataset.getDatasetName();
@@ -202,7 +202,7 @@ public class DatasetService {
       throws GenericMetisException {
     
     // Find existing dataset and check authentication.
-    authorizer.authorizeExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
 
     // Check that there is no workflow execution pending for the given dataset.
     if (workflowExecutionDao.existsAndNotCompleted(datasetId) != null) {
@@ -234,7 +234,7 @@ public class DatasetService {
    */
   public Dataset getDatasetByDatasetName(MetisUser metisUser, String datasetName)
       throws GenericMetisException {
-    return authorizer.authorizeExistingDatasetByName(metisUser, datasetName);
+    return authorizer.authorizeReadExistingDatasetByName(metisUser, datasetName);
   }
 
   /**
@@ -251,7 +251,7 @@ public class DatasetService {
    */
   public Dataset getDatasetByDatasetId(MetisUser metisUser, String datasetId)
       throws GenericMetisException {
-    return authorizer.authorizeExistingDatasetById(metisUser, datasetId);
+    return authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
   }
 
   /**
@@ -269,7 +269,7 @@ public class DatasetService {
    */
   public DatasetXslt getDatasetXsltByDatasetId(MetisUser metisUser,
       String datasetId) throws GenericMetisException {
-    Dataset dataset = authorizer.authorizeExistingDatasetById(metisUser, datasetId);
+    Dataset dataset = authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
     DatasetXslt datasetXslt =
         datasetXsltDao.getById(dataset.getXsltId() == null ? null : dataset.getXsltId().toString());
     if (datasetXslt == null) {
@@ -322,7 +322,7 @@ public class DatasetService {
    */
   public DatasetXslt createDefaultXslt(MetisUser metisUser, String xsltString)
       throws GenericMetisException {
-    authorizer.authorizeDefaultXslt(metisUser);
+    authorizer.authorizeWriteDefaultXslt(metisUser);
     DatasetXslt datasetXslt = null;
     if (xsltString != null) {
       datasetXslt = datasetXsltDao.getById(
@@ -381,7 +381,7 @@ public class DatasetService {
   public List<Record> transformRecordsUsingLatestDefaultXslt(MetisUser metisUser, String datasetId,
       List<Record> records) throws GenericMetisException {
     //Used for authentication and dataset existence
-    authorizer.authorizeExistingDatasetById(metisUser, datasetId);
+    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
 
     //Using default dataset identifier
     DatasetXslt datasetXslt = datasetXsltDao
@@ -424,7 +424,7 @@ public class DatasetService {
   public List<Record> transformRecordsUsingLatestDatasetXslt(MetisUser metisUser, String datasetId,
       List<Record> records) throws GenericMetisException {
     //Used for authentication and dataset existence
-    Dataset dataset = authorizer.authorizeExistingDatasetById(metisUser, datasetId);
+    Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
     if (dataset.getXsltId() == null) {
       throw new NoXsltFoundException(
           String.format("Could not find xslt for datasetId %s", datasetId));
@@ -468,7 +468,7 @@ public class DatasetService {
   public List<Dataset> getAllDatasetsByProvider(
       MetisUser metisUser, String provider, int nextPage)
       throws GenericMetisException {
-    authorizer.authorizeAllDatasets(metisUser);
+    authorizer.authorizeReadAllDatasets(metisUser);
     return datasetDao.getAllDatasetsByProvider(provider, nextPage);
   }
 
@@ -487,7 +487,7 @@ public class DatasetService {
   public List<Dataset> getAllDatasetsByIntermediateProvider(
       MetisUser metisUser, String intermediateProvider,
       int nextPage) throws GenericMetisException {
-    authorizer.authorizeAllDatasets(metisUser);
+    authorizer.authorizeReadAllDatasets(metisUser);
     return datasetDao.getAllDatasetsByIntermediateProvider(intermediateProvider, nextPage);
   }
 
@@ -506,7 +506,7 @@ public class DatasetService {
   public List<Dataset> getAllDatasetsByDataProvider(
       MetisUser metisUser, String dataProvider,
       int nextPage) throws GenericMetisException {
-    authorizer.authorizeAllDatasets(metisUser);
+    authorizer.authorizeReadAllDatasets(metisUser);
     return datasetDao.getAllDatasetsByDataProvider(dataProvider, nextPage);
   }
 
@@ -525,7 +525,7 @@ public class DatasetService {
   public List<Dataset> getAllDatasetsByOrganizationId(
       MetisUser metisUser, String organizationId, int nextPage)
       throws GenericMetisException {
-    authorizer.authorizeAllDatasets(metisUser);
+    authorizer.authorizeReadAllDatasets(metisUser);
     return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
 
@@ -544,7 +544,7 @@ public class DatasetService {
   public List<Dataset> getAllDatasetsByOrganizationName(
       MetisUser metisUser, String organizationName, int nextPage)
       throws GenericMetisException {
-    authorizer.authorizeAllDatasets(metisUser);
+    authorizer.authorizeReadAllDatasets(metisUser);
     return datasetDao.getAllDatasetsByOrganizationName(organizationName, nextPage);
   }
 

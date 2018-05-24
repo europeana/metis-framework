@@ -73,59 +73,62 @@ public class AuthorizerTest {
 
   @Test
   public void testGetAllDatasets() throws UserUnauthorizedException, NoDatasetFoundException {
-    authorizer.authorizeAllDatasets(createUser(AccountRole.METIS_ADMIN));
-    authorizer.authorizeAllDatasets(createUser(AccountRole.EUROPEANA_DATA_OFFICER));
+    authorizer.authorizeReadAllDatasets(createUser(AccountRole.METIS_ADMIN));
+    authorizer.authorizeReadAllDatasets(createUser(AccountRole.EUROPEANA_DATA_OFFICER));
     expectUnauthorizedException(() -> {
-      authorizer.authorizeAllDatasets(createUser(AccountRole.PROVIDER_VIEWER));
+      authorizer.authorizeReadAllDatasets(createUser(AccountRole.PROVIDER_VIEWER));
     });
     expectUnauthorizedException(() -> {
-      authorizer.authorizeAllDatasets(createUser(null));
+      authorizer.authorizeReadAllDatasets(createUser(null));
     });
     expectUnauthorizedException(() -> {
-      authorizer.authorizeAllDatasets(null);
+      authorizer.authorizeReadAllDatasets(null);
     });
   }
 
   @Test
   public void testCreatingDefaultXslt() throws UserUnauthorizedException, NoDatasetFoundException {
-    authorizer.authorizeDefaultXslt(createUser(AccountRole.METIS_ADMIN));
+    authorizer.authorizeWriteDefaultXslt(createUser(AccountRole.METIS_ADMIN));
     expectUnauthorizedException(() -> {
-      authorizer.authorizeDefaultXslt(createUser(AccountRole.EUROPEANA_DATA_OFFICER));
+      authorizer.authorizeWriteDefaultXslt(createUser(AccountRole.EUROPEANA_DATA_OFFICER));
     });
     expectUnauthorizedException(() -> {
-      authorizer.authorizeDefaultXslt(createUser(AccountRole.PROVIDER_VIEWER));
+      authorizer.authorizeWriteDefaultXslt(createUser(AccountRole.PROVIDER_VIEWER));
     });
     expectUnauthorizedException(() -> {
-      authorizer.authorizeDefaultXslt(createUser(null));
+      authorizer.authorizeWriteDefaultXslt(createUser(null));
     });
     expectUnauthorizedException(() -> {
-      authorizer.authorizeDefaultXslt(null);
+      authorizer.authorizeWriteDefaultXslt(null);
     });
   }
 
   @Test
   public void testCreatingNewDataset() throws UserUnauthorizedException, NoDatasetFoundException {
-    authorizer.authorizeNewDataset(createUser(AccountRole.METIS_ADMIN));
-    authorizer.authorizeNewDataset(createUser(AccountRole.EUROPEANA_DATA_OFFICER));
+    authorizer.authorizeWriteNewDataset(createUser(AccountRole.METIS_ADMIN));
+    authorizer.authorizeWriteNewDataset(createUser(AccountRole.EUROPEANA_DATA_OFFICER));
     expectUnauthorizedException(() -> {
-      authorizer.authorizeNewDataset(createUser(AccountRole.PROVIDER_VIEWER));
+      authorizer.authorizeWriteNewDataset(createUser(AccountRole.PROVIDER_VIEWER));
     });
     expectUnauthorizedException(() -> {
-      authorizer.authorizeNewDataset(createUser(null));
+      authorizer.authorizeWriteNewDataset(createUser(null));
     });
     expectUnauthorizedException(() -> {
-      authorizer.authorizeNewDataset(null);
+      authorizer.authorizeWriteNewDataset(null);
     });
   }
 
   @Test
   public void testExistingDataset() throws UserUnauthorizedException, NoDatasetFoundException {
-    testExistingDataset(authorizer::authorizeExistingDatasetById, Dataset::getDatasetId);
-    testExistingDataset(authorizer::authorizeExistingDatasetByName, Dataset::getDatasetName);
+    testExistingDataset(authorizer::authorizeWriteExistingDatasetById, Dataset::getDatasetId,
+        false);
+    testExistingDataset(authorizer::authorizeReadExistingDatasetByName, Dataset::getDatasetName,
+        true);
+    testExistingDataset(authorizer::authorizeReadExistingDatasetById, Dataset::getDatasetId, true);
   }
 
   private <T> void testExistingDataset(ExistingDatasetAuthorizer<T> authorizeAction,
-      Function<Dataset, T> getDatasetProperty)
+      Function<Dataset, T> getDatasetProperty, boolean allowRead)
       throws UserUnauthorizedException, NoDatasetFoundException {
 
     // Create dataset
@@ -143,6 +146,12 @@ public class AuthorizerTest {
         authorizeAction.authorize(createUserForDataset(AccountRole.EUROPEANA_DATA_OFFICER, dataset),
             getDatasetProperty.apply(dataset));
     assertSame(dataset, result3);
+    if (allowRead) {
+      final Dataset result4 =
+          authorizeAction.authorize(createUserForDataset(AccountRole.PROVIDER_VIEWER, dataset),
+              getDatasetProperty.apply(dataset));
+      assertSame(dataset, result4);
+    }
 
     // Test unsuccesful authentications
     expectUnauthorizedException(() -> {
@@ -150,10 +159,12 @@ public class AuthorizerTest {
           createUserNotForDataset(AccountRole.EUROPEANA_DATA_OFFICER, dataset),
           getDatasetProperty.apply(dataset));
     });
-    expectUnauthorizedException(() -> {
-      authorizeAction.authorize(createUserForDataset(AccountRole.PROVIDER_VIEWER, dataset),
-          getDatasetProperty.apply(dataset));
-    });
+    if (!allowRead) {
+      expectUnauthorizedException(() -> {
+        authorizeAction.authorize(createUserForDataset(AccountRole.PROVIDER_VIEWER, dataset),
+            getDatasetProperty.apply(dataset));
+      });
+    }
     expectUnauthorizedException(() -> {
       authorizeAction.authorize(createUserNotForDataset(AccountRole.PROVIDER_VIEWER, dataset),
           getDatasetProperty.apply(dataset));
@@ -174,21 +185,29 @@ public class AuthorizerTest {
   @Test
   public void testNonExistingDatasetForId()
       throws UserUnauthorizedException, NoDatasetFoundException {
-    testNonExistingDataset(authorizer::authorizeExistingDatasetById, "");
-    testNonExistingDataset(authorizer::authorizeExistingDatasetByName, "");
+    testNonExistingDataset(authorizer::authorizeWriteExistingDatasetById, "", false);
+    testNonExistingDataset(authorizer::authorizeReadExistingDatasetById, "", true);
+    testNonExistingDataset(authorizer::authorizeReadExistingDatasetByName, "", true);
   }
 
   public <T> void testNonExistingDataset(ExistingDatasetAuthorizer<T> authorizeAction,
-      T nonExistingValue) throws UserUnauthorizedException, NoDatasetFoundException {
+      T nonExistingValue, boolean allowRead)
+      throws UserUnauthorizedException, NoDatasetFoundException {
     expectNoDatasetFoundException(() -> {
       authorizeAction.authorize(createUser(AccountRole.METIS_ADMIN), nonExistingValue);
     });
     expectNoDatasetFoundException(() -> {
       authorizeAction.authorize(createUser(AccountRole.EUROPEANA_DATA_OFFICER), nonExistingValue);
     });
-    expectUnauthorizedException(() -> {
-      authorizeAction.authorize(createUser(AccountRole.PROVIDER_VIEWER), nonExistingValue);
-    });
+    if (allowRead) {
+      expectNoDatasetFoundException(() -> {
+        authorizeAction.authorize(createUser(AccountRole.PROVIDER_VIEWER), nonExistingValue);
+      });
+    } else {
+      expectUnauthorizedException(() -> {
+        authorizeAction.authorize(createUser(AccountRole.PROVIDER_VIEWER), nonExistingValue);
+      });
+    }
     expectUnauthorizedException(() -> {
       authorizeAction.authorize(createUser(null), nonExistingValue);
     });
