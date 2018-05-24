@@ -33,6 +33,8 @@ public class ConfigurationPropertiesHolder {
   private String redisPassword;
   @Value("${redis.enableSSL}")
   private boolean redisEnableSSL;
+  @Value("${redis.enable.custom.truststore}")
+  private boolean redisEnableCustomTruststore;
   @Value("${redisson.lock.watchdog.timeout.in.secs}")
   private int redissonLockWatchdogTimeoutInSecs;
 
@@ -142,6 +144,10 @@ public class ConfigurationPropertiesHolder {
 
   public boolean isRedisEnableSSL() {
     return redisEnableSSL;
+  }
+
+  public boolean isRedisEnableCustomTruststore() {
+    return redisEnableCustomTruststore;
   }
 
   public int getRedissonLockWatchdogTimeoutInSecs() {

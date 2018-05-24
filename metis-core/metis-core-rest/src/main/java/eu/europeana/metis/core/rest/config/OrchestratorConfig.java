@@ -105,9 +105,11 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       singleServerConfig = config.useSingleServer()
           .setAddress(
               String.format("rediss://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
-                  .getRedisPort()))
-          .setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI())
-          .setSslTruststorePassword(propertiesHolder.getTruststorePassword());
+                  .getRedisPort()));
+      if (propertiesHolder.isRedisEnableCustomTruststore()) {
+        singleServerConfig.setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI());
+        singleServerConfig.setSslTruststorePassword(propertiesHolder.getTruststorePassword());
+      }
     } else {
       singleServerConfig = config.useSingleServer()
           .setAddress(

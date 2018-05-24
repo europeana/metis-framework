@@ -41,6 +41,8 @@ redis.host=
 redis.port=0
 redis.password=
 redis.enableSSL=
+#True if a custom certificate is used in the truststore defined above
+redis.enable.custom.truststore=
 
 solr.url=
 
