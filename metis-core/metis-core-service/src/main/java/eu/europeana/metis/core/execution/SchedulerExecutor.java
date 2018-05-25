@@ -200,7 +200,7 @@ public class SchedulerExecutor {
       scheduledUserWorkflowResponseListWrapper.clear();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(scheduleWorkflowService
-                  .getAllScheduledWorkflows(scheduleFrequence, nextPage),
+                  .getAllScheduledWorkflowsUnauthorized(scheduleFrequence, nextPage),
               scheduleWorkflowService.getScheduledWorkflowsPerRequest(), nextPage);
       scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());

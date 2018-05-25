@@ -2,6 +2,8 @@ package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
+import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -14,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,10 +32,12 @@ public class ScheduleWorkflowController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleWorkflowController.class);
   private final ScheduleWorkflowService scheduleWorkflowService;
+  private final AuthenticationClient authenticationClient;
 
-  public ScheduleWorkflowController(
-      ScheduleWorkflowService scheduleWorkflowService) {
+  public ScheduleWorkflowController(ScheduleWorkflowService scheduleWorkflowService,
+      AuthenticationClient authenticationClient) {
     this.scheduleWorkflowService = scheduleWorkflowService;
+    this.authenticationClient = authenticationClient;
   }
   
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.POST, consumes = {
@@ -40,9 +45,12 @@ public class ScheduleWorkflowController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void scheduleWorkflowExecution(@RequestBody ScheduledWorkflow scheduledWorkflow)
+  public void scheduleWorkflowExecution(
+      @RequestHeader("Authorization") String authorization,
+      @RequestBody ScheduledWorkflow scheduledWorkflow)
       throws GenericMetisException {
-    scheduleWorkflowService.scheduleWorkflow(scheduledWorkflow);
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow);
     LOGGER.info(
         "ScheduledWorkflowExecution for datasetId '{}', workflowOwner '{}', pointerDate at '{}', scheduled '{}'",
         scheduledWorkflow.getDatasetId(),
@@ -56,9 +64,12 @@ public class ScheduleWorkflowController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ScheduledWorkflow getScheduledWorkflow(
-      @PathVariable("datasetId") String datasetId) {
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") String datasetId)
+      throws GenericMetisException {
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ScheduledWorkflow scheduledWorkflow = scheduleWorkflowService
-        .getScheduledWorkflowByDatasetId(datasetId);
+        .getScheduledWorkflowByDatasetId(metisUser, datasetId);
     LOGGER.info("ScheduledWorkflow with with datasetId '{}' found", datasetId);
     return scheduledWorkflow;
   }
@@ -68,14 +79,16 @@ public class ScheduleWorkflowController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<ScheduledWorkflow> getAllScheduledWorkflows(
+      @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(scheduleWorkflowService
-            .getAllScheduledWorkflows(ScheduleFrequence.NULL, nextPage),
+            .getAllScheduledWorkflows(metisUser, ScheduleFrequence.NULL, nextPage),
         scheduleWorkflowService.getScheduledWorkflowsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} scheduledWorkflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
@@ -87,9 +100,11 @@ public class ScheduleWorkflowController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void updateScheduledWorkflow(
+      @RequestHeader("Authorization") String authorization,
       @RequestBody ScheduledWorkflow scheduledWorkflow)
       throws GenericMetisException {
-    scheduleWorkflowService.updateScheduledWorkflow(scheduledWorkflow);
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    scheduleWorkflowService.updateScheduledWorkflow(metisUser, scheduledWorkflow);
     LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
         scheduledWorkflow.getDatasetId());
   }
@@ -99,8 +114,11 @@ public class ScheduleWorkflowController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void deleteScheduledWorkflowExecution(
-      @PathVariable("datasetId") String datasetId) {
-    scheduleWorkflowService.deleteScheduledWorkflow(datasetId);
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") String datasetId)
+      throws GenericMetisException {
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    scheduleWorkflowService.deleteScheduledWorkflow(metisUser, datasetId);
     LOGGER.info("ScheduledWorkflowExecution for datasetId '{}' deleted", datasetId);
   }
 }

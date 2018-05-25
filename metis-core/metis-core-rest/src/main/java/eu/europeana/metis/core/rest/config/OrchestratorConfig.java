@@ -1,28 +1,5 @@
 package eu.europeana.metis.core.rest.config;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import eu.europeana.cloud.client.dps.rest.DpsClient;
-import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.cloud.mcs.driver.FileServiceClient;
-import eu.europeana.cloud.mcs.driver.RecordServiceClient;
-import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.DatasetXsltDao;
-import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
-import eu.europeana.metis.core.dao.WorkflowDao;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.execution.FailsafeExecutor;
-import eu.europeana.metis.core.execution.SchedulerExecutor;
-import eu.europeana.metis.core.execution.WorkflowExecutorManager;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.core.service.ProxiesService;
-import eu.europeana.metis.core.service.ScheduleWorkflowService;
-import io.netty.util.ThreadDeathWatcher;
-import io.netty.util.concurrent.FastThreadLocal;
-import io.netty.util.internal.InternalThreadLocalMap;
 import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -46,6 +23,30 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.mcs.driver.FileServiceClient;
+import eu.europeana.cloud.mcs.driver.RecordServiceClient;
+import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.execution.FailsafeExecutor;
+import eu.europeana.metis.core.execution.SchedulerExecutor;
+import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.service.Authorizer;
+import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.service.ProxiesService;
+import eu.europeana.metis.core.service.ScheduleWorkflowService;
+import io.netty.util.ThreadDeathWatcher;
+import io.netty.util.concurrent.FastThreadLocal;
+import io.netty.util.internal.InternalThreadLocalMap;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -138,8 +139,9 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   public ScheduleWorkflowService getScheduleWorkflowService(
-      ScheduledWorkflowDao scheduledWorkflowDao, WorkflowDao workflowDao, DatasetDao datasetDao) {
-    return new ScheduleWorkflowService(scheduledWorkflowDao, workflowDao, datasetDao);
+      ScheduledWorkflowDao scheduledWorkflowDao, WorkflowDao workflowDao, DatasetDao datasetDao,
+      Authorizer authorizer) {
+    return new ScheduleWorkflowService(scheduledWorkflowDao, workflowDao, datasetDao, authorizer);
   }
 
   @Bean
