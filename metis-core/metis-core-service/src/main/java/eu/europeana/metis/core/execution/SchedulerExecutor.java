@@ -212,7 +212,7 @@ public class SchedulerExecutor {
   private void tryAddUserWorkflowInQueueOfUserWorkflowExecutions(
       ScheduledWorkflow scheduledWorkflow) {
     try {
-      orchestratorService.addWorkflowInQueueOfWorkflowExecutions(
+      orchestratorService.addWorkflowInQueueOfWorkflowExecutionsUnauthorized(
           scheduledWorkflow.getDatasetId(), null, scheduledWorkflow.getWorkflowPriority());
     } catch (GenericMetisException e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);

@@ -127,12 +127,12 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
-      WorkflowExecutionDao workflowExecutionDao,
-      DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
-      WorkflowExecutorManager workflowExecutorManager) throws IOException {
-    OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
-        workflowExecutionDao, datasetDao, datasetXsltDao, workflowExecutorManager,
-        redissonClient);
+      WorkflowExecutionDao workflowExecutionDao, DatasetDao datasetDao,
+      DatasetXsltDao datasetXsltDao, WorkflowExecutorManager workflowExecutorManager,
+      Authorizer authorizer) throws IOException {
+    OrchestratorService orchestratorService =
+        new OrchestratorService(workflowDao, workflowExecutionDao, datasetDao, datasetXsltDao,
+            workflowExecutorManager, redissonClient, authorizer);
     orchestratorService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     return orchestratorService;
   }

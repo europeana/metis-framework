@@ -79,7 +79,7 @@ public class FailsafeExecutor {
     do {
       userWorkflowExecutionResponseListWrapper.clear();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(orchestratorService
-              .getAllWorkflowExecutions(null, null, EnumSet.of(workflowStatus),
+              .getAllWorkflowExecutionsUnauthorized(null, null, EnumSet.of(workflowStatus),
                   OrderField.ID, true, nextPage),
           orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
       workflowExecutions
