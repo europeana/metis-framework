@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,7 +18,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -145,7 +148,7 @@ class ImageProcessor {
 		File thumbsDir = new File(tempDir, "media_thumbnails");
 		if (!thumbsDir.isDirectory() && !thumbsDir.mkdir())
 			throw new IOException("Could not create thumbnails subdirectory: " + thumbsDir);
-		String md5 = DigestUtils.md5Hex(url);
+        String md5 = md5Hex(url);
 		String ext = "image/png".equals(mimeType) ? ".png" : ".jpeg";
         List<Thumbnail> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
 		for (int i = 0; i < THUMB_SUFFIX.length; i++) {
@@ -155,6 +158,16 @@ class ImageProcessor {
 		return thumbs;
 	}
 	
+    private static String md5Hex(String s) {
+        try {
+            byte[] bytes = s.getBytes("UTF-8");
+            byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
+            return String.format("%032x", new BigInteger(1, md5bytes));
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 	private List<String> extractDominantColors(List<String> results, int skipLines) {
 		final int MAX_COLORS = 6;
 		final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
