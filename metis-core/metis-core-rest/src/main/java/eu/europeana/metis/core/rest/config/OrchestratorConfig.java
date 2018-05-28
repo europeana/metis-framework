@@ -147,10 +147,9 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Bean
   public ProxiesService getProxiesService(WorkflowExecutionDao workflowExecutionDao,
       DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
-      FileServiceClient fileServiceClient,
-      DpsClient dpsClient) {
+      FileServiceClient fileServiceClient, DpsClient dpsClient, Authorizer authorizer) {
     return new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient,
-        fileServiceClient, dpsClient, propertiesHolder.getEcloudProvider());
+        fileServiceClient, dpsClient, propertiesHolder.getEcloudProvider(), authorizer);
   }
 
   @Bean
