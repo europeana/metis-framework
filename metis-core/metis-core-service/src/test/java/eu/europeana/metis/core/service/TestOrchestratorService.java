@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -48,6 +49,7 @@ import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.OrderField;
+import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -60,6 +62,8 @@ import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
@@ -93,6 +97,10 @@ public class TestOrchestratorService {
         datasetXsltDao, workflowExecutorManager,
         redissonClient, authorizer);
     orchestratorService.setMetisCoreUrl("https://some.url.com");
+    orchestratorService.setValidationExternalProperties(
+        new ValidationProperties("url-ext", "schema-ext", "schematron-ext"));
+    orchestratorService.setValidationInternalProperties(
+        new ValidationProperties("url-int", "schema-int", "schematron-int"));
   }
 
   @After
@@ -253,6 +261,8 @@ public class TestOrchestratorService {
 
   @Test
   public void addWorkflowInQueueOfWorkflowExecutions() throws Exception {
+    
+    // Create the test objects
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
@@ -271,12 +281,34 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     
+    // Add the workflow
+    
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     
     orchestratorService.addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(dataset.getDatasetId(), null, 0);
     verifyNoMoreInteractions(authorizer);
+    
+    // Verify the validation parameters
+    final ValidationInternalPluginMetadata metadataInternal =
+        (ValidationInternalPluginMetadata) workflow
+            .getPluginMetadata(PluginType.VALIDATION_INTERNAL);
+    assertEquals(orchestratorService.getValidationInternalProperties().getUrlOfSchemasZip(),
+        metadataInternal.getUrlOfSchemasZip());
+    assertEquals(orchestratorService.getValidationInternalProperties().getSchemaRootPath(),
+        metadataInternal.getSchemaRootPath());
+    assertEquals(orchestratorService.getValidationInternalProperties().getSchematronRootPath(),
+        metadataInternal.getSchematronRootPath());
+    final ValidationExternalPluginMetadata metadataExternal =
+        (ValidationExternalPluginMetadata) workflow
+            .getPluginMetadata(PluginType.VALIDATION_EXTERNAL);
+    assertEquals(orchestratorService.getValidationExternalProperties().getUrlOfSchemasZip(),
+        metadataExternal.getUrlOfSchemasZip());
+    assertEquals(orchestratorService.getValidationExternalProperties().getSchemaRootPath(),
+        metadataExternal.getSchemaRootPath());
+    assertEquals(orchestratorService.getValidationExternalProperties().getSchematronRootPath(),
+        metadataExternal.getSchematronRootPath());
   }
 
   @Test

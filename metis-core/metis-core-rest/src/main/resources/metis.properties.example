@@ -53,6 +53,14 @@ ecloud.provider=
 ecloud.username=
 ecloud.password=
 
+#Validation
+validation.external.schema.zip=
+validation.external.schema.root=
+validation.external.schematron.root=
+validation.internal.schema.zip=
+validation.internal.schema.root=
+validation.internal.schematron.root=
+
 #Authentication
 authentication.baseUrl=
 

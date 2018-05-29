@@ -136,6 +136,10 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
         new OrchestratorService(workflowDao, workflowExecutionDao, datasetDao, datasetXsltDao,
             workflowExecutorManager, redissonClient, authorizer);
     orchestratorService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
+    orchestratorService
+        .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
+    orchestratorService
+        .setValidationInternalProperties(propertiesHolder.getValidationInternalProperties());
     return orchestratorService;
   }
 
