@@ -200,7 +200,7 @@ public class SchedulerExecutor {
       scheduledUserWorkflowResponseListWrapper.clear();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(scheduleWorkflowService
-                  .getAllScheduledWorkflowsUnauthorized(scheduleFrequence, nextPage),
+                  .getAllScheduledWorkflowsWithoutAuthorization(scheduleFrequence, nextPage),
               scheduleWorkflowService.getScheduledWorkflowsPerRequest(), nextPage);
       scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());
@@ -212,7 +212,7 @@ public class SchedulerExecutor {
   private void tryAddUserWorkflowInQueueOfUserWorkflowExecutions(
       ScheduledWorkflow scheduledWorkflow) {
     try {
-      orchestratorService.addWorkflowInQueueOfWorkflowExecutionsUnauthorized(
+      orchestratorService.addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(
           scheduledWorkflow.getDatasetId(), null, scheduledWorkflow.getWorkflowPriority());
     } catch (GenericMetisException e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);

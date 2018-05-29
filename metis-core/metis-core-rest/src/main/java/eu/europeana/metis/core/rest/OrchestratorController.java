@@ -184,10 +184,10 @@ public class OrchestratorController {
       @PathVariable("workflowOwner") String workflowOwner,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(orchestratorService.getAllWorkflows(metisUser, workflowOwner, nextPage),
@@ -386,10 +386,10 @@ public class OrchestratorController {
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(
         orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowOwner,
@@ -429,10 +429,10 @@ public class OrchestratorController {
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(
         orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowOwner,

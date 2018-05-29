@@ -243,14 +243,14 @@ public class OrchestratorService {
   }
 
   /**
-   * <P> Does checking, prepares and adds a WorkflowExecution in the queue. That means it updates the
+   * <p> Does checking, prepares and adds a WorkflowExecution in the queue. That means it updates the
    * status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database and
    * also it's identifier goes into the distributed queue of WorkflowExecutions. The source data for
    * the first plugin in the workflow can be controlled, if required, from the
    * {@code enforcedPluginType}, which means that the last valid plugin that is provided with that
    * parameter, will be used as the source data. </p>
-   * <p> This method is not checked for authorization: it is only meant to be called from a scheduled
-   * task. </p>
+   * <p> <b>Please note:</b> this method is not checked for authorization: it is only meant to be 
+   * called from a scheduled task. </p>
    * 
    * @param datasetId the dataset identifier for which the execution will take place
    * @param enforcedPluginType optional, the plugin type to be used as source data
@@ -266,7 +266,7 @@ public class OrchestratorService {
    * <li>{@link WorkflowExecutionAlreadyExistsException} if a workflow execution for the generated execution identifier already exists, almost impossible to happen since ids are UUIDs</li>
    * </ul>
    */
-  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutionsUnauthorized(
+  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(
       String datasetId, PluginType enforcedPluginType, int priority) throws GenericMetisException {
     final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (dataset == null) {
@@ -602,13 +602,13 @@ public class OrchestratorService {
       String workflowOwner, Set<WorkflowStatus> workflowStatuses, OrderField orderField,
       boolean ascending, int nextPage) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    return getAllWorkflowExecutionsUnauthorized(datasetId, workflowOwner, workflowStatuses,
+    return getAllWorkflowExecutionsWithoutAuthorization(datasetId, workflowOwner, workflowStatuses,
         orderField, ascending, nextPage);
   }
 
   /**
-   * Get all WorkflowExecutions paged. This method is not checked for authorization: it is only
-   * meant to be called from a scheduled task.
+   * Get all WorkflowExecutions paged. <b>Please note:</b> this method is not checked for
+   * authorization: it is only meant to be called from a scheduled task.
    *
    * @param datasetId the dataset identifier filter, can be null to get all datasets
    * @param workflowOwner the workflow owner, can be null
@@ -618,7 +618,7 @@ public class OrchestratorService {
    * @param nextPage the nextPage token
    * @return a list of all the WorkflowExecutions found
    */
-  public List<WorkflowExecution> getAllWorkflowExecutionsUnauthorized(String datasetId,
+  public List<WorkflowExecution> getAllWorkflowExecutionsWithoutAuthorization(String datasetId,
       String workflowOwner, Set<WorkflowStatus> workflowStatuses, OrderField orderField,
       boolean ascending, int nextPage) {
     return workflowExecutionDao.getAllWorkflowExecutions(datasetId, workflowOwner, workflowStatuses,

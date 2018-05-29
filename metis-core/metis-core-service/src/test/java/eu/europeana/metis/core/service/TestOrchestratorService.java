@@ -275,7 +275,7 @@ public class TestOrchestratorService {
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     
-    orchestratorService.addWorkflowInQueueOfWorkflowExecutionsUnauthorized(dataset.getDatasetId(), null, 0);
+    orchestratorService.addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(dataset.getDatasetId(), null, 0);
     verifyNoMoreInteractions(authorizer);
   }
 
@@ -446,7 +446,7 @@ public class TestOrchestratorService {
       throws Exception {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(datasetDao.getDatasetByDatasetId(datasetId)).thenReturn(null);
-    orchestratorService.addWorkflowInQueueOfWorkflowExecutionsUnauthorized(datasetId, null, 0);
+    orchestratorService.addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(datasetId, null, 0);
   }
 
   @Test(expected = NoWorkflowFoundException.class)

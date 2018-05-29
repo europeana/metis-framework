@@ -149,7 +149,8 @@ public class Authorizer {
     }
   }
 
-  private static interface DatasetSupplier {
+  @FunctionalInterface
+  private interface DatasetSupplier {
     Dataset get() throws NoDatasetFoundException;
   }
 }

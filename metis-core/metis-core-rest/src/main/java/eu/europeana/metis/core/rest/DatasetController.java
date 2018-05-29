@@ -294,7 +294,7 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, PluginType, String)}
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, PluginType, String)}
    * to try a transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *
@@ -326,7 +326,7 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, PluginType, String)}
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, PluginType, String)}
    * to try a transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *

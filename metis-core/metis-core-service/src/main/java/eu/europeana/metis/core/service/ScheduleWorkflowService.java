@@ -61,7 +61,7 @@ public class ScheduleWorkflowService {
   }
 
   // This method does not require authorization. It is called from a scheduled task.
-  public List<ScheduledWorkflow> getAllScheduledWorkflowsUnauthorized(
+  public List<ScheduledWorkflow> getAllScheduledWorkflowsWithoutAuthorization(
       ScheduleFrequence scheduleFrequence, int nextPage) {
     return scheduledWorkflowDao.getAllScheduledWorkflows(scheduleFrequence, nextPage);
   }
@@ -69,7 +69,7 @@ public class ScheduleWorkflowService {
   public List<ScheduledWorkflow> getAllScheduledWorkflows(MetisUser metisUser,
       ScheduleFrequence scheduleFrequence, int nextPage) throws UserUnauthorizedException {
     authorizer.authorizeReadAllDatasets(metisUser);
-    return getAllScheduledWorkflowsUnauthorized(scheduleFrequence, nextPage);
+    return getAllScheduledWorkflowsWithoutAuthorization(scheduleFrequence, nextPage);
   }
 
   // This method does not require authorization. It is called from a scheduled task.
