@@ -35,6 +35,7 @@ import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsExceptio
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.OrderField;
+import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -42,6 +43,8 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -67,6 +70,9 @@ public class OrchestratorService {
   private final WorkflowExecutorManager workflowExecutorManager;
   private final RedissonClient redissonClient;
   private final Authorizer authorizer;
+
+  private ValidationProperties validationExternalProperties; // Use getter and setter!
+  private ValidationProperties validationInternalProperties; // Use getter and setter!
   private String metisCoreUrl; // Use getter and setter for this field!
 
   /**
@@ -402,15 +408,28 @@ public class OrchestratorService {
         pluginMetadata.setPreviousRevisionInformation(previousPlugin); //Set all previous revision information
       }
 
+      // Sanity check
       if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
         //This is practically impossible to happen since the pluginMetadata has to be valid in the Workflow using a pluginType, before reaching this state.
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
       }
 
-      if (pluginType == PluginType.TRANSFORMATION) {
-        setupXsltUrlForPluginMetadata(dataset, pluginMetadata);
+      // Add some extra configuration to the plugin metadata
+      switch (pluginType) {
+        case TRANSFORMATION:
+          setupXsltUrlForPluginMetadata(dataset, pluginMetadata);
+          break;
+        case VALIDATION_EXTERNAL:
+          setupValidationForPluginMetadata(pluginMetadata, getValidationExternalProperties());
+          break;
+        case VALIDATION_INTERNAL:
+          setupValidationForPluginMetadata(pluginMetadata, getValidationInternalProperties());
+          break;
+        default:
+          break;
       }
 
+      // Create plugin
       AbstractMetisPlugin abstractMetisPlugin = pluginType.getNewPlugin(pluginMetadata);
       abstractMetisPlugin
           .setId(new ObjectId().toString() + "-" + abstractMetisPlugin.getPluginType().name());
@@ -419,7 +438,7 @@ public class OrchestratorService {
     }
     return firstPluginDefined;
   }
-
+  
   private void setupXsltUrlForPluginMetadata(Dataset dataset,
       AbstractMetisPluginMetadata abstractMetisPluginMetadata) {
     DatasetXslt xsltObject;
@@ -432,6 +451,27 @@ public class OrchestratorService {
       ((TransformationPluginMetadata) abstractMetisPluginMetadata)
           .setXsltUrl(getMetisCoreUrl() + RestEndpoints
               .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, xsltObject.getId().toString()));
+    }
+  }
+
+  private static void setupValidationForPluginMetadata(AbstractMetisPluginMetadata metadata,
+      ValidationProperties validationProperties) {
+    if (metadata instanceof ValidationExternalPluginMetadata) {
+      final ValidationExternalPluginMetadata castMetadata =
+          (ValidationExternalPluginMetadata) metadata;
+      castMetadata.setUrlOfSchemasZip(validationProperties.getUrlOfSchemasZip());
+      castMetadata.setSchemaRootPath(validationProperties.getSchemaRootPath());
+      castMetadata.setSchematronRootPath(validationProperties.getSchematronRootPath());
+    } else if (metadata instanceof ValidationInternalPluginMetadata) {
+      final ValidationInternalPluginMetadata castMetadata =
+          (ValidationInternalPluginMetadata) metadata;
+      castMetadata.setUrlOfSchemasZip(validationProperties.getUrlOfSchemasZip());
+      castMetadata.setSchemaRootPath(validationProperties.getSchemaRootPath());
+      castMetadata.setSchematronRootPath(validationProperties.getSchematronRootPath());
+    } else {
+      throw new IllegalArgumentException("The provided metadata does not have the right type. "
+          + "Expecting metadata for a validation plugin, but instead received metadata of type "
+          + metadata.getClass().getName() + ".");
     }
   }
 
@@ -690,6 +730,30 @@ public class OrchestratorService {
   private String getMetisCoreUrl() {
     synchronized (this) {
       return this.metisCoreUrl;
+    }
+  }
+
+  public ValidationProperties getValidationExternalProperties() {
+    synchronized (this) {
+      return validationExternalProperties;
+    }
+  }
+
+  public void setValidationExternalProperties(ValidationProperties validationExternalProperties) {
+    synchronized (this) {
+      this.validationExternalProperties = validationExternalProperties;
+    }
+  }
+
+  public ValidationProperties getValidationInternalProperties() {
+    synchronized (this) {
+      return validationInternalProperties;
+    }
+  }
+
+  public void setValidationInternalProperties(ValidationProperties validationInternalProperties) {
+    synchronized (this) {
+      this.validationInternalProperties = validationInternalProperties;
     }
   }
 }

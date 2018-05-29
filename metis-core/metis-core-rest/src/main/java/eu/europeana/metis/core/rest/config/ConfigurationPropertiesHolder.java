@@ -3,6 +3,7 @@ package eu.europeana.metis.core.rest.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import eu.europeana.metis.core.workflow.ValidationProperties;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -91,6 +92,20 @@ public class ConfigurationPropertiesHolder {
   private String mongoDb;
   @Value("${mongo.enableSSL}")
   private boolean mongoEnableSSL;
+
+  //Validation
+  @Value("${validation.internal.schema.zip}")
+  private String validationInternalSchemaZip;
+  @Value("${validation.internal.schema.root}")
+  private String validationInternalSchemaRoot;
+  @Value("${validation.internal.schematron.root}")
+  private String validationInternalSchematronRoot;
+  @Value("${validation.external.schema.zip}")
+  private String validationExternalSchemaZip;
+  @Value("${validation.external.schema.root}")
+  private String validationExternalSchemaRoot;
+  @Value("${validation.external.schematron.root}")
+  private String validationExternalSchematronRoot;
 
   //Authentication
   @Value("${authentication.baseUrl}")
@@ -272,5 +287,15 @@ public class ConfigurationPropertiesHolder {
 
   public String getEcloudPassword() {
     return ecloudPassword;
+  }
+
+  public ValidationProperties getValidationExternalProperties() {
+    return new ValidationProperties(validationExternalSchemaZip, validationExternalSchemaRoot,
+        validationExternalSchematronRoot);
+  }
+
+  public ValidationProperties getValidationInternalProperties() {
+    return new ValidationProperties(validationInternalSchemaZip, validationInternalSchemaRoot,
+        validationInternalSchematronRoot);
   }
 }
