@@ -36,19 +36,19 @@ public class AuthenticationClient {
   }
 
   /**
-   * Retrieves a user from the remote REST API using an authorization header that contains an access token.
+   * Retrieves a user from the remote REST API using an authorization header that contains an access
+   * token.
    *
    * @param authorizationHeader the authorization header containing the access token
-   * <p>
-   * The expected input should follow the rule
-   * Bearer accessTokenHere
-   * </p>
+   *        <p>
+   *        The expected input should follow the rule Bearer accessTokenHere
+   *        </p>
    * @return {@link MetisUser}.
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
-   * authenticated.</li>
-   * </ul>
+   *         <ul>
+   *         <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
+   *         user cannot be authenticated.</li>
+   *         </ul>
    */
   public MetisUser getUserByAccessTokenInHeader(String authorizationHeader)
       throws GenericMetisException {

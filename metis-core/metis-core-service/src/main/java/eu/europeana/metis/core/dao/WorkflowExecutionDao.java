@@ -441,4 +441,21 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     LOGGER.debug("WorkflowExecution with datasetId: {}, deleted from Mongo", datasetId);
     return delete.getN() >= 1;
   }
+
+  /**
+   * This method retrieves the workflow execution of which the task with the given ID is a subtask.
+   * 
+   * @param externalTaskId The external task ID that is to be queried.
+   * @return The dataset ID.
+   */
+  public WorkflowExecution getByExternalTaskId(long externalTaskId) {
+    final Query<AbstractMetisPlugin> subQuery =
+        morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
+    subQuery.field("externalTaskId").equal(Long.toString(externalTaskId));
+    final Query<WorkflowExecution> query =
+        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+    query.field(METIS_PLUGINS).elemMatch(subQuery);
+    final List<WorkflowExecution> resultList = query.asList(new FindOptions().limit(1));
+    return resultList.isEmpty() ? null : resultList.get(0);
+  }
 }

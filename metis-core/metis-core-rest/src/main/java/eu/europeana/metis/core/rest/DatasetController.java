@@ -72,7 +72,7 @@ public class DatasetController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link DatasetAlreadyExistsException} if the dataset already exists for the organizationId and datasetName.</li>
-   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be authenticated or the user is unauthorized.</li>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be authenticated or authorized or the user is unauthorized.</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.POST, consumes = {
@@ -96,7 +96,7 @@ public class DatasetController {
    * Update a provided dataset including an xslt string.
    * <p>
    * Non allowed fields, to be manually updated, will be ignored.
-   * Updating a datast with a new xslt will only overwrite the {@link Dataset#xsltId} and a new
+   * Updating a dataset with a new xslt will only overwrite the {@link Dataset#xsltId} and a new
    * {@link DatasetXslt} object will be stored. The older {@link DatasetXslt} will still be accessible.
    * </p>
    *
@@ -294,7 +294,7 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, PluginType, String)}
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, PluginType, String)}
    * to try a transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *
@@ -306,7 +306,7 @@ public class DatasetController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
-   * authenticated.</li>
+   * authenticated or authorized.</li>
    * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
    * <li>{@link NoXsltFoundException} if there is no xslt found</li>
    * </ul>
@@ -326,7 +326,7 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, PluginType, String)}
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, PluginType, String)}
    * to try a transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *
@@ -338,7 +338,7 @@ public class DatasetController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
-   * authenticated.</li>
+   * authenticated or authorized.</li>
    * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
    * <li>{@link NoXsltFoundException} if there is no xslt found</li>
    * </ul>
