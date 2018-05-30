@@ -2,6 +2,8 @@ package eu.europeana.enrichment.service.dao;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.xml.bind.JAXBContext;
@@ -35,6 +37,7 @@ import eu.europeana.enrichment.service.exception.WikidataAccessException;
  */
 public class WikidataAccessDao {
 
+  public static final String WIKIDATA_ORGANIZATION_XSL_FILE = "/wkd2org.xsl";
   private static final String SPARQL = "https://query.wikidata.org/sparql";
   private static final int SIZE = 1024 * 1024;
 
@@ -42,12 +45,22 @@ public class WikidataAccessDao {
 
   private Transformer transformer;
 
-  private File templateFile;
+  private InputStream xslTemplateImputStream;
 
   EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
 
-  public WikidataAccessDao(File templateFile) throws WikidataAccessException {
-    this.templateFile = templateFile;
+  public WikidataAccessDao(File templateFile)
+      throws WikidataAccessException, FileNotFoundException {
+    this(new FileInputStream(templateFile));
+  }
+
+  public WikidataAccessDao(InputStream xslTemplate) throws WikidataAccessException {
+    this.xslTemplateImputStream = xslTemplate;
+    init();
+  }
+
+  public WikidataAccessDao() throws WikidataAccessException {
+    this.xslTemplateImputStream = getClass().getResourceAsStream(WIKIDATA_ORGANIZATION_XSL_FILE);
     init();
   }
 
@@ -64,7 +77,7 @@ public class WikidataAccessDao {
   public final void init() throws WikidataAccessException {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     try {
-      Source xslt = new StreamSource(templateFile);
+      Source xslt = new StreamSource(xslTemplateImputStream);
       transformer = transformerFactory.newTransformer(xslt);
       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
     } catch (TransformerConfigurationException e) {
@@ -132,7 +145,7 @@ public class WikidataAccessDao {
 
     Model m = ModelFactory.createDefaultModel();
     QueryEngineHTTP endpoint = new QueryEngineHTTP(SPARQL, sDescribe);
-    
+
     try {
       return endpoint.execDescribe(m);
     } catch (RiotException e) {
@@ -199,7 +212,9 @@ public class WikidataAccessDao {
    */
   public void translate(String uri, StreamResult res) throws WikidataAccessException {
     transformer.setParameter("rdf_about", uri);
+    transformer.setParameter("deref", true);
+    transformer.setParameter("address", false);
     transform(getModelFromSPARQL(uri), transformer, res);
   }
-  
+
 }

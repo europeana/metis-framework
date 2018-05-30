@@ -11,7 +11,6 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.enrichment.service.EntityConverterUtils;
-import eu.europeana.enrichment.service.WikidataAccessService;
 import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 
@@ -24,7 +23,6 @@ public abstract class BaseZohoAccessSetup {
   public final String ORGANIZATION_IMPL_TEST_EXPECTED_FILE = CONTENT_DIR + "bnf-organization-impl-expected.json";
   public final String WIKIDATA_TEST_OUTPUT_FILE = CONTENT_DIR + "test.out";
   public final String WIKIDATA_TEST_MANUAL_INPUT_FILE = CONTENT_DIR + "bnf-manual-test.xml";
-  public final String WIKIDATA_ORGANIZATION_XSLT_TEMPLATE = WikidataAccessService.WIKIDATA_ORGANIZATION_XSL_FILE;
   public final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
   protected final String TEST_ORGANIZATION_ID = "1482250000002112001";
   

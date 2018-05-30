@@ -37,7 +37,6 @@ import eu.europeana.enrichment.service.exception.WikidataAccessException;
 public class WikidataAccessService {
 
   public static final String WIKIDATA_BASE_URL = "http://www.wikidata.org/entity/Q";
-  public static final String WIKIDATA_ORGANIZATION_XSL_FILE = "/wkd2org.xsl";
   private static final Logger LOGGER = LoggerFactory.getLogger(WikidataAccessService.class);
 
   private final WikidataAccessDao wikidataAccessDao;
@@ -190,6 +189,8 @@ public class WikidataAccessService {
    */
   public void saveXmlToFile(String xml, File contentFile) throws WikidataAccessException {
     try {
+      if(!contentFile.exists())
+        contentFile.createNewFile();
       FileUtils.write(contentFile, xml, StandardCharsets.UTF_8.name());
     } catch (IOException e) {
       throw new WikidataAccessException(WikidataAccessException.XML_COULD_NOT_BE_WRITTEN_TO_FILE_ERROR, e);
