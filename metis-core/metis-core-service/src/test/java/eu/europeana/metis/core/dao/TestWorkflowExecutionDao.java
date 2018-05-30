@@ -16,6 +16,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -310,9 +311,10 @@ public class TestWorkflowExecutionDao {
     int allUserWorkflowsExecutionsCount = 0;
     do {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
-      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
-              .getAllWorkflowExecutions(Integer.toString(TestObjectFactory.DATASETID),
-                  TestObjectFactory.WORKFLOWOWNER, workflowStatuses, OrderField.ID, false, nextPage),
+      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(
+          workflowExecutionDao.getAllWorkflowExecutions(
+              Collections.singleton(Integer.toString(TestObjectFactory.DATASETID)),
+              workflowStatuses, OrderField.ID, false, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
@@ -337,10 +339,10 @@ public class TestWorkflowExecutionDao {
     int allUserWorkflowsExecutionsCount = 0;
     do {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
-      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
-              .getAllWorkflowExecutions(Integer.toString(TestObjectFactory.DATASETID),
-                  TestObjectFactory.WORKFLOWOWNER, workflowStatuses, OrderField.CREATED_DATE, true,
-                  nextPage),
+      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(
+          workflowExecutionDao.getAllWorkflowExecutions(
+              Collections.singleton(Integer.toString(TestObjectFactory.DATASETID)),
+              workflowStatuses, OrderField.CREATED_DATE, true, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       WorkflowExecution beforeWorkflowExecution = userWorkflowExecutionResponseListWrapper
           .getResults().get(0);

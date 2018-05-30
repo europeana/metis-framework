@@ -22,7 +22,6 @@ import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 
@@ -64,10 +63,12 @@ public class TestFailsafeExecutor {
     List<WorkflowExecution> listOfWorkflowExecutionsWithInqueueStatuses = TestObjectFactory
         .createListOfWorkflowExecutions(listSize); //To not trigger paging
 
-    when(orchestratorService.getAllWorkflowExecutionsWithoutAuthorization(null, null, EnumSet.of(WorkflowStatus.RUNNING), OrderField.ID, true, 0))
-        .thenReturn(listOfWorkflowExecutionsWithRunningStatuses);
-    when(orchestratorService.getAllWorkflowExecutionsWithoutAuthorization(null, null, EnumSet.of(WorkflowStatus.INQUEUE), OrderField.ID, true, 0))
-        .thenReturn(listOfWorkflowExecutionsWithInqueueStatuses);
+    when(orchestratorService
+        .getAllWorkflowExecutionsWithoutAuthorization(EnumSet.of(WorkflowStatus.RUNNING), 0))
+            .thenReturn(listOfWorkflowExecutionsWithRunningStatuses);
+    when(orchestratorService
+        .getAllWorkflowExecutionsWithoutAuthorization(EnumSet.of(WorkflowStatus.INQUEUE), 0))
+            .thenReturn(listOfWorkflowExecutionsWithInqueueStatuses);
     when(orchestratorService.getWorkflowExecutionsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest).thenReturn(userWorkflowExecutionsPerRequest);
     doNothing().when(rlock).unlock();

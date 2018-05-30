@@ -598,10 +598,9 @@ public class TestOrchestratorController {
         .createListOfWorkflowExecutions(listSize + 1); //To get the effect of next page
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-    when(orchestratorService
-        .getAllWorkflowExecutions(eq(metisUser), anyString(), anyString(), ArgumentMatchers.anySet(),
-            any(OrderField.class), anyBoolean(), anyInt()))
-        .thenReturn(listOfWorkflowExecutions);
+    when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), anyString(),
+        ArgumentMatchers.anySet(), any(OrderField.class), anyBoolean(), anyInt()))
+            .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
@@ -649,10 +648,9 @@ public class TestOrchestratorController {
         .createListOfWorkflowExecutions(listSize + 1); //To get the effect of next page
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-    when(orchestratorService
-        .getAllWorkflowExecutions(eq(metisUser), isNull(), anyString(), ArgumentMatchers.anySet(),
-            any(OrderField.class), anyBoolean(), anyInt()))
-        .thenReturn(listOfWorkflowExecutions);
+    when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), isNull(),
+        ArgumentMatchers.anySet(), any(OrderField.class), anyBoolean(), anyInt()))
+            .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)

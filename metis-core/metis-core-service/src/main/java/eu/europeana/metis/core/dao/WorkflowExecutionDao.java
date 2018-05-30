@@ -1,21 +1,11 @@
 package eu.europeana.metis.core.dao;
 
-import com.mongodb.WriteResult;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.core.workflow.OrderField;
-import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.WorkflowStatus;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.PluginStatus;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.aggregation.AggregationPipeline;
@@ -30,6 +20,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.mongodb.WriteResult;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.workflow.OrderField;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -278,24 +277,21 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   /**
    * Get all WorkflowExecutions paged.
    *
-   * @param datasetId the dataset identifier filter, can be null to get all datasets
-   * @param workflowOwner the workflow owner, can be null
+   * @param datasetIds a set of dataset identifiers to filter, can be empty or null to get all
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
    * @param orderField the field to be used to sort the results
    * @param ascending a boolean value to request the ordering to ascending or descending
    * @param nextPage the nextPage token
    * @return a list of all the WorkflowExecutions found
    */
-  public List<WorkflowExecution> getAllWorkflowExecutions(String datasetId,
-      String workflowOwner, Set<WorkflowStatus> workflowStatuses,
-      OrderField orderField, boolean ascending, int nextPage) {
-    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(WorkflowExecution.class);
-    if (StringUtils.isNotBlank(datasetId)) {
-      query.field(DATASET_ID).equal(datasetId);
-    }
-    if (StringUtils.isNotEmpty(workflowOwner)) {
-      query.field(WORKFLOW_OWNER).equal(workflowOwner);
+  public List<WorkflowExecution> getAllWorkflowExecutions(Set<String> datasetIds,
+      Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending,
+      int nextPage) {
+    Query<WorkflowExecution> query =
+        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+
+    if (datasetIds != null && !datasetIds.isEmpty()) {
+      query.field(DATASET_ID).in(datasetIds);
     }
 
     List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();

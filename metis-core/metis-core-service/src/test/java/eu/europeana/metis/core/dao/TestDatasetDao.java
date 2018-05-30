@@ -20,6 +20,7 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -289,6 +290,7 @@ public class TestDatasetDao {
     ds3.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 3));
     datasetDao.create(ds3);
 
+    // Check with pagination
     int nextPage = 0;
     int allDatasetsCount = 0;
     do {
@@ -299,8 +301,12 @@ public class TestDatasetDao {
       allDatasetsCount += datasetResponseListWrapper.getListSize();
       nextPage = datasetResponseListWrapper.getNextPage();
     } while (nextPage != -1);
-
     assertEquals(2, allDatasetsCount);
+
+    // Check without pagination
+    final List<Dataset> resultWithoutPagination =
+        datasetDao.getAllDatasetsByOrganizationId("organizationId1");
+    assertEquals(2, resultWithoutPagination.size());
   }
 
   @Test

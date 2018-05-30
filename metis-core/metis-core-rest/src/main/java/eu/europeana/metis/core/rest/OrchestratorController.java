@@ -392,8 +392,8 @@ public class OrchestratorController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(
-        orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowOwner,
-            workflowStatuses, orderField, ascending, nextPage),
+        orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
+            orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
@@ -435,8 +435,8 @@ public class OrchestratorController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(
-        orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowOwner,
-            workflowStatuses, orderField, ascending, nextPage),
+        orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses, orderField,
+            ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
