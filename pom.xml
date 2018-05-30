@@ -19,7 +19,7 @@
     <module>metis-mapping</module>
     <module>metis-enrichment</module>
     <module>metis-common</module>
-    <module>metis-preview</module>
+    <module>metis-data-checker</module>
     <module>metis-normalization</module>
     <module>metis-media-service</module>
     <module>metis-authentication</module>
