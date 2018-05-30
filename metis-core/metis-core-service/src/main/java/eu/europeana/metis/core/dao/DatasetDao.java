@@ -11,6 +11,7 @@ import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.UnaryOperator;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
@@ -221,18 +222,33 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   }
 
   /**
-   * Get all datasets using the organizationId field.
+   * Get all datasets using the organizationId field, using pagination.
    *
    * @param organizationId the organizationId string used to find the datasets
    * @param nextPage the nextPage positive number
    * @return {@link List} of {@link Dataset}
    */
   public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, int nextPage) {
+    return getAllDatasetsByOrganizationId(organizationId,
+        options -> options.skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest()));
+  }
+
+  /**
+   * Get all datasets using the organizationId field.
+   *
+   * @param organizationId the organizationId string used to find the datasets
+   * @return {@link List} of {@link Dataset}
+   */
+  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId) {
+    return getAllDatasetsByOrganizationId(organizationId, UnaryOperator.identity());
+  }
+
+  private List<Dataset> getAllDatasetsByOrganizationId(String organizationId,
+      UnaryOperator<FindOptions> options) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationId").equal(organizationId);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
-        .limit(getDatasetsPerRequest()));
+    return query.asList(options.apply(new FindOptions()));
   }
 
   /**

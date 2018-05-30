@@ -2,6 +2,7 @@ package eu.europeana.metis.core.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
@@ -626,12 +628,12 @@ public class OrchestratorService {
    *
    * @param metisUser the user wishing to perform this operation
    * @param datasetId the dataset identifier filter, can be null to get all datasets
-   * @param workflowOwner the workflow owner, can be null
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
    * @param orderField the field to be used to sort the results
    * @param ascending a boolean value to request the ordering to ascending or descending
    * @param nextPage the nextPage token
-   * @return a list of all the WorkflowExecutions found
+   * @return A list of all the WorkflowExecutions found. If the user is not admin, the list is
+   *         filtered to only show those executions that are in the user's organization.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
@@ -639,30 +641,44 @@ public class OrchestratorService {
    * </ul>
    */
   public List<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser, String datasetId,
-      String workflowOwner, Set<WorkflowStatus> workflowStatuses, OrderField orderField,
-      boolean ascending, int nextPage) throws GenericMetisException {
-    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    return getAllWorkflowExecutionsWithoutAuthorization(datasetId, workflowOwner, workflowStatuses,
-        orderField, ascending, nextPage);
+      Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, int nextPage)
+      throws GenericMetisException {
+    
+    // Authorize
+    if (datasetId == null) {
+      authorizer.authorizeReadAllDatasets(metisUser);
+    } else {
+      authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    }
+
+    // Determine the dataset IDs to filter on.
+    final Set<String> datasetIds;
+    if (datasetId != null) {
+      datasetIds = Collections.singleton(datasetId);
+    } else if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
+      datasetIds = null;
+    } else {
+      datasetIds = datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()).stream()
+          .map(Dataset::getDatasetId).collect(Collectors.toSet());
+    }
+
+    // Find the executions.
+    return workflowExecutionDao.getAllWorkflowExecutions(datasetIds, workflowStatuses, orderField,
+        ascending, nextPage);
   }
 
   /**
-   * Get all WorkflowExecutions paged. <b>Please note:</b> this method is not checked for
-   * authorization: it is only meant to be called from a scheduled task.
+   * Get all WorkflowExecutions for all datasets, using pagination. <b>Please note:</b> this method
+   * is not checked for authorization: it is only meant to be called from a scheduled task.
    *
-   * @param datasetId the dataset identifier filter, can be null to get all datasets
-   * @param workflowOwner the workflow owner, can be null
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
-   * @param orderField the field to be used to sort the results
-   * @param ascending a boolean value to request the ordering to ascending or descending
    * @param nextPage the nextPage token
-   * @return a list of all the WorkflowExecutions found
+   * @return a list of all the WorkflowExecutions found. The list will be ordered by ID (ascending).
    */
-  public List<WorkflowExecution> getAllWorkflowExecutionsWithoutAuthorization(String datasetId,
-      String workflowOwner, Set<WorkflowStatus> workflowStatuses, OrderField orderField,
-      boolean ascending, int nextPage) {
-    return workflowExecutionDao.getAllWorkflowExecutions(datasetId, workflowOwner, workflowStatuses,
-        orderField, ascending, nextPage);
+  public List<WorkflowExecution> getAllWorkflowExecutionsWithoutAuthorization(
+      Set<WorkflowStatus> workflowStatuses, int nextPage) {
+    return workflowExecutionDao.getAllWorkflowExecutions(null, workflowStatuses, OrderField.ID,
+        true, nextPage);
   }
 
   /**

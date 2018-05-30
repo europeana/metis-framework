@@ -2,12 +2,11 @@ package eu.europeana.metis.core.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -16,11 +15,15 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Assert;
@@ -31,6 +34,7 @@ import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
@@ -282,7 +286,6 @@ public class TestOrchestratorService {
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     
     // Add the workflow
-    
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
@@ -531,8 +534,7 @@ public class TestOrchestratorService {
   public void cancelWorkflowExecution_NoWorkflowExecutionFoundException()
       throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID))
-        .thenReturn(null);
+    when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(null);
     orchestratorService.cancelWorkflowExecution(metisUser, TestObjectFactory.EXECUTIONID);
     verifyNoMoreInteractions(workflowExecutorManager);
   }
@@ -540,7 +542,6 @@ public class TestOrchestratorService {
   @Test
   public void removeActiveWorkflowExecutionsFromList() throws Exception {
     orchestratorService.removeActiveWorkflowExecutionsFromList(new ArrayList<>());
-    verify(workflowExecutorManager, times(1)).initiateConsumer();
     verify(workflowExecutorManager, times(1)).getMonitorCheckIntervalInSecs();
     verifyNoMoreInteractions(workflowExecutorManager);
     verify(workflowExecutionDao, times(1)).removeActiveExecutionsFromList(anyList(), anyInt());
@@ -627,17 +628,82 @@ public class TestOrchestratorService {
 
   @Test
   public void getAllWorkflowExecutionsByDatasetId() throws GenericMetisException {
+    
+    // Define some constants
+    final int nextPage = 1;
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    HashSet<WorkflowStatus> workflowStatuses = new HashSet<>();
-    workflowStatuses.add(WorkflowStatus.INQUEUE);
-    orchestratorService.getAllWorkflowExecutions(metisUser, datasetId,
-        TestObjectFactory.WORKFLOWOWNER, workflowStatuses, OrderField.ID, false, 0);
+    final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
+    
+    // Check with specific dataset ID: should query only that dataset.
+    orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
+        OrderField.ID, false, nextPage);
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
     verifyNoMoreInteractions(authorizer);
-    verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutions(anyString(), anyString(), anySet(),
-            any(OrderField.class), anyBoolean(), anyInt());
+    verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(
+        eq(Collections.singleton(datasetId)), eq(workflowStatuses), eq(OrderField.ID), eq(false),
+        eq(nextPage));
+    verifyNoMoreInteractions(workflowExecutionDao);
+  }
+  
+  @Test
+  public void getAllWorkflowExecutionsForRegularUser() throws GenericMetisException {
+    
+    // Define some constants
+    final int nextPage = 1;
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final Set<String> datasetIds = new HashSet<>(Arrays.asList("A", "B", "C"));
+    final List<Dataset> datasets = datasetIds.stream().map(id -> {
+      final Dataset result = new Dataset();
+      result.setDatasetId(id);
+      return result;
+    }).collect(Collectors.toList());
+    final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
+    
+    // Check for all datasets and for regular user: should query all datasets to which that user's
+    // organization has rights.
+    when(datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()))
+        .thenReturn(datasets);
+    orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses,
+        OrderField.CREATED_DATE, false, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+    verifyNoMoreInteractions(authorizer);
+    verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(eq(datasetIds),
+        eq(workflowStatuses), eq(OrderField.CREATED_DATE), eq(false), eq(nextPage));
+    verifyNoMoreInteractions(workflowExecutionDao);
+  }
+  
+  @Test
+  public void getAllWorkflowExecutionsForAdmin() throws GenericMetisException {
+    
+    // Define some constants
+    final int nextPage = 1;
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
+    
+    // Check for all datasets and for admin user: should query all datasets.
+    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses,
+        OrderField.CREATED_DATE, true, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+    verifyNoMoreInteractions(authorizer);
+    verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(), eq(workflowStatuses),
+        eq(OrderField.CREATED_DATE), eq(true), eq(nextPage));
+    verifyNoMoreInteractions(workflowExecutionDao);
+  }
+  
+  @Test
+  public void getAllWorkflowExecutionsWithoutAuthorization() throws GenericMetisException {
+  
+    // Define some constants
+    final int nextPage = 1;
+    final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
+    
+    // Check version without authorization: should query all datasets.
+    orchestratorService.getAllWorkflowExecutionsWithoutAuthorization(workflowStatuses, nextPage);
+    verifyNoMoreInteractions(authorizer);
+    verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(), eq(workflowStatuses),
+        eq(OrderField.ID), eq(true), eq(nextPage));
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
