@@ -15,7 +15,7 @@ public class NormalizerSettings {
   protected static final float DEFAULT_MINIMUM_CONFIDENCE = 0.95F;
   protected static final LanguagesVocabulary DEFAULT_VOCABULARY = LanguagesVocabulary.ISO_639_3;
   protected static final LanguageElement[] DEFAULT_LANGUAGE_ELEMENTS =
-      {LanguageElement.DC_LANGUAGE, LanguageElement.EDM_LANGUAGE};
+      {LanguageElement.DC_LANGUAGE};
   protected static final int DEFAULT_MIN_LANGUAGE_LABEL_LENGTH = 4;
   protected static final AmbiguityHandling DEFAULT_LANGUAGE_AMBIGUITY_HANDLING =
       AmbiguityHandling.NO_MATCH;
