@@ -61,6 +61,7 @@ public class TestObjectFactory {
     workflow.setWorkflowOwner(WORKFLOWOWNER);
     workflow.setDatasetId(Integer.toString(DATASETID));
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setUrl("http://example.com");
     oaipmhHarvestPluginMetadata.setEnabled(true);
     ValidationExternalPluginMetadata validationExternalPluginMetadata = new ValidationExternalPluginMetadata();
     validationExternalPluginMetadata.setEnabled(true);

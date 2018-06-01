@@ -1,22 +1,5 @@
 package eu.europeana.metis.core.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -43,6 +26,8 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
@@ -51,6 +36,26 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service class that controls the communication between the different DAOs of the system.
@@ -121,6 +126,11 @@ public class OrchestratorService {
   public void createWorkflow(MetisUser metisUser, String datasetId, Workflow workflow)
       throws GenericMetisException {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    try {
+      validateAndTrimHarvestParameters(workflow);
+    } catch (MalformedURLException | URISyntaxException e) {
+      throw new BadContentException("Harvesting parameters are invalid", e);
+    }
     if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
           String.format("Dataset with datasetId: %s does NOT exist", datasetId));
@@ -150,6 +160,11 @@ public class OrchestratorService {
   public void updateWorkflow(MetisUser metisUser, String datasetId, Workflow workflow)
       throws GenericMetisException {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    try {
+      validateAndTrimHarvestParameters(workflow);
+    } catch (MalformedURLException | URISyntaxException e) {
+      throw new BadContentException("Harvesting parameters are invalid", e);
+    }
     if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
           String.format("Dataset with datasetId: %s does NOT exist", datasetId));
@@ -257,9 +272,9 @@ public class OrchestratorService {
    * the first plugin in the workflow can be controlled, if required, from the
    * {@code enforcedPluginType}, which means that the last valid plugin that is provided with that
    * parameter, will be used as the source data. </p>
-   * <p> <b>Please note:</b> this method is not checked for authorization: it is only meant to be 
+   * <p> <b>Please note:</b> this method is not checked for authorization: it is only meant to be
    * called from a scheduled task. </p>
-   * 
+   *
    * @param datasetId the dataset identifier for which the execution will take place
    * @param enforcedPluginType optional, the plugin type to be used as source data
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10 highest
@@ -283,7 +298,7 @@ public class OrchestratorService {
     }
     return addWorkflowInQueueOfWorkflowExecutions(dataset, enforcedPluginType, priority);
   }
-  
+
   /**
    * Does checking, prepares and adds a WorkflowExecution in the queue.
    * That means it updates the status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database
@@ -331,7 +346,8 @@ public class OrchestratorService {
     RLock executionDatasetIdLock = redissonClient
         .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
     executionDatasetIdLock.lock();
-    String storedWorkflowExecutionId = workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId());
+    String storedWorkflowExecutionId = workflowExecutionDao
+        .existsAndNotCompleted(dataset.getDatasetId());
     if (storedWorkflowExecutionId != null) {
       executionDatasetIdLock.unlock();
       throw new WorkflowExecutionAlreadyExistsException(
@@ -407,7 +423,8 @@ public class OrchestratorService {
       if (!firstPluginDefined) {
         AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
             dataset.getDatasetId(), pluginMetadata.getPluginType(), enforcedPluginType);
-        pluginMetadata.setPreviousRevisionInformation(previousPlugin); //Set all previous revision information
+        pluginMetadata
+            .setPreviousRevisionInformation(previousPlugin); //Set all previous revision information
       }
 
       // Sanity check
@@ -440,7 +457,7 @@ public class OrchestratorService {
     }
     return firstPluginDefined;
   }
-  
+
   private void setupXsltUrlForPluginMetadata(Dataset dataset,
       AbstractMetisPluginMetadata abstractMetisPluginMetadata) {
     DatasetXslt xsltObject;
@@ -633,7 +650,7 @@ public class OrchestratorService {
    * @param ascending a boolean value to request the ordering to ascending or descending
    * @param nextPage the nextPage token
    * @return A list of all the WorkflowExecutions found. If the user is not admin, the list is
-   *         filtered to only show those executions that are in the user's organization.
+   * filtered to only show those executions that are in the user's organization.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
@@ -643,7 +660,7 @@ public class OrchestratorService {
   public List<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser, String datasetId,
       Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, int nextPage)
       throws GenericMetisException {
-    
+
     // Authorize
     if (datasetId == null) {
       authorizer.authorizeReadAllDatasets(metisUser);
@@ -696,7 +713,7 @@ public class OrchestratorService {
   public DatasetExecutionInformation getDatasetExecutionInformation(MetisUser metisUser,
       String datasetId) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    
+
     AbstractMetisPlugin lastHarvestPlugin = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
             .of(PluginType.HTTP_HARVEST, PluginType.OAIPMH_HARVEST));
@@ -724,6 +741,35 @@ public class OrchestratorService {
     }
 
     return datasetExecutionInformation;
+  }
+
+  private void validateAndTrimHarvestParameters(Workflow workflow)
+      throws MalformedURLException, URISyntaxException {
+    OaipmhHarvestPluginMetadata oaipmhPluginMetadata = (OaipmhHarvestPluginMetadata) workflow
+        .getPluginMetadata(PluginType.OAIPMH_HARVEST);
+    if (oaipmhPluginMetadata != null) {
+      URL u = new URL(oaipmhPluginMetadata.getUrl().trim()); // this would check for the protocol
+      u.toURI(); // does the extra checking required for validation of URI
+      //Remove all the query parameters
+      int queryIndexStart = oaipmhPluginMetadata.getUrl().indexOf('?');
+      String urlWithoutQueryParameters = queryIndexStart >= 0 ? oaipmhPluginMetadata.getUrl()
+          .substring(0, oaipmhPluginMetadata.getUrl().indexOf('?'))
+          : oaipmhPluginMetadata.getUrl();
+      oaipmhPluginMetadata.setUrl(urlWithoutQueryParameters.trim());
+      oaipmhPluginMetadata.setMetadataFormat(oaipmhPluginMetadata.getMetadataFormat() == null ? null
+          : oaipmhPluginMetadata.getMetadataFormat().trim());
+      oaipmhPluginMetadata.setSetSpec(oaipmhPluginMetadata.getSetSpec() == null ? null
+          : oaipmhPluginMetadata.getSetSpec().trim());
+    }
+
+    HTTPHarvestPluginMetadata httpHarvestPluginMetadata = (HTTPHarvestPluginMetadata) workflow
+        .getPluginMetadata(PluginType.HTTP_HARVEST);
+    if (httpHarvestPluginMetadata != null) {
+      URL u = new URL(
+          httpHarvestPluginMetadata.getUrl().trim()); // this would check for the protocol
+      u.toURI(); // does the extra checking required for validation of URI
+      httpHarvestPluginMetadata.setUrl(httpHarvestPluginMetadata.getUrl().trim());
+    }
   }
 
   private Workflow checkWorkflowExistence(String datasetId)
