@@ -12,7 +12,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import net.sf.saxon.TransformerFactoryImpl;
@@ -45,7 +44,7 @@ public class XsltTransformer {
    * Constructor.
    * 
    * @param xsltUrl The URL of the XSLT file.
-   * @param datasetId The value that will be injected to the datasetId field in the XSLT.
+   * @param datasetId The value that will be injected to the datasetId field in the XSLT. Can be null.
    * @throws TransformationException In case there was a problem with setting up the transformation.
    */
   public XsltTransformer(String xsltUrl, String datasetId) throws TransformationException {
@@ -55,7 +54,7 @@ public class XsltTransformer {
       LOGGER.error("Exception during transformation setup", e);
       throw new TransformationException(e);
     }
-    if (!StringUtils.isBlank(datasetId)) {
+    if (datasetId != null && !datasetId.trim().isEmpty()) {
       transformer.setParameter("datasetId", datasetId);
     }
   }
@@ -101,7 +100,7 @@ public class XsltTransformer {
    *
    * @param xsltUrl The URL of the XSLT file.
    * @param fileContent The file to be transformed.
-   * @param datasetId The value that will be injected to the datasetId field in the XSLT.
+   * @param datasetId The value that will be injected to the datasetId field in the XSLT. Can be null.
    * @return The transformed file.
    * @throws TransformationException if a problem occurred during transformation
    */
