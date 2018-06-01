@@ -26,7 +26,7 @@ public class XsltTransformer {
   private static final Logger LOGGER = LoggerFactory.getLogger(XsltTransformer.class);
 
   private static final int CACHE_SIZE = 50;
-  private static LRUCache<String, Templates> cache = new LRUCache<>(CACHE_SIZE);
+  private static final LRUCache<String, Templates> TEMPLATES_CACHE = new LRUCache<>(CACHE_SIZE);
 
   private final Transformer transformer;
 
@@ -78,46 +78,13 @@ public class XsltTransformer {
     }
   }
 
-  /**
-   * Transforms given file based on a provided XSLT. This method is a wrapper of
-   * {@link #transform(String, byte[], String)} for the case no value needs to be set for the
-   * datasetId field. Please see the comments at {@link #transform(String, byte[], String)}.
-   *
-   * @param xsltUrl The URL of the XSLT file.
-   * @param fileContent The file to be transformed.
-   * @return The transformed file.
-   * @throws TransformationException if a problem occurred during transformation
-   */
-  public static StringWriter transform(String xsltUrl, byte[] fileContent)
-      throws TransformationException {
-    return transform(xsltUrl, fileContent, null);
-  }
-
-  /**
-   * Transforms given file based on a provided XSLT. This method creates an instance of this class
-   * that will be discarded after the completion of this method. If multiple files are to be
-   * transformed, it is more efficient to manually create an instance of this class using one of the
-   * constructors and then call its {@link #transform(byte[])} method for each of those files.
-   *
-   * @param xsltUrl The URL of the XSLT file.
-   * @param fileContent The file to be transformed.
-   * @param datasetId The value that will be injected to the datasetId field in the XSLT. Can be
-   *        null.
-   * @return The transformed file.
-   * @throws TransformationException if a problem occurred during transformation
-   */
-  public static StringWriter transform(String xsltUrl, byte[] fileContent, String datasetId)
-      throws TransformationException {
-    return new XsltTransformer(xsltUrl, datasetId).transform(fileContent);
-  }
-
   private static Templates getTemplates(String xsltUrl)
       throws TransformerConfigurationException, IOException {
 
     // Check if the cache already contains this URL.
-    synchronized (cache) {
-      if (cache.containsKey(xsltUrl)) {
-        return cache.get(xsltUrl);
+    synchronized (TEMPLATES_CACHE) {
+      if (TEMPLATES_CACHE.containsKey(xsltUrl)) {
+        return TEMPLATES_CACHE.get(xsltUrl);
       }
     }
 
@@ -129,8 +96,8 @@ public class XsltTransformer {
     }
 
     // Save it in the cache.
-    synchronized (cache) {
-      cache.put(xsltUrl, templates);
+    synchronized (TEMPLATES_CACHE) {
+      TEMPLATES_CACHE.put(xsltUrl, templates);
     }
     return templates;
   }
