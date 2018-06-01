@@ -18,6 +18,10 @@
             <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
+		<dependency>
+			<groupId>eu.europeana.corelib</groupId>
+			<artifactId>corelib-edm-definitions</artifactId>
+		</dependency>
         <dependency>
             <groupId>org.xmlunit</groupId>
             <artifactId>xmlunit-core</artifactId>
