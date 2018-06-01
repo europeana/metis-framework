@@ -44,7 +44,8 @@ public class XsltTransformer {
    * Constructor.
    * 
    * @param xsltUrl The URL of the XSLT file.
-   * @param datasetId The value that will be injected to the datasetId field in the XSLT. Can be null.
+   * @param datasetId The value that will be injected to the datasetId field in the XSLT. Can be
+   *        null.
    * @throws TransformationException In case there was a problem with setting up the transformation.
    */
   public XsltTransformer(String xsltUrl, String datasetId) throws TransformationException {
@@ -100,7 +101,8 @@ public class XsltTransformer {
    *
    * @param xsltUrl The URL of the XSLT file.
    * @param fileContent The file to be transformed.
-   * @param datasetId The value that will be injected to the datasetId field in the XSLT. Can be null.
+   * @param datasetId The value that will be injected to the datasetId field in the XSLT. Can be
+   *        null.
    * @return The transformed file.
    * @throws TransformationException if a problem occurred during transformation
    */
@@ -111,15 +113,25 @@ public class XsltTransformer {
 
   private static Templates getTemplates(String xsltUrl)
       throws TransformerConfigurationException, IOException {
-    if (cache.containsKey(xsltUrl)) {
-      return cache.get(xsltUrl);
+
+    // Check if the cache already contains this URL.
+    synchronized (cache) {
+      if (cache.containsKey(xsltUrl)) {
+        return cache.get(xsltUrl);
+      }
     }
+
+    // If it doesn't, resolve the URL and create the compiled transformation.
     final TransformerFactory transformerFactory = new TransformerFactoryImpl();
     final Templates templates;
     try (final InputStream xsltStream = new URL(xsltUrl).openStream()) {
       templates = transformerFactory.newTemplates(new StreamSource(xsltStream));
     }
-    cache.put(xsltUrl, templates);
+
+    // Save it in the cache.
+    synchronized (cache) {
+      cache.put(xsltUrl, templates);
+    }
     return templates;
   }
 }
