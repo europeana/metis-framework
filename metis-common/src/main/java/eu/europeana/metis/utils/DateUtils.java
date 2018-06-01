@@ -28,27 +28,16 @@ public final class DateUtils {
   }
 
   /**
-   * Adds minutes to a provided date.
+   * Modifies a {@link Date} by a {@link TimeUnit} {@code amount}.
+   * <p>This means that the {@code timeUnit} defines the type of the {@code amount} to be added or
+   * subtracted from the {@code date}</p>
    *
-   * @param minutes the minutes to be added
-   * @param date the date used to add minutes to
-   * @return the new date with the added minutes
+   * @param amount the amount of units to be added or subtracted, so it can be a negative value
+   * @param date the date used that will be modified
+   * @return the new converted date
    */
-  public static Date addMinutesToDate(long minutes, Date date) {
+  public static Date modifyDateByTimeUnitAmount(Date date, long amount, TimeUnit timeUnit) {
     long dateInMillis = date.getTime();
-    return new Date(dateInMillis + TimeUnit.MINUTES.toMillis(minutes));
+    return new Date(dateInMillis + TimeUnit.MILLISECONDS.convert(amount, timeUnit));
   }
-
-  /**
-   * Adds minutes to a provided date.
-   *
-   * @param minutes the minutes to be added
-   * @param date the date used to add minutes to
-   * @return the new date with the added minutes
-   */
-  public static Date subtractMinutesToDate(long minutes, Date date) {
-    long dateInMillis = date.getTime();
-    return new Date(dateInMillis - TimeUnit.MINUTES.toMillis(minutes));
-  }
-
 }
