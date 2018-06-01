@@ -25,7 +25,7 @@ public class XsltTransformerTest {
     public void shouldTransformGivenFile() throws TransformationException, IOException, ParserConfigurationException, SAXException {
         URL xsltFile =  Resources.getResource("sample_xslt.xslt");
         byte[] fileToTransform = readFile("xmlForTesting.xml");
-        StringWriter wr = XsltTransformer.transform(xsltFile.toString(),fileToTransform);
+        StringWriter wr = new XsltTransformer(xsltFile.toString()).transform(fileToTransform);
         
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -42,7 +42,7 @@ public class XsltTransformerTest {
     public void shouldTransformGivenFileWithInjection() throws IOException, TransformationException {
         URL xsltFile =  Resources.getResource("inject_node.xslt");
         byte[] fileToTransform = readFile("xmlForTestingParamInjection.xml");
-        StringWriter wr = XsltTransformer.transform(xsltFile.toString(), fileToTransform, "sample");
+        StringWriter wr = new XsltTransformer(xsltFile.toString(), "sample").transform(fileToTransform);
         String resultXml = wr.toString();
         Assert.assertTrue(resultXml.contains("<injected_node>"));
         Assert.assertTrue(resultXml.contains("sample"));
@@ -53,7 +53,7 @@ public class XsltTransformerTest {
     public void shouldFailForMalformedFile() throws IOException, TransformationException {
         URL xsltFile =  Resources.getResource("inject_node.xslt");
         byte[] fileToTransform = readFile("malformedFile.xml");
-        XsltTransformer.transform(xsltFile.toString(), fileToTransform, "sample");
+        new XsltTransformer(xsltFile.toString(), "sample").transform(fileToTransform);
     }
 
     private byte[] readFile(String fileName) throws IOException {
