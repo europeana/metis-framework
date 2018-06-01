@@ -21,6 +21,7 @@ import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
+import eu.europeana.metis.core.exceptions.XsltSetupException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
@@ -358,7 +359,7 @@ public class DatasetService {
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
    * This method can be used, for example, after a response from
-   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(String, PluginType, String, int)}
+   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String, PluginType, String, int)}
    * to try a transformation on a list of xmls just after validation external to preview an example
    * result.
    * </p>
@@ -376,6 +377,7 @@ public class DatasetService {
    *         user cannot be authorized.</li>
    *         <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
    *         <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   *         <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
    *         </ul>
    */
   public List<Record> transformRecordsUsingLatestDefaultXslt(MetisUser metisUser, String datasetId,
@@ -393,15 +395,14 @@ public class DatasetService {
     String xsltUrl = metisCoreUrl + RestEndpoints
         .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
 
-    XsltTransformer xsltTransformer = new XsltTransformer();
-    return transformRecords(datasetId, records, xsltUrl, xsltTransformer);
+    return transformRecords(datasetId, records, xsltUrl);
   }
 
   /**
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
    * This method can be used, for example, after a response from
-   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(String, PluginType, String, int)}
+   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String, PluginType, String, int)}
    * to try a transformation on a list of xmls just after validation external to preview an example
    * result.
    * </p>
@@ -419,6 +420,7 @@ public class DatasetService {
    *         user cannot be authorized.</li>
    *         <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
    *         <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   *         <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
    *         </ul>
    */
   public List<Record> transformRecordsUsingLatestDatasetXslt(MetisUser metisUser, String datasetId,
@@ -434,23 +436,31 @@ public class DatasetService {
     String xsltUrl = metisCoreUrl + RestEndpoints
         .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
 
-    XsltTransformer xsltTransformer = new XsltTransformer();
-    return transformRecords(datasetId, records, xsltUrl, xsltTransformer);
+    return transformRecords(datasetId, records, xsltUrl);
   }
 
-  private List<Record> transformRecords(String datasetId, List<Record> records, String xsltUrl,
-      XsltTransformer xsltTransformer) {
+  private List<Record> transformRecords(String datasetId, List<Record> records, String xsltUrl)
+      throws XsltSetupException {
+
+    // Set up transformer.
+    final XsltTransformer transformer;
+    try {
+      transformer = new XsltTransformer(xsltUrl, datasetId);
+    } catch (TransformationException e) {
+      LOGGER.info("Transformation setup failed.", e);
+      throw new XsltSetupException("Could not setup XSL transformation.", e);
+    }
+
+    // Transform the records.
     return records.stream().map(record -> {
-          try {
-            return new Record(record.getEcloudId(), xsltTransformer
-                .transform(xsltUrl, record.getXmlRecord().getBytes(StandardCharsets.UTF_8), datasetId)
-                .toString());
-          } catch (TransformationException e) {
-            LOGGER.info("Record from list failed transformation", e);
-            return new Record(record.getEcloudId(), e.getMessage());
-          }
-        }
-    ).collect(Collectors.toList());
+      try {
+        return new Record(record.getEcloudId(), transformer
+            .transform(record.getXmlRecord().getBytes(StandardCharsets.UTF_8)).toString());
+      } catch (TransformationException e) {
+        LOGGER.info("Record from list failed transformation", e);
+        return new Record(record.getEcloudId(), e.getMessage());
+      }
+    }).collect(Collectors.toList());
   }
 
   /**
