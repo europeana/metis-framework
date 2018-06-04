@@ -758,22 +758,22 @@ public class TestOrchestratorService {
     AbstractMetisPlugin oaipmhHarvestPlugin =
         PluginType.OAIPMH_HARVEST.getNewPlugin(new OaipmhHarvestPluginMetadata());
     oaipmhHarvestPlugin.setFinishedDate(
-        DateUtils.modifyDateByTimeUnitAmount(new Date(), SOLR_COMMIT_PERIOD_IN_MINS + 3, TimeUnit.MINUTES));
+        DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 3), TimeUnit.MINUTES));
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     AbstractMetisPlugin firstPublishPlugin =
         PluginType.PUBLISH.getNewPlugin(new IndexToPublishPluginMetadata());
     firstPublishPlugin.setFinishedDate(
-        DateUtils.modifyDateByTimeUnitAmount(new Date(), SOLR_COMMIT_PERIOD_IN_MINS + 2, TimeUnit.MINUTES));
+        DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 2), TimeUnit.MINUTES));
     firstPublishPlugin.setExecutionProgress(executionProgress);
     AbstractMetisPlugin lastPreviewPlugin =
         PluginType.PREVIEW.getNewPlugin(new IndexToPreviewPluginMetadata());
     lastPreviewPlugin.setFinishedDate(
-        DateUtils.modifyDateByTimeUnitAmount(new Date(),SOLR_COMMIT_PERIOD_IN_MINS + 1, TimeUnit.MINUTES));
+        DateUtils.modifyDateByTimeUnitAmount(new Date(),-(SOLR_COMMIT_PERIOD_IN_MINS + 1), TimeUnit.MINUTES));
     lastPreviewPlugin.setExecutionProgress(executionProgress);
     AbstractMetisPlugin lastPublishPlugin =
         PluginType.PUBLISH.getNewPlugin(new IndexToPublishPluginMetadata());
     lastPublishPlugin
-        .setFinishedDate(DateUtils.modifyDateByTimeUnitAmount(new Date(), SOLR_COMMIT_PERIOD_IN_MINS, TimeUnit.MINUTES));
+        .setFinishedDate(DateUtils.modifyDateByTimeUnitAmount(new Date(), -SOLR_COMMIT_PERIOD_IN_MINS, TimeUnit.MINUTES));
     lastPublishPlugin.setExecutionProgress(executionProgress);
 
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
