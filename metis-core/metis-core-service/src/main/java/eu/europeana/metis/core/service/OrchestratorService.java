@@ -1,5 +1,27 @@
 package eu.europeana.metis.core.service;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -19,7 +41,6 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
-import eu.europeana.metis.utils.DateUtils;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -27,6 +48,8 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
@@ -35,24 +58,7 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import eu.europeana.metis.utils.DateUtils;
 
 /**
  * Service class that controls the communication between the different DAOs of the system.
@@ -124,6 +130,11 @@ public class OrchestratorService {
   public void createWorkflow(MetisUser metisUser, String datasetId, Workflow workflow)
       throws GenericMetisException {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    try {
+      validateAndTrimHarvestParameters(workflow);
+    } catch (MalformedURLException | URISyntaxException e) {
+      throw new BadContentException("Harvesting parameters are invalid", e);
+    }
     if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
           String.format("Dataset with datasetId: %s does NOT exist", datasetId));
@@ -153,6 +164,11 @@ public class OrchestratorService {
   public void updateWorkflow(MetisUser metisUser, String datasetId, Workflow workflow)
       throws GenericMetisException {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    try {
+      validateAndTrimHarvestParameters(workflow);
+    } catch (MalformedURLException | URISyntaxException e) {
+      throw new BadContentException("Harvesting parameters are invalid", e);
+    }
     if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
       throw new NoDatasetFoundException(
           String.format("Dataset with datasetId: %s does NOT exist", datasetId));
@@ -745,6 +761,34 @@ public class OrchestratorService {
     }
 
     return datasetExecutionInformation;
+  }
+
+  private void validateAndTrimHarvestParameters(Workflow workflow)
+      throws MalformedURLException, URISyntaxException {
+    OaipmhHarvestPluginMetadata oaipmhPluginMetadata = (OaipmhHarvestPluginMetadata) workflow
+        .getPluginMetadata(PluginType.OAIPMH_HARVEST);
+    if (oaipmhPluginMetadata != null) {
+      URL url = new URL(oaipmhPluginMetadata.getUrl().trim()); // this would check for the protocol
+      URI validatedUri = url.toURI();// does the extra checking required for validation of URI
+
+      //Remove all the query parameters
+      String urlWithoutQueryParameters = new URI(validatedUri.getScheme(),
+          validatedUri.getAuthority(), validatedUri.getPath(), null, null).toString();
+      oaipmhPluginMetadata.setUrl(urlWithoutQueryParameters);
+      oaipmhPluginMetadata.setMetadataFormat(oaipmhPluginMetadata.getMetadataFormat() == null ? null
+          : oaipmhPluginMetadata.getMetadataFormat().trim());
+      oaipmhPluginMetadata.setSetSpec(oaipmhPluginMetadata.getSetSpec() == null ? null
+          : oaipmhPluginMetadata.getSetSpec().trim());
+    }
+
+    HTTPHarvestPluginMetadata httpHarvestPluginMetadata = (HTTPHarvestPluginMetadata) workflow
+        .getPluginMetadata(PluginType.HTTP_HARVEST);
+    if (httpHarvestPluginMetadata != null) {
+      URL u = new URL(
+          httpHarvestPluginMetadata.getUrl().trim()); // this would check for the protocol
+      u.toURI(); // does the extra checking required for validation of URI
+      httpHarvestPluginMetadata.setUrl(httpHarvestPluginMetadata.getUrl().trim());
+    }
   }
 
   private Workflow checkWorkflowExistence(String datasetId)
