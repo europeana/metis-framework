@@ -27,7 +27,6 @@ import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.enrichment.api.external.model.WikidataOrganization;
-import eu.europeana.enrichment.service.EntityConverterUtils;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
 
@@ -45,38 +44,29 @@ public class WikidataAccessDao {
 
   private Transformer transformer;
 
-  private InputStream xslTemplateImputStream;
-
-  EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
-
   public WikidataAccessDao(File templateFile)
       throws WikidataAccessException, FileNotFoundException {
     this(new FileInputStream(templateFile));
   }
 
   public WikidataAccessDao(InputStream xslTemplate) throws WikidataAccessException {
-    this.xslTemplateImputStream = xslTemplate;
-    init();
+    init(xslTemplate);
   }
 
   public WikidataAccessDao() throws WikidataAccessException {
-    this.xslTemplateImputStream = getClass().getResourceAsStream(WIKIDATA_ORGANIZATION_XSL_FILE);
-    init();
-  }
-
-  public EntityConverterUtils getEntityConverterUtils() {
-    return entityConverterUtils;
+    InputStream xslTemplate = getClass().getResourceAsStream(WIKIDATA_ORGANIZATION_XSL_FILE);
+    init(xslTemplate);
   }
 
   /**
    * This method initializes classes needed for performing the required XML transformations for  Wikidata organizations
-   * 
+   * @param xslTemplate the InputStream connected to the xls transformation template. 
    * @throws WikidataAccessException
    */
-  public final void init() throws WikidataAccessException {
+  public final void init(InputStream xslTemplate) throws WikidataAccessException {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     try {
-      Source xslt = new StreamSource(xslTemplateImputStream);
+      Source xslt = new StreamSource(xslTemplate);
       transformer = transformerFactory.newTransformer(xslt);
       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
     } catch (TransformerConfigurationException e) {
@@ -89,7 +79,6 @@ public class WikidataAccessDao {
    * in XSLT/XML format in a given file applying XSLT template.
    * 
    * @param uri The Wikidata URI in string format
-   * @param outputFile To store Wikidata response in RDF format
    * @return String The Result of Wikidata query in XML format
    * @throws WikidataAccessException
    * @throws IOException

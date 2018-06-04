@@ -189,8 +189,8 @@ public class WikidataAccessService {
    */
   public void saveXmlToFile(String xml, File contentFile) throws WikidataAccessException {
     try {
-      if(!contentFile.exists())
-        contentFile.createNewFile();
+      //create content file if needed
+      contentFile.createNewFile();
       FileUtils.write(contentFile, xml, StandardCharsets.UTF_8.name());
     } catch (IOException e) {
       throw new WikidataAccessException(WikidataAccessException.XML_COULD_NOT_BE_WRITTEN_TO_FILE_ERROR, e);
