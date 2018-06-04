@@ -29,11 +29,12 @@ public final class DateUtils {
 
   /**
    * Modifies a {@link Date} by a {@link TimeUnit} {@code amount}.
-   * <p>This means that the {@code timeUnit} defines the type of the {@code amount} to be added or
+   * <p>This means that the {@code timeUnit} defines the type of the {@code amount} to be added to or
    * subtracted from the {@code date}</p>
    *
-   * @param amount the amount of units to be added or subtracted, so it can be a negative value
    * @param date the date used that will be modified
+   * @param amount the amount of units to be added or subtracted, so it can be a negative value
+   * @param timeUnit the time unit used define the type of the {@code amount} parameter
    * @return the new converted date
    */
   public static Date modifyDateByTimeUnitAmount(Date date, long amount, TimeUnit timeUnit) {
