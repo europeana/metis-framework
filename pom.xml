@@ -12,11 +12,8 @@
   <modules>
     <module>metis-core</module>
     <module>metis-indexing</module>
-    <module>metis-hierarchies</module>
     <module>metis-dereference</module>
-    <module>metis-redirect</module>
     <module>metis-validation</module>
-    <module>metis-mapping</module>
     <module>metis-enrichment</module>
     <module>metis-common</module>
     <module>metis-data-checker</module>
