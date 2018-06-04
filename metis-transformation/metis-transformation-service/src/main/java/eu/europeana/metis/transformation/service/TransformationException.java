@@ -5,7 +5,14 @@ package eu.europeana.metis.transformation.service;
  */
 public class TransformationException extends Exception {
 
-    public TransformationException(Throwable t) {
-        super(t);
-    }
+  private static final long serialVersionUID = -3627626649245559228L;
+
+  /**
+   * Constructor.
+   * 
+   * @param cause The cause of this exception.
+   */
+  public TransformationException(Throwable cause) {
+    super(cause);
+  }
 }

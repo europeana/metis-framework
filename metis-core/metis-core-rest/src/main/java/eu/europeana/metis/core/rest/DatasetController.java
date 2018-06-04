@@ -13,6 +13,7 @@ import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
+import eu.europeana.metis.core.exceptions.XsltSetupException;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
@@ -309,6 +310,7 @@ public class DatasetController {
    * authenticated or authorized.</li>
    * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
    * <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   * <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM, method = RequestMethod.POST, consumes = {
@@ -341,6 +343,7 @@ public class DatasetController {
    * authenticated or authorized.</li>
    * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
    * <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   * <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM_DEFAULT, method = RequestMethod.POST, consumes = {
