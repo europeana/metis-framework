@@ -47,8 +47,6 @@ public class WikidataAccessDao {
 
   private InputStream xslTemplateImputStream;
 
-  EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
-
   public WikidataAccessDao(File templateFile)
       throws WikidataAccessException, FileNotFoundException {
     this(new FileInputStream(templateFile));
@@ -62,10 +60,6 @@ public class WikidataAccessDao {
   public WikidataAccessDao() throws WikidataAccessException {
     this.xslTemplateImputStream = getClass().getResourceAsStream(WIKIDATA_ORGANIZATION_XSL_FILE);
     init();
-  }
-
-  public EntityConverterUtils getEntityConverterUtils() {
-    return entityConverterUtils;
   }
 
   /**
@@ -89,7 +83,6 @@ public class WikidataAccessDao {
    * in XSLT/XML format in a given file applying XSLT template.
    * 
    * @param uri The Wikidata URI in string format
-   * @param outputFile To store Wikidata response in RDF format
    * @return String The Result of Wikidata query in XML format
    * @throws WikidataAccessException
    * @throws IOException
