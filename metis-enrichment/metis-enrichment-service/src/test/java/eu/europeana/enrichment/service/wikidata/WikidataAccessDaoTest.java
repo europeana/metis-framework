@@ -154,7 +154,6 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     wikidataAccessService.saveXmlToFile(wikidataXml, wikidataOutputFile);
 
     //read organization XML from file
-    //File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
     String savedWikidataXml = FileUtils.readFileToString(wikidataOutputFile, "UTF-8");
     WikidataOrganization wikidataOrganization = wikidataAccessDao.parse(savedWikidataXml);
     assertNotNull(wikidataOrganization);
