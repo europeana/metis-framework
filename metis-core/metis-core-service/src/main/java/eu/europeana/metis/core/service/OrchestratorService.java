@@ -1,22 +1,5 @@
 package eu.europeana.metis.core.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -36,6 +19,7 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.utils.DateUtils;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -51,6 +35,24 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service class that controls the communication between the different DAOs of the system.
@@ -76,6 +78,7 @@ public class OrchestratorService {
   private ValidationProperties validationExternalProperties; // Use getter and setter!
   private ValidationProperties validationInternalProperties; // Use getter and setter!
   private String metisCoreUrl; // Use getter and setter for this field!
+  private int solrCommitPeriodInMins; // Use getter and setter for this field!
 
   /**
    * Constructor with all the required parameters
@@ -257,9 +260,9 @@ public class OrchestratorService {
    * the first plugin in the workflow can be controlled, if required, from the
    * {@code enforcedPluginType}, which means that the last valid plugin that is provided with that
    * parameter, will be used as the source data. </p>
-   * <p> <b>Please note:</b> this method is not checked for authorization: it is only meant to be 
+   * <p> <b>Please note:</b> this method is not checked for authorization: it is only meant to be
    * called from a scheduled task. </p>
-   * 
+   *
    * @param datasetId the dataset identifier for which the execution will take place
    * @param enforcedPluginType optional, the plugin type to be used as source data
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10 highest
@@ -283,7 +286,7 @@ public class OrchestratorService {
     }
     return addWorkflowInQueueOfWorkflowExecutions(dataset, enforcedPluginType, priority);
   }
-  
+
   /**
    * Does checking, prepares and adds a WorkflowExecution in the queue.
    * That means it updates the status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database
@@ -331,7 +334,8 @@ public class OrchestratorService {
     RLock executionDatasetIdLock = redissonClient
         .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
     executionDatasetIdLock.lock();
-    String storedWorkflowExecutionId = workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId());
+    String storedWorkflowExecutionId = workflowExecutionDao
+        .existsAndNotCompleted(dataset.getDatasetId());
     if (storedWorkflowExecutionId != null) {
       executionDatasetIdLock.unlock();
       throw new WorkflowExecutionAlreadyExistsException(
@@ -407,7 +411,8 @@ public class OrchestratorService {
       if (!firstPluginDefined) {
         AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
             dataset.getDatasetId(), pluginMetadata.getPluginType(), enforcedPluginType);
-        pluginMetadata.setPreviousRevisionInformation(previousPlugin); //Set all previous revision information
+        pluginMetadata
+            .setPreviousRevisionInformation(previousPlugin); //Set all previous revision information
       }
 
       // Sanity check
@@ -440,7 +445,7 @@ public class OrchestratorService {
     }
     return firstPluginDefined;
   }
-  
+
   private void setupXsltUrlForPluginMetadata(Dataset dataset,
       AbstractMetisPluginMetadata abstractMetisPluginMetadata) {
     DatasetXslt xsltObject;
@@ -633,7 +638,7 @@ public class OrchestratorService {
    * @param ascending a boolean value to request the ordering to ascending or descending
    * @param nextPage the nextPage token
    * @return A list of all the WorkflowExecutions found. If the user is not admin, the list is
-   *         filtered to only show those executions that are in the user's organization.
+   * filtered to only show those executions that are in the user's organization.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
@@ -643,7 +648,7 @@ public class OrchestratorService {
   public List<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser, String datasetId,
       Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, int nextPage)
       throws GenericMetisException {
-    
+
     // Authorize
     if (datasetId == null) {
       authorizer.authorizeReadAllDatasets(metisUser);
@@ -696,7 +701,7 @@ public class OrchestratorService {
   public DatasetExecutionInformation getDatasetExecutionInformation(MetisUser metisUser,
       String datasetId) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    
+
     AbstractMetisPlugin lastHarvestPlugin = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
             .of(PluginType.HTTP_HARVEST, PluginType.OAIPMH_HARVEST));
@@ -706,6 +711,9 @@ public class OrchestratorService {
     AbstractMetisPlugin lastPublishPlugin = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
             .of(PluginType.PUBLISH));
+    AbstractMetisPlugin lastPreviewPlugin = workflowExecutionDao
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
+            .of(PluginType.PREVIEW));
 
     DatasetExecutionInformation datasetExecutionInformation = new DatasetExecutionInformation();
     if (lastHarvestPlugin != null) {
@@ -716,11 +724,24 @@ public class OrchestratorService {
     }
     datasetExecutionInformation.setFirstPublishedDate(firstPublishPlugin == null ? null :
         firstPublishPlugin.getFinishedDate());
+    Date currentDate = new Date();
     if (lastPublishPlugin != null) {
       datasetExecutionInformation.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       datasetExecutionInformation.setLastPublishedRecords(
           lastPublishPlugin.getExecutionProgress().getProcessedRecords() - lastPublishPlugin
               .getExecutionProgress().getErrors());
+      datasetExecutionInformation.setLastPublishedRecordsReadyForViewing(
+          DateUtils.calculateDateDifference(lastPublishPlugin.getFinishedDate(), currentDate,
+              TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
+    }
+    if (lastPreviewPlugin != null) {
+      datasetExecutionInformation.setLastPreviewDate(lastPreviewPlugin.getFinishedDate());
+      datasetExecutionInformation.setLastPreviewRecords(
+          lastPreviewPlugin.getExecutionProgress().getProcessedRecords() - lastPreviewPlugin
+              .getExecutionProgress().getErrors());
+      datasetExecutionInformation.setLastPreviewRecordsReadyForViewing(
+          DateUtils.calculateDateDifference(lastPreviewPlugin.getFinishedDate(), currentDate,
+              TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
     }
 
     return datasetExecutionInformation;
@@ -735,18 +756,6 @@ public class OrchestratorService {
           String.format("No workflow found with datasetId: %s, in METIS", datasetId));
     }
     return workflow;
-  }
-
-  public void setMetisCoreUrl(String metisCoreUrl) {
-    synchronized (this) {
-      this.metisCoreUrl = metisCoreUrl;
-    }
-  }
-
-  private String getMetisCoreUrl() {
-    synchronized (this) {
-      return this.metisCoreUrl;
-    }
   }
 
   public ValidationProperties getValidationExternalProperties() {
@@ -770,6 +779,30 @@ public class OrchestratorService {
   public void setValidationInternalProperties(ValidationProperties validationInternalProperties) {
     synchronized (this) {
       this.validationInternalProperties = validationInternalProperties;
+    }
+  }
+
+  public void setMetisCoreUrl(String metisCoreUrl) {
+    synchronized (this) {
+      this.metisCoreUrl = metisCoreUrl;
+    }
+  }
+
+  private String getMetisCoreUrl() {
+    synchronized (this) {
+      return this.metisCoreUrl;
+    }
+  }
+
+  public int getSolrCommitPeriodInMins() {
+    synchronized (this) {
+      return solrCommitPeriodInMins;
+    }
+  }
+
+  public void setSolrCommitPeriodInMins(int solrCommitPeriodInMins) {
+    synchronized (this) {
+      this.solrCommitPeriodInMins = solrCommitPeriodInMins;
     }
   }
 }

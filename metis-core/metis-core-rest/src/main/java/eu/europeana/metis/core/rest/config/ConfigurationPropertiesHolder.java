@@ -60,6 +60,9 @@ public class ConfigurationPropertiesHolder {
   @Value("${metis.core.baseUrl}")
   private String metisCoreBaseUrl;
 
+  @Value("${solr.commit.period.in.mins}")
+  private int solrCommitPeriodInMins;
+
   @Value("${socks.proxy.enabled}")
   private boolean socksProxyEnabled;
   @Value("${socks.proxy.host}")
@@ -203,6 +206,10 @@ public class ConfigurationPropertiesHolder {
 
   public String getMetisCoreBaseUrl() {
     return metisCoreBaseUrl;
+  }
+
+  public int getSolrCommitPeriodInMins() {
+    return solrCommitPeriodInMins;
   }
 
   public boolean isSocksProxyEnabled() {

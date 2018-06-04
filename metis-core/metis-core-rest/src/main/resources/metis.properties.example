@@ -44,7 +44,7 @@ redis.enableSSL=
 #True if a custom certificate is used in the truststore defined above
 redis.enable.custom.truststore=
 
-solr.url=
+solr.commit.period.in.mins=
 
 #ECloud
 ecloud.baseUrl=
