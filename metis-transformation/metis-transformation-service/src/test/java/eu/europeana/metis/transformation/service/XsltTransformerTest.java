@@ -1,3 +1,4 @@
+package eu.europeana.metis.transformation.service;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import eu.europeana.metis.transformation.service.TransformationException;

@@ -141,8 +141,12 @@ public final class EuropeanaIdCreator {
   }
 
   private String extractRdfAboutFromRdf(RDF rdf) throws EuropeanaIdException {
-    return rdf.getProvidedCHOList().stream().filter(Objects::nonNull).map(ProvidedCHOType::getAbout)
-        .filter(Objects::nonNull).findFirst().orElseThrow(ID_NOT_FOUND_EXCEPTION_SUPPLIER);
+    final String result = rdf.getProvidedCHOList().stream().filter(Objects::nonNull).findFirst()
+        .map(ProvidedCHOType::getAbout).orElse(null);
+    if (result == null || result.trim().isEmpty()) {
+      throw ID_NOT_FOUND_EXCEPTION_SUPPLIER.get();
+    }
+    return result;
   }
 
   private String extractRdfAboutFromRdfString(String rdfString) throws EuropeanaIdException {
