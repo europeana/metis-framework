@@ -69,9 +69,8 @@ public class WikidataAccessDao {
   }
 
   /**
-   * This method initializes classes needed for Wikidata related activities
+   * This method initializes classes needed for performing the required XML transformations for  Wikidata organizations
    * 
-   * @param file The template file
    * @throws WikidataAccessException
    */
   public final void init() throws WikidataAccessException {
