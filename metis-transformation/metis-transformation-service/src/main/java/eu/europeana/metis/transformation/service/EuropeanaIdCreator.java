@@ -48,18 +48,6 @@ public final class EuropeanaIdCreator {
   private static final Supplier<EuropeanaIdException> ID_NOT_FOUND_EXCEPTION_SUPPLIER =
       () -> new EuropeanaIdException("Could not find provider ID in source.");
 
-  /**
-   * The modes that are supported for Europeana ID creation.
-   */
-  public enum Mode {
-
-    /** This is the current, recommended mode. **/
-    REGULAR,
-
-    /** This is the legacy mode: records may exist with this type of Europeana ID. **/
-    LEGACY
-  }
-
   private final XPathExpression rdfAboutExtractor;
 
   /**
@@ -83,14 +71,13 @@ public final class EuropeanaIdCreator {
    * 
    * @param rdf The RDF. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
-   * @param mode The mode for Europeana ID creation. Is not null.
    * @return The Europeana ID of this RDF. Is not null.
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
-  public String constructEuropeanaId(RDF rdf, String datasetId, Mode mode)
+  public String constructEuropeanaId(RDF rdf, String datasetId)
       throws EuropeanaIdException {
     final String rdfAbout = extractRdfAboutFromRdf(rdf);
-    return constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId, mode);
+    return constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
   }
 
   /**
@@ -98,24 +85,17 @@ public final class EuropeanaIdCreator {
    * 
    * @param rdfString The RDF as a string. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
-   * @param mode The mode for Europeana ID creation. Is not null.
    * @return The Europeana ID of this RDF. Is not null.
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
-  public String constructEuropeanaId(String rdfString, String datasetId, Mode mode)
+  public String constructEuropeanaId(String rdfString, String datasetId)
       throws EuropeanaIdException {
     final String rdfAbout = extractRdfAboutFromRdfString(rdfString);
-    return constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId, mode);
+    return constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
   }
 
-  private String constructEuropeanaIdFromRdfAbout(String rdfAbout, String datasetId, Mode mode) {
-    // TODO create regular sanitizing.
-    final String sanitizedDatasetId = mode == Mode.LEGACY ? sanitizeDatasetIdLegacy(datasetId)
-        : sanitizeDatasetIdLegacy(datasetId);
-    // TODO create regular sanitizing.
-    final String sanitizedRdfAbout =
-        mode == Mode.LEGACY ? sanitizeRdfAboutLegacy(rdfAbout) : sanitizeRdfAboutLegacy(rdfAbout);
-    return "/" + sanitizedDatasetId + "/" + sanitizedRdfAbout;
+  private String constructEuropeanaIdFromRdfAbout(String rdfAbout, String datasetId) {
+    return "/" + sanitizeDatasetIdLegacy(datasetId) + "/" + sanitizeRdfAboutLegacy(rdfAbout);
   }
 
   private static String sanitizeRdfAboutLegacy(final String rdfAbout) {

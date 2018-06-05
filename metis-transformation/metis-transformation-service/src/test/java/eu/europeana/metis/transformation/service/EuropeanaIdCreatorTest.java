@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 import org.junit.Test;
 import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.transformation.service.EuropeanaIdCreator.Mode;
 
 public class EuropeanaIdCreatorTest {
 
@@ -52,76 +51,68 @@ public class EuropeanaIdCreatorTest {
     return rdf;
   }
 
-  public void testIdCreation(String expectedLegacy, String expectedRegular, String datasetId,
-      String... ids) throws EuropeanaIdException {
+  public void testIdCreation(String expectedLegacy, String datasetId, String... ids)
+      throws EuropeanaIdException {
     final RDF rdf = createRdf(ids);
     final String rdfString = createRdfString(ids);
     final EuropeanaIdCreator creator = new EuropeanaIdCreator();
-    assertEquals(expectedLegacy, creator.constructEuropeanaId(rdfString, datasetId, Mode.LEGACY));
-    assertEquals(expectedLegacy, creator.constructEuropeanaId(rdf, datasetId, Mode.LEGACY));
-    assertEquals(expectedRegular, creator.constructEuropeanaId(rdfString, datasetId, Mode.REGULAR));
-    assertEquals(expectedRegular, creator.constructEuropeanaId(rdf, datasetId, Mode.REGULAR));
+    assertEquals(expectedLegacy, creator.constructEuropeanaId(rdfString, datasetId));
+    assertEquals(expectedLegacy, creator.constructEuropeanaId(rdf, datasetId));
   }
 
   @Test
   public void testIdCreation() throws EuropeanaIdException {
 
     final String expected0 = "/" + DATASET_ID + "/" + RECORD_ID_PATH + "_" + RECORD_ID;
-    testIdCreation(expected0, expected0, DATASET_ID, RECORD_ID_PATH + "/" + RECORD_ID);
+    testIdCreation(expected0, DATASET_ID, RECORD_ID_PATH + "/" + RECORD_ID);
 
     final String expected2 = "/" + DATASET_ID + "/" + RECORD_ID_PATH + "_" + RECORD_ID;
-    testIdCreation(expected2, expected2, DATASET_ID_PLUS_LETTER, RECORD_ID_PATH + "/" + RECORD_ID);
+    testIdCreation(expected2, DATASET_ID_PLUS_LETTER, RECORD_ID_PATH + "/" + RECORD_ID);
 
     final String expected1 = "/" + DATASET_ID + "/" + RECORD_ID_PATH + "_" + RECORD_ID;
-    testIdCreation(expected1, expected1, DATASET_ID, RECORD_ID_HTTP, SECOND_RECORD_ID);
+    testIdCreation(expected1, DATASET_ID, RECORD_ID_HTTP, SECOND_RECORD_ID);
 
     final String expected3 = "/" + DATASET_ID + "/" + RECORD_ID_HTTPS.replaceAll("[/./:]", "_");
-    testIdCreation(expected3, expected3, DATASET_ID, RECORD_ID_HTTPS, SECOND_RECORD_ID);
+    testIdCreation(expected3, DATASET_ID, RECORD_ID_HTTPS, SECOND_RECORD_ID);
 
     final String expected4 = "/" + DATASET_ID + "/" + RECORD_ID_PATH + "_" + RECORD_ID + "_";
-    testIdCreation(expected4, expected4, DATASET_ID, RECORD_ID_HTTP + "/");
+    testIdCreation(expected4, DATASET_ID, RECORD_ID_HTTP + "/");
 
     final String expected5 = "/" + DATASET_ID + "/";
-    testIdCreation(expected5, expected5, DATASET_ID, RECORD_ID_SERVER);
+    testIdCreation(expected5, DATASET_ID, RECORD_ID_SERVER);
 
     final String expected6 = "/" + DATASET_ID + "/";
-    testIdCreation(expected6, expected6, DATASET_ID, RECORD_ID_SERVER + "/");
+    testIdCreation(expected6, DATASET_ID, RECORD_ID_SERVER + "/");
 
   }
 
   @Test(expected = EuropeanaIdException.class)
   public void testRdfIdCreationWithoutCho() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdf(new String[0]), DATASET_ID,
-        Mode.LEGACY);
+    new EuropeanaIdCreator().constructEuropeanaId(createRdf(new String[0]), DATASET_ID);
   }
 
   @Test(expected = EuropeanaIdException.class)
   public void testRdfIdCreationWithoutAbout() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdf(null, RECORD_ID), DATASET_ID,
-        Mode.LEGACY);
+    new EuropeanaIdCreator().constructEuropeanaId(createRdf(null, RECORD_ID), DATASET_ID);
   }
 
   @Test(expected = EuropeanaIdException.class)
   public void testRdfIdCreationWithEmptyAbout() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdf("", RECORD_ID), DATASET_ID,
-        Mode.LEGACY);
+    new EuropeanaIdCreator().constructEuropeanaId(createRdf("", RECORD_ID), DATASET_ID);
   }
 
   @Test(expected = EuropeanaIdException.class)
   public void testRdfStringIdCreationWithoutCho() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdfString(new String[0]), DATASET_ID,
-        Mode.LEGACY);
+    new EuropeanaIdCreator().constructEuropeanaId(createRdfString(new String[0]), DATASET_ID);
   }
 
   @Test(expected = EuropeanaIdException.class)
   public void testRdfStringIdCreationWithoutAbout() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdfString(null, RECORD_ID), DATASET_ID,
-        Mode.LEGACY);
+    new EuropeanaIdCreator().constructEuropeanaId(createRdfString(null, RECORD_ID), DATASET_ID);
   }
 
   @Test(expected = EuropeanaIdException.class)
   public void testRdfStringIdCreationWithEmptyAbout() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdfString("", RECORD_ID), DATASET_ID,
-        Mode.LEGACY);
+    new EuropeanaIdCreator().constructEuropeanaId(createRdfString("", RECORD_ID), DATASET_ID);
   }
 }
