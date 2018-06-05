@@ -200,6 +200,11 @@ public class AuthenticationService {
     if (StringUtils.isEmpty(accessToken)) {
       throw new UserUnauthorizedException("Access token not provided properly");
     }
+    //Check that the token is of valid structure
+    if (accessToken.length() != ACCESS_TOKEN_LENGTH || !accessToken
+        .matches("^[" + ACCESS_TOKEN_CHARACTER_BASKET + "]*$")) {
+      throw new UserUnauthorizedException("Access token invalid");
+    }
     return accessToken;
   }
 
@@ -324,7 +329,7 @@ public class AuthenticationService {
         .equals(storedMetisUserToUpdate.getEmail());
   }
 
-  private String generateAccessToken() {
+  String generateAccessToken() {
     final SecureRandom rnd = new SecureRandom();
     StringBuilder sb = new StringBuilder(ACCESS_TOKEN_LENGTH);
     for (int i = 0; i < ACCESS_TOKEN_LENGTH; i++) {
@@ -351,7 +356,8 @@ public class AuthenticationService {
     psqlMetisUserDao.deleteMetisUser(email);
   }
 
-  private MetisUser authenticateUser(String email, String password) throws UserUnauthorizedException {
+  private MetisUser authenticateUser(String email, String password)
+      throws UserUnauthorizedException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
       throw new UserUnauthorizedException("Wrong credentials");

@@ -48,7 +48,7 @@ public class TestObjectFactory {
   public static final String WORKFLOWOWNER = "workflowOwner";
   public static final String WORKFLOWNAME = "workflowName";
   public static final String EMAIL = "user.metis@europeana.eu";
-  public static final String AUTHORIZATION_HEADER = "Bearer qwerty12345";
+  public static final String AUTHORIZATION_HEADER = "Bearer 1234567890qwertyuiopasdfghjklQWE";
   public static final String TOPOLOGY_NAME = "topology_name";
   public static final long EXTERNAL_TASK_ID = 2070373127078497810L;
 
