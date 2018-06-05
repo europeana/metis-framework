@@ -2,6 +2,8 @@ package eu.europeana.enrichment.service.dao;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.xml.bind.JAXBContext;
@@ -25,7 +27,6 @@ import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.enrichment.api.external.model.WikidataOrganization;
-import eu.europeana.enrichment.service.EntityConverterUtils;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
 
@@ -35,6 +36,7 @@ import eu.europeana.enrichment.service.exception.WikidataAccessException;
  */
 public class WikidataAccessDao {
 
+  public static final String WIKIDATA_ORGANIZATION_XSL_FILE = "/wkd2org.xsl";
   private static final String SPARQL = "https://query.wikidata.org/sparql";
   private static final int SIZE = 1024 * 1024;
 
@@ -42,29 +44,29 @@ public class WikidataAccessDao {
 
   private Transformer transformer;
 
-  private File templateFile;
-
-  EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
-
-  public WikidataAccessDao(File templateFile) throws WikidataAccessException {
-    this.templateFile = templateFile;
-    init();
+  public WikidataAccessDao(File templateFile)
+      throws WikidataAccessException, FileNotFoundException {
+    this(new FileInputStream(templateFile));
   }
 
-  public EntityConverterUtils getEntityConverterUtils() {
-    return entityConverterUtils;
+  public WikidataAccessDao(InputStream xslTemplate) throws WikidataAccessException {
+    init(xslTemplate);
+  }
+
+  public WikidataAccessDao() throws WikidataAccessException {
+    InputStream xslTemplate = getClass().getResourceAsStream(WIKIDATA_ORGANIZATION_XSL_FILE);
+    init(xslTemplate);
   }
 
   /**
-   * This method initializes classes needed for Wikidata related activities
-   * 
-   * @param file The template file
+   * This method initializes classes needed for performing the required XML transformations for  Wikidata organizations
+   * @param xslTemplate the InputStream connected to the xls transformation template. 
    * @throws WikidataAccessException
    */
-  public final void init() throws WikidataAccessException {
+  public final void init(InputStream xslTemplate) throws WikidataAccessException {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     try {
-      Source xslt = new StreamSource(templateFile);
+      Source xslt = new StreamSource(xslTemplate);
       transformer = transformerFactory.newTransformer(xslt);
       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
     } catch (TransformerConfigurationException e) {
@@ -77,7 +79,6 @@ public class WikidataAccessDao {
    * in XSLT/XML format in a given file applying XSLT template.
    * 
    * @param uri The Wikidata URI in string format
-   * @param outputFile To store Wikidata response in RDF format
    * @return String The Result of Wikidata query in XML format
    * @throws WikidataAccessException
    * @throws IOException
@@ -132,7 +133,7 @@ public class WikidataAccessDao {
 
     Model m = ModelFactory.createDefaultModel();
     QueryEngineHTTP endpoint = new QueryEngineHTTP(SPARQL, sDescribe);
-    
+
     try {
       return endpoint.execDescribe(m);
     } catch (RiotException e) {
@@ -199,7 +200,9 @@ public class WikidataAccessDao {
    */
   public void translate(String uri, StreamResult res) throws WikidataAccessException {
     transformer.setParameter("rdf_about", uri);
+    transformer.setParameter("deref", true);
+    transformer.setParameter("address", false);
     transform(getModelFromSPARQL(uri), transformer, res);
   }
-  
+
 }

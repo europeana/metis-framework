@@ -24,8 +24,16 @@ public class BaseWikidataAccessSetup extends BaseZohoAccessSetup {
    */
   protected void initWikidataAccessService()
       throws WikidataAccessException, FileNotFoundException, URISyntaxException, IOException {
-    File templateFile = getClasspathFile(WIKIDATA_ORGANIZATION_XSLT_TEMPLATE);
-    wikidataAccessDao = new WikidataAccessDao(templateFile);
+    wikidataAccessDao = new WikidataAccessDao();
     wikidataAccessService = new WikidataAccessService(wikidataAccessDao);
+  }
+  
+  File getDerefFile(String testAcronym) throws FileNotFoundException, URISyntaxException, IOException {
+    File contentDir = getClasspathFile(CONTENT_DIR);
+    File derefFile = new File(contentDir, testAcronym + ".deref.xml");
+    if(!derefFile.exists())
+      derefFile.createNewFile();
+    
+    return derefFile;
   }
 }
