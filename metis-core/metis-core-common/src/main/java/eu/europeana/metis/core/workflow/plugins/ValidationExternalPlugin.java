@@ -15,7 +15,7 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  public ValidationExternalPlugin() {
+  ValidationExternalPlugin() {
     //Required for json serialization
     super(PluginType.VALIDATION_EXTERNAL);
 
@@ -27,7 +27,7 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
    *
    * @param pluginMetadata should be {@link ValidationExternalPluginMetadata}
    */
-  public ValidationExternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  ValidationExternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.VALIDATION_EXTERNAL, pluginMetadata);
   }
 

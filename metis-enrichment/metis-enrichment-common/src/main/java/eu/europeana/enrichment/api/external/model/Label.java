@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Label {
+public class Label implements TextProperty {
 
   @XmlAttribute(name = "lang", namespace = "http://www.w3.org/XML/1998/namespace")
   private String lang;
@@ -39,5 +39,9 @@ public class Label {
 
   public void setValue(String value) {
     this.value = value;
+  }
+  
+  public String getKey() {
+    return getLang();
   }
 }

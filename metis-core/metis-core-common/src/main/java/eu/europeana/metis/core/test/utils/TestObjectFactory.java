@@ -1,5 +1,10 @@
 package eu.europeana.metis.core.test.utils;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import org.bson.types.ObjectId;
 import eu.europeana.cloud.common.model.dps.ErrorDetails;
 import eu.europeana.cloud.common.model.dps.NodeStatistics;
 import eu.europeana.cloud.common.model.dps.States;
@@ -23,17 +28,12 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import org.bson.types.ObjectId;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -68,6 +68,8 @@ public class TestObjectFactory {
     transformationPluginMetadata.setEnabled(true);
     ValidationInternalPluginMetadata validationInternalPluginMetadata = new ValidationInternalPluginMetadata();
     validationInternalPluginMetadata.setEnabled(true);
+    NormalizationPluginMetadata normalizationPluginMetadata = new NormalizationPluginMetadata();
+    normalizationPluginMetadata.setEnabled(true);
     EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
     enrichmentPluginMetadata.setEnabled(true);
 
@@ -76,6 +78,7 @@ public class TestObjectFactory {
     abstractMetisPluginMetadata.add(validationExternalPluginMetadata);
     abstractMetisPluginMetadata.add(transformationPluginMetadata);
     abstractMetisPluginMetadata.add(validationInternalPluginMetadata);
+    abstractMetisPluginMetadata.add(normalizationPluginMetadata);
     abstractMetisPluginMetadata.add(enrichmentPluginMetadata);
     workflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 
@@ -99,11 +102,11 @@ public class TestObjectFactory {
     Workflow workflow = createWorkflowObject();
     Dataset dataset = createDataset(DATASETNAME);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
-    OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(
-        new OaipmhHarvestPluginMetadata());
+    AbstractMetisPlugin oaipmhHarvestPlugin =
+        PluginType.OAIPMH_HARVEST.getNewPlugin(new OaipmhHarvestPluginMetadata());
     abstractMetisPlugins.add(oaipmhHarvestPlugin);
-    ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(
-        new ValidationExternalPluginMetadata());
+    AbstractMetisPlugin validationExternalPlugin =
+        PluginType.VALIDATION_EXTERNAL.getNewPlugin(new ValidationExternalPluginMetadata());
     abstractMetisPlugins.add(validationExternalPlugin);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
@@ -293,7 +296,7 @@ public class TestObjectFactory {
   }
 
   public static List<Record> createListOfRecords(int numberOfRecords) {
-    List<Record> records = new ArrayList<>();
+    List<Record> records = new ArrayList<>(numberOfRecords);
     for (int i = 0; i < numberOfRecords; i++) {
       records.add(new Record(UUID.randomUUID().toString(),
           String.format("<record><element attr=\"test\">%d</element></record>", i)));

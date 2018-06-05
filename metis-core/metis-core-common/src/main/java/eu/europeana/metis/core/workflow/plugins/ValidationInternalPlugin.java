@@ -15,7 +15,7 @@ public class ValidationInternalPlugin extends AbstractMetisPlugin {
   /**
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
    */
-  public ValidationInternalPlugin() {
+  ValidationInternalPlugin() {
     //Required for json serialization
     super(PluginType.VALIDATION_INTERNAL);
   }
@@ -26,7 +26,7 @@ public class ValidationInternalPlugin extends AbstractMetisPlugin {
    *
    * @param pluginMetadata should be {@link ValidationInternalPluginMetadata}
    */
-  public ValidationInternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  ValidationInternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.VALIDATION_INTERNAL, pluginMetadata);
   }
 

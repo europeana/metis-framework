@@ -206,7 +206,7 @@ public class RedisInternalEnricher {
     }
     jedis.close();
   }
-
+  
   private void loadEntity(EntityType entityType, MongoTerm term, Jedis jedis) {
     MongoTermList<?> termList = entityDao.findByCode(term.getCodeUri(), entityType.entityClass);
     if (termList != null) {
@@ -227,10 +227,8 @@ public class RedisInternalEnricher {
         jedis.hset(entityType.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
             OBJECT_MAPPER.writeValueAsString(entityWrapper));
         List<String> parents = this.findParents(termList.getParent(), entityType.entityClass);
-        if (!parents.isEmpty()) {
-          jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
-              parents.toArray(new String[]{}));
-        }
+        jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
+            parents.toArray(new String[] {}));
         if (termList.getOwlSameAs() != null) {
           for (String sameAs : termList.getOwlSameAs()) {
             jedis.hset(entityType.cachedEntityPrefix + CACHED_SAMEAS, sameAs, term.getCodeUri());
@@ -242,7 +240,7 @@ public class RedisInternalEnricher {
     }
   }
 
-  /**
+    /**
    * The internal enrichment functionality not to be exposed yet as there is a strong dependency to
    * the external resources to recreate the DB The enrichment is performed by lowercasing every
    * value so that searchability in the DB is enhanced, but the Capitalized version is always
@@ -250,6 +248,7 @@ public class RedisInternalEnricher {
    *
    * @param values The values to enrich
    * @return A list of enrichments
+   * @throws IOException 
    */
   protected List<EntityWrapper> tag(List<InputValue> values) throws IOException {
 

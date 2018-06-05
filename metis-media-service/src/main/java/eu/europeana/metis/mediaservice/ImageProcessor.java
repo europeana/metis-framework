@@ -128,7 +128,7 @@ class ImageProcessor {
 			}
 		} catch (Exception e) {
 			LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
-			throw new MediaException("File seems to be corrupted", "IMAGE ERROR");
+			throw new MediaException("File seems to be corrupted", "IMAGE ERROR", e);
 		}
 		
 		for (int i = 0; i < sizes; i++) {
@@ -145,9 +145,9 @@ class ImageProcessor {
 		File thumbsDir = new File(tempDir, "media_thumbnails");
 		if (!thumbsDir.isDirectory() && !thumbsDir.mkdir())
 			throw new IOException("Could not create thumbnails subdirectory: " + thumbsDir);
-		List<Thumbnail> thumbs = new ArrayList<>();
 		String md5 = DigestUtils.md5Hex(url);
 		String ext = "image/png".equals(mimeType) ? ".png" : ".jpeg";
+        List<Thumbnail> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
 		for (int i = 0; i < THUMB_SUFFIX.length; i++) {
 			File f = File.createTempFile("thumb", ext, thumbsDir);
 			thumbs.add(new Thumbnail(url, md5 + THUMB_SUFFIX[i] + ext, f));
