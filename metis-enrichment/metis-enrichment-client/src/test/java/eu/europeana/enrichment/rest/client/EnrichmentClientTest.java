@@ -71,10 +71,7 @@ public class EnrichmentClientTest {
 	    enrichmentClient.setRestTemplate(restTemplate);	    
 	    
 	    List<InputValue> values = new ArrayList<InputValue>();
-	    enrichmentClient.enrich(values);	
-	    
-	    verify(enrichmentClient).setRestTemplate(restTemplate);
-	    verify(enrichmentClient).enrich(values);
+	    enrichmentClient.enrich(values);
 	}
 
 	@Test

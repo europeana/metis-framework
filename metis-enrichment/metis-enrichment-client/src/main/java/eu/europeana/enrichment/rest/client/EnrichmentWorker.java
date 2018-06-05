@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.ObjIntConsumer;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class performs the task of dereferencing and enrichment for a given RDF document.
@@ -27,7 +27,7 @@ import org.jibx.runtime.JiBXException;
  */
 public class EnrichmentWorker {
 
-  private static final Logger LOGGER = LogManager.getLogger(EnrichmentWorker.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
 	  
   
   private final EnrichmentClient enrichmentClient;
