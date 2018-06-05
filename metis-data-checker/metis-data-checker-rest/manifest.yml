@@ -1,0 +1,8 @@
+---
+applications:
+- name: metis-data-checker-rest-test
+  memory: 2048M
+  instances: 1
+  host: metis-data-checker-rest-test
+  path: target/metis-data-checker-rest-1.0-SNAPSHOT.war
+  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8

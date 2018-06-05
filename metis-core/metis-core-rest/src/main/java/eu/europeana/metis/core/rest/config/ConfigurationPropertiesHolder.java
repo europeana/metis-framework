@@ -3,6 +3,7 @@ package eu.europeana.metis.core.rest.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import eu.europeana.metis.core.workflow.ValidationProperties;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -33,6 +34,8 @@ public class ConfigurationPropertiesHolder {
   private String redisPassword;
   @Value("${redis.enableSSL}")
   private boolean redisEnableSSL;
+  @Value("${redis.enable.custom.truststore}")
+  private boolean redisEnableCustomTruststore;
   @Value("${redisson.lock.watchdog.timeout.in.secs}")
   private int redissonLockWatchdogTimeoutInSecs;
 
@@ -56,6 +59,9 @@ public class ConfigurationPropertiesHolder {
 
   @Value("${metis.core.baseUrl}")
   private String metisCoreBaseUrl;
+
+  @Value("${solr.commit.period.in.mins}")
+  private int solrCommitPeriodInMins;
 
   @Value("${socks.proxy.enabled}")
   private boolean socksProxyEnabled;
@@ -89,6 +95,20 @@ public class ConfigurationPropertiesHolder {
   private String mongoDb;
   @Value("${mongo.enableSSL}")
   private boolean mongoEnableSSL;
+
+  //Validation
+  @Value("${validation.internal.schema.zip}")
+  private String validationInternalSchemaZip;
+  @Value("${validation.internal.schema.root}")
+  private String validationInternalSchemaRoot;
+  @Value("${validation.internal.schematron.root}")
+  private String validationInternalSchematronRoot;
+  @Value("${validation.external.schema.zip}")
+  private String validationExternalSchemaZip;
+  @Value("${validation.external.schema.root}")
+  private String validationExternalSchemaRoot;
+  @Value("${validation.external.schematron.root}")
+  private String validationExternalSchematronRoot;
 
   //Authentication
   @Value("${authentication.baseUrl}")
@@ -144,6 +164,10 @@ public class ConfigurationPropertiesHolder {
     return redisEnableSSL;
   }
 
+  public boolean isRedisEnableCustomTruststore() {
+    return redisEnableCustomTruststore;
+  }
+
   public int getRedissonLockWatchdogTimeoutInSecs() {
     return redissonLockWatchdogTimeoutInSecs;
   }
@@ -182,6 +206,10 @@ public class ConfigurationPropertiesHolder {
 
   public String getMetisCoreBaseUrl() {
     return metisCoreBaseUrl;
+  }
+
+  public int getSolrCommitPeriodInMins() {
+    return solrCommitPeriodInMins;
   }
 
   public boolean isSocksProxyEnabled() {
@@ -266,5 +294,15 @@ public class ConfigurationPropertiesHolder {
 
   public String getEcloudPassword() {
     return ecloudPassword;
+  }
+
+  public ValidationProperties getValidationExternalProperties() {
+    return new ValidationProperties(validationExternalSchemaZip, validationExternalSchemaRoot,
+        validationExternalSchematronRoot);
+  }
+
+  public ValidationProperties getValidationInternalProperties() {
+    return new ValidationProperties(validationInternalSchemaZip, validationInternalSchemaRoot,
+        validationInternalSchematronRoot);
   }
 }

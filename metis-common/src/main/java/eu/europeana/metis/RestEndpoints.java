@@ -108,7 +108,7 @@ public final class RestEndpoints {
   public static final String SCHEMAS_ALL = "/schemas/all";
 
   /* METIS PREVIEW SERVICE ENDPOINT*/
-  public static final String PREVIEW_UPLOAD = "/upload";
+  public static final String DATA_CHECKER_UPLOAD = "/upload";
 
   /* METIS LINKCHECK SERVICE ENDPOINT*/
   public static final String LINKCHECK = "/linkcheck";

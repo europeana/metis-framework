@@ -41,8 +41,10 @@ redis.host=
 redis.port=0
 redis.password=
 redis.enableSSL=
+#True if a custom certificate is used in the truststore defined above
+redis.enable.custom.truststore=
 
-solr.url=
+solr.commit.period.in.mins=
 
 #ECloud
 ecloud.baseUrl=
@@ -50,6 +52,14 @@ ecloud.dps.baseUrl=
 ecloud.provider=
 ecloud.username=
 ecloud.password=
+
+#Validation
+validation.external.schema.zip=
+validation.external.schema.root=
+validation.external.schematron.root=
+validation.internal.schema.zip=
+validation.internal.schema.root=
+validation.internal.schematron.root=
 
 #Authentication
 authentication.baseUrl=

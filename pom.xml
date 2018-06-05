@@ -12,14 +12,11 @@
   <modules>
     <module>metis-core</module>
     <module>metis-indexing</module>
-    <module>metis-hierarchies</module>
     <module>metis-dereference</module>
-    <module>metis-redirect</module>
     <module>metis-validation</module>
-    <module>metis-mapping</module>
     <module>metis-enrichment</module>
     <module>metis-common</module>
-    <module>metis-preview</module>
+    <module>metis-data-checker</module>
     <module>metis-normalization</module>
     <module>metis-media-service</module>
     <module>metis-authentication</module>
@@ -76,7 +73,6 @@
     <version.mongo.java.driver>3.6.2</version.mongo.java.driver>
     <version.mongojack>2.3.0</version.mongojack>
     <version.javax.persistence>1.0.2</version.javax.persistence>
-    <version.commons.codec>1.10</version.commons.codec>
     <version.commons.io>2.6</version.commons.io>
     <version.commons.lang>3.3.2</version.commons.lang>
     <version.httpclient>4.5.2</version.httpclient>

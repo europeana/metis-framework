@@ -1,0 +1,24 @@
+#Socks Proxy
+socks.proxy.enabled=
+socks.proxy.host=
+socks.proxy.port=
+socks.proxy.username=
+socks.proxy.password=
+
+mongo.hosts=
+mongo.port=
+mongo.authentication.db=
+mongo.username=
+mongo.password=
+mongo.db=
+mongo.enableSSL=
+
+solr.search.url=
+
+data.checker.portal.url=
+data.checker.executor.threadCount=
+
+validation.schema.before_transformation=EDM-EXTERNAL
+validation.schema.after_transformation=EDM-INTERNAL
+
+transformation.default=EDM_external2internal_v2.xsl

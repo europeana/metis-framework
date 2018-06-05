@@ -3,7 +3,7 @@
   Document   : wkd2org.xsl
   Author     : hmanguinhas
   Created on : March 17, 2018
-  Updated on : March 17, 2018
+  Updated on : May 30, 2018
 -->
 <xsl:stylesheet version="2.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -32,6 +32,7 @@
 
     <xsl:param name="rdf_about"/>
     <xsl:param name="deref"    />
+    <xsl:param name="address"  select="true()"/>
     <xsl:param name="dbpedia"  />
 
     <xsl:variable name="langs">bg,ca,cs,da,de,el,en,es,et,eu,fi,fr,ga,gd,he,hr,hu,ie,is,it,ka,lt,lv,mk,mt,mul,nl,no,pl,pt,ro,ru,sk,sl,sr,sv,tr,uk,yi,cy,sq,hy,az,be,bs,gl,ja,ar,ko,zh,hi</xsl:variable>
@@ -114,12 +115,13 @@
             </xsl:if>
 
             <!-- Address -->
-            <xsl:if test="wdt:P276 or wdt:P669 or wdt:P281 or wdt:P2918">
-                <xsl:variable name="countryName" select="lib:toCountryName(wdt:P17[1]/@rdf:resource)"/>
-                <xsl:variable name="locality"    select="wdt:P276[1]/@rdf:resource"/>
-                <xsl:variable name="street"      select="wdt:P669[1]/text()"/>
-                <xsl:variable name="postal"      select="wdt:P281[1]/text()"/>
-                <xsl:variable name="pobox"       select="wdt:P2918[1]/text()"/>
+            <xsl:if test="$address and (($deref and wdt:P669) or wdt:P969 or wdt:P281 or wdt:P2918)">
+                <xsl:variable name="countryName"   select="lib:toCountryName(wdt:P17[1]/@rdf:resource)"/>
+<!--            <xsl:variable name="locality"      select="wdt:P276[1]/@rdf:resource"/>  -->
+                <xsl:variable name="streetAddress" select="wdt:P969[1]/text()"/>
+                <xsl:variable name="street"        select="wdt:P669[1]/@rdf:resource"/>
+                <xsl:variable name="postal"        select="wdt:P281[1]/text()"/>
+                <xsl:variable name="pobox"         select="wdt:P2918[1]/text()"/>
 
                 <xsl:element name="vcard:hasAddress">
 
@@ -127,23 +129,33 @@
                         <xsl:attribute name="rdf:about"><xsl:value-of select="$wkdURI"/>#address</xsl:attribute>
 
                         <xsl:if test="$countryName">
-                            <xsl:element name="vcard:country">
+                            <xsl:element name="vcard:country-name">
                                 <xsl:value-of select="$countryName"/>
                             </xsl:element>
                         </xsl:if>
 
+<!-- 
                         <xsl:if test="$deref and $locality">
                             <xsl:variable name="localName" select="lib:getLabel($locality)"/>
                             <xsl:element name="vcard:locality">
                                 <xsl:value-of select="$localName"/>
                             </xsl:element>
                         </xsl:if>
+ -->
 
-                        <xsl:if test="$street">
-                            <xsl:element name="vcard:street-address">
-                                <xsl:value-of select="$street"/>
-                            </xsl:element>
-                        </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="$streetAddress">
+                                <xsl:element name="vcard:street-address">
+                                    <xsl:value-of select="$streetAddress"/>
+                                </xsl:element>
+                            </xsl:when>
+                            <xsl:when test="$deref and $street">
+                                <xsl:variable name="localName" select="lib:getLabel($street)"/>
+                                <xsl:element name="vcard:street-address">
+                                    <xsl:value-of select="$localName"/>
+                                </xsl:element>
+                            </xsl:when>
+                        </xsl:choose>
 
                         <xsl:if test="$postal">
                             <xsl:element name="vcard:postal-code">

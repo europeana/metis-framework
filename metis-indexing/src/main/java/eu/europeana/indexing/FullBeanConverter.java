@@ -2,7 +2,8 @@ package eu.europeana.indexing;
 
 import java.io.IOException;
 import java.util.function.Supplier;
-
+import org.apache.commons.lang3.StringUtils;
+import eu.europeana.corelib.definitions.jibx.CollectionName;
 import eu.europeana.corelib.definitions.jibx.DatasetName;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.RDF;
@@ -60,14 +61,33 @@ public class FullBeanConverter {
       throw new IndexingException("Could not construct FullBean: null was returned.");
     }
 
-    // Set the collection name from the dataset name.
-    final EuropeanaAggregationType aggregation = rdf.getEuropeanaAggregationList().isEmpty() ? null
-        : rdf.getEuropeanaAggregationList().get(0);
-    final DatasetName datasetNameObject = aggregation == null ? null : aggregation.getDatasetName();
-    final String datasetName = datasetNameObject == null ? "" : datasetNameObject.getString();
-    fBean.setEuropeanaCollectionName(new String[] {datasetName});
+    // Set the collection name separately.
+    fBean.setEuropeanaCollectionName(new String[] {getDatasetNameFromRdf(rdf)});
 
     // Done.
     return fBean;
+  }
+
+  private static String getDatasetNameFromRdf(RDF rdf) {
+
+    // Try to find the europeana aggregation
+    final EuropeanaAggregationType aggregation = rdf.getEuropeanaAggregationList().isEmpty() ? null
+        : rdf.getEuropeanaAggregationList().get(0);
+    if (aggregation == null) {
+      return "";
+    }
+
+    // Try the dataset name property from the aggregation.
+    final DatasetName datasetNameObject = aggregation.getDatasetName();
+    final String datasetName = datasetNameObject == null ? null : datasetNameObject.getString();
+    if (StringUtils.isNotBlank(datasetName)) {
+      return datasetName;
+    }
+
+    // If that fails, try the collection name property from the aggregation.
+    final CollectionName collectionNameObject = aggregation.getCollectionName();
+    final String collectionName =
+        collectionNameObject == null ? null : collectionNameObject.getString();
+    return StringUtils.isNotBlank(collectionName) ? collectionName : "";
   }
 }

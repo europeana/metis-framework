@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 public enum OrganizationRole {
 
-    CONTENT_PROVIDER("Content Provider"),DIRECT_PROVIDER("Direct Provider"),DATA_AGGREGATOR("Data Aggregator"),
+    CONTENT_PROVIDER("Content Provider"),DIRECT_PROVIDER("Direct Provider"), AGGREGATOR("Aggregator"),
     FINANCIAL_PARTNER("Financial Partner"),TECHNOLOGY_PARTNER("Technology Partner"),POLICY_MAKER("Policy Maker"),
     CONSULTANT("Consultant"),OTHER("Other"),EUROPEANA("Europeana");
 

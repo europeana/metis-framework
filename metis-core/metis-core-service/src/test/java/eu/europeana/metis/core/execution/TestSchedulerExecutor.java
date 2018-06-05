@@ -88,11 +88,11 @@ public class TestSchedulerExecutor {
         any(LocalDateTime.class), anyInt()))
         .thenReturn(listOfScheduledWorkflowsWithDateONCE);
     when(
-        scheduleWorkflowService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt()))
+        scheduleWorkflowService.getAllScheduledWorkflowsWithoutAuthorization(any(ScheduleFrequence.class), anyInt()))
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
-    when(orchestratorService.addWorkflowInQueueOfWorkflowExecutions(anyString(), isNull(), anyInt()))
+    when(orchestratorService.addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), anyInt()))
         .thenThrow(new NoDatasetFoundException("Some Error"))
         .thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
@@ -104,9 +104,9 @@ public class TestSchedulerExecutor {
         .getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
             any(LocalDateTime.class), anyInt());
     verify(scheduleWorkflowService, times(3))
-        .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
+        .getAllScheduledWorkflowsWithoutAuthorization(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, atMost(listSize * 4))
-        .addWorkflowInQueueOfWorkflowExecutions(anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), anyInt());
   }
 
   @Test
@@ -139,12 +139,12 @@ public class TestSchedulerExecutor {
         any(LocalDateTime.class), anyInt()))
         .thenReturn(new ArrayList<>());
     when(
-        scheduleWorkflowService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt()))
+        scheduleWorkflowService.getAllScheduledWorkflowsWithoutAuthorization(any(ScheduleFrequence.class), anyInt()))
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(anyString(), isNull(), anyInt()))
+        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), anyInt()))
         .thenThrow(new NoDatasetFoundException("Some Error"))
         .thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
@@ -156,9 +156,9 @@ public class TestSchedulerExecutor {
         .getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
             any(LocalDateTime.class), anyInt());
     verify(scheduleWorkflowService, times(3))
-        .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
+        .getAllScheduledWorkflowsWithoutAuthorization(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, times(0))
-        .addWorkflowInQueueOfWorkflowExecutions(anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), anyInt());
   }
 
   @Test
