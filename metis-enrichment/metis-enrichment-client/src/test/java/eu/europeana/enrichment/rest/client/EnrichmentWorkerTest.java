@@ -1,23 +1,16 @@
 package eu.europeana.enrichment.rest.client;
 
-import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.enrichment.api.exceptions.UnknownException;
-import eu.europeana.enrichment.api.external.InputValueList;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -41,9 +34,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.web.client.RestTemplate;
 
-@RunWith(MockitoJUnitRunner.Silent.class)
+@RunWith(MockitoJUnitRunner.class)
 public class EnrichmentWorkerTest {
 
   @Captor
@@ -160,7 +152,7 @@ public class EnrichmentWorkerTest {
 	    final EnrichmentClient enrichmentClient = Mockito.mock(EnrichmentClient.class);
 	    doReturn(null).when(enrichmentClient).enrich(any());
 	    final DereferenceClient dereferenceClient = Mockito.mock(DereferenceClient.class);
-	    doReturn(new EnrichmentResultList()).when(dereferenceClient).dereference(any());
+	 
 	    final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
 	    // Create enrichment worker and mock the enrichment and dereferencing results.
