@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -110,7 +111,32 @@ public final class XpathQuery {
 
     @Override
     public String getNamespaceURI(String prefix) {
-      return namespaceMap.get(prefix);
+
+      // In case prefix is null.
+      if (prefix == null) {
+        throw new IllegalArgumentException();
+      }
+
+      // In case prefix is in map.
+      final String resultFromMap = namespaceMap.get(prefix);
+      if (resultFromMap != null) {
+        return resultFromMap;
+      }
+
+      // Other default options.
+      final String result;
+      switch (prefix) {
+        case XMLConstants.XML_NS_PREFIX:
+          result = XMLConstants.XML_NS_URI;
+          break;
+        case XMLConstants.XMLNS_ATTRIBUTE:
+          result = XMLConstants.XMLNS_ATTRIBUTE_NS_URI;
+          break;
+        default:
+          result = XMLConstants.NULL_NS_URI;
+          break;
+      }
+      return result;
     }
 
     @Override
