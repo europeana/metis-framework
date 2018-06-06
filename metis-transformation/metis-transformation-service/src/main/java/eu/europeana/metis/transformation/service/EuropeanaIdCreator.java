@@ -1,6 +1,7 @@
 package eu.europeana.metis.transformation.service;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
@@ -38,8 +39,9 @@ public final class EuropeanaIdCreator {
   private static final String EDM_NAMESPACE_URI = "http://www.europeana.eu/schemas/edm/";
   private static final String EDM_NAMESPACE_PREFIX = "edm";
 
-  private static final String RDF_ABOUT_EXPRESSION = "/" + RDF_NAMESPACE_PREFIX + ":RDF/"
-      + EDM_NAMESPACE_PREFIX + ":ProvidedCHO[1]/@" + RDF_NAMESPACE_PREFIX + ":about";
+  private static final String RDF_ABOUT_EXPRESSION =
+      String.format("/%s:RDF/%s:ProvidedCHO[1]/@%s:about", RDF_NAMESPACE_PREFIX,
+          EDM_NAMESPACE_PREFIX, RDF_NAMESPACE_PREFIX);
 
   private static final Pattern LEGACY_COLLECTION_ID_PATTERN = Pattern.compile("[a-zA-Z]");
   private static final Pattern LEGACY_RDF_ABOUT_REPLACE_PATTERN = Pattern.compile("[^a-zA-Z0-9_]");
@@ -74,8 +76,7 @@ public final class EuropeanaIdCreator {
    * @return The Europeana ID of this RDF. Is not null.
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
-  public String constructEuropeanaId(RDF rdf, String datasetId)
-      throws EuropeanaIdException {
+  public String constructEuropeanaId(RDF rdf, String datasetId) throws EuropeanaIdException {
     final String rdfAbout = extractRdfAboutFromRdf(rdf);
     return constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
   }
@@ -98,6 +99,36 @@ public final class EuropeanaIdCreator {
     return "/" + sanitizeDatasetIdLegacy(datasetId) + "/" + sanitizeRdfAboutLegacy(rdfAbout);
   }
 
+  /**
+   * <p>
+   * This method sanitizes the RDF about for inclusion in the Europeana record ID. This is the
+   * legacy method (the UIM way). This sanitization consists of two steps (in the order given here):
+   * <ol>
+   * <li><b>Shortening</b> the string, removing some structure in the case it is a URI.</li>
+   * <li><b>Normalizing</b> the characters, replacing unsupported ones by a default
+   * placeholder.</li>
+   * </ol>
+   * </p>
+   * <p>
+   * The rules for <b>shortening</b> are as follows:
+   * <ul>
+   * <li>If the input represents a link starting with <code>http://</code> then everything after the
+   * first <code>/</code> that follows that prefix will be kept, the rest will be discarded. For
+   * instance, the URI <code> http://www.europeana.eu/somepath/someid </code> would become
+   * <code>somepath/someid</code>.</li>
+   * <li>As a special case of the previous rule, if there is no <code>/</code> after the prefix (for
+   * instance for the URI <code>http://someid</code>), the empty string will be returned.</li>
+   * <li>In all other cases shortening has no effect: the entire string is kept.</li>
+   * </ul>
+   * </p>
+   * <p>
+   * The rules for <b>normalizing</b> are as follows. Every character that is not a digit or a Roman
+   * letter without diacritics (lower case or upper case) will be replaced by an underscore ('_').
+   * </p>
+   * 
+   * @param rdfAbout The string to be sanitized.
+   * @return The sanitized string.
+   */
   private static String sanitizeRdfAboutLegacy(final String rdfAbout) {
     final String recordId = rdfAbout.startsWith("http://")
         ? substringAfterLegacy(substringAfterLegacy(rdfAbout, "http://"), "/")
@@ -114,6 +145,19 @@ public final class EuropeanaIdCreator {
     return str.substring(pos + separator.length());
   }
 
+  /**
+   * This method sanitizes the collection ID for inclusion in the Europeana record ID. This is the
+   * legacy method (the UIM way). This sanitization consists of merely checking the last character
+   * of the ID.
+   * <ul>
+   * <li>If it is a Roman letter without diacritics it will be removed from the collection ID and
+   * the rest will be returned.</li>
+   * <li>If it is any other character, the collection ID will be returned without any changes.</li>
+   * </ul>
+   * 
+   * @param collectionId The collection ID to be sanitized.
+   * @return The sanitized collection ID.
+   */
   private static String sanitizeDatasetIdLegacy(String collectionId) {
     final Matcher matcher = LEGACY_COLLECTION_ID_PATTERN
         .matcher(collectionId.substring(collectionId.length() - 1, collectionId.length()));
@@ -131,14 +175,13 @@ public final class EuropeanaIdCreator {
 
   private String extractRdfAboutFromRdfString(String rdfString) throws EuropeanaIdException {
 
-    // Obtain the rdf about
+    // Obtain the RDF about
     final String result;
-    try {
-      final InputStream inputStream =
-          new ByteArrayInputStream(rdfString.getBytes(StandardCharsets.UTF_8));
+    try (final InputStream inputStream =
+        new ByteArrayInputStream(rdfString.getBytes(StandardCharsets.UTF_8))) {
       result =
           (String) rdfAboutExtractor.evaluate(new InputSource(inputStream), XPathConstants.STRING);
-    } catch (XPathExpressionException e) {
+    } catch (XPathExpressionException | IOException e) {
       throw new EuropeanaIdException(
           "Something went wrong while extracting the provider ID from the source.", e);
     }

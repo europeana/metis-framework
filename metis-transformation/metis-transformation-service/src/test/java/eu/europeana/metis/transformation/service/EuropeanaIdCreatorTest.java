@@ -66,11 +66,11 @@ public class EuropeanaIdCreatorTest {
     final String expected0 = "/" + DATASET_ID + "/" + RECORD_ID_PATH + "_" + RECORD_ID;
     testIdCreation(expected0, DATASET_ID, RECORD_ID_PATH + "/" + RECORD_ID);
 
-    final String expected2 = "/" + DATASET_ID + "/" + RECORD_ID_PATH + "_" + RECORD_ID;
-    testIdCreation(expected2, DATASET_ID_PLUS_LETTER, RECORD_ID_PATH + "/" + RECORD_ID);
-
     final String expected1 = "/" + DATASET_ID + "/" + RECORD_ID_PATH + "_" + RECORD_ID;
-    testIdCreation(expected1, DATASET_ID, RECORD_ID_HTTP, SECOND_RECORD_ID);
+    testIdCreation(expected1, DATASET_ID_PLUS_LETTER, RECORD_ID_PATH + "/" + RECORD_ID);
+
+    final String expected2 = "/" + DATASET_ID + "/" + RECORD_ID_PATH + "_" + RECORD_ID;
+    testIdCreation(expected2, DATASET_ID, RECORD_ID_HTTP, SECOND_RECORD_ID);
 
     final String expected3 = "/" + DATASET_ID + "/" + RECORD_ID_HTTPS.replaceAll("[/./:]", "_");
     testIdCreation(expected3, DATASET_ID, RECORD_ID_HTTPS, SECOND_RECORD_ID);
@@ -88,7 +88,7 @@ public class EuropeanaIdCreatorTest {
 
   @Test(expected = EuropeanaIdException.class)
   public void testRdfIdCreationWithoutCho() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdf(new String[0]), DATASET_ID);
+    new EuropeanaIdCreator().constructEuropeanaId(createRdf(), DATASET_ID);
   }
 
   @Test(expected = EuropeanaIdException.class)
@@ -103,7 +103,7 @@ public class EuropeanaIdCreatorTest {
 
   @Test(expected = EuropeanaIdException.class)
   public void testRdfStringIdCreationWithoutCho() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdfString(new String[0]), DATASET_ID);
+    new EuropeanaIdCreator().constructEuropeanaId(createRdfString(), DATASET_ID);
   }
 
   @Test(expected = EuropeanaIdException.class)
