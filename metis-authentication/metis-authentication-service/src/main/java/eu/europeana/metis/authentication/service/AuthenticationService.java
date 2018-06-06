@@ -356,7 +356,15 @@ public class AuthenticationService {
     psqlMetisUserDao.deleteMetisUser(email);
   }
 
-  private MetisUser authenticateUser(String email, String password)
+  /**
+   * Authenticates a user using an {@code email} and {@code password}.
+   *
+   * @param email the email identify of the user
+   * @param password the previously stored password
+   * @return the object of the metis user in the system
+   * @throws UserUnauthorizedException if user does not exist or password invalid
+   */
+  public MetisUser authenticateUser(String email, String password)
       throws UserUnauthorizedException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {

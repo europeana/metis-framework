@@ -13,13 +13,13 @@ import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.util.List;
 import javax.ws.rs.QueryParam;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -67,7 +67,8 @@ public class AuthenticationController {
   public void registerUser(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
 
-    Credentials credentials = authenticationService.validateAuthorizationHeaderWithCredentials(authorization);
+    Credentials credentials = authenticationService
+        .validateAuthorizationHeaderWithCredentials(authorization);
     authenticationService.registerUser(credentials.getEmail(), credentials.getPassword());
     LOGGER.info("User with email {} has been registered", credentials.getEmail());
   }
@@ -93,7 +94,8 @@ public class AuthenticationController {
       throws GenericMetisException {
     Credentials credentials = authenticationService
         .validateAuthorizationHeaderWithCredentials(authorization);
-    MetisUser metisUser = authenticationService.loginUser(credentials.getEmail(), credentials.getPassword());
+    MetisUser metisUser = authenticationService
+        .loginUser(credentials.getEmail(), credentials.getPassword());
     LOGGER.info("User with email: {} and user id: {} logged in", metisUser.getEmail(),
         metisUser.getUserId());
     return metisUser;
@@ -104,7 +106,8 @@ public class AuthenticationController {
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @param newPassword the new password for the user
+   * @param oldPassword the old password of the user
+   * @param newPassword the new password of the user
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
@@ -115,14 +118,18 @@ public class AuthenticationController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserPassword(@RequestHeader("Authorization") String authorization,
+      @QueryParam("oldPassword") String oldPassword,
       @QueryParam("newPassword") String newPassword)
       throws GenericMetisException {
-    String accessToken = authenticationService
-        .validateAuthorizationHeaderWithAccessToken(authorization);//Before any action, validate token
-    if (StringUtils.isEmpty(newPassword)) {
+    if (StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword)) {
       throw new BadContentException("newPassword not provided");
     }
+    String accessToken = authenticationService
+        .validateAuthorizationHeaderWithAccessToken(
+            authorization);//Before any action, validate token
     MetisUser metisUser = authenticationService.authenticateUser(accessToken);
+    authenticationService.authenticateUser(metisUser.getEmail(),
+        oldPassword);//If no exception authentication with password succeeds
     authenticationService.updateUserPassword(metisUser, newPassword);
     LOGGER.info("User with access_token: {} updated password", accessToken);
   }
@@ -153,7 +160,9 @@ public class AuthenticationController {
       throw new UserUnauthorizedException("Action allowed only from admin users");
     }
     authenticationService.deleteUser(userEmailToDelete);
-    LOGGER.info("User with email: {} deleted", StringEscapeUtils.escapeJava(userEmailToDelete));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("User with email: {} deleted", StringEscapeUtils.escapeJava(userEmailToDelete));
+    }
   }
 
   /**
@@ -183,7 +192,9 @@ public class AuthenticationController {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     MetisUser metisUser = authenticationService.updateUserFromZoho(userEmailToUpdate);
-    LOGGER.info("User with email: {} updated", StringEscapeUtils.escapeJava(userEmailToUpdate));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("User with email: {} updated", StringEscapeUtils.escapeJava(userEmailToUpdate));
+    }
     return metisUser;
   }
 
@@ -213,7 +224,10 @@ public class AuthenticationController {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
-    LOGGER.info("User with email: {} made admin", StringEscapeUtils.escapeJava(userEmailToMakeAdmin));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("User with email: {} made admin",
+          StringEscapeUtils.escapeJava(userEmailToMakeAdmin));
+    }
   }
 
   /**

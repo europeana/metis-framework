@@ -142,13 +142,16 @@ public class AuthenticationControllerTest {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
-    final String newPassword = "123";
+    final String oldPassword = "123";
+    final String newPassword = "12345";
 
     authenticationControllerMock
         .perform(
-            put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD).param("newPassword", newPassword).header(
+            put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD).param("oldPassword", oldPassword)
+                .param("newPassword", newPassword).header(
                 HttpHeaders.AUTHORIZATION, ""))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
+    verify(authenticationService).authenticateUser(metisUser.getEmail(), oldPassword);
     verify(authenticationService).updateUserPassword(metisUser, newPassword);
   }
 
@@ -156,10 +159,12 @@ public class AuthenticationControllerTest {
   public void updateUserPasswordBadContentException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenThrow(new BadContentException(""));
-    final String newPassword = "123";
+    final String oldPassword = "123";
+    final String newPassword = "12345";
     authenticationControllerMock
         .perform(
-            put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD).param("newPassword", newPassword).header(
+            put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD).param("oldPassword", oldPassword)
+                .param("newPassword", newPassword).header(
                 HttpHeaders.AUTHORIZATION, ""))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
 
@@ -170,9 +175,11 @@ public class AuthenticationControllerTest {
   public void updateUserPasswordBadContentExceptionNewPasswordEmpty() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
+    final String oldPassword = "123";
     authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD).param("newPassword", "").header(
-            HttpHeaders.AUTHORIZATION, ""))
+        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD).param("oldPassword", oldPassword)
+            .param("newPassword", "  ").header(
+                HttpHeaders.AUTHORIZATION, ""))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0)).updateUserPassword(any(MetisUser.class), anyString());
   }
