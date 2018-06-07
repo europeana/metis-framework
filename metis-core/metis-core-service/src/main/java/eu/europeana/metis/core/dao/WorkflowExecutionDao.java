@@ -39,7 +39,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutionDao.class);
   private static final String WORKFLOW_STATUS = "workflowStatus";
-  private static final String WORKFLOW_OWNER = "workflowOwner";
   private static final String DATASET_ID = "datasetId";
   private static final String METIS_PLUGINS = "metisPlugins";
   private static final int MULTIPLIER_FOR_MONITOR_CHECK_IN_SECS = 2;
@@ -59,21 +58,19 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   @Override
   public String create(WorkflowExecution workflowExecution) {
-    Key<WorkflowExecution> workflowExecutionKey = morphiaDatastoreProvider.getDatastore().save(
-        workflowExecution);
-    LOGGER.debug(
-        "WorkflowExecution for datasetId '{}' with workflowOwner '{}' created in Mongo",
-        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner());
+    final Key<WorkflowExecution> workflowExecutionKey =
+        morphiaDatastoreProvider.getDatastore().save(workflowExecution);
+    LOGGER.debug("WorkflowExecution for datasetId '{}' created in Mongo",
+        workflowExecution.getDatasetId());
     return workflowExecutionKey.getId().toString();
   }
 
   @Override
   public String update(WorkflowExecution workflowExecution) {
-    Key<WorkflowExecution> workflowExecutionKey = morphiaDatastoreProvider.getDatastore().save(
-        workflowExecution);
-    LOGGER.debug(
-        "WorkflowExecution for datasetId '{}' with workflowOwner '{}' updated in Mongo",
-        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner());
+    final Key<WorkflowExecution> workflowExecutionKey =
+        morphiaDatastoreProvider.getDatastore().save(workflowExecution);
+    LOGGER.debug("WorkflowExecution for datasetId '{}' updated in Mongo",
+        workflowExecution.getDatasetId());
     return workflowExecutionKey.getId().toString();
   }
 
@@ -94,9 +91,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     UpdateResults updateResults = morphiaDatastoreProvider.getDatastore()
         .update(query, workflowExecutionUpdateOperations);
     LOGGER.debug(
-        "WorkflowExecution metisPlugins for datasetId '{}' with workflowOwner '{}'  updated in Mongo. (UpdateResults: {})",
-        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner(),
-        updateResults.getUpdatedCount());
+        "WorkflowExecution metisPlugins for datasetId '{}' updated in Mongo. (UpdateResults: {})",
+        workflowExecution.getDatasetId(), updateResults.getUpdatedCount());
   }
 
   /**
@@ -126,9 +122,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     UpdateResults updateResults = morphiaDatastoreProvider.getDatastore()
         .update(query, workflowExecutionUpdateOperations);
     LOGGER.debug(
-        "WorkflowExecution monitor information for datasetId '{}' with workflowOwner '{}' updated in Mongo. (UpdateResults: {})",
-        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner(),
-        updateResults.getUpdatedCount());
+        "WorkflowExecution monitor information for datasetId '{}' updated in Mongo. (UpdateResults: {})",
+        workflowExecution.getDatasetId(), updateResults.getUpdatedCount());
   }
 
   public void setCancellingState(WorkflowExecution workflowExecution) {
@@ -142,9 +137,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     UpdateResults updateResults = morphiaDatastoreProvider.getDatastore()
         .update(query, workflowExecutionUpdateOperations);
     LOGGER.debug(
-        "WorkflowExecution cancelling for datasetId '{}' with workflowOwner '{}' set to true in Mongo. (UpdateResults: {})",
-        workflowExecution.getDatasetId(), workflowExecution.getWorkflowOwner(),
-        updateResults.getUpdatedCount());
+        "WorkflowExecution cancelling for datasetId '{}' set to true in Mongo. (UpdateResults: {})",
+        workflowExecution.getDatasetId(), updateResults.getUpdatedCount());
   }
 
   @Override
@@ -182,10 +176,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    */
   public boolean exists(WorkflowExecution workflowExecution) {
     return morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
-        .field(DATASET_ID).equal(
-            workflowExecution.getDatasetId()).field(WORKFLOW_OWNER).equal(
-            workflowExecution.getWorkflowOwner()).field(DATASET_ID)
-        .equal(workflowExecution.getDatasetId())
+        .field(DATASET_ID).equal(workflowExecution.getDatasetId())
+        .field(DATASET_ID).equal(workflowExecution.getDatasetId())
         .project("_id", true).get() != null;
   }
 

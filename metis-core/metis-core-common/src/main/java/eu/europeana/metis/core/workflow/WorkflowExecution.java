@@ -10,6 +10,7 @@ import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
@@ -27,15 +28,13 @@ import org.mongodb.morphia.annotations.Indexes;
  * @since 2017-05-26
  */
 @Entity
-@Indexes({@Index(fields = {@Field("workflowOwner"), @Field("datasetId")})})
+@Indexes({@Index(fields = {@Field("datasetId")})})
 public class WorkflowExecution implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   private String datasetId;
-  @Indexed
-  private String workflowOwner;
   @Indexed
   private WorkflowStatus workflowStatus;
   @Indexed
@@ -71,9 +70,7 @@ public class WorkflowExecution implements HasMongoObjectId {
    * @param workflowPriority the positive number of the priority of the execution
    */
   public WorkflowExecution(Dataset dataset, Workflow workflow,
-      List<AbstractMetisPlugin> metisPlugins,
-      int workflowPriority) {
-    this.workflowOwner = workflow.getWorkflowOwner();
+      List<AbstractMetisPlugin> metisPlugins, int workflowPriority) {
     this.datasetId = dataset.getDatasetId();
     this.ecloudDatasetId = dataset.getEcloudDatasetId();
     this.workflowPriority = workflowPriority;
@@ -135,14 +132,6 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   public void setCancelling(boolean cancelling) {
     this.cancelling = cancelling;
-  }
-
-  public String getWorkflowOwner() {
-    return workflowOwner;
-  }
-
-  public void setWorkflowOwner(String workflowOwner) {
-    this.workflowOwner = workflowOwner;
   }
 
   public WorkflowStatus getWorkflowStatus() {
@@ -220,11 +209,7 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   @Override
   public int hashCode() {
-    int prime = 31;
-    int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + datasetId.hashCode();
-    return prime * result + ((workflowOwner == null) ? 0 : workflowOwner.hashCode());
+    return Objects.hash(id, datasetId);
   }
 
   @Override
@@ -236,8 +221,7 @@ public class WorkflowExecution implements HasMongoObjectId {
       return false;
     }
     WorkflowExecution that = (WorkflowExecution) obj;
-    return (id == that.getId() && datasetId.equals(that.datasetId) && workflowOwner
-        .equals(that.workflowOwner));
+    return (id == that.getId() && datasetId.equals(that.datasetId));
   }
 }
 

@@ -1,18 +1,15 @@
 package eu.europeana.metis.core.dao;
 
-import com.mongodb.WriteResult;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.core.workflow.OrderField;
-import eu.europeana.metis.core.workflow.Workflow;
-import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
-import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import com.mongodb.WriteResult;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.workflow.Workflow;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Repository;
 public class WorkflowDao implements MetisDao<Workflow, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowDao.class);
-  private static final String WORKFLOW_OWNER = "workflowOwner";
   private static final String DATASET_ID = "datasetId";
   private int workflowsPerRequest = RequestLimits.WORKFLOWS_PER_REQUEST.getLimit();
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
@@ -38,21 +34,16 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   @Override
   public String create(Workflow workflow) {
-    Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(
-        workflow);
-    LOGGER.info("Workflow for datasetId '{}' created with workflowOwner '{}' in Mongo",
-        workflow.getDatasetId(), workflow
-            .getWorkflowOwner());
+    final Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(workflow);
+    LOGGER.info("Workflow for datasetId '{}' created in Mongo", workflow.getDatasetId());
     return workflowKey.getId().toString();
   }
 
 
   @Override
   public String update(Workflow workflow) {
-    Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(
-        workflow);
-    LOGGER.info("Workflow for datasetId '{}' updated with workflowOwner '{}' in Mongo",
-        workflow.getDatasetId(), workflow.getWorkflowOwner());
+    final Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(workflow);
+    LOGGER.info("Workflow for datasetId '{}' updated in Mongo", workflow.getDatasetId());
     return workflowKey.getId().toString();
   }
 
@@ -85,46 +76,27 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   /**
    * Check existence of a workflow using a {@link Workflow} class.
-   * <p>It will check based on the {@link Workflow#getWorkflowOwner()} and {@link Workflow#getDatasetId()} ()}</p>
+   * <p>It will check based on the {@link Workflow#getDatasetId()} ()}</p>
    *
    * @param workflow the {@link Workflow}
    * @return null or the {@link ObjectId} of the object
    */
   public String exists(Workflow workflow) {
     Workflow storedWorkflow = morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-        .field(WORKFLOW_OWNER)
-        .equal(workflow.getWorkflowOwner()).field(DATASET_ID)
-        .equal(workflow.getDatasetId())
+        .field(DATASET_ID).equal(workflow.getDatasetId())
         .project("_id", true).get();
     return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }
 
   /**
-   * Get a workflow using a workflowOwner and a datasetId.
+   * Get a workflow using a datasetId.
    *
    * @param datasetId the dataset id
    * @return {@link Workflow}
    */
   public Workflow getWorkflow(String datasetId) {
     return morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-        .field(DATASET_ID).equal(datasetId)
-        .get();
-  }
-
-  /**
-   * Get all workflows using the workflowOwner field.
-   *
-   * @param workflowOwner the workflowOwner string used to find the workflows
-   * @param nextPage the nextPage positive number
-   * @return {@link List} of {@link Workflow}
-   */
-  public List<Workflow> getAllWorkflows(String workflowOwner, int nextPage) {
-    Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(Workflow.class);
-    query.field(WORKFLOW_OWNER).equal(workflowOwner);
-    query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * getWorkflowsPerRequest())
-        .limit(getWorkflowsPerRequest()));
+        .field(DATASET_ID).equal(datasetId).get();
   }
 
   public int getWorkflowsPerRequest() {

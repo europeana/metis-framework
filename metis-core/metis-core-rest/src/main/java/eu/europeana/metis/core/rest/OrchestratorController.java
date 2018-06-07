@@ -162,41 +162,6 @@ public class OrchestratorController {
     return workflow;
   }
 
-  /**
-   * Get all workflows for a workflow owner paged.
-   *
-   * @param authorization the authorization header with the access token
-   * @param workflowOwner the workflow owner used as a fielter
-   * @param nextPage the nextPage token, the end of the list is marked with -1 on the response
-   * @return a list of the Workflow objects
-   * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link BadContentException} if paging is not correctly provided</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
-   * </ul>
-   */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_OWNER, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  public ResponseListWrapper<Workflow> getAllWorkflows(
-      @RequestHeader("Authorization") String authorization,
-      @PathVariable("workflowOwner") String workflowOwner,
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
-      throws GenericMetisException {
-    if (nextPage < 0) {
-      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
-    }
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper
-        .setResultsAndLastPage(orchestratorService.getAllWorkflows(metisUser, workflowOwner, nextPage),
-            orchestratorService.getWorkflowsPerRequest(), nextPage);
-    LOGGER.info("Batch of: {} workflows returned, using batch nextPage: {}",
-        responseListWrapper.getListSize(), nextPage);
-    return responseListWrapper;
-  }
-
   //WORKFLOW EXECUTIONS
 
   /**
@@ -360,7 +325,6 @@ public class OrchestratorController {
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier filter
-   * @param workflowOwner the workflow owner, can be null
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
    * @param orderField the field to be used to sort the results
    * @param ascending a boolean value to request the ordering to ascending or descending
@@ -380,7 +344,6 @@ public class OrchestratorController {
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam(value = "workflowOwner", required = false) String workflowOwner,
       @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
       @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
@@ -405,7 +368,6 @@ public class OrchestratorController {
    * Not filtered by datasetId.
    *
    * @param authorization the authorization header with the access token
-   * @param workflowOwner the workflow owner, can be null
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
    * @param orderField the field to be used to sort the results
    * @param ascending a boolean value to request the ordering to ascending or descending
@@ -423,7 +385,6 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
-      @RequestParam(value = "workflowOwner", required = false) String workflowOwner,
       @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
       @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,

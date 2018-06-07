@@ -88,8 +88,6 @@ public class TestScheduledWorkflowDao {
         .getById(objectId);
     Assert.assertEquals(scheduledWorkflow.getDatasetId(),
         retrievedScheduledWorkflow.getDatasetId());
-    Assert.assertEquals(scheduledWorkflow.getWorkflowOwner(),
-        retrievedScheduledWorkflow.getWorkflowOwner());
     Assert.assertEquals(scheduledWorkflow.getScheduleFrequence(),
         retrievedScheduledWorkflow.getScheduleFrequence());
     Assert.assertEquals(scheduledWorkflow.getWorkflowPriority(),
@@ -109,8 +107,7 @@ public class TestScheduledWorkflowDao {
         .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
-        .getScheduledWorkflow(scheduledWorkflow.getDatasetId(),
-            scheduledWorkflow.getWorkflowOwner());
+        .getScheduledWorkflow(scheduledWorkflow.getDatasetId());
     Assert.assertEquals(scheduledWorkflow.getScheduleFrequence(),
         retrievedScheduledWorkflow.getScheduleFrequence());
     Assert.assertTrue(scheduledWorkflow.getPointerDate()
@@ -124,8 +121,6 @@ public class TestScheduledWorkflowDao {
     scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
         .getScheduledWorkflowByDatasetId(scheduledWorkflow.getDatasetId());
-    Assert.assertEquals(scheduledWorkflow.getWorkflowOwner(),
-        retrievedScheduledWorkflow.getWorkflowOwner());
     Assert.assertEquals(scheduledWorkflow.getScheduleFrequence(),
         retrievedScheduledWorkflow.getScheduleFrequence());
     Assert.assertTrue(scheduledWorkflow.getPointerDate()

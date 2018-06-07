@@ -58,12 +58,9 @@ public class SchedulerExecutor {
           getCleanedScheduledUserWorkflows(lastExecutionTime, thisExecutionTime);
 
       for (ScheduledWorkflow scheduledWorkflow : allCleanedScheduledWorkflows) {
-        LOGGER.info(
-            "Adding ScheduledWorkflow with DatasetId: {}, workflowOwner: {}, pointerDate: {}, frequence: {}",
-            scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
-            scheduledWorkflow.getPointerDate(),
+        LOGGER.info("Adding ScheduledWorkflow with DatasetId: {},pointerDate: {}, frequence: {}",
+            scheduledWorkflow.getDatasetId(), scheduledWorkflow.getPointerDate(),
             scheduledWorkflow.getScheduleFrequence());
-
         tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledWorkflow);
       }
       lastExecutionTime = thisExecutionTime;
