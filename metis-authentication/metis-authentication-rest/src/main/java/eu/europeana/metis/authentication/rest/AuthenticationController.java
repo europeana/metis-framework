@@ -122,7 +122,7 @@ public class AuthenticationController {
       @QueryParam("newPassword") String newPassword)
       throws GenericMetisException {
     if (StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword)) {
-      throw new BadContentException("newPassword not provided");
+      throw new BadContentException("oldPassword or newPassword not provided");
     }
     String accessToken = authenticationService
         .validateAuthorizationHeaderWithAccessToken(
