@@ -21,7 +21,7 @@ import org.mongodb.morphia.annotations.Indexes;
  * @since 2017-09-25
  */
 @Entity
-@Indexes({@Index(fields = {@Field("datasetId"), @Field("workflowOwner")})})
+@Indexes({@Index(fields = {@Field("datasetId")})})
 public class ScheduledWorkflow implements HasMongoObjectId {
 
   @Id
@@ -31,8 +31,6 @@ public class ScheduledWorkflow implements HasMongoObjectId {
   @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT_FOR_SCHEDULING)
   private Date pointerDate;
-  @Indexed
-  private String workflowOwner;
   private ScheduleFrequence scheduleFrequence;
   private int workflowPriority;
 
@@ -45,14 +43,13 @@ public class ScheduledWorkflow implements HasMongoObjectId {
    *
    * @param pointerDate the {@link Date} that will be used as a pointer Date
    * @param datasetId identifier of the dataset for the scheduled workflow
-   * @param workflowOwner the owner of the workflow
    * @param scheduleFrequence the {@link ScheduleFrequence} for the workflow
    * @param workflowPriority the priority of the workflow when it is run
    */
-  public ScheduledWorkflow(Date pointerDate, String datasetId, String workflowOwner, ScheduleFrequence scheduleFrequence, int workflowPriority) {
-    this.pointerDate = pointerDate == null?null:new Date(pointerDate.getTime());
+  public ScheduledWorkflow(Date pointerDate, String datasetId, ScheduleFrequence scheduleFrequence,
+      int workflowPriority) {
+    this.pointerDate = pointerDate == null ? null : new Date(pointerDate.getTime());
     this.datasetId = datasetId;
-    this.workflowOwner = workflowOwner;
     this.scheduleFrequence = scheduleFrequence;
     this.workflowPriority = workflowPriority;
   }
@@ -73,14 +70,6 @@ public class ScheduledWorkflow implements HasMongoObjectId {
 
   public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
-  }
-
-  public String getWorkflowOwner() {
-    return workflowOwner;
-  }
-
-  public void setWorkflowOwner(String workflowOwner) {
-    this.workflowOwner = workflowOwner;
   }
 
   public Date getPointerDate() {

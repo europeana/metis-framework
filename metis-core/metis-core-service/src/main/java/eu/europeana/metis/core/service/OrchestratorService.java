@@ -234,21 +234,6 @@ public class OrchestratorService {
   }
 
   /**
-   * Get all workflows for a workflow owner paged.
-   *
-   * @param metisUser the user wishing to perform this operation
-   * @param workflowOwner the workflow owner used as a fielter
-   * @param nextPage the nextPage token or -1
-   * @return a list of the Workflow objects
-   * @throws UserUnauthorizedException if the user is not authorized to perform this task
-   */
-  public List<Workflow> getAllWorkflows(MetisUser metisUser, String workflowOwner, int nextPage)
-      throws UserUnauthorizedException {
-    authorizer.authorizeReadAllDatasets(metisUser);
-    return workflowDao.getAllWorkflows(workflowOwner, nextPage);
-  }
-
-  /**
    * Get a WorkflowExecution using an execution identifier.
    *
    * @param metisUser the user wishing to perform this operation
@@ -558,9 +543,8 @@ public class OrchestratorService {
       throws WorkflowAlreadyExistsException {
 
     if (StringUtils.isNotEmpty(workflowExists(workflow))) {
-      throw new WorkflowAlreadyExistsException(String.format(
-          "Workflow with workflowOwner: %s, and datasetId: %s, already exists",
-          workflow.getWorkflowOwner(), workflow.getDatasetId()));
+      throw new WorkflowAlreadyExistsException(
+          String.format("Workflow with datasetId: %s, already exists", workflow.getDatasetId()));
     }
   }
 

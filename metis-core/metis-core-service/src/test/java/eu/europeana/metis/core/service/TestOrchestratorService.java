@@ -13,9 +13,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-
-import eu.europeana.metis.utils.DateUtils;
-import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,6 +63,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -74,7 +72,7 @@ import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
-import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.DateUtils;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -235,19 +233,6 @@ public class TestOrchestratorService {
         .authorizeReadExistingDatasetById(metisUser, workflow.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     Assert.assertSame(workflow, retrievedWorkflow);
-  }
-
-  @Test
-  public void getAllWorkflows() throws UserUnauthorizedException {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    final String workflowOwner = "owner";
-    final int nextPage = 1;
-    orchestratorService.getAllWorkflows(metisUser, workflowOwner, nextPage);
-    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
-    verifyNoMoreInteractions(authorizer);
-    InOrder inOrder = Mockito.inOrder(workflowDao);
-    inOrder.verify(workflowDao, times(1)).getAllWorkflows(workflowOwner, nextPage);
-    inOrder.verifyNoMoreInteractions();
   }
 
   @Test

@@ -152,8 +152,6 @@ public class TestWorkflowExecutionDao {
         retrievedWorkflowExecution.getCreatedDate());
     Assert.assertEquals(workflowExecution.getDatasetId(),
         retrievedWorkflowExecution.getDatasetId());
-    Assert.assertEquals(workflowExecution.getWorkflowOwner(),
-        retrievedWorkflowExecution.getWorkflowOwner());
     Assert.assertEquals(workflowExecution.getWorkflowPriority(),
         retrievedWorkflowExecution.getWorkflowPriority());
     Assert.assertFalse(retrievedWorkflowExecution.isCancelling());
@@ -360,29 +358,6 @@ public class TestWorkflowExecutionDao {
 
     Assert.assertEquals(userWorkflowExecutionsToCreate, allUserWorkflowsExecutionsCount);
   }
-
-//  @Test
-//  public void getAllUserWorkflowExecutionsByWorkflowStatus() {
-//    int userWorkflowExecutionsToCreate =
-//        workflowExecutionDao.getWorkflowExecutionsPerRequest() + 1;
-//    for (int i = 0; i < userWorkflowExecutionsToCreate; i++) {
-//      WorkflowExecution workflowExecution = TestObjectFactory
-//          .createWorkflowExecutionObject();
-//      workflowExecutionDao.create(workflowExecution);
-//    }
-//    int nextPage = 0;
-//    int allUserWorkflowsExecutionsCount = 0;
-//    do {
-//      ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
-//      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
-//              .getAllWorkflowExecutions(TestObjectFactory.WORKFLOWOWNER, WorkflowStatus.INQUEUE, nextPage),
-//          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
-//      allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
-//      nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
-//    } while (nextPage != -1);
-//
-//    Assert.assertEquals(userWorkflowExecutionsToCreate, allUserWorkflowsExecutionsCount);
-//  }
 
   @Test
   public void isCancelled() {

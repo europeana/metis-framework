@@ -3,7 +3,6 @@ package eu.europeana.enrichment.service.dao;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.xml.bind.JAXBContext;
@@ -44,23 +43,37 @@ public class WikidataAccessDao {
 
   private Transformer transformer;
 
-  public WikidataAccessDao(File templateFile)
-      throws WikidataAccessException, FileNotFoundException {
-    this(new FileInputStream(templateFile));
+  private WikidataAccessDao(InputStreamCreator inputStreamSupplier) throws WikidataAccessException {
+    try (InputStream inputStream = inputStreamSupplier.create()) {
+      init(inputStream);
+    } catch (IOException e) {
+      throw new WikidataAccessException(
+          "Unexpected exception while reading the wikidata XSLT file.", e);
+    }
+  }
+
+  @FunctionalInterface
+  private interface InputStreamCreator {
+    InputStream create() throws IOException;
+  }
+
+  public WikidataAccessDao(File templateFile) throws WikidataAccessException {
+    this(() -> new FileInputStream(templateFile));
   }
 
   public WikidataAccessDao(InputStream xslTemplate) throws WikidataAccessException {
-    init(xslTemplate);
+    this(() -> xslTemplate);
   }
 
   public WikidataAccessDao() throws WikidataAccessException {
-    InputStream xslTemplate = getClass().getResourceAsStream(WIKIDATA_ORGANIZATION_XSL_FILE);
-    init(xslTemplate);
+    this(() -> WikidataAccessDao.class.getResourceAsStream(WIKIDATA_ORGANIZATION_XSL_FILE));
   }
 
   /**
-   * This method initializes classes needed for performing the required XML transformations for  Wikidata organizations
-   * @param xslTemplate the InputStream connected to the xls transformation template. 
+   * This method initializes classes needed for performing the required XML transformations for
+   * Wikidata organizations
+   * 
+   * @param xslTemplate the InputStream connected to the xls transformation template.
    * @throws WikidataAccessException
    */
   public final void init(InputStream xslTemplate) throws WikidataAccessException {

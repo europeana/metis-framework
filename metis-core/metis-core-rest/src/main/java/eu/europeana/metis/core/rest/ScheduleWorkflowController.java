@@ -52,9 +52,8 @@ public class ScheduleWorkflowController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow);
     LOGGER.info(
-        "ScheduledWorkflowExecution for datasetId '{}', workflowOwner '{}', pointerDate at '{}', scheduled '{}'",
+        "ScheduledWorkflowExecution for datasetId '{}', pointerDate at '{}', scheduled '{}'",
         scheduledWorkflow.getDatasetId(),
-        scheduledWorkflow.getWorkflowOwner(),
         scheduledWorkflow.getPointerDate(),
         scheduledWorkflow.getScheduleFrequence().name());
   }

@@ -1,12 +1,5 @@
 package eu.europeana.metis.core.workflow;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import eu.europeana.metis.json.ObjectIdSerializer;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -16,25 +9,28 @@ import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.IndexOptions;
-import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Indexes;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.json.ObjectIdSerializer;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
 @Entity
-@Indexes(@Index(fields = {@Field("workflowOwner"),
-    @Field("datasetId")}, options = @IndexOptions(unique = true)))
-@JsonPropertyOrder({"id", "datasetId", "workflowOwner", "metisPluginMetadata"})
+@Indexes(@Index(fields = {@Field("datasetId")}, options = @IndexOptions(unique = true)))
+@JsonPropertyOrder({"id", "datasetId", "metisPluginMetadata"})
 public class Workflow implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   private String datasetId;
-  @Indexed
-  private String workflowOwner;
 
   @JacksonXmlElementWrapper(localName = "metisPluginsMetadatas")
   @JacksonXmlProperty(localName = "metisPluginsMetadata")
@@ -57,14 +53,6 @@ public class Workflow implements HasMongoObjectId {
 
   public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
-  }
-
-  public String getWorkflowOwner() {
-    return workflowOwner;
-  }
-
-  public void setWorkflowOwner(String workflowOwner) {
-    this.workflowOwner = workflowOwner;
   }
 
   public List<AbstractMetisPluginMetadata> getMetisPluginsMetadata() {

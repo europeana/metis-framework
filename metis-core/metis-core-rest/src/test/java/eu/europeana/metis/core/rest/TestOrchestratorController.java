@@ -273,50 +273,6 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void getAllWorkflows() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    String workflowOwner = "owner";
-    int listSize = 2;
-    List<Workflow> listOfWorkflowsSameOwner = TestObjectFactory
-        .createListOfWorkflowsSameOwner(workflowOwner,
-            listSize + 1); //To get the effect of next page
-    when(orchestratorService.getWorkflowsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getAllWorkflows(eq(metisUser), anyString(), anyInt()))
-        .thenReturn(listOfWorkflowsSameOwner);
-    orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_OWNER, workflowOwner)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("nextPage", "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(""))
-        .andExpect(status().is(200))
-        .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
-        .andExpect(jsonPath("$.results[0].workflowOwner", is(workflowOwner)))
-        .andExpect(jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
-        .andExpect(jsonPath("$.results[1].workflowOwner", is(workflowOwner)))
-        .andExpect(jsonPath("$.results[1].datasetId", is(Integer.toString(TestObjectFactory.DATASETID + 1))))
-        .andExpect(jsonPath("$.nextPage").isNotEmpty());
-  }
-
-  @Test
-  public void getAllWorkflowsNegativeNextPage() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(metisUser);
-    String workflowOwner = "owner";
-
-    orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_OWNER, workflowOwner)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("nextPage", "-1")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(""))
-        .andExpect(status().is(406));
-  }
-
-  @Test
   public void addWorkflowInQueueOfWorkflowExecutions() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -329,7 +285,6 @@ public class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("workflowOwner", "owner")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(201))
@@ -344,7 +299,6 @@ public class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("workflowOwner", "owner")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(401))
@@ -363,7 +317,6 @@ public class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("workflowOwner", "owner")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(401))
@@ -382,7 +335,6 @@ public class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("workflowOwner", "owner")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(409))
@@ -401,7 +353,6 @@ public class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("workflowOwner", "owner")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(404))
@@ -420,7 +371,6 @@ public class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("workflowOwner", "owner")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(404))
@@ -605,7 +555,6 @@ public class TestOrchestratorController {
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("workflowOwner", "owner")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -613,10 +562,8 @@ public class TestOrchestratorController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
         .andExpect(jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
-        .andExpect(jsonPath("$.results[0].workflowOwner", is("workflowOwner")))
         .andExpect(jsonPath("$.results[0].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.results[1].datasetId", is(Integer.toString(TestObjectFactory.DATASETID + 1))))
-        .andExpect(jsonPath("$.results[1].workflowOwner", is("workflowOwner")))
         .andExpect(jsonPath("$.results[1].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }
@@ -630,7 +577,6 @@ public class TestOrchestratorController {
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("workflowOwner", "owner")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "-1")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -654,7 +600,6 @@ public class TestOrchestratorController {
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("workflowOwner", "owner")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -662,10 +607,8 @@ public class TestOrchestratorController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
         .andExpect(jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
-        .andExpect(jsonPath("$.results[0].workflowOwner", is("workflowOwner")))
         .andExpect(jsonPath("$.results[0].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.results[1].datasetId", is(Integer.toString(TestObjectFactory.DATASETID + 1))))
-        .andExpect(jsonPath("$.results[1].workflowOwner", is("workflowOwner")))
         .andExpect(jsonPath("$.results[1].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }

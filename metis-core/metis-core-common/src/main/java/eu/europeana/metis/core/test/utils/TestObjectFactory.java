@@ -45,7 +45,6 @@ public class TestObjectFactory {
   public static final String XSLTID = "5a9821af34f04b794dcf63df";
   public static final String EXECUTIONID = "5a5dc67ba458bb00083d49e3";
   public static final String DATASETNAME = "datasetName";
-  public static final String WORKFLOWOWNER = "workflowOwner";
   public static final String WORKFLOWNAME = "workflowName";
   public static final String EMAIL = "user.metis@europeana.eu";
   public static final String AUTHORIZATION_HEADER = "Bearer 1234567890qwertyuiopasdfghjklQWE";
@@ -58,7 +57,6 @@ public class TestObjectFactory {
 
   public static Workflow createWorkflowObject() {
     Workflow workflow = new Workflow();
-    workflow.setWorkflowOwner(WORKFLOWOWNER);
     workflow.setDatasetId(Integer.toString(DATASETID));
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
     oaipmhHarvestPluginMetadata.setUrl("http://example.com");
@@ -84,19 +82,6 @@ public class TestObjectFactory {
     workflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 
     return workflow;
-  }
-
-  public static List<Workflow> createListOfWorkflowsSameOwner(String workflowOwner,
-      int size) {
-    List<Workflow> workflows = new ArrayList<>(size);
-    for (int i = 0; i < size; i++) {
-      Workflow workflow = createWorkflowObject();
-      workflow.setId(new ObjectId());
-      workflow.setWorkflowOwner(workflowOwner);
-      workflow.setDatasetId(Integer.toString(DATASETID + i));
-      workflows.add(workflow);
-    }
-    return workflows;
   }
 
   public static WorkflowExecution createWorkflowExecutionObject() {
@@ -153,8 +138,6 @@ public class TestObjectFactory {
 
   public static ScheduledWorkflow createScheduledWorkflowObject() {
     ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
-    scheduledWorkflow.setDatasetId(Integer.toString(DATASETID));
-    scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
     scheduledWorkflow.setDatasetId(Integer.toString(DATASETID));
     scheduledWorkflow.setPointerDate(new Date());
     scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);

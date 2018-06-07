@@ -1,13 +1,5 @@
 package eu.europeana.metis.core.dao;
 
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.ResponseListWrapper;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.Workflow;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.util.List;
 import org.junit.After;
@@ -16,6 +8,13 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
+import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -75,7 +74,7 @@ public class TestWorkflowDao {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     String objectId = workflowDao.create(workflow);
     Workflow retrievedWorkflow = workflowDao.getById(objectId);
-    Assert.assertEquals(workflow.getWorkflowOwner(), retrievedWorkflow.getWorkflowOwner());
+    Assert.assertEquals(workflow.getDatasetId(), retrievedWorkflow.getDatasetId());
 
     List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
     List<AbstractMetisPluginMetadata> retrievedUserWorkflowMetisPluginsMetadata = retrievedWorkflow
@@ -115,29 +114,4 @@ public class TestWorkflowDao {
     workflowDao.create(workflow);
     Assert.assertNotNull(workflowDao.getWorkflow(workflow.getDatasetId()));
   }
-
-  @Test
-  public void getAllUserWorkflows()
-  {
-    int userWorkflowsToCreate = workflowDao.getWorkflowsPerRequest() + 1;
-    for (int i = 0; i < userWorkflowsToCreate; i++)
-    {
-      Workflow workflow = TestObjectFactory.createWorkflowObject();
-      workflow.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + i));
-      workflowDao.create(workflow);
-    }
-    int nextPage = 0;
-    int allUserWorkflowsCount = 0;
-    do {
-      ResponseListWrapper<Workflow> userWorkflowResponseListWrapper = new ResponseListWrapper<>();
-      userWorkflowResponseListWrapper.setResultsAndLastPage(workflowDao
-          .getAllWorkflows(TestObjectFactory.WORKFLOWOWNER, nextPage), workflowDao.getWorkflowsPerRequest(), nextPage);
-      allUserWorkflowsCount+=userWorkflowResponseListWrapper.getListSize();
-      nextPage = userWorkflowResponseListWrapper.getNextPage();
-    }while(nextPage != -1);
-
-    Assert.assertEquals(userWorkflowsToCreate, allUserWorkflowsCount);
-  }
-
-
 }
