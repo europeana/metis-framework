@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.InputValueList;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -23,6 +25,7 @@ import eu.europeana.enrichment.utils.InputValue;
  */
 public class EnrichmentClient {
     private final String path;
+    private RestTemplate template = new RestTemplate();
   
 	public EnrichmentClient(String path) {
 		this.path = path;
@@ -36,15 +39,17 @@ public class EnrichmentClient {
 	 * @return The enrichments generated for the input values
 	 */
 	public EnrichmentResultList enrich(List<InputValue> values) {
-		RestTemplate template = new RestTemplate();
 		InputValueList inList = new InputValueList();
 	    inList.setInputValueList(values);
-       	return template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
+	        
+        try {
+        	return template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
+        } catch (Exception e) {
+            throw new UnknownException(e.getMessage());
+        }
     }
 
     public EnrichmentBase getByUri(String uri) {    	   
-		RestTemplate template = new RestTemplate();
-
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI).queryParam("uri", uri);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -55,5 +60,9 @@ public class EnrichmentClient {
 				request, EnrichmentBase.class);
 
 		return response.getBody();
+    }
+    
+    void setRestTemplate(RestTemplate template) {
+    	this.template = template;
     }
 }

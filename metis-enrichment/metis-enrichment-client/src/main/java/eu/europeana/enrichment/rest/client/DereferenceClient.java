@@ -30,7 +30,7 @@ public class DereferenceClient {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferenceClient.class);
 
   private final String hostUrl;
-  private final RestTemplate restTemplate = new RestTemplate();
+  private RestTemplate restTemplate = new RestTemplate();
 
   public DereferenceClient(String hostUrl) {
     this.hostUrl = hostUrl;
@@ -156,5 +156,9 @@ public class DereferenceClient {
     final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
     return restTemplate.exchange(dereferenceUrl, HttpMethod.GET, entity, EnrichmentResultList.class)
         .getBody();
+  }
+  
+  void setRestTemplate(RestTemplate restTemplate) {
+  	this.restTemplate = restTemplate;
   }
 }

@@ -28,7 +28,8 @@ import org.slf4j.LoggerFactory;
 public class EnrichmentWorker {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
-
+	  
+  
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
   private final EntityMergeEngine entityMergeEngine;
@@ -59,7 +60,7 @@ public class EnrichmentWorker {
       EntityMergeEngine entityMergeEngine) {
     this.dereferenceClient = dereferenceClient;
     this.enrichmentClient = enrichmentClient;
-    this.entityMergeEngine = entityMergeEngine;
+    this.entityMergeEngine = entityMergeEngine;   
   }
 
   /**
@@ -75,6 +76,9 @@ public class EnrichmentWorker {
    */
   public String process(final String inputString)
       throws DereferenceOrEnrichException, JiBXException, UnsupportedEncodingException {
+	  
+	  
+	    
     if (inputString == null) {
       throw new IllegalArgumentException("Input RDF string cannot be null.");
     }
@@ -293,7 +297,7 @@ public class EnrichmentWorker {
   }
 
   List<InputValue> extractFieldsForEnrichment(RDF rdf) {
-    return EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
+	  return EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
   }
 
   Set<String> extractValuesForDereferencing(RDF rdf) {
