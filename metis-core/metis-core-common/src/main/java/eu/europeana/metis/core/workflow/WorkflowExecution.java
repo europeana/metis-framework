@@ -221,7 +221,7 @@ public class WorkflowExecution implements HasMongoObjectId {
       return false;
     }
     WorkflowExecution that = (WorkflowExecution) obj;
-    return (id == that.getId() && datasetId.equals(that.datasetId));
+    return Objects.equals(id, that.getId()) && Objects.equals(datasetId, that.datasetId);
   }
 }
 

@@ -177,7 +177,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   public boolean exists(WorkflowExecution workflowExecution) {
     return morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
         .field(DATASET_ID).equal(workflowExecution.getDatasetId())
-        .field(DATASET_ID).equal(workflowExecution.getDatasetId())
         .project("_id", true).get() != null;
   }
 
