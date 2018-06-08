@@ -257,12 +257,12 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
   }
 
-  private Date periodicCheckingLoopMocked(long sleepTime, int iterationsToFake,
+  private void periodicCheckingLoopMocked(long sleepTime, int iterationsToFake,
       AbstractMetisPlugin abstractMetisPlugin) {
     for (int i = 1; i <= iterationsToFake; i++) {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
-          return null;
+          return;
         }
         Thread.sleep(sleepTime);
         fakeMonitorUpdateProcessedRecords(abstractMetisPlugin, i, iterationsToFake,
@@ -274,13 +274,12 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       } catch (InterruptedException e) {
         LOGGER.warn("Thread was interrupted", e);
         Thread.currentThread().interrupt();
-        return null;
+        return;
       }
     }
     abstractMetisPlugin.setFinishedDate(new Date());
     abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
-    return abstractMetisPlugin.getFinishedDate();
   }
 
   private void fakeMonitorUpdateProcessedRecords(
