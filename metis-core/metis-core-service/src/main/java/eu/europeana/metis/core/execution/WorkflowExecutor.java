@@ -36,12 +36,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final int MONITOR_ITERATIONS_TO_FAKE = 2;
   private static final int FAKE_RECORDS_PER_ITERATION = 100;
   private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 3;
-  private Date finishDate;
-  private boolean firstPluginExecution;
-  private final int monitorCheckIntervalInSecs;
-
+  
   private final WorkflowExecution workflowExecution;
   private final WorkflowExecutionDao workflowExecutionDao;
+  private final int monitorCheckIntervalInSecs;
   private final RedissonClient redissonClient;
   private final DpsClient dpsClient;
   private final String ecloudBaseUrl;
@@ -68,14 +66,11 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       lock.lock();
       LOGGER.info("Starting user workflow execution with id: {} and priority {}",
           workflowExecution.getId(), workflowExecution.getWorkflowPriority());
-      firstPluginExecution = true;
       if ((workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
           || workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING)
           && !workflowExecutionDao
           .isExecutionActive(this.workflowExecution, monitorCheckIntervalInSecs)) {
         prepareWorkflowForStartingExecution();
-        lock.unlock(); //Unlock as soon as possible
-        runInqueueOrRunningStateWorkflowExecution();
       } else {
         LOGGER.info(
             "Discarding WorkflowExecution with id: {}, it is either currently handled from another instance or it not INQUEUE or RUNNING",
@@ -86,20 +81,26 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       lock.unlock();
     }
 
-    //Cancel workflow and all other than finished plugins if the workflow was cancelled during execution
-    //Check if there is no finished date to make sure the workflow hasn't actually already finished
+    // Perform the work - run the workflow.
+    final Date finishDate = runInqueueOrRunningStateWorkflowExecution();
+
+    // Process the results
     if (workflowExecutionDao.isCancelling(workflowExecution.getId()) && finishDate == null) {
+      // If the workflow was cancelled before it had the chance to finish, we cancel all remaining plugins.
       workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
       LOGGER.info(
           "Cancelled running user workflow execution with id: {}", workflowExecution.getId());
-    } else if (finishDate != null) { //finishedDate can be null in case of Exception
+    } else if (finishDate != null) { 
+      // If the workflow finished successfully, we record this. 
       workflowExecution.setFinishedDate(finishDate);
       workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
       workflowExecution.setCancelling(false);
       LOGGER.info("Finished user workflow execution with id: {}", workflowExecution.getId());
-    } else { //In case of failure
+    } else { 
+      // So something went wrong: one plugin must have failed.
       workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
     }
+    
     //The only full update is used here. The rest of the execution uses partial updates to avoid losing the cancelling state field
     workflowExecutionDao.update(workflowExecution);
     return workflowExecution;
@@ -119,10 +120,13 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   /**
    * Will determine from which plugin of the workflow to start execution from and will iterate
    * through the plugins of the workflow one by one.
+   * 
+   * @return The date the full workflow finished (or null if it did not finish successfully).
    */
-  private void runInqueueOrRunningStateWorkflowExecution() {
+  private Date runInqueueOrRunningStateWorkflowExecution() {
+    
+    // Find the first plugin to continue execution from
     int firstPluginPositionToStart = 0;
-    //Find the first plugin to continue execution from
     for (int i = 0; i < workflowExecution.getMetisPlugins().size(); i++) {
       AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
@@ -131,21 +135,30 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         break;
       }
     }
-    if (firstPluginPositionToStart != 0
-        || workflowExecution.getMetisPlugins().get(0).getPluginStatus() == PluginStatus.RUNNING) {
-      firstPluginExecution = false; //Used to set the proper startedDate on the first plugin that will be executed in the workflow
-    }
-    //One by one start the plugins of the workflow
+        
+    // One by one start the plugins of the workflow
     AbstractMetisPlugin previousMetisPlugin = null;
     for (int i = firstPluginPositionToStart; i < workflowExecution.getMetisPlugins().size(); i++) {
       AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
-      finishDate = runMetisPlugin(previousMetisPlugin, metisPlugin);
-      if ((workflowExecutionDao.isCancelling(workflowExecution.getId()) && finishDate == null)
+      final Date startDateToUse = i == 0 ? workflowExecution.getStartedDate() : new Date();
+      runMetisPlugin(previousMetisPlugin, metisPlugin, startDateToUse);
+      if ((workflowExecutionDao.isCancelling(workflowExecution.getId()) && metisPlugin.getFinishedDate() == null)
           || metisPlugin.getPluginStatus() == PluginStatus.FAILED) {
         break;
       }
       previousMetisPlugin = metisPlugin;
     }
+
+    // Compute the finished date
+    final AbstractMetisPlugin lastPlugin =
+        workflowExecution.getMetisPlugins().get(workflowExecution.getMetisPlugins().size() - 1);
+    final Date finishDate;
+    if (lastPlugin.getPluginStatus() == PluginStatus.FINISHED) {
+      finishDate = lastPlugin.getFinishedDate();
+    } else {
+      finishDate = null;
+    }
+    return finishDate;
   }
 
   /**
@@ -154,51 +167,45 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
    *
    * @param previousAbstractMetisPlugin the plugin that was ran before the current plugin if any
    * @param abstractMetisPlugin the current plugin to run
-   * @return the finished date of the last plugin or null if there was an exception or the workflow was CANCELLED
+   * @param startDateToUse The date that should be used as start date (if the plugin is not already running).
    */
-  private Date runMetisPlugin(AbstractMetisPlugin previousAbstractMetisPlugin,
-      AbstractMetisPlugin abstractMetisPlugin) {
+  private void runMetisPlugin(AbstractMetisPlugin previousAbstractMetisPlugin,
+      AbstractMetisPlugin abstractMetisPlugin, Date startDateToUse) {
 
-
-    if (previousAbstractMetisPlugin != null) { //Get previous plugin revision information
+    //Set previous plugin revision information
+    if (previousAbstractMetisPlugin != null) { 
       abstractMetisPlugin.getPluginMetadata().setPreviousRevisionInformation(previousAbstractMetisPlugin);
     }
 
-    //Start execution and periodical check
+    //Start execution
     if (StringUtils.isEmpty(abstractMetisPlugin.getExternalTaskId())) {
       try {
-        //Determine the startedDate for the plugin
         if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
-          if (firstPluginExecution) {
-            firstPluginExecution = false;
-            abstractMetisPlugin.setStartedDate(workflowExecution.getStartedDate());
-          } else {
-            abstractMetisPlugin.setStartedDate(new Date());
-          }
+          abstractMetisPlugin.setStartedDate(startDateToUse);
         }
-        abstractMetisPlugin
-            .execute(dpsClient, ecloudBaseUrl, ecloudProvider,
-                workflowExecution.getEcloudDatasetId());
+        abstractMetisPlugin.execute(dpsClient, ecloudBaseUrl, ecloudProvider,
+            workflowExecution.getEcloudDatasetId());
         abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
-        workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
-      } catch (ExternalTaskException e) {
+      } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn("Execution of external task failed", e);
         abstractMetisPlugin.setFinishedDate(null);
         abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
+        return;
+      } finally {
         workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
-        return abstractMetisPlugin.getFinishedDate();
       }
     }
 
+    //Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
     if (!abstractMetisPlugin.getPluginMetadata().isMocked()) {
-      return periodicCheckingLoop(sleepTime, abstractMetisPlugin);
+      periodicCheckingLoop(sleepTime, abstractMetisPlugin);
     } else {
-      return periodicCheckingLoopMocked(sleepTime, MONITOR_ITERATIONS_TO_FAKE, abstractMetisPlugin);
+      periodicCheckingLoopMocked(sleepTime, MONITOR_ITERATIONS_TO_FAKE, abstractMetisPlugin);
     }
   }
 
-  private Date periodicCheckingLoop(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
+  private void periodicCheckingLoop(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
     TaskState taskState = null;
     int consecutiveCancelOrMonitorFailures = 0;
     boolean externalCancelCallSent = false;
@@ -219,7 +226,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       } catch (InterruptedException e) {
         LOGGER.warn("Thread was interrupted", e);
         Thread.currentThread().interrupt();
-        return null;
+        return;
       } catch (ExternalTaskException e) {
         consecutiveCancelOrMonitorFailures++;
         LOGGER.warn(
@@ -230,14 +237,13 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
           break;
         }
       }
-    } while (taskState == null || (taskState != TaskState.DROPPED
-        && taskState != TaskState.PROCESSED));
+    } while (taskState != TaskState.DROPPED && taskState != TaskState.PROCESSED);
 
-    return preparePluginStateAndFinishedDate(abstractMetisPlugin, taskState,
+    preparePluginStateAndFinishedDate(abstractMetisPlugin, taskState,
         consecutiveCancelOrMonitorFailures);
   }
 
-  private Date preparePluginStateAndFinishedDate(AbstractMetisPlugin abstractMetisPlugin,
+  private void preparePluginStateAndFinishedDate(AbstractMetisPlugin abstractMetisPlugin,
       TaskState taskState,
       int consecutiveCancelOrMonitorFailures) {
     if (taskState == TaskState.PROCESSED) {
@@ -248,9 +254,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         || consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
       abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
     }
-
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
-    return abstractMetisPlugin.getFinishedDate();
   }
 
   private Date periodicCheckingLoopMocked(long sleepTime, int iterationsToFake,
