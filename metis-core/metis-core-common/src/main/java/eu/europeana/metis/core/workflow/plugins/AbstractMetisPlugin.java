@@ -293,10 +293,12 @@ public abstract class AbstractMetisPlugin {
   Map<String, String> createParametersForHostConnectionLimits(
       Map<String, Integer> connectionLimitToDomains) {
     Map<String, String> parameters = new HashMap<>();
-    connectionLimitToDomains.entrySet().stream()
-        .filter((entry) -> !StringUtils.isBlank(entry.getKey()) && entry.getValue() != null)
-        .forEach((entry) -> parameters
-            .put("host.limit." + entry.getKey(), Integer.toString(entry.getValue())));
+    if (connectionLimitToDomains != null) {
+      connectionLimitToDomains.entrySet().stream()
+          .filter(entry -> !StringUtils.isBlank(entry.getKey()) && entry.getValue() != null)
+          .forEach(entry -> parameters
+              .put("host.limit." + entry.getKey(), Integer.toString(entry.getValue())));
+    }
     return parameters;
   }
 
