@@ -19,6 +19,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
 import org.slf4j.Logger;
@@ -292,8 +293,10 @@ public abstract class AbstractMetisPlugin {
   Map<String, String> createParametersForHostConnectionLimits(
       Map<String, Integer> connectionLimitToDomains) {
     Map<String, String> parameters = new HashMap<>();
-    connectionLimitToDomains.forEach((domain, connectionLimit) -> parameters
-        .put("host.limit." + domain.trim(), Integer.toString(connectionLimit)));
+    connectionLimitToDomains.entrySet().stream()
+        .filter((entry) -> !StringUtils.isBlank(entry.getKey()) && entry.getValue() != null)
+        .forEach((entry) -> parameters
+            .put("host.limit." + entry.getKey(), Integer.toString(entry.getValue())));
     return parameters;
   }
 
