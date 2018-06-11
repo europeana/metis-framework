@@ -69,30 +69,32 @@ public final class EuropeanaIdCreator {
   }
 
   /**
-   * This method constructs a Europeana ID for an RDF.
+   * This method constructs a Europeana ID for an RDF and provides a map for the Provider ID and Europeana ID.
    * 
    * @param rdf The RDF. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
-   * @return The Europeana ID of this RDF. Is not null.
+   * @return The Europeana ID and Provider ID in a class structure, of this RDF. Is not null.
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
-  public String constructEuropeanaId(RDF rdf, String datasetId) throws EuropeanaIdException {
+  public EuropeanaIdMap constructEuropeanaId(RDF rdf, String datasetId) throws EuropeanaIdException {
     final String rdfAbout = extractRdfAboutFromRdf(rdf);
-    return constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
+    String europeanaIdFromRdfAbout = constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
+    return new EuropeanaIdMap(rdfAbout, europeanaIdFromRdfAbout);
   }
 
   /**
-   * This method constructs a Europeana ID for an RDF represented as a string.
+   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for the Provider ID and Europeana ID.
    * 
    * @param rdfString The RDF as a string. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
-   * @return The Europeana ID of this RDF. Is not null.
+   * @return The Europeana ID and Provider ID in a class structure, of this RDF. Is not null.
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
-  public String constructEuropeanaId(String rdfString, String datasetId)
+  public EuropeanaIdMap constructEuropeanaId(String rdfString, String datasetId)
       throws EuropeanaIdException {
     final String rdfAbout = extractRdfAboutFromRdfString(rdfString);
-    return constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
+    String europeanaIdFromRdfAbout = constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
+    return new EuropeanaIdMap(rdfAbout, europeanaIdFromRdfAbout);
   }
 
   private String constructEuropeanaIdFromRdfAbout(String rdfAbout, String datasetId) {
