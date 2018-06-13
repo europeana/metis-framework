@@ -329,10 +329,8 @@ public abstract class AbstractMetisPlugin {
       String pluginTypeName = getPluginType().name();
       LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
           ecloudDataset);
-
-      DpsTask dpsTask = prepareDpsTask(ecloudBaseUrl, ecloudProvider, ecloudDataset);
-
       try {
+        DpsTask dpsTask = prepareDpsTask(ecloudBaseUrl, ecloudProvider, ecloudDataset);
         setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
       } catch (DpsException | RuntimeException e) {
         throw new ExternalTaskException("Submitting task failed", e);
