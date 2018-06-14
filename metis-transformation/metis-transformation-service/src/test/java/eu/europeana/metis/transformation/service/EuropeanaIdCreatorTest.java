@@ -56,8 +56,8 @@ public class EuropeanaIdCreatorTest {
     final RDF rdf = createRdf(ids);
     final String rdfString = createRdfString(ids);
     final EuropeanaIdCreator creator = new EuropeanaIdCreator();
-    assertEquals(expectedLegacy, creator.constructEuropeanaId(rdfString, datasetId).getEuropeanaId());
-    assertEquals(expectedLegacy, creator.constructEuropeanaId(rdf, datasetId).getEuropeanaId());
+    assertEquals(expectedLegacy, creator.constructEuropeanaId(rdfString, datasetId).getEuropeanaGeneratedId());
+    assertEquals(expectedLegacy, creator.constructEuropeanaId(rdf, datasetId).getEuropeanaGeneratedId());
   }
 
   @Test
