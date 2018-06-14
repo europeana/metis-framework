@@ -25,9 +25,8 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 /**
  * An instance of this class can be used to create Europeana IDs for RDF records. This class is
  * <b>not thread-safe</b>: this means that instances should not be shared between different threads.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public final class EuropeanaIdCreator {
 
@@ -54,7 +53,7 @@ public final class EuropeanaIdCreator {
 
   /**
    * Constructor.
-   * 
+   *
    * @throws EuropeanaIdException In case of problems setting the RDF about extractor.
    */
   public EuropeanaIdCreator() throws EuropeanaIdException {
@@ -70,31 +69,33 @@ public final class EuropeanaIdCreator {
 
   /**
    * This method constructs a Europeana ID for an RDF and provides a map for the Provider ID and Europeana ID.
-   * 
+   *
    * @param rdf The RDF. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
    * @return The Europeana ID and Provider ID in a class structure, of this RDF. Is not null.
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
-  public EuropeanaIdMap constructEuropeanaId(RDF rdf, String datasetId) throws EuropeanaIdException {
+  public EuropeanaGeneratedIdsMap constructEuropeanaId(RDF rdf, String datasetId)
+      throws EuropeanaIdException {
     final String rdfAbout = extractRdfAboutFromRdf(rdf);
     String europeanaIdFromRdfAbout = constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
-    return new EuropeanaIdMap(rdfAbout, europeanaIdFromRdfAbout);
+    return new EuropeanaGeneratedIdsMap(rdfAbout, europeanaIdFromRdfAbout);
   }
 
   /**
-   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for the Provider ID and Europeana ID.
-   * 
+   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for the ProvidedCHO rdf:about and Europeana ID.
+   * If the rdfAbout is already a europeana identifier then there will not be a generation of the Europeana ID but a copy of the ProvidedCHO rdf:about.
+   *
    * @param rdfString The RDF as a string. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
    * @return The Europeana ID and Provider ID in a class structure, of this RDF. Is not null.
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
-  public EuropeanaIdMap constructEuropeanaId(String rdfString, String datasetId)
+  public EuropeanaGeneratedIdsMap constructEuropeanaId(String rdfString, String datasetId)
       throws EuropeanaIdException {
     final String rdfAbout = extractRdfAboutFromRdfString(rdfString);
     String europeanaIdFromRdfAbout = constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
-    return new EuropeanaIdMap(rdfAbout, europeanaIdFromRdfAbout);
+    return new EuropeanaGeneratedIdsMap(rdfAbout, europeanaIdFromRdfAbout);
   }
 
   private String constructEuropeanaIdFromRdfAbout(String rdfAbout, String datasetId) {
@@ -127,7 +128,7 @@ public final class EuropeanaIdCreator {
    * The rules for <b>normalizing</b> are as follows. Every character that is not a digit or a Roman
    * letter without diacritics (lower case or upper case) will be replaced by an underscore ('_').
    * </p>
-   * 
+   *
    * @param rdfAbout The string to be sanitized.
    * @return The sanitized string.
    */
@@ -156,7 +157,7 @@ public final class EuropeanaIdCreator {
    * the rest will be returned.</li>
    * <li>If it is any other character, the collection ID will be returned without any changes.</li>
    * </ul>
-   * 
+   *
    * @param collectionId The collection ID to be sanitized.
    * @return The sanitized collection ID.
    */
