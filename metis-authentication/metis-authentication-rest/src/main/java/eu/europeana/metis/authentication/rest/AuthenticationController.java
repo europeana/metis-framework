@@ -12,7 +12,6 @@ import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.util.List;
 import javax.ws.rs.QueryParam;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -161,7 +160,7 @@ public class AuthenticationController {
     }
     authenticationService.deleteUser(userEmailToDelete);
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} deleted", StringEscapeUtils.escapeJava(userEmailToDelete));
+      LOGGER.info("User with email: {} deleted", userEmailToDelete.replaceAll("[\r\n]", ""));
     }
   }
 
@@ -193,7 +192,7 @@ public class AuthenticationController {
     }
     MetisUser metisUser = authenticationService.updateUserFromZoho(userEmailToUpdate);
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} updated", StringEscapeUtils.escapeJava(userEmailToUpdate));
+      LOGGER.info("User with email: {} updated", userEmailToUpdate.replaceAll("[\r\n]", ""));
     }
     return metisUser;
   }
@@ -225,8 +224,7 @@ public class AuthenticationController {
     }
     authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} made admin",
-          StringEscapeUtils.escapeJava(userEmailToMakeAdmin));
+      LOGGER.info("User with email: {} made admin", userEmailToMakeAdmin.replaceAll("[\r\n]", ""));
     }
   }
 

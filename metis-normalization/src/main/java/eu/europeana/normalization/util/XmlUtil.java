@@ -16,6 +16,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -29,9 +31,7 @@ import org.xml.sax.SAXException;
  */
 public final class XmlUtil {
 
-  /**
-   * Document builder factory
-   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(XmlUtil.class);
   private static final DocumentBuilderFactory FACTORY = DocumentBuilderFactory.newInstance();
 
   static {
@@ -39,7 +39,7 @@ public final class XmlUtil {
       FACTORY.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       FACTORY.setNamespaceAware(true);
     } catch (ParserConfigurationException e) {
-      e.printStackTrace();
+      LOGGER.error("Could not initialize static block XmlUtil", e);
     }
   }
 
