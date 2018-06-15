@@ -9,12 +9,10 @@ package eu.europeana.metis.transformation.service;
  */
 public class EuropeanaGeneratedIdsMap {
 
-  private static final String DATA_EUROPEANA_EU_HTTP_PREFIX = "http://data.europeana.eu";
   private static final String AGGREGATION_ABOUT_PREFIX = "/aggregation/provider";
   private static final String EUROPEANA_AGGREGATION_ABOUT_PREFIX = "/aggregation/europeana";
   private static final String PROXY_ABOUT_PREFIX = "/proxy/provider";
   private static final String EUROPEANA_PROXY_ABOUT_PREFIX = "/proxy/europeana";
-  private static final String PROVIDEDCHO_ABOUT_PREFIX = "/item";
 
   private String sourceProvidedChoAbout;
   private String europeanaGeneratedId;
@@ -22,7 +20,6 @@ public class EuropeanaGeneratedIdsMap {
   private String europeanaAggregationAboutPrefixed;
   private String proxyAboutPrefixed;
   private String europeanProxyAboutPrefixed;
-  private String providedChoAboutPrefixed;
 
   /**
    * Constructor that created the map in one go.
@@ -35,13 +32,11 @@ public class EuropeanaGeneratedIdsMap {
   public EuropeanaGeneratedIdsMap(String sourceProvidedChoAbout, String europeanaGeneratedId) {
     this.sourceProvidedChoAbout = sourceProvidedChoAbout;
     this.europeanaGeneratedId = europeanaGeneratedId;
-    this.aggregationAboutPrefixed = DATA_EUROPEANA_EU_HTTP_PREFIX + AGGREGATION_ABOUT_PREFIX + europeanaGeneratedId;
+    this.aggregationAboutPrefixed = AGGREGATION_ABOUT_PREFIX + europeanaGeneratedId;
     this.europeanaAggregationAboutPrefixed =
-        DATA_EUROPEANA_EU_HTTP_PREFIX + EUROPEANA_AGGREGATION_ABOUT_PREFIX + europeanaGeneratedId;
-    this.proxyAboutPrefixed = DATA_EUROPEANA_EU_HTTP_PREFIX + PROXY_ABOUT_PREFIX + europeanaGeneratedId;
-    this.europeanProxyAboutPrefixed =
-        DATA_EUROPEANA_EU_HTTP_PREFIX + EUROPEANA_PROXY_ABOUT_PREFIX + europeanaGeneratedId;
-    this.providedChoAboutPrefixed = DATA_EUROPEANA_EU_HTTP_PREFIX + PROVIDEDCHO_ABOUT_PREFIX + europeanaGeneratedId;
+        EUROPEANA_AGGREGATION_ABOUT_PREFIX + europeanaGeneratedId;
+    this.proxyAboutPrefixed = PROXY_ABOUT_PREFIX + europeanaGeneratedId;
+    this.europeanProxyAboutPrefixed = EUROPEANA_PROXY_ABOUT_PREFIX + europeanaGeneratedId;
   }
 
   public String getSourceProvidedChoAbout() {
@@ -66,10 +61,6 @@ public class EuropeanaGeneratedIdsMap {
 
   public String getEuropeanProxyAboutPrefixed() {
     return europeanProxyAboutPrefixed;
-  }
-
-  public String getProvidedChoAboutPrefixed() {
-    return providedChoAboutPrefixed;
   }
 
   public boolean isEuropeanaIdAndSourceRecordCHOIdEqual() {

@@ -19,8 +19,6 @@ import eu.europeana.corelib.definitions.jibx.Year;
  * Utilities for enrichment and dereferencing Created by gmamakis on 8-3-17.
  */
 public final class EnrichmentUtils {
-  
-  private static final String PROVIDER_ABOUT_PREFIX = "/item";
 
   private EnrichmentUtils() {}
 
@@ -63,6 +61,7 @@ public final class EnrichmentUtils {
     }
 
     // Ensure that there is a europeana proxy (create one if needed).
+    // TODO: 15-6-18 The europeanaProxy is to be created during transformation including the proper identifiers therefore the following code should be removed and only the "filling" of it should exist here
     final ProxyType europeanaProxy = ensureEuropeanaProxy(rdf, providerProxy);
 
     // Obtain the date strings from the various proxy fields.
@@ -121,21 +120,15 @@ public final class EnrichmentUtils {
     }
 
     // Get the about
-    final String providerAbout = rdf.getProvidedCHOList().get(0).getAbout();
-    final String about;
-    if (providerAbout.startsWith(PROVIDER_ABOUT_PREFIX)) {
-      about = providerAbout.substring(PROVIDER_ABOUT_PREFIX.length());
-    } else {
-      about = providerAbout;
-    }
+    final String providedCHOAbout = rdf.getProvidedCHOList().get(0).getAbout();
 
     // Set the about
-    newEuropeanaProxy.setAbout("/proxy/europeana" + about);
+    newEuropeanaProxy.setAbout("/proxy/europeana" + providedCHOAbout);
     final ProxyFor proxyFor = new ProxyFor();
-    proxyFor.setResource(PROVIDER_ABOUT_PREFIX + about);
+    proxyFor.setResource(providedCHOAbout);
     newEuropeanaProxy.setProxyFor(proxyFor);
     final ProxyIn proxyIn = new ProxyIn();
-    proxyIn.setResource("/aggregation/europeana" + about);
+    proxyIn.setResource("/aggregation/europeana" + providedCHOAbout);
     newEuropeanaProxy.setProxyInList(Stream.of(proxyIn).collect(Collectors.toList()));
 
     // Add new proxy to RDF.
