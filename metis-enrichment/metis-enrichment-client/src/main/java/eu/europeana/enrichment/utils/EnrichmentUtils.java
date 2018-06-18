@@ -4,15 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import eu.europeana.corelib.definitions.jibx.EuropeanaProxy;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
-import eu.europeana.corelib.definitions.jibx.ProxyFor;
-import eu.europeana.corelib.definitions.jibx.ProxyIn;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.Type2;
 import eu.europeana.corelib.definitions.jibx.Year;
 
 /**
@@ -44,25 +39,22 @@ public final class EnrichmentUtils {
    * in the RDF, based on all the data that has been collected.
    * </p>
    * <p>
-   * Currently it creates a europeana proxy (if one is not already present) and then sets the
-   * edm:year fields (obtained from the provider proxy). If no provider proxy is present, this
-   * method has no effect.
+   * Currently sets the edm:year fields (obtained from the provider proxy) in the europeana proxy.
+   * If no europeana or provider proxy is present, this method has no effect.
    * </p>
    * 
    * @param rdf The RDF in which to set additional field values.
    */
   public static void setAdditionalData(RDF rdf) {
 
-    // Get the provider proxy
+    // Get the provider and europeana proxies
     final ProxyType providerProxy = rdf.getProxyList().stream()
         .filter(proxy -> !isEuropeanaProxy(proxy)).findAny().orElse(null);
-    if (providerProxy == null) {
+    final ProxyType europeanaProxy = rdf.getProxyList().stream()
+        .filter(EnrichmentUtils::isEuropeanaProxy).findAny().orElse(null);
+    if (providerProxy == null || europeanaProxy == null) {
       return;
     }
-
-    // Ensure that there is a europeana proxy (create one if needed).
-    // TODO: 15-6-18 The europeanaProxy is to be created during transformation including the proper identifiers therefore the following code should be removed and only the "filling" of it should exist here
-    final ProxyType europeanaProxy = ensureEuropeanaProxy(rdf, providerProxy);
 
     // Obtain the date strings from the various proxy fields.
     final List<String> dateStrings =
@@ -95,49 +87,6 @@ public final class EnrichmentUtils {
       result = null;
     }
     return result == null ? null : result.getString();
-  }
-
-  private static ProxyType ensureEuropeanaProxy(RDF rdf, ProxyType providerProxy) {
-
-    // Try to find the Europeana proxy if it already exists.
-    final ProxyType existingEuropeanaProxy = rdf.getProxyList().stream()
-        .filter(EnrichmentUtils::isEuropeanaProxy).findAny().orElse(null);
-    if (existingEuropeanaProxy != null) {
-      return existingEuropeanaProxy;
-    }
-
-    // If it doesn't, create it.
-    final ProxyType newEuropeanaProxy = new ProxyType();
-    final EuropeanaProxy isEuropeanaProxy = new EuropeanaProxy();
-    isEuropeanaProxy.setEuropeanaProxy(true);
-    newEuropeanaProxy.setEuropeanaProxy(isEuropeanaProxy);
-
-    // Set the type.
-    if (providerProxy.getType() != null) {
-      final Type2 type = new Type2();
-      type.setType(providerProxy.getType().getType());
-      newEuropeanaProxy.setType(type);
-    }
-
-    // Get the about
-    final String providedCHOAbout = rdf.getProvidedCHOList().get(0).getAbout();
-
-    // Set the about
-    newEuropeanaProxy.setAbout("/proxy/europeana" + providedCHOAbout);
-    final ProxyFor proxyFor = new ProxyFor();
-    proxyFor.setResource(providedCHOAbout);
-    newEuropeanaProxy.setProxyFor(proxyFor);
-    final ProxyIn proxyIn = new ProxyIn();
-    proxyIn.setResource("/aggregation/europeana" + providedCHOAbout);
-    newEuropeanaProxy.setProxyInList(Stream.of(proxyIn).collect(Collectors.toList()));
-
-    // Add new proxy to RDF.
-    final List<ProxyType> proxies = new ArrayList<>(rdf.getProxyList());
-    proxies.add(newEuropeanaProxy);
-    rdf.setProxyList(proxies);
-
-    // Done
-    return newEuropeanaProxy;
   }
 
   private static boolean isEuropeanaProxy(ProxyType proxy) {

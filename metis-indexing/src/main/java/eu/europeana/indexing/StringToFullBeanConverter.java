@@ -1,6 +1,5 @@
 package eu.europeana.indexing;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Supplier;
@@ -12,6 +11,7 @@ import org.jibx.runtime.JiBXException;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.exception.IndexingException;
 
 /**
  * This class converts String representations of RDF (XML) to instances of {@link FullBeanImpl}.
@@ -19,7 +19,7 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
  * @author jochen
  *
  */
-public class FullBeanCreator {
+public class StringToFullBeanConverter extends RdfToFullBeanConverter {
 
   private static IBindingFactory globalRdfBindingFactory;
 
@@ -27,13 +27,11 @@ public class FullBeanCreator {
 
   private final IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier;
 
-  private final Supplier<MongoConstructor> mongoConstructorSupplier;
-
   /**
    * Constructor.
    */
-  public FullBeanCreator() {
-    this(FullBeanCreator::getRdfBindingFactory, MongoConstructor::new);
+  public StringToFullBeanConverter() {
+    this(StringToFullBeanConverter::getRdfBindingFactory, MongoConstructor::new);
   }
 
   /**
@@ -46,10 +44,10 @@ public class FullBeanCreator {
    *        convert an instance of {@link RDF} to an instance of {@link FullBeanImpl}. Will be
    *        called once during every call to convert a string.
    */
-  FullBeanCreator(IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier,
+  StringToFullBeanConverter(IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier,
       Supplier<MongoConstructor> mongoConstructorSupplier) {
+    super(mongoConstructorSupplier);
     this.rdfBindingFactorySupplier = rdfBindingFactorySupplier;
-    this.mongoConstructorSupplier = mongoConstructorSupplier;
   }
 
   /**
@@ -65,7 +63,7 @@ public class FullBeanCreator {
     final RDF rdf;
     final IBindingFactory rdfBindingFactory = rdfBindingFactorySupplier.get();
     try {
-      IUnmarshallingContext context = rdfBindingFactory.createUnmarshallingContext();
+      final IUnmarshallingContext context = rdfBindingFactory.createUnmarshallingContext();
       rdf = (RDF) context.unmarshalDocument(IOUtils.toInputStream(record, DEFAULT_CHARSET),
           DEFAULT_CHARSET.name());
     } catch (JiBXException e) {
@@ -78,23 +76,7 @@ public class FullBeanCreator {
     }
 
     // Convert RDF to FullBean
-    final FullBeanImpl fBean;
-    try {
-      fBean = mongoConstructorSupplier.get().constructFullBean(rdf);
-    } catch (InstantiationException | IllegalAccessException | IOException e) {
-      throw new IndexingException("Could not construct FullBean using MongoConstructor.", e);
-    }
-
-    // Sanity Check - shouldn't happen
-    if (fBean == null) {
-      throw new IndexingException("Could not construct FullBean: null was returned.");
-    }
-
-    // TODO Hack to prevent potential null pointer exceptions
-    fBean.setEuropeanaCollectionName(new String[100]);
-
-    // Done.
-    return fBean;
+    return convertRdfToFullBean(rdf);
   }
 
   private static synchronized IBindingFactory getRdfBindingFactory() throws IndexingException {
