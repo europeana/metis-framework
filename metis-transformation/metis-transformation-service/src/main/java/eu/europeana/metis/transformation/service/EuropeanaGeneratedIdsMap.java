@@ -19,7 +19,7 @@ public class EuropeanaGeneratedIdsMap {
   private String aggregationAboutPrefixed;
   private String europeanaAggregationAboutPrefixed;
   private String proxyAboutPrefixed;
-  private String europeanProxyAboutPrefixed;
+  private String europeanaProxyAboutPrefixed;
 
   /**
    * Constructor that created the map in one go.
@@ -36,7 +36,7 @@ public class EuropeanaGeneratedIdsMap {
     this.europeanaAggregationAboutPrefixed =
         EUROPEANA_AGGREGATION_ABOUT_PREFIX + europeanaGeneratedId;
     this.proxyAboutPrefixed = PROXY_ABOUT_PREFIX + europeanaGeneratedId;
-    this.europeanProxyAboutPrefixed = EUROPEANA_PROXY_ABOUT_PREFIX + europeanaGeneratedId;
+    this.europeanaProxyAboutPrefixed = EUROPEANA_PROXY_ABOUT_PREFIX + europeanaGeneratedId;
   }
 
   public String getSourceProvidedChoAbout() {
@@ -59,8 +59,8 @@ public class EuropeanaGeneratedIdsMap {
     return proxyAboutPrefixed;
   }
 
-  public String getEuropeanProxyAboutPrefixed() {
-    return europeanProxyAboutPrefixed;
+  public String getEuropeanaProxyAboutPrefixed() {
+    return europeanaProxyAboutPrefixed;
   }
 
   public boolean isEuropeanaIdAndSourceRecordCHOIdEqual() {

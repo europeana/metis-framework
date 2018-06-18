@@ -460,6 +460,10 @@ public class OrchestratorService {
           .setXsltUrl(getMetisCoreUrl() + RestEndpoints
               .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, xsltObject.getId().toString()));
     }
+    ((TransformationPluginMetadata) abstractMetisPluginMetadata).setDatasetId(dataset.getDatasetId());
+    ((TransformationPluginMetadata) abstractMetisPluginMetadata).setDatasetName(dataset.getDatasetName());
+    ((TransformationPluginMetadata) abstractMetisPluginMetadata).setCountry(dataset.getCountry());
+    ((TransformationPluginMetadata) abstractMetisPluginMetadata).setLanguage(dataset.getLanguage());
   }
 
   private static void setupValidationForPluginMetadata(AbstractMetisPluginMetadata metadata,
