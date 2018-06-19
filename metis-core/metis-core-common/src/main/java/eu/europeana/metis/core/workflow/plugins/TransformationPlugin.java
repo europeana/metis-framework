@@ -53,8 +53,8 @@ public class TransformationPlugin extends AbstractMetisPlugin {
     parameters.put("XSLT_URL", xsltUlr);
     parameters.put("METIS_DATASET_ID", datasetId);
     parameters.put("METIS_DATASET_NAME", datasetName);
-    parameters.put("METIS_DATASET_LANGUAGE", country.name());
-    parameters.put("METIS_DATASET_COUNTRY", language.getName());
+    parameters.put("METIS_DATASET_COUNTRY", country.getName());
+    parameters.put("METIS_DATASET_LANGUAGE", language.name());
 
     return createDpsTaskForProcessPlugin(parameters, ecloudBaseUrl, ecloudProvider, ecloudDataset);
   }
