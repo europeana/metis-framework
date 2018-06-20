@@ -442,21 +442,27 @@ public class DatasetService {
     return transformRecords(dataset, records, xsltUrl);
   }
 
-  private List<Record> transformRecords(Dataset dataset, List<Record> records, String xsltUrl) {
+  private List<Record> transformRecords(Dataset dataset, List<Record> records, String xsltUrl)
+      throws XsltSetupException {
+
+    // Set up transformer.
+    final XsltTransformer transformer;
+    try {
+      transformer = new XsltTransformer(xsltUrl, dataset.getDatasetName(),
+          dataset.getCountry().getName(), dataset.getLanguage().name());
+    } catch (TransformationException e) {
+      LOGGER.info("Transformation setup failed.", e);
+      throw new XsltSetupException("Could not setup XSL transformation.", e);
+    }
 
     // Transform the records.
     return records.stream().map(record -> {
       try {
-        String recordString = new String(record.getXmlRecord().getBytes(StandardCharsets.UTF_8));
         EuropeanaIdCreator europeanIdCreator = new EuropeanaIdCreator();
         EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap = europeanIdCreator
-            .constructEuropeanaId(recordString, dataset.getDatasetId());
-        final XsltTransformer transformer = new XsltTransformer(xsltUrl, europeanaGeneratedIdsMap, dataset.getDatasetName(),
-            dataset.getCountry().getName(), dataset.getLanguage().name());
-
-        String transformedRecord = transformer.transform(record.getXmlRecord().getBytes(StandardCharsets.UTF_8))
-            .toString();
-        return new Record(record.getEcloudId(), transformedRecord);
+            .constructEuropeanaId(record.getXmlRecord(), dataset.getDatasetId());
+        return new Record(record.getEcloudId(), transformer
+            .transform(record.getXmlRecord().getBytes(StandardCharsets.UTF_8), europeanaGeneratedIdsMap).toString());
       } catch (TransformationException e) {
         LOGGER.info("Record from list failed transformation", e);
         return new Record(record.getEcloudId(), e.getMessage());
