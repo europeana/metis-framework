@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:edm="http://www.europeana.eu/schemas/edm/">
-	<edm:ProvidedCHO rdf:about="http://data.europeana.eu/2059220/opac_index_php_lvl_notice_display_id_5617" />
+	<edm:ProvidedCHO rdf:about="/2059220/opac_index_php_lvl_notice_display_id_5617" />
 	<edm:WebResource rdf:about="http://doc.cresson.grenoble.archi.fr/opac/index.php?lvl=notice_display&amp;id=5617" />
 	<edm:WebResource rdf:about="http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3" />
 	<edm:WebResource rdf:about="http://cressound.grenoble.archi.fr/son/rap076/bogota.jpg" />
@@ -20,8 +20,8 @@
 		<skos:narrower rdf:resource="http://data.europeana.eu/concept/soundgenres/Environment_recordings/Nature_sounds" />
 		<skos:narrower rdf:resource="http://data.europeana.eu/concept/soundgenres/Environment_recordings/Soundscapes" />
 	</skos:Concept>
-	<ore:Aggregation xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="http://data.europeana.eu/aggregation/provider/2059220/opac_index_php_lvl_notice_display_id_5617">
-		<edm:aggregatedCHO rdf:resource="http://data.europeana.eu/2059220/opac_index_php_lvl_notice_display_id_5617" />
+	<ore:Aggregation xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="/aggregation/provider/2059220/opac_index_php_lvl_notice_display_id_5617">
+		<edm:aggregatedCHO rdf:resource="/2059220/opac_index_php_lvl_notice_display_id_5617" />
 		<edm:dataProvider>CNRS-CRESSON</edm:dataProvider>
 		<edm:isShownAt rdf:resource="http://doc.cresson.grenoble.archi.fr/opac/index.php?lvl=notice_display&amp;id=5617" />
 		<edm:isShownBy rdf:resource="http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3" />
@@ -29,7 +29,7 @@
 		<edm:provider>Europeana Sounds</edm:provider>
 		<edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
 	</ore:Aggregation>
-	<ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="http://data.europeana.eu/proxy/provider/2059220/opac_index_php_lvl_notice_display_id_5617">
+	<ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="/proxy/provider/2059220/opac_index_php_lvl_notice_display_id_5617">
 		<dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">McOisans juL. Tixier Nicolas (Preneurs de son)</dc:contributor>
 		<dc:coverage xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="http://doc.cresson.grenoble.archi.fr/opac/index.php?lvl=notice_display&amp;id=5617#Place"></dc:coverage>
 		<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Tixier Nicolas (dir.)</dc:creator>
@@ -57,18 +57,18 @@
 		<dcterms:provenance xmlns:dcterms="http://purl.org/dc/terms/">Centre de recherche sur l'espace sonore et l'environnement urbain, Ecole Nationale Supérieure d’Architecture de Grenoble (UMR 1563 AAU - CNRS, ENSAN, ECN)</dcterms:provenance>
 		<dcterms:spatial xmlns:dcterms="http://purl.org/dc/terms/">Bogotá</dcterms:spatial>
 		<edm:europeanaProxy>false</edm:europeanaProxy>
-		<ore:proxyFor rdf:resource="http://data.europeana.eu/2059220/opac_index_php_lvl_notice_display_id_5617" />
-		<ore:proxyIn rdf:resource="http://data.europeana.eu/aggregation/provider/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<ore:proxyFor rdf:resource="/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<ore:proxyIn rdf:resource="/aggregation/provider/2059220/opac_index_php_lvl_notice_display_id_5617" />
 		<edm:type>SOUND</edm:type>
 	</ore:Proxy>
-	<ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="http://data.europeana.eu/proxy/europeana/2059220/opac_index_php_lvl_notice_display_id_5617">
+	<ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="/proxy/europeana/2059220/opac_index_php_lvl_notice_display_id_5617">
 		<edm:europeanaProxy>true</edm:europeanaProxy>
-		<ore:proxyFor rdf:resource="http://data.europeana.eu/2059220/opac_index_php_lvl_notice_display_id_5617" />
-		<ore:proxyIn rdf:resource="http://data.europeana.eu/aggregation/europeana/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<ore:proxyFor rdf:resource="/2059220/opac_index_php_lvl_notice_display_id_5617" />
+		<ore:proxyIn rdf:resource="/aggregation/europeana/2059220/opac_index_php_lvl_notice_display_id_5617" />
 		<edm:type>SOUND</edm:type>
 	</ore:Proxy>
-	<edm:EuropeanaAggregation rdf:about="http://data.europeana.eu/aggregation/europeana/2059220/opac_index_php_lvl_notice_display_id_5617">
-		<edm:aggregatedCHO rdf:resource="http://data.europeana.eu/2059220/opac_index_php_lvl_notice_display_id_5617" />
+	<edm:EuropeanaAggregation rdf:about="/aggregation/europeana/2059220/opac_index_php_lvl_notice_display_id_5617">
+		<edm:aggregatedCHO rdf:resource="/2059220/opac_index_php_lvl_notice_display_id_5617" />
 		<edm:collectionName>2059220_Ag_EU_eSOUNDS_1029_Cresson</edm:collectionName>
 		<edm:country>France</edm:country>
 		<edm:landingPage rdf:resource="http://europeana.eu/portal/record/2059220/opac_index_php_lvl_notice_display_id_5617.html" />
