@@ -32,42 +32,66 @@ public class XsltTransformer {
 
   /**
    * Constructor in the case that no value of the datasetId field needs to be set.
-   * 
+   *
    * @param xsltUrl The URL of the XSLT file.
    * @throws TransformationException In case there was a problem setting up the transformation.
    */
   public XsltTransformer(String xsltUrl) throws TransformationException {
-    this(xsltUrl, null);
+    this(xsltUrl, null, null, null);
   }
 
   /**
    * Constructor.
-   * 
+   *
    * @param xsltUrl The URL of the XSLT file.
-   * @param datasetId The value that will be injected to the datasetId field in the XSLT. Can be
-   *        null.
+   * @param datasetName the dataset name related to the dataset
+   * @param edmCountry the Country related to the dataset
+   * @param edmLanguage the language related to the dataset
    * @throws TransformationException In case there was a problem with setting up the transformation.
    */
-  public XsltTransformer(String xsltUrl, String datasetId) throws TransformationException {
+  public XsltTransformer(String xsltUrl, String datasetName, String edmCountry, String edmLanguage)
+      throws TransformationException {
     try {
       this.transformer = getTemplates(xsltUrl).newTransformer();
     } catch (TransformerConfigurationException | IOException e) {
       LOGGER.error("Exception during transformation setup", e);
       throw new TransformationException(e);
     }
-    if (datasetId != null && !datasetId.trim().isEmpty()) {
-      transformer.setParameter("datasetId", datasetId);
+    if (datasetName != null && !datasetName.trim().isEmpty()) {
+      transformer.setParameter("datasetName", datasetName);
+    }
+    if (edmLanguage != null && !edmLanguage.trim().isEmpty()) {
+      transformer.setParameter("edmLanguage", edmLanguage);
+    }
+    if (edmCountry != null && !edmCountry.trim().isEmpty()) {
+      transformer.setParameter("edmCountry", edmCountry);
     }
   }
 
   /**
    * Transforms a file using this instance's XSL transformation.
-   * 
+   *
    * @param fileContent The file to be transformed.
+   * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
    * @return The transformed file.
    * @throws TransformationException In case there was a problem with the transformation.
    */
-  public StringWriter transform(byte[] fileContent) throws TransformationException {
+  public StringWriter transform(byte[] fileContent,
+      EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
+    if (europeanaGeneratedIdsMap != null) {
+      transformer
+          .setParameter("providedCHOAboutId", europeanaGeneratedIdsMap.getEuropeanaGeneratedId());
+      transformer
+          .setParameter("aggregationAboutId",
+              europeanaGeneratedIdsMap.getAggregationAboutPrefixed());
+      transformer.setParameter("europeanaAggregationAboutId",
+          europeanaGeneratedIdsMap.getEuropeanaAggregationAboutPrefixed());
+      transformer.setParameter("proxyAboutId", europeanaGeneratedIdsMap.getProxyAboutPrefixed());
+      transformer.setParameter("europeanaProxyAboutId",
+          europeanaGeneratedIdsMap.getEuropeanaProxyAboutPrefixed());
+      transformer
+          .setParameter("dcIdentifier", europeanaGeneratedIdsMap.getSourceProvidedChoAbout());
+    }
     try (final InputStream contentStream = new ByteArrayInputStream(fileContent)) {
       final StringWriter result = new StringWriter();
       transformer.transform(new StreamSource(contentStream), new StreamResult(result));

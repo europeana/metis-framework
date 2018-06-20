@@ -9,6 +9,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -88,9 +90,10 @@ public class TestDatasetService {
   }
 
   private interface TestAction {
+
     void test() throws GenericMetisException;
   }
-  
+
   @Before
   public void prepare() {
     datasetDao = mock(DatasetDao.class);
@@ -172,7 +175,8 @@ public class TestDatasetService {
     datasetService.updateDataset(metisUser, dataset,
         TestObjectFactory.createXslt(TestObjectFactory.createDataset(dataset.getDatasetName()))
             .getXslt());
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+    verify(authorizer, times(1))
+        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
     ArgumentCaptor<Dataset> dataSetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
@@ -183,7 +187,7 @@ public class TestDatasetService {
         dataSetArgumentCaptor.getValue().getCreatedByUserId());
     assertNotEquals(storedDataset.getUpdatedDate(),
         dataSetArgumentCaptor.getValue().getUpdatedDate());
-    
+
   }
 
   @Test
@@ -199,7 +203,8 @@ public class TestDatasetService {
         .thenReturn(storedDataset);
     when(datasetXsltDao.create(any(DatasetXslt.class))).thenReturn(TestObjectFactory.XSLTID);
     datasetService.updateDataset(metisUser, dataset, null);
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+    verify(authorizer, times(1))
+        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
     ArgumentCaptor<Dataset> dataSetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
@@ -258,7 +263,7 @@ public class TestDatasetService {
         .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     datasetService.updateDataset(metisUser, dataset, null);
   }
-  
+
   @Test
   public void testDeleteDatasetByDatasetId() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
@@ -266,13 +271,18 @@ public class TestDatasetService {
     dataset.setOrganizationId(metisUser.getOrganizationId());
     when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
         .thenReturn(dataset);
-    when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID))).thenReturn(null);
-    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+    when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID)))
+        .thenReturn(null);
+    datasetService
+        .deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+    verify(authorizer, times(1))
+        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     verify(datasetDao, times(1)).deleteByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
-    verify(workflowExecutionDao, times(1)).deleteAllByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
-    verify(scheduledWorkflowDao, times(1)).deleteAllByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    verify(workflowExecutionDao, times(1))
+        .deleteAllByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    verify(scheduledWorkflowDao, times(1))
+        .deleteAllByDatasetId(Integer.toString(TestObjectFactory.DATASETID));
   }
 
   @Test
@@ -308,7 +318,8 @@ public class TestDatasetService {
         .thenReturn(dataset);
     when(workflowExecutionDao.existsAndNotCompleted(Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn("ObjectId");
-    datasetService.deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
+    datasetService
+        .deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
   }
 
   @Test
@@ -321,7 +332,8 @@ public class TestDatasetService {
     Dataset returnedDataset = datasetService
         .getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
     assertNotNull(returnedDataset);
-    verify(authorizer, times(1)).authorizeReadExistingDatasetByName(metisUser, TestObjectFactory.DATASETNAME);
+    verify(authorizer, times(1))
+        .authorizeReadExistingDatasetByName(metisUser, TestObjectFactory.DATASETNAME);
     verifyNoMoreInteractions(authorizer);
   }
 
@@ -354,7 +366,8 @@ public class TestDatasetService {
     Dataset returnedDataset =
         datasetService.getDatasetByDatasetId(metisUser, dataset.getDatasetId());
     assertNotNull(returnedDataset);
-    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, dataset.getDatasetId());
+    verify(authorizer, times(1))
+        .authorizeReadExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
   }
 
@@ -392,7 +405,8 @@ public class TestDatasetService {
 
     DatasetXslt datasetXsltByDatasetId = datasetService
         .getDatasetXsltByDatasetId(metisUser, dataset.getDatasetId());
-    verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, dataset.getDatasetId());
+    verify(authorizer, times(1))
+        .authorizeReadExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     Assert.assertEquals(datasetXslt.getXslt(), datasetXsltByDatasetId.getXslt());
     Assert.assertEquals(datasetXslt.getDatasetId(), datasetXsltByDatasetId.getDatasetId());
@@ -444,7 +458,7 @@ public class TestDatasetService {
     when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(null);
     datasetService.getDatasetXsltByXsltId(TestObjectFactory.XSLTID);
   }
-  
+
   @Test
   public void createDefaultXslt() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
@@ -468,7 +482,7 @@ public class TestDatasetService {
     doThrow(UserUnauthorizedException.class).when(authorizer).authorizeWriteDefaultXslt(metisUser);
     datasetService.createDefaultXslt(metisUser, datasetXslt.getXslt());
   }
-  
+
   @Test
   public void getLatestXsltForDatasetId() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
@@ -493,7 +507,8 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
+        .thenReturn(dataset);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
     when(datasetXsltDao.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID))
         .thenReturn(datasetXslt);
@@ -510,17 +525,19 @@ public class TestDatasetService {
 
     List<Record> records = datasetService
         .transformRecordsUsingLatestDefaultXslt(metisUser, dataset.getDatasetId(), listOfRecords);
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+    verify(authorizer, times(1))
+        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
     Document doc;
-    assertFalse(records.get(0).getXmlRecord().contains("record")); //First record is invalid
+    assertFalse(
+        records.get(0).getXmlRecord().contains("edm:ProvidedCHO")); //First record is invalid
     for (int i = 1; i < records.size(); i++) {
       doc = dBuilder.parse(new InputSource(new StringReader(records.get(i).getXmlRecord())));
-      assertEquals(1, doc.getElementsByTagName("record").getLength());
-      assertEquals(Integer.toString(i),
-          doc.getElementsByTagName("element").item(0).getTextContent());
+      assertEquals(1, doc.getElementsByTagName("edm:ProvidedCHO").getLength());
+      assertTrue(doc.getElementsByTagName("edm:ProvidedCHO").item(0).getAttributes()
+          .getNamedItem("rdf:about").getTextContent().contains(Integer.toString(i)));
     }
   }
 
@@ -559,16 +576,17 @@ public class TestDatasetService {
 
     List<Record> records = datasetService
         .transformRecordsUsingLatestDatasetXslt(metisUser, dataset.getDatasetId(), listOfRecords);
-    verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+    verify(authorizer, times(1))
+        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
     Document doc;
     for (int i = 0; i < records.size(); i++) {
       doc = dBuilder.parse(new InputSource(new StringReader(records.get(i).getXmlRecord())));
-      Assert.assertEquals(1, doc.getElementsByTagName("record").getLength());
-      Assert.assertEquals(Integer.toString(i),
-          doc.getElementsByTagName("element").item(0).getTextContent());
+      Assert.assertEquals(1, doc.getElementsByTagName("edm:ProvidedCHO").getLength());
+      assertTrue(doc.getElementsByTagName("edm:ProvidedCHO").item(0).getAttributes()
+          .getNamedItem("rdf:about").getTextContent().contains(Integer.toString(i)));
     }
   }
 

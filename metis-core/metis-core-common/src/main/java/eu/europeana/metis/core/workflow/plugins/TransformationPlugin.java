@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
+import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.core.common.Language;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,9 +44,18 @@ public class TransformationPlugin extends AbstractMetisPlugin {
 
   @Override
   public DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    String xsltUlr = ((TransformationPluginMetadata) getPluginMetadata()).getXsltUrl();
+    String xsltUrl = ((TransformationPluginMetadata) getPluginMetadata()).getXsltUrl();
+    String datasetId = ((TransformationPluginMetadata) getPluginMetadata()).getDatasetId();
+    String datasetName = ((TransformationPluginMetadata) getPluginMetadata()).getDatasetName();
+    Country country = ((TransformationPluginMetadata) getPluginMetadata()).getCountry();
+    Language language = ((TransformationPluginMetadata) getPluginMetadata()).getLanguage();
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("XSLT_URL", xsltUlr);
+    parameters.put("XSLT_URL", xsltUrl);
+    parameters.put("METIS_DATASET_ID", datasetId);
+    parameters.put("METIS_DATASET_NAME", datasetName);
+    parameters.put("METIS_DATASET_COUNTRY", country.getName());
+    parameters.put("METIS_DATASET_LANGUAGE", language.name());
+
     return createDpsTaskForProcessPlugin(parameters, ecloudBaseUrl, ecloudProvider, ecloudDataset);
   }
 }
