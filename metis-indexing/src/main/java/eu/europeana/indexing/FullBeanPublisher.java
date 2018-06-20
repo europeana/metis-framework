@@ -46,7 +46,7 @@ import eu.europeana.indexing.solr.SolrDocumentPopulator;
  */
 class FullBeanPublisher {
 
-  private final Supplier<FullBeanConverter> fullBeanConverterSupplier;
+  private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 
   private final FullBeanDao fullBeanDao;
   private final SolrClient solrServer;
@@ -58,7 +58,7 @@ class FullBeanPublisher {
    * @param solrServer The searchable persistence.
    */
   FullBeanPublisher(FullBeanDao fullBeanDao, SolrClient solrServer) {
-    this(fullBeanDao, solrServer, FullBeanConverter::new);
+    this(fullBeanDao, solrServer, RdfToFullBeanConverter::new);
   }
 
   /**
@@ -66,12 +66,12 @@ class FullBeanPublisher {
    * 
    * @param fullBeanDao DAO object for saving and updating Full Beans.
    * @param solrServer The searchable persistence.
-   * @param fullBeanConverterSupplier Supplies an instance of {@link FullBeanConverter} used to
+   * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
    *        parse strings to instances of {@link FullBeanImpl}. Will be called once during every
    *        publish.
    */
   FullBeanPublisher(FullBeanDao fullBeanDao, SolrClient solrServer,
-      Supplier<FullBeanConverter> fullBeanConverterSupplier) {
+      Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
     this.fullBeanDao = fullBeanDao;
     this.solrServer = solrServer;
     this.fullBeanConverterSupplier = fullBeanConverterSupplier;
@@ -86,8 +86,8 @@ class FullBeanPublisher {
   public void publish(RDF rdf) throws IndexingException {
 
     // Convert RDF to Full Bean.
-    final FullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
-    final FullBeanImpl fullBean = fullBeanConverter.convertFromRdf(rdf);
+    final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
+    final FullBeanImpl fullBean = fullBeanConverter.convertRdfToFullBean(rdf);
 
     // Publish
     publishToMongo(fullBean);

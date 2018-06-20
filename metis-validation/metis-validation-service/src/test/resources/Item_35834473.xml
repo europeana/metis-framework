@@ -18,7 +18,7 @@
          xmlns:adms="http://www.w3.org/ns/adms#"
          xmlns:wdrs="http://www.w3.org/2007/05/powder-s#">
 
-    <edm:ProvidedCHO rdf:about="/item/08502/5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2">
+    <edm:ProvidedCHO rdf:about="/08502/5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2">
         <dc:contributor>CHO - dc:contributor</dc:contributor>
         <dc:coverage>CHO - dc:coverage</dc:coverage>
         <dc:creator rdf:resource="http://dbpedia.org/resource/Paul_Gauguin"/>
@@ -82,7 +82,7 @@
         <owl:sameAs rdf:resource="http://CHO-owl-sameAs.eu"></owl:sameAs>
     </edm:ProvidedCHO>
     <ore:Aggregation rdf:about="/aggregation/provider/08502/5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2">
-        <edm:aggregatedCHO rdf:resource="/item/08502/5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2"/>
+        <edm:aggregatedCHO rdf:resource="/08502/5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2"/>
         <edm:dataProvider>Israel Museum, Jerusalem</edm:dataProvider>
         <edm:isShownAt rdf:resource="http://www.imj.org.il/imagine/collections/item.asp?itemNum=193112"/>
         <edm:isShownBy rdf:resource="http://www.imj.org.il/images/corridor/bezalel/modern/new modern scans/g-h-i/gauguin-still life~b66_1041.jpg"/>

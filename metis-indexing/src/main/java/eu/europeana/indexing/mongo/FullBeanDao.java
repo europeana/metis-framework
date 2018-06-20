@@ -36,8 +36,6 @@ public class FullBeanDao {
 
   private static final String ABOUT_FIELD = "about";
 
-  private static final String ABOUT_PREFIX = "/item";
-
   private final EdmMongoServer mongoServer;
 
   /**
@@ -74,18 +72,12 @@ public class FullBeanDao {
     if (StringUtils.isBlank(fullBean.getAbout())) {
       throw new IndexingException("Full bean does not have an 'about' value.");
     }
-    final String originalValue = fullBean.getAbout().trim();
-    final String baseValue =
-        (originalValue.startsWith(ABOUT_PREFIX) ? originalValue.substring(ABOUT_PREFIX.length())
-            : originalValue).trim();
-    final String valueWithPrefix = ABOUT_PREFIX + baseValue;
+    final String aboutValue = fullBean.getAbout().trim();
 
     // Check with or without the prefix.
     final String result;
-    if (null != get(FullBeanImpl.class, baseValue)) {
-      result = baseValue;
-    } else if (null != get(FullBeanImpl.class, valueWithPrefix)) {
-      result = valueWithPrefix;
+    if (null != get(FullBeanImpl.class, aboutValue)) {
+      result = aboutValue;
     } else {
       result = null;
     }

@@ -62,11 +62,6 @@ public class RecordDao {
     getIndexer().indexRdf(rdf);
   }
   
-  public void deleteCollection(String collectionName) throws IOException, SolrServerException {
-    solrServer.deleteByQuery("edm_datasetName:" + collectionName + "*");
-    clearData(collectionName);
-  }
-
   public void commit() throws IOException, SolrServerException {
     solrServer.commit();
   }
@@ -107,37 +102,5 @@ public class RecordDao {
         .remove(new BasicDBObject());
     this.mongoServer.getDatastore().getDB().getCollection("License")
         .remove(new BasicDBObject());
-  }
-
-  private void clearData(String collection) {
-    DBCollection records = this.mongoServer.getDatastore().getDB().getCollection("record");
-    DBCollection proxies = this.mongoServer.getDatastore().getDB().getCollection("Proxy");
-    DBCollection physicalThing = this.mongoServer.getDatastore().getDB()
-        .getCollection("PhysicalThing");
-    DBCollection providedCHOs = this.mongoServer.getDatastore().getDB()
-        .getCollection("ProvidedCHO");
-    DBCollection aggregations = this.mongoServer.getDatastore().getDB()
-        .getCollection("Aggregation");
-    DBCollection europeanaAggregations = this.mongoServer.getDatastore().getDB()
-        .getCollection("EuropeanaAggregation");
-    BasicDBObject query = new BasicDBObject(ABOUT_STRING, Pattern.compile("^/" + collection + "/"));
-    BasicDBObject proxyQuery = new BasicDBObject(ABOUT_STRING,
-        Pattern.compile("^/proxy/provider/" + collection + "/"));
-    BasicDBObject europeanaProxyQuery = new BasicDBObject(ABOUT_STRING,
-        Pattern.compile("^/proxy/europeana/" + collection + "/"));
-    BasicDBObject providedCHOQuery = new BasicDBObject(ABOUT_STRING,
-        Pattern.compile("^/item/" + collection + "/"));
-    BasicDBObject aggregationQuery = new BasicDBObject(ABOUT_STRING,
-        Pattern.compile("^/aggregation/provider/" + collection + "/"));
-    BasicDBObject europeanaAggregationQuery = new BasicDBObject(ABOUT_STRING,
-        Pattern.compile("^/aggregation/europeana/" + collection + "/"));
-    europeanaAggregations.remove(europeanaAggregationQuery, WriteConcern.JOURNALED);
-    records.remove(query, WriteConcern.JOURNALED);
-    proxies.remove(europeanaProxyQuery, WriteConcern.JOURNALED);
-    proxies.remove(proxyQuery, WriteConcern.JOURNALED);
-    physicalThing.remove(proxyQuery, WriteConcern.JOURNALED);
-    physicalThing.remove(europeanaProxyQuery, WriteConcern.JOURNALED);
-    providedCHOs.remove(providedCHOQuery, WriteConcern.JOURNALED);
-    aggregations.remove(aggregationQuery, WriteConcern.JOURNALED);
   }
 }
