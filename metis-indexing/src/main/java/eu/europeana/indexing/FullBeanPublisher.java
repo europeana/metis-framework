@@ -11,17 +11,6 @@ import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
-import eu.europeana.corelib.edm.utils.construct.AgentUpdater;
-import eu.europeana.corelib.edm.utils.construct.AggregationUpdater;
-import eu.europeana.corelib.edm.utils.construct.ConceptUpdater;
-import eu.europeana.corelib.edm.utils.construct.EuropeanaAggregationUpdater;
-import eu.europeana.corelib.edm.utils.construct.LicenseUpdater;
-import eu.europeana.corelib.edm.utils.construct.PlaceUpdater;
-import eu.europeana.corelib.edm.utils.construct.ProvidedChoUpdater;
-import eu.europeana.corelib.edm.utils.construct.ProxyUpdater;
-import eu.europeana.corelib.edm.utils.construct.ServiceUpdater;
-import eu.europeana.corelib.edm.utils.construct.TimespanUpdater;
-import eu.europeana.corelib.edm.utils.construct.Updater;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -35,6 +24,17 @@ import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.mongo.FullBeanDao;
+import eu.europeana.indexing.mongo.property.AgentUpdater;
+import eu.europeana.indexing.mongo.property.AggregationUpdater;
+import eu.europeana.indexing.mongo.property.ConceptUpdater;
+import eu.europeana.indexing.mongo.property.EuropeanaAggregationUpdater;
+import eu.europeana.indexing.mongo.property.LicenseUpdater;
+import eu.europeana.indexing.mongo.property.PlaceUpdater;
+import eu.europeana.indexing.mongo.property.PropertyMongoUpdater;
+import eu.europeana.indexing.mongo.property.ProvidedChoUpdater;
+import eu.europeana.indexing.mongo.property.ProxyUpdater;
+import eu.europeana.indexing.mongo.property.ServiceUpdater;
+import eu.europeana.indexing.mongo.property.TimespanUpdater;
 import eu.europeana.indexing.solr.SolrDocumentPopulator;
 
 /**
@@ -129,7 +129,7 @@ class FullBeanPublisher {
   }
 
   private <T extends AbstractEdmEntity> void saveOrUpdate(Supplier<List<T>> getter,
-      Consumer<List<T>> setter, Class<T> clazz, Updater<T> updater) throws MongoUpdateException {
+      Consumer<List<T>> setter, Class<T> clazz, PropertyMongoUpdater<T> updater) throws MongoUpdateException {
     setter.accept(fullBeanDao.update(getter.get(), clazz, updater));
   }
 
