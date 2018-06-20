@@ -96,7 +96,7 @@ public class DatasetService {
   public Dataset createDataset(MetisUser metisUser, Dataset dataset)
       throws GenericMetisException {
     authorizer.authorizeWriteNewDataset(metisUser);
-    
+
     dataset.setOrganizationId(metisUser.getOrganizationId());
     dataset.setOrganizationName(metisUser.getOrganizationName());
 
@@ -148,15 +148,16 @@ public class DatasetService {
    */
   public void updateDataset(MetisUser metisUser, Dataset dataset, String xsltString)
       throws GenericMetisException {
-    
+
     // Find existing dataset and check authentication.
-    Dataset storedDataset = authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
-    
+    Dataset storedDataset = authorizer
+        .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
+
     // Check that the new dataset name does not already exist.
     final String newDatasetName = dataset.getDatasetName();
     if (!storedDataset.getDatasetName().equals(newDatasetName)
         && datasetDao.getDatasetByOrganizationIdAndDatasetName(metisUser.getOrganizationId(),
-            newDatasetName) != null) {
+        newDatasetName) != null) {
       throw new DatasetAlreadyExistsException(String.format(
           "Trying to change dataset with datasetName: %s but dataset with organizationId: %s and datasetName: %s already exists",
           storedDataset.getDatasetName(), metisUser.getOrganizationId(), newDatasetName));
@@ -204,7 +205,7 @@ public class DatasetService {
    */
   public void deleteDatasetByDatasetId(MetisUser metisUser, String datasetId)
       throws GenericMetisException {
-    
+
     // Find existing dataset and check authentication.
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
 
@@ -213,7 +214,7 @@ public class DatasetService {
       throw new BadContentException(
           String.format("Workflow execution is active for datasteId %s", datasetId));
     }
-    
+
     // Delete the dataset.
     datasetDao.deleteByDatasetId(datasetId);
 
@@ -320,9 +321,9 @@ public class DatasetService {
    * @param xsltString the text of the String representation non escaped
    * @return the created {@link DatasetXslt}
    * @throws GenericMetisException which can be one of:
-   *         <ul>
-   *         <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
-   *         </ul>
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   public DatasetXslt createDefaultXslt(MetisUser metisUser, String xsltString)
       throws GenericMetisException {
@@ -369,19 +370,19 @@ public class DatasetService {
    *
    * @param metisUser the {@link MetisUser} to authorize with
    * @param datasetId the dataset identifier, it is required for authentication and for the dataset
-   *        fields xslt injection
+   * fields xslt injection
    * @param records the list of {@link Record} for which {@link Record#getXmlRecord()} returns a
-   *        non-null value
+   * non-null value
    * @return a list of {@link Record}s with {@link Record#getXmlRecord()} returning the transformed
-   *         XML
+   * XML
    * @throws GenericMetisException which can be one of:
-   *         <ul>
-   *         <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
-   *         user cannot be authorized.</li>
-   *         <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
-   *         <li>{@link NoXsltFoundException} if there is no xslt found</li>
-   *         <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
-   *         </ul>
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
+   * user cannot be authorized.</li>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
+   * <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   * <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
+   * </ul>
    */
   public List<Record> transformRecordsUsingLatestDefaultXslt(MetisUser metisUser, String datasetId,
       List<Record> records) throws GenericMetisException {
@@ -412,19 +413,19 @@ public class DatasetService {
    *
    * @param metisUser the {@link MetisUser} to authorize with
    * @param datasetId the dataset identifier, it is required for authentication and for the dataset
-   *        fields xslt injection
+   * fields xslt injection
    * @param records the list of {@link Record} for which {@link Record#getXmlRecord()} returns a
-   *        non-null value
+   * non-null value
    * @return a list of {@link Record}s with {@link Record#getXmlRecord()} returning the transformed
-   *         XML
+   * XML
    * @throws GenericMetisException which can be one of:
-   *         <ul>
-   *         <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
-   *         user cannot be authorized.</li>
-   *         <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
-   *         <li>{@link NoXsltFoundException} if there is no xslt found</li>
-   *         <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
-   *         </ul>
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
+   * user cannot be authorized.</li>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
+   * <li>{@link NoXsltFoundException} if there is no xslt found</li>
+   * <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
+   * </ul>
    */
   public List<Record> transformRecordsUsingLatestDatasetXslt(MetisUser metisUser, String datasetId,
       List<Record> records) throws GenericMetisException {
@@ -447,22 +448,27 @@ public class DatasetService {
 
     // Set up transformer.
     final XsltTransformer transformer;
+    final EuropeanaIdCreator europeanIdCreator;
     try {
       transformer = new XsltTransformer(xsltUrl, dataset.getDatasetName(),
           dataset.getCountry().getName(), dataset.getLanguage().name());
+      europeanIdCreator = new EuropeanaIdCreator();
     } catch (TransformationException e) {
       LOGGER.info("Transformation setup failed.", e);
       throw new XsltSetupException("Could not setup XSL transformation.", e);
+    } catch (EuropeanaIdException e) {
+      LOGGER.info("EuropeanaIdCreator initialization failed.", e);
+      throw new XsltSetupException("EuropeanaIdCreator initialization failed.", e);
     }
 
     // Transform the records.
     return records.stream().map(record -> {
       try {
-        EuropeanaIdCreator europeanIdCreator = new EuropeanaIdCreator();
         EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap = europeanIdCreator
             .constructEuropeanaId(record.getXmlRecord(), dataset.getDatasetId());
         return new Record(record.getEcloudId(), transformer
-            .transform(record.getXmlRecord().getBytes(StandardCharsets.UTF_8), europeanaGeneratedIdsMap).toString());
+            .transform(record.getXmlRecord().getBytes(StandardCharsets.UTF_8),
+                europeanaGeneratedIdsMap).toString());
       } catch (TransformationException e) {
         LOGGER.info("Record from list failed transformation", e);
         return new Record(record.getEcloudId(), e.getMessage());
