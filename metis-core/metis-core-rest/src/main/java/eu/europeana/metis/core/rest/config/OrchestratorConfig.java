@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.rest.config;
 
+import eu.europeana.metis.exception.GenericMetisException;
 import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -17,6 +18,7 @@ import org.redisson.config.SingleServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -64,7 +66,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   private FailsafeExecutor failsafeExecutor;
 
   private Connection connection;
-  private Channel channel;
+  private Channel publisherChannel;
+  private Channel consumerChannel;
   private RedissonClient redissonClient;
 
   @Autowired
@@ -73,28 +76,44 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  Channel getRabbitmqChannel()
-      throws IOException, TimeoutException, KeyManagementException, NoSuchAlgorithmException {
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost(propertiesHolder.getRabbitmqHost());
-    factory.setPort(propertiesHolder.getRabbitmqPort());
-    factory.setVirtualHost(
+  Connection getConnection()
+      throws KeyManagementException, NoSuchAlgorithmException, IOException, TimeoutException {
+    ConnectionFactory connectionFactory = new ConnectionFactory();
+    connectionFactory.setHost(propertiesHolder.getRabbitmqHost());
+    connectionFactory.setPort(propertiesHolder.getRabbitmqPort());
+    connectionFactory.setVirtualHost(
         StringUtils.isNotBlank(propertiesHolder.getRabbitmqVirtualHost()) ? propertiesHolder
             .getRabbitmqVirtualHost() : "/");
-    factory.setUsername(propertiesHolder.getRabbitmqUsername());
-    factory.setPassword(propertiesHolder.getRabbitmqPassword());
-    factory.setAutomaticRecoveryEnabled(true);
+    connectionFactory.setUsername(propertiesHolder.getRabbitmqUsername());
+    connectionFactory.setPassword(propertiesHolder.getRabbitmqPassword());
+    connectionFactory.setAutomaticRecoveryEnabled(true);
     if (propertiesHolder.isRabbitmqEnableSSL()) {
-      factory.useSslProtocol();
+      connectionFactory.useSslProtocol();
     }
-    connection = factory.newConnection();
-    channel = connection.createChannel();
+    connection = connectionFactory.newConnection();
+    return connection;
+  }
+
+  @Bean(name = "rabbitmqPublisherChannel")
+  Channel getRabbitmqPublisherChannel(Connection connection) throws IOException {
+    publisherChannel = connection.createChannel();
+    setupChannelProperties(publisherChannel);
+    return publisherChannel;
+  }
+
+  @Bean(name = "rabbitmqConsumerChannel")
+  Channel getRabbitmqConsumerChannel(Connection connection) throws IOException {
+    consumerChannel = connection.createChannel();
+    setupChannelProperties(consumerChannel);
+    return consumerChannel;
+  }
+
+  private void setupChannelProperties(Channel channel) throws IOException {
     Map<String, Object> args = new HashMap<>();
     args.put("x-max-priority",
         propertiesHolder.getRabbitmqHighestPriority());//Higher number means higher priority
     //Second boolean durable to false
     channel.queueDeclare(propertiesHolder.getRabbitmqQueueName(), false, false, false, args);
-    return channel;
   }
 
   @Bean
@@ -161,10 +180,13 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   public WorkflowExecutorManager getWorkflowExecutorManager(
-      WorkflowExecutionDao workflowExecutionDao, Channel rabbitmqChannel,
+      WorkflowExecutionDao workflowExecutionDao,
+      @Qualifier("rabbitmqPublisherChannel") Channel rabbitmqPublisherChannel,
+      @Qualifier("rabbitmqConsumerChannel") Channel rabbitmqConsumerChannel,
       RedissonClient redissonClient, DpsClient dpsClient) {
     WorkflowExecutorManager workflowExecutorManager = new WorkflowExecutorManager(
-        workflowExecutionDao, rabbitmqChannel, redissonClient, dpsClient);
+        workflowExecutionDao, rabbitmqPublisherChannel, rabbitmqConsumerChannel, redissonClient,
+        dpsClient);
     workflowExecutorManager.setRabbitmqQueueName(propertiesHolder.getRabbitmqQueueName());
     workflowExecutorManager.setMaxConcurrentThreads(propertiesHolder.getMaxConcurrentThreads());
     workflowExecutorManager
@@ -234,25 +256,30 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   }
 
   @PreDestroy
-  public void close()
-      throws IOException, TimeoutException, InterruptedException {
+  public void close() throws GenericMetisException {
+    try {
+      // Shut down RabbitMQ
+      if (publisherChannel != null && publisherChannel.isOpen()) {
+        publisherChannel.close();
+      }
+      if (consumerChannel != null && consumerChannel.isOpen()) {
+        consumerChannel.close();
+      }
+      if (connection != null && connection.isOpen()) {
+        connection.close();
+      }
 
-    // Shut down RabbitMQ
-    if (channel != null && channel.isOpen()) {
-      channel.close();
+      // Shut down Redisson
+      if (redissonClient != null && !redissonClient.isShuttingDown()) {
+        redissonClient.shutdown();
+      }
+      FastThreadLocal.removeAll();
+      FastThreadLocal.destroy();
+      InternalThreadLocalMap.remove();
+      InternalThreadLocalMap.destroy();
+      ThreadDeathWatcher.awaitInactivity(2, TimeUnit.SECONDS);
+    } catch (IOException | TimeoutException | InterruptedException e) {
+      throw new GenericMetisException("Could not shutdown resources properly.", e);
     }
-    if (connection != null && connection.isOpen()) {
-      connection.close();
-    }
-
-    // Shut down Redisson
-    if (redissonClient != null && !redissonClient.isShuttingDown()) {
-      redissonClient.shutdown();
-    }
-    FastThreadLocal.removeAll();
-    FastThreadLocal.destroy();
-    InternalThreadLocalMap.remove();
-    InternalThreadLocalMap.destroy();
-    ThreadDeathWatcher.awaitInactivity(2, TimeUnit.SECONDS);
   }
 }

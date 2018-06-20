@@ -5,16 +5,19 @@ import com.rabbitmq.client.Channel;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 
-abstract class PersistenceProvider {
+class PersistenceProvider {
 
-  private final Channel rabbitmqChannel;
+  private final Channel rabbitmqPublisherChannel;
+  private final Channel rabbitmqConsumerChannel;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final RedissonClient redissonClient;
   private final DpsClient dpsClient;
 
-  PersistenceProvider(Channel rabbitmqChannel, WorkflowExecutionDao workflowExecutionDao,
+  PersistenceProvider(Channel rabbitmqPublisherChannel, Channel rabbitmqConsumerChannel,
+      WorkflowExecutionDao workflowExecutionDao,
       RedissonClient redissonClient, DpsClient dpsClient) {
-    this.rabbitmqChannel = rabbitmqChannel;
+    this.rabbitmqPublisherChannel = rabbitmqPublisherChannel;
+    this.rabbitmqConsumerChannel = rabbitmqConsumerChannel;
     this.workflowExecutionDao = workflowExecutionDao;
     this.redissonClient = redissonClient;
     this.dpsClient = dpsClient;
@@ -32,8 +35,11 @@ abstract class PersistenceProvider {
     return redissonClient;
   }
 
-  Channel getRabbitmqChannel() {
-    return rabbitmqChannel;
+  public Channel getRabbitmqPublisherChannel() {
+    return rabbitmqPublisherChannel;
   }
 
+  public Channel getRabbitmqConsumerChannel() {
+    return rabbitmqConsumerChannel;
+  }
 }
