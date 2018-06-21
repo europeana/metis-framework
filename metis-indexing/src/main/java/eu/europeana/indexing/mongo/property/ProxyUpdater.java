@@ -5,6 +5,9 @@ import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
+/**
+ * Field updater for instances of {@link ProxyImpl}.
+ */
 public class ProxyUpdater implements PropertyMongoUpdater<ProxyImpl> {
 
   @Override

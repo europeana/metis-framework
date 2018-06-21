@@ -5,6 +5,9 @@ import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
+/**
+ * Field updater for instances of {@link ConceptImpl}.
+ */
 public class ConceptUpdater implements PropertyMongoUpdater<ConceptImpl> {
 
   @Override

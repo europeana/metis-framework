@@ -8,6 +8,9 @@ import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
+/**
+ * Field updater for instances of {@link EuropeanaAggregationImpl}.
+ */
 public class EuropeanaAggregationUpdater implements PropertyMongoUpdater<EuropeanaAggregationImpl> {
 
   @Override
@@ -23,7 +26,8 @@ public class EuropeanaAggregationUpdater implements PropertyMongoUpdater<Europea
         || update;
     newEntity.setEdmLandingPageFromAggregatedCHO();
     update = FieldUpdateUtils.updateString(mongoEntity, newEntity, "edmLandingPage", ops,
-        EuropeanaAggregationImpl::getEdmLandingPage, EuropeanaAggregationImpl::setEdmLandingPage);
+        EuropeanaAggregationImpl::getEdmLandingPage, EuropeanaAggregationImpl::setEdmLandingPage)
+        || update;
 
     update = FieldUpdateUtils.updateString(mongoEntity, newEntity, "edmIsShownBy", ops,
         EuropeanaAggregationImpl::getEdmIsShownBy, EuropeanaAggregationImpl::setEdmIsShownBy)

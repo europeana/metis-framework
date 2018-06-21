@@ -11,9 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.query.UpdateOperations;
 
 /**
- * Class with field update util methods for Mongo objects
- *
- * @author Yorgos.Mamakis@ kb.nl
+ * Class with field update utility methods for field update functionality in this package.
  */
 final class FieldUpdateUtils {
 
@@ -37,11 +35,13 @@ final class FieldUpdateUtils {
   }
 
   /**
-   * Checks whether two maps contain exactly the same key,value combinations
+   * Checks whether two maps contain exactly the same key value combinations. The value lists are
+   * said to be the same if they contain the same elements, regardless of the order but counting
+   * multiplicity.
    *
-   * @param mapA
-   * @param mapB
-   * @return
+   * @param mapA The first map.
+   * @param mapB The second map.
+   * @return Whether the maps contain the same key value combinations.
    */
   static boolean mapEquals(Map<String, List<String>> mapA, Map<String, List<String>> mapB) {
 
@@ -55,11 +55,12 @@ final class FieldUpdateUtils {
   }
 
   /**
-   * Check if two arrays contain the same values
+   * Check if two arrays contain the same values, regardless of the order, but counting
+   * multiplicity.
    *
-   * @param arrA
-   * @param arrB
-   * @return
+   * @param arrA The first array.
+   * @param arrB The second array.
+   * @return Whether the arrays contain the same values.
    */
   static boolean arrayEquals(String[] arrA, String[] arrB) {
     if (arrA == null || arrB == null) {

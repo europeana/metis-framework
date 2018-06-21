@@ -6,6 +6,9 @@ import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
+/**
+ * Field updater for instances of {@link LicenseImpl}.
+ */
 public class LicenseUpdater implements PropertyMongoUpdater<LicenseImpl> {
 
   @Override

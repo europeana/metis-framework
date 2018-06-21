@@ -5,6 +5,9 @@ import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
+/**
+ * Field updater for instances of {@link ProvidedCHOImpl}.
+ */
 public class ProvidedChoUpdater implements PropertyMongoUpdater<ProvidedCHOImpl> {
 
   @Override

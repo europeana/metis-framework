@@ -8,6 +8,9 @@ import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
+/**
+ * Field updater for instances of {@link AggregationImpl}.
+ */
 public class AggregationUpdater implements PropertyMongoUpdater<AggregationImpl> {
 
   @Override
@@ -44,8 +47,8 @@ public class AggregationUpdater implements PropertyMongoUpdater<AggregationImpl>
     update = FieldUpdateUtils.updateArray(mongoEntity, newEntity, "aggregates", ops,
         AggregationImpl::getAggregates, AggregationImpl::setAggregates) || update;
     if (newEntity.getEdmPreviewNoDistribute() != null) {
-      if (mongoEntity.getEdmPreviewNoDistribute() == null
-          || mongoEntity.getEdmPreviewNoDistribute() != newEntity.getEdmPreviewNoDistribute()) {
+      if (mongoEntity.getEdmPreviewNoDistribute() == null || !mongoEntity
+          .getEdmPreviewNoDistribute().equals(newEntity.getEdmPreviewNoDistribute())) {
         ops.set("edmPreviewNoDistribute", newEntity.getEdmPreviewNoDistribute());
         mongoEntity.setEdmPreviewNoDistribute(newEntity.getEdmPreviewNoDistribute());
         update = true;
@@ -58,7 +61,7 @@ public class AggregationUpdater implements PropertyMongoUpdater<AggregationImpl>
       }
     }
 
-    List<WebResource> webResources = new ArrayList<WebResource>();
+    List<WebResource> webResources = new ArrayList<>();
     for (WebResource wr : mongoEntity.getWebResources()) {
       webResources.add(new WebResourceUpdater().saveWebResource(wr, mongoServer));
     }

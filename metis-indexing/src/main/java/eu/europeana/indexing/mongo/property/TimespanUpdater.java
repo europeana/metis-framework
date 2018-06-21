@@ -5,6 +5,9 @@ import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
+/**
+ * Field updater for instances of {@link TimespanImpl}.
+ */
 public class TimespanUpdater implements PropertyMongoUpdater<TimespanImpl> {
 
   @Override

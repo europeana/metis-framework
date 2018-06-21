@@ -8,20 +8,25 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
 /**
- *
- * @author Yorgos.Mamakis@ europeana.eu
+ * Field updater for instances of {@link WebResource}.
  */
 public class WebResourceUpdater {
 
-  public WebResource saveWebResource(WebResource wr, MongoServer mongo) {
-
+  /**
+   * Update a web resource.
+   * 
+   * @param wr The new entity (to take the new values from).
+   * @param mongoServer The mongo server.
+   * @return The updated entity.
+   */
+  public WebResource saveWebResource(WebResource wr, MongoServer mongoServer) {
     WebResourceImpl wrMongo =
-        ((EdmMongoServer) mongo).searchByAbout(WebResourceImpl.class, wr.getAbout());
+        ((EdmMongoServer) mongoServer).searchByAbout(WebResourceImpl.class, wr.getAbout());
     if (wrMongo != null) {
-      return update(wrMongo, wr, mongo);
+      return update(wrMongo, wr, mongoServer);
     }
 
-    mongo.getDatastore().save(wr);
+    mongoServer.getDatastore().save(wr);
     return wr;
   }
 

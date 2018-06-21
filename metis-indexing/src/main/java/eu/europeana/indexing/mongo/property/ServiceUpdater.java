@@ -6,7 +6,7 @@ import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
 /**
- * Created by ymamakis on 1/12/16.
+ * Field updater for instances of {@link ServiceImpl}.
  */
 public class ServiceUpdater implements PropertyMongoUpdater<ServiceImpl> {
 

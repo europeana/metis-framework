@@ -5,6 +5,9 @@ import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
+/**
+ * Field updater for instances of {@link AgentImpl}. 
+ */
 public class AgentUpdater implements PropertyMongoUpdater<AgentImpl> {
 
   @Override

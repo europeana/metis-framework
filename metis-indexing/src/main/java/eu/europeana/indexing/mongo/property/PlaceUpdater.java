@@ -5,6 +5,9 @@ import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
+/**
+ * Field updater for instances of {@link PlaceImpl}.
+ */
 public class PlaceUpdater implements PropertyMongoUpdater<PlaceImpl> {
 
   @Override
@@ -27,8 +30,7 @@ public class PlaceUpdater implements PropertyMongoUpdater<PlaceImpl> {
     update = FieldUpdateUtils.updateArray(place, newPlace, "owlSameAs", ops,
         PlaceImpl::getOwlSameAs, PlaceImpl::setOwlSameAs) || update;
     if (newPlace.getLatitude() != null) {
-
-      if (place.getLatitude() == null || newPlace.getLatitude() != place.getLatitude()) {
+      if (place.getLatitude() == null || !place.getLatitude().equals(newPlace.getLatitude())) {
         ops.set("latitude", newPlace.getLatitude());
         place.setLatitude(newPlace.getLatitude());
         update = true;
@@ -42,7 +44,7 @@ public class PlaceUpdater implements PropertyMongoUpdater<PlaceImpl> {
     }
 
     if (newPlace.getLongitude() != null) {
-      if (place.getLongitude() == null || newPlace.getLongitude() != place.getLongitude()) {
+      if (place.getLongitude() == null || !place.getLongitude().equals(newPlace.getLongitude())) {
         ops.set("longitude", newPlace.getLongitude());
         place.setLongitude(newPlace.getLongitude());
         update = true;
@@ -56,7 +58,7 @@ public class PlaceUpdater implements PropertyMongoUpdater<PlaceImpl> {
     }
 
     if (newPlace.getAltitude() != null) {
-      if (place.getAltitude() == null || newPlace.getAltitude() != place.getAltitude()) {
+      if (place.getAltitude() == null || !place.getAltitude().equals(newPlace.getAltitude())) {
         ops.set("altitude", newPlace.getAltitude());
         place.setAltitude(newPlace.getAltitude());
         update = true;
