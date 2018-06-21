@@ -22,6 +22,7 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.mongo.FullBeanDao;
 import eu.europeana.indexing.mongo.property.AgentUpdater;
 import eu.europeana.indexing.mongo.property.AggregationUpdater;

@@ -1,4 +1,4 @@
-package eu.europeana.indexing;
+package eu.europeana.indexing.fullbean;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

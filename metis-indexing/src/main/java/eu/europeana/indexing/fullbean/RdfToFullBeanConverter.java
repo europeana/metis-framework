@@ -1,4 +1,4 @@
-package eu.europeana.indexing;
+package eu.europeana.indexing.fullbean;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,17 +17,6 @@ import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.Service;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
-import eu.europeana.corelib.edm.server.importer.util.AgentFieldInput;
-import eu.europeana.corelib.edm.server.importer.util.AggregationFieldInput;
-import eu.europeana.corelib.edm.server.importer.util.ConceptFieldInput;
-import eu.europeana.corelib.edm.server.importer.util.EuropeanaAggregationFieldInput;
-import eu.europeana.corelib.edm.server.importer.util.LicenseFieldInput;
-import eu.europeana.corelib.edm.server.importer.util.PlaceFieldInput;
-import eu.europeana.corelib.edm.server.importer.util.ProvidedCHOFieldInput;
-import eu.europeana.corelib.edm.server.importer.util.ProxyFieldInput;
-import eu.europeana.corelib.edm.server.importer.util.ServiceFieldInput;
-import eu.europeana.corelib.edm.server.importer.util.TimespanFieldInput;
-import eu.europeana.corelib.edm.utils.SolrUtils;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -135,7 +124,7 @@ public class RdfToFullBeanConverter {
     if (record.getEuropeanaAggregationList() != null) {
       for (EuropeanaAggregationType eaggregation : record.getEuropeanaAggregationList()) {
         fullBean.setEuropeanaAggregation(new EuropeanaAggregationFieldInput()
-            .createAggregationMongoFields(eaggregation, SolrUtils.getPreviewUrl(record)));
+            .createAggregationMongoFields(eaggregation, FieldInputUtils.getPreviewUrl(record)));
       }
     }
     if (record.getServiceList() != null) {
