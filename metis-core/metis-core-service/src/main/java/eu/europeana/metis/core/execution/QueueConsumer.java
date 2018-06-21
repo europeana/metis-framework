@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 public class QueueConsumer extends DefaultConsumer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(QueueConsumer.class);
-  
+
   private final WorkflowExecutionSettings workflowExecutionSettings;
   private final PersistenceProvider persistenceProvider;
 
@@ -31,7 +31,7 @@ public class QueueConsumer extends DefaultConsumer {
 
   QueueConsumer(WorkflowExecutionSettings workflowExecutionSettings,
       PersistenceProvider persistenceProvider) {
-    super(persistenceProvider.getRabbitmqChannel());
+    super(persistenceProvider.getRabbitmqConsumerChannel());
     this.workflowExecutionSettings = workflowExecutionSettings;
     this.persistenceProvider = persistenceProvider;
     threadPool = Executors
@@ -59,8 +59,7 @@ public class QueueConsumer extends DefaultConsumer {
     if (threadsCounter >= workflowExecutionSettings.getMaxConcurrentThreads()) {
       //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
       //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
-      persistenceProvider.getRabbitmqChannel()
-          .basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
+      super.getChannel().basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
       LOGGER.debug("NACK sent for {} with tag {}", workflowExecution.getId(),
           rabbitmqEnvelope.getDeliveryTag());
     } else {
@@ -69,7 +68,8 @@ public class QueueConsumer extends DefaultConsumer {
             workflowExecution, persistenceProvider.getWorkflowExecutionDao(),
             workflowExecutionSettings.getMonitorCheckIntervalInSecs(),
             persistenceProvider.getRedissonClient(), persistenceProvider.getDpsClient(),
-            workflowExecutionSettings.getEcloudBaseUrl(), workflowExecutionSettings.getEcloudProvider());
+            workflowExecutionSettings.getEcloudBaseUrl(),
+            workflowExecutionSettings.getEcloudProvider());
         completionService.submit(workflowExecutor);
         threadsCounter++;
       } else { //Has been cancelled, do not execute
@@ -78,9 +78,8 @@ public class QueueConsumer extends DefaultConsumer {
         LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
             workflowExecution.getId());
       }
-      persistenceProvider.getRabbitmqChannel()
-          .basicAck(rabbitmqEnvelope.getDeliveryTag(),
-              false);//Send ACK back to remove from queue asap.
+      super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(),
+          false);//Send ACK back to remove from queue asap.
       LOGGER.debug("ACK sent for {} with tag {}", workflowExecution.getId(),
           rabbitmqEnvelope.getDeliveryTag());
     }
@@ -101,8 +100,7 @@ public class QueueConsumer extends DefaultConsumer {
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
       LOGGER.error(
-          "Interrupted while polling for taking a Future from the ExecutorCompletionService",
-          e);
+          "Interrupted while polling for taking a Future from the ExecutorCompletionService", e);
       throw new IOException(
           "Interrupted while polling for taking a Future from the ExecutorCompletionService", e);
     }
