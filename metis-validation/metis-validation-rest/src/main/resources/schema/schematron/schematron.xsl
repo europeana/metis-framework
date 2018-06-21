@@ -359,10 +359,10 @@
 
         <!--ASSERT -->
         <xsl:choose>
-            <xsl:when test="dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial"/>
+            <xsl:when test="dc:subject or dc:type or dct:temporal or dct:spatial"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial">
+                                    test="dc:subject or dc:type or dct:temporal or dct:spatial">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -370,7 +370,7 @@
                         <xsl:value-of select="@rdf:about"/>
                     </xsl:attribute>
                     <svrl:text>
-                        A Proxy must have a dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial.
+                        A Proxy must have a dc:subject or dc:type or dct:temporal or dct:spatial.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -378,10 +378,10 @@
 
         <!--ASSERT -->
         <xsl:choose>
-            <xsl:when test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or         normalize-space(dc:type)!='')) or (dc:coverage and (exists(dc:coverage/@rdf:resource) or normalize-space(dc:coverage)!='')) or (dct:temporal and          (exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!=''))  or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space       (dct:spatial)!='')))"/>
+            <xsl:when test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or         normalize-space(dc:type)!='')) or (dct:temporal and          (exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!=''))  or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space       (dct:spatial)!='')))"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or normalize-space(dc:type)!='')) or (dc:coverage and (exists(dc:coverage/@rdf:resource) or normalize-space(dc:coverage)!='')) or (dct:temporal and (exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!='')) or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space (dct:spatial)!='')))">
+                                    test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or normalize-space(dc:type)!='')) or (dct:temporal and (exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!='')) or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space (dct:spatial)!='')))">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -389,7 +389,7 @@
                         <xsl:value-of select="@rdf:about"/>
                     </xsl:attribute>
                     <svrl:text>
-                        A Proxy must have a non empty dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial.
+                        A Proxy must have a non empty dc:subject or dc:type or dct:temporal or dct:spatial.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
