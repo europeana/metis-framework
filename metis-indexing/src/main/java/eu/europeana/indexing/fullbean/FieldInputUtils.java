@@ -1,37 +1,24 @@
-/*
- * Copyright 2007-2012 The Europeana Foundation
- *
- * Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved by the
- * European Commission; You may not use this work except in compliance with the Licence.
- * 
- * You may obtain a copy of the Licence at: http://joinup.ec.europa.eu/software/page/eupl
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the Licence
- * is distributed on an "AS IS" basis, without warranties or conditions of any kind, either express
- * or implied. See the Licence for the specific language governing permissions and limitations under
- * the Licence.
- */
 package eu.europeana.indexing.fullbean;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import org.apache.commons.lang.StringUtils;
 import eu.europeana.corelib.definitions.jibx.LiteralType;
-import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 
 /**
- * Class with util methods for Mongo objects
- *
- * @author Yorgos.Mamakis@ kb.nl
+ * Class with utility methods for converting an instance of
+ * {@link eu.europeana.corelib.definitions.jibx.RDF} to an instance of
+ * {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class FieldInputUtils {
 
   private FieldInputUtils() {
-    // Constructor must be private
+    // This class should not be instantiated.
   }
 
   /**
@@ -68,7 +55,7 @@ final class FieldInputUtils {
    * Method that converts a Enum object to a multilingual map of strings
    *
    * @param obj
-   * @return
+   * @return A Map of strings containing the value with the def notation as key
    */
   static Map<String, List<String>> createLiteralMapFromString(String obj) {
     Map<String, List<String>> retMap = new HashMap<>();
@@ -275,15 +262,12 @@ final class FieldInputUtils {
   /**
    * Method that check if an object exists and return it
    *
-   * @param clazz The class type of the object
+   * @param newInstanceCreator A supplier creating a new instance of the given type
    * @param object The object to check if it exists
    * @return the object
-   * @throws InstantiationException
-   * @throws IllegalAccessException
    */
-  public static <T> T exists(Class<T> clazz, T object)
-      throws InstantiationException, IllegalAccessException {
-    return (object == null ? clazz.newInstance() : object);
+  public static <T> T exists(Supplier<T> newInstanceCreator, T object) {
+    return (object == null ? newInstanceCreator.get() : object);
   }
 
   /**
@@ -296,7 +280,7 @@ final class FieldInputUtils {
    */
   public static String[] resourceOrLiteralListToArray(List<? extends ResourceOrLiteralType> list) {
     if (list != null) {
-      List<String> lst = new ArrayList<String>();
+      List<String> lst = new ArrayList<>();
 
       for (ResourceOrLiteralType obj : list) {
         if (obj.getResource() != null) {
@@ -306,8 +290,7 @@ final class FieldInputUtils {
           lst.add(obj.getString());
         }
       }
-      String[] arr = lst.toArray(new String[lst.size()]);
-      return arr;
+      return lst.stream().toArray(String[]::new);
     }
     return new String[] {};
   }
@@ -340,25 +323,6 @@ final class FieldInputUtils {
     if (obj != null) {
       return obj.getResource() != null ? obj.getResource() : null;
     }
-    return null;
-  }
-
-  /**
-   * Get the edm:preview url from an EDM object
-   *
-   * @param rdf
-   * @return
-   */
-  static String getPreviewUrl(RDF rdf) {
-    if (rdf.getAggregationList().get(0).getObject() != null
-        && StringUtils.isNotEmpty(rdf.getAggregationList().get(0).getObject().getResource())) {
-      return rdf.getAggregationList().get(0).getObject().getResource();
-    }
-    if (rdf.getAggregationList().get(0).getIsShownBy() != null
-        && StringUtils.isNotEmpty(rdf.getAggregationList().get(0).getIsShownBy().getResource())) {
-      return rdf.getAggregationList().get(0).getIsShownBy().getResource();
-    }
-
     return null;
   }
 }

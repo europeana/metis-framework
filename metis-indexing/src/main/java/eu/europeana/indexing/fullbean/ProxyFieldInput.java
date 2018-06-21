@@ -1,16 +1,3 @@
-/*
- * Copyright 2007-2012 The Europeana Foundation
- *
- * Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved by the
- * European Commission; You may not use this work except in compliance with the Licence.
- * 
- * You may obtain a copy of the Licence at: http://joinup.ec.europa.eu/software/page/eupl
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the Licence
- * is distributed on an "AS IS" basis, without warranties or conditions of any kind, either express
- * or implied. See the Licence for the specific language governing permissions and limitations under
- * the Licence.
- */
 package eu.europeana.indexing.fullbean;
 
 import java.util.List;
@@ -23,27 +10,14 @@ import eu.europeana.corelib.definitions.solr.DocType;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 
 /**
- * Constructor for the Proxy Entity
- *
- * @author Yorgos.Mamakis@ kb.nl
+ * Converts a {@link ProxyType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
+ * {@link ProxyImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class ProxyFieldInput {
 
-  /**
-   * Construct the fields of a Proxy MongoDB Entity. The entity is instantiated when reading the
-   * ProvidedCHO
-   *
-   * @param mongoProxy The Proxy MongoDB Entity to save or update
-   * @param proxy
-   * @return The MongoDB Proxy Entity
-   * @throws IllegalAccessException
-   * @throws InstantiationException
-   */
-  ProxyImpl createProxyMongoFields(ProxyImpl mongoProxy, ProxyType proxy)
-      throws InstantiationException, IllegalAccessException {
+  ProxyImpl createProxyMongoFields(ProxyImpl mongoProxy, ProxyType proxy) {
 
     mongoProxy.setAbout(proxy.getAbout());
-    // mongoProxy.setId(new ObjectId());
     if (proxy.getEuropeanaProxy() != null) {
       mongoProxy.setEuropeanaProxy(proxy.getEuropeanaProxy().isEuropeanaProxy());
     }
@@ -60,13 +34,12 @@ final class ProxyFieldInput {
       }
       mongoProxy.setEdmIsNextInSequence(seqarray);
     }
-    String docType =
-        FieldInputUtils.exists(String.class, (proxy.getType().getType().xmlValue())).toString();
+    String docType = FieldInputUtils.exists(String::new, (proxy.getType().getType().xmlValue()));
 
     mongoProxy.setEdmType(DocType.safeValueOf(docType));
 
     mongoProxy
-        .setProxyFor(FieldInputUtils.exists(ProxyFor.class, proxy.getProxyFor()).getResource());
+        .setProxyFor(FieldInputUtils.exists(ProxyFor::new, proxy.getProxyFor()).getResource());
     mongoProxy.setProxyIn(FieldInputUtils.resourceListToArray(proxy.getProxyInList()));
     mongoProxy.setEdmHasMet(FieldInputUtils.createResourceMapFromList(proxy.getHasMetList()));
     mongoProxy.setYear(FieldInputUtils.createLiteralMapFromList(proxy.getYearList()));

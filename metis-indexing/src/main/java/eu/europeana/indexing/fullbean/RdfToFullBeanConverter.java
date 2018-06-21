@@ -1,8 +1,11 @@
 package eu.europeana.indexing.fullbean;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
@@ -17,6 +20,7 @@ import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.Service;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
+import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -48,12 +52,7 @@ public class RdfToFullBeanConverter {
   public FullBeanImpl convertRdfToFullBean(RDF rdf) throws IndexingException {
 
     // Convert RDF to FullBean
-    final FullBeanImpl fBean;
-    try {
-      fBean = convertInternal(rdf);
-    } catch (InstantiationException | IllegalAccessException | IOException e) {
-      throw new IndexingException("Could not construct FullBean.", e);
-    }
+    final FullBeanImpl fBean = convertInternal(rdf);
 
     // Sanity Check - shouldn't happen
     if (fBean == null) {
@@ -64,8 +63,7 @@ public class RdfToFullBeanConverter {
     return fBean;
   }
 
-  private FullBeanImpl convertInternal(RDF record)
-      throws InstantiationException, IllegalAccessException, IOException {
+  private FullBeanImpl convertInternal(RDF record) {
     FullBeanImpl fullBean = new FullBeanImpl();
     List<AgentImpl> agents = new ArrayList<>();
     List<AggregationImpl> aggregations = new ArrayList<>();
@@ -85,13 +83,19 @@ public class RdfToFullBeanConverter {
       proxies.add(new ProxyFieldInput().createProxyMongoFields(new ProxyImpl(), proxytype));
     }
     for (Aggregation aggregation : record.getAggregationList()) {
-      List<WebResourceImpl> webResourcesMongo = new ArrayList<>();
+      final List<WebResourceImpl> webResources;
       if (record.getWebResourceList() != null && !record.getWebResourceList().isEmpty()) {
-        webResourcesMongo =
-            new AggregationFieldInput().createWebResources(record.getWebResourceList());
+        Collection<WebResourceType> webResourcesBeforeConversion =
+            record.getWebResourceList().stream().collect(Collectors.toMap(WebResourceType::getAbout,
+                UnaryOperator.identity(), (first, second) -> first)).values();
+        final WebResourceFieldInput webResourceConverter = new WebResourceFieldInput();
+        webResources = webResourcesBeforeConversion.stream()
+            .map(webResourceConverter::createWebResources).collect(Collectors.toList());
+      } else {
+        webResources = Collections.emptyList();
       }
-      aggregations.add(
-          new AggregationFieldInput().createAggregationMongoFields(aggregation, webResourcesMongo));
+      aggregations
+          .add(new AggregationFieldInput().createAggregationMongoFields(aggregation, webResources));
     }
 
     if (record.getConceptList() != null) {
@@ -123,8 +127,8 @@ public class RdfToFullBeanConverter {
     }
     if (record.getEuropeanaAggregationList() != null) {
       for (EuropeanaAggregationType eaggregation : record.getEuropeanaAggregationList()) {
-        fullBean.setEuropeanaAggregation(new EuropeanaAggregationFieldInput()
-            .createAggregationMongoFields(eaggregation, FieldInputUtils.getPreviewUrl(record)));
+        fullBean.setEuropeanaAggregation(
+            new EuropeanaAggregationFieldInput().createAggregationMongoFields(eaggregation));
       }
     }
     if (record.getServiceList() != null) {

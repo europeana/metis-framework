@@ -1,17 +1,3 @@
-/*
- * Copyright 2007-2012 The Europeana Foundation
- *
- * Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved by the
- * European Commission; You may not use this work except in compliance with the Licence.
- * 
- * You may obtain a copy of the Licence at: http://joinup.ec.europa.eu/software/page/eupl
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the Licence
- * is distributed on an "AS IS" basis, without warranties or conditions of any kind, either express
- * or implied. See the Licence for the specific language governing permissions and limitations under
- * the Licence.
- */
-
 package eu.europeana.indexing.fullbean;
 
 import java.util.List;
@@ -21,10 +7,8 @@ import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.utils.StringArrayUtils;
 
 /**
- * Constructor for Concepts
- * 
- * @author Yorgos.Mamakis@ kb.nl
- * 
+ * Converts a {@link Concept} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
+ * {@link ConceptImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class ConceptFieldInput {
 

@@ -1,43 +1,21 @@
-/*
- * Copyright 2007-2012 The Europeana Foundation
- *
- * Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved by the
- * European Commission; You may not use this work except in compliance with the Licence.
- * 
- * You may obtain a copy of the Licence at: http://joinup.ec.europa.eu/software/page/eupl
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the Licence
- * is distributed on an "AS IS" basis, without warranties or conditions of any kind, either express
- * or implied. See the Licence for the specific language governing permissions and limitations under
- * the Licence.
- */
 package eu.europeana.indexing.fullbean;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import eu.europeana.corelib.definitions.jibx.AggregatedCHO;
+import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.IsShownBy;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 
 /**
- * Constructor of a Europeana Aggregation
- * 
- * @author Yorgos.Mamakis@ kb.nl
- * 
+ * Converts a {@link EuropeanaAggregationType} from an
+ * {@link eu.europeana.corelib.definitions.jibx.RDF} to a {@link EuropeanaAggregationImpl} for a
+ * {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class EuropeanaAggregationFieldInput {
 
-  /**
-   * Create a EuropeanaAggregation to save in MongoDB storage
-   * 
-   * @param aggregation The RDF EuropeanaAggregation representation
-   * @return the EuropeanaAggregation created
-   * @throws InstantiationException
-   * @throws IllegalAccessException
-   */
-  EuropeanaAggregationImpl createAggregationMongoFields(
-      eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType aggregation, String previewUrl)
-      throws InstantiationException, IllegalAccessException {
+  EuropeanaAggregationImpl createAggregationMongoFields(EuropeanaAggregationType aggregation) {
     EuropeanaAggregationImpl mongoAggregation = new EuropeanaAggregationImpl();
 
     mongoAggregation.setAbout(aggregation.getAbout());
@@ -48,20 +26,20 @@ final class EuropeanaAggregationFieldInput {
     mongoAggregation.setDcCreator(creator);
 
 
-    Map<String, List<String>> country = FieldInputUtils
-        .createLiteralMapFromString(aggregation.getCountry().getCountry().xmlValue().toLowerCase());
+    Map<String, List<String>> country = FieldInputUtils.createLiteralMapFromString(
+        aggregation.getCountry().getCountry().xmlValue().toLowerCase(Locale.ENGLISH));
     mongoAggregation.setEdmCountry(country);
     String isShownBy =
-        FieldInputUtils.exists(IsShownBy.class, aggregation.getIsShownBy()).getResource();
+        FieldInputUtils.exists(IsShownBy::new, aggregation.getIsShownBy()).getResource();
     mongoAggregation.setEdmIsShownBy(isShownBy);
 
     Map<String, List<String>> language = FieldInputUtils.createLiteralMapFromString(
-        aggregation.getLanguage().getLanguage().xmlValue().toLowerCase());
+        aggregation.getLanguage().getLanguage().xmlValue().toLowerCase(Locale.ENGLISH));
 
     mongoAggregation.setEdmLanguage(language);
 
     String agCHO =
-        FieldInputUtils.exists(AggregatedCHO.class, aggregation.getAggregatedCHO()).getResource();
+        FieldInputUtils.exists(AggregatedCHO::new, aggregation.getAggregatedCHO()).getResource();
     mongoAggregation.setAggregatedCHO(agCHO);
     mongoAggregation.setEdmLandingPageFromAggregatedCHO();
 
@@ -72,7 +50,6 @@ final class EuropeanaAggregationFieldInput {
     mongoAggregation.setAggregates(aggregates);
     String[] hasViewList = FieldInputUtils.resourceListToArray(aggregation.getHasViewList());
     mongoAggregation.setEdmHasView(hasViewList);
-    // TODO: Currently the europeana aggregation does not generate any WebResource, do we want it?
     return mongoAggregation;
   }
 }

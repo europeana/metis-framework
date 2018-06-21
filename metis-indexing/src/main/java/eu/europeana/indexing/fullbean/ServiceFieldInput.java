@@ -4,7 +4,8 @@ import eu.europeana.corelib.definitions.jibx.Service;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 
 /**
- * Created by ymamakis on 1/12/16.
+ * Converts a {@link Service} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
+ * {@link ServiceImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 class ServiceFieldInput {
 

@@ -1,36 +1,18 @@
-/*
- * Copyright 2007-2012 The Europeana Foundation
- *
- * Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved by the
- * European Commission; You may not use this work except in compliance with the Licence.
- * 
- * You may obtain a copy of the Licence at: http://joinup.ec.europa.eu/software/page/eupl
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the Licence
- * is distributed on an "AS IS" basis, without warranties or conditions of any kind, either express
- * or implied. See the Licence for the specific language governing permissions and limitations under
- * the Licence.
- */
 package eu.europeana.indexing.fullbean;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
-import eu.europeana.corelib.definitions.jibx.Aggregation;
-import eu.europeana.corelib.definitions.jibx.IsShownBy;
 import eu.europeana.corelib.definitions.jibx.LiteralType;
 import eu.europeana.corelib.definitions.jibx.LiteralType.Lang;
-import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
-import eu.europeana.corelib.definitions.jibx._Object;
 
 /**
  * FieldInputUtils unit tests
@@ -213,14 +195,8 @@ public class FieldInputUtilsTest {
   public void testExists() {
     Object a = null;
     Object b = new Object();
-    try {
-      assertNotNull(FieldInputUtils.exists(Object.class, a));
-      assertNotNull(FieldInputUtils.exists(Object.class, b));
-    } catch (InstantiationException e) {
-      e.printStackTrace();
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    }
+    assertNotNull(FieldInputUtils.exists(Object::new, a));
+    assertNotNull(FieldInputUtils.exists(Object::new, b));
   }
 
   @Test
@@ -246,30 +222,6 @@ public class FieldInputUtilsTest {
   @Test
   public void testGetResourceString() {
     assertEquals("test resource", FieldInputUtils.getResourceString(prepareRT()));
-  }
-
-  @Test
-  public void testGetPreviewURl() {
-    RDF rdf = new RDF();
-    List<Aggregation> aggregations = new ArrayList<Aggregation>();
-    Aggregation aggregation = new Aggregation();
-    aggregations.add(aggregation);
-    rdf.setAggregationList(aggregations);
-    assertNull(FieldInputUtils.getPreviewUrl(rdf));
-    aggregations.clear();
-    IsShownBy isShownBy = new IsShownBy();
-    isShownBy.setResource("test isShownBy");
-    aggregation.setIsShownBy(isShownBy);
-    aggregations.add(aggregation);
-    rdf.setAggregationList(aggregations);
-    assertEquals("test isShownBy", FieldInputUtils.getPreviewUrl(rdf));
-    _Object obj = new _Object();
-    obj.setResource("test obj");
-    aggregation.setObject(obj);
-    aggregations.clear();
-    aggregations.add(aggregation);
-    rdf.setAggregationList(aggregations);
-    assertEquals("test obj", FieldInputUtils.getPreviewUrl(rdf));
   }
 
   private ResourceOrLiteralType prepareRLT() {
