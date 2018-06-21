@@ -59,8 +59,7 @@ public class QueueConsumer extends DefaultConsumer {
     if (threadsCounter >= workflowExecutionSettings.getMaxConcurrentThreads()) {
       //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
       //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
-      persistenceProvider.getRabbitmqConsumerChannel()
-          .basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
+      super.getChannel().basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
       LOGGER.debug("NACK sent for {} with tag {}", workflowExecution.getId(),
           rabbitmqEnvelope.getDeliveryTag());
     } else {
@@ -79,9 +78,8 @@ public class QueueConsumer extends DefaultConsumer {
         LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
             workflowExecution.getId());
       }
-      persistenceProvider.getRabbitmqConsumerChannel()
-          .basicAck(rabbitmqEnvelope.getDeliveryTag(),
-              false);//Send ACK back to remove from queue asap.
+      super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(),
+          false);//Send ACK back to remove from queue asap.
       LOGGER.debug("ACK sent for {} with tag {}", workflowExecution.getId(),
           rabbitmqEnvelope.getDeliveryTag());
     }

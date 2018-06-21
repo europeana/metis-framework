@@ -71,7 +71,7 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
    * @param priority the priority of the WorkflowExecution in the queue
    */
   public void addWorkflowExecutionToQueue(String userWorkflowExecutionObjectId, int priority) {
-    synchronized (this) {
+    synchronized (getRabbitmqPublisherChannel()) {
       //Based on Rabbitmq the basicPublish between threads should be controlled(synchronized)
       BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
           .priority(priority).build();
