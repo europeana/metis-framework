@@ -9,7 +9,6 @@ import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexingException;
 
@@ -31,7 +30,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
    * Constructor.
    */
   public StringToFullBeanConverter() {
-    this(StringToFullBeanConverter::getRdfBindingFactory, MongoConstructor::new);
+    this(StringToFullBeanConverter::getRdfBindingFactory);
   }
 
   /**
@@ -40,13 +39,8 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
    * @param rdfBindingFactorySupplier Supplies an instance of {@link IBindingFactory} (RDF Binding
    *        Factory) used to parse strings to instances of {@link RDF}. Will be called once during
    *        every call to convert a string.
-   * @param mongoConstructorSupplier Supplies an instance of {@link MongoConstructor} used to
-   *        convert an instance of {@link RDF} to an instance of {@link FullBeanImpl}. Will be
-   *        called once during every call to convert a string.
    */
-  StringToFullBeanConverter(IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier,
-      Supplier<MongoConstructor> mongoConstructorSupplier) {
-    super(mongoConstructorSupplier);
+  StringToFullBeanConverter(IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier) {
     this.rdfBindingFactorySupplier = rdfBindingFactorySupplier;
   }
 

@@ -1,6 +1,5 @@
 package eu.europeana.indexing.mongo.property;
 
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.storage.MongoServer;
 
 /**
@@ -12,5 +11,5 @@ import eu.europeana.corelib.storage.MongoServer;
  */
 public interface PropertyMongoUpdater<T> {
 
-  T update(T mongoEntity, T newEntity, MongoServer mongoServer) throws MongoUpdateException;
+  T update(T mongoEntity, T newEntity, MongoServer mongoServer);
 }

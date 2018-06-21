@@ -1,28 +1,31 @@
 package eu.europeana.indexing.mongo.property;
 
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
-import eu.europeana.corelib.storage.MongoServer;
-import eu.europeana.corelib.edm.utils.MongoUtils;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
+import eu.europeana.corelib.storage.MongoServer;
 
 public class PlaceUpdater implements PropertyMongoUpdater<PlaceImpl> {
 
   @Override
-  public PlaceImpl update(PlaceImpl place, PlaceImpl newPlace, MongoServer mongoServer)
-      throws MongoUpdateException {
+  public PlaceImpl update(PlaceImpl place, PlaceImpl newPlace, MongoServer mongoServer) {
     Query<PlaceImpl> query = mongoServer.getDatastore().createQuery(PlaceImpl.class).field("about")
         .equal(place.getAbout());
     UpdateOperations<PlaceImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(PlaceImpl.class);
     boolean update = false;
-    update = MongoUtils.updateMap(place, newPlace, "note", ops) || update;
-    update = MongoUtils.updateMap(place, newPlace, "altLabel", ops) || update;
-    update = MongoUtils.updateMap(place, newPlace, "prefLabel", ops) || update;
-    update = MongoUtils.updateMap(place, newPlace, "isPartOf", ops) || update;
-    update = MongoUtils.updateMap(place, newPlace, "dcTermsHasPart", ops) || update;
-    update = MongoUtils.updateArray(place, newPlace, "owlSameAs", ops) || update;
+    update = FieldUpdateUtils.updateMap(place, newPlace, "note", ops, PlaceImpl::getNote,
+        PlaceImpl::setNote) || update;
+    update = FieldUpdateUtils.updateMap(place, newPlace, "altLabel", ops, PlaceImpl::getAltLabel,
+        PlaceImpl::setAltLabel) || update;
+    update = FieldUpdateUtils.updateMap(place, newPlace, "prefLabel", ops, PlaceImpl::getPrefLabel,
+        PlaceImpl::setPrefLabel) || update;
+    update = FieldUpdateUtils.updateMap(place, newPlace, "isPartOf", ops, PlaceImpl::getIsPartOf,
+        PlaceImpl::setIsPartOf) || update;
+    update = FieldUpdateUtils.updateMap(place, newPlace, "dcTermsHasPart", ops,
+        PlaceImpl::getDcTermsHasPart, PlaceImpl::setDcTermsHasPart) || update;
+    update = FieldUpdateUtils.updateArray(place, newPlace, "owlSameAs", ops,
+        PlaceImpl::getOwlSameAs, PlaceImpl::setOwlSameAs) || update;
     if (newPlace.getLatitude() != null) {
 
       if (place.getLatitude() == null || newPlace.getLatitude() != place.getLatitude()) {

@@ -10,7 +10,6 @@ import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -111,29 +110,25 @@ class FullBeanPublisher {
   }
 
   private void publishToMongo(FullBeanImpl fullBean) throws IndexingException {
-    try {
 
-      // Publish properties/dependencies.
-      saveOrUpdateProperties(fullBean);
+    // Publish properties/dependencies.
+    saveOrUpdateProperties(fullBean);
 
-      // Publish private properties as well as the bean itself.
-      final boolean alreadyPersisted = fullBeanDao.getPersistedAbout(fullBean) != null;
-      if (alreadyPersisted) {
-        fullBeanDao.updateFullBean(fullBean);
-      } else {
-        fullBeanDao.save(fullBean);
-      }
-    } catch (MongoUpdateException e) {
-      throw new IndexingException("Could not save/update EDM classes of FullBean to Mongo.", e);
+    // Publish private properties as well as the bean itself.
+    final boolean alreadyPersisted = fullBeanDao.getPersistedAbout(fullBean) != null;
+    if (alreadyPersisted) {
+      fullBeanDao.updateFullBean(fullBean);
+    } else {
+      fullBeanDao.save(fullBean);
     }
   }
 
   private <T extends AbstractEdmEntity> void saveOrUpdate(Supplier<List<T>> getter,
-      Consumer<List<T>> setter, Class<T> clazz, PropertyMongoUpdater<T> updater) throws MongoUpdateException {
+      Consumer<List<T>> setter, Class<T> clazz, PropertyMongoUpdater<T> updater) {
     setter.accept(fullBeanDao.update(getter.get(), clazz, updater));
   }
 
-  private void saveOrUpdateProperties(FullBeanImpl bean) throws MongoUpdateException {
+  private void saveOrUpdateProperties(FullBeanImpl bean) {
 
     // The shared properties
     saveOrUpdate(bean::getAgents, bean::setAgents, AgentImpl.class, new AgentUpdater());
@@ -162,7 +157,7 @@ class FullBeanPublisher {
   }
 
   private void saveWebResources(Supplier<List<? extends WebResource>> getter,
-      Consumer<List<? extends WebResource>> setter) throws MongoUpdateException {
+      Consumer<List<? extends WebResource>> setter) {
     setter.accept(fullBeanDao.updateWebResources(getter.get()));
   }
 }

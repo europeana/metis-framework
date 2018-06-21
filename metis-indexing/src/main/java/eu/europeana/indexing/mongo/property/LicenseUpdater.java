@@ -1,17 +1,16 @@
 package eu.europeana.indexing.mongo.property;
 
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
-import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
+import eu.europeana.corelib.storage.MongoServer;
 
 public class LicenseUpdater implements PropertyMongoUpdater<LicenseImpl> {
 
   @Override
-  public LicenseImpl update(LicenseImpl mongoEntity, LicenseImpl newEntity, MongoServer mongoServer)
-      throws MongoUpdateException {
+  public LicenseImpl update(LicenseImpl mongoEntity, LicenseImpl newEntity,
+      MongoServer mongoServer) {
     Query<LicenseImpl> updateQuery = mongoServer.getDatastore().createQuery(LicenseImpl.class)
         .field("about").equal(mongoEntity.getAbout());
     UpdateOperations<LicenseImpl> ops =
