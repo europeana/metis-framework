@@ -287,7 +287,7 @@ public abstract class AbstractMetisPlugin {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
     extraParameters
-        .put("METIS_USE_ALT_INDEXING_ENV", String.valueOf(useAlternativeIndexingEnvironment));
+        .put("USE_ALT_INDEXING_ENV", String.valueOf(useAlternativeIndexingEnvironment));
     return createDpsTaskForProcessPlugin(extraParameters, ecloudBaseUrl, ecloudProvider,
         ecloudDataset);
   }
