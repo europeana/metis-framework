@@ -1,8 +1,5 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.Language;
-
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-29
@@ -14,8 +11,8 @@ public class TransformationPluginMetadata extends AbstractMetisPluginMetadata {
   private boolean customXslt;
   private String datasetId;
   private String datasetName;
-  private Country country;
-  private Language language;
+  private String country;
+  private String language;
 
   public TransformationPluginMetadata() {
     //Required for json serialization
@@ -58,19 +55,19 @@ public class TransformationPluginMetadata extends AbstractMetisPluginMetadata {
     this.datasetName = datasetName;
   }
 
-  public Country getCountry() {
+  public String getCountry() {
     return country;
   }
 
-  public void setCountry(Country country) {
+  public void setCountry(String country) {
     this.country = country;
   }
 
-  public Language getLanguage() {
+  public String getLanguage() {
     return language;
   }
 
-  public void setLanguage(Language language) {
+  public void setLanguage(String language) {
     this.language = language;
   }
 }

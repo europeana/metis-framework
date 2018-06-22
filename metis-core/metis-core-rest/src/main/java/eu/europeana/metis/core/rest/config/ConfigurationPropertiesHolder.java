@@ -60,6 +60,9 @@ public class ConfigurationPropertiesHolder {
   @Value("${metis.core.baseUrl}")
   private String metisCoreBaseUrl;
 
+  @Value("${metis.use.alternative.indexing.environment}")
+  private boolean metisUseAlternativeIndexingEnvironment;
+
   @Value("${solr.commit.period.in.mins}")
   private int solrCommitPeriodInMins;
 
@@ -206,6 +209,10 @@ public class ConfigurationPropertiesHolder {
 
   public String getMetisCoreBaseUrl() {
     return metisCoreBaseUrl;
+  }
+
+  public boolean getMetisUseAlternativeIndexingEnvironment() {
+    return metisUseAlternativeIndexingEnvironment;
   }
 
   public int getSolrCommitPeriodInMins() {

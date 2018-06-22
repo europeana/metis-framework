@@ -159,6 +159,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     orchestratorService
         .setValidationInternalProperties(propertiesHolder.getValidationInternalProperties());
     orchestratorService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
+    orchestratorService.setMetisUseAlternativeIndexingEnvironment(
+        propertiesHolder.getMetisUseAlternativeIndexingEnvironment());
     orchestratorService.setSolrCommitPeriodInMins(propertiesHolder.getSolrCommitPeriodInMins());
     return orchestratorService;
   }

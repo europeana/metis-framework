@@ -40,6 +40,8 @@ public class IndexToPublishPlugin extends AbstractMetisPlugin {
 
   @Override
   public DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    return createDpsTaskForIndexPlugin("PUBLISH", ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    return createDpsTaskForIndexPlugin(((IndexToPublishPluginMetadata) getPluginMetadata())
+            .getUseAlternativeIndexingEnvironment(), "PUBLISH", ecloudBaseUrl, ecloudProvider,
+        ecloudDataset);
   }
 }

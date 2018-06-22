@@ -1,27 +1,5 @@
 package eu.europeana.metis.core.service;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -49,6 +27,8 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
@@ -59,6 +39,29 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.DateUtils;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service class that controls the communication between the different DAOs of the system.
@@ -84,6 +87,7 @@ public class OrchestratorService {
   private ValidationProperties validationExternalProperties; // Use getter and setter!
   private ValidationProperties validationInternalProperties; // Use getter and setter!
   private String metisCoreUrl; // Use getter and setter for this field!
+  private boolean metisUseAlternativeIndexingEnvironment; // Use getter and setter for this field!
   private int solrCommitPeriodInMins; // Use getter and setter for this field!
 
   /**
@@ -433,6 +437,14 @@ public class OrchestratorService {
         case VALIDATION_INTERNAL:
           setupValidationForPluginMetadata(pluginMetadata, getValidationInternalProperties());
           break;
+        case PREVIEW:
+          ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
+              getMetisUseAlternativeIndexingEnvironment());
+          break;
+        case PUBLISH:
+          ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
+              getMetisUseAlternativeIndexingEnvironment());
+          break;
         default:
           break;
       }
@@ -460,10 +472,15 @@ public class OrchestratorService {
           .setXsltUrl(getMetisCoreUrl() + RestEndpoints
               .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, xsltObject.getId().toString()));
     }
-    ((TransformationPluginMetadata) abstractMetisPluginMetadata).setDatasetId(dataset.getDatasetId());
-    ((TransformationPluginMetadata) abstractMetisPluginMetadata).setDatasetName(dataset.getDatasetName());
-    ((TransformationPluginMetadata) abstractMetisPluginMetadata).setCountry(dataset.getCountry());
-    ((TransformationPluginMetadata) abstractMetisPluginMetadata).setLanguage(dataset.getLanguage());
+    ((TransformationPluginMetadata) abstractMetisPluginMetadata)
+        .setDatasetId(dataset.getDatasetId());
+    //DatasetName in Transformation should be a concatenation datasetId_datasetName
+    ((TransformationPluginMetadata) abstractMetisPluginMetadata)
+        .setDatasetName(dataset.getDatasetId() + "_" + dataset.getDatasetName());
+    ((TransformationPluginMetadata) abstractMetisPluginMetadata)
+        .setCountry(dataset.getCountry().getName());
+    ((TransformationPluginMetadata) abstractMetisPluginMetadata)
+        .setLanguage(dataset.getLanguage().name().toLowerCase(Locale.US));
   }
 
   private static void setupValidationForPluginMetadata(AbstractMetisPluginMetadata metadata,
@@ -823,6 +840,18 @@ public class OrchestratorService {
   private String getMetisCoreUrl() {
     synchronized (this) {
       return this.metisCoreUrl;
+    }
+  }
+
+  public boolean getMetisUseAlternativeIndexingEnvironment() {
+    synchronized (this) {
+      return metisUseAlternativeIndexingEnvironment;
+    }
+  }
+
+  public void setMetisUseAlternativeIndexingEnvironment(boolean metisUseAlternativeIndexingEnvironment) {
+    synchronized (this) {
+      this.metisUseAlternativeIndexingEnvironment = metisUseAlternativeIndexingEnvironment;
     }
   }
 

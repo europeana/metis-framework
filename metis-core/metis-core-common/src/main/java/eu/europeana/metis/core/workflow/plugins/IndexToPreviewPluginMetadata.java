@@ -7,6 +7,7 @@ package eu.europeana.metis.core.workflow.plugins;
 public class IndexToPreviewPluginMetadata extends AbstractMetisPluginMetadata {
 
   private static final PluginType pluginType = PluginType.PREVIEW;
+  private boolean useAlternativeIndexingEnvironment;
 
   public IndexToPreviewPluginMetadata() {
     //Required for json serialization
@@ -15,5 +16,13 @@ public class IndexToPreviewPluginMetadata extends AbstractMetisPluginMetadata {
   @Override
   public PluginType getPluginType() {
     return pluginType;
+  }
+
+  public boolean getUseAlternativeIndexingEnvironment() {
+    return useAlternativeIndexingEnvironment;
+  }
+
+  public void setUseAlternativeIndexingEnvironment(boolean useAlternativeIndexingEnvironment) {
+    this.useAlternativeIndexingEnvironment = useAlternativeIndexingEnvironment;
   }
 }

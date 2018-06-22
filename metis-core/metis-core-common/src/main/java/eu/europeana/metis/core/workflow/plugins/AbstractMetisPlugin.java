@@ -282,10 +282,12 @@ public abstract class AbstractMetisPlugin {
         ecloudDataset, false);
   }
 
-  DpsTask createDpsTaskForIndexPlugin(String targetDatabase, String ecloudBaseUrl,
-      String ecloudProvider, String ecloudDataset) {
+  DpsTask createDpsTaskForIndexPlugin(boolean useAlternativeIndexingEnvironment,
+      String targetDatabase, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
+    extraParameters
+        .put("METIS_USE_ALT_INDEXING_ENV", String.valueOf(useAlternativeIndexingEnvironment));
     return createDpsTaskForProcessPlugin(extraParameters, ecloudBaseUrl, ecloudProvider,
         ecloudDataset);
   }

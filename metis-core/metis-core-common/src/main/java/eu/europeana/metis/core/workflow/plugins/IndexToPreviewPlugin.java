@@ -7,6 +7,7 @@ import eu.europeana.cloud.service.dps.DpsTask;
  * @since 2018-04-03
  */
 public class IndexToPreviewPlugin extends AbstractMetisPlugin {
+
   private final String topologyName = Topology.INDEX.getTopologyName();
 
   /**
@@ -17,15 +18,15 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
     this(null);
   }
 
-    /**
-     * Constructor to initialize the plugin with pluginMetadata.
-     * <p>Initializes the {@link #pluginType} as well.</p>
-     *
-     * @param pluginMetadata should be {@link IndexToPreviewPluginMetadata}
-     */
+  /**
+   * Constructor to initialize the plugin with pluginMetadata.
+   * <p>Initializes the {@link #pluginType} as well.</p>
+   *
+   * @param pluginMetadata should be {@link IndexToPreviewPluginMetadata}
+   */
   IndexToPreviewPlugin(AbstractMetisPluginMetadata pluginMetadata) {
-      super(PluginType.PREVIEW, pluginMetadata);
-    }
+    super(PluginType.PREVIEW, pluginMetadata);
+  }
 
   /**
    * Required for json serialization.
@@ -39,6 +40,8 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
 
   @Override
   public DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    return createDpsTaskForIndexPlugin("PREVIEW", ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    return createDpsTaskForIndexPlugin(((IndexToPreviewPluginMetadata) getPluginMetadata())
+            .getUseAlternativeIndexingEnvironment(), "PREVIEW", ecloudBaseUrl, ecloudProvider,
+        ecloudDataset);
   }
 }
