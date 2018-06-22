@@ -1,5 +1,6 @@
 package eu.europeana.indexing.fullbean;
 
+import java.util.function.Function;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 
@@ -7,9 +8,10 @@ import eu.europeana.corelib.solr.entity.AgentImpl;
  * Converts a {@link AgentType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
  * {@link AgentImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
-final class AgentFieldInput {
+final class AgentFieldInput implements Function<AgentType, AgentImpl> {
 
-  AgentImpl createNewAgent(AgentType agentType) {
+  @Override
+  public AgentImpl apply(AgentType agentType) {
     AgentImpl agent = new AgentImpl();
     agent.setAbout(agentType.getAbout());
 

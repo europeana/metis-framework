@@ -1,5 +1,6 @@
 package eu.europeana.indexing.fullbean;
 
+import java.util.function.Function;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 
@@ -7,9 +8,10 @@ import eu.europeana.corelib.solr.entity.TimespanImpl;
  * Converts a {@link TimeSpanType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
  * {@link TimespanImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
-final class TimespanFieldInput {
+final class TimespanFieldInput implements Function<TimeSpanType, TimespanImpl> {
 
-  TimespanImpl createNewTimespan(TimeSpanType timeSpan) {
+  @Override
+  public TimespanImpl apply(TimeSpanType timeSpan) {
     TimespanImpl mongoTimespan = new TimespanImpl();
     mongoTimespan.setAbout(timeSpan.getAbout());
     mongoTimespan.setNote(FieldInputUtils.createLiteralMapFromList(timeSpan.getNoteList()));

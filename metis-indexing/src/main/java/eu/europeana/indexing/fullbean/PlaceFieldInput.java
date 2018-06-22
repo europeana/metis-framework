@@ -1,5 +1,6 @@
 package eu.europeana.indexing.fullbean;
 
+import java.util.function.Function;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 
@@ -7,9 +8,10 @@ import eu.europeana.corelib.solr.entity.PlaceImpl;
  * Converts a {@link PlaceType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
  * {@link PlaceImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
-final class PlaceFieldInput {
+final class PlaceFieldInput implements Function<PlaceType, PlaceImpl> {
 
-  PlaceImpl createNewPlace(PlaceType placeType) {
+  @Override
+  public PlaceImpl apply(PlaceType placeType) {
     PlaceImpl place = new PlaceImpl();
     place.setAbout(placeType.getAbout());
     if (placeType.getLat() != null) {

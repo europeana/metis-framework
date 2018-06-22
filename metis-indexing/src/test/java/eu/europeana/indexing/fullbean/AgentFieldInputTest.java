@@ -80,7 +80,7 @@ public class AgentFieldInputTest {
     agentType.setPrefLabelList(prefLabelList);
 
     // store in mongo
-    AgentImpl agent = new AgentFieldInput().createNewAgent(agentType);
+    AgentImpl agent = new AgentFieldInput().apply(agentType);
     mongoServerMock.getDatastore().save(agent);
     assertEquals(agentType.getAbout(), agent.getAbout());
     assertEquals(agentType.getBegin().getString(),

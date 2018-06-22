@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
+import java.util.Map.Entry;
 import org.apache.commons.lang.StringUtils;
 import eu.europeana.corelib.definitions.jibx.LiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
@@ -260,17 +260,6 @@ final class FieldInputUtils {
   }
 
   /**
-   * Method that check if an object exists and return it
-   *
-   * @param newInstanceCreator A supplier creating a new instance of the given type
-   * @param object The object to check if it exists
-   * @return the object
-   */
-  public static <T> T exists(Supplier<T> newInstanceCreator, T object) {
-    return (object == null ? newInstanceCreator.get() : object);
-  }
-
-  /**
    * Returns an array of strings based on values from a ResourceOrLiteralType list. Since it is
    * perfectly valid to have both an rdf:resource and a value on a field This method will return
    * both in a String array
@@ -324,5 +313,27 @@ final class FieldInputUtils {
       return obj.getResource() != null ? obj.getResource() : null;
     }
     return null;
+  }
+
+  static Map<String, List<String>> mergeMaps(Map<String, List<String>> map1,
+      Map<String, List<String>> map2) {
+
+    // In case one (or both) of them is null
+    if (map1 == null || map2 == null) {
+      return map1 == null ? map2 : map1;
+    }
+
+    // So neither are null. We merge them.
+    final Map<String, List<String>> result = new HashMap<>(map1);
+    for (Entry<String, List<String>> entry : map2.entrySet()) {
+      result.merge(entry.getKey(), entry.getValue(), (list1, list2) -> {
+        List<String> resultList = new ArrayList<>(list1);
+        resultList.addAll(list2);
+        return resultList;
+      });
+    }
+
+    // Done
+    return result;
   }
 }

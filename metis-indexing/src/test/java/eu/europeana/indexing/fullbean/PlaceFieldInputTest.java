@@ -29,77 +29,75 @@ import eu.europeana.corelib.solr.entity.PlaceImpl;
  */
 public class PlaceFieldInputTest {
 
-    @Test
-    public void testPlace() {
-        PlaceImpl placeImpl = new PlaceImpl();
-        placeImpl.setAbout("test about");
+  @Test
+  public void testPlace() {
+    PlaceImpl placeImpl = new PlaceImpl();
+    placeImpl.setAbout("test about");
 
-        EdmMongoServer mongoServerMock = mock(EdmMongoServer.class);
-        Datastore datastoreMock = mock(Datastore.class);
-        @SuppressWarnings("unchecked")
-        Query<PlaceImpl> queryMock = mock(Query.class);
-        @SuppressWarnings("unchecked")
-        Key<PlaceImpl> keyMock = mock(Key.class);
+    EdmMongoServer mongoServerMock = mock(EdmMongoServer.class);
+    Datastore datastoreMock = mock(Datastore.class);
+    @SuppressWarnings("unchecked")
+    Query<PlaceImpl> queryMock = mock(Query.class);
+    @SuppressWarnings("unchecked")
+    Key<PlaceImpl> keyMock = mock(Key.class);
 
-        when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
-        when(datastoreMock.find(PlaceImpl.class)).thenReturn(queryMock);
-        when(datastoreMock.save(placeImpl)).thenReturn(keyMock);
-        when(queryMock.filter("about", placeImpl.getAbout())).thenReturn(queryMock);
+    when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
+    when(datastoreMock.find(PlaceImpl.class)).thenReturn(queryMock);
+    when(datastoreMock.save(placeImpl)).thenReturn(keyMock);
+    when(queryMock.filter("about", placeImpl.getAbout())).thenReturn(queryMock);
 
-        PlaceType place = new PlaceType();
-        place.setAbout("test about");
-        List<AltLabel> altLabelList = new ArrayList<>();
-        AltLabel altLabel = new AltLabel();
-        Lang lang = new Lang();
-        lang.setLang("en");
-        altLabel.setLang(lang);
-        altLabel.setString("test alt label");
-        assertNotNull(altLabel);
-        altLabelList.add(altLabel);
-        place.setAltLabelList(altLabelList);
-        List<Note> noteList = new ArrayList<>();
-        Note note = new Note();
-        note.setString("test note");
-        assertNotNull(note);
-        noteList.add(note);
-        place.setNoteList(noteList);
-        List<PrefLabel> prefLabelList = new ArrayList<>();
-        PrefLabel prefLabel = new PrefLabel();
-        prefLabel.setLang(lang);
-        prefLabel.setString("test pred label");
-        assertNotNull(prefLabel);
-        prefLabelList.add(prefLabel);
-        place.setPrefLabelList(prefLabelList);
-        List<IsPartOf> isPartOfList = new ArrayList<>();
-        IsPartOf isPartOf = new IsPartOf();
-        isPartOf.setString("test resource");
-        isPartOfList.add(isPartOf);
-        place.setIsPartOfList(isPartOfList);
-        Lat posLat = new Lat();
-        posLat.setLat(new Float("1.0"));
-        place.setLat(posLat);
-        _Long posLong = new _Long();
-        posLong.setLong(new Float("1.0"));
-        place.setLong(posLong);
-        // create mongo place
-        PlaceImpl placeMongo = new PlaceFieldInput().createNewPlace(
-                place);
-        mongoServerMock.getDatastore().save(placeMongo);
-        assertEquals(place.getAbout(), placeMongo.getAbout());
-        assertEquals(place.getNoteList().get(0).getString(), placeMongo
-                .getNote().values().iterator().next().get(0));
-        assertTrue(placeMongo.getAltLabel().containsKey(
-                place.getAltLabelList().get(0).getLang().getLang()));
-        assertEquals(place.getAltLabelList().get(0).getString(), placeMongo
-                .getAltLabel().values().iterator().next().get(0));
+    PlaceType place = new PlaceType();
+    place.setAbout("test about");
+    List<AltLabel> altLabelList = new ArrayList<>();
+    AltLabel altLabel = new AltLabel();
+    Lang lang = new Lang();
+    lang.setLang("en");
+    altLabel.setLang(lang);
+    altLabel.setString("test alt label");
+    assertNotNull(altLabel);
+    altLabelList.add(altLabel);
+    place.setAltLabelList(altLabelList);
+    List<Note> noteList = new ArrayList<>();
+    Note note = new Note();
+    note.setString("test note");
+    assertNotNull(note);
+    noteList.add(note);
+    place.setNoteList(noteList);
+    List<PrefLabel> prefLabelList = new ArrayList<>();
+    PrefLabel prefLabel = new PrefLabel();
+    prefLabel.setLang(lang);
+    prefLabel.setString("test pred label");
+    assertNotNull(prefLabel);
+    prefLabelList.add(prefLabel);
+    place.setPrefLabelList(prefLabelList);
+    List<IsPartOf> isPartOfList = new ArrayList<>();
+    IsPartOf isPartOf = new IsPartOf();
+    isPartOf.setString("test resource");
+    isPartOfList.add(isPartOf);
+    place.setIsPartOfList(isPartOfList);
+    Lat posLat = new Lat();
+    posLat.setLat(new Float("1.0"));
+    place.setLat(posLat);
+    _Long posLong = new _Long();
+    posLong.setLong(new Float("1.0"));
+    place.setLong(posLong);
+    // create mongo place
+    PlaceImpl placeMongo = new PlaceFieldInput().apply(place);
+    mongoServerMock.getDatastore().save(placeMongo);
+    assertEquals(place.getAbout(), placeMongo.getAbout());
+    assertEquals(place.getNoteList().get(0).getString(),
+        placeMongo.getNote().values().iterator().next().get(0));
+    assertTrue(
+        placeMongo.getAltLabel().containsKey(place.getAltLabelList().get(0).getLang().getLang()));
+    assertEquals(place.getAltLabelList().get(0).getString(),
+        placeMongo.getAltLabel().values().iterator().next().get(0));
 
-        assertEquals(place.getPrefLabelList().get(0).getString(), placeMongo
-                .getPrefLabel().values().iterator().next().get(0));
-        assertEquals(place.getIsPartOfList().get(0).getString(), placeMongo
-                .getIsPartOf().values().iterator().next().get(0));
-        assertEquals(Float.toString(place.getLat().getLat()),
-                Float.toString(placeMongo.getLatitude()));
-        assertEquals(Float.toString(place.getLong().getLong()),
-                Float.toString(placeMongo.getLongitude()));
-    }
+    assertEquals(place.getPrefLabelList().get(0).getString(),
+        placeMongo.getPrefLabel().values().iterator().next().get(0));
+    assertEquals(place.getIsPartOfList().get(0).getString(),
+        placeMongo.getIsPartOf().values().iterator().next().get(0));
+    assertEquals(Float.toString(place.getLat().getLat()), Float.toString(placeMongo.getLatitude()));
+    assertEquals(Float.toString(place.getLong().getLong()),
+        Float.toString(placeMongo.getLongitude()));
+  }
 }

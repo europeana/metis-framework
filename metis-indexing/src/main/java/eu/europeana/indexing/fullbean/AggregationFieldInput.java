@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import org.apache.commons.lang.StringUtils;
-import eu.europeana.corelib.definitions.jibx.AggregatedCHO;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
-import eu.europeana.corelib.definitions.jibx.HasView;
-import eu.europeana.corelib.definitions.jibx.IsShownAt;
-import eu.europeana.corelib.definitions.jibx.IsShownBy;
-import eu.europeana.corelib.definitions.jibx._Object;
+import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 
@@ -18,11 +17,32 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
  * Converts a {@link Aggregation} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
  * {@link AggregationImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
-final class AggregationFieldInput {
+final class AggregationFieldInput implements Function<Aggregation, AggregationImpl> {
 
-  AggregationImpl createAggregationMongoFields(Aggregation aggregation,
-      List<WebResourceImpl> webResources) {
+  private final Supplier<List<WebResourceImpl>> webResourcesSupplier;
+
+  AggregationFieldInput(Supplier<List<WebResourceImpl>> webResourcesSupplier) {
+    this.webResourcesSupplier = webResourcesSupplier;
+  }
+
+  private static String processResource(List<WebResourceImpl> webResources, ResourceType resource) {
+    String resourceString =
+        Optional.ofNullable(resource).map(ResourceType::getResource).map(String::trim).orElse(null);
+    boolean addWebResource = resourceString != null && webResources.stream()
+        .map(WebResourceImpl::getAbout).noneMatch(about -> about.equals(resourceString));
+    if (addWebResource) {
+      WebResourceImpl webResource = new WebResourceImpl();
+      webResource.setAbout(resourceString);
+      webResources.add(webResource);
+    }
+    return resourceString;
+  }
+
+  @Override
+  public AggregationImpl apply(Aggregation aggregation) {
+    
     AggregationImpl mongoAggregation = new AggregationImpl();
+    final List<WebResourceImpl> webResources = new ArrayList<>(webResourcesSupplier.get()); 
 
     mongoAggregation.setAbout(aggregation.getAbout());
     Map<String, List<String>> dp =
@@ -33,47 +53,11 @@ final class AggregationFieldInput {
           .createResourceOrLiteralMapFromList(aggregation.getIntermediateProviderList());
       mongoAggregation.setEdmIntermediateProvider(providers);
     }
-    String isShownAt =
-        FieldInputUtils.exists(IsShownAt::new, (aggregation.getIsShownAt())).getResource();
-    mongoAggregation.setEdmIsShownAt(isShownAt != null ? isShownAt.trim() : null);
-    boolean containsIsShownAt = false;
-    for (WebResourceImpl wr : webResources) {
-      if (StringUtils.equals(wr.getAbout(), isShownAt)) {
-        containsIsShownAt = true;
-      }
-    }
-    if (!containsIsShownAt && isShownAt != null) {
-      WebResourceImpl wr = new WebResourceImpl();
-      wr.setAbout(isShownAt);
-      webResources.add(wr);
-    }
-    String isShownBy =
-        FieldInputUtils.exists(IsShownBy::new, (aggregation.getIsShownBy())).getResource();
-    mongoAggregation.setEdmIsShownBy(isShownBy != null ? isShownBy.trim() : null);
-    boolean containsIsShownBy = false;
-    for (WebResourceImpl wr : webResources) {
-      if (StringUtils.equals(wr.getAbout(), isShownBy)) {
-        containsIsShownBy = true;
-      }
-    }
-    if (!containsIsShownBy && isShownBy != null) {
-      WebResourceImpl wr = new WebResourceImpl();
-      wr.setAbout(isShownBy);
-      webResources.add(wr);
-    }
-    String object = FieldInputUtils.exists(_Object::new, (aggregation.getObject())).getResource();
-    mongoAggregation.setEdmObject(object != null ? object.trim() : null);
-    boolean containsObject = false;
-    for (WebResourceImpl wr : webResources) {
-      if (StringUtils.equals(wr.getAbout(), object)) {
-        containsObject = true;
-      }
-    }
-    if (!containsObject && object != null) {
-      WebResourceImpl wr = new WebResourceImpl();
-      wr.setAbout(object);
-      webResources.add(wr);
-    }
+    
+    mongoAggregation.setEdmIsShownAt(processResource(webResources, aggregation.getIsShownAt()));
+    mongoAggregation.setEdmIsShownBy(processResource(webResources, aggregation.getIsShownBy()));
+    mongoAggregation.setEdmObject(processResource(webResources, aggregation.getObject()));
+    
     Map<String, List<String>> prov =
         FieldInputUtils.createResourceOrLiteralMapFromString(aggregation.getProvider());
     mongoAggregation.setEdmProvider(prov);
@@ -88,8 +72,8 @@ final class AggregationFieldInput {
       mongoAggregation.setEdmUgc(null);
     }
 
-    String agCHO =
-        FieldInputUtils.exists(AggregatedCHO::new, (aggregation.getAggregatedCHO())).getResource();
+    String agCHO = Optional.ofNullable(aggregation.getAggregatedCHO())
+        .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setAggregatedCHO(agCHO);
 
     Map<String, List<String>> rights1 =
@@ -97,30 +81,16 @@ final class AggregationFieldInput {
     mongoAggregation.setDcRights(rights1);
 
     if (aggregation.getHasViewList() != null) {
-      List<String> hasViewList = new ArrayList<>();
-      for (HasView hasView : aggregation.getHasViewList()) {
-        hasViewList.add(hasView.getResource().trim());
-        boolean containsHasView = false;
-        for (WebResourceImpl wr : webResources) {
-          if (StringUtils.equals(wr.getAbout(), hasView.getResource().trim())) {
-            containsHasView = true;
-          }
-        }
-        if (!containsHasView && hasView.getResource().trim() != null) {
-          WebResourceImpl wr = new WebResourceImpl();
-          wr.setAbout(hasView.getResource().trim());
-          webResources.add(wr);
-        }
-      }
-      mongoAggregation.setHasView(hasViewList.toArray(new String[hasViewList.size()]));
-
+      String[] hasViewList = aggregation.getHasViewList().stream()
+          .map(hasView -> processResource(webResources, hasView)).filter(Objects::nonNull)
+          .toArray(String[]::new);
+      mongoAggregation.setHasView(hasViewList);
     } else {
       mongoAggregation.setHasView(null);
 
     }
-    if (webResources != null) {
-      mongoAggregation.setWebResources(webResources);
-    }
+    
+    mongoAggregation.setWebResources(webResources);
 
     return mongoAggregation;
   }

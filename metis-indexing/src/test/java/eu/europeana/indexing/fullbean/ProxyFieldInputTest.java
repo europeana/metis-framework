@@ -68,9 +68,6 @@ public class ProxyFieldInputTest {
 
   private void testMongo(ProxyType proxy) throws InstantiationException, IllegalAccessException {
 
-    ProxyImpl mongoProxy = new ProxyImpl();
-    mongoProxy.setAbout(proxy.getAbout());
-
     EdmMongoServer mongoServerMock = mock(EdmMongoServer.class);
     Datastore datastoreMock = mock(Datastore.class);
     @SuppressWarnings("unchecked")
@@ -78,11 +75,10 @@ public class ProxyFieldInputTest {
 
     when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
     when(datastoreMock.find(ProxyImpl.class)).thenReturn(queryMock);
-    when(datastoreMock.save(mongoProxy)).thenReturn(null);
     when(queryMock.filter("about", proxy.getAbout())).thenReturn(queryMock);
     when(queryMock.get()).thenReturn(null);
 
-    mongoProxy = new ProxyFieldInput().createProxyMongoFields(mongoProxy, proxy);
+    ProxyImpl mongoProxy = new ProxyFieldInput().apply(proxy);
     mongoServerMock.getDatastore().save(mongoProxy);
     assertEquals(proxy.getAbout(), mongoProxy.getAbout());
     assertEquals(proxy.getType().getType().toString(), mongoProxy.getEdmType().toString());

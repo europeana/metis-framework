@@ -4,35 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import eu.europeana.corelib.definitions.jibx.AgentType;
-import eu.europeana.corelib.definitions.jibx.Aggregation;
 import eu.europeana.corelib.definitions.jibx.CollectionName;
-import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.DatasetName;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.License;
-import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
-import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.Service;
-import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.corelib.solr.entity.AgentImpl;
-import eu.europeana.corelib.solr.entity.AggregationImpl;
-import eu.europeana.corelib.solr.entity.ConceptImpl;
-import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
-import eu.europeana.corelib.solr.entity.ProxyImpl;
-import eu.europeana.corelib.solr.entity.ServiceImpl;
-import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.indexing.exception.IndexingException;
 
 /**
  * This class converts instances of {@link RDF} to instances of {@link FullBeanImpl}.
@@ -45,124 +29,48 @@ public class RdfToFullBeanConverter {
   /**
    * Converts an RDF to Full Bean.
    * 
-   * @param rdf The RDF.
+   * @param record The RDF record to convert.
    * @return The Full Bean.
-   * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
-  public FullBeanImpl convertRdfToFullBean(RDF rdf) throws IndexingException {
+  public FullBeanImpl convertRdfToFullBean(RDF record) {
 
-    // Convert RDF to FullBean
-    final FullBeanImpl fBean = convertInternal(rdf);
+    final FullBeanImpl fullBean = new FullBeanImpl();
+    fullBean.setAbout(record.getProvidedCHOList().stream().map(ProvidedCHOType::getAbout)
+        .findFirst().orElse(null));
 
-    // Sanity Check - shouldn't happen
-    if (fBean == null) {
-      throw new IndexingException("Could not construct FullBean: null was returned.");
-    }
+    fullBean.setProvidedCHOs(
+        convertList(record.getProvidedCHOList(), new ProvidedCHOFieldInput(), false));
+    fullBean.setProxies(convertList(record.getProxyList(), new ProxyFieldInput(), true));
+    fullBean.setAggregations(convertList(record.getAggregationList(),
+        new AggregationFieldInput(new WebResourcesExtractor(record)), false));
+    fullBean.setConcepts(convertList(record.getConceptList(), new ConceptFieldInput(), true));
+    fullBean.setPlaces(convertList(record.getPlaceList(), new PlaceFieldInput(), true));
+    fullBean.setTimespans(convertList(record.getTimeSpanList(), new TimespanFieldInput(), true));
+    fullBean.setAgents(convertList(record.getAgentList(), new AgentFieldInput(), true));
+    fullBean.setLicenses(convertList(record.getLicenseList(), new LicenseFieldInput(), true));
+    fullBean.setServices(convertList(record.getServiceList(), new ServiceFieldInput(), false));
 
-    // Done.
-    return fBean;
-  }
-
-  private FullBeanImpl convertInternal(RDF record) {
-    FullBeanImpl fullBean = new FullBeanImpl();
-    List<AgentImpl> agents = new ArrayList<>();
-    List<AggregationImpl> aggregations = new ArrayList<>();
-    List<ConceptImpl> concepts = new ArrayList<>();
-    List<PlaceImpl> places = new ArrayList<>();
-    List<TimespanImpl> timespans = new ArrayList<>();
-    List<ProxyImpl> proxies = new ArrayList<>();
-    List<ProvidedCHOImpl> providedCHOs = new ArrayList<>();
-    List<LicenseImpl> licenses = new ArrayList<>();
-    List<ServiceImpl> services = new ArrayList<>();
-
-    for (ProvidedCHOType pcho : record.getProvidedCHOList()) {
-      fullBean.setAbout(pcho.getAbout());
-      providedCHOs.add(new ProvidedCHOFieldInput().createProvidedCHOMongoFields(pcho));
-    }
-    for (ProxyType proxytype : record.getProxyList()) {
-      proxies.add(new ProxyFieldInput().createProxyMongoFields(new ProxyImpl(), proxytype));
-    }
-    for (Aggregation aggregation : record.getAggregationList()) {
-      final List<WebResourceImpl> webResources;
-      if (record.getWebResourceList() != null && !record.getWebResourceList().isEmpty()) {
-        Collection<WebResourceType> webResourcesBeforeConversion =
-            record.getWebResourceList().stream().collect(Collectors.toMap(WebResourceType::getAbout,
-                UnaryOperator.identity(), (first, second) -> first)).values();
-        final WebResourceFieldInput webResourceConverter = new WebResourceFieldInput();
-        webResources = webResourcesBeforeConversion.stream()
-            .map(webResourceConverter::createWebResources).collect(Collectors.toList());
-      } else {
-        webResources = Collections.emptyList();
-      }
-      aggregations
-          .add(new AggregationFieldInput().createAggregationMongoFields(aggregation, webResources));
-    }
-
-    if (record.getConceptList() != null) {
-      for (Concept concept : record.getConceptList()) {
-        concepts.add(new ConceptFieldInput().createNewConcept(concept));
-      }
-    }
-
-    if (record.getPlaceList() != null) {
-      for (PlaceType place : record.getPlaceList()) {
-        places.add(new PlaceFieldInput().createNewPlace(place));
-      }
-    }
-
-    if (record.getTimeSpanList() != null) {
-      for (TimeSpanType tspan : record.getTimeSpanList()) {
-        timespans.add(new TimespanFieldInput().createNewTimespan(tspan));
-      }
-    }
-    if (record.getAgentList() != null) {
-      for (AgentType agent : record.getAgentList()) {
-        agents.add(new AgentFieldInput().createNewAgent(agent));
-      }
-    }
-    if (record.getLicenseList() != null) {
-      for (License license : record.getLicenseList()) {
-        licenses.add(new LicenseFieldInput().createLicenseMongoFields(license));
-      }
-    }
     if (record.getEuropeanaAggregationList() != null) {
-      for (EuropeanaAggregationType eaggregation : record.getEuropeanaAggregationList()) {
-        fullBean.setEuropeanaAggregation(
-            new EuropeanaAggregationFieldInput().createAggregationMongoFields(eaggregation));
-      }
+      fullBean.setEuropeanaAggregation(record.getEuropeanaAggregationList().stream()
+          .map(new EuropeanaAggregationFieldInput()).findFirst().orElse(null));
     }
-    if (record.getServiceList() != null) {
-      for (Service service : record.getServiceList()) {
-        services.add(new ServiceFieldInput().createServiceMongoFields(service));
-      }
-    }
-    fullBean.setProvidedCHOs(providedCHOs);
-
-    fullBean.setAggregations(aggregations);
-    fullBean.setServices(services);
-
-    if (!agents.isEmpty()) {
-      fullBean.setAgents(agents);
-    }
-    if (!concepts.isEmpty()) {
-      fullBean.setConcepts(concepts);
-    }
-    if (!places.isEmpty()) {
-      fullBean.setPlaces(places);
-    }
-    if (!timespans.isEmpty()) {
-      fullBean.setTimespans(timespans);
-    }
-    if (!proxies.isEmpty()) {
-      fullBean.setProxies(proxies);
-    }
-    if (!licenses.isEmpty()) {
-      fullBean.setLicenses(licenses);
-    }
-
     fullBean.setEuropeanaCollectionName(new String[] {getDatasetNameFromRdf(record)});
 
     return fullBean;
+  }
+
+  private static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
+      boolean returnNullIfEmpty) {
+    final List<T> result;
+    if (sourceList != null) {
+      result = sourceList.stream().map(converter).collect(Collectors.toList());
+    } else {
+      result = new ArrayList<>();
+    }
+    if (result.isEmpty() && returnNullIfEmpty) {
+      return null;
+    }
+    return result;
   }
 
   private static String getDatasetNameFromRdf(RDF rdf) {
@@ -190,5 +98,32 @@ public class RdfToFullBeanConverter {
     final String collectionName =
         collectionNameObject == null ? null : collectionNameObject.getString();
     return StringUtils.isNotBlank(collectionName) ? collectionName : "";
+  }
+
+  private static class WebResourcesExtractor implements Supplier<List<WebResourceImpl>> {
+
+    private final RDF record;
+    private List<WebResourceImpl> webResources = null;
+
+    public WebResourcesExtractor(RDF record) {
+      this.record = record;
+    }
+
+    @Override
+    public List<WebResourceImpl> get() {
+      if (webResources == null) {
+        if (record.getWebResourceList() != null && !record.getWebResourceList().isEmpty()) {
+          Collection<WebResourceType> webResourcesBeforeConversion = record.getWebResourceList()
+              .stream().collect(Collectors.toMap(WebResourceType::getAbout,
+                  UnaryOperator.identity(), (first, second) -> first))
+              .values();
+          webResources = webResourcesBeforeConversion.stream().map(new WebResourceFieldInput())
+              .collect(Collectors.toList());
+        } else {
+          webResources = Collections.emptyList();
+        }
+      }
+      return Collections.unmodifiableList(webResources);
+    }
   }
 }

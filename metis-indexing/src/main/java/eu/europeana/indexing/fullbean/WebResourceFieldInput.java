@@ -2,6 +2,7 @@ package eu.europeana.indexing.fullbean;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 
@@ -9,9 +10,10 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
  * Converts a {@link WebResourceType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
  * {@link WebResourceImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
-class WebResourceFieldInput {
+class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl> {
 
-  WebResourceImpl createWebResources(WebResourceType wResourceType) {
+  @Override
+  public WebResourceImpl apply(WebResourceType wResourceType) {
 
     WebResourceImpl webResource = new WebResourceImpl();
     webResource.setAbout(wResourceType.getAbout());

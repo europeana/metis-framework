@@ -3,9 +3,10 @@ package eu.europeana.indexing.fullbean;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import eu.europeana.corelib.definitions.jibx.AggregatedCHO;
+import java.util.Optional;
+import java.util.function.Function;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.IsShownBy;
+import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 
 /**
@@ -13,9 +14,11 @@ import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
  * {@link eu.europeana.corelib.definitions.jibx.RDF} to a {@link EuropeanaAggregationImpl} for a
  * {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
-final class EuropeanaAggregationFieldInput {
+final class EuropeanaAggregationFieldInput
+    implements Function<EuropeanaAggregationType, EuropeanaAggregationImpl> {
 
-  EuropeanaAggregationImpl createAggregationMongoFields(EuropeanaAggregationType aggregation) {
+  @Override
+  public EuropeanaAggregationImpl apply(EuropeanaAggregationType aggregation) {
     EuropeanaAggregationImpl mongoAggregation = new EuropeanaAggregationImpl();
 
     mongoAggregation.setAbout(aggregation.getAbout());
@@ -30,7 +33,7 @@ final class EuropeanaAggregationFieldInput {
         aggregation.getCountry().getCountry().xmlValue().toLowerCase(Locale.ENGLISH));
     mongoAggregation.setEdmCountry(country);
     String isShownBy =
-        FieldInputUtils.exists(IsShownBy::new, aggregation.getIsShownBy()).getResource();
+        Optional.ofNullable(aggregation.getIsShownBy()).map(ResourceType::getResource).orElse(null);
     mongoAggregation.setEdmIsShownBy(isShownBy);
 
     Map<String, List<String>> language = FieldInputUtils.createLiteralMapFromString(
@@ -38,8 +41,8 @@ final class EuropeanaAggregationFieldInput {
 
     mongoAggregation.setEdmLanguage(language);
 
-    String agCHO =
-        FieldInputUtils.exists(AggregatedCHO::new, aggregation.getAggregatedCHO()).getResource();
+    String agCHO = Optional.ofNullable(aggregation.getAggregatedCHO())
+        .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setAggregatedCHO(agCHO);
     mongoAggregation.setEdmLandingPageFromAggregatedCHO();
 

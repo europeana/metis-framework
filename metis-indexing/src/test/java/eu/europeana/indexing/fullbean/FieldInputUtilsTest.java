@@ -192,14 +192,6 @@ public class FieldInputUtilsTest {
   }
 
   @Test
-  public void testExists() {
-    Object a = null;
-    Object b = new Object();
-    assertNotNull(FieldInputUtils.exists(Object::new, a));
-    assertNotNull(FieldInputUtils.exists(Object::new, b));
-  }
-
-  @Test
   public void testResourceOrLiteralListToArray() {
     List<ResourceOrLiteralType> rltList = new ArrayList<ResourceOrLiteralType>();
     rltList.add(prepareRLT());

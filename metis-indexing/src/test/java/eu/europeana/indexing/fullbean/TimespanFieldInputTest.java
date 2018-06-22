@@ -87,7 +87,7 @@ public class TimespanFieldInputTest {
     when(datastoreMock.save(timespanImpl)).thenReturn(keyMock);
     when(queryMock.filter("about", timespan.getAbout())).thenReturn(queryMock);
 
-    TimespanImpl timespanMongo = new TimespanFieldInput().createNewTimespan(timespan);
+    TimespanImpl timespanMongo = new TimespanFieldInput().apply(timespan);
     mongoServerMock.getDatastore().save(timespanMongo);
     assertEquals(timespan.getAbout(), timespanMongo.getAbout());
     assertEquals(timespan.getBegin().getString(),
