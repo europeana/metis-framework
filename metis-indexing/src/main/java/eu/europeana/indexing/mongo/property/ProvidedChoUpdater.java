@@ -17,11 +17,11 @@ public class ProvidedChoUpdater implements PropertyMongoUpdater<ProvidedCHOImpl>
         .createQuery(ProvidedCHOImpl.class).field("about").equal(mongoEntity.getAbout());
     UpdateOperations<ProvidedCHOImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(ProvidedCHOImpl.class);
-    boolean update = false;
-    update = FieldUpdateUtils.updateArray(mongoEntity, newEntity, "owlSameAs", ops,
-        ProvidedCHOImpl::getOwlSameAs, ProvidedCHOImpl::setOwlSameAs) || update;
+    final UpdateTrigger updateTrigger = new UpdateTrigger();
+    FieldUpdateUtils.updateArray(updateTrigger, mongoEntity, newEntity, "owlSameAs", ops,
+        ProvidedCHOImpl::getOwlSameAs, ProvidedCHOImpl::setOwlSameAs);
 
-    if (update) {
+    if (updateTrigger.isUpdateTriggered()) {
       mongoServer.getDatastore().update(updateQuery, ops);
     }
     return mongoEntity;

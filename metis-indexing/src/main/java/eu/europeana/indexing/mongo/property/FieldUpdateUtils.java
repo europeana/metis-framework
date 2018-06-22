@@ -69,7 +69,7 @@ final class FieldUpdateUtils {
     return listEquals(Arrays.asList(arrA), Arrays.asList(arrB));
   }
 
-  static <T> boolean updateMap(T saved, T updated, String updateField,
+  static <T> void updateMap(UpdateTrigger updateTrigger, T saved, T updated, String updateField,
       UpdateOperations<? extends T> ops, Function<T, Map<String, List<String>>> getter,
       BiConsumer<T, Map<String, List<String>>> setter) {
 
@@ -80,19 +80,18 @@ final class FieldUpdateUtils {
       if (savedValues == null || !FieldUpdateUtils.mapEquals(updatedValues, savedValues)) {
         ops.set(updateField, updatedValues);
         setter.accept(saved, updatedValues);
-        return true;
+        updateTrigger.triggerUpdate();
       }
     } else {
       if (saved != null) {
         ops.unset(updateField);
         setter.accept(saved, null);
-        return true;
+        updateTrigger.triggerUpdate();
       }
     }
-    return false;
   }
 
-  static <T> boolean updateArray(T saved, T updated, String updateField,
+  static <T> void updateArray(UpdateTrigger updateTrigger, T saved, T updated, String updateField,
       UpdateOperations<? extends T> ops, Function<T, String[]> getter,
       BiConsumer<T, String[]> setter) {
     String[] savedValues = getter.apply(saved);
@@ -107,20 +106,20 @@ final class FieldUpdateUtils {
         }
         ops.set(updateField, updatedValues);
         setter.accept(saved, updatedValues);
-        return true;
+        updateTrigger.triggerUpdate();
       }
     } else {
       if (saved != null) {
         ops.unset(updateField);
         setter.accept(saved, null);
-        return true;
+        updateTrigger.triggerUpdate();
       }
     }
-    return false;
   }
 
-  static <T> boolean updateString(T saved, T updated, String updateField,
-      UpdateOperations<? extends T> ops, Function<T, String> getter, BiConsumer<T, String> setter) {
+  static <T> void updateString(UpdateTrigger updateTrigger, T saved, T updated,
+      String updateField, UpdateOperations<? extends T> ops, Function<T, String> getter,
+      BiConsumer<T, String> setter) {
     String savedValues = getter.apply(saved);
     String updatedValues = getter.apply(updated);
 
@@ -128,15 +127,14 @@ final class FieldUpdateUtils {
       if (savedValues == null || !StringUtils.equals(updatedValues, savedValues)) {
         ops.set(updateField, updatedValues.trim());
         setter.accept(saved, updatedValues.trim());
-        return true;
+        updateTrigger.triggerUpdate();
       }
     } else {
       if (saved != null) {
         ops.unset(updateField);
         setter.accept(saved, null);
-        return true;
+        updateTrigger.triggerUpdate();
       }
     }
-    return false;
   }
 }

@@ -35,42 +35,42 @@ public class WebResourceUpdater {
         .createQuery(WebResourceImpl.class).field("about").equal(wr.getAbout());
     UpdateOperations<WebResourceImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(WebResourceImpl.class);
-    boolean update = false;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dcDescription", ops,
-        WebResource::getDcDescription, WebResource::setDcDescription) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dcFormat", ops, WebResource::getDcFormat,
-        WebResource::setDcFormat) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dcCreator", ops, WebResource::getDcCreator,
-        WebResource::setDcCreator) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dcSource", ops, WebResource::getDcSource,
-        WebResource::setDcSource) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dctermsConformsTo", ops,
-        WebResource::getDctermsConformsTo, WebResource::setDctermsConformsTo) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dctermsCreated", ops,
-        WebResource::getDctermsCreated, WebResource::setDctermsCreated) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dctermsExtent", ops,
-        WebResource::getDctermsExtent, WebResource::setDctermsExtent) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dctermsHasPart", ops,
-        WebResource::getDctermsHasPart, WebResource::setDctermsHasPart) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dctermsIsFormatOf", ops,
-        WebResource::getDctermsIsFormatOf, WebResource::setDctermsIsFormatOf) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "dctermsIssued", ops,
-        WebResource::getDctermsIssued, WebResource::setDctermsIssued) || update;
-    update = FieldUpdateUtils.updateString(wrMongo, wr, "isNextInSequence", ops,
-        WebResource::getIsNextInSequence, WebResource::setIsNextInSequence) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "webResourceDcRights", ops,
-        WebResource::getWebResourceDcRights, WebResource::setWebResourceDcRights) || update;
-    update = FieldUpdateUtils.updateMap(wrMongo, wr, "webResourceEdmRights", ops,
-        WebResource::getWebResourceEdmRights, WebResource::setWebResourceEdmRights) || update;
-    update = FieldUpdateUtils.updateArray(wrMongo, wr, "owlSameAs", ops, WebResource::getOwlSameAs,
-        WebResource::setOwlSameAs) || update;
-    update = FieldUpdateUtils.updateString(wrMongo, wr, "edmPreview", ops,
-        WebResource::getEdmPreview, WebResource::setEdmPreview) || update;
-    update = FieldUpdateUtils.updateArray(wrMongo, wr, "svcsHasService", ops,
-        WebResource::getSvcsHasService, WebResource::setSvcsHasService) || update;
-    update = FieldUpdateUtils.updateArray(wrMongo, wr, "dctermsIsReferencedBy", ops,
-        WebResource::getDctermsIsReferencedBy, WebResource::setDctermsIsReferencedBy) || update;
-    if (update) {
+    final UpdateTrigger updateTrigger = new UpdateTrigger();
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dcDescription", ops,
+        WebResource::getDcDescription, WebResource::setDcDescription);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dcFormat", ops,
+        WebResource::getDcFormat, WebResource::setDcFormat);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dcCreator", ops,
+        WebResource::getDcCreator, WebResource::setDcCreator);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dcSource", ops,
+        WebResource::getDcSource, WebResource::setDcSource);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dctermsConformsTo", ops,
+        WebResource::getDctermsConformsTo, WebResource::setDctermsConformsTo);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dctermsCreated", ops,
+        WebResource::getDctermsCreated, WebResource::setDctermsCreated);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dctermsExtent", ops,
+        WebResource::getDctermsExtent, WebResource::setDctermsExtent);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dctermsHasPart", ops,
+        WebResource::getDctermsHasPart, WebResource::setDctermsHasPart);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dctermsIsFormatOf", ops,
+        WebResource::getDctermsIsFormatOf, WebResource::setDctermsIsFormatOf);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "dctermsIssued", ops,
+        WebResource::getDctermsIssued, WebResource::setDctermsIssued);
+    FieldUpdateUtils.updateString(updateTrigger, wrMongo, wr, "isNextInSequence", ops,
+        WebResource::getIsNextInSequence, WebResource::setIsNextInSequence);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "webResourceDcRights", ops,
+        WebResource::getWebResourceDcRights, WebResource::setWebResourceDcRights);
+    FieldUpdateUtils.updateMap(updateTrigger, wrMongo, wr, "webResourceEdmRights", ops,
+        WebResource::getWebResourceEdmRights, WebResource::setWebResourceEdmRights);
+    FieldUpdateUtils.updateArray(updateTrigger, wrMongo, wr, "owlSameAs", ops,
+        WebResource::getOwlSameAs, WebResource::setOwlSameAs);
+    FieldUpdateUtils.updateString(updateTrigger, wrMongo, wr, "edmPreview", ops,
+        WebResource::getEdmPreview, WebResource::setEdmPreview);
+    FieldUpdateUtils.updateArray(updateTrigger, wrMongo, wr, "svcsHasService", ops,
+        WebResource::getSvcsHasService, WebResource::setSvcsHasService);
+    FieldUpdateUtils.updateArray(updateTrigger, wrMongo, wr, "dctermsIsReferencedBy", ops,
+        WebResource::getDctermsIsReferencedBy, WebResource::setDctermsIsReferencedBy);
+    if (updateTrigger.isUpdateTriggered()) {
       mongoServer.getDatastore().update(updateQuery, ops);
     }
     return wrMongo;

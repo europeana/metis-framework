@@ -22,42 +22,41 @@ public class AggregationUpdater implements PropertyMongoUpdater<AggregationImpl>
     UpdateOperations<AggregationImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(AggregationImpl.class);
 
-    boolean update = false;
-
-    update = FieldUpdateUtils.updateString(mongoEntity, newEntity, "aggregatedCHO", ops,
-        AggregationImpl::getAggregatedCHO, AggregationImpl::setAggregatedCHO) || update;
-    update = FieldUpdateUtils.updateString(mongoEntity, newEntity, "edmIsShownAt", ops,
-        AggregationImpl::getEdmIsShownAt, AggregationImpl::setEdmIsShownAt) || update;
-    update = FieldUpdateUtils.updateString(mongoEntity, newEntity, "edmIsShownBy", ops,
-        AggregationImpl::getEdmIsShownBy, AggregationImpl::setEdmIsShownBy) || update;
-    update = FieldUpdateUtils.updateString(mongoEntity, newEntity, "edmObject", ops,
-        AggregationImpl::getEdmObject, AggregationImpl::setEdmObject) || update;
-    update = FieldUpdateUtils.updateString(mongoEntity, newEntity, "edmUgc", ops,
-        AggregationImpl::getEdmUgc, AggregationImpl::setEdmUgc) || update;
-    update = FieldUpdateUtils.updateMap(mongoEntity, newEntity, "edmDataProvider", ops,
-        AggregationImpl::getEdmDataProvider, AggregationImpl::setEdmDataProvider) || update;
-    update = FieldUpdateUtils.updateMap(mongoEntity, newEntity, "edmProvider", ops,
-        AggregationImpl::getEdmProvider, AggregationImpl::setEdmProvider) || update;
-    update = FieldUpdateUtils.updateMap(mongoEntity, newEntity, "dcRights", ops,
-        AggregationImpl::getDcRights, AggregationImpl::setDcRights) || update;
-    update = FieldUpdateUtils.updateMap(mongoEntity, newEntity, "edmRights", ops,
-        AggregationImpl::getEdmRights, AggregationImpl::setEdmRights) || update;
-    update = FieldUpdateUtils.updateArray(mongoEntity, newEntity, "hasView", ops,
-        AggregationImpl::getHasView, AggregationImpl::setHasView) || update;
-    update = FieldUpdateUtils.updateArray(mongoEntity, newEntity, "aggregates", ops,
-        AggregationImpl::getAggregates, AggregationImpl::setAggregates) || update;
+    final UpdateTrigger updateTrigger = new UpdateTrigger();
+    FieldUpdateUtils.updateString(updateTrigger, mongoEntity, newEntity, "aggregatedCHO", ops,
+        AggregationImpl::getAggregatedCHO, AggregationImpl::setAggregatedCHO);
+    FieldUpdateUtils.updateString(updateTrigger, mongoEntity, newEntity, "edmIsShownAt", ops,
+        AggregationImpl::getEdmIsShownAt, AggregationImpl::setEdmIsShownAt);
+    FieldUpdateUtils.updateString(updateTrigger, mongoEntity, newEntity, "edmIsShownBy", ops,
+        AggregationImpl::getEdmIsShownBy, AggregationImpl::setEdmIsShownBy);
+    FieldUpdateUtils.updateString(updateTrigger, mongoEntity, newEntity, "edmObject", ops,
+        AggregationImpl::getEdmObject, AggregationImpl::setEdmObject);
+    FieldUpdateUtils.updateString(updateTrigger, mongoEntity, newEntity, "edmUgc", ops,
+        AggregationImpl::getEdmUgc, AggregationImpl::setEdmUgc);
+    FieldUpdateUtils.updateMap(updateTrigger, mongoEntity, newEntity, "edmDataProvider", ops,
+        AggregationImpl::getEdmDataProvider, AggregationImpl::setEdmDataProvider);
+    FieldUpdateUtils.updateMap(updateTrigger, mongoEntity, newEntity, "edmProvider", ops,
+        AggregationImpl::getEdmProvider, AggregationImpl::setEdmProvider);
+    FieldUpdateUtils.updateMap(updateTrigger, mongoEntity, newEntity, "dcRights", ops,
+        AggregationImpl::getDcRights, AggregationImpl::setDcRights);
+    FieldUpdateUtils.updateMap(updateTrigger, mongoEntity, newEntity, "edmRights", ops,
+        AggregationImpl::getEdmRights, AggregationImpl::setEdmRights);
+    FieldUpdateUtils.updateArray(updateTrigger, mongoEntity, newEntity, "hasView", ops,
+        AggregationImpl::getHasView, AggregationImpl::setHasView);
+    FieldUpdateUtils.updateArray(updateTrigger, mongoEntity, newEntity, "aggregates", ops,
+        AggregationImpl::getAggregates, AggregationImpl::setAggregates);
     if (newEntity.getEdmPreviewNoDistribute() != null) {
       if (mongoEntity.getEdmPreviewNoDistribute() == null || !mongoEntity
           .getEdmPreviewNoDistribute().equals(newEntity.getEdmPreviewNoDistribute())) {
         ops.set("edmPreviewNoDistribute", newEntity.getEdmPreviewNoDistribute());
         mongoEntity.setEdmPreviewNoDistribute(newEntity.getEdmPreviewNoDistribute());
-        update = true;
+        updateTrigger.triggerUpdate();
       }
     } else {
       if (mongoEntity.getEdmPreviewNoDistribute() != null) {
         ops.unset("edmPreviewNoDistribute");
         mongoEntity.setEdmPreviewNoDistribute(null);
-        update = true;
+        updateTrigger.triggerUpdate();
       }
     }
 
@@ -67,7 +66,7 @@ public class AggregationUpdater implements PropertyMongoUpdater<AggregationImpl>
     }
     mongoEntity.setWebResources(webResources);
 
-    if (update) {
+    if (updateTrigger.isUpdateTriggered()) {
       mongoServer.getDatastore().update(updateQuery, ops);
     }
     return mongoEntity;

@@ -18,30 +18,30 @@ public class LicenseUpdater implements PropertyMongoUpdater<LicenseImpl> {
         .field("about").equal(mongoEntity.getAbout());
     UpdateOperations<LicenseImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(LicenseImpl.class);
-    boolean update = false;
+    final UpdateTrigger updateTrigger = new UpdateTrigger();
     if (mongoEntity.getCcDeprecatedOn() != newEntity.getCcDeprecatedOn()) {
       if (mongoEntity.getCcDeprecatedOn() == null) {
         newEntity.setCcDeprecatedOn(null);
         ops.unset("ccDeprecatedOn");
-        update = true;
+        updateTrigger.triggerUpdate();
       } else {
         newEntity.setCcDeprecatedOn(mongoEntity.getCcDeprecatedOn());
         ops.set("ccDeprecatedOn", mongoEntity.getCcDeprecatedOn());
-        update = true;
+        updateTrigger.triggerUpdate();
       }
     }
     if (!StringUtils.equals(mongoEntity.getOdrlInheritFrom(), newEntity.getOdrlInheritFrom())) {
       if (mongoEntity.getOdrlInheritFrom() == null) {
         newEntity.setOdrlInheritFrom(null);
         ops.unset("odrlInheritFrom");
-        update = true;
+        updateTrigger.triggerUpdate();
       } else {
         newEntity.setOdrlInheritFrom(mongoEntity.getOdrlInheritFrom());
         ops.set("odrlInheritFrom", mongoEntity.getOdrlInheritFrom());
-        update = true;
+        updateTrigger.triggerUpdate();
       }
     }
-    if (update) {
+    if (updateTrigger.isUpdateTriggered()) {
       mongoServer.getDatastore().update(updateQuery, ops);
     }
     return mongoEntity;

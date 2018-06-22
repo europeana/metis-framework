@@ -3,10 +3,12 @@ package eu.europeana.indexing.fullbean;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import eu.europeana.corelib.definitions.jibx.EdmType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
 import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.corelib.definitions.jibx.Type2;
 import eu.europeana.corelib.definitions.solr.DocType;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 
@@ -39,7 +41,9 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
       mongoProxy.setEdmIsNextInSequence(seqarray);
     }
 
-    mongoProxy.setEdmType(DocType.safeValueOf(proxy.getType().getType().xmlValue()));
+    final String docType = Optional.ofNullable(proxy.getType()).map(Type2::getType)
+        .map(EdmType::xmlValue).orElse(null);
+    mongoProxy.setEdmType(DocType.safeValueOf(docType));
 
     mongoProxy.setProxyFor(
         Optional.ofNullable(proxy.getProxyFor()).map(ResourceType::getResource).orElse(null));

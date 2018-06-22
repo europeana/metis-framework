@@ -17,37 +17,38 @@ public class ConceptUpdater implements PropertyMongoUpdater<ConceptImpl> {
         .field("about").equal(conceptMongo.getAbout());
     UpdateOperations<ConceptImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(ConceptImpl.class);
-    boolean update = false;
-    update = FieldUpdateUtils.updateMap(conceptMongo, concept, "altLabel", ops,
-        ConceptImpl::getAltLabel, ConceptImpl::setAltLabel) || update;
-    update = FieldUpdateUtils.updateMap(conceptMongo, concept, "prefLabel", ops,
-        ConceptImpl::getPrefLabel, ConceptImpl::setPrefLabel) || update;
-    update = FieldUpdateUtils.updateMap(conceptMongo, concept, "hiddenLabel", ops,
-        ConceptImpl::getHiddenLabel, ConceptImpl::setHiddenLabel) || update;
-    update = FieldUpdateUtils.updateMap(conceptMongo, concept, "notation", ops,
-        ConceptImpl::getNotation, ConceptImpl::setNotation) || update;
-    update = FieldUpdateUtils.updateMap(conceptMongo, concept, "note", ops, ConceptImpl::getNote,
-        ConceptImpl::setNote) || update;
-    update = FieldUpdateUtils.updateArray(conceptMongo, concept, "broader", ops,
-        ConceptImpl::getBroader, ConceptImpl::setBroader) || update;
-    update = FieldUpdateUtils.updateArray(conceptMongo, concept, "broadMatch", ops,
-        ConceptImpl::getBroadMatch, ConceptImpl::setBroadMatch) || update;
-    update = FieldUpdateUtils.updateArray(conceptMongo, concept, "closeMatch", ops,
-        ConceptImpl::getCloseMatch, ConceptImpl::setCloseMatch) || update;
-    update = FieldUpdateUtils.updateArray(conceptMongo, concept, "exactMatch", ops,
-        ConceptImpl::getExactMatch, ConceptImpl::setExactMatch) || update;
-    update = FieldUpdateUtils.updateArray(conceptMongo, concept, "inScheme", ops,
-        ConceptImpl::getInScheme, ConceptImpl::setInScheme) || update;
-    update = FieldUpdateUtils.updateArray(conceptMongo, concept, "narrower", ops,
-        ConceptImpl::getNarrower, ConceptImpl::setNarrower) || update;
-    update = FieldUpdateUtils.updateArray(conceptMongo, concept, "narrowMatch", ops,
-        ConceptImpl::getNarrowMatch, ConceptImpl::setNarrowMatch) || update;
-    update = FieldUpdateUtils.updateArray(conceptMongo, concept, "relatedMatch", ops,
-        ConceptImpl::getRelatedMatch, ConceptImpl::setRelatedMatch) || update;
-    update = FieldUpdateUtils.updateArray(conceptMongo, concept, "related", ops,
-        ConceptImpl::getRelated, ConceptImpl::setRelated) || update;
 
-    if (update) {
+    final UpdateTrigger updateTrigger = new UpdateTrigger();
+    FieldUpdateUtils.updateMap(updateTrigger, conceptMongo, concept, "altLabel", ops,
+        ConceptImpl::getAltLabel, ConceptImpl::setAltLabel);
+    FieldUpdateUtils.updateMap(updateTrigger, conceptMongo, concept, "prefLabel", ops,
+        ConceptImpl::getPrefLabel, ConceptImpl::setPrefLabel);
+    FieldUpdateUtils.updateMap(updateTrigger, conceptMongo, concept, "hiddenLabel", ops,
+        ConceptImpl::getHiddenLabel, ConceptImpl::setHiddenLabel);
+    FieldUpdateUtils.updateMap(updateTrigger, conceptMongo, concept, "notation", ops,
+        ConceptImpl::getNotation, ConceptImpl::setNotation);
+    FieldUpdateUtils.updateMap(updateTrigger, conceptMongo, concept, "note", ops,
+        ConceptImpl::getNote, ConceptImpl::setNote);
+    FieldUpdateUtils.updateArray(updateTrigger, conceptMongo, concept, "broader", ops,
+        ConceptImpl::getBroader, ConceptImpl::setBroader);
+    FieldUpdateUtils.updateArray(updateTrigger, conceptMongo, concept, "broadMatch", ops,
+        ConceptImpl::getBroadMatch, ConceptImpl::setBroadMatch);
+    FieldUpdateUtils.updateArray(updateTrigger, conceptMongo, concept, "closeMatch", ops,
+        ConceptImpl::getCloseMatch, ConceptImpl::setCloseMatch);
+    FieldUpdateUtils.updateArray(updateTrigger, conceptMongo, concept, "exactMatch", ops,
+        ConceptImpl::getExactMatch, ConceptImpl::setExactMatch);
+    FieldUpdateUtils.updateArray(updateTrigger, conceptMongo, concept, "inScheme", ops,
+        ConceptImpl::getInScheme, ConceptImpl::setInScheme);
+    FieldUpdateUtils.updateArray(updateTrigger, conceptMongo, concept, "narrower", ops,
+        ConceptImpl::getNarrower, ConceptImpl::setNarrower);
+    FieldUpdateUtils.updateArray(updateTrigger, conceptMongo, concept, "narrowMatch", ops,
+        ConceptImpl::getNarrowMatch, ConceptImpl::setNarrowMatch);
+    FieldUpdateUtils.updateArray(updateTrigger, conceptMongo, concept, "relatedMatch", ops,
+        ConceptImpl::getRelatedMatch, ConceptImpl::setRelatedMatch);
+    FieldUpdateUtils.updateArray(updateTrigger, conceptMongo, concept, "related", ops,
+        ConceptImpl::getRelated, ConceptImpl::setRelated);
+
+    if (updateTrigger.isUpdateTriggered()) {
       mongoServer.getDatastore().update(updateQuery, ops);
     }
     return conceptMongo;

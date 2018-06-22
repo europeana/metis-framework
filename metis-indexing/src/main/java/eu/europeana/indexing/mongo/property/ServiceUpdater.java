@@ -17,8 +17,8 @@ public class ServiceUpdater implements PropertyMongoUpdater<ServiceImpl> {
         .field("about").equal(mongoEntity.getAbout());
     UpdateOperations<ServiceImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(ServiceImpl.class);
-    boolean update = false;
 
+    final UpdateTrigger updateTrigger = new UpdateTrigger();
     if (!FieldUpdateUtils.arrayEquals(mongoEntity.getDctermsConformsTo(),
         newEntity.getDctermsConformsTo())) {
       if (mongoEntity.getDctermsConformsTo() == null) {
@@ -28,7 +28,7 @@ public class ServiceUpdater implements PropertyMongoUpdater<ServiceImpl> {
         newEntity.setDcTermsConformsTo(mongoEntity.getDctermsConformsTo());
         ops.set("dctermsConformsTo", mongoEntity.getDctermsConformsTo());
       }
-      update = true;
+      updateTrigger.triggerUpdate();
     }
     if (!FieldUpdateUtils.arrayEquals(mongoEntity.getDoapImplements(),
         newEntity.getDoapImplements())) {
@@ -39,9 +39,9 @@ public class ServiceUpdater implements PropertyMongoUpdater<ServiceImpl> {
         newEntity.setDoapImplements(mongoEntity.getDoapImplements());
         ops.set("doapImplements", mongoEntity.getDoapImplements());
       }
-      update = true;
+      updateTrigger.triggerUpdate();
     }
-    if (update) {
+    if (updateTrigger.isUpdateTriggered()) {
       mongoServer.getDatastore().update(updateQuery, ops);
     }
     return mongoEntity;

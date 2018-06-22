@@ -17,23 +17,23 @@ public class TimespanUpdater implements PropertyMongoUpdater<TimespanImpl> {
         .field("about").equal(mongoTimespan.getAbout());
     UpdateOperations<TimespanImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(TimespanImpl.class);
-    boolean update = false;
-    update = FieldUpdateUtils.updateMap(mongoTimespan, timeSpan, "begin", ops,
-        TimespanImpl::getBegin, TimespanImpl::setBegin) || update;
-    update = FieldUpdateUtils.updateMap(mongoTimespan, timeSpan, "end", ops, TimespanImpl::getEnd,
-        TimespanImpl::setEnd) || update;
-    update = FieldUpdateUtils.updateMap(mongoTimespan, timeSpan, "note", ops, TimespanImpl::getNote,
-        TimespanImpl::setNote) || update;
-    update = FieldUpdateUtils.updateMap(mongoTimespan, timeSpan, "altLabel", ops,
-        TimespanImpl::getAltLabel, TimespanImpl::setAltLabel) || update;
-    update = FieldUpdateUtils.updateMap(mongoTimespan, timeSpan, "prefLabel", ops,
-        TimespanImpl::getPrefLabel, TimespanImpl::setPrefLabel) || update;
-    update = FieldUpdateUtils.updateMap(mongoTimespan, timeSpan, "dctermsHasPart", ops,
-        TimespanImpl::getDctermsHasPart, TimespanImpl::setDctermsHasPart) || update;
-    update = FieldUpdateUtils.updateArray(mongoTimespan, timeSpan, "owlSameAs", ops,
-        TimespanImpl::getOwlSameAs, TimespanImpl::setOwlSameAs) || update;
+    final UpdateTrigger updateTrigger = new UpdateTrigger();
+    FieldUpdateUtils.updateMap(updateTrigger, mongoTimespan, timeSpan, "begin", ops,
+        TimespanImpl::getBegin, TimespanImpl::setBegin);
+    FieldUpdateUtils.updateMap(updateTrigger, mongoTimespan, timeSpan, "end", ops,
+        TimespanImpl::getEnd, TimespanImpl::setEnd);
+    FieldUpdateUtils.updateMap(updateTrigger, mongoTimespan, timeSpan, "note", ops,
+        TimespanImpl::getNote, TimespanImpl::setNote);
+    FieldUpdateUtils.updateMap(updateTrigger, mongoTimespan, timeSpan, "altLabel", ops,
+        TimespanImpl::getAltLabel, TimespanImpl::setAltLabel);
+    FieldUpdateUtils.updateMap(updateTrigger, mongoTimespan, timeSpan, "prefLabel", ops,
+        TimespanImpl::getPrefLabel, TimespanImpl::setPrefLabel);
+    FieldUpdateUtils.updateMap(updateTrigger, mongoTimespan, timeSpan, "dctermsHasPart", ops,
+        TimespanImpl::getDctermsHasPart, TimespanImpl::setDctermsHasPart);
+    FieldUpdateUtils.updateArray(updateTrigger, mongoTimespan, timeSpan, "owlSameAs", ops,
+        TimespanImpl::getOwlSameAs, TimespanImpl::setOwlSameAs);
 
-    if (update) {
+    if (updateTrigger.isUpdateTriggered()) {
       mongoServer.getDatastore().update(updateQuery, ops);
     }
     return mongoTimespan;
