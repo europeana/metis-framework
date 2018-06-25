@@ -1,6 +1,6 @@
 package eu.europeana.indexing.mongo.property;
 
-import org.apache.commons.lang.StringUtils;
+import java.util.Objects;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
@@ -19,27 +19,23 @@ public class LicenseUpdater implements PropertyMongoUpdater<LicenseImpl> {
     UpdateOperations<LicenseImpl> ops =
         mongoServer.getDatastore().createUpdateOperations(LicenseImpl.class);
     final UpdateTrigger updateTrigger = new UpdateTrigger();
-    if (mongoEntity.getCcDeprecatedOn() != newEntity.getCcDeprecatedOn()) {
-      if (mongoEntity.getCcDeprecatedOn() == null) {
-        newEntity.setCcDeprecatedOn(null);
+    if (!Objects.equals(mongoEntity.getCcDeprecatedOn(), newEntity.getCcDeprecatedOn())) {
+      newEntity.setCcDeprecatedOn(mongoEntity.getCcDeprecatedOn());
+      if (newEntity.getCcDeprecatedOn() == null) {
         ops.unset("ccDeprecatedOn");
-        updateTrigger.triggerUpdate();
       } else {
-        newEntity.setCcDeprecatedOn(mongoEntity.getCcDeprecatedOn());
         ops.set("ccDeprecatedOn", mongoEntity.getCcDeprecatedOn());
-        updateTrigger.triggerUpdate();
       }
+      updateTrigger.triggerUpdate();
     }
-    if (!StringUtils.equals(mongoEntity.getOdrlInheritFrom(), newEntity.getOdrlInheritFrom())) {
-      if (mongoEntity.getOdrlInheritFrom() == null) {
-        newEntity.setOdrlInheritFrom(null);
+    if (!Objects.equals(mongoEntity.getOdrlInheritFrom(), newEntity.getOdrlInheritFrom())) {
+      newEntity.setOdrlInheritFrom(mongoEntity.getOdrlInheritFrom());
+      if (newEntity.getOdrlInheritFrom() == null) {
         ops.unset("odrlInheritFrom");
-        updateTrigger.triggerUpdate();
       } else {
-        newEntity.setOdrlInheritFrom(mongoEntity.getOdrlInheritFrom());
         ops.set("odrlInheritFrom", mongoEntity.getOdrlInheritFrom());
-        updateTrigger.triggerUpdate();
       }
+      updateTrigger.triggerUpdate();
     }
     if (updateTrigger.isUpdateTriggered()) {
       mongoServer.getDatastore().update(updateQuery, ops);

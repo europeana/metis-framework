@@ -21,22 +21,20 @@ public class ServiceUpdater implements PropertyMongoUpdater<ServiceImpl> {
     final UpdateTrigger updateTrigger = new UpdateTrigger();
     if (!FieldUpdateUtils.arrayEquals(mongoEntity.getDctermsConformsTo(),
         newEntity.getDctermsConformsTo())) {
-      if (mongoEntity.getDctermsConformsTo() == null) {
-        newEntity.setDcTermsConformsTo(null);
+      newEntity.setDcTermsConformsTo(mongoEntity.getDctermsConformsTo());
+      if (newEntity.getDctermsConformsTo() == null) {
         ops.unset("dctermsConformsTo");
       } else {
-        newEntity.setDcTermsConformsTo(mongoEntity.getDctermsConformsTo());
         ops.set("dctermsConformsTo", mongoEntity.getDctermsConformsTo());
       }
       updateTrigger.triggerUpdate();
     }
     if (!FieldUpdateUtils.arrayEquals(mongoEntity.getDoapImplements(),
         newEntity.getDoapImplements())) {
-      if (mongoEntity.getDoapImplements() == null) {
-        newEntity.setDoapImplements(null);
+      newEntity.setDoapImplements(mongoEntity.getDoapImplements());
+      if (newEntity.getDoapImplements() == null) {
         ops.unset("doapImplements");
       } else {
-        newEntity.setDoapImplements(mongoEntity.getDoapImplements());
         ops.set("doapImplements", mongoEntity.getDoapImplements());
       }
       updateTrigger.triggerUpdate();
