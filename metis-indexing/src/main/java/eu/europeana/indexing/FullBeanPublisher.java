@@ -10,18 +10,6 @@ import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
-import eu.europeana.corelib.edm.utils.construct.AgentUpdater;
-import eu.europeana.corelib.edm.utils.construct.AggregationUpdater;
-import eu.europeana.corelib.edm.utils.construct.ConceptUpdater;
-import eu.europeana.corelib.edm.utils.construct.EuropeanaAggregationUpdater;
-import eu.europeana.corelib.edm.utils.construct.LicenseUpdater;
-import eu.europeana.corelib.edm.utils.construct.PlaceUpdater;
-import eu.europeana.corelib.edm.utils.construct.ProvidedChoUpdater;
-import eu.europeana.corelib.edm.utils.construct.ProxyUpdater;
-import eu.europeana.corelib.edm.utils.construct.ServiceUpdater;
-import eu.europeana.corelib.edm.utils.construct.TimespanUpdater;
-import eu.europeana.corelib.edm.utils.construct.Updater;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -34,7 +22,19 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.mongo.FullBeanDao;
+import eu.europeana.indexing.mongo.property.AgentUpdater;
+import eu.europeana.indexing.mongo.property.AggregationUpdater;
+import eu.europeana.indexing.mongo.property.ConceptUpdater;
+import eu.europeana.indexing.mongo.property.EuropeanaAggregationUpdater;
+import eu.europeana.indexing.mongo.property.LicenseUpdater;
+import eu.europeana.indexing.mongo.property.PlaceUpdater;
+import eu.europeana.indexing.mongo.property.PropertyMongoUpdater;
+import eu.europeana.indexing.mongo.property.ProvidedChoUpdater;
+import eu.europeana.indexing.mongo.property.ProxyUpdater;
+import eu.europeana.indexing.mongo.property.ServiceUpdater;
+import eu.europeana.indexing.mongo.property.TimespanUpdater;
 import eu.europeana.indexing.solr.SolrDocumentPopulator;
 
 /**
@@ -111,29 +111,25 @@ class FullBeanPublisher {
   }
 
   private void publishToMongo(FullBeanImpl fullBean) throws IndexingException {
-    try {
 
-      // Publish properties/dependencies.
-      saveOrUpdateProperties(fullBean);
+    // Publish properties/dependencies.
+    saveOrUpdateProperties(fullBean);
 
-      // Publish private properties as well as the bean itself.
-      final boolean alreadyPersisted = fullBeanDao.getPersistedAbout(fullBean) != null;
-      if (alreadyPersisted) {
-        fullBeanDao.updateFullBean(fullBean);
-      } else {
-        fullBeanDao.save(fullBean);
-      }
-    } catch (MongoUpdateException e) {
-      throw new IndexingException("Could not save/update EDM classes of FullBean to Mongo.", e);
+    // Publish private properties as well as the bean itself.
+    final boolean alreadyPersisted = fullBeanDao.getPersistedAbout(fullBean) != null;
+    if (alreadyPersisted) {
+      fullBeanDao.updateFullBean(fullBean);
+    } else {
+      fullBeanDao.save(fullBean);
     }
   }
 
   private <T extends AbstractEdmEntity> void saveOrUpdate(Supplier<List<T>> getter,
-      Consumer<List<T>> setter, Class<T> clazz, Updater<T> updater) throws MongoUpdateException {
+      Consumer<List<T>> setter, Class<T> clazz, PropertyMongoUpdater<T> updater) {
     setter.accept(fullBeanDao.update(getter.get(), clazz, updater));
   }
 
-  private void saveOrUpdateProperties(FullBeanImpl bean) throws MongoUpdateException {
+  private void saveOrUpdateProperties(FullBeanImpl bean) {
 
     // The shared properties
     saveOrUpdate(bean::getAgents, bean::setAgents, AgentImpl.class, new AgentUpdater());
@@ -162,7 +158,7 @@ class FullBeanPublisher {
   }
 
   private void saveWebResources(Supplier<List<? extends WebResource>> getter,
-      Consumer<List<? extends WebResource>> setter) throws MongoUpdateException {
+      Consumer<List<? extends WebResource>> setter) {
     setter.accept(fullBeanDao.updateWebResources(getter.get()));
   }
 }

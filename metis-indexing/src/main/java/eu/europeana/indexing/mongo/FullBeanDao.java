@@ -1,12 +1,17 @@
 package eu.europeana.indexing.mongo;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
+import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.solr.DocType;
-import eu.europeana.corelib.edm.exceptions.MongoUpdateException;
-import eu.europeana.corelib.edm.utils.construct.Updater;
-import eu.europeana.corelib.edm.utils.construct.WebResourceCreator;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
@@ -16,14 +21,8 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.exception.IndexingException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
-import org.mongodb.morphia.Key;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
+import eu.europeana.indexing.mongo.property.PropertyMongoUpdater;
+import eu.europeana.indexing.mongo.property.WebResourceUpdater;
 
 /**
  * DAO object for saving and updating Full Beans (instances of {@link FullBeanImpl}) and all its
@@ -111,10 +110,9 @@ public class FullBeanDao {
    * @param clazz The type of the object.
    * @param updater The helper class to update the object.
    * @return The persisted object.
-   * @throws MongoUpdateException In case an exception occurred in the supplied updater.
    */
-  public <T extends AbstractEdmEntity> T update(T data, Class<T> clazz, Updater<T> updater)
-      throws MongoUpdateException {
+  public <T extends AbstractEdmEntity> T update(T data, Class<T> clazz,
+      PropertyMongoUpdater<T> updater) {
     if (data == null) {
       return null;
     }
@@ -130,17 +128,16 @@ public class FullBeanDao {
   }
 
   /**
-   * Convenience method for {@link #update(AbstractEdmEntity, Class, Updater)} that accepts
+   * Convenience method for {@link #update(AbstractEdmEntity, Class, PropertyMongoUpdater)} that accepts
    * multiple objects.
    * 
    * @param dataToAdd The object to save.
    * @param clazz The type of the object.
    * @param updater The helper class to update the object.
    * @return The persisted objects.
-   * @throws MongoUpdateException In case an exception occurred in the supplied updater.
    */
   public <T extends AbstractEdmEntity> List<T> update(List<T> dataToAdd, Class<T> clazz,
-      Updater<T> updater) throws MongoUpdateException {
+      PropertyMongoUpdater<T> updater) {
     final List<T> result = new ArrayList<>();
     if (dataToAdd == null) {
       return result;
@@ -161,14 +158,12 @@ public class FullBeanDao {
    * 
    * @param dataToAdd The web resource to save.
    * @return The persisted web resource.
-   * @throws MongoUpdateException In case an exception occurred while saving.
    */
-  public List<WebResourceImpl> updateWebResources(List<? extends WebResource> dataToAdd)
-      throws MongoUpdateException {
+  public List<WebResourceImpl> updateWebResources(List<? extends WebResource> dataToAdd) {
     if (dataToAdd == null) {
       return Collections.emptyList();
     }
-    final WebResourceCreator webResourceCreator = new WebResourceCreator();
+    final WebResourceUpdater webResourceCreator = new WebResourceUpdater();
     for (WebResource data : dataToAdd) {
       webResourceCreator.saveWebResource(data, mongoServer);
     }
