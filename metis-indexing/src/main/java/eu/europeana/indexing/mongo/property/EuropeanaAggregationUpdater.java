@@ -1,56 +1,35 @@
 package eu.europeana.indexing.mongo.property;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-import eu.europeana.corelib.definitions.edm.entity.WebResource;
+import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
-import eu.europeana.corelib.storage.MongoServer;
 
 /**
- * Field updater for instances of {@link EuropeanaAggregationImpl}.
+ * Field updater for instances of {@link EuropeanaAggregation}.
  */
-public class EuropeanaAggregationUpdater implements PropertyMongoUpdater<EuropeanaAggregationImpl> {
+public class EuropeanaAggregationUpdater extends AbstractEdmEntityUpdater<EuropeanaAggregation> {
 
   @Override
-  public EuropeanaAggregationImpl update(EuropeanaAggregationImpl mongoEntity,
-      EuropeanaAggregationImpl newEntity, MongoServer mongoServer) {
-    Query<EuropeanaAggregationImpl> updateQuery = mongoServer.getDatastore()
-        .createQuery(EuropeanaAggregationImpl.class).field("about").equal(mongoEntity.getAbout());
-    UpdateOperations<EuropeanaAggregationImpl> ops =
-        mongoServer.getDatastore().createUpdateOperations(EuropeanaAggregationImpl.class);
-
-    final UpdateTrigger updateTrigger = new UpdateTrigger();
-    FieldUpdateUtils.updateString(updateTrigger, mongoEntity, newEntity, "aggregatedCHO", ops,
-        EuropeanaAggregationImpl::getAggregatedCHO, EuropeanaAggregationImpl::setAggregatedCHO);
-    newEntity.setEdmLandingPageFromAggregatedCHO();
-    FieldUpdateUtils.updateString(updateTrigger, mongoEntity, newEntity, "edmLandingPage", ops,
-        EuropeanaAggregationImpl::getEdmLandingPage, EuropeanaAggregationImpl::setEdmLandingPage);
-    FieldUpdateUtils.updateString(updateTrigger, mongoEntity, newEntity, "edmIsShownBy", ops,
-        EuropeanaAggregationImpl::getEdmIsShownBy, EuropeanaAggregationImpl::setEdmIsShownBy);
-    FieldUpdateUtils.updateMap(updateTrigger, mongoEntity, newEntity, "edmRights", ops,
-        EuropeanaAggregationImpl::getEdmRights, EuropeanaAggregationImpl::setEdmRights);
-    FieldUpdateUtils.updateMap(updateTrigger, mongoEntity, newEntity, "edmCountry", ops,
-        EuropeanaAggregationImpl::getEdmCountry, EuropeanaAggregationImpl::setEdmCountry);
-    FieldUpdateUtils.updateMap(updateTrigger, mongoEntity, newEntity, "edmLanguage", ops,
-        EuropeanaAggregationImpl::getEdmLanguage, EuropeanaAggregationImpl::setEdmLanguage);
-    FieldUpdateUtils.updateMap(updateTrigger, mongoEntity, newEntity, "dcCreator", ops,
-        EuropeanaAggregationImpl::getDcCreator, EuropeanaAggregationImpl::setDcCreator);
-    FieldUpdateUtils.updateString(updateTrigger, mongoEntity, newEntity, "edmPreview", ops,
-        EuropeanaAggregationImpl::getEdmPreview, EuropeanaAggregationImpl::setEdmPreview);
-    FieldUpdateUtils.updateArray(updateTrigger, mongoEntity, newEntity, "aggregates", ops,
-        EuropeanaAggregationImpl::getAggregates, EuropeanaAggregationImpl::setAggregates);
-
-    List<WebResource> webResources = new ArrayList<>();
-    for (WebResource wr : mongoEntity.getWebResources()) {
-      webResources.add(new WebResourceUpdater().saveWebResource(wr, mongoServer));
-    }
-    mongoEntity.setWebResources(webResources);
-    if (updateTrigger.isUpdateTriggered()) {
-      mongoServer.getDatastore().update(updateQuery, ops);
-    }
-    return mongoEntity;
+  protected Class<EuropeanaAggregation> getObjectClass() {
+    return EuropeanaAggregation.class;
   }
 
+  @Override
+  protected void preprocessEntity(EuropeanaAggregation newEntity) {
+    ((EuropeanaAggregationImpl) newEntity).setEdmLandingPageFromAggregatedCHO();
+    super.preprocessEntity(newEntity);
+  }
+
+  @Override
+  protected void update(MongoPropertyUpdater<EuropeanaAggregation> propertyUpdater) {
+    propertyUpdater.updateString("aggregatedCHO", EuropeanaAggregation::getAggregatedCHO);
+    propertyUpdater.updateString("edmLandingPage", EuropeanaAggregation::getEdmLandingPage);
+    propertyUpdater.updateString("edmIsShownBy", EuropeanaAggregation::getEdmIsShownBy);
+    propertyUpdater.updateMap("edmRights", EuropeanaAggregation::getEdmRights);
+    propertyUpdater.updateMap("edmCountry", EuropeanaAggregation::getEdmCountry);
+    propertyUpdater.updateMap("edmLanguage", EuropeanaAggregation::getEdmLanguage);
+    propertyUpdater.updateMap("dcCreator", EuropeanaAggregation::getDcCreator);
+    propertyUpdater.updateString("edmPreview", EuropeanaAggregation::getEdmPreview);
+    propertyUpdater.updateArray("aggregates", EuropeanaAggregation::getAggregates);
+    propertyUpdater.updateWebResources("webResources", EuropeanaAggregation::getWebResources);
+  }
 }

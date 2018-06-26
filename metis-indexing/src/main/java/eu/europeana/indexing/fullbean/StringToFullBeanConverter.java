@@ -52,6 +52,17 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
    * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
   public FullBeanImpl convertStringToFullBean(String record) throws IndexingException {
+    return convertRdfToFullBean(convertStringToRdf(record));
+  }
+
+  /**
+   * Converts a string (XML of RDF) to an RDF object.
+   * 
+   * @param record The record as an XML string.
+   * @return The RDF instance.
+   * @throws IndexingException In case there was a problem with the parsing or conversion.
+   */
+  public RDF convertStringToRdf(String record) throws IndexingException {
 
     // Convert string to RDF
     final RDF rdf;
@@ -69,8 +80,8 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
       throw new IndexingException("Could not convert record to RDF: null was returned.");
     }
 
-    // Convert RDF to FullBean
-    return convertRdfToFullBean(rdf);
+    // Done.
+    return rdf;
   }
 
   private static synchronized IBindingFactory getRdfBindingFactory() throws IndexingException {

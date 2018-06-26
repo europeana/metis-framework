@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.indexing.mongo.FullBeanDao;
 
 /**
  * <p>
@@ -29,7 +28,7 @@ abstract class AbstractConnectionProvider implements Closeable {
    * @return A publisher.
    */
   final FullBeanPublisher getFullBeanPublisher() {
-    return new FullBeanPublisher(new FullBeanDao(getMongoClient()), getSolrClient());
+    return new FullBeanPublisher(getMongoClient(), getSolrClient());
   }
 
   /**
@@ -44,7 +43,7 @@ abstract class AbstractConnectionProvider implements Closeable {
    * @throws IOException If there is a low-level I/O error.
    * @throws SolrServerException If there is an error on the server.
    */
-  public void triggerFlushOfPendingChanges(boolean blockUntilComplete)
+  public final void triggerFlushOfPendingChanges(boolean blockUntilComplete)
       throws SolrServerException, IOException {
     getSolrClient().commit(blockUntilComplete, blockUntilComplete);
   }
