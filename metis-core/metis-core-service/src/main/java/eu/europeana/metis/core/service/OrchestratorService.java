@@ -359,20 +359,22 @@ public class OrchestratorService {
       PluginType enforcedPluginType) throws PluginExecutionNotAllowed {
     List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
 
-    boolean firstPluginDefined = addHarvestingPlugin(workflow, metisPlugins);
+    boolean firstPluginDefined = addHarvestingPlugin(dataset, workflow, metisPlugins);
     addNonHarvestPlugins(dataset, workflow, enforcedPluginType, metisPlugins, firstPluginDefined);
     return metisPlugins;
   }
 
-  private boolean addHarvestingPlugin(Workflow workflow, List<AbstractMetisPlugin> metisPlugins) {
-    AbstractMetisPluginMetadata oaipmhMetadata =
-        workflow.getPluginMetadata(PluginType.OAIPMH_HARVEST);
-    AbstractMetisPluginMetadata httpMetadata = workflow.getPluginMetadata(PluginType.HTTP_HARVEST);
+  private boolean addHarvestingPlugin(Dataset dataset, Workflow workflow, List<AbstractMetisPlugin> metisPlugins) {
+    OaipmhHarvestPluginMetadata oaipmhMetadata =
+        (OaipmhHarvestPluginMetadata) workflow.getPluginMetadata(PluginType.OAIPMH_HARVEST);
+    HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) workflow.getPluginMetadata(PluginType.HTTP_HARVEST);
     final AbstractMetisPlugin plugin;
     if (oaipmhMetadata != null && oaipmhMetadata.isEnabled()) {
       plugin = PluginType.OAIPMH_HARVEST.getNewPlugin(oaipmhMetadata);
+      oaipmhMetadata.setDatasetId(dataset.getDatasetId());
     } else if (httpMetadata != null && httpMetadata.isEnabled()) {
       plugin = PluginType.HTTP_HARVEST.getNewPlugin(httpMetadata);
+      httpMetadata.setDatasetId(dataset.getDatasetId());
     } else {
       plugin = null;
     }

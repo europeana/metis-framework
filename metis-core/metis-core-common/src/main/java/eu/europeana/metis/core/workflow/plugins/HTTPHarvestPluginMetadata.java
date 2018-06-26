@@ -9,6 +9,9 @@ public class HTTPHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   private String url;
   private String user;
   private String password;
+  private String datasetId;
+  //If false, it indicates that the ProvidedCHO rdf:about should be used to set the identifier for ECloud
+  private boolean useDefaultIdentifiers = false;
 
   public HTTPHarvestPluginMetadata() {
     //Required for json serialization
@@ -36,6 +39,22 @@ public class HTTPHarvestPluginMetadata extends AbstractMetisPluginMetadata {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getDatasetId() {
+    return datasetId;
+  }
+
+  public void setDatasetId(String datasetId) {
+    this.datasetId = datasetId;
+  }
+
+  public boolean isUseDefaultIdentifiers() {
+    return useDefaultIdentifiers;
+  }
+
+  public void setUseDefaultIdentifiers(boolean useDefaultIdentifiers) {
+    this.useDefaultIdentifiers = useDefaultIdentifiers;
   }
 
   @Override

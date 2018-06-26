@@ -241,9 +241,8 @@ public abstract class AbstractMetisPlugin {
     return dpsTask;
   }
 
-  DpsTask createDpsTaskForHarvestPlugin(String targetUrl, String ecloudBaseUrl,
-      String ecloudProvider,
-      String ecloudDataset) {
+  DpsTask createDpsTaskForHarvestPlugin(Map<String, String> extraParameters, String targetUrl,
+      String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
@@ -251,6 +250,9 @@ public abstract class AbstractMetisPlugin {
     dpsTask.setInputData(dataEntries);
 
     Map<String, String> parameters = new HashMap<>();
+    if (extraParameters != null) {
+      parameters.putAll(extraParameters);
+    }
     parameters.put("PROVIDER_ID", ecloudProvider);
     parameters.put("OUTPUT_DATA_SETS",
         String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, ecloudBaseUrl,

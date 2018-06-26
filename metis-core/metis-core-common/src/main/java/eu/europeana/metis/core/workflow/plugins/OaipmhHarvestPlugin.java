@@ -1,11 +1,13 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import org.apache.commons.lang3.StringUtils;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.OAIPMHHarvestingDetails;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -45,9 +47,21 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
 
   @Override
   DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    
+
     String targetUrl = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getUrl();
-    DpsTask dpsTask = createDpsTaskForHarvestPlugin(targetUrl, ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    String datasetId = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getDatasetId();
+    boolean useDefaultIdentifiers = ((OaipmhHarvestPluginMetadata) getPluginMetadata())
+        .isUseDefaultIdentifiers();
+    String identifierPrefixRemoval = ((OaipmhHarvestPluginMetadata) getPluginMetadata())
+        .getIdentifierPrefixRemoval();
+    Map<String, String> parameters = new HashMap<>();
+    parameters.put("METIS_DATASET_ID", datasetId);
+    parameters.put("USE_DEFAULT_IDENTIFIERS", String.valueOf(useDefaultIdentifiers));
+    if (useDefaultIdentifiers && !StringUtils.isBlank(identifierPrefixRemoval)) {
+      parameters.put("MIGRATION_IDENTIFIER_PREFIX", identifierPrefixRemoval);
+    }
+    DpsTask dpsTask = createDpsTaskForHarvestPlugin(parameters, targetUrl, ecloudBaseUrl, ecloudProvider,
+        ecloudDataset);
 
     String setSpec = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getSetSpec();
     String metadataFormat = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getMetadataFormat();
@@ -64,7 +78,7 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
     oaipmhHarvestingDetails.setDateFrom(fromDate);
     oaipmhHarvestingDetails.setDateUntil(untilDate);
     dpsTask.setHarvestingDetails(oaipmhHarvestingDetails);
-    
+
     return dpsTask;
   }
 }

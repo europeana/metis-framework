@@ -17,6 +17,11 @@ public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   private Date fromDate;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date untilDate;
+  private String datasetId;
+  //If false, it indicates that the ProvidedCHO rdf:about should be used to set the identifier for ECloud
+  private boolean useDefaultIdentifiers = false;
+  //If useDefaultIdentifiers == true then this is the prefix to be trimmed from the OAI Header Identifier
+  private String identifierPrefixRemoval;
 
   public OaipmhHarvestPluginMetadata() {
     //Required for json serialization
@@ -52,6 +57,30 @@ public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
 
   public void setFromDate(Date fromDate) {
     this.fromDate = fromDate == null?null:new Date(fromDate.getTime());
+  }
+
+  public String getDatasetId() {
+    return datasetId;
+  }
+
+  public void setDatasetId(String datasetId) {
+    this.datasetId = datasetId;
+  }
+
+  public boolean isUseDefaultIdentifiers() {
+    return useDefaultIdentifiers;
+  }
+
+  public void setUseDefaultIdentifiers(boolean useDefaultIdentifiers) {
+    this.useDefaultIdentifiers = useDefaultIdentifiers;
+  }
+
+  public String getIdentifierPrefixRemoval() {
+    return identifierPrefixRemoval;
+  }
+
+  public void setIdentifierPrefixRemoval(String identifierPrefixRemoval) {
+    this.identifierPrefixRemoval = identifierPrefixRemoval;
   }
 
   public Date getUntilDate() {

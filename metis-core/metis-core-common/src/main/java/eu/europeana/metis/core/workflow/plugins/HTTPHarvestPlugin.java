@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -38,6 +40,12 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
   @Override
   DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
     String targetUrl = ((HTTPHarvestPluginMetadata) getPluginMetadata()).getUrl();
-    return createDpsTaskForHarvestPlugin(targetUrl, ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    String datasetId = ((HTTPHarvestPluginMetadata) getPluginMetadata()).getDatasetId();
+    boolean useDefaultIdentifiers = ((HTTPHarvestPluginMetadata) getPluginMetadata())
+        .isUseDefaultIdentifiers();
+    Map<String, String> parameters = new HashMap<>();
+    parameters.put("METIS_DATASET_ID", datasetId);
+    parameters.put("USE_DEFAULT_IDENTIFIERS", String.valueOf(useDefaultIdentifiers));
+    return createDpsTaskForHarvestPlugin(parameters, targetUrl, ecloudBaseUrl, ecloudProvider, ecloudDataset);
   }
 }
