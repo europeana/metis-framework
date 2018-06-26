@@ -60,7 +60,12 @@ final class MongoPropertyUpdater<T> {
     this.mongoServer = mongoServer;
     this.aboutGetter = aboutGetter;
     this.objectClass = objectClass;
+    
+    // Initialize the mongo operations: set the about field on insert if needed.
     this.mongoOperations = mongoServer.getDatastore().createUpdateOperations(objectClass);
+    this.mongoOperations.setOnInsert(ABOUT_FIELD, aboutGetter.apply(updated));
+    
+    // Obtain the current state from the database.
     this.current = createQuery().get();
   }
 
