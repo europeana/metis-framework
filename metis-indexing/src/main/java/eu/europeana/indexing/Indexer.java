@@ -57,4 +57,12 @@ public interface Indexer extends Closeable {
    * @throws IndexingException In case something went wrong.
    */
   public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException;
+
+  /**
+   * Removes all records that belong to a given dataset.
+   * 
+   * @param datasetId The ID of the dataset to clear. Is not null.
+   * @throws IndexingException In case something went wrong.
+   */
+  public void removeAll(String datasetId) throws IndexingException;
 }
