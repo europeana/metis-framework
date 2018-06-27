@@ -16,6 +16,9 @@ import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.mongodb.DuplicateKeyException;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -29,6 +32,8 @@ import eu.europeana.corelib.storage.MongoServer;
  * @param <T> The type of the object to update.
  */
 final class MongoPropertyUpdater<T> {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(MongoPropertyUpdater.class);
 
   private static final String ABOUT_FIELD = "about";
 
@@ -348,14 +353,35 @@ final class MongoPropertyUpdater<T> {
   }
 
   /**
+   * <p>
    * This method applies the operations to the database. After calling this method, the instance
    * should no longer be used.
+   * </p>
+   * <p>
+   * Note that this method attempts the upsert operation twice. This is due to the problem that if
+   * separate threads attempt the same upsert simultaneously one of them may fail. For a description
+   * of this behavior see the following links:
+   * <ul>
+   * <li><a href=
+   * "https://docs.mongodb.com/manual/reference/method/db.collection.update/#use-unique-indexes">The
+   * Mongo documentation</a>, which documents this behavior but is not very clear on the
+   * subject.</li>
+   * <li><a href="https://jira.mongodb.org/browse/SERVER-14322">This suggested Mongo
+   * improvement</a>, which explains this problem a bit better and provides hope that some time in
+   * the future this workaround will no longer be necessary.</li>
+   * </ul>
+   * </p>
    * 
    * @return The updated version of the mongo entity (this is the current entity supplied during
    *         construction, but with the required changes made).
    */
   public T applyOperations() {
-    mongoServer.getDatastore().update(createQuery(), mongoOperations, true);
+    try {
+      mongoServer.getDatastore().update(createQuery(), mongoOperations, true);
+    } catch (DuplicateKeyException e) {
+      LOGGER.debug("Received duplicate key exception, trying again once more.", e);
+      mongoServer.getDatastore().update(createQuery(), mongoOperations, true);
+    }
     return createQuery().get();
   }
 }
