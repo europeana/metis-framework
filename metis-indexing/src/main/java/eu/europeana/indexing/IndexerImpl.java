@@ -100,9 +100,9 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void removeAll(String datasetId) throws IndexingException {
+  public int removeAll(String datasetId) throws IndexingException {
     try {
-      this.connectionProvider.getDatasetRemover().removeDataset(datasetId);
+      return this.connectionProvider.getDatasetRemover().removeDataset(datasetId);
     } catch (IndexingException e) {
       LOGGER.warn("Error while removing a dataset.", e);
       throw e;

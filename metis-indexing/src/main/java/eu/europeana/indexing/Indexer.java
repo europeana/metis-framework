@@ -59,10 +59,21 @@ public interface Indexer extends Closeable {
   public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException;
 
   /**
-   * Removes all records that belong to a given dataset.
+   * Removes all records that belong to a given dataset. This method also removes the associated
+   * objects (i.e. those objects that are always part of only one record and the removal of which
+   * can not invalidate references from other records):
+   * <ul>
+   * <li>Aggregation</li>
+   * <li>EuropeanaAggregation</li>
+   * <li>ProvidedCHO</li>
+   * <li>Proxy</li>
+   * </ul>
+   * This does not remove any records that are potentially shared (like web resources, places,
+   * concepts etc.).
    * 
    * @param datasetId The ID of the dataset to clear. Is not null.
+   * @return The number of records that were removed.
    * @throws IndexingException In case something went wrong.
    */
-  public void removeAll(String datasetId) throws IndexingException;
+  public int removeAll(String datasetId) throws IndexingException;
 }
