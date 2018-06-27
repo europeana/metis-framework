@@ -19,6 +19,7 @@ import org.mongodb.morphia.query.UpdateOperations;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
 /**
@@ -35,7 +36,7 @@ final class MongoPropertyUpdater<T> {
       .of(array).filter(StringUtils::isNotBlank).map(String::trim).toArray(String[]::new);
 
   private static final Comparator<AbstractEdmEntity> ENTITY_COMPARATOR =
-      (w1, w2) -> w1.getId().compareTo(w2.getId());
+      (w1, w2) -> w1.getAbout().compareTo(w2.getAbout());
 
   private final T current;
   private final T updated;
@@ -60,11 +61,11 @@ final class MongoPropertyUpdater<T> {
     this.mongoServer = mongoServer;
     this.aboutGetter = aboutGetter;
     this.objectClass = objectClass;
-    
+
     // Initialize the mongo operations: set the about field on insert if needed.
     this.mongoOperations = mongoServer.getDatastore().createUpdateOperations(objectClass);
     this.mongoOperations.setOnInsert(ABOUT_FIELD, aboutGetter.apply(updated));
-    
+
     // Obtain the current state from the database.
     this.current = createQuery().get();
   }
@@ -246,8 +247,15 @@ final class MongoPropertyUpdater<T> {
   public void updateWebResources(String updateField,
       Function<T, List<? extends WebResource>> getter) {
     final WebResourceUpdater webResourceUpdater = new WebResourceUpdater();
-    final Function<T, List<WebResource>> castGetter = getter.andThen(Collections::unmodifiableList);
+    final Function<T, List<WebResourceImpl>> castGetter =
+        getter.andThen(MongoPropertyUpdater::castWebResourceList);
     updateReferencedEntities(updateField, castGetter, webResourceUpdater);
+  }
+
+  private static List<WebResourceImpl> castWebResourceList(List<? extends WebResource> input) {
+    return input == null ? null
+        : input.stream().map(webResource -> ((WebResourceImpl) webResource))
+            .collect(Collectors.toList());
   }
 
   /**
@@ -269,8 +277,14 @@ final class MongoPropertyUpdater<T> {
   public <P extends AbstractEdmEntity> void updateReferencedEntity(String updateField,
       Function<T, P> getter, AbstractEdmEntityUpdater<P> objectUpdater) {
     final UnaryOperator<P> preprocessing = entity -> objectUpdater.update(entity, mongoServer);
-    final BiPredicate<P, P> equality = (w1, w2) -> ENTITY_COMPARATOR.compare(w1, w2) == 0;
-    updateProperty(updateField, getter, equality, preprocessing);
+    updateProperty(updateField, getter, MongoPropertyUpdater::equals, preprocessing);
+  }
+
+  private static boolean equals(AbstractEdmEntity entity1, AbstractEdmEntity entity2) {
+    if (entity1 == null || entity2 == null) {
+      return entity1 == null && entity2 == null;
+    }
+    return entity1.getAbout().equals(entity2.getAbout());
   }
 
   /**

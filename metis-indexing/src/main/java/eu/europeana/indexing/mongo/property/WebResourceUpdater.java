@@ -1,19 +1,20 @@
 package eu.europeana.indexing.mongo.property;
 
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
 
 /**
- * Field updater for instances of {@link WebResource}.
+ * Field updater for instances of {@link WebResourceImpl}.
  */
-public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResource> {
+public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl> {
 
   @Override
-  protected Class<WebResource> getObjectClass() {
-    return WebResource.class;
+  protected Class<WebResourceImpl> getObjectClass() {
+    return WebResourceImpl.class;
   }
 
   @Override
-  protected void update(MongoPropertyUpdater<WebResource> propertyUpdater) {
+  protected void update(MongoPropertyUpdater<WebResourceImpl> propertyUpdater) {
     propertyUpdater.updateMap("dcDescription", WebResource::getDcDescription);
     propertyUpdater.updateMap("dcFormat", WebResource::getDcFormat);
     propertyUpdater.updateMap("dcCreator", WebResource::getDcCreator);

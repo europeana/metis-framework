@@ -3,6 +3,7 @@ package eu.europeana.indexing.mongo.property;
 import java.util.ArrayList;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
@@ -51,12 +52,17 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl> {
     propertyUpdater.updateReferencedEntities("aggregations", FullBeanImpl::getAggregations,
         new AggregationUpdater());
     propertyUpdater.updateReferencedEntity("europeanaAggregation",
-        FullBeanImpl::getEuropeanaAggregation, new EuropeanaAggregationUpdater());
+        FullBeanUpdater::getEuropeanaAggregationFromFullBean, new EuropeanaAggregationUpdater());
     propertyUpdater.updateReferencedEntities("proxies", FullBeanImpl::getProxies,
         new ProxyUpdater());
     propertyUpdater.updateReferencedEntities("services", FullBeanImpl::getServices,
         new ServiceUpdater());
     propertyUpdater.updateReferencedEntities("licenses", FullBeanImpl::getLicenses,
         new LicenseUpdater());
+  }
+
+  private static EuropeanaAggregationImpl getEuropeanaAggregationFromFullBean(
+      FullBeanImpl fullBean) {
+    return (EuropeanaAggregationImpl) fullBean.getEuropeanaAggregation();
   }
 }
