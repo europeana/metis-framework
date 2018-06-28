@@ -1,22 +1,16 @@
 package eu.europeana.indexing;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
-import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 
 /**
  * Implementation of {@link Indexer}.
@@ -26,15 +20,11 @@ import eu.europeana.indexing.exception.IndexingException;
  */
 class IndexerImpl implements Indexer {
 
-  private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexerImpl.class);
-
-  private static IBindingFactory globalRdfBindingFactory;
 
   private final AbstractConnectionProvider connectionProvider;
 
-  private final IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier;
+  private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
 
   /**
    * Constructor.
@@ -42,21 +32,21 @@ class IndexerImpl implements Indexer {
    * @param connectionProvider The connection provider for this indexer.
    */
   IndexerImpl(AbstractConnectionProvider connectionProvider) {
-    this(connectionProvider, IndexerImpl::getRdfBindingFactory);
+    this(connectionProvider, StringToFullBeanConverter::new);
   }
 
   /**
    * Constructor for testing purposes.
    * 
    * @param connectionProvider The connection provider for this indexer.
-   * @param rdfBindingFactorySupplier Supplies an instance of {@link IBindingFactory} (RDF Binding
-   *        Factory) used to parse strings to instances of {@link RDF}. Will be called once during
-   *        every index.
+   * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter}
+   *        used to parse strings to instances of {@link RDF}. Will be called once during every
+   *        index.
    */
   IndexerImpl(AbstractConnectionProvider connectionProvider,
-      IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier) {
+      IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier) {
     this.connectionProvider = connectionProvider;
-    this.rdfBindingFactorySupplier = rdfBindingFactorySupplier;
+    this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
   }
 
   @Override
@@ -82,10 +72,10 @@ class IndexerImpl implements Indexer {
   @Override
   public void index(List<String> records) throws IndexingException {
     LOGGER.info("Parsing {} records...", records.size());
-    final IBindingFactory rdfBindingFactory = rdfBindingFactorySupplier.get();
+    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
     final List<RDF> rdfs = new ArrayList<>(records.size());
     for (String record : records) {
-      rdfs.add(convertStringToRdf(record, rdfBindingFactory));
+      rdfs.add(stringToRdfConverter.convertStringToRdf(record));
     }
     indexRdfs(rdfs);
   }
@@ -98,39 +88,6 @@ class IndexerImpl implements Indexer {
   @Override
   public void close() throws IOException {
     this.connectionProvider.close();
-  }
-
-  private RDF convertStringToRdf(String record, IBindingFactory rdfBindingFactory)
-      throws IndexingException {
-
-    // Convert string to RDF
-    final RDF rdf;
-    try {
-      IUnmarshallingContext context = rdfBindingFactory.createUnmarshallingContext();
-      rdf = (RDF) context.unmarshalDocument(IOUtils.toInputStream(record, DEFAULT_CHARSET),
-          DEFAULT_CHARSET.name());
-    } catch (JiBXException e) {
-      throw new IndexingException("Could not convert record to RDF.", e);
-    }
-
-    // Sanity check - shouldn't happen
-    if (rdf == null) {
-      throw new IndexingException("Could not convert record to RDF: null was returned.");
-    }
-
-    // Done
-    return rdf;
-  }
-
-  private static synchronized IBindingFactory getRdfBindingFactory() throws IndexingException {
-    if (globalRdfBindingFactory == null) {
-      try {
-        globalRdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-      } catch (JiBXException e) {
-        throw new IndexingException("Error creating the JibX factory.", e);
-      }
-    }
-    return globalRdfBindingFactory;
   }
 
   @Override

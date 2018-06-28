@@ -37,10 +37,10 @@ public class FieldUpdateUtilsTest {
 		mapD.put("1",listA);
 		mapE.put("1", listA);
 		mapE.put("3", listB);
-		Assert.assertTrue(FieldUpdateUtils.mapEquals(mapA, mapB));
-		Assert.assertFalse(FieldUpdateUtils.mapEquals(mapA, mapC));
-		Assert.assertFalse(FieldUpdateUtils.mapEquals(mapA, mapD));
-		Assert.assertFalse(FieldUpdateUtils.mapEquals(mapA, mapE));
+		Assert.assertTrue(MongoPropertyUpdater.mapEquals(mapA, mapB));
+		Assert.assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapC));
+		Assert.assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapD));
+		Assert.assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapE));
 	}
 
 	@Test
@@ -49,8 +49,8 @@ public class FieldUpdateUtilsTest {
 		String[] arrB = new String[]{"1","3","2"};
 		String[] arrC = new String[]{"1","2"};
 		String[] arrD = new String[]{"1","2","4"};
-		Assert.assertTrue(FieldUpdateUtils.arrayEquals(arrA, arrB));
-		Assert.assertFalse(FieldUpdateUtils.arrayEquals(arrA, arrC));
-		Assert.assertFalse(FieldUpdateUtils.arrayEquals(arrA, arrD));
+		Assert.assertTrue(MongoPropertyUpdater.arrayEquals(arrA, arrB));
+		Assert.assertFalse(MongoPropertyUpdater.arrayEquals(arrA, arrC));
+		Assert.assertFalse(MongoPropertyUpdater.arrayEquals(arrA, arrD));
 	}
 }
