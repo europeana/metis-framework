@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:iso="http://purl.oclc.org/dsdl/schematron"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xhtml="http://www.w3.org/1999/xhtml"
-                xmlns:schold="http://www.ascc.net/xml/schematron"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:edm="http://www.europeana.eu/schemas/edm/"
-                xmlns:foaf="http://xmlns.com/foaf/0.1/"
-                xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
-                xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
-                xmlns:ore="http://www.openarchives.org/ore/terms/"
-                xmlns:dcterms="http://purl.org/dc/terms/"
-                xmlns:adms="http://www.w3.org/ns/adms#"
-                xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-                xmlns:dcat="http://www.w3.org/ns/dcat#"
-                xmlns:owl="http://www.w3.org/2002/07/owl#"
-                xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#"
-                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#"
-                xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-                xmlns:cc="http://creativecommons.org/ns#"
-                xmlns:odrl="http://www.w3.org/ns/odrl/2/"
-                xmlns:dct="http://purl.org/dc/terms/"
-                version="1.0"><!--Implementers: please note that overriding process-prolog or process-root is
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:schold="http://www.ascc.net/xml/schematron"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#"
+  xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
+  xmlns:ore="http://www.openarchives.org/ore/terms/"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:adms="http://www.w3.org/ns/adms#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:dcat="http://www.w3.org/ns/dcat#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:cc="http://creativecommons.org/ns#"
+  xmlns:odrl="http://www.w3.org/ns/odrl/2/"
+  xmlns:dct="http://purl.org/dc/terms/"
+  version="1.0"><!--Implementers: please note that overriding process-prolog or process-root is
     the preferred method for meta-stylesheets to use where possible. -->
     <xsl:param name="archiveDirParameter"/>
     <xsl:param name="archiveNameParameter"/>
@@ -37,9 +37,9 @@
 
     <!--PROLOG-->
     <xsl:output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" method="xml"
-                omit-xml-declaration="no"
-                standalone="yes"
-                indent="yes"/>
+      omit-xml-declaration="no"
+      standalone="yes"
+      indent="yes"/>
 
     <!--XSD TYPES FOR XSLT2-->
 
@@ -64,16 +64,21 @@
         <xsl:choose>
             <xsl:when test="namespace-uri()=''">
                 <xsl:value-of select="name()"/>
-                <xsl:variable name="p_1" select="1+    count(preceding-sibling::*[name()=name(current())])"/>
-                <xsl:if test="$p_1&gt;1 or following-sibling::*[name()=name(current())]">[<xsl:value-of select="$p_1"/>]</xsl:if>
+                <xsl:variable name="p_1"
+                  select="1+    count(preceding-sibling::*[name()=name(current())])"/>
+                <xsl:if test="$p_1&gt;1 or following-sibling::*[name()=name(current())]">[<xsl:value-of
+                  select="$p_1"/>]
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>*[local-name()='</xsl:text>
                 <xsl:value-of select="local-name()"/>
                 <xsl:text>']</xsl:text>
                 <xsl:variable name="p_2"
-                              select="1+   count(preceding-sibling::*[local-name()=local-name(current())])"/>
-                <xsl:if test="$p_2&gt;1 or following-sibling::*[local-name()=local-name(current())]">[<xsl:value-of select="$p_2"/>]</xsl:if>
+                  select="1+   count(preceding-sibling::*[local-name()=local-name(current())])"/>
+                <xsl:if test="$p_2&gt;1 or following-sibling::*[local-name()=local-name(current())]">
+                    [<xsl:value-of select="$p_2"/>]
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -138,7 +143,8 @@
     </xsl:template>
     <xsl:template match="processing-instruction()" mode="generate-id-from-path">
         <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-        <xsl:value-of select="concat('.processing-instruction-', 1+count(preceding-sibling::processing-instruction()), '-')"/>
+        <xsl:value-of
+          select="concat('.processing-instruction-', 1+count(preceding-sibling::processing-instruction()), '-')"/>
     </xsl:template>
     <xsl:template match="@*" mode="generate-id-from-path">
         <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
@@ -147,7 +153,8 @@
     <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
         <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
         <xsl:text>.</xsl:text>
-        <xsl:value-of select="concat('.',name(),'-',1+count(preceding-sibling::*[name()=name(current())]),'-')"/>
+        <xsl:value-of
+          select="concat('.',name(),'-',1+count(preceding-sibling::*[name()=name(current())]),'-')"/>
     </xsl:template>
 
     <!--MODE: GENERATE-ID-2 -->
@@ -170,12 +177,14 @@
         <xsl:text>_</xsl:text>
         <xsl:value-of select="translate(name(),':','.')"/>
     </xsl:template>
-    <!--Strip characters--><xsl:template match="text()" priority="-1"/>
+    <!--Strip characters-->
+    <xsl:template match="text()" priority="-1"/>
 
     <!--SCHEMA SETUP-->
     <xsl:template match="/">
-        <svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" title="Schematron validation"
-                                schemaVersion="">
+        <svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+          title="Schematron validation"
+          schemaVersion="">
             <xsl:comment>
                 <xsl:value-of select="$archiveDirParameter"/>
                 <xsl:value-of select="$archiveNameParameter"/>
@@ -185,18 +194,24 @@
             <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
             <svrl:ns-prefix-in-attribute-values uri="http://www.europeana.eu/schemas/edm/" prefix="edm"/>
             <svrl:ns-prefix-in-attribute-values uri="http://xmlns.com/foaf/0.1/" prefix="foaf"/>
-            <svrl:ns-prefix-in-attribute-values uri="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" prefix="ebucore"/>
+            <svrl:ns-prefix-in-attribute-values
+              uri="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" prefix="ebucore"/>
             <svrl:ns-prefix-in-attribute-values uri="http://rdvocab.info/ElementsGr2/" prefix="rdaGr2"/>
-            <svrl:ns-prefix-in-attribute-values uri="http://www.openarchives.org/ore/terms/" prefix="ore"/>
+            <svrl:ns-prefix-in-attribute-values uri="http://www.openarchives.org/ore/terms/"
+              prefix="ore"/>
             <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/terms/" prefix="dcterms"/>
             <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/ns/adms#" prefix="adms"/>
-            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2000/01/rdf-schema#" prefix="rdfs"/>
+            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2000/01/rdf-schema#"
+              prefix="rdfs"/>
             <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/ns/dcat#" prefix="dcat"/>
             <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2002/07/owl#" prefix="owl"/>
-            <svrl:ns-prefix-in-attribute-values uri="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#"
-                                                prefix="crm"/>
-            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" prefix="rdf"/>
-            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2003/01/geo/wgs84_pos#" prefix="wgs84"/>
+            <svrl:ns-prefix-in-attribute-values
+              uri="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#"
+              prefix="crm"/>
+            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+              prefix="rdf"/>
+            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2003/01/geo/wgs84_pos#"
+              prefix="wgs84"/>
             <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2004/02/skos/core#" prefix="skos"/>
             <svrl:ns-prefix-in-attribute-values uri="http://creativecommons.org/ns#" prefix="cc"/>
             <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/ns/odrl/2/" prefix="odrl"/>
@@ -273,10 +288,13 @@
             <svrl:ns-prefix-in-attribute-values uri="http://www.europeana.eu/schemas/edm/" prefix="edm"/>
             <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
             <svrl:ns-prefix-in-attribute-values uri="http://purl.org/dc/terms/" prefix="dct"/>
-            <svrl:ns-prefix-in-attribute-values uri="http://www.openarchives.org/ore/terms/" prefix="ore"/>
+            <svrl:ns-prefix-in-attribute-values uri="http://www.openarchives.org/ore/terms/"
+              prefix="ore"/>
             <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2002/07/owl#" prefix="owl"/>
-            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" prefix="rdf"/>
-            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2000/01/rdf-schema#" prefix="rdfs"/>
+            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+              prefix="rdf"/>
+            <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2000/01/rdf-schema#"
+              prefix="rdfs"/>
             <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2004/02/skos/core#" prefix="skos"/>
             <svrl:active-pattern>
                 <xsl:attribute name="document">
@@ -309,12 +327,15 @@
         <xsl:choose>
             <xsl:when test="not(@rdf:resource and text())"/>
             <xsl:otherwise>
-                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(@rdf:resource and text())">
+                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                  test="not(@rdf:resource and text())">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
                     <svrl:text>
-                        Element <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/> should not have both rdf:resource attribute and text value populated.
+                        Element
+                        <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/> should not have both rdf:resource
+                        attribute and text value populated.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -337,12 +358,14 @@
         <xsl:choose>
             <xsl:when test="not(@rdf:resource = '')"/>
             <xsl:otherwise>
-                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(@rdf:resource = '')">
+                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                  test="not(@rdf:resource = '')">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
                     <svrl:text>
-                        Empty rdf:resource attribute is not allowed for <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/>element.
+                        Empty rdf:resource attribute is not allowed for
+                        <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/>element.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -363,10 +386,11 @@
 
         <!--ASSERT -->
         <xsl:choose>
-            <xsl:when test="(edm:isShownAt and exists(edm:isShownAt/@rdf:resource)) or (edm:isShownBy and exists(edm:isShownBy/@rdf:resource))"/>
+            <xsl:when
+              test="(edm:isShownAt and exists(edm:isShownAt/@rdf:resource)) or (edm:isShownBy and exists(edm:isShownBy/@rdf:resource))"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="(edm:isShownAt and exists(edm:isShownAt/@rdf:resource)) or (edm:isShownBy and exists(edm:isShownBy/@rdf:resource))">
+                  test="(edm:isShownAt and exists(edm:isShownAt/@rdf:resource)) or (edm:isShownBy and exists(edm:isShownBy/@rdf:resource))">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -460,7 +484,7 @@
             <xsl:when test="edm:rights and exists(edm:rights/@rdf:resource)"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="edm:rights and exists(edm:rights/@rdf:resource)">
+                  test="edm:rights and exists(edm:rights/@rdf:resource)">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -486,14 +510,14 @@
     <!--RULE -->
     <xsl:template match="ore:Aggregation/edm:provider" priority="1000" mode="M23">
         <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                         context="ore:Aggregation/edm:provider"/>
+          context="ore:Aggregation/edm:provider"/>
 
         <!--ASSERT -->
         <xsl:choose>
             <xsl:when test="exists(./@rdf:resource) or normalize-space(.)!=''"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="exists(./@rdf:resource) or normalize-space(.)!=''">
+                  test="exists(./@rdf:resource) or normalize-space(.)!=''">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -514,14 +538,14 @@
     <!--RULE -->
     <xsl:template match="ore:Aggregation/edm:dataProvider" priority="1000" mode="M24">
         <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                         context="ore:Aggregation/edm:dataProvider"/>
+          context="ore:Aggregation/edm:dataProvider"/>
 
         <!--ASSERT -->
         <xsl:choose>
             <xsl:when test="exists(./@rdf:resource) or normalize-space(.)!=''"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="exists(./@rdf:resource) or normalize-space(.)!=''">
+                  test="exists(./@rdf:resource) or normalize-space(.)!=''">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -541,7 +565,8 @@
 
     <!--RULE -->
     <xsl:template match="edm:EuropeanaAggregation" priority="1000" mode="M25">
-        <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="edm:EuropeanaAggregation"/>
+        <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+          context="edm:EuropeanaAggregation"/>
 
         <!--ASSERT -->
         <xsl:choose>
@@ -580,7 +605,8 @@
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
                     <svrl:text>
-                        Empty xml:lang attribute is not allowed for <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/>element.
+                        Empty xml:lang attribute is not allowed for
+                        <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/>element.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -602,10 +628,11 @@
 
         <!--ASSERT -->
         <xsl:choose>
-            <xsl:when test="(dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial) or (not(dc:subject and dc:type and dc:coverage and dct:temporal and dct:spatial) and edm:europeanaProxy)"/>
+            <xsl:when
+              test="(dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial) or (not(dc:subject and dc:type and dc:coverage and dct:temporal and dct:spatial) and edm:europeanaProxy)"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="dc:subject or dc:type or dct:temporal or dct:spatial">
+                  test="dc:subject or dc:type or dct:temporal or dct:spatial">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -621,11 +648,13 @@
 
         <!--ASSERT -->
         <xsl:choose>
-            <xsl:when test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or         normalize-space(dc:type)!='')) or (dct:temporal and          (exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!=''))  or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space       (dct:spatial)!='')))"/>
-          <xsl:when test="(not(dc:subject and dc:type and dc:coverage and dct:temporal and dct:spatial) and edm:europeanaProxy)"/>
-	    <xsl:otherwise>
+            <xsl:when
+              test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or         normalize-space(dc:type)!='')) or (dct:temporal and          (exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!=''))  or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space       (dct:spatial)!='')))"/>
+            <xsl:when
+              test="(not(dc:subject and dc:type and dc:coverage and dct:temporal and dct:spatial) and edm:europeanaProxy)"/>
+            <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or normalize-space(dc:type)!='')) or (dct:temporal and (exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!='')) or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space (dct:spatial)!='')))">
+                  test="((dc:subject and (exists(dc:subject/@rdf:resource) or normalize-space(dc:subject)!='')) or (dc:type and (exists(dc:type/@rdf:resource) or normalize-space(dc:type)!='')) or (dct:temporal and (exists(dct:temporal/@rdf:resource) or normalize-space(dct:temporal)!='')) or (dct:spatial and (exists(dct:spatial/@rdf:resource) or normalize-space (dct:spatial)!='')))">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -643,10 +672,10 @@
 			    (dc:description and
 			    (exists(dc:description/@rdf:resource) or
 			    normalize-space(dc:description)!=''))"/>
-	    <xsl:when test="(not(dc:title and dc:description) and edm:europeanaProxy)"/>
+            <xsl:when test="(not(dc:title and dc:description) and edm:europeanaProxy)"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="(dc:title and normalize-space(dc:title)!='') or (dc:description and (exists(dc:description/@rdf:resource) or normalize-space(dc:description)!=''))">
+                  test="(dc:title and normalize-space(dc:title)!='') or (dc:description and (exists(dc:description/@rdf:resource) or normalize-space(dc:description)!=''))">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -662,13 +691,12 @@
 
         <!--ASSERT -->
         <xsl:choose>
-            <xsl:when test="not(edm:type='TEXT' and
-			    edm:europeanaProxy) or (edm:type='TEXT'
+            <xsl:when test="not(edm:type='TEXT' and edm:europeanaProxy) or (edm:type='TEXT'
 			    and exists(dc:language))"/>
-	    	    <xsl:when test="(not(edm:type) and edm:europeanaProxy)"/>
+            <xsl:when test="(not(edm:type) and edm:europeanaProxy)"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="not(edm:type='TEXT') or (edm:type='TEXT' and exists(dc:language))">
+                  test="not(edm:type='TEXT') or (edm:type='TEXT' and exists(dc:language))">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -684,10 +712,22 @@
 
         <!--ASSERT -->
         <xsl:choose>
-            <xsl:when test="edm:type or (not(edm:type) and edm:europeanaProxy)"/>
-            <xsl:otherwise>
-                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="edm:type or (not(edm:type) and edm:europeanaProxy)">
+            <xsl:when test="edm:type and (edm:europeanaProxy and edm:europeanaProxy='true')">
+                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl">
+                    <xsl:attribute name="location">
+                        <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="nodeId">
+                        <xsl:value-of select="@rdf:about"/>
+                    </xsl:attribute>
+                    <svrl:text>
+                        edm:type should not be present in an Europeana Proxy context (when the
+                        edm:europeanaProxy value is present).
+                    </svrl:text>
+                </svrl:failed-assert>
+            </xsl:when>
+            <xsl:when test="not(edm:type) and (not(edm:europeanaProxy) or edm:europeanaProxy='false')">
+                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -698,29 +738,9 @@
                         edm:type should be present in an ore:Proxy context.
                     </svrl:text>
                 </svrl:failed-assert>
-            </xsl:otherwise>
+            </xsl:when>
         </xsl:choose>
 
-        <!--ASSERT -->
-        <xsl:choose>
-            <xsl:when test="not(edm:europeanaProxy and (edm:type or dc:subject or dc:type or
-			    dct:temporal or dct:spatial or
-			    dc:language or dc:title or dc:description))"/>
-            <xsl:otherwise>
-                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="not(edm:type and edm:europeanaProxy)">
-                    <xsl:attribute name="location">
-                        <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="nodeId">
-                        <xsl:value-of select="@rdf:about"/>
-                    </xsl:attribute>
-                    <svrl:text>
-                        edm:type should not be present in an Europeana Proxy context (when the edm:europeanaProxy value is present).
-                    </svrl:text>
-                </svrl:failed-assert>
-            </xsl:otherwise>
-        </xsl:choose>
         <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M36"/>
     </xsl:template>
     <xsl:template match="text()" priority="-1" mode="M36"/>
@@ -739,7 +759,8 @@
         <xsl:choose>
             <xsl:when test="not(dct:hasPart[text()])"/>
             <xsl:otherwise>
-                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(dct:hasPart[text()])">
+                <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                  test="not(dct:hasPart[text()])">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -747,7 +768,8 @@
                         <xsl:value-of select="@rdf:about"/>
                     </xsl:attribute>
                     <svrl:text>
-                        The element dcterms:isPartOf should not have a literal value in the edm:WebResource context with this id. Use an rdf:resource instead.
+                        The element dcterms:isPartOf should not have a literal value in the edm:WebResource
+                        context with this id. Use an rdf:resource instead.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
