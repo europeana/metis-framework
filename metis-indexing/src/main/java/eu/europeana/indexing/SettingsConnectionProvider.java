@@ -24,12 +24,13 @@ import eu.europeana.indexing.exception.IndexerConfigurationException;
 
 /**
  * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection
- * using an {@link IndexingSettings} object.
+ * using an {@link IndexingSettings} object. Various methods are made public so that this class may
+ * be constructed and used outside the scope of the indexing library.
  * 
  * @author jochen
  *
  */
-public class SettingsConnectionProvider extends AbstractConnectionProvider {
+public final class SettingsConnectionProvider extends AbstractConnectionProvider {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SettingsConnectionProvider.class);
 
@@ -44,7 +45,8 @@ public class SettingsConnectionProvider extends AbstractConnectionProvider {
    * @param settings The indexing settings (connection settings).
    * @throws IndexerConfigurationException In case the connections could not be set up.
    */
-  SettingsConnectionProvider(IndexingSettings settings) throws IndexerConfigurationException {
+  public SettingsConnectionProvider(IndexingSettings settings)
+      throws IndexerConfigurationException {
 
     // Create Solr and Zookeeper connections.
     this.httpSolrClient = setUpHttpSolrConnection(settings);
@@ -142,12 +144,12 @@ public class SettingsConnectionProvider extends AbstractConnectionProvider {
   }
 
   @Override
-  SolrClient getSolrClient() {
+  public SolrClient getSolrClient() {
     return cloudSolrClient == null ? httpSolrClient : cloudSolrClient;
   }
 
   @Override
-  EdmMongoServer getMongoClient() {
+  public EdmMongoServer getMongoClient() {
     return mongoServer;
   }
 

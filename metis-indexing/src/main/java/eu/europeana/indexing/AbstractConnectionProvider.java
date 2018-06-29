@@ -8,10 +8,10 @@ import eu.europeana.corelib.mongo.server.EdmMongoServer;
 
 /**
  * <p>
- * This class is maintainable for providing an instance of {@link Indexer} with the required
- * connections to persistence storage. It is responsible for maintaining the connections and
- * providing access to a Publisher object (instance of {@link FullBeanPublisher}) for publishing
- * Full Beans to be accessed by external agents.
+ * Instances of this class are responsible for providing an instance of {@link Indexer} with access
+ * to the required connections to persistence storage. It is responsible for maintaining the
+ * connections and providing a Publisher object (instance of {@link FullBeanPublisher}) for
+ * publishing Full Beans to be accessed by external agents.
  * </p>
  * <p>
  * Please note that this class is {@link Closeable} and must be closed to release it's resources.
@@ -20,7 +20,7 @@ import eu.europeana.corelib.mongo.server.EdmMongoServer;
  * @author jochen
  *
  */
-abstract class AbstractConnectionProvider implements Closeable {
+public abstract class AbstractConnectionProvider implements Closeable {
 
   /**
    * Provides a Publisher object for publishing Full Beans so that they may be found by users.
@@ -53,13 +53,13 @@ abstract class AbstractConnectionProvider implements Closeable {
    * 
    * @return A Solr client.
    */
-  abstract SolrClient getSolrClient();
+  public abstract SolrClient getSolrClient();
 
   /**
    * Provides a Mongo client object for connecting with the Mongo database.
    * 
    * @return A Mongo client.
    */
-  abstract EdmMongoServer getMongoClient();
+  public abstract EdmMongoServer getMongoClient();
 
 }

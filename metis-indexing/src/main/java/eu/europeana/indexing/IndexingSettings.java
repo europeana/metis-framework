@@ -198,7 +198,7 @@ public final class IndexingSettings {
    * @throws IndexerConfigurationException In case a Zookeeper connection is to be established, but
    *         no default collection name was set.
    */
-  String getZookeeperDefaultCollection() throws IndexerConfigurationException {
+  public String getZookeeperDefaultCollection() throws IndexerConfigurationException {
     if (!establishZookeeperConnection()) {
       return null;
     }
@@ -215,7 +215,7 @@ public final class IndexingSettings {
    * @return The solr hosts.
    * @throws IndexerConfigurationException In case no such hosts were set.
    */
-  List<URI> getSolrHosts() throws IndexerConfigurationException {
+  public List<URI> getSolrHosts() throws IndexerConfigurationException {
     if (solrHosts.isEmpty()) {
       throw new IndexerConfigurationException("Please provide at least one Solr host.");
     }
@@ -227,7 +227,7 @@ public final class IndexingSettings {
    * 
    * @return Whether a Zookeeper connection is to be established.
    */
-  boolean establishZookeeperConnection() {
+  public boolean establishZookeeperConnection() {
     return !zookeeperHosts.isEmpty();
   }
 

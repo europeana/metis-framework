@@ -1,6 +1,7 @@
 package eu.europeana.metis.data.checker.service;
 
 import com.google.common.base.Strings;
+import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
 import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
 import eu.europeana.metis.data.checker.service.executor.ValidationTask;
@@ -98,7 +99,7 @@ public class DataCheckerService {
   private void commitChanges() throws DataCheckerServiceException {
     try {
       dao.commit();
-    } catch (IOException | SolrServerException e) {
+    } catch (IndexingException e) {
       LOGGER.error("Updating search engine failed", e);
       throw new DataCheckerServiceException("Updating search engine failed", e);
     }
@@ -158,9 +159,13 @@ public class DataCheckerService {
 
   /**
    * Delete records at midnight every 24 hrs
+   * 
+   * @throws SolrServerException In case a problem occurred while deleting the records.
+   * @throws IOException In case a problem occurred while deleting the records.
+   * @throws IndexingException In case a problem occurred while deleting the records.
    */
   @Scheduled(cron = "00 00 00 * * *")
-  public void deleteRecords() throws IOException, SolrServerException {
+  public void deleteRecords() throws IOException, SolrServerException, IndexingException {
     dao.deleteRecordIdsByTimestamp();
   }
 

@@ -13,7 +13,12 @@ mongo.password=
 mongo.db=
 mongo.enableSSL=
 
-solr.search.url=
+solr.hosts=
+
+zookeeper.hosts=
+zookeeper.ports=
+zookeeper.chroot=
+zookeeper.default.collection=
 
 data.checker.portal.url=
 data.checker.executor.threadCount=
