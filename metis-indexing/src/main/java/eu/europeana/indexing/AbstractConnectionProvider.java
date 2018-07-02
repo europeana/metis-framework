@@ -49,6 +49,15 @@ abstract class AbstractConnectionProvider implements Closeable {
   }
 
   /**
+   * Provides a remover object for removing all records in given datasets.
+   * 
+   * @return A dataset remover.
+   */
+  final DatasetRemover getDatasetRemover() {
+    return new DatasetRemover(getMongoClient(), getSolrClient());
+  }
+
+  /**
    * Provides a Solr client object for connecting with the Solr database.
    * 
    * @return A Solr client.

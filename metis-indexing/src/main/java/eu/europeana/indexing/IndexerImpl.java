@@ -99,6 +99,16 @@ class IndexerImpl implements Indexer {
     }
   }
 
+  @Override
+  public int removeAll(String datasetId) throws IndexingException {
+    try {
+      return this.connectionProvider.getDatasetRemover().removeDataset(datasetId);
+    } catch (IndexingException e) {
+      LOGGER.warn("Error while removing a dataset.", e);
+      throw e;
+    }
+  }
+
   /**
    * Similar to the Java interface {@link Supplier}, but one that may throw an
    * {@link IndexingException}.
