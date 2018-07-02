@@ -1,6 +1,5 @@
 package eu.europeana.indexing;
 
-import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,7 @@ public class IndexerFactory {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexerFactory.class);
 
-  private final IndexerConfigurationSupplier<AbstractConnectionProvider> connectionProviderSupplier;
+  private final IndexerConnectionSupplier connectionProviderSupplier;
 
   /**
    * Constructor for setting up a factory using an {@link IndexingSettings} object.
@@ -22,7 +21,7 @@ public class IndexerFactory {
    * @param settings The settings to be applied to the indexer.
    */
   public IndexerFactory(IndexingSettings settings) {
-    this.connectionProviderSupplier = () -> new SettingsConnectionProvider(settings);
+    this(() -> new SettingsConnectionProvider(settings));
   }
 
   /**
@@ -34,7 +33,20 @@ public class IndexerFactory {
    * @param solrClient The Solr client to use.
    */
   public IndexerFactory(EdmMongoServer mongoClient, SolrClient solrClient) {
-    this.connectionProviderSupplier = () -> new ClientsConnectionProvider(mongoClient, solrClient);
+    this(() -> new ClientsConnectionProvider(mongoClient, solrClient));
+  }
+
+  /**
+   * Constructor for setting up a factory using an {@link IndexerConnectionSupplier}. For each
+   * indexer that's created using this factory, the method {@link IndexerConnectionSupplier#get()}
+   * will be called exactly once. Note: closing any indexer created using this object (i.e. calling
+   * {@link Indexer#close()}) will result in a call to {@link AbstractConnectionProvider#close()} on
+   * its connection provider.
+   * 
+   * @param connectionProviderSupplier A supplier for connection providers.
+   */
+  public IndexerFactory(IndexerConnectionSupplier connectionProviderSupplier) {
+    this.connectionProviderSupplier = connectionProviderSupplier;
   }
 
   /**
@@ -55,15 +67,13 @@ public class IndexerFactory {
 
 
   /**
-   * Similar to the Java interface {@link Supplier}, but one that may throw an
+   * A supplier for instances of {@link AbstractConnectionProvider} that may throw an
    * {@link IndexerConfigurationException}.
    * 
    * @author jochen
-   *
-   * @param <T> The type of the object to be supplied.
    */
   @FunctionalInterface
-  interface IndexerConfigurationSupplier<T> {
+  public interface IndexerConnectionSupplier {
 
     /**
      * Gets a result.
@@ -71,6 +81,6 @@ public class IndexerFactory {
      * @return A result.
      * @throws IndexerConfigurationException In case something went wrong while getting the result.
      */
-    public T get() throws IndexerConfigurationException;
+    public AbstractConnectionProvider get() throws IndexerConfigurationException;
   }
 }

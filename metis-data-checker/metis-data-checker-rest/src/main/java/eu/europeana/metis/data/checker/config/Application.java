@@ -1,12 +1,12 @@
 package eu.europeana.metis.data.checker.config;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -24,15 +23,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientOptions.Builder;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.indexing.AbstractConnectionProvider;
+import eu.europeana.indexing.IndexingSettings;
+import eu.europeana.indexing.SettingsConnectionProvider;
 import eu.europeana.indexing.exception.IndexerConfigurationException;
 import eu.europeana.metis.data.checker.service.ZipService;
 import eu.europeana.metis.data.checker.service.executor.ValidationUtils;
@@ -62,7 +56,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   private static final int MAX_UPLOAD_SIZE = 50_000_000;
 
-  //Socks proxy
+  // Socks proxy
   @Value("${socks.proxy.enabled}")
   private boolean socksProxyEnabled;
   @Value("${socks.proxy.host}")
@@ -89,8 +83,17 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${mongo.enableSSL}")
   private boolean mongoEnableSSL;
 
-  @Value("${solr.search.url}")
-  private String solrSearchUrl;
+  @Value("${solr.hosts}")
+  private String[] solrHosts;
+
+  @Value("${zookeeper.hosts}")
+  private String[] zookeeperHosts;
+  @Value("${zookeeper.ports}")
+  private int[] zookeeperPorts;
+  @Value("${zookeeper.chroot}")
+  private String zookeeperChroot;
+  @Value("${zookeeper.default.collection}")
+  private String zookeeperDefaultCollection;
 
   @Value("${validation.schema.before_transformation}")
   private String schemaBeforeTransformation;
@@ -100,43 +103,67 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${transformation.default}")
   private String defaultTransformationFile;
 
-  private MongoClient mongoClient;
-  private SolrClient solrServer;
+  private AbstractConnectionProvider indexingConnection;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
    */
   @Override
   public void afterPropertiesSet() throws Exception {
+
+    // Create the indexing settings
+    final IndexingSettings settings = new IndexingSettings();
+
+    // Set the Mongo properties
+    for (InetSocketAddress address : getAddressesFromHostsAndPorts(mongoHosts, mongoPorts)) {
+      settings.addMongoHost(address);
+    }
+    settings.setMongoDatabaseName(mongoDb);
+    if (mongoEnableSSL) {
+      settings.setMongoEnableSsl();
+    }
+    if (StringUtils.isNotBlank(mongoUsername) || StringUtils.isNotBlank(mongoPassword)
+        || StringUtils.isNotBlank(mongoAuthenticationDb)) {
+      settings.setMongoCredentials(mongoUsername, mongoPassword, mongoAuthenticationDb);
+    }
+
+    // Set Solr properties
+    for (String host : solrHosts) {
+      settings.addSolrHost(new URI(host));
+    }
+
+    // Set Zookeeper properties
+    for (InetSocketAddress address : getAddressesFromHostsAndPorts(zookeeperHosts,
+        zookeeperPorts)) {
+      settings.addZookeeperHost(address);
+    }
+    if (StringUtils.isNotBlank(zookeeperChroot)) {
+      settings.setZookeeperChroot(zookeeperChroot);
+    }
+    if (StringUtils.isNotBlank(zookeeperDefaultCollection)) {
+      settings.setZookeeperDefaultCollection(zookeeperDefaultCollection);
+    }
+
+    // Create the indexing connection
+    indexingConnection = new SettingsConnectionProvider(settings);
+
+    // Configure the socks proxy.
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
+  }
 
-    if (mongoHosts.length != mongoPorts.length && mongoPorts.length != 1) {
-      throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
+  private static List<InetSocketAddress> getAddressesFromHostsAndPorts(String[] hosts,
+      int[] ports) {
+    final List<InetSocketAddress> result = new ArrayList<>();
+    if (hosts.length != ports.length && ports.length != 1) {
+      throw new IllegalArgumentException("Hosts and ports do not match.");
     }
-
-    List<ServerAddress> serverAddresses = new ArrayList<>(mongoHosts.length);
-    for (int i = 0; i < mongoHosts.length; i++) {
-      ServerAddress address;
-      if (mongoHosts.length == mongoPorts.length) {
-        address = new ServerAddress(mongoHosts[i], mongoPorts[i]);
-      } else { // Same port for all
-        address = new ServerAddress(mongoHosts[i], mongoPorts[0]);
-      }
-      serverAddresses.add(address);
+    for (int i = 0; i < hosts.length; i++) {
+      final int port = ports.length == 1 ? ports[0] : ports[i];
+      result.add(new InetSocketAddress(hosts[i], port));
     }
-
-    MongoClientOptions.Builder optionsBuilder = new Builder();
-    optionsBuilder.sslEnabled(mongoEnableSSL);
-    if (StringUtils.isEmpty(mongoDb) || StringUtils.isEmpty(mongoUsername) || StringUtils
-        .isEmpty(mongoPassword)) {
-      mongoClient = new MongoClient(serverAddresses, optionsBuilder.build());
-    } else {
-      MongoCredential mongoCredential = MongoCredential
-          .createCredential(mongoUsername, mongoAuthenticationDb, mongoPassword.toCharArray());
-      mongoClient = new MongoClient(serverAddresses, mongoCredential, optionsBuilder.build());
-    }
+    return result;
   }
 
   @Override
@@ -163,21 +190,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new ZipService();
   }
 
-  @Bean(name = "edmMongoServer")
-  EdmMongoServer edmMongoServer() throws MongoDBException {
-    return new EdmMongoServerImpl(mongoClient, mongoDb);
+  @Bean()
+  AbstractConnectionProvider getIndexingConnection() {
+    return indexingConnection;
   }
 
-  @Bean(name = "solrServer")
-  SolrClient solrServer() {
-    solrServer = new HttpSolrClient.Builder().withBaseSolrUrl(solrSearchUrl).build();
-    return solrServer;
-  }
-  
   @Bean
-  @DependsOn(value = "solrServer")
-  RecordDao recordDao() throws MongoDBException, IndexerConfigurationException {
-    return new RecordDao(solrServer(), edmMongoServer());
+  RecordDao recordDao() throws IndexerConfigurationException {
+    return new RecordDao(indexingConnection);
   }
 
   @Bean
@@ -195,16 +215,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public Docket api() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .select()
-        .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.regex("/.*"))
-        .build()
-        .apiInfo(apiInfo());
+    return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.regex("/.*")).build().apiInfo(apiInfo());
   }
 
   @Bean
-  public ValidationUtils getValidationUtils() throws MongoDBException, IOException, IndexerConfigurationException {
+  public ValidationUtils getValidationUtils() throws IOException, IndexerConfigurationException {
     return new ValidationUtils(validationClient(), recordDao(), schemaBeforeTransformation,
         schemaAfterTransformation, defaultTransformationFile);
   }
@@ -212,25 +228,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @PreDestroy
   public void close() throws IOException {
     LOGGER.info("Closing connections..");
-    if (mongoClient != null) {
-      mongoClient.close();
-    }
-    if (solrServer != null) {
-      solrServer.close();
+    if (indexingConnection != null) {
+      indexingConnection.close();
     }
   }
 
   private ApiInfo apiInfo() {
-    return new ApiInfo(
-        "Data Checker REST API",
-        "Data Checker REST API for Europeana",
-        "v1",
-        "API TOS",
-        new Contact("development", "europeana.eu", "development@europeana.eu"),
-        "EUPL Licence v1.1",
-        ""
-    );
+    return new ApiInfo("Data Checker REST API", "Data Checker REST API for Europeana", "v1",
+        "API TOS", new Contact("development", "europeana.eu", "development@europeana.eu"),
+        "EUPL Licence v1.1", "");
   }
-
-
 }

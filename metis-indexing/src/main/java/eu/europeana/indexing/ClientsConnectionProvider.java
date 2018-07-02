@@ -12,7 +12,7 @@ import eu.europeana.indexing.exception.IndexerConfigurationException;
  * @author jochen
  *
  */
-class ClientsConnectionProvider extends AbstractConnectionProvider {
+final class ClientsConnectionProvider extends AbstractConnectionProvider {
 
   private final EdmMongoServer mongoClient;
   private final SolrClient solrClient;
@@ -37,12 +37,12 @@ class ClientsConnectionProvider extends AbstractConnectionProvider {
   }
 
   @Override
-  protected SolrClient getSolrClient() {
+  public SolrClient getSolrClient() {
     return solrClient;
   }
 
   @Override
-  protected EdmMongoServer getMongoClient() {
+  public EdmMongoServer getMongoClient() {
     return mongoClient;
   }
 
