@@ -17,8 +17,15 @@ class CacheItemWithExpirationTime<V> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CacheItemWithExpirationTime.class);
 
+  // Locked: change only with write lock.
   private V value;
+
+  // Locked: change only with write lock.
   private Instant creationTime = null;
+
+  // No need to be locked: is independent of other data.
+  private Instant lastAccessTime = null;
+
   private ReadWriteLock lock = new ReentrantReadWriteLock();
 
   /**
@@ -39,10 +46,13 @@ class CacheItemWithExpirationTime<V> {
   public V getValue(Duration expirationTime, CacheValueSupplier<V> supplier,
       boolean lenientWithReloads) throws CacheValueSupplierException {
 
+    // Mark this access.
+    lastAccessTime = getNow();
+
     // If we have the item and it is still valid, we return it.
     lock.readLock().lock();
     try {
-      if (valueHasNotExpired(expirationTime)) {
+      if (isInstantInInterval(creationTime, expirationTime, getNow())) {
         return value;
       }
     } finally {
@@ -53,8 +63,8 @@ class CacheItemWithExpirationTime<V> {
     lock.writeLock().lock();
     try {
 
-      // Recheck the state: maybe the item was added while we waited for the write lock.
-      if (valueHasNotExpired(expirationTime)) {
+      // Recheck the state: maybe the item was loaded while we waited for the write lock.
+      if (isInstantInInterval(creationTime, expirationTime, getNow())) {
         return value;
       }
 
@@ -82,16 +92,28 @@ class CacheItemWithExpirationTime<V> {
   }
 
   /**
-   * Determines whether the value in this cache item has expired given the provided expiration time
-   * (i.e. the age of the data that we no longer accept). If a cache item was never loaded it will
-   * be seen as expired.
+   * Determines whether a given instant is in the interval defined by the starting point and the
+   * length. If the instant is equal to either boundary of the interval, it is considered not to be
+   * in the interval.
    * 
-   * @param expirationTime The expiration time interval.
-   * @return Whether or not this item is expired.
+   * @param start The start of the interval. Can be null (in which case false is returned).
+   * @param length The length of the interval.
+   * @param instant The instant to test.
+   * @return Whether or not the instant is inside the interval.
    */
-  boolean valueHasNotExpired(Duration expirationTime) {
-    return getCreationTime() != null
-        && getCreationTime().plus(expirationTime).isAfter(getNow());
+  boolean isInstantInInterval(Instant start, Duration length, Instant instant) {
+    return start != null && !start.isAfter(instant) && !start.plus(length).isBefore(instant);
+  }
+
+  /**
+   * Determines whether the value in this cache item was accessed recently (i.e. in the time span
+   * given by the parameter).
+   * 
+   * @param since The interval length of the period we want to check (which ends now).
+   * @return Whether the value was accessed in that time.
+   */
+  boolean valueWasAccessedRecently(Duration since) {
+    return isInstantInInterval(getLastAccessTime(), since, getNow());
   }
 
   /**
@@ -104,6 +126,14 @@ class CacheItemWithExpirationTime<V> {
     } finally {
       lock.readLock().unlock();
     }
+  }
+
+  /**
+   * @return The last accessed time of the current value, or null if the value has not been accessed
+   *         yet.
+   */
+  Instant getLastAccessTime() {
+    return lastAccessTime;
   }
 
   /**

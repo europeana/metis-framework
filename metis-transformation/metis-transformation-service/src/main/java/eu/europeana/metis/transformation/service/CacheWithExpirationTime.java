@@ -2,7 +2,9 @@ package eu.europeana.metis.transformation.service;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
@@ -173,6 +175,39 @@ public class CacheWithExpirationTime<K, V> {
   public V getFromCache(K key, CacheValueSupplier<V> valueSupplier)
       throws CacheValueSupplierException {
     return getValueResolver(key).apply(valueSupplier);
+  }
+
+  /**
+   * <p>
+   * This method cleans the cache of any items that have not been accessed for a given amount of
+   * time (i.e. in the time span given by the parameter). This method could be called by a scheduled
+   * cleanup.
+   * </p>
+   * <p>
+   * NOTE: It is theoretically possible that a cached item is being removed that is also currently
+   * in the process of being requested. This is considered to be unlikely and warranting neither the
+   * extra locking (i.e. performance hit) nor the more complex code that would need to be in place
+   * to prevent this. Even if this does occur, the behavior of this cache remains unchanged. The
+   * only consequence is that the requested value may need to be reloaded again when it is next
+   * requested.
+   * </p>
+   * 
+   * @param since The interval length of the period we want to check (which ends now).
+   */
+  public void removeItemsNotAccessedSince(Duration since) {
+    lock.writeLock().lock();
+    try {
+      final Iterator<Entry<K, CacheItemWithExpirationTime<V>>> iterator =
+          cache.entrySet().iterator();
+      while (iterator.hasNext()) {
+        final Entry<K, CacheItemWithExpirationTime<V>> entry = iterator.next();
+        if (!entry.getValue().valueWasAccessedRecently(since)) {
+          iterator.remove();
+        }
+      }
+    } finally {
+      lock.writeLock().unlock();
+    }
   }
 
   private static interface CacheValueResolver<V> {
