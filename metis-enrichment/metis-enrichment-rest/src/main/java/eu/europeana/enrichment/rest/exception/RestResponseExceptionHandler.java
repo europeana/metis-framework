@@ -13,11 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class RestResponseExceptionHandler {
 
-    @ResponseBody
-    @ExceptionHandler(EnrichmentException.class)
-    public StructuredExceptionWrapper handleResponse(HttpServletResponse response,
-        EnrichmentException e) {
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
-        return new StructuredExceptionWrapper(e.getMessage());
-    }
+  /**
+   * Handle {@link EnrichmentException}
+   *
+   * @param response the response that should be updated
+   * @param exception the exception thrown
+   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error message for the client
+   */
+  @ResponseBody
+  @ExceptionHandler(EnrichmentException.class)
+  public StructuredExceptionWrapper handleResponse(HttpServletResponse response,
+      EnrichmentException exception) {
+    response.setStatus(HttpStatus.BAD_REQUEST.value());
+    return new StructuredExceptionWrapper(exception.getMessage());
+  }
 }

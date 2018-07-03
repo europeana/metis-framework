@@ -16,51 +16,54 @@ import io.swagger.annotations.ApiOperation;
  * Enrichment Cache REST endpoint
  * Created by gmamakis on 12-2-16.
  */
-@Api(value = "/", description = "This controller is used to manage the cache.")
+@Api(value = "/")
 @Controller
 public class EnrichmentCacheController {
 
-    private final RedisInternalEnricher enricher;
+  private final RedisInternalEnricher enricher;
 
-    @Autowired
-    public EnrichmentCacheController(RedisInternalEnricher enricher) {
-        this.enricher = enricher;
-    }
+  @Autowired
+  public EnrichmentCacheController(RedisInternalEnricher enricher) {
+    this.enricher = enricher;
+  }
 
-    /**
-     * Recreate the redis cache from the mongo datastore. This will take some time
-     */
-    @RequestMapping(value = "/recreate",  method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.OK)
-    @ApiOperation(value = "Start recreating the cache",
-        notes="Recreate the redis cache from the mongo datastore. This will take some time")
-    public void populate(){
-        enricher.recreate();
-    }
+  /**
+   * Recreate the redis cache from the mongo datastore. This will take some time
+   */
+  @RequestMapping(value = "/recreate", method = RequestMethod.POST)
+  @ResponseStatus(value = HttpStatus.OK)
+  @ApiOperation(value = "Start recreating the cache",
+      notes = "Recreate the redis cache from the mongo datastore. This will take some time")
+  public void populate() {
+    enricher.recreate();
+  }
 
-    /**
-     * Check the status of the recreation of the cache
-     * @return 'started' or 'finished'
-     */
-    @RequestMapping(value = "/check",  method = RequestMethod.GET)
-    @ResponseBody
-    @ApiOperation(value = "Check the status of the process filling the cache", notes = "return 'started' or 'finished'")
+  /**
+   * Check the status of the recreation of the cache
+   *
+   * @return 'started' or 'finished'
+   */
+  @RequestMapping(value = "/check", method = RequestMethod.GET)
+  @ResponseBody
+  @ApiOperation(value = "Check the status of the process filling the cache", notes = "return 'started' or 'finished'")
 
-    public String check(){
-        return enricher.check();
-    }
+  public String check() {
+    return enricher.check();
+  }
 
-    /**
-     * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster
-     * is used for multiple services then the cache for other services is cleared as well.
-     * @return OK
-     */
-    @RequestMapping(value=RestEndpoints.CACHE_EMPTY, method = RequestMethod.DELETE)
-    @ResponseBody
-    @ApiOperation(value = "Empty the cache", notes = "This will remove ALL entries in the cache (Redis). If the same redis instance/cluster "
-        + "is used for multiple services then the cache for other services is cleared as well." )
-    public void emptyCache(){
-        enricher.emptyCache();
-    }
+  /**
+   * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster
+   * is used for multiple services then the cache for other services is cleared as well.
+   *
+   * @return OK
+   */
+  @RequestMapping(value = RestEndpoints.CACHE_EMPTY, method = RequestMethod.DELETE)
+  @ResponseBody
+  @ApiOperation(value = "Empty the cache", notes =
+      "This will remove ALL entries in the cache (Redis). If the same redis instance/cluster "
+          + "is used for multiple services then the cache for other services is cleared as well.")
+  public void emptyCache() {
+    enricher.emptyCache();
+  }
 
 }

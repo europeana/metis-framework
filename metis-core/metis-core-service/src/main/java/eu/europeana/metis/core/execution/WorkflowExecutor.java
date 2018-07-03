@@ -85,7 +85,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     final Date finishDate = runInqueueOrRunningStateWorkflowExecution();
 
     // Process the results
-    if (workflowExecutionDao.isCancelling(workflowExecution.getId()) && finishDate == null) {
+    if (finishDate == null && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
       // If the workflow was cancelled before it had the chance to finish, we cancel all remaining plugins.
       workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
       LOGGER.info(
@@ -212,8 +212,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     do {
       try {
         Thread.sleep(sleepTime);
-        if (workflowExecutionDao.isCancelling(workflowExecution.getId())
-            && !externalCancelCallSent) {
+        if (!externalCancelCallSent && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
           abstractMetisPlugin.cancel(dpsClient);
           externalCancelCallSent = true;
         }

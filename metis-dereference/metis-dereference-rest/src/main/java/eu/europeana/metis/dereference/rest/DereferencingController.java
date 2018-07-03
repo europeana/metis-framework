@@ -1,5 +1,13 @@
 package eu.europeana.metis.dereference.rest;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
+import eu.europeana.metis.dereference.service.DereferenceService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import java.net.URISyntaxException;
 import java.util.List;
 import javax.xml.bind.JAXBException;
@@ -14,13 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
-import eu.europeana.metis.dereference.service.DereferenceService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 /**
  * Dereferencing REST endpoint Created by gmamakis on 12-2-16.
@@ -57,9 +58,11 @@ public class DereferencingController {
     try {
       return dereferenceService.dereference(resourceId);
     } catch (RuntimeException | JAXBException | TransformerException | URISyntaxException e) {
-      LOGGER.warn("Problem occurred while dereferencing resource " + resourceId + ".", e);
-      throw new DereferenceException(
-          "Dereferencing failed for uri: " + resourceId + " with root cause: " + e.getMessage(), e);
+      LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.",
+          resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, "")), e);
+      throw new DereferenceException(String
+          .format("Dereferencing failed for uri: %s with root cause: %s", resourceId,
+              e.getMessage()), e);
     }
   }
 

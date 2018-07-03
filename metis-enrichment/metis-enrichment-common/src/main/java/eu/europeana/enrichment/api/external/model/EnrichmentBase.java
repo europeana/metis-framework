@@ -9,10 +9,16 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+
+/**
+ * Contains fields to be inherited by other subclasses e.g.
+ * {@link Agent}, {@link Concept}, {@link Place}, {@link Timespan}
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({Agent.class, Concept.class, Place.class, Timespan.class})
-public abstract class EnrichmentBase {
+public class EnrichmentBase {
+
   @XmlElement(name = "altLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Label> altLabelList = new ArrayList<>();
   @XmlAttribute(name = "about", namespace = "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
@@ -41,6 +47,7 @@ public abstract class EnrichmentBase {
   public List<Label> getAltLabelList() {
     return unmodifiableListAcceptingNull(altLabelList);
   }
+
   public void setAltLabelList(List<Label> altLabelList) {
     this.altLabelList = cloneListAcceptingNull(altLabelList);
   }

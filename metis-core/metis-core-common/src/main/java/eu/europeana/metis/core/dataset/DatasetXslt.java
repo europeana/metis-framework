@@ -28,6 +28,12 @@ public class DatasetXslt {
     //Required for json serialization
   }
 
+  /**
+   * Constructor with required parameters.
+   * When created it assigns the current date to it.
+   * @param datasetId the datasetId that this class is related to
+   * @param xslt the raw xslt
+   */
   public DatasetXslt(String datasetId, String xslt) {
     this.datasetId = datasetId;
     this.xslt = xslt;
@@ -59,10 +65,10 @@ public class DatasetXslt {
   }
 
   public Date getCreatedDate() {
-    return createdDate;
+    return createdDate == null ? null : new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
-    this.createdDate = createdDate;
+    this.createdDate = createdDate == null ? null : new Date(createdDate.getTime());
   }
 }

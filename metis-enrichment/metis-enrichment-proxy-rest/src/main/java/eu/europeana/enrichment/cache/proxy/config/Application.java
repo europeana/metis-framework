@@ -3,8 +3,6 @@ package eu.europeana.enrichment.cache.proxy.config;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
 import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import eu.europeana.metis.cache.redis.RedisProvider;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,7 +30,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @PropertySource("classpath:enrichment.proxy.properties")
 @EnableWebMvc
 @EnableSwagger2
-public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+public class Application extends WebMvcConfigurerAdapter {
 
   @Value("${enrichment.mongo}")
   private String enrichmentMongo;
@@ -44,18 +42,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private int redisPort;
   @Value("${redis.password:\"\"}")
   private String redisPassword;
-
-  private RedisProvider redisProvider;
-
-  /**
-   * Used for overwriting properties if cloud foundry environment is used
-   */
-  @Override
-  public void afterPropertiesSet() throws Exception {
-    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
-    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
-    }
-  }
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
@@ -72,8 +58,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   RedisProvider getRedisProvider() {
-    redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
-    return redisProvider;
+    return new RedisProvider(redisHost, redisPort, redisPassword);
   }
 
   @Bean
@@ -102,16 +87,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   private ApiInfo apiInfo() {
-    Contact contact = new Contact("Europeana", "http://www.europeana.eu", "development@europeana.eu");
-    ApiInfo apiInfo = new ApiInfo(
+    return new ApiInfo(
         "Enrichment Cache REST API",
         "Enrichment cache management for Europeana",
         "v1",
         "API TOS",
-        contact,
+        new Contact("Europeana", "europeana.eu", "development@europeana.eu"),
         "EUPL Licence v1.1",
         ""
     );
-    return apiInfo;
   }
 }

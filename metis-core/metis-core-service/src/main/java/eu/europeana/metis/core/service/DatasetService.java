@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.service;
 
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -396,8 +397,11 @@ public class DatasetService {
       throw new NoXsltFoundException("Could not find default xslt");
     }
 
-    String xsltUrl = metisCoreUrl + RestEndpoints
-        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+    String xsltUrl;
+    synchronized (this) {
+      xsltUrl = metisCoreUrl + RestEndpoints
+          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+    }
 
     return transformRecords(dataset, records, xsltUrl);
   }
@@ -437,8 +441,11 @@ public class DatasetService {
     }
     DatasetXslt datasetXslt = datasetXsltDao.getById(dataset.getXsltId().toString());
 
-    String xsltUrl = metisCoreUrl + RestEndpoints
-        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+    String xsltUrl;
+    synchronized (this) {
+      xsltUrl = metisCoreUrl + RestEndpoints
+          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+    }
 
     return transformRecords(dataset, records, xsltUrl);
   }
@@ -457,8 +464,8 @@ public class DatasetService {
       LOGGER.info("Transformation setup failed.", e);
       throw new XsltSetupException("Could not setup XSL transformation.", e);
     } catch (EuropeanaIdException e) {
-      LOGGER.info("EuropeanaIdCreator initialization failed.", e);
-      throw new XsltSetupException("EuropeanaIdCreator initialization failed.", e);
+      LOGGER.info(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
+      throw new XsltSetupException(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
     }
 
     // Transform the records.
@@ -473,7 +480,7 @@ public class DatasetService {
         LOGGER.info("Record from list failed transformation", e);
         return new Record(record.getEcloudId(), e.getMessage());
       } catch (EuropeanaIdException e) {
-        LOGGER.info("EuropeanaIdCreator initialization failed.", e);
+        LOGGER.info(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
         return new Record(record.getEcloudId(), e.getMessage());
       }
     }).collect(Collectors.toList());
@@ -579,6 +586,8 @@ public class DatasetService {
   }
 
   public void setMetisCoreUrl(String metisCoreUrl) {
-    this.metisCoreUrl = metisCoreUrl;
+    synchronized (this) {
+      this.metisCoreUrl = metisCoreUrl;
+    }
   }
 }

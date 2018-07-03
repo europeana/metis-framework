@@ -28,7 +28,7 @@ import eu.europeana.corelib.storage.MongoServer;
 /**
  * This class provides functionality to update the properties of a given object. It keeps track of
  * the operations that are required to perform the update.
- * 
+ *
  * @param <T> The type of the object to update.
  */
 final class MongoPropertyUpdater<T> {
@@ -41,7 +41,7 @@ final class MongoPropertyUpdater<T> {
       .of(array).filter(StringUtils::isNotBlank).map(String::trim).toArray(String[]::new);
 
   private static final Comparator<AbstractEdmEntity> ENTITY_COMPARATOR =
-      (w1, w2) -> w1.getAbout().compareTo(w2.getAbout());
+      Comparator.comparing(AbstractEdmEntity::getAbout);
 
   private final T current;
   private final T updated;
@@ -77,12 +77,12 @@ final class MongoPropertyUpdater<T> {
 
   /**
    * Static constructor for instances of {@link AbstractEdmEntity}.
-   * 
+   *
    * @param updated The updated object (i.e. the object to take the value from). This object will
-   *        remain unchanged.
+   * remain unchanged.
    * @param mongoServer The Mongo connection.
    * @param objectClass The class of the object which is used to create an instance of
-   *        {@link UpdateOperations}.
+   * {@link UpdateOperations}.
    * @return The property updater.
    */
   public static <T extends AbstractEdmEntity> MongoPropertyUpdater<T> createForEdmEntity(T updated,
@@ -93,9 +93,9 @@ final class MongoPropertyUpdater<T> {
 
   /**
    * Static constructor for instances of {@link FullBeanImpl}.
-   * 
+   *
    * @param updated The updated object (i.e. the object to take the value from). This object will
-   *        remain unchanged.
+   * remain unchanged.
    * @param mongoServer The Mongo connection.
    * @return The property updater.
    */
@@ -173,9 +173,9 @@ final class MongoPropertyUpdater<T> {
    * This method tests if there is anything to update. If there is, after this method is called,
    * {@link #applyOperations()} will include the update.
    * </p>
-   * 
+   *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    */
   public void updateMap(String updateField, Function<T, Map<String, List<String>>> getter) {
@@ -191,9 +191,9 @@ final class MongoPropertyUpdater<T> {
    * This method tests if there is anything to update. If there is, after this method is called,
    * {@link #applyOperations()} will include the update.
    * </p>
-   * 
+   *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    */
   public void updateArray(String updateField, Function<T, String[]> getter) {
@@ -209,9 +209,9 @@ final class MongoPropertyUpdater<T> {
    * This method tests if there is anything to update. If there is, after this method is called,
    * {@link #applyOperations()} will include the update.
    * </p>
-   * 
+   *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    */
   public void updateString(String updateField, Function<T, String> getter) {
@@ -226,9 +226,9 @@ final class MongoPropertyUpdater<T> {
    * This method tests if there is anything to update. If there is, after this method is called,
    * {@link #applyOperations()} will include the update.
    * </p>
-   * 
+   *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    */
   public <P> void updateObject(String updateField, Function<T, P> getter) {
@@ -244,9 +244,9 @@ final class MongoPropertyUpdater<T> {
    * This method tests if there is anything to update. If there is, after this method is called,
    * {@link #applyOperations()} will include the update.
    * </p>
-   * 
+   *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    */
   public void updateWebResources(String updateField,
@@ -273,9 +273,9 @@ final class MongoPropertyUpdater<T> {
    * This method tests if there is anything to update. If there is, after this method is called,
    * {@link #applyOperations()} will include the update.
    * </p>
-   * 
+   *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    * @param objectUpdater The updater that may be used to update the referenced objects.
    */
@@ -302,9 +302,9 @@ final class MongoPropertyUpdater<T> {
    * This method tests if there is anything to update. If there is, after this method is called,
    * {@link #applyOperations()} will include the update.
    * </p>
-   * 
+   *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    * @param objectUpdater The updater that may be used to update the referenced objects.
    */
@@ -320,13 +320,13 @@ final class MongoPropertyUpdater<T> {
   /**
    * This method updates a given object property. This method tests if there is anything to update.
    * If there is, after this method is called, {@link #applyOperations()} will include the update.
-   * 
+   *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    * @param equality Predicate that checks for equality between two property values.
    * @param preprocessing The pre-processing to be applied to the update property value before
-   *        comparing and storing.
+   * comparing and storing.
    */
   private <P> void updateProperty(String updateField, Function<T, P> getter,
       BiPredicate<P, P> equality, UnaryOperator<P> preprocessing) {
@@ -371,9 +371,9 @@ final class MongoPropertyUpdater<T> {
    * the future this workaround will no longer be necessary.</li>
    * </ul>
    * </p>
-   * 
+   *
    * @return The updated version of the mongo entity (this is the current entity supplied during
-   *         construction, but with the required changes made).
+   * construction, but with the required changes made).
    */
   public T applyOperations() {
     try {

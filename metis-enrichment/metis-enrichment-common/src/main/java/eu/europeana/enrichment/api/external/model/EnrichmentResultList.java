@@ -20,7 +20,7 @@ public class EnrichmentResultList {
       @XmlElement(name="Place", namespace = "http://www.europeana.eu/schemas/edm/", type=Place.class),
       @XmlElement(name="Timespan", namespace = "http://www.europeana.eu/schemas/edm/", type=Timespan.class)
       })
-  private List<EnrichmentBase> result = new ArrayList<>();
+  private final List<EnrichmentBase> result = new ArrayList<>();
 
   public EnrichmentResultList() {}
 

@@ -120,7 +120,7 @@ public class EnrichmentController {
       throws EnrichmentException {
 
     try {
-      List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValueList());
+      List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValues());
       EnrichmentResultList result = converter.convert(wrapperList);
 
       if (result.getResult().isEmpty()) {

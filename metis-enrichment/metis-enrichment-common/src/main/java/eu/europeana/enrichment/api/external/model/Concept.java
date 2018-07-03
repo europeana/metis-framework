@@ -6,9 +6,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Model class of a Concept(for example "painting")
+ */
 @XmlRootElement(namespace = "http://www.w3.org/2004/02/skos/core#", name = "Concept")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Concept extends EnrichmentBase {
+
   @XmlElement(name = "hiddenLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Label> hiddenLabel;
   @XmlElement(name = "notation", namespace = "http://www.w3.org/2004/02/skos/core#")
@@ -32,7 +36,11 @@ public class Concept extends EnrichmentBase {
   @XmlElement(name = "related", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Resource> relatedMatch;
 
+  /**
+   * Default constructor.
+   */
   public Concept() {
+    super();
     // Required for XML binding.
   }
 

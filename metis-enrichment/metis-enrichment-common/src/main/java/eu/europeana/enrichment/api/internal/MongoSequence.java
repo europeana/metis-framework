@@ -6,14 +6,10 @@ public class MongoSequence {
 
   @Id
   private String id;
-
-  private Long nextConceptSequence = 1l;
-
-  private Long nextAgentSequence = 1l;
-
-  private Long nextPlaceSequence = 1l;
-
-  private Long nextTimespanSequence = 1l;
+  private Long nextConceptSequence = 1L;
+  private Long nextAgentSequence = 1L;
+  private Long nextPlaceSequence = 1L;
+  private Long nextTimespanSequence = 1L;
 
   public String getId() {
     return id;
@@ -57,18 +53,24 @@ public class MongoSequence {
 
   public Long getNextSequence(ContextualCategory contextualCategory) {
 
+    Long nextInSEquence;
     switch (contextualCategory) {
       case AGENT:
-        return nextAgentSequence;
+        nextInSEquence = nextAgentSequence;
+        break;
       case CONCEPT:
-        return nextConceptSequence;
+        nextInSEquence = nextConceptSequence;
+        break;
       case TIMESPAN:
-        return nextTimespanSequence;
+        nextInSEquence = nextTimespanSequence;
+        break;
       case PLACE:
-        return nextPlaceSequence;
+        nextInSEquence = nextPlaceSequence;
+        break;
       default:
         throw new IllegalArgumentException("Not supported contextual entity");
     }
+    return nextInSEquence;
   }
 
   public void setNextSequence(Long nextSequence, ContextualCategory contextualCategory) {

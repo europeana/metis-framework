@@ -85,9 +85,8 @@ public class DereferenceClient {
    * @return The list of all vocabularies
    */
   public List<Vocabulary> getAllVocabularies() {
-    @SuppressWarnings("unchecked") final List<Vocabulary> result = restTemplate
+    return restTemplate
         .getForObject(hostUrl + RestEndpoints.VOCABULARIES, List.class);
-    return result;
   }
 
   /**
@@ -157,8 +156,8 @@ public class DereferenceClient {
     return restTemplate.exchange(dereferenceUrl, HttpMethod.GET, entity, EnrichmentResultList.class)
         .getBody();
   }
-  
+
   void setRestTemplate(RestTemplate restTemplate) {
-  	this.restTemplate = restTemplate;
+    this.restTemplate = restTemplate;
   }
 }

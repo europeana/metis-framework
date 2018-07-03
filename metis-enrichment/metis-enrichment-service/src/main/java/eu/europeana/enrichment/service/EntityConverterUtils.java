@@ -1,21 +1,22 @@
 package eu.europeana.enrichment.service;
 
+import eu.europeana.corelib.definitions.edm.entity.Address;
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.AddressImpl;
+import eu.europeana.enrichment.api.external.model.TextProperty;
+import eu.europeana.enrichment.api.external.model.WebResource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import eu.europeana.corelib.definitions.edm.entity.Address;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.AddressImpl;
-import eu.europeana.enrichment.api.external.model.TextProperty;
-import eu.europeana.enrichment.api.external.model.WebResource;
 
 /**
  * This class supports conversion of different organization objects into OrganizationImpl object.
@@ -26,6 +27,7 @@ import eu.europeana.enrichment.api.external.model.WebResource;
 public class EntityConverterUtils {
 
   private static final String UNDEFINED_LANGUAGE_KEY = "def";
+  private static final int LANGUAGE_CODE_LENGTH = 2;
 
   /**
    * Create singleton map mapping to a list.
@@ -81,7 +83,7 @@ public class EntityConverterUtils {
     if (keys == null || keys.isEmpty()) {
       return null;
     }
-    final Map<String, List<String>> resMap = new HashMap<>();
+    final Map<String, List<String>> resMap = new HashMap<>(keys.size());
     for (int i = 0; i < keys.size(); i++) {
       resMap.put(toIsoLanguage(keys.get(i)), createList(values.get(i)));
     }
@@ -89,16 +91,40 @@ public class EntityConverterUtils {
   }
 
   /**
+   * This method creates language map from text property object list.
+   * Values are merged if the same key is encountered
+   *
+   * @param textPropertyList the list of text property objects
+   * @return the language map
+   */
+  public Map<String, List<String>> createMapWithListsFromTextPropertyListMerging(
+      List<? extends TextProperty> textPropertyList) {
+    return createMapWithListsFromTextPropertyList(textPropertyList, true);
+  }
+
+  /**
+   * This method creates language map from text property object list.
+   * Values are ignored if the same key is encountered.
+   *
+   * @param textPropertyList the list of text property objects
+   * @return the language map
+   */
+  public Map<String, List<String>> createMapWithListsFromTextPropertyListNonMerging(
+      List<? extends TextProperty> textPropertyList) {
+    return createMapWithListsFromTextPropertyList(textPropertyList, false);
+  }
+
+  /**
    * This method creates language map from text property object list. Lists are <b>not</b>
    * concatenated: if two properties with the same language are passed, one of them will be ignored.
    * 
-   * @param textPropertyList The list of text property objects
-   * @param mergeLists Determines what to do in case two properties with the same language are
+   * @param textPropertyList the list of text property objects
+   * @param mergeLists determines what to do in case two properties with the same language are
    *        found. If true, the lists will be merged. If false, one of the properties will be
    *        ignored.
-   * @return The language map
+   * @return the language map
    */
-  public Map<String, List<String>> createMapWithListsFromTextPropertyList(
+  private Map<String, List<String>> createMapWithListsFromTextPropertyList(
       List<? extends TextProperty> textPropertyList, boolean mergeLists) {
     
     // Sanity check.
@@ -151,9 +177,10 @@ public class EntityConverterUtils {
   }
 
   /**
-   * @param language
-   * @param value
-   * @return
+   * Creates a map of a single key and a List with a single value
+   * @param language the language to use
+   * @param value the element value
+   * @return the created map
    */
   public Map<String, List<String>> createLanguageMapOfStringList(String language, String value) {
     if (value == null) {
@@ -163,9 +190,10 @@ public class EntityConverterUtils {
   }
 
   /**
-   * @param language
-   * @param value
-   * @return
+   * Creates a map of a single key and maps it to the provided list.
+   * @param language the language to use
+   * @param value the list of values
+   * @return the created map
    */
   public Map<String, List<String>> createLanguageMapOfStringList(String language,
       List<String> value) {
@@ -183,7 +211,7 @@ public class EntityConverterUtils {
     if (StringUtils.isBlank(language)) {
       return UNDEFINED_LANGUAGE_KEY;
     }
-    return language.substring(0, 2).toLowerCase();
+    return language.substring(0, LANGUAGE_CODE_LENGTH).toLowerCase(Locale.US);
   }
 
   /**
