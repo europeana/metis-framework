@@ -40,16 +40,11 @@ public class ZohoAccessService {
 
   public static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
   private static final String UNDEFINED_LANGUAGE_KEY = "def";
+  private static final int LANGUAGE_CODE_LENGTH = 2;
   private final ZohoAccessClientDao zohoAccessClientDao;
   private final ZohoV2AccessDao zohoV2AccessDao;
+  private EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
 
-  EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
-
-  public EntityConverterUtils getEntityConverterUtils() {
-    return entityConverterUtils;
-  }
-
-  
   /**
    * Constructor of class with required parameters
    *
@@ -57,16 +52,18 @@ public class ZohoAccessService {
    * @param zohoV2AccessDao {@link ZohoV2AccessDao}
    */
   @Autowired
-  public ZohoAccessService(ZohoAccessClientDao zohoAccessClientDao, ZohoV2AccessDao zohoV2AccessDao) {
+  public ZohoAccessService(ZohoAccessClientDao zohoAccessClientDao,
+      ZohoV2AccessDao zohoV2AccessDao) {
     this.zohoAccessClientDao = zohoAccessClientDao;
     this.zohoV2AccessDao = zohoV2AccessDao;
   }
 
   /**
    * This method retrieves OrganizationImpl object from Zoho organization record.
-   * 
+   *
+   * @param organizationId the organization id used to retrieve the organization information
    * @return representation of the Zoho organization record in OrganizatinImpl format
-   * @throws ZohoAccessException
+   * @throws ZohoAccessException if an error occurred during retrieval from Zoho
    */
   public ZohoOrganization getOrganization(String organizationId) throws ZohoAccessException {
 
@@ -85,10 +82,10 @@ public class ZohoAccessService {
 
   /**
    * This method retrieves OrganizationImpl object for Zoho organization record from given file.
-   * 
-   * @param content file
+   *
+   * @param contentFile file that contains a Zoho Organization response
    * @return representation of the Zoho organization record in OrganizatinImpl format
-   * @throws ZohoAccessException
+   * @throws ZohoAccessException if an error occurred during retrieval from Zoho
    */
   public ZohoOrganization getOrganizationFromFile(File contentFile) throws ZohoAccessException {
 
@@ -109,7 +106,7 @@ public class ZohoAccessService {
 
   /**
    * This method retrieves a list of Zoho records in {@link JsonNode} format.
-   * 
+   *
    * @param jsonLeadsResponse the parserd Zoho response
    * @param type the type of the objects to be retrieved
    * @return {@link JsonNode} representation of the organization
@@ -126,6 +123,7 @@ public class ZohoAccessService {
 
   /**
    * Converter for {@link ZohoOrganization} to {@link Organization}
+   *
    * @param zohoOrganization the Zoho Organization object to convert
    * @return the converted Organization object
    */
@@ -165,7 +163,7 @@ public class ZohoAccessService {
         getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
 
     if (zohoOrganization.getSameAs() != null && !zohoOrganization.getSameAs().isEmpty()) {
-      org.setOwlSameAs(zohoOrganization.getSameAs().toArray(new String[] {}));
+      org.setOwlSameAs(zohoOrganization.getSameAs().toArray(new String[]{}));
     }
 
     // address
@@ -207,12 +205,12 @@ public class ZohoAccessService {
       return UNDEFINED_LANGUAGE_KEY;
     }
 
-    return language.substring(0, 2).toLowerCase(Locale.US);
+    return language.substring(0, LANGUAGE_CODE_LENGTH).toLowerCase(Locale.US);
   }
 
   /**
    * Get organizations paged and lastModified date.
-   * 
+   *
    * @param start first index starts with 1
    * @param rows the number of entries to be returned
    * @param lastModified the date of last modification to check
@@ -226,7 +224,7 @@ public class ZohoAccessService {
 
   /**
    * Get organizations paged, lastModified date and searchCriteria.
-   * 
+   *
    * @param start first index starts with 1
    * @param rows the number of entries to be returned
    * @param lastModified the date of last modification to check
@@ -251,12 +249,12 @@ public class ZohoAccessService {
     }
 
     try {
-      if (searchCriteria != null && !searchCriteria.isEmpty()) {
-        jsonRecordsResponse = zohoAccessClientDao.searchOrganizations(
-            start, rows, lastModifiedTime, searchCriteria);
-      } else {
+      if (searchCriteria == null || searchCriteria.isEmpty()) {//No searchCriteria available
         jsonRecordsResponse = zohoAccessClientDao
             .getOrganizations(start, rows, lastModifiedTime);
+      } else {
+        jsonRecordsResponse = zohoAccessClientDao.searchOrganizations(
+            start, rows, lastModifiedTime, searchCriteria);
       }
     } catch (GenericMetisException e) {
       throw new ZohoAccessException("Cannot get organization list from: "
@@ -290,34 +288,33 @@ public class ZohoAccessService {
       throw new ZohoAccessException("Cannot get deleted organization list from: "
           + startPage, e);
     }
-    
-    List<DeletedZohoOrganizationAdapter> deletedOrganizationsList = 
-         getDeletedOrganizationsListFromJsonNode(jsonRecordsResponse);
+
+    List<DeletedZohoOrganizationAdapter> deletedOrganizationsList =
+        getDeletedOrganizationsListFromJsonNode(jsonRecordsResponse);
     return extractIdsFromDeletedZohoOrganizations(deletedOrganizationsList);
   }
 
   /**
    * This method extracts organization URIs from deleted organizations.
+   *
    * @param deletedOrganizationsList The list of deleted organizations
    * @return ID list
    */
   private List<String> extractIdsFromDeletedZohoOrganizations(
       List<DeletedZohoOrganizationAdapter> deletedOrganizationsList) {
-    List<String> idList = new ArrayList<String>(deletedOrganizationsList.size());
-    
+    List<String> idList = new ArrayList<>(deletedOrganizationsList.size());
+
     for (DeletedZohoOrganizationAdapter deletedOrganization : deletedOrganizationsList) {
       idList.add(ZohoAccessService.URL_ORGANIZATION_PREFFIX + deletedOrganization.getZohoId());
     }
     return idList;
   }
-  
-  
+
+
   /**
    * This method retrieves map of records.
-   * 
-   * @param jsonRecordsResponse
+   *
    * @return map representation of the records
-   * @throws ZohoAccessException
    */
   protected List<ZohoOrganization> getOrganizationsListFromJsonNode(
       JsonNode jsonRecordsResponse) throws ZohoAccessException {
@@ -346,8 +343,7 @@ public class ZohoAccessService {
 
   /**
    * This method retrieves map of records for deleted organizations.
-   * 
-   * @param jsonRecordsResponse
+   *
    * @return map representation of the records
    */
   protected List<DeletedZohoOrganizationAdapter> getDeletedOrganizationsListFromJsonNode(
@@ -451,5 +447,9 @@ public class ZohoAccessService {
 
   public FastDateFormat getDateFormatter() {
     return ZohoApiFields.getZohoTimeFormatter();
+  }
+
+  public EntityConverterUtils getEntityConverterUtils() {
+    return entityConverterUtils;
   }
 }

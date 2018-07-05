@@ -1,16 +1,15 @@
 package eu.europeana.validation.service;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class enabling classpath XSD reading for split XSDs. This is because of an issue with JAXP XSD
@@ -29,11 +28,12 @@ public class ClasspathResourceResolver implements LSResourceResolver {
       LSInput input = new ClasspathLSInput();
       InputStream stream;
       if (!systemId.startsWith("http")) {
-        if (cache.get(prefix + "/" + systemId) == null) {
-          stream = new FileInputStream(prefix + "/" + systemId);
+        String fullPath = prefix + "/" + systemId;
+        if (cache.get(fullPath) == null) {
+          stream = Files.newInputStream(Paths.get(fullPath));
           cache.put(systemId, stream);
         } else {
-          stream = cache.get(prefix + "/" + systemId);
+          stream = cache.get(fullPath);
         }
       } else {
         if (cache.get(systemId) == null) {
@@ -46,9 +46,9 @@ public class ClasspathResourceResolver implements LSResourceResolver {
       input.setPublicId(publicId);
       input.setSystemId(systemId);
       input.setBaseURI(baseURI);
-      input.setCharacterStream(new InputStreamReader(stream));
+      input.setCharacterStream(new InputStreamReader(stream, "UTF-8"));
       return input;
-    } catch (FileNotFoundException e) {
+    } catch (java.io.IOException e) {
       LOGGER.error(e.getMessage(), e);
     }
     return null;

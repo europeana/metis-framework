@@ -28,14 +28,17 @@ import org.slf4j.LoggerFactory;
 public class EnrichmentWorker {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
-	  
-  
+
+
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
   private final EntityMergeEngine entityMergeEngine;
 
+  /**
+   * Contains the Modes that are allowed for enrichment.
+   */
   public enum Mode {
-    ENRICHMENT_ONLY, DEREFERENCE_ONLY, DEREFERENCE_AND_ENRICHMENT;
+    ENRICHMENT_ONLY, DEREFERENCE_ONLY, DEREFERENCE_AND_ENRICHMENT
   }
 
   /**
@@ -60,7 +63,7 @@ public class EnrichmentWorker {
       EntityMergeEngine entityMergeEngine) {
     this.dereferenceClient = dereferenceClient;
     this.enrichmentClient = enrichmentClient;
-    this.entityMergeEngine = entityMergeEngine;   
+    this.entityMergeEngine = entityMergeEngine;
   }
 
   /**
@@ -76,9 +79,7 @@ public class EnrichmentWorker {
    */
   public String process(final String inputString)
       throws DereferenceOrEnrichException, JiBXException, UnsupportedEncodingException {
-	  
-	  
-	    
+
     if (inputString == null) {
       throw new IllegalArgumentException("Input RDF string cannot be null.");
     }
@@ -175,10 +176,11 @@ public class EnrichmentWorker {
 
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
-    if (enrichmentInformation != null && CollectionUtils.isNotEmpty(enrichmentInformation.getResult())) {
+    if (enrichmentInformation != null && CollectionUtils
+        .isNotEmpty(enrichmentInformation.getResult())) {
       entityMergeEngine.mergeEntities(rdf, enrichmentInformation.getResult());
     }
-    
+
     // [4] Setting additional field values and set them in the RDF.
     LOGGER.debug("Setting additional data in the RDF...");
     EnrichmentUtils.setAdditionalData(rdf);
@@ -233,10 +235,10 @@ public class EnrichmentWorker {
         }
         LOGGER.debug("== Processing {}", resourceId);
         EnrichmentResultList result = dereferenceClient.dereference(resourceId);
-        if (result != null && result.getResult() != null && !result.getResult().isEmpty()) {
-          dereferenceInformation.add(result);
-        } else {
+        if (result == null || result.getResult() == null || result.getResult().isEmpty()) {
           LOGGER.debug("==== Null or empty value received for reference {}", resourceId);
+        } else {
+          dereferenceInformation.add(result);
         }
       }
     } catch (RuntimeException e) {
@@ -297,7 +299,7 @@ public class EnrichmentWorker {
   }
 
   List<InputValue> extractFieldsForEnrichment(RDF rdf) {
-	  return EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
+    return EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
   }
 
   Set<String> extractValuesForDereferencing(RDF rdf) {

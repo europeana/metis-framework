@@ -1,5 +1,20 @@
 package eu.europeana.metis.dereference.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.MongoClient;
+import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.enrichment.rest.client.EnrichmentClient;
+import eu.europeana.metis.dereference.OriginalEntity;
+import eu.europeana.metis.dereference.ProcessedEntity;
+import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.dao.CacheDao;
+import eu.europeana.metis.dereference.service.dao.EntityDao;
+import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
@@ -13,22 +28,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.MongoClient;
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
-import eu.europeana.metis.dereference.OriginalEntity;
-import eu.europeana.metis.dereference.ProcessedEntity;
-import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.MongoDereferenceService;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
-import eu.europeana.metis.dereference.service.dao.EntityDao;
-import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -44,7 +43,7 @@ public class MongoDereferenceServiceTest {
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     
     @Before
-    public void prepare() throws IOException {
+    public void prepare() {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
         int mongoPort = embeddedLocalhostMongo.getMongoPort();

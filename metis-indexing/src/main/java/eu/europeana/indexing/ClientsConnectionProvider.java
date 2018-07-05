@@ -1,9 +1,8 @@
 package eu.europeana.indexing;
 
-import java.io.IOException;
-import org.apache.solr.client.solrj.SolrClient;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.indexing.exception.IndexerConfigurationException;
+import org.apache.solr.client.solrj.SolrClient;
 
 /**
  * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection using
@@ -47,7 +46,7 @@ final class ClientsConnectionProvider extends AbstractConnectionProvider {
   }
 
   @Override
-  public void close() throws IOException {
+  public void close() {
     // Nothing to do: the two clients are to be closed by the caller.
   }
 }

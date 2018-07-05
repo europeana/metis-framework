@@ -100,14 +100,16 @@ public class RedisProvider {
    * @return Jedis
    */
   public Jedis getJedis() {
-    LOGGER.info("Requesting a new jedis connection");
-    try {
-      return pool.getResource();
-    } catch (RuntimeException e) {
-      LOGGER.error("Cannot get resource from pool..", e);
-      close();
-      pool = getPool(host, port, password);
-      return pool.getResource();
+    synchronized (this) {
+      LOGGER.info("Requesting a new jedis connection");
+      try {
+        return pool.getResource();
+      } catch (RuntimeException e) {
+        LOGGER.error("Cannot get resource from pool..", e);
+        close();
+        pool = getPool(host, port, password);
+        return pool.getResource();
+      }
     }
   }
 

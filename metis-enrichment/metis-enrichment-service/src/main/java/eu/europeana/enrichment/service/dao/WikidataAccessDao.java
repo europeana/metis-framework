@@ -1,10 +1,13 @@
 package eu.europeana.enrichment.service.dao;
 
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
+import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -25,8 +28,6 @@ import org.apache.jena.riot.RiotException;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.enrichment.api.external.model.WikidataOrganization;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
 
 /**
@@ -58,7 +59,7 @@ public class WikidataAccessDao {
   }
 
   public WikidataAccessDao(File templateFile) throws WikidataAccessException {
-    this(() -> new FileInputStream(templateFile));
+    this(() -> Files.newInputStream(templateFile.toPath()));
   }
 
   public WikidataAccessDao(InputStream xslTemplate) throws WikidataAccessException {
@@ -129,10 +130,8 @@ public class WikidataAccessDao {
     JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
 
     Unmarshaller unmarshaller = jc.createUnmarshaller();
-    InputStream stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
-    WikidataOrganization result = (WikidataOrganization) unmarshaller.unmarshal(stream);
-
-    return result;
+    InputStream stream = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
+    return (WikidataOrganization) unmarshaller.unmarshal(stream);
   }
 
   /**
@@ -213,8 +212,8 @@ public class WikidataAccessDao {
    */
   public void translate(String uri, StreamResult res) throws WikidataAccessException {
     transformer.setParameter("rdf_about", uri);
-    transformer.setParameter("deref", true);
-    transformer.setParameter("address", false);
+    transformer.setParameter("deref", Boolean.TRUE);
+    transformer.setParameter("address", Boolean.FALSE);
     transform(getModelFromSPARQL(uri), transformer, res);
   }
 

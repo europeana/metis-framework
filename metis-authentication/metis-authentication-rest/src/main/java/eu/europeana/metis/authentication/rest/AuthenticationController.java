@@ -1,5 +1,6 @@
 package eu.europeana.metis.authentication.rest;
 
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -123,6 +124,9 @@ public class AuthenticationController {
     if (StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword)) {
       throw new BadContentException("oldPassword or newPassword not provided");
     }
+    if (oldPassword.equals(newPassword)) {
+      throw new BadContentException("newPassword must be different than oldPassword");
+    }
     String accessToken = authenticationService
         .validateAuthorizationHeaderWithAccessToken(
             authorization);//Before any action, validate token
@@ -160,7 +164,8 @@ public class AuthenticationController {
     }
     authenticationService.deleteUser(userEmailToDelete);
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} deleted", userEmailToDelete.replaceAll("[\r\n]", ""));
+      LOGGER.info("User with email: {} deleted", userEmailToDelete.replaceAll(
+          CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
   }
 
@@ -192,7 +197,8 @@ public class AuthenticationController {
     }
     MetisUser metisUser = authenticationService.updateUserFromZoho(userEmailToUpdate);
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} updated", userEmailToUpdate.replaceAll("[\r\n]", ""));
+      LOGGER.info("User with email: {} updated", userEmailToUpdate.replaceAll(
+          CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
     return metisUser;
   }
@@ -224,7 +230,8 @@ public class AuthenticationController {
     }
     authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} made admin", userEmailToMakeAdmin.replaceAll("[\r\n]", ""));
+      LOGGER.info("User with email: {} made admin", userEmailToMakeAdmin.replaceAll(
+          CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
   }
 

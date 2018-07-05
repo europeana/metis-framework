@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.Version;
@@ -258,7 +259,7 @@ public class RedisInternalEnricher {
         continue;
       }
       for (EntityClass voc : inputValue.getVocabularies()) {
-        entities.addAll(findEntities(inputValue.getValue().toLowerCase(),
+        entities.addAll(findEntities(inputValue.getValue().toLowerCase(Locale.US),
             inputValue.getOriginalField(), inputValue.getLanguage(), voc));
       }
     }

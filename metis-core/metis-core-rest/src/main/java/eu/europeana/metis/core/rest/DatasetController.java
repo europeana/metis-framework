@@ -148,7 +148,10 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     datasetService.deleteDatasetByDatasetId(metisUser, datasetId);
-    LOGGER.info("Dataset with datasetId '{}' deleted", datasetId);
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Dataset with datasetId '{}' deleted",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
   }
 
   /**
@@ -175,7 +178,10 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     Dataset storedDataset = datasetService.getDatasetByDatasetId(metisUser, datasetId);
-    LOGGER.info("Dataset with datasetId '{}' found", datasetId);
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Dataset with datasetId '{}' found",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
     return storedDataset;
   }
 

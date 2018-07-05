@@ -26,17 +26,17 @@ public class InputValueList {
 
   @XmlElement(name = "inputValue")
   @JsonProperty("inputValue")
-  private List<InputValue> inputValueList;
+  private List<InputValue> inputValues;
 
   public InputValueList() {
     // Required for XML mapping.
   }
 
-  public List<InputValue> getInputValueList() {
-    return inputValueList == null ? null : Collections.unmodifiableList(inputValueList);
+  public List<InputValue> getInputValues() {
+    return inputValues == null ? null : Collections.unmodifiableList(inputValues);
   }
 
-  public void setInputValueList(List<InputValue> inputValueList) {
-    this.inputValueList = inputValueList == null ? null : new ArrayList<>(inputValueList);
+  public void setInputValues(List<InputValue> inputValues) {
+    this.inputValues = inputValues == null ? null : new ArrayList<>(inputValues);
   }
 }

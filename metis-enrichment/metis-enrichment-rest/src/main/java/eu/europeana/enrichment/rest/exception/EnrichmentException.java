@@ -1,5 +1,8 @@
 package eu.europeana.enrichment.rest.exception;
 
+/**
+ * Exception used during enrichment functionality.
+ */
 public class EnrichmentException extends Exception {
 
   /**

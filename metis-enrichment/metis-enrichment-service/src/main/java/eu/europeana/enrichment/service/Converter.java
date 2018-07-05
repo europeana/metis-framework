@@ -24,9 +24,19 @@ import java.util.stream.Collectors;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Service;
 
+/**
+ * Contains functionality for converting from an incoming Object to a different one.
+ */
 @Service
 public class Converter {
 
+  /**
+   * Converts a {@link List<EntityWrapper>} to an {@link EnrichmentResultList}
+   *
+   * @param wrapperList the {@link List<EntityWrapper>} to convert
+   * @return the result of the convertion
+   * @throws IOException if conversion fails
+   */
   public EnrichmentResultList convert(List<EntityWrapper> wrapperList) throws IOException {
     EnrichmentResultList list = new EnrichmentResultList();
 
@@ -37,6 +47,13 @@ public class Converter {
 
   }
 
+  /**
+   * Converts an {@link EntityWrapper} to an {@link EnrichmentBase} object
+   *
+   * @param wrapper the {@link EntityWrapper} to convert
+   * @return the result of the conversion
+   * @throws IOException if conversion fails
+   */
   public EnrichmentBase convert(EntityWrapper wrapper) throws IOException {
     final EnrichmentBase result;
     switch (wrapper.getEntityClass()) {
@@ -203,7 +220,7 @@ public class Converter {
     map.forEach((key, entry) ->
         entry.stream().map(
             value ->
-                (isUri(key) ? new LabelResource(key): new LabelResource(key, value))
+                (isUri(key) ? new LabelResource(key) : new LabelResource(key, value))
         ).forEach(parts::add)
     );
     return parts;

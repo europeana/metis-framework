@@ -4,12 +4,10 @@ import com.mongodb.MongoClient;
 import eu.europeana.metis.dereference.ContextualClass;
 import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
 import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.After;
@@ -29,7 +27,7 @@ public class MongoDereferencingManagementServiceTest {
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     
     @Before
-    public void prepare() throws IOException {
+    public void prepare() {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
         int mongoPort = embeddedLocalhostMongo.getMongoPort();

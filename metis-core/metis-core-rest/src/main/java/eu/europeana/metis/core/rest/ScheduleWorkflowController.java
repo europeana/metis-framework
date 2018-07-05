@@ -39,7 +39,7 @@ public class ScheduleWorkflowController {
     this.scheduleWorkflowService = scheduleWorkflowService;
     this.authenticationClient = authenticationClient;
   }
-  
+
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -51,11 +51,12 @@ public class ScheduleWorkflowController {
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     scheduleWorkflowService.scheduleWorkflow(metisUser, scheduledWorkflow);
-    LOGGER.info(
-        "ScheduledWorkflowExecution for datasetId '{}', pointerDate at '{}', scheduled '{}'",
-        scheduledWorkflow.getDatasetId(),
-        scheduledWorkflow.getPointerDate(),
-        scheduledWorkflow.getScheduleFrequence().name());
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info(
+          "ScheduledWorkflowExecution for datasetId '{}', pointerDate at '{}', scheduled '{}'",
+          scheduledWorkflow.getDatasetId(), scheduledWorkflow.getPointerDate(),
+          scheduledWorkflow.getScheduleFrequence().name());
+    }
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, method = RequestMethod.GET, produces = {
@@ -69,7 +70,8 @@ public class ScheduleWorkflowController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ScheduledWorkflow scheduledWorkflow = scheduleWorkflowService
         .getScheduledWorkflowByDatasetId(metisUser, datasetId);
-    LOGGER.info("ScheduledWorkflow with with datasetId '{}' found", datasetId);
+    LOGGER.info("ScheduledWorkflow with with datasetId '{}' found",
+        datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     return scheduledWorkflow;
   }
 
@@ -118,6 +120,7 @@ public class ScheduleWorkflowController {
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     scheduleWorkflowService.deleteScheduledWorkflow(metisUser, datasetId);
-    LOGGER.info("ScheduledWorkflowExecution for datasetId '{}' deleted", datasetId);
+    LOGGER.info("ScheduledWorkflowExecution for datasetId '{}' deleted",
+        datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
   }
 }

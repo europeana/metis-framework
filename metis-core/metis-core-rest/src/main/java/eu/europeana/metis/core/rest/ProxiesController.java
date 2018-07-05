@@ -1,5 +1,17 @@
 package eu.europeana.metis.core.rest;
 
+import eu.europeana.cloud.common.model.dps.StatisticsReport;
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
+import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.cloud.service.mcs.exception.MCSException;
+import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
+import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.service.ProxiesService;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.exception.GenericMetisException;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,17 +27,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import eu.europeana.cloud.common.model.dps.StatisticsReport;
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
-import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.cloud.service.mcs.exception.MCSException;
-import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.core.service.ProxiesService;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.exception.GenericMetisException;
 
 /**
  * Proxies Controller which encapsulates functionality that has to be proxied to an external resource.
@@ -82,14 +83,15 @@ public class ProxiesController {
       @RequestParam(value = "to") int to) throws GenericMetisException {
     LOGGER.info(
         "Requesting proxy call task logs for topologyName: {}, externalTaskId: {}, from: {}, to: {}",
-        topologyName, externalTaskId, from, to);
+        topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
+        externalTaskId, from, to);
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return proxiesService.getExternalTaskLogs(metisUser, topologyName, externalTaskId, from, to);
   }
 
   /**
    * Get the final report that includes all the errors grouped. The number of ids per error can be specified through the parameters.
-   * 
+   *
    * @param authorization the authorization header with the access token
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
@@ -111,16 +113,17 @@ public class ProxiesController {
       @PathVariable("topologyName") String topologyName,
       @PathVariable("externalTaskId") long externalTaskId,
       @RequestParam("idsPerError") int idsPerError) throws GenericMetisException {
-    LOGGER.info(
-        "Requesting proxy call task reports for topologyName: {}, externalTaskId: {}",
-        topologyName, externalTaskId);
+    LOGGER.info("Requesting proxy call task reports for topologyName: {}, externalTaskId: {}",
+        topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
+        externalTaskId);
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return proxiesService.getExternalTaskReport(metisUser, topologyName, externalTaskId, idsPerError);
+    return proxiesService
+        .getExternalTaskReport(metisUser, topologyName, externalTaskId, idsPerError);
   }
 
   /**
    * Get the statistics on the given task.
-   * 
+   *
    * @param authorization the authorization header with the access token
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
@@ -142,14 +145,15 @@ public class ProxiesController {
       @PathVariable("topologyName") String topologyName,
       @PathVariable("externalTaskId") long externalTaskId) throws GenericMetisException {
     LOGGER.info("Requesting proxy call task statistics for topologyName: {}, externalTaskId: {}",
-        topologyName, externalTaskId);
+        topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
+        externalTaskId);
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return proxiesService.getExternalTaskStatistics(metisUser, topologyName, externalTaskId);
   }
 
   /**
    * Get a list with record contents from the external resource based on an workflow execution and {@link PluginType}
-   * 
+   *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link PluginType} that is to be located inside the workflow
@@ -173,8 +177,9 @@ public class ProxiesController {
       @RequestParam(value = "nextPage", required = false) String nextPage
   ) throws GenericMetisException {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return proxiesService.getListOfFileContentsFromPluginExecution(metisUser, workflowExecutionId, pluginType,
-        StringUtils.isEmpty(nextPage) ? null : nextPage, NUMBER_OF_RECORDS);
+    return proxiesService
+        .getListOfFileContentsFromPluginExecution(metisUser, workflowExecutionId, pluginType,
+            StringUtils.isEmpty(nextPage) ? null : nextPage, NUMBER_OF_RECORDS);
   }
 
 }

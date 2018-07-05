@@ -140,7 +140,7 @@ public class YearParser {
     }
     final String yearString = matcher.group(REGEX_YEAR_GROUP_NAME);
     try {
-      return Integer.parseInt(yearString);
+      return Integer.valueOf(yearString);
     } catch (NumberFormatException e) {
       // Cannot really happen as it already matches the regex.
       LOGGER.error("Problem when parsing string '" + yearString + "'.", e);

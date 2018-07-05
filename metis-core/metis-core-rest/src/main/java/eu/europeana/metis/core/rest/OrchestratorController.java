@@ -78,7 +78,7 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void createWorkflow(     
+  public void createWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestBody Workflow workflow)
@@ -134,7 +134,10 @@ public class OrchestratorController {
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     orchestratorService.deleteWorkflow(metisUser, datasetId);
-    LOGGER.info("Workflow with datasetId '{}' deleted", datasetId);
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Workflow with datasetId '{}' deleted",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
   }
 
   /**
@@ -158,7 +161,10 @@ public class OrchestratorController {
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     Workflow workflow = orchestratorService.getWorkflow(metisUser, datasetId);
-    LOGGER.info("Workflow with datasetId '{}' found", datasetId);
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Workflow with datasetId '{}' found",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
     return workflow;
   }
 
@@ -200,7 +206,10 @@ public class OrchestratorController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     WorkflowExecution workflowExecution = orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, enforcedPluginType, priority);
-    LOGGER.info("WorkflowExecution for datasetId '{}' added to queue", datasetId);
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("WorkflowExecution for datasetId '{}' added to queue",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
     return workflowExecution;
   }
 
@@ -227,7 +236,10 @@ public class OrchestratorController {
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     orchestratorService.cancelWorkflowExecution(metisUser, executionId);
-    LOGGER.info("WorkflowExecution for executionId '{}' is cancelling", executionId);
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("WorkflowExecution for executionId '{}' is cancelling",
+          executionId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
   }
 
   /**
@@ -252,7 +264,10 @@ public class OrchestratorController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     WorkflowExecution workflowExecution = orchestratorService
         .getWorkflowExecutionByExecutionId(metisUser, executionId);
-    LOGGER.info("WorkflowExecution with executionId '{}' found", executionId);
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("WorkflowExecution with executionId '{}' found",
+          executionId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
     return workflowExecution;
   }
 
@@ -315,7 +330,10 @@ public class OrchestratorController {
   public DatasetExecutionInformation getDatasetExecutionInformation(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
-    LOGGER.info("Requesting dataset execution information for datasetId: {}", datasetId);
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Requesting dataset execution information for datasetId: {}",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return orchestratorService.getDatasetExecutionInformation(metisUser, datasetId);
   }
