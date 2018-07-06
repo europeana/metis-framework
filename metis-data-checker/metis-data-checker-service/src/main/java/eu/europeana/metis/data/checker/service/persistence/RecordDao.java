@@ -34,7 +34,6 @@ import eu.europeana.indexing.exception.IndexingException;
 @Service
 public class RecordDao {
 
-  public static final String ABOUT_STRING = "about";
   private final SolrClient solrServer;
   private final EdmMongoServer mongoServer;
   private final Indexer indexer;
