@@ -33,17 +33,28 @@ public class CacheItemWithExpirationTimeTest {
 
     // Test with actual value.
     final Duration duration = Duration.ZERO.plusSeconds(600);
+    assertFalse(cacheItem.isInstantInInterval(now, duration, now.minusSeconds(900)));
+    assertFalse(cacheItem.isInstantInInterval(now, duration, now.minusSeconds(600)));
     assertFalse(cacheItem.isInstantInInterval(now, duration, now.minusSeconds(300)));
     assertTrue(cacheItem.isInstantInInterval(now, duration, now));
     assertTrue(cacheItem.isInstantInInterval(now, duration, now.plusSeconds(300)));
     assertTrue(cacheItem.isInstantInInterval(now, duration, now.plusSeconds(600)));
     assertFalse(cacheItem.isInstantInInterval(now, duration, now.plusSeconds(900)));
 
+    // Test with negative duration.
+    final Duration negativeDuration = Duration.ZERO.minusSeconds(600);
+    assertFalse(cacheItem.isInstantInInterval(now, negativeDuration, now.minusSeconds(900)));
+    assertFalse(cacheItem.isInstantInInterval(now, negativeDuration, now.minusSeconds(600)));
+    assertFalse(cacheItem.isInstantInInterval(now, negativeDuration, now.minusSeconds(300)));
+    assertFalse(cacheItem.isInstantInInterval(now, negativeDuration, now));
+    assertFalse(cacheItem.isInstantInInterval(now, negativeDuration, now.plusSeconds(300)));
+    assertFalse(cacheItem.isInstantInInterval(now, negativeDuration, now.plusSeconds(600)));
+    assertFalse(cacheItem.isInstantInInterval(now, negativeDuration, now.plusSeconds(900)));
   }
 
   @Test
   public void testValueWasAccessedRecently() {
-    
+
     // Define times
     final Duration duration = Duration.ZERO.plusSeconds(600);
     final Instant time1 = Instant.now();

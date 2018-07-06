@@ -32,7 +32,8 @@ class CacheItemWithExpirationTime<V> {
    * Obtains the value. This method will lock the cache for reading and, if the value is not
    * present, will then also lock it for writing in order to obtain it.
    * 
-   * @param expirationTime The expiration time to be applied.
+   * @param expirationTime The expiration time to be applied. A negative duration time always
+   *        prompts a reload.
    * @param supplier A supplier that can be used to obtain the latest version of the value. Note
    *        that null will be considered a legitimate value (and not a failed supply).
    * @param lenientWithReloads Whether or not we are in lenient mode. If true, this method will
@@ -97,7 +98,7 @@ class CacheItemWithExpirationTime<V> {
    * in the interval.
    * 
    * @param start The start of the interval. Can be null (in which case false is returned).
-   * @param length The length of the interval.
+   * @param length The length of the interval. If negative, the method will always return false.
    * @param instant The instant to test.
    * @return Whether or not the instant is inside the interval.
    */

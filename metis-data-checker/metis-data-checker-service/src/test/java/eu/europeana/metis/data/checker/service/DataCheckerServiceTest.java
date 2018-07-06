@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
+import eu.europeana.metis.data.checker.common.model.DatasetProperties;
 import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
 import eu.europeana.metis.data.checker.service.executor.ValidationTaskFactory;
 import eu.europeana.metis.data.checker.service.executor.ValidationUtils;
@@ -33,7 +34,7 @@ public class DataCheckerServiceTest {
     mockConfig = Mockito.mock(DataCheckerServiceConfig.class);
     mockValidationClient = Mockito.mock(ValidationClient.class);
     final ValidationUtils validationUtils = new ValidationUtils(mockValidationClient, mockDao,
-        "EDM-EXTERNAL", "EDM-INTERNAL", "EDM_external2internal_v2.xsl");
+        "EDM-EXTERNAL", "EDM-INTERNAL", "test_url");
     ValidationTaskFactory taskFactory = new ValidationTaskFactory(validationUtils);
     Mockito.mock(ValidationTaskFactory.class);
     when(mockConfig.getDataCheckerUrl()).thenReturn("test/");
@@ -52,8 +53,9 @@ public class DataCheckerServiceTest {
     List<String> records = new ArrayList<>();
     records.add(record);
 
+    final DatasetProperties properties = new DatasetProperties("12345", null, null, null);
     ExtendedValidationResult extendedValidationResult =
-        service.createRecords(records, "12345", false, "test", false);
+        service.createRecords(records, properties, false, false);
 
     Assert.assertEquals("test/12345*", extendedValidationResult.getPortalUrl());
     Assert.assertEquals(0, extendedValidationResult.getResultList().size());

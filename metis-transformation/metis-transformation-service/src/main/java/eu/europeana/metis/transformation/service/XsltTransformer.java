@@ -136,4 +136,15 @@ public class XsltTransformer {
   public static void setLenientWithReloads(boolean lenientWithReloads) {
     TEMPLATES_CACHE.setLenientWithReloads(lenientWithReloads);
   }
+
+  /**
+   * Clean up the internal XSLT cache by calling
+   * {@link CacheWithExpirationTime#removeItemsNotAccessedSince(Duration)}.
+   * 
+   * @param since The interval length of the period we want to check (which ends now). A negative
+   *        duration cleans everything.
+   */
+  public static void removeItemsNotAccessedSince(Duration since) {
+    TEMPLATES_CACHE.removeItemsNotAccessedSince(since);
+  }
 }

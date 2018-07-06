@@ -26,4 +26,4 @@ data.checker.executor.threadCount=
 validation.schema.before_transformation=EDM-EXTERNAL
 validation.schema.after_transformation=EDM-INTERNAL
 
-transformation.default=EDM_external2internal_v2.xsl
+metis.core.uri=

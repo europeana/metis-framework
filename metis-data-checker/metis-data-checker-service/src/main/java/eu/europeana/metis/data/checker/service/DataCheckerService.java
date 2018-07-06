@@ -3,6 +3,7 @@ package eu.europeana.metis.data.checker.service;
 import com.google.common.base.Strings;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
+import eu.europeana.metis.data.checker.common.model.DatasetProperties;
 import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
 import eu.europeana.metis.data.checker.service.executor.ValidationTask;
 import eu.europeana.metis.data.checker.service.executor.ValidationTaskFactory;
@@ -63,22 +64,20 @@ public class DataCheckerService {
    * Persist temporarily (24h) records in the data checker portal
    *
    * @param records The records to persist as list of XML strings
-   * @param collectionId The collection id to apply (can not be null).
-   * @param applyCrosswalk Whether the records are in EDM-External (thus need conversion to
-   * EDM-Internal)
-   * @param crosswalkPath The path of the conversion XSL from EDM-External to EDM-Internal. Can be
-   * null, in which case the default will be used.
+   * @param datasetProperties The dataset properties to apply (can not be null).
+   * @param applyTransformation Whether the records are in EDM-External (thus need conversion to
+   *        EDM-Internal)
    * @param individualRecords Whether we need to return the IDs of the individual records.
    * @return The data checker URL of the records along with the result of the validation
    * @throws DataCheckerServiceException an error occured while
    */
-  public ExtendedValidationResult createRecords(List<String> records, final String collectionId,
-      boolean applyCrosswalk, String crosswalkPath, boolean individualRecords)
-      throws DataCheckerServiceException {
+  public ExtendedValidationResult createRecords(List<String> records,
+      final DatasetProperties datasetProperties, boolean applyTransformation,
+      boolean individualRecords) throws DataCheckerServiceException {
 
     // Create the tasks
-    final Function<String, ValidationTask> validationTaskCreator = record -> factory
-        .createValidationTask(applyCrosswalk, record, collectionId, crosswalkPath);
+    final Function<String, ValidationTask> validationTaskCreator =
+        record -> factory.createValidationTask(applyTransformation, record, datasetProperties);
     final List<ValidationTask> tasks = records.stream().map(validationTaskCreator)
         .collect(Collectors.toList());
 
@@ -93,7 +92,7 @@ public class DataCheckerService {
     commitChanges();
 
     // Done: compile the results.
-    return compileResult(taskResults, collectionId, individualRecords);
+    return compileResult(taskResults, datasetProperties.getDatasetId(), individualRecords);
   }
   
   private void commitChanges() throws DataCheckerServiceException {

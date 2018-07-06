@@ -80,6 +80,11 @@
       </exclusions>
     </dependency>
     <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-transformation-service</artifactId>
+        <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-identifier-client</artifactId>
       <version>${project.version}</version>

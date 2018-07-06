@@ -47,7 +47,8 @@ public class CacheWithExpirationTime<K, V> {
   /**
    * Constructor.
    * 
-   * @param expirationTime The expiration time of the cache.
+   * @param expirationTime The expiration time of the cache. A negative expiration time ensures that
+   *        all data will always be reloaded.
    * @param lenientWithReloads Whether or not we apply the lenient mode.
    */
   public CacheWithExpirationTime(Duration expirationTime, boolean lenientWithReloads) {
@@ -69,7 +70,8 @@ public class CacheWithExpirationTime<K, V> {
   /**
    * Set a new expiration time for this cache. This function will lock the cache for writing.
    * 
-   * @param expirationTime The new expiration time.
+   * @param expirationTime The new expiration time. A negative expiration time ensures that all data
+   *        will always be reloaded.
    */
   public void setExpirationTime(Duration expirationTime) {
     lock.writeLock().lock();
@@ -192,7 +194,8 @@ public class CacheWithExpirationTime<K, V> {
    * requested.
    * </p>
    * 
-   * @param since The interval length of the period we want to check (which ends now).
+   * @param since The interval length of the period we want to check (which ends now). A negative
+   *        duration cleans everything.
    */
   public void removeItemsNotAccessedSince(Duration since) {
     lock.writeLock().lock();

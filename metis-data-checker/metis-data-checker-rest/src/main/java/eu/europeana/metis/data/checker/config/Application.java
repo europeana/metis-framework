@@ -3,8 +3,12 @@ package eu.europeana.metis.data.checker.config;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -31,6 +35,7 @@ import eu.europeana.indexing.exception.IndexerConfigurationException;
 import eu.europeana.metis.data.checker.service.ZipService;
 import eu.europeana.metis.data.checker.service.executor.ValidationUtils;
 import eu.europeana.metis.data.checker.service.persistence.RecordDao;
+import eu.europeana.metis.transformation.service.XsltTransformer;
 import eu.europeana.validation.client.ValidationClient;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -100,8 +105,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${validation.schema.after_transformation}")
   private String schemaAfterTransformation;
 
-  @Value("${transformation.default}")
-  private String defaultTransformationFile;
+  @Value("${metis.core.uri}")
+  private String metisCoreUri;
+
+  @Value("${xslt.cache.expiration.in.sec}")
+  private int xsltCacheExpirationInSec;
+  @Value("${xslt.cache.unused.cleanup.in.min}")
+  private int xsltCacheCleanupInMin;
 
   private AbstractConnectionProvider indexingConnection;
 
@@ -151,6 +161,16 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
+
+    // Configure the xslt cache
+    XsltTransformer.setExpirationTime(Duration.ZERO.plusSeconds(xsltCacheExpirationInSec));
+    XsltTransformer.setLenientWithReloads(true);
+    
+    // Schedule cache cleaning
+    final Duration since = Duration.ofMinutes(xsltCacheCleanupInMin);
+    final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    scheduler.scheduleWithFixedDelay(() -> XsltTransformer.removeItemsNotAccessedSince(since),
+        xsltCacheCleanupInMin, xsltCacheCleanupInMin, TimeUnit.MINUTES);
   }
 
   private static List<InetSocketAddress> getAddressesFromHostsAndPorts(String[] hosts,
@@ -222,9 +242,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public ValidationUtils getValidationUtils() throws IOException, IndexerConfigurationException {
     return new ValidationUtils(validationClient(), recordDao(), schemaBeforeTransformation,
-        schemaAfterTransformation, defaultTransformationFile);
+        schemaAfterTransformation, metisCoreUri);
   }
-
+  
   @PreDestroy
   public void close() throws IOException {
     LOGGER.info("Closing connections..");

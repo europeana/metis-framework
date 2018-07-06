@@ -1,64 +1,62 @@
 package eu.europeana.metis.data.checker.service.executor;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.Collections;
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Callable;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.corelib.definitions.jibx.DatasetName;
+import eu.europeana.corelib.definitions.jibx.Aggregation;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
+import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
+import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.metis.data.checker.common.model.DatasetProperties;
+import eu.europeana.metis.transformation.service.EuropeanaGeneratedIdsMap;
+import eu.europeana.metis.transformation.service.EuropeanaIdCreator;
+import eu.europeana.metis.transformation.service.EuropeanaIdException;
+import eu.europeana.metis.transformation.service.TransformationException;
+import eu.europeana.metis.transformation.service.XsltTransformer;
 import eu.europeana.validation.model.ValidationResult;
 
 /**
- * Task for the multi-threaded implementation of the validation service
- * Created by ymamakis on 9/23/16.
+ * Task for the multi-threaded implementation of the validation service Created by ymamakis on
+ * 9/23/16.
  */
 public class ValidationTask implements Callable<ValidationTaskResult> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ValidationTask.class);
 
   private final ValidationUtils validationUtils;
-  private final boolean applyCrosswalk;
+  private final boolean applyTransformation;
   private final IBindingFactory bFact;
   private final String incomingRecord;
-  private final String collectionId;
-  private final String crosswalkPath;
+  private final DatasetProperties datasetProperties;
 
   /**
    * Default constructor of the validation service
    *
    * @param validationUtils Utils class for validation tasks
-   * @param applyCrosswalk Whether the record needs to be transformed
+   * @param applyTransformation Whether the record needs to be transformed
    * @param bFact The JibX binding factory for the conversion of the XML to RDF class
    * @param incomingRecord The record to be validated and transformed
-   * @param collectionId The collection identifier
-   * @param crosswalkPath The path where the crosswalk between EDM-External and EDM-Internal
-   * resides. Can be Null, in which case the default is used.
+   * @param datasetProperties The dataset properties that need to be enforced.
    */
-  public ValidationTask(ValidationUtils validationUtils, boolean applyCrosswalk,
-      IBindingFactory bFact, String incomingRecord, String collectionId, String crosswalkPath) {
+  public ValidationTask(ValidationUtils validationUtils, boolean applyTransformation,
+      IBindingFactory bFact, String incomingRecord, DatasetProperties datasetProperties) {
     this.validationUtils = validationUtils;
-    this.applyCrosswalk = applyCrosswalk;
+    this.applyTransformation = applyTransformation;
     this.bFact = bFact;
     this.incomingRecord = incomingRecord;
-    this.collectionId = collectionId;
-    this.crosswalkPath = crosswalkPath;
+    this.datasetProperties = datasetProperties;
   }
 
   /**
@@ -66,92 +64,111 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
    */
   @Override
   public ValidationTaskResult call()
-      throws JiBXException, TransformerException, IndexingException, IOException {
+      throws JiBXException, IndexingException, EuropeanaIdException, TransformationException {
     try {
       return invoke();
-    } catch (JiBXException | TransformerException | IndexingException | IOException e) {
-      LOGGER.error("An error occurred while validating", e);
+    } catch (JiBXException | IndexingException | EuropeanaIdException | TransformationException e) {
+      LOGGER.error("An error occurred while processing", e);
       throw e;
     }
   }
 
-  private String transformRecord() throws TransformerException, IOException {
-
-    // Obtain the XSL transform.
-    String transformationFilePath;
-    if (StringUtils.isEmpty(crosswalkPath)) {
-      transformationFilePath = validationUtils.getDefaultTransformationFile();
-    } else {
-      transformationFilePath = crosswalkPath;
-    }
-    final File transformationFile = new File(
-        Thread.currentThread().getContextClassLoader().getResource(transformationFilePath)
-            .getFile());
-    final String xslTransform = FileUtils
-        .readFileToString(transformationFile, "UTF-8");
-
-    // Perform the XSL transformation on the incoming record.
-    final Source xsltSource = new StreamSource(new StringReader(xslTransform));
-    final Transformer transformer = TransformerFactory.newInstance().newTransformer(xsltSource);
-    final Source recordSource = new StreamSource(new StringReader(incomingRecord));
-    final StringWriter stringWriter = new StringWriter();
-    transformer.transform(recordSource, new StreamResult(stringWriter));
-    return stringWriter.toString();
-  }
-
   private ValidationTaskResult invoke()
-      throws JiBXException, TransformerException, IndexingException, IOException {
+      throws JiBXException, IndexingException, EuropeanaIdException, TransformationException {
 
-    final ValidationResult validationResult =
-        applyCrosswalk ? validationUtils.validateRecordBeforeTransformation(incomingRecord)
-            : validationUtils.validateRecordAfterTransformation(incomingRecord);
-
-    // If successful, we handle the result.
-    ValidationTaskResult result;
-    if (validationResult.isSuccess()) {
-      result = handleValidatedResult(validationResult);
+    // Validate the data.
+    final ValidationResult validationResult;
+    if (applyTransformation) {
+      validationResult = validationUtils.validateRecordBeforeTransformation(incomingRecord);
     } else {
-      result = new ValidationTaskResult(null, validationResult, false);
+      validationResult = validationUtils.validateRecordAfterTransformation(incomingRecord);
     }
 
-    // Done
-    return result;
+    // If validation failed, report this to the user.
+    if (!validationResult.isSuccess()) {
+      return new ValidationTaskResult(null, validationResult, false);
+    }
+
+    // Transform the data if necessary, otherwise set the changed id properties.
+    final RDF rdf;
+    if (applyTransformation) {
+      rdf = convertToRdf(transformRecord());
+    } else {
+      rdf = convertToRdf(incomingRecord);
+      setDatasetProperties(rdf);
+    }
+
+    // Publish/index the data.
+    validationUtils.persist(rdf);
+
+    // Return the result.
+    final String recordId = rdf.getProvidedCHOList().get(0).getAbout();
+    return new ValidationTaskResult(recordId, validationResult, true);
   }
 
-  private ValidationTaskResult handleValidatedResult(final ValidationResult validationResult)
-      throws IndexingException, JiBXException, TransformerException, IOException {
-
-    // Transform the record (apply crosswalk) if necessary.
-    final String resultRecord = applyCrosswalk ? transformRecord() : incomingRecord;
-
-    // Convert record to RDF and obtain record ID.
+  private RDF convertToRdf(String rdfString) throws JiBXException {
     final IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
-    final RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(resultRecord));
-    final String recordId = validationUtils.generateIdentifier(collectionId, rdf);
+    return (RDF) uctx.unmarshalDocument(new StringReader(rdfString));
+  }
 
-    // If we couldn't obtain a record ID we return a failed result.
-    if (StringUtils.isEmpty(recordId)) {
-      ValidationResult noIdValidationResult = new ValidationResult();
-      noIdValidationResult.setSuccess(false);
-      noIdValidationResult.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
-      noIdValidationResult.setMessage("Id generation failed. Record not persisted");
-      return new ValidationTaskResult(null, noIdValidationResult, false);
-    }
+  private String transformRecord() throws EuropeanaIdException, TransformationException {
+    final EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap = new EuropeanaIdCreator()
+        .constructEuropeanaId(incomingRecord, datasetProperties.getDatasetId());
+    final XsltTransformer transformer =
+        validationUtils.createTransformer(datasetProperties.getDatasetName(),
+            datasetProperties.getEdmCountry(), datasetProperties.getEdmLanguage());
+    return transformer
+        .transform(incomingRecord.getBytes(StandardCharsets.UTF_8), europeanaGeneratedIdsMap)
+        .toString();
+  }
 
-    // Set the record ID.
-    rdf.getProvidedCHOList().get(0).setAbout(recordId);
-    
-    // Set the collection name.
-    if (rdf.getEuropeanaAggregationList() == null
-        || rdf.getEuropeanaAggregationList().isEmpty()) {
-      rdf.setEuropeanaAggregationList(Collections.singletonList(new EuropeanaAggregationType()));
-    }
-    final DatasetName datasetName = new DatasetName();
-    datasetName.setString(collectionId);
-    rdf.getEuropeanaAggregationList().get(0).setDatasetName(datasetName);
+  private static <T> Stream<T> stream(Collection<T> collection) {
+    return collection == null ? Stream.empty() : collection.stream();
+  }
 
-    // Persist and return a successful result.
-    validationUtils.persist(rdf);
-    return new ValidationTaskResult(recordId, validationResult, true);
+  private static boolean isEuropeanaProxy(ProxyType proxy) {
+    return proxy.getEuropeanaProxy() != null && proxy.getEuropeanaProxy().isEuropeanaProxy();
+  }
+
+  private static boolean isProviderProxy(ProxyType proxy) {
+    return !isEuropeanaProxy(proxy);
+  }
+
+  private void setDatasetProperties(RDF rdf) throws EuropeanaIdException {
+
+    // Generate a new ID for the record and set it.
+    final EuropeanaGeneratedIdsMap ids = new EuropeanaIdCreator()
+        .constructEuropeanaId(incomingRecord, datasetProperties.getDatasetId());
+    rdf.getProvidedCHOList().get(0).setAbout(ids.getEuropeanaGeneratedId());
+    stream(rdf.getAggregationList()).map(Aggregation::getAggregatedCHO).filter(Objects::nonNull)
+        .forEach(cho -> cho.setResource(ids.getEuropeanaGeneratedId()));
+    stream(rdf.getEuropeanaAggregationList()).map(EuropeanaAggregationType::getAggregatedCHO)
+        .filter(Objects::nonNull).forEach(cho -> cho.setResource(ids.getEuropeanaGeneratedId()));
+    stream(rdf.getProxyList()).map(ProxyType::getProxyFor).filter(Objects::nonNull)
+        .forEach(proxyFor -> proxyFor.setResource(ids.getEuropeanaGeneratedId()));
+
+    // Set the derived aggregation IDs
+    stream(rdf.getProxyList()).filter(ValidationTask::isEuropeanaProxy)
+        .map(ProxyType::getProxyInList).filter(Objects::nonNull).flatMap(List::stream)
+        .forEach(proxyIn -> proxyIn.setResource(ids.getEuropeanaAggregationAboutPrefixed()));
+    stream(rdf.getEuropeanaAggregationList())
+        .forEach(aggregation -> aggregation.setAbout(ids.getEuropeanaAggregationAboutPrefixed()));
+    stream(rdf.getProxyList()).filter(ValidationTask::isProviderProxy)
+        .map(ProxyType::getProxyInList).filter(Objects::nonNull).flatMap(List::stream)
+        .forEach(proxyIn -> proxyIn.setResource(ids.getAggregationAboutPrefixed()));
+    stream(rdf.getAggregationList())
+        .forEach(aggregation -> aggregation.setAbout(ids.getAggregationAboutPrefixed()));
+
+    // Set the derived proxy IDs
+    stream(rdf.getProxyList()).filter(ValidationTask::isEuropeanaProxy)
+        .forEach(proxy -> proxy.setAbout(ids.getEuropeanaProxyAboutPrefixed()));
+    stream(rdf.getProxyList()).filter(ValidationTask::isProviderProxy)
+        .forEach(proxy -> proxy.setAbout(ids.getProxyAboutPrefixed()));
+
+    // Set the dc:identifier in the Europeana proxies.
+    stream(rdf.getProxyList()).filter(ValidationTask::isEuropeanaProxy)
+        .map(ProxyType::getChoiceList).filter(Objects::nonNull).flatMap(List::stream)
+        .filter(Choice::ifIdentifier).map(Choice::getIdentifier)
+        .forEach(identifier -> identifier.setString(ids.getEuropeanaGeneratedId()));
   }
 }
