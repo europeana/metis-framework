@@ -2,9 +2,7 @@ package eu.europeana.metis.transformation.service;
 
 import java.time.Duration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
@@ -200,14 +198,7 @@ public class CacheWithExpirationTime<K, V> {
   public void removeItemsNotAccessedSince(Duration since) {
     lock.writeLock().lock();
     try {
-      final Iterator<Entry<K, CacheItemWithExpirationTime<V>>> iterator =
-          cache.entrySet().iterator();
-      while (iterator.hasNext()) {
-        final Entry<K, CacheItemWithExpirationTime<V>> entry = iterator.next();
-        if (!entry.getValue().valueWasAccessedRecently(since)) {
-          iterator.remove();
-        }
-      }
+      cache.entrySet().removeIf(entry -> !entry.getValue().valueWasAccessedRecently(since));
     } finally {
       lock.writeLock().unlock();
     }
