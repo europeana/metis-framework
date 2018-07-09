@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
+import java.time.Duration;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -14,6 +15,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
 import net.sf.saxon.TransformerFactoryImpl;
 
 /**
@@ -25,8 +27,8 @@ public class XsltTransformer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(XsltTransformer.class);
 
-  private static final int CACHE_SIZE = 50;
-  private static final LRUCache<String, Templates> TEMPLATES_CACHE = new LRUCache<>(CACHE_SIZE);
+  private static final CacheWithExpirationTime<String, Templates> TEMPLATES_CACHE =
+      new CacheWithExpirationTime<>();
 
   private final Transformer transformer;
 
@@ -53,7 +55,7 @@ public class XsltTransformer {
       throws TransformationException {
     try {
       this.transformer = getTemplates(xsltUrl).newTransformer();
-    } catch (TransformerConfigurationException | IOException e) {
+    } catch (TransformerConfigurationException | CacheValueSupplierException e) {
       LOGGER.error("Exception during transformation setup", e);
       throw new TransformationException(e);
     }
@@ -79,18 +81,17 @@ public class XsltTransformer {
   public StringWriter transform(byte[] fileContent,
       EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
     if (europeanaGeneratedIdsMap != null) {
-      transformer
-          .setParameter("providedCHOAboutId", europeanaGeneratedIdsMap.getEuropeanaGeneratedId());
-      transformer
-          .setParameter("aggregationAboutId",
-              europeanaGeneratedIdsMap.getAggregationAboutPrefixed());
+      transformer.setParameter("providedCHOAboutId",
+          europeanaGeneratedIdsMap.getEuropeanaGeneratedId());
+      transformer.setParameter("aggregationAboutId",
+          europeanaGeneratedIdsMap.getAggregationAboutPrefixed());
       transformer.setParameter("europeanaAggregationAboutId",
           europeanaGeneratedIdsMap.getEuropeanaAggregationAboutPrefixed());
       transformer.setParameter("proxyAboutId", europeanaGeneratedIdsMap.getProxyAboutPrefixed());
       transformer.setParameter("europeanaProxyAboutId",
           europeanaGeneratedIdsMap.getEuropeanaProxyAboutPrefixed());
-      transformer
-          .setParameter("dcIdentifier", europeanaGeneratedIdsMap.getSourceProvidedChoAbout());
+      transformer.setParameter("dcIdentifier",
+          europeanaGeneratedIdsMap.getSourceProvidedChoAbout());
     }
     try (final InputStream contentStream = new ByteArrayInputStream(fileContent)) {
       final StringWriter result = new StringWriter();
@@ -102,27 +103,48 @@ public class XsltTransformer {
     }
   }
 
-  private static Templates getTemplates(String xsltUrl)
-      throws TransformerConfigurationException, IOException {
+  private static Templates getTemplates(String xsltUrl) throws CacheValueSupplierException {
+    return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
+  }
 
-    // Check if the cache already contains this URL.
-    synchronized (TEMPLATES_CACHE) {
-      if (TEMPLATES_CACHE.containsKey(xsltUrl)) {
-        return TEMPLATES_CACHE.get(xsltUrl);
-      }
-    }
-
-    // If it doesn't, resolve the URL and create the compiled transformation.
+  private static Templates createTemplatesFromUrl(String xsltUrl)
+      throws CacheValueSupplierException {
     final TransformerFactory transformerFactory = new TransformerFactoryImpl();
-    final Templates templates;
     try (final InputStream xsltStream = new URL(xsltUrl).openStream()) {
-      templates = transformerFactory.newTemplates(new StreamSource(xsltStream));
+      return transformerFactory.newTemplates(new StreamSource(xsltStream));
+    } catch (IOException | TransformerConfigurationException e) {
+      throw new CacheValueSupplierException(e);
     }
+  }
 
-    // Save it in the cache.
-    synchronized (TEMPLATES_CACHE) {
-      TEMPLATES_CACHE.put(xsltUrl, templates);
-    }
-    return templates;
+  /**
+   * Set a new expiration time for the internal XSLT cache by calling
+   * {@link CacheWithExpirationTime#setExpirationTime(Duration)}.
+   * 
+   * @param expirationTime The new expiration time.
+   */
+  public static void setExpirationTime(Duration expirationTime) {
+    TEMPLATES_CACHE.setExpirationTime(expirationTime);
+  }
+
+  /**
+   * Set a new leniency mode for the internal XSLT cache by calling
+   * {@link CacheWithExpirationTime#setLenientWithReloads(boolean)}.
+   * 
+   * @param lenientWithReloads The new leniency mode.
+   */
+  public static void setLenientWithReloads(boolean lenientWithReloads) {
+    TEMPLATES_CACHE.setLenientWithReloads(lenientWithReloads);
+  }
+
+  /**
+   * Clean up the internal XSLT cache by calling
+   * {@link CacheWithExpirationTime#removeItemsNotAccessedSince(Duration)}.
+   * 
+   * @param since The interval length of the period we want to check (which ends now). A negative
+   *        duration cleans everything.
+   */
+  public static void removeItemsNotAccessedSince(Duration since) {
+    TEMPLATES_CACHE.removeItemsNotAccessedSince(since);
   }
 }

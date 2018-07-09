@@ -13,9 +13,6 @@ import eu.europeana.validation.model.ValidationResultList;
 @XmlRootElement
 public class ExtendedValidationResult extends ValidationResultList {
   
-    /** This class implements {@link java.io.Serializable} **/
-    private static final long serialVersionUID = -4038005673397775934L;
-  
     private String portalUrl;
     private Date date;
     private List<String> records;

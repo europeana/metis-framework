@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CollectionIdGenerator implements Supplier<String> {
+public class DatasetIdGenerator implements Supplier<String> {
 
   @Autowired
-  public CollectionIdGenerator() {}
+  public DatasetIdGenerator() {}
 
   @Override
   public String get() {

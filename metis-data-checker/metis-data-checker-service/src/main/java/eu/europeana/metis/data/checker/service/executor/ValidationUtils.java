@@ -1,9 +1,11 @@
 package eu.europeana.metis.data.checker.service.executor;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.utils.EuropeanaUriUtils;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.data.checker.service.persistence.RecordDao;
+import eu.europeana.metis.transformation.service.TransformationException;
+import eu.europeana.metis.transformation.service.XsltTransformer;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
 
@@ -13,16 +15,15 @@ public class ValidationUtils {
   private final RecordDao recordDao;
   private final String schemaBeforeTransformation;
   private final String schemaAfterTransformation;
-  private final String defaultTransformationFile;
+  private final String xsltUrl;
 
   public ValidationUtils(ValidationClient validationClient, RecordDao recordDao,
-      String schemaBeforeTransformation, String schemaAfterTransformation,
-      String defaultTransformationFile) {
+      String schemaBeforeTransformation, String schemaAfterTransformation, String metisCoreUri) {
     this.validationClient = validationClient;
     this.recordDao = recordDao;
     this.schemaBeforeTransformation = schemaBeforeTransformation;
     this.schemaAfterTransformation = schemaAfterTransformation;
-    this.defaultTransformationFile = defaultTransformationFile;
+    this.xsltUrl = metisCoreUri + RestEndpoints.DATASETS_XSLT_DEFAULT;
   }
 
   public ValidationResult validateRecordBeforeTransformation(String record) {
@@ -33,17 +34,12 @@ public class ValidationUtils {
     return validationClient.validateRecord(schemaAfterTransformation, record);
   }
 
-  public String generateIdentifier(String collectionId, RDF rdf) {
-    return EuropeanaUriUtils
-        .createSanitizedEuropeanaId(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
-        .replace("\"", "");
-  }
-
   public void persist(RDF rdf) throws IndexingException {
     recordDao.createRecord(rdf);
   }
 
-  public String getDefaultTransformationFile() {
-    return defaultTransformationFile;
+  public XsltTransformer createTransformer(String datasetName, String edmCountry,
+      String edmLanguage) throws TransformationException {
+    return new XsltTransformer(xsltUrl, datasetName, edmCountry, edmLanguage);
   }
 }

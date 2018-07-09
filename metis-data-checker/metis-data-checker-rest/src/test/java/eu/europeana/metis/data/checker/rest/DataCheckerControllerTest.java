@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -14,13 +13,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
-import eu.europeana.metis.data.checker.common.exception.ZipFileException;
-import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
-import eu.europeana.metis.data.checker.exceptions.handler.ValidationExceptionHandler;
-import eu.europeana.metis.data.checker.service.DataCheckerService;
-import eu.europeana.metis.data.checker.service.ZipService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -37,6 +29,12 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.multipart.MultipartFile;
+import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
+import eu.europeana.metis.data.checker.common.exception.ZipFileException;
+import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
+import eu.europeana.metis.data.checker.exceptions.handler.ValidationExceptionHandler;
+import eu.europeana.metis.data.checker.service.DataCheckerService;
+import eu.europeana.metis.data.checker.service.ZipService;
 
 /**
  * Created by erikkonijnenburg on 27/07/2017.
@@ -47,7 +45,7 @@ public class DataCheckerControllerTest {
       new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(),
           StandardCharsets.UTF_8);
 
-  public static String COLLECTION_ID = "collectionId";
+  public static String DATASET_ID = "datasetId";
 
   private DataCheckerService dataCheckerService;
   private MockMvc datasetControllerMock;
@@ -60,7 +58,7 @@ public class DataCheckerControllerTest {
     zipService = mock(ZipService.class);
 
     DataCheckerController dataCheckerController =
-        new DataCheckerController(dataCheckerService, zipService, () -> COLLECTION_ID);
+        new DataCheckerController(dataCheckerService, zipService, () -> DATASET_ID);
     datasetControllerMock = MockMvcBuilders.standaloneSetup(dataCheckerController)
         .setControllerAdvice(new ValidationExceptionHandler()).build();
   }
@@ -73,8 +71,8 @@ public class DataCheckerControllerTest {
     ExtendedValidationResult result = getExtendedValidationResult();
 
     when(zipService.readFileToStringList(any(MultipartFile.class))).thenReturn(list);
-    when(dataCheckerService.createRecords(eq(list), eq(COLLECTION_ID), anyBoolean(),
-        any(), anyBoolean())).thenReturn(result);
+    when(dataCheckerService.createRecords(eq(list), any(), anyBoolean(), anyBoolean()))
+        .thenReturn(result);
 
     datasetControllerMock
         .perform(fileUpload("/upload").file(fileMock).contentType(MediaType.MULTIPART_FORM_DATA)
@@ -84,8 +82,7 @@ public class DataCheckerControllerTest {
         .andExpect(jsonPath("$.records[0]", is("myRecord")));
 
     verify(zipService, times(1)).readFileToStringList(any(MultipartFile.class));
-    verify(dataCheckerService, times(1)).createRecords(anyList(), eq(COLLECTION_ID), eq(true),
-        isNull(), eq(true));
+    verify(dataCheckerService, times(1)).createRecords(anyList(), any(), eq(true), eq(true));
     verifyNoMoreInteractions(dataCheckerService, zipService);
   }
 
@@ -108,8 +105,8 @@ public class DataCheckerControllerTest {
     List<String> list = new ArrayList<>();
 
     when(zipService.readFileToStringList(any(MultipartFile.class))).thenReturn(list);
-    when(dataCheckerService.createRecords(eq(list), eq(COLLECTION_ID), anyBoolean(),
-        any(), anyBoolean())).thenThrow(new DataCheckerServiceException("myException"));
+    when(dataCheckerService.createRecords(eq(list), any(), anyBoolean(), anyBoolean()))
+        .thenThrow(new DataCheckerServiceException("myException"));
 
     datasetControllerMock
         .perform(fileUpload("/upload").file(fileMock).contentType(MediaType.MULTIPART_FORM_DATA)

@@ -8,15 +8,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.data.checker.common.model.DatasetProperties;
 
 /**
  * Created by erikkonijnenburg on 06/07/2017.
  */
 @Service
 public class ValidationTaskFactory {
-  
+
   private static final Logger LOGGER = LoggerFactory.getLogger(ValidationTaskFactory.class);
-  
+
   private static final IBindingFactory BINDING_FACTORY;
 
   private final ValidationUtils validationUtils;
@@ -37,9 +38,9 @@ public class ValidationTaskFactory {
     BINDING_FACTORY = bfactTemp;
   }
 
-  public ValidationTask createValidationTask(boolean applyCrosswalk, String record,
-      String collectionId, String crosswalkPath) {
-    return new ValidationTask(validationUtils, applyCrosswalk, BINDING_FACTORY, record,
-        collectionId, crosswalkPath);
+  public ValidationTask createValidationTask(boolean applyTransformation, String record,
+      DatasetProperties datasetProperties) {
+    return new ValidationTask(validationUtils, applyTransformation, BINDING_FACTORY, record,
+        datasetProperties);
   }
 }
