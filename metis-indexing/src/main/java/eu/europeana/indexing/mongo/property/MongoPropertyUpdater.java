@@ -1,5 +1,11 @@
 package eu.europeana.indexing.mongo.property;
 
+import com.mongodb.DuplicateKeyException;
+import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
+import eu.europeana.corelib.definitions.edm.entity.WebResource;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
+import eu.europeana.corelib.storage.MongoServer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,12 +24,6 @@ import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.mongodb.DuplicateKeyException;
-import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
-import eu.europeana.corelib.definitions.edm.entity.WebResource;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.corelib.storage.MongoServer;
 
 /**
  * This class provides functionality to update the properties of a given object. It keeps track of
@@ -383,5 +383,9 @@ final class MongoPropertyUpdater<T> {
       mongoServer.getDatastore().update(createQuery(), mongoOperations, true);
     }
     return createQuery().get();
+  }
+
+  public T getCurrent() {
+    return current;
   }
 }

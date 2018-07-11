@@ -28,9 +28,8 @@ final class EuropeanaAggregationFieldInput
 
     mongoAggregation.setDcCreator(creator);
 
-
     Map<String, List<String>> country = FieldInputUtils.createLiteralMapFromString(
-        aggregation.getCountry().getCountry().xmlValue().toLowerCase(Locale.ENGLISH));
+        aggregation.getCountry().getCountry().xmlValue());
     mongoAggregation.setEdmCountry(country);
     String isShownBy =
         Optional.ofNullable(aggregation.getIsShownBy()).map(ResourceType::getResource).orElse(null);
@@ -53,6 +52,7 @@ final class EuropeanaAggregationFieldInput
     mongoAggregation.setAggregates(aggregates);
     String[] hasViewList = FieldInputUtils.resourceListToArray(aggregation.getHasViewList());
     mongoAggregation.setEdmHasView(hasViewList);
+    mongoAggregation.setEdmPreview(aggregation.getPreview().getResource());
     return mongoAggregation;
   }
 }

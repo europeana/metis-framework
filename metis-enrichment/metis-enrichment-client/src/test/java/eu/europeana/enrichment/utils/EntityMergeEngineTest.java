@@ -308,7 +308,7 @@ public class EntityMergeEngineTest {
     verifyString(original.getAbout(), copy.getAbout(), true);
     verifyList(original.getAltLabelList(), copy.getAltLabelList(), this::verifyLabel);
     verifyFirstListItem(original.getBeginList(), copy.getBegin(), this::verifyLabel);
-    verifyFirstListItem(original.getBiographicaInformation(), copy.getBiographicalInformation(),
+    verifyList(original.getBiographicaInformation(), copy.getBiographicalInformationList(),
         this::verifyLabel);
     verifyList(original.getDate(), copy.getDateList(), this::verifyLabelResource);
     verifyFirstListItem(original.getDateOfBirth(), copy.getDateOfBirth(), this::verifyLabel);
@@ -437,6 +437,16 @@ public class EntityMergeEngineTest {
   }
 
   private void verifyLabel(Label original, LiteralType copy) {
+    if (original.getLang() != null) {
+      assertNotNull(copy.getLang());
+      verifyString(original.getLang(), copy.getLang().getLang(), false);
+    } else {
+      assertNull(copy.getLang());
+    }
+    verifyString(original.getValue(), copy.getString(), false);
+  }
+
+  private void verifyLabel(Label original, ResourceOrLiteralType copy) {
     if (original.getLang() != null) {
       assertNotNull(copy.getLang());
       verifyString(original.getLang(), copy.getLang().getLang(), false);

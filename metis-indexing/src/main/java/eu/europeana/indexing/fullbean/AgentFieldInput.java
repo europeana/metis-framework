@@ -21,8 +21,8 @@ final class AgentFieldInput implements Function<AgentType, AgentImpl> {
     agent.setEdmIsRelatedTo(
         FieldInputUtils.createResourceOrLiteralMapFromList(agentType.getIsRelatedToList()));
     agent.setFoafName(FieldInputUtils.createLiteralMapFromList(agentType.getNameList()));
-    agent.setRdaGr2BiographicalInformation(
-        FieldInputUtils.createLiteralMapFromString(agentType.getBiographicalInformation()));
+    agent.setRdaGr2BiographicalInformation(FieldInputUtils
+        .createResourceOrLiteralMapFromList(agentType.getBiographicalInformationList()));
     agent.setRdaGr2DateOfBirth(
         FieldInputUtils.createLiteralMapFromString(agentType.getDateOfBirth()));
     agent.setRdaGr2DateOfDeath(

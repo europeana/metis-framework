@@ -1,11 +1,12 @@
 package eu.europeana.indexing.mongo.property;
 
-import java.util.ArrayList;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.storage.MongoServer;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Field updater for instances of {@link FullBeanImpl}.
@@ -15,7 +16,17 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl> {
   @Override
   protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
       MongoServer mongoServer) {
-    return MongoPropertyUpdater.createForFullBean(newEntity, mongoServer);
+    //On creation also retrieves the current entity, used just below
+    MongoPropertyUpdater<FullBeanImpl> fullBeanMongoPropertyUpdater = MongoPropertyUpdater
+        .createForFullBean(newEntity, mongoServer);
+
+    //Update timestamp values relative to the previous/current entity
+    FullBeanImpl current = fullBeanMongoPropertyUpdater.getCurrent();
+    if (current != null) {
+      newEntity.setTimestampCreated(current.getTimestampCreated());
+    }
+    newEntity.setTimestampUpdated(new Date());
+    return fullBeanMongoPropertyUpdater;
   }
 
   @Override
@@ -32,13 +43,14 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl> {
   @Override
   protected void update(MongoPropertyUpdater<FullBeanImpl> propertyUpdater) {
     propertyUpdater.updateArray("title", FullBeanImpl::getTitle);
-    propertyUpdater.updateArray("title", FullBeanImpl::getTitle);
     propertyUpdater.updateArray("year", FullBeanImpl::getYear);
     propertyUpdater.updateArray("provider", FullBeanImpl::getProvider);
     propertyUpdater.updateArray("language", FullBeanImpl::getLanguage);
     propertyUpdater.updateArray("country", FullBeanImpl::getCountry);
     propertyUpdater.updateArray("europeanaCollectionName",
         FullBeanImpl::getEuropeanaCollectionName);
+    propertyUpdater.updateObject("timestampCreated", FullBeanImpl::getTimestampCreated);
+    propertyUpdater.updateObject("timestampUpdated", FullBeanImpl::getTimestampUpdated);
     propertyUpdater.updateObject("type", FullBeanImpl::getType);
     propertyUpdater.updateObject("europeanaCompleteness", FullBeanImpl::getEuropeanaCompleteness);
     propertyUpdater.updateReferencedEntities("places", FullBeanImpl::getPlaces, new PlaceUpdater());

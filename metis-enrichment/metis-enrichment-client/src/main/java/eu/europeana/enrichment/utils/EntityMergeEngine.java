@@ -132,8 +132,10 @@ public class EntityMergeEngine {
     agentType.setBegin(extractFirstLabel(agent.getBeginList(), Begin::new));
 
     // biographicalInformation
-    agentType.setBiographicalInformation(
-        extractFirstLabel(agent.getBiographicaInformation(), BiographicalInformation::new));
+    agentType.setBiographicalInformationList(
+        extractLabelsToResourceOrLiteralList(agent.getBiographicaInformation(), BiographicalInformation::new));
+    agentType.setProfessionOrOccupationList(
+        extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
 
     // dateList
     agentType.setDateList(extractLabelResources(agent.getDate(), Date::new));
@@ -388,6 +390,11 @@ public class EntityMergeEngine {
     return extractItems(sourceList, label -> extractLabel(label, newInstanceProvider));
   }
 
+  private static <T extends ResourceOrLiteralType> List<T> extractLabelsToResourceOrLiteralList(List<Label> sourceList,
+      Supplier<T> newInstanceProvider) {
+    return extractItems(sourceList, label -> extractLabelToResourceOrLiteral(label, newInstanceProvider));
+  }
+
   private static <T extends ResourceOrLiteralType> List<T> extractParts(List<Part> sourceList,
       Supplier<T> newInstanceProvider) {
     return extractItems(sourceList, part -> extractPart(part, newInstanceProvider));
@@ -426,6 +433,18 @@ public class EntityMergeEngine {
     final T result = newInstanceProvider.get();
     if (label.getLang() != null) {
       final LiteralType.Lang lang = new LiteralType.Lang();
+      lang.setLang(label.getLang());
+      result.setLang(lang);
+    }
+    result.setString(label.getValue() != null ? label.getValue() : "");
+    return result;
+  }
+
+  private static <T extends ResourceOrLiteralType> T extractLabelToResourceOrLiteral(Label label,
+      Supplier<T> newInstanceProvider) {
+    final T result = newInstanceProvider.get();
+    if (label.getLang() != null) {
+      final ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
       lang.setLang(label.getLang());
       result.setLang(lang);
     }

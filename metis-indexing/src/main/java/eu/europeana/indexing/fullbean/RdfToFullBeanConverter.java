@@ -1,5 +1,14 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.jibx.CollectionName;
+import eu.europeana.corelib.definitions.jibx.DatasetName;
+import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
+import eu.europeana.corelib.definitions.jibx.LiteralType;
+import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,26 +18,17 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import eu.europeana.corelib.definitions.jibx.CollectionName;
-import eu.europeana.corelib.definitions.jibx.DatasetName;
-import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.corelib.solr.entity.WebResourceImpl;
 
 /**
  * This class converts instances of {@link RDF} to instances of {@link FullBeanImpl}.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public class RdfToFullBeanConverter {
 
   /**
    * Converts an RDF to Full Bean.
-   * 
+   *
    * @param record The RDF record to convert.
    * @return The Full Bean.
    */
@@ -54,7 +54,10 @@ public class RdfToFullBeanConverter {
       fullBean.setEuropeanaAggregation(record.getEuropeanaAggregationList().stream()
           .map(new EuropeanaAggregationFieldInput()).findFirst().orElse(null));
     }
-    fullBean.setEuropeanaCollectionName(new String[] {getDatasetNameFromRdf(record)});
+    fullBean.setEuropeanaCollectionName(new String[]{getDatasetNameFromRdf(record)});
+    record.getEuropeanaAggregationList().stream().findFirst()
+        .map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)
+        .ifPresent((value) -> fullBean.setEuropeanaCompleteness(Integer.parseInt(value)));
 
     return fullBean;
   }
