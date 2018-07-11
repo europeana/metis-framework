@@ -196,7 +196,7 @@ public final class EuropeanaIdCreator {
     return result;
   }
 
-  private static final class RdfNamespaceResolver implements NamespaceContext {
+  private final class RdfNamespaceResolver implements NamespaceContext {
 
     @Override
     public String getNamespaceURI(String prefix) {
