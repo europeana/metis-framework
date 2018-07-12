@@ -16,8 +16,12 @@ public class ConfigurationPropertiesHolder {
   //Orchestration
   @Value("${max.concurrent.threads}")
   private int maxConcurrentThreads;
-  @Value("${monitor.check.interval.in.secs}")
-  private int monitorCheckIntervalInSecs;
+  @Value("${dps.monitor.check.interval.in.secs}")
+  private int dpsMonitorCheckIntervalInSecs;
+  @Value("${failsafe.margin.of.inactivity.in.secs}")
+  private int failsafeMarginOfInactivityInSecs;
+  @Value("${periodic.execution.monitor.check.in.millisecs}")
+  private int periodicExecutionMonitorCheckInMillisecs;
   @Value("${periodic.failsafe.check.in.millisecs}")
   private int periodicFailsafeCheckInMillisecs;
   @Value("${periodic.scheduler.check.in.millisecs}")
@@ -135,8 +139,16 @@ public class ConfigurationPropertiesHolder {
     return maxConcurrentThreads;
   }
 
-  public int getMonitorCheckIntervalInSecs() {
-    return monitorCheckIntervalInSecs;
+  public int getDpsMonitorCheckIntervalInSecs() {
+    return dpsMonitorCheckIntervalInSecs;
+  }
+
+  public int getFailsafeMarginOfInactivityInSecs() {
+    return failsafeMarginOfInactivityInSecs;
+  }
+
+  public int getPeriodicExecutionMonitorCheckInMillisecs() {
+    return periodicExecutionMonitorCheckInMillisecs;
   }
 
   public int getPeriodicFailsafeCheckInMillisecs() {

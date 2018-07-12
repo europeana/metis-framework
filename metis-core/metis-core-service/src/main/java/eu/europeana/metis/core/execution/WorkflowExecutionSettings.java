@@ -2,7 +2,7 @@ package eu.europeana.metis.core.execution;
 
 interface WorkflowExecutionSettings {
 
-  int getMonitorCheckIntervalInSecs();
+  int getDpsMonitorCheckIntervalInSecs();
 
   int getMaxConcurrentThreads();
 

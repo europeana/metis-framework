@@ -1,5 +1,28 @@
 package eu.europeana.metis.core.service;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -39,29 +62,6 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.DateUtils;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * Service class that controls the communication between the different DAOs of the system.
@@ -114,7 +114,6 @@ public class OrchestratorService {
     this.workflowExecutorManager = workflowExecutorManager;
     this.redissonClient = redissonClient;
     this.authorizer = authorizer;
-    this.workflowExecutorManager.initiateConsumer();
   }
 
   /**
@@ -539,29 +538,6 @@ public class OrchestratorService {
     }
   }
 
-  /**
-   * Cleans a workflowExecutions list and removes active executions. This method is not checked for
-   * authorization: it is only meant to be called from a scheduled task.
-   *
-   * @param workflowExecutions the list of workflowExecutions to clean
-   */
-  public void removeActiveWorkflowExecutionsFromList(List<WorkflowExecution> workflowExecutions) {
-    workflowExecutionDao.removeActiveExecutionsFromList(workflowExecutions,
-        workflowExecutorManager.getMonitorCheckIntervalInSecs());
-  }
-
-  /**
-   * Adds the workflowExecution identifier to the distributed queue. This method is not checked for
-   * authorization: it is only meant to be called from a scheduled task.
-   *
-   * @param workflowExecutionObjectId the workflowExecution identifier
-   * @param priority the priority of the execution in the queue, 0 lowest, 10 highest
-   */
-  public void addWorkflowExecutionToQueue(String workflowExecutionObjectId, int priority) {
-    workflowExecutorManager
-        .addWorkflowExecutionToQueue(workflowExecutionObjectId, priority);
-  }
-
   private void checkRestrictionsOnWorkflowCreate(Workflow workflow)
       throws WorkflowAlreadyExistsException {
 
@@ -693,20 +669,6 @@ public class OrchestratorService {
     // Find the executions.
     return workflowExecutionDao.getAllWorkflowExecutions(datasetIds, workflowStatuses, orderField,
         ascending, nextPage);
-  }
-
-  /**
-   * Get all WorkflowExecutions for all datasets, using pagination. <b>Please note:</b> this method
-   * is not checked for authorization: it is only meant to be called from a scheduled task.
-   *
-   * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
-   * @param nextPage the nextPage token
-   * @return a list of all the WorkflowExecutions found. The list will be ordered by ID (ascending).
-   */
-  public List<WorkflowExecution> getAllWorkflowExecutionsWithoutAuthorization(
-      Set<WorkflowStatus> workflowStatuses, int nextPage) {
-    return workflowExecutionDao.getAllWorkflowExecutions(null, workflowStatuses, OrderField.ID,
-        true, nextPage);
   }
 
   /**

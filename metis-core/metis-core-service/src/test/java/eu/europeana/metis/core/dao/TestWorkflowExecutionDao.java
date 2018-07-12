@@ -1,7 +1,17 @@
 package eu.europeana.metis.core.dao;
 
-import com.jayway.awaitility.Awaitility;
-import com.jayway.awaitility.Duration;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.HashSet;
+import org.bson.types.ObjectId;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.mongodb.morphia.Datastore;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -14,20 +24,6 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.List;
-import org.bson.types.ObjectId;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mongodb.morphia.Datastore;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -378,117 +374,6 @@ public class TestWorkflowExecutionDao {
   }
 
   @Test
-  public void isExecutionActiveUpdatedDateHasChanged() {
-    Date beforeDate = new Date();
-    Date afterDate = new Date(beforeDate.getTime() + 1000);
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    workflowExecution.setUpdatedDate(afterDate);
-    String objectId = workflowExecutionDao.create(workflowExecution);
-    WorkflowExecution retrievedWorkflowExecution = workflowExecutionDao
-        .getById(objectId);
-    retrievedWorkflowExecution.setUpdatedDate(beforeDate);
-    Assert
-        .assertTrue(workflowExecutionDao.isExecutionActive(retrievedWorkflowExecution, 0));
-  }
-
-  @Test
-  public void isExecutionActiveUpdatedDateGotValueFromNull() {
-    Date updatedDate = new Date();
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    workflowExecution.setUpdatedDate(updatedDate);
-    String objectId = workflowExecutionDao.create(workflowExecution);
-    WorkflowExecution retrievedWorkflowExecution = workflowExecutionDao
-        .getById(objectId);
-    retrievedWorkflowExecution.setUpdatedDate(null);
-    Assert
-        .assertTrue(workflowExecutionDao.isExecutionActive(retrievedWorkflowExecution, 0));
-  }
-
-  @Test
-  public void isExecutionActiveFinishedExecution() {
-    Date updatedDate = new Date();
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    workflowExecution.setUpdatedDate(updatedDate);
-    workflowExecution.setFinishedDate(new Date());
-    String objectId = workflowExecutionDao.create(workflowExecution);
-    WorkflowExecution retrievedWorkflowExecution = workflowExecutionDao
-        .getById(objectId);
-    Assert
-        .assertTrue(workflowExecutionDao.isExecutionActive(retrievedWorkflowExecution, 0));
-  }
-
-  @Test
-  public void isExecutionActiveInterrupted() throws InterruptedException {
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    Thread t = new Thread(() -> Assert
-        .assertTrue(workflowExecutionDao.isExecutionActive(workflowExecution, 10)));
-    t.start();
-    Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> untilThreadIsSleeping(t));
-    t.interrupt();
-  }
-
-  @Test
-  public void isExecutionActiveFalse() {
-    Date updatedDate = new Date();
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    workflowExecution.setUpdatedDate(updatedDate);
-    String objectId = workflowExecutionDao.create(workflowExecution);
-    WorkflowExecution retrievedWorkflowExecution = workflowExecutionDao
-        .getById(objectId);
-    Assert
-        .assertFalse(workflowExecutionDao.isExecutionActive(retrievedWorkflowExecution, 0));
-  }
-
-  @Test
-  public void removeActiveExecutionsFromList() {
-    Date updatedDate = new Date();
-    Date beforeDate = updatedDate;
-    Date afterDate = new Date(beforeDate.getTime() + 1000);
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    workflowExecution.setUpdatedDate(updatedDate);
-    workflowExecutionDao.create(workflowExecution);
-    WorkflowExecution workflowExecutionUpdated = TestObjectFactory
-        .createWorkflowExecutionObject();
-    workflowExecutionUpdated.setUpdatedDate(afterDate);
-    String objectId = workflowExecutionDao.create(workflowExecutionUpdated);
-    workflowExecutionUpdated.setUpdatedDate(beforeDate);
-
-    List<WorkflowExecution> workflowExecutions = new ArrayList<>();
-    workflowExecutions.add(workflowExecution);
-    workflowExecutions.add(workflowExecutionUpdated);
-    Assert.assertEquals(2, workflowExecutions.size());
-    workflowExecutionDao.removeActiveExecutionsFromList(workflowExecutions, 0);
-    Assert.assertEquals(1, workflowExecutions.size());
-  }
-
-  @Test
-  public void removeActiveExecutionsFromListInterrupted() throws InterruptedException {
-    Thread t = new Thread(() -> {
-      Date beforeDate = new Date();
-      Date afterDate = new Date(beforeDate.getTime() + 1000);
-      WorkflowExecution workflowExecution = TestObjectFactory
-          .createWorkflowExecutionObject();
-      workflowExecution.setUpdatedDate(new Date());
-      workflowExecution.setUpdatedDate(afterDate);
-      workflowExecutionDao.create(workflowExecution);
-      workflowExecution.setUpdatedDate(beforeDate);
-      List<WorkflowExecution> workflowExecutions = new ArrayList<>();
-      workflowExecutions.add(workflowExecution);
-      workflowExecutionDao.removeActiveExecutionsFromList(workflowExecutions, 10);
-      Assert.assertEquals(1, workflowExecutions.size());
-    });
-    t.start();
-    Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> untilThreadIsSleeping(t));
-    t.interrupt();
-  }
-
-  @Test
   public void deleteAllByDatasetId() {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
@@ -496,10 +381,4 @@ public class TestWorkflowExecutionDao {
     Assert.assertTrue(
         workflowExecutionDao.deleteAllByDatasetId(workflowExecution.getDatasetId()));
   }
-
-  private void untilThreadIsSleeping(Thread t) {
-    Assert.assertEquals("java.lang.Thread", t.getStackTrace()[0].getClassName());
-    Assert.assertEquals("sleep", t.getStackTrace()[0].getMethodName());
-  }
-
 }
