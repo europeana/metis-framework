@@ -88,7 +88,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
   private static EdmMongoServer setUpMongoConnection(IndexingSettings settings, MongoClient client)
       throws IndexerConfigurationException {
     try {
-      return new EdmMongoServerImpl(client, settings.getMongoDatabaseName());
+      return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), true);
     } catch (MongoDBException e) {
       throw new IndexerConfigurationException("Could not set up mongo server.", e);
     }

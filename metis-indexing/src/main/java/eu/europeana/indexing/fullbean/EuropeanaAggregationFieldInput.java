@@ -52,7 +52,9 @@ final class EuropeanaAggregationFieldInput
     mongoAggregation.setAggregates(aggregates);
     String[] hasViewList = FieldInputUtils.resourceListToArray(aggregation.getHasViewList());
     mongoAggregation.setEdmHasView(hasViewList);
-    mongoAggregation.setEdmPreview(aggregation.getPreview().getResource());
+    String edmPreview = Optional.ofNullable(aggregation.getIsShownBy())
+        .map(ResourceType::getResource).orElse(null);
+    mongoAggregation.setEdmPreview(edmPreview);
     return mongoAggregation;
   }
 }
