@@ -22,10 +22,9 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl> {
 
     //Update timestamp values relative to the previous/current entity
     FullBeanImpl current = fullBeanMongoPropertyUpdater.getCurrent();
-    if (current != null) {
-      newEntity.setTimestampCreated(current.getTimestampCreated());
-    }
-    newEntity.setTimestampUpdated(new Date());
+    Date currentDate = new Date();
+    newEntity.setTimestampCreated(current != null ? current.getTimestampCreated() : currentDate);
+    newEntity.setTimestampUpdated(currentDate);
     return fullBeanMongoPropertyUpdater;
   }
 

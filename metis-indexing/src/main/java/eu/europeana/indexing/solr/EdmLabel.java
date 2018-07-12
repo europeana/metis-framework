@@ -50,7 +50,8 @@ public enum EdmLabel {
   EUROPEANA_AGGREGATION_EDM_ISSHOWNBY("europeana_aggregation_edm_isShownBy"), 
   EUROPEANA_AGGREGATION_EDM_HASVIEW("europeana_aggregation_edm_hasView"), 
   EUROPEANA_AGGREGATION_EDM_COUNTRY("europeana_aggregation_edm_country"), 
-  EUROPEANA_AGGREGATION_EDM_LANGUAGE("europeana_aggregation_edm_language"), 
+  EUROPEANA_AGGREGATION_EDM_LANGUAGE("europeana_aggregation_edm_language"),
+  @Deprecated//Not required in Solr
   EUROPEANA_AGGREGATION_EDM_PREVIEW("europeana_aggregation_edm_preview"),
   
   // WEB RESOURCE FIELDS
@@ -204,6 +205,7 @@ public enum EdmLabel {
   AG_RDAGR2_DATEOFTERMINATION("ag_rdagr2_dateOfTermination"),
   AG_RDAGR2_GENDER("ag_rdagr2_gender"),
   AG_RDAGR2_PROFESSIONOROCCUPATION("ag_rdagr2_professionOrOccupation"),
+  @Deprecated//Not required in Solr
   AG_RDAGR2_BIOGRAPHICALINFORMATION("ag_rdagr2_biographicalInformation");
   
   private final String label;

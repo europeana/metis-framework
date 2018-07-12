@@ -39,7 +39,5 @@ public class AgentSolrCreator implements PropertySolrCreator<Agent> {
     SolrPropertyUtils.addValues(doc, EdmLabel.AG_RDAGR2_GENDER, agent.getRdaGr2Gender());
     SolrPropertyUtils.addValues(doc, EdmLabel.AG_RDAGR2_PROFESSIONOROCCUPATION,
         agent.getRdaGr2ProfessionOrOccupation());
-    SolrPropertyUtils.addValues(doc, EdmLabel.AG_RDAGR2_BIOGRAPHICALINFORMATION,
-        agent.getRdaGr2BiographicalInformation());
   }
 }

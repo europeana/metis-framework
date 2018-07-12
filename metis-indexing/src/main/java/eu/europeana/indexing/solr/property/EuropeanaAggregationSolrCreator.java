@@ -20,7 +20,6 @@ public class EuropeanaAggregationSolrCreator implements PropertySolrCreator<Euro
     SolrPropertyUtils.addValue(doc, EdmLabel.EUROPEANA_AGGREGATION_ORE_AGGREGATEDCHO, aggr.getAggregatedCHO());
     SolrPropertyUtils.addValue(doc, EdmLabel.EUROPEANA_AGGREGATION_EDM_LANDINGPAGE, aggr.getEdmLandingPage());
     SolrPropertyUtils.addValue(doc, EdmLabel.EUROPEANA_AGGREGATION_EDM_ISSHOWNBY, aggr.getEdmIsShownBy());
-    SolrPropertyUtils.addValue(doc, EdmLabel.EUROPEANA_AGGREGATION_EDM_PREVIEW, aggr.getEdmPreview());
     new WebResourceSolrCreator(license -> false).addAllToDocument(doc, aggr.getWebResources());
   }
 }
