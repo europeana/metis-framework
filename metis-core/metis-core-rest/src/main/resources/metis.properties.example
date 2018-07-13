@@ -1,6 +1,7 @@
 #Orchestration
 max.concurrent.threads=
 dps.monitor.check.interval.in.secs=
+dps.request.timeout.in.secs=
 failsafe.margin.of.inactivity.in.secs=
 periodic.execution.monitor.check.in.millisecs=
 periodic.failsafe.check.in.millisecs=

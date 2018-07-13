@@ -18,6 +18,8 @@ public class ConfigurationPropertiesHolder {
   private int maxConcurrentThreads;
   @Value("${dps.monitor.check.interval.in.secs}")
   private int dpsMonitorCheckIntervalInSecs;
+  @Value("${dps.request.timeout.in.secs}")
+  private int dpsRequestTimeoutInSecs;
   @Value("${failsafe.margin.of.inactivity.in.secs}")
   private int failsafeMarginOfInactivityInSecs;
   @Value("${periodic.execution.monitor.check.in.millisecs}")
@@ -141,6 +143,10 @@ public class ConfigurationPropertiesHolder {
 
   public int getDpsMonitorCheckIntervalInSecs() {
     return dpsMonitorCheckIntervalInSecs;
+  }
+
+  public int getDpsRequestTimeoutInSecs() {
+    return dpsRequestTimeoutInSecs;
   }
 
   public int getFailsafeMarginOfInactivityInSecs() {

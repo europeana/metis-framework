@@ -21,10 +21,12 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutorManager.class);
   private static final int DEFAULT_MAX_CONCURRENT_THREADS = 10;
   private static final int DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS = 5;
+  private static final int DEFAULT_REQUEST_TIMEOUT_SECS = 60;
   private static final int DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS = 10;
 
   private int maxConcurrentThreads = DEFAULT_MAX_CONCURRENT_THREADS; //Use setter otherwise default
   private int dpsMonitorCheckIntervalInSecs = DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS; //Use setter otherwise default
+  private int dpsRequestTimeoutInSecs = DEFAULT_REQUEST_TIMEOUT_SECS; //Use setter otherwise default
   private int pollingTimeoutForCleaningCompletionServiceInSecs = DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS; //Use setter otherwise default
 
   private String rabbitmqQueueName; //Initialize with setter
@@ -89,6 +91,10 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
     this.dpsMonitorCheckIntervalInSecs = dpsMonitorCheckIntervalInSecs;
   }
 
+  public void setDpsRequestTimeoutInSecs(int dpsRequestTimeoutInSecs) {
+    this.dpsRequestTimeoutInSecs = dpsRequestTimeoutInSecs;
+  }
+
   public void setPollingTimeoutForCleaningCompletionServiceInSecs(
       int pollingTimeoutForCleaningCompletionServiceInSecs) {
     this.pollingTimeoutForCleaningCompletionServiceInSecs = pollingTimeoutForCleaningCompletionServiceInSecs;
@@ -97,6 +103,11 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   @Override
   public int getDpsMonitorCheckIntervalInSecs() {
     return dpsMonitorCheckIntervalInSecs;
+  }
+
+  @Override
+  public int getDpsRequestTimeoutInSecs() {
+    return dpsRequestTimeoutInSecs;
   }
 
   @Override
