@@ -358,6 +358,7 @@ public abstract class AbstractMetisPlugin {
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task progress failed", e);
     }
+    LOGGER.info("Task information received for externalTaskId: {}", getExternalTaskId());
     return getExecutionProgress().copyExternalTaskInformation(taskInfo);
   }
 

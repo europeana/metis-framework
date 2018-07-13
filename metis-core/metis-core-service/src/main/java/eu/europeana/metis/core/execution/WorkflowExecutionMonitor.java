@@ -214,7 +214,7 @@ public class WorkflowExecutionMonitor {
       final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
 
       // If we can't claim the execution, we're done.
-      if (!mayClaimExecution(workflowExecution)) {
+      if (!mayClaimExecution(workflowExecution, workflowExecutionId)) {
         return null;
       }
 
@@ -238,7 +238,7 @@ public class WorkflowExecutionMonitor {
     }
   }
 
-  boolean mayClaimExecution(WorkflowExecution workflowExecution) {
+  boolean mayClaimExecution(WorkflowExecution workflowExecution, String workflowExecutionId) {
 
     // Check lock
     if (!lock.isHeldByCurrentThread()) {
@@ -248,7 +248,12 @@ public class WorkflowExecutionMonitor {
     // If the status is not RUNNING, we can give the answer straight away: only executions in the
     // queue may be started.
     if (workflowExecution.getWorkflowStatus() != WorkflowStatus.RUNNING) {
-      return workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE;
+      boolean result = workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE;
+      if (!result) {
+        LOGGER.info("Claim for execution {} denied: workflow not in RUNNING or INQUEUE state.",
+            workflowExecutionId);
+      }
+      return result;
     }
 
     // If it is running, we check whether it is currently hanging. Get the map entry.
@@ -256,12 +261,22 @@ public class WorkflowExecutionMonitor {
 
     // If there is no entry, permission is denied: we assume one will appear shortly.
     if (currentExecution == null) {
+      LOGGER.info(
+          "Claim for execution {} denied: wait for scheduled monitoring task to monitor this RUNNING execution.",
+          workflowExecutionId);
       return false;
     }
 
     // Grant permission only if the execution appears to be hanging.
-    return currentExecution.updateTimeValueIsEqual(workflowExecution.getUpdatedDate())
-        && currentExecution.assumeHanging(failsafeLeniency);
+    final boolean result =
+        currentExecution.updateTimeValueIsEqual(workflowExecution.getUpdatedDate())
+            && currentExecution.assumeHanging(failsafeLeniency);
+    if (!result) {
+      LOGGER.info(
+          "Claim for execution {} denied: RUNNING execution does not (yet) appear to be hanging.",
+          workflowExecutionId);
+    }
+    return result;
   }
 
   WorkflowExecutionEntry getEntry(WorkflowExecution workflowExecution) {

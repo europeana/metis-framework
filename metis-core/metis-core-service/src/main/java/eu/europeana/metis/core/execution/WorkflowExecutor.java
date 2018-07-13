@@ -72,8 +72,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     LOGGER.info("Claiming workflow execution with id: {}", workflowExecutionId);
     this.workflowExecution = workflowExecutionMonitor.claimExecution(this.workflowExecutionId);
     if (this.workflowExecution == null) {
-      LOGGER.info(
-          "Discarding WorkflowExecution with id: {}, it is either currently handled from another instance or it not INQUEUE or RUNNING",
+      LOGGER.info("Discarding WorkflowExecution with id: {}, it could not be claimed.",
           workflowExecutionId);
       return null;
     }

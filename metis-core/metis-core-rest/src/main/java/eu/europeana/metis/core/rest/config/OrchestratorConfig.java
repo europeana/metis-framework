@@ -267,7 +267,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     LOGGER.info("Workflow execution monitor task started (runs every {} milliseconds).",
         propertiesHolder.getPeriodicExecutionMonitorCheckInMillisecs());
     this.workflowExecutionMonitor.performExecutionMonitoring();
-    LOGGER.info("Failsafe task finished.");
+    LOGGER.info("Workflow execution monitor task finished.");
   }
 
   @Scheduled(fixedDelayString = "${periodic.failsafe.check.in.millisecs}",
