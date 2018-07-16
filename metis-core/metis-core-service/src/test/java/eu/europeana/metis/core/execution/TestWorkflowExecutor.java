@@ -431,7 +431,7 @@ public class TestWorkflowExecutor {
       verify(result, times(1)).get(anyLong(), any());
       verifyNoMoreInteractions(result);
     }
-    
+
     // Test timeout exception
     Mockito.reset(result);
     final TimeoutException timeoutException = new TimeoutException("");
@@ -445,7 +445,7 @@ public class TestWorkflowExecutor {
       verify(result, times(1)).cancel(eq(true));
       verifyNoMoreInteractions(result);
     }
-    
+
     // Test interrupted exception
     Mockito.reset(result);
     final InterruptedException interruptedException = new InterruptedException("");
@@ -473,7 +473,5 @@ public class TestWorkflowExecutor {
       verify(result, times(1)).get(anyLong(), any());
       verifyNoMoreInteractions(result);
     }
-
-
   }
 }

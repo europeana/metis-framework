@@ -286,7 +286,7 @@ public class WorkflowExecutionMonitor {
     return currentExecutions.get(workflowExecution.getId().toString());
   }
 
-  private static class WorkflowExecutionEntry {
+  static class WorkflowExecutionEntry {
 
     /**
      * This is the date that other core instances may provide. Should be treated as a version
@@ -321,7 +321,15 @@ public class WorkflowExecutionMonitor {
      * @return Whether or not the execution is assumed to be hanging.
      */
     public boolean assumeHanging(Duration leniency) {
-      return lastValueChange.plus(leniency).isBefore(Instant.now());
+      return getLastValueChange().plus(leniency).isBefore(getNow());
+    }
+
+    public Instant getLastValueChange() {
+      return lastValueChange;
+    }
+    
+    Instant getNow() {
+      return Instant.now();
     }
   }
 }
