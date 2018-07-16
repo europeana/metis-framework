@@ -235,7 +235,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     // Computes the leniency for the failsafe action: how long ago (worst case) can the last update
     // time have been set before we assume the execution hangs.
     final Duration failsafeLeniency =
-        Duration.ZERO.plusMillis(propertiesHolder.getDpsRequestTimeoutInSecs())
+        Duration.ZERO.plusSeconds(propertiesHolder.getDpsRequestTimeoutInSecs())
             .plusMillis(propertiesHolder.getPeriodicExecutionMonitorCheckInMillisecs())
             .plusSeconds(propertiesHolder.getDpsMonitorCheckIntervalInSecs())
             .plusSeconds(propertiesHolder.getFailsafeMarginOfInactivityInSecs());
