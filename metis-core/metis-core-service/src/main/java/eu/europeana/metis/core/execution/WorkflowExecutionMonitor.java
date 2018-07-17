@@ -38,7 +38,7 @@ public class WorkflowExecutionMonitor {
   private final RLock lock;
 
   /** The currently running executions. **/
-  private Map<String, WorkflowExecutionEntry> currentExecutions = Collections.emptyMap();
+  private Map<String, WorkflowExecutionEntry> currentRunningExecutions = Collections.emptyMap();
 
   /**
    * Constructor the executor
@@ -57,36 +57,8 @@ public class WorkflowExecutionMonitor {
     this.lock = redissonClient.getFairLock(FAILSAFE_LOCK);
   }
 
-  /**
-   * Makes a run to make an inventory of the last update times of all running tasks. This method is
-   * meant to run periodically.
-   */
-  public void performExecutionMonitoring() {
-    try {
-
-      // Lock for the duration of this scheduled task.
-      lock.lock();
-
-      // Update the current executions map (completely replace it).
-      updateCurrentExecutions();
-
-    } catch (RuntimeException e) {
-      LOGGER.warn("Exception thrown from Redis, monitoring thread continues", e);
-    } finally {
-      try {
-        lock.unlock();
-      } catch (RedisConnectionException e) {
-        LOGGER.warn("Cannot connect to unlock, monitoring thread continues", e);
-      }
-    }
-  }
-
-  List<WorkflowExecution> updateCurrentExecutions() {
-
-    // Check lock
-    if (!lock.isHeldByCurrentThread()) {
-      throw new IllegalStateException();
-    }
+  /* DO NOT CALL THIS METHOD WITHOUT POSSESSING THE LOCK */
+  List<WorkflowExecution> updateCurrentRunningExecutions() {
 
     // Get all workflow executions that are currently running
     final List<WorkflowExecution> allRunningWorkflowExecutions =
@@ -98,15 +70,17 @@ public class WorkflowExecutionMonitor {
       final WorkflowExecutionEntry currentEntry = getEntry(execution);
       final WorkflowExecutionEntry newEntry;
       if (currentEntry != null && currentEntry.updateTimeValueIsEqual(execution.getUpdatedDate())) {
-        // If the known update time has not changed, we keep the entry.
+        // If the known update time has not changed, we keep the entry (the
+        // timeOfLastUpdateTimeChange property should not change).
         newEntry = currentEntry;
       } else {
-        // If we find a change of the known update time, we make a new entry.
+        // If we find a change of the known update time, we make a new entry with a new
+        // timeOfLastUpdateTimeChange value).
         newEntry = new WorkflowExecutionEntry(execution.getUpdatedDate());
       }
       newExecutions.put(execution.getId().toString(), newEntry);
     }
-    currentExecutions = Collections.unmodifiableMap(newExecutions);
+    currentRunningExecutions = Collections.unmodifiableMap(newExecutions);
 
     // Done: return all currently running executions.
     return allRunningWorkflowExecutions;
@@ -125,7 +99,7 @@ public class WorkflowExecutionMonitor {
       lock.lock();
 
       // Update the execution times. This way we always have the latest values.
-      final List<WorkflowExecution> allRunningWorkflowExecutions = updateCurrentExecutions();
+      final List<WorkflowExecution> allRunningWorkflowExecutions = updateCurrentRunningExecutions();
 
       // Determine which running executions appear to be hanging. Those we requeue. If an execution
       // is running but there is no entry, requeue it just to be safe (this can't happen).
@@ -158,12 +132,8 @@ public class WorkflowExecutionMonitor {
     }
   }
 
+  /* DO NOT CALL THIS METHOD WITHOUT POSSESSING THE LOCK */
   List<WorkflowExecution> getWorkflowExecutionsWithStatus(WorkflowStatus workflowStatus) {
-
-    // Check lock
-    if (!lock.isHeldByCurrentThread()) {
-      throw new IllegalStateException();
-    }
 
     // Get all the executions, using paging.
     final List<WorkflowExecution> workflowExecutions = new ArrayList<>();
@@ -214,7 +184,7 @@ public class WorkflowExecutionMonitor {
       final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
 
       // If we can't claim the execution, we're done.
-      if (!mayClaimExecution(workflowExecution, workflowExecutionId)) {
+      if (!mayClaimExecution(workflowExecution)) {
         return null;
       }
 
@@ -238,12 +208,8 @@ public class WorkflowExecutionMonitor {
     }
   }
 
-  boolean mayClaimExecution(WorkflowExecution workflowExecution, String workflowExecutionId) {
-
-    // Check lock
-    if (!lock.isHeldByCurrentThread()) {
-      throw new IllegalStateException();
-    }
+  /* DO NOT CALL THIS METHOD WITHOUT POSSESSING THE LOCK */
+  boolean mayClaimExecution(WorkflowExecution workflowExecution) {
 
     // If the status is not RUNNING, we can give the answer straight away: only executions in the
     // queue may be started.
@@ -251,7 +217,7 @@ public class WorkflowExecutionMonitor {
       boolean result = workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE;
       if (!result) {
         LOGGER.info("Claim for execution {} denied: workflow not in RUNNING or INQUEUE state.",
-            workflowExecutionId);
+            workflowExecution.getId());
       }
       return result;
     }
@@ -263,7 +229,7 @@ public class WorkflowExecutionMonitor {
     if (currentExecution == null) {
       LOGGER.info(
           "Claim for execution {} denied: wait for scheduled monitoring task to monitor this RUNNING execution.",
-          workflowExecutionId);
+          workflowExecution.getId());
       return false;
     }
 
@@ -274,16 +240,14 @@ public class WorkflowExecutionMonitor {
     if (!result) {
       LOGGER.info(
           "Claim for execution {} denied: RUNNING execution does not (yet) appear to be hanging.",
-          workflowExecutionId);
+          workflowExecution.getId());
     }
     return result;
   }
 
+  /* DO NOT CALL THIS METHOD WITHOUT POSSESSING THE LOCK */
   WorkflowExecutionEntry getEntry(WorkflowExecution workflowExecution) {
-    if (!lock.isHeldByCurrentThread()) {
-      throw new IllegalStateException();
-    }
-    return currentExecutions.get(workflowExecution.getId().toString());
+    return currentRunningExecutions.get(workflowExecution.getId().toString());
   }
 
   static class WorkflowExecutionEntry {
@@ -292,14 +256,14 @@ public class WorkflowExecutionMonitor {
      * This is the date that other core instances may provide. Should be treated as a version
      * number: no time calculations should be done with this as the clock may differ from ours.
      **/
-    private final Instant currentUpdateTimeValue;
+    private final Instant executionUpdateTime;
 
     /** This is the date on this machine. Can be treated as a time. **/
-    private final Instant lastValueChange;
+    private final Instant timeOfLastUpdateTimeChange;
 
     public WorkflowExecutionEntry(Date updateTime) {
-      this.currentUpdateTimeValue = updateTime == null ? null : updateTime.toInstant();
-      this.lastValueChange = Instant.now();
+      this.executionUpdateTime = updateTime == null ? null : updateTime.toInstant();
+      this.timeOfLastUpdateTimeChange = Instant.now();
     }
 
     /**
@@ -310,7 +274,7 @@ public class WorkflowExecutionMonitor {
      */
     public boolean updateTimeValueIsEqual(Date otherUpdateTime) {
       Instant otherInstant = otherUpdateTime == null ? null : otherUpdateTime.toInstant();
-      return Objects.equals(otherInstant, currentUpdateTimeValue);
+      return Objects.equals(otherInstant, executionUpdateTime);
     }
 
     /**
@@ -325,9 +289,9 @@ public class WorkflowExecutionMonitor {
     }
 
     public Instant getLastValueChange() {
-      return lastValueChange;
+      return timeOfLastUpdateTimeChange;
     }
-    
+
     Instant getNow() {
       return Instant.now();
     }

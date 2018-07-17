@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
@@ -25,7 +24,6 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.EnumSet;
-import java.util.function.Consumer;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
@@ -67,7 +65,6 @@ public class TestWorkflowExecutionMonitor {
   public void setUp() {
     when(redissonClient.getFairLock(FAILSAFE_LOCK)).thenReturn(lock);
     doNothing().when(lock).lock();
-    when(lock.isHeldByCurrentThread()).thenReturn(true);
     doNothing().when(lock).unlock();
   }
 
@@ -115,7 +112,7 @@ public class TestWorkflowExecutionMonitor {
 
     // Mock the retrieval of executions: 1, 2 and 3 are running, 4 is in queue.
     doReturn(Arrays.asList(workflowExecution1, workflowExecution2, workflowExecution3))
-        .when(monitor).updateCurrentExecutions();
+        .when(monitor).updateCurrentRunningExecutions();
     when(workflowExecutionDao.getAllWorkflowExecutions(isNull(),
         eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0)))
             .thenReturn(Arrays.asList(workflowExecution4));
@@ -135,7 +132,7 @@ public class TestWorkflowExecutionMonitor {
     InOrder inOrder = Mockito.inOrder(lock, workflowExecutorManager, workflowExecutionDao, monitor);
     inOrder.verify(monitor).performFailsafe();
     inOrder.verify(lock).lock();
-    inOrder.verify(monitor, times(1)).updateCurrentExecutions();
+    inOrder.verify(monitor, times(1)).updateCurrentRunningExecutions();
     inOrder.verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(),
         eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0));
     inOrder.verify(lock).unlock();
@@ -163,26 +160,6 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testPerformExecutionMonitoring() {
-    WorkflowExecutionMonitor monitor =
-        Mockito.spy(new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao,
-            redissonClient, Duration.ofHours(1)));
-    doReturn(null).when(monitor).updateCurrentExecutions();
-
-    monitor.performExecutionMonitoring();
-
-    InOrder inOrder = Mockito.inOrder(lock, redissonClient, workflowExecutorManager,
-        workflowExecutionDao, monitor);
-    inOrder.verify(monitor, times(1)).performExecutionMonitoring();
-    inOrder.verify(lock, times(1)).lock();
-    inOrder.verify(monitor, times(1)).updateCurrentExecutions();
-    inOrder.verify(lock, times(1)).unlock();
-    inOrder.verifyNoMoreInteractions();
-
-    verifyNoMoreInteractions(monitor);
-  }
-
-  @Test
   public void testClaimExecution() {
 
     // Create monitor.
@@ -197,7 +174,7 @@ public class TestWorkflowExecutionMonitor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
 
     // Test when claim succeeds on execution in queue.
-    doReturn(true).when(monitor).mayClaimExecution(workflowExecution, id);
+    doReturn(true).when(monitor).mayClaimExecution(workflowExecution);
     final Instant begin1 = Instant.now();
     assertSame(workflowExecution, monitor.claimExecution(id));
     final Instant end1 = Instant.now();
@@ -207,7 +184,7 @@ public class TestWorkflowExecutionMonitor {
     inOrder.verify(monitor, times(1)).claimExecution(any());
     inOrder.verify(lock, times(1)).lock();
     inOrder.verify(workflowExecutionDao, times(1)).getById(id);
-    inOrder.verify(monitor, times(1)).mayClaimExecution(workflowExecution, id);
+    inOrder.verify(monitor, times(1)).mayClaimExecution(workflowExecution);
     inOrder.verify(workflowExecutionDao, times(1)).updateMonitorInformation(workflowExecution);
     inOrder.verify(lock, times(1)).unlock();
     inOrder.verifyNoMoreInteractions();
@@ -233,7 +210,7 @@ public class TestWorkflowExecutionMonitor {
     assertEquals(WorkflowStatus.RUNNING, workflowExecution.getWorkflowStatus());
 
     // Test when claim fails.
-    doReturn(false).when(monitor).mayClaimExecution(workflowExecution, id);
+    doReturn(false).when(monitor).mayClaimExecution(workflowExecution);
     assertNull(monitor.claimExecution(id));
   }
 
@@ -290,16 +267,6 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testGetEntryUnlocked() {
-    testUnlockedHelperMethod(monitor -> monitor.getEntry(null));
-  }
-
-  @Test
-  public void testGetWorkflowExecutionsWithStatusUnlocked() {
-    testUnlockedHelperMethod(monitor -> monitor.getWorkflowExecutionsWithStatus(null));
-  }
-
-  @Test
   public void testMayClaimExecution() {
 
     // Create monitor
@@ -310,24 +277,23 @@ public class TestWorkflowExecutionMonitor {
 
     // Create workflow execution
     final WorkflowExecution workflowExecution = createWorkflowExecution(Instant.now(), null);
-    final String id = workflowExecution.getId().toString();
 
     // Checks of non-RUNNING executions
     workflowExecution.setWorkflowStatus(WorkflowStatus.CANCELLED);
-    assertFalse(monitor.mayClaimExecution(workflowExecution, id));
+    assertFalse(monitor.mayClaimExecution(workflowExecution));
     workflowExecution.setWorkflowStatus(WorkflowStatus.FAILED);
-    assertFalse(monitor.mayClaimExecution(workflowExecution, id));
+    assertFalse(monitor.mayClaimExecution(workflowExecution));
     workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
-    assertFalse(monitor.mayClaimExecution(workflowExecution, id));
+    assertFalse(monitor.mayClaimExecution(workflowExecution));
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    assertTrue(monitor.mayClaimExecution(workflowExecution, id));
+    assertTrue(monitor.mayClaimExecution(workflowExecution));
 
     // Now check for running executions.
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
 
     // Check when entry is not there.
     doReturn(null).when(monitor).getEntry(workflowExecution);
-    assertFalse(monitor.mayClaimExecution(workflowExecution, id));
+    assertFalse(monitor.mayClaimExecution(workflowExecution));
 
     // Check when entry has changed
     final Date updateTime = new Date(0);
@@ -335,21 +301,16 @@ public class TestWorkflowExecutionMonitor {
     final WorkflowExecutionEntry entry = spy(new WorkflowExecutionEntry(null));
     doReturn(entry).when(monitor).getEntry(workflowExecution);
     doReturn(false).when(entry).updateTimeValueIsEqual(updateTime);
-    assertFalse(monitor.mayClaimExecution(workflowExecution, id));
+    assertFalse(monitor.mayClaimExecution(workflowExecution));
 
     // Check when entry is hanging
     doReturn(true).when(entry).updateTimeValueIsEqual(updateTime);
     doReturn(false).when(entry).assumeHanging(leniency);
-    assertFalse(monitor.mayClaimExecution(workflowExecution, id));
+    assertFalse(monitor.mayClaimExecution(workflowExecution));
 
     // Check when all is well
     doReturn(true).when(entry).assumeHanging(leniency);
-    assertTrue(monitor.mayClaimExecution(workflowExecution, id));
-  }
-
-  @Test
-  public void testMayClaimExecutionUnlocked() {
-    testUnlockedHelperMethod(monitor -> monitor.mayClaimExecution(null, null));
+    assertTrue(monitor.mayClaimExecution(workflowExecution));
   }
 
   @Test
@@ -378,7 +339,7 @@ public class TestWorkflowExecutionMonitor {
     // Set base for current executions: include workflows 1, 2 and 3. Verify.
     doReturn(Arrays.asList(workflowExecution1, workflowExecution2, workflowExecution3))
         .when(monitor).getWorkflowExecutionsWithStatus(WorkflowStatus.RUNNING);
-    monitor.updateCurrentExecutions();
+    monitor.updateCurrentRunningExecutions();
 
     // Check that all data was processed correctly.
     final WorkflowExecutionEntry executionRecord1 = monitor.getEntry(workflowExecution1);
@@ -395,7 +356,7 @@ public class TestWorkflowExecutionMonitor {
     workflowExecution1.setUpdatedDate(new Date(newUpdatedTime));
     doReturn(Arrays.asList(workflowExecution1, workflowExecution2, workflowExecution4))
         .when(monitor).getWorkflowExecutionsWithStatus(WorkflowStatus.RUNNING);
-    monitor.updateCurrentExecutions();
+    monitor.updateCurrentRunningExecutions();
 
     // Check that all data was processed correctly.
     assertNotNull(monitor.getEntry(workflowExecution1));
@@ -406,26 +367,6 @@ public class TestWorkflowExecutionMonitor {
     assertNull(monitor.getEntry(workflowExecution3));
     assertNotNull(monitor.getEntry(workflowExecution4));
     assertTrue(monitor.getEntry(workflowExecution4).updateTimeValueIsEqual(new Date(updatedTime)));
-  }
-
-  @Test
-  public void testUpdateCurrentExecutionsUnlocked() {
-    testUnlockedHelperMethod(monitor -> monitor.updateCurrentExecutions());
-  }
-
-  private void testUnlockedHelperMethod(Consumer<WorkflowExecutionMonitor> helperMethod) {
-    when(lock.isHeldByCurrentThread()).thenReturn(false);
-    final WorkflowExecutionMonitor monitor =
-        spy(new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao,
-            redissonClient, Duration.ofHours(1)));
-    try {
-      helperMethod.accept(monitor);
-      fail();
-    } catch (IllegalStateException e) {
-      verify(redissonClient, times(1)).getFairLock(eq(FAILSAFE_LOCK));
-      verify(lock, times(1)).isHeldByCurrentThread();
-      verifyNoMoreInteractions(lock, redissonClient, workflowExecutorManager, workflowExecutionDao);
-    }
   }
 
   private static WorkflowExecution createWorkflowExecution(Instant id, Date updatedDate) {

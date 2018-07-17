@@ -182,7 +182,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
           abstractMetisPlugin.setStartedDate(startDateToUse);
         }
         executeRequest(client -> {
-          abstractMetisPlugin.execute(dpsClient, ecloudBaseUrl, ecloudProvider,
+          abstractMetisPlugin.execute(client, ecloudBaseUrl, ecloudProvider,
               workflowExecution.getEcloudDatasetId());
           return null;
         });
@@ -323,7 +323,23 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     abstractMetisPlugin.setExecutionProgress(executionProgress);
   }
 
+  /**
+   * Instances of this interface represent a call to the DPS client.
+   * 
+   * @author jochen
+   *
+   * @param <T> The type of the return value.
+   */
+  @FunctionalInterface
   interface DpsClientRequest<T> {
+
+    /**
+     * This method makes the request to the DPS client.
+     * 
+     * @param client The client to use as the target DPS client.
+     * @return The result of the request.
+     * @throws ExternalTaskException In case the client reported this exception.
+     */
     T makeRequest(DpsClient client) throws ExternalTaskException;
   }
 }

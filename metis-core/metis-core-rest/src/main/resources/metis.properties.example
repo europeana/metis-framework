@@ -3,7 +3,6 @@ max.concurrent.threads=
 dps.monitor.check.interval.in.secs=
 dps.request.timeout.in.secs=
 failsafe.margin.of.inactivity.in.secs=
-periodic.execution.monitor.check.in.millisecs=
 periodic.failsafe.check.in.millisecs=
 periodic.scheduler.check.in.millisecs=
 redisson.lock.watchdog.timeout.in.secs=

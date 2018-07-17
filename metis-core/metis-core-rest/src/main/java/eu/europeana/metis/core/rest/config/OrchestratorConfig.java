@@ -236,7 +236,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     // time have been set before we assume the execution hangs.
     final Duration failsafeLeniency =
         Duration.ZERO.plusSeconds(propertiesHolder.getDpsRequestTimeoutInSecs())
-            .plusMillis(propertiesHolder.getPeriodicExecutionMonitorCheckInMillisecs())
+            .plusMillis(propertiesHolder.getPeriodicFailsafeCheckInMillisecs())
             .plusSeconds(propertiesHolder.getDpsMonitorCheckIntervalInSecs())
             .plusSeconds(propertiesHolder.getFailsafeMarginOfInactivityInSecs());
     
@@ -263,17 +263,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
         workflowExecutionManager, workflowExecutionManager, workflowExecutionMonitor);
   }
 
-  @Scheduled(fixedDelayString = "${periodic.execution.monitor.check.in.millisecs}",
-      initialDelayString = "${periodic.execution.monitor.check.in.millisecs}")
-  public void runWorkflowExecutionMonitor() {
-    LOGGER.info("Workflow execution monitor task started (runs every {} milliseconds).",
-        propertiesHolder.getPeriodicExecutionMonitorCheckInMillisecs());
-    this.workflowExecutionMonitor.performExecutionMonitoring();
-    LOGGER.info("Workflow execution monitor task finished.");
-  }
-
-  @Scheduled(fixedDelayString = "${periodic.failsafe.check.in.millisecs}",
-      initialDelayString = "${periodic.failsafe.check.in.millisecs}")
+  @Scheduled(fixedDelayString = "${periodic.failsafe.check.in.millisecs}")
   public void runFailsafeExecutor() {
     LOGGER.info("Failsafe task started (runs every {} milliseconds).",
         propertiesHolder.getPeriodicFailsafeCheckInMillisecs());

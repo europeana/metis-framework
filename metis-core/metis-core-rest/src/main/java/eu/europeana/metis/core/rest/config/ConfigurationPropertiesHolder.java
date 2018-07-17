@@ -22,8 +22,6 @@ public class ConfigurationPropertiesHolder {
   private int dpsRequestTimeoutInSecs;
   @Value("${failsafe.margin.of.inactivity.in.secs}")
   private int failsafeMarginOfInactivityInSecs;
-  @Value("${periodic.execution.monitor.check.in.millisecs}")
-  private int periodicExecutionMonitorCheckInMillisecs;
   @Value("${periodic.failsafe.check.in.millisecs}")
   private int periodicFailsafeCheckInMillisecs;
   @Value("${periodic.scheduler.check.in.millisecs}")
@@ -151,10 +149,6 @@ public class ConfigurationPropertiesHolder {
 
   public int getFailsafeMarginOfInactivityInSecs() {
     return failsafeMarginOfInactivityInSecs;
-  }
-
-  public int getPeriodicExecutionMonitorCheckInMillisecs() {
-    return periodicExecutionMonitorCheckInMillisecs;
   }
 
   public int getPeriodicFailsafeCheckInMillisecs() {
