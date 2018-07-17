@@ -68,7 +68,8 @@ public final class EuropeanaIdCreator {
   }
 
   /**
-   * This method constructs a Europeana ID for an RDF and provides a map for the Provider ID and Europeana ID.
+   * This method constructs a Europeana ID for an RDF and provides a map for the Provider ID and
+   * Europeana ID.
    *
    * @param rdf The RDF. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
@@ -83,8 +84,10 @@ public final class EuropeanaIdCreator {
   }
 
   /**
-   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for the ProvidedCHO rdf:about and Europeana ID.
-   * If the rdfAbout is already a europeana identifier then there will not be a generation of the Europeana ID but a copy of the ProvidedCHO rdf:about.
+   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for
+   * the ProvidedCHO rdf:about and Europeana ID. If the rdfAbout is already a europeana identifier
+   * then there will not be a generation of the Europeana ID but a copy of the ProvidedCHO
+   * rdf:about.
    *
    * @param rdfString The RDF as a string. Is not null.
    * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
@@ -176,14 +179,24 @@ public final class EuropeanaIdCreator {
     return result;
   }
 
+  /*
+   * TODO Note: the synchronized block around the actual call to the RDF about extractor is
+   * necessary to solve issue MET-1258. It is currently expected that somewhere in the apache xerces
+   * implementation there is a threading issue that causes exceptions even if individual threads are
+   * calling privately owned instances of this class. Eventually an upgrade to a later version of
+   * the apache libraries or a move towards another parser would be needed to solve this issue
+   * permanently.
+   */
   private String extractRdfAboutFromRdfString(String rdfString) throws EuropeanaIdException {
 
     // Obtain the RDF about
     final String result;
     try (final InputStream inputStream =
         new ByteArrayInputStream(rdfString.getBytes(StandardCharsets.UTF_8))) {
-      result =
-          (String) rdfAboutExtractor.evaluate(new InputSource(inputStream), XPathConstants.STRING);
+      synchronized (EuropeanaIdCreator.class) {
+        result = (String) rdfAboutExtractor.evaluate(new InputSource(inputStream),
+            XPathConstants.STRING);
+      }
     } catch (XPathExpressionException | IOException e) {
       throw new EuropeanaIdException(
           "Something went wrong while extracting the provider ID from the source.", e);
@@ -196,7 +209,7 @@ public final class EuropeanaIdCreator {
     return result;
   }
 
-  private final class RdfNamespaceResolver implements NamespaceContext {
+  private static final class RdfNamespaceResolver implements NamespaceContext {
 
     @Override
     public String getNamespaceURI(String prefix) {
