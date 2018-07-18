@@ -62,12 +62,27 @@ public final class EnrichmentUtils {
    */
   public static void setAdditionalData(RDF rdf) {
 
-    // Get the provider and europeana proxies
+    // Get the provider proxy
     final ProxyType providerProxy = rdf.getProxyList().stream()
         .filter(proxy -> !isEuropeanaProxy(proxy)).findAny().orElse(null);
+    if (providerProxy == null) {
+      return;
+    }
+
+    // Calculate completeness first
+    EuropeanaAggregationType europeanaAggregation = rdf.getEuropeanaAggregationList().stream()
+        .findAny().orElse(null);
+    if (europeanaAggregation != null) {
+      Completeness completeness = new Completeness();
+      completeness.setString(Integer
+          .toString(computeEuropeanaCompleteness(providerProxy, rdf.getAggregationList().get(0))));
+      europeanaAggregation.setCompleteness(completeness);
+    }
+
+    // Get the Europeana proxy
     final ProxyType europeanaProxy = rdf.getProxyList().stream()
         .filter(EnrichmentUtils::isEuropeanaProxy).findAny().orElse(null);
-    if (providerProxy == null || europeanaProxy == null) {
+    if (europeanaProxy == null) {
       return;
     }
 
@@ -80,15 +95,6 @@ public final class EnrichmentUtils {
     final List<Year> yearList = new YearParser().parse(dateStrings).stream()
         .map(EnrichmentUtils::createYear).collect(Collectors.toList());
     europeanaProxy.setYearList(yearList);
-
-    EuropeanaAggregationType europeanaAggregation = rdf.getEuropeanaAggregationList().stream()
-        .findAny().orElse(null);
-    if (europeanaAggregation != null) {
-      Completeness completeness = new Completeness();
-      completeness.setString(Integer
-          .toString(computeEuropeanaCompleteness(providerProxy, rdf.getAggregationList().get(0))));
-      europeanaAggregation.setCompleteness(completeness);
-    }
   }
 
   private static Year createYear(Integer year) {
@@ -117,6 +123,23 @@ public final class EnrichmentUtils {
     return proxy.getEuropeanaProxy() != null && proxy.getEuropeanaProxy().isEuropeanaProxy();
   }
 
+  /**
+   * Calculates the Europeana Completeness.
+   *
+   * It gives a rank from 0 to maximum 10 for a record. That ranking is divided in two parts.
+   * <p>Up to 5 points for tags and up to 5 points for free-text fields(title, description)</p>
+   * <p>Records with one of the title, description, or thumbnail missing get rank 0.<p/>
+   * <p>Points are calculated in the following manner:</p>
+   * <ul>
+   * <li>For tags the number of words inside all fields is calculated and divided by 1. Max value of
+   * points is 5</li>
+   * <li>For free-text the number of words inside all fields is calculated and divided by 5. Max
+   * value of points is 5</li>
+   * </ul>
+   * @param providerProxy the provider proxy
+   * @param aggregation the provider aggregation
+   * @return the points awarded to the record
+   */
   private static int computeEuropeanaCompleteness(final ProxyType providerProxy,
       final Aggregation aggregation) {
     List<String> tags = new ArrayList<>();
@@ -137,8 +160,8 @@ public final class EnrichmentUtils {
 
   private static void addResourceOrLiteralTypeFromChoicesToList(List<Choice> europeanaTypeList,
       List<String> tags, List<String> descriptions) {
-    ResourceOrLiteralType resourceOrLiteralType = null;
     for (Choice europeanaType : europeanaTypeList) {
+      ResourceOrLiteralType resourceOrLiteralType = null;
       if (europeanaType.ifCoverage()) {
         resourceOrLiteralType = europeanaType.getCoverage();
       } else if (europeanaType.ifContributor()) {
@@ -205,7 +228,7 @@ public final class EnrichmentUtils {
         resourceOrLiteralType = europeanaType.getDescription();
       }
       String literalOrResourceValue = getLiteralOrResourceValue(resourceOrLiteralType);
-      if (literalOrResourceValue != null) {
+      if (StringUtils.isNotBlank(literalOrResourceValue)) {
         if (europeanaType.ifDescription()) {
           descriptions.add(literalOrResourceValue);
         } else {
@@ -218,8 +241,8 @@ public final class EnrichmentUtils {
   private static void addLiteralTypeFromChoicesToList(List<Choice> europeanaTypeList,
       List<String> tags, List<String> titles) {
 
-    LiteralType literalType = null;
     for (Choice europeanaType : europeanaTypeList) {
+      LiteralType literalType = null;
       if (europeanaType.ifAlternative()) {
         literalType = europeanaType.getAlternative();
       } else if (europeanaType.ifTitle()) {
@@ -231,7 +254,7 @@ public final class EnrichmentUtils {
       }
 
       String literalValue = getLiteralValue(literalType);
-      if (literalValue != null) {
+      if (StringUtils.isNotBlank(literalValue)) {
         if (europeanaType.ifTitle()) {
           titles.add(literalValue);
         } else {
@@ -244,9 +267,10 @@ public final class EnrichmentUtils {
   private static <T extends ResourceOrLiteralType> String getLiteralOrResourceValue(
       T resourceOrLiteralType) {
     if (resourceOrLiteralType != null) {
-      return Optional.ofNullable(resourceOrLiteralType.getString()).orElseGet(
-          () -> Optional.ofNullable(resourceOrLiteralType.getResource())
-              .map(ResourceOrLiteralType.Resource::getResource).orElse(null));
+      return Optional.ofNullable(resourceOrLiteralType.getString()).map(StringUtils::trimToNull)
+          .orElseGet(
+              () -> Optional.ofNullable(resourceOrLiteralType.getResource())
+                  .map(ResourceOrLiteralType.Resource::getResource).orElse(null));
     }
     return null;
   }
@@ -263,20 +287,13 @@ public final class EnrichmentUtils {
   private static int completenessCalculation(String thumbnailUrl, List<String> titles,
       List<String> descriptions, List<String> tags) {
 
-    Optional<String> firstTitleOptional = titles.stream().findFirst();
-    String title = null;
-    if (firstTitleOptional.isPresent()) {
-      title = firstTitleOptional.get();
-    }
-
-    if ((StringUtils.isEmpty(thumbnailUrl) || StringUtils.isEmpty(title))
-        && isListFullOfEmptyValues(
-        descriptions)) {
+    if ((StringUtils.isEmpty(thumbnailUrl) || isListFullOfEmptyValues(titles))
+        || isListFullOfEmptyValues(descriptions)) {
       return 0;
     }
 
     List<String> text = new ArrayList<>(descriptions);
-    text.add(title);
+    text.addAll(titles);
 
     int pointsForTags = computePoints(tags, POINT_DIVIDER_FOR_TAGS);
     int pointsForText = computePoints(text, POINT_DIVIDER_FOR_TEXTS);
