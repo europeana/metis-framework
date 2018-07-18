@@ -1,93 +1,16 @@
 package eu.europeana.metis.mediaservice;
 
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
-import eu.europeana.metis.mediaservice.WebResource.Orientation;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.nio.file.Files;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import eu.europeana.metis.mediaservice.WebResource.Orientation;
 
 class ImageProcessor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ImageProcessor.class);
+  protected final ThumbnailGenerator thumbnailGenerator;
 
-  private static final int[] THUMB_SIZE = {200, 400};
-  private static final String[] THUMB_SUFFIX = {"-MEDIUM", "-LARGE"};
-
-  private static final File colormapFile;
-
-  static {
-    try (InputStream is = Thread.currentThread().getContextClassLoader()
-        .getResourceAsStream("colormap.png")) {
-      colormapFile = File.createTempFile("colormap", ".png");
-      colormapFile.deleteOnExit();
-      try (OutputStream out = Files.newOutputStream(colormapFile.toPath())) {
-        IOUtils.copy(is, out);
-      }
-    } catch (IOException e) {
-      throw new RuntimeException("colormap.png can't be loaded", e);
-    }
-  }
-
-  private static final File tempDir = new File(System.getProperty("java.io.tmpdir"));
-
-  private static String magickCmd;
-
-  private final CommandExecutor ce;
-
-  protected ArrayList<Thumbnail> thumbnails = new ArrayList<>();
-
-  ImageProcessor(CommandExecutor ce) {
-    this.ce = ce;
-    init(ce);
-  }
-
-  private static synchronized void init(CommandExecutor ce) {
-    if (magickCmd != null) {
-      return;
-    }
-    try {
-      List<String> lines = ce.runCommand(Arrays.asList("magick", "-version"), true);
-      if (String.join("", lines).startsWith("Version: ImageMagick 7")) {
-        magickCmd = "magick";
-      } else { // try convert, but careful about conflict with a windows tool
-        boolean isWindows = System.getProperty("os.name").toLowerCase(Locale.ENGLISH)
-            .contains("win");
-        List<String> paths = ce
-            .runCommand(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
-        for (String path : paths) {
-          lines = ce.runCommand(Arrays.asList(path, "-version"), true);
-          if (String.join("", lines).startsWith("Version: ImageMagick 6")) {
-            magickCmd = path;
-            break;
-          }
-        }
-      }
-      if (magickCmd == null) {
-        throw new RuntimeException("ImageMagick version 6/7 not found");
-      }
-    } catch (IOException e) {
-      throw new RuntimeException("Error while looking for ImageMagick tools", e);
-    }
+  ImageProcessor(ThumbnailGenerator thumbnailGenerator) {
+    this.thumbnailGenerator = thumbnailGenerator;
   }
 
   static boolean isImage(String mimeType) {
@@ -95,110 +18,24 @@ class ImageProcessor {
   }
 
   void processImage(String url, Collection<UrlType> urlTypes, String mimeType, File content,
-      EdmObject edm)
-      throws MediaException, IOException {
-    if (content == null) {
-      throw new IllegalArgumentException("content cannot be null");
+      EdmObject edm) throws MediaException, IOException {
+
+    // Create the thumbnails for this image.
+    final ImageMetadata imageMetadata =
+        thumbnailGenerator.generateThumbnails(url, mimeType, content);
+
+    // Set the metadata in the web resource.
+    if (UrlType.shouldExtractMetadata(urlTypes)) {
+      WebResource resource = edm.getWebResource(url);
+      resource.setMimeType(mimeType);
+      resource.setFileSize(content.length());
+      resource.setWidth(imageMetadata.getWidth());
+      resource.setHeight(imageMetadata.getHeight());
+      resource.setOrientation(
+          imageMetadata.getWidth() > imageMetadata.getHeight() ? Orientation.LANDSCAPE
+              : Orientation.PORTRAIT);
+      resource.setColorspace(imageMetadata.getColorSpace());
+      resource.setDominantColors(imageMetadata.getDominantColors());
     }
-    List<Thumbnail> thumbs = prepareThumbnailFiles(url, mimeType);
-    int sizes = THUMB_SIZE.length;
-
-    final String FORMAT = "%w\n%h\n%[colorspace]\n";
-    final int WIDTH_LINE = 0;
-    final int HEIGHT_LINE = 1;
-    final int COLORSPACE_LINE = 2;
-    final int COLORS_LINE = 3;
-    ArrayList<String> command = new ArrayList<>(Arrays.asList(
-        magickCmd, content.getPath() + "[0]", "-format", FORMAT, "-write", "info:"));
-    for (int i = 0; i < sizes - 1; i++) {
-      command.addAll(Arrays.asList("(", "+clone", "-thumbnail", THUMB_SIZE[i] + "x", "-write",
-          thumbs.get(i).content.getPath(), "+delete", ")"));
-    } // do not +delete the last one, use it to find dominant colors (smaller=quicker)
-    command.addAll(Arrays.asList(
-        "-thumbnail", THUMB_SIZE[sizes - 1] + "x", "-write",
-        thumbs.get(sizes - 1).content.getPath()));
-    command.addAll(Arrays.asList(
-        "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", colormapFile.getPath(),
-        "-format", "\n%c", "histogram:info:"));
-
-    List<String> results = ce.runCommand(command, false);
-
-    int width;
-    try {
-      width = Integer.parseInt(results.get(WIDTH_LINE));
-      int height = Integer.parseInt(results.get(HEIGHT_LINE));
-      if (UrlType.shouldExtractMetadata(urlTypes)) {
-        WebResource resource = edm.getWebResource(url);
-        resource.setMimeType(mimeType);
-        resource.setFileSize(content.length());
-        resource.setWidth(width);
-        resource.setHeight(height);
-        resource.setOrientation(width > height ? Orientation.LANDSCAPE : Orientation.PORTRAIT);
-        resource.setColorspace(results.get(COLORSPACE_LINE));
-        resource.setDominantColors(extractDominantColors(results, COLORS_LINE));
-      }
-    } catch (Exception e) {
-      LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
-      throw new MediaException("File seems to be corrupted", "IMAGE ERROR", e);
-    }
-
-    for (int i = 0; i < sizes; i++) {
-      File thumb = thumbs.get(i).content;
-      if (thumb.length() == 0) {
-        throw new MediaException("Thumbnail file empty: " + thumb, "THUMBNAIL ERROR");
-      }
-      if (width < THUMB_SIZE[i]) {
-        FileUtils.copyFile(content, thumb);
-      }
-    }
-    thumbnails.addAll(thumbs);
-  }
-
-  private List<Thumbnail> prepareThumbnailFiles(String url, String mimeType) throws IOException {
-    File thumbsDir = new File(tempDir, "media_thumbnails");
-    if (!thumbsDir.isDirectory() && !thumbsDir.mkdir()) {
-      throw new IOException("Could not create thumbnails subdirectory: " + thumbsDir);
-    }
-    String md5 = md5Hex(url);
-    String ext = "image/png".equals(mimeType) ? ".png" : ".jpeg";
-    List<Thumbnail> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
-    for (String thumbnailSuffix : THUMB_SUFFIX) {
-      File f = File.createTempFile("thumb", ext, thumbsDir);
-      thumbs.add(new Thumbnail(url, md5 + thumbnailSuffix + ext, f));
-    }
-    return thumbs;
-  }
-
-  private static String md5Hex(String s) {
-    try {
-      byte[] bytes = s.getBytes("UTF-8");
-      byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
-      return String.format("%032x", new BigInteger(1, md5bytes));
-    } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private List<String> extractDominantColors(List<String> results, int skipLines) {
-    final int MAX_COLORS = 6;
-    final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
-    return results.stream()
-        .skip(skipLines)
-        .sorted(Collections.reverseOrder())
-        .limit(MAX_COLORS)
-        .map(line -> {
-          Matcher m = pattern.matcher(line);
-          m.find();
-          return m.group(1); // throw exception if not found
-        })
-        .collect(Collectors.toList());
-  }
-
-  static void setCommand(String magick) {
-    ImageProcessor.magickCmd = magick;
-  }
-
-  static File getColormapFile() {
-    return colormapFile;
   }
 }

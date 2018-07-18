@@ -32,7 +32,7 @@ public class TestMediaProcessor {
 	@BeforeClass
 	public static void setUp() {
 		AudioVideoProcessor.setCommand("ffprobe");
-		ImageProcessor.setCommand("magick");
+		ThumbnailGenerator.setCommand("magick");
 		tika = mock(Tika.class);
 		MediaProcessor.setTika(tika);
 		commandExecutor = mock(CommandExecutor.class);
@@ -73,7 +73,8 @@ public class TestMediaProcessor {
 					"-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
 					"(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
 					"-thumbnail", "400x", "-write", thumbs[1].getPath(),
-					"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", ImageProcessor.getColormapFile().getPath(),
+					"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", 
+					ThumbnailGenerator.getColormapFile().getPath(),
 					"-format", "\n%c", "histogram:info:"),
 					command);
 			FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
