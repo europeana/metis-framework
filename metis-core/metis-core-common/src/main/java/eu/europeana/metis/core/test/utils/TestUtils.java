@@ -14,9 +14,4 @@ public class TestUtils {
     mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     return mapper.writeValueAsBytes(object);
   }
-
-  public static boolean untilThreadIsSleeping(Thread t) {
-    return "java.lang.Thread".equals(t.getStackTrace()[0].getClassName()) && "sleep"
-        .equals(t.getStackTrace()[0].getMethodName());
-  }
 }

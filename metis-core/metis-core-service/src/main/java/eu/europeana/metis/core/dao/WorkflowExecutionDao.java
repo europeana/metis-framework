@@ -1,11 +1,9 @@
 package eu.europeana.metis.core.dao;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.aggregation.AggregationPipeline;
@@ -41,7 +39,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   private static final String WORKFLOW_STATUS = "workflowStatus";
   private static final String DATASET_ID = "datasetId";
   private static final String METIS_PLUGINS = "metisPlugins";
-  private static final int MULTIPLIER_FOR_MONITOR_CHECK_IN_SECS = 2;
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
   private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST
       .getLimit();
@@ -353,65 +350,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id")
         .equal(id)
         .project("cancelling", true).get().isCancelling();
-  }
-
-  /**
-   * Check if a WorkflowExecution is active.
-   * <p>The activity of a workflow is checked based on the updated and finished dates from the database.</p>
-   *
-   * @param workflowExecutionToCheck the WorkflowExecution to check
-   * @param monitorCheckInSecs the interval of second between to monitor calls.
-   * @return true if it's active, false if it's not active
-   */
-  public boolean isExecutionActive(WorkflowExecution workflowExecutionToCheck,
-      int monitorCheckInSecs) {
-    try {
-      Date updatedDateBefore = workflowExecutionToCheck.getUpdatedDate();
-      Thread.sleep(
-          TimeUnit.SECONDS.toMillis(MULTIPLIER_FOR_MONITOR_CHECK_IN_SECS) * monitorCheckInSecs);
-      WorkflowExecution workflowExecution = this
-          .getById(workflowExecutionToCheck.getId().toString());
-      return hasUpdatedDateChanged(updatedDateBefore, workflowExecution.getUpdatedDate())
-          || workflowExecution.getFinishedDate() != null;
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();  // set interrupt flag
-      LOGGER.warn("Thread was interrupted", e);
-      return true;
-    }
-  }
-
-  private boolean hasUpdatedDateChanged(Date updatedDateBefore, Date updatedDateAfter) {
-    return (updatedDateBefore != null && updatedDateBefore.compareTo(updatedDateAfter) < 0) ||
-        (updatedDateBefore == null && updatedDateAfter != null);
-  }
-
-  /**
-   * Cleans a workflowExecutions list and removes active executions.
-   *
-   * @param workflowExecutions the list of workflowExecutions to clean
-   * @param monitorCheckInSecs the interval of second between to monitor calls.
-   */
-  public void removeActiveExecutionsFromList(List<WorkflowExecution> workflowExecutions,
-      int monitorCheckInSecs) {
-    try {
-      Thread.sleep(
-          TimeUnit.SECONDS.toMillis(MULTIPLIER_FOR_MONITOR_CHECK_IN_SECS) * monitorCheckInSecs);
-      for (Iterator<WorkflowExecution> iterator = workflowExecutions.iterator();
-          iterator.hasNext(); ) {
-        WorkflowExecution workflowExecutionToCheck = iterator.next();
-        WorkflowExecution workflowExecution = this
-            .getById(workflowExecutionToCheck.getId().toString());
-        if (workflowExecutionToCheck.getUpdatedDate() != null
-            && workflowExecutionToCheck.getUpdatedDate()
-            .compareTo(workflowExecution.getUpdatedDate()) < 0) {
-          iterator.remove();
-        }
-      }
-
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();  // set interrupt flag
-      LOGGER.warn("Thread was interruped", e);
-    }
   }
 
   /**

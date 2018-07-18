@@ -1,10 +1,10 @@
 package eu.europeana.metis.core.rest.config;
 
-import eu.europeana.metis.exception.GenericMetisException;
 import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -37,8 +37,9 @@ import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.execution.FailsafeExecutor;
+import eu.europeana.metis.core.execution.QueueConsumer;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
+import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
@@ -46,6 +47,7 @@ import eu.europeana.metis.core.service.Authorizer;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
+import eu.europeana.metis.exception.GenericMetisException;
 import io.netty.util.ThreadDeathWatcher;
 import io.netty.util.concurrent.FastThreadLocal;
 import io.netty.util.internal.InternalThreadLocalMap;
@@ -63,7 +65,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   private final ConfigurationPropertiesHolder propertiesHolder;
   private SchedulerExecutor schedulerExecutor;
-  private FailsafeExecutor failsafeExecutor;
+  private WorkflowExecutionMonitor workflowExecutionMonitor;
 
   private Connection connection;
   private Channel publisherChannel;
@@ -186,13 +188,15 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       @Qualifier("rabbitmqPublisherChannel") Channel rabbitmqPublisherChannel,
       @Qualifier("rabbitmqConsumerChannel") Channel rabbitmqConsumerChannel,
       RedissonClient redissonClient, DpsClient dpsClient) {
-    WorkflowExecutorManager workflowExecutorManager = new WorkflowExecutorManager(
-        workflowExecutionDao, rabbitmqPublisherChannel, rabbitmqConsumerChannel, redissonClient,
-        dpsClient);
+    WorkflowExecutorManager workflowExecutorManager =
+        new WorkflowExecutorManager(workflowExecutionDao, rabbitmqPublisherChannel,
+            rabbitmqConsumerChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName(propertiesHolder.getRabbitmqQueueName());
     workflowExecutorManager.setMaxConcurrentThreads(propertiesHolder.getMaxConcurrentThreads());
     workflowExecutorManager
-        .setMonitorCheckIntervalInSecs(propertiesHolder.getMonitorCheckIntervalInSecs());
+        .setDpsMonitorCheckIntervalInSecs(propertiesHolder.getDpsMonitorCheckIntervalInSecs());
+    workflowExecutorManager
+        .setDpsRequestTimeoutInSecs(propertiesHolder.getDpsRequestTimeoutInSecs());
     workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
         propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInSecs());
     workflowExecutorManager.setEcloudBaseUrl(propertiesHolder.getEcloudBaseUrl());
@@ -224,10 +228,22 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public FailsafeExecutor getFailsafeExecutor(OrchestratorService orchestratorService,
+  public WorkflowExecutionMonitor getWorkflowExecutionMonitor(
+      WorkflowExecutorManager workflowExecutorManager, WorkflowExecutionDao workflowExecutionDao,
       RedissonClient redissonClient) {
-    failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient);
-    return failsafeExecutor;
+    
+    // Computes the leniency for the failsafe action: how long ago (worst case) can the last update
+    // time have been set before we assume the execution hangs.
+    final Duration failsafeLeniency =
+        Duration.ZERO.plusSeconds(propertiesHolder.getDpsRequestTimeoutInSecs())
+            .plusMillis(propertiesHolder.getPeriodicFailsafeCheckInMillisecs())
+            .plusSeconds(propertiesHolder.getDpsMonitorCheckIntervalInSecs())
+            .plusSeconds(propertiesHolder.getFailsafeMarginOfInactivityInSecs());
+    
+    // Create and return the workflow execution monitor.
+    workflowExecutionMonitor = new WorkflowExecutionMonitor(workflowExecutorManager,
+        workflowExecutionDao, redissonClient, failsafeLeniency);
+    return workflowExecutionMonitor;
   }
 
   @Bean
@@ -238,13 +254,20 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
         redissonClient);
     return schedulerExecutor;
   }
+  
+  @Bean
+  public QueueConsumer getQueueConsumer(WorkflowExecutorManager workflowExecutionManager,
+      WorkflowExecutionMonitor workflowExecutionMonitor,
+      @Qualifier("rabbitmqConsumerChannel") Channel rabbitmqConsumerChannel) throws IOException {
+    return new QueueConsumer(rabbitmqConsumerChannel, propertiesHolder.getRabbitmqQueueName(),
+        workflowExecutionManager, workflowExecutionManager, workflowExecutionMonitor);
+  }
 
-  @Scheduled(fixedDelayString = "${periodic.failsafe.check.in.millisecs}",
-      initialDelayString = "${periodic.failsafe.check.in.millisecs}")
+  @Scheduled(fixedDelayString = "${periodic.failsafe.check.in.millisecs}")
   public void runFailsafeExecutor() {
     LOGGER.info("Failsafe task started (runs every {} milliseconds).",
         propertiesHolder.getPeriodicFailsafeCheckInMillisecs());
-    this.failsafeExecutor.performFailsafe();
+    this.workflowExecutionMonitor.performFailsafe();
     LOGGER.info("Failsafe task finished.");
   }
 

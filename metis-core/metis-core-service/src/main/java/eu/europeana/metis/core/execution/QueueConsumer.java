@@ -1,9 +1,5 @@
 package eu.europeana.metis.core.execution;
 
-import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.DefaultConsumer;
-import com.rabbitmq.client.Envelope;
-import eu.europeana.metis.core.workflow.WorkflowExecution;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorCompletionService;
@@ -11,8 +7,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Envelope;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -24,19 +26,28 @@ public class QueueConsumer extends DefaultConsumer {
 
   private final WorkflowExecutionSettings workflowExecutionSettings;
   private final PersistenceProvider persistenceProvider;
+  private final WorkflowExecutionMonitor workflowExecutionMonitor;
 
   private final ExecutorService threadPool;
   private final ExecutorCompletionService<WorkflowExecution> completionService;
   private int threadsCounter;
 
-  QueueConsumer(WorkflowExecutionSettings workflowExecutionSettings,
-      PersistenceProvider persistenceProvider) {
+  public QueueConsumer(Channel rabbitmqConsumerChannel, String rabbitmqQueueName,
+      WorkflowExecutionSettings workflowExecutionSettings, PersistenceProvider persistenceProvider,
+      WorkflowExecutionMonitor workflowExecutionMonitor) throws IOException {
     super(persistenceProvider.getRabbitmqConsumerChannel());
     this.workflowExecutionSettings = workflowExecutionSettings;
     this.persistenceProvider = persistenceProvider;
-    threadPool = Executors
-        .newFixedThreadPool(this.workflowExecutionSettings.getMaxConcurrentThreads());
+    threadPool =
+        Executors.newFixedThreadPool(this.workflowExecutionSettings.getMaxConcurrentThreads());
     completionService = new ExecutorCompletionService<>(threadPool);
+    this.workflowExecutionMonitor = workflowExecutionMonitor;
+
+    // For correct priority. Keep in mind this pre-fetches a message before going into
+    // handleDelivery
+    rabbitmqConsumerChannel.basicQos(1);
+    // Auto acknowledge false(second parameter) because of Qos.
+    rabbitmqConsumerChannel.basicConsume(rabbitmqQueueName, false, this);
   }
 
   //Does not run as a thread. Each execution will run separately one after the other for each consumption
@@ -53,23 +64,18 @@ public class QueueConsumer extends DefaultConsumer {
       checkAndCleanCompletionService();
     }
 
-    WorkflowExecution workflowExecution = persistenceProvider.getWorkflowExecutionDao()
-        .getById(objectId);
     //If the thread pool is still full, executions are still active. Send the message back to the queue.
     if (threadsCounter >= workflowExecutionSettings.getMaxConcurrentThreads()) {
       //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
       //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
       super.getChannel().basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
-      LOGGER.debug("NACK sent for {} with tag {}", workflowExecution.getId(),
-          rabbitmqEnvelope.getDeliveryTag());
+      LOGGER.debug("NACK sent for {} with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
     } else {
+      WorkflowExecution workflowExecution =
+          persistenceProvider.getWorkflowExecutionDao().getById(objectId);
       if (!workflowExecution.isCancelling()) { //Submit for execution
-        WorkflowExecutor workflowExecutor = new WorkflowExecutor(
-            workflowExecution, persistenceProvider.getWorkflowExecutionDao(),
-            workflowExecutionSettings.getMonitorCheckIntervalInSecs(),
-            persistenceProvider.getRedissonClient(), persistenceProvider.getDpsClient(),
-            workflowExecutionSettings.getEcloudBaseUrl(),
-            workflowExecutionSettings.getEcloudProvider());
+        WorkflowExecutor workflowExecutor = new WorkflowExecutor(objectId, persistenceProvider,
+            workflowExecutionSettings, workflowExecutionMonitor);
         completionService.submit(workflowExecutor);
         threadsCounter++;
       } else { //Has been cancelled, do not execute
@@ -106,6 +112,7 @@ public class QueueConsumer extends DefaultConsumer {
     }
   }
 
+  @PreDestroy
   void close() {
     threadPool.shutdown();
   }

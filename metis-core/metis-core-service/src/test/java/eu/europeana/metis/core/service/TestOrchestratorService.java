@@ -2,8 +2,6 @@ package eu.europeana.metis.core.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -567,23 +565,6 @@ public class TestOrchestratorService {
   }
 
   @Test
-  public void removeActiveWorkflowExecutionsFromList() throws Exception {
-    orchestratorService.removeActiveWorkflowExecutionsFromList(new ArrayList<>());
-    verify(workflowExecutorManager, times(1)).getMonitorCheckIntervalInSecs();
-    verifyNoMoreInteractions(workflowExecutorManager);
-    verify(workflowExecutionDao, times(1)).removeActiveExecutionsFromList(anyList(), anyInt());
-    verifyNoMoreInteractions(workflowExecutionDao);
-  }
-
-  @Test
-  public void addWorkflowExecutionToQueue() {
-    String objectId = new ObjectId().toString();
-    orchestratorService.addWorkflowExecutionToQueue(objectId, 0);
-    verify(workflowExecutorManager, times(1)).addWorkflowExecutionToQueue(objectId, 0);
-    verifyNoMoreInteractions(workflowExecutorManager);
-  }
-
-  @Test
   public void getWorkflowExecutionsPerRequest() {
     orchestratorService.getWorkflowExecutionsPerRequest();
     verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
@@ -717,21 +698,6 @@ public class TestOrchestratorService {
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(), eq(workflowStatuses),
         eq(OrderField.CREATED_DATE), eq(true), eq(nextPage));
-    verifyNoMoreInteractions(workflowExecutionDao);
-  }
-
-  @Test
-  public void getAllWorkflowExecutionsWithoutAuthorization() throws GenericMetisException {
-
-    // Define some constants
-    final int nextPage = 1;
-    final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
-
-    // Check version without authorization: should query all datasets.
-    orchestratorService.getAllWorkflowExecutionsWithoutAuthorization(workflowStatuses, nextPage);
-    verifyNoMoreInteractions(authorizer);
-    verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(), eq(workflowStatuses),
-        eq(OrderField.ID), eq(true), eq(nextPage));
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 

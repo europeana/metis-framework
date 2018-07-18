@@ -1,16 +1,15 @@
 package eu.europeana.metis.core.execution;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.MessageProperties;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import javax.annotation.PreDestroy;
-import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -22,17 +21,17 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutorManager.class);
   private static final int DEFAULT_MAX_CONCURRENT_THREADS = 10;
   private static final int DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS = 5;
+  private static final int DEFAULT_REQUEST_TIMEOUT_SECS = 60;
   private static final int DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS = 10;
 
   private int maxConcurrentThreads = DEFAULT_MAX_CONCURRENT_THREADS; //Use setter otherwise default
-  private int monitorCheckIntervalInSecs = DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS; //Use setter otherwise default
+  private int dpsMonitorCheckIntervalInSecs = DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS; //Use setter otherwise default
+  private int dpsRequestTimeoutInSecs = DEFAULT_REQUEST_TIMEOUT_SECS; //Use setter otherwise default
   private int pollingTimeoutForCleaningCompletionServiceInSecs = DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS; //Use setter otherwise default
 
   private String rabbitmqQueueName; //Initialize with setter
   private String ecloudBaseUrl; //Initialize with setter
   private String ecloudProvider; //Initialize with setter
-
-  private final QueueConsumer queueConsumer;
 
   /**
    * Autowired constructor.
@@ -48,20 +47,6 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
       Channel rabbitmqConsumerChannel, RedissonClient redissonClient, DpsClient dpsClient) {
     super(rabbitmqPublisherChannel, rabbitmqConsumerChannel, workflowExecutionDao, redissonClient,
         dpsClient);
-    queueConsumer = new QueueConsumer(this,
-        this); //Keep the reference to be able to close the resources on shutdown
-  }
-
-  /**
-   * Initializes the consumer client for the distributed queue.
-   *
-   * @throws IOException if rabbitMQ consumer client initialization fails
-   */
-  public void initiateConsumer() throws IOException {
-    //For correct priority. Keep in mind this pre-fetches a message before going into handleDelivery
-    getRabbitmqConsumerChannel().basicQos(1);
-    //Auto acknowledge false(second parameter) because of Qos.
-    getRabbitmqConsumerChannel().basicConsume(rabbitmqQueueName, false, queueConsumer);
   }
 
   /**
@@ -102,8 +87,12 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
     this.ecloudProvider = ecloudProvider;
   }
 
-  public void setMonitorCheckIntervalInSecs(int monitorCheckIntervalInSecs) {
-    this.monitorCheckIntervalInSecs = monitorCheckIntervalInSecs;
+  public void setDpsMonitorCheckIntervalInSecs(int dpsMonitorCheckIntervalInSecs) {
+    this.dpsMonitorCheckIntervalInSecs = dpsMonitorCheckIntervalInSecs;
+  }
+
+  public void setDpsRequestTimeoutInSecs(int dpsRequestTimeoutInSecs) {
+    this.dpsRequestTimeoutInSecs = dpsRequestTimeoutInSecs;
   }
 
   public void setPollingTimeoutForCleaningCompletionServiceInSecs(
@@ -112,8 +101,13 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   }
 
   @Override
-  public int getMonitorCheckIntervalInSecs() {
-    return monitorCheckIntervalInSecs;
+  public int getDpsMonitorCheckIntervalInSecs() {
+    return dpsMonitorCheckIntervalInSecs;
+  }
+
+  @Override
+  public int getDpsRequestTimeoutInSecs() {
+    return dpsRequestTimeoutInSecs;
   }
 
   @Override
@@ -134,13 +128,5 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   @Override
   public String getEcloudProvider() {
     return ecloudProvider;
-  }
-
-  /**
-   * Close any open resources
-   */
-  @PreDestroy
-  public void close() {
-    queueConsumer.close();
   }
 }
