@@ -1,42 +1,53 @@
 package eu.europeana.metis.mediaservice;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.tika.Tika;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
-
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.tika.Tika;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 
 public class TestMediaProcessor {
 	
-	static File tempDir = new File(System.getProperty("java.io.tmpdir"));
-	static Tika tika;
-	static CommandExecutor commandExecutor;
-	static MediaProcessor testedProcessor;
+	private static File tempDir = new File(System.getProperty("java.io.tmpdir"));
+	private static Tika tika;
+	private static CommandExecutor commandExecutor;
+	private static MediaProcessor testedProcessor;
 	
-	EdmObject.Parser parser = new EdmObject.Parser();
-	EdmObject.Writer writer = new EdmObject.Writer();
+	private final EdmObject.Parser parser = new EdmObject.Parser();
+	private final EdmObject.Writer writer = new EdmObject.Writer();
 	
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws MediaException {
 		AudioVideoProcessor.setCommand("ffprobe");
 		ThumbnailGenerator.setCommand("magick");
 		tika = mock(Tika.class);
 		MediaProcessor.setTika(tika);
 		commandExecutor = mock(CommandExecutor.class);
 		testedProcessor = new MediaProcessor(commandExecutor);
+	}
+	
+	@After
+	public void resetMocks() {
+	  reset(tika, commandExecutor);
 	}
 	
 	@AfterClass
@@ -73,9 +84,9 @@ public class TestMediaProcessor {
 					"-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
 					"(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
 					"-thumbnail", "400x", "-write", thumbs[1].getPath(),
-					"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", 
-					ThumbnailGenerator.getColormapFile().getPath(),
-					"-format", "\n%c", "histogram:info:"),
+					"-colorspace", "sRGB", "-dither", "Riemersma",
+                    "-format", "\n%c", "histogram:info:", "-remap", 
+					ThumbnailGenerator.getColormapFile().getPath()),
 					command);
 			FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
 			FileUtils.writeByteArrayToFile(thumbs[1], new byte[] { 0 });
@@ -102,8 +113,6 @@ public class TestMediaProcessor {
 		assertEquals(url, thumbnails.get(1).url);
 		assertEquals(md5 + "-MEDIUM.jpeg", thumbnails.get(0).targetName);
 		assertEquals(md5 + "-LARGE.jpeg", thumbnails.get(1).targetName);
-		
-		reset(commandExecutor);
 	}
 	
 	@Test
@@ -143,6 +152,27 @@ public class TestMediaProcessor {
 	@Test
 	public void processPdf() throws MediaException, IOException, URISyntaxException {
 		File contents = new File(getClass().getClassLoader().getResource("pdf1.pdf").toURI());
+		
+        File[] thumbs = new File[2];
+        
+	    doAnswer(i -> {
+            List<String> command = i.getArgument(0);
+            thumbs[0] = new File(command.get(15));
+            thumbs[1] = new File(command.get(21));
+            assertEquals(Arrays.asList("magick", contents.getPath() + "[0]",
+                    "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
+                    "-background", "white", "-alpha", "remove",
+                    "(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
+                    "-thumbnail", "400x", "-write", thumbs[1].getPath(),
+                    "-colorspace", "sRGB", "-dither", "Riemersma",
+                    "-format", "\n%c", "histogram:info:", "-remap", 
+                    ThumbnailGenerator.getColormapFile().getPath()),
+                    command);
+            FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
+            FileUtils.writeByteArrayToFile(thumbs[1], new byte[] { 0 });
+            return lines("pdf1-magick-output1.txt");
+        }).when(commandExecutor).runCommand(any(), eq(false));
+
 		when(tika.detect(contents)).thenReturn("application/pdf");
 		
 		EdmObject edm = edm("pdf1-input.xml");

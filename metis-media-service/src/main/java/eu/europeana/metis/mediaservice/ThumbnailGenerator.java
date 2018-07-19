@@ -24,6 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 
+/**
+ * This class performs thumbnail generation for images and PDF files using ImageMagick.
+ */
 public class ThumbnailGenerator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ThumbnailGenerator.class);
@@ -45,67 +48,107 @@ public class ThumbnailGenerator {
   private static final File colormapFile;
 
   static {
+    File foundColormapFile;
     try (InputStream is =
         Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
-      colormapFile = File.createTempFile("colormap", ".png");
-      colormapFile.deleteOnExit();
-      try (OutputStream out = Files.newOutputStream(colormapFile.toPath())) {
+      foundColormapFile = File.createTempFile("colormap", ".png");
+      foundColormapFile.deleteOnExit();
+      try (OutputStream out = Files.newOutputStream(foundColormapFile.toPath())) {
         IOUtils.copy(is, out);
       }
     } catch (IOException e) {
-      throw new RuntimeException("colormap.png can't be loaded", e);
+      foundColormapFile = null;
+      LOGGER.warn("Could not load color map file: {}. No remapping will take place.",
+          "colormap.png", e);
     }
+    colormapFile = foundColormapFile;
   }
 
   private final CommandExecutor commandExecutor;
 
   protected final ArrayList<Thumbnail> thumbnails = new ArrayList<>();
 
-  ThumbnailGenerator(CommandExecutor commandExecutor) {
+  ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaException {
     this.commandExecutor = commandExecutor;
     init(commandExecutor);
   }
 
-  private static synchronized void init(CommandExecutor commandExecutor) {
+  private static synchronized void init(CommandExecutor commandExecutor) throws MediaException {
+
+    // If we already found the command, we don't need to do this.
     if (magickCmd != null) {
       return;
     }
+
+    // Try the 'magick' command for ImageMagick 7.
     try {
-      List<String> lines = commandExecutor.runCommand(Arrays.asList("magick", "-version"), true);
+      final List<String> lines =
+          commandExecutor.runCommand(Arrays.asList("magick", "-version"), true);
       if (String.join("", lines).startsWith("Version: ImageMagick 7")) {
         magickCmd = "magick";
-      } else { // try convert, but careful about conflict with a windows tool
-        boolean isWindows =
-            System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win");
-        List<String> paths = commandExecutor
-            .runCommand(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
-        for (String path : paths) {
-          lines = commandExecutor.runCommand(Arrays.asList(path, "-version"), true);
-          if (String.join("", lines).startsWith("Version: ImageMagick 6")) {
-            magickCmd = path;
-            break;
-          }
-        }
-      }
-      if (magickCmd == null) {
-        throw new RuntimeException("ImageMagick version 6/7 not found");
+        LOGGER.info("Found ImageMagic 7. Command: {}", magickCmd);
+        return;
       }
     } catch (IOException e) {
-      throw new RuntimeException("Error while looking for ImageMagick tools", e);
+      LOGGER.info("Could not find ImageMagick 7 because of: {}.", e.getMessage());
+      LOGGER.debug("Could not find ImageMagick 7 due to following problem.", e);
     }
+
+    // Try the 'convert' command for ImageMagick 6.
+    final boolean isWindows =
+        System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win");
+    List<String> paths;
+    try {
+      paths =
+          commandExecutor.runCommand(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
+    } catch (IOException e) {
+      LOGGER.warn("Could not find ImageMagick 6 due to following problem.", e);
+      paths = Collections.emptyList();
+    }
+    for (String path : paths) {
+      try {
+        final List<String> lines =
+            commandExecutor.runCommand(Arrays.asList(path, "-version"), true);
+        if (String.join("", lines).startsWith("Version: ImageMagick 6")) {
+          magickCmd = path;
+          LOGGER.info("Found ImageMagic 6. Command: {}", magickCmd);
+          return;
+        }
+      } catch (IOException e) {
+        LOGGER.info("Could not find ImageMagick 6 at path {} because of: {}.", path,
+            e.getMessage());
+        LOGGER.debug("Could not find ImageMagick 6 at path {} due to following problem.", path, e);
+      }
+    }
+
+    // So no image magick was found.
+    LOGGER.error("Could not find ImageMagick 6 or 7. See previous log statements for details.");
+    throw new MediaException("Could not find ImageMagick 6 or 7.");
   }
 
+  /**
+   * This is the main method of this class. It generates thumbnails for the given content. These
+   * thumbnails are added to {@link #thumbnails}.
+   * 
+   * @param url The URL of the content. Used for determining the name of the output files.
+   * @param mimeType The mime type of the content.
+   * @param content The content for which to generate thumbnails.
+   * @return The metadata of the image as gathered during processing.
+   * @throws MediaException In case a problem occurred.
+   */
   public ImageMetadata generateThumbnails(String url, String mimeType, File content)
       throws MediaException {
     try {
       return generateThumbnailsInternal(url, mimeType, content);
     } catch (IOException e) {
       throw new MediaException("I/O error during procesing", "IOException " + e.getMessage(), e);
+    } catch (NoSuchAlgorithmException | RuntimeException e) {
+      throw new MediaException("Unexpected error during procesing", e);
     }
   }
 
   private ImageMetadata generateThumbnailsInternal(String url, String mimeType, File content)
-      throws IOException, MediaException {
+      throws IOException, MediaException, NoSuchAlgorithmException {
 
     if (content == null) {
       throw new IllegalArgumentException("content cannot be null");
@@ -119,32 +162,39 @@ public class ThumbnailGenerator {
     if ("application/pdf".equals(mimeType)) {
       command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
     }
-    for (int i = 0; i < sizes - 1; i++) {
-      command.addAll(Arrays.asList("(", "+clone", "-thumbnail", THUMB_SIZE[i] + "x", "-write",
-          thumbs.get(i).content.getPath(), "+delete", ")"));
-    } // do not +delete the last one, use it to find dominant colors (smaller=quicker)
-    command.addAll(Arrays.asList("-thumbnail", THUMB_SIZE[sizes - 1] + "x", "-write",
-        thumbs.get(sizes - 1).content.getPath()));
-    command.addAll(Arrays.asList("-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
-        colormapFile.getPath(), "-format", "\n%c", "histogram:info:"));
+    for (int i = 0; i < sizes; i++) {
+      // do not +delete the last one, use it to find dominant colors (smaller=quicker)
+      if (i != sizes - 1) {
+        command.add("(");
+        command.add("+clone");
+      }
+      command.addAll(Arrays.asList("-thumbnail", THUMB_SIZE[i] + "x", "-write",
+          thumbs.get(i).content.getPath()));
+      if (i != sizes - 1) {
+        command.add("+delete");
+        command.add(")");
+      }
+    }
+    command.addAll(Arrays.asList("-colorspace", "sRGB", "-dither", "Riemersma", "-format", "\n%c",
+        "histogram:info:"));
+    if (colormapFile != null) {
+      command.addAll(Arrays.asList("-remap", colormapFile.getPath()));
+    }
 
     List<String> results = commandExecutor.runCommand(command, false);
 
+    // Read the image properties from the command output.
     final ImageMetadata result;
-    if (!"application/pdf".equals(mimeType)) {
-      try {
-        final int width = Integer.parseInt(results.get(COMMAND_RESULT_WIDTH_LINE));
-        final int height = Integer.parseInt(results.get(COMMAND_RESULT_HEIGHT_LINE));
-        final String colorSpace = results.get(COMMAND_RESULT_COLORSPACE_LINE);
-        final List<String> dominantColors =
-            extractDominantColors(results, COMMAND_RESULT_COLORS_LINE);
-        result = new ImageMetadata(width, height, colorSpace, dominantColors);
-      } catch (RuntimeException e) {
-        LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
-        throw new MediaException("File seems to be corrupted", "IMAGE ERROR", e);
-      }
-    } else {
-      result = null;
+    try {
+      final int width = Integer.parseInt(results.get(COMMAND_RESULT_WIDTH_LINE));
+      final int height = Integer.parseInt(results.get(COMMAND_RESULT_HEIGHT_LINE));
+      final String colorSpace = results.get(COMMAND_RESULT_COLORSPACE_LINE);
+      final List<String> dominantColors =
+          extractDominantColors(results, COMMAND_RESULT_COLORS_LINE);
+      result = new ImageMetadata(width, height, colorSpace, dominantColors);
+    } catch (RuntimeException e) {
+      LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
+      throw new MediaException("File seems to be corrupted", "IMAGE ERROR", e);
     }
 
     for (int i = 0; i < sizes; i++) {
@@ -152,7 +202,7 @@ public class ThumbnailGenerator {
       if (thumb.length() == 0) {
         throw new MediaException("Thumbnail file empty: " + thumb, "THUMBNAIL ERROR");
       }
-      if (result != null && result.getWidth() < THUMB_SIZE[i]) {
+      if (!"application/pdf".equals(mimeType) && result.getWidth() < THUMB_SIZE[i]) {
         FileUtils.copyFile(content, thumb);
       }
     }
@@ -161,13 +211,15 @@ public class ThumbnailGenerator {
     return result;
   }
 
-  private List<Thumbnail> prepareThumbnailFiles(String url, String mimeType) throws IOException {
+  private List<Thumbnail> prepareThumbnailFiles(String url, String mimeType)
+      throws IOException, NoSuchAlgorithmException {
     File thumbsDir = new File(tempDir, "media_thumbnails");
     if (!thumbsDir.isDirectory() && !thumbsDir.mkdir()) {
       throw new IOException("Could not create thumbnails subdirectory: " + thumbsDir);
     }
     String md5 = md5Hex(url);
-    String ext = Arrays.asList("application/pdf", "image/png").contains(mimeType) ? ".png" : ".jpeg";
+    String ext =
+        ("application/pdf".equals(mimeType) || "image/png".equals(mimeType)) ? ".png" : ".jpeg";
     List<Thumbnail> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
     for (String thumbnailSuffix : THUMB_SUFFIX) {
       File f = File.createTempFile("thumb", ext, thumbsDir);
@@ -176,14 +228,11 @@ public class ThumbnailGenerator {
     return thumbs;
   }
 
-  private static String md5Hex(String s) {
-    try {
-      byte[] bytes = s.getBytes("UTF-8");
-      byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
-      return String.format("%032x", new BigInteger(1, md5bytes));
-    } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
-    }
+  private static String md5Hex(String s)
+      throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    byte[] bytes = s.getBytes("UTF-8");
+    byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
+    return String.format("%032x", new BigInteger(1, md5bytes));
   }
 
   private List<String> extractDominantColors(List<String> results, int skipLines) {

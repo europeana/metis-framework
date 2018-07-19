@@ -44,7 +44,7 @@ public class MediaProcessor implements Closeable {
 	private EdmObject edm;
 	private Map<String, List<UrlType>> urlTypes;
 	
-	MediaProcessor(CommandExecutor commandExecutor) {
+	MediaProcessor(CommandExecutor commandExecutor) throws MediaException {
 		this.commandExecutor = commandExecutor;
 		this.thumbnailGenerator = new ThumbnailGenerator(commandExecutor);
 		this.imageProcessor = new ImageProcessor(this.thumbnailGenerator);
@@ -52,7 +52,7 @@ public class MediaProcessor implements Closeable {
 		this.textProcessor = new TextProcessor(this.thumbnailGenerator);
 	}
 	
-	public MediaProcessor() {
+	public MediaProcessor() throws MediaException {
 		this(new CommandExecutor());
 	}
 	
