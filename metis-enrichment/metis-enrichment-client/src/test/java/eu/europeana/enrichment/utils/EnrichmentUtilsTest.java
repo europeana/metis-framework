@@ -172,11 +172,11 @@ public class EnrichmentUtilsTest {
   @Test
   public void testSetAdditionalData() throws Exception {
     String xml = IOUtils
-        .toString(getClass().getClassLoader().getResourceAsStream("sample_1.rdf"), "UTF-8");
+        .toString(getClass().getClassLoader().getResourceAsStream("sample_completeness.rdf"), "UTF-8");
     RDF rdf = RdfConversionUtils.convertStringToRdf(xml);
     EnrichmentUtils.setAdditionalData(rdf);
     EuropeanaAggregationType europeanaAggregationType = rdf.getEuropeanaAggregationList().stream()
         .findAny().orElse(null);
-    Assert.assertEquals("9", europeanaAggregationType.getCompleteness().getString());
+    Assert.assertEquals("6", europeanaAggregationType.getCompleteness().getString());
   }
 }

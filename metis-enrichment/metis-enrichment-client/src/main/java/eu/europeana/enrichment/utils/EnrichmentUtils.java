@@ -12,8 +12,11 @@ import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.Year;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -62,10 +65,12 @@ public final class EnrichmentUtils {
    */
   public static void setAdditionalData(RDF rdf) {
 
-    // Get the provider proxy
+    // Get the provider and europeana proxy
     final ProxyType providerProxy = rdf.getProxyList().stream()
         .filter(proxy -> !isEuropeanaProxy(proxy)).findAny().orElse(null);
-    if (providerProxy == null) {
+    final ProxyType europeanaProxy = rdf.getProxyList().stream()
+        .filter(EnrichmentUtils::isEuropeanaProxy).findAny().orElse(null);
+    if (providerProxy == null || europeanaProxy == null) {
       return;
     }
 
@@ -77,13 +82,6 @@ public final class EnrichmentUtils {
       completeness.setString(Integer
           .toString(computeEuropeanaCompleteness(providerProxy, rdf.getAggregationList().get(0))));
       europeanaAggregation.setCompleteness(completeness);
-    }
-
-    // Get the Europeana proxy
-    final ProxyType europeanaProxy = rdf.getProxyList().stream()
-        .filter(EnrichmentUtils::isEuropeanaProxy).findAny().orElse(null);
-    if (europeanaProxy == null) {
-      return;
     }
 
     // Obtain the date strings from the various proxy fields.
@@ -127,15 +125,19 @@ public final class EnrichmentUtils {
    * Calculates the Europeana Completeness.
    *
    * It gives a rank from 0 to maximum 10 for a record. That ranking is divided in two parts.
-   * <p>Up to 5 points for tags and up to 5 points for free-text fields(title, description)</p>
-   * <p>Records with one of the title, description, or thumbnail missing get rank 0.<p/>
+   * <p>Up to 5 points for tags and up to 5 points for free-text fields(title, description).
+   * Tags are populated from the first value encountered from each corresponding field.
+   * Free-text fields Title and Description are all taken into account.
+   * </p>
+   * <p>Records with thumbnail or both (title and description) missing get rank 0.<p/>
    * <p>Points are calculated in the following manner:</p>
    * <ul>
-   * <li>For tags the number of words inside all fields is calculated and divided by 1. Max value of
-   * points is 5</li>
+   * <li>For tags the number of words inside all fields is calculated and divided by 1. Max value
+   * of points is 5</li>
    * <li>For free-text the number of words inside all fields is calculated and divided by 5. Max
    * value of points is 5</li>
    * </ul>
+   *
    * @param providerProxy the provider proxy
    * @param aggregation the provider aggregation
    * @return the points awarded to the record
@@ -145,10 +147,14 @@ public final class EnrichmentUtils {
     List<String> tags = new ArrayList<>();
     List<String> descriptions = new ArrayList<>();
     List<String> titles = new ArrayList<>();
-    List<Choice> europeanaTypeList = providerProxy.getChoiceList();
-    if (europeanaTypeList != null) {
-      addResourceOrLiteralTypeFromChoicesToList(europeanaTypeList, tags, descriptions);
-      addLiteralTypeFromChoicesToList(europeanaTypeList, tags, titles);
+    List<Choice> choices = providerProxy.getChoiceList();
+    if (choices != null) {
+      Map<Class<? extends ResourceOrLiteralType>, String> uniqueResourceOrLiteralTypeClassesMap = createCollectionsForResourceOrLiteralType(
+          choices, descriptions);
+      Map<Class<? extends LiteralType>, String> uniqueLiteralTypeClassesMap = createCollectionsForLiteralType(
+          choices, titles);
+      addResourceOrLiteralTypeFromMapsToList(uniqueResourceOrLiteralTypeClassesMap,
+          uniqueLiteralTypeClassesMap, tags);
     }
 
     String thumbnailUrl = Optional.ofNullable(aggregation.getObject())
@@ -158,108 +164,144 @@ public final class EnrichmentUtils {
     return completenessCalculation(thumbnailUrl, titles, descriptions, tags);
   }
 
-  private static void addResourceOrLiteralTypeFromChoicesToList(List<Choice> europeanaTypeList,
-      List<String> tags, List<String> descriptions) {
-    for (Choice europeanaType : europeanaTypeList) {
-      ResourceOrLiteralType resourceOrLiteralType = null;
-      if (europeanaType.ifCoverage()) {
-        resourceOrLiteralType = europeanaType.getCoverage();
-      } else if (europeanaType.ifContributor()) {
-        resourceOrLiteralType = europeanaType.getContributor();
-      } else if (europeanaType.ifCreator()) {
-        resourceOrLiteralType = europeanaType.getCreator();
-      } else if (europeanaType.ifDate()) {
-        resourceOrLiteralType = europeanaType.getDate();
-      } else if (europeanaType.ifFormat()) {
-        resourceOrLiteralType = europeanaType.getFormat();
-      } else if (europeanaType.ifPublisher()) {
-        resourceOrLiteralType = europeanaType.getPublisher();
-      } else if (europeanaType.ifRelation()) {
-        resourceOrLiteralType = europeanaType.getRelation();
-      } else if (europeanaType.ifRights()) {
-        resourceOrLiteralType = europeanaType.getRights();
-      } else if (europeanaType.ifSource()) {
-        resourceOrLiteralType = europeanaType.getSource();
-      } else if (europeanaType.ifSubject()) {
-        resourceOrLiteralType = europeanaType.getSubject();
-      } else if (europeanaType.ifCreated()) {
-        resourceOrLiteralType = europeanaType.getCreated();
-      } else if (europeanaType.ifConformsTo()) {
-        resourceOrLiteralType = europeanaType.getConformsTo();
-      } else if (europeanaType.ifExtent()) {
-        resourceOrLiteralType = europeanaType.getExtent();
-      } else if (europeanaType.ifHasFormat()) {
-        resourceOrLiteralType = europeanaType.getHasFormat();
-      } else if (europeanaType.ifHasPart()) {
-        resourceOrLiteralType = europeanaType.getHasPart();
-      } else if (europeanaType.ifHasVersion()) {
-        resourceOrLiteralType = europeanaType.getHasVersion();
-      } else if (europeanaType.ifIsFormatOf()) {
-        resourceOrLiteralType = europeanaType.getIsFormatOf();
-      } else if (europeanaType.ifIsPartOf()) {
-        resourceOrLiteralType = europeanaType.getIsPartOf();
-      } else if (europeanaType.ifIsReferencedBy()) {
-        resourceOrLiteralType = europeanaType.getIsReferencedBy();
-      } else if (europeanaType.ifIsReplacedBy()) {
-        resourceOrLiteralType = europeanaType.getIsReplacedBy();
-      } else if (europeanaType.ifIsRequiredBy()) {
-        resourceOrLiteralType = europeanaType.getIsRequiredBy();
-      } else if (europeanaType.ifIssued()) {
-        resourceOrLiteralType = europeanaType.getIssued();
-      } else if (europeanaType.ifIsVersionOf()) {
-        resourceOrLiteralType = europeanaType.getIsVersionOf();
-      } else if (europeanaType.ifMedium()) {
-        resourceOrLiteralType = europeanaType.getMedium();
-      } else if (europeanaType.ifProvenance()) {
-        resourceOrLiteralType = europeanaType.getProvenance();
-      } else if (europeanaType.ifReferences()) {
-        resourceOrLiteralType = europeanaType.getReferences();
-      } else if (europeanaType.ifReplaces()) {
-        resourceOrLiteralType = europeanaType.getReplaces();
-      } else if (europeanaType.ifRequires()) {
-        resourceOrLiteralType = europeanaType.getRequires();
-      } else if (europeanaType.ifSpatial()) {
-        resourceOrLiteralType = europeanaType.getSpatial();
-      } else if (europeanaType.ifTableOfContents()) {
-        resourceOrLiteralType = europeanaType.getTableOfContents();
-      } else if (europeanaType.ifTemporal()) {
-        resourceOrLiteralType = europeanaType.getTemporal();
-      } else if (europeanaType.ifDescription()) {
-        resourceOrLiteralType = europeanaType.getDescription();
-      }
-      String literalOrResourceValue = getLiteralOrResourceValue(resourceOrLiteralType);
-      if (StringUtils.isNotBlank(literalOrResourceValue)) {
-        if (europeanaType.ifDescription()) {
-          descriptions.add(literalOrResourceValue);
-        } else {
-          tags.add(literalOrResourceValue);
-        }
+  private static Map<Class<? extends ResourceOrLiteralType>, String> createCollectionsForResourceOrLiteralType(
+      List<Choice> choices, List<String> descriptions) {
+    Map<Class<? extends ResourceOrLiteralType>, String> hashMap = new HashMap<>();
+    for (Choice choice : choices) {
+      if (choice.ifCoverage()) {
+        hashMap.putIfAbsent(choice.getCoverage().getClass(),
+            getLiteralOrResourceValue(choice.getCoverage()));
+      } else if (choice.ifContributor()) {
+        hashMap.putIfAbsent(choice.getContributor().getClass(),
+            getLiteralOrResourceValue(choice.getContributor()));
+      } else if (choice.ifDate()) {
+        hashMap.putIfAbsent(choice.getDate().getClass(),
+            getLiteralOrResourceValue(choice.getDate()));
+      } else if (choice.ifFormat()) {
+        hashMap.putIfAbsent(choice.getFormat().getClass(),
+            getLiteralOrResourceValue(choice.getFormat()));
+      } else if (choice.ifPublisher()) {
+        hashMap.putIfAbsent(choice.getPublisher().getClass(),
+            getLiteralOrResourceValue(choice.getPublisher()));
+      } else if (choice.ifRelation()) {
+        hashMap.putIfAbsent(choice.getRelation().getClass(),
+            getLiteralOrResourceValue(choice.getRelation()));
+      } else if (choice.ifRights()) {
+        hashMap.putIfAbsent(choice.getRights().getClass(),
+            getLiteralOrResourceValue(choice.getRights()));
+      } else if (choice.ifSource()) {
+        hashMap.putIfAbsent(choice.getSource().getClass(),
+            getLiteralOrResourceValue(choice.getSource()));
+      } else if (choice.ifCreated()) {
+        hashMap.putIfAbsent(choice.getCreated().getClass(),
+            getLiteralOrResourceValue(choice.getCreated()));
+      } else if (choice.ifConformsTo()) {
+        hashMap.putIfAbsent(choice.getConformsTo().getClass(),
+            getLiteralOrResourceValue(choice.getConformsTo()));
+      } else if (choice.ifExtent()) {
+        hashMap.putIfAbsent(choice.getExtent().getClass(),
+            getLiteralOrResourceValue(choice.getExtent()));
+      } else if (choice.ifHasFormat()) {
+        hashMap.putIfAbsent(choice.getHasFormat().getClass(),
+            getLiteralOrResourceValue(choice.getHasFormat()));
+      } else if (choice.ifHasPart()) {
+        hashMap.putIfAbsent(choice.getHasPart().getClass(),
+            getLiteralOrResourceValue(choice.getHasPart()));
+      } else if (choice.ifHasVersion()) {
+        hashMap.putIfAbsent(choice.getHasVersion().getClass(),
+            getLiteralOrResourceValue(choice.getHasVersion()));
+      } else if (choice.ifIsFormatOf()) {
+        hashMap.putIfAbsent(choice.getIsFormatOf().getClass(),
+            getLiteralOrResourceValue(choice.getIsFormatOf()));
+      } else if (choice.ifIsPartOf()) {
+        hashMap.putIfAbsent(choice.getIsPartOf().getClass(),
+            getLiteralOrResourceValue(choice.getIsPartOf()));
+      } else if (choice.ifIsReferencedBy()) {
+        hashMap.putIfAbsent(choice.getIsReferencedBy().getClass(),
+            getLiteralOrResourceValue(choice.getIsReferencedBy()));
+      } else if (choice.ifIsReplacedBy()) {
+        hashMap.putIfAbsent(choice.getIsReplacedBy().getClass(),
+            getLiteralOrResourceValue(choice.getIsReplacedBy()));
+      } else if (choice.ifIsRequiredBy()) {
+        hashMap.putIfAbsent(choice.getIsRequiredBy().getClass(),
+            getLiteralOrResourceValue(choice.getIsRequiredBy()));
+      } else if (choice.ifIssued()) {
+        hashMap.putIfAbsent(choice.getIssued().getClass(),
+            getLiteralOrResourceValue(choice.getIssued()));
+      } else if (choice.ifIsVersionOf()) {
+        hashMap.putIfAbsent(choice.getIsVersionOf().getClass(),
+            getLiteralOrResourceValue(choice.getIsVersionOf()));
+      } else if (choice.ifMedium()) {
+        hashMap.putIfAbsent(choice.getMedium().getClass(),
+            getLiteralOrResourceValue(choice.getMedium()));
+      } else if (choice.ifProvenance()) {
+        hashMap.putIfAbsent(choice.getProvenance().getClass(),
+            getLiteralOrResourceValue(choice.getProvenance()));
+      } else if (choice.ifReferences()) {
+        hashMap.putIfAbsent(choice.getReferences().getClass(),
+            getLiteralOrResourceValue(choice.getReferences()));
+      } else if (choice.ifReplaces()) {
+        hashMap.putIfAbsent(choice.getReplaces().getClass(),
+            getLiteralOrResourceValue(choice.getReplaces()));
+      } else if (choice.ifRequires()) {
+        hashMap.putIfAbsent(choice.getRequires().getClass(),
+            getLiteralOrResourceValue(choice.getRequires()));
+      } else if (choice.ifSpatial()) {
+        hashMap.putIfAbsent(choice.getSpatial().getClass(),
+            getLiteralOrResourceValue(choice.getSpatial()));
+      } else if (choice.ifTableOfContents()) {
+        hashMap.putIfAbsent(choice.getTableOfContents().getClass(),
+            getLiteralOrResourceValue(choice.getTableOfContents()));
+      } else if (choice.ifTemporal()) {
+        hashMap.putIfAbsent(choice.getTemporal().getClass(),
+            getLiteralOrResourceValue(choice.getTemporal()));
+      } else if (choice.ifSubject()) {
+        hashMap.putIfAbsent(choice.getSubject().getClass(),
+            getLiteralOrResourceValue(choice.getSubject()));
+      } else if (choice.ifDescription()) {
+        descriptions.add(getLiteralOrResourceValue(choice.getDescription()));
       }
     }
+    return hashMap;
   }
 
-  private static void addLiteralTypeFromChoicesToList(List<Choice> europeanaTypeList,
-      List<String> tags, List<String> titles) {
-
-    for (Choice europeanaType : europeanaTypeList) {
-      LiteralType literalType = null;
-      if (europeanaType.ifAlternative()) {
-        literalType = europeanaType.getAlternative();
-      } else if (europeanaType.ifTitle()) {
-        literalType = europeanaType.getTitle();
-      } else if (europeanaType.ifIdentifier()) {
-        literalType = europeanaType.getIdentifier();
-      } else if (europeanaType.ifLanguage()) {
-        literalType = europeanaType.getLanguage();
+  private static Map<Class<? extends LiteralType>, String> createCollectionsForLiteralType(
+      List<Choice> choices,
+      List<String> titles) {
+    Map<Class<? extends LiteralType>, String> hashMap = new HashMap<>();
+    for (Choice choice : choices) {
+      if (choice.ifAlternative()) {
+        hashMap.putIfAbsent(choice.getAlternative().getClass(),
+            getLiteralValue(choice.getAlternative()));
+      } else if (choice.ifIdentifier()) {
+        hashMap.putIfAbsent(choice.getIdentifier().getClass(),
+            getLiteralValue(choice.getIdentifier()));
+      } else if (choice.ifLanguage()) {
+        hashMap.putIfAbsent(choice.getLanguage().getClass(),
+            getLiteralValue(choice.getLanguage()));
+      } else if (choice.ifTitle()) {
+        titles.add(getLiteralValue(choice.getTitle()));
       }
+    }
+    return hashMap;
+  }
 
-      String literalValue = getLiteralValue(literalType);
-      if (StringUtils.isNotBlank(literalValue)) {
-        if (europeanaType.ifTitle()) {
-          titles.add(literalValue);
-        } else {
-          tags.add(literalValue);
-        }
+  private static void addResourceOrLiteralTypeFromMapsToList(
+      final Map<Class<? extends ResourceOrLiteralType>, String> uniqueResourceOrLiteralTypeClassesMap,
+      final Map<Class<? extends LiteralType>, String> uniqueLiteralTypeClassesMap,
+      List<String> tags) {
+    for (Entry<Class<? extends ResourceOrLiteralType>, String> entry : uniqueResourceOrLiteralTypeClassesMap
+        .entrySet()) {
+      String literalOrResourceValue = entry.getValue();
+      if (StringUtils.isNotBlank(literalOrResourceValue)) {
+        tags.add(literalOrResourceValue);
+      }
+    }
+    for (Entry<Class<? extends LiteralType>, String> entry : uniqueLiteralTypeClassesMap
+        .entrySet()) {
+      String literalOrResourceValue = entry.getValue();
+      if (StringUtils.isNotBlank(literalOrResourceValue)) {
+        tags.add(literalOrResourceValue);
       }
     }
   }
@@ -287,8 +329,8 @@ public final class EnrichmentUtils {
   private static int completenessCalculation(String thumbnailUrl, List<String> titles,
       List<String> descriptions, List<String> tags) {
 
-    if ((StringUtils.isEmpty(thumbnailUrl) || isListFullOfEmptyValues(titles))
-        || isListFullOfEmptyValues(descriptions)) {
+    if (StringUtils.isEmpty(thumbnailUrl) || (isListFullOfEmptyValues(titles)
+        && isListFullOfEmptyValues(descriptions))) {
       return 0;
     }
 
