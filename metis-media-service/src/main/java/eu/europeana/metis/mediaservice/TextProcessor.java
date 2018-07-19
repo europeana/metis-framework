@@ -19,6 +19,12 @@ class TextProcessor {
 
   private static final int DISPLAY_DPI = 72;
 
+  private final ThumbnailGenerator thumbnailGenerator;
+
+  TextProcessor(ThumbnailGenerator thumbnailGenerator) {
+    this.thumbnailGenerator = thumbnailGenerator;
+  }
+
   static boolean isText(String mimeType) {
     switch (mimeType) {
       case "application/xml":
@@ -32,7 +38,7 @@ class TextProcessor {
   }
 
   void processText(String url, Collection<UrlType> urlTypes, String mimeType, File content,
-      EdmObject edm) throws IOException {
+      EdmObject edm) throws IOException, MediaException {
 
     // Sanity checks
     if (!UrlType.shouldExtractMetadata(urlTypes)) {
@@ -40,6 +46,11 @@ class TextProcessor {
     }
     if (content == null) {
       throw new IllegalArgumentException("content cannot be null");
+    }
+    
+    // Create thumbnails in case of PDF file.
+    if ("application/pdf".equals(mimeType)) {
+      thumbnailGenerator.generateThumbnails(url, mimeType, content);
     }
 
     // Set the resource type and size
@@ -75,6 +86,7 @@ class TextProcessor {
   }
 
   private static class PdfListener extends SimpleTextExtractionStrategy {
+    
     private Integer dpi;
 
     @Override
@@ -84,9 +96,9 @@ class TextProcessor {
       if (dpi != null) {
         return;
       }
-
+      
       try {
-        
+
         // Get the image: if this is null, it means that the image is not there or the image is not
         // of a supported format.
         final BufferedImage image = iri.getImage().getBufferedImage();

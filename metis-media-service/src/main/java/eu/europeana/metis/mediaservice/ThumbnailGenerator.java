@@ -116,6 +116,9 @@ public class ThumbnailGenerator {
 
     ArrayList<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
         "-format", COMMAND_RESULT_FORMAT, "-write", "info:"));
+    if ("application/pdf".equals(mimeType)) {
+      command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
+    }
     for (int i = 0; i < sizes - 1; i++) {
       command.addAll(Arrays.asList("(", "+clone", "-thumbnail", THUMB_SIZE[i] + "x", "-write",
           thumbs.get(i).content.getPath(), "+delete", ")"));
@@ -128,16 +131,20 @@ public class ThumbnailGenerator {
     List<String> results = commandExecutor.runCommand(command, false);
 
     final ImageMetadata result;
-    try {
-      final int width = Integer.parseInt(results.get(COMMAND_RESULT_WIDTH_LINE));
-      final int height = Integer.parseInt(results.get(COMMAND_RESULT_HEIGHT_LINE));
-      final String colorSpace = results.get(COMMAND_RESULT_COLORSPACE_LINE);
-      final List<String> dominantColors =
-          extractDominantColors(results, COMMAND_RESULT_COLORS_LINE);
-      result = new ImageMetadata(width, height, colorSpace, dominantColors);
-    } catch (RuntimeException e) {
-      LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
-      throw new MediaException("File seems to be corrupted", "IMAGE ERROR", e);
+    if (!"application/pdf".equals(mimeType)) {
+      try {
+        final int width = Integer.parseInt(results.get(COMMAND_RESULT_WIDTH_LINE));
+        final int height = Integer.parseInt(results.get(COMMAND_RESULT_HEIGHT_LINE));
+        final String colorSpace = results.get(COMMAND_RESULT_COLORSPACE_LINE);
+        final List<String> dominantColors =
+            extractDominantColors(results, COMMAND_RESULT_COLORS_LINE);
+        result = new ImageMetadata(width, height, colorSpace, dominantColors);
+      } catch (RuntimeException e) {
+        LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
+        throw new MediaException("File seems to be corrupted", "IMAGE ERROR", e);
+      }
+    } else {
+      result = null;
     }
 
     for (int i = 0; i < sizes; i++) {
@@ -145,7 +152,7 @@ public class ThumbnailGenerator {
       if (thumb.length() == 0) {
         throw new MediaException("Thumbnail file empty: " + thumb, "THUMBNAIL ERROR");
       }
-      if (result.getWidth() < THUMB_SIZE[i]) {
+      if (result != null && result.getWidth() < THUMB_SIZE[i]) {
         FileUtils.copyFile(content, thumb);
       }
     }
@@ -160,7 +167,7 @@ public class ThumbnailGenerator {
       throw new IOException("Could not create thumbnails subdirectory: " + thumbsDir);
     }
     String md5 = md5Hex(url);
-    String ext = "image/png".equals(mimeType) ? ".png" : ".jpeg";
+    String ext = Arrays.asList("application/pdf", "image/png").contains(mimeType) ? ".png" : ".jpeg";
     List<Thumbnail> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
     for (String thumbnailSuffix : THUMB_SUFFIX) {
       File f = File.createTempFile("thumb", ext, thumbsDir);

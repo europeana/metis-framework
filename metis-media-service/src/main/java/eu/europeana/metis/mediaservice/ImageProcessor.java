@@ -7,7 +7,7 @@ import eu.europeana.metis.mediaservice.WebResource.Orientation;
 
 class ImageProcessor {
 
-  protected final ThumbnailGenerator thumbnailGenerator;
+  private final ThumbnailGenerator thumbnailGenerator;
 
   ImageProcessor(ThumbnailGenerator thumbnailGenerator) {
     this.thumbnailGenerator = thumbnailGenerator;

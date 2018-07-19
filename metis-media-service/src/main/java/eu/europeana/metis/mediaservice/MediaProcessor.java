@@ -49,7 +49,7 @@ public class MediaProcessor implements Closeable {
 		this.thumbnailGenerator = new ThumbnailGenerator(commandExecutor);
 		this.imageProcessor = new ImageProcessor(this.thumbnailGenerator);
 		this.audioVideoProcessor = new AudioVideoProcessor(commandExecutor);
-		this.textProcessor = new TextProcessor();
+		this.textProcessor = new TextProcessor(this.thumbnailGenerator);
 	}
 	
 	public MediaProcessor() {
