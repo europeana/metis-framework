@@ -31,6 +31,9 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 public final class EuropeanaIdCreator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EuropeanaIdCreator.class);
+  
+  private static final int EVALUATE_XPATH_ATTEMPT_COUNT = 20;
+  private static final int EVALUATE_XPATH_ATTEMPT_INTERVAL_IN_MS = 50;
 
   private static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
   private static final String RDF_NAMESPACE_PREFIX = "rdf";
@@ -179,25 +182,18 @@ public final class EuropeanaIdCreator {
     return result;
   }
 
-  /*
-   * TODO Note: the synchronized block around the actual call to the RDF about extractor is
-   * necessary to solve issue MET-1258. It is currently expected that somewhere in the apache xerces
-   * implementation there is a threading issue that causes exceptions even if individual threads are
-   * calling privately owned instances of this class. Eventually an upgrade to a later version of
-   * the apache libraries or a move towards another parser would be needed to solve this issue
-   * permanently.
-   */
   private String extractRdfAboutFromRdfString(String rdfString) throws EuropeanaIdException {
 
     // Obtain the RDF about
     final String result;
     try (final InputStream inputStream =
         new ByteArrayInputStream(rdfString.getBytes(StandardCharsets.UTF_8))) {
-      synchronized (EuropeanaIdCreator.class) {
-        result = (String) rdfAboutExtractor.evaluate(new InputSource(inputStream),
-            XPathConstants.STRING);
-      }
-    } catch (XPathExpressionException | IOException e) {
+      result = extractRdfAboutFromInputStream(inputStream);
+    } catch (InterruptedException e) {
+      LOGGER.warn("Thread interrupted.");
+      Thread.currentThread().interrupt();
+      return null;
+    } catch (IOException e) {
       throw new EuropeanaIdException(
           "Something went wrong while extracting the provider ID from the source.", e);
     }
@@ -209,6 +205,80 @@ public final class EuropeanaIdCreator {
     return result;
   }
 
+  /*
+   * TODO Note: the synchronized block around the actual call to the RDF about extractor is
+   * necessary to solve issue MET-1258. It is currently expected that somewhere in the apache xerces
+   * implementation there is a threading issue that causes exceptions even if individual threads are
+   * calling privately owned instances of this class. Eventually an upgrade to a later version of
+   * the apache libraries or a move towards another parser would be needed to solve this issue
+   * permanently.
+   * TODO This is also why the loop with the attempts was added.
+   */
+  private String extractRdfAboutFromInputStream(InputStream inputStream)
+      throws EuropeanaIdException, InterruptedException {
+    
+    // Keep track of the latest exception received.
+    XPathExpressionException xpathException = null;
+    
+    // Try a number of times.
+    for (int i = 0; i < EVALUATE_XPATH_ATTEMPT_COUNT; i++) {
+      
+      // Sleep first to give a race condition time to resolve itself (except during the first run).
+      if (i > 0) {
+        Thread.sleep(EVALUATE_XPATH_ATTEMPT_INTERVAL_IN_MS);
+      }
+      
+      // Make sure that no other thread in this JVM goes here at the same time.
+      synchronized (EuropeanaIdCreator.class) {
+        try {
+          
+          // Attempt evaluation of XPath.
+          return (String) rdfAboutExtractor.evaluate(new InputSource(inputStream),
+              XPathConstants.STRING);
+        } catch (XPathExpressionException e) {
+          if (isRaceCondition(e)) {
+            
+            // Handle exception that is caused by a race condition: remember it and try again.
+            LOGGER.warn("Race condition error occurred during attempt {} of {}. Trying again...", i,
+                EVALUATE_XPATH_ATTEMPT_COUNT, e);
+            xpathException = e;
+          } else {
+            
+            // Handle unexpected exception that is not caused by a race condition: re-throw.
+            throw new EuropeanaIdException(
+                "Something went wrong while extracting the provider ID from the source.", e);
+          }
+        }
+      }
+    }
+    
+    // If we are here, it is because all attempts have failed. Re-throw the latest exception.
+    throw new EuropeanaIdException("Last XPath evaluation attempt generated exception.",
+        xpathException);
+  }
+  
+  private static boolean isRaceCondition(Exception exception) {
+    
+    // Check for the thread collision exception
+    if (exception.getMessage() != null
+        && exception.getMessage().contains("FWK005 parse may not be called while parsing")) {
+      return true;
+    }
+
+    // Check for the specific null pointer exception
+    if (exception.getCause() instanceof NullPointerException) {
+      final StackTraceElement[] stackTrace = exception.getCause().getStackTrace();
+      final StackTraceElement firstMethod = stackTrace.length > 0 ? stackTrace[0] : null;
+      if (firstMethod != null
+          && "org.apache.xerces.parsers.AbstractDOMParser".equals(firstMethod.getClassName())
+          && "characters".equals(firstMethod.getMethodName())) {
+        return true;
+      }
+    }
+
+    // So it is not
+    return false;
+  }
   private static final class RdfNamespaceResolver implements NamespaceContext {
 
     @Override
