@@ -1,5 +1,32 @@
 package eu.europeana.metis.core.rest.config;
 
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.impl.ForgivingExceptionHandler;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.mcs.driver.FileServiceClient;
+import eu.europeana.cloud.mcs.driver.RecordServiceClient;
+import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.execution.QueueConsumer;
+import eu.europeana.metis.core.execution.SchedulerExecutor;
+import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
+import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.service.Authorizer;
+import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.service.ProxiesService;
+import eu.europeana.metis.core.service.ScheduleWorkflowService;
+import eu.europeana.metis.exception.GenericMetisException;
+import io.netty.util.ThreadDeathWatcher;
+import io.netty.util.concurrent.FastThreadLocal;
+import io.netty.util.internal.InternalThreadLocalMap;
 import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -25,32 +52,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import eu.europeana.cloud.client.dps.rest.DpsClient;
-import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.cloud.mcs.driver.FileServiceClient;
-import eu.europeana.cloud.mcs.driver.RecordServiceClient;
-import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.DatasetXsltDao;
-import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
-import eu.europeana.metis.core.dao.WorkflowDao;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.execution.QueueConsumer;
-import eu.europeana.metis.core.execution.SchedulerExecutor;
-import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
-import eu.europeana.metis.core.execution.WorkflowExecutorManager;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.core.service.Authorizer;
-import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.core.service.ProxiesService;
-import eu.europeana.metis.core.service.ScheduleWorkflowService;
-import eu.europeana.metis.exception.GenericMetisException;
-import io.netty.util.ThreadDeathWatcher;
-import io.netty.util.concurrent.FastThreadLocal;
-import io.netty.util.internal.InternalThreadLocalMap;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -92,6 +93,11 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     if (propertiesHolder.isRabbitmqEnableSSL()) {
       connectionFactory.useSslProtocol();
     }
+    //Does not close the channel if an unhandled exception occurred
+    //Can happen in QueueConsumer and it's safe to not handle the execution, it will be picked up
+    //again from the failsafe Executor.
+    connectionFactory.setExceptionHandler(
+        new ForgivingExceptionHandler());
     connection = connectionFactory.newConnection();
     return connection;
   }
@@ -229,7 +235,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   public WorkflowExecutionMonitor getWorkflowExecutionMonitor(
       WorkflowExecutorManager workflowExecutorManager, WorkflowExecutionDao workflowExecutionDao,
       RedissonClient redissonClient) {
-    
+
     // Computes the leniency for the failsafe action: how long ago (worst case) can the last update
     // time have been set before we assume the execution hangs.
     final Duration failsafeLeniency =
@@ -238,7 +244,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
             .plusMillis(propertiesHolder.getPeriodicFailsafeCheckInMillisecs())
             .plusSeconds(propertiesHolder.getDpsMonitorCheckIntervalInSecs())
             .plusSeconds(propertiesHolder.getFailsafeMarginOfInactivityInSecs());
-    
+
     // Create and return the workflow execution monitor.
     workflowExecutionMonitor = new WorkflowExecutionMonitor(workflowExecutorManager,
         workflowExecutionDao, redissonClient, failsafeLeniency);
@@ -253,7 +259,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
         redissonClient);
     return schedulerExecutor;
   }
-  
+
   @Bean
   public QueueConsumer getQueueConsumer(WorkflowExecutorManager workflowExecutionManager,
       WorkflowExecutionMonitor workflowExecutionMonitor,
