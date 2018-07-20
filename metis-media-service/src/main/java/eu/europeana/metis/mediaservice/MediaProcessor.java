@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.apache.tika.Tika;
@@ -37,6 +36,7 @@ public class MediaProcessor implements Closeable {
 	private static Tika tika = new Tika();
 	
 	private final CommandExecutor commandExecutor;
+	private final ThumbnailGenerator thumbnailGenerator;
 	private final ImageProcessor imageProcessor;
 	private final AudioVideoProcessor audioVideoProcessor;
 	private final TextProcessor textProcessor;
@@ -44,14 +44,15 @@ public class MediaProcessor implements Closeable {
 	private EdmObject edm;
 	private Map<String, List<UrlType>> urlTypes;
 	
-	MediaProcessor(CommandExecutor commandExecutor) {
+	MediaProcessor(CommandExecutor commandExecutor) throws MediaException {
 		this.commandExecutor = commandExecutor;
-		imageProcessor = new ImageProcessor(commandExecutor);
-		audioVideoProcessor = new AudioVideoProcessor(commandExecutor);
-		textProcessor = new TextProcessor();
+		this.thumbnailGenerator = new ThumbnailGenerator(commandExecutor);
+		this.imageProcessor = new ImageProcessor(this.thumbnailGenerator);
+		this.audioVideoProcessor = new AudioVideoProcessor(commandExecutor);
+		this.textProcessor = new TextProcessor(this.thumbnailGenerator);
 	}
 	
-	public MediaProcessor() {
+	public MediaProcessor() throws MediaException {
 		this(new CommandExecutor());
 	}
 	
@@ -62,7 +63,7 @@ public class MediaProcessor implements Closeable {
 	public void setEdm(EdmObject edm) {
 		this.edm = edm;
 		urlTypes = edm.getResourceUrls(Arrays.asList(UrlType.values()));
-		imageProcessor.thumbnails.clear();
+		thumbnailGenerator.thumbnails.clear();
 	}
 	
 	public EdmObject getEdm() {
@@ -104,7 +105,7 @@ public class MediaProcessor implements Closeable {
 	 *         are no longer needed.
 	 */
 	public List<Thumbnail> getThumbnails() {
-		return new ArrayList<>(imageProcessor.thumbnails);
+		return new ArrayList<>(thumbnailGenerator.thumbnails);
 	}
 	
 	@Override
