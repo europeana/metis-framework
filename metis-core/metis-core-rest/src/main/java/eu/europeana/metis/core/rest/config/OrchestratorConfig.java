@@ -195,8 +195,6 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     workflowExecutorManager.setMaxConcurrentThreads(propertiesHolder.getMaxConcurrentThreads());
     workflowExecutorManager
         .setDpsMonitorCheckIntervalInSecs(propertiesHolder.getDpsMonitorCheckIntervalInSecs());
-    workflowExecutorManager
-        .setDpsRequestTimeoutInSecs(propertiesHolder.getDpsRequestTimeoutInSecs());
     workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
         propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInSecs());
     workflowExecutorManager.setEcloudBaseUrl(propertiesHolder.getEcloudBaseUrl());
@@ -235,7 +233,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     // Computes the leniency for the failsafe action: how long ago (worst case) can the last update
     // time have been set before we assume the execution hangs.
     final Duration failsafeLeniency =
-        Duration.ZERO.plusSeconds(propertiesHolder.getDpsRequestTimeoutInSecs())
+        Duration.ZERO.plusMillis(propertiesHolder.getDpsConnectTimeoutInMillisecs())
+            .plusMillis(propertiesHolder.getDpsReadTimeoutInMillisecs())
             .plusMillis(propertiesHolder.getPeriodicFailsafeCheckInMillisecs())
             .plusSeconds(propertiesHolder.getDpsMonitorCheckIntervalInSecs())
             .plusSeconds(propertiesHolder.getFailsafeMarginOfInactivityInSecs());
