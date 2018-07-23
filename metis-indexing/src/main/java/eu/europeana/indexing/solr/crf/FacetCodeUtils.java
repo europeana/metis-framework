@@ -2,6 +2,7 @@ package eu.europeana.indexing.solr.crf;
 
 import java.util.Collections;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -43,6 +44,8 @@ public final class FacetCodeUtils {
   private static final Integer AUDIO_MEDIUM = 2;
   private static final Integer AUDIO_LONG = 3;
 
+  private static final String DEFAULT_MIME_TYPE = "application/octet-stream";
+  
   /** Image area (in pixels) that is considered huge: 4mp. **/
   private static final long IMAGE_HUGE_AREA = 4_000_000;
 
@@ -92,7 +95,9 @@ public final class FacetCodeUtils {
    * @return The (non-shifted) code.
    */
   public static Set<Integer> getMimeTypeCode(final WebResourceWrapper webResource) {
-    return Collections.singleton(MimeTypeEncoding.getMimeTypeCode(webResource.getMimeType()));
+    final String mimeType =
+        Optional.ofNullable(webResource.getMimeType()).orElse(DEFAULT_MIME_TYPE);
+    return Collections.singleton(MimeTypeEncoding.getMimeTypeCode(mimeType));
   }
 
   /**

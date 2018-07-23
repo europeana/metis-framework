@@ -4,8 +4,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,19 +115,27 @@ public class SolrDocumentPopulator {
     final EuropeanaAggregationType aggregation =
         aggregationList.isEmpty() ? null : aggregationList.get(aggregationList.size() - 1);
 
-    // has_thumbnails is true if and only if edm:EuropeanaAggregation/edm:preview is filled.
-    final ResourceType preview = aggregation == null ? null : aggregation.getPreview();
-    document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), !isEmpty(preview));
-
-    // has_landingpage is true if and only if edm:EuropeanaAggregation/edm:landingpage is filled.
-    final ResourceType landingPage = aggregation == null ? null : aggregation.getLandingPage();
-    document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), !isEmpty(landingPage));
-
     // Get the web resources.
     final List<WebResourceWrapper> webResources = WebResourceWrapper.getListFromRdf(rdf);
 
+    // has_thumbnails is true if and only if edm:EuropeanaAggregation/edm:preview is filled and the
+    // associated edm:webResource exists with technical metadata (i.e. ebucore:hasMimetype is set).
+    final String previewUri =
+        Optional.ofNullable(aggregation).map(EuropeanaAggregationType::getPreview)
+            .map(ResourceType::getResource).filter(StringUtils::isNotBlank).orElse(null);
+    final boolean hasThumbnails = previewUri != null
+        && webResources.stream().filter(resource -> previewUri.equals(resource.getAbout()))
+            .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
+    document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), hasThumbnails);
+
+    // has_landingpage is true if and only if edm:EuropeanaAggregation/edm:landingpage is filled.
+    final boolean hasLandingPage =
+        Optional.ofNullable(aggregation).map(EuropeanaAggregationType::getLandingPage)
+            .map(ResourceType::getResource).filter(StringUtils::isNotBlank).isPresent();
+    document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), hasLandingPage);
+
     // has_media is true if and only if there is at least one web resource, not of type
-    // 'is_shown_at', representing technical metadata.
+    // 'is_shown_at', representing technical metadata of a known type.
     final Set<String> isShownAtUrls;
     if (rdf.getAggregationList() == null) {
       isShownAtUrls = Collections.emptySet();
@@ -160,10 +170,5 @@ public class SolrDocumentPopulator {
     for (Integer tag : facetTags) {
       document.addField(EdmLabel.CRF_FACET_TAGS.toString(), tag);
     }
-  }
-
-  private boolean isEmpty(ResourceType resourceType) {
-    return resourceType == null || resourceType.getResource() == null
-        || resourceType.getResource().trim().isEmpty();
   }
 }

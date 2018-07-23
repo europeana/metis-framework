@@ -1,12 +1,18 @@
 package eu.europeana.indexing.fullbean;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import eu.europeana.corelib.definitions.jibx.EdmType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
 import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
+import eu.europeana.corelib.definitions.jibx.LiteralType;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
+import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.Type2;
 import eu.europeana.corelib.definitions.solr.DocType;
@@ -75,193 +81,100 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
     return mongoProxy;
   }
 
-  private static void applyToChoice(Choice europeanaType, ProxyImpl mongoProxy) {
-    if (europeanaType.ifAlternative()) {
-      mongoProxy.setDctermsAlternative(FieldInputUtils.mergeMaps(mongoProxy.getDctermsAlternative(),
-          FieldInputUtils.createLiteralMapFromString(europeanaType.getAlternative())));
+  private static <T extends LiteralType> void applyToLiteralChoiceOption(BooleanSupplier condition,
+      Supplier<T> valueGetter, Supplier<Map<String, List<String>>> mapGetter,
+      Consumer<Map<String, List<String>>> mapSetter) {
+    if (condition.getAsBoolean()) {
+      mapSetter.accept(FieldInputUtils.mergeMaps(mapGetter.get(),
+          FieldInputUtils.createLiteralMapFromString(valueGetter.get())));
     }
+  }
 
-    if (europeanaType.ifConformsTo()) {
-      mongoProxy.setDctermsConformsTo(FieldInputUtils.mergeMaps(mongoProxy.getDctermsConformsTo(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getConformsTo())));
+  private static <T extends ResourceOrLiteralType> void applyToResourceOrLiteralChoiceOption(
+      BooleanSupplier condition, Supplier<T> valueGetter,
+      Supplier<Map<String, List<String>>> mapGetter,
+      Consumer<Map<String, List<String>>> mapSetter) {
+    if (condition.getAsBoolean()) {
+      mapSetter.accept(FieldInputUtils.mergeMaps(mapGetter.get(),
+          FieldInputUtils.createResourceOrLiteralMapFromString(valueGetter.get())));
     }
+  }
 
-    if (europeanaType.ifCreated()) {
-      mongoProxy.setDctermsCreated(FieldInputUtils.mergeMaps(mongoProxy.getDctermsCreated(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getCreated())));
-    }
+  private static void applyToChoice(Choice choice, ProxyImpl proxy) {
+    applyToLiteralChoiceOption(choice::ifAlternative, choice::getAlternative,
+        proxy::getDctermsAlternative, proxy::setDctermsAlternative);
+    applyToResourceOrLiteralChoiceOption(choice::ifConformsTo, choice::getConformsTo,
+        proxy::getDctermsConformsTo, proxy::setDctermsConformsTo);
+    applyToResourceOrLiteralChoiceOption(choice::ifCreated, choice::getCreated,
+        proxy::getDctermsCreated, proxy::setDctermsCreated);
+    applyToResourceOrLiteralChoiceOption(choice::ifExtent, choice::getExtent,
+        proxy::getDctermsExtent, proxy::setDctermsExtent);
+    applyToResourceOrLiteralChoiceOption(choice::ifHasFormat, choice::getHasFormat,
+        proxy::getDctermsHasFormat, proxy::setDctermsHasFormat);
+    applyToResourceOrLiteralChoiceOption(choice::ifHasPart, choice::getHasPart,
+        proxy::getDctermsHasPart, proxy::setDctermsHasPart);
+    applyToResourceOrLiteralChoiceOption(choice::ifHasVersion, choice::getHasVersion,
+        proxy::getDctermsHasVersion, proxy::setDctermsHasVersion);
+    applyToResourceOrLiteralChoiceOption(choice::ifIsFormatOf, choice::getIsFormatOf,
+        proxy::getDctermsIsFormatOf, proxy::setDctermsIsFormatOf);
+    applyToResourceOrLiteralChoiceOption(choice::ifIsPartOf, choice::getIsPartOf,
+        proxy::getDctermsIsPartOf, proxy::setDctermsIsPartOf);
+    applyToResourceOrLiteralChoiceOption(choice::ifIsReferencedBy, choice::getIsReferencedBy,
+        proxy::getDctermsIsReferencedBy, proxy::setDctermsIsReferencedBy);
+    applyToResourceOrLiteralChoiceOption(choice::ifIsReplacedBy, choice::getIsReplacedBy,
+        proxy::getDctermsIsReplacedBy, proxy::setDctermsIsReplacedBy);
+    applyToResourceOrLiteralChoiceOption(choice::ifIsRequiredBy, choice::getIsRequiredBy,
+        proxy::getDctermsIsRequiredBy, proxy::setDctermsIsRequiredBy);
+    applyToResourceOrLiteralChoiceOption(choice::ifIssued, choice::getIssued,
+        proxy::getDctermsIssued, proxy::setDctermsIssued);
+    applyToResourceOrLiteralChoiceOption(choice::ifIsVersionOf, choice::getIsVersionOf,
+        proxy::getDctermsIsVersionOf, proxy::setDctermsIsVersionOf);
+    applyToResourceOrLiteralChoiceOption(choice::ifMedium, choice::getMedium,
+        proxy::getDctermsMedium, proxy::setDctermsMedium);
+    applyToResourceOrLiteralChoiceOption(choice::ifProvenance, choice::getProvenance,
+        proxy::getDctermsProvenance, proxy::setDctermsProvenance);
+    applyToResourceOrLiteralChoiceOption(choice::ifReferences, choice::getReferences,
+        proxy::getDctermsReferences, proxy::setDctermsReferences);
+    applyToResourceOrLiteralChoiceOption(choice::ifReplaces, choice::getReplaces,
+        proxy::getDctermsReplaces, proxy::setDctermsReplaces);
+    applyToResourceOrLiteralChoiceOption(choice::ifRequires, choice::getRequires,
+        proxy::getDctermsRequires, proxy::setDctermsRequires);
+    applyToResourceOrLiteralChoiceOption(choice::ifSpatial, choice::getSpatial,
+        proxy::getDctermsSpatial, proxy::setDctermsSpatial);
+    applyToResourceOrLiteralChoiceOption(choice::ifTableOfContents, choice::getTableOfContents,
+        proxy::getDctermsTOC, proxy::setDctermsTOC);
+    applyToResourceOrLiteralChoiceOption(choice::ifTemporal, choice::getTemporal,
+        proxy::getDctermsTemporal, proxy::setDctermsTemporal);
 
-    if (europeanaType.ifExtent()) {
-      mongoProxy.setDctermsExtent(FieldInputUtils.mergeMaps(mongoProxy.getDctermsExtent(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getExtent())));
-    }
-
-    if (europeanaType.ifHasFormat()) {
-      mongoProxy.setDctermsHasFormat(FieldInputUtils.mergeMaps(mongoProxy.getDctermsHasFormat(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getHasFormat())));
-    }
-
-    if (europeanaType.ifHasPart()) {
-      mongoProxy.setDctermsHasPart(FieldInputUtils.mergeMaps(mongoProxy.getDctermsHasPart(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getHasPart())));
-    }
-
-    if (europeanaType.ifHasVersion()) {
-      mongoProxy.setDctermsHasVersion(FieldInputUtils.mergeMaps(mongoProxy.getDctermsHasVersion(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getHasVersion())));
-    }
-
-    if (europeanaType.ifIsFormatOf()) {
-      mongoProxy.setDctermsIsFormatOf(FieldInputUtils.mergeMaps(mongoProxy.getDctermsIsFormatOf(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getIsFormatOf())));
-    }
-
-    if (europeanaType.ifIsPartOf()) {
-      mongoProxy.setDctermsIsPartOf(FieldInputUtils.mergeMaps(mongoProxy.getDctermsIsPartOf(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getIsPartOf())));
-    }
-
-    if (europeanaType.ifIsReferencedBy()) {
-      mongoProxy.setDctermsIsReferencedBy(FieldInputUtils.mergeMaps(
-          mongoProxy.getDctermsIsReferencedBy(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getIsReferencedBy())));
-    }
-
-    if (europeanaType.ifIsReplacedBy()) {
-      mongoProxy.setDctermsIsReplacedBy(FieldInputUtils.mergeMaps(
-          mongoProxy.getDctermsIsReplacedBy(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getIsReplacedBy())));
-    }
-
-    if (europeanaType.ifIsRequiredBy()) {
-      mongoProxy.setDctermsIsRequiredBy(FieldInputUtils.mergeMaps(
-          mongoProxy.getDctermsIsRequiredBy(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getIsRequiredBy())));
-    }
-
-    if (europeanaType.ifIssued()) {
-      mongoProxy.setDctermsIssued(FieldInputUtils.mergeMaps(mongoProxy.getDctermsIssued(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getIssued())));
-    }
-
-    if (europeanaType.ifIsVersionOf()) {
-      mongoProxy.setDctermsIsVersionOf(FieldInputUtils.mergeMaps(mongoProxy.getDctermsIsVersionOf(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getIsVersionOf())));
-    }
-
-    if (europeanaType.ifMedium()) {
-      mongoProxy.setDctermsMedium(FieldInputUtils.mergeMaps(mongoProxy.getDctermsMedium(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getMedium())));
-    }
-
-    if (europeanaType.ifProvenance()) {
-      mongoProxy.setDctermsProvenance(FieldInputUtils.mergeMaps(mongoProxy.getDctermsProvenance(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getProvenance())));
-    }
-
-    if (europeanaType.ifReferences()) {
-      mongoProxy.setDctermsReferences(FieldInputUtils.mergeMaps(mongoProxy.getDctermsReferences(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getReferences())));
-    }
-
-    if (europeanaType.ifReplaces()) {
-      mongoProxy.setDctermsReplaces(FieldInputUtils.mergeMaps(mongoProxy.getDctermsReplaces(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getReplaces())));
-    }
-
-    if (europeanaType.ifRequires()) {
-      mongoProxy.setDctermsRequires(FieldInputUtils.mergeMaps(mongoProxy.getDctermsRequires(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getRequires())));
-    }
-
-    if (europeanaType.ifSpatial()) {
-      mongoProxy.setDctermsSpatial(FieldInputUtils.mergeMaps(mongoProxy.getDctermsSpatial(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getSpatial())));
-    }
-
-    if (europeanaType.ifTableOfContents()) {
-      mongoProxy.setDctermsTOC(FieldInputUtils.mergeMaps(mongoProxy.getDctermsTOC(), FieldInputUtils
-          .createResourceOrLiteralMapFromString(europeanaType.getTableOfContents())));
-    }
-
-    if (europeanaType.ifTemporal()) {
-      mongoProxy.setDctermsTemporal(FieldInputUtils.mergeMaps(mongoProxy.getDctermsTemporal(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getTemporal())));
-    }
-
-    if (europeanaType.ifContributor()) {
-      mongoProxy.setDcContributor(FieldInputUtils.mergeMaps(mongoProxy.getDcContributor(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getContributor())));
-    }
-
-    if (europeanaType.ifCoverage()) {
-      mongoProxy.setDcCoverage(FieldInputUtils.mergeMaps(mongoProxy.getDcCoverage(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getCoverage())));
-    }
-
-    if (europeanaType.ifCreator()) {
-      mongoProxy.setDcCreator(FieldInputUtils.mergeMaps(mongoProxy.getDcCreator(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getCreator())));
-    }
-
-    if (europeanaType.ifDate()) {
-      mongoProxy.setDcDate(FieldInputUtils.mergeMaps(mongoProxy.getDcDate(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getDate())));
-    }
-
-    if (europeanaType.ifDescription()) {
-      mongoProxy.setDcDescription(FieldInputUtils.mergeMaps(mongoProxy.getDcDescription(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getDescription())));
-    }
-
-    if (europeanaType.ifFormat()) {
-      mongoProxy.setDcFormat(FieldInputUtils.mergeMaps(mongoProxy.getDcFormat(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getFormat())));
-    }
-
-    if (europeanaType.ifIdentifier()) {
-      mongoProxy.setDcIdentifier(FieldInputUtils.mergeMaps(mongoProxy.getDcIdentifier(),
-          FieldInputUtils.createLiteralMapFromString(europeanaType.getIdentifier())));
-    }
-
-    if (europeanaType.ifLanguage()) {
-      mongoProxy.setDcLanguage(FieldInputUtils.mergeMaps(mongoProxy.getDcLanguage(),
-          FieldInputUtils.createLiteralMapFromString(europeanaType.getLanguage())));
-    }
-
-    if (europeanaType.ifPublisher()) {
-      mongoProxy.setDcPublisher(FieldInputUtils.mergeMaps(mongoProxy.getDcPublisher(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getPublisher())));
-    }
-
-    if (europeanaType.ifRelation()) {
-      mongoProxy.setDcRelation(FieldInputUtils.mergeMaps(mongoProxy.getDcRelation(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getRelation())));
-    }
-
-    if (europeanaType.ifRights()) {
-      mongoProxy.setDcRights(FieldInputUtils.mergeMaps(mongoProxy.getDcRights(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getRights())));
-    }
-
-    if (europeanaType.ifSource()) {
-      mongoProxy.setDcSource(FieldInputUtils.mergeMaps(mongoProxy.getDcSource(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getSource())));
-    }
-
-    if (europeanaType.ifSubject()) {
-      mongoProxy.setDcSubject(FieldInputUtils.mergeMaps(mongoProxy.getDcSubject(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getSubject())));
-    }
-
-    if (europeanaType.ifTitle()) {
-      mongoProxy.setDcTitle(FieldInputUtils.mergeMaps(mongoProxy.getDcTitle(),
-          FieldInputUtils.createLiteralMapFromString(europeanaType.getTitle())));
-    }
-
-    if (europeanaType.ifType()) {
-      mongoProxy.setDcType(FieldInputUtils.mergeMaps(mongoProxy.getDcType(),
-          FieldInputUtils.createResourceOrLiteralMapFromString(europeanaType.getType())));
-    }
+    applyToResourceOrLiteralChoiceOption(choice::ifContributor, choice::getContributor,
+        proxy::getDcContributor, proxy::setDcContributor);
+    applyToResourceOrLiteralChoiceOption(choice::ifCoverage, choice::getCoverage,
+        proxy::getDcCoverage, proxy::setDcCoverage);
+    applyToResourceOrLiteralChoiceOption(choice::ifCreator, choice::getCreator, proxy::getDcCreator,
+        proxy::setDcCreator);
+    applyToResourceOrLiteralChoiceOption(choice::ifDate, choice::getDate, proxy::getDcDate,
+        proxy::setDcDate);
+    applyToResourceOrLiteralChoiceOption(choice::ifDescription, choice::getDescription,
+        proxy::getDcDescription, proxy::setDcDescription);
+    applyToResourceOrLiteralChoiceOption(choice::ifFormat, choice::getFormat, proxy::getDcFormat,
+        proxy::setDcFormat);
+    applyToLiteralChoiceOption(choice::ifIdentifier, choice::getIdentifier, proxy::getDcIdentifier,
+        proxy::setDcIdentifier);
+    applyToLiteralChoiceOption(choice::ifLanguage, choice::getLanguage, proxy::getDcLanguage,
+        proxy::setDcLanguage);
+    applyToResourceOrLiteralChoiceOption(choice::ifPublisher, choice::getPublisher,
+        proxy::getDcPublisher, proxy::setDcPublisher);
+    applyToResourceOrLiteralChoiceOption(choice::ifRelation, choice::getRelation,
+        proxy::getDcRelation, proxy::setDcRelation);
+    applyToResourceOrLiteralChoiceOption(choice::ifRights, choice::getRights, proxy::getDcRights,
+        proxy::setDcRights);
+    applyToResourceOrLiteralChoiceOption(choice::ifSource, choice::getSource, proxy::getDcSource,
+        proxy::setDcSource);
+    applyToResourceOrLiteralChoiceOption(choice::ifSubject, choice::getSubject, proxy::getDcSubject,
+        proxy::setDcSubject);
+    applyToLiteralChoiceOption(choice::ifTitle, choice::getTitle, proxy::getDcTitle,
+        proxy::setDcTitle);
+    applyToResourceOrLiteralChoiceOption(choice::ifType, choice::getType, proxy::getDcType,
+        proxy::setDcType);
   }
 }
