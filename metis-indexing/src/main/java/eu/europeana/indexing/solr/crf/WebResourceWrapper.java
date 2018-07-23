@@ -4,12 +4,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
 import eu.europeana.corelib.definitions.jibx.Duration;
 import eu.europeana.corelib.definitions.jibx.HasColorSpace;
+import eu.europeana.corelib.definitions.jibx.HasMimeType;
 import eu.europeana.corelib.definitions.jibx.HexBinaryType;
 import eu.europeana.corelib.definitions.jibx.OrientationType;
 import eu.europeana.corelib.definitions.jibx.RDF;
@@ -24,8 +26,6 @@ import eu.europeana.corelib.definitions.jibx.WebResourceType;
  *
  */
 public class WebResourceWrapper {
-
-  private static final String DEFAULT_MIME_TYPE = "application/octet-stream";
 
   private final WebResourceType webResource;
 
@@ -74,20 +74,21 @@ public class WebResourceWrapper {
   }
 
   /**
-   * @return The 'ebucore:hasMimeType' value of the web resource as String, or
-   *         {@value #DEFAULT_MIME_TYPE} if none is set. Does not return null.
+   * @return The 'ebucore:hasMimeType' value of the web resource as String, or null if none is set.
    */
   public String getMimeType() {
+    return Optional.ofNullable(webResource.getHasMimeType()).map(HasMimeType::getHasMimeType)
+        .filter(StringUtils::isNotBlank).map(WebResourceWrapper::getBaseType).orElse(null);
+  }
 
-    // If there is no mime type, return the generic one.
-    if (webResource.getHasMimeType() == null
-        || StringUtils.isBlank(webResource.getHasMimeType().getHasMimeType())) {
-      return DEFAULT_MIME_TYPE;
-    }
-
-    // Otherwise, we return the base type (without parameters).
-    return webResource.getHasMimeType().getHasMimeType().split(";")[0].trim()
-        .toLowerCase(Locale.ENGLISH);
+  /**
+   * This method strips the base type of a mime type declaration (i.e. it removes the parameters).
+   * 
+   * @param mimeType The mime type, is not null.
+   * @return The mime type stripped off all parameters.
+   */
+  private static String getBaseType(String mimeType) {
+    return mimeType.split(";")[0].trim().toLowerCase(Locale.ENGLISH);
   }
 
   /**
@@ -102,7 +103,9 @@ public class WebResourceWrapper {
   public MediaType getMediaType() {
     final String mimeType = getMimeType();
     final MediaType result;
-    if (mimeType.startsWith("image/")) {
+    if (mimeType == null) {
+      result = MediaType.OTHER;
+    } else if (mimeType.startsWith("image/")) {
       result = MediaType.IMAGE;
     } else if (mimeType.startsWith("audio/")) {
       result = MediaType.AUDIO;
