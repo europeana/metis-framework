@@ -11,12 +11,12 @@ import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.Year;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -126,8 +126,8 @@ public final class EnrichmentUtils {
    *
    * It gives a rank from 0 to maximum 10 for a record. That ranking is divided in two parts.
    * <p>Up to 5 points for tags and up to 5 points for free-text fields(title, description).
-   * Tags are populated from the first value encountered from each corresponding field.
-   * Free-text fields Title and Description are all taken into account.
+   * Tags are populated from the first value encountered from each corresponding field. Free-text
+   * fields Title and Description are all taken into account.
    * </p>
    * <p>Records with thumbnail or both (title and description) missing get rank 0.<p/>
    * <p>Points are calculated in the following manner:</p>
@@ -170,96 +170,99 @@ public final class EnrichmentUtils {
     for (Choice choice : choices) {
       if (choice.ifCoverage()) {
         hashMap.putIfAbsent(choice.getCoverage().getClass(),
-            getLiteralOrResourceValue(choice.getCoverage()));
+            getResourceorLiteralValue(choice.getCoverage()));
       } else if (choice.ifContributor()) {
         hashMap.putIfAbsent(choice.getContributor().getClass(),
-            getLiteralOrResourceValue(choice.getContributor()));
+            getResourceorLiteralValue(choice.getContributor()));
+      } else if (choice.ifCreator()) {
+        hashMap.putIfAbsent(choice.getCreator().getClass(),
+            getResourceorLiteralValue(choice.getCreator()));
       } else if (choice.ifDate()) {
         hashMap.putIfAbsent(choice.getDate().getClass(),
-            getLiteralOrResourceValue(choice.getDate()));
+            getResourceorLiteralValue(choice.getDate()));
       } else if (choice.ifFormat()) {
         hashMap.putIfAbsent(choice.getFormat().getClass(),
-            getLiteralOrResourceValue(choice.getFormat()));
+            getResourceorLiteralValue(choice.getFormat()));
       } else if (choice.ifPublisher()) {
         hashMap.putIfAbsent(choice.getPublisher().getClass(),
-            getLiteralOrResourceValue(choice.getPublisher()));
+            getResourceorLiteralValue(choice.getPublisher()));
       } else if (choice.ifRelation()) {
         hashMap.putIfAbsent(choice.getRelation().getClass(),
-            getLiteralOrResourceValue(choice.getRelation()));
+            getResourceorLiteralValue(choice.getRelation()));
       } else if (choice.ifRights()) {
         hashMap.putIfAbsent(choice.getRights().getClass(),
-            getLiteralOrResourceValue(choice.getRights()));
+            getResourceorLiteralValue(choice.getRights()));
       } else if (choice.ifSource()) {
         hashMap.putIfAbsent(choice.getSource().getClass(),
-            getLiteralOrResourceValue(choice.getSource()));
+            getResourceorLiteralValue(choice.getSource()));
       } else if (choice.ifCreated()) {
         hashMap.putIfAbsent(choice.getCreated().getClass(),
-            getLiteralOrResourceValue(choice.getCreated()));
+            getResourceorLiteralValue(choice.getCreated()));
       } else if (choice.ifConformsTo()) {
         hashMap.putIfAbsent(choice.getConformsTo().getClass(),
-            getLiteralOrResourceValue(choice.getConformsTo()));
+            getResourceorLiteralValue(choice.getConformsTo()));
       } else if (choice.ifExtent()) {
         hashMap.putIfAbsent(choice.getExtent().getClass(),
-            getLiteralOrResourceValue(choice.getExtent()));
+            getResourceorLiteralValue(choice.getExtent()));
       } else if (choice.ifHasFormat()) {
         hashMap.putIfAbsent(choice.getHasFormat().getClass(),
-            getLiteralOrResourceValue(choice.getHasFormat()));
+            getResourceorLiteralValue(choice.getHasFormat()));
       } else if (choice.ifHasPart()) {
         hashMap.putIfAbsent(choice.getHasPart().getClass(),
-            getLiteralOrResourceValue(choice.getHasPart()));
+            getResourceorLiteralValue(choice.getHasPart()));
       } else if (choice.ifHasVersion()) {
         hashMap.putIfAbsent(choice.getHasVersion().getClass(),
-            getLiteralOrResourceValue(choice.getHasVersion()));
+            getResourceorLiteralValue(choice.getHasVersion()));
       } else if (choice.ifIsFormatOf()) {
         hashMap.putIfAbsent(choice.getIsFormatOf().getClass(),
-            getLiteralOrResourceValue(choice.getIsFormatOf()));
+            getResourceorLiteralValue(choice.getIsFormatOf()));
       } else if (choice.ifIsPartOf()) {
         hashMap.putIfAbsent(choice.getIsPartOf().getClass(),
-            getLiteralOrResourceValue(choice.getIsPartOf()));
+            getResourceorLiteralValue(choice.getIsPartOf()));
       } else if (choice.ifIsReferencedBy()) {
         hashMap.putIfAbsent(choice.getIsReferencedBy().getClass(),
-            getLiteralOrResourceValue(choice.getIsReferencedBy()));
+            getResourceorLiteralValue(choice.getIsReferencedBy()));
       } else if (choice.ifIsReplacedBy()) {
         hashMap.putIfAbsent(choice.getIsReplacedBy().getClass(),
-            getLiteralOrResourceValue(choice.getIsReplacedBy()));
+            getResourceorLiteralValue(choice.getIsReplacedBy()));
       } else if (choice.ifIsRequiredBy()) {
         hashMap.putIfAbsent(choice.getIsRequiredBy().getClass(),
-            getLiteralOrResourceValue(choice.getIsRequiredBy()));
+            getResourceorLiteralValue(choice.getIsRequiredBy()));
       } else if (choice.ifIssued()) {
         hashMap.putIfAbsent(choice.getIssued().getClass(),
-            getLiteralOrResourceValue(choice.getIssued()));
+            getResourceorLiteralValue(choice.getIssued()));
       } else if (choice.ifIsVersionOf()) {
         hashMap.putIfAbsent(choice.getIsVersionOf().getClass(),
-            getLiteralOrResourceValue(choice.getIsVersionOf()));
+            getResourceorLiteralValue(choice.getIsVersionOf()));
       } else if (choice.ifMedium()) {
         hashMap.putIfAbsent(choice.getMedium().getClass(),
-            getLiteralOrResourceValue(choice.getMedium()));
+            getResourceorLiteralValue(choice.getMedium()));
       } else if (choice.ifProvenance()) {
         hashMap.putIfAbsent(choice.getProvenance().getClass(),
-            getLiteralOrResourceValue(choice.getProvenance()));
+            getResourceorLiteralValue(choice.getProvenance()));
       } else if (choice.ifReferences()) {
         hashMap.putIfAbsent(choice.getReferences().getClass(),
-            getLiteralOrResourceValue(choice.getReferences()));
+            getResourceorLiteralValue(choice.getReferences()));
       } else if (choice.ifReplaces()) {
         hashMap.putIfAbsent(choice.getReplaces().getClass(),
-            getLiteralOrResourceValue(choice.getReplaces()));
+            getResourceorLiteralValue(choice.getReplaces()));
       } else if (choice.ifRequires()) {
         hashMap.putIfAbsent(choice.getRequires().getClass(),
-            getLiteralOrResourceValue(choice.getRequires()));
+            getResourceorLiteralValue(choice.getRequires()));
       } else if (choice.ifSpatial()) {
         hashMap.putIfAbsent(choice.getSpatial().getClass(),
-            getLiteralOrResourceValue(choice.getSpatial()));
+            getResourceorLiteralValue(choice.getSpatial()));
       } else if (choice.ifTableOfContents()) {
         hashMap.putIfAbsent(choice.getTableOfContents().getClass(),
-            getLiteralOrResourceValue(choice.getTableOfContents()));
+            getResourceorLiteralValue(choice.getTableOfContents()));
       } else if (choice.ifTemporal()) {
         hashMap.putIfAbsent(choice.getTemporal().getClass(),
-            getLiteralOrResourceValue(choice.getTemporal()));
+            getResourceorLiteralValue(choice.getTemporal()));
       } else if (choice.ifSubject()) {
         hashMap.putIfAbsent(choice.getSubject().getClass(),
-            getLiteralOrResourceValue(choice.getSubject()));
+            getResourceorLiteralValue(choice.getSubject()));
       } else if (choice.ifDescription()) {
-        descriptions.add(getLiteralOrResourceValue(choice.getDescription()));
+        descriptions.add(getResourceorLiteralValue(choice.getDescription()));
       }
     }
     return hashMap;
@@ -290,40 +293,26 @@ public final class EnrichmentUtils {
       final Map<Class<? extends ResourceOrLiteralType>, String> uniqueResourceOrLiteralTypeClassesMap,
       final Map<Class<? extends LiteralType>, String> uniqueLiteralTypeClassesMap,
       List<String> tags) {
-    for (Entry<Class<? extends ResourceOrLiteralType>, String> entry : uniqueResourceOrLiteralTypeClassesMap
-        .entrySet()) {
-      String literalOrResourceValue = entry.getValue();
-      if (StringUtils.isNotBlank(literalOrResourceValue)) {
-        tags.add(literalOrResourceValue);
-      }
-    }
-    for (Entry<Class<? extends LiteralType>, String> entry : uniqueLiteralTypeClassesMap
-        .entrySet()) {
-      String literalOrResourceValue = entry.getValue();
-      if (StringUtils.isNotBlank(literalOrResourceValue)) {
-        tags.add(literalOrResourceValue);
-      }
-    }
+    uniqueResourceOrLiteralTypeClassesMap.values().stream().filter(StringUtils::isNotBlank)
+        .forEach(tags::add);
+    uniqueLiteralTypeClassesMap.values().stream().filter(StringUtils::isNotBlank)
+        .forEach(tags::add);
   }
 
-  private static <T extends ResourceOrLiteralType> String getLiteralOrResourceValue(
+  //Priority is the literal value and if it doesn't exist then the resource value
+  private static <T extends ResourceOrLiteralType> String getResourceorLiteralValue(
       T resourceOrLiteralType) {
-    if (resourceOrLiteralType != null) {
-      return Optional.ofNullable(resourceOrLiteralType.getString()).map(StringUtils::trimToNull)
-          .orElseGet(
-              () -> Optional.ofNullable(resourceOrLiteralType.getResource())
-                  .map(ResourceOrLiteralType.Resource::getResource).orElse(null));
-    }
-    return null;
+    return Optional.ofNullable(resourceOrLiteralType).map(ResourceOrLiteralType::getString)
+        .map(StringUtils::trimToNull)
+        .orElseGet(
+            () -> Optional.ofNullable(resourceOrLiteralType.getResource())
+                .map(ResourceOrLiteralType.Resource::getResource).orElse(null));
   }
 
   private static <T extends LiteralType> String getLiteralValue(
       T literalType) {
-    if (literalType != null) {
-      return Optional.ofNullable(literalType.getString()).map(StringUtils::trimToNull)
-          .orElse(null);
-    }
-    return null;
+    return Optional.ofNullable(literalType).map(LiteralType::getString).map(StringUtils::trimToNull)
+        .orElse(null);
   }
 
   private static int completenessCalculation(String thumbnailUrl, List<String> titles,
@@ -346,35 +335,22 @@ public final class EnrichmentUtils {
   private static int computePoints(Collection<String> fields, int wordsPerPoint) {
     Collection<String> words = extractWordsFromFields(fields);
     int points = words.size() / wordsPerPoint;
-    return points > POINTS_UPPER_CAP ? POINTS_UPPER_CAP : points;
+    return Math.min(POINTS_UPPER_CAP, points);
   }
 
   private static Collection<String> extractWordsFromFields(Collection<String> fields) {
-    List<String> words = new ArrayList<>();
-    for (String field : fields) {
-      if (!StringUtils.isEmpty(field)) {
-        words.addAll(extractWordsFromField(field));
-      }
-    }
-    return words;
+    return fields.stream().filter(StringUtils::isNotEmpty)
+        .map(EnrichmentUtils::extractWordsFromField)
+        .flatMap(Collection::stream).collect(Collectors.toList());
   }
 
   private static List<String> extractWordsFromField(String field) {
-    List<String> words = new ArrayList<>();
-    for (String word : field.split("\\W")) {
-      if (!StringUtils.isEmpty(word) && word.length() >= MIN_WORD_LENGTH) {
-        words.add(word.toLowerCase(Locale.US));
-      }
-    }
-    return words;
+    return Arrays.stream(field.split("\\W"))
+        .filter(word -> StringUtils.isNotEmpty(word) && word.length() >= MIN_WORD_LENGTH)
+        .map((word) -> word.toLowerCase(Locale.US)).collect(Collectors.toList());
   }
 
   private static boolean isListFullOfEmptyValues(List<String> descriptions) {
-    for (String description : descriptions) {
-      if (StringUtils.isNotBlank(description)) {
-        return false;
-      }
-    }
-    return true;
+    return descriptions.stream().allMatch(StringUtils::isBlank);
   }
 }
