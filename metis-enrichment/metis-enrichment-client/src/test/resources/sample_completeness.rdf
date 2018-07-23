@@ -1,0 +1,1144 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:edm="http://www.europeana.eu/schemas/edm/">
+  <edm:ProvidedCHO rdf:about="http://data.europeana.eu/item/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2"/>
+  <edm:WebResource rdf:about="http://www.imj.org.il/imagine/collections/item.asp?itemNum=193112">
+    <dc:type xmlns:dc="http://purl.org/dc/elements/1.1/">WebResource - dc:type</dc:type>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://CHO-owl-sameAs.eu"/>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="http://www.imj.org.il/images/corridor/bezalel/modern/new modern scans/g-h-i/gauguin-still life~b66_1041.jpg">
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/"/>
+  </edm:WebResource>
+  <edm:Agent rdf:about="http://dbpedia.org/resource/Paul_Gauguin">
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">Eugène Henri Paul Gauguin</skos:prefLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cs">Paul_Gauguin</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fi">Paul_Gauguin</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="pt">Paul_Gauguin</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="it">Paul_Gauguin</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="it">Paul_Gauguin</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nl">Paul_Gauguin</skos:altLabel>
+    <skos:note xmlns:skos="http://www.w3.org/2004/02/skos/core#">Agent - skos:note</skos:note>
+    <dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">Agent - dc:date</dc:date>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">Agent - dc:identifier</dc:identifier>
+    <edm:begin>7 June 1848</edm:begin>
+    <edm:end>8 May 1903</edm:end>
+    <edm:hasMet rdf:resource="http://Agent-edm-hasMet"/>
+    <edm:isRelatedTo rdf:resource="http://dbpedia.org/resource/Camille_Pissarro"/>
+    <edm:isRelatedTo rdf:resource="http://dbpedia.org/resource/Henri_Matisse"/>
+    <foaf:name xmlns:foaf="http://xmlns.com/foaf/0.1/">Paul Gauguin</foaf:name>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="en">
+      Eugène Henri Paul Gauguin (7 June 1848 – 8 May 1903) was a leading French Post-Impressionist artist who was not well appreciated until after his death. Gauguin was later recognized for his experimental use of colors and synthetist style that were distinguishably different from Impressionism. His work was influential to the French avant-garde and many modern artists, such as Pablo Picasso and Henri Matisse. Gauguin’s art became popular after his death and many of his paintings were in the possession of Russian collector Sergei Shchukin. He was an important figure in the Symbolist movement as a painter, sculptor, print-maker, ceramist, and writer. His bold experimentation with coloring led directly to the Synthetist style of modern art, while his expression of the inherent meaning of the subjects in his paintings, under the influence of the cloisonnist style, paved the way to Primitivism and the return to the pastoral. He was also an influential proponent of wood engraving and woodcuts as art forms.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:gender xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/">male</rdaGr2:gender>
+    <rdaGr2:placeOfBirth xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/">Paris</rdaGr2:placeOfBirth>
+    <rdaGr2:placeOfDeath xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/">Marquesas Islands</rdaGr2:placeOfDeath>
+    <rdaGr2:professionOrOccupation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/">painter</rdaGr2:professionOrOccupation>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://en.wikipedia.org/wiki/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://www.freebase.com/m/0h82x"/>
+  </edm:Agent>
+  <edm:Agent rdf:about="http://data.europeana.eu/agent/base/60680">
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="no">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="de">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fi">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="be">Поль Гаген</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ru">Гоген, Поль</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="pt">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bg">Пол Гоген</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lt">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hr">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lv">Pols Gogēns</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hu">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bs">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hy">Պոլ Գոգեն</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ka">პოლ გოგენი</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="uk">Поль Ґоґен</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sk">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sl">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ca">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mk">Пол Гоген</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sq">Paul Gaugin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sr">Пол Гоген</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sv">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ko">폴 고갱</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gl">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="el">Πωλ Γκωγκέν</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="is">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="it">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="zh">保羅·高更</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="es">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="et">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="eu">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cs">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ar">بول غوغان</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cy">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ja">ポール・ゴーギャン</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="az">Pol Qogen</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="pl">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ro">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="da">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="he">פול גוגן</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="tr">Paul Gauguin</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nl">Paul Gauguin</skos:prefLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">Gauguin, Paul</skos:altLabel>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">27064953</dc:identifier>
+    <edm:end>1903-05-08</edm:end>
+    <edm:isRelatedTo rdf:resource="http://dbpedia.org/resource/Pablo_Picasso"/>
+    <edm:isRelatedTo rdf:resource="http://dbpedia.org/resource/Georges_Braque"/>
+    <edm:isRelatedTo rdf:resource="http://dbpedia.org/resource/Edvard_Munch"/>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="no">
+      Paul Gauguin (født 7. juni 1848 i Paris, død 8. mai 1903 på Marquesasøyene) var en fransk maler, skulptør og grafiker. Han var først impresjonist, men utviklet omkring 1888 i Bretagne en dekorativ stil med sterk forenkling, hele fargeplan, sterke konturer, den såkalte primitivismen, også kalt syntetismen. I 1888 foretok han et kunsthistorisk mye omtalt besøk hos Vincent van Gogh i Arles i det sørlige Frankrike. Det var under dette oppholdet at van Gogh skar av seg den venstre øreflippen. I periodene 1891–1893 og 1895–1903 oppholdt Gauguin seg på Tahiti og Marquesasøyene for å male primitive polynesiske motiver. Han var en av den moderne kunstens fremste foregangsmenn.Den norske kunstneren Paul René Gauguin var sønnesønnen til Paul Gauguin.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="de">
+      Eugène Henri Paul Gauguin [øʒˌɛn ɑ̃ˌʁi ˌpol ɡoˈɡɛ̃] (* 7. Juni 1848 in Paris; † 8. Mai 1903 in Atuona auf Hiva Oa, Französisch-Polynesien) war ein französischer Maler. Darüber hinaus fertigte er Keramiken, Holzschnitzereien und Holzschnitte an. In der Öffentlichkeit ist er vor allem durch seine Bilder aus der Südsee bekannt. Gauguins postimpressionistisches Werk beeinflusste stark die Nabis und den Symbolismus; er war Mitbegründer des Synthetismus und wurde zu einem Wegbereiter des Expressionismus. Damit spielte er eine wichtige Rolle in der Entwicklung der europäischen Malerei.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="fi">
+      Eugène Henri Paul Gauguin (7. kesäkuuta 1848 Pariisi – 8. toukokuuta 1903 Hiva Oa, Ranskan Polynesia) oli ranskalainen jälki-impressionistinen taidemaalari. Gauguin tunnetaan Ranskan Polynesiassa maalatuista kuvistaan. Lisäksi hän valmisti veistoksia, keramiikkaa, puuleikkauksia ja puupiirroksia.Gauguin sai vaikutteita aikansa nykytaiteesta sekä kansantaiteesta ja japanilaisista puupiirroksista. Vähitellen hän hylkäsi perspektiivin ja lakkasi etsimästä hienostuneita värisävyjen vaihteluita hakien sen sijaan kullekin pinnalle yhden värin.Gauguin vaikutti modernin taiteen kehitykseen, varsinkin Nabis-ryhmään ja symbolismiin. Hän oli syntetismin perustaja, josta tuli ekspressionismin tiennäyttäjä.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="be">
+      Эжэн Анры Поль Гаге́н (фр.: Eugène Henri Paul Gauguin; 7 чэрвеня 1848 — 8 мая 1903) — французскі мастак, скульптар-кераміст і графік. Разам з Сезанам і Ван Гогам быў буйным прадстаўніком постімпрэсіянізма.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="ru">
+      Эже́н Анри́ Поль Гоге́н (фр. Eugène Henri Paul Gauguin [øˈʒɛn ãˈʁi ˌpol ɡoˈɡɛ̃]; 7 июня 1848 — 8 мая 1903) — французский живописец, скульптор-керамист и график. Наряду с Сезанном и Ван Гогом был крупнейшим представителем постимпрессионизма. В начале 1870-х годов начал заниматься живописью как любитель. Ранний период творчества связан с импрессионизмом. С 1880 года участвовал в выставках импрессионистов. С 1883 года профессиональный художник. Работы Гогена не находили спроса, художник был беден.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="pt">
+      Eugène-Henri-Paul Gauguin (Paris, 7 de Junho de 1848 - Ilhas Marquesas, 8 de Maio de 1903) foi um pintor francês do pós-impressionismo.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="bg">
+      Анри Йожен Пол Гоген (на френски: Henri Eugène Paul Gauguin) е френски живописец, скулптор и график постимпресионист.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="lt">
+      Polis Gogenas (Eugène Henri Paul Gauguin, 1848 m. birželio 7 d. Paryžiuje – 1903 m. gegužės 8 d. Atuonoje, Markizų salos) – prancūzų tapytojas, postimpresionistas.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="hr">
+      Eugène Henri Paul Gauguin (Pariz, 7. lipnja 1848. – Atuana, Hiva Oa, Markižansko otočje, 8. svibnja 1903.), francuski slikar i grafičar postimpresionizma i preteča simbolizma koji je on zvao "sintetizam".
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="lv">
+      Ežēns Anrī Pols Gogēns (franču: Eugène Henri Paul Gauguin; dzimis 1848. gada 7. jūnijā, miris 1903. gada 9. maijā) bija nozīmīgs franču mākslinieks, postimpresionisma pārstāvis. Liela nozīme viņa eksperimentiem ar krāsām bija sintētisma attīstībā, savukārt kluazonisma ietekmē radītie Gogēna darbi sekmēja primitīvisma uzplaukumu un atgriešanos pie pastorāles. Gogēna darbi ietekmēja nabistu grupas izveidošanos, kā arī fovisma attīstību.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="fr">
+      Paul Gauguin (né le 7 juin 1848 à Paris — mort le 8 mai 1903, à Atuona, Hiva Oa, Îles Marquises) est un peintre postimpressionniste. Chef de file de l'École de Pont-Aven et inspirateur des nabis, il est considéré comme l'un des peintres français majeurs du XIXe siècle.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="hu">
+      Eugène Henri Paul Gauguin (Párizs, 1848. június 7. – Hiva Oa, Marquises-szigetek, Atuona, 1903. május 8.) francia festő, van Gogh és Cézanne mellett a posztimpresszionizmus legnagyobb képviselője. Kalandos élete során volt tengerész, jómódú üzletember és nyomorgó festő, élt Peruban, Párizsban és Tahitin. Merész kísérletezése a színekkel közvetlenül vezetett a szintetista stílus kiteljesedéséhez, s később, átlépve a szintetizmuson kialakította teljesen egyéni hangú festészetét, amelyre a tiszta színek használata, a különböző eredetű motívumok variálása a jellemző. Festményei mellett fametszetei is igen jelentősek.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="bs">
+      Paul Gauguin (Pariz, 7. juni 1848. - La Dominique, arhipelag Marquises, 8. maj 1903.), francuski slikar i grafičarBio je bankovni činovnik i slikar amater, a nakon poznanstva s Pissarrom napustio je posao i posvetio se umjetnosti. U početnoj fazi je pod uticajem impresionista, a poslije se priklanja postimpresionizmu. Sa grupom istomišljenika 1886. odlazi u Pont Aveu i slika bretonske pejzaže i folklor, a na poziv van Gogha odlazi 1888. u Provansu, ali u njihovim odnosima ubrzo dolazi do napetosti i raskida. Na Tahiti odlazi prvi put 1891, a 1895. definitivno odlazi u Francusku Polineziju, gdje je umro u patnjama i gorčini. Njegove polinezijske teme svode se na prikazivanje animalne ljepote ženskog tijela u šaroliko ornamentiranim tkanjima u gustom zelenilu tropske vegetacije. Svoje doživljaje i ispovijesti objavio je u knjigama "Noa Noa" i "Prije i poslije". Utjecao je na razvoj ekspresionizma i formiranje fovizma.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="ka">
+      პოლ ეჟენ ანრი გოგენი (დ. 7 ივნისი, 1848, პარიზი — გ. 8 მაისი, 1903, დაბა ატუონა, მარკიზის კუნძულები) — ფრანგი ფერმწერი.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="uk">
+      Поль Ґоґен (фр. Eugène Henri Paul Gauguin), (1848—1903), французький художник-імпресіоніст. Народився в Парижі 7 червня 1848 р. Живописом зайнявся в 26 років,перед тим змінивши декілька професій. Не отримавши художньої академічної освіти, він починає самонавчання, досліджуючи твори улюблених художників, таких як Курбе, Делакруа, Сезан і Деґа. Сім'я Ґоґена нерідко переживає фінансову скруту,і,щоб утримувати дружину й чотирьох дітей, в 1887 р. він їде на будівлю Панамського каналу, де пише кілька екзотичних пейзажів. З 1897 р.Ґоґен бере участь у виставках художників-імпресіоністів. Деякий час він товаришував з Ван Ґоґом, але, через складні темпераментні характери, разом вони не змогли довго жити. В 1891 р. Ґоґен від'їжджає на Таїті, де в 1892 році пише аж 80 полотен. В 1901 році він остаточно перебирається на о. Хіва-Хоа, де бере собі в дружини молоду таїтянку, працює на повну силу: пише пейзажі, оповідання, працює журналістом. Помер Поль Ґоґен 8 березня 1903 р.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="sk">
+      Eugène Henri Paul Gauguin (* 7. jún 1848, Paríž, Francúzsko - † 8. máj 1903, Markézske ostrovy, Francúzska Polynézia) bol francúzskym maliarom, jedným z hlavných predstaviteľov postimpresionizmu.Zaraďuje sa aj medzi popredných drevorytcov a zástancov drevorytectva a drevorezby ako plnohodnotných umeleckých foriem.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="sl">
+      Eugène Henri Paul Gauguin, francoski slikar, * 7. junij 1848, Pariz, Francija, † 8. maj 1903, Atuana Hiva-Oa, Polinezija.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="ca">
+      Eugène Henri Paul Gauguin (8 de juny, 1848 – 9 de maig, 1903) fou un pintor francès postimpressionista.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="mk">
+      Пол Гоген (Париз, 7 јуни 1848 - 9 мај 1903) бил француски сликар. Тој се инспирирал од егзотичниот свет на островите Тахити и Фати - Ива. Формите на неговите слики се мирни и монументални, проткаени со еротика. Влијаел врз развојот на експресионизмот и на формирањето на фовизмот, а се занимавал и со скулптура. Умрел на Маркишките Острови во 1903 година.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="sq">
+      Paul Gauguin (1848-1903) - Një nga figurat më interesante në historinë e pikturës, veprat e tij u zhvendos nga Impresionizëm (braktisur shpejti) në një simbolikë gjallë dhe e fuqishme, siç mund të shihet në 'pikturat e polinezian' e tij. Matisse dhe Fauvism nuk mund të kuptohet pa veprat e Paul Gauguin.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="sr">
+      Ежен Анри Пол Гоген (фр. Eugène Henri Paul Gauguin; Париз, 7. јун 1848 — Хива Оа, 8. мај 1903), пореклом Француз, један је од три сликара постимпресионизма. Гоген је имао свој стил: сликао је помоћу великих површина оивичених црном линијом (слично витражу). Тај стил звао се синтетизам и у њему боја не одређује предмет. Гоген је претеча фовизма. На Тахитију је провео други део свог живота и тамо се потпуно посветио сликању. Његова дела су Девојке са Тахитија носе цвеће, Одакле долазимо, ко смо, куда идемо (D'où venons-nous ? Qui sommes-nous ? Où allons-nous ?)...На Тахити одлази први пут 1891, а 1895. дефинитивно одлази у Француску Полинезију, где је умро у патњама и горчини. Његове полинезијске теме своде се на приказивање анималне лепоте женског тела у шаролико орнаментираним ткањима у густом зеленилу тропске вегетације. Своје доживљаје и исповијести објавио је у књигама „Ноа Ноа“ и „Пре и после“. Утицао је на развој експресионизма и формирање фовизма.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="sv">
+      Eugéne Henry Paul Gauguin, född 7 juni 1848 i Paris, Frankrike, död 8 maj 1903 på Marquesasöarna, Franska Polynesien, var en fransk målare, skulptör och grafiker. Gauguin var först impressionist, men utvecklade runt 1888 i Bretagne en dekorativ stil med långtgående förenkling, hela färgplan, starka konturer, den så kallade primitivismen. 1888 delade han en gul stuga med Vincent van Gogh i Arles i södra Frankrike. Gauguin vistades 1891–1893 och 1895–1903 på Tahiti och Marquesasöarna för att måla primitiva polynesiska motiv. Han var en av den moderna konstens främsta föregångare.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="ko">
+      폴 고갱(Paul Gauguin, 1848년 6월 7일 ~ 1903년 5월 8일)은 프랑스의 인상주의 화가이다. 파리에서 태어났다.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="gl">
+      Paul Eugéne-Henri Gauguin, nado en París o 7 de xuño de 1848 e finado en Atuona o 9 de maio de 1903, foi un pintor postimpresionista francés, que contribuíu a dar forma á arte moderna coas súa cores exuberantes, formas bidimensionais planas e temática.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="el">
+      Ο Πωλ Γκωγκέν (Eugène Henri Paul Gauguin, Παρίσι, 7 Ιουνίου 1848 – Νήσοι Μαρκησίες, 8 Μαΐου 1903) ήταν σημαντικός Γάλλος ζωγράφος, εκπρόσωπος του ρεύματος του μετα-ιμπρεσιονισμού και έντονα πειραματικός καλλιτέχνης που επηρέασε τα ρεύματα της μοντέρνας τέχνης. Θεωρείται σήμερα ένας από τους μείζονες ζωγράφους όλων των εποχών.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="en">
+      Eugène Henri Paul Gauguin (French: [øʒɛn ɑ̃ʁi pol ɡoɡɛ̃]; 7 June 1848 – 8 May 1903) was a leading French Post-Impressionist artist who was not well appreciated until after his death. Gauguin was later recognized for his experimental use of colors and synthetist style that were distinguishably different from Impressionism. His work was influential to the French avant-garde and many modern artists, such as Pablo Picasso and Henri Matisse. Gauguin’s art became popular after his death and many of his paintings were in the possession of Russian collector Sergei Shchukin. He was an important figure in the Symbolist movement as a painter, sculptor, print-maker, ceramist, and writer. His bold experimentation with coloring led directly to the Synthetist style of modern art, while his expression of the inherent meaning of the subjects in his paintings, under the influence of the cloisonnist style, paved the way to Primitivism and the return to the pastoral. He was also an influential proponent of wood engraving and woodcuts as art forms.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="is">
+      Eugène Henri Paul Gauguin (7. júní 1848 í París – 8. maí 1903 í Atuona) var franskur listmálari og post-impressíónisti, sem þekktur var fyrir málverk af polýnesískum konum á Tahíti.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="it">
+      Paul Gauguin (Parigi, 7 giugno 1848 – Hiva Oa, 8 maggio 1903) è stato un pittore francese.Formatosi, dalla metà degli anni Ottanta, nell'Impressionismo, si distaccò dall'espressione naturalistica accentuando progressivamente l'astrazione della visione pittorica, realizzata in forme piatte di colore puro e semplificate con la rinuncia alla prospettiva e agli effetti di luce e di ombra, secondo uno stile che fu chiamato sintetismo o cloisonnisme, al quale rimase sempre fedele pur sviluppandolo durante tutta la sua vita e portandolo a piena maturità nelle isole dei mari del Sud, quando egli si propose il tema di rappresentare artisticamente l'accordo armonico della vita umana con quella di tutte le forme naturali, secondo una concezione allora ritenuta tipica delle popolazioni primitive.I pittori nabis e i simbolisti si richiamarono esplicitamente a lui, mentre la libertà decorativa delle sue composizioni aprì la via all'Art Nouveau, così come il suo trattamento della superficie lo rese un precursore del fauvismo e la semplificazione delle forme fu tenuta presente da tutta la pittura del Novecento.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="zh">
+      保羅·高更（Paul Gauguin，1848年6月7日－1903年5月8日），生於法國巴黎，印象派畫家。大部份藝術史家將他歸於后印象派。高更的作品趨向於｢原始｣的風格，強調尋找來自原始的生命力。其用色和線條都較為粗獷，且摒棄理性的色彩分析論，轉而以更主觀的角度，由內心去詮釋而使用主觀色彩。高更的作品中往往充滿具象徵性的物與人，且脫離眾人對固有色彩的認知，搭配簡單大膽的平面化構圖，風格強烈且富有裝飾性。現代藝術史中，高更往往被拿來與梵谷並論，他們曾經是很好的朋友，互相畫過對方的肖像，但最後卻步上不同的道路，並沒有維持很好的友誼。高更不喜歡都市文明，反而嚮往蠻荒的生活，這些都在他的作品中看得出來。
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="es">
+      Eugène Henri Paul Gauguin (París, 7 de junio de 1848 - Atuona, Islas Marquesas, 9 de mayo de 1903) fue un pintor postimpresionista. Jefe de filas de la Escuela de Pont-Aven e inspirador de los Nabis, desarrolló la parte más distintiva de su producción en el Caribe (Martinica) y en Oceanía (Polinesia Francesa), volcándose mayormente en paisajes y desnudos muy audaces para la época por su rusticidad y colorido rotundo, opuestos a la pintura burguesa y esteticista predominante en la cultura occidental. De sus pinturas de Martinica, opinó Van Gogh:«¡Formidables! No fueron pintadas con el pincel, sino con el falo. Cuadros que al mismo tiempo que arte son pecados (...) Esta es la gran pintura que sale de las entrañas, de la sangre, como el esperma sale del sexo».Su obra está considerada entre las más importantes de los pintores franceses del siglo XIX y mantuvo su influjo más tiempo que los impresionistas, contribuyendo decisivamente al arte moderno del siglo XX. Sus experimentos sobre el color y, en general, el conjunto de su obra influyeron en la evolución de la pintura, tanto en Picasso como en el expresionismo alemán, y tuvieron especial impacto sobre el fauvismo (movimiento que se desarrolla entre 1898 y 1908).
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="et">
+      Eugène Henri Paul Gauguin [gogää(n)] (7. juuni 1848 Pariis – 9. mai 1903) oli prantsuse üks tuntumaid postimpressionistlikke maalikunstnikke.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="eu">
+      Eugène Henri Paul Gauguin (Paris, 1848ko ekainaren 7a – Hiva ‘Oa, Frantziar Polinesia, 1903ko maiatzaren 9a) margolari eta eskultore frantziarra izan zen.Haurtzaroan Perun izan zen (1850-1855). 1865etik 1871ra bitartean itsas armadan ibili zen, eta ondoren banketxe batean lan egin zuen, baina pintura alde batera utzi gabe betiere. Camille Pissarrok bultzaturik, inpresionistekin batera egin zituen lehen erakusketak (1880, 1881, 1882, 1886). 1881ean Paul Cézannerekin lan egin zuen. 1883an lana eta familia utzi eta pintura hartu zuen bizibidetzat. 1886an Bretainiara joan zen eta bertan Émile Bernard ezagutu zuen, eta ondoren Parisen Van Gogh. 1887an Martinikara joan zen, inpresionistak bazter utzi, eta Kolonen aurreko artea oinarri edalontzi sail bat egin zuen. 1888an Bretainiara itzuli zen berriro eta Émile Bernardekin batera sintetismoa sortu zuen. Margolaritzari neurri izpiritual bat eman nahirik, sinbolistekiko jakin-mina piztu zitzaion, ideiari lehentasuna eman zion eta artearen jatorrietara itzultzen saiatu zen. Marrazki japoniarren eraginez, lerro eta kolore sotiletara jo zuen. Van Gogh-ekin hiru hilabete Arlès-en egin ondoren, bere estiloaren jatortasuna areagotu zuen zenbait obratan (Le Christ jaune, 1889; La vision après le sermon, 1889 eta B.M. Gauguin, 1889). Koloreari buruzko teoria neoinpresionistak landu zituen (Nature morte ripipoint, 1889). Tahitira joateko erabakia hartu zuen (Sur la plage, 1891, Quand te maries-tu?, 1892 eta L´esprit des morts veille, 1893), eta anitz lurraldetako eraginak bereganatu zituen. Gaixoturik, Parisa itzuli eta bere obrak saldu zituen. 1895ean Tahitira joan zen berriro eta Never More (1897), Les seins aux fleurs rouges (1897) eta bere testamentutzat jotzen zuen D´où venons-nous? Que sommes-nous? Où allons-nous? (1897) margotu zituen. Bere buruaz beste egiteko saio baten ondoren, Markesa uhartetara joan zen, eta han bertakoen alde jarri zen, kolonia administrazioaren kontra. Hala ere margotzeari eta eskultura lanak egiteari ez zion utzi (L´or de leur corps, 1901; Cavaliers sur la plage, 1902), eta irudien antolamendu berri bat erakutsi zuen. Gauguinen lanak eragin handia izan zuen XX. mendeko margolaritzan eta eskulturan (Derain, Picasso, Modigliani, etab.); kolorearen ikusmoldeari dagokionez, fauvismoaren aitzindaria izan zen.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="cs">
+      Eugène Henri Paul Gauguin (7. června 1848 Paříž – 8. května 1903 Atuona, Markézy) byl francouzský malíř, vůdčí osobnost postimpresionismu.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="ar">
+      بول غوغان (1848-1903) رسّام فرنسي تخرج من بين أحضان المدرسة الانطباعية، إلا أنه أبدى ميولات أخرى، فكان من المؤسسين لحركات فنية لاحقة. كان يريد أن يستكشف المنابع الأولى للإبداع، فأمضى فترة (منذ 1886 م) في بروتانيا (Bretagne)، قضاها رفقة جماعة من أصدقائه: اميل برنارد وآخرون (أطلق على المجموعة اسم: مدرسة جسر أفين، ونشأت معها الحركة التركيبية). التحق بعدها بصديقه الرسّام فان غوخ في مدينة آرل بالجنوب الفرنسي، قبل أن يستقر (1891 م) في بولينيزيا (تاهيتي، هيفا أوآ). كان له بالغ الأثر على أتباع المدرسة الوُحوشية.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="cy">
+      Arlunydd ôl-argraffiadol Ffrengig oedd Eugène Henri Paul Gauguin (7 Mehefin 1848 – 8 Mai 1903).
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="ja">
+      ウジェーヌ・アンリ・ポール・ゴーギャン（フランス語: Eugène Henri Paul Gauguin フランス語発音: [øˈʒɛn ãˈʁi ˌpol ɡoˈɡɛ̃] 発音例、1848年6月7日 - 1903年5月8日）は、フランスのポスト印象派の画家。姓は「ゴギャン」「ゴーガン」とも。
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="az">
+      Pol Qogen (fr. Paul Gauguin) - fransız boyakar, postimpressionizm və primitivizm cərəyanının nümayəndəsi.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="pl">
+      Eugène Henri Paul Gauguin (wym. [pɔl ɡoɡɛ̃]; ur. 7 czerwca 1848 w Paryżu, zm. 8 maja 1903 w Atuona na wyspie Hiva 'Oa na Markizach, Polinezja Francuska) – malarz francuski.Jego babcią była bardzo znana we Francji socjalistka i pisarka Flora Tristan. Ojciec, Clovis Gauguin, był dziennikarzem w radykalnym piśmie "Le National". Po zamachu stanu Ludwika Napoleona Bonapartego rodzina Gauguina w obawie przed prześladowaniami wyemigrowała do Peru, skąd pochodziła rodzina matki malarza. Pod koniec podróży ojciec Paula Gauguina nagle zmarł. Byt rodzinie zapewnili bogaci krewni w Peru. Po 6 latach Gauguinowie wrócili do Paryża, jednak Paul nie znał dobrze francuskiego, miał trudności w szkole i marzył o podróżach. Zrealizował swoje marzenie niewiele lat później. Jako siedemnastolatek zatrudnił się w marynarce handlowej.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="ro">
+      Eugène Henri Paul Gauguin, (n. 7 iunie 1848, Paris - d. 8 mai 1903, Atuona/Insulele Marchize, Polinezia Franceză), a fost un pictor postimpresionist francez. Aventurier și geniu, Paul Gauguin a știut să prevadă viitorul, pregătind calea picturii moderne, influențând pe fauviști și pe artiștii din gruparea Nabis. Între mizerie și epuizare, călătorii și disperare, a ajuns să creeze opere extraordinare, în care redă cu intensitate viziunea sa senzuală asupra vieții.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="da">
+      Eugène Henri Paul Gauguin (7. juni 1848 i Paris – 9. maj 1903 på Marquesasøerne) var en fransk maler, billedhugger og grafiker. Han var impressionist og udviklede omkring 1888 primitivismen i Bretagne. Det var en dekorativ stil med stærk forenkling og stærke konturer. I 1888 foretog han et kunsthistorisk meget omtalt besøg hos Vincent van Gogh i Arles i det sydlige Frankrig. Det endte, da van Gogh skar sin venstre øreflip af. I 1891-93 og 1895-1903 opholdt Gauguin sig på Tahiti og Marquesasøerne for at male primitive polynesiske motiver. Han var en af den moderne kunsts største foregangsmænd.I 1873 giftede han sig med den danske Mette Sophie Gad (1850–1920), som fødte ham fem børn: Émile (1874-1955), Aline (1877-1897), Clovis (1879-1900), Jean René (1881-1961) og Paul Rollon (1883-1961). Familien Gauguin flyttede til København, hvor han i 1884 forgæves søgte at ernære sig som presenningsælger – han talte ikke dansk og københavnerne havde ikke lyst til at købe franske presenninger. Hustruen Mette forsørgede familien ved at undervise diplomater i fransk. Paul Gauguin begyndte at male på fuld tid, og året efter forlod han familien og flyttede til Paris. Alberte Winding er efterkommer i lige linje.Den dansk-producerede film "Oviri" instrueret af Henning Carlsen (1986) handler om perioden fra han (spillet af Donald Sutherland) i 1893 ankommer til Paris for at udstille sine billeder efter sit ophold på Tahiti, til han to år senere skuffet og ruineret forlader Europa og den borgerlige kultur, der ikke værdsætter hans kunst.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="he">
+      פול גוגן (בצרפתית: Paul Gauguin,‏7 ביוני 1848 - 8 במאי 1903) היה צייר בולט בזרם הפוסט אימפרסיוניסטי, אמן הדפס וסופר צרפתי.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="tr">
+      Eugène Henri Paul Gauguin (d. 7 Haziran 1848, Paris– 9 Mayıs 1903), Fransız ressam.Eugène Henri Paul Gauguin, 7 Haziran 1848, Paris’te doğan, Post-Empresyonist bir ressamdır. 1851’de ailesiyle birlikte Peru’ya yerleşir. Babası yolculukları esnasında ölür, Lima, Peru’da annesi ve kızkardeşi ve amcasının ailesiyle birlikte 4 yıl yaşayan Paul ve ailesi 1855’te Paris’e döner. 17 yaşında pilot asistanlığı yapan Paul sonrasında bir süre donanmada çalışır. 1871’de Gauguin, Paris’e dönerek borsacılık yapmaya başlar. 1873’te Mette Sophie Gad adlı Danimarkalı bir kadınla evlenen Gauguin’in sonraları 5 çocuğu olur. Gauguin çocukluğundan itibaren sanata meraklıdır. Boş zamanlarında resim yapar. Gauguin, Camille Pissarro ile arkadaşlık kurar. Sanatında ilerlemeye başlayınca bir stüdyo kiralar, 1881-1882 yılları arasında düzenlenen Empresyonist sergilerde eserleri sergilenir. Bir süre yazları Pissarro ve Paul Cézanne ile resim yapar. 1884’e geldiğimizde Gauguin ailesi ile Kopenhag’a taşınır. Burada iş alanındaki yaşadığı başarısızlıklar onu tüm zamanında resim yapmaya yöneltir ve ailesini burada bırakarak büyük oğlu ile birlikte Paris’e geri döner. Bu dönemde Vincent Van Gogh, Gauguin’i Arles’e çağırır ve burada 9 haftayı resim yaparak birlikte geçirirler. Ancak sonrasında yalnız kalmanın etkisiyle depresyona girer ve intihara kalkışır.Empresyonizm Gauguin’e istediklerini veremez olmuştur bundan dolayı Afrika ve Asya sanatı kendisine daha mistik ve çekici gelir özellikle de Japon kültürü. Folklorik sanat ve Japon sanatının etkisi altına girer.1891 yılında Gauguin mali açıdan kötü durumdadır. Üstelik bir ressam olarak çok da tanınmamaktadır. ‘Taze balık ve meyve’ için tropik bir adada yaşamak amacıyla birkaç teşebbüsü olmuş bu da oldukça primitif bir tarzda resim yapmasına sebep olmuştur. Kısa bir süre Panama Kanalı, Tahiti’de yaşamıştır ve Tahiti’de yaşarken ‘Fatata te Miti (By the Sea)’, ‘la Orana Maria’ (Ave Maria) adlı tablolarını yapmıştır. Ayrıca; Gauguin'in, Tahiti’de geçirdiği günlerini, Tahitililerin yaşam şekli ve inançlarını anlattığı, Noa Noa: The Tahiti Journal Of Paul Gauguin adlı bir kitabı vardır. D'où venons-nous ? Que sommes-nous ? Où allons-nous ? "Nereden geliyoruz? Neyiz? Nereye gidiyoruz?" sorusu evrimi anlatan güzel bir sözüdür.1897’de Punaauia’ya taşınarak burada da en önemli eseri olan ‘Where Do We Come From’ adlı tablosunu yapar. Hayatının geri kalanını Markiz Adaları'nda geçirmiştir. Bu dönemde Avant et Aprés (Before and After) adlı anıları, sanat eserleri hakkında yorumlarından oluşan bir kitap yazmıştır1903 yılında kilise ve hükümetle ile yaşadığı bir problem sebebiyle 3 ay hapse mahkûm olmuş, ancak hapse giremeden hastalanarak 54 yaşında ölmüştür. Paul Gauguin’in çalışmalarına olan rağbet ölümünün hemen ardından sonra olur. Çalışmalarının bir çoğu Rus koleksiyoncu Sergei Shchukin tarafından toplanır. Koleksiyonun bir kısmı Pushkin Müzesi’nde sergilenmektedir. Gauguin’in eserleri nadiren satılığa çıkarılmakta ve fiyatları 39,2 milyon dolara kadar ulaşmaktadır. Gauguin diğer birçok ressamı özellikle de Arthur Frank Mathews’u etkilemiştir. Tahiti’de bulunan Japon tarzındaki Gauguin Müzesi bazı fotoğrafları, belgeleri ve bazı tablolarını içermektedir.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:biographicalInformation xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xml:lang="nl">
+      Eugène Henri Paul Gauguin (Parijs, 7 juni 1848 – Atuona op de Marquesaseilanden, 9 mei 1903) was een Franse kunstschilder. Zijn werk wordt meestal gekenschetst als postimpressionistisch, dat van na 1891 als symbolistisch.
+    </rdaGr2:biographicalInformation>
+    <rdaGr2:dateOfBirth xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/">1848-06-07</rdaGr2:dateOfBirth>
+    <rdaGr2:dateOfDeath xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/">1903-05-08</rdaGr2:dateOfDeath>
+    <rdaGr2:placeOfBirth xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" rdf:resource="http://dbpedia.org/resource/Paris"/>
+    <rdaGr2:placeOfDeath xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" rdf:resource="http://dbpedia.org/resource/French_Polynesia"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://simple.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://tr.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://vi.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://sv.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://uk.dbpedia.org/resource/Поль_Ґоґен"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ml.dbpedia.org/resource/പോൾ_ഗോഗിൻ"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://el.dbpedia.org/resource/Πωλ_Γκωγκέν"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://fi.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://fr.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://pnb.dbpedia.org/resource/پال_گاؤگوئن"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://be.dbpedia.org/resource/Поль_Гаген"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://cy.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://et.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://lv.dbpedia.org/resource/Pols_Gogēns"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://oc.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://zh.dbpedia.org/resource/保羅·高更"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://io.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://lb.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://th.dbpedia.org/resource/ปอล_โกแก็ง"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://eo.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://sl.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ja.dbpedia.org/resource/ポール・ゴーギャン"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://qu.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://eu.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://sr.dbpedia.org/resource/Пол_Гоген"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://br.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://id.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ru.dbpedia.org/resource/Гоген,_Поль"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ne.dbpedia.org/resource/पल_गोगे"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://sah.dbpedia.org/resource/Поль_Гоген"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://yago-knowledge.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ro.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://wikidata.dbpedia.org/resource/Q37693"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://pl.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://fa.dbpedia.org/resource/پل_گوگن"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://bg.dbpedia.org/resource/Пол_Гоген"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ka.dbpedia.org/resource/პოლ_გოგენი"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://an.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://tl.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://sk.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://no.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://bn.dbpedia.org/resource/পল_গোগাঁ"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://nn.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://la.dbpedia.org/resource/Paulus_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://nl.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://scn.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://is.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ar.dbpedia.org/resource/بول_غوغان"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://sw.cyc.com/concept/Mx4rzSSIUSfbTgOewHumF6yDzA"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://gl.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://www.wikidata.org/entity/Q37693"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://sq.dbpedia.org/resource/Paul_Gaugin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://cs.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://pt.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://mk.dbpedia.org/resource/Пол_Гоген"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://rdf.freebase.com/ns/m.0h82x"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://he.dbpedia.org/resource/פול_גוגן"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://war.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://cv.dbpedia.org/resource/Гоген,_Поль"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://als.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://hr.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ko.dbpedia.org/resource/폴_고갱"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://kk.dbpedia.org/resource/Поль_Гоген"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://da.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://sh.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://hy.dbpedia.org/resource/Պոլ_Գոգեն"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://it.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ca.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://bs.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://es.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://fy.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://de.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://az.dbpedia.org/resource/Pol_Qogen"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://nds.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://ky.dbpedia.org/resource/Гоген,_Поль_Эжен_Анри"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://hu.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://lt.dbpedia.org/resource/Paul_Gauguin"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://dbpedia.org/resource/Paul_Gauguin"/>
+  </edm:Agent>
+  <edm:Place rdf:about="http://sws.geonames.org/3017382/">
+    <wgs84:lat xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#">46.0</wgs84:lat>
+    <wgs84:long xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#">2.0</wgs84:long>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ff">Farayse</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hi">फ़्रांस</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ln">Falánsɛ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">Francia, , Historia, 1789-1799 (Revolución)</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lu">Nfalanse</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bm">Faransi</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bo">ཕ་རཱན་སི།</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="br">Frañs</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="se">Frankriika</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sg">Farânzi</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="yo">Orílẹ́ède Faranse</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="si">ප්‍රංශය</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="id">Prancis</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sn">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ki">Ubaranja</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kk">Франция</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ee">Frans nutome</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ii">ꃔꇩ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kl">Frankrigi</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mn">Франц</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="or">ଫ୍ରାନ୍ସ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ku">فەڕەنسا</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ak">Frɛnkyeman</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="it">Francia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kw">Pow Frenk</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="my">ပြင်သစ်</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gu">ફ્રાંસ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="es">Francia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="as">ফ্ৰান্স</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ti">ፈረንሳይ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nd">Furansi</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ja">フランス共和国</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="az">Fransa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ha">Faransa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lg">Bufalansa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="zu">i-France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="to">Falanisē</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="rn">Ubufaransa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ro">Franța</skos:prefLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ksh">Frankrish</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hi">फ़्राँस</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hi">फ्रांस</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ps">فرانسه</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">Republic of France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="pt">França</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hr">Francuska</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ht">Frans</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hu">Franciaország</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lmo">Francja</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hy">Ֆրանսիա</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bar">Frankreich</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="pms">Fransa</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ia">Francia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="id">Perancis</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sco">Fraunce</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="scn">Francia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="aa">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="tet">Fransa</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="qu">Fransiya</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="qu">Fransya</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="af">Frankryk</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="frp">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="io">Francia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nrm">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="is">Frakkland</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="am">ፈረንሳይ</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="am">ፈረንሣይ</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="an">Franzia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="zh">法国</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cdo">Huák-guók</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ar">فرنسا</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="jbo">fasygu'e</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ja">フランス</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="rm">Frantscha</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ceb">Pransiya</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="be">Францыя</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ru">Франция</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bg">Франция</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bn">ফ্রান্স</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sa">फ्रांस</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="br">Bro-C'hall</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sc">Frantza</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bs">Francuska</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="arc">ܦܪܢܣܐ</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ka">საფრანგეთი</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sk">Francúzsko</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sl">Francija</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="so">Faransiiska</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="so">Faransiis</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sq">Franca</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sq">Francë</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ca">França</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sr">Француска</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="st">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="km">បារាំង</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sv">Frankrike</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kn">ಫ್ರಾನ್ಸ್</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sw">Ufaransa</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ko">프랑스</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ks">फ्रांस</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ku">Fransa</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="tpi">Pranis</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="co">Francia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kw">Pow Frynk</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ta">பிரான்ஸ்</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cs">Francie</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="te">ఫ్రాన్స్‌</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cv">Франци</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="tg">Фаронса</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="th">ฝรั่งเศส</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="th">ประเทศฝรั่งเศส</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="la">Francogallia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="la">Francia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cy">Ffrainc</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lb">Frankräich</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="tl">Pransya</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nds">Frankriek</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="vls">Vrankriek</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="da">Frankrig</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="li">Frankriek</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="tr">Fransa</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="de">Frankreich</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ln">Falansia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fur">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lo">ຝລັ່ງ</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ast">Francia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ty">Farāni</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lt">Prancūzija</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lv">Francija</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lad">Fransia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ug">فرانسىيە</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="dv">ފަރަންސޭސިވިލާތް</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="vec">Franzsa</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="dz">ཕརཱནསི</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="uk">Франція</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mg">Frantsa</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ur">فرانس</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="pam">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mk">Франција</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ml">ഫ്രാന്‍സ്</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="rmy">Franchiya</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mn">Франц улс</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="uz">Франция</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mr">फ्रान्स</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ms">Perancis</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mt">Franza</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="el">Γαλλία</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="eo">Francio</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="eo">Francujo</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ilo">Francia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="et">Prantsusmaa</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="eu">Frantzia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="vi">Pháp</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="na">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nb">Frankrike</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hsb">Francoska</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ne">फ्रान्स</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hbs">Francuska</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="vo">Fransän</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fa">فرانسه</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nl">Frankrijk</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="udm">Франция</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nn">Frankrike</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="no">Frankrike</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fi">Ranska</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fo">Frakland</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">République Française</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fy">Frankryk</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nov">Fransia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="oc">França</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ga">An Fhrainc</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ang">Francland</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gd">An Fhraing</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="om">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="os">Франц</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gl">Francia</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="war">Fransya</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gu">ફ્રાઁસ</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gv">Yn Rank</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="csb">Francëjô</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="pl">Francja</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="he">צרפת</skos:altLabel>
+    <skos:note xmlns:skos="http://www.w3.org/2004/02/skos/core#">http://en.wikipedia.org/wiki/France</skos:note>
+    <skos:note xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+      http://ru.wikipedia.org/wiki/%D0%A4%D1%80%D0%B0%D0%BD%D1%86%D0%B8%D1%8F
+    </skos:note>
+  </edm:Place>
+  <edm:Place rdf:about="http://data.europeana.eu/place/base/85">
+    <wgs84:lat xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#">46.0</wgs84:lat>
+    <wgs84:long xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#">2.0</wgs84:long>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">Republic of France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hi">फ़्राँस</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hi">फ़्रांस</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hi">फ्रांस</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ps">فرانسه</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="pt">França</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hr">Francuska</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ht">Frans</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hu">Franciaország</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="hy">Ֆրանսիա</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="yo">Orílẹ́ède Faranse</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ia">Francia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="id">Perancis</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="id">Prancis</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="aa">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ii">ꃔꇩ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="qu">Fransiya</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="qu">Fransya</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="af">Frankryk</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="io">Francia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="is">Frakkland</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ak">Frɛnkyeman</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="it">Francia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="am">ፈረንሣይ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="am">ፈረንሳይ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="an">Franzia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="zh">法国</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ar">فرنسا</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="as">ফ্ৰান্স</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ja">フランス</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ja">フランス共和国</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="az">Fransa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="rm">Frantscha</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="zu">i-France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="rn">Ubufaransa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ro">Franța</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ru">Франция</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="be">Францыя</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bg">Франция</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bm">Faransi</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bn">ফ্রান্স</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bo">ཕ་རཱན་སི།</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sa">फ्रांस</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="br">Bro-C'hall</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="br">Frañs</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sc">Frantza</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="bs">Francuska</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="se">Frankriika</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sg">Farânzi</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="si">ප්‍රංශය</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ka">საფრანგეთი</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sk">Francúzsko</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sl">Francija</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sn">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="so">Faransiis</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="so">Faransiiska</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sq">Franca</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sq">Francë</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ca">França</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ki">Ubaranja</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sr">Француска</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kk">Франция</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="st">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kl">Frankrigi</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="km">បារាំង</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sv">Frankrike</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kn">ಫ್ರಾನ್ಸ್</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="sw">Ufaransa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ko">프랑스</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ks">फ्रांस</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ku">Fransa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ku">فەڕەنسا</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="co">Francia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kw">Pow Frenk</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="kw">Pow Frynk</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ta">பிரான்ஸ்</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cs">Francie</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="te">ఫ్రాన్స్‌</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="tg">Фаронса</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cv">Франци</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="th">ประเทศฝรั่งเศส</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="th">ฝรั่งเศส</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="la">Francia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="la">Francogallia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ti">ፈረንሳይ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="cy">Ffrainc</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lb">Frankräich</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="tl">Pransya</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lg">Bufalansa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="to">Falanisē</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="li">Frankriek</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="da">Frankrig</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="tr">Fransa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="de">Frankreich</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ln">Falansia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ln">Falánsɛ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lo">ຝລັ່ງ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ty">Farāni</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lt">Prancūzija</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lu">Nfalanse</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="lv">Francija</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ug">فرانسىيە</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="dv">ފަރަންސޭސިވިލާތް</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="uk">Франція</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="dz">ཕརཱནསི</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mg">Frantsa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ur">فرانس</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mk">Франција</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ml">ഫ്രാന്‍സ്</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ee">Frans nutome</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mn">Франц</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mn">Франц улс</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="uz">Франция</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mr">फ्रान्स</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ms">Perancis</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="mt">Franza</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="el">Γαλλία</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="eo">Francio</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="eo">Francujo</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="my">ပြင်သစ်</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="es">Francia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="et">Prantsusmaa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="eu">Frantzia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="na">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="vi">Pháp</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nb">Frankrike</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nd">Furansi</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ne">फ्रान्स</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="vo">Fransän</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fa">فرانسه</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nl">Frankrijk</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ff">Farayse</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nn">Frankrike</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="no">Frankrike</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fi">Ranska</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fo">Frakland</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">République Française</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fy">Frankryk</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="oc">França</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ga">An Fhrainc</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gd">An Fhraing</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="om">France</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="or">ଫ୍ରାନ୍ସ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="os">Франц</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gl">Francia</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gu">ફ્રાઁસ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gu">ફ્રાંસ</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="gv">Yn Rank</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ha">Faransa</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="pl">Francja</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="he">צרפת</skos:prefLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">FR</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">France</skos:altLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">Republic of France</skos:altLabel>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://sws.geonames.org/3017382/"/>
+  </edm:Place>
+  <edm:TimeSpan rdf:about="http://dbpedia.org/resource/Post-Impressionism">
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">Post-Impressionism</skos:prefLabel>
+    <skos:altLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">The Centenary of Independence</skos:altLabel>
+    <skos:note xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">
+      Post-Impressionism (also spelled Postimpressionism) is the term coined by the British artist and art critic Roger Fry in 1910 to describe the development of French art since Manet. Fry used the term when he organized the 1910 exhibition Manet and the Post-Impressionists.
+    </skos:note>
+    <dcterms:hasPart xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://TimeSpan-edm-hasPart"/>
+    <dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://TimeSpan-edm-isPartOf"/>
+    <edm:begin>1930-01-01</edm:begin>
+    <edm:end>1930-12-31</edm:end>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://www.freebase.com/m/015xrq"/>
+    <owl:sameAs xmlns:owl="http://www.w3.org/2002/07/owl#" rdf:resource="http://en.wikipedia.org/wiki/Post-Impressionism"/>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://semium.org/time/18xx">
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ru">19й век</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">19..</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">19??</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">19e</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">19-th</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">19th</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">19th century</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">19e siècle</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="nl">19de eeuw</skos:prefLabel>
+    <dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://semium.org/time/AD2xxx"/>
+    <edm:begin>Thu Jan 01 01:00:00 CET 1801</edm:begin>
+    <edm:end>Mon Dec 31 00:19:32 CET 1900</edm:end>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://semium.org/time/18xx_4_quarter">
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ru">4-я четверть 19-го века</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">4 quarter of the 19th century</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">4e quart 19e siècle</skos:prefLabel>
+    <dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://semium.org/time/18xx_2_half"/>
+    <edm:begin>Sat Jan 01 01:00:00 CET 1876</edm:begin>
+    <edm:end>Mon Dec 31 00:19:32 CET 1900</edm:end>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://semium.org/time/18xx_2_half">
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="ru">Вторая половина 19-го века</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">Second half of the 19th century</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">19e (fin)</skos:prefLabel>
+    <dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://semium.org/time/18xx"/>
+    <edm:begin>Wed Jan 01 01:00:00 CET 1851</edm:begin>
+    <edm:end>Tue Dec 31 00:19:32 CET 1901</edm:end>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://semium.org/time/AD2xxx">
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">Second millenium AD</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="en">Second millenium AD, years 1001-2000</skos:prefLabel>
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#" xml:lang="fr">2e millénaire après J.-C.</skos:prefLabel>
+    <dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://semium.org/time/ChronologicalPeriod"/>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://semium.org/time/1899">
+    <skos:prefLabel xmlns:skos="http://www.w3.org/2004/02/skos/core#">1899</skos:prefLabel>
+    <dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://semium.org/time/18xx_4_quarter"/>
+    <edm:begin>Sun Jan 01 01:00:00 CET 1899</edm:begin>
+    <edm:end>Sun Dec 31 01:00:00 CET 1899</edm:end>
+  </edm:TimeSpan>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://dbpedia.org/resource/Painting">
+    <skos:prefLabel xml:lang="cs">Malířství</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Malerei</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Pintura</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Живопис</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Painting</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Pittura</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Peinture</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Malarstwo</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Pintura</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Schilderkunst</skos:prefLabel>
+    <skos:note xml:lang="en">
+      Painting is the practice of applying paint, pigment, color or other medium to a surface (support base). The medium is commonly applied to the base with a brush but other implements, such as knives, sponges, and airbrushes, can be used. In art, the term painting describes both the act and the result of the action. However, painting is also used outside of art as a common trade among craftsmen and builders.
+    </skos:note>
+    <skos:exactMatch rdf:resource="http://www.freebase.com/m/05qdh"/>
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://dbpedia.org/resource/Modern_art">
+    <skos:prefLabel xml:lang="cs">Moderní umění</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Moderne Kunst</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Moderni taide</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Arte moderna</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Модерно изкуство</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Modern Art</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Arte moderna</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Art_moderne</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Arte moderno</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Moderne kunst</skos:prefLabel>
+    <skos:note xml:lang="en">
+      Modern art includes artistic works produced during the period extending roughly from the 1860s to the 1970s, and denotes the style and philosophy of the art produced during that era. The term is usually associated with art in which the traditions of the past have been thrown aside in a spirit of experimentation. Modern artists experimented with new ways of seeing and with fresh ideas about the nature of materials and functions of art. A tendency away from the narrative, which was characteristic for the traditional arts, toward abstraction is characteristic of much modern art. More recent artistic production is often called Contemporary art or Postmodern art. Modern art begins with the heritage of painters like Vincent van Gogh, Paul Cézanne, Paul Gauguin, Georges Seurat and Henri de Toulouse Lautrec all of whom were essential for the development of modern art. At the beginning of the 20th century Henri Matisse and several other young artists including the pre-cubist Georges Braque, André Derain, Raoul Dufy and Maurice de Vlaminck revolutionized the Paris art world with "wild", multi-colored, expressive landscapes and figure paintings that the critics called Fauvism. Henri Matisse's two versions of The Dance signified a key point in his career and in the development of modern painting. It reflected Matisse's incipient fascination with primitive art: the intense warm color of the figures against the cool blue-green background and the rhythmical succession of the dancing nudes convey the feelings of emotional liberation and hedonism. Initially influenced by Toulouse Lautrec, Gauguin and other late 19th century innovators Pablo Picasso made his first cubist paintings based on Cézanne's idea that all depiction of nature can be reduced to three solids: cube, sphere and cone. With the painting Les Demoiselles d'Avignon (1907), Picasso dramatically created a new and radical picture depicting a raw and primitive brothel scene with five prostitutes, violently painted women, reminiscent of African tribal masks and his own new Cubist inventions. Analytic cubism was jointly developed by Pablo Picasso and Georges Braque, exemplified by Violin and Candlestick, Paris, from about 1908 through 1912. Analytic cubism, the first clear manifestation of cubism, was followed by Synthetic cubism, practised by Braque, Picasso, Fernand Léger, Juan Gris, Albert Gleizes, Marcel Duchamp and several other artists into the 1920s. Synthetic cubism is characterized by the introduction of different textures, surfaces, collage elements, papier collé and a large variety of merged subject matter. The notion of modern art is closely related to Modernism.
+    </skos:note>
+    <skos:exactMatch rdf:resource="http://www.freebase.com/m/015r61"/>
+  </skos:Concept>
+  <skos:Concept xmlns:skos="http://www.w3.org/2004/02/skos/core#" rdf:about="http://data.europeana.eu/concept/base/190">
+    <skos:prefLabel xml:lang="no">Kunst</skos:prefLabel>
+    <skos:prefLabel xml:lang="hi">कला</skos:prefLabel>
+    <skos:prefLabel xml:lang="de">Kunst</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Taide</skos:prefLabel>
+    <skos:prefLabel xml:lang="be">Мастацтва</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Искусство</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Arte</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Изкуство</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Umjetnost</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Māksla</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Art</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Művészet</skos:prefLabel>
+    <skos:prefLabel xml:lang="yi">קונסט</skos:prefLabel>
+    <skos:prefLabel xml:lang="bs">Umjetnost</skos:prefLabel>
+    <skos:prefLabel xml:lang="hy">Արվեստ</skos:prefLabel>
+    <skos:prefLabel xml:lang="ka">ხელოვნება</skos:prefLabel>
+    <skos:prefLabel xml:lang="uk">Мистецтво</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Umenie</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Umetnost</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">Ealaín</skos:prefLabel>
+    <skos:prefLabel xml:lang="gd">Ealain</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Art</skos:prefLabel>
+    <skos:prefLabel xml:lang="mk">Уметност</skos:prefLabel>
+    <skos:prefLabel xml:lang="sq">Arti</skos:prefLabel>
+    <skos:prefLabel xml:lang="sr">Уметност</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Konst</skos:prefLabel>
+    <skos:prefLabel xml:lang="ko">예술</skos:prefLabel>
+    <skos:prefLabel xml:lang="gl">Arte</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Τέχνη</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Art</skos:prefLabel>
+    <skos:prefLabel xml:lang="is">List</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Arte</skos:prefLabel>
+    <skos:prefLabel xml:lang="zh">艺术</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Arte</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Kunst</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">Arte</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Umění</skos:prefLabel>
+    <skos:prefLabel xml:lang="ar">فن</skos:prefLabel>
+    <skos:prefLabel xml:lang="cy">Celfyddyd</skos:prefLabel>
+    <skos:prefLabel xml:lang="ja">芸術</skos:prefLabel>
+    <skos:prefLabel xml:lang="az">İncəsənət</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Sztuka</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Artă</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Kunst</skos:prefLabel>
+    <skos:prefLabel xml:lang="he">אמנות</skos:prefLabel>
+    <skos:prefLabel xml:lang="tr">Sanat</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Kunst</skos:prefLabel>
+    <skos:note xml:lang="no">
+      Kunst (tysk for «kunnen») kan defineres som et fantasifullt og nyskapende, estetisk kulturuttrykk for indre eller ytre opplevelser. Betydningen av og hensikten med kunst har variert gjennom tidene og definisjoner og begreper har vært, og er, tilsvarende omdiskutert.Kunstuttrykket er alltid kulturelt bestemt av samfunnet og samtida rundt verket, kunstneren og mottakeren, og av enkeltindividets personlighet og sanseopplevelser. Enkelte mener at kunst ikke har verdi utover seg selv, andre mener utførelsen krever spesiell kunnskap og ønske om å bruke denne og individuelt tilpasse den til en situasjon og hensikt.
+    </skos:note>
+    <skos:note xml:lang="hi">
+      कला शब्द इतना व्यापक है कि विभिन्न विद्वानों की परिभाषाएँ केवल एक विशेष पक्ष को छूकर रह जाती हैं। कला का अर्थ अभी तक निश्चित नहीं हो पाया है, यद्यपि इसकी हजारों परिभाषाएँ की गई हैं। भारतीय परंपरा के अनुसार कला उन सारी क्रियाओं को कहते हैं जिनमें कौशल अपेक्षित हो। यूरोपीय शास्त्रियों ने भी कला में कौशल को महत्त्वपूर्ण माना है। चंद्रमा का सोलहवाँ भाग । इन सोलहो कलाओं के नाम ये हैं ।—१. अमृता, २. मानदा, ३. पूषा, ४. पुष्टि, ५. तुष्टि,६.रति ७. धृति, ८. शशनी, ९. चंद्रिका, १०. कांति, १२. ज्योत्स्ना, १२. श्री, १३. प्रीति, १४. अंगदा, १५. पूर्णा और १६. पूर्णामृता । विशेष—पुराणों में लिखा है कि चंद्रमा में अमृता है, जिसे देवता लोग पीते हैं । चंद्रमा शुक्ल पक्ष में कला कला करके बढ़ता है और पूर्णिमा के दिन उसकी सोलहवीं कला पूर्ण हो जाती है । कृष्णपक्ष में उसके संचित अमृत को कला कला करके देवतागण इस भाँति पी जाते हैं—पहली कला को अग्नि, दूसरी कला को सूर्य, तीसरी कला को विश्वेदेवा, चौथी को वरुण, पाँचवीं को वषट्कार, छठी को इंद्र, सातवीं को देवर्षि; आठवीं को अजएकपात्, नवीं को यम, दसवीं को वायु, ग्यारहवीं को उमा, बारहवीं को पितृगण, तेरहवीं को कुबेर, चौदहवीं को पशुपति, पंद्रहवीं को प्रजापति और सोलहवीं कला अमावस्या के दिन जल और ओषधियों में प्रवेश कर जाती है जिनके खाने पीने से पशुओं में दूध होता है । दूध से घी होता है । यह घी आहुति द्वारा पुनः चंद्रमा तक पहुँचता है । यौ०—कलाधर । कलानाथ । कलानिधि । कलापति । ३. सूर्य का बारहवाँ भाग । विशेष—वर्ष की बारह संक्रांतियों के विचार से सूर्य के बारह नाम हैं, अर्थात्—१. विवस्वान, २. अर्यमा, ३. तूषा, ४. त्वष्टा, ५. सविता, ६. भग, ७. धाता, ८. विधाता, ९. वरुण, १०. मित्र, ११. शुक्र और १२. उरुक्रम । इनके तेज को कला कहते हैं । बारह कलाओं के नाम ये हैं—१. तपिनि, २. तापिनी, ३. धूम्रा, ४. मरीचि, ५. ज्वालिनी, ६. रुचि, ७. सुषुम्णा, ८.भोगदा, ९. विश्वा, १०. बोधिनी, ११. धारि णी और १२. क्षमा । ४. अग्निमंडल के दस भागों में से एक । विशेष—उसके दस भागों के नाम ये हैं—१. धूम्रा, २. अर्चि, ३. उष्मा, ४. ज्वलिनी, ५. ज्वालिनी, ६. विस्फुल्लिंगिनी, ७. ८. सुरूपा, ९. कपिला और १० हव्यकव्यवहा । ५. समय का एक विभाग जो तीस काष्ठा का होता है । विशेष—किसी के मत से दिन का १/६०० वाँ भाग और किसी के मत से १/१८०० वाँ भाग होता है । ६. राशि के ३०वें अंश का ६०वाँ भाग । ७. वृत्त का १८००वाँ भाग ।८. राशिचक्र के एक अंश का ६०वाँ भाग । ९. उपनिषदों के अनुसार पुरुष की देह के १३ अंश या उपाधि । विशेष—इनके नाम इस प्रकार हैं—१. प्राण, २. श्रद्धा, ३. व्योम, ४. वायु, ५. तेज, ६. जल, ७. पृथ्वी, ८. इंद्रिय, ९. मन १०. अन्न, ११. वीर्य, १२. तप, १३. मंत्र, १४. कर्म, १५. लोक और १६. नाम । १०. छंदशास्त्र या पिंगल में 'मात्रा' या 'कला' । यौ०—द्विकल । त्रिकल । ११. चिकित्सा शास्त्र के अनुसार शरीर की सात विशेष झिल्लियों के नाम जो मांस, रक्त, मेद, कफ, मूत्र, पित्त और वीर्य को अलग अलग रखती हैं ।१२. किसी कार्य को भली भाँति करने का कौशल । किसी काम को नियम और व्यवस्था के अनुसार करने की विद्या । फन । हुनर ।
+    </skos:note>
+    <skos:note xml:lang="de">
+      Das Wort Kunst bezeichnet im weitesten Sinne jede entwickelte Tätigkeit, die auf Wissen, Übung, Wahrnehmung, Vorstellung und Intuition gegründet ist (Heilkunst, Kunst der freien Rede). Im engeren Sinne werden damit Ergebnisse gezielter menschlicher Tätigkeit benannt, die nicht eindeutig durch Funktionen festgelegt sind. Kunst ist ein menschliches Kulturprodukt, das Ergebnis eines kreativen Prozesses.Das Kunstwerk steht meist am Ende dieses Prozesses, kann aber seit der Moderne auch der Prozess selbst sein. Ausübende der Kunst im engeren Sinne werden Künstler genannt.Künstler und Kunst genießen in Deutschland und vielen anderen Ländern Kunstfreiheit; diese ist in Deutschland ein durch Art. 5 Abs. 3 Grundgesetz geschütztes Grundrecht. Seit der Aufklärung versteht man unter Kunst vor allem die Ausdrucksformen der Schönen Künste: Bildende Kunst mit den klassischen Gattungen Malerei und Grafik, Bildhauerei, Architektur und etlichen Kleinformen sowie seit dem 19. Jahrhundert dem Kunstgewerbe oder Angewandte Kunst genannten Grenzbereich zum Kunsthandwerk Musik mit den Hauptsparten Komposition und Interpretation in Vokal- und Instrumentalmusik Literatur mit den Hauptgattungen Epik, Dramatik, Lyrik und Essayistik Darstellende Kunst mit den Hauptsparten Theater, Tanz und FilmAusdrucksformen und Techniken der Kunst haben sich seit Beginn der Moderne stark erweitert, so mit der Fotografie in der bildenden Kunst oder mit der Etablierung des Comics als Verbindung bildender Kunst mit der Narrativität der Literatur. Bei den Darstellenden Künsten, Musik und Literatur lassen sich heute auch Ausdrucksformen der Neuen Medien wie Hörfunk, Fernsehen und Internet hinzuzählen. Die klassische Einteilung verliert spätestens seit den letzten Jahrzehnten des 20. Jahrhunderts an Bedeutung. Kunstgattungen wie die Installation oder der Bereich der Medienkunst kennen die klassische Grundeinteilung nicht mehr.
+    </skos:note>
+    <skos:note xml:lang="fi">
+      Taide on yksi kulttuurin peruskäsitteistä. Se koostuu erilaisten elementtien tarkoituksellisen järjestelyn tuloksista ja prosesseista, joilla pyritään vaikuttamaan tunteisiin tai ajatteluun subjektiivisella tasolla. Taide on ilmaisun, viestinnän, kannanoton ja mielihyvän tuottamisen väline. Se, onko jokin teos taidetta, riippuu paljolti tarkastelijan omaksumasta taidekäsityksestä. Taidetta voi olla myös sellainen, joka aiheuttaa kokijassaan muitakin kuin esteettisyyden tunteita. Taide-sanalla yleensä tarkoitetaan kaikkia niitä toimintoja ja tuotteita, joilla ihminen aistein havaittavin keinoin koettaa herättää toisissa itsessään kokemiaan tunnevaikutuksia. Erityisesti sana taide viittaa kuvataiteisiin.
+    </skos:note>
+    <skos:note xml:lang="be">
+      Маста́цтва — працэс ці вынік выяўлення ўнутранага свету ў мастацкім вобразе, творчае спалучэнне элементаў такім чынам, які адлюстроўвае пачуцці альбо эмоцыі.Мастацтва. 1. Творчая дзейнасць, звязаная з вобразным адлюстраваннем рэчаiснасцi. 2. Асобная галiна такой творчай мастацкай дзейнасцi. Выяўленчае мастацтва. Кiнамастацтва. 3. Уменне, майстэрства ў якой-н. справе.Мастацтва для мастацтва; Чыстае мастацтва — рэакцыйная эстэтычная тэорыя i мастацкая практыка, накiраваныя на адрыў мастацкай творчасцi ад грамадскага жыцця.
+    </skos:note>
+    <skos:note xml:lang="ru">
+      Иску́сство (от церк.-слав. искусьство (лат. eхperimentum — опыт, проба); ст.-слав. искоусъ — опыт, реже истязание, пытка) — образное осмысление действительности; процесс или итог выражения внутреннего или внешнего (по отношению к творцу) мира в художественном образе; творчество, направленное таким образом, что оно отражает интересующее не только самого автора, но и других людей. Искусство (наряду с наукой) — один из способов познания, как в естественнонаучной, так и в религиозной картине восприятия мира.Понятие искусства крайне широко — оно может проявляться как чрезвычайно развитое мастерство в какой-то определённой области.Долгое время искусством считался вид культурной деятельности, удовлетворяющий любовь человека к прекрасному.Вместе с эволюцией социальных эстетических норм и оценок искусством получила право называться любая деятельность, направленная на создание эстетически-выразительных форм.В масштабах всего общества, искусство — особый способ познания и отражения действительности, одна из форм художественной деятельности общественного сознанияи часть духовной культуры как человека, так и всего человечества, многообразный результат творческой деятельности всех поколений.В науке искусством называют как собственно творческую художественную деятельность, так и её результат — художественное произведение.
+    </skos:note>
+    <skos:note xml:lang="pt">
+      Arte (do latim ars, significando técnica e/ou habilidade) pode ser entendida como a atividade humana ligada às manifestações de ordem estética ou comunicativa, realizada por meio de uma grande variedade de linguagens, tais como: arquitetura, escultura, pintura, escrita, música, dança e cinema, em suas variadas combinações. O processo criativo se dá a partir da percepção com o intuito de expressar emoções e ideias, objetivando um significado único e diferente para cada obra.
+    </skos:note>
+    <skos:note xml:lang="bg">
+      Изкуството в най-общ смисъл представлява използване на впечатления, знания и умения за творческа изява на субективните представи на твореца за себе си и за света. То е умението за представяне на определена информация на зрителя или слушателя посредством една от формите на естетическо възприятие и възпроизвеждане на света. То е също така форма на обществено съзнание и съставна част от културата на човечеството. Продукт е на различни човешки дейности като например живопис, графика, музика, кинематография, театър, балет, опера, литература и други. Клонът на философията, който се занимава с изкуството, се нарича естетика. Енциклопедия Британика дава следното определение на изкуство:"Използването на умения и въображение в създаването на естетични обекти и среди, които могат да бъдат споделени с други". Лев Толстой определя изкуството като средство за комуникация между хората.Терминът изкуство може да се употребява в различен смисъл: като процес на използването на таланта, да обозначи произведението на надарен майстор, потреблението от аудиторията, а също така и изучаването на изкуството (изкуствознание). Обектите (произведения на изкуството), създадени от творци или майстори (изкуството като дейност), предизвикват отклик, настроение, предават символика и друга информация на публиката (изкуството като потребление). Произведенията на изкуството се създават чрез целенасочена талантлива интерпретация на неограничено множество концепции и идеи с цел да бъдат предадени на околните. Изкуството стимулира мислите, чувствата, представите и идеите чрез възприятията. То изразява идеи, приема най-разнообразни форми и служи на най-различни цели.
+    </skos:note>
+    <skos:note xml:lang="lt">
+      Menas gali būti suprantamas kaip: kūrybinis tikrovės atspindėjimas vaizdais (Dailė) kuri nors kūrybinio tikrovės atspindėjimo vaizdais sritis (Vaizduojamasis menas, Taikomasis menas) mokėjimas dailiai, nepriekaištingai, gerai ką daryti, meistriškumas (Aktorystės menas, Karo menas, Vadovavimo menas, Bendravimo menas) užminimas, mįslė atmintis visuomeninės sąmonės forma, žmonijos dvasinės kultūros dalis, specifinė pasaulio praktinio ir dvasinio įvaldymo rūšis – Lietuviškoji tarybinė enciklopedija meistriškumo ir vaizduotės panaudojimas kuriant estetinius objektus, aplinką ar patirtį kuria galima būtų dalintis su kitais žmonėmis – Encyclopædia BritannicaBendriausia ir populiariausia prasme menas – tai žmogaus kūrybinės veiklos estetinė-sensualinė (grožinė-jutiminė) išraiška.
+    </skos:note>
+    <skos:note xml:lang="hr">
+      Umjetnost je osobita ljudska djelatnost čije se značenje konstituira u složenom komunikacijskom procesu između umjetnika, umjetničkog djela i publike. Različita su značenja pridavana umjetnosti u različitim povijesnim razdobljima, no od početka modernog doba skloni smo umjetnosti pridavati sljedeće osobine: svaka pojedina umjetnost posjeduje vlastiti visoko razvijeni i autonomni jezik; umjetnost ima neovisnu i slobodnu poziciju u društvu; umjetnost nema društveno propisanu svrhu; svrha umjetnosti leži u ispunjavanju njene modernistički definirane prirode, koju određuju ideje slobode, imaginacije, individualnosti, otkrića, eksperimenta, pobune, ljepote, istine, pravde, uglavnom ideja na kojima se od Francuske revolucije u većini svojih segmenata temelji zapadno društvo. Obilježje moderne i postmoderne umjetnosti jest pluralitet umjetničkih jezika, umjetničkih stilova, ideja i ideologija, pa za razliku od većine prošlih umjetničkih razdoblja (drevni Egipat, antička umjetnost, bizantska umjetnost itd.) ne možemo govoriti o jednom dominantnom umjetničkom pokretu ili stilu, nego različitim, nerijetko i suprotstavljenim umjetničkim praksama.Umjetnost i njezin svijet, u suvremenom društvu, ne čini samo ono što vidimo, čujemo, čitamo, opipavamo, ono što percipiramo kao umjetnički objekt, nego i cijeli jedan "nevidljivi" svijet znanja o umjetnosti, o njezinoj povijesti, njezinom jeziku, njezinim brzim i aktualnim kretanjima, posredovanim različitim i brojnim kulturalnim institucijama (muzeji, galerije, knjižnice, izdavači, umjetnička kritika, komcertne dvorane, operne kuće, teorija umjetnosti, estetika itd.).Premda riječ "umjetnost" danas uglavnom označava likovne, odnosno vizualne umjetnosti, u tradicionalnom smislu riječi pod umjetnošću podrazumijevamo književnost, glazbu, likovnu umjetnost i filmsku umjetnost. Svaka se od ovih makroumjetnosti može dodatno dijeliti na umjetničke discipline, rodove, vrste itd: književnost možemo podijeliti na prozu, liriku i dramu, od kuda dalje možemo doći do scenske ili plesne umjetnosti i sl.; glazbu možemo podijeliti na tradicionalnu, klasičnu, jazz i rock glazbu, od kuda dalje možemo doći do pjevačke ili sviračke umjetnosti; likovnu umjetnost na slikarstvo, kiparstvo i arhitekturu, od kuda dalje možemo doći do umjetnosti performansa, video umjetnosti, fotografske umjetnosti, internet umjetnosti i sl.. Tradicionalna estetika razlikuje šest vrsta umjetnosti; pojavom filma i stripa proširena je tradicionalna podjela umjetnosti.glazbadramaknjiževnostslikarstvokiparstvoarhitekturafilmplesstripPoviješću, ulogom, kretanjem i značenjem različitih umjetnosti bave se uglavnom različite humanističke znanosti kao što su povijest, povijest umjetnosti, jezikoslovlje i dr., dok se u novije vrijeme proučavanje umjetnosti odvija na interdisciplinarnim načelima, pa se različite znanstvene (društvene ili prirodoslovne) i paraznanstvene prakse (psihoanalitička teorija, teorija medija, feministička teorija itd.) intenzivno bave fenomenom umjetnosti.
+    </skos:note>
+    <skos:note xml:lang="lv">
+      Par mākslu tiek runāts saistībā ar dažādām cilvēka rīcības formām saistībā ar dažādu tādu materiālu un nemateriālu lietu radīšanu, kam piemīt kaut kāda vērtība attiecībā uz mentālajām spējām (psihi jeb prātu), maņām un emocijām. Tādēļ māksla rodas tad, kad cilvēks kaut kā sevi izpauž.Vārds "māksla" tiek lietots saistībā ar dažādiem radošās izpausmes veidiem, piemēram, mūziku, literatūru, fotomākslu, deju, teātri u.c. Visbiežāk par to runā saistībā ar vizuālajām mākslām, piemēram, glezniecību, tēlniecību un grafiku. Tomēr par mākslu runā arī saistībā ar citiem mākslas veidiem, kas iedarbojas uz pārējām maņām, piemēram, mūzika iedarbojas uz dzirdi. Filosofijas nozare, kas nodarbojas ar jautājumiem par mākslu ir estētika.Tradicionāli jēdziens "māksla" tiek lietots, lai apzīmētu jebkādu prasmi vai meistarību. Nozīme mainījās Romantisma laikmetā, kad mākslu sāka uzskatīt par "īpašu cilvēka prāta spēju līdzās reliģijai un zinātnei". Kopumā māksla ir cilvēka rīcības rezultāts, kas radīts ar nolūku stimulēt cilvēka maņas un mentālās spējas, it kā pārnesot emocijas un/vai idejas. Neskaitot šādu aprakstu, nav vienas konkrētas mākslas definīcijas. Māksla spēj arī atainot abstraktu domu un tās izpausmes var izvilināt mākslas baudītājā iepriekš neapzinātas vai slēptas emocijas.Mākslas aprakstīšana īpaši sarežģīta kļuva 20. gadsimtā. Ričards Volheims (Richard Wollheim) nošķir trīs pieejas: reālistu, kas estētisko kvalitāti uzskata par absolūtu vērtību - neatkarīgu no cilvēka; objektīvistu, kas arī to uzskata par absolūtu vērtību, taču atkarīgu no sabiedrības uzskatiem kopumā; un relatīvistu pozīciju, kurā estētiskā kvalitāte nav absolūta vērtība, bet gan individuāla atkarībā no katra cilvēka. Lietas var raksturot pēc to autoru nolūka vai tā trūkuma, neskatoties uz šo lietu šķietamo pielietojumu. Piemēram, krūzīte, kas radīta ar nolūku kalpot par tvertni var tikt uztverta par mākslas darbu, ja uz tās ir kāds zīmējums, savukārt, gleznojumi var tikt uzskatīti par praktiskiem priekšmetiem, ja tie radīti masveidā.Vizuālo mākslu mēdz definēt kā krāsu, formu un citu elementu izvietošanu "tādā veidā, kas modina skaistuma izjūtu, īpaši attēlojot skaisto ar grafisku vai plastisku līdzekļi palīdzību". Volheims mākslas iedabu aprakstījis kā "vienu no izvairīgākajām cilvēka radītās kultūras problēmām". Tā tikusi definēta kā izpausmes līdzeklis vai līdzeklis emociju un ideju apmaiņai, līdzeklis pašu formas elementu iepazīšanai un novērtēšanai kā arī kā mimēze jeb attēlojums. Ļevs Tolstojs aprakstījis mākslu kā netiešu līdzekļu izmantošanu saziņai starp cilvēkiem. Benedeto Kroče (Benedetto Croce) un Rodžers Kolingvuds (Roger Collingwood) attīstīja ideālismu - skatījumu, ka māksla pauž emocijas un, ka tādējādi mākslas darbs būtībā pastāv tā autora prātā. Mākslas kā formas izpratne sakņojas Imanuela Kanta filosofijā un 20. gadsimta sākumā to attīstīja Rodžers Fraijs (Roger Fry) un Klaivs Bells (Clive Bell). Mākslas kā mimēzes jeb attēlojuma izpratne sakņojas Aristoteļa filosofijā.
+    </skos:note>
+    <skos:note xml:lang="fr">
+      L’art est une activité humaine, le produit de cette activité ou l'idée que l'on s'en fait, s'adressant délibérément aux sens, aux émotions et à l'intellect. On peut dire que l'art est le propre de l'homme et que cette activité n'a pas de fonction clairement définie.Effectivement, les définitions de ce concept varient largement selon les époques et les lieux, et aucune d'entre elles n'est universellement acceptée. Ainsi, pour Marcel Mauss, « un objet d'art, par définition, est l'objet reconnu comme tel par un groupe. » C'est pourquoi les collections de productions artistiques peuvent être classées et appréciées diversement selon les cultures, les auteurs et les institutions.En Europe, depuis la fin du XVIIIe siècle, ce terme recouvre principalement les produits dits des « beaux arts » tels que la sculpture, la peinture, l'architecture, les arts graphiques, et aussi la musique, la danse, la poésie et la littérature. On y ajoute depuis, parmi d'autres, la cuisine, le cinéma, le théâtre, la photographie, la bande dessinée, la télévision, le jeu vidéo, voire l'art numérique ou la mode. La classification des arts n'est toutefois pas universelle et rechercher une classification unanime semble impossible, voire un anachronisme.Cette conception de l'art comme activité autonome, comme production par des artistes d'objets que l'on s'accorde à trouver beaux, suivant un jugement de goût, date entre les XVIIIe et XIXe siècles. Mais on considère souvent que l'art moderne et contemporain ont abandonné la notion de beau ou de style intemporel pour ce qui semble être, très généralement, des principes de transgression ou de rupture.Au XXIe siècle, nous assistons à la fois à la prolifération de la notion d'art (absorbant les civilisations anciennes, intégrant différents supports et obligeant à parler d'"arts", le tout avec des productions en expansion planétaire exponentielle) et en même temps à son dépassement par la civilisation du tout-écran qui mêle tout. Un tel phénomène incite à donner des repères et à ne pas appliquer la notion occidentale d'"art" à l'ensemble de ce qui a une visée esthétique sur tous les continents, ce qui pourrait passer pour un néo-colonialisme . Pour ce faire, il importe de rétablir la chronologie et la géographie des productions dans une histoire générale de la production humaine .
+    </skos:note>
+    <skos:note xml:lang="hu">
+      "A művészet az emberi önvaló tökéletességének visszatükröződése. Benne megtalálható minden vágy végső célja, és ez az, ami visszacseng: a tökéletesség időtlen harmóniája." (ismeretlen szerző)A művészet szó tágabb értelemben minden alkotó célú emberi igyekezetre vonatkoztatható. Ebből a széles perspektívából a művészet kulturális, történelmi vagy földrajzi környezettől függően általános fogalomként használható az összes teremtő szándékra, amit emberi törekvés mozgat. Ide tartoznak tehát mindazon képességek és mesterségek, amelyek különféle funkciójú emberi termékek, jelenségek létrehozását vagy a környezet átalakítását teszik lehetővé (például fémművesség, konyhaművészet, testdíszítés, harcművészet, kertművészet stb.)A művészet fogalmát (görög tekhné és technika, latin ars) az ókorban csak az alkotó tevékenység e tágabb értelmében használták, még egyes tudományokat is beleértve, mint a logika és a grammatika. A középkorban és korai újkorban más tudományokat is ide soroltak, amelyeket a közönséges művészetekkel szemben „szabad művészeteknek” nevezték (Artes Liberales, lásd: Artium Baccalaureus/BA).A művészet szót ma általában a fentieknél szűkebb, esztétikai értelemben használjuk. Ennek a szűkebb értelmű fogalomnak azonban nincsen egységes, mindenki által elfogadott meghatározása. A szűkebben vett művészet határai nem tisztázottak, számos emberi termék határesetet jelent, amikor nehéz eldönteni, hogy műalkotásnak tekinthető-e vagy nem. Szócikkünk a szűkebben értelmezett művészet fogalmával foglalkozik.A művészet általánosan elfogadott meghatározás szerint „a valóság visszatükrözése”, a művész látásmódján átszűrve.
+    </skos:note>
+    <skos:note xml:lang="yi">
+      קונסט איז אַ טײל פֿון אַן אייגענעם אױסדרוק. קונסט שליסט איין די וויזועלע קונסטן, ווי צייכענען, מאלעריי, סקולפטור און פאטאגראפיע, און אויך די פארשטעלונג קונסטו, ווי טאנץ, מוזיק, דיכטונג, פראזע און טעאטער.
+    </skos:note>
+    <skos:note xml:lang="bs">
+      Umjetnost je specifična ljudska djelatnost čije se značenje konstituira u složenom komunikacijskom procesu između umjetnika, umjetničkog djela i publike. Različita su značenja pridodavana umjetnosti u različitim historijskim periodima, no od početka modernog doba skloni smo umjetnosti pridavati sljedeće osobine: svaka pojedina umjetnost posjeduje vlastiti visoko razvijeni i autonomni jezik; umjetnost ima nezavisnu i slobodnu poziciju u društvu; umjetnost nema društveno propisanu svrhu; svrha umjetnosti leži u ispunjavanju njene modernistički definisane prirode, koju određuju ideje slobode, imaginacije, individualnosti, otkrića, eksperimenta, pobune, ljepote, istine, pravde, uglavnom društvenih ideja na kojima se od francuske revolucije u većini svojih segmenata temelji Zapadno društvo. Obilježje moderne i postmoderne umjetnosti jest pluralitet umjetničkih jezika, umjetničkih stilova, ideja i ideologija, pa za razliku od većine prošlih umjetničkih razdoblja (drevni Egipat, antička umjetnost, bizantska umjetnost itd.) ne može se govoriti o jednom dominantnom umjetničkom pokretu ili stilu, nego različitim, nerijetko i suprotstavljenim umjetničkim praksama.Umjetnost i njezin svijet, u savremenom društvu, ne čini samo ono što vidimo, čujemo, čitamo, opipavamo, ono što doživljavamo kao umjetnički objekt, nego i cijeli jedan "nevidljivi" svijet znanja o umjetnosti, o njezinoj historiji, njezinom jeziku, njezinim brzim i aktuelnim kretanjima, posredovanim različitim i brojnim kulturalnim institucijama (muzeji, galerije, biblioteke, izdavači, umjetnička kritika, komcertne dvorane, operske kuće, teorija umjetnosti, estetika itd.).Premda riječ "umjetnost" danas uglavnom označava likovne, odnosno vizualne umjetnosti, u tradicionalnom smislu riječi pod umjetnošću podrazumijevamo književnost, muziku, likovnu umjetnost i filmsku umjetnost. Svaka se od ovih makro-umjetnosti može dodatno dijeliti na umjetničke discipline, rodove, vrste itd: književnost se može podijeliti na prozu, liriku i dramu, koja se opet može podijeliti na scenske ili plesne umjetnosti i sl.; muzika se može podijeliti na tradicionalnu, klasičnu, jazz i rock muziku, od kuda se dalje moće doći do pjevačke ili sviračke umjetnosti; likovnu umjetnost na slikarstvo, kiparstvo i arhitekturu, od kuda se može doći do umjetnosti performansa, video umjetnosti, fotografske umjetnosti, internet umjetnosti i sl.. Tradicionalni spisak umjetnosti navodi ih 6; pojavom filma, on je stavljen kao sedma umjetnost, a pojavom stripa, on je nazvan deveta umjetnost. muzika drama književnost slikarstvo kiparstvo arhitektura film ples stripHistorijom, ulogom, kretanjem i značenjem različitih umjetnosti bave se uglavnom različite humanističke nauke kao što su historija, historija umjetnosti i dr., dok se u novije vrijeme proučavanje umjetnosti odvija na interdisciplinarnim načelima, pa se različite naučne (društvene ili prirodne, poput matematike) i paranaučne prakse (psihoanalitička teorija, teorija medija, feministička teorija itd.) intenzivno bave fenomenom umjetnosti.
+    </skos:note>
+    <skos:note xml:lang="hy">
+      Արվեստը հասարակական գիտակցության ձև է, մարդու ստեղծագործ աշխատանքի և հոգևոր մշակույթի տեսակ, իրականության ճանաչման յուրահատուկ եղանակ։ Արվեստը իրականության արտացոլումն է գեղագիտորեն, գեղարվեստական կերպարների միջոցով։ Արվեստի արտացոլման առարկան իրականության գեղագիտական երևույթներն են՝ կյանքի ողբերգական կամ հերոսական, վեհ կամ նսեմ և հատկապես գեղեցիկ կողմերը։Իրականության գեղագիտական ճանաչումը, մարդու գեղարվեստական ստեղծագործությունը իրացվում է արվեստի տարբեր տեսակների միջոցով։ Գեղարվեստական երևույթները ընկալվում են տարբեր միջոցներով՝ տեսողությամբ և լսողությամբ (ինչպես նաև սինթեզված՝ միաժամանակ և լսողությամբ և տեսողությամբ)։ Դրա համապատասխան արվեստը բաժանվում է տարբեր ձևերի, սակայն այդ ձևերի միջև սահմանները հարաբերական են, նրանք երբեմն միավորվում են կամ զուգակցվում են իրար։
+    </skos:note>
+    <skos:note xml:lang="ka">
+      ხელოვნება, ვრცელი გაგებით, ადამიანის შემოქმედებისა და წარმოსახვის ფიზიკური გამოხატვაა ნაწარმოებებში, რომელიც აერთიანებს სინამდვილისა თუ მოგონილის მხატვრული გამოხატვის სხვადასხვა ფორმებს. სიტყვა ხელოვნება აღიქმება როგორც ბუნების საპირისპირო ცნება. ამ აზრით ხელოვნებას მიეკუთვნება ყველაფერი, რაც არაბუნებრივი წარმოშობისაა, ანუ შექმნილია ადამიანის (ავტორის, ხელოვანის) მიერ. თანამედროვე ინტერპრეტაციით, ხელოვნების განსაზღვრებები ასახავენ ესთეტიკურ კრიტერიუმებს, და ტერმინი ერთნაირად შეეხება ლიტერატურას, მუსიკას, ცეკვას, დრამატურგიას, მხატვრობას, სკულპტურასა და არქიტექტურას. ვიწრო გაგებით, ხელოვნებაში გულისხმობენ მხოლოდ სახვით ხელოვნებას, ანუ ფერწერას, გრაფიკას და ხუროთმოძღვრებას. სიტყვა ხელოვანს მეტაფორული მნიშვნელობითაც იყენებენ და იგი აღნიშნავს ცოდნის, ოსტატობის მაღალ დონეს ნებისმიერ საქმიანობაში. შუა საუკუნეებში ტერმინი ხელოვნება გამოიყენებოდა სწავლების აღსანიშნავად, განიხილებოდა როგორც შეცნობის ინსტრუმენტი. ამ ეპოქის შვიდ თავისუფალ ხელოვნებას მიეკუთვნებოდა: გრამატიკა, ლოგიკა, რიტორიკა, არითმეტიკა, მუსიკა, გეომეტრია და ასტრონომია. დასავლურ კულტურაში ვიზუალურ ხელოვნებათა შორის საუკუნუნეების განმავლობაში რჩებოდა მხოლოდ ფერწერა და სკულპტურა. ისლამურ კულტურაში ძირითადი ფორმა ორნამენტი იყო, ვინაიდან ეს რელიგია ცოცხალი არსებების გამოსახვას კრძალავდა. ზოგიერთ კულტურაში ნიღბები, ტატუირება, კერამიკა და ლითონის ნაკეთობები იყვნენ სახვითი ხელოვნების ძირითადი ფორმები. ტექნიკურმა პროგრესმა შესაძლებელი გახადა ხელოვნების ახალი ფორმების გაჩენა, როგორებიცაა: ფოტოგრაფია და კინო, ხოლო თანამედროვე ელექტრონული ტექნოლოგიები ხილული სახეების სრულიად ახალი ფორმების შექმნისა და წარმოდგენის საშუალებებს იძლევა.
+    </skos:note>
+    <skos:note xml:lang="uk">
+      Мисте́цтво — це творче відбиття дійсності, відтворення її в художніх образах. Твором мистецтва називають далеко не всі витвори, це повинне бути щось дуже якісне, найцікавіше і здатне змінити свідомість глядача (слухача). Мистецтво сприймається людиною всіма органами почуттів.
+    </skos:note>
+    <skos:note xml:lang="sk">
+      Umenie je individuálnym prejavom kreatívnej schopnosti duše - jedna z foriem osvojovania si sveta človekom. Je predmetom skúmania estetiky, umenovedy a filozofie umenia.Umenie môže znamenať aj používanie istých duchovných kvalít alebo manuálnej zručnosti pri realizácii určitého diela s cieľom urobiť svet umelo krajším a lepším.Umenie je forma maximálneho bytia človeka spočívajúca v cieľavedomom pretváraní škaredého alebo esteticky neúčinného či menej účinného na krásu v koncentrovanej podobe.
+    </skos:note>
+    <skos:note xml:lang="sl">
+      Umetnost je navadno opredeljena kot skupek vseh dejavnosti človeka, ki niso neposredno povezane s preživetjem in razmnoževanjem in jih ne opredelimo kot znanost. Preko umetniških del človek po navadi izraža svoja čustva in svoje dojemanje okolice, odnos do sveta.Človek, ki se ukvarja z umetnostjo, je umetnik.
+    </skos:note>
+    <skos:note xml:lang="ga">
+      Oilteacht an bhunbhrí a bhí le hEalaín sa Ghaeilge ach dála a comhbhríonna i dteangacha eile tá an bhunbhrí seo ag leathnú an t-am ar fad agus sa lá atá inniu ann san Eoraip is ionann ealaín agus táirge ar bith de chuid na samhlaíochta a dhírítear ar an tsamhlaíocht féin. Ó Athbheochan an Léinn anall ba ghnách san Eoraip na Míndána i.e. ealaíona na péintéireachta, na líníochta, na dealbhóireachta agus na hailtireachta, a dhealú amach ó na hEalaíona Feidhmeacha, ealaíona a cuireadh i bhfeidhm ar earraí chun iad a mhaisiú; ach bhí seo bunoscionn le dearcadh cultúr agus sibhialtachtaí eile agus le dearcadh na hEorpa féin roimhe sin. De réir an Choincheapúlachais, fealsúnacht ealaíne a tháinig chun cinn tar éis an Dara Chogadh Domhanda, is féidir le duine ar bith a bheith ina ealaíontóir agus is féidir le rud ar bith a bheith ina théama i saothar ealaíne. Meán chun pearsantacht, braistintí nó spiorad an ealaíontóra a léiriú atá san Ealaín de réir na teoirice seo. Is é an t-ealaíontóir ábhar a chuid ealaíne féin, murab ionann agus an scéal i dtraidisiúin nó i bhfealsúnachtaí ealaíne san am a chuaigh thart. Sainmhíniú de chuid an Iarthar é seo, ar ndóigh, agus gan baint aige le formhór na dtraidisiún eile. Bhí aidhmeanna dá gcuid féin acu siúd. Neamh agus an Domhan a nascadh le chéile ba chuspóir do Phéintéireacht na Síne, mar shampla, agus níor mhór duit dianstaidéar agus dianmhachnamh a dhéanamh roimh duit tabhairt faoin obair.Déantar cineálacha difriúla de léiriú ealaíonta a rangú mar a leanas: Nádúrachas, agus iarracht á déanamh ar an ábhar a léiriú mar a fheiceann an tsúil é.Teibíochas, agus an t-ábhar á léiriú trí stíliú agus trí fhíoracha neamhnádúrtha.Neamh-oibiachtúlachas, agus mothúcháin á spreagadh sa lucht féachana le dathanna agus le fíoracha, díreach mar a dhéanann an ceol.
+    </skos:note>
+    <skos:note xml:lang="gd">
+      Airson am baile: Ealain, Siorrachd Obar Dheathain (Ellon)
+    </skos:note>
+    <skos:note xml:lang="ca">
+      L'art és el procés o el producte deliberat de l'organització dels elements en una forma que apel·la als sentits i a les emocions. Abasta una àmplia gamma d'activitats humanes, de creacions i de maneres d'expressar-se; de camps com la música, la fotografia, la literatura, el cinema, l'escultura i la pintura. El significat de l'art és explorat dins l'estètica, una branca de la filosofia. Es creu que per als primers Homo sapiens l'art va tenir una funció ritual, màgica, religiosa; aquesta funció, però, va evolucionar adquirint un component estètic i una funció social, pedagògica, mercantil o simplement ornamental.Tradicionalment, el concepte d'art va ser utilitzat per referir-se a qualsevol habilitat o mestratge. Aquesta concepció va canviar durant el període romàntic, quan l'art va arribar a ser vist com "una facultat especial de la ment humana per a ser classificat al costat de la religió i la ciència".L'art s'estudia des de diverses disciplines. L'art és, com a manifestació de l'activitat humana, és susceptible de ser estudiat i analitzat, entre d'altres, des de la perspectiva filosòfica –per exemple, com el raonament de l'ésser humà interpreta els estímuls sensorials que rep–, psicològica –els diversos processos mentals i culturals que es troben en la seva gènesi–, o sociològica –l'art com a producte de la societat humana i analitzant els diversos components socials. La més difosa, però, és la perspectiva històrica que s'estudia des de la història de l'art.La naturalesa de l'art ha estat descrita per Richard Wollheim com «un dels més difícils dels problemes tradicionals de la cultura humana»". S'ha definit com un vehicle per a l'expressió o la comunicació d'emocions i idees, un mitjà per explorar elements formals i com a mimesi o representació. Lleó Tolstoi identificava l'art com un ús de mitjans indirectes perquè una persona es comuniqués amb una altra. Benedetto Croce i Robin George Collingwood defensen la visió idealista que l'art expressa emocions i que l'obra d'art, essencialment, existeix en la ment del creador. La teoria de l'art com a forma té les seves arrels en la filosofia d'Immanuel Kant i va ser desenvolupada durant el segle XX per Roger Eliot Fry i Clive Bell. L'art com a mimesi o representació té profundes arrels en la filosofia d'Aristòtil. Més recentment, els pensadors influïts per Martin Heidegger han interpretat l'art com el mitjà pel qual una comunitat desenvolupa per si mateixa un mitjà per a l'expressió i la interpretació.
+    </skos:note>
+    <skos:note xml:lang="mk">
+      Уметноста е човечка активност, производ на таа активност или идеја за истата, поврзана со сетилата, со емоциите и со интелектот. Може да се рече дека уметноста му е својствена на човекот, со што тој се разликува во рамки на природата, и се издвојува од останатите живи битија.Во Европа, од крајот на 18 век, овој поим главно се однесува на производите на таканаречените „убави уметности“, како на пример скулптурата, сликарството, архитектурата, графиката, но исто така и музиката, танцот, поезијата и литературата. Подоцна на тоа, меѓу другото, се додават и кујната, кинематографијата, театарот, фотографијата, стрипот, телевизијата, односно дигиталната уметност. Класификацијата на уметностите не е универзална и да се бара единствена класификација се чини невозможно.Оваа концепција на уметноста како автономна активност, како продукт на предмети од страна на уметници кои се во потрага по убавото, согласно судот на вкусот, датира од периодот меѓу 18 и 19 век. Но честопати се смета дека модерната и современата уметност го напуштиле поимот на убавото и на безвременскиот стил за да ги прифатат принципите на трансгресијата.Наједноставната дефиниција за поимот уметност е дека таа е творештво на човекот. Иако денес под поимот уметност најчесто обично се подразбира визуелна уметност, концептот за тоа што е уметност постојано ќе се менува низ вековите. Можеби најконцизна дефиниција е најопштата - дека поимот уметност се однесува на сите креативни и творечки дејствија на човекот, со исклучок на дејствата директно поврзани за опстанокот и репродукцијата. Од поширока перспектива, уметност е едноставно изведен поим за било кој производ на креативен импулс, од кој произлегле сите други човечки активност, како науката преку алхемијата, и религијата преку шаманизмот.
+    </skos:note>
+    <skos:note xml:lang="sq">
+      Arti është proces apo produkt i rregullimit të qëllimtë të elementeve simbolike për të tërhequr vëmendjen e shqisave apo emocioneve. Arti përfshinë një gamë të gjerë të aktiviteteve, krijimeve, dhe mënyra të shprehjes njerëzore, përfshirë muzikën, literaturën, filmin, skulpturën dhe pikturën. Kuptimin dhe domethënien e artit i studion estetika.
+    </skos:note>
+    <skos:note xml:lang="sr">
+      Уметност је људска делатност или производ људске делатности која има за циљ стимулисање људских чула као и људског ума и духа; према томе, уметност је активност, објекат или скуп активности и објеката створених са намером да се пренесу емоције или/и идеје. Осим ове дефиниције, не постоји ни једна друга општеприхваћена дефиниција уметности, с обзиром да је дефинисање граница уметности субјективан акт, а потреба за уметношћу се обично назива људском креативношћу.Уметност, као и рад, производња, егзистенција, религија, секс, наука, философија, припада култури. Она није само неодвојива у формалном смислу од свега што чини културу, већ је и у суштинском смислу јединствена с њом. Она је дата културом. Без културе и свега што чини културу она и не постоји. Ова упућеност није спољна, већ унутарња. Она је органска па зато судбинска и фатална. Наравно као и у свакој једначини и десна страна мора бити једнака левој. Уметност одређује културу. По њој знамо о којој култури је реч. Све ово је битно да би се могла разумети уметност, да би се схватило како и зашто постоје различитости у уметности, зашто јој се мењају интелектуални и други укуси, стилови, правци. Њен квалитет и ниво су културом одређени. Без разумевања ове органске зависности и везе, не бисмо могли разумети суштину.Андре Малро каже: „Уметност није украс доколице, она је тешко освајање, једна од одлучујућих одбрана човека од судбине... уметност је антисудбина.“Квалитет уметничког дела се обично процењује на основу количине стимулације коју оно изазива — утисак који оно оставља на људе, број људи у којима је то дело изазвало неку емоцију, у коликој мери то дело се цени, као и ефекат или утицај који то дело оставља или је оставило у прошлости. Већина уметничких дела која се генерално сматрају ремек-делима поседује ове атрибуте.Нешто што стимулише само чула или само ум, или кад му је циљ нешто друго, не сматра се уметношћу, мада нека дела модерне уметности озбиљно доводе ову тврдњу у питање.Сходно томе, нешто може бити процењено у потпуности као уметност, или уметност може бити део неког објекта. На пример, сликарство може бити чиста уметност, док столица, иако дизајнирана са практичним циљем и употребном вредношћу, може садржати елементе уметности баш у том истом дизајну. Уметност која нема функционалну вредност или намеру се назива лепом уметношћу, док се делатност која поред уметничке вредности поседује и функционалну сврху назива занатом. Међутим, објекат може бити класификован и на основу намера свог творца које су присутне (или одсутне) у самом објекту. На пример, шоља, која очигледно има своју функционалну вредност јер се може употребити као посуда, може бити сматрана уметношћу ако је намера њеног творца била да превасходно направи украс, док сликање може бити процењено као занат ако се масовно производи. У 19. веку, уметност је била пре свега окренута ка „Истини“ и „Лепоти“. Почетком 20. века долази до озбиљног преокрета у поимању уметности са доласком модернизма, а потом у другој половини 20. века са наговештајима постмодернизма.
+    </skos:note>
+    <skos:note xml:lang="sv">
+      Konst kan också betyda färdighet.Konst är ett begrepp som omfattat en rad olika företeelser, och som definierats mycket olika, vid olika tidpunkter och platser.Det svenska ordet härstammar ifrån forngermanskans kunst vilket härstammar från "können" och som betyder "kunnande". Det engelska ordet för konst, art härstammar istället ifrån latinets ars vilket ungefär betyder "arrangemang" eller "att arrangera".Idag används oftast begreppet i anknytning till vad som förr benämndes de sköna konsterna, som bland annat omfattar bildkonst, arkitektur, konsthantverk, skulptur och musik, det vill säga skapande verksamhet som syftar till emotionella eller expressiva uttryck, eller resultatet av en sådan verksamhet. Denna användning av begreppet är en utveckling ifrån antikens tanke om de sju fria konsterna (på latin septem artes liberales) vilka var akademiska ämnen som exempelvis grammatik och retorik men även musik. Konsten var då starkt förknippat med ett hantverk. Utifrån detta perspektiv omfattade begreppet konst även senare mer handfasta företeelser som ingenjörskonst eller stridskonst. I samma anda som den senare användningen brukas begreppet exempelvis fortfarande för cirkuskonster och kampsport som på engelska kallas martial arts.
+    </skos:note>
+    <skos:note xml:lang="ko">
+      예술(藝術)은 학문·종교·도덕 등과 같은 문화의 한 부문으로, 예술 활동(창작, 감상)과 그 성과(예술 작품)의 총칭이다. 예술은 사람들을 결합시키고 사람들에게 감정이나 사상을 전달하는 수단이 된다. 과학도 같은 구실을 하기는 하나, 과학은 주로 개념으로 설명하고 예술은 미적 형상(美的形象)으로 설명한다. 예술의 중심 개념은 ‘아름다움’으로서, 만약 미가 결핍되거나 상실되면 예술이라고 말할 수 없다. 그러나 아름다움만으로는 예술이라고 할 수 없으며 어떤 ‘형상’에 의해 표현되어야만 한다. 예술관을 크게 나누면 아이디얼리즘 또는 로맨티시즘과 리얼리즘이 된다. 전자를 대표하는 사람은 헤겔로서 ‘미’는 예술가의 주관적 공상이라고 보는 데 대해, 후자를 주장하는 자는 아리스토텔레스로서 미를 자연의 모방, 혹은 재현이라고 본다. 이 대립은 오늘날까지 계속되고 있다. 예술학은 예술에 관한 학문으로, 예술 철학과 구별하여 예술을 과학적으로 연구하는 의미로도 쓰인다. 예술 사회학은 예술의 사회학적 연구로서 19세기 중엽에 일어났던 실증주의(實證主義)와 함께 발달했다.
+    </skos:note>
+    <skos:note xml:lang="gl">
+      A arte (do latín ars, artis, a través do seu acusativo singular artem) é entendida xeralmente como calquera actividade ou produto realizado polo ser humano cunha finalidade estética ou comunicativa, a través do que se expresan ideas, emocións ou, en xeral, unha visión do mundo, mediante diversos recursos, como os plásticos, lingüísticos, sonoros ou mixtos. A arte é un compoñente da cultura, reflectindo na súa concepción os substratos económicos e sociais, e a transmisión de ideas e valores, inherentes a calquera cultura humana ó longo do espazo e do tempo. Adoita considerarse que coa aparición do Homo sapiens a arte tivo en principio unha función ritual, máxica ou relixiosa, pero esa función cambiou coa evolución do ser humano, adquirindo un compoñente estético e unha función social, pedagóxica, mercantil ou simplemente ornamental. A arte é unha actividade exclusiva do ser humano.A noción de arte continúa hoxe en día suxeita a profundas polémicas, posto que a súa definición está aberta a múltiples interpretacións, que varían segundo a cultura, a época, o movemento, ou a sociedade para a cal o termo ten un determinado sentido. O vocábulo ‘arte’ ten unha extensa acepción, podendo designar calquera actividade humana feita con xeito e dedicación, ou calquera conxunto de regras necesarias para desenvolver de forma óptima unha actividade: fálase así de “arte culinaria”, “arte médica”, “artes marciais”, “artes de arrastre” na pesca etc. Nese sentido, arte é sinónimo de capacidade, habilidade, talento, experiencia. Porén, máis comunmente adoita ser considerada a arte como unha actividade creadora do ser humano, pola que produce unha serie de obxectos (obras de arte) que son singulares, e cuxa finalidade é principalmente estética. Nese contexto, arte sería a xeneralización dun concepto expresado desde antano como “belas artes”, actualmente algo en desuso e reducido a ámbitos académicos e administrativos. De igual forma, o emprego da palabra arte para designar a realización doutras actividades veu sendo substituído por termos como ‘técnica’ ou ‘oficio’. Neste artigo trátase de arte entendida como un medio de expresión humana de carácter creativo.
+    </skos:note>
+    <skos:note xml:lang="el">
+      Η τέχνη βασίζεται στην εμπειρία και στο ταλέντο. Αποτελεί έναν ευρύτερης ερμηνείας όρο που χρησιμοποιείται για να περιγράψουμε την διαδικασία, της οποίας προϊόν είναι κάτι το μη φυσικό, το οποίο ακολουθεί τους κανόνες του δημιουργού. Κατά συνέπεια όροι με κοινή ρίζα όπως τεχνικό, τεχνίτης, καλλιτέχνης αποδίδονται σε ανθρώπινες δημιουργίες, τρόπους έκφρασης και δραστηριότητες αυθαίρετες με τη ροπή του φυσικού κόσμου.Στην ελληνική γλώσσα η λέξη τέχνη περιλαμβάνει οποιαδήποτε διαδικασία για την παραγωγή κάποιου προϊόντος. Στην αγγλική γλώσσα υπάρχουν δύο λέξεις art και craft. Η πρώτη χρησιμοποιείται για να δηλώσει τέχνη που συνδέεται με προϊόντα αισθητικής αξίας, ενώ η δεύτερη για τα υπόλοιπα. Η λέξη art που χρησιμοποιείται σε γλώσσες της δυτικής Ευρώπης προέρχεται από το Λατινικό ars που εν μέρει σημαίνει διακανονίζω, διευθετώ.
+    </skos:note>
+    <skos:note xml:lang="en">
+      Art is a diverse range of human activities and the products of those activities; this article focuses primarily on the visual arts, which includes the creation of images or objects in fields including painting, sculpture, printmaking, photography, and other visual media. Architecture is often included as one of the visual arts; however, like the decorative arts, it involves the creation of objects where the practical considerations of use are essential—in a way that they usually are not in a painting, for example. Music, theatre, film, dance, and other performing arts, as well as literature and other media such as interactive media, are included in a broader definition of art or the arts. Until the 17th century, art referred to any skill or mastery and was not differentiated from crafts or sciences. In modern usage after the 17th century, where aesthetic considerations are paramount, the fine arts are separated and distinguished from acquired skills in general, such as the decorative or applied arts.Art may be characterized in terms of mimesis (its representation of reality), expression, communication of emotion, or other qualities. During the Romantic period, art came to be seen as "a special faculty of the human mind to be classified with religion and science". Though the definition of what constitutes art is disputed and has changed over time, general descriptions mention an idea of imaginative or technical skill stemming from human agency and creation.The nature of art, and related concepts such as creativity and interpretation, are explored in a branch of philosophy known as aesthetics.
+    </skos:note>
+    <skos:note xml:lang="is">
+      List er það þegar sköpunargáfunni er gefinn laus taumurinn og myndir, tónverk, styttur eða aðrir hlutir eru búnir til, í þeim megintilgangi að varpa ljósi á fegurð og mikilfengleika heimsins, að tjá tilfinningar eða skilning listamannsins, eða að aðrir fái notið verksins. Orðið list getur einnig átt við um afrakstur slíkrar sköpunar.Erfitt er að skilgreina list á altækan hátt, þótt margir hafi sterkar skoðanir á því hvað er list og hvað ekki. Ótal mælikvarðar eru til um það hvaða skilyrði hlutur eða verknaður þarf að uppfylla til að teljast list. Sumir telja að list sé það sem eykur skilning okkar á umheiminum umfram einfaldan hlutlægum skilning. Oft er talað um að verknaður sé list ef afraksturinn er fagurfræðilegur (Hatcher, 1999). Samkvæmt þessari skilgreiningu hefur list fylgt mannkyninu frá því örófi alda, eins og hellamálverk sýna.En þótt hægt sé að skilgreina list á mjög víðtækan máta eru margir sem vilja undanskilja ýmsa iðju sem þó miðar að fagurfræðilegum afrakstri, svo sem handverk og iðnhönnun. Samkvæmt þessari skilgreiningu, sem er nýrri af nálinni, er orðið list lítið meira en stytting á hugtakinu sköpunarlist eða hámenningarleg list. Með öðrum orðum er mest áhersla lögð á nýnæmi listarinnar og að listamaðurinn ögri áhorfandanum, svo upplifun listarinnar verður virkur atburður, frekar en að listin sé í bakgrunni og geri umhverfið fallegra. Til dæmis geta handprjónuð föt sem unnin eru samkvæmt uppskrift aldrei orðið list í þessum skilningi orðsins, sama hversu vel þau eru unnin.Til viðbótar við nýnæmið er stundum gerð krafa um að list sé unnin í göfugum tilgangi. Dæmi um það er þegar tónverk eða kvikmyndir sem framleiddar eru í þeim megintilgangi að afla tekna fyrir framleiðandann eru undanskilin frá skilgreiningunni á list, og kölluð iðnaður (sbr. kvikmyndaiðnaður og tónlistariðnaður).Þegar list er skilgreind á þröngan máta, líkt og rætt er um hér að ofan, er sjaldgæft að menn séu sammála um hvað er list og hvað ekki. Því hafa ýmsir haldið því fram að slíkar skilgreiningar hafi meira að gera með smekk heldur en hlutlæga aðgreiningu.
+    </skos:note>
+    <skos:note xml:lang="it">
+      L'arte, nel suo significato più ampio, comprende ogni attività umana – svolta singolarmente o collettivamente – che porta a forme creative di espressione estetica, poggiando su accorgimenti tecnici, abilità innate e norme comportamentali derivanti dallo studio e dall'esperienza.Nella sua accezione odierna, l'arte è strettamente connessa alla capacità di trasmettere emozioni e "messaggi" soggettivi. Tuttavia non esiste un unico linguaggio artistico e neppure un unico codice inequivocabile di interpretazione.Nel suo significato più sublime, l'arte è l'espressione estetica dell'interiorità umana. Rispecchia le opinioni dell'artista nell'ambito sociale, morale, culturale, etico o religioso del suo periodo storico. Alcuni filosofi e studiosi di semantica, invece, sostengono che esista un linguaggio oggettivo che, a prescindere dalle epoche e dagli stili, dovrebbe essere codificato per poter essere compreso da tutti, tuttavia gli sforzi per dimostrare questa affermazione sono stati finora infruttuosi.L'arte può essere considerata anche una professione di antica tradizione svolta nell'osservanza di alcuni canoni codificati nel tempo. In questo senso, le professioni artigianali – quelle cioè che afferiscono all'artigianato – discendono spesso dal Medioevo, quando si svilupparono attività specializzate e gli esercenti arti e mestieri vennero riuniti nelle corporazioni. Ogni arte aveva una propria tradizione, i cui concetti fondamentali venivano racchiusi nella regola dell'arte, cui ogni artiere doveva conformarsi.
+    </skos:note>
+    <skos:note xml:lang="zh">
+      艺术（英语：Art）有時被稱為精緻藝術或美術（英语：Fine Arts）指憑藉技巧、意願、想象力、經驗等綜合人為因素的融合與平衡以創作隱含美學的器物、環境、影像、動作或聲音的表達模式，以指和他人分享美的或有深意的情感與意識的人類用以表達既有感知的且將個人或群體體驗沉澱與展現的過程。
+    </skos:note>
+    <skos:note xml:lang="es">
+      El arte (del lat. ars, artis, y este calco del gr. τέχνη)es entendido generalmente como cualquier actividad o producto realizado por el ser humano con una finalidad estética o comunicativa, mediante la cual se expresan ideas, emociones o, en general, una visión del mundo, mediante diversos recursos, como los plásticos, lingüísticos, sonoros o mixtos. El arte es un componente de la cultura, reflejando en su concepción los sustratos económicos y sociales, y la transmisión de ideas y valores, inherentes a cualquier cultura humana a lo largo del espacio y el tiempo. Se suele considerar que con la aparición del Homo sapiens el arte tuvo en principio una función ritual, mágica o religiosa (arte paleolítico), pero esa función cambió con la evolución del ser humano, adquiriendo un componente estético y una función social, pedagógica, mercantil o simplemente ornamental.La noción de arte continúa sujeta a profundas disputas, dado que su definición está abierta a múltiples interpretaciones, que varían según la cultura, la época, el movimiento, o la sociedad para la cual el término tiene un determinado sentido. El vocablo ‘arte’ tiene una extensa acepción, pudiendo designar cualquier actividad humana hecha con esmero y dedicación, o cualquier conjunto de reglas necesarias para desarrollar de forma óptima una actividad: se habla así de “arte culinario”, “arte médico”, “artes marciales”, “artes de arrastre” en la pesca, etc. En ese sentido, arte es sinónimo de capacidad, habilidad, talento, experiencia. Sin embargo, más comúnmente se suele considerar al arte como una actividad creadora del ser humano, por la cual produce una serie de objetos (obras de arte) que son singulares, y cuya finalidad es principalmente estética. En ese contexto, arte sería la generalización de un concepto expresado desde antaño como “bellas artes”, actualmente algo en desuso y reducido a ámbitos académicos y administrativos. De igual forma, el empleo de la palabra arte para designar la realización de otras actividades ha venido siendo sustituido por términos como ‘técnica’ u ‘oficio’. En este artículo se trata de arte entendido como un medio de expresión humano de carácter creativo.
+    </skos:note>
+    <skos:note xml:lang="et">
+      Kunst on üldisemas tähenduses meisterlik oskus (technē, ars) mis tahes loomingulisel tegevusalal.Kunsti ehk kaunite kunstide all mõistetakse esteetikas muuhulgas kujutavat ja tarbekunsti, arhitektuuri, muusikat, ilukirjandust, tantsukunsti ja näitekunsti ja filmikunsti.
+    </skos:note>
+    <skos:note xml:lang="eu">
+      Artikulu hau kontzeptu filosofikoari buruzkoa da; beste esanahietarako, ikus Arte (argipena).Artea (sinonimoak erti eta ederti) errealitatea edo irudimena nolabait adierazteko giza ekintza da. Horretarako, askotariko tresnak erabili ohi dira, hala nola materia, irudia, soinua, gorputz-adierazpena eta abar, hartzailearen irudimena edota emozioa suspertzeko helburuarekin.
+    </skos:note>
+    <skos:note xml:lang="cs">
+      Umění (od „uměti“) je součást lidské kultury, v širokém slova smyslu užitečná dovednost, kterou neovládá každý a které je případně třeba se naučit. Od renesance se však nejčastěji užívá v užším smyslu “krásných umění“, kde se klade důraz na tvořivost, originalitu a individualitu umělce.Umění v tomto smyslu se od starověku dělí na umění výtvarná, která vytvářejí trvalá vizuální umělecká díla (například malířství, sochařství, architektura), a umění múzická či performativní, kde umělec sám vystupuje před publikem (například tanec, zpěv, hudba, divadlo). Toto rozlišení se sice díky písmu, notovému záznamu a dalším záznamovým technikám do značné míry přežilo, přesto se stále užívá.
+    </skos:note>
+    <skos:note xml:lang="ar">
+      الفن أو الفنون هي لغة استخدمها الإنسان لترجمة التعابير التي ترد في ذاته الجوهرية وليس تعبيرا عن حاجة الإنسان لمتطلبات حياته رغم أن بعض العلماء يعتبرون الفن ضرورة حياتية للإنسان كالماء والطعام.فالفن هو موهبة إبداع وهبها الخالق لكل إنسان لكن بدرجات تختلف بين الفرد والآخر. لكن لا نستطيع أن نصف كل هؤلاء الناس بفنانين إلا الذين يتميزون عن غيرهم بالقدرة الإبداعية الهائلة. فكلمة الفن هي دلالة على المهارات المستخدمة لإنتاج أشياء تحمل قيمة جماليةعلى تعريفة فمن ضمن التعريفات أن الفن مهارة – حرفة – خبرة – إبداع – حدس –محاكاة. تعريف وتقييم للفن أصبحت مشكلة خاصة منذ أوائل القرن العشرين على يد ريتشارد ووليهم.. يميز ثلاثة مناهج : الواقعية، حيث الجودة الجمالية هي قيمة مطلقة مستقلة عن أي رأي الإنسان الموضوعية، حيث أنه هو أيضا قيمة مطلقة، ولكن يعتمد على التجربة الإنسانية عامة النسبوية، وهو ليس من قيمة مطلقة، المنحى الفلسفي الذي يقول يعدم وجود حقيقة مطلقة.وقد قسم الفن قديما إلى سبعة أقسام لكن حديثا فقد قسم إلى ثلاثة أقسام شاملة هي : الفن التشكيلي، مثل الرسم – الألوان – الخط – الهندسة – التصميم – فن العمارة – النحت – الصناعات التقليدية – الأضواء.... الفن الصوتي، مثل الموسيقى – الغناء- عالم السينما والمسرح – الشعر – الحكايات – التجويد – لترتيل... الفن الحركي، مثل الرقص – السرك – الألعاب السحرية – بعض الرياضات – البهلوان والتهريج – مسرح الميم – الدمى...↑
+    </skos:note>
+    <skos:note xml:lang="cy">
+      Mae maes celfyddyd (a dalfyrir weithiau fel celf) yn cynnwys campweithiau gweledol o ganlyniad i fedr dynol, sef paentio, darlunio, cerfluniaeth, a phensaernïaeth. Weithiau ehangir y term fel y celfyddydau sy'n cynnwys yr holl bethau o dan sgiliau bodau dynol, fel llenyddiaeth (rhyddiaith, barddoniaeth ac ati), cerddoriaeth a dawns, y theatr, a ffotograffiaeth. Mae estheteg yn faes athronyddol sy'n ceisio ateb cwestiynau megis "beth yw celf?".
+    </skos:note>
+    <skos:note xml:lang="ja">
+      芸術（げいじゅつ、希: η τεχνη、 techné、羅: ars、英: art）とは、表現者あるいは表現物と、鑑賞者とが相互に作用し合うことなどで、精神的・感覚的な変動を得ようとする活動。文芸（言語芸術）、美術（造形芸術）、音楽（音響芸術）、演劇・映画（総合芸術）などを指す。藝術の略式表記。
+    </skos:note>
+    <skos:note xml:lang="az">
+      İncəsənət - insan hisslərinin təsviri. Həmçinin istənilən fəaliyyət sahəsində insanın göstərdiyi yüksək bacarıq, məharət də nəzərdə tutulur.İncəsənət mədəniyyətin tərkib hissəsi olan ictimai şüur növüdür.İncəsənət dinləyici və ya tamaşaçıya informasiyanın qrafika, musiqi, rəqs və ya da bunların bir neçəsinin toplumundan ibarət olan teatr, balet, kinematoqrafiya ilə verilmə ustalığıdır. İncəsənət insanın mədəni fəaliyyətinə aid olduğundan onun kökü insanlar arasında kommunikasiya yarandığı dövrlərə gedib çıxır. Sonralar inkişaf nəticəsində o sərbəst mədəni-estetik prosesə çevrilərək öz sırf dillə bağlı mahiyyətindən kənara çıxır.Nəyin incəsənət adlandırılması bu və ya digər cəmiyyətin inkişafı dövründə malik olduğu estetik norma və dəyərləndirmə dərəcəsindən asılıdr.
+    </skos:note>
+    <skos:note xml:lang="pl">
+      Sztuka – dziedzina działalności ludzkiej uprawiana przez artystów. Nie istnieje jedna spójna, ogólnie przyjęta definicja sztuki, gdyż jej granice są redefiniowane w sposób ciągły, w każdej chwili może pojawić się dzieło, które w arbitralnie przyjętej, domkniętej definicji się nie mieści. Sztuka spełnia rozmaite funkcje, m.in. estetyczne, społeczne, dydaktyczne, terapeutyczne, jednak nie stanowią one o jej istocie.Sztuka narodziła się wraz z rozwojem cywilizacji ludzkiej. Można przypuszczać, że na początku pełniła przede wszystkim funkcję związaną z obrzędami magicznymi, którą zachowała u ludów pierwotnych.
+    </skos:note>
+    <skos:note xml:lang="ro">
+      Arta este în esență cea mai profundă expresie a creativității umane. Pe cât de dificil de definit, pe atât de dificil de evaluat, având în vedere faptul că fiecare artist își alege singur regulile și parametrii de lucru, se poate spune totuși că arta este rezultatul alegerii unui mediu, a unui set de reguli pentru folosirea acestui mediu și a unui set de valori ce determină ce anume merită a fi exprimat prin acel mediu pentru a induce un sentiment, o idee, o senzație sau o trăire în modul cel mai eficient posibil pentru acel mediu. Prin modul său de manifestare, arta poate fi considerată și ca o formă de cunoaștere (cunoașterea artistică).
+    </skos:note>
+    <skos:note xml:lang="he">
+      אָמָּנוּת או אֳמָנוּת (יש לקרוא: אוֹמָּנוּת, להבדיל מאֻמָּנוּת) הוא שם כולל לפעילויות האנושיות שאינן נעשות על פי תבנית פעולה קבועה, מחייבת ומוגדרת מראש, אלא נתונה לשיקול דעתו, פרשנותו ויצירתיותו של האָמָּן (או אֳמָן, יש לקרוא: אוֹמָן), ומתבססת על כשרונו המיוחד. עם זאת, היא יכולה להיעשות (ולמעשה אכן נעשית) על פי כללים ובמגבלות (לעתים חמורים), שבמסגרתם מתבטא חופש היצירה של האמן. בתחום האמנות נכללים ענפים רבים ומגוונים, ובשל כך האמנות תופסת מעמד מרכזי בתרבות האנושית. האמנות קשורה בטבורה עם האסתטיקה.
+    </skos:note>
+    <skos:note xml:lang="tr">
+      Sanat, en genel anlamıyla yaratıcılığın ve hayalgücünün ifadesi olarak anlaşılır. Tarih boyunca neyin sanat olarak adlandırılacağına dair fikirler sürekli değişmiş, bu geniş anlama zaman içinde değişik kısıtlamalar getirilip yeni tanımlar yaratılmıştır. Bugün sanat terimi birçok kişi tarafından çok basit ve net gözüken bir kavram gibi kullanılabildiği gibi akademik çevrelerde sanatın ne şekilde tanımlanabileceği, hatta tanımlanabilir olup olmadığı bile hararetli bir tartışma konusudur.Sanat sözcüğü genelde görsel sanatlar anlamında kullanılır. Sözcüğün bugünkü kullanımı, batı kültürünün etkisiyle, ingilizcedeki 'art' sözcüğüne yakın olsa da halk arasında biraz daha geniş anlamda kullanılır. Gerek İngilizce'deki 'art' ('artificial' = yapay), gerek Almanca'daki 'Kunst' ('künstlich' = yapay) gerekse Türkçe'deki Arapça kökenli 'sanat' ('suni' = yapay) sözcükleri içlerinde yapaylığa dair bir anlam barındırır. Sanat, bu geniş anlamından Rönesans zamanında sıyrılmaya başlamış , ancak yakın zamana kadar zanaat ve sanat sözcükleri dönüşümlü olarak kullanılmaya devam etmiştir. Buna ek olarak Sanayi Devrimi sonrasında tasarım ve sanat arasında da bir ayrım doğmuş , 1950 ve 60'larda popüler kültür ve sanat arasında tartışma kaldıran bir üçüncü çizgi çekilmiştir.
+    </skos:note>
+    <skos:note xml:lang="nl">
+      Onder kunst wordt in het algemeen verstaan: het product van creatieve menselijke uitingen onder meer: schilderen, tekenen, fotografie, grafiek, beeldhouwen, moderne media, theater, muziek en zang, dans, film, bouwkunde of architectuur, literatuur en poëzie.
+    </skos:note>
+    <skos:exactMatch rdf:resource="http://my.dbpedia.org/resource/အနုပညာ"/>
+    <skos:exactMatch rdf:resource="http://jv.dbpedia.org/resource/Seni"/>
+    <skos:exactMatch rdf:resource="http://sah.dbpedia.org/resource/Дьоҕур"/>
+    <skos:exactMatch rdf:resource="http://ro.dbpedia.org/resource/Artă"/>
+    <skos:exactMatch rdf:resource="http://it.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://gd.dbpedia.org/resource/Ealain"/>
+    <skos:exactMatch rdf:resource="http://io.dbpedia.org/resource/Arto"/>
+    <skos:exactMatch rdf:resource="http://uk.dbpedia.org/resource/Мистецтво"/>
+    <skos:exactMatch rdf:resource="http://qu.dbpedia.org/resource/Kapchiy"/>
+    <skos:exactMatch rdf:resource="http://uz.dbpedia.org/resource/Sanʼat"/>
+    <skos:exactMatch rdf:resource="http://simple.dbpedia.org/resource/Art"/>
+    <skos:exactMatch rdf:resource="http://yi.dbpedia.org/resource/קונסט"/>
+    <skos:exactMatch rdf:resource="http://si.dbpedia.org/resource/කලාව"/>
+    <skos:exactMatch rdf:resource="http://bn.dbpedia.org/resource/শিল্প"/>
+    <skos:exactMatch rdf:resource="http://mn.dbpedia.org/resource/Урлаг"/>
+    <skos:exactMatch rdf:resource="http://nap.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://ba.dbpedia.org/resource/Сәнғәт"/>
+    <skos:exactMatch rdf:resource="http://ga.dbpedia.org/resource/Ealaín"/>
+    <skos:exactMatch rdf:resource="http://ht.dbpedia.org/resource/La_(aktivite)"/>
+    <skos:exactMatch rdf:resource="http://ja.dbpedia.org/resource/芸術"/>
+    <skos:exactMatch rdf:resource="http://mzn.dbpedia.org/resource/هنر"/>
+    <skos:exactMatch rdf:resource="http://vi.dbpedia.org/resource/Nghệ_thuật"/>
+    <skos:exactMatch rdf:resource="http://wikidata.dbpedia.org/resource/Q735"/>
+    <skos:exactMatch rdf:resource="http://pnb.dbpedia.org/resource/آرٹ"/>
+    <skos:exactMatch rdf:resource="http://lb.dbpedia.org/resource/Konscht"/>
+    <skos:exactMatch rdf:resource="http://wa.dbpedia.org/resource/Årt"/>
+    <skos:exactMatch rdf:resource="http://ko.dbpedia.org/resource/예술"/>
+    <skos:exactMatch rdf:resource="http://gl.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://hi.dbpedia.org/resource/कला"/>
+    <skos:exactMatch rdf:resource="http://eu.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://fi.dbpedia.org/resource/Taide"/>
+    <skos:exactMatch rdf:resource="http://bg.dbpedia.org/resource/Изкуство"/>
+    <skos:exactMatch rdf:resource="http://pt.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://be.dbpedia.org/resource/Мастацтва"/>
+    <skos:exactMatch rdf:resource="http://id.dbpedia.org/resource/Seni"/>
+    <skos:exactMatch rdf:resource="http://el.dbpedia.org/resource/Τέχνη"/>
+    <skos:exactMatch rdf:resource="http://cs.dbpedia.org/resource/Umění"/>
+    <skos:exactMatch rdf:resource="http://zh.dbpedia.org/resource/艺术"/>
+    <skos:exactMatch rdf:resource="http://ky.dbpedia.org/resource/Көркөм_өнөр"/>
+    <skos:exactMatch rdf:resource="http://fa.dbpedia.org/resource/هنر"/>
+    <skos:exactMatch rdf:resource="http://nn.dbpedia.org/resource/Kunst"/>
+    <skos:exactMatch rdf:resource="http://ast.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://yo.dbpedia.org/resource/Ọnà"/>
+    <skos:exactMatch rdf:resource="http://ru.dbpedia.org/resource/Искусство"/>
+    <skos:exactMatch rdf:resource="http://no.dbpedia.org/resource/Kunst"/>
+    <skos:exactMatch rdf:resource="http://lmo.dbpedia.org/resource/Art"/>
+    <skos:exactMatch rdf:resource="http://sw.dbpedia.org/resource/Usanii"/>
+    <skos:exactMatch rdf:resource="http://oc.dbpedia.org/resource/Art"/>
+    <skos:exactMatch rdf:resource="http://arz.dbpedia.org/resource/فن"/>
+    <skos:exactMatch rdf:resource="http://hr.dbpedia.org/resource/Umjetnost"/>
+    <skos:exactMatch rdf:resource="http://nds.dbpedia.org/resource/Kunst"/>
+    <skos:exactMatch rdf:resource="http://ca.dbpedia.org/resource/Art"/>
+    <skos:exactMatch rdf:resource="http://eo.dbpedia.org/resource/Arto"/>
+    <skos:exactMatch rdf:resource="http://cy.dbpedia.org/resource/Celfyddyd"/>
+    <skos:exactMatch rdf:resource="http://sh.dbpedia.org/resource/Umetnost"/>
+    <skos:exactMatch rdf:resource="http://ia.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://hy.dbpedia.org/resource/Արվեստ"/>
+    <skos:exactMatch rdf:resource="http://mg.dbpedia.org/resource/Kanto"/>
+    <skos:exactMatch rdf:resource="http://az.dbpedia.org/resource/İncəsənət"/>
+    <skos:exactMatch rdf:resource="http://rdf.freebase.com/ns/m.0jjw"/>
+    <skos:exactMatch rdf:resource="http://kk.dbpedia.org/resource/Өнер"/>
+    <skos:exactMatch rdf:resource="http://pa.dbpedia.org/resource/ਕਲਾ"/>
+    <skos:exactMatch rdf:resource="http://is.dbpedia.org/resource/List"/>
+    <skos:exactMatch rdf:resource="http://tg.dbpedia.org/resource/Санъат"/>
+    <skos:exactMatch rdf:resource="http://pl.dbpedia.org/resource/Sztuka"/>
+    <skos:exactMatch rdf:resource="http://tr.dbpedia.org/resource/Sanat"/>
+    <skos:exactMatch rdf:resource="http://gu.dbpedia.org/resource/કલા"/>
+    <skos:exactMatch rdf:resource="http://br.dbpedia.org/resource/Arz"/>
+    <skos:exactMatch rdf:resource="http://nl.dbpedia.org/resource/Kunst"/>
+    <skos:exactMatch rdf:resource="http://ar.dbpedia.org/resource/فن"/>
+    <skos:exactMatch rdf:resource="http://th.dbpedia.org/resource/ศิลปะ"/>
+    <skos:exactMatch rdf:resource="http://sq.dbpedia.org/resource/Arti"/>
+    <skos:exactMatch rdf:resource="http://sv.dbpedia.org/resource/Konst"/>
+    <skos:exactMatch rdf:resource="http://he.dbpedia.org/resource/אמנות"/>
+    <skos:exactMatch rdf:resource="http://de.dbpedia.org/resource/Kunst"/>
+    <skos:exactMatch rdf:resource="http://fy.dbpedia.org/resource/Keunst"/>
+    <skos:exactMatch rdf:resource="http://ka.dbpedia.org/resource/ხელოვნება"/>
+    <skos:exactMatch rdf:resource="http://fr.dbpedia.org/resource/Art"/>
+    <skos:exactMatch rdf:resource="http://sk.dbpedia.org/resource/Umenie"/>
+    <skos:exactMatch rdf:resource="http://mk.dbpedia.org/resource/Уметност"/>
+    <skos:exactMatch rdf:resource="http://sr.dbpedia.org/resource/Уметност"/>
+    <skos:exactMatch rdf:resource="http://af.dbpedia.org/resource/Kuns"/>
+    <skos:exactMatch rdf:resource="http://bs.dbpedia.org/resource/Umjetnost"/>
+    <skos:exactMatch rdf:resource="http://ckb.dbpedia.org/resource/ھونەر"/>
+    <skos:exactMatch rdf:resource="http://kn.dbpedia.org/resource/ಕಲೆ"/>
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q735"/>
+    <skos:exactMatch rdf:resource="http://sa.dbpedia.org/resource/कला"/>
+    <skos:exactMatch rdf:resource="http://war.dbpedia.org/resource/Arté"/>
+    <skos:exactMatch rdf:resource="http://ta.dbpedia.org/resource/கலை"/>
+    <skos:exactMatch rdf:resource="http://an.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://da.dbpedia.org/resource/Kunst"/>
+    <skos:exactMatch rdf:resource="http://als.dbpedia.org/resource/Kunst"/>
+    <skos:exactMatch rdf:resource="http://scn.dbpedia.org/resource/Arti"/>
+    <skos:exactMatch rdf:resource="http://lt.dbpedia.org/resource/Menas"/>
+    <skos:exactMatch rdf:resource="http://mr.dbpedia.org/resource/कला"/>
+    <skos:exactMatch rdf:resource="http://lv.dbpedia.org/resource/Māksla"/>
+    <skos:exactMatch rdf:resource="http://sl.dbpedia.org/resource/Umetnost"/>
+    <skos:exactMatch rdf:resource="http://tl.dbpedia.org/resource/Sining"/>
+    <skos:exactMatch rdf:resource="http://ku.dbpedia.org/resource/Huner"/>
+    <skos:exactMatch rdf:resource="http://vec.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://la.dbpedia.org/resource/Ars"/>
+    <skos:exactMatch rdf:resource="http://es.dbpedia.org/resource/Arte"/>
+    <skos:exactMatch rdf:resource="http://sco.dbpedia.org/resource/Airt"/>
+    <skos:exactMatch rdf:resource="http://hu.dbpedia.org/resource/Művészet"/>
+    <skos:exactMatch rdf:resource="http://ml.dbpedia.org/resource/കല"/>
+    <skos:exactMatch rdf:resource="http://ur.dbpedia.org/resource/فن"/>
+    <skos:exactMatch rdf:resource="http://ms.dbpedia.org/resource/Seni"/>
+    <skos:exactMatch rdf:resource="http://su.dbpedia.org/resource/Seni"/>
+    <skos:exactMatch rdf:resource="http://et.dbpedia.org/resource/Kunst"/>
+    <skos:exactMatch rdf:resource="http://dbpedia.org/resource/Art"/>
+    <skos:related rdf:resource="http://dbpedia.org/resource/Category:Aesthetics"/>
+    <skos:related rdf:resource="http://dbpedia.org/resource/Category:Arts"/>
+    <skos:related rdf:resource="http://dbpedia.org/resource/Category:Visual_arts"/>
+  </skos:Concept>
+  <ore:Aggregation xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="http://data.europeana.eu/aggregation/provider/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2">
+    <edm:aggregatedCHO rdf:resource="http://data.europeana.eu/item/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2"/>
+    <edm:dataProvider>Israel Museum, Jerusalem</edm:dataProvider>
+    <edm:isShownAt rdf:resource="http://www.imj.org.il/imagine/collections/item.asp?itemNum=193112"/>
+    <edm:isShownBy rdf:resource="http://www.imj.org.il/images/corridor/bezalel/modern/new modern scans/g-h-i/gauguin-still life~b66_1041.jpg"/>
+    <edm:object rdf:resource="http://www.imj.org.il/images/corridor/bezalel/modern/new modern scans/g-h-i/gauguin-still life~b66_1041.jpg"/>
+    <edm:provider>Athena</edm:provider>
+    <dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">aggregation - dc:rights</dc:rights>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+    <edm:intermediateProvider> Name of the intermediate provider</edm:intermediateProvider>
+    <edm:intermediateProvider rdf:resource="http://Aggregation-edm-intermediateProvider"/>
+  </ore:Aggregation>
+  <ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="http://data.europeana.eu/proxy/provider/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2">
+    <dc:contributor xmlns:dc="http://purl.org/dc/elements/1.1/">CHO - dc:contributor</dc:contributor>
+    <dc:coverage xmlns:dc="http://purl.org/dc/elements/1.1/">CHO - dc:coverage</dc:coverage>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="http://dbpedia.org/resource/Paul_Gauguin"/>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Paul Gauguin</dc:creator>
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">French, 1848-1903</dc:creator>
+    <dc:date xmlns:dc="http://purl.org/dc/elements/1.1/">1899</dc:date>
+    <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">Repository/Location: Israel Museum, Jerusalem</dc:description>
+    <dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">CHO - dc:format </dc:format>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">local (default) 505/172</dc:identifier>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">local (default) B66.1041 B66.06.1041</dc:identifier>
+    <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/">item 193112</dc:identifier>
+    <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">CHO - dc:publisher </dc:publisher>
+    <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/">N/A</dc:language>
+    <dc:relation xmlns:dc="http://purl.org/dc/elements/1.1/">CHO - dc:relation </dc:relation>
+    <dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">
+      Gift of Yad Hanadiv, Jerusalem, from the collection of Miriam Alexandrine de Rothschild, daughter of the first Baron Edmond de RothschildIsrael Museum, Jerusalem
+    </dc:rights>
+    <dc:rights xmlns:dc="http://purl.org/dc/elements/1.1/">Photo © The Israel Museum, Jerusalem</dc:rights>
+    <dc:source xmlns:dc="http://purl.org/dc/elements/1.1/">CHO - dc:source</dc:source>
+    <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="http://dbpedia.org/resource/Painting"/>
+    <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="http://dbpedia.org/resource/Modern_art"/>
+    <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">Art</dc:subject>
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">Still Life.</dc:title>
+    <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">Painting</dc:title>
+    <dc:type xmlns:dc="http://purl.org/dc/elements/1.1/">CHO-dc:type </dc:type>
+    <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"> THIS IS A TEST OBJECT </dcterms:alternative>
+    <dcterms:conformsTo xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:conformsTo</dcterms:conformsTo>
+    <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">CHO- dcterms:created</dcterms:created>
+    <dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">45.5 x 61.3 cm</dcterms:extent>
+    <dcterms:hasFormat xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:hasFormat</dcterms:hasFormat>
+    <dcterms:hasPart xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:hasPart</dcterms:hasPart>
+    <dcterms:hasPart xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://CHO-edm-hasPart"/>
+    <dcterms:hasVersion xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:hasVersion</dcterms:hasVersion>
+    <dcterms:isFormatOf xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:isFormatOf</dcterms:isFormatOf>
+    <dcterms:isPartOf xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://CHO-edm-isPartOf"/>
+    <dcterms:isReferencedBy xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:isReferencedBy</dcterms:isReferencedBy>
+    <dcterms:isReplacedBy xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:isReplacedBy</dcterms:isReplacedBy>
+    <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:issued</dcterms:issued>
+    <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">CHO- dcterms:issued</dcterms:issued>
+    <dcterms:isRequiredBy xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:isRequiredBy</dcterms:isRequiredBy>
+    <dcterms:isVersionOf xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:isVersionOf</dcterms:isVersionOf>
+    <dcterms:medium xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="en">Oil On Canvas</dcterms:medium>
+    <dcterms:provenance xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:provenance</dcterms:provenance>
+    <dcterms:references xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:references</dcterms:references>
+    <dcterms:replaces xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:replaces</dcterms:replaces>
+    <dcterms:requires xmlns:dcterms="http://purl.org/dc/terms/">dcterms:requires</dcterms:requires>
+    <dcterms:spatial xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://sws.geonames.org/3017382/"/>
+    <dcterms:spatial xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">France</dcterms:spatial>
+    <dcterms:temporal xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://dbpedia.org/resource/Post-Impressionism"/>
+    <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">CHO - dcterms:tableOfContents</dcterms:tableOfContents>
+    <edm:currentLocation rdf:resource="http://dummylocation.com"/>
+    <edm:hasMet rdf:resource="http://CHO-edm-hasMet"/>
+    <edm:hasType>CHO - edm:hasType</edm:hasType>
+    <edm:incorporates rdf:resource="http://CHO-edm-incorporates"/>
+    <edm:isDerivativeOf rdf:resource="http://CHO-edm-isDerivativeOf"/>
+    <edm:isNextInSequence rdf:resource="http://CHO-edm-isNextInSequence.eu"/>
+    <edm:isNextInSequence rdf:resource="http://CHO-edm-isNextInSequence2.eu"/>
+    <edm:isRelatedTo>CHO - edm:isRelatedTo</edm:isRelatedTo>
+    <edm:isRepresentationOf rdf:resource="http://CHO-edm-isRepresentationOf.eu"/>
+    <edm:isSimilarTo rdf:resource="http://www.europeana.eu/portal/record/08502/5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2.html"/>
+    <edm:isSuccessorOf rdf:resource="http://CHO-edm-isSuccessorOf.eu"/>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="http://data.europeana.eu/item/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2"/>
+    <ore:proxyIn rdf:resource="http://data.europeana.eu/aggregation/provider/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2"/>
+    <edm:type>IMAGE</edm:type>
+  </ore:Proxy>
+  <ore:Proxy xmlns:ore="http://www.openarchives.org/ore/terms/" rdf:about="http://data.europeana.eu/proxy/europeana/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2">
+    <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="http://data.europeana.eu/agent/base/60680"/>
+    <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" rdf:resource="http://data.europeana.eu/concept/base/190"/>
+    <dcterms:spatial xmlns:dcterms="http://purl.org/dc/terms/" rdf:resource="http://data.europeana.eu/place/base/85"/>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <edm:year>1899</edm:year>
+    <ore:proxyFor rdf:resource="http://data.europeana.eu/item/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2"/>
+    <ore:proxyIn rdf:resource="http://data.europeana.eu/aggregation/europeana/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2"/>
+    <edm:type>IMAGE</edm:type>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="http://data.europeana.eu/aggregation/europeana/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2">
+    <edm:aggregatedCHO rdf:resource="http://data.europeana.eu/item/000002/_item_08502_5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2"/>
+    <edm:datasetName>000002_EDM_test_record</edm:datasetName>
+    <edm:country>Europe</edm:country>
+    <edm:preview rdf:resource="http://www.imj.org.il/images/corridor/bezalel/modern/new modern scans/g-h-i/gauguin-still life~b66_1041.jpg"/>
+    <edm:landingPage rdf:resource="http://www.europeana.eu/portal/record/item/08502/5F41E0B657BDD9923BA2C4655BB7A6880A2ED5C2.html"/>
+    <edm:language>mul</edm:language>
+    <edm:completeness>0</edm:completeness>
+  </edm:EuropeanaAggregation>
+</rdf:RDF>

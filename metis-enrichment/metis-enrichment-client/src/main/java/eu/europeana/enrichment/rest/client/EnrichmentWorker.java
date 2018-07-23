@@ -29,7 +29,6 @@ public class EnrichmentWorker {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
 
-
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
   private final EntityMergeEngine entityMergeEngine;
