@@ -19,6 +19,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.lang.StringUtils;
 
@@ -149,12 +151,9 @@ public final class EnrichmentUtils {
     List<String> titles = new ArrayList<>();
     List<Choice> choices = providerProxy.getChoiceList();
     if (choices != null) {
-      Map<Class<? extends ResourceOrLiteralType>, String> uniqueResourceOrLiteralTypeClassesMap = createCollectionsForResourceOrLiteralType(
-          choices, descriptions);
-      Map<Class<? extends LiteralType>, String> uniqueLiteralTypeClassesMap = createCollectionsForLiteralType(
-          choices, titles);
-      addResourceOrLiteralTypeFromMapsToList(uniqueResourceOrLiteralTypeClassesMap,
-          uniqueLiteralTypeClassesMap, tags);
+      Map<Class<?>, String> uniqueResourceOrLiteralTypeClassesMap = createCollectionsForResourceOrLiteralType(
+          choices, descriptions, titles);
+      addResourceOrLiteralTypeFromMapsToList(uniqueResourceOrLiteralTypeClassesMap, tags);
     }
 
     String thumbnailUrl = Optional.ofNullable(aggregation.getObject())
@@ -164,138 +163,89 @@ public final class EnrichmentUtils {
     return completenessCalculation(thumbnailUrl, titles, descriptions, tags);
   }
 
-  private static Map<Class<? extends ResourceOrLiteralType>, String> createCollectionsForResourceOrLiteralType(
-      List<Choice> choices, List<String> descriptions) {
-    Map<Class<? extends ResourceOrLiteralType>, String> hashMap = new HashMap<>();
+  private static Map<Class<?>, String> createCollectionsForResourceOrLiteralType(
+      List<Choice> choices, List<String> descriptions, List<String> titles) {
+    Map<Class<?>, String> hashMap = new HashMap<>();
     for (Choice choice : choices) {
-      if (choice.ifCoverage()) {
-        hashMap.putIfAbsent(choice.getCoverage().getClass(),
-            getResourceorLiteralValue(choice.getCoverage()));
-      } else if (choice.ifContributor()) {
-        hashMap.putIfAbsent(choice.getContributor().getClass(),
-            getResourceorLiteralValue(choice.getContributor()));
-      } else if (choice.ifCreator()) {
-        hashMap.putIfAbsent(choice.getCreator().getClass(),
-            getResourceorLiteralValue(choice.getCreator()));
-      } else if (choice.ifDate()) {
-        hashMap.putIfAbsent(choice.getDate().getClass(),
-            getResourceorLiteralValue(choice.getDate()));
-      } else if (choice.ifFormat()) {
-        hashMap.putIfAbsent(choice.getFormat().getClass(),
-            getResourceorLiteralValue(choice.getFormat()));
-      } else if (choice.ifPublisher()) {
-        hashMap.putIfAbsent(choice.getPublisher().getClass(),
-            getResourceorLiteralValue(choice.getPublisher()));
-      } else if (choice.ifRelation()) {
-        hashMap.putIfAbsent(choice.getRelation().getClass(),
-            getResourceorLiteralValue(choice.getRelation()));
-      } else if (choice.ifRights()) {
-        hashMap.putIfAbsent(choice.getRights().getClass(),
-            getResourceorLiteralValue(choice.getRights()));
-      } else if (choice.ifSource()) {
-        hashMap.putIfAbsent(choice.getSource().getClass(),
-            getResourceorLiteralValue(choice.getSource()));
-      } else if (choice.ifCreated()) {
-        hashMap.putIfAbsent(choice.getCreated().getClass(),
-            getResourceorLiteralValue(choice.getCreated()));
-      } else if (choice.ifConformsTo()) {
-        hashMap.putIfAbsent(choice.getConformsTo().getClass(),
-            getResourceorLiteralValue(choice.getConformsTo()));
-      } else if (choice.ifExtent()) {
-        hashMap.putIfAbsent(choice.getExtent().getClass(),
-            getResourceorLiteralValue(choice.getExtent()));
-      } else if (choice.ifHasFormat()) {
-        hashMap.putIfAbsent(choice.getHasFormat().getClass(),
-            getResourceorLiteralValue(choice.getHasFormat()));
-      } else if (choice.ifHasPart()) {
-        hashMap.putIfAbsent(choice.getHasPart().getClass(),
-            getResourceorLiteralValue(choice.getHasPart()));
-      } else if (choice.ifHasVersion()) {
-        hashMap.putIfAbsent(choice.getHasVersion().getClass(),
-            getResourceorLiteralValue(choice.getHasVersion()));
-      } else if (choice.ifIsFormatOf()) {
-        hashMap.putIfAbsent(choice.getIsFormatOf().getClass(),
-            getResourceorLiteralValue(choice.getIsFormatOf()));
-      } else if (choice.ifIsPartOf()) {
-        hashMap.putIfAbsent(choice.getIsPartOf().getClass(),
-            getResourceorLiteralValue(choice.getIsPartOf()));
-      } else if (choice.ifIsReferencedBy()) {
-        hashMap.putIfAbsent(choice.getIsReferencedBy().getClass(),
-            getResourceorLiteralValue(choice.getIsReferencedBy()));
-      } else if (choice.ifIsReplacedBy()) {
-        hashMap.putIfAbsent(choice.getIsReplacedBy().getClass(),
-            getResourceorLiteralValue(choice.getIsReplacedBy()));
-      } else if (choice.ifIsRequiredBy()) {
-        hashMap.putIfAbsent(choice.getIsRequiredBy().getClass(),
-            getResourceorLiteralValue(choice.getIsRequiredBy()));
-      } else if (choice.ifIssued()) {
-        hashMap.putIfAbsent(choice.getIssued().getClass(),
-            getResourceorLiteralValue(choice.getIssued()));
-      } else if (choice.ifIsVersionOf()) {
-        hashMap.putIfAbsent(choice.getIsVersionOf().getClass(),
-            getResourceorLiteralValue(choice.getIsVersionOf()));
-      } else if (choice.ifMedium()) {
-        hashMap.putIfAbsent(choice.getMedium().getClass(),
-            getResourceorLiteralValue(choice.getMedium()));
-      } else if (choice.ifProvenance()) {
-        hashMap.putIfAbsent(choice.getProvenance().getClass(),
-            getResourceorLiteralValue(choice.getProvenance()));
-      } else if (choice.ifReferences()) {
-        hashMap.putIfAbsent(choice.getReferences().getClass(),
-            getResourceorLiteralValue(choice.getReferences()));
-      } else if (choice.ifReplaces()) {
-        hashMap.putIfAbsent(choice.getReplaces().getClass(),
-            getResourceorLiteralValue(choice.getReplaces()));
-      } else if (choice.ifRequires()) {
-        hashMap.putIfAbsent(choice.getRequires().getClass(),
-            getResourceorLiteralValue(choice.getRequires()));
-      } else if (choice.ifSpatial()) {
-        hashMap.putIfAbsent(choice.getSpatial().getClass(),
-            getResourceorLiteralValue(choice.getSpatial()));
-      } else if (choice.ifTableOfContents()) {
-        hashMap.putIfAbsent(choice.getTableOfContents().getClass(),
-            getResourceorLiteralValue(choice.getTableOfContents()));
-      } else if (choice.ifTemporal()) {
-        hashMap.putIfAbsent(choice.getTemporal().getClass(),
-            getResourceorLiteralValue(choice.getTemporal()));
-      } else if (choice.ifSubject()) {
-        hashMap.putIfAbsent(choice.getSubject().getClass(),
-            getResourceorLiteralValue(choice.getSubject()));
-      } else if (choice.ifDescription()) {
-        descriptions.add(getResourceorLiteralValue(choice.getDescription()));
-      }
+      //Collect only the first occurrence per class type
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifAlternative, choice::getAlternative, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifIdentifier, choice::getIdentifier, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifLanguage, choice::getLanguage, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifCoverage, choice::getCoverage, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifContributor, choice::getContributor, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifCreator, choice::getCreator, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifDate, choice::getDate, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifFormat, choice::getFormat, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifPublisher, choice::getPublisher, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifRelation, choice::getRelation, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifRights, choice::getRights, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifSource, choice::getSource, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifCreated, choice::getCreated, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifConformsTo, choice::getConformsTo, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifExtent, choice::getExtent, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifHasFormat, choice::getHasFormat, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifHasPart, choice::getHasPart, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifHasVersion, choice::getHasVersion, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifIsFormatOf, choice::getIsFormatOf, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifIsPartOf, choice::getIsPartOf, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifIsReferencedBy, choice::getIsReferencedBy,
+          hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifIsReplacedBy, choice::getIsReplacedBy, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifIsRequiredBy, choice::getIsRequiredBy, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifIssued, choice::getIssued, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifIsVersionOf, choice::getIsVersionOf, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifMedium, choice::getMedium, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifProvenance, choice::getProvenance, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifReferences, choice::getReferences, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifReplaces, choice::getReplaces, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifRequires, choice::getRequires, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifSpatial, choice::getSpatial, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifTableOfContents, choice::getTableOfContents,
+          hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifTemporal, choice::getTemporal, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifSubject, choice::getSubject, hashMap);
+      addFirstTypeOccurrenceOfChoiceToMap(choice::ifSpatial, choice::getSpatial, hashMap);
+
+      //Collect all values of these fields
+      addChoiceToList(choice::ifTitle, choice::getTitle, titles);
+      addChoiceToList(choice::ifDescription, choice::getDescription, descriptions);
     }
     return hashMap;
   }
 
-  private static Map<Class<? extends LiteralType>, String> createCollectionsForLiteralType(
-      List<Choice> choices,
-      List<String> titles) {
-    Map<Class<? extends LiteralType>, String> hashMap = new HashMap<>();
-    for (Choice choice : choices) {
-      if (choice.ifAlternative()) {
-        hashMap.putIfAbsent(choice.getAlternative().getClass(),
-            getLiteralValue(choice.getAlternative()));
-      } else if (choice.ifIdentifier()) {
-        hashMap.putIfAbsent(choice.getIdentifier().getClass(),
-            getLiteralValue(choice.getIdentifier()));
-      } else if (choice.ifLanguage()) {
-        hashMap.putIfAbsent(choice.getLanguage().getClass(),
-            getLiteralValue(choice.getLanguage()));
-      } else if (choice.ifTitle()) {
-        titles.add(getLiteralValue(choice.getTitle()));
+  private static <R> void addFirstTypeOccurrenceOfChoiceToMap(BooleanSupplier booleanSupplier,
+      Supplier<R> supplier,
+      Map<Class<?>, String> map) {
+    if (booleanSupplier.getAsBoolean()) {
+      R result = supplier.get();
+      String value;
+      if (result instanceof LiteralType) {
+        value = getLiteralValue((LiteralType) result);
+      } else {
+        value = getResourceorLiteralValue((ResourceOrLiteralType) result);
       }
+      map.putIfAbsent(result.getClass(), value);
     }
-    return hashMap;
+  }
+
+  private static <R> void addChoiceToList(BooleanSupplier booleanSupplier, Supplier<R> supplier,
+      List<String> list) {
+    if (booleanSupplier.getAsBoolean()) {
+      R result = supplier.get();
+      String value;
+      if (result instanceof LiteralType) {
+        value = getLiteralValue((LiteralType) result);
+      } else {
+        value = getResourceorLiteralValue((ResourceOrLiteralType) result);
+      }
+      list.add(value);
+    }
   }
 
   private static void addResourceOrLiteralTypeFromMapsToList(
-      final Map<Class<? extends ResourceOrLiteralType>, String> uniqueResourceOrLiteralTypeClassesMap,
-      final Map<Class<? extends LiteralType>, String> uniqueLiteralTypeClassesMap,
+      final Map<Class<?>, String> uniqueResourceOrLiteralTypeClassesMap,
       List<String> tags) {
     uniqueResourceOrLiteralTypeClassesMap.values().stream().filter(StringUtils::isNotBlank)
-        .forEach(tags::add);
-    uniqueLiteralTypeClassesMap.values().stream().filter(StringUtils::isNotBlank)
         .forEach(tags::add);
   }
 
@@ -304,14 +254,14 @@ public final class EnrichmentUtils {
       T resourceOrLiteralType) {
     return Optional.ofNullable(resourceOrLiteralType).map(ResourceOrLiteralType::getString)
         .map(StringUtils::trimToNull)
-        .orElseGet(
-            () -> Optional.ofNullable(resourceOrLiteralType.getResource())
-                .map(ResourceOrLiteralType.Resource::getResource).orElse(null));
+        .orElseGet(() -> Optional.ofNullable(resourceOrLiteralType.getResource())
+            .map(ResourceOrLiteralType.Resource::getResource).orElse(null));
   }
 
   private static <T extends LiteralType> String getLiteralValue(
       T literalType) {
-    return Optional.ofNullable(literalType).map(LiteralType::getString).map(StringUtils::trimToNull)
+    return Optional.ofNullable(literalType).map(LiteralType::getString)
+        .map(StringUtils::trimToNull)
         .orElse(null);
   }
 
@@ -347,7 +297,7 @@ public final class EnrichmentUtils {
   private static List<String> extractWordsFromField(String field) {
     return Arrays.stream(field.split("\\W"))
         .filter(word -> StringUtils.isNotEmpty(word) && word.length() >= MIN_WORD_LENGTH)
-        .map((word) -> word.toLowerCase(Locale.US)).collect(Collectors.toList());
+        .map(word -> word.toLowerCase(Locale.US)).collect(Collectors.toList());
   }
 
   private static boolean isListFullOfEmptyValues(List<String> descriptions) {
