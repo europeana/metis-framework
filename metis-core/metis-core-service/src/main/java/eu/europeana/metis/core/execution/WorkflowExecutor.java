@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.execution;
 
+import java.net.SocketTimeoutException;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -42,7 +43,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private final WorkflowExecutionMonitor workflowExecutionMonitor;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final int monitorCheckIntervalInSecs;
-  private final int requestTimeoutInSecs;
   private final DpsClient dpsClient;
   private final String ecloudBaseUrl;
   private final String ecloudProvider;
@@ -56,7 +56,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     this.workflowExecutionDao = persistenceProvider.getWorkflowExecutionDao();
     this.dpsClient = persistenceProvider.getDpsClient();
     this.monitorCheckIntervalInSecs = workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs();
-    this.requestTimeoutInSecs = workflowExecutionSettings.getDpsRequestTimeoutInSecs();
     this.ecloudBaseUrl = workflowExecutionSettings.getEcloudBaseUrl();
     this.ecloudProvider = workflowExecutionSettings.getEcloudProvider();
     this.workflowExecutionMonitor = workflowExecutionMonitor;
@@ -181,17 +180,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
           abstractMetisPlugin.setStartedDate(startDateToUse);
         }
-        executeRequest(client -> {
-          abstractMetisPlugin.execute(client, ecloudBaseUrl, ecloudProvider,
-              workflowExecution.getEcloudDatasetId());
-          return null;
-        });
+        abstractMetisPlugin.execute(dpsClient, ecloudBaseUrl, ecloudProvider,
+            workflowExecution.getEcloudDatasetId());
         abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
-      } catch (InterruptedException e) {
-        LOGGER.warn("Thread was interrupted during execution of external task", e);
-        Thread.currentThread().interrupt();
-        return;
-      } catch (ExternalTaskException | RuntimeException | TimeoutException e) {
+      } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn("Execution of external task failed", e);
         abstractMetisPlugin.setFinishedDate(null);
         abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
@@ -219,13 +211,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         Thread.sleep(sleepTime);
         if (!externalCancelCallSent
             && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
-          executeRequest(client -> {
-            abstractMetisPlugin.cancel(client);
-            return null;
-          });
+          abstractMetisPlugin.cancel(dpsClient);
           externalCancelCallSent = true;
         }
-        taskState = executeRequest(abstractMetisPlugin::monitor).getStatus();
+        taskState = abstractMetisPlugin.monitor(dpsClient).getStatus();
         consecutiveCancelOrMonitorFailures = 0;
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
@@ -235,7 +224,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         LOGGER.warn("Thread was interrupted during monitoring of external task", e);
         Thread.currentThread().interrupt();
         return;
-      } catch (ExternalTaskException | TimeoutException e) {
+      } catch (ExternalTaskException e) {
         consecutiveCancelOrMonitorFailures++;
         LOGGER.warn(String.format("Monitoring of external task failed %s/%s",
             consecutiveCancelOrMonitorFailures, MAX_CANCEL_OR_MONITOR_FAILURES), e);
@@ -249,34 +238,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         consecutiveCancelOrMonitorFailures);
   }
   
-  <T> Future<T> executeCallable(Callable<T> request) {
-    return Executors.newSingleThreadExecutor().submit(request);
-  }
-
-  <T> T executeRequest(DpsClientRequest<T> request)
-      throws TimeoutException, ExternalTaskException, InterruptedException {
-    
-    // Trigger the call.
-    final Future<T> future = executeCallable(() -> request.makeRequest(this.dpsClient));
-    
-    // Wait for at most the timeout to get an answer.
-    try {
-      return future.get(requestTimeoutInSecs, TimeUnit.SECONDS);
-    } catch (TimeoutException | InterruptedException e) {
-      future.cancel(true);
-      throw e;
-    } catch (ExecutionException e) {
-      if (e.getCause() instanceof ExternalTaskException) {
-        throw (ExternalTaskException) e.getCause();
-      }
-      if (e.getCause() instanceof RuntimeException) {
-        throw (RuntimeException) e.getCause();
-      }
-      throw new ExternalTaskException(
-          "Unexpected exception occurred while sending a request through the DPS client.", e);
-    }
-  }
-
   private void preparePluginStateAndFinishedDate(AbstractMetisPlugin abstractMetisPlugin,
       TaskState taskState, int consecutiveCancelOrMonitorFailures) {
     if (taskState == TaskState.PROCESSED) {

@@ -45,7 +45,9 @@ public class ECloudConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   DpsClient dpsClient() {
-    return new DpsClient(propertiesHolder.getEcloudDpsBaseUrl(), propertiesHolder.getEcloudUsername(),
-        propertiesHolder.getEcloudPassword());
+    return new DpsClient(propertiesHolder.getEcloudDpsBaseUrl(),
+        propertiesHolder.getEcloudUsername(), propertiesHolder.getEcloudPassword(),
+        propertiesHolder.getDpsConnectTimeoutInMillisecs(),
+        propertiesHolder.getDpsReadTimeoutInMillisecs());
   }
 }

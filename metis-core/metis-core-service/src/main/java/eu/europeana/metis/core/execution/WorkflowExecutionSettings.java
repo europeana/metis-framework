@@ -4,8 +4,6 @@ interface WorkflowExecutionSettings {
 
   int getDpsMonitorCheckIntervalInSecs();
 
-  int getDpsRequestTimeoutInSecs();
-
   int getMaxConcurrentThreads();
 
   int getPollingTimeoutForCleaningCompletionServiceInSecs();

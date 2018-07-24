@@ -51,6 +51,9 @@ public class QueueConsumer extends DefaultConsumer {
   }
 
   //Does not run as a thread. Each execution will run separately one after the other for each consumption
+  //Make sure that if an exception occurs from mongo connections, the related "current" execution is safe
+  //to not be processed in this run and will be picked up on a later stage. See also the configuration of
+  //the related ConnectionFactory.
   @Override
   public void handleDelivery(String consumerTag, Envelope rabbitmqEnvelope,
       AMQP.BasicProperties properties, byte[] body) throws IOException {
