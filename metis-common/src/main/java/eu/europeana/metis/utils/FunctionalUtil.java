@@ -11,15 +11,15 @@ import org.slf4j.LoggerFactory;
 public final class FunctionalUtil {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FunctionalUtil.class);
+  private static final int MAX_RETRIES = 10;
+  private static final int SLEEP_TIMEOUT = 500;
 
   private FunctionalUtil() {
   }
 
   public static <R> R retryableMongoCall(
       SupplierWithMongoSocketException<R> supplierWithMongoSocketException) {
-    int maxRetries = 10;
     int retryCounter = 0;
-    int sleepTimeout = 500;
 
     R result = null;
     boolean success = false;
@@ -28,13 +28,13 @@ public final class FunctionalUtil {
         result = supplierWithMongoSocketException.get();
         success = true;
       } catch (MongoSocketException e) {
-        LOGGER.warn(String.format("Call to Mongo has failed! Retrying in %sms", sleepTimeout), e);
+        LOGGER.warn(String.format("Call to Mongo has failed! Retrying in %sms", SLEEP_TIMEOUT), e);
         retryCounter++;
-        if (retryCounter > maxRetries) {
+        if (retryCounter > MAX_RETRIES) {
           throw e; //rethrow if all retries failed.
         }
         try {
-          Thread.sleep(sleepTimeout);
+          Thread.sleep(SLEEP_TIMEOUT);
         } catch (InterruptedException ex) {
           LOGGER.warn("Thread was interrupted while waiting for retry.", ex);
           Thread.currentThread().interrupt();
