@@ -8,6 +8,7 @@ public class IndexToPublishPluginMetadata extends AbstractMetisPluginMetadata {
 
   private static final PluginType pluginType = PluginType.PUBLISH;
   private boolean useAlternativeIndexingEnvironment;
+  private boolean preserveTimestamps;
 
   public IndexToPublishPluginMetadata() {
     //Required for json serialization
@@ -24,5 +25,13 @@ public class IndexToPublishPluginMetadata extends AbstractMetisPluginMetadata {
 
   public void setUseAlternativeIndexingEnvironment(boolean useAlternativeIndexingEnvironment) {
     this.useAlternativeIndexingEnvironment = useAlternativeIndexingEnvironment;
+  }
+
+  public boolean isPreserveTimestamps() {
+    return preserveTimestamps;
+  }
+
+  public void setPreserveTimestamps(boolean preserveTimestamps) {
+    this.preserveTimestamps = preserveTimestamps;
   }
 }

@@ -11,7 +11,8 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.INDEX.getTopologyName();
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
+   * plugin.
    */
   IndexToPreviewPlugin() {
     //Required for json serialization
@@ -40,8 +41,12 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
 
   @Override
   public DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    return createDpsTaskForIndexPlugin(((IndexToPreviewPluginMetadata) getPluginMetadata())
-            .getUseAlternativeIndexingEnvironment(), "PREVIEW", ecloudBaseUrl, ecloudProvider,
+    boolean useAlternativeIndexingEnvironment = ((IndexToPreviewPluginMetadata) getPluginMetadata())
+        .getUseAlternativeIndexingEnvironment();
+    boolean preserveTimestamps = ((IndexToPreviewPluginMetadata) getPluginMetadata())
+        .isPreserveTimestamps();
+    return createDpsTaskForIndexPlugin(useAlternativeIndexingEnvironment, preserveTimestamps,
+        "PREVIEW", ecloudBaseUrl, ecloudProvider,
         ecloudDataset);
   }
 }
