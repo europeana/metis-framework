@@ -48,7 +48,8 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
   @Override
   public String create(ScheduledWorkflow scheduledWorkflow) {
     Key<ScheduledWorkflow> scheduledWorkflowKey = MongoRequestUtil
-        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
+        .retryableMongoRequest(
+            () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
     LOGGER.debug("ScheduledWorkflow for datasetName: '{}' created in Mongo",
         scheduledWorkflow.getDatasetId());
     return scheduledWorkflowKey != null ? scheduledWorkflowKey.getId().toString() : null;
@@ -108,10 +109,11 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    * @return true if exist, otherwise false
    */
   public boolean exists(ScheduledWorkflow scheduledWorkflow) {
-    return morphiaDatastoreProvider.getDatastore()
-        .find(ScheduledWorkflow.class).field(DATASET_ID)
-        .equal(scheduledWorkflow.getDatasetId())
-        .project("_id", true).get() != null;
+    return MongoRequestUtil.retryableMongoRequest(
+        () -> morphiaDatastoreProvider.getDatastore()
+            .find(ScheduledWorkflow.class).field(DATASET_ID)
+            .equal(scheduledWorkflow.getDatasetId())
+            .project("_id", true).get()) != null;
   }
 
   /**

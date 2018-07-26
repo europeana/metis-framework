@@ -1,6 +1,7 @@
 package eu.europeana.metis.utils;
 
 import com.mongodb.MongoSocketException;
+import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,23 +19,19 @@ public final class MongoRequestUtil {
   }
 
   /**
-   * Retries a request to Mongo in case an exception with root cause message "Connection reset"
-   * occurred.
+   * Retries a request to Mongo in case a {@link MongoSocketException} with root cause message
+   * "Connection reset" occurred.
    *
-   * @param supplierWithMongoSocketException the respective supplier encapsulating the Mongo
-   * request
+   * @param supplier the respective supplier encapsulating the Mongo request
    * @return the expected object as a result of the mongo request
    */
   public static <R> R retryableMongoRequest(
-      SupplierWithMongoSocketException<R> supplierWithMongoSocketException) {
+      Supplier<R> supplier) {
     int retryCounter = 0;
 
-    R result = null;
-    boolean success = false;
     do {
       try {
-        result = supplierWithMongoSocketException.get();
-        success = true;
+        return supplier.get();
       } catch (MongoSocketException e) {
         retryCounter++;
         //Re-throw if it's not a Connection reset error or max retries exceeded.
@@ -51,8 +48,7 @@ public final class MongoRequestUtil {
           return null;
         }
       }
-    } while (!success);
-    return result;
+    } while (true);
   }
 
   private static Throwable getCause(Throwable e) {
@@ -63,27 +59,5 @@ public final class MongoRequestUtil {
       result = cause;
     }
     return result;
-  }
-
-  /**
-   * It's a {@link java.util.function.Supplier} functional interface that throws a {@link
-   * MongoSocketException}.
-   * <p>This supplier is to be used for requests to Mongo, and was created to avoid the
-   * issues that are faced with the Application and Mongo in Cloud Foundry where the underlying
-   * system would throw a {@link java.net.SocketException}</p>
-   *
-   * @param <R> the object that should be returned.
-   */
-  @FunctionalInterface
-  public interface SupplierWithMongoSocketException<R> {
-
-    /**
-     * Contains supplier functionality to get an object with the possibility that it throws a {@link
-     * MongoSocketException}
-     *
-     * @return the supplied object
-     * @throws MongoSocketException the exception while requested the object from Mongo
-     */
-    R get() throws MongoSocketException;
   }
 }
