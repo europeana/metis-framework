@@ -26,34 +26,34 @@ class IndexerImpl implements Indexer {
 
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
   
-  private final boolean computeUpdateAndCreateTimes;
+  private final boolean preserveUpdateAndCreateTimesFromRdf;
 
   /**
    * Constructor.
    * 
    * @param connectionProvider The connection provider for this indexer.
-   * @param computeUpdateAndCreateTimes This determines whether this indexer should use the
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    */
-  IndexerImpl(AbstractConnectionProvider connectionProvider, boolean computeUpdateAndCreateTimes) {
-    this(connectionProvider, computeUpdateAndCreateTimes, StringToFullBeanConverter::new);
+  IndexerImpl(AbstractConnectionProvider connectionProvider, boolean preserveUpdateAndCreateTimesFromRdf) {
+    this(connectionProvider, preserveUpdateAndCreateTimesFromRdf, StringToFullBeanConverter::new);
   }
 
   /**
    * Constructor for testing purposes.
    * 
    * @param connectionProvider The connection provider for this indexer.
-   * @param computeUpdateAndCreateTimes This determines whether this indexer should use the
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter}
    *        used to parse strings to instances of {@link RDF}. Will be called once during every
    *        index.
    */
-  IndexerImpl(AbstractConnectionProvider connectionProvider, boolean computeUpdateAndCreateTimes,
+  IndexerImpl(AbstractConnectionProvider connectionProvider, boolean preserveUpdateAndCreateTimesFromRdf,
       IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier) {
     this.connectionProvider = connectionProvider;
     this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
-    this.computeUpdateAndCreateTimes = computeUpdateAndCreateTimes;
+    this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
   }
 
   @Override
@@ -61,7 +61,7 @@ class IndexerImpl implements Indexer {
     LOGGER.info("Processing {} records...", records.size());
     try {
       final FullBeanPublisher publisher =
-          connectionProvider.getFullBeanPublisher(computeUpdateAndCreateTimes);
+          connectionProvider.getFullBeanPublisher(preserveUpdateAndCreateTimesFromRdf);
       for (RDF record : records) {
         publisher.publish(record);
       }

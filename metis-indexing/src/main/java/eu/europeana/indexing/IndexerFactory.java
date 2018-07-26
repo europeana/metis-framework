@@ -11,8 +11,8 @@ import eu.europeana.indexing.exception.IndexerConfigurationException;
  */
 public class IndexerFactory {
 
-  private static final boolean DEFAULT_COMPUTE_UPDATE_AND_CREATE_TIMES = true;
-  
+  private static final boolean DEFAULT_PRESERVE_UPDATE_AND_CREATE_TIMES = false;
+
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexerFactory.class);
 
   private final IndexerConnectionSupplier connectionProviderSupplier;
@@ -60,22 +60,22 @@ public class IndexerFactory {
    *         indexer.
    */
   public Indexer getIndexer() throws IndexerConfigurationException {
-    return getIndexer(DEFAULT_COMPUTE_UPDATE_AND_CREATE_TIMES);
+    return getIndexer(DEFAULT_PRESERVE_UPDATE_AND_CREATE_TIMES);
   }
 
   /**
    * This method creates an indexer using the settings provided at construction.
    * 
-   * @param computeUpdateAndCreateTimes This determines whether this indexer should use the updated
-   *        and created times from the incoming RDFs, or whether it computes its own.
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @return An indexer.
    * @throws IndexerConfigurationException In case an exception occurred while setting up the
    *         indexer.
    */
-  public Indexer getIndexer(boolean computeUpdateAndCreateTimes)
+  public Indexer getIndexer(boolean preserveUpdateAndCreateTimesFromRdf)
       throws IndexerConfigurationException {
     try {
-      return new IndexerImpl(connectionProviderSupplier.get(), computeUpdateAndCreateTimes);
+      return new IndexerImpl(connectionProviderSupplier.get(), preserveUpdateAndCreateTimesFromRdf);
     } catch (IndexerConfigurationException e) {
       LOGGER.warn("Error while setting up an indexer.", e);
       throw e;

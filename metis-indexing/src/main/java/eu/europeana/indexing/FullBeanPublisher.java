@@ -31,19 +31,19 @@ class FullBeanPublisher {
 
   private final EdmMongoServer mongoClient;
   private final SolrClient solrServer;
-  private final boolean computeUpdateAndCreateTimes;
+  private final boolean preserveUpdateAndCreateTimesFromRdf;
 
   /**
    * Constructor.
    * 
    * @param mongoClient The Mongo persistence.
    * @param solrServer The searchable persistence.
-   * @param computeUpdateAndCreateTimes This determines whether this publisher will use the updated
-   *        and created times from the incoming RDFs, or whether it computes its own.
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    */
   FullBeanPublisher(EdmMongoServer mongoClient, SolrClient solrServer,
-      boolean computeUpdateAndCreateTimes) {
-    this(mongoClient, solrServer, computeUpdateAndCreateTimes, RdfToFullBeanConverter::new);
+      boolean preserveUpdateAndCreateTimesFromRdf) {
+    this(mongoClient, solrServer, preserveUpdateAndCreateTimesFromRdf, RdfToFullBeanConverter::new);
   }
 
   /**
@@ -51,19 +51,19 @@ class FullBeanPublisher {
    * 
    * @param mongoClient The Mongo persistence.
    * @param solrServer The searchable persistence.
-   * @param computeUpdateAndCreateTimes This determines whether this publisher will use the updated
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the updated
    *        and created times from the incoming RDFs, or whether it computes its own.
    * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
    *        parse strings to instances of {@link FullBeanImpl}. Will be called once during every
    *        publish.
    */
   FullBeanPublisher(EdmMongoServer mongoClient, SolrClient solrServer,
-      boolean computeUpdateAndCreateTimes,
+      boolean preserveUpdateAndCreateTimesFromRdf,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
     this.mongoClient = mongoClient;
     this.solrServer = solrServer;
     this.fullBeanConverterSupplier = fullBeanConverterSupplier;
-    this.computeUpdateAndCreateTimes = computeUpdateAndCreateTimes;
+    this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
   }
 
   private static void setUpdateAndCreateTime(FullBeanImpl current, FullBeanImpl updated) {
@@ -86,8 +86,8 @@ class FullBeanPublisher {
     
     // Provide the preprocessor: this will set the created and updated timestamps as needed.
     final BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor =
-        computeUpdateAndCreateTimes ? (FullBeanPublisher::setUpdateAndCreateTime)
-            : EMPTY_PREPROCESSOR;
+        preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
+            : (FullBeanPublisher::setUpdateAndCreateTime);
     
     // Publish to Mongo
     final FullBeanImpl savedFullBean;
