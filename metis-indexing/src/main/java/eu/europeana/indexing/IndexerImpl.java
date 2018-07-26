@@ -25,35 +25,43 @@ class IndexerImpl implements Indexer {
   private final AbstractConnectionProvider connectionProvider;
 
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
+  
+  private final boolean preserveUpdateAndCreateTimesFromRdf;
 
   /**
    * Constructor.
    * 
    * @param connectionProvider The connection provider for this indexer.
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    */
-  IndexerImpl(AbstractConnectionProvider connectionProvider) {
-    this(connectionProvider, StringToFullBeanConverter::new);
+  IndexerImpl(AbstractConnectionProvider connectionProvider, boolean preserveUpdateAndCreateTimesFromRdf) {
+    this(connectionProvider, preserveUpdateAndCreateTimesFromRdf, StringToFullBeanConverter::new);
   }
 
   /**
    * Constructor for testing purposes.
    * 
    * @param connectionProvider The connection provider for this indexer.
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter}
    *        used to parse strings to instances of {@link RDF}. Will be called once during every
    *        index.
    */
-  IndexerImpl(AbstractConnectionProvider connectionProvider,
+  IndexerImpl(AbstractConnectionProvider connectionProvider, boolean preserveUpdateAndCreateTimesFromRdf,
       IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier) {
     this.connectionProvider = connectionProvider;
     this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
+    this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
   }
 
   @Override
   public void indexRdfs(List<RDF> records) throws IndexingException {
     LOGGER.info("Processing {} records...", records.size());
     try {
-      final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher();
+      final FullBeanPublisher publisher =
+          connectionProvider.getFullBeanPublisher(preserveUpdateAndCreateTimesFromRdf);
       for (RDF record : records) {
         publisher.publish(record);
       }

@@ -1,31 +1,37 @@
 package eu.europeana.indexing.mongo.property;
 
+import java.util.ArrayList;
+import java.util.function.BiConsumer;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.storage.MongoServer;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Field updater for instances of {@link FullBeanImpl}.
  */
 public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl> {
 
+  private final BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor;
+
+  /**
+   * Constructor.
+   * 
+   * @param fullBeanPreprocessor This is functionality that will be executed as soon as we have
+   *        retrieved the current version of the full bean from the database. It will be called
+   *        once. It's first parameter is the current full bean (as retrieved from the database) and
+   *        its second parameter is the updated full bean (as passed to
+   *        {@link #createPropertyUpdater(FullBeanImpl, MongoServer)}).
+   */
+  public FullBeanUpdater(BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor) {
+    this.fullBeanPreprocessor = fullBeanPreprocessor;
+  }
+
   @Override
   protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
       MongoServer mongoServer) {
-    //On creation also retrieves the current entity, used just below
-    MongoPropertyUpdater<FullBeanImpl> fullBeanMongoPropertyUpdater = MongoPropertyUpdater
-        .createForFullBean(newEntity, mongoServer);
-
-    //Update timestamp values relative to the previous/current entity
-    FullBeanImpl current = fullBeanMongoPropertyUpdater.getCurrent();
-    Date currentDate = new Date();
-    newEntity.setTimestampCreated(current != null ? current.getTimestampCreated() : currentDate);
-    newEntity.setTimestampUpdated(currentDate);
-    return fullBeanMongoPropertyUpdater;
+    return MongoPropertyUpdater.createForFullBean(newEntity, mongoServer, fullBeanPreprocessor);
   }
 
   @Override

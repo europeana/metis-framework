@@ -1,6 +1,8 @@
 package eu.europeana.indexing;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -21,20 +23,27 @@ import eu.europeana.indexing.solr.SolrDocumentPopulator;
  *
  */
 class FullBeanPublisher {
+  
+  private static final BiConsumer<FullBeanImpl, FullBeanImpl> EMPTY_PREPROCESSOR = (created, updated) -> {
+  };
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 
   private final EdmMongoServer mongoClient;
   private final SolrClient solrServer;
+  private final boolean preserveUpdateAndCreateTimesFromRdf;
 
   /**
    * Constructor.
    * 
    * @param mongoClient The Mongo persistence.
    * @param solrServer The searchable persistence.
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    */
-  FullBeanPublisher(EdmMongoServer mongoClient, SolrClient solrServer) {
-    this(mongoClient, solrServer, RdfToFullBeanConverter::new);
+  FullBeanPublisher(EdmMongoServer mongoClient, SolrClient solrServer,
+      boolean preserveUpdateAndCreateTimesFromRdf) {
+    this(mongoClient, solrServer, preserveUpdateAndCreateTimesFromRdf, RdfToFullBeanConverter::new);
   }
 
   /**
@@ -42,15 +51,25 @@ class FullBeanPublisher {
    * 
    * @param mongoClient The Mongo persistence.
    * @param solrServer The searchable persistence.
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the updated
+   *        and created times from the incoming RDFs, or whether it computes its own.
    * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
    *        parse strings to instances of {@link FullBeanImpl}. Will be called once during every
    *        publish.
    */
   FullBeanPublisher(EdmMongoServer mongoClient, SolrClient solrServer,
+      boolean preserveUpdateAndCreateTimesFromRdf,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
     this.mongoClient = mongoClient;
     this.solrServer = solrServer;
     this.fullBeanConverterSupplier = fullBeanConverterSupplier;
+    this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
+  }
+
+  private static void setUpdateAndCreateTime(FullBeanImpl current, FullBeanImpl updated) {
+    final Date currentDate = new Date();
+    updated.setTimestampCreated(current != null ? current.getTimestampCreated() : currentDate);
+    updated.setTimestampUpdated(currentDate);
   }
 
   /**
@@ -64,11 +83,16 @@ class FullBeanPublisher {
     // Convert RDF to Full Bean.
     final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
     final FullBeanImpl fullBean = fullBeanConverter.convertRdfToFullBean(rdf);
-
+    
+    // Provide the preprocessor: this will set the created and updated timestamps as needed.
+    final BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor =
+        preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
+            : (FullBeanPublisher::setUpdateAndCreateTime);
+    
     // Publish to Mongo
     final FullBeanImpl savedFullBean;
     try {
-      savedFullBean = new FullBeanUpdater().update(fullBean, mongoClient);
+      savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, mongoClient);
     } catch (RuntimeException e) {
       throw new IndexingException("Could not publish to Mongo server.", e);
     }
