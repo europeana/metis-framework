@@ -1,15 +1,16 @@
 package eu.europeana.metis.core.dao;
 
+import com.mongodb.WriteResult;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.utils.MongoRequestUtil;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import com.mongodb.WriteResult;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.core.workflow.Workflow;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -34,17 +35,19 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   @Override
   public String create(Workflow workflow) {
-    final Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(workflow);
+    final Key<Workflow> workflowKey = MongoRequestUtil
+        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' created in Mongo", workflow.getDatasetId());
-    return workflowKey.getId().toString();
+    return workflowKey != null ? workflowKey.getId().toString() : null;
   }
 
 
   @Override
   public String update(Workflow workflow) {
-    final Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(workflow);
+    final Key<Workflow> workflowKey = MongoRequestUtil
+        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' updated in Mongo", workflow.getDatasetId());
-    return workflowKey.getId().toString();
+    return workflowKey != null ? workflowKey.getId().toString() : null;
   }
 
   @Override
@@ -52,7 +55,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
         .find(Workflow.class)
         .field("_id").equal(new ObjectId(id));
-    return query.get();
+    return MongoRequestUtil.retryableMongoRequest(query::get);
   }
 
   @Override
@@ -69,9 +72,10 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   public boolean deleteWorkflow(String datasetId) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore().createQuery(Workflow.class);
     query.field(DATASET_ID).equal(datasetId);
-    WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
+    WriteResult delete = MongoRequestUtil
+        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().delete(query));
     LOGGER.info("Workflow with datasetId {}, deleted from Mongo", datasetId);
-    return delete.getN() == 1;
+    return (delete != null ? delete.getN() : 0) == 1;
   }
 
   /**
@@ -82,9 +86,10 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
    * @return null or the {@link ObjectId} of the object
    */
   public String exists(Workflow workflow) {
-    Workflow storedWorkflow = morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-        .field(DATASET_ID).equal(workflow.getDatasetId())
-        .project("_id", true).get();
+    Workflow storedWorkflow = MongoRequestUtil
+        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
+            .field(DATASET_ID).equal(workflow.getDatasetId())
+            .project("_id", true).get());
     return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }
 
@@ -95,8 +100,9 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
    * @return {@link Workflow}
    */
   public Workflow getWorkflow(String datasetId) {
-    return morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-        .field(DATASET_ID).equal(datasetId).get();
+    return MongoRequestUtil
+        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
+            .field(DATASET_ID).equal(datasetId).get());
   }
 
   public int getWorkflowsPerRequest() {

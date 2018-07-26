@@ -9,6 +9,7 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.utils.MongoRequestUtil;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.UnaryOperator;
@@ -24,9 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * Dataset Access Object for datasets using Mongo.
- * It also contains the {@link DataSetServiceClient} which is used to access functionality of the
- * ECloud datasets.
+ * Dataset Access Object for datasets using Mongo. It also contains the {@link DataSetServiceClient}
+ * which is used to access functionality of the ECloud datasets.
  */
 @Repository
 public class DatasetDao implements MetisDao<Dataset, String> {
@@ -46,7 +46,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * Use setter for {@link #setDatasetsPerRequest(int)} to overwrite the default value</p>
    *
    * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider} used to access Mongo
-   * @param ecloudDataSetServiceClient {@link DataSetServiceClient} to access the ecloud dataset functionality
+   * @param ecloudDataSetServiceClient {@link DataSetServiceClient} to access the ecloud dataset
+   * functionality
    */
   @Autowired
   public DatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
@@ -63,11 +64,12 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   @Override
   public String create(Dataset dataset) {
-    Key<Dataset> datasetKey = morphiaDatastoreProvider.getDatastore().save(dataset);
+    Key<Dataset> datasetKey = MongoRequestUtil
+        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().save(dataset));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' created in Mongo",
         dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
-    return datasetKey.getId().toString();
+    return datasetKey != null ? datasetKey.getId().toString() : null;
   }
 
   /**
@@ -78,11 +80,12 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   @Override
   public String update(Dataset dataset) {
-    Key<Dataset> datasetKey = morphiaDatastoreProvider.getDatastore().save(dataset);
+    Key<Dataset> datasetKey = MongoRequestUtil
+        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().save(dataset));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' updated in Mongo",
         dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
-    return datasetKey.getId().toString();
+    return datasetKey != null ? datasetKey.getId().toString() : null;
   }
 
   /**
@@ -93,8 +96,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   @Override
   public Dataset getById(String id) {
-    return morphiaDatastoreProvider.getDatastore().find(Dataset.class)
-        .filter("_id", new ObjectId(id)).get();
+    return MongoRequestUtil.retryableMongoRequest(
+        () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+            .filter("_id", new ObjectId(id)).get());
   }
 
   /**
@@ -105,13 +109,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   @Override
   public boolean delete(Dataset dataset) {
-    morphiaDatastoreProvider.getDatastore().delete(
-        morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class).field(DATASET_ID)
-            .equal(dataset.getDatasetId()));
-    LOGGER
-        .debug(
-            "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' deleted in Mongo",
-            dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
+    MongoRequestUtil
+        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().delete(
+            morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class).field(DATASET_ID)
+                .equal(dataset.getDatasetId())));
+    LOGGER.debug(
+        "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' deleted in Mongo",
+        dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
     return true;
   }
 
@@ -134,8 +138,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @return {@link Dataset} or null
    */
   public Dataset getDatasetByDatasetName(String datasetName) {
-    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME)
-        .equal(datasetName).get();
+    return MongoRequestUtil.retryableMongoRequest(
+        () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME)
+            .equal(datasetName).get());
   }
 
   /**
@@ -145,8 +150,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @return {@link Dataset} or null
    */
   public Dataset getDatasetByDatasetId(String datasetId) {
-    return morphiaDatastoreProvider.getDatastore().find(Dataset.class)
-        .filter(DATASET_ID, datasetId).get();
+    return MongoRequestUtil
+        .retryableMongoRequest(() -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+            .filter(DATASET_ID, datasetId).get());
   }
 
   /**
@@ -158,9 +164,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   public Dataset getDatasetByOrganizationIdAndDatasetName(String organizationId,
       String datasetName) {
-    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field("organizationId")
-        .equal(organizationId).field(DATASET_NAME)
-        .equal(datasetName).get();
+    return MongoRequestUtil.retryableMongoRequest(
+        () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class).field("organizationId")
+            .equal(organizationId).field(DATASET_NAME).equal(datasetName).get());
   }
 
   /**
@@ -170,9 +176,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @return true if exist or false if it does not exist
    */
   public boolean existsDatasetByDatasetName(String datasetName) {
-    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME)
-        .equal(datasetName)
-        .project("_id", true).get() != null;
+    return MongoRequestUtil.retryableMongoRequest(
+        () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME)
+            .equal(datasetName).project("_id", true).get()) != null;
   }
 
   /**
@@ -186,8 +192,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("provider").equal(provider);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
-        .limit(getDatasetsPerRequest()));
+    return MongoRequestUtil.retryableMongoRequest(() -> query.asList(
+        new FindOptions().skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest())));
   }
 
   /**
@@ -202,8 +208,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("intermediateProvider").equal(intermediateProvider);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
-        .limit(getDatasetsPerRequest()));
+    return MongoRequestUtil.retryableMongoRequest(() -> query.asList(
+        new FindOptions().skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest())));
   }
 
   /**
@@ -217,8 +223,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("dataProvider").equal(dataProvider);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
-        .limit(getDatasetsPerRequest()));
+    return MongoRequestUtil.retryableMongoRequest(() -> query.asList(
+        new FindOptions().skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest())));
   }
 
   /**
@@ -248,7 +254,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationId").equal(organizationId);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(options.apply(new FindOptions()));
+    return MongoRequestUtil.retryableMongoRequest(() -> query.asList(options.apply(new FindOptions())));
   }
 
   /**
@@ -262,8 +268,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationName").equal(organizationName);
     query.order(OrderField.ID.getOrderFieldName());
-    return query.asList(new FindOptions().skip(nextPage * getDatasetsPerRequest())
-        .limit(getDatasetsPerRequest()));
+    return MongoRequestUtil.retryableMongoRequest(() -> query.asList(
+        new FindOptions().skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest())));
   }
 
   public int getDatasetsPerRequest() {
@@ -280,7 +286,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
 
   /**
    * Find the next in sequence identifier that can be used as a datasetId for a {@link Dataset}.
-   * <p>It will bypass any existing datasetId's in the system and will give the first available after that, otherwise it's simply an incremental identifier</p>
+   * <p>It will bypass any existing datasetId's in the system and will give the first available
+   * after that, otherwise it's simply an incremental identifier</p>
    *
    * @return the available identifier to be used further for a creation of a {@link Dataset}
    */
@@ -297,18 +304,21 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     UpdateOperations<DatasetIdSequence> updateOperations = morphiaDatastoreProvider.getDatastore()
         .createUpdateOperations(DatasetIdSequence.class)
         .set("sequence", datasetIdSequence.getSequence());
-    morphiaDatastoreProvider.getDatastore().update(updateQuery, updateOperations);
+    MongoRequestUtil.retryableMongoRequest(
+        () -> morphiaDatastoreProvider.getDatastore().update(updateQuery, updateOperations));
     return datasetIdSequence.getSequence();
   }
 
   /**
-   * Checks if the ecloud dataset identifier already exists in ECloud and if it does not, it will try to create a new one and
-   * add the identifier inside the metis Dataset object and store.
-   * <p>This is an exception method that uses the {@link DataSetServiceClient} to communicate with the external dataset resource in ECloud</p>
+   * Checks if the ecloud dataset identifier already exists in ECloud and if it does not, it will
+   * try to create a new one and add the identifier inside the metis Dataset object and store.
+   * <p>This is an exception method that uses the {@link DataSetServiceClient} to communicate with
+   * the external dataset resource in ECloud</p>
    *
    * @param dataset the Datase object to check
    * @return the ECloud dataset identifier
-   * @throws ExternalTaskException if an error occurred during the creation of the dataset identifier on ECloud
+   * @throws ExternalTaskException if an error occurred during the creation of the dataset
+   * identifier on ECloud
    */
   public String checkAndCreateDatasetInEcloud(Dataset dataset) throws ExternalTaskException {
     if (StringUtils.isEmpty(dataset.getEcloudDatasetId()) || dataset.getEcloudDatasetId()
@@ -328,8 +338,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       }
     } else {
       LOGGER
-          .info(
-              "Dataset with datasetId {} already has a dataset initialized in Ecloud with id {}",
+          .info("Dataset with datasetId {} already has a dataset initialized in Ecloud with id {}",
               dataset.getDatasetId(), dataset.getEcloudDatasetId());
     }
     return dataset.getEcloudDatasetId();
