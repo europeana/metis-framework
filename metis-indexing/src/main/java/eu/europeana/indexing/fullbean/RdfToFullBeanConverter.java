@@ -2,7 +2,6 @@ package eu.europeana.indexing.fullbean;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalField;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -79,18 +78,8 @@ public class RdfToFullBeanConverter {
     return fullBean;
   }
 
-  /**
-   * This method converts ISO 6801 strings to a date. The string is assumed to have a time zone
-   * component. If the date is 1970-01-01T00:00:00.000Z then it is assumed to be equivalent to the
-   * absence of a date and null will be returned.
-   * 
-   * @param dateString The date as a string.
-   * @return The date.
-   */
   private static Date convertToDate(String dateString) {
-    final Date result =
-        Date.from(Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString)));
-    return result.getTime() == 0 ? null : result;
+    return Date.from(Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString)));
   }
 
   private static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
