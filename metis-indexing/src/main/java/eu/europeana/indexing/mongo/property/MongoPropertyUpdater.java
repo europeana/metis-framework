@@ -1,11 +1,5 @@
 package eu.europeana.indexing.mongo.property;
 
-import com.mongodb.DuplicateKeyException;
-import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
-import eu.europeana.corelib.definitions.edm.entity.WebResource;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.corelib.storage.MongoServer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
@@ -24,6 +19,12 @@ import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.mongodb.DuplicateKeyException;
+import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
+import eu.europeana.corelib.definitions.edm.entity.WebResource;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
+import eu.europeana.corelib.storage.MongoServer;
 
 /**
  * This class provides functionality to update the properties of a given object. It keeps track of
@@ -51,7 +52,7 @@ final class MongoPropertyUpdater<T> {
   private final Function<T, String> aboutGetter;
 
   private MongoPropertyUpdater(T updated, MongoServer mongoServer, Class<T> objectClass,
-      Function<T, String> aboutGetter) {
+      Function<T, String> aboutGetter, BiConsumer<T, T> preprocessor) {
 
     // Sanity checks.
     if (updated == null || mongoServer == null || objectClass == null) {
@@ -71,8 +72,9 @@ final class MongoPropertyUpdater<T> {
     this.mongoOperations = mongoServer.getDatastore().createUpdateOperations(objectClass);
     this.mongoOperations.setOnInsert(ABOUT_FIELD, aboutGetter.apply(updated));
 
-    // Obtain the current state from the database.
+    // Obtain the current state from the database and perform preprocessing on it.
     this.current = createQuery().get();
+    preprocessor.accept(current, updated);
   }
 
   /**
@@ -88,21 +90,25 @@ final class MongoPropertyUpdater<T> {
   public static <T extends AbstractEdmEntity> MongoPropertyUpdater<T> createForEdmEntity(T updated,
       MongoServer mongoServer, Class<T> objectClass) {
     return new MongoPropertyUpdater<>(updated, mongoServer, objectClass,
-        AbstractEdmEntity::getAbout);
+        AbstractEdmEntity::getAbout, (currentObject, newObject) -> {
+        });
   }
 
   /**
    * Static constructor for instances of {@link FullBeanImpl}.
    *
    * @param updated The updated object (i.e. the object to take the value from). This object will
-   * remain unchanged.
+   *        remain unchanged.
    * @param mongoServer The Mongo connection.
+   * @param preprocessor This provides the option of performing some preprocessing on the current
+   *        and/or the new object before applying the operations. Its two parameters are first the
+   *        current bean (found in the database) and second the updated (as passed to this method).
    * @return The property updater.
    */
   public static MongoPropertyUpdater<FullBeanImpl> createForFullBean(FullBeanImpl updated,
-      MongoServer mongoServer) {
+      MongoServer mongoServer, BiConsumer<FullBeanImpl, FullBeanImpl> preprocessor) {
     return new MongoPropertyUpdater<>(updated, mongoServer, FullBeanImpl.class,
-        FullBeanImpl::getAbout);
+        FullBeanImpl::getAbout, preprocessor);
   }
 
   private final Query<T> createQuery() {
@@ -383,9 +389,5 @@ final class MongoPropertyUpdater<T> {
       mongoServer.getDatastore().update(createQuery(), mongoOperations, true);
     }
     return createQuery().get();
-  }
-
-  public T getCurrent() {
-    return current;
   }
 }

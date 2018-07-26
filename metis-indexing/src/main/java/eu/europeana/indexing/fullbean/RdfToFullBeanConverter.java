@@ -1,23 +1,29 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.jibx.CollectionName;
-import eu.europeana.corelib.definitions.jibx.DatasetName;
-import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.LiteralType;
-import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.corelib.solr.entity.WebResourceImpl;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import eu.europeana.corelib.definitions.jibx.CollectionName;
+import eu.europeana.corelib.definitions.jibx.Created;
+import eu.europeana.corelib.definitions.jibx.DatasetName;
+import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
+import eu.europeana.corelib.definitions.jibx.LiteralType;
+import eu.europeana.corelib.definitions.jibx.Modified;
+import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
 
 /**
  * This class converts instances of {@link RDF} to instances of {@link FullBeanImpl}.
@@ -50,16 +56,30 @@ public class RdfToFullBeanConverter {
     fullBean.setLicenses(convertList(record.getLicenseList(), new LicenseFieldInput(), true));
     fullBean.setServices(convertList(record.getServiceList(), new ServiceFieldInput(), false));
 
-    if (record.getEuropeanaAggregationList() != null) {
-      fullBean.setEuropeanaAggregation(record.getEuropeanaAggregationList().stream()
-          .map(new EuropeanaAggregationFieldInput()).findFirst().orElse(null));
-    }
     fullBean.setEuropeanaCollectionName(new String[]{getDatasetNameFromRdf(record)});
-    record.getEuropeanaAggregationList().stream().findFirst()
-        .map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)
-        .ifPresent((value) -> fullBean.setEuropeanaCompleteness(Integer.parseInt(value)));
+    
+    final Optional<EuropeanaAggregationType> europeanaAggregation;
+    if (record.getEuropeanaAggregationList() != null) {
+      europeanaAggregation = record.getEuropeanaAggregationList().stream().findFirst();
+    } else {
+      europeanaAggregation = Optional.empty();
+    }
+        
+    fullBean.setEuropeanaAggregation(
+        europeanaAggregation.map(new EuropeanaAggregationFieldInput()).orElse(null));
+    europeanaAggregation.map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)
+        .map(Integer::parseInt).ifPresent(fullBean::setEuropeanaCompleteness);
 
+    fullBean.setTimestampCreated(europeanaAggregation.map(EuropeanaAggregationType::getCreated)
+        .map(Created::getString).map(RdfToFullBeanConverter::convertToDate).orElse(null));
+    fullBean.setTimestampUpdated(europeanaAggregation.map(EuropeanaAggregationType::getModified)
+        .map(Modified::getString).map(RdfToFullBeanConverter::convertToDate).orElse(null));
+    
     return fullBean;
+  }
+  
+  private static Date convertToDate(String dateString) {
+    return Date.from(Instant.from(DateTimeFormatter.ISO_OFFSET_DATE_TIME.parse(dateString)));
   }
 
   private static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,

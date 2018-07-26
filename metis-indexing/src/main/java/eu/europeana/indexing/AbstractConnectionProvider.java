@@ -25,10 +25,12 @@ public abstract class AbstractConnectionProvider implements Closeable {
   /**
    * Provides a Publisher object for publishing Full Beans so that they may be found by users.
    * 
+   * @param computeUpdateAndCreateTimes This determines whether this publisher should use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @return A publisher.
    */
-  final FullBeanPublisher getFullBeanPublisher() {
-    return new FullBeanPublisher(getMongoClient(), getSolrClient());
+  final FullBeanPublisher getFullBeanPublisher(boolean computeUpdateAndCreateTimes) {
+    return new FullBeanPublisher(getMongoClient(), getSolrClient(), computeUpdateAndCreateTimes);
   }
 
   /**
