@@ -15,6 +15,7 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
+import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
@@ -68,9 +69,10 @@ final class MongoPropertyUpdater<T> {
     this.aboutGetter = aboutGetter;
     this.objectClass = objectClass;
 
-    // Initialize the mongo operations: set the about field on insert if needed.
+    // Initialize the mongo operations: set the about field and class name on insert if needed.
     this.mongoOperations = mongoServer.getDatastore().createUpdateOperations(objectClass);
     this.mongoOperations.setOnInsert(ABOUT_FIELD, aboutGetter.apply(updated));
+    this.mongoOperations.setOnInsert(Mapper.CLASS_NAME_FIELDNAME, objectClass.getName());
 
     // Obtain the current state from the database and perform preprocessing on it.
     this.current = createQuery().get();

@@ -19,6 +19,7 @@ public class TimespanUpdater extends AbstractEdmEntityUpdater<TimespanImpl> {
     propertyUpdater.updateMap("note", TimespanImpl::getNote);
     propertyUpdater.updateMap("altLabel", TimespanImpl::getAltLabel);
     propertyUpdater.updateMap("prefLabel", TimespanImpl::getPrefLabel);
+    propertyUpdater.updateMap("isPartOf", TimespanImpl::getIsPartOf);
     propertyUpdater.updateMap("dctermsHasPart", TimespanImpl::getDctermsHasPart);
     propertyUpdater.updateArray("owlSameAs", TimespanImpl::getOwlSameAs);
   }
