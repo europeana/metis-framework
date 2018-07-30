@@ -1,5 +1,6 @@
 package eu.europeana.metis.utils;
 
+import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoSocketException;
 import java.util.function.Supplier;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public final class MongoRequestUtil {
     do {
       try {
         return supplier.get();
-      } catch (MongoSocketException e) {
+      } catch (MongoSocketException | MongoSecurityException e) {
         retryCounter++;
         //Re-throw if it's not a Connection reset error or max retries exceeded.
         if (!getCause(e).getMessage().contains("Connection reset") || retryCounter > MAX_RETRIES) {
