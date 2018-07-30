@@ -6,6 +6,7 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,10 +61,10 @@ public class AuthenticationClient {
     HttpEntity<String> request = new HttpEntity<>(headers);
     try {
       ResponseEntity<String> response =
-          restTemplate
+          ExternalRequestUtil.retryableExternalRequest(() -> restTemplate
               .exchange(String.format("%s%s", baseUrl, RestEndpoints.AUTHENTICATION_USER_BY_TOKEN),
-                  HttpMethod.GET, request, String.class);
-      return objectMapper.readValue(response.getBody(), MetisUser.class);
+                  HttpMethod.GET, request, String.class));
+      return objectMapper.readValue(response != null ? response.getBody() : null, MetisUser.class);
     } catch (HttpClientErrorException e) {
       LOGGER.error("Could not retrieve MetisUser. Exception: {}, ErrorCode: {}, {}",
           e, e.getRawStatusCode(), e.getResponseBodyAsString());
