@@ -51,7 +51,7 @@ public final class ExternalRequestUtil {
           throw e;
         }
         LOGGER
-            .warn(String.format("Request to Mongo has failed! Retrying in %sms", SLEEP_TIMEOUT), e);
+            .warn(String.format("External request has failed! Retrying in %sms", SLEEP_TIMEOUT), e);
         try {
           Thread.sleep(SLEEP_TIMEOUT);
         } catch (InterruptedException ex) {
