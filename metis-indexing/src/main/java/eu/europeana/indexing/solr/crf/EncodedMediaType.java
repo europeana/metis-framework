@@ -12,7 +12,7 @@ import java.util.stream.Stream;
  * @author jochen
  *
  */
-public enum MediaType {
+public enum EncodedMediaType {
 
   /** Audio (sound only) **/
   AUDIO(2, TechnicalFacet.MIME_TYPE, TechnicalFacet.SOUND_QUALITY, TechnicalFacet.SOUND_DURATION),
@@ -41,7 +41,7 @@ public enum MediaType {
    *        media type facet {@link TechnicalFacet#MEDIA_TYPE} as it should receive a special
    *        treatment.
    */
-  MediaType(final int value, TechnicalFacet... facets) {
+  EncodedMediaType(final int value, TechnicalFacet... facets) {
     this.value = value;
     this.facets = Stream.of(facets).collect(Collectors.toSet());
   }

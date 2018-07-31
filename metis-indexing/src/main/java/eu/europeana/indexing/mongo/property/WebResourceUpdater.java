@@ -32,5 +32,7 @@ public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl
     propertyUpdater.updateString("edmPreview", WebResource::getEdmPreview);
     propertyUpdater.updateArray("svcsHasService", WebResource::getSvcsHasService);
     propertyUpdater.updateArray("dctermsIsReferencedBy", WebResource::getDctermsIsReferencedBy);
+    propertyUpdater.updateWebResourceMetaInfo("webResourceMetaInfo",
+        WebResourceImpl::getWebResourceMetaInfo);
   }
 }

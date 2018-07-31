@@ -19,7 +19,7 @@ import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.indexing.solr.crf.MediaType;
+import eu.europeana.indexing.solr.crf.EncodedMediaType;
 import eu.europeana.indexing.solr.crf.TagExtractor;
 import eu.europeana.indexing.solr.crf.WebResourceWrapper;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
@@ -145,7 +145,7 @@ public class SolrDocumentPopulator {
     }
     final boolean hasMedia =
         webResources.stream().filter(resource -> !isShownAtUrls.contains(resource.getAbout()))
-            .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != MediaType.OTHER);
+            .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != EncodedMediaType.OTHER);
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
     // is_fulltext is true if and only if there is at least one web resource with 'rdf:type' equal
