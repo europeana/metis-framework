@@ -28,9 +28,9 @@ final class AgentFieldInput implements Function<AgentType, AgentImpl> {
     agent.setRdaGr2DateOfDeath(
         FieldInputUtils.createLiteralMapFromString(agentType.getDateOfDeath()));
     agent.setRdaGr2PlaceOfBirth(
-        FieldInputUtils.createResourceOrLiteralMapFromString(agentType.getPlaceOfBirth()));
+        FieldInputUtils.createResourceOrLiteralMapFromList(agentType.getPlaceOfBirthList()));
     agent.setRdaGr2PlaceOfDeath(
-        FieldInputUtils.createResourceOrLiteralMapFromString(agentType.getPlaceOfDeath()));
+        FieldInputUtils.createResourceOrLiteralMapFromList(agentType.getPlaceOfDeathList()));
     agent.setRdaGr2DateOfEstablishment(
         FieldInputUtils.createLiteralMapFromString(agentType.getDateOfEstablishment()));
     agent.setRdaGr2DateOfTermination(
