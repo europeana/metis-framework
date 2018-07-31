@@ -55,6 +55,8 @@ public class ProxyUpdater extends AbstractEdmEntityUpdater<ProxyImpl> {
     propertyUpdater.updateMap("edmRights", ProxyImpl::getEdmRights);
     propertyUpdater.updateMap("edmHasMet", ProxyImpl::getEdmHasMet);
     propertyUpdater.updateMap("edmHasType", ProxyImpl::getEdmHasType);
+    propertyUpdater.updateArray("edmIncorporates", ProxyImpl::getEdmIncorporates);
+    propertyUpdater.updateMap("dctermsReplaces", ProxyImpl::getDctermsReplaces);
     propertyUpdater.updateMap("year", ProxyImpl::getYear);
     propertyUpdater.updateMap("edmIsRelatedTo", ProxyImpl::getEdmIsRelatedTo);
     propertyUpdater.updateArray("edmIsDerivativeOf", ProxyImpl::getEdmIsDerivativeOf);
