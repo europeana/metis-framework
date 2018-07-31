@@ -1,9 +1,8 @@
 package eu.europeana.indexing.solr.property;
 
-import java.util.function.Predicate;
-import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.indexing.solr.EdmLabel;
+import org.apache.solr.common.SolrInputDocument;
 
 /**
  * Property Solr Creator for 'edm:WebResource' tags.
@@ -12,25 +11,11 @@ import eu.europeana.indexing.solr.EdmLabel;
  */
 public class WebResourceSolrCreator implements PropertySolrCreator<WebResource> {
 
-  private final Predicate<String> hasLicense;
-
-  /**
-   * Constructor.
-   * 
-   * @param hasLicense Predicate to evaluate whether there is a license available for any given web
-   *        resource (URI).
-   */
-  public WebResourceSolrCreator(Predicate<String> hasLicense) {
-    this.hasLicense = hasLicense;
-  }
-
   @Override
   public void addToDocument(SolrInputDocument doc, WebResource wr) {
     SolrPropertyUtils.addValue(doc, EdmLabel.EDM_WEB_RESOURCE, wr.getAbout());
     SolrPropertyUtils.addValue(doc, EdmLabel.WR_EDM_IS_NEXT_IN_SEQUENCE, wr.getIsNextInSequence());
-    if (SolrPropertyUtils.hasLicenseForRights(wr.getWebResourceEdmRights(), hasLicense)) {
-      SolrPropertyUtils.addValues(doc, EdmLabel.WR_EDM_RIGHTS, wr.getWebResourceEdmRights());
-    }
+    SolrPropertyUtils.addValues(doc, EdmLabel.WR_EDM_RIGHTS, wr.getWebResourceEdmRights());
     SolrPropertyUtils.addValues(doc, EdmLabel.WR_DC_RIGHTS, wr.getWebResourceDcRights());
     SolrPropertyUtils.addValues(doc, EdmLabel.WR_DC_TYPE, wr.getDcType());
     SolrPropertyUtils.addValues(doc, EdmLabel.WR_DC_DESCRIPTION, wr.getDcDescription());

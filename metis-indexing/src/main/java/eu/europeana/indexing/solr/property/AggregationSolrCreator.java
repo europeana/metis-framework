@@ -45,6 +45,6 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
     SolrPropertyUtils.addValue(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_OBJECT, aggr.getEdmObject());
     SolrPropertyUtils.addValue(doc, EdmLabel.EDM_UGC, aggr.getEdmUgc());
     doc.addField(EdmLabel.PREVIEW_NO_DISTRIBUTE.toString(), aggr.getEdmPreviewNoDistribute());
-    new WebResourceSolrCreator(hasLicense).addAllToDocument(doc, aggr.getWebResources());
+    new WebResourceSolrCreator().addAllToDocument(doc, aggr.getWebResources());
   }
 }
