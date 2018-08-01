@@ -1,16 +1,19 @@
 package eu.europeana.indexing.solr.property;
 
-import eu.europeana.corelib.definitions.edm.entity.WebResource;
-import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.indexing.solr.EdmLabel;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
+import eu.europeana.corelib.definitions.edm.entity.WebResource;
+import eu.europeana.corelib.solr.entity.LicenseImpl;
+import eu.europeana.indexing.solr.EdmLabel;
 
 /**
  * Property Solr Creator for 'edm:WebResource' tags.
@@ -67,28 +70,20 @@ public class WebResourceSolrCreator implements PropertySolrCreator<WebResource> 
    * @return the array containing the unique values of odrlInheritFrom
    */
   private String[] getArrayOfOdrlInheritFromMatches(WebResource wr) {
-    Stream<String> webResourceDcRightsStream = Stream.empty();
-    Stream<String> webResourceEdmRightsStream = Stream.empty();
-    if (wr.getWebResourceDcRights() != null) {
-      webResourceDcRightsStream = wr.getWebResourceDcRights().values().stream()
-          .flatMap(Collection::stream).filter(StringUtils::isNotBlank);
-    }
-    if (wr.getWebResourceEdmRights() != null) {
-      webResourceEdmRightsStream = wr.getWebResourceEdmRights().values().stream()
-          .flatMap(Collection::stream).filter(StringUtils::isNotBlank);
-    }
 
-    //Combine the two required streams
-    Stream<String> dcAndEdmRightsRdfAboutsStream = Stream
-        .concat(webResourceDcRightsStream, webResourceEdmRightsStream);
+    // Collect the edm rights and the dc rights in one set.
+    final Collection<List<String>> webResourceDcRights = Optional
+        .ofNullable(wr.getWebResourceDcRights()).map(Map::values).orElse(Collections.emptyList());
+    final Collection<List<String>> webResourceEdmRights = Optional
+        .ofNullable(wr.getWebResourceEdmRights()).map(Map::values).orElse(Collections.emptyList());
+    final Set<String> rights =
+        Stream.concat(webResourceDcRights.stream(), webResourceEdmRights.stream())
+            .flatMap(List::stream).filter(StringUtils::isNotBlank).collect(Collectors.toSet());
 
-    //Use Set to get unique values and also check for non Blank.
-    Set<String> odrlInheritFromMatches = new HashSet<>();
-    dcAndEdmRightsRdfAboutsStream.forEach(rightsRdfAbout -> licenses.stream()
-        .filter(license -> StringUtils.isNotBlank(license.getAbout()) && license.getAbout()
-            .equals(rightsRdfAbout))
-        .forEach(license -> odrlInheritFromMatches.add(license.getOdrlInheritFrom())));
-    String[] odrlInheritFromMatchesArray = new String[odrlInheritFromMatches.size()];
-    return odrlInheritFromMatches.toArray(odrlInheritFromMatchesArray);
+    // Go through the licenses to see which of these are referenced and return the
+    // odrlInheritedFrom for each of these.
+    return licenses.stream().filter(license -> StringUtils.isNotBlank(license.getAbout()))
+        .filter(license -> rights.contains(license.getAbout())).map(LicenseImpl::getOdrlInheritFrom)
+        .distinct().toArray(String[]::new);
   }
 }
