@@ -1,7 +1,10 @@
 package eu.europeana.indexing.solr.property;
 
+import java.util.Date;
 import java.util.function.Predicate;
+
 import org.apache.solr.common.SolrInputDocument;
+
 import eu.europeana.corelib.definitions.edm.entity.License;
 import eu.europeana.indexing.solr.EdmLabel;
 
@@ -33,7 +36,9 @@ public class LicenseSolrCreator implements PropertySolrCreator<License> {
         isAggregation ? EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM
             : EdmLabel.WR_ODRL_INHERITED_FROM;
     SolrPropertyUtils.addValue(doc, licenseLabel, license.getAbout());
-    doc.addField(deprecatedLabel.toString(), license.getCcDeprecatedOn());
+
+    Date ccDeprecatedOnDate = new Date(license.getCcDeprecatedOn().getTime());
+    doc.addField(deprecatedLabel.toString(), ccDeprecatedOnDate);
     SolrPropertyUtils.addValue(doc, inheritedLabel, license.getOdrlInheritFrom());
   }
 }

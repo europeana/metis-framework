@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import eu.europeana.corelib.definitions.jibx.EdmType;
+import eu.europeana.corelib.definitions.jibx.EuropeanaProxy;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
 import eu.europeana.corelib.definitions.jibx.IsNextInSequence;
 import eu.europeana.corelib.definitions.jibx.LiteralType;
@@ -30,21 +31,16 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
     final ProxyImpl mongoProxy = new ProxyImpl();
 
     mongoProxy.setAbout(proxy.getAbout());
-    if (proxy.getEuropeanaProxy() != null) {
-      mongoProxy.setEuropeanaProxy(proxy.getEuropeanaProxy().isEuropeanaProxy());
-    }
+    mongoProxy.setEuropeanaProxy(Optional.ofNullable(proxy.getEuropeanaProxy())
+        .map(EuropeanaProxy::isEuropeanaProxy).orElse(false));
     mongoProxy.setEdmCurrentLocation(
         FieldInputUtils.createResourceOrLiteralMapFromString(proxy.getCurrentLocation()));
 
     List<IsNextInSequence> seqList = proxy.getIsNextInSequenceList();
 
     if (seqList != null) {
-
-      String[] seqarray = new String[seqList.size()];
-      for (int i = 0; i < seqarray.length; i++) {
-        seqarray[i] = seqList.get(i).getResource();
-      }
-      mongoProxy.setEdmIsNextInSequence(seqarray);
+      mongoProxy.setEdmIsNextInSequence(
+          seqList.stream().map(IsNextInSequence::getResource).toArray(String[]::new));
     }
 
     final String docType = Optional.ofNullable(proxy.getType()).map(Type2::getType)

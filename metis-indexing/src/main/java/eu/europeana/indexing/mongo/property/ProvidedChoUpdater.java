@@ -5,7 +5,7 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 /**
  * Field updater for instances of {@link ProvidedCHOImpl}.
  */
-public class ProvidedChoUpdater extends AbstractEdmEntityUpdater<ProvidedCHOImpl> {
+public class ProvidedChoUpdater extends AbstractIsolatedEdmEntityUpdater<ProvidedCHOImpl> {
 
   @Override
   protected Class<ProvidedCHOImpl> getObjectClass() {

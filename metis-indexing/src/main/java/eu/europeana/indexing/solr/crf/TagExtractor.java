@@ -39,7 +39,7 @@ public class TagExtractor {
    * </p>
    * <p>
    * Note that all resulting codes will be shifted to the right position and will also have the bits
-   * set that mark the media type (see {@link MediaType}).
+   * set that mark the media type (see {@link EncodedMediaType}).
    * </p>
    * 
    * @param webResource The web resource for which to retrieve the facet codes.
@@ -48,8 +48,8 @@ public class TagExtractor {
   public final Set<Integer> getFilterTags(WebResourceWrapper webResource) {
 
     // Get and check the media type.
-    final MediaType mediaType = webResource.getMediaType();
-    if (mediaType == MediaType.OTHER) {
+    final EncodedMediaType mediaType = webResource.getMediaType();
+    if (mediaType == EncodedMediaType.OTHER) {
       return Collections.emptySet();
     }
 
@@ -83,7 +83,7 @@ public class TagExtractor {
    * </p>
    * <p>
    * Note that all resulting codes will be shifted to the right position and will also have the bits
-   * set that mark the media type (see {@link MediaType}).
+   * set that mark the media type (see {@link EncodedMediaType}).
    * </p>
    * 
    * @param webResource The web resource for which to retrieve the facet codes.
@@ -92,8 +92,8 @@ public class TagExtractor {
   public final Set<Integer> getFacetTags(WebResourceWrapper webResource) {
 
     // Get and check the media type.
-    final MediaType mediaType = webResource.getMediaType();
-    if (mediaType == MediaType.OTHER) {
+    final EncodedMediaType mediaType = webResource.getMediaType();
+    if (mediaType == EncodedMediaType.OTHER) {
       return Collections.emptySet();
     }
 
@@ -106,7 +106,7 @@ public class TagExtractor {
 
   }
 
-  private static int getShiftedMediaTypeCode(MediaType mediaType) {
+  private static int getShiftedMediaTypeCode(EncodedMediaType mediaType) {
     return TechnicalFacet.MEDIA_TYPE.shift(mediaType.getCode());
   }
 }

@@ -16,6 +16,7 @@ import eu.europeana.corelib.definitions.jibx.HexBinaryType;
 import eu.europeana.corelib.definitions.jibx.OrientationType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.indexing.utils.MediaType;
 
 /**
  * This class is a wrapper around instances of type {@link WebResourceType}. Its responsibility is
@@ -94,41 +95,29 @@ public class WebResourceWrapper {
   /**
    * Determines the media type of the web resource (based on the MIME type).
    * 
-   * TODO JV There are methods that do the same in the media services class MediaProcessor. Can we
-   * somehow merge these?
-   * 
    * @return The media type corresponding to the mime type. Does not return null, but may return
-   *         {@link MediaType#OTHER}.
+   *         {@link EncodedMediaType#OTHER}.
    */
-  public MediaType getMediaType() {
-    final String mimeType = getMimeType();
-    final MediaType result;
-    if (mimeType == null) {
-      result = MediaType.OTHER;
-    } else if (mimeType.startsWith("image/")) {
-      result = MediaType.IMAGE;
-    } else if (mimeType.startsWith("audio/")) {
-      result = MediaType.AUDIO;
-    } else if (mimeType.startsWith("video/")) {
-      result = MediaType.VIDEO;
-    } else if (isText(mimeType)) {
-      result = MediaType.TEXT;
-    } else {
-      result = MediaType.OTHER;
+  public EncodedMediaType getMediaType() {
+    final EncodedMediaType result;
+    switch (MediaType.getMediaType(getMimeType())) {
+      case AUDIO:
+        result = EncodedMediaType.AUDIO;
+        break;
+      case IMAGE:
+        result = EncodedMediaType.IMAGE;
+        break;
+      case TEXT:
+        result = EncodedMediaType.TEXT;
+        break;
+      case VIDEO:
+        result = EncodedMediaType.VIDEO;
+        break;
+      default:
+        result = EncodedMediaType.OTHER;
+        break;
     }
     return result;
-  }
-
-  private static boolean isText(String mimeType) {
-    switch (mimeType) {
-      case "application/xml":
-      case "application/rtf":
-      case "application/epub":
-      case "application/pdf":
-        return true;
-      default:
-        return mimeType.startsWith("text/");
-    }
   }
 
   /**

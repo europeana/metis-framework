@@ -11,7 +11,7 @@ import eu.europeana.corelib.storage.MongoServer;
 /**
  * Field updater for instances of {@link FullBeanImpl}.
  */
-public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl> {
+public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Void> {
 
   private final BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor;
 
@@ -22,20 +22,32 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl> {
    *        retrieved the current version of the full bean from the database. It will be called
    *        once. It's first parameter is the current full bean (as retrieved from the database) and
    *        its second parameter is the updated full bean (as passed to
-   *        {@link #createPropertyUpdater(FullBeanImpl, MongoServer)}).
+   *        {@link #createPropertyUpdater(FullBeanImpl, Void, MongoServer)}).
    */
   public FullBeanUpdater(BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor) {
     this.fullBeanPreprocessor = fullBeanPreprocessor;
   }
 
-  @Override
-  protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
-      MongoServer mongoServer) {
-    return MongoPropertyUpdater.createForFullBean(newEntity, mongoServer, fullBeanPreprocessor);
+  /**
+   * Update the full bean. Convenience method for {@link #update(FullBeanImpl, Void, MongoServer)}.
+   * 
+   * @param newEntity The new entity (to take the new values from).
+   * @param mongoServer The mongo server.
+   * @return The updated entity.
+   */
+  public final FullBeanImpl update(FullBeanImpl newEntity, MongoServer mongoServer) {
+    return update(newEntity, null, mongoServer);
   }
 
   @Override
-  protected void preprocessEntity(FullBeanImpl fullBean) {
+  protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
+      Void ancestorInformation, MongoServer mongoServer) {
+    return MongoPropertyUpdater.createForObjectWithAbout(newEntity, mongoServer, FullBeanImpl.class,
+        FullBeanImpl::getAbout, fullBeanPreprocessor);
+  }
+
+  @Override
+  protected void preprocessEntity(FullBeanImpl fullBean, Void ancestorInformation) {
     // To avoid potential index out of bounds
     if (fullBean.getProxies().isEmpty()) {
       ArrayList<Proxy> proxyList = new ArrayList<>();
@@ -46,7 +58,8 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl> {
   }
 
   @Override
-  protected void update(MongoPropertyUpdater<FullBeanImpl> propertyUpdater) {
+  protected void update(MongoPropertyUpdater<FullBeanImpl> propertyUpdater,
+      Void ancestorInformation) {
     propertyUpdater.updateArray("title", FullBeanImpl::getTitle);
     propertyUpdater.updateArray("year", FullBeanImpl::getYear);
     propertyUpdater.updateArray("provider", FullBeanImpl::getProvider);
@@ -58,28 +71,35 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl> {
     propertyUpdater.updateObject("timestampUpdated", FullBeanImpl::getTimestampUpdated);
     propertyUpdater.updateObject("type", FullBeanImpl::getType);
     propertyUpdater.updateObject("europeanaCompleteness", FullBeanImpl::getEuropeanaCompleteness);
-    propertyUpdater.updateReferencedEntities("places", FullBeanImpl::getPlaces, new PlaceUpdater());
-    propertyUpdater.updateReferencedEntities("agents", FullBeanImpl::getAgents, new AgentUpdater());
+    propertyUpdater.updateReferencedEntities("places", FullBeanImpl::getPlaces, fullBean -> null,
+        new PlaceUpdater());
+    propertyUpdater.updateReferencedEntities("agents", FullBeanImpl::getAgents, fullBean -> null,
+        new AgentUpdater());
     propertyUpdater.updateReferencedEntities("timespans", FullBeanImpl::getTimespans,
-        new TimespanUpdater());
+        fullBean -> null, new TimespanUpdater());
     propertyUpdater.updateReferencedEntities("concepts", FullBeanImpl::getConcepts,
-        new ConceptUpdater());
+        fullBean -> null, new ConceptUpdater());
     propertyUpdater.updateReferencedEntities("providedCHOs", FullBeanImpl::getProvidedCHOs,
-        new ProvidedChoUpdater());
+        fullBean -> null, new ProvidedChoUpdater());
     propertyUpdater.updateReferencedEntities("aggregations", FullBeanImpl::getAggregations,
-        new AggregationUpdater());
+        FullBeanUpdater::createRootAbout, new AggregationUpdater());
     propertyUpdater.updateReferencedEntity("europeanaAggregation",
-        FullBeanUpdater::getEuropeanaAggregationFromFullBean, new EuropeanaAggregationUpdater());
-    propertyUpdater.updateReferencedEntities("proxies", FullBeanImpl::getProxies,
+        FullBeanUpdater::getEuropeanaAggregationFromFullBean, FullBeanUpdater::createRootAbout,
+        new EuropeanaAggregationUpdater());
+    propertyUpdater.updateReferencedEntities("proxies", FullBeanImpl::getProxies, fullBean -> null,
         new ProxyUpdater());
     propertyUpdater.updateReferencedEntities("services", FullBeanImpl::getServices,
-        new ServiceUpdater());
+        fullBean -> null, new ServiceUpdater());
     propertyUpdater.updateReferencedEntities("licenses", FullBeanImpl::getLicenses,
-        new LicenseUpdater());
+        fullBean -> null, new LicenseUpdater());
   }
 
   private static EuropeanaAggregationImpl getEuropeanaAggregationFromFullBean(
       FullBeanImpl fullBean) {
     return (EuropeanaAggregationImpl) fullBean.getEuropeanaAggregation();
+  }
+
+  private static RootAbout createRootAbout(FullBeanImpl fullBean) {
+    return new RootAbout(fullBean.getAbout());
   }
 }

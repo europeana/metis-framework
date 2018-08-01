@@ -1,16 +1,5 @@
 package eu.europeana.indexing.solr;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.solr.common.SolrInputDocument;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.IsShownAt;
@@ -19,7 +8,7 @@ import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.indexing.solr.crf.MediaType;
+import eu.europeana.indexing.solr.crf.EncodedMediaType;
 import eu.europeana.indexing.solr.crf.TagExtractor;
 import eu.europeana.indexing.solr.crf.WebResourceWrapper;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
@@ -33,16 +22,26 @@ import eu.europeana.indexing.solr.property.ProxySolrCreator;
 import eu.europeana.indexing.solr.property.ServiceSolrCreator;
 import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.solr.common.SolrInputDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class provides functionality to populate Solr documents. Both methods in this class should
- * be called to fill the Solr document. The method
- * {@link #populateWithProperties(SolrInputDocument, FullBeanImpl)} copies properties from the
- * source to the Solr document. The method {@link #populateWithCrfFields(SolrInputDocument, RDF)} on
- * the other hand performs some analysis and sets technical metadata.
- * 
- * @author jochen
+ * be called to fill the Solr document. The method {@link #populateWithProperties(SolrInputDocument,
+ * FullBeanImpl)} copies properties from the source to the Solr document. The method {@link
+ * #populateWithCrfFields(SolrInputDocument, RDF)} on the other hand performs some analysis and sets
+ * technical metadata.
  *
+ * @author jochen
  */
 public class SolrDocumentPopulator {
 
@@ -51,7 +50,7 @@ public class SolrDocumentPopulator {
   /**
    * Populates a Solr document with the properties of the full bean. Please note: this method should
    * only be called once on a given document, otherwise the behavior is not defined.
-   * 
+   *
    * @param document The Solr document to populate.
    * @param fullBean The FullBean to populate from.
    * @return The SolrInputDocument representation of the FullBean
@@ -59,18 +58,18 @@ public class SolrDocumentPopulator {
   public SolrInputDocument populateWithProperties(SolrInputDocument document,
       FullBeanImpl fullBean) {
 
-    final Set<String> licenseIds;
+    final List<LicenseImpl> lincenses;
     if (fullBean.getLicenses() != null) {
-      licenseIds =
-          fullBean.getLicenses().stream().map(LicenseImpl::getAbout).collect(Collectors.toSet());
+      lincenses = fullBean.getLicenses().stream().filter(Objects::nonNull)
+          .collect(Collectors.toList());
     } else {
-      licenseIds = Collections.emptySet();
+      lincenses = Collections.emptyList();
     }
 
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
-    new AggregationSolrCreator(licenseIds::contains).addToDocument(document,
+    new AggregationSolrCreator(lincenses).addToDocument(document,
         fullBean.getAggregations().get(0));
-    new EuropeanaAggregationSolrCreator().addToDocument(document,
+    new EuropeanaAggregationSolrCreator(lincenses).addToDocument(document,
         fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
     new ConceptSolrCreator().addAllToDocument(document, fullBean.getConcepts());
@@ -98,7 +97,7 @@ public class SolrDocumentPopulator {
   /**
    * Populates a Solr document with the CRF fields of the RDF. Please note: this method should only
    * be called once on a given document, otherwise the behavior is not defined.
-   * 
+   *
    * @param document The document to populate.
    * @param rdf The RDF to populate from.
    */
@@ -125,7 +124,7 @@ public class SolrDocumentPopulator {
             .map(ResourceType::getResource).filter(StringUtils::isNotBlank).orElse(null);
     final boolean hasThumbnails = previewUri != null
         && webResources.stream().filter(resource -> previewUri.equals(resource.getAbout()))
-            .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
+        .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
     document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), hasThumbnails);
 
     // has_landingpage is true if and only if edm:EuropeanaAggregation/edm:landingpage is filled.
@@ -145,7 +144,7 @@ public class SolrDocumentPopulator {
     }
     final boolean hasMedia =
         webResources.stream().filter(resource -> !isShownAtUrls.contains(resource.getAbout()))
-            .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != MediaType.OTHER);
+            .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != EncodedMediaType.OTHER);
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
     // is_fulltext is true if and only if there is at least one web resource with 'rdf:type' equal

@@ -5,7 +5,7 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 /**
  * Field updater for instances of {@link ProxyImpl}.
  */
-public class ProxyUpdater extends AbstractEdmEntityUpdater<ProxyImpl> {
+public class ProxyUpdater extends AbstractIsolatedEdmEntityUpdater<ProxyImpl> {
 
   @Override
   protected Class<ProxyImpl> getObjectClass() {
@@ -55,6 +55,8 @@ public class ProxyUpdater extends AbstractEdmEntityUpdater<ProxyImpl> {
     propertyUpdater.updateMap("edmRights", ProxyImpl::getEdmRights);
     propertyUpdater.updateMap("edmHasMet", ProxyImpl::getEdmHasMet);
     propertyUpdater.updateMap("edmHasType", ProxyImpl::getEdmHasType);
+    propertyUpdater.updateArray("edmIncorporates", ProxyImpl::getEdmIncorporates);
+    propertyUpdater.updateMap("dctermsReplaces", ProxyImpl::getDctermsReplaces);
     propertyUpdater.updateMap("year", ProxyImpl::getYear);
     propertyUpdater.updateMap("edmIsRelatedTo", ProxyImpl::getEdmIsRelatedTo);
     propertyUpdater.updateArray("edmIsDerivativeOf", ProxyImpl::getEdmIsDerivativeOf);
@@ -65,5 +67,6 @@ public class ProxyUpdater extends AbstractEdmEntityUpdater<ProxyImpl> {
     propertyUpdater.updateArray("proxyIn", ProxyImpl::getProxyIn);
     propertyUpdater.updateString("proxyFor", ProxyImpl::getProxyFor);
     propertyUpdater.updateString("edmIsRepresentationOf", ProxyImpl::getEdmIsRepresentationOf);
+    propertyUpdater.updateObject("europeanaProxy", ProxyImpl::isEuropeanaProxy);
   }
 }

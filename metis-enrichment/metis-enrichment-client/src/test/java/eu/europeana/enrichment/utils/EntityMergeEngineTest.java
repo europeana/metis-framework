@@ -330,8 +330,8 @@ public class EntityMergeEngineTest {
     assertTrue(copy.getHasPartList().isEmpty());
     assertTrue(copy.getIsPartOfList().isEmpty());
     assertTrue(copy.getNameList().isEmpty());
-    assertNull(copy.getPlaceOfBirth());
-    assertNull(copy.getPlaceOfDeath());
+    assertTrue(copy.getPlaceOfBirthList().isEmpty());
+    assertTrue(copy.getPlaceOfDeathList().isEmpty());
   }
 
   private void verifyConcept(Concept original, eu.europeana.corelib.definitions.jibx.Concept copy) {

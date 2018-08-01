@@ -5,7 +5,7 @@ import eu.europeana.corelib.solr.entity.AgentImpl;
 /**
  * Field updater for instances of {@link AgentImpl}.
  */
-public class AgentUpdater extends AbstractEdmEntityUpdater<AgentImpl> {
+public class AgentUpdater extends AbstractIsolatedEdmEntityUpdater<AgentImpl> {
 
   @Override
   protected Class<AgentImpl> getObjectClass() {

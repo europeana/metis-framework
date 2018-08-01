@@ -5,7 +5,7 @@ import eu.europeana.corelib.solr.entity.PlaceImpl;
 /**
  * Field updater for instances of {@link PlaceImpl}.
  */
-public class PlaceUpdater extends AbstractEdmEntityUpdater<PlaceImpl> {
+public class PlaceUpdater extends AbstractIsolatedEdmEntityUpdater<PlaceImpl> {
 
   @Override
   protected Class<PlaceImpl> getObjectClass() {
