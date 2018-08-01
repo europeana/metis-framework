@@ -77,6 +77,7 @@ public enum EdmLabel {
   WR_SVCS_HAS_SERVICE("wr_svcs_hasservice"),
   WR_EDM_PREVIEW("wr_edm_preview"),
   WR_DCTERMS_ISREFERENCEDBY("wr_dcterms_isReferencedBy"),
+  WR_CC_ODRL_INHERITED_FROM("wr_cc_odrl_inherited_from"),
 
   //SERVICE
   SV_SERVICE("svcs_service"),
