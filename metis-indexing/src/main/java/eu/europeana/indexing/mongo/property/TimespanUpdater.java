@@ -5,7 +5,7 @@ import eu.europeana.corelib.solr.entity.TimespanImpl;
 /**
  * Field updater for instances of {@link TimespanImpl}.
  */
-public class TimespanUpdater extends AbstractEdmEntityUpdater<TimespanImpl> {
+public class TimespanUpdater extends AbstractIsolatedEdmEntityUpdater<TimespanImpl> {
 
   @Override
   protected Class<TimespanImpl> getObjectClass() {

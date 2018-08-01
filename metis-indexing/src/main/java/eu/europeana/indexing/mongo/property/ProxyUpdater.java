@@ -5,7 +5,7 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 /**
  * Field updater for instances of {@link ProxyImpl}.
  */
-public class ProxyUpdater extends AbstractEdmEntityUpdater<ProxyImpl> {
+public class ProxyUpdater extends AbstractIsolatedEdmEntityUpdater<ProxyImpl> {
 
   @Override
   protected Class<ProxyImpl> getObjectClass() {

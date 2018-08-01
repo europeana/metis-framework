@@ -7,7 +7,7 @@ import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
  * Field updater for instances of {@link EuropeanaAggregation}.
  */
 public class EuropeanaAggregationUpdater
-    extends AbstractEdmEntityUpdater<EuropeanaAggregationImpl> {
+    extends AbstractEdmEntityUpdater<EuropeanaAggregationImpl, RootAbout> {
 
   @Override
   protected Class<EuropeanaAggregationImpl> getObjectClass() {
@@ -15,13 +15,15 @@ public class EuropeanaAggregationUpdater
   }
 
   @Override
-  protected void preprocessEntity(EuropeanaAggregationImpl newEntity) {
+  protected void preprocessEntity(EuropeanaAggregationImpl newEntity,
+      RootAbout ancestorInformation) {
     newEntity.setEdmLandingPageFromAggregatedCHO();
-    super.preprocessEntity(newEntity);
+    super.preprocessEntity(newEntity, ancestorInformation);
   }
 
   @Override
-  protected void update(MongoPropertyUpdater<EuropeanaAggregationImpl> propertyUpdater) {
+  protected void update(MongoPropertyUpdater<EuropeanaAggregationImpl> propertyUpdater,
+      RootAbout ancestorInformation) {
     propertyUpdater.updateString("aggregatedCHO", EuropeanaAggregation::getAggregatedCHO);
     propertyUpdater.updateString("edmLandingPage", EuropeanaAggregation::getEdmLandingPage);
     propertyUpdater.updateString("edmIsShownBy", EuropeanaAggregation::getEdmIsShownBy);
@@ -31,6 +33,7 @@ public class EuropeanaAggregationUpdater
     propertyUpdater.updateMap("dcCreator", EuropeanaAggregation::getDcCreator);
     propertyUpdater.updateString("edmPreview", EuropeanaAggregation::getEdmPreview);
     propertyUpdater.updateArray("aggregates", EuropeanaAggregation::getAggregates);
-    propertyUpdater.updateWebResources("webResources", EuropeanaAggregation::getWebResources);
+    propertyUpdater.updateWebResources("webResources", EuropeanaAggregation::getWebResources,
+        ancestorInformation);
   }
 }

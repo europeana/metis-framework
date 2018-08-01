@@ -11,11 +11,11 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
-import org.mongodb.morphia.mapping.Mapper;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
@@ -25,7 +25,6 @@ import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.corelib.storage.MongoServer;
 
@@ -51,91 +50,85 @@ final class MongoPropertyUpdater<T> {
   private final T updated;
   private final MongoServer mongoServer;
   private final UpdateOperations<T> mongoOperations;
-  private final Class<T> objectClass;
-  private final Function<T, String> aboutGetter;
+  private final Supplier<Query<T>> queryCreator;
 
-  private MongoPropertyUpdater(T updated, MongoServer mongoServer, Class<T> objectClass,
-      Function<T, String> aboutGetter, BiConsumer<T, T> preprocessor) {
+  /**
+   * Constructor.
+   * 
+   * @param updated The updated object (i.e. the object to take the value from). This object will
+   *        remain unchanged.
+   * @param mongoServer The Mongo connection.
+   * @param objectClass The class of the object which is used to create an instance of
+   *        {@link UpdateOperations}.
+   * @param queryCreator The function that creates the mongo query that can retrieve the object from
+   *        Mongo.
+   * @param preprocessor This provides the option of performing some preprocessing on the current
+   *        and/or the new object before applying the operations. Its two parameters are first the
+   *        current bean (found in the database) and second the updated (as passed to this method).
+   *        Can be null.
+   */
+  public MongoPropertyUpdater(T updated, MongoServer mongoServer, Class<T> objectClass,
+      Supplier<Query<T>> queryCreator, BiConsumer<T, T> preprocessor) {
 
     // Sanity checks.
-    if (updated == null || mongoServer == null || objectClass == null) {
+    if (updated == null || mongoServer == null || objectClass == null || queryCreator == null) {
       throw new IllegalArgumentException();
-    }
-    if (aboutGetter != null && StringUtils.isBlank(aboutGetter.apply(updated))) {
-      throw new IllegalArgumentException("Object does not have an 'about' value.");
     }
 
     // Set the properties
     this.updated = updated;
     this.mongoServer = mongoServer;
-    this.aboutGetter = aboutGetter;
-    this.objectClass = objectClass;
+    this.queryCreator = queryCreator;
 
-    // Initialize the mongo operations: set the about field and class name on insert if needed.
+    // Initialize the mongo operations: set the class name on insert if needed.
     this.mongoOperations = mongoServer.getDatastore().createUpdateOperations(objectClass);
-    if (aboutGetter != null) {
-      this.mongoOperations.setOnInsert(ABOUT_FIELD, aboutGetter.apply(updated));
-    }
-    this.mongoOperations.setOnInsert(Mapper.CLASS_NAME_FIELDNAME, objectClass.getName());
 
     // Obtain the current state from the database and perform preprocessing on it.
-    this.current = createQuery().get();
+    this.current = this.queryCreator.get().get();
     if (preprocessor != null) {
       preprocessor.accept(current, updated);
     }
   }
 
   /**
-   * Static constructor for instances of {@link AbstractEdmEntity}.
+   * Static constructor for objects that have an about field.
    *
    * @param updated The updated object (i.e. the object to take the value from). This object will
    *        remain unchanged.
    * @param mongoServer The Mongo connection.
    * @param objectClass The class of the object which is used to create an instance of
    *        {@link UpdateOperations}.
-   * @return The property updater.
-   */
-  public static <T extends AbstractEdmEntity> MongoPropertyUpdater<T> createForEdmEntity(T updated,
-      MongoServer mongoServer, Class<T> objectClass) {
-    return new MongoPropertyUpdater<>(updated, mongoServer, objectClass,
-        AbstractEdmEntity::getAbout, null);
-  }
-
-  /**
-   * Static constructor for instances of {@link FullBeanImpl}.
-   *
-   * @param updated The updated object (i.e. the object to take the value from). This object will
-   *        remain unchanged.
-   * @param mongoServer The Mongo connection.
+   * @param aboutGetter The function that obtains the about value from the object.
    * @param preprocessor This provides the option of performing some preprocessing on the current
    *        and/or the new object before applying the operations. Its two parameters are first the
    *        current bean (found in the database) and second the updated (as passed to this method).
    *        Can be null.
+   * 
    * @return The property updater.
    */
-  public static MongoPropertyUpdater<FullBeanImpl> createForFullBean(FullBeanImpl updated,
-      MongoServer mongoServer, BiConsumer<FullBeanImpl, FullBeanImpl> preprocessor) {
-    return new MongoPropertyUpdater<>(updated, mongoServer, FullBeanImpl.class,
-        FullBeanImpl::getAbout, preprocessor);
-  }
+  public static <T> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
+      MongoServer mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
+      BiConsumer<T, T> preprocessor) {
 
-  /**
-   * Static constructor for instances of {@link WebResourceMetaInfoImpl}.
-   *
-   * @param updated The updated object (i.e. the object to take the value from). This object will
-   *        remain unchanged.
-   * @param mongoServer The Mongo connection.
-   * @return The property updater.
-   */
-  public static MongoPropertyUpdater<WebResourceMetaInfoImpl> createForWebResourceMetaInfo(
-      WebResourceMetaInfoImpl updated, MongoServer mongoServer) {
-    return new MongoPropertyUpdater<>(updated, mongoServer, WebResourceMetaInfoImpl.class, null,
-        null);
-  }
+    // Sanity checks.
+    if (aboutGetter == null) {
+      throw new IllegalArgumentException();
+    }
+    if (StringUtils.isBlank(aboutGetter.apply(updated))) {
+      throw new IllegalArgumentException("Object does not have an 'about' value.");
+    }
 
-  private final Query<T> createQuery() {
-    return mongoServer.getDatastore().find(objectClass).field(ABOUT_FIELD)
-        .equal(aboutGetter.apply(updated));
+    // Create object.
+    final Supplier<Query<T>> queryCreator = () -> mongoServer.getDatastore().find(objectClass)
+        .field(ABOUT_FIELD).equal(aboutGetter.apply(updated));
+    final MongoPropertyUpdater<T> result =
+        new MongoPropertyUpdater<>(updated, mongoServer, objectClass, queryCreator, preprocessor);
+
+    // Set the about.
+    result.mongoOperations.setOnInsert(ABOUT_FIELD, aboutGetter.apply(updated));
+
+    // Done
+    return result;
   }
 
   private static <I extends Comparable<I>> boolean listEquals(List<I> listA, List<I> listB) {
@@ -276,43 +269,20 @@ final class MongoPropertyUpdater<T> {
    * @param updateField The name of the field to update. This is the name under which they will be
    *        stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
+   * @param ancestorInformation The parent entity's info to be used for updating the web resources.
    */
   public void updateWebResources(String updateField,
-      Function<T, List<? extends WebResource>> getter) {
+      Function<T, List<? extends WebResource>> getter, RootAbout ancestorInformation) {
     final Function<T, List<WebResourceImpl>> castGetter =
         getter.andThen(MongoPropertyUpdater::castWebResourceList);
-    updateReferencedEntities(updateField, castGetter, new WebResourceUpdater());
+    updateReferencedEntities(updateField, castGetter, entity -> ancestorInformation,
+        new WebResourceUpdater());
   }
 
   private static List<WebResourceImpl> castWebResourceList(List<? extends WebResource> input) {
     return input == null ? null
         : input.stream().map(webResource -> ((WebResourceImpl) webResource))
             .collect(Collectors.toList());
-  }
-
-  /**
-   * <p>
-   * This method adds or removes a web resource meta info reference. It additionally triggers an
-   * update for the meta info itself (using {@link WebResourceMetaInfoUpdater}).
-   * </p>
-   * <p>
-   * This method tests if there is anything to update. If there is, after this method is called,
-   * {@link #applyOperations()} will include the update.
-   * </p>
-   *
-   * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
-   * @param getter The getter that obtains the property value from the object.
-   */
-  public void updateWebResourceMetaInfo(String updateField,
-      Function<T, WebResourceMetaInfo> getter) {
-    final UnaryOperator<WebResourceMetaInfoImpl> preprocessing =
-        entity -> new WebResourceMetaInfoUpdater().update(entity, mongoServer);
-    final Function<T, WebResourceMetaInfoImpl> castGetter =
-        getter.andThen(info -> (WebResourceMetaInfoImpl) info);
-    final BiPredicate<WebResourceMetaInfoImpl, WebResourceMetaInfoImpl> equality =
-        (object1, object2) -> (object1 == null) == (object2 == null);
-    updateProperty(updateField, castGetter, equality, preprocessing);
   }
 
   /**
@@ -329,11 +299,15 @@ final class MongoPropertyUpdater<T> {
    * @param updateField The name of the field to update. This is the name under which they will be
    *        stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
+   * @param ancestorInfoGetter The parent entity's info to be used for updating the property.
    * @param objectUpdater The updater that may be used to update the referenced objects.
    */
-  public <P extends AbstractEdmEntity> void updateReferencedEntity(String updateField,
-      Function<T, P> getter, AbstractEdmEntityUpdater<P> objectUpdater) {
-    final UnaryOperator<P> preprocessing = entity -> objectUpdater.update(entity, mongoServer);
+  public <P extends AbstractEdmEntity, A> void updateReferencedEntity(String updateField,
+      Function<T, P> getter, Function<T, A> ancestorInfoGetter,
+      AbstractEdmEntityUpdater<P, A> objectUpdater) {
+    final A ancestorInformation = ancestorInfoGetter.apply(updated);
+    final UnaryOperator<P> preprocessing =
+        entity -> objectUpdater.update(entity, ancestorInformation, mongoServer);
     updateProperty(updateField, getter, MongoPropertyUpdater::equals, preprocessing);
   }
 
@@ -358,12 +332,16 @@ final class MongoPropertyUpdater<T> {
    * @param updateField The name of the field to update. This is the name under which they will be
    *        stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
+   * @param ancestorInfoGetter The parent entity's info to be used for updating the properties.
    * @param objectUpdater The updater that may be used to update the referenced objects.
    */
-  public <P extends AbstractEdmEntity> void updateReferencedEntities(String updateField,
-      Function<T, List<P>> getter, AbstractEdmEntityUpdater<P> objectUpdater) {
+  public <P extends AbstractEdmEntity, A> void updateReferencedEntities(String updateField,
+      Function<T, List<P>> getter, Function<T, A> ancestorInfoGetter,
+      AbstractEdmEntityUpdater<P, A> objectUpdater) {
+    final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<List<P>> preprocessing = entities -> entities.stream()
-        .map(entity -> objectUpdater.update(entity, mongoServer)).collect(Collectors.toList());
+        .map(entity -> objectUpdater.update(entity, ancestorInformation, mongoServer))
+        .collect(Collectors.toList());
     final BiPredicate<List<P>, List<P>> equality =
         (w1, w2) -> listEquals(w1, w2, ENTITY_COMPARATOR);
     updateProperty(updateField, getter, equality, preprocessing);
@@ -384,11 +362,10 @@ final class MongoPropertyUpdater<T> {
       BiPredicate<P, P> equality, UnaryOperator<P> preprocessing) {
 
     // Get the current (saved) value (or null if there is no current object).
-    final P currentValue = current == null ? null : getter.apply(current);
+    final P currentValue = Optional.ofNullable(current).map(getter).orElse(null);
 
     // Get the new value and apply preprocessing.
-    final P updatedValue =
-        Optional.ofNullable(getter.apply(updated)).map(preprocessing).orElse(null);
+    final P updatedValue = Optional.of(updated).map(getter).map(preprocessing).orElse(null);
 
     // Process changes if applicable.
     if (!equality.test(currentValue, updatedValue)) {
@@ -418,18 +395,42 @@ final class MongoPropertyUpdater<T> {
    * @param updateField The name of the field to update. This is the name under which they will be
    *        stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
+   * @return Whether or not this field will be marked for deletion.
    */
-  public <P> void removeObjectIfNeeded(String updateField, Function<T, P> getter) {
+  public <P> boolean removeObjectIfNecessary(String updateField, Function<T, P> getter) {
 
     // Get the current (saved) value (or null if there is no current object).
-    final P currentValue = current == null ? null : getter.apply(current);
+    final P currentValue = Optional.ofNullable(current).map(getter).orElse(null);
 
     // Get the new value and apply preprocessing.
-    final P updatedValue = Optional.ofNullable(getter.apply(updated)).orElse(null);
+    final P updatedValue = Optional.of(updated).map(getter).orElse(null);
 
     // If we need to remove it, do so.
-    if (currentValue == null && updatedValue != null) {
+    boolean markForDeletion = currentValue != null && updatedValue == null;
+    if (markForDeletion) {
       mongoOperations.unset(updateField);
+    }
+
+    // Done
+    return markForDeletion;
+  }
+
+  /**
+   * <p>
+   * This method triggers an update for the meta info itself (using
+   * {@link WebResourceMetaInfoUpdater}). It doesn't add any operations.
+   * </p>
+   *
+   * @param getter The getter that obtains the property value from the object.
+   * @param ancestorInfoGetter The parent entity's info to be used for updating the meta info.
+   */
+  public void updateWebResourceMetaInfo(Function<T, WebResourceMetaInfo> getter,
+      Function<T, WebResourceInformation> ancestorInfoGetter) {
+    final WebResourceMetaInfo entity = Optional.of(updated).map(getter).orElse(null);
+    final WebResourceInformation ancestorInformation = ancestorInfoGetter.apply(updated);
+    if (entity != null) {
+      new WebResourceMetaInfoUpdater().update((WebResourceMetaInfoImpl) entity, ancestorInformation,
+          mongoServer);
     }
   }
 
@@ -458,11 +459,11 @@ final class MongoPropertyUpdater<T> {
    */
   public T applyOperations() {
     try {
-      mongoServer.getDatastore().update(createQuery(), mongoOperations, true);
+      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations, true);
     } catch (DuplicateKeyException e) {
       LOGGER.debug("Received duplicate key exception, trying again once more.", e);
-      mongoServer.getDatastore().update(createQuery(), mongoOperations, true);
+      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations, true);
     }
-    return createQuery().get();
+    return queryCreator.get().get();
   }
 }

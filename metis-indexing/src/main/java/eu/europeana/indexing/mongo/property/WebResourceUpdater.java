@@ -6,7 +6,7 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
 /**
  * Field updater for instances of {@link WebResourceImpl}.
  */
-public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl> {
+public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl, RootAbout> {
 
   @Override
   protected Class<WebResourceImpl> getObjectClass() {
@@ -14,7 +14,8 @@ public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl
   }
 
   @Override
-  protected void update(MongoPropertyUpdater<WebResourceImpl> propertyUpdater) {
+  protected void update(MongoPropertyUpdater<WebResourceImpl> propertyUpdater,
+      RootAbout ancestorInformation) {
     propertyUpdater.updateMap("dcDescription", WebResource::getDcDescription);
     propertyUpdater.updateMap("dcFormat", WebResource::getDcFormat);
     propertyUpdater.updateMap("dcCreator", WebResource::getDcCreator);
@@ -32,7 +33,13 @@ public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl
     propertyUpdater.updateString("edmPreview", WebResource::getEdmPreview);
     propertyUpdater.updateArray("svcsHasService", WebResource::getSvcsHasService);
     propertyUpdater.updateArray("dctermsIsReferencedBy", WebResource::getDctermsIsReferencedBy);
-    propertyUpdater.updateWebResourceMetaInfo("webResourceMetaInfo",
-        WebResourceImpl::getWebResourceMetaInfo);
+
+    propertyUpdater.updateWebResourceMetaInfo(WebResourceImpl::getWebResourceMetaInfo,
+        webResource -> createWebResourceInfo(webResource, ancestorInformation));
+  }
+
+  private static WebResourceInformation createWebResourceInfo(WebResourceImpl webResource,
+      RootAbout rootAbout) {
+    return new WebResourceInformation(rootAbout.getRootAbout(), webResource.getAbout());
   }
 }

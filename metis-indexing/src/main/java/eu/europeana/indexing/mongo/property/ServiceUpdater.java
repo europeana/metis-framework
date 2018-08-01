@@ -5,7 +5,7 @@ import eu.europeana.corelib.solr.entity.ServiceImpl;
 /**
  * Field updater for instances of {@link ServiceImpl}.
  */
-public class ServiceUpdater extends AbstractEdmEntityUpdater<ServiceImpl> {
+public class ServiceUpdater extends AbstractIsolatedEdmEntityUpdater<ServiceImpl> {
 
   @Override
   protected Class<ServiceImpl> getObjectClass() {

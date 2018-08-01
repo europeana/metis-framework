@@ -5,7 +5,7 @@ import eu.europeana.corelib.solr.entity.ConceptImpl;
 /**
  * Field updater for instances of {@link ConceptImpl}.
  */
-public class ConceptUpdater extends AbstractEdmEntityUpdater<ConceptImpl> {
+public class ConceptUpdater extends AbstractIsolatedEdmEntityUpdater<ConceptImpl> {
 
   @Override
   protected Class<ConceptImpl> getObjectClass() {

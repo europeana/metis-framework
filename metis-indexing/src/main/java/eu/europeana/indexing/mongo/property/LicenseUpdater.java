@@ -7,7 +7,7 @@ import eu.europeana.corelib.solr.entity.LicenseImpl;
 /**
  * Field updater for instances of {@link LicenseImpl}.
  */
-public class LicenseUpdater extends AbstractEdmEntityUpdater<LicenseImpl> {
+public class LicenseUpdater extends AbstractIsolatedEdmEntityUpdater<LicenseImpl> {
 
   @Override
   protected Class<LicenseImpl> getObjectClass() {
