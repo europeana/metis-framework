@@ -22,7 +22,7 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
    * @param licenses the list of licenses for the record.
    */
   public AggregationSolrCreator(List<LicenseImpl> licenses) {
-    this.licenses = new ArrayList<>(licenses);;
+    this.licenses = new ArrayList<>(licenses);
   }
 
   @Override
