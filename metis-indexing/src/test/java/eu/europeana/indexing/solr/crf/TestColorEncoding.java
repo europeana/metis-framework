@@ -39,6 +39,7 @@ public class TestColorEncoding {
 
       // Check the static method.
       assertEquals(Integer.valueOf(code), ColorEncoding.getColorCode(Color));
+      assertEquals(Integer.valueOf(code), ColorEncoding.getColorCode("#" + Color));
     }
 
     // Test non-existing code and empty/null codes.

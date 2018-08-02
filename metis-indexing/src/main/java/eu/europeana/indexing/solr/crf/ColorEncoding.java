@@ -194,9 +194,15 @@ public enum ColorEncoding {
    * @return The integer represantation of the color, or 0 if the color could not be found.
    */
   static Integer getColorCode(final String hexString) {
-    final Integer retval =
-        StringUtils.isNotBlank(hexString) ? getColorMap().get(hexString.toUpperCase(Locale.ENGLISH))
-            : null;
-    return retval == null ? VALUE_UNKNOWN : retval;
+    final String hexStringWithoutHash;
+    if (StringUtils.isBlank(hexString)) {
+      hexStringWithoutHash = "";
+    } else if (hexString.startsWith("#")) {
+      hexStringWithoutHash = hexString.substring(1);
+    } else {
+      hexStringWithoutHash = hexString;
+    }
+    final Integer result = getColorMap().get(hexStringWithoutHash.toUpperCase(Locale.ENGLISH));
+    return result == null ? VALUE_UNKNOWN : result;
   }
 }
