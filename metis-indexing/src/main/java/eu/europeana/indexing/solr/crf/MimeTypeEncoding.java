@@ -829,7 +829,7 @@ public enum MimeTypeEncoding {
    */
   static Integer getMimeTypeCode(final String type) {
     final Integer result =
-        StringUtils.isNotBlank(type) ? getMimeTypeMap().get(type.toLowerCase(Locale.ENGLISH))
+        StringUtils.isNotBlank(type) ? getMimeTypeMap().get(type.trim().toLowerCase(Locale.ENGLISH))
             : null;
     return result == null ? VALUE_UNKNOWN : result;
   }

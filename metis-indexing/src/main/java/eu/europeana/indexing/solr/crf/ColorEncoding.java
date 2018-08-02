@@ -202,7 +202,7 @@ public enum ColorEncoding {
     } else {
       hexStringWithoutHash = hexString;
     }
-    final Integer result = getColorMap().get(hexStringWithoutHash.toUpperCase(Locale.ENGLISH));
+    final Integer result = getColorMap().get(hexStringWithoutHash.trim().toUpperCase(Locale.ENGLISH));
     return result == null ? VALUE_UNKNOWN : result;
   }
 }

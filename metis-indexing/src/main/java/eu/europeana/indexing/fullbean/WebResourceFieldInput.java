@@ -196,7 +196,7 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList())
         .map(List::stream).orElse(Stream.empty());
     final String[] targetColors = sourceColors.filter(Objects::nonNull)
-        .map(HexBinaryType::getDatatype).filter(StringUtils::isNotBlank).toArray(String[]::new);
+        .map(HexBinaryType::getString).filter(StringUtils::isNotBlank).toArray(String[]::new);
     metaInfo.setColorPalette(targetColors.length == 0 ? null : targetColors);
 
     final String sourceOrientation =
