@@ -40,9 +40,9 @@ public final class FacetCodeUtils {
   private static final Integer VIDEO_LONG = 3;
 
   private static final Integer AUDIO_TINY = 1;
-  private static final Integer AUDIO_SHORT = 1;
-  private static final Integer AUDIO_MEDIUM = 2;
-  private static final Integer AUDIO_LONG = 3;
+  private static final Integer AUDIO_SHORT = 2;
+  private static final Integer AUDIO_MEDIUM = 3;
+  private static final Integer AUDIO_LONG = 4;
 
   private static final String DEFAULT_MIME_TYPE = "application/octet-stream";
   
