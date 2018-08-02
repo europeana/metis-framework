@@ -25,6 +25,7 @@ public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl
     propertyUpdater.updateMap("dctermsExtent", WebResource::getDctermsExtent);
     propertyUpdater.updateMap("dctermsHasPart", WebResource::getDctermsHasPart);
     propertyUpdater.updateMap("dctermsIsFormatOf", WebResource::getDctermsIsFormatOf);
+    propertyUpdater.updateMap("dctermsIsPartOf", WebResource::getDctermsIsPartOf);
     propertyUpdater.updateMap("dctermsIssued", WebResource::getDctermsIssued);
     propertyUpdater.updateString("isNextInSequence", WebResource::getIsNextInSequence);
     propertyUpdater.updateMap("webResourceDcRights", WebResource::getWebResourceDcRights);

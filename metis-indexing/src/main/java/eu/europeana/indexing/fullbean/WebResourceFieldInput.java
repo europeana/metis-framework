@@ -87,6 +87,11 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
 
     webResource.setDctermsIsFormatOf(isFormatOfMap);
 
+    Map<String, List<String>> isPartOfMap = FieldInputUtils
+        .createResourceOrLiteralMapFromList(wResourceType.getIsPartOfList());
+
+    webResource.setDctermsIsPartOf(isPartOfMap);
+
     Map<String, List<String>> issuedMap =
         FieldInputUtils.createResourceOrLiteralMapFromList(wResourceType.getIssuedList());
 
