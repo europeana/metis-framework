@@ -114,7 +114,9 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     if (wResourceType.getIsNextInSequence() != null) {
       webResource.setIsNextInSequence(wResourceType.getIsNextInSequence().getResource());
     }
-    webResource.setOwlSameAs(FieldInputUtils.resourceListToArray(wResourceType.getSameAList()));
+    if (wResourceType.getSameAList() != null) {
+      webResource.setOwlSameAs(FieldInputUtils.resourceListToArray(wResourceType.getSameAList()));
+    }
 
     webResource.setDcCreator(
         FieldInputUtils.createResourceOrLiteralMapFromList(wResourceType.getCreatorList()));
