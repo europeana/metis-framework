@@ -30,6 +30,7 @@ public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl
     propertyUpdater.updateString("isNextInSequence", WebResource::getIsNextInSequence);
     propertyUpdater.updateMap("webResourceDcRights", WebResource::getWebResourceDcRights);
     propertyUpdater.updateMap("webResourceEdmRights", WebResource::getWebResourceEdmRights);
+    propertyUpdater.updateMap("dcType", WebResource::getDcType);
     propertyUpdater.updateArray("owlSameAs", WebResource::getOwlSameAs);
     propertyUpdater.updateString("edmPreview", WebResource::getEdmPreview);
     propertyUpdater.updateArray("svcsHasService", WebResource::getSvcsHasService);
