@@ -1,5 +1,6 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.jibx.Type1;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
@@ -224,7 +225,7 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     metaInfo.setMimeType(convertToString(source.getHasMimeType()));
     metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
     metaInfo.setResolution(convertToInteger(source.getSpatialResolution()));
-    metaInfo.setRdfType(source.getType().getResource());
+    metaInfo.setRdfType(Optional.ofNullable(source.getType()).map(Type1::getResource).orElse(null));
 
     target.setTextMetaInfo(metaInfo);
   }
