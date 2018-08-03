@@ -64,6 +64,8 @@ public class WebResourceMetaInfoUpdater
           createGetter(WebResourceMetaInfoImpl::getAudioMetaInfo, AudioMetaInfo::getSampleRate));
       propertyUpdater.updateObject("audioMetaInfo.bitRate",
           createGetter(WebResourceMetaInfoImpl::getAudioMetaInfo, AudioMetaInfo::getBitRate));
+      propertyUpdater.updateObject("audioMetaInfo.bitDepth",
+          createGetter(WebResourceMetaInfoImpl::getAudioMetaInfo, AudioMetaInfo::getBitDepth));
       propertyUpdater.updateObject("audioMetaInfo.channels",
           createGetter(WebResourceMetaInfoImpl::getAudioMetaInfo, AudioMetaInfo::getChannels));
     }
@@ -75,6 +77,8 @@ public class WebResourceMetaInfoUpdater
           createGetter(WebResourceMetaInfoImpl::getImageMetaInfo, ImageMetaInfo::getMimeType));
       propertyUpdater.updateObject("imageMetaInfo.fileSize",
           createGetter(WebResourceMetaInfoImpl::getImageMetaInfo, ImageMetaInfo::getFileSize));
+      propertyUpdater.updateObject("imageMetaInfo.height",
+          createGetter(WebResourceMetaInfoImpl::getImageMetaInfo, ImageMetaInfo::getHeight));
       propertyUpdater.updateObject("imageMetaInfo.width",
           createGetter(WebResourceMetaInfoImpl::getImageMetaInfo, ImageMetaInfo::getWidth));
       propertyUpdater.updateString("imageMetaInfo.colorSpace",
@@ -94,6 +98,8 @@ public class WebResourceMetaInfoUpdater
           createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getFileSize));
       propertyUpdater.updateObject("textMetaInfo.resolution",
           createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getResolution));
+      propertyUpdater.updateObject("textMetaInfo.rdfType",
+          createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getRdfType));
     }
 
     // Video info
@@ -113,6 +119,8 @@ public class WebResourceMetaInfoUpdater
           createGetter(WebResourceMetaInfoImpl::getVideoMetaInfo, VideoMetaInfo::getBitRate));
       propertyUpdater.updateObject("videoMetaInfo.frameRate",
           createGetter(WebResourceMetaInfoImpl::getVideoMetaInfo, VideoMetaInfo::getFrameRate));
+      propertyUpdater.updateObject("videoMetaInfo.duration",
+          createGetter(WebResourceMetaInfoImpl::getVideoMetaInfo, VideoMetaInfo::getDuration));
     }
   }
 

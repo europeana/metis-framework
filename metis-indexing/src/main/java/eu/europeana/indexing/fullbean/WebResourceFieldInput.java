@@ -178,6 +178,7 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     metaInfo.setDuration(convertToLong(source.getDuration()));
     metaInfo.setSampleRate(convertToInteger(source.getSampleRate()));
     metaInfo.setBitRate(convertToInteger(source.getBitRate()));
+    metaInfo.setBitDepth(convertToInteger(source.getSampleSize()));
     metaInfo.setChannels(convertToInteger(source.getAudioChannelNumber()));
 
     target.setAudioMetaInfo(metaInfo);
@@ -189,9 +190,12 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     metaInfo.setMimeType(convertToString(source.getHasMimeType()));
     metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
 
+    metaInfo.setHeight(convertToInteger(source.getHeight()));
     metaInfo.setWidth(convertToInteger(source.getWidth()));
     metaInfo.setColorSpace(Optional.ofNullable(source.getHasColorSpace())
-        .map(HasColorSpace::getHasColorSpace).map(ColorSpaceType::name).orElse(null));
+        .map(HasColorSpace::getHasColorSpace).map(ColorSpaceType::xmlValue)
+        .map(value -> "grayscale".equals(value) ? "Gray" : value).orElse(null));
+    // TODO: 3-8-18 Gray is used because of backwards compatibility but the actual value defined in the xsd is grayscale
 
     final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList())
         .map(List::stream).orElse(Stream.empty());
@@ -204,7 +208,7 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     final ImageOrientation targetOrientation;
     if (ORIENTATION_LANDSCAPE.equalsIgnoreCase(sourceOrientation)) {
       targetOrientation = ImageOrientation.LANDSCAPE;
-    } else if (ORIENTATION_PORTRAIT.equals(sourceOrientation)) {
+    } else if (ORIENTATION_PORTRAIT.equalsIgnoreCase(sourceOrientation)) {
       targetOrientation = ImageOrientation.PORTRAIT;
     } else {
       targetOrientation = null;
@@ -219,8 +223,8 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
 
     metaInfo.setMimeType(convertToString(source.getHasMimeType()));
     metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
-
     metaInfo.setResolution(convertToInteger(source.getSpatialResolution()));
+    metaInfo.setRdfType(source.getType().getResource());
 
     target.setTextMetaInfo(metaInfo);
   }
@@ -237,13 +241,15 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     metaInfo.setHeight(convertToInteger(source.getHeight()));
     metaInfo.setBitRate(convertToInteger(source.getBitRate()));
     metaInfo.setFrameRate(convertToDouble(source.getFrameRate()));
+    metaInfo.setDuration(convertToLong(source.getDuration()));
 
     target.setVideoMetaInfo(metaInfo);
   }
 
   private static Long convertToLong(Duration duration) {
-    if (duration == null || StringUtils.isBlank(duration.getDuration()))
+    if (duration == null || StringUtils.isBlank(duration.getDuration())) {
       return null;
+    }
     try {
       return Long.parseLong(duration.getDuration());
     } catch (NumberFormatException e) {

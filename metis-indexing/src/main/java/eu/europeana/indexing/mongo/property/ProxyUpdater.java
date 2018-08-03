@@ -63,6 +63,7 @@ public class ProxyUpdater extends AbstractIsolatedEdmEntityUpdater<ProxyImpl> {
     propertyUpdater.updateArray("edmIsNextInSequence", ProxyImpl::getEdmIsNextInSequence);
     propertyUpdater.updateArray("edmIsSimilarTo", ProxyImpl::getEdmIsSimilarTo);
     propertyUpdater.updateArray("edmIsSuccessorOf", ProxyImpl::getEdmIsSuccessorOf);
+    propertyUpdater.updateArray("edmRealizes", ProxyImpl::getEdmRealizes);
     propertyUpdater.updateArray("edmWasPresentAt", ProxyImpl::getEdmWasPresentAt);
     propertyUpdater.updateArray("proxyIn", ProxyImpl::getProxyIn);
     propertyUpdater.updateString("proxyFor", ProxyImpl::getProxyFor);
