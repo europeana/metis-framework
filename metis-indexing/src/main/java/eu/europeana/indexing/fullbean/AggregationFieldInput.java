@@ -40,9 +40,9 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
 
   @Override
   public AggregationImpl apply(Aggregation aggregation) {
-    
+
     AggregationImpl mongoAggregation = new AggregationImpl();
-    final List<WebResourceImpl> webResources = new ArrayList<>(webResourcesSupplier.get()); 
+    final List<WebResourceImpl> webResources = new ArrayList<>(webResourcesSupplier.get());
 
     mongoAggregation.setAbout(aggregation.getAbout());
     Map<String, List<String>> dp =
@@ -53,11 +53,11 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
           .createResourceOrLiteralMapFromList(aggregation.getIntermediateProviderList());
       mongoAggregation.setEdmIntermediateProvider(providers);
     }
-    
+
     mongoAggregation.setEdmIsShownAt(processResource(webResources, aggregation.getIsShownAt()));
     mongoAggregation.setEdmIsShownBy(processResource(webResources, aggregation.getIsShownBy()));
     mongoAggregation.setEdmObject(processResource(webResources, aggregation.getObject()));
-    
+
     Map<String, List<String>> prov =
         FieldInputUtils.createResourceOrLiteralMapFromString(aggregation.getProvider());
     mongoAggregation.setEdmProvider(prov);
@@ -69,7 +69,8 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
       mongoAggregation
           .setEdmUgc(aggregation.getUgc().getUgc().toString().toLowerCase(Locale.ENGLISH));
     } else {
-      mongoAggregation.setEdmUgc(null);
+      //False value is not supported in the RDF enumeration so we have to manually add it if Ugc is not present
+      mongoAggregation.setEdmUgc("false");
     }
 
     String agCHO = Optional.ofNullable(aggregation.getAggregatedCHO())
@@ -89,7 +90,7 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
       mongoAggregation.setHasView(null);
 
     }
-    
+
     mongoAggregation.setWebResources(webResources);
 
     return mongoAggregation;
