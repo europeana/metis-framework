@@ -68,12 +68,13 @@ public class TestExecutionRules {
         EnumSet.of(PluginType.NORMALIZATION));
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.MEDIA_PROCESS,
         EnumSet.of(PluginType.ENRICHMENT));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.LINK_CHECKING,
-        EnumSet.of(PluginType.MEDIA_PROCESS));
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.PREVIEW,
-        EnumSet.of(PluginType.LINK_CHECKING));
+        EnumSet.of(PluginType.MEDIA_PROCESS));
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.PUBLISH,
         EnumSet.of(PluginType.PREVIEW));
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.LINK_CHECKING,
+        EnumSet.of(PluginType.VALIDATION_INTERNAL, PluginType.NORMALIZATION, PluginType.ENRICHMENT,
+            PluginType.MEDIA_PROCESS, PluginType.PREVIEW, PluginType.PUBLISH));
   }
 
   private void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(

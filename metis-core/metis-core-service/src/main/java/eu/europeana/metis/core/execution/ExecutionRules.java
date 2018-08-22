@@ -80,16 +80,16 @@ public final class ExecutionRules {
       case MEDIA_PROCESS:
         latestPreviousPluginTypesSet = EnumSet.of(PluginType.ENRICHMENT);
         break;
-      case LINK_CHECKING:
-        latestPreviousPluginTypesSet = EnumSet.of(PluginType.VALIDATION_INTERNAL,
-            PluginType.NORMALIZATION, PluginType.ENRICHMENT, PluginType.MEDIA_PROCESS,
-            PluginType.PREVIEW, PluginType.PUBLISH);
-        break;
       case PREVIEW:
         latestPreviousPluginTypesSet = EnumSet.of(PluginType.MEDIA_PROCESS);
         break;
       case PUBLISH:
         latestPreviousPluginTypesSet = EnumSet.of(PluginType.PREVIEW);
+        break;
+      case LINK_CHECKING:
+        latestPreviousPluginTypesSet = EnumSet.of(PluginType.VALIDATION_INTERNAL,
+            PluginType.NORMALIZATION, PluginType.ENRICHMENT, PluginType.MEDIA_PROCESS,
+            PluginType.PREVIEW, PluginType.PUBLISH);
         break;
       default:
         break;
