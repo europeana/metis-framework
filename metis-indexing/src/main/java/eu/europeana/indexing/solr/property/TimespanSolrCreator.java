@@ -17,12 +17,6 @@ public class TimespanSolrCreator implements PropertySolrCreator<Timespan> {
     SolrPropertyUtils.addValue(doc, EdmLabel.EDM_TIMESPAN, ts.getAbout());
     SolrPropertyUtils.addValues(doc, EdmLabel.TS_SKOS_PREF_LABEL, ts.getPrefLabel());
     SolrPropertyUtils.addValues(doc, EdmLabel.TS_SKOS_ALT_LABEL, ts.getAltLabel());
-    SolrPropertyUtils.addValues(doc, EdmLabel.TS_SKOS_NOTE, ts.getNote());
-    SolrPropertyUtils.addValues(doc, EdmLabel.TS_SKOS_HIDDENLABEL, ts.getHiddenLabel());
     SolrPropertyUtils.addValues(doc, EdmLabel.TS_SKOS_PREF_LABEL, ts.getOwlSameAs());
-    SolrPropertyUtils.addValues(doc, EdmLabel.TS_DCTERMS_HASPART, ts.getDctermsHasPart());
-    SolrPropertyUtils.addValues(doc, EdmLabel.TS_DCTERMS_ISPART_OF, ts.getIsPartOf());
-    SolrPropertyUtils.addValues(doc, EdmLabel.TS_EDM_BEGIN, ts.getBegin());
-    SolrPropertyUtils.addValues(doc, EdmLabel.TS_EDM_END, ts.getEnd());
   }
 }

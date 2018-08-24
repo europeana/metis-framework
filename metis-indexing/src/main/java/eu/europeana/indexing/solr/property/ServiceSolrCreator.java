@@ -13,6 +13,5 @@ public class ServiceSolrCreator implements PropertySolrCreator<Service> {
   public void addToDocument(SolrInputDocument doc, Service service) {
     SolrPropertyUtils.addValue(doc, EdmLabel.SV_SERVICE, service.getAbout());
     SolrPropertyUtils.addValues(doc, EdmLabel.SV_DCTERMS_CONFORMS_TO, service.getDctermsConformsTo());
-    SolrPropertyUtils.addValues(doc, EdmLabel.SV_DOAP_IMPLEMENTS, service.getDoapImplements());
   }
 }
