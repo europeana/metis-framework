@@ -27,7 +27,6 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
 
   @Override
   public void addToDocument(SolrInputDocument doc, Aggregation aggr) {
-    SolrPropertyUtils.addValue(doc, EdmLabel.PROVIDER_AGGREGATION_ORE_AGGREGATION, aggr.getAbout());
     SolrPropertyUtils.addValues(doc, EdmLabel.PROVIDER_AGGREGATION_DC_RIGHTS, aggr.getDcRights());
     if (!SolrPropertyUtils.hasLicenseForRights(aggr.getEdmRights(),
         item -> licenses.stream().anyMatch(license -> license.getAbout().equals(item)))) {
@@ -40,11 +39,7 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
         aggr.getEdmIntermediateProvider());
     SolrPropertyUtils
         .addValues(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_PROVIDER, aggr.getEdmProvider());
-    SolrPropertyUtils
-        .addValues(doc, EdmLabel.PROVIDER_AGGREGATION_ORE_AGGREGATES, aggr.getAggregates());
     SolrPropertyUtils.addValues(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_HASVIEW, aggr.getHasView());
-    SolrPropertyUtils.addValue(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_AGGREGATED_CHO,
-        aggr.getAggregatedCHO());
     SolrPropertyUtils
         .addValue(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_AT, aggr.getEdmIsShownAt());
     SolrPropertyUtils

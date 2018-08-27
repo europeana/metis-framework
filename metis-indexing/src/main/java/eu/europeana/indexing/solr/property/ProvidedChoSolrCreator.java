@@ -14,6 +14,5 @@ public class ProvidedChoSolrCreator implements PropertySolrCreator<ProvidedCHOIm
   @Override
   public void addToDocument(SolrInputDocument doc, ProvidedCHOImpl pCho) {
     SolrPropertyUtils.addValue(doc, EdmLabel.EUROPEANA_ID, pCho.getAbout());
-    SolrPropertyUtils.addValues(doc, EdmLabel.PROXY_OWL_SAMEAS, pCho.getOwlSameAs());
   }
 }

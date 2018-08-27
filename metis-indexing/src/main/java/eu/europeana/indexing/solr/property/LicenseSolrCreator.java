@@ -27,18 +27,20 @@ public class LicenseSolrCreator implements PropertySolrCreator<License> {
 
   @Override
   public void addToDocument(SolrInputDocument doc, License license) {
+	  
     final boolean isAggregation = isAggregationResolver.test(license);
+    
     final EdmLabel licenseLabel =
         isAggregation ? EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE : EdmLabel.WR_CC_LICENSE;
+    SolrPropertyUtils.addValue(doc, licenseLabel, license.getAbout());
+    
     final EdmLabel deprecatedLabel = isAggregation ? EdmLabel.PROVIDER_AGGREGATION_CC_DEPRECATED_ON
         : EdmLabel.WR_CC_DEPRECATED_ON;
-    final EdmLabel inheritedLabel =
-        isAggregation ? EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM
-            : EdmLabel.WR_ODRL_INHERITED_FROM;
-    SolrPropertyUtils.addValue(doc, licenseLabel, license.getAbout());
-
-    Date ccDeprecatedOnDate = new Date(license.getCcDeprecatedOn().getTime());
+    final Date ccDeprecatedOnDate = new Date(license.getCcDeprecatedOn().getTime());
     doc.addField(deprecatedLabel.toString(), ccDeprecatedOnDate);
-    SolrPropertyUtils.addValue(doc, inheritedLabel, license.getOdrlInheritFrom());
+    
+    if (isAggregation) {
+      SolrPropertyUtils.addValue(doc, EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM, license.getOdrlInheritFrom());
+    }
   }
 }

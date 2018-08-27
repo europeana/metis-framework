@@ -18,11 +18,6 @@ public class PlaceSolrCreator implements PropertySolrCreator<Place> {
     SolrPropertyUtils.addValue(doc, EdmLabel.EDM_PLACE, place.getAbout());
     SolrPropertyUtils.addValues(doc, EdmLabel.PL_SKOS_PREF_LABEL, place.getPrefLabel());
     SolrPropertyUtils.addValues(doc, EdmLabel.PL_SKOS_ALT_LABEL, place.getAltLabel());
-    SolrPropertyUtils.addValues(doc, EdmLabel.PL_SKOS_NOTE, place.getNote());
-    SolrPropertyUtils.addValues(doc, EdmLabel.PL_SKOS_HIDDENLABEL, place.getHiddenLabel());
-    SolrPropertyUtils.addValues(doc, EdmLabel.PL_OWL_SAMEAS, place.getOwlSameAs());
-    SolrPropertyUtils.addValues(doc, EdmLabel.PL_DCTERMS_HASPART, place.getDcTermsHasPart());
-    SolrPropertyUtils.addValues(doc, EdmLabel.PL_DCTERMS_ISPART_OF, place.getIsPartOf());
 
     if (place.getLatitude() != null && place.getLatitude() != 0) {
       SolrPropertyUtils.addValue(doc, EdmLabel.PL_WGS84_POS_LAT, place.getLatitude());
