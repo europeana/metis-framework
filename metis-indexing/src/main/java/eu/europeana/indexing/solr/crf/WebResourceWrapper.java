@@ -1,5 +1,6 @@
 package eu.europeana.indexing.solr.crf;
 
+import eu.europeana.indexing.utils.RdfUtils;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -64,14 +65,7 @@ public class WebResourceWrapper {
    * @return The list of web resources. Is not null, but could be empty.
    */
   public static List<WebResourceWrapper> getListFromRdf(RDF rdf) {
-    final List<WebResourceWrapper> result;
-    if (rdf.getWebResourceList() == null) {
-      result = Collections.emptyList();
-    } else {
-      result = rdf.getWebResourceList().stream().map(WebResourceWrapper::new)
-          .collect(Collectors.toList());
-    }
-    return result;
+    return RdfUtils.getWebResources(rdf).map(WebResourceWrapper::new).collect(Collectors.toList());
   }
 
   /**
