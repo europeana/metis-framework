@@ -50,12 +50,12 @@ public class RdfToFullBeanConverter {
     fullBean.setProxies(convertList(record.getProxyList(), new ProxyFieldInput(), true));
     fullBean.setAggregations(convertList(record.getAggregationList(),
         new AggregationFieldInput(new WebResourcesExtractor(record)), false));
-    fullBean.setConcepts(convertList(record.getConceptList(), new ConceptFieldInput(), true));
-    fullBean.setPlaces(convertList(record.getPlaceList(), new PlaceFieldInput(), true));
-    fullBean.setTimespans(convertList(record.getTimeSpanList(), new TimespanFieldInput(), true));
-    fullBean.setAgents(convertList(record.getAgentList(), new AgentFieldInput(), true));
-    fullBean.setLicenses(convertList(record.getLicenseList(), new LicenseFieldInput(), true));
-    fullBean.setServices(convertList(record.getServiceList(), new ServiceFieldInput(), false));
+    fullBean.setConcepts(convertList(RdfUtils.getConcepts(record), new ConceptFieldInput(), true));
+    fullBean.setPlaces(convertList(RdfUtils.getPlaces(record), new PlaceFieldInput(), true));
+    fullBean.setTimespans(convertList(RdfUtils.getTimeSpans(record), new TimespanFieldInput(), true));
+    fullBean.setAgents(convertList(RdfUtils.getAgents(record), new AgentFieldInput(), true));
+    fullBean.setLicenses(convertList(RdfUtils.getLicenses(record), new LicenseFieldInput(), true));
+    fullBean.setServices(convertList(RdfUtils.getServices(record), new ServiceFieldInput(), false));
 
     fullBean.setEuropeanaCollectionName(new String[]{getDatasetNameFromRdf(record)});
 
