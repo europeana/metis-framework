@@ -1,5 +1,6 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.indexing.utils.RdfUtils;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -49,22 +50,22 @@ public class RdfToFullBeanConverter {
     fullBean.setProxies(convertList(record.getProxyList(), new ProxyFieldInput(), true));
     fullBean.setAggregations(convertList(record.getAggregationList(),
         new AggregationFieldInput(new WebResourcesExtractor(record)), false));
-    fullBean.setConcepts(convertList(record.getConceptList(), new ConceptFieldInput(), true));
-    fullBean.setPlaces(convertList(record.getPlaceList(), new PlaceFieldInput(), true));
-    fullBean.setTimespans(convertList(record.getTimeSpanList(), new TimespanFieldInput(), true));
-    fullBean.setAgents(convertList(record.getAgentList(), new AgentFieldInput(), true));
-    fullBean.setLicenses(convertList(record.getLicenseList(), new LicenseFieldInput(), true));
-    fullBean.setServices(convertList(record.getServiceList(), new ServiceFieldInput(), false));
+    fullBean.setConcepts(convertList(RdfUtils.getConceptsWithNonemptyAbout(record), new ConceptFieldInput(), true));
+    fullBean.setPlaces(convertList(RdfUtils.getPlacesWithNonemptyAbout(record), new PlaceFieldInput(), true));
+    fullBean.setTimespans(convertList(RdfUtils.getTimeSpansWithNonemptyAbout(record), new TimespanFieldInput(), true));
+    fullBean.setAgents(convertList(RdfUtils.getAgentsWithNonemptyAbout(record), new AgentFieldInput(), true));
+    fullBean.setLicenses(convertList(RdfUtils.getLicensesWithNonemptyAbout(record), new LicenseFieldInput(), true));
+    fullBean.setServices(convertList(RdfUtils.getServicesWithNonemptyAbout(record), new ServiceFieldInput(), false));
 
     fullBean.setEuropeanaCollectionName(new String[]{getDatasetNameFromRdf(record)});
-    
+
     final Optional<EuropeanaAggregationType> europeanaAggregation;
     if (record.getEuropeanaAggregationList() != null) {
       europeanaAggregation = record.getEuropeanaAggregationList().stream().findFirst();
     } else {
       europeanaAggregation = Optional.empty();
     }
-        
+
     fullBean.setEuropeanaAggregation(
         europeanaAggregation.map(new EuropeanaAggregationFieldInput()).orElse(null));
     europeanaAggregation.map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)
@@ -74,7 +75,7 @@ public class RdfToFullBeanConverter {
         .map(Created::getString).map(RdfToFullBeanConverter::convertToDate).orElse(null));
     fullBean.setTimestampUpdated(europeanaAggregation.map(EuropeanaAggregationType::getModified)
         .map(Modified::getString).map(RdfToFullBeanConverter::convertToDate).orElse(null));
-    
+
     return fullBean;
   }
 
@@ -135,11 +136,11 @@ public class RdfToFullBeanConverter {
     @Override
     public List<WebResourceImpl> get() {
       if (webResources == null) {
-        if (record.getWebResourceList() != null && !record.getWebResourceList().isEmpty()) {
-          Collection<WebResourceType> webResourcesBeforeConversion = record.getWebResourceList()
-              .stream().collect(Collectors.toMap(WebResourceType::getAbout,
-                  UnaryOperator.identity(), (first, second) -> first))
-              .values();
+        final Collection<WebResourceType> webResourcesBeforeConversion = RdfUtils
+            .getWebResourcesWithNonemptyAbout(record).collect(Collectors
+                .toMap(WebResourceType::getAbout, UnaryOperator.identity(),
+                    (first, second) -> first)).values();
+        if (!webResourcesBeforeConversion.isEmpty()) {
           webResources = webResourcesBeforeConversion.stream().map(new WebResourceFieldInput())
               .collect(Collectors.toList());
         } else {
