@@ -1,7 +1,11 @@
 package eu.europeana.indexing.utils;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import eu.europeana.corelib.definitions.jibx.AboutType;
-import eu.europeana.corelib.definitions.jibx.AgentTerm;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.License;
@@ -11,13 +15,11 @@ import eu.europeana.corelib.definitions.jibx.Service;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 public class RdfUtilsTest {
 
@@ -43,18 +45,18 @@ public class RdfUtilsTest {
       Function<RDF, List<T>> getter, Function<RDF, List<T>> utilsMethod) {
 
     // Create entities
-    final T entity1 = Mockito.mock(type);
-    Mockito.doReturn("nonemptyabout").when(entity1).getAbout();
-    final T entity2 = Mockito.mock(type);
-    Mockito.doReturn(" ").when(entity2).getAbout();
-    final T entity3 = Mockito.mock(type);
-    Mockito.doReturn(null).when(entity3).getAbout();
+    final T entity1 = mock(type);
+    doReturn("nonemptyabout").when(entity1).getAbout();
+    final T entity2 = mock(type);
+    doReturn(" ").when(entity2).getAbout();
+    final T entity3 = mock(type);
+    doReturn(null).when(entity3).getAbout();
 
     // Create rdf
-    final RDF rdf = Mockito.mock(RDF.class);
-    Mockito.when(getter.apply(rdf)).thenReturn(Arrays.asList(entity1, entity2, entity3));
+    final RDF rdf = mock(RDF.class);
+    when(getter.apply(rdf)).thenReturn(Arrays.asList(entity1, entity2, entity3));
 
     // Test
-    Assert.assertEquals(Arrays.asList(entity1), utilsMethod.apply(rdf));
+    assertEquals(Collections.singletonList(entity1), utilsMethod.apply(rdf));
   }
 }
