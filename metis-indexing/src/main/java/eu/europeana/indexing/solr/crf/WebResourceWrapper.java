@@ -65,7 +65,7 @@ public class WebResourceWrapper {
    * @return The list of web resources. Is not null, but could be empty.
    */
   public static List<WebResourceWrapper> getListFromRdf(RDF rdf) {
-    return RdfUtils.getWebResources(rdf).map(WebResourceWrapper::new).collect(Collectors.toList());
+    return RdfUtils.getWebResourcesWithNonemptyAbout(rdf).map(WebResourceWrapper::new).collect(Collectors.toList());
   }
 
   /**

@@ -30,7 +30,7 @@ public final class RdfUtils {
    * @param record The record from which to obtain the web resources.
    * @return The web resources that need to be indexed.
    */
-  public static Stream<WebResourceType> getWebResources(RDF record) {
+  public static Stream<WebResourceType> getWebResourcesWithNonemptyAbout(RDF record) {
     return getFilteredPropertyStream(record.getWebResourceList());
   }
   
@@ -41,7 +41,7 @@ public final class RdfUtils {
    * @param record The record from which to obtain the agents.
    * @return The agents that need to be indexed.
    */
-  public static List<AgentType> getAgents(RDF record) {
+  public static List<AgentType> getAgentsWithNonemptyAbout(RDF record) {
     return getFilteredPropertyList(record.getAgentList());
   }
 
@@ -52,7 +52,7 @@ public final class RdfUtils {
    * @param record The record from which to obtain the concepts.
    * @return The concepts that need to be indexed.
    */
-  public static List<Concept> getConcepts(RDF record) {
+  public static List<Concept> getConceptsWithNonemptyAbout(RDF record) {
     return getFilteredPropertyList(record.getConceptList());
   }
 
@@ -63,7 +63,7 @@ public final class RdfUtils {
    * @param record The record from which to obtain the licenses.
    * @return The licenses that need to be indexed.
    */
-  public static List<License> getLicenses(RDF record) {
+  public static List<License> getLicensesWithNonemptyAbout(RDF record) {
     return getFilteredPropertyList(record.getLicenseList());
   }
 
@@ -74,7 +74,7 @@ public final class RdfUtils {
    * @param record The record from which to obtain the places.
    * @return The places that need to be indexed.
    */
-  public static List<PlaceType> getPlaces(RDF record) {
+  public static List<PlaceType> getPlacesWithNonemptyAbout(RDF record) {
     return getFilteredPropertyList(record.getPlaceList());
   }
 
@@ -85,7 +85,7 @@ public final class RdfUtils {
    * @param record The record from which to obtain the time spans.
    * @return The time spans that need to be indexed.
    */
-  public static List<TimeSpanType> getTimeSpans(RDF record) {
+  public static List<TimeSpanType> getTimeSpansWithNonemptyAbout(RDF record) {
     return getFilteredPropertyList(record.getTimeSpanList());
   }
 
@@ -96,7 +96,7 @@ public final class RdfUtils {
    * @param record The record from which to obtain the services.
    * @return The services that need to be indexed.
    */
-  public static List<Service> getServices(RDF record) {
+  public static List<Service> getServicesWithNonemptyAbout(RDF record) {
     return getFilteredPropertyList(record.getServiceList());
   }
 
