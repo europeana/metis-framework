@@ -1,6 +1,7 @@
 package eu.europeana.metis.dereference.service;
 
 import com.mongodb.MongoClient;
+import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.ContextualClass;
 import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.Vocabulary;
@@ -22,22 +23,26 @@ import redis.clients.jedis.Jedis;
  */
 public class MongoDereferencingManagementServiceTest {
     private MongoDereferencingManagementService service;
+    private RedisProvider redisProvider;
     private Jedis jedis;
     private EntityDao entityDao;
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
-    
+
     @Before
     public void prepare() {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
         int mongoPort = embeddedLocalhostMongo.getMongoPort();
 
+        redisProvider = Mockito.mock(RedisProvider.class);
         jedis = Mockito.mock(Jedis.class);
-        CacheDao cacheDao = new CacheDao(jedis);
+        CacheDao cacheDao = new CacheDao(redisProvider);
         MongoClient mongo = new MongoClient(mongoHost, mongoPort);
         VocabularyDao vocDao = new VocabularyDao(mongo,"voctest");
         entityDao = new EntityDao(mongo,"voctest");
         service = new MongoDereferencingManagementService(vocDao, cacheDao,entityDao);
+
+        Mockito.when(redisProvider.getJedis()).thenReturn(jedis);
     }
 
     @Test
