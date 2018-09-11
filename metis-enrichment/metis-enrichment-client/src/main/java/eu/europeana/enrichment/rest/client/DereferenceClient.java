@@ -1,5 +1,8 @@
 package eu.europeana.enrichment.rest.client;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.dereference.Vocabulary;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,10 +18,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.dereference.Vocabulary;
 
 /**
  * A REST wrapper client to be used for dereferencing
@@ -30,9 +31,15 @@ public class DereferenceClient {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferenceClient.class);
 
   private final String hostUrl;
-  private RestTemplate restTemplate = new RestTemplate();
+  private RestTemplate restTemplate;
 
   public DereferenceClient(String hostUrl) {
+    restTemplate = new RestTemplate();
+    MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+    mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays
+        .asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_OCTET_STREAM));
+    restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
     this.hostUrl = hostUrl;
   }
 
