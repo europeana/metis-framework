@@ -121,13 +121,7 @@ public class EnrichmentController {
 
     try {
       List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValues());
-      EnrichmentResultList result = converter.convert(wrapperList);
-
-      if (result.getResult().isEmpty()) {
-        return null;
-      }
-
-      return result;
+      return converter.convert(wrapperList);
     } catch (IOException e) {
       LOGGER.error("Error converting object.", e);
       throw new EnrichmentException("Error converting object.", e);
