@@ -17,7 +17,6 @@ public class EuropeanaAggregationUpdater
   @Override
   protected void preprocessEntity(EuropeanaAggregationImpl newEntity,
       RootAbout ancestorInformation) {
-    newEntity.setEdmLandingPageFromAggregatedCHO();
     super.preprocessEntity(newEntity, ancestorInformation);
   }
 
@@ -25,7 +24,6 @@ public class EuropeanaAggregationUpdater
   protected void update(MongoPropertyUpdater<EuropeanaAggregationImpl> propertyUpdater,
       RootAbout ancestorInformation) {
     propertyUpdater.updateString("aggregatedCHO", EuropeanaAggregation::getAggregatedCHO);
-    propertyUpdater.updateString("edmLandingPage", EuropeanaAggregation::getEdmLandingPage);
     propertyUpdater.updateString("edmIsShownBy", EuropeanaAggregation::getEdmIsShownBy);
     propertyUpdater.updateMap("edmRights", EuropeanaAggregation::getEdmRights);
     propertyUpdater.updateMap("edmCountry", EuropeanaAggregation::getEdmCountry);

@@ -43,7 +43,6 @@ final class EuropeanaAggregationFieldInput
     String agCHO = Optional.ofNullable(aggregation.getAggregatedCHO())
         .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setAggregatedCHO(agCHO);
-    mongoAggregation.setEdmLandingPageFromAggregatedCHO();
 
     Map<String, List<String>> edmRights =
         FieldInputUtils.createResourceMapFromString(aggregation.getRights());
