@@ -10,14 +10,12 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.InputValue;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -30,7 +28,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class EnrichmentClient {
 
   private final String endpoint;
-  private RestTemplate template;
+  private RestTemplate template = new RestTemplate();
 
   /**
    * Constructor with required endpoint prefix.
@@ -38,12 +36,6 @@ public class EnrichmentClient {
    * @param endpoint the endpoint of the rest api
    */
   public EnrichmentClient(String endpoint) {
-    template = new RestTemplate();
-    MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
-    mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays
-        .asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_OCTET_STREAM));
-    template.getMessageConverters().add(mappingJackson2HttpMessageConverter);
     this.endpoint = endpoint;
   }
 
