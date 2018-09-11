@@ -91,11 +91,6 @@
       <artifactId>commons-lang3</artifactId>
       <version>${version.commons.lang}</version>
     </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
   </dependencies>
   <build>
     <plugins>
