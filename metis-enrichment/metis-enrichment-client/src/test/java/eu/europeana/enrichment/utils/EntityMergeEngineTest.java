@@ -42,7 +42,7 @@ public class EntityMergeEngineTest {
   private static Place createPlace() {
     Place place = new Place();
 
-    place.setAbout("aboutP1");
+    place.setAbout("aboutP0");
     place.setAlt("123.456");
 
     Label label1 = new Label("labelP1");
@@ -73,6 +73,7 @@ public class EntityMergeEngineTest {
 
   private static Place createFirstPlaceWithNullValues() {
     Place place = new Place();
+    place.setAbout("aboutP1");
     place.setAltLabelList(Arrays.asList(new Label[] {null}));
     place.setHasPartsList(Arrays.asList(new Part[] {}));
     place.setIsPartOfList(null);
@@ -83,6 +84,7 @@ public class EntityMergeEngineTest {
 
   private static Place createSecondPlaceWithNullValues() {
     Place place = new Place();
+    place.setAbout("aboutP2");
     place.setHasPartsList(Arrays.asList(new Part[] {new Part()}));
     place.setIsPartOfList(Arrays.asList(new Part[] {new Part("")}));
     return place;

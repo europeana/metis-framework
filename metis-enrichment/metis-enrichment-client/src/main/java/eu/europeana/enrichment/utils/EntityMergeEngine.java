@@ -65,8 +65,15 @@ public class EntityMergeEngine {
     destination.setAbout(source.getAbout());
   }
 
-  private static PlaceType convertAndAddPlace(Place place, List<PlaceType> destination) {
+  private static <T extends AboutType> boolean isEntityAlreadyInList(EnrichmentBase enrichmentBase, List<T> destination) {
+    return destination.stream().anyMatch(entity -> entity.getAbout().equals(enrichmentBase.getAbout()));
+  }
 
+  private static PlaceType convertAndAddPlace(Place place, List<PlaceType> destination) {
+    //Check if Entity already exists in the list
+    if (isEntityAlreadyInList(place, destination)) {
+      return null;
+    }
     PlaceType placeType = new PlaceType();
 
     // about
@@ -119,6 +126,10 @@ public class EntityMergeEngine {
   }
 
   private static AgentType convertAndAddAgent(Agent agent, List<AgentType> destination) {
+    //Check if Entity already exists in the list
+    if (isEntityAlreadyInList(agent, destination)) {
+      return null;
+    }
 
     AgentType agentType = new AgentType();
 
@@ -133,7 +144,8 @@ public class EntityMergeEngine {
 
     // biographicalInformation
     agentType.setBiographicalInformationList(
-        extractLabelsToResourceOrLiteralList(agent.getBiographicaInformation(), BiographicalInformation::new));
+        extractLabelsToResourceOrLiteralList(agent.getBiographicaInformation(),
+            BiographicalInformation::new));
     agentType.setProfessionOrOccupationList(
         extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
 
@@ -198,6 +210,10 @@ public class EntityMergeEngine {
 
   private static eu.europeana.corelib.definitions.jibx.Concept convertAndAddConcept(
       Concept baseConcept, List<eu.europeana.corelib.definitions.jibx.Concept> destination) {
+    //Check if Entity already exists in the list
+    if (isEntityAlreadyInList(baseConcept, destination)) {
+      return null;
+    }
     eu.europeana.corelib.definitions.jibx.Concept concept =
         new eu.europeana.corelib.definitions.jibx.Concept();
 
@@ -269,6 +285,11 @@ public class EntityMergeEngine {
 
   private static TimeSpanType convertAndAddTimespan(Timespan timespan,
       List<TimeSpanType> destination) {
+    //Check if Entity already exists in the list
+    if (isEntityAlreadyInList(timespan, destination)) {
+      return null;
+    }
+
     TimeSpanType timeSpanType = new TimeSpanType();
 
     // about
@@ -330,9 +351,9 @@ public class EntityMergeEngine {
   }
 
   /**
-   * Merge entities in a record. Wrapper for {@link #mergeEntities(RDF, List, String)} without a field
-   * name.
-   * 
+   * Merge entities in a record. Wrapper for {@link #mergeEntities(RDF, List, String)} without a
+   * field name.
+   *
    * @param rdf The RDF to enrich
    * @param enrichmentBaseList The information to append
    */
@@ -341,12 +362,12 @@ public class EntityMergeEngine {
   }
 
   /**
-   * TODO JV This method is NEVER called with non-null (nonempty) field name? I would expect
-   * that particularly during enrichment (given the history of this method) there may be a need to
+   * TODO JV This method is NEVER called with non-null (nonempty) field name? I would expect that
+   * particularly during enrichment (given the history of this method) there may be a need to
    * provide this parameter.
-   * 
+   *
    * Merge entities in a record
-   * 
+   *
    * @param rdf The RDF to enrich
    * @param enrichmentBaseList The information to append
    * @param fieldName The name of the field so that it can be connected to Europeana Proxy
@@ -390,9 +411,11 @@ public class EntityMergeEngine {
     return extractItems(sourceList, label -> extractLabel(label, newInstanceProvider));
   }
 
-  private static <T extends ResourceOrLiteralType> List<T> extractLabelsToResourceOrLiteralList(List<Label> sourceList,
+  private static <T extends ResourceOrLiteralType> List<T> extractLabelsToResourceOrLiteralList(
+      List<Label> sourceList,
       Supplier<T> newInstanceProvider) {
-    return extractItems(sourceList, label -> extractLabelToResourceOrLiteral(label, newInstanceProvider));
+    return extractItems(sourceList,
+        label -> extractLabelToResourceOrLiteral(label, newInstanceProvider));
   }
 
   private static <T extends ResourceOrLiteralType> List<T> extractParts(List<Part> sourceList,
