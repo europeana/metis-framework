@@ -1,12 +1,5 @@
 package eu.europeana.enrichment.utils;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import eu.europeana.corelib.definitions.jibx.Contributor;
 import eu.europeana.corelib.definitions.jibx.Coverage;
 import eu.europeana.corelib.definitions.jibx.Created;
@@ -14,13 +7,22 @@ import eu.europeana.corelib.definitions.jibx.Creator;
 import eu.europeana.corelib.definitions.jibx.Date;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
+import eu.europeana.corelib.definitions.jibx.Format;
 import eu.europeana.corelib.definitions.jibx.Issued;
+import eu.europeana.corelib.definitions.jibx.Medium;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.Spatial;
 import eu.europeana.corelib.definitions.jibx.Subject;
 import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.Type;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -54,6 +56,12 @@ public enum EnrichmentFields {
       EntityClass.PLACE),
 
   DC_SUBJECT(Choice::ifSubject, Choice::getSubject, Choice::setSubject, Subject::new,
+      EntityClass.CONCEPT),
+
+  DCTERMS_MEDIUM(Choice::ifMedium, Choice::getMedium, Choice::setMedium, Medium::new,
+      EntityClass.CONCEPT),
+
+  DC_FORMAT(Choice::ifFormat, Choice::getFormat, Choice::setFormat, Format::new,
       EntityClass.CONCEPT);
 
   private final ChoiceContentHandler<?> choiceContentHandler;
