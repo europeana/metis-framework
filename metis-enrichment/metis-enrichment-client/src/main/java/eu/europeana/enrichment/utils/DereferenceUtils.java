@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Created by gmamakis on 9-3-17.
  */
-public class DereferenceUtils {
+public final class DereferenceUtils {
 
   private static final Function<ResourceType, String> RESOURCE_EXTRACTOR = DereferenceUtils::extractFromResource;
   private static final Function<ResourceOrLiteralType, String> RESOURCE_OR_LITERAL_EXTRACTOR = DereferenceUtils::extractFromResourceOrLiteral;
