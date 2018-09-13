@@ -1,13 +1,5 @@
 package eu.europeana.enrichment.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
 import eu.europeana.corelib.definitions.jibx.AboutType;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Alt;
@@ -33,7 +25,6 @@ import eu.europeana.corelib.definitions.jibx.InScheme;
 import eu.europeana.corelib.definitions.jibx.IsPartOf;
 import eu.europeana.corelib.definitions.jibx.IsRelatedTo;
 import eu.europeana.corelib.definitions.jibx.Lat;
-import eu.europeana.corelib.definitions.jibx.LiteralType;
 import eu.europeana.corelib.definitions.jibx.NarrowMatch;
 import eu.europeana.corelib.definitions.jibx.Narrower;
 import eu.europeana.corelib.definitions.jibx.Notation;
@@ -44,8 +35,6 @@ import eu.europeana.corelib.definitions.jibx.ProfessionOrOccupation;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.Related;
 import eu.europeana.corelib.definitions.jibx.RelatedMatch;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.SameAs;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx._Long;
@@ -53,31 +42,24 @@ import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 public class EntityMergeEngine {
 
-  private static void setAbout(EnrichmentBase source, AboutType destination) {
-    destination.setAbout(source.getAbout());
-  }
-
-  private static <T extends AboutType> boolean isEntityAlreadyInList(EnrichmentBase enrichmentBase, List<T> destination) {
-    return destination.stream().anyMatch(entity -> entity.getAbout().equals(enrichmentBase.getAbout()));
-  }
-
   private static PlaceType convertAndAddPlace(Place place, List<PlaceType> destination) {
     //Check if Entity already exists in the list
-    if (isEntityAlreadyInList(place, destination)) {
+    if (ItemExtractorUtils.isEntityAlreadyInList(place, destination)) {
       return null;
     }
     PlaceType placeType = new PlaceType();
 
     // about
-    setAbout(place, placeType);
+    ItemExtractorUtils.setAbout(place, placeType);
 
     // alt
     if (place.getAlt() != null) {
@@ -87,13 +69,16 @@ public class EntityMergeEngine {
     }
 
     // altlabels
-    placeType.setAltLabelList(extractLabels(place.getAltLabelList(), AltLabel::new));
+    placeType
+        .setAltLabelList(ItemExtractorUtils.extractLabels(place.getAltLabelList(), AltLabel::new));
 
     // hasPartList
-    placeType.setHasPartList(extractParts(place.getHasPartsList(), HasPart::new));
+    placeType
+        .setHasPartList(ItemExtractorUtils.extractParts(place.getHasPartsList(), HasPart::new));
 
     // isPartOfList
-    placeType.setIsPartOfList(extractParts(place.getIsPartOfList(), IsPartOf::new));
+    placeType
+        .setIsPartOfList(ItemExtractorUtils.extractParts(place.getIsPartOfList(), IsPartOf::new));
 
     // lat
     if (place.getLat() != null) {
@@ -110,13 +95,15 @@ public class EntityMergeEngine {
     }
 
     // noteList
-    placeType.setNoteList(extractLabels(place.getNotes(), Note::new));
+    placeType.setNoteList(ItemExtractorUtils.extractLabels(place.getNotes(), Note::new));
 
     // prefLabelList
-    placeType.setPrefLabelList(extractLabels(place.getPrefLabelList(), PrefLabel::new));
+    placeType.setPrefLabelList(
+        ItemExtractorUtils.extractLabels(place.getPrefLabelList(), PrefLabel::new));
 
     // sameAsList
-    placeType.setSameAList(extractAsResources(place.getSameAs(), SameAs::new, Part::getResource));
+    placeType.setSameAList(
+        ItemExtractorUtils.extractAsResources(place.getSameAs(), SameAs::new, Part::getResource));
 
     // isNextInSequence: not available
 
@@ -127,82 +114,93 @@ public class EntityMergeEngine {
 
   private static AgentType convertAndAddAgent(Agent agent, List<AgentType> destination) {
     //Check if Entity already exists in the list
-    if (isEntityAlreadyInList(agent, destination)) {
+    if (ItemExtractorUtils.isEntityAlreadyInList(agent, destination)) {
       return null;
     }
 
     AgentType agentType = new AgentType();
 
     // about
-    setAbout(agent, agentType);
+    ItemExtractorUtils.setAbout(agent, agentType);
 
     // altLabelList
-    agentType.setAltLabelList(extractLabels(agent.getAltLabelList(), AltLabel::new));
+    agentType
+        .setAltLabelList(ItemExtractorUtils.extractLabels(agent.getAltLabelList(), AltLabel::new));
 
     // begin
-    agentType.setBegin(extractFirstLabel(agent.getBeginList(), Begin::new));
+    agentType.setBegin(ItemExtractorUtils.extractFirstLabel(agent.getBeginList(), Begin::new));
 
     // biographicalInformation
     agentType.setBiographicalInformationList(
-        extractLabelsToResourceOrLiteralList(agent.getBiographicaInformation(),
+        ItemExtractorUtils.extractLabelsToResourceOrLiteralList(agent.getBiographicaInformation(),
             BiographicalInformation::new));
     agentType.setProfessionOrOccupationList(
-        extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
+        ItemExtractorUtils
+            .extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
 
     // dateList
-    agentType.setDateList(extractLabelResources(agent.getDate(), Date::new));
+    agentType.setDateList(ItemExtractorUtils.extractLabelResources(agent.getDate(), Date::new));
 
     // dateOfBirth
-    agentType.setDateOfBirth(extractFirstLabel(agent.getDateOfBirth(), DateOfBirth::new));
+    agentType.setDateOfBirth(
+        ItemExtractorUtils.extractFirstLabel(agent.getDateOfBirth(), DateOfBirth::new));
 
     // dateofDeath
-    agentType.setDateOfDeath(extractFirstLabel(agent.getDateOfDeath(), DateOfDeath::new));
+    agentType.setDateOfDeath(
+        ItemExtractorUtils.extractFirstLabel(agent.getDateOfDeath(), DateOfDeath::new));
 
     // dateOfEstablishment
     agentType.setDateOfEstablishment(
-        extractFirstLabel(agent.getDateOfEstablishment(), DateOfEstablishment::new));
+        ItemExtractorUtils
+            .extractFirstLabel(agent.getDateOfEstablishment(), DateOfEstablishment::new));
 
     // dateofTermination
     agentType.setDateOfTermination(
-        extractFirstLabel(agent.getDateOfTermination(), DateOfTermination::new));
+        ItemExtractorUtils.extractFirstLabel(agent.getDateOfTermination(), DateOfTermination::new));
 
     // end
-    agentType.setEnd(extractFirstLabel(agent.getEndList(), End::new));
+    agentType.setEnd(ItemExtractorUtils.extractFirstLabel(agent.getEndList(), End::new));
 
     // gender
-    agentType.setGender(extractFirstLabel(agent.getGender(), Gender::new));
+    agentType.setGender(ItemExtractorUtils.extractFirstLabel(agent.getGender(), Gender::new));
 
     // hasMetList
-    agentType.setHasMetList(extractAsResources(agent.getHasMet(), HasMet::new, Label::getValue));
+    agentType.setHasMetList(
+        ItemExtractorUtils.extractAsResources(agent.getHasMet(), HasMet::new, Label::getValue));
 
     // hasPartList: not available
 
     // identifierList
-    agentType.setIdentifierList(extractLabels(agent.getIdentifier(), Identifier::new));
+    agentType.setIdentifierList(
+        ItemExtractorUtils.extractLabels(agent.getIdentifier(), Identifier::new));
 
     // isPartOfList: not available
 
     // isRelatedToList
-    agentType.setIsRelatedToList(extractLabelResources(agent.getIsRelatedTo(), IsRelatedTo::new));
+    agentType.setIsRelatedToList(
+        ItemExtractorUtils.extractLabelResources(agent.getIsRelatedTo(), IsRelatedTo::new));
 
     // nameList: not available
 
     // noteList
-    agentType.setNoteList(extractLabels(agent.getNotes(), Note::new));
+    agentType.setNoteList(ItemExtractorUtils.extractLabels(agent.getNotes(), Note::new));
 
     // placeofBirth: not available
 
     // placeofDeath: not available
 
     // prefLabelList
-    agentType.setPrefLabelList(extractLabels(agent.getPrefLabelList(), PrefLabel::new));
+    agentType.setPrefLabelList(
+        ItemExtractorUtils.extractLabels(agent.getPrefLabelList(), PrefLabel::new));
 
     // professionOrOccupationList
     agentType.setProfessionOrOccupationList(
-        extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
+        ItemExtractorUtils
+            .extractLabelResources(agent.getProfessionOrOccupation(), ProfessionOrOccupation::new));
 
     // sameAsList
-    agentType.setSameAList(extractAsResources(agent.getSameAs(), SameAs::new, Part::getResource));
+    agentType.setSameAList(
+        ItemExtractorUtils.extractAsResources(agent.getSameAs(), SameAs::new, Part::getResource));
 
     destination.add(agentType);
     return agentType;
@@ -211,62 +209,68 @@ public class EntityMergeEngine {
   private static eu.europeana.corelib.definitions.jibx.Concept convertAndAddConcept(
       Concept baseConcept, List<eu.europeana.corelib.definitions.jibx.Concept> destination) {
     //Check if Entity already exists in the list
-    if (isEntityAlreadyInList(baseConcept, destination)) {
+    if (ItemExtractorUtils.isEntityAlreadyInList(baseConcept, destination)) {
       return null;
     }
     eu.europeana.corelib.definitions.jibx.Concept concept =
         new eu.europeana.corelib.definitions.jibx.Concept();
 
     // about
-    setAbout(baseConcept, concept);
+    ItemExtractorUtils.setAbout(baseConcept, concept);
 
     // choiceList
     final List<Choice> choices = new ArrayList<>();
 
-    final List<AltLabel> altLabels = extractLabels(baseConcept.getAltLabelList(), AltLabel::new);
-    toChoices(altLabels, (choice, content) -> choice.setAltLabel(content), choices);
+    final List<AltLabel> altLabels = ItemExtractorUtils
+        .extractLabels(baseConcept.getAltLabelList(), AltLabel::new);
+    ItemExtractorUtils.toChoices(altLabels, Choice::setAltLabel, choices);
 
     final List<BroadMatch> broadMatches =
-        extractResources(baseConcept.getBroadMatch(), BroadMatch::new);
-    toChoices(broadMatches, (choice, content) -> choice.setBroadMatch(content), choices);
+        ItemExtractorUtils.extractResources(baseConcept.getBroadMatch(), BroadMatch::new);
+    ItemExtractorUtils.toChoices(broadMatches, Choice::setBroadMatch, choices);
 
-    final List<Broader> broaders = extractResources(baseConcept.getBroader(), Broader::new);
-    toChoices(broaders, (choice, content) -> choice.setBroader(content), choices);
+    final List<Broader> broaders = ItemExtractorUtils
+        .extractResources(baseConcept.getBroader(), Broader::new);
+    ItemExtractorUtils.toChoices(broaders, Choice::setBroader, choices);
 
     final List<CloseMatch> closeMatches =
-        extractResources(baseConcept.getCloseMatch(), CloseMatch::new);
-    toChoices(closeMatches, (choice, content) -> choice.setCloseMatch(content), choices);
+        ItemExtractorUtils.extractResources(baseConcept.getCloseMatch(), CloseMatch::new);
+    ItemExtractorUtils.toChoices(closeMatches, Choice::setCloseMatch, choices);
 
     final List<ExactMatch> exactMatches =
-        extractResources(baseConcept.getExactMatch(), ExactMatch::new);
-    toChoices(exactMatches, (choice, content) -> choice.setExactMatch(content), choices);
+        ItemExtractorUtils.extractResources(baseConcept.getExactMatch(), ExactMatch::new);
+    ItemExtractorUtils.toChoices(exactMatches, Choice::setExactMatch, choices);
 
-    final List<InScheme> inSchemes = extractResources(baseConcept.getInScheme(), InScheme::new);
-    toChoices(inSchemes, (choice, content) -> choice.setInScheme(content), choices);
+    final List<InScheme> inSchemes = ItemExtractorUtils
+        .extractResources(baseConcept.getInScheme(), InScheme::new);
+    ItemExtractorUtils.toChoices(inSchemes, Choice::setInScheme, choices);
 
-    final List<Narrower> narrowers = extractResources(baseConcept.getNarrower(), Narrower::new);
-    toChoices(narrowers, (choice, content) -> choice.setNarrower(content), choices);
+    final List<Narrower> narrowers = ItemExtractorUtils
+        .extractResources(baseConcept.getNarrower(), Narrower::new);
+    ItemExtractorUtils.toChoices(narrowers, Choice::setNarrower, choices);
 
     final List<NarrowMatch> narrowMatches =
-        extractResources(baseConcept.getNarrowMatch(), NarrowMatch::new);
-    toChoices(narrowMatches, (choice, content) -> choice.setNarrowMatch(content), choices);
+        ItemExtractorUtils.extractResources(baseConcept.getNarrowMatch(), NarrowMatch::new);
+    ItemExtractorUtils.toChoices(narrowMatches, Choice::setNarrowMatch, choices);
 
-    final List<Notation> notations = extractLabels(baseConcept.getNotation(), Notation::new);
-    toChoices(notations, (choice, content) -> choice.setNotation(content), choices);
+    final List<Notation> notations = ItemExtractorUtils
+        .extractLabels(baseConcept.getNotation(), Notation::new);
+    ItemExtractorUtils.toChoices(notations, Choice::setNotation, choices);
 
-    final List<Note> notes = extractLabels(baseConcept.getNotes(), Note::new);
-    toChoices(notes, (choice, content) -> choice.setNote(content), choices);
+    final List<Note> notes = ItemExtractorUtils.extractLabels(baseConcept.getNotes(), Note::new);
+    ItemExtractorUtils.toChoices(notes, Choice::setNote, choices);
 
     final List<PrefLabel> prefLabels =
-        extractLabels(baseConcept.getPrefLabelList(), PrefLabel::new);
-    toChoices(prefLabels, (choice, content) -> choice.setPrefLabel(content), choices);
+        ItemExtractorUtils.extractLabels(baseConcept.getPrefLabelList(), PrefLabel::new);
+    ItemExtractorUtils.toChoices(prefLabels, Choice::setPrefLabel, choices);
 
-    final List<Related> relateds = extractResources(baseConcept.getRelated(), Related::new);
-    toChoices(relateds, (choice, content) -> choice.setRelated(content), choices);
+    final List<Related> relateds = ItemExtractorUtils
+        .extractResources(baseConcept.getRelated(), Related::new);
+    ItemExtractorUtils.toChoices(relateds, Choice::setRelated, choices);
 
     final List<RelatedMatch> relatedMatches =
-        extractResources(baseConcept.getRelatedMatch(), RelatedMatch::new);
-    toChoices(relatedMatches, (choice, content) -> choice.setRelatedMatch(content), choices);
+        ItemExtractorUtils.extractResources(baseConcept.getRelatedMatch(), RelatedMatch::new);
+    ItemExtractorUtils.toChoices(relatedMatches, Choice::setRelatedMatch, choices);
 
     concept.setChoiceList(choices);
 
@@ -274,53 +278,50 @@ public class EntityMergeEngine {
     return concept;
   }
 
-  private static <T> void toChoices(List<T> inputList, BiConsumer<Choice, T> propertySetter,
-      List<Choice> destination) {
-    for (T input : inputList) {
-      final Choice choice = new Choice();
-      propertySetter.accept(choice, input);
-      destination.add(choice);
-    }
-  }
-
   private static TimeSpanType convertAndAddTimespan(Timespan timespan,
       List<TimeSpanType> destination) {
     //Check if Entity already exists in the list
-    if (isEntityAlreadyInList(timespan, destination)) {
+    if (ItemExtractorUtils.isEntityAlreadyInList(timespan, destination)) {
       return null;
     }
 
     TimeSpanType timeSpanType = new TimeSpanType();
 
     // about
-    setAbout(timespan, timeSpanType);
+    ItemExtractorUtils.setAbout(timespan, timeSpanType);
 
     // altLabelList
-    timeSpanType.setAltLabelList(extractLabels(timespan.getAltLabelList(), AltLabel::new));
+    timeSpanType.setAltLabelList(
+        ItemExtractorUtils.extractLabels(timespan.getAltLabelList(), AltLabel::new));
 
     // begin
-    timeSpanType.setBegin(extractFirstLabel(timespan.getBeginList(), Begin::new));
+    timeSpanType
+        .setBegin(ItemExtractorUtils.extractFirstLabel(timespan.getBeginList(), Begin::new));
 
     // end
-    timeSpanType.setEnd(extractFirstLabel(timespan.getEndList(), End::new));
+    timeSpanType.setEnd(ItemExtractorUtils.extractFirstLabel(timespan.getEndList(), End::new));
 
     // hasPartList
-    timeSpanType.setHasPartList(extractParts(timespan.getHasPartsList(), HasPart::new));
+    timeSpanType
+        .setHasPartList(ItemExtractorUtils.extractParts(timespan.getHasPartsList(), HasPart::new));
 
     // isNextInSequence: not available
 
     // isPartOfList
-    timeSpanType.setIsPartOfList(extractParts(timespan.getIsPartOfList(), IsPartOf::new));
+    timeSpanType.setIsPartOfList(
+        ItemExtractorUtils.extractParts(timespan.getIsPartOfList(), IsPartOf::new));
 
     // noteList
-    timeSpanType.setNoteList(extractLabels(timespan.getNotes(), Note::new));
+    timeSpanType.setNoteList(ItemExtractorUtils.extractLabels(timespan.getNotes(), Note::new));
 
     // prefLabelList
-    timeSpanType.setPrefLabelList(extractLabels(timespan.getPrefLabelList(), PrefLabel::new));
+    timeSpanType.setPrefLabelList(
+        ItemExtractorUtils.extractLabels(timespan.getPrefLabelList(), PrefLabel::new));
 
     // sameAsList
     timeSpanType
-        .setSameAList(extractAsResources(timespan.getSameAs(), SameAs::new, Part::getResource));
+        .setSameAList(ItemExtractorUtils
+            .extractAsResources(timespan.getSameAs(), SameAs::new, Part::getResource));
 
     // done
     destination.add(timeSpanType);
@@ -345,7 +346,7 @@ public class EntityMergeEngine {
     }
 
     // Append it to the proxy if needed.
-    if (StringUtils.isNotEmpty(fieldName)) {
+    if (StringUtils.isNotEmpty(fieldName) && entity != null) {
       RdfProxyUtils.appendToProxy(rdf, entity, fieldName);
     }
   }
@@ -393,122 +394,5 @@ public class EntityMergeEngine {
     for (EnrichmentBase enrichmentBase : enrichmentBaseList) {
       convertAndAddEntity(rdf, enrichmentBase, fieldName);
     }
-  }
-
-  private static <S, T> List<T> extractItems(List<S> sourceList, Function<S, T> converter) {
-    final List<T> result;
-    if (sourceList != null) {
-      result = sourceList.stream().filter(Objects::nonNull).map(converter::apply)
-          .collect(Collectors.toList());
-    } else {
-      result = new ArrayList<>();
-    }
-    return result;
-  }
-
-  private static <T extends LiteralType> List<T> extractLabels(List<Label> sourceList,
-      Supplier<T> newInstanceProvider) {
-    return extractItems(sourceList, label -> extractLabel(label, newInstanceProvider));
-  }
-
-  private static <T extends ResourceOrLiteralType> List<T> extractLabelsToResourceOrLiteralList(
-      List<Label> sourceList,
-      Supplier<T> newInstanceProvider) {
-    return extractItems(sourceList,
-        label -> extractLabelToResourceOrLiteral(label, newInstanceProvider));
-  }
-
-  private static <T extends ResourceOrLiteralType> List<T> extractParts(List<Part> sourceList,
-      Supplier<T> newInstanceProvider) {
-    return extractItems(sourceList, part -> extractPart(part, newInstanceProvider));
-  }
-
-  private static <S, T extends ResourceType> List<T> extractAsResources(List<S> sourceList,
-      Supplier<T> newInstanceProvider, Function<S, String> resourceProvider) {
-    return extractItems(sourceList,
-        item -> extractAsResource(item, newInstanceProvider, resourceProvider));
-  }
-
-  private static <T extends ResourceType> List<T> extractResources(List<Resource> sourceList,
-      Supplier<T> newInstanceProvider) {
-    return extractAsResources(sourceList, newInstanceProvider, Resource::getResource);
-  }
-
-  private static <T extends ResourceOrLiteralType> List<T> extractLabelResources(
-      List<LabelResource> sourceList, Supplier<T> newInstanceProvider) {
-    return extractItems(sourceList,
-        labelResource -> extractLabelResource(labelResource, newInstanceProvider));
-  }
-
-  private static <T extends LiteralType> T extractFirstLabel(List<Label> sourceList,
-      Supplier<T> newInstanceProvider) {
-    final Label firstLabel;
-    if (sourceList == null) {
-      firstLabel = null;
-    } else {
-      firstLabel = sourceList.stream().filter(Objects::nonNull).findFirst().orElse(null);
-    }
-    return firstLabel != null ? extractLabel(firstLabel, newInstanceProvider) : null;
-  }
-
-  private static <T extends LiteralType> T extractLabel(Label label,
-      Supplier<T> newInstanceProvider) {
-    final T result = newInstanceProvider.get();
-    if (label.getLang() != null) {
-      final LiteralType.Lang lang = new LiteralType.Lang();
-      lang.setLang(label.getLang());
-      result.setLang(lang);
-    }
-    result.setString(label.getValue() != null ? label.getValue() : "");
-    return result;
-  }
-
-  private static <T extends ResourceOrLiteralType> T extractLabelToResourceOrLiteral(Label label,
-      Supplier<T> newInstanceProvider) {
-    final T result = newInstanceProvider.get();
-    if (label.getLang() != null) {
-      final ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
-      lang.setLang(label.getLang());
-      result.setLang(lang);
-    }
-    result.setString(label.getValue() != null ? label.getValue() : "");
-    return result;
-  }
-
-  private static <T extends ResourceOrLiteralType> T extractLabelResource(
-      LabelResource labelResource, Supplier<T> newInstanceProvider) {
-    final T result = newInstanceProvider.get();
-    if (labelResource.getLang() != null) {
-      final ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
-      lang.setLang(labelResource.getLang());
-      result.setLang(lang);
-    }
-    if (labelResource.getResource() != null) {
-      ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
-      resrc.setResource(labelResource.getResource());
-      result.setResource(resrc);
-    }
-    result.setString(labelResource.getValue() != null ? labelResource.getValue() : "");
-    return result;
-  }
-
-  private static <T extends ResourceOrLiteralType> T extractPart(Part part,
-      Supplier<T> newInstanceProvider) {
-    final T result = newInstanceProvider.get();
-    if (part.getResource() != null) {
-      ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
-      resrc.setResource(part.getResource());
-      result.setResource(resrc);
-    }
-    result.setString("");
-    return result;
-  }
-
-  private static <S, T extends ResourceType> T extractAsResource(S input,
-      Supplier<T> newInstanceProvider, Function<S, String> resourceProvider) {
-    final T result = newInstanceProvider.get();
-    final String inputString = resourceProvider.apply(input);
-    result.setResource(inputString != null ? inputString : "");
-    return result;
   }
 }
