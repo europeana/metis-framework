@@ -11,8 +11,6 @@ import eu.europeana.indexing.exception.IndexerConfigurationException;
  */
 public class IndexerFactory {
 
-  private static final boolean DEFAULT_PRESERVE_UPDATE_AND_CREATE_TIMES = false;
-
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexerFactory.class);
 
   private final IndexerConnectionSupplier connectionProviderSupplier;
@@ -29,7 +27,7 @@ public class IndexerFactory {
   /**
    * Constructor for setting up a factory using already existing Mongo and Solr clients. Note: the
    * caller is responsible for closing the clients. Any indexers created through the
-   * {@link #getIndexer(boolean)} method will then no longer work and no new ones can be created.
+   * {@link #getIndexer()} method will then no longer work and no new ones can be created.
    * 
    * @param mongoClient The Mongo client to use.
    * @param solrClient The Solr client to use.
@@ -52,30 +50,15 @@ public class IndexerFactory {
   }
 
   /**
-   * This method creates an indexer using the settings provided at construction. The behavior of
-   * this indexer will be to compute new update and create times. See {@link #getIndexer(boolean)}.
+   * This method creates an indexer using the settings provided at construction.
    * 
    * @return An indexer.
    * @throws IndexerConfigurationException In case an exception occurred while setting up the
    *         indexer.
    */
   public Indexer getIndexer() throws IndexerConfigurationException {
-    return getIndexer(DEFAULT_PRESERVE_UPDATE_AND_CREATE_TIMES);
-  }
-
-  /**
-   * This method creates an indexer using the settings provided at construction.
-   * 
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   *        updated and created times from the incoming RDFs, or whether it computes its own.
-   * @return An indexer.
-   * @throws IndexerConfigurationException In case an exception occurred while setting up the
-   *         indexer.
-   */
-  public Indexer getIndexer(boolean preserveUpdateAndCreateTimesFromRdf)
-      throws IndexerConfigurationException {
     try {
-      return new IndexerImpl(connectionProviderSupplier.get(), preserveUpdateAndCreateTimesFromRdf);
+      return new IndexerImpl(connectionProviderSupplier.get());
     } catch (IndexerConfigurationException e) {
       LOGGER.warn("Error while setting up an indexer.", e);
       throw e;
@@ -97,6 +80,6 @@ public class IndexerFactory {
      * @return A result.
      * @throws IndexerConfigurationException In case something went wrong while getting the result.
      */
-    public AbstractConnectionProvider get() throws IndexerConfigurationException;
+    AbstractConnectionProvider get() throws IndexerConfigurationException;
   }
 }
