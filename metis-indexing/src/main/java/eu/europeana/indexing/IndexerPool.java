@@ -30,39 +30,31 @@ public class IndexerPool implements Closeable {
    * Constructor.
    *
    * @param indexingSettings The  settings with which to create the indexer instances in the pool.
-   * @param maxIdleTimeForIndexer The idle time after which an indexer is eligible for destruction.
-   * @param idleTimeCheckInterval The interval with which we check the idle time of indexers to
-   * decide whether to destroy them.
+   * @param maxIdleTimeForIndexerMillis The idle time after which an indexer is eligible for
+   * destruction, in milliseconds.
+   * @param idleTimeCheckIntervalMillis The interval with which we check the idle time of indexers
+   * to decide whether to destroy them, in milliseconds.
    */
-  public IndexerPool(IndexingSettings indexingSettings, long maxIdleTimeForIndexer,
-      long idleTimeCheckInterval) {
-    this(new IndexerFactory(indexingSettings), maxIdleTimeForIndexer, idleTimeCheckInterval);
+  public IndexerPool(IndexingSettings indexingSettings, long maxIdleTimeForIndexerMillis,
+      long idleTimeCheckIntervalMillis) {
+    this(new IndexerFactory(indexingSettings), maxIdleTimeForIndexerMillis,
+        idleTimeCheckIntervalMillis);
   }
 
   /**
    * Constructor.
    *
    * @param indexerFactory The factory from which to create the indexer instances in the pool.
-   * @param maxIdleTimeForIndexer The idle time after which an indexer is eligible for destruction.
-   * @param idleTimeCheckInterval The interval with which we check the idle time of indexers to
-   * decide whether to destroy them.
+   * @param maxIdleTimeForIndexerMillis The idle time after which an indexer is eligible for
+   * destruction, in milliseconds.
+   * @param idleTimeCheckIntervalMillis The interval with which we check the idle time of indexers
+   * to decide whether to destroy them, in milliseconds.
    */
-  public IndexerPool(IndexerFactory indexerFactory, long maxIdleTimeForIndexer,
-      long idleTimeCheckInterval) {
+  public IndexerPool(IndexerFactory indexerFactory, long maxIdleTimeForIndexerMillis,
+      long idleTimeCheckIntervalMillis) {
 
     // Create indexer pool with default options.
-    pool = new GenericObjectPool<>(new BasePooledObjectFactory<Indexer>() {
-
-      @Override
-      public Indexer create() throws IndexerConfigurationException {
-        return indexerFactory.getIndexer();
-      }
-
-      @Override
-      public PooledObject<Indexer> wrap(Indexer indexer) {
-        return new DefaultPooledObject<>(indexer);
-      }
-    });
+    pool = new GenericObjectPool<>(new PooledIndexerFactory(indexerFactory));
 
     // Set custom options for the size of the pool: no max or min number of indexer objects.
     pool.setMaxIdle(-1);
@@ -71,8 +63,8 @@ public class IndexerPool implements Closeable {
 
     // Set custom options for indexer pool regarding eviction (when indexer has been idle for some time).
     pool.setSoftMinEvictableIdleTimeMillis(-1);
-    pool.setMinEvictableIdleTimeMillis(maxIdleTimeForIndexer);
-    pool.setTimeBetweenEvictionRunsMillis(idleTimeCheckInterval);
+    pool.setMinEvictableIdleTimeMillis(maxIdleTimeForIndexerMillis);
+    pool.setTimeBetweenEvictionRunsMillis(idleTimeCheckIntervalMillis);
   }
 
   /**
@@ -140,5 +132,30 @@ public class IndexerPool implements Closeable {
 
     void performTask(Indexer indexer) throws IndexingException;
 
+  }
+
+  private static class PooledIndexerFactory extends BasePooledObjectFactory<Indexer> {
+
+    private final IndexerFactory indexerFactory;
+
+    public PooledIndexerFactory(IndexerFactory indexerFactory) {
+      this.indexerFactory = indexerFactory;
+    }
+
+    @Override
+    public Indexer create() throws IndexerConfigurationException {
+      return indexerFactory.getIndexer();
+    }
+
+    @Override
+    public PooledObject<Indexer> wrap(Indexer indexer) {
+      return new DefaultPooledObject<>(indexer);
+    }
+
+    @Override
+    public void destroyObject(PooledObject<Indexer> pooledIndexer) throws Exception {
+      pooledIndexer.getObject().close();
+      super.destroyObject(pooledIndexer);
+    }
   }
 }
