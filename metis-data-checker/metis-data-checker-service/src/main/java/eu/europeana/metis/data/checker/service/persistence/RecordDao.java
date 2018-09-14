@@ -65,7 +65,7 @@ public class RecordDao {
    * @throws IndexingException In case indexing failed.
    */
   public void createRecord(RDF rdf) throws IndexingException {
-    indexer.indexRdf(rdf);
+    indexer.indexRdf(rdf, false);
   }
 
   /**

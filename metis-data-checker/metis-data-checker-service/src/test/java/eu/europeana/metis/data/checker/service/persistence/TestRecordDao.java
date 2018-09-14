@@ -19,8 +19,8 @@ public class TestRecordDao {
     final RDF rdf = new RDF();
     recordDao.createRecord(rdf);
 
-    Mockito.verify(indexer, Mockito.times(1)).indexRdf(Mockito.any());
-    Mockito.verify(indexer, Mockito.times(1)).indexRdf(Mockito.eq(rdf));
+    Mockito.verify(indexer, Mockito.times(1)).indexRdf(Mockito.any(), Mockito.anyBoolean());
+    Mockito.verify(indexer, Mockito.times(1)).indexRdf(Mockito.eq(rdf), Mockito.anyBoolean());
 
   }
 }
