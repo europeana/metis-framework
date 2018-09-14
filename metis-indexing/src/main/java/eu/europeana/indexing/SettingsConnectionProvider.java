@@ -3,6 +3,7 @@ package eu.europeana.indexing;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -112,6 +113,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
         .collect(Collectors.toSet());
     final String chRoot = settings.getZookeeperChroot();
     final String defaultCollection = settings.getZookeeperDefaultCollection();
+    final Integer connectionTimeoutInSecs = settings.getZookeeperTimeoutInSecs();
 
     // Configure connection builder
     final CloudSolrClient.Builder builder = new CloudSolrClient.Builder();
@@ -122,10 +124,17 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
     builder.withLBHttpSolrClient(httpSolrClient);
 
     // Set up Zookeeper connection
-    LOGGER.info("Connecting to Zookeeper hosts: [{}] with chRoot [{}] and default connection [{}].",
-        hosts.stream().collect(Collectors.joining(", ")), chRoot, defaultCollection);
+    LOGGER.info(
+        "Connecting to Zookeeper hosts: [{}] with chRoot [{}] and default connection [{}]. Connection time-out: {}.",
+        hosts.stream().collect(Collectors.joining(", ")), chRoot, defaultCollection,
+        connectionTimeoutInSecs == null ? "default" : (connectionTimeoutInSecs + " seconds"));
     final CloudSolrClient cloudSolrClient = builder.build();
     cloudSolrClient.setDefaultCollection(defaultCollection);
+    if (connectionTimeoutInSecs != null) {
+      final int timeoutInMillis = (int) Duration.ofSeconds(connectionTimeoutInSecs).toMillis();
+      cloudSolrClient.setZkConnectTimeout(timeoutInMillis);
+      cloudSolrClient.setZkClientTimeout(timeoutInMillis);
+    }
     cloudSolrClient.connect();
 
     // Done

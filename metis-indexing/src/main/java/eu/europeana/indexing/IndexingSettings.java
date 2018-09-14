@@ -26,6 +26,7 @@ public final class IndexingSettings {
   private final List<InetSocketAddress> zookeeperHosts = new ArrayList<>();
   private String zookeeperChroot;
   private String zookeeperDefaultCollection;
+  private Integer zookeeperTimeoutInSecs;
 
   // Solr settings
   private final List<URI> solrHosts = new ArrayList<>();
@@ -86,13 +87,14 @@ public final class IndexingSettings {
 
   /**
    * Set the Zookeeper chroot (which would apply to all the zookeeper hosts). See the documentation
-   * of {@link org.apache.zookeeper.ZooKeeper} constructors, for instance
-   * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}.
-   * The chroot must start with a '/' character. This method is optional: by default, there is no
-   * chroot.
-   * 
+   * of {@link org.apache.zookeeper.ZooKeeper} constructors, for instance {@link
+   * org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}. The
+   * chroot must start with a '/' character. This method is optional: by default, there is no
+   * chroot. This method has effect only if zookeeper is to be used (i.e. if {@link
+   * #addZookeeperHost(InetSocketAddress)} is called).
+   *
    * @param chroot The chroot.
-   * @throws IndexerConfigurationException
+   * @throws IndexerConfigurationException If the chroot does not start with a '/'.
    */
   public void setZookeeperChroot(String chroot) throws IndexerConfigurationException {
     if (chroot == null || chroot.trim().isEmpty()) {
@@ -107,7 +109,7 @@ public final class IndexingSettings {
   /**
    * Set the Zookeeper default collection name. This method must be called if zookeeper is to be
    * used (i.e. if {@link #addZookeeperHost(InetSocketAddress)} is called).
-   * 
+   *
    * @param zookeeperDefaultCollection Zookeeper default collection. Cannot be null.
    * @throws IndexerConfigurationException
    */
@@ -115,6 +117,24 @@ public final class IndexingSettings {
       throws IndexerConfigurationException {
     this.zookeeperDefaultCollection =
         nonNull(zookeeperDefaultCollection, "zookeeperDefaultCollection");
+  }
+
+  /**
+   * Set the Zookeeper connection time-out . This method is optional: by default, there is no
+   * connection time-out. This method has effect only if zookeeper is to be used (i.e. if {@link
+   * #addZookeeperHost(InetSocketAddress)} is called).
+   *
+   * @param zookeeperTimeoutInSecs The time-out (in seconds) to be applied to Zookeeper connections.
+   * Cannot be null and must be a strictly positive number.
+   * @throws IndexerConfigurationException If the given time-out is null or non-positive.
+   */
+  public void setZookeeperTimeoutInSecs(Integer zookeeperTimeoutInSecs)
+      throws IndexerConfigurationException {
+    this.zookeeperTimeoutInSecs = nonNull(zookeeperTimeoutInSecs, "zookeeperTimeoutInSecs");
+    if (this.zookeeperTimeoutInSecs <= 0) {
+      this.zookeeperTimeoutInSecs = null;
+      throw new IndexerConfigurationException("Please provide a positive zookeeper time-out.");
+    }
   }
 
   /**
@@ -207,6 +227,16 @@ public final class IndexingSettings {
           "Please provide a Zookeeper default collection name.");
     }
     return zookeeperDefaultCollection;
+  }
+
+  /**
+   * This method returns the Zookeeper connection time-out in seconds.
+   *
+   * @return The Zookeeper connection time-out in seconds, or null if no Zookeeper connection
+   * time-out is to be applied (or if no Zookeeper connection is to be established).
+   */
+  public Integer getZookeeperTimeoutInSecs() {
+    return establishZookeeperConnection() ? zookeeperTimeoutInSecs : null;
   }
 
   /**

@@ -99,6 +99,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String zookeeperChroot;
   @Value("${zookeeper.default.collection}")
   private String zookeeperDefaultCollection;
+  @Value("${zookeeper.timeout.in.secs}")
+  private Integer zookeeperTimeoutInSecs;
 
   @Value("${validation.schema.before_transformation}")
   private String schemaBeforeTransformation;
@@ -152,6 +154,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
     if (StringUtils.isNotBlank(zookeeperDefaultCollection)) {
       settings.setZookeeperDefaultCollection(zookeeperDefaultCollection);
+    }
+    if (zookeeperTimeoutInSecs != null) {
+      settings.setZookeeperTimeoutInSecs(zookeeperTimeoutInSecs);
     }
 
     // Create the indexing connection

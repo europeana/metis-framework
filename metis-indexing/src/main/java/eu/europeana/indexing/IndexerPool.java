@@ -4,6 +4,7 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexerConfigurationException;
 import eu.europeana.indexing.exception.IndexingException;
 import java.io.Closeable;
+import java.time.Duration;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
@@ -30,28 +31,28 @@ public class IndexerPool implements Closeable {
    * Constructor.
    *
    * @param indexingSettings The  settings with which to create the indexer instances in the pool.
-   * @param maxIdleTimeForIndexerMillis The idle time after which an indexer is eligible for
-   * destruction, in milliseconds.
-   * @param idleTimeCheckIntervalMillis The interval with which we check the idle time of indexers
-   * to decide whether to destroy them, in milliseconds.
+   * @param maxIdleTimeForIndexerInSecs The idle time after which an indexer is eligible for
+   * destruction, in seconds.
+   * @param idleTimeCheckIntervalInSecs The interval with which we check the idle time of indexers
+   * to decide whether to destroy them, in seconds.
    */
-  public IndexerPool(IndexingSettings indexingSettings, long maxIdleTimeForIndexerMillis,
-      long idleTimeCheckIntervalMillis) {
-    this(new IndexerFactory(indexingSettings), maxIdleTimeForIndexerMillis,
-        idleTimeCheckIntervalMillis);
+  public IndexerPool(IndexingSettings indexingSettings, long maxIdleTimeForIndexerInSecs,
+      long idleTimeCheckIntervalInSecs) {
+    this(new IndexerFactory(indexingSettings), maxIdleTimeForIndexerInSecs,
+        idleTimeCheckIntervalInSecs);
   }
 
   /**
    * Constructor.
    *
    * @param indexerFactory The factory from which to create the indexer instances in the pool.
-   * @param maxIdleTimeForIndexerMillis The idle time after which an indexer is eligible for
-   * destruction, in milliseconds.
-   * @param idleTimeCheckIntervalMillis The interval with which we check the idle time of indexers
-   * to decide whether to destroy them, in milliseconds.
+   * @param maxIdleTimeForIndexerInSecs The idle time after which an indexer is eligible for
+   * destruction, in seconds.
+   * @param idleTimeCheckIntervalInSecs The interval with which we check the idle time of indexers
+   * to decide whether to destroy them, in seconds.
    */
-  public IndexerPool(IndexerFactory indexerFactory, long maxIdleTimeForIndexerMillis,
-      long idleTimeCheckIntervalMillis) {
+  public IndexerPool(IndexerFactory indexerFactory, long maxIdleTimeForIndexerInSecs,
+      long idleTimeCheckIntervalInSecs) {
 
     // Create indexer pool with default options.
     pool = new GenericObjectPool<>(new PooledIndexerFactory(indexerFactory));
@@ -63,8 +64,12 @@ public class IndexerPool implements Closeable {
 
     // Set custom options for indexer pool regarding eviction (when indexer has been idle for some time).
     pool.setSoftMinEvictableIdleTimeMillis(-1);
-    pool.setMinEvictableIdleTimeMillis(maxIdleTimeForIndexerMillis);
-    pool.setTimeBetweenEvictionRunsMillis(idleTimeCheckIntervalMillis);
+    pool.setMinEvictableIdleTimeMillis(convertSecsToMillis(maxIdleTimeForIndexerInSecs));
+    pool.setTimeBetweenEvictionRunsMillis(convertSecsToMillis(idleTimeCheckIntervalInSecs));
+  }
+
+  private static long convertSecsToMillis(long seconds) {
+    return Duration.ofSeconds(seconds).toMillis();
   }
 
   /**
