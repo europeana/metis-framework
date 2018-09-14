@@ -1,19 +1,11 @@
 package eu.europeana.metis.core.service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.io.IOUtils;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.common.model.Representation;
 import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.common.response.CloudTagsResponse;
-import eu.europeana.cloud.common.response.RepresentationRevisionResponse;
 import eu.europeana.cloud.common.response.ResultSlice;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
@@ -30,6 +22,14 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Proxies Service which encapsulates functionality that has to be proxied to an external resource.
@@ -230,11 +230,11 @@ public class ProxiesService {
         nextPageAfterResponse = resultSlice.getNextSlice();
 
         for (CloudTagsResponse cloudTagsResponse : resultSlice.getResults()) {
-          RepresentationRevisionResponse representationRevision =
-              recordServiceClient.getRepresentationRevision(cloudTagsResponse.getCloudId(),
+          Representation representation =
+              recordServiceClient.getRepresentationByRevision(cloudTagsResponse.getCloudId(),
                   representationName, revisionName, revisionProviderId, revisionTimestamp);
           InputStream inputStream = fileServiceClient
-              .getFile(representationRevision.getFiles().get(0).getContentUri().toString());
+              .getFile(representation.getFiles().get(0).getContentUri().toString());
           records.add(new Record(cloudTagsResponse.getCloudId(),
               IOUtils.toString(inputStream, StandardCharsets.UTF_8.name())));
         }

@@ -10,26 +10,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import org.apache.commons.io.IOUtils;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.File;
+import eu.europeana.cloud.common.model.Representation;
 import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.common.response.CloudTagsResponse;
-import eu.europeana.cloud.common.response.RepresentationRevisionResponse;
 import eu.europeana.cloud.common.response.ResultSlice;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
@@ -45,6 +33,19 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.Topology;
 import eu.europeana.metis.exception.ExternalTaskException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import org.apache.commons.io.IOUtils;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -223,20 +224,20 @@ public class TestProxiesService {
         .getDataSetRevisionsChunk(anyString(), anyString(), anyString(), anyString(),
             anyString(), anyString(), isNull(), anyInt())).thenReturn(resultSlice);
 
-    RepresentationRevisionResponse representationRevisionResponse = mock(RepresentationRevisionResponse.class);
+    Representation representation = mock(Representation.class);
     ArrayList<File> files = new ArrayList<>();
     File file = new File();
     file.setContentUri(URI.create("http://example.com"));
     files.add(file);
-    when(representationRevisionResponse.getFiles()).thenReturn(files);
-    when(recordServiceClient.getRepresentationRevision(anyString(), anyString(),
-        anyString(), anyString(), anyString())).thenReturn(representationRevisionResponse);
+    when(representation.getFiles()).thenReturn(files);
+    when(recordServiceClient.getRepresentationByRevision(anyString(), anyString(),
+        anyString(), anyString(), anyString())).thenReturn(representation);
 
     String xmlRecord = "<rdf:RDF><edm:ProvidedCHO rdf:about=\"/some/path1\"></edm:ProvidedCHO></rdf:RDF>";
     InputStream stubInputStream = IOUtils.toInputStream(xmlRecord,
         StandardCharsets.UTF_8.name());
     when(fileServiceClient
-        .getFile(representationRevisionResponse.getFiles().get(0).getContentUri().toString()))
+        .getFile(representation.getFiles().get(0).getContentUri().toString()))
         .thenReturn(stubInputStream);
 
     RecordsResponse listOfFileContentsFromPluginExecution =
@@ -274,17 +275,17 @@ public class TestProxiesService {
         .getDataSetRevisionsChunk(anyString(), anyString(), anyString(), anyString(),
             anyString(), anyString(), isNull(), anyInt())).thenReturn(resultSlice);
 
-    RepresentationRevisionResponse representationRevisionResponse = mock(RepresentationRevisionResponse.class);
+    Representation representation = mock(Representation.class);
     ArrayList<File> files = new ArrayList<>();
     File file = new File();
     file.setContentUri(URI.create("http://example.com"));
     files.add(file);
-    when(representationRevisionResponse.getFiles()).thenReturn(files);
-    when(recordServiceClient.getRepresentationRevision(anyString(), anyString(),
-        anyString(), anyString(), anyString())).thenReturn(representationRevisionResponse);
+    when(representation.getFiles()).thenReturn(files);
+    when(recordServiceClient.getRepresentationByRevision(anyString(), anyString(),
+        anyString(), anyString(), anyString())).thenReturn(representation);
 
     when(fileServiceClient
-        .getFile(representationRevisionResponse.getFiles().get(0).getContentUri().toString()))
+        .getFile(representation.getFiles().get(0).getContentUri().toString()))
         .thenThrow(new IOException("Cannot read file"));
 
     proxiesService.getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,

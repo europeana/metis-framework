@@ -224,20 +224,9 @@
 
     <!--Snapshot repositories-->
     <repository>
-      <id>ext-snapshots-local</id>
-      <name>ext-snapshot-local</name>
-      <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
       <id>libs-snapshot-local</id>
       <name>libs-snapshot-local</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+      <url>https://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
       <releases>
         <enabled>false</enabled>
       </releases>
