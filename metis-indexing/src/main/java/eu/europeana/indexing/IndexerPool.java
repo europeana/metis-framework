@@ -1,7 +1,6 @@
 package eu.europeana.indexing;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.indexing.exception.IndexerConfigurationException;
 import eu.europeana.indexing.exception.IndexingException;
 import java.io.Closeable;
 import java.time.Duration;
@@ -19,8 +18,10 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
  * <p>
  * This pool can have an unlimited number of indexers, that will be created automatically whenever
  * they are needed (i.e. when all other indexers are in use already). This thread pool implements
- * the automatic destruction of idle indexers, given a certain permissible idle time.</p>
- * <p>This class is thread-safe.
+ * the automatic destruction of idle indexers, given a certain permissible idle time.
+ * </p>
+ * <p>
+ * This class is thread-safe.
  * </p>
  */
 public class IndexerPool implements Closeable {
@@ -81,11 +82,10 @@ public class IndexerPool implements Closeable {
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
-   * @throws IndexerConfigurationException In case an exception occurred while setting up an
    * indexer.
    */
   public void index(String record, boolean preserveUpdateAndCreateTimesFromRdf)
-      throws IndexingException, IndexerConfigurationException {
+      throws IndexingException {
     indexRecord(indexer -> indexer.index(record, preserveUpdateAndCreateTimesFromRdf));
   }
 
@@ -98,25 +98,23 @@ public class IndexerPool implements Closeable {
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
-   * @throws IndexerConfigurationException In case an exception occurred while setting up an
    * indexer.
    */
   public void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf)
-      throws IndexingException, IndexerConfigurationException {
+      throws IndexingException {
     indexRecord(indexer -> indexer.indexRdf(record, preserveUpdateAndCreateTimesFromRdf));
   }
 
-  private void indexRecord(IndexTask indexTask)
-      throws IndexingException, IndexerConfigurationException {
+  private void indexRecord(IndexTask indexTask) throws IndexingException {
 
     // Obtain indexer from the pool.
     final Indexer indexer;
     try {
       indexer = pool.borrowObject();
-    } catch (IndexerConfigurationException e) {
+    } catch (IndexingException e) {
       throw e;
     } catch (Exception e) {
-      throw new IndexerConfigurationException("Error while obtaining indexer from the pool.", e);
+      throw new IndexingException("Error while obtaining indexer from the pool.", e);
     }
 
     // Perform indexing and release indexer.
@@ -148,7 +146,7 @@ public class IndexerPool implements Closeable {
     }
 
     @Override
-    public Indexer create() throws IndexerConfigurationException {
+    public Indexer create() throws IndexingException {
       return indexerFactory.getIndexer();
     }
 

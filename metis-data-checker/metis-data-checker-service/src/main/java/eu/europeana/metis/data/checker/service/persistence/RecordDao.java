@@ -25,7 +25,6 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.Indexer;
 import eu.europeana.indexing.IndexerFactory;
-import eu.europeana.indexing.exception.IndexerConfigurationException;
 import eu.europeana.indexing.exception.IndexingException;
 
 /**
@@ -42,11 +41,10 @@ public class RecordDao {
    * Constructor with required fields.
    *
    * @param connectionProvider
-   * @throws IndexerConfigurationException In case of problems setting up the indexer.
+   * @throws IndexingException In case of problems setting up the indexer.
    */
   @Autowired
-  public RecordDao(AbstractConnectionProvider connectionProvider)
-      throws IndexerConfigurationException {
+  public RecordDao(AbstractConnectionProvider connectionProvider) throws IndexingException {
     this(connectionProvider.getSolrClient(), connectionProvider.getMongoClient(),
         new IndexerFactory(connectionProvider.getMongoClient(), connectionProvider.getSolrClient())
             .getIndexer());

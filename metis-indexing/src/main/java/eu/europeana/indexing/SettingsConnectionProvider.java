@@ -1,10 +1,10 @@
 package eu.europeana.indexing;
 
+import eu.europeana.indexing.exception.IndexingException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,7 +21,6 @@ import com.mongodb.ServerAddress;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
-import eu.europeana.indexing.exception.IndexerConfigurationException;
 
 /**
  * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection
@@ -44,14 +43,13 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
    * Constructor. Sets up the required connections using the supplied settings.
    * 
    * @param settings The indexing settings (connection settings).
-   * @throws IndexerConfigurationException In case the connections could not be set up.
+   * @throws IndexingException In case the connections could not be set up.
    */
-  public SettingsConnectionProvider(IndexingSettings settings)
-      throws IndexerConfigurationException {
+  public SettingsConnectionProvider(IndexingSettings settings) throws IndexingException {
 
     // Create Solr and Zookeeper connections.
     this.httpSolrClient = setUpHttpSolrConnection(settings);
-    if (settings.establishZookeeperConnection()) {
+    if (settings.hasZookeeperConnection()) {
       this.cloudSolrClient = setUpCloudSolrConnection(settings, this.httpSolrClient);
     } else {
       this.cloudSolrClient = null;
@@ -62,8 +60,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
     this.mongoServer = setUpMongoConnection(settings, this.mongoClient);
   }
 
-  private static MongoClient createMongoClient(IndexingSettings settings)
-      throws IndexerConfigurationException {
+  private static MongoClient createMongoClient(IndexingSettings settings) throws IndexingException {
 
     // Extract data from settings
     final List<ServerAddress> hosts = settings.getMongoHosts();
@@ -72,10 +69,13 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
 
     // Perform logging
     final String databaseName = settings.getMongoDatabaseName();
-    LOGGER.info(
-        "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
-        hosts.stream().map(ServerAddress::toString).collect(Collectors.joining(", ")), databaseName,
-        credentials == null ? "out" : "", enableSsl ? "" : "out");
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info(
+          "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
+          hosts.stream().map(ServerAddress::toString).collect(Collectors.joining(", ")),
+          databaseName,
+          credentials == null ? "out" : "", enableSsl ? "" : "out");
+    }
 
     // Create client
     final MongoClientOptions.Builder optionsBuilder = new Builder().sslEnabled(enableSsl);
@@ -87,25 +87,26 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
   }
 
   private static EdmMongoServer setUpMongoConnection(IndexingSettings settings, MongoClient client)
-      throws IndexerConfigurationException {
+      throws IndexingException {
     try {
       return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), true);
     } catch (MongoDBException e) {
-      throw new IndexerConfigurationException("Could not set up mongo server.", e);
+      throw new IndexingException("Could not set up mongo server.", e);
     }
   }
 
   private static LBHttpSolrClient setUpHttpSolrConnection(IndexingSettings settings)
-      throws IndexerConfigurationException {
+      throws IndexingException {
     final String[] solrHosts =
         settings.getSolrHosts().stream().map(URI::toString).toArray(String[]::new);
-    LOGGER.info("Connecting to Solr hosts: [{}]",
-        Arrays.stream(solrHosts).collect(Collectors.joining(", ")));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Connecting to Solr hosts: [{}]", String.join(", ", solrHosts));
+    }
     return new LBHttpSolrClient.Builder().withBaseSolrUrls(solrHosts).build();
   }
 
   private static CloudSolrClient setUpCloudSolrConnection(IndexingSettings settings,
-      LBHttpSolrClient httpSolrClient) throws IndexerConfigurationException {
+      LBHttpSolrClient httpSolrClient) throws IndexingException {
 
     // Get information from settings
     final Set<String> hosts = settings.getZookeeperHosts().stream()
@@ -124,10 +125,12 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
     builder.withLBHttpSolrClient(httpSolrClient);
 
     // Set up Zookeeper connection
-    LOGGER.info(
-        "Connecting to Zookeeper hosts: [{}] with chRoot [{}] and default connection [{}]. Connection time-out: {}.",
-        hosts.stream().collect(Collectors.joining(", ")), chRoot, defaultCollection,
-        connectionTimeoutInSecs == null ? "default" : (connectionTimeoutInSecs + " seconds"));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info(
+          "Connecting to Zookeeper hosts: [{}] with chRoot [{}] and default connection [{}]. Connection time-out: {}.",
+          String.join(", ", hosts), chRoot, defaultCollection,
+          connectionTimeoutInSecs == null ? "default" : (connectionTimeoutInSecs + " seconds"));
+    }
     final CloudSolrClient cloudSolrClient = builder.build();
     cloudSolrClient.setDefaultCollection(defaultCollection);
     if (connectionTimeoutInSecs != null) {

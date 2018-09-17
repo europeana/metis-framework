@@ -1,5 +1,15 @@
 package eu.europeana.metis.data.checker.config;
 
+import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.indexing.AbstractConnectionProvider;
+import eu.europeana.indexing.IndexingSettings;
+import eu.europeana.indexing.SettingsConnectionProvider;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.metis.data.checker.service.ZipService;
+import eu.europeana.metis.data.checker.service.executor.ValidationUtils;
+import eu.europeana.metis.data.checker.service.persistence.RecordDao;
+import eu.europeana.metis.transformation.service.XsltTransformer;
+import eu.europeana.validation.client.ValidationClient;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -27,16 +37,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.indexing.AbstractConnectionProvider;
-import eu.europeana.indexing.IndexingSettings;
-import eu.europeana.indexing.SettingsConnectionProvider;
-import eu.europeana.indexing.exception.IndexerConfigurationException;
-import eu.europeana.metis.data.checker.service.ZipService;
-import eu.europeana.metis.data.checker.service.executor.ValidationUtils;
-import eu.europeana.metis.data.checker.service.persistence.RecordDao;
-import eu.europeana.metis.transformation.service.XsltTransformer;
-import eu.europeana.validation.client.ValidationClient;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -100,7 +100,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${zookeeper.default.collection}")
   private String zookeeperDefaultCollection;
   @Value("${zookeeper.timeout.in.secs}")
-  private Integer zookeeperTimeoutInSecs;
+  private int zookeeperTimeoutInSecs;
 
   @Value("${validation.schema.before_transformation}")
   private String schemaBeforeTransformation;
@@ -155,9 +155,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     if (StringUtils.isNotBlank(zookeeperDefaultCollection)) {
       settings.setZookeeperDefaultCollection(zookeeperDefaultCollection);
     }
-    if (zookeeperTimeoutInSecs != null) {
-      settings.setZookeeperTimeoutInSecs(zookeeperTimeoutInSecs);
-    }
+    settings.setZookeeperTimeoutInSecs(zookeeperTimeoutInSecs);
 
     // Create the indexing connection
     indexingConnection = new SettingsConnectionProvider(settings);
@@ -221,7 +219,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  RecordDao recordDao() throws IndexerConfigurationException {
+  RecordDao recordDao() throws IndexingException {
     return new RecordDao(indexingConnection);
   }
 
@@ -245,7 +243,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public ValidationUtils getValidationUtils() throws IOException, IndexerConfigurationException {
+  public ValidationUtils getValidationUtils() throws IOException, IndexingException {
     return new ValidationUtils(validationClient(), recordDao(), schemaBeforeTransformation,
         schemaAfterTransformation, metisCoreUri);
   }
