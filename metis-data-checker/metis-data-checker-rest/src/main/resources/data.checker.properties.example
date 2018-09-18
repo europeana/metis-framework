@@ -19,6 +19,7 @@ zookeeper.hosts=
 zookeeper.ports=
 zookeeper.chroot=
 zookeeper.default.collection=
+zookeeper.timeout.in.secs=
 
 data.checker.portal.url=
 data.checker.executor.threadCount=

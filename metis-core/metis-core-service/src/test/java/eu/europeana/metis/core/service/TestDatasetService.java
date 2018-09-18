@@ -620,8 +620,8 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String provider = "myProvider";
     int nextPage = 1;
-    doThrow(NoDatasetFoundException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
-    expectException(NoDatasetFoundException.class, () -> {
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    expectException(UserUnauthorizedException.class, () -> {
       datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage);
     });
     verify(datasetDao, times(0)).getAllDatasetsByProvider(provider, nextPage);
@@ -646,8 +646,8 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String intermediateProvider = "myProvider";
     int nextPage = 1;
-    doThrow(NoDatasetFoundException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
-    expectException(NoDatasetFoundException.class, () -> {
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    expectException(UserUnauthorizedException.class, () -> {
       datasetService.getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider,
           nextPage);
     });
@@ -674,8 +674,8 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String dataProvider = "myProvider";
     int nextPage = 1;
-    doThrow(NoDatasetFoundException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
-    expectException(NoDatasetFoundException.class, () -> {
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    expectException(UserUnauthorizedException.class, () -> {
       datasetService.getAllDatasetsByDataProvider(metisUser, dataProvider, nextPage);
     });
     verify(datasetDao, times(0)).getAllDatasetsByDataProvider(dataProvider, nextPage);
@@ -700,8 +700,8 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String organizationId = "organizationId";
     int nextPage = 1;
-    doThrow(NoDatasetFoundException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
-    expectException(NoDatasetFoundException.class, () -> {
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    expectException(UserUnauthorizedException.class, () -> {
       datasetService.getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage);
     });
     verify(datasetDao, times(0)).getAllDatasetsByOrganizationId(organizationId, nextPage);
@@ -727,8 +727,8 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     String organizationName = "organizationName";
     int nextPage = 1;
-    doThrow(NoDatasetFoundException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
-    expectException(NoDatasetFoundException.class, () -> {
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    expectException(UserUnauthorizedException.class, () -> {
       datasetService.getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage);
     });
     verify(datasetDao, times(0)).getAllDatasetsByOrganizationName(organizationName, nextPage);

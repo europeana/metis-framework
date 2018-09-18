@@ -15,7 +15,7 @@ import eu.europeana.indexing.exception.IndexingException;
  * <b>NOTE:</b> Operations that are provided by this object are <b>not</b> done within a
  * transactions. More details are provided in the documentation for the individual methods.
  * </p>
- * 
+ *
  * @author jochen
  */
 public interface Indexer extends Closeable {
@@ -28,11 +28,13 @@ public interface Indexer extends Closeable {
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
-   * 
+   *
    * @param record The record to index.
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void indexRdf(RDF record) throws IndexingException;
+  public void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * <p>
@@ -42,11 +44,13 @@ public interface Indexer extends Closeable {
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
-   * 
+   *
    * @param records The records to index.
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void indexRdfs(List<RDF> records) throws IndexingException;
+  public void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * <p>
@@ -56,11 +60,13 @@ public interface Indexer extends Closeable {
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
-   * 
+   *
    * @param record The record to index (can be parsed to RDF).
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void index(String record) throws IndexingException;
+  public void index(String record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * <p>
@@ -70,11 +76,13 @@ public interface Indexer extends Closeable {
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
-   * 
+   *
    * @param records The records to index (can be parsed to RDF).
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
+   *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void index(List<String> records) throws IndexingException;
+  public void index(List<String> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * This method will trigger a flush operation on pending changes/updates to the persistent data,
@@ -82,7 +90,7 @@ public interface Indexer extends Closeable {
    * not obligatory, and indexing will work without it. This just allows the caller to determine the
    * moment when changes are written to disk rather than wait for this to be triggered by the
    * infrastructure/library itself at its own discretion.
-   * 
+   *
    * @param blockUntilComplete If true, the call blocks until the flush is complete.
    * @throws IndexingException In case something went wrong.
    */
@@ -115,7 +123,7 @@ public interface Indexer extends Closeable {
    * They are not put into a transaction and therefore this method may remove what the indexing
    * method just added.
    * </p>
-   * 
+   *
    * @param datasetId The ID of the dataset to clear. Is not null.
    * @return The number of records that were removed.
    * @throws IndexingException In case something went wrong.

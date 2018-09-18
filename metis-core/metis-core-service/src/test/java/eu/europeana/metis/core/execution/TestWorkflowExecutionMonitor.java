@@ -174,10 +174,11 @@ public class TestWorkflowExecutionMonitor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
 
     // Test when claim succeeds on execution in queue.
+    // Note: Don't use Instant.now(): date must be created in the same way to have same precision.
     doReturn(true).when(monitor).mayClaimExecution(workflowExecution);
-    final Instant begin1 = Instant.now();
+    final Instant begin1 = new Date().toInstant();
     assertSame(workflowExecution, monitor.claimExecution(id));
-    final Instant end1 = Instant.now();
+    final Instant end1 = new Date().toInstant();
 
     InOrder inOrder = Mockito.inOrder(lock, redissonClient, workflowExecutorManager,
         workflowExecutionDao, monitor);
@@ -199,10 +200,11 @@ public class TestWorkflowExecutionMonitor {
     assertEquals(WorkflowStatus.RUNNING, workflowExecution.getWorkflowStatus());
 
     // Test when execution was already running.
+    // Note: Don't use Instant.now(): date must be created in the same way to have same precision.
     final Date oldStartedDate = workflowExecution.getStartedDate();
-    final Instant begin2 = Instant.now();
+    final Instant begin2 = new Date().toInstant();
     assertSame(workflowExecution, monitor.claimExecution(id));
-    final Instant end2 = Instant.now();
+    final Instant end2 = new Date().toInstant();
     assertEquals(oldStartedDate, workflowExecution.getStartedDate());
     assertNotNull(workflowExecution.getUpdatedDate());
     assertFalse(workflowExecution.getUpdatedDate().toInstant().isAfter(end2));
