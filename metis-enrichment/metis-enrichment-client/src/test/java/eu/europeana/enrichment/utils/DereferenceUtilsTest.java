@@ -49,7 +49,6 @@ import eu.europeana.corelib.definitions.jibx.Source;
 import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 import org.junit.Assert;
@@ -62,7 +61,7 @@ public class DereferenceUtilsTest {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
-    ArrayList<ProxyType> proxyList = new ArrayList<ProxyType>();
+    ArrayList<ProxyType> proxyList = new ArrayList<>();
     proxyList.add(proxy);
     rdf.setProxyList(proxyList);
 
@@ -73,13 +72,13 @@ public class DereferenceUtilsTest {
     ResourceOrLiteralType.Resource resource3 = new ResourceOrLiteralType.Resource();
     resource3.setResource("http://dummy2.dum");
     isPartOf.setResource(resource3);
-    ArrayList<IsPartOf> isPartOfList = new ArrayList<IsPartOf>();
+    ArrayList<IsPartOf> isPartOfList = new ArrayList<>();
     isPartOfList.add(isPartOf);
     place.setIsPartOfList(isPartOfList);
 
     SameAs sameAs = new SameAs();
     sameAs.setResource("http://dummy3.dum");
-    ArrayList<SameAs> sameAsList = new ArrayList<SameAs>();
+    ArrayList<SameAs> sameAsList = new ArrayList<>();
     sameAsList.add(sameAs);
     place.setSameAList(sameAsList);
 
@@ -87,18 +86,18 @@ public class DereferenceUtilsTest {
     Resource resource4 = new Resource();
     resource4.setResource("http://dummy4.dum");
     hasPart.setResource(resource4);
-    ArrayList<HasPart> hasPartList = new ArrayList<HasPart>();
+    ArrayList<HasPart> hasPartList = new ArrayList<>();
     hasPartList.add(hasPart);
     place.setHasPartList(hasPartList);
 
     // Should be rejected
     Note note = new Note();
     note.setString("Note");
-    ArrayList<Note> noteList = new ArrayList<Note>();
+    ArrayList<Note> noteList = new ArrayList<>();
     noteList.add(note);
     place.setNoteList(noteList);
 
-    ArrayList<PlaceType> placeList = new ArrayList<PlaceType>();
+    ArrayList<PlaceType> placeList = new ArrayList<>();
     placeList.add(place);
 
     rdf.setPlaceList(placeList);
@@ -128,7 +127,7 @@ public class DereferenceUtilsTest {
 
     HasMet hasMet = new HasMet();
     hasMet.setResource("http://dummy2.dum");
-    ArrayList<HasMet> hasMetList = new ArrayList<HasMet>();
+    ArrayList<HasMet> hasMetList = new ArrayList<>();
     hasMetList.add(hasMet);
     agent.setHasMetList(hasMetList);
 
@@ -136,18 +135,18 @@ public class DereferenceUtilsTest {
     ResourceOrLiteralType.Resource resource3 = new ResourceOrLiteralType.Resource();
     resource3.setResource("http://dummy3.dum");
     isRelatedTo.setResource(resource3);
-    ArrayList<IsRelatedTo> isRelatedToList = new ArrayList<IsRelatedTo>();
+    ArrayList<IsRelatedTo> isRelatedToList = new ArrayList<>();
     isRelatedToList.add(isRelatedTo);
     agent.setIsRelatedToList(isRelatedToList);
 
     // Should be rejected
     Note note = new Note();
     note.setString("Note");
-    ArrayList<Note> noteList = new ArrayList<Note>();
+    ArrayList<Note> noteList = new ArrayList<>();
     noteList.add(note);
     agent.setNoteList(noteList);
 
-    ArrayList<AgentType> agentList = new ArrayList<AgentType>();
+    ArrayList<AgentType> agentList = new ArrayList<>();
     agentList.add(agent);
 
     rdf.setAgentList(agentList);
@@ -167,7 +166,7 @@ public class DereferenceUtilsTest {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
-    ArrayList<ProxyType> proxyList = new ArrayList<ProxyType>();
+    ArrayList<ProxyType> proxyList = new ArrayList<>();
     proxyList.add(proxy);
     rdf.setProxyList(proxyList);
 
@@ -210,7 +209,7 @@ public class DereferenceUtilsTest {
     note.setString("Note");
     choice7.setNote(note);
 
-    ArrayList<Choice> choiceList = new ArrayList<Choice>();
+    ArrayList<Choice> choiceList = new ArrayList<>();
     choiceList.add(choice1);
     choiceList.add(choice2);
     choiceList.add(choice3);
@@ -221,7 +220,7 @@ public class DereferenceUtilsTest {
 
     concept.setChoiceList(choiceList);
 
-    ArrayList<Concept> conceptList = new ArrayList<Concept>();
+    ArrayList<Concept> conceptList = new ArrayList<>();
     conceptList.add(concept);
 
     rdf.setConceptList(conceptList);
@@ -241,11 +240,11 @@ public class DereferenceUtilsTest {
   }
 
   @Test
-  public void testTimeSpanListExtractedValues() throws IOException {
+  public void testTimeSpanListExtractedValues() {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
-    ArrayList<ProxyType> proxyList = new ArrayList<ProxyType>();
+    ArrayList<ProxyType> proxyList = new ArrayList<>();
     proxyList.add(proxy);
     rdf.setProxyList(proxyList);
 
@@ -256,7 +255,7 @@ public class DereferenceUtilsTest {
     Resource resource3 = new Resource();
     resource3.setResource("http://dummy2.dum");
     hasPart.setResource(resource3);
-    ArrayList<HasPart> hasPartList = new ArrayList<HasPart>();
+    ArrayList<HasPart> hasPartList = new ArrayList<>();
     hasPartList.add(hasPart);
     timeSpan.setHasPartList(hasPartList);
 
@@ -264,7 +263,7 @@ public class DereferenceUtilsTest {
     ResourceOrLiteralType.Resource resource4 = new ResourceOrLiteralType.Resource();
     resource4.setResource("http://dummy4.dum");
     isPartOf.setResource(resource4);
-    ArrayList<IsPartOf> isPartOfList = new ArrayList<IsPartOf>();
+    ArrayList<IsPartOf> isPartOfList = new ArrayList<>();
     isPartOfList.add(isPartOf);
     timeSpan.setIsPartOfList(isPartOfList);
 
@@ -277,11 +276,11 @@ public class DereferenceUtilsTest {
     // Should be rejected
     Note note = new Note();
     note.setString("Note");
-    ArrayList<Note> noteList = new ArrayList<Note>();
+    ArrayList<Note> noteList = new ArrayList<>();
     noteList.add(note);
     timeSpan.setNoteList(noteList);
 
-    ArrayList<TimeSpanType> timeSpanList = new ArrayList<TimeSpanType>();
+    ArrayList<TimeSpanType> timeSpanList = new ArrayList<>();
     timeSpanList.add(timeSpan);
 
     rdf.setTimeSpanList(timeSpanList);
@@ -298,11 +297,11 @@ public class DereferenceUtilsTest {
   }
 
   @Test
-  public void testWebResourceListExtractedValues() throws IOException {
+  public void testWebResourceListExtractedValues() {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
-    ArrayList<ProxyType> proxyList = new ArrayList<ProxyType>();
+    ArrayList<ProxyType> proxyList = new ArrayList<>();
     proxyList.add(proxy);
     rdf.setProxyList(proxyList);
 
@@ -312,7 +311,7 @@ public class DereferenceUtilsTest {
     Resource resource1 = new Resource();
     resource1.setResource("http://dummy1.dum");
     created.setResource(resource1);
-    ArrayList<Created> createdList = new ArrayList<Created>();
+    ArrayList<Created> createdList = new ArrayList<>();
     createdList.add(created);
     webResource.setCreatedList(createdList);
 
@@ -320,7 +319,7 @@ public class DereferenceUtilsTest {
     Resource resource2 = new Resource();
     resource2.setResource("http://dummy2.dum");
     extent.setResource(resource2);
-    ArrayList<Extent> extentList = new ArrayList<Extent>();
+    ArrayList<Extent> extentList = new ArrayList<>();
     extentList.add(extent);
     webResource.setExtentList(extentList);
 
@@ -328,7 +327,7 @@ public class DereferenceUtilsTest {
     ResourceOrLiteralType.Resource resource3 = new ResourceOrLiteralType.Resource();
     resource3.setResource("http://dummy3.dum");
     format.setResource(resource3);
-    ArrayList<Format> formatList = new ArrayList<Format>();
+    ArrayList<Format> formatList = new ArrayList<>();
     formatList.add(format);
     webResource.setFormatList(formatList);
 
@@ -336,7 +335,7 @@ public class DereferenceUtilsTest {
     Resource resource4 = new Resource();
     resource4.setResource("http://dummy4.dum");
     hasPart.setResource(resource4);
-    ArrayList<HasPart> hasPartList = new ArrayList<HasPart>();
+    ArrayList<HasPart> hasPartList = new ArrayList<>();
     hasPartList.add(hasPart);
     webResource.setHasPartList(hasPartList);
 
@@ -344,7 +343,7 @@ public class DereferenceUtilsTest {
     Resource resource5 = new Resource();
     resource5.setResource("http://dummy5.dum");
     isFormatOf.setResource(resource5);
-    ArrayList<IsFormatOf> isFormatOfList = new ArrayList<IsFormatOf>();
+    ArrayList<IsFormatOf> isFormatOfList = new ArrayList<>();
     isFormatOfList.add(isFormatOf);
     webResource.setIsFormatOfList(isFormatOfList);
 
@@ -352,7 +351,7 @@ public class DereferenceUtilsTest {
     Resource resource6 = new Resource();
     resource6.setResource("http://dummy6.dum");
     issued.setResource(resource6);
-    ArrayList<Issued> issuedList = new ArrayList<Issued>();
+    ArrayList<Issued> issuedList = new ArrayList<>();
     issuedList.add(issued);
     webResource.setIssuedList(issuedList);
 
@@ -361,7 +360,7 @@ public class DereferenceUtilsTest {
     bitRate.setDatatype("Data Type");
     webResource.setBitRate(bitRate);
 
-    ArrayList<WebResourceType> webResourceList = new ArrayList<WebResourceType>();
+    ArrayList<WebResourceType> webResourceList = new ArrayList<>();
     webResourceList.add(webResource);
 
     rdf.setWebResourceList(webResourceList);
@@ -387,7 +386,7 @@ public class DereferenceUtilsTest {
 
     HasMet hasMet = new HasMet();
     hasMet.setResource("http://dummy1.dum");
-    ArrayList<HasMet> hasMetList = new ArrayList<HasMet>();
+    ArrayList<HasMet> hasMetList = new ArrayList<>();
     hasMetList.add(hasMet);
     proxy.setHasMetList(hasMetList);
 
@@ -395,19 +394,19 @@ public class DereferenceUtilsTest {
     ResourceOrLiteralType.Resource resource2 = new ResourceOrLiteralType.Resource();
     resource2.setResource("http://dummy2.dum");
     hasType.setResource(resource2);
-    ArrayList<HasType> hasTypeList = new ArrayList<HasType>();
+    ArrayList<HasType> hasTypeList = new ArrayList<>();
     hasTypeList.add(hasType);
     proxy.setHasTypeList(hasTypeList);
 
     Incorporates incorporates = new Incorporates();
     incorporates.setResource("http://dummy3.dum");
-    ArrayList<Incorporates> incorporatesList = new ArrayList<Incorporates>();
+    ArrayList<Incorporates> incorporatesList = new ArrayList<>();
     incorporatesList.add(incorporates);
     proxy.setIncorporateList(incorporatesList);
 
     IsDerivativeOf isDerivativeOf = new IsDerivativeOf();
     isDerivativeOf.setResource("http://dummy4.dum");
-    ArrayList<IsDerivativeOf> isDerivativeOfList = new ArrayList<IsDerivativeOf>();
+    ArrayList<IsDerivativeOf> isDerivativeOfList = new ArrayList<>();
     isDerivativeOfList.add(isDerivativeOf);
     proxy.setIsDerivativeOfList(isDerivativeOfList);
 
@@ -415,25 +414,25 @@ public class DereferenceUtilsTest {
     ResourceOrLiteralType.Resource resource5 = new ResourceOrLiteralType.Resource();
     resource5.setResource("http://dummy5.dum");
     isRelatedTo.setResource(resource5);
-    ArrayList<IsRelatedTo> isRelatedToList = new ArrayList<IsRelatedTo>();
+    ArrayList<IsRelatedTo> isRelatedToList = new ArrayList<>();
     isRelatedToList.add(isRelatedTo);
     proxy.setIsRelatedToList(isRelatedToList);
 
     IsSimilarTo isSimilarTo = new IsSimilarTo();
     isSimilarTo.setResource("http://dummy6.dum");
-    ArrayList<IsSimilarTo> isSimilarToList = new ArrayList<IsSimilarTo>();
+    ArrayList<IsSimilarTo> isSimilarToList = new ArrayList<>();
     isSimilarToList.add(isSimilarTo);
     proxy.setIsSimilarToList(isSimilarToList);
 
     IsSuccessorOf isSuccessorOf = new IsSuccessorOf();
     isSuccessorOf.setResource("http://dummy7.dum");
-    ArrayList<IsSuccessorOf> isSuccessorOfList = new ArrayList<IsSuccessorOf>();
+    ArrayList<IsSuccessorOf> isSuccessorOfList = new ArrayList<>();
     isSuccessorOfList.add(isSuccessorOf);
     proxy.setIsSuccessorOfList(isSuccessorOfList);
 
     Realizes realizes = new Realizes();
     realizes.setResource("http://dummy8.dum");
-    ArrayList<Realizes> realizesList = new ArrayList<Realizes>();
+    ArrayList<Realizes> realizesList = new ArrayList<>();
     realizesList.add(realizes);
     proxy.setRealizeList(realizesList);
 
@@ -575,7 +574,7 @@ public class DereferenceUtilsTest {
     alternative.setString("Alternative");
     choice27.setAlternative(alternative);
 
-    ArrayList<ProxyType.Choice> choiceList = new ArrayList<ProxyType.Choice>();
+    ArrayList<ProxyType.Choice> choiceList = new ArrayList<>();
 
     choiceList.add(choice11);
     choiceList.add(choice13);
@@ -599,7 +598,7 @@ public class DereferenceUtilsTest {
 
     proxy.setChoiceList(choiceList);
 
-    ArrayList<ProxyType> proxyList = new ArrayList<ProxyType>();
+    ArrayList<ProxyType> proxyList = new ArrayList<>();
     proxyList.add(proxy);
 
     rdf.setProxyList(proxyList);

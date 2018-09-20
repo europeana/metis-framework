@@ -27,17 +27,17 @@ public final class ItemExtractorUtils {
   private ItemExtractorUtils() {
   }
 
-  public static void setAbout(EnrichmentBase source, AboutType destination) {
+  static void setAbout(EnrichmentBase source, AboutType destination) {
     destination.setAbout(source.getAbout());
   }
 
-  public static <T extends AboutType> boolean isEntityAlreadyInList(EnrichmentBase enrichmentBase,
+  static <T extends AboutType> boolean isEntityAlreadyInList(EnrichmentBase enrichmentBase,
       List<T> destination) {
-    return destination.stream()
-        .anyMatch(entity -> entity.getAbout().equals(enrichmentBase.getAbout()));
+    return destination.stream().map(AboutType::getAbout)
+        .anyMatch(enrichmentBase.getAbout()::equals);
   }
 
-  public static <S, T> List<T> extractItems(List<S> sourceList, Function<S, T> converter) {
+  static <S, T> List<T> extractItems(List<S> sourceList, Function<S, T> converter) {
     final List<T> result;
     if (sourceList != null) {
       result = sourceList.stream().filter(Objects::nonNull).map(converter)
@@ -48,41 +48,41 @@ public final class ItemExtractorUtils {
     return result;
   }
 
-  public static <T extends LiteralType> List<T> extractLabels(List<Label> sourceList,
+  static <T extends LiteralType> List<T> extractLabels(List<Label> sourceList,
       Supplier<T> newInstanceProvider) {
     return extractItems(sourceList, label -> extractLabel(label, newInstanceProvider));
   }
 
-  public static <T extends ResourceOrLiteralType> List<T> extractLabelsToResourceOrLiteralList(
+  static <T extends ResourceOrLiteralType> List<T> extractLabelsToResourceOrLiteralList(
       List<Label> sourceList,
       Supplier<T> newInstanceProvider) {
     return extractItems(sourceList,
         label -> extractLabelToResourceOrLiteral(label, newInstanceProvider));
   }
 
-  public static <T extends ResourceOrLiteralType> List<T> extractParts(List<Part> sourceList,
+  static <T extends ResourceOrLiteralType> List<T> extractParts(List<Part> sourceList,
       Supplier<T> newInstanceProvider) {
     return extractItems(sourceList, part -> extractPart(part, newInstanceProvider));
   }
 
-  public static <S, T extends ResourceType> List<T> extractAsResources(List<S> sourceList,
+  static <S, T extends ResourceType> List<T> extractAsResources(List<S> sourceList,
       Supplier<T> newInstanceProvider, Function<S, String> resourceProvider) {
     return extractItems(sourceList,
         item -> extractAsResource(item, newInstanceProvider, resourceProvider));
   }
 
-  public static <T extends ResourceType> List<T> extractResources(List<Resource> sourceList,
+  static <T extends ResourceType> List<T> extractResources(List<Resource> sourceList,
       Supplier<T> newInstanceProvider) {
     return extractAsResources(sourceList, newInstanceProvider, Resource::getResource);
   }
 
-  public static <T extends ResourceOrLiteralType> List<T> extractLabelResources(
+  static <T extends ResourceOrLiteralType> List<T> extractLabelResources(
       List<LabelResource> sourceList, Supplier<T> newInstanceProvider) {
     return extractItems(sourceList,
         labelResource -> extractLabelResource(labelResource, newInstanceProvider));
   }
 
-  public static <T extends LiteralType> T extractFirstLabel(List<Label> sourceList,
+  static <T extends LiteralType> T extractFirstLabel(List<Label> sourceList,
       Supplier<T> newInstanceProvider) {
     final Label firstLabel;
     if (sourceList == null) {
@@ -93,7 +93,7 @@ public final class ItemExtractorUtils {
     return firstLabel != null ? extractLabel(firstLabel, newInstanceProvider) : null;
   }
 
-  public static <T extends LiteralType> T extractLabel(Label label,
+  static <T extends LiteralType> T extractLabel(Label label,
       Supplier<T> newInstanceProvider) {
     final T result = newInstanceProvider.get();
     if (label.getLang() != null) {
@@ -105,7 +105,7 @@ public final class ItemExtractorUtils {
     return result;
   }
 
-  public static <T extends ResourceOrLiteralType> T extractLabelToResourceOrLiteral(Label label,
+  static <T extends ResourceOrLiteralType> T extractLabelToResourceOrLiteral(Label label,
       Supplier<T> newInstanceProvider) {
     final T result = newInstanceProvider.get();
     if (label.getLang() != null) {
@@ -117,7 +117,7 @@ public final class ItemExtractorUtils {
     return result;
   }
 
-  public static <T extends ResourceOrLiteralType> T extractLabelResource(
+  static <T extends ResourceOrLiteralType> T extractLabelResource(
       LabelResource labelResource, Supplier<T> newInstanceProvider) {
     final T result = newInstanceProvider.get();
     if (labelResource.getLang() != null) {
@@ -134,7 +134,7 @@ public final class ItemExtractorUtils {
     return result;
   }
 
-  public static <T extends ResourceOrLiteralType> T extractPart(Part part,
+  static <T extends ResourceOrLiteralType> T extractPart(Part part,
       Supplier<T> newInstanceProvider) {
     final T result = newInstanceProvider.get();
     if (part.getResource() != null) {
@@ -146,7 +146,7 @@ public final class ItemExtractorUtils {
     return result;
   }
 
-  public static <S, T extends ResourceType> T extractAsResource(S input,
+  static <S, T extends ResourceType> T extractAsResource(S input,
       Supplier<T> newInstanceProvider, Function<S, String> resourceProvider) {
     final T result = newInstanceProvider.get();
     final String inputString = resourceProvider.apply(input);
@@ -154,7 +154,7 @@ public final class ItemExtractorUtils {
     return result;
   }
 
-  public static <T> void toChoices(List<T> inputList, BiConsumer<Choice, T> propertySetter,
+  static <T> void toChoices(List<T> inputList, BiConsumer<Choice, T> propertySetter,
       List<Choice> destination) {
     for (T input : inputList) {
       final Choice choice = new Choice();
