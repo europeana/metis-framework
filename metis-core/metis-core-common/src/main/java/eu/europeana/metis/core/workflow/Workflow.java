@@ -65,7 +65,9 @@ public class Workflow implements HasMongoObjectId {
   }
 
   /**
-   * Get the {@link AbstractMetisPluginMetadata} class based on the {@link PluginType} if that exists in the {@link Workflow#metisPluginsMetadata}.
+   * Get the {@link AbstractMetisPluginMetadata} class based on the {@link PluginType} if that
+   * exists in the {@link Workflow#metisPluginsMetadata}.
+   *
    * @param pluginType the {@link PluginType} to search for
    * @return {@link AbstractMetisPluginMetadata} corresponding to the concrete class
    */
@@ -76,5 +78,22 @@ public class Workflow implements HasMongoObjectId {
       }
     }
     return null;
+  }
+
+  public boolean isPluginTypeAfterBasedPluginType(PluginType basedPluginType,
+      PluginType pluginType) {
+    int basedPluginTypeIndex = -1;
+    int pluginTypeIndex = -1;
+
+    for (int i = 0; i < metisPluginsMetadata.size(); i++) {
+      AbstractMetisPluginMetadata abstractMetisPluginMetadata = metisPluginsMetadata.get(i);
+      if (abstractMetisPluginMetadata.getPluginType() == basedPluginType) {
+        basedPluginTypeIndex = i;
+      } else if (abstractMetisPluginMetadata.getPluginType() == pluginType) {
+        pluginTypeIndex = i;
+      }
+    }
+    //Do both plugins exist and is the pluginType after the basedPluginType declared
+    return pluginTypeIndex > -1 && basedPluginTypeIndex > -1 && pluginTypeIndex > basedPluginTypeIndex;
   }
 }
