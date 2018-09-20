@@ -594,7 +594,7 @@ public class OrchestratorService {
             basedPluginType -> workflow
                 .isPluginTypeAfterBasedPluginType(basedPluginType,
                     pluginMetadata.getPluginType()))) {
-          throw new PluginExecutionNotAllowed("The specified order of plugins is not allowed.");
+          throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
         }
       }
     }

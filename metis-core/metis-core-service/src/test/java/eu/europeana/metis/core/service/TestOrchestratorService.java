@@ -137,6 +137,30 @@ public class TestOrchestratorService {
     inOrder.verifyNoMoreInteractions();
   }
 
+  @Test(expected = PluginExecutionNotAllowed.class)
+  public void createWorkflowOrderOfPluginsNotAllowed() throws Exception {
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
+
+    List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
+    List<AbstractMetisPluginMetadata> wrongOrderMetisPluginsMetadata = new ArrayList<>(metisPluginsMetadata);
+    Collections.copy(wrongOrderMetisPluginsMetadata, metisPluginsMetadata);
+    wrongOrderMetisPluginsMetadata.remove(2);
+    workflow.setMetisPluginsMetadata(wrongOrderMetisPluginsMetadata);
+    Dataset dataset = TestObjectFactory.createDataset("datasetName");
+    workflow.setDatasetId(dataset.getDatasetId());
+    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow);
+
+    verify(authorizer, times(1))
+        .authorizeWriteExistingDatasetById(metisUser, workflow.getDatasetId());
+    verifyNoMoreInteractions(authorizer);
+    InOrder inOrder = Mockito.inOrder(workflowDao);
+    inOrder.verify(workflowDao, times(1)).exists(workflow);
+    inOrder.verify(workflowDao, times(1)).create(workflow);
+    inOrder.verifyNoMoreInteractions();
+  }
+
   @Test(expected = WorkflowAlreadyExistsException.class)
   public void createWorkflow_AlreadyExists() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
