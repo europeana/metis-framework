@@ -580,26 +580,26 @@ public class OrchestratorService {
 
   private void workflowOrderValidator(String datasetId, Workflow workflow)
       throws PluginExecutionNotAllowed {
-    //Sanity check, for the first plugin, that will throw exception if there is NO pluginType to be based on in the database.
+    // Sanity check, for the first plugin, that will throw exception if there is NO pluginType to be
+    // based on in the database.
     getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId,
         workflow.getMetisPluginsMetadata().get(0).getPluginType(), null);
-    //If ok then check the order of all subsequent plugins. Start from index 1.
-    for (int i = 1; i < workflow.getMetisPluginsMetadata().size(); i++) {
-      AbstractMetisPluginMetadata pluginMetadata = workflow.getMetisPluginsMetadata().get(i);
-      if (!ExecutionRules.getHarvestPluginGroup().contains(pluginMetadata.getPluginType())) {
-        Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = ExecutionRules
-            .getPluginTypesSetThatPluginTypeCanBeBasedOn(pluginMetadata.getPluginType());
-        if (pluginTypesSetThatPluginTypeCanBeBasedOn == null
-            || pluginTypesSetThatPluginTypeCanBeBasedOn.stream().noneMatch(
-            basedPluginType -> workflow
-                .isPluginTypeAfterBasedPluginType(basedPluginType,
-                    pluginMetadata.getPluginType()))) {
-          throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-        }
-      }
+    // If ok then check the order of all subsequent plugins. Start from index 1.
+    final boolean valid = workflow.getMetisPluginsMetadata().stream().skip(1)
+        .map(AbstractMetisPluginMetadata::getPluginType).distinct()
+        .filter(pluginType -> !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
+        .allMatch(pluginType -> checkWorkflowForPluginType(workflow, pluginType));
+    if (!valid) {
+      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
   }
 
+  private static boolean checkWorkflowForPluginType(Workflow workflow, PluginType pluginType) {
+    final Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn =
+        ExecutionRules.getPluginTypesSetThatPluginTypeCanBeBasedOn(pluginType);
+    return workflow.pluginTypeOccursOnlyAfter(pluginType, pluginTypesSetThatPluginTypeCanBeBasedOn);
+  }
+  
   private String workflowExists(Workflow workflow) {
     return workflowDao.exists(workflow);
   }
@@ -807,8 +807,7 @@ public class OrchestratorService {
 
   private Workflow checkWorkflowExistence(String datasetId)
       throws NoWorkflowFoundException {
-    Workflow workflow = workflowDao
-        .getWorkflow(datasetId);
+    Workflow workflow = workflowDao.getWorkflow(datasetId);
     if (workflow == null) {
       throw new NoWorkflowFoundException(
           String.format("No workflow found with datasetId: %s, in METIS", datasetId));

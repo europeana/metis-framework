@@ -73,6 +73,14 @@ public final class ExecutionRules {
     return latestFinishedWorkflowExecutionByDatasetIdAndPluginType;
   }
 
+  /**
+   * This method determines what plugin types a plugin of the given type can be based on. This means
+   * that the given type can only occur after one of the returned base types.
+   * 
+   * @param pluginType The plugin type for which to return the base types.
+   * @return The base types of the given plugin type: those plugin types that a plugin of the given
+   *         type can be based on.
+   */
   public static Set<PluginType> getPluginTypesSetThatPluginTypeCanBeBasedOn(PluginType pluginType) {
     Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = null;
     switch (pluginType) {
@@ -111,14 +119,24 @@ public final class ExecutionRules {
     return pluginTypesSetThatPluginTypeCanBeBasedOn;
   }
 
+  /**
+   * @return The plugin types that are of the 'harvesting' kind: they can occur at the beginning of
+   *         workflows and don't need another plugin type as base.
+   */
   public static Set<PluginType> getHarvestPluginGroup() {
     return EnumSet.copyOf(HARVEST_PLUGIN_GROUP);
   }
 
+  /**
+   * @return The plugin types that are of the 'processing' kind.
+   */
   public static Set<PluginType> getProcessPluginGroup() {
     return EnumSet.copyOf(PROCESS_PLUGIN_GROUP);
   }
 
+  /**
+   * @return The plugin types that are of the 'indexing' kind.
+   */
   public static Set<PluginType> getIndexPluginGroup() {
     return EnumSet.copyOf(INDEX_PLUGIN_GROUP);
   }
