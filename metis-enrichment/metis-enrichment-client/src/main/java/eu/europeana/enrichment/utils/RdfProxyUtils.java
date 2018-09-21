@@ -8,10 +8,19 @@ import eu.europeana.corelib.definitions.jibx.EuropeanaType;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 
+/**
+ * Utility class for {@link ProxyType} operations in the {@link RDF}
+ */
 public final class RdfProxyUtils {
 
   private RdfProxyUtils() {}
 
+  /**
+   * Add a field with the specified {@link AboutType} to the EuropeanaProxy.
+   * @param rdf the rdf to append to
+   * @param about the about value to use for the field
+   * @param fieldName the name of the field to add
+   */
   public static void appendToProxy(RDF rdf, AboutType about, String fieldName) {
     ProxyType europeanaProxy = getEuropeanaProxy(rdf);
     appendToProxy(europeanaProxy, EnrichmentFields.valueOf(fieldName), about.getAbout());
@@ -25,6 +34,11 @@ public final class RdfProxyUtils {
     europeanaProxy.setChoiceList(choices);
   }
 
+  /**
+   * Retrieve the Provider proxy from the proxy list in the {@link RDF}
+   * @param rdf the rdf used to search for the proxy
+   * @return the Provider proxy
+   */
   public static ProxyType getProviderProxy(RDF rdf) {
     for (ProxyType proxyType : rdf.getProxyList()) {
       if (proxyType.getEuropeanaProxy() == null
