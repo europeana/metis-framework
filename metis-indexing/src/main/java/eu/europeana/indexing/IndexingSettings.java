@@ -16,6 +16,9 @@ import com.mongodb.ServerAddress;
  */
 public final class IndexingSettings {
 
+  // Default settings
+  private static final int DEFAULT_ZOOKEEPER_TIMEOUT_IN_SECONDS = 30;
+
   // Mongo settings
   private final List<ServerAddress> mongoHosts = new ArrayList<>();
   private String mongoDatabaseName;
@@ -26,7 +29,7 @@ public final class IndexingSettings {
   private final List<InetSocketAddress> zookeeperHosts = new ArrayList<>();
   private String zookeeperChroot;
   private String zookeeperDefaultCollection;
-  private Integer zookeeperTimeoutInSecs;
+  private Integer zookeeperTimeoutInSecs = DEFAULT_ZOOKEEPER_TIMEOUT_IN_SECONDS;
 
   // Solr settings
   private final List<URI> solrHosts = new ArrayList<>();
