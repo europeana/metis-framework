@@ -170,6 +170,7 @@ public class EntityMergeEngineTest {
 
   private static Agent createAgentWithNullValues() {
     Agent agent = new Agent();
+    agent.setAbout("aboutA2");
     agent.setDate(Arrays.asList(new LabelResource[] {new LabelResource()}));
     agent.setDateOfBirth(Arrays.asList(new Label[] {null, new Label()}));
     agent.setDateOfDeath(Arrays.asList(new Label[] {new Label(), null}));
@@ -242,6 +243,7 @@ public class EntityMergeEngineTest {
 
   private static Concept createConceptWithNullValues() {
     Concept concept = new Concept();
+    concept.setAbout("aboutC2");
     concept.setBroader(Arrays.asList(new Resource[] {new Resource()}));
     concept.setBroadMatch(Arrays.asList(new Resource[] {null, new Resource()}));
     concept.setNarrower(Arrays.asList(new Resource[] {new Resource(), null}));
