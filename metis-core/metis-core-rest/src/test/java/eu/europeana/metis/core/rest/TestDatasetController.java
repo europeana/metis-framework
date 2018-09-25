@@ -45,9 +45,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.bson.types.ObjectId;
-import org.junit.Before;
+import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -58,12 +60,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class TestDatasetController {
 
-  private DatasetService datasetServiceMock;
-  private AuthenticationClient authenticationClient;
-  private MockMvc datasetControllerMock;
+  private static DatasetService datasetServiceMock;
+  private static AuthenticationClient authenticationClient;
+  private static MockMvc datasetControllerMock;
 
-  @Before
-  public void setUp() {
+  @BeforeClass
+  public static void setUp() {
     datasetServiceMock = mock(DatasetService.class);
     authenticationClient = mock(AuthenticationClient.class);
     DatasetController datasetController = new DatasetController(datasetServiceMock,
@@ -75,6 +77,12 @@ public class TestDatasetController {
             new MappingJackson2XmlHttpMessageConverter(),
             new StringHttpMessageConverter(StandardCharsets.UTF_8))
         .build();
+  }
+
+  @After
+  public void cleanUp() {
+    Mockito.reset(datasetServiceMock);
+    Mockito.reset(authenticationClient);
   }
 
   @Test

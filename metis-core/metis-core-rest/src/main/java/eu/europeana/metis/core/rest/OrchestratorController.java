@@ -331,7 +331,7 @@ public class OrchestratorController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId) throws GenericMetisException {
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("Requesting dataset execution information for datasetId: {}",
+      LOGGER.debug("Requesting dataset execution information for datasetId: {}",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -376,7 +376,7 @@ public class OrchestratorController {
         orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
             orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
-    LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
+    LOGGER.debug("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
@@ -417,7 +417,7 @@ public class OrchestratorController {
         orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses, orderField,
             ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
-    LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
+    LOGGER.debug("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
