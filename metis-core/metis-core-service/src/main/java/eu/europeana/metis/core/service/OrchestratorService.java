@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -580,13 +581,17 @@ public class OrchestratorService {
 
   private void workflowOrderValidator(String datasetId, Workflow workflow)
       throws PluginExecutionNotAllowed {
+    //Workflow should not have duplicated plugins.
+    if (!containsUnique(workflow.getMetisPluginsMetadata())) {
+      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+    }
     // Sanity check, for the first plugin, that will throw exception if there is NO pluginType to be
     // based on in the database.
     getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId,
         workflow.getMetisPluginsMetadata().get(0).getPluginType(), null);
     // If ok then check the order of all subsequent plugins. Start from index 1.
     final boolean valid = workflow.getMetisPluginsMetadata().stream().skip(1)
-        .map(AbstractMetisPluginMetadata::getPluginType).distinct()
+        .map(AbstractMetisPluginMetadata::getPluginType)
         .filter(pluginType -> !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
         .allMatch(pluginType -> checkWorkflowForPluginType(workflow, pluginType));
     if (!valid) {
@@ -594,12 +599,16 @@ public class OrchestratorService {
     }
   }
 
+  private static <T> boolean containsUnique(List<T> list) {
+    return list.stream().allMatch(new HashSet<>()::add);
+  }
+
   private static boolean checkWorkflowForPluginType(Workflow workflow, PluginType pluginType) {
     final Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn =
         ExecutionRules.getPluginTypesSetThatPluginTypeCanBeBasedOn(pluginType);
     return workflow.pluginTypeOccursOnlyAfter(pluginType, pluginTypesSetThatPluginTypeCanBeBasedOn);
   }
-  
+
   private String workflowExists(Workflow workflow) {
     return workflowDao.exists(workflow);
   }
