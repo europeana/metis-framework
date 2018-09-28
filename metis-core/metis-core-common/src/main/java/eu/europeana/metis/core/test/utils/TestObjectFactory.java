@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.test.utils;
 
+import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,6 +70,8 @@ public class TestObjectFactory {
     validationInternalPluginMetadata.setEnabled(true);
     NormalizationPluginMetadata normalizationPluginMetadata = new NormalizationPluginMetadata();
     normalizationPluginMetadata.setEnabled(true);
+    LinkCheckingPluginMetadata linkCheckingPluginMetadata = new LinkCheckingPluginMetadata();
+    linkCheckingPluginMetadata.setEnabled(true);
     EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
     enrichmentPluginMetadata.setEnabled(true);
 
@@ -78,6 +81,7 @@ public class TestObjectFactory {
     abstractMetisPluginMetadata.add(transformationPluginMetadata);
     abstractMetisPluginMetadata.add(validationInternalPluginMetadata);
     abstractMetisPluginMetadata.add(normalizationPluginMetadata);
+    abstractMetisPluginMetadata.add(linkCheckingPluginMetadata);
     abstractMetisPluginMetadata.add(enrichmentPluginMetadata);
     workflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 

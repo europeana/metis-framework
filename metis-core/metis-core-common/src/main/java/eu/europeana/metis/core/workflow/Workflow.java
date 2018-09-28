@@ -2,6 +2,7 @@ package eu.europeana.metis.core.workflow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
@@ -65,7 +66,9 @@ public class Workflow implements HasMongoObjectId {
   }
 
   /**
-   * Get the {@link AbstractMetisPluginMetadata} class based on the {@link PluginType} if that exists in the {@link Workflow#metisPluginsMetadata}.
+   * Get the {@link AbstractMetisPluginMetadata} class based on the {@link PluginType} if that
+   * exists in the {@link Workflow#metisPluginsMetadata}.
+   *
    * @param pluginType the {@link PluginType} to search for
    * @return {@link AbstractMetisPluginMetadata} corresponding to the concrete class
    */
@@ -76,5 +79,45 @@ public class Workflow implements HasMongoObjectId {
       }
     }
     return null;
+  }
+
+  /**
+   * <p>
+   * This method tests whether in this workflow all plugins of the given type occur after at least
+   * one plugin of one of the given earlier types. So, more formally, it returns true if and only if
+   * all the following conditions are met:
+   * <ol>
+   * <li>The workflow contains at least one plugin of the given plugin type,</li>
+   * <li>The workflow contains at least one plugin of one of the given possible earlier types,</li>
+   * <li>The first occurrence of the given plugin type comes <b>after</b> the earliest plugin of one
+   * of the possible earlier type.</li>
+   * </ol>
+   * </p>
+   * <p>
+   * Note that this method does not assume that each plugin type only occurs once.
+   * </p>
+   * 
+   * @param pluginType The plugin type that we are testing for. Cannot be null.
+   * @param possibleEarlierPluginTypes The possible plugin types that has to occur before the other
+   *        given type. Can be null (in which case the result will be false).
+   * @return Whether the workflow contains plugins of the two given types in the given order.
+   */
+  public boolean pluginTypeOccursOnlyAfter(PluginType pluginType,
+      Set<PluginType> possibleEarlierPluginTypes) {
+    if (pluginType == null) {
+      throw new IllegalArgumentException();
+    }
+    if (possibleEarlierPluginTypes == null) {
+      return false;
+    }
+    boolean earlierPluginTypeFound = false;
+    for (AbstractMetisPluginMetadata plugin : metisPluginsMetadata) {
+      if (plugin.getPluginType() == pluginType) {
+        return earlierPluginTypeFound;
+      }
+      earlierPluginTypeFound =
+          earlierPluginTypeFound || possibleEarlierPluginTypes.contains(plugin.getPluginType());
+    }
+    return false;
   }
 }
