@@ -582,7 +582,7 @@ public class OrchestratorService {
   private void workflowOrderValidator(String datasetId, Workflow workflow)
       throws PluginExecutionNotAllowed {
     //Workflow should not have duplicated plugins.
-    if (!containsUnique(workflow.getMetisPluginsMetadata())) {
+    if (listContainsDuplicates(workflow.getMetisPluginsMetadata())) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
     // Sanity check, for the first plugin, that will throw exception if there is NO pluginType to be
@@ -599,8 +599,8 @@ public class OrchestratorService {
     }
   }
 
-  private static <T> boolean containsUnique(List<T> list) {
-    return list.stream().allMatch(new HashSet<>()::add);
+  private static <T> boolean listContainsDuplicates(List<T> list) {
+    return !list.stream().allMatch(new HashSet<>()::add);
   }
 
   private static boolean checkWorkflowForPluginType(Workflow workflow, PluginType pluginType) {
