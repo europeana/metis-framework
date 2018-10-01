@@ -58,7 +58,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   @Override
   public String create(WorkflowExecution workflowExecution) {
     final Key<WorkflowExecution> workflowExecutionKey = ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore().save(workflowExecution));
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().save(workflowExecution));
     LOGGER.debug("WorkflowExecution for datasetId '{}' created in Mongo",
         workflowExecution.getDatasetId());
     return workflowExecutionKey != null ? workflowExecutionKey.getId().toString() : null;
@@ -66,7 +66,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   @Override
   public String update(WorkflowExecution workflowExecution) {
-    final Key<WorkflowExecution> workflowExecutionKey = ExternalRequestUtil.retryableExternalRequest(() ->
+    final Key<WorkflowExecution> workflowExecutionKey = ExternalRequestUtil.retryableExternalRequestConnectionReset(() ->
         morphiaDatastoreProvider.getDatastore().save(workflowExecution));
     LOGGER.debug("WorkflowExecution for datasetId '{}' updated in Mongo",
         workflowExecution.getDatasetId());
@@ -88,7 +88,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     workflowExecutionUpdateOperations
         .set(METIS_PLUGINS, workflowExecution.getMetisPlugins());
     UpdateResults updateResults = ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore()
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore()
             .update(query, workflowExecutionUpdateOperations));
     LOGGER.debug(
         "WorkflowExecution metisPlugins for datasetId '{}' updated in Mongo. (UpdateResults: {})",
@@ -122,7 +122,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     workflowExecutionUpdateOperations
         .set(METIS_PLUGINS, workflowExecution.getMetisPlugins());
     UpdateResults updateResults = ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore()
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore()
             .update(query, workflowExecutionUpdateOperations));
     LOGGER.debug(
         "WorkflowExecution monitor information for datasetId '{}' updated in Mongo. (UpdateResults: {})",
@@ -138,7 +138,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .filter("_id", workflowExecution.getId());
     workflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
     UpdateResults updateResults = ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore()
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore()
             .update(query, workflowExecutionUpdateOperations));
     LOGGER.debug(
         "WorkflowExecution cancelling for datasetId '{}' set to true in Mongo. (UpdateResults: {})",
@@ -151,7 +151,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
         .field("_id").equal(new ObjectId(id));
-    return ExternalRequestUtil.retryableExternalRequest(query::get);
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::get);
   }
 
   @Override
@@ -173,7 +173,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
             datasetId);
     query.or(query.criteria(WORKFLOW_STATUS).equal(WorkflowStatus.INQUEUE),
         query.criteria(WORKFLOW_STATUS).equal(WorkflowStatus.RUNNING));
-    return ExternalRequestUtil.retryableExternalRequest(query::get);
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::get);
   }
 
   /**
@@ -184,7 +184,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    */
   public boolean exists(WorkflowExecution workflowExecution) {
     return ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
             .field(DATASET_ID).equal(workflowExecution.getDatasetId())
             .project("_id", true).get()) != null;
   }
@@ -204,7 +204,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     query.project("_id", true);
     query.project(WORKFLOW_STATUS, true);
 
-    WorkflowExecution storedWorkflowExecution = ExternalRequestUtil.retryableExternalRequest(query::get);
+    WorkflowExecution storedWorkflowExecution = ExternalRequestUtil.retryableExternalRequestConnectionReset(query::get);
     if (storedWorkflowExecution != null) {
       return storedWorkflowExecution.getId().toString();
     }
@@ -266,7 +266,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     }
 
     Iterator<WorkflowExecution> metisPluginsIterator = ExternalRequestUtil
-        .retryableExternalRequest(() -> aggregation.match(query).unwind(METIS_PLUGINS)
+        .retryableExternalRequestConnectionReset(() -> aggregation.match(query).unwind(METIS_PLUGINS)
             .match(query).sort(firstFinished ? Sort.ascending("metisPlugins.finishedDate")
                 : Sort.descending("metisPlugins.finishedDate")).aggregate(WorkflowExecution.class));
 
@@ -315,7 +315,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         query.order("-" + orderField.getOrderFieldName());
       }
     }
-    return ExternalRequestUtil.retryableExternalRequest(
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> query.asList(new FindOptions().skip(nextPage * getWorkflowExecutionsPerRequest())
             .limit(getWorkflowExecutionsPerRequest())));
   }
@@ -351,7 +351,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @return true for cancelled, false for not cancelled
    */
   public boolean isCancelled(ObjectId id) {
-    WorkflowExecution workflowExecution = ExternalRequestUtil.retryableExternalRequest(() ->
+    WorkflowExecution workflowExecution = ExternalRequestUtil.retryableExternalRequestConnectionReset(() ->
         morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id").equal(id)
             .project(WORKFLOW_STATUS, true).get());
     return workflowExecution != null
@@ -366,7 +366,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @return true for cancelling, false for not cancelling
    */
   public boolean isCancelling(ObjectId id) {
-    WorkflowExecution workflowExecution = ExternalRequestUtil.retryableExternalRequest(
+    WorkflowExecution workflowExecution = ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id")
             .equal(id).project("cancelling", true).get());
     return workflowExecution != null && workflowExecution.isCancelling();
@@ -383,7 +383,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .createQuery(WorkflowExecution.class);
     query.field(DATASET_ID).equal(datasetId);
     WriteResult delete = ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore().delete(query));
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().delete(query));
     LOGGER.debug("WorkflowExecution with datasetId: {}, deleted from Mongo", datasetId);
     return (delete != null ? delete.getN() : 0) >= 1;
   }
@@ -402,7 +402,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
     query.field(METIS_PLUGINS).elemMatch(subQuery);
     final List<WorkflowExecution> resultList = ExternalRequestUtil
-        .retryableExternalRequest(() -> query.asList(new FindOptions().limit(1)));
+        .retryableExternalRequestConnectionReset(() -> query.asList(new FindOptions().limit(1)));
     return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);
   }
 }

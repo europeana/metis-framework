@@ -36,7 +36,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   @Override
   public String create(Workflow workflow) {
     final Key<Workflow> workflowKey = ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore().save(workflow));
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' created in Mongo", workflow.getDatasetId());
     return workflowKey != null ? workflowKey.getId().toString() : null;
   }
@@ -45,7 +45,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   @Override
   public String update(Workflow workflow) {
     final Key<Workflow> workflowKey = ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore().save(workflow));
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' updated in Mongo", workflow.getDatasetId());
     return workflowKey != null ? workflowKey.getId().toString() : null;
   }
@@ -55,7 +55,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
         .find(Workflow.class)
         .field("_id").equal(new ObjectId(id));
-    return ExternalRequestUtil.retryableExternalRequest(query::get);
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::get);
   }
 
   @Override
@@ -73,7 +73,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore().createQuery(Workflow.class);
     query.field(DATASET_ID).equal(datasetId);
     WriteResult delete = ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore().delete(query));
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().delete(query));
     LOGGER.info("Workflow with datasetId {}, deleted from Mongo", datasetId);
     return (delete != null ? delete.getN() : 0) == 1;
   }
@@ -87,7 +87,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
    */
   public String exists(Workflow workflow) {
     Workflow storedWorkflow = ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
             .field(DATASET_ID).equal(workflow.getDatasetId())
             .project("_id", true).get());
     return storedWorkflow == null ? null : storedWorkflow.getId().toString();
@@ -101,7 +101,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
    */
   public Workflow getWorkflow(String datasetId) {
     return ExternalRequestUtil
-        .retryableExternalRequest(() -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
+        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
             .field(DATASET_ID).equal(datasetId).get());
   }
 
