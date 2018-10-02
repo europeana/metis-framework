@@ -54,6 +54,12 @@
       <version>${version.mockito.core}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

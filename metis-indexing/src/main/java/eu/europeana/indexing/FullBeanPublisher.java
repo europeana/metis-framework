@@ -1,12 +1,5 @@
 package eu.europeana.indexing;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -14,16 +7,25 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.mongo.property.FullBeanUpdater;
 import eu.europeana.indexing.solr.SolrDocumentPopulator;
+import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrInputDocument;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
  * searchable for external agents.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 class FullBeanPublisher {
-  
+
   private static final BiConsumer<FullBeanImpl, FullBeanImpl> EMPTY_PREPROCESSOR = (created, updated) -> {
   };
 
@@ -35,11 +37,11 @@ class FullBeanPublisher {
 
   /**
    * Constructor.
-   * 
+   *
    * @param mongoClient The Mongo persistence.
    * @param solrServer The searchable persistence.
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the
-   *        updated and created times from the incoming RDFs, or whether it computes its own.
+   * updated and created times from the incoming RDFs, or whether it computes its own.
    */
   FullBeanPublisher(EdmMongoServer mongoClient, SolrClient solrServer,
       boolean preserveUpdateAndCreateTimesFromRdf) {
@@ -48,14 +50,13 @@ class FullBeanPublisher {
 
   /**
    * Constructor for testing purposes.
-   * 
+   *
    * @param mongoClient The Mongo persistence.
    * @param solrServer The searchable persistence.
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the updated
-   *        and created times from the incoming RDFs, or whether it computes its own.
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the
+   * updated and created times from the incoming RDFs, or whether it computes its own.
    * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
-   *        parse strings to instances of {@link FullBeanImpl}. Will be called once during every
-   *        publish.
+   * parse strings to instances of {@link FullBeanImpl}. Will be called once during every publish.
    */
   FullBeanPublisher(EdmMongoServer mongoClient, SolrClient solrServer,
       boolean preserveUpdateAndCreateTimesFromRdf,
@@ -74,7 +75,7 @@ class FullBeanPublisher {
 
   /**
    * Publishes an RDF.
-   * 
+   *
    * @param rdf RDF to publish.
    * @throws IndexingException In case an error occurred during publication.
    */
@@ -83,12 +84,12 @@ class FullBeanPublisher {
     // Convert RDF to Full Bean.
     final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
     final FullBeanImpl fullBean = fullBeanConverter.convertRdfToFullBean(rdf);
-    
+
     // Provide the preprocessor: this will set the created and updated timestamps as needed.
     final BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor =
         preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
             : (FullBeanPublisher::setUpdateAndCreateTime);
-    
+
     // Publish to Mongo
     final FullBeanImpl savedFullBean;
     try {
@@ -99,8 +100,11 @@ class FullBeanPublisher {
 
     // Publish to Solr
     try {
-      publishToSolr(rdf, savedFullBean);
-    } catch (IOException | SolrServerException | RuntimeException e) {
+      ExternalRequestUtil.retryableExternalRequest(() -> {
+        publishToSolr(rdf, savedFullBean);
+        return null;
+      }, Collections.singletonMap(UnknownHostException.class, ""), 30, 1000);
+    } catch (Exception e) {
       throw new IndexingException("Could not add Solr input document to Solr server.", e);
     }
   }
