@@ -151,7 +151,7 @@ public class ThumbnailGenerator {
       throws IOException, MediaException, NoSuchAlgorithmException {
 
     if (content == null) {
-      throw new IllegalArgumentException("content cannot be null");
+      throw new MediaException("File content is null", "File content cannot be null");
     }
 
     final List<Thumbnail> thumbs = prepareThumbnailFiles(url, mimeType);

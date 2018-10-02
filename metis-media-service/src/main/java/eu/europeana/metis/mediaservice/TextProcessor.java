@@ -45,7 +45,7 @@ class TextProcessor {
       return;
     }
     if (content == null) {
-      throw new IllegalArgumentException("content cannot be null");
+      throw new MediaException("File content is null", "File content cannot be null");
     }
     
     // Create thumbnails in case of PDF file.
