@@ -127,14 +127,7 @@ public class SolrDocumentPopulator {
         .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
     document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), hasThumbnails);
 
-    // has_landingpage is true if and only if edm:EuropeanaAggregation/edm:landingpage is filled.
-    final boolean hasLandingPage =
-        Optional.ofNullable(aggregation).map(EuropeanaAggregationType::getLandingPage)
-            .map(ResourceType::getResource).filter(StringUtils::isNotBlank).isPresent();
-    document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), hasLandingPage);
-
-    // has_media is true if and only if there is at least one web resource, not of type
-    // 'is_shown_at', representing technical metadata of a known type.
+    // Compose the set of isShownAt urls.
     final Set<String> isShownAtUrls;
     if (rdf.getAggregationList() == null) {
       isShownAtUrls = Collections.emptySet();
@@ -142,10 +135,20 @@ public class SolrDocumentPopulator {
       isShownAtUrls = rdf.getAggregationList().stream().map(Aggregation::getIsShownAt)
           .filter(Objects::nonNull).map(IsShownAt::getResource).collect(Collectors.toSet());
     }
+
+    // has_media is true if and only if there is at least one web resource, not of type
+    // 'is_shown_at', representing technical metadata of a known type.
     final boolean hasMedia =
         webResources.stream().filter(resource -> !isShownAtUrls.contains(resource.getAbout()))
             .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != EncodedMediaType.OTHER);
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
+
+    // has_landingPage is true if and only if there is at least one web resource of type
+    // 'is_shown_at', representing technical metadata of some (non-null) mime type.
+    final boolean hasLandingPage = webResources.stream()
+        .filter(resource -> isShownAtUrls.contains(resource.getAbout()))
+        .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
+    document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), hasLandingPage);
 
     // is_fulltext is true if and only if there is at least one web resource with 'rdf:type' equal
     // to 'edm:FullTextResource'.
