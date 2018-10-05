@@ -154,7 +154,7 @@ public class ThumbnailGenerator {
       throw new MediaException("File content is null", "File content cannot be null");
     }
 
-    final List<Thumbnail> thumbs = prepareThumbnailFiles(url, mimeType);
+    final List<Thumbnail> thumbs = prepareThumbnailFiles(url);
     int sizes = THUMB_SIZE.length;
 
     ArrayList<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
@@ -211,19 +211,17 @@ public class ThumbnailGenerator {
     return result;
   }
 
-  private List<Thumbnail> prepareThumbnailFiles(String url, String mimeType)
+  private List<Thumbnail> prepareThumbnailFiles(String url)
       throws IOException, NoSuchAlgorithmException {
     File thumbsDir = new File(tempDir, "media_thumbnails");
     if (!thumbsDir.isDirectory() && !thumbsDir.mkdir()) {
       throw new IOException("Could not create thumbnails subdirectory: " + thumbsDir);
     }
     String md5 = md5Hex(url);
-    String ext =
-        ("application/pdf".equals(mimeType) || "image/png".equals(mimeType)) ? ".png" : ".jpeg";
     List<Thumbnail> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
     for (String thumbnailSuffix : THUMB_SUFFIX) {
-      File f = File.createTempFile("thumb", ext, thumbsDir);
-      thumbs.add(new Thumbnail(url, md5 + thumbnailSuffix + ext, f));
+      File f = File.createTempFile("thumb", ".tmp", thumbsDir);
+      thumbs.add(new Thumbnail(url, md5 + thumbnailSuffix, f));
     }
     return thumbs;
   }

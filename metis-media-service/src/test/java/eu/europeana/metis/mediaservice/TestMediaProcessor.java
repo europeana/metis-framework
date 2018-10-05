@@ -111,8 +111,8 @@ public class TestMediaProcessor {
 		assertEquals(2, thumbnails.size());
 		assertEquals(url, thumbnails.get(0).url);
 		assertEquals(url, thumbnails.get(1).url);
-		assertEquals(md5 + "-MEDIUM.jpeg", thumbnails.get(0).targetName);
-		assertEquals(md5 + "-LARGE.jpeg", thumbnails.get(1).targetName);
+		assertEquals(md5 + "-MEDIUM", thumbnails.get(0).targetName);
+		assertEquals(md5 + "-LARGE", thumbnails.get(1).targetName);
 	}
 	
 	@Test
