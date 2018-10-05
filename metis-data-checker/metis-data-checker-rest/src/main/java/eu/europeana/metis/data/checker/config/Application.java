@@ -122,6 +122,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    */
   @Override
   public void afterPropertiesSet() throws Exception {
+    // Configure the socks proxy.
+    if (socksProxyEnabled) {
+      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+    }
 
     // Create the indexing settings
     final IndexingSettings settings = new IndexingSettings();
@@ -159,11 +163,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
     // Create the indexing connection
     indexingConnection = new SettingsConnectionProvider(settings);
-
-    // Configure the socks proxy.
-    if (socksProxyEnabled) {
-      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
-    }
 
     // Configure the xslt cache
     XsltTransformer.setExpirationTime(Duration.ZERO.plusSeconds(xsltCacheExpirationInSec));
