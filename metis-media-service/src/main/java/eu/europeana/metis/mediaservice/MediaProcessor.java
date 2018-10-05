@@ -95,7 +95,9 @@ public class MediaProcessor implements Closeable {
           contents == null);
     }
 
-    if (!mimeType.equals(providedMimeType)) {
+    //Permit the application/xhtml+xml detected from tika to be virtually equal to the text/html detected from the providedMimeType
+    if (!("application/xhtml+xml".equals(mimeType) && "text/html".equals(providedMimeType))
+        && !mimeType.equals(providedMimeType)) {
       LOGGER
           .info("Invalid mime type provided (should be {}, was {}): {}", mimeType, providedMimeType,
               url);

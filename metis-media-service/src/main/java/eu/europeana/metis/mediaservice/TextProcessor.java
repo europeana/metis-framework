@@ -31,6 +31,7 @@ class TextProcessor {
       case "application/rtf":
       case "application/epub":
       case "application/pdf":
+      case "application/xhtml+xml":
         return true;
       default:
         return mimeType.startsWith("text/");
@@ -47,7 +48,7 @@ class TextProcessor {
     if (content == null) {
       throw new MediaException("File content is null", "File content cannot be null");
     }
-    
+
     // Create thumbnails in case of PDF file.
     if ("application/pdf".equals(mimeType)) {
       thumbnailGenerator.generateThumbnails(url, mimeType, content);
@@ -80,13 +81,14 @@ class TextProcessor {
       resource.setContainsText(containsText);
       resource.setResolution(resolution);
     } else {
-      resource.setContainsText(mimeType.startsWith("text/"));
+      resource.setContainsText(
+          mimeType.startsWith("text/") || "application/xhtml+xml".equals(mimeType));
       resource.setResolution(null);
     }
   }
 
   private static class PdfListener extends SimpleTextExtractionStrategy {
-    
+
     private Integer dpi;
 
     @Override
@@ -96,7 +98,7 @@ class TextProcessor {
       if (dpi != null) {
         return;
       }
-      
+
       try {
 
         // Get the image: if this is null, it means that the image is not there or the image is not
