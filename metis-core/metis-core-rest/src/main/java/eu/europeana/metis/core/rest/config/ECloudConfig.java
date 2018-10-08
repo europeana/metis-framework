@@ -20,6 +20,11 @@ public class ECloudConfig extends WebMvcConfigurerAdapter {
 
   private final ConfigurationPropertiesHolder propertiesHolder;
 
+  /**
+   * Constructor.
+   *
+   * @param propertiesHolder Object containing the configuration properties.
+   */
   @Autowired
   public ECloudConfig(ConfigurationPropertiesHolder propertiesHolder) {
     this.propertiesHolder = propertiesHolder;
@@ -27,20 +32,26 @@ public class ECloudConfig extends WebMvcConfigurerAdapter {
 
   @Bean
   DataSetServiceClient dataSetServiceClient() {
-    return new DataSetServiceClient(propertiesHolder.getEcloudBaseUrl(), propertiesHolder.getEcloudUsername(),
-        propertiesHolder.getEcloudPassword());
+    return new DataSetServiceClient(propertiesHolder.getEcloudBaseUrl(),
+        propertiesHolder.getEcloudUsername(),
+        propertiesHolder.getEcloudPassword(), propertiesHolder.getDpsConnectTimeoutInMillisecs(),
+        propertiesHolder.getDpsReadTimeoutInMillisecs());
   }
 
   @Bean
   RecordServiceClient recordServiceClient() {
-    return new RecordServiceClient(propertiesHolder.getEcloudBaseUrl(), propertiesHolder.getEcloudUsername(),
-        propertiesHolder.getEcloudPassword());
+    return new RecordServiceClient(propertiesHolder.getEcloudBaseUrl(),
+        propertiesHolder.getEcloudUsername(),
+        propertiesHolder.getEcloudPassword(), propertiesHolder.getDpsConnectTimeoutInMillisecs(),
+        propertiesHolder.getDpsReadTimeoutInMillisecs());
   }
 
   @Bean
   FileServiceClient fileServiceClient() {
-    return new FileServiceClient(propertiesHolder.getEcloudBaseUrl(), propertiesHolder.getEcloudUsername(),
-        propertiesHolder.getEcloudPassword());
+    return new FileServiceClient(propertiesHolder.getEcloudBaseUrl(),
+        propertiesHolder.getEcloudUsername(),
+        propertiesHolder.getEcloudPassword(), propertiesHolder.getDpsConnectTimeoutInMillisecs(),
+        propertiesHolder.getDpsReadTimeoutInMillisecs());
   }
 
   @Bean
