@@ -214,8 +214,7 @@ public final class EnrichmentUtils {
   }
 
   private static <R> void addFirstTypeOccurrenceOfChoiceToMap(BooleanSupplier booleanSupplier,
-      Supplier<R> supplier,
-      Map<Class<?>, String> map) {
+      Supplier<R> supplier, Map<Class<?>, String> map) {
     if (booleanSupplier.getAsBoolean()) {
       R result = supplier.get();
       String value;

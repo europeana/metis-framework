@@ -98,9 +98,14 @@ public final class DereferenceUtils {
   }
 
   private static void dereferenceChoice(Choice choice, Set<String> values) {
+    convertValue(choice.ifContributor(), choice.getContributor(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifCoverage(), choice.getCoverage(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifCreator(), choice.getCreator(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifCreated(), choice.getCreated(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifDate(), choice.getDate(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifExtent(), choice.getExtent(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.ifHasFormat(), choice.getHasFormat(), RESOURCE_OR_LITERAL_EXTRACTOR,
-        values);
+    convertValue(choice.ifFormat(), choice.getFormat(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifHasFormat(), choice.getHasFormat(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifHasPart(), choice.getHasPart(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifHasVersion(), choice.getHasVersion(), RESOURCE_OR_LITERAL_EXTRACTOR,
         values);
@@ -115,6 +120,8 @@ public final class DereferenceUtils {
         values);
     convertValue(choice.ifIsVersionOf(), choice.getIsVersionOf(), RESOURCE_OR_LITERAL_EXTRACTOR,
         values);
+    convertValue(choice.ifMedium(), choice.getMedium(), RESOURCE_OR_LITERAL_EXTRACTOR,
+        values);
     convertValue(choice.ifPublisher(), choice.getPublisher(), RESOURCE_OR_LITERAL_EXTRACTOR,
         values);
     convertValue(choice.ifReferences(), choice.getReferences(), RESOURCE_OR_LITERAL_EXTRACTOR,
@@ -122,6 +129,11 @@ public final class DereferenceUtils {
     convertValue(choice.ifRelation(), choice.getRelation(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifReplaces(), choice.getReplaces(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifSource(), choice.getSource(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifSpatial(), choice.getSpatial(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifSubject(), choice.getSubject(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifTemporal(), choice.getTemporal(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifIssued(), choice.getIssued(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifType(), choice.getType(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
   }
 
   private static void dereferenceTimespan(TimeSpanType timespan, final Set<String> result) {

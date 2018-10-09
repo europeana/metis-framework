@@ -606,7 +606,7 @@ public class DereferenceUtilsTest {
     Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 
     Assert.assertNotNull(result);
-    Assert.assertEquals(24, result.size());
+    Assert.assertEquals(27, result.size());
 
     Assert.assertTrue(result.contains("http://dummy1.dum"));
     Assert.assertTrue(result.contains("http://dummy2.dum"));
