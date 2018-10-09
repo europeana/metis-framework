@@ -189,7 +189,7 @@ public class EnrichmentWorker {
   private EnrichmentResultList enrichFields(List<InputValue> fieldsForEnrichment)
       throws DereferenceOrEnrichException {
     try {
-      return enrichmentClient.enrich(fieldsForEnrichment);
+      return CollectionUtils.isEmpty(fieldsForEnrichment) ? null : enrichmentClient.enrich(fieldsForEnrichment);
     } catch (RuntimeException e) {
       throw new DereferenceOrEnrichException(
           "Exception occurred while trying to perform enrichment.", e);

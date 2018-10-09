@@ -150,7 +150,6 @@ public class EnrichmentWorkerTest {
   private void testEnrichmentWorkerNullFlow(Mode mode) throws DereferenceOrEnrichException {	  	
 	    // Create mocks of the dependencies
 	    final EnrichmentClient enrichmentClient = Mockito.mock(EnrichmentClient.class);
-	    doReturn(null).when(enrichmentClient).enrich(any());
 	    final DereferenceClient dereferenceClient = Mockito.mock(DereferenceClient.class);
 	 
 	    final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
@@ -264,8 +263,7 @@ public class EnrichmentWorkerTest {
 	      verify(worker, times(1)).extractFieldsForEnrichment(inputRdf);
 
 	      // Actually enriching
-	      verify(enrichmentClient, times(1)).enrich(enrichmentExtractionCaptor.capture());
-	      assertArrayEquals(new InputValue[0], enrichmentExtractionCaptor.getValue().toArray());
+	      verify(enrichmentClient, times(0)).enrich(any());
 
 	    } else {
 	      verify(worker, never()).extractFieldsForEnrichment(any());
