@@ -96,7 +96,9 @@ public class DereferenceClient {
    */
   public void deleteEntity(String uri) {
     try {
-      String encodedUri = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
+      //URLEncoder converts spaces to "+" signs.
+      // Replace any plus "+" characters to a proper space encoding "%20".
+      String encodedUri = URLEncoder.encode(uri, StandardCharsets.UTF_8.name()).replace("+", "%20");
       restTemplate.delete(hostUrl + RestEndpoints.resolve(RestEndpoints.ENTITY_DELETE, encodedUri));
     } catch (UnsupportedEncodingException e) {
       LOGGER.error("Exception occurred while deleting entity", e);
@@ -127,7 +129,9 @@ public class DereferenceClient {
     // Encode the resource ID.
     String resourceString;
     try {
-      resourceString = URLEncoder.encode(resourceId, StandardCharsets.UTF_8.name());
+      //URLEncoder converts spaces to "+" signs.
+      // Replace any plus "+" characters to a proper space encoding "%20".
+      resourceString = URLEncoder.encode(resourceId, StandardCharsets.UTF_8.name()).replace("+", "%20");
     } catch (UnsupportedEncodingException e) {
       throw new IllegalStateException(e);
     }

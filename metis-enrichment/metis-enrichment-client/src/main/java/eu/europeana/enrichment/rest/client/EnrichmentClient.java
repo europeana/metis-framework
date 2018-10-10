@@ -67,7 +67,9 @@ public class EnrichmentClient {
 
     String encodedUri;
     try {
-      encodedUri = URLEncoder.encode(uri, "UTF-8");
+      //URLEncoder converts spaces to "+" signs.
+      // Replace any plus "+" characters to a proper space encoding "%20".
+      encodedUri = URLEncoder.encode(uri, "UTF-8").replace("+", "%20");
     } catch (UnsupportedEncodingException e) {
       throw new IllegalStateException(e);
     }
