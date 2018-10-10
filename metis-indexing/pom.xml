@@ -17,6 +17,20 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>object-storage</artifactId>
+          <groupId>eu.europeana</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>harvester-client</artifactId>
+          <groupId>eu.europeana</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>mockito-all</artifactId>
+          <groupId>org.mockito</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
