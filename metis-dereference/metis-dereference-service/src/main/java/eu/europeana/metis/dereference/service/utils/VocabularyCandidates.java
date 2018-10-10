@@ -74,7 +74,7 @@ public final class VocabularyCandidates {
       Function<String, List<Vocabulary>> searchInPersistence) throws URISyntaxException {
 
     // Initial search on the host name (already filtering the great majority of vocabularies).
-    final String searchString = new URI(resourceId).getHost();
+    final String searchString = new URI(resourceId.replace(" ", "%20")).getHost();
     final List<Vocabulary> searchedVocabularies = searchInPersistence.apply(searchString);
 
     // Narrow it down further: precisely match the URI and URI rules.
