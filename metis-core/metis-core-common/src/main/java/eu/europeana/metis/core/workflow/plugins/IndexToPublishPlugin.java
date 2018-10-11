@@ -41,11 +41,12 @@ public class IndexToPublishPlugin extends AbstractMetisPlugin {
 
   @Override
   public DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+    String datasetId = ((IndexToPreviewPluginMetadata) getPluginMetadata()).getDatasetId();
     boolean useAlternativeIndexingEnvironment = ((IndexToPublishPluginMetadata) getPluginMetadata())
         .getUseAlternativeIndexingEnvironment();
     boolean preserveTimestamps = ((IndexToPublishPluginMetadata) getPluginMetadata())
         .isPreserveTimestamps();
-    return createDpsTaskForIndexPlugin(useAlternativeIndexingEnvironment, preserveTimestamps,
+    return createDpsTaskForIndexPlugin(datasetId, useAlternativeIndexingEnvironment, preserveTimestamps,
         "PUBLISH", ecloudBaseUrl, ecloudProvider,
         ecloudDataset);
   }

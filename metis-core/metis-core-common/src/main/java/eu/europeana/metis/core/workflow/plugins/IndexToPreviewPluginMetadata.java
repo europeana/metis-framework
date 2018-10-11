@@ -7,6 +7,7 @@ package eu.europeana.metis.core.workflow.plugins;
 public class IndexToPreviewPluginMetadata extends AbstractMetisPluginMetadata {
 
   private static final PluginType pluginType = PluginType.PREVIEW;
+  private String datasetId;
   private boolean useAlternativeIndexingEnvironment;
   private boolean preserveTimestamps;
 
@@ -17,6 +18,14 @@ public class IndexToPreviewPluginMetadata extends AbstractMetisPluginMetadata {
   @Override
   public PluginType getPluginType() {
     return pluginType;
+  }
+
+  public String getDatasetId() {
+    return datasetId;
+  }
+
+  public void setDatasetId(String datasetId) {
+    this.datasetId = datasetId;
   }
 
   public boolean getUseAlternativeIndexingEnvironment() {

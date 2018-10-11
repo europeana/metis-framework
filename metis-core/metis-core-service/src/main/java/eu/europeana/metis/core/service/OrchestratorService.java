@@ -457,10 +457,12 @@ public class OrchestratorService {
           setupValidationForPluginMetadata(pluginMetadata, getValidationInternalProperties());
           break;
         case PREVIEW:
+          ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
           ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
               getMetisUseAlternativeIndexingEnvironment());
           break;
         case PUBLISH:
+          ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
           ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
               getMetisUseAlternativeIndexingEnvironment());
           break;

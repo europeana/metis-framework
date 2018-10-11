@@ -41,11 +41,12 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
 
   @Override
   public DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+    String datasetId = ((IndexToPreviewPluginMetadata) getPluginMetadata()).getDatasetId();
     boolean useAlternativeIndexingEnvironment = ((IndexToPreviewPluginMetadata) getPluginMetadata())
         .getUseAlternativeIndexingEnvironment();
     boolean preserveTimestamps = ((IndexToPreviewPluginMetadata) getPluginMetadata())
         .isPreserveTimestamps();
-    return createDpsTaskForIndexPlugin(useAlternativeIndexingEnvironment, preserveTimestamps,
+    return createDpsTaskForIndexPlugin(datasetId, useAlternativeIndexingEnvironment, preserveTimestamps,
         "PREVIEW", ecloudBaseUrl, ecloudProvider,
         ecloudDataset);
   }
