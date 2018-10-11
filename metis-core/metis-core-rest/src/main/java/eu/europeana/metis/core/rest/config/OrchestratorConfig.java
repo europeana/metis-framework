@@ -20,6 +20,7 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.Authorizer;
+import eu.europeana.metis.core.service.OrchestratorHelper;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
@@ -157,20 +158,28 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao, DatasetDao datasetDao,
-      DatasetXsltDao datasetXsltDao, WorkflowExecutorManager workflowExecutorManager,
-      Authorizer authorizer) throws IOException {
+      OrchestratorHelper orchestratorHelper, WorkflowExecutorManager workflowExecutorManager,
+      Authorizer authorizer) {
     OrchestratorService orchestratorService =
-        new OrchestratorService(workflowDao, workflowExecutionDao, datasetDao, datasetXsltDao,
+        new OrchestratorService(orchestratorHelper, workflowDao, workflowExecutionDao, datasetDao,
             workflowExecutorManager, redissonClient, authorizer);
-    orchestratorService
-        .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
-    orchestratorService
-        .setValidationInternalProperties(propertiesHolder.getValidationInternalProperties());
-    orchestratorService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
-    orchestratorService.setMetisUseAlternativeIndexingEnvironment(
-        propertiesHolder.getMetisUseAlternativeIndexingEnvironment());
     orchestratorService.setSolrCommitPeriodInMins(propertiesHolder.getSolrCommitPeriodInMins());
     return orchestratorService;
+  }
+
+  @Bean
+  public OrchestratorHelper getOrchestratorHelper(WorkflowExecutionDao workflowExecutionDao,
+      DatasetXsltDao datasetXsltDao) {
+    OrchestratorHelper orchestratorHelper = new OrchestratorHelper(workflowExecutionDao,
+        datasetXsltDao);
+    orchestratorHelper
+        .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
+    orchestratorHelper
+        .setValidationInternalProperties(propertiesHolder.getValidationInternalProperties());
+    orchestratorHelper.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
+    orchestratorHelper.setMetisUseAlternativeIndexingEnvironment(
+        propertiesHolder.getMetisUseAlternativeIndexingEnvironment());
+    return orchestratorHelper;
   }
 
   @Bean

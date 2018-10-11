@@ -11,6 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,6 +85,7 @@ public class TestOrchestratorService {
   private static DatasetDao datasetDao;
   private static DatasetXsltDao datasetXsltDao;
   private static WorkflowExecutorManager workflowExecutorManager;
+  private static OrchestratorHelper orchestratorHelper;
   private static OrchestratorService orchestratorService;
   private static RedissonClient redissonClient;
   private static Authorizer authorizer;
@@ -98,15 +100,17 @@ public class TestOrchestratorService {
     redissonClient = mock(RedissonClient.class);
     authorizer = mock(Authorizer.class);
 
-    orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao, datasetDao,
-        datasetXsltDao, workflowExecutorManager,
-        redissonClient, authorizer);
-    orchestratorService.setMetisCoreUrl("https://some.url.com");
-    orchestratorService.setSolrCommitPeriodInMins(SOLR_COMMIT_PERIOD_IN_MINS);
-    orchestratorService.setValidationExternalProperties(
+    orchestratorHelper = new OrchestratorHelper(workflowExecutionDao,
+        datasetXsltDao);
+    orchestratorHelper.setMetisCoreUrl("https://some.url.com");
+    orchestratorHelper.setValidationExternalProperties(
         new ValidationProperties("url-ext", "schema-ext", "schematron-ext"));
-    orchestratorService.setValidationInternalProperties(
+    orchestratorHelper.setValidationInternalProperties(
         new ValidationProperties("url-int", "schema-int", "schematron-int"));
+
+    orchestratorService = new OrchestratorService(orchestratorHelper, workflowDao,
+        workflowExecutionDao, datasetDao, workflowExecutorManager, redissonClient, authorizer);
+    orchestratorService.setSolrCommitPeriodInMins(SOLR_COMMIT_PERIOD_IN_MINS);
   }
 
   @After
@@ -143,7 +147,8 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
     List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
-    List<AbstractMetisPluginMetadata> wrongOrderMetisPluginsMetadata = new ArrayList<>(metisPluginsMetadata);
+    List<AbstractMetisPluginMetadata> wrongOrderMetisPluginsMetadata = new ArrayList<>(
+        metisPluginsMetadata);
     Collections.copy(wrongOrderMetisPluginsMetadata, metisPluginsMetadata);
     wrongOrderMetisPluginsMetadata.remove(2);
     workflow.setMetisPluginsMetadata(wrongOrderMetisPluginsMetadata);
@@ -321,20 +326,20 @@ public class TestOrchestratorService {
     final ValidationInternalPluginMetadata metadataInternal =
         (ValidationInternalPluginMetadata) workflow
             .getPluginMetadata(PluginType.VALIDATION_INTERNAL);
-    assertEquals(orchestratorService.getValidationInternalProperties().getUrlOfSchemasZip(),
+    assertEquals(orchestratorHelper.getValidationInternalProperties().getUrlOfSchemasZip(),
         metadataInternal.getUrlOfSchemasZip());
-    assertEquals(orchestratorService.getValidationInternalProperties().getSchemaRootPath(),
+    assertEquals(orchestratorHelper.getValidationInternalProperties().getSchemaRootPath(),
         metadataInternal.getSchemaRootPath());
-    assertEquals(orchestratorService.getValidationInternalProperties().getSchematronRootPath(),
+    assertEquals(orchestratorHelper.getValidationInternalProperties().getSchematronRootPath(),
         metadataInternal.getSchematronRootPath());
     final ValidationExternalPluginMetadata metadataExternal =
         (ValidationExternalPluginMetadata) workflow
             .getPluginMetadata(PluginType.VALIDATION_EXTERNAL);
-    assertEquals(orchestratorService.getValidationExternalProperties().getUrlOfSchemasZip(),
+    assertEquals(orchestratorHelper.getValidationExternalProperties().getUrlOfSchemasZip(),
         metadataExternal.getUrlOfSchemasZip());
-    assertEquals(orchestratorService.getValidationExternalProperties().getSchemaRootPath(),
+    assertEquals(orchestratorHelper.getValidationExternalProperties().getSchemaRootPath(),
         metadataExternal.getSchemaRootPath());
-    assertEquals(orchestratorService.getValidationExternalProperties().getSchematronRootPath(),
+    assertEquals(orchestratorHelper.getValidationExternalProperties().getSchematronRootPath(),
         metadataExternal.getSchematronRootPath());
   }
 
@@ -733,22 +738,26 @@ public class TestOrchestratorService {
     AbstractMetisPlugin oaipmhHarvestPlugin =
         PluginType.OAIPMH_HARVEST.getNewPlugin(new OaipmhHarvestPluginMetadata());
     oaipmhHarvestPlugin.setFinishedDate(
-        DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 3), TimeUnit.MINUTES));
+        DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 3),
+            TimeUnit.MINUTES));
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     AbstractMetisPlugin firstPublishPlugin =
         PluginType.PUBLISH.getNewPlugin(new IndexToPublishPluginMetadata());
     firstPublishPlugin.setFinishedDate(
-        DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 2), TimeUnit.MINUTES));
+        DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 2),
+            TimeUnit.MINUTES));
     firstPublishPlugin.setExecutionProgress(executionProgress);
     AbstractMetisPlugin lastPreviewPlugin =
         PluginType.PREVIEW.getNewPlugin(new IndexToPreviewPluginMetadata());
     lastPreviewPlugin.setFinishedDate(
-        DateUtils.modifyDateByTimeUnitAmount(new Date(),-(SOLR_COMMIT_PERIOD_IN_MINS + 1), TimeUnit.MINUTES));
+        DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 1),
+            TimeUnit.MINUTES));
     lastPreviewPlugin.setExecutionProgress(executionProgress);
     AbstractMetisPlugin lastPublishPlugin =
         PluginType.PUBLISH.getNewPlugin(new IndexToPublishPluginMetadata());
     lastPublishPlugin
-        .setFinishedDate(DateUtils.modifyDateByTimeUnitAmount(new Date(), -SOLR_COMMIT_PERIOD_IN_MINS, TimeUnit.MINUTES));
+        .setFinishedDate(DateUtils
+            .modifyDateByTimeUnitAmount(new Date(), -SOLR_COMMIT_PERIOD_IN_MINS, TimeUnit.MINUTES));
     lastPublishPlugin.setExecutionProgress(executionProgress);
 
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);

@@ -1,16 +1,13 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
-import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
@@ -20,43 +17,28 @@ import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsExceptio
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.OrderField;
-import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.DateUtils;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -80,15 +62,10 @@ public class OrchestratorService {
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowDao workflowDao;
   private final DatasetDao datasetDao;
-  private final DatasetXsltDao datasetXsltDao;
   private final WorkflowExecutorManager workflowExecutorManager;
   private final RedissonClient redissonClient;
   private final Authorizer authorizer;
-
-  private ValidationProperties validationExternalProperties; // Use getter and setter!
-  private ValidationProperties validationInternalProperties; // Use getter and setter!
-  private String metisCoreUrl; // Use getter and setter for this field!
-  private boolean metisUseAlternativeIndexingEnvironment; // Use getter and setter for this field!
+  private final OrchestratorHelper orchestratorHelper;
   private int solrCommitPeriodInMins; // Use getter and setter for this field!
 
   /**
@@ -97,22 +74,21 @@ public class OrchestratorService {
    * @param workflowDao the Dao instance to access the Workflow database
    * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
    * @param datasetDao the Dao instance to access the Dataset database
-   * @param datasetXsltDao the Dao instance to access the DatasetXslt database
+   * @param orchestratorHelper the orchestratorHelper instance
    * @param workflowExecutorManager the instance that handles the production and consumption of
    * workflowExecutions
    * @param redissonClient the instance of Redisson library that handles distributed locks
    * @param authorizer the authorizer
-   * @throws IOException that can be thrown when initializing the {@link WorkflowExecutorManager}
    */
   @Autowired
-  public OrchestratorService(WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
-      DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
+  public OrchestratorService(OrchestratorHelper orchestratorHelper, WorkflowDao workflowDao,
+      WorkflowExecutionDao workflowExecutionDao, DatasetDao datasetDao,
       WorkflowExecutorManager workflowExecutorManager, RedissonClient redissonClient,
       Authorizer authorizer) {
+    this.orchestratorHelper = orchestratorHelper;
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.datasetDao = datasetDao;
-    this.datasetXsltDao = datasetXsltDao;
     this.workflowExecutorManager = workflowExecutorManager;
     this.redissonClient = redissonClient;
     this.authorizer = authorizer;
@@ -137,7 +113,7 @@ public class OrchestratorService {
       throws GenericMetisException {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
     try {
-      validateAndTrimHarvestParameters(workflow);
+      orchestratorHelper.validateAndTrimHarvestParameters(workflow);
     } catch (MalformedURLException | URISyntaxException e) {
       throw new BadContentException("Harvesting parameters are invalid", e);
     }
@@ -173,7 +149,7 @@ public class OrchestratorService {
       throws GenericMetisException {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
     try {
-      validateAndTrimHarvestParameters(workflow);
+      orchestratorHelper.validateAndTrimHarvestParameters(workflow);
     } catch (MalformedURLException | URISyntaxException e) {
       throw new BadContentException("Harvesting parameters are invalid", e);
     }
@@ -184,24 +160,11 @@ public class OrchestratorService {
     workflow.setDatasetId(datasetId);
     Workflow storedWorkflow = checkRestrictionsOnWorkflowUpdate(datasetId, workflow);
     workflow.setId(storedWorkflow.getId());
-    overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(workflow, storedWorkflow);
+    orchestratorHelper
+        .overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(workflow,
+            storedWorkflow);
 
     workflowDao.update(workflow);
-  }
-
-  private void overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(Workflow workflow,
-      Workflow storedWorkflow) {
-    //Overwrite only ones provided and disable the rest, already stored, plugins
-    workflow.getMetisPluginsMetadata()
-        .forEach(abstractMetisPluginMetadata -> abstractMetisPluginMetadata.setEnabled(true));
-    List<AbstractMetisPluginMetadata> storedPluginsExcludingNewPlugins = storedWorkflow
-        .getMetisPluginsMetadata()
-        .stream().filter(abstractMetisPluginMetadata ->
-            workflow.getPluginMetadata(abstractMetisPluginMetadata.getPluginType()) == null)
-        .peek(abstractMetisPluginMetadata -> abstractMetisPluginMetadata.setEnabled(false))
-        .collect(Collectors.toList());
-    workflow.setMetisPluginsMetadata(Stream.concat(storedPluginsExcludingNewPlugins.stream(),
-        workflow.getMetisPluginsMetadata().stream()).collect(Collectors.toList()));
   }
 
   /**
@@ -374,156 +337,13 @@ public class OrchestratorService {
       PluginType enforcedPluginType) throws PluginExecutionNotAllowed {
     List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
 
-    boolean firstPluginDefined = addHarvestingPlugin(dataset, workflow, metisPlugins);
-    addNonHarvestPlugins(dataset, workflow, enforcedPluginType, metisPlugins, firstPluginDefined);
+    boolean firstPluginDefined = orchestratorHelper
+        .addHarvestingPlugin(dataset, workflow, metisPlugins);
+    orchestratorHelper.addNonHarvestPlugins(dataset, workflow, enforcedPluginType, metisPlugins,
+        firstPluginDefined);
     return metisPlugins;
   }
 
-  private boolean addHarvestingPlugin(Dataset dataset, Workflow workflow,
-      List<AbstractMetisPlugin> metisPlugins) {
-    OaipmhHarvestPluginMetadata oaipmhMetadata =
-        (OaipmhHarvestPluginMetadata) workflow.getPluginMetadata(PluginType.OAIPMH_HARVEST);
-    HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) workflow
-        .getPluginMetadata(PluginType.HTTP_HARVEST);
-    final AbstractMetisPlugin plugin;
-    if (oaipmhMetadata != null && oaipmhMetadata.isEnabled()) {
-      plugin = PluginType.OAIPMH_HARVEST.getNewPlugin(oaipmhMetadata);
-      oaipmhMetadata.setDatasetId(dataset.getDatasetId());
-    } else if (httpMetadata != null && httpMetadata.isEnabled()) {
-      plugin = PluginType.HTTP_HARVEST.getNewPlugin(httpMetadata);
-      httpMetadata.setDatasetId(dataset.getDatasetId());
-    } else {
-      plugin = null;
-    }
-    if (plugin != null) {
-      plugin.setId(new ObjectId().toString() + "-" + plugin.getPluginType().name());
-      metisPlugins.add(plugin);
-      return true;
-    }
-    return false;
-  }
-
-  private boolean addNonHarvestPlugins(Dataset dataset, Workflow workflow,
-      PluginType enforcedPluginType, List<AbstractMetisPlugin> metisPlugins,
-      boolean firstPluginDefined) throws PluginExecutionNotAllowed {
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, PluginType.VALIDATION_EXTERNAL);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, PluginType.TRANSFORMATION);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, PluginType.VALIDATION_INTERNAL);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, PluginType.NORMALIZATION);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, PluginType.ENRICHMENT);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, PluginType.MEDIA_PROCESS);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, PluginType.LINK_CHECKING);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, PluginType.PREVIEW);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, PluginType.PUBLISH);
-    return firstPluginDefined;
-  }
-
-  private boolean addNonHarvestPlugin(Dataset dataset, Workflow workflow,
-      PluginType enforcedPluginType, List<AbstractMetisPlugin> metisPlugins,
-      boolean firstPluginDefined, PluginType pluginType) throws PluginExecutionNotAllowed {
-    AbstractMetisPluginMetadata pluginMetadata = workflow.getPluginMetadata(pluginType);
-    if (pluginMetadata != null && pluginMetadata.isEnabled()) {
-      if (!firstPluginDefined) {
-        AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            dataset.getDatasetId(), pluginMetadata.getPluginType(), enforcedPluginType);
-        pluginMetadata
-            .setPreviousRevisionInformation(previousPlugin); //Set all previous revision information
-      }
-
-      // Sanity check
-      if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
-        //This is practically impossible to happen since the pluginMetadata has to be valid in the Workflow using a pluginType, before reaching this state.
-        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-      }
-
-      // Add some extra configuration to the plugin metadata
-      switch (pluginType) {
-        case TRANSFORMATION:
-          setupXsltUrlForPluginMetadata(dataset, pluginMetadata);
-          break;
-        case VALIDATION_EXTERNAL:
-          setupValidationForPluginMetadata(pluginMetadata, getValidationExternalProperties());
-          break;
-        case VALIDATION_INTERNAL:
-          setupValidationForPluginMetadata(pluginMetadata, getValidationInternalProperties());
-          break;
-        case PREVIEW:
-          ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
-          ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
-              getMetisUseAlternativeIndexingEnvironment());
-          break;
-        case PUBLISH:
-          ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
-          ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
-              getMetisUseAlternativeIndexingEnvironment());
-          break;
-        default:
-          break;
-      }
-
-      // Create plugin
-      AbstractMetisPlugin abstractMetisPlugin = pluginType.getNewPlugin(pluginMetadata);
-      abstractMetisPlugin
-          .setId(new ObjectId().toString() + "-" + abstractMetisPlugin.getPluginType().name());
-      metisPlugins.add(abstractMetisPlugin);
-      firstPluginDefined = true;
-    }
-    return firstPluginDefined;
-  }
-
-  private void setupXsltUrlForPluginMetadata(Dataset dataset,
-      AbstractMetisPluginMetadata abstractMetisPluginMetadata) {
-    DatasetXslt xsltObject;
-    if (((TransformationPluginMetadata) abstractMetisPluginMetadata).isCustomXslt()) {
-      xsltObject = datasetXsltDao.getById(dataset.getXsltId().toString());
-    } else {
-      xsltObject = datasetXsltDao.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID);
-    }
-    if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
-      ((TransformationPluginMetadata) abstractMetisPluginMetadata)
-          .setXsltUrl(getMetisCoreUrl() + RestEndpoints
-              .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, xsltObject.getId().toString()));
-    }
-    ((TransformationPluginMetadata) abstractMetisPluginMetadata)
-        .setDatasetId(dataset.getDatasetId());
-    //DatasetName in Transformation should be a concatenation datasetId_datasetName
-    ((TransformationPluginMetadata) abstractMetisPluginMetadata)
-        .setDatasetName(dataset.getDatasetId() + "_" + dataset.getDatasetName());
-    ((TransformationPluginMetadata) abstractMetisPluginMetadata)
-        .setCountry(dataset.getCountry().getName());
-    ((TransformationPluginMetadata) abstractMetisPluginMetadata)
-        .setLanguage(dataset.getLanguage().name().toLowerCase(Locale.US));
-  }
-
-  private static void setupValidationForPluginMetadata(AbstractMetisPluginMetadata metadata,
-      ValidationProperties validationProperties) {
-    if (metadata instanceof ValidationExternalPluginMetadata) {
-      final ValidationExternalPluginMetadata castMetadata =
-          (ValidationExternalPluginMetadata) metadata;
-      castMetadata.setUrlOfSchemasZip(validationProperties.getUrlOfSchemasZip());
-      castMetadata.setSchemaRootPath(validationProperties.getSchemaRootPath());
-      castMetadata.setSchematronRootPath(validationProperties.getSchematronRootPath());
-    } else if (metadata instanceof ValidationInternalPluginMetadata) {
-      final ValidationInternalPluginMetadata castMetadata =
-          (ValidationInternalPluginMetadata) metadata;
-      castMetadata.setUrlOfSchemasZip(validationProperties.getUrlOfSchemasZip());
-      castMetadata.setSchemaRootPath(validationProperties.getSchemaRootPath());
-      castMetadata.setSchematronRootPath(validationProperties.getSchematronRootPath());
-    } else {
-      throw new IllegalArgumentException("The provided metadata does not have the right type. "
-          + "Expecting metadata for a validation plugin, but instead received metadata of type "
-          + metadata.getClass().getName() + ".");
-    }
-  }
 
   /**
    * Request to cancel a workflow execution. The execution will go into a cancelling state until
@@ -584,31 +404,22 @@ public class OrchestratorService {
   private void workflowOrderValidator(String datasetId, Workflow workflow)
       throws PluginExecutionNotAllowed {
     //Workflow should not have duplicated plugins.
-    if (listContainsDuplicates(workflow.getMetisPluginsMetadata())) {
+    if (orchestratorHelper.listContainsDuplicates(workflow.getMetisPluginsMetadata())) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
     // Sanity check, for the first plugin, that will throw exception if there is NO pluginType to be
     // based on in the database.
-    getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId,
+    orchestratorHelper.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId,
         workflow.getMetisPluginsMetadata().get(0).getPluginType(), null);
     // If ok then check the order of all subsequent plugins. Start from index 1.
     final boolean valid = workflow.getMetisPluginsMetadata().stream().skip(1)
         .map(AbstractMetisPluginMetadata::getPluginType)
         .filter(pluginType -> !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
-        .allMatch(pluginType -> checkWorkflowForPluginType(workflow, pluginType));
+        .allMatch(
+            pluginType -> orchestratorHelper.checkWorkflowForPluginType(workflow, pluginType));
     if (!valid) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
-  }
-
-  private static <T> boolean listContainsDuplicates(List<T> list) {
-    return !list.stream().allMatch(new HashSet<>()::add);
-  }
-
-  private static boolean checkWorkflowForPluginType(Workflow workflow, PluginType pluginType) {
-    final Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn =
-        ExecutionRules.getPluginTypesSetThatPluginTypeCanBeBasedOn(pluginType);
-    return workflow.pluginTypeOccursOnlyAfter(pluginType, pluginTypesSetThatPluginTypeCanBeBasedOn);
   }
 
   private String workflowExists(Workflow workflow) {
@@ -658,29 +469,9 @@ public class OrchestratorService {
       MetisUser metisUser, String datasetId, PluginType pluginType, PluginType enforcedPluginType)
       throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    return getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType,
-        enforcedPluginType);
-  }
-
-  private AbstractMetisPlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-      String datasetId, PluginType pluginType, PluginType enforcedPluginType)
-      throws PluginExecutionNotAllowed {
-    AbstractMetisPlugin latestFinishedPluginIfRequestedPluginAllowedForExecution =
-        ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType,
-            enforcedPluginType, datasetId, workflowExecutionDao);
-    if ((latestFinishedPluginIfRequestedPluginAllowedForExecution == null
-        && !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
-        || doesPluginHaveAllErrorRecords(
-        latestFinishedPluginIfRequestedPluginAllowedForExecution)) {
-      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-    }
-    return latestFinishedPluginIfRequestedPluginAllowedForExecution;
-  }
-
-  private boolean doesPluginHaveAllErrorRecords(AbstractMetisPlugin abstractMetisPlugin) {
-    return abstractMetisPlugin != null && abstractMetisPlugin.getExecutionProgress() != null
-        && abstractMetisPlugin.getExecutionProgress().getProcessedRecords() == abstractMetisPlugin
-        .getExecutionProgress().getErrors();
+    return orchestratorHelper
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType,
+            enforcedPluginType);
   }
 
   /**
@@ -788,34 +579,6 @@ public class OrchestratorService {
     return datasetExecutionInformation;
   }
 
-  private void validateAndTrimHarvestParameters(Workflow workflow)
-      throws MalformedURLException, URISyntaxException {
-    OaipmhHarvestPluginMetadata oaipmhPluginMetadata = (OaipmhHarvestPluginMetadata) workflow
-        .getPluginMetadata(PluginType.OAIPMH_HARVEST);
-    if (oaipmhPluginMetadata != null) {
-      URL url = new URL(oaipmhPluginMetadata.getUrl().trim()); // this would check for the protocol
-      URI validatedUri = url.toURI();// does the extra checking required for validation of URI
-
-      //Remove all the query parameters
-      String urlWithoutQueryParameters = new URI(validatedUri.getScheme(),
-          validatedUri.getAuthority(), validatedUri.getPath(), null, null).toString();
-      oaipmhPluginMetadata.setUrl(urlWithoutQueryParameters);
-      oaipmhPluginMetadata.setMetadataFormat(oaipmhPluginMetadata.getMetadataFormat() == null ? null
-          : oaipmhPluginMetadata.getMetadataFormat().trim());
-      oaipmhPluginMetadata.setSetSpec(oaipmhPluginMetadata.getSetSpec() == null ? null
-          : oaipmhPluginMetadata.getSetSpec().trim());
-    }
-
-    HTTPHarvestPluginMetadata httpHarvestPluginMetadata = (HTTPHarvestPluginMetadata) workflow
-        .getPluginMetadata(PluginType.HTTP_HARVEST);
-    if (httpHarvestPluginMetadata != null) {
-      URL u = new URL(
-          httpHarvestPluginMetadata.getUrl().trim()); // this would check for the protocol
-      u.toURI(); // does the extra checking required for validation of URI
-      httpHarvestPluginMetadata.setUrl(httpHarvestPluginMetadata.getUrl().trim());
-    }
-  }
-
   private Workflow checkWorkflowExistence(String datasetId)
       throws NoWorkflowFoundException {
     Workflow workflow = workflowDao.getWorkflow(datasetId);
@@ -824,55 +587,6 @@ public class OrchestratorService {
           String.format("No workflow found with datasetId: %s, in METIS", datasetId));
     }
     return workflow;
-  }
-
-  public ValidationProperties getValidationExternalProperties() {
-    synchronized (this) {
-      return validationExternalProperties;
-    }
-  }
-
-  public void setValidationExternalProperties(ValidationProperties validationExternalProperties) {
-    synchronized (this) {
-      this.validationExternalProperties = validationExternalProperties;
-    }
-  }
-
-  public ValidationProperties getValidationInternalProperties() {
-    synchronized (this) {
-      return validationInternalProperties;
-    }
-  }
-
-  public void setValidationInternalProperties(ValidationProperties validationInternalProperties) {
-    synchronized (this) {
-      this.validationInternalProperties = validationInternalProperties;
-    }
-  }
-
-  public void setMetisCoreUrl(String metisCoreUrl) {
-    synchronized (this) {
-      this.metisCoreUrl = metisCoreUrl;
-    }
-  }
-
-  private String getMetisCoreUrl() {
-    synchronized (this) {
-      return this.metisCoreUrl;
-    }
-  }
-
-  public boolean getMetisUseAlternativeIndexingEnvironment() {
-    synchronized (this) {
-      return metisUseAlternativeIndexingEnvironment;
-    }
-  }
-
-  public void setMetisUseAlternativeIndexingEnvironment(
-      boolean metisUseAlternativeIndexingEnvironment) {
-    synchronized (this) {
-      this.metisUseAlternativeIndexingEnvironment = metisUseAlternativeIndexingEnvironment;
-    }
   }
 
   public int getSolrCommitPeriodInMins() {
