@@ -21,7 +21,8 @@ import org.mongodb.morphia.annotations.Indexes;
 
 /**
  * Is the structure where the combined plugins of harvesting and the other plugins will be stored.
- * <p>This is the object where the execution of the workflow takes place and will host all information,
+ * <p>This is the object where the execution of the workflow takes place and will host all
+ * information,
  * regarding its execution.</p>
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -65,12 +66,12 @@ public class WorkflowExecution implements HasMongoObjectId {
    * Constructor with all required parameters and initializes it's internal structure.
    *
    * @param dataset the {@link Dataset} related to the execution
-   * @param workflow the {@link Workflow} related to the execution
-   * @param metisPlugins the list of {@link AbstractMetisPlugin} including harvest plugin for execution
+   * @param metisPlugins the list of {@link AbstractMetisPlugin} including harvest plugin for
+   * execution
    * @param workflowPriority the positive number of the priority of the execution
    */
-  public WorkflowExecution(Dataset dataset, Workflow workflow,
-      List<AbstractMetisPlugin> metisPlugins, int workflowPriority) {
+  public WorkflowExecution(Dataset dataset, List<AbstractMetisPlugin> metisPlugins,
+      int workflowPriority) {
     this.datasetId = dataset.getDatasetId();
     this.ecloudDatasetId = dataset.getEcloudDatasetId();
     this.workflowPriority = workflowPriority;
@@ -78,8 +79,8 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   /**
-   * Sets all plugins inside the execution, that have status {@link PluginStatus#INQUEUE} or
-   * {@link PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
+   * Sets all plugins inside the execution, that have status {@link PluginStatus#INQUEUE} or {@link
+   * PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
    */
   public void setAllRunningAndInqueuePluginsToCancelled() {
     this.setWorkflowStatus(WorkflowStatus.CANCELLED);
@@ -95,7 +96,8 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   /**
    * Checks if one of the plugins has {@link PluginStatus#FAILED} and if yes sets all other plugins
-   * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
+   * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING}, to {@link
+   * PluginStatus#CANCELLED}
    */
   public void checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed() {
     boolean hasAPluginFailed = false;

@@ -89,7 +89,6 @@ public class TestObjectFactory {
   }
 
   public static WorkflowExecution createWorkflowExecutionObject() {
-    Workflow workflow = createWorkflowObject();
     Dataset dataset = createDataset(DATASETNAME);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
     AbstractMetisPlugin oaipmhHarvestPlugin =
@@ -99,18 +98,15 @@ public class TestObjectFactory {
         PluginType.VALIDATION_EXTERNAL.getNewPlugin(new ValidationExternalPluginMetadata());
     abstractMetisPlugins.add(validationExternalPlugin);
 
-    WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
-        workflow, abstractMetisPlugins, 0);
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, abstractMetisPlugins, 0);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setCreatedDate(new Date());
 
     return workflowExecution;
   }
 
-  public static WorkflowExecution createWorkflowExecutionObject(Dataset dataset,
-      Workflow workflow) {
-    WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
-        workflow, new ArrayList<>(), 0);
+  public static WorkflowExecution createWorkflowExecutionObject(Dataset dataset) {
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, new ArrayList<>(), 0);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setCreatedDate(new Date());
 
@@ -120,13 +116,9 @@ public class TestObjectFactory {
   public static List<WorkflowExecution> createListOfWorkflowExecutions(int size) {
     List<WorkflowExecution> workflowExecutions = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
-      Workflow workflow = createWorkflowObject();
-      workflow.setId(new ObjectId());
-      workflow.setDatasetId(Integer.toString(DATASETID + i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
       dataset.setDatasetId(Integer.toString(DATASETID + i));
-      WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset,
-          workflow);
+      WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset);
       workflowExecution.setId(new ObjectId());
       workflowExecutions.add(workflowExecution);
     }

@@ -311,8 +311,7 @@ public class OrchestratorService {
     }
 
     datasetDao.checkAndCreateDatasetInEcloud(dataset);
-    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow, metisPlugins,
-        priority);
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, metisPlugins, priority);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     RLock executionDatasetIdLock = redissonClient
         .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
