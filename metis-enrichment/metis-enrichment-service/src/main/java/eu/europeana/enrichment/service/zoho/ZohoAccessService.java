@@ -33,7 +33,6 @@ import eu.europeana.metis.exception.GenericMetisException;
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
- * TODO JV currently this class seems to be only used by test code. Move it there?
  */
 @Service
 public class ZohoAccessService {
@@ -350,24 +349,25 @@ public class ZohoAccessService {
       JsonNode jsonRecordsResponse) {
 
     JsonNode accountsNode = jsonRecordsResponse.get(ZohoApi2Fields.DATA_STRING);
-    List<DeletedZohoOrganizationAdapter> res = new ArrayList<>();
+    List<DeletedZohoOrganizationAdapter> organizationList = new ArrayList<>();
     if (accountsNode == null) {
-      return res;
+      return organizationList;
     }
 
     // one result in the response
     boolean oneResult = accountsNode.get(0) == null;
     if (oneResult) {
-      res.add(new DeletedZohoOrganizationAdapter(accountsNode));
-      return res;
+      organizationList.add(new DeletedZohoOrganizationAdapter(accountsNode));
+      return organizationList;
     }
 
     // a list of results in the response
+    organizationList = new ArrayList<>(accountsNode.size()); //Pre-size list
     for (JsonNode accountNode : accountsNode) {
-      res.add(new DeletedZohoOrganizationAdapter(accountNode));
+      organizationList.add(new DeletedZohoOrganizationAdapter(accountNode));
     }
 
-    return res;
+    return organizationList;
   }
 
   private void addAccountToOrgList(JsonNode accountNode,

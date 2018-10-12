@@ -1,11 +1,13 @@
 package eu.europeana.metis.mediaservice;
 
+import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,7 +24,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 
 /**
  * This class performs thumbnail generation for images and PDF files using ImageMagick.
@@ -228,7 +229,7 @@ public class ThumbnailGenerator {
 
   private static String md5Hex(String s)
       throws UnsupportedEncodingException, NoSuchAlgorithmException {
-    byte[] bytes = s.getBytes("UTF-8");
+    byte[] bytes = s.getBytes(StandardCharsets.UTF_8.name());
     byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
     return String.format("%032x", new BigInteger(1, md5bytes));
   }

@@ -15,14 +15,10 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by ymamakis on 3/17/16.
- */
 public class EmbeddedLocalhostMongo {
 
-  public static final String DEFAULT_MONGO_HOST = "127.0.0.1";
+  private static final String DEFAULT_MONGO_HOST = "127.0.0.1";
   private MongodExecutable mongodExecutable;
-  private final String mongoHost;
   private int mongoPort;
   private static final Logger LOGGER = LoggerFactory.getLogger(EmbeddedLocalhostMongo.class);
 
@@ -30,16 +26,7 @@ public class EmbeddedLocalhostMongo {
    * Constructor for default object for localhost mongo
    */
   public EmbeddedLocalhostMongo() {
-    mongoHost = "127.0.0.1";
-  }
-
-  /**
-   * Constructor with option to provide a custom monog host ip if required.
-   *
-   * @param mongoHost the ip of the mongo host that should be used
-   */
-  public EmbeddedLocalhostMongo(String mongoHost) {
-    this.mongoHost = mongoHost;
+    //Nothing to do
   }
 
   /**
@@ -56,7 +43,7 @@ public class EmbeddedLocalhostMongo {
 
         MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
         mongodExecutable = runtime.prepare(new MongodConfigBuilder().version(Version.V3_5_1)
-            .net(new Net(mongoHost, mongoPort, Network.localhostIsIPv6())).build());
+            .net(new Net(DEFAULT_MONGO_HOST, mongoPort, Network.localhostIsIPv6())).build());
         mongodExecutable.start();
       } catch (IOException e) {
         LOGGER.error("Exception when starting embedded mongo", e);
@@ -65,7 +52,7 @@ public class EmbeddedLocalhostMongo {
   }
 
   public String getMongoHost() {
-    return mongoHost;
+    return DEFAULT_MONGO_HOST;
   }
 
   public int getMongoPort() {

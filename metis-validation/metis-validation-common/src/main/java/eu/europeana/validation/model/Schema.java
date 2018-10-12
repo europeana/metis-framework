@@ -1,14 +1,14 @@
 package eu.europeana.validation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.IndexOptions;
+import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * Created by ymamakis on 3/14/16.
@@ -22,7 +22,7 @@ public class Schema {
     private ObjectId id;
 
 
-    @Indexed(unique = true)
+    @Indexed(options = @IndexOptions(unique = true))
     private String name;
 
     private String path;
@@ -30,7 +30,7 @@ public class Schema {
     private String schematronPath;
 
 
-    @Indexed(unique = false)
+    @Indexed()
     private String version;
 
 

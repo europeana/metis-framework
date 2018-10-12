@@ -10,6 +10,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.InputValue;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -69,7 +70,7 @@ public class EnrichmentClient {
     try {
       //URLEncoder converts spaces to "+" signs.
       // Replace any plus "+" characters to a proper space encoding "%20".
-      encodedUri = URLEncoder.encode(uri, "UTF-8").replace("+", "%20");
+      encodedUri = URLEncoder.encode(uri, StandardCharsets.UTF_8.name()).replace("+", "%20");
     } catch (UnsupportedEncodingException e) {
       throw new IllegalStateException(e);
     }

@@ -1,7 +1,9 @@
 package eu.europeana.validation.service;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -28,7 +30,7 @@ public class ClasspathResourceResolver implements LSResourceResolver {
       LSInput input = new ClasspathLSInput();
       InputStream stream;
       if (!systemId.startsWith("http")) {
-        String fullPath = prefix + "/" + systemId;
+        String fullPath = new File(prefix, systemId).getAbsolutePath();
         if (cache.get(fullPath) == null) {
           stream = Files.newInputStream(Paths.get(fullPath));
           cache.put(systemId, stream);
@@ -46,7 +48,7 @@ public class ClasspathResourceResolver implements LSResourceResolver {
       input.setPublicId(publicId);
       input.setSystemId(systemId);
       input.setBaseURI(baseURI);
-      input.setCharacterStream(new InputStreamReader(stream, "UTF-8"));
+      input.setCharacterStream(new InputStreamReader(stream, StandardCharsets.UTF_8.name()));
       return input;
     } catch (java.io.IOException e) {
       LOGGER.error(e.getMessage(), e);

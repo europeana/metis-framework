@@ -32,7 +32,7 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
 
     mongoProxy.setAbout(proxy.getAbout());
     mongoProxy.setEuropeanaProxy(Optional.ofNullable(proxy.getEuropeanaProxy())
-        .map(EuropeanaProxy::isEuropeanaProxy).orElse(false));
+        .map(EuropeanaProxy::isEuropeanaProxy).orElse(Boolean.FALSE));
     mongoProxy.setEdmCurrentLocation(
         FieldInputUtils.createResourceOrLiteralMapFromString(proxy.getCurrentLocation()));
 

@@ -60,9 +60,9 @@ public class WebResourceSolrCreator implements PropertySolrCreator<WebResource> 
 
     // Collect the edm rights and the dc rights in one set.
     final Collection<List<String>> webResourceDcRights = Optional
-        .ofNullable(wr.getWebResourceDcRights()).map(Map::values).orElse(Collections.emptyList());
+        .ofNullable(wr.getWebResourceDcRights()).map(Map::values).orElseGet(Collections::emptyList);
     final Collection<List<String>> webResourceEdmRights = Optional
-        .ofNullable(wr.getWebResourceEdmRights()).map(Map::values).orElse(Collections.emptyList());
+        .ofNullable(wr.getWebResourceEdmRights()).map(Map::values).orElseGet(Collections::emptyList);
     final Set<String> rights =
         Stream.concat(webResourceDcRights.stream(), webResourceEdmRights.stream())
             .flatMap(List::stream).filter(StringUtils::isNotBlank).collect(Collectors.toSet());

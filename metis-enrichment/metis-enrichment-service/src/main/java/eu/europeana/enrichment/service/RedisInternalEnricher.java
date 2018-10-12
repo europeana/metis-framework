@@ -69,7 +69,7 @@ public class RedisInternalEnricher {
     public final EntityClass entityClass;
     public final String cachedEntityPrefix;
 
-    private EntityType(EntityClass entityClass, String cachedEntityPrefix) {
+    EntityType(EntityClass entityClass, String cachedEntityPrefix) {
       this.entityClass = entityClass;
       this.cachedEntityPrefix = cachedEntityPrefix;
     }

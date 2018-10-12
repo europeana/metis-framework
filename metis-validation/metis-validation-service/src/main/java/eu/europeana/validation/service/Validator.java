@@ -75,7 +75,7 @@ public class Validator implements Callable<ValidationResult> {
    * @return the schema object
    */
   private Schema getSchemaByName(String schemaName) throws SchemaProviderException {
-    Schema schemaObject = null;
+    Schema schemaObject;
     if (schemaProvider.isPredefined(schemaName)) {
       schemaObject = schemaProvider.getSchema(schemaName);
     } else {

@@ -65,7 +65,7 @@ public class WorkflowExecutionMonitor {
         getWorkflowExecutionsWithStatus(WorkflowStatus.RUNNING);
 
     // Go by all running executions and compare them with the data we already have.
-    final Map<String, WorkflowExecutionEntry> newExecutions = new HashMap<>();
+    final Map<String, WorkflowExecutionEntry> newExecutions = new HashMap<>(allRunningWorkflowExecutions.size());
     for (WorkflowExecution execution : allRunningWorkflowExecutions) {
       final WorkflowExecutionEntry currentEntry = getEntry(execution);
       final WorkflowExecutionEntry newEntry;

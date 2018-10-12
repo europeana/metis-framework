@@ -167,7 +167,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     // Configure the xslt cache
     XsltTransformer.setExpirationTime(Duration.ZERO.plusSeconds(xsltCacheExpirationInSec));
     XsltTransformer.setLenientWithReloads(true);
-    
+
     // Schedule cache cleaning
     final Duration since = Duration.ofMinutes(xsltCacheCleanupInMin);
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -177,11 +177,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   private static List<InetSocketAddress> getAddressesFromHostsAndPorts(String[] hosts,
       int[] ports) {
-    final List<InetSocketAddress> result = new ArrayList<>();
     if (hosts.length != ports.length && ports.length != 1) {
       throw new IllegalArgumentException("Hosts and ports do not match.");
     }
+    final List<InetSocketAddress> result = new ArrayList<>(hosts.length);
     for (int i = 0; i < hosts.length; i++) {
+      //Get single port value if one, otherwise the correct index of the array.
       final int port = ports.length == 1 ? ports[0] : ports[i];
       result.add(new InetSocketAddress(hosts[i], port));
     }
@@ -246,7 +247,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new ValidationUtils(validationClient(), recordDao(), schemaBeforeTransformation,
         schemaAfterTransformation, metisCoreUri);
   }
-  
+
   @PreDestroy
   public void close() throws IOException {
     LOGGER.info("Closing connections..");

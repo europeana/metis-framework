@@ -201,7 +201,7 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     // TODO: 3-8-18 Gray is used because of backwards compatibility but the actual value defined in the xsd is grayscale
 
     final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList())
-        .map(List::stream).orElse(Stream.empty());
+        .map(List::stream).orElseGet(Stream::empty);
     final String[] targetColors = sourceColors.filter(Objects::nonNull)
         .map(HexBinaryType::getString).filter(StringUtils::isNotBlank).toArray(String[]::new);
     metaInfo.setColorPalette(targetColors.length == 0 ? null : targetColors);
@@ -254,7 +254,7 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
       return null;
     }
     try {
-      return Long.parseLong(duration.getDuration());
+      return Long.valueOf(duration.getDuration());
     } catch (NumberFormatException e) {
       return null;
     }

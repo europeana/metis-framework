@@ -33,8 +33,8 @@ import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
@@ -118,7 +118,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   }
 
   private void setupChannelProperties(Channel channel) throws IOException {
-    Map<String, Object> args = new HashMap<>();
+    Map<String, Object> args = new ConcurrentHashMap<>();
     args.put("x-max-priority",
         propertiesHolder.getRabbitmqHighestPriority());//Higher number means higher priority
     //Second boolean durable to false

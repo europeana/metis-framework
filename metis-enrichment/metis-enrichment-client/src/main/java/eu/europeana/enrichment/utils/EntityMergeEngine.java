@@ -346,7 +346,7 @@ public class EntityMergeEngine {
     }
 
     // Append it to the proxy if needed.
-    if (StringUtils.isNotEmpty(fieldName) && entity != null) {
+    if (entity != null && StringUtils.isNotEmpty(fieldName)) {
       RdfProxyUtils.appendToProxy(rdf, entity, fieldName);
     }
   }

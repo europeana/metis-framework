@@ -37,6 +37,9 @@ public final class XmlUtil {
   static {
     try {
       FACTORY.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      // TODO: 12-10-18 Consider setting the following commented feature,
+      // todo that is to avoid XEE attacks reported by Sonar on DocumentBuilder.parse method further down the code.
+//      FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       FACTORY.setNamespaceAware(true);
     } catch (ParserConfigurationException e) {
       LOGGER.error("Could not initialize static block XmlUtil", e);
@@ -70,7 +73,7 @@ public final class XmlUtil {
    * Convert the given instance of {@link NodeList} to an instance of {@link List} with
    * {@link Element} objects. Entries in the original list that are not instances of {@link Element}
    * will be ignored.
-   * 
+   *
    * @param nodeList The list of nodes to convert.
    * @return The converted list.
    */

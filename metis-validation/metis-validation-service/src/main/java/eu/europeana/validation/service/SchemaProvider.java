@@ -33,6 +33,7 @@ public class SchemaProvider {
 
   /**
    * Creates {@link SchemaProvider} for given {@link PredefinedSchemas} object.
+   * @param predefinedSchemasLocations the wrapper class with all the schema locations
    */
   public SchemaProvider(PredefinedSchemas predefinedSchemasLocations) {
     if (TMP_DIR.endsWith(File.separator)) {
@@ -54,6 +55,7 @@ public class SchemaProvider {
    * The caller is responsible to provide propper path (for example propper slashes)
    * @param schematronLocation place where schematron file is located
    * @return schema object
+   * @throws SchemaProviderException any exception that can occur during retrieving schema files
    */
   public synchronized Schema getSchema(String fileLocation, String rootFileLocation,
       String schematronLocation) throws SchemaProviderException {
@@ -69,6 +71,7 @@ public class SchemaProvider {
    *
    * @param fileLocation location of schema files. Can be url to zip or predefined value (that will be taken from properties file)
    * @return the instance
+   * @throws SchemaProviderException any exception that can occur during retrieving schema files
    */
   public Schema getSchema(String fileLocation) throws SchemaProviderException {
     if (isPredefined(fileLocation)) {
@@ -86,7 +89,7 @@ public class SchemaProvider {
   }
 
   private String prepareDirectoryName(String name) throws SchemaProviderException {
-    URL url = null;
+    URL url;
     try {
       url = new URL(name);
       String host = url.getHost();

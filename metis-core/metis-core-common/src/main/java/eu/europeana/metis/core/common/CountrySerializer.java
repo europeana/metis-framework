@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
-
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-09

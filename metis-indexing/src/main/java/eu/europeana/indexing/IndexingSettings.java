@@ -129,10 +129,8 @@ public final class IndexingSettings {
    *
    * @param zookeeperTimeoutInSecs The time-out (in seconds) to be applied to Zookeeper connections.
    * If this number is zero or negative, the default value will be applied.
-   * @throws IndexingException If the given time-out is null or non-positive.
    */
-  public void setZookeeperTimeoutInSecs(int zookeeperTimeoutInSecs)
-      throws IndexingException {
+  public void setZookeeperTimeoutInSecs(int zookeeperTimeoutInSecs) {
     this.zookeeperTimeoutInSecs = zookeeperTimeoutInSecs <= 0 ? null : zookeeperTimeoutInSecs;
   }
 
