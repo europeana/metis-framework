@@ -3,6 +3,7 @@ package eu.europeana.enrichment.api.external;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import eu.europeana.enrichment.utils.InputValue;
+import io.swagger.annotations.ApiModel;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,10 +20,13 @@ import java.util.List;
  *
  */
 @JsonSerialize
-@JsonRootName(value = "inputValueList")
-@XmlRootElement(name = "inputValueList")
+@JsonRootName(value = InputValueList.API_NAME)
+@XmlRootElement(name = InputValueList.API_NAME)
 @XmlAccessorType(XmlAccessType.FIELD)
+@ApiModel(value = InputValueList.API_NAME)
 public class InputValueList {
+
+  static final String API_NAME = "inputValueList";
 
   @XmlElement(name = "inputValue")
   @JsonProperty("inputValue")
