@@ -12,6 +12,8 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final int MONITOR_ITERATIONS_TO_FAKE = 2;
   private static final int FAKE_RECORDS_PER_ITERATION = 100;
   private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 3;
+  private static final long PERIOD_OF_NO_RECORD_COUNT_CHANGE_IN_SECONDS = TimeUnit.MINUTES
+      .toSeconds(30);
 
   private final String workflowExecutionId;
   private final WorkflowExecutionMonitor workflowExecutionMonitor;
@@ -201,11 +205,14 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     TaskState taskState = null;
     int consecutiveCancelOrMonitorFailures = 0;
     boolean externalCancelCallSent = false;
+    AtomicInteger previousProcessedRecords = new AtomicInteger(0);
+    AtomicLong stableProcessedRecordsPeriodCounterInSeconds = new AtomicLong(0L);
     do {
       try {
         Thread.sleep(sleepTime);
-        if (!externalCancelCallSent
-            && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+        if (!externalCancelCallSent && (workflowExecutionDao.isCancelling(workflowExecution.getId())
+            || isMinuteCapOverWithoutChangeInProcessedRecords(abstractMetisPlugin,
+            previousProcessedRecords, stableProcessedRecordsPeriodCounterInSeconds))) {
           abstractMetisPlugin.cancel(dpsClient);
           externalCancelCallSent = true;
         }
@@ -231,6 +238,27 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     preparePluginStateAndFinishedDate(abstractMetisPlugin, taskState,
         consecutiveCancelOrMonitorFailures);
+  }
+
+  private boolean isMinuteCapOverWithoutChangeInProcessedRecords(
+      AbstractMetisPlugin abstractMetisPlugin, AtomicInteger previousProcessedRecords,
+      AtomicLong stableRecordCountPeriodCounterInSeconds) {
+    final int processedRecords = abstractMetisPlugin.getExecutionProgress().getProcessedRecords();
+    //If we have progress update counters
+    if (previousProcessedRecords.get() != processedRecords) {
+      stableRecordCountPeriodCounterInSeconds.set(0L);
+      previousProcessedRecords.set(processedRecords);
+      return false;
+    }
+
+    final boolean isMinuteCapOverWithoutChangeInProcessedRecords =
+        stableRecordCountPeriodCounterInSeconds.addAndGet(monitorCheckIntervalInSecs)
+            >= PERIOD_OF_NO_RECORD_COUNT_CHANGE_IN_SECONDS;
+    if (isMinuteCapOverWithoutChangeInProcessedRecords) {
+      //Request cancelling of the execution
+      workflowExecutionDao.setCancellingState(workflowExecution);
+    }
+    return isMinuteCapOverWithoutChangeInProcessedRecords;
   }
 
   private void preparePluginStateAndFinishedDate(AbstractMetisPlugin abstractMetisPlugin,
