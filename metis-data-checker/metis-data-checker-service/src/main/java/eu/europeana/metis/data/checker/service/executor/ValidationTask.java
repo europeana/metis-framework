@@ -1,19 +1,7 @@
 package eu.europeana.metis.data.checker.service.executor;
 
-import eu.europeana.corelib.definitions.jibx.DatasetName;
-import java.io.StringReader;
-import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.Callable;
-import java.util.stream.Stream;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
+import eu.europeana.corelib.definitions.jibx.DatasetName;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
@@ -26,6 +14,19 @@ import eu.europeana.metis.transformation.service.EuropeanaIdException;
 import eu.europeana.metis.transformation.service.TransformationException;
 import eu.europeana.metis.transformation.service.XsltTransformer;
 import eu.europeana.validation.model.ValidationResult;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.stream.Stream;
+import org.jibx.runtime.IBindingFactory;
+import org.jibx.runtime.IUnmarshallingContext;
+import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Task for the multi-threaded implementation of the validation service Created by ymamakis on
@@ -172,6 +173,9 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
         .forEach(identifier -> identifier.setString(ids.getEuropeanaGeneratedId()));
 
     // Set the database name - enforce that it is present since searching will be done on it.
+    if (rdf.getEuropeanaAggregationList() == null || rdf.getEuropeanaAggregationList().isEmpty()) {
+      rdf.setEuropeanaAggregationList(Arrays.asList(new EuropeanaAggregationType()));
+    }
     stream(rdf.getEuropeanaAggregationList()).filter(Objects::nonNull)
         .peek(agg -> agg.setDatasetName(new DatasetName()))
         .map(EuropeanaAggregationType::getDatasetName)
