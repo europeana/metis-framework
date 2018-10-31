@@ -221,6 +221,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         consecutiveCancelOrMonitorFailures = 0;
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
+        abstractMetisPlugin.setPluginStatus(
+            taskState == TaskState.REMOVING_FROM_SOLR_AND_MONGO ? PluginStatus.CLEANING
+                : abstractMetisPlugin.getPluginStatus());
         workflowExecution.setUpdatedDate(updatedDate);
         workflowExecutionDao.updateMonitorInformation(workflowExecution);
       } catch (InterruptedException e) {
@@ -245,8 +248,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       AbstractMetisPlugin abstractMetisPlugin, AtomicInteger previousProcessedRecords,
       AtomicLong stableRecordCountPeriodCounterInSeconds) {
     final int processedRecords = abstractMetisPlugin.getExecutionProgress().getProcessedRecords();
-    //If we have progress update counters
-    if (previousProcessedRecords.get() != processedRecords) {
+    //If CLEANING is in progress then just reset the values to be sure and return false
+    //Or if we have progress
+    if (abstractMetisPlugin.getPluginStatus() == PluginStatus.CLEANING
+        || previousProcessedRecords.get() != processedRecords) {
       stableRecordCountPeriodCounterInSeconds.set(0L);
       previousProcessedRecords.set(processedRecords);
       return false;
