@@ -35,13 +35,12 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final int MONITOR_ITERATIONS_TO_FAKE = 2;
   private static final int FAKE_RECORDS_PER_ITERATION = 100;
   private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 3;
-  private static final long PERIOD_OF_NO_RECORD_COUNT_CHANGE_IN_SECONDS = TimeUnit.MINUTES
-      .toSeconds(30);
 
   private final String workflowExecutionId;
   private final WorkflowExecutionMonitor workflowExecutionMonitor;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final int monitorCheckIntervalInSecs;
+  private final long periodOfNoProcessedRecordsChangeInSeconds;
   private final DpsClient dpsClient;
   private final String ecloudBaseUrl;
   private final String ecloudProvider;
@@ -55,6 +54,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     this.workflowExecutionDao = persistenceProvider.getWorkflowExecutionDao();
     this.dpsClient = persistenceProvider.getDpsClient();
     this.monitorCheckIntervalInSecs = workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs();
+    this.periodOfNoProcessedRecordsChangeInSeconds = TimeUnit.MINUTES
+        .toSeconds(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes());
     this.ecloudBaseUrl = workflowExecutionSettings.getEcloudBaseUrl();
     this.ecloudProvider = workflowExecutionSettings.getEcloudProvider();
     this.workflowExecutionMonitor = workflowExecutionMonitor;
@@ -253,7 +254,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     final boolean isMinuteCapOverWithoutChangeInProcessedRecords =
         stableRecordCountPeriodCounterInSeconds.addAndGet(monitorCheckIntervalInSecs)
-            >= PERIOD_OF_NO_RECORD_COUNT_CHANGE_IN_SECONDS;
+            >= periodOfNoProcessedRecordsChangeInSeconds;
     if (isMinuteCapOverWithoutChangeInProcessedRecords) {
       //Request cancelling of the execution
       workflowExecutionDao.setCancellingState(workflowExecution);

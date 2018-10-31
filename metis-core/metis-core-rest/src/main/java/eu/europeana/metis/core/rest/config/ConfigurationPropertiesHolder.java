@@ -30,6 +30,8 @@ public class ConfigurationPropertiesHolder {
   private int periodicSchedulerCheckInMillisecs;
   @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
   private int pollingTimeoutForCleaningCompletionServiceInSecs;
+  @Value("${period.of.no.processed.records.change.in.minutes}")
+  private int periodOfNoProcessedRecordsChangeInMinutes;
 
   //Redis
   @Value("${redis.host}")
@@ -167,6 +169,10 @@ public class ConfigurationPropertiesHolder {
 
   public int getPollingTimeoutForCleaningCompletionServiceInSecs() {
     return pollingTimeoutForCleaningCompletionServiceInSecs;
+  }
+
+  public int getPeriodOfNoProcessedRecordsChangeInMinutes() {
+    return periodOfNoProcessedRecordsChangeInMinutes;
   }
 
   public String getRedisHost() {
