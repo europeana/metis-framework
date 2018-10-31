@@ -1,5 +1,6 @@
 package eu.europeana.metis.data.checker.service.executor;
 
+import eu.europeana.corelib.definitions.jibx.DatasetName;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
@@ -169,5 +170,11 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
         .map(ProxyType::getChoiceList).filter(Objects::nonNull).flatMap(List::stream)
         .filter(Choice::ifIdentifier).map(Choice::getIdentifier)
         .forEach(identifier -> identifier.setString(ids.getEuropeanaGeneratedId()));
+
+    // Set the database name - enforce that it is present since searching will be done on it.
+    stream(rdf.getEuropeanaAggregationList()).filter(Objects::nonNull)
+        .peek(agg -> agg.setDatasetName(new DatasetName()))
+        .map(EuropeanaAggregationType::getDatasetName)
+        .forEach(name -> name.setString(datasetProperties.getDatasetName()));
   }
 }

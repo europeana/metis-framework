@@ -2,7 +2,6 @@ package eu.europeana.metis.data.checker.common.model;
 
 public class DatasetProperties {
 
-  private static final String DEFAULT_DATASET_NAME_TEMPLATE = "Temporary dataset %s";
   private static final String DEFAULT_EDM_COUNTRY = "Netherlands";
   private static final String DEFAULT_EDM_LANGUAGE = "nl";
 
@@ -17,8 +16,7 @@ public class DatasetProperties {
       throw new IllegalArgumentException();
     }
     this.datasetId = datasetId;
-    this.datasetName =
-        datasetName != null ? datasetName : String.format(DEFAULT_DATASET_NAME_TEMPLATE, datasetId);
+    this.datasetName = datasetName != null ? datasetName : datasetId;
     this.edmCountry = edmCountry != null ? edmCountry : DEFAULT_EDM_COUNTRY;
     this.edmLanguage = edmLanguage != null ? edmLanguage : DEFAULT_EDM_LANGUAGE;
   }
