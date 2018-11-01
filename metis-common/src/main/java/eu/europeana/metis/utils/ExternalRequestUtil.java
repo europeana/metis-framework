@@ -73,7 +73,7 @@ public final class ExternalRequestUtil {
 
   /**
    * Retries a request to an external service like a database. This method is meant to be called
-   * when request throws a {@link RuntimeException} that contains a cause of one of the keys in the
+   * when request throws a {@link Exception} that contains a cause of one of the keys in the
    * specified Map and matches the String message provided as the value of the key, if any. If no
    * message specified, then the matching will only be checked on the type of the exception. Default
    * values for maximum retries {@link #MAX_RETRIES} and period between retries {@link
@@ -81,16 +81,16 @@ public final class ExternalRequestUtil {
    *
    * @param supplierThrowingException the respective supplierThrowingException encapsulating the
    * external request
-   * @param runtimeExceptionStringMap the map that contains all the type of exceptions to match with
+   * @param exceptionStringMap the map that contains all the type of exceptions to match with
    * a message to check, if any. If message is null or empty, all messages will match
    * @return the expected object as a result of the external request
    * @throws Exception any exception that the supplier could throw
    */
   public static <R, T extends Exception> R retryableExternalRequest(
       SupplierThrowingException<R> supplierThrowingException,
-      Map<Class<T>, String> runtimeExceptionStringMap)
+      Map<Class<T>, String> exceptionStringMap)
       throws Exception {
-    return retryableExternalRequest(supplierThrowingException, runtimeExceptionStringMap, -1, -1);
+    return retryableExternalRequest(supplierThrowingException, exceptionStringMap, -1, -1);
   }
 
   /**
@@ -101,7 +101,7 @@ public final class ExternalRequestUtil {
    *
    * @param supplierThrowingException the respective supplierThrowingException encapsulating the
    * external request
-   * @param runtimeExceptionStringMap the map that contains all the type of exceptions to match with
+   * @param exceptionStringMap the map that contains all the type of exceptions to match with
    * a message to check, if any. If message is null or empty, all messages will match
    * @param maxRetries the maximum amount of retries to perform, if set to -1, the default value
    * will be set
@@ -112,7 +112,7 @@ public final class ExternalRequestUtil {
    */
   public static <R, T extends Exception> R retryableExternalRequest(
       SupplierThrowingException<R> supplierThrowingException,
-      Map<Class<T>, String> runtimeExceptionStringMap, int maxRetries,
+      Map<Class<T>, String> exceptionStringMap, int maxRetries,
       int periodBetweenRetriesInMillis) throws Exception {
     maxRetries =
         maxRetries < 0 ? MAX_RETRIES : maxRetries; //If not specified, set default value of retries
@@ -124,7 +124,7 @@ public final class ExternalRequestUtil {
       try {
         return supplierThrowingException.get();
       } catch (Exception e) {
-        doWhenExceptionCaught(e, runtimeExceptionStringMap, retriesCounter, maxRetries,
+        doWhenExceptionCaught(e, exceptionStringMap, retriesCounter, maxRetries,
             periodBetweenRetriesInMillis);
       }
     } while (true);

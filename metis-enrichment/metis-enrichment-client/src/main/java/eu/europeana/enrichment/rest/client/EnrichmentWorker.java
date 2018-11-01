@@ -8,7 +8,9 @@ import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
+import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.UnsupportedEncodingException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,6 +30,8 @@ import org.slf4j.LoggerFactory;
 public class EnrichmentWorker {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
+  public static final int EXTERNAL_CALL_MAX_RETRIES = 30;
+  public static final int EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
 
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
@@ -189,8 +193,12 @@ public class EnrichmentWorker {
   private EnrichmentResultList enrichFields(List<InputValue> fieldsForEnrichment)
       throws DereferenceOrEnrichException {
     try {
-      return CollectionUtils.isEmpty(fieldsForEnrichment) ? null : enrichmentClient.enrich(fieldsForEnrichment);
-    } catch (RuntimeException e) {
+      return CollectionUtils.isEmpty(fieldsForEnrichment) ? null :
+          ExternalRequestUtil
+              .retryableExternalRequest(() -> enrichmentClient.enrich(fieldsForEnrichment),
+                  Collections.singletonMap(UnknownHostException.class, ""),
+                  EXTERNAL_CALL_MAX_RETRIES, EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
+    } catch (Exception e) {
       throw new DereferenceOrEnrichException(
           "Exception occurred while trying to perform enrichment.", e);
     }
@@ -233,14 +241,18 @@ public class EnrichmentWorker {
           continue;
         }
         LOGGER.debug("== Processing {}", resourceId);
-        EnrichmentResultList result = dereferenceClient.dereference(resourceId);
+        EnrichmentResultList result =
+            ExternalRequestUtil
+                .retryableExternalRequest(() -> dereferenceClient.dereference(resourceId),
+                    Collections.singletonMap(UnknownHostException.class, ""),
+                    EXTERNAL_CALL_MAX_RETRIES, EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
         if (result == null || result.getResult() == null || result.getResult().isEmpty()) {
           LOGGER.debug("==== Null or empty value received for reference {}", resourceId);
         } else {
           dereferenceInformation.add(result);
         }
       }
-    } catch (RuntimeException e) {
+    } catch (Exception e) {
       throw new DereferenceOrEnrichException(
           "Exception occurred while trying to perform dereferencing.", e);
     }
