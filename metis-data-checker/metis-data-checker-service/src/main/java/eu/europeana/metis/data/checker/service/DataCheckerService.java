@@ -11,6 +11,9 @@ import eu.europeana.metis.data.checker.service.executor.ValidationTaskResult;
 import eu.europeana.metis.data.checker.service.persistence.RecordDao;
 import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +62,6 @@ public class DataCheckerService {
     this.executor = Executors.newFixedThreadPool(dataCheckerServiceConfig.getThreadCount());
   }
 
-
   /**
    * Persist temporarily (24h) records in the data checker portal
    *
@@ -92,7 +94,7 @@ public class DataCheckerService {
     commitChanges();
 
     // Done: compile the results.
-    return compileResult(taskResults, datasetProperties.getDatasetId(), individualRecords);
+    return compileResult(taskResults, datasetProperties, individualRecords);
   }
   
   private void commitChanges() throws DataCheckerServiceException {
@@ -127,7 +129,8 @@ public class DataCheckerService {
   }
 
   private ExtendedValidationResult compileResult(final List<ValidationTaskResult> taskResults,
-      String collectionId, boolean includeRecordIds) {
+      DatasetProperties datasetProperties, boolean includeRecordIds)
+      throws DataCheckerServiceException {
 
     // Obtain the failed results as list of validation results.
     final List<ValidationResult> failedResults =
@@ -149,8 +152,15 @@ public class DataCheckerService {
     extendedValidationResult.setResultList(failedResults);
     extendedValidationResult.setSuccess(failedResults.isEmpty());
     extendedValidationResult.setRecords(succeededResults);
-    extendedValidationResult.setPortalUrl(this.dataCheckerUrl + collectionId + "*");
     extendedValidationResult.setDate(new Date());
+
+    // Set the result URL: escape query characters and then encode for URL.
+    try {
+      extendedValidationResult.setPortalUrl(this.dataCheckerUrl + URLEncoder
+          .encode(datasetProperties.getDatasetNameSolrQueryValue(), StandardCharsets.UTF_8.name()));
+    } catch (UnsupportedEncodingException e) {
+      throw new DataCheckerServiceException("Unexpected encoding issue.", e);
+    }
 
     // Done.
     return extendedValidationResult;
