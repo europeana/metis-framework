@@ -57,7 +57,7 @@ public class DataCheckerServiceTest {
     ExtendedValidationResult extendedValidationResult =
         service.createRecords(records, properties, false, false);
 
-    Assert.assertEquals("test/12345*", extendedValidationResult.getPortalUrl());
+    Assert.assertEquals("test/12345_*", extendedValidationResult.getPortalUrl());
     Assert.assertEquals(0, extendedValidationResult.getResultList().size());
     Assert.assertTrue(extendedValidationResult.isSuccess());
   }

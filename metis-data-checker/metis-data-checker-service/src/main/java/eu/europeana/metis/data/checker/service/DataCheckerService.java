@@ -26,7 +26,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.annotation.PreDestroy;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.util.ClientUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,6 @@ public class DataCheckerService {
     this.executor = Executors.newFixedThreadPool(dataCheckerServiceConfig.getThreadCount());
   }
 
-
   /**
    * Persist temporarily (24h) records in the data checker portal
    *
@@ -96,7 +94,7 @@ public class DataCheckerService {
     commitChanges();
 
     // Done: compile the results.
-    return compileResult(taskResults, datasetProperties.getDatasetName(), individualRecords);
+    return compileResult(taskResults, datasetProperties, individualRecords);
   }
   
   private void commitChanges() throws DataCheckerServiceException {
@@ -131,7 +129,8 @@ public class DataCheckerService {
   }
 
   private ExtendedValidationResult compileResult(final List<ValidationTaskResult> taskResults,
-      String datasetName, boolean includeRecordIds) throws DataCheckerServiceException {
+      DatasetProperties datasetProperties, boolean includeRecordIds)
+      throws DataCheckerServiceException {
 
     // Obtain the failed results as list of validation results.
     final List<ValidationResult> failedResults =
@@ -156,10 +155,9 @@ public class DataCheckerService {
     extendedValidationResult.setDate(new Date());
 
     // Set the result URL: escape query characters and then encode for URL.
-    final String query = ClientUtils.escapeQueryChars(datasetName) + "*";
     try {
-      extendedValidationResult.setPortalUrl(
-          this.dataCheckerUrl + URLEncoder.encode(query, StandardCharsets.UTF_8.name()));
+      extendedValidationResult.setPortalUrl(this.dataCheckerUrl + URLEncoder
+          .encode(datasetProperties.getDatasetNameSolrQueryValue(), StandardCharsets.UTF_8.name()));
     } catch (UnsupportedEncodingException e) {
       throw new DataCheckerServiceException("Unexpected encoding issue.", e);
     }
