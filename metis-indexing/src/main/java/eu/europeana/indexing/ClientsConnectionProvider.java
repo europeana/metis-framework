@@ -2,7 +2,7 @@ package eu.europeana.indexing;
 
 import org.apache.solr.client.solrj.SolrClient;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 
 /**
  * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection using
@@ -21,15 +21,15 @@ final class ClientsConnectionProvider extends AbstractConnectionProvider {
    * 
    * @param mongoClient The Mongo client to be used. Cannot be null.
    * @param solrClient The Solr client to be used. Cannot be null.
-   * @throws IndexerRelatedIndexingException In case either of the two clients are null.
+   * @throws SetupRelatedIndexingException In case either of the two clients are null.
    */
   ClientsConnectionProvider(EdmMongoServer mongoClient, SolrClient solrClient)
-      throws IndexerRelatedIndexingException {
+      throws SetupRelatedIndexingException {
     if (mongoClient == null) {
-      throw new IndexerRelatedIndexingException("The provided Mongo client is null.");
+      throw new SetupRelatedIndexingException("The provided Mongo client is null.");
     }
     if (solrClient == null) {
-      throw new IndexerRelatedIndexingException("The provided Solr client is null.");
+      throw new SetupRelatedIndexingException("The provided Solr client is null.");
     }
     this.mongoClient = mongoClient;
     this.solrClient = solrClient;

@@ -1,9 +1,10 @@
 package eu.europeana.indexing.exception;
 
 /**
- * This exception is one thrown by the indexer if there is a problem related with the indexer setup
- * or connection. This signifies that the problem is likely not with the individual record submitted
- * for indexing.
+ * This exception is one thrown by the indexer if there is a problem related with saving/indexing a
+ * given record. This signifies that the problem is likely not with the local setup or the
+ * individual record submitted for indexing, but rather with the connection setup or the
+ * connection/communication to the target data storage itself.
  */
 public class IndexerRelatedIndexingException extends IndexingException {
 

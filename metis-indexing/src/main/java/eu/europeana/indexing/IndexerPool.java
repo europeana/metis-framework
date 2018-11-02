@@ -9,6 +9,7 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 
 /**
  * <p>
@@ -147,7 +148,7 @@ public class IndexerPool implements Closeable {
     }
 
     @Override
-    public Indexer create() throws IndexerRelatedIndexingException {
+    public Indexer create() throws SetupRelatedIndexingException {
       return indexerFactory.getIndexer();
     }
 

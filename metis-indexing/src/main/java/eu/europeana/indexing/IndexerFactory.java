@@ -4,7 +4,7 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 
 /**
  * This class creates instances of {@link Indexer}.
@@ -53,13 +53,13 @@ public class IndexerFactory {
    * This method creates an indexer using the settings provided at construction.
    * 
    * @return An indexer.
-   * @throws IndexerRelatedIndexingException In case an exception occurred while setting up the
+   * @throws SetupRelatedIndexingException In case an exception occurred while setting up the
    *         indexer.
    */
-  public Indexer getIndexer() throws IndexerRelatedIndexingException {
+  public Indexer getIndexer() throws SetupRelatedIndexingException {
     try {
       return new IndexerImpl(connectionProviderSupplier.get());
-    } catch (IndexerRelatedIndexingException e) {
+    } catch (SetupRelatedIndexingException e) {
       LOGGER.warn("Error while setting up an indexer.", e);
       throw e;
     }
@@ -67,7 +67,7 @@ public class IndexerFactory {
 
   /**
    * A supplier for instances of {@link AbstractConnectionProvider} that may throw an
-   * {@link IndexerRelatedIndexingException}.
+   * {@link SetupRelatedIndexingException}.
    * 
    * @author jochen
    */
@@ -78,9 +78,8 @@ public class IndexerFactory {
      * Gets a result.
      * 
      * @return A result.
-     * @throws IndexerRelatedIndexingException In case something went wrong while getting the
-     *         result.
+     * @throws SetupRelatedIndexingException In case something went wrong while getting the result.
      */
-    AbstractConnectionProvider get() throws IndexerRelatedIndexingException;
+    AbstractConnectionProvider get() throws SetupRelatedIndexingException;
   }
 }
