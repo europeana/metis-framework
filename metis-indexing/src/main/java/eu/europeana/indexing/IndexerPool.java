@@ -1,13 +1,14 @@
 package eu.europeana.indexing;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.indexing.exception.IndexingException;
 import java.io.Closeable;
 import java.time.Duration;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
 
 /**
  * <p>
@@ -114,7 +115,7 @@ public class IndexerPool implements Closeable {
     } catch (IndexingException e) {
       throw e;
     } catch (Exception e) {
-      throw new IndexingException("Error while obtaining indexer from the pool.", e);
+      throw new IndexerRelatedIndexingException("Error while obtaining indexer from the pool.", e);
     }
 
     // Perform indexing and release indexer.
@@ -146,7 +147,7 @@ public class IndexerPool implements Closeable {
     }
 
     @Override
-    public Indexer create() throws IndexingException {
+    public Indexer create() throws IndexerRelatedIndexingException {
       return indexerFactory.getIndexer();
     }
 

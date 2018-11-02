@@ -6,7 +6,7 @@ package eu.europeana.indexing.exception;
  * @author jochen
  *
  */
-public class IndexingException extends Exception {
+public abstract class IndexingException extends Exception {
 
   /** Required for implementations of {@link java.io.Serializable}. **/
   private static final long serialVersionUID = 2323679119224398983L;

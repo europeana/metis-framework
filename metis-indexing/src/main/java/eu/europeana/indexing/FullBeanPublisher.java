@@ -1,13 +1,5 @@
 package eu.europeana.indexing;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
-import eu.europeana.indexing.mongo.property.FullBeanUpdater;
-import eu.europeana.indexing.solr.SolrDocumentPopulator;
-import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -17,6 +9,14 @@ import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
+import eu.europeana.indexing.mongo.property.FullBeanUpdater;
+import eu.europeana.indexing.solr.SolrDocumentPopulator;
+import eu.europeana.metis.utils.ExternalRequestUtil;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
@@ -77,9 +77,9 @@ class FullBeanPublisher {
    * Publishes an RDF.
    *
    * @param rdf RDF to publish.
-   * @throws IndexingException In case an error occurred during publication.
+   * @throws IndexerRelatedIndexingException In case an error occurred during publication.
    */
-  public void publish(RDF rdf) throws IndexingException {
+  public void publish(RDF rdf) throws IndexerRelatedIndexingException {
 
     // Convert RDF to Full Bean.
     final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
@@ -95,7 +95,7 @@ class FullBeanPublisher {
     try {
       savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, mongoClient);
     } catch (RuntimeException e) {
-      throw new IndexingException("Could not publish to Mongo server.", e);
+      throw new IndexerRelatedIndexingException("Could not publish to Mongo server.", e);
     }
 
     // Publish to Solr
@@ -105,7 +105,7 @@ class FullBeanPublisher {
         return null;
       }, Collections.singletonMap(UnknownHostException.class, ""), 30, 1000);
     } catch (Exception e) {
-      throw new IndexingException("Could not add Solr input document to Solr server.", e);
+      throw new IndexerRelatedIndexingException("Could not add Solr input document to Solr server.", e);
     }
   }
 

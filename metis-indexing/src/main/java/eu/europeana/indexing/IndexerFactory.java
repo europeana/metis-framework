@@ -1,10 +1,10 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.exception.IndexingException;
 import org.apache.solr.client.solrj.SolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 
 /**
  * This class creates instances of {@link Indexer}.
@@ -53,13 +53,13 @@ public class IndexerFactory {
    * This method creates an indexer using the settings provided at construction.
    * 
    * @return An indexer.
-   * @throws IndexingException In case an exception occurred while setting up the
+   * @throws IndexerRelatedIndexingException In case an exception occurred while setting up the
    *         indexer.
    */
-  public Indexer getIndexer() throws IndexingException {
+  public Indexer getIndexer() throws IndexerRelatedIndexingException {
     try {
       return new IndexerImpl(connectionProviderSupplier.get());
-    } catch (IndexingException e) {
+    } catch (IndexerRelatedIndexingException e) {
       LOGGER.warn("Error while setting up an indexer.", e);
       throw e;
     }
@@ -67,7 +67,7 @@ public class IndexerFactory {
 
   /**
    * A supplier for instances of {@link AbstractConnectionProvider} that may throw an
-   * {@link IndexingException}.
+   * {@link IndexerRelatedIndexingException}.
    * 
    * @author jochen
    */
@@ -78,8 +78,9 @@ public class IndexerFactory {
      * Gets a result.
      * 
      * @return A result.
-     * @throws IndexingException In case something went wrong while getting the result.
+     * @throws IndexerRelatedIndexingException In case something went wrong while getting the
+     *         result.
      */
-    AbstractConnectionProvider get() throws IndexingException;
+    AbstractConnectionProvider get() throws IndexerRelatedIndexingException;
   }
 }

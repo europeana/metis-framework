@@ -10,7 +10,9 @@ import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 
 /**
  * This class converts String representations of RDF (XML) to instances of {@link FullBeanImpl}.
@@ -72,24 +74,26 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
       rdf = (RDF) context.unmarshalDocument(IOUtils.toInputStream(record, DEFAULT_CHARSET),
           DEFAULT_CHARSET.name());
     } catch (JiBXException e) {
-      throw new IndexingException("Could not convert record to RDF.", e);
+      throw new RecordRelatedIndexingException("Could not convert record to RDF.", e);
     }
 
     // Sanity check - shouldn't happen
     if (rdf == null) {
-      throw new IndexingException("Could not convert record to RDF: null was returned.");
+      throw new RecordRelatedIndexingException(
+          "Could not convert record to RDF: null was returned.");
     }
 
     // Done.
     return rdf;
   }
 
-  private static synchronized IBindingFactory getRdfBindingFactory() throws IndexingException {
+  private static synchronized IBindingFactory getRdfBindingFactory()
+      throws IndexerRelatedIndexingException {
     if (globalRdfBindingFactory == null) {
       try {
         globalRdfBindingFactory = BindingDirectory.getFactory(RDF.class);
       } catch (JiBXException e) {
-        throw new IndexingException("Error creating the JibX factory.", e);
+        throw new IndexerRelatedIndexingException("Error creating the JibX factory.", e);
       }
     }
     return globalRdfBindingFactory;
@@ -97,7 +101,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
 
   /**
    * Similar to the Java interface {@link Supplier}, but one that may throw an
-   * {@link IndexingException}.
+   * {@link IndexerRelatedIndexingException}.
    * 
    * @author jochen
    *
@@ -110,8 +114,8 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
      * Gets a result.
      * 
      * @return A result.
-     * @throws IndexingException In case something went wrong while getting the result.
+     * @throws IndexerRelatedIndexingException In case something went wrong while getting the result.
      */
-    public T get() throws IndexingException;
+    public T get() throws IndexerRelatedIndexingException;
   }
 }

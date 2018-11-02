@@ -9,6 +9,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 
@@ -92,19 +93,19 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException {
+  public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexerRelatedIndexingException {
     try {
       this.connectionProvider.triggerFlushOfPendingChanges(blockUntilComplete);
     } catch (SolrServerException | IOException e) {
-      throw new IndexingException("Error while flushing changes.", e);
+      throw new IndexerRelatedIndexingException("Error while flushing changes.", e);
     }
   }
 
   @Override
-  public int removeAll(String datasetId) throws IndexingException {
+  public int removeAll(String datasetId) throws IndexerRelatedIndexingException {
     try {
       return this.connectionProvider.getDatasetRemover().removeDataset(datasetId);
-    } catch (IndexingException e) {
+    } catch (IndexerRelatedIndexingException e) {
       LOGGER.warn("Error while removing a dataset.", e);
       throw e;
     }
@@ -112,7 +113,7 @@ class IndexerImpl implements Indexer {
 
   /**
    * Similar to the Java interface {@link Supplier}, but one that may throw an
-   * {@link IndexingException}.
+   * {@link IndexerRelatedIndexingException}.
    * 
    * @author jochen
    *
@@ -125,8 +126,8 @@ class IndexerImpl implements Indexer {
      * Gets a result.
      * 
      * @return A result.
-     * @throws IndexingException In case something went wrong while getting the result.
+     * @throws IndexerRelatedIndexingException In case something went wrong while getting the result.
      */
-    T get() throws IndexingException;
+    T get() throws IndexerRelatedIndexingException;
   }
 }

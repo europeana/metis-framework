@@ -1,6 +1,5 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.exception.IndexingException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -21,6 +20,7 @@ import com.mongodb.ServerAddress;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 
 /**
  * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection
@@ -43,9 +43,10 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
    * Constructor. Sets up the required connections using the supplied settings.
    * 
    * @param settings The indexing settings (connection settings).
-   * @throws IndexingException In case the connections could not be set up.
+   * @throws IndexerRelatedIndexingException In case the connections could not be set up.
    */
-  public SettingsConnectionProvider(IndexingSettings settings) throws IndexingException {
+  public SettingsConnectionProvider(IndexingSettings settings)
+      throws IndexerRelatedIndexingException {
 
     // Create Solr and Zookeeper connections.
     this.httpSolrClient = setUpHttpSolrConnection(settings);
@@ -60,7 +61,8 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
     this.mongoServer = setUpMongoConnection(settings, this.mongoClient);
   }
 
-  private static MongoClient createMongoClient(IndexingSettings settings) throws IndexingException {
+  private static MongoClient createMongoClient(IndexingSettings settings)
+      throws IndexerRelatedIndexingException {
 
     // Extract data from settings
     final List<ServerAddress> hosts = settings.getMongoHosts();
@@ -73,8 +75,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
       LOGGER.info(
           "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
           hosts.stream().map(ServerAddress::toString).collect(Collectors.joining(", ")),
-          databaseName,
-          credentials == null ? "out" : "", enableSsl ? "" : "out");
+          databaseName, credentials == null ? "out" : "", enableSsl ? "" : "out");
     }
 
     // Create client
@@ -87,16 +88,16 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
   }
 
   private static EdmMongoServer setUpMongoConnection(IndexingSettings settings, MongoClient client)
-      throws IndexingException {
+      throws IndexerRelatedIndexingException {
     try {
       return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), true);
     } catch (MongoDBException e) {
-      throw new IndexingException("Could not set up mongo server.", e);
+      throw new IndexerRelatedIndexingException("Could not set up mongo server.", e);
     }
   }
 
   private static LBHttpSolrClient setUpHttpSolrConnection(IndexingSettings settings)
-      throws IndexingException {
+      throws IndexerRelatedIndexingException {
     final String[] solrHosts =
         settings.getSolrHosts().stream().map(URI::toString).toArray(String[]::new);
     if (LOGGER.isInfoEnabled()) {
@@ -106,7 +107,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
   }
 
   private static CloudSolrClient setUpCloudSolrConnection(IndexingSettings settings,
-      LBHttpSolrClient httpSolrClient) throws IndexingException {
+      LBHttpSolrClient httpSolrClient) throws IndexerRelatedIndexingException {
 
     // Get information from settings
     final Set<String> hosts = settings.getZookeeperHosts().stream()
