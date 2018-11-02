@@ -6,6 +6,8 @@ import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
@@ -27,6 +29,8 @@ import eu.europeana.indexing.exception.SetupRelatedIndexingException;
  * </p>
  */
 public class IndexerPool implements Closeable {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(IndexerPool.class);
 
   private final GenericObjectPool<Indexer> pool;
 
@@ -122,8 +126,19 @@ public class IndexerPool implements Closeable {
     // Perform indexing and release indexer.
     try {
       indexTask.performTask(indexer);
+    } catch (IndexerRelatedIndexingException e) {
+      invalidateAndSwallowException(indexer);
+      throw e;
     } finally {
       pool.returnObject(indexer);
+    }
+  }
+
+  private void invalidateAndSwallowException(Indexer indexer) {
+    try {
+      pool.invalidateObject(indexer);
+    } catch (Exception e) {
+      LOGGER.warn("Problem invalidating the indexer.", e);
     }
   }
 
