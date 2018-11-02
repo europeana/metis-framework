@@ -124,7 +124,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     for (int i = 0; i < workflowExecution.getMetisPlugins().size(); i++) {
       AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
-          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING) {
+          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
+          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
         firstPluginPositionToStart = i;
         break;
       }
@@ -207,13 +208,13 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     int consecutiveCancelOrMonitorFailures = 0;
     boolean externalCancelCallSent = false;
     AtomicInteger previousProcessedRecords = new AtomicInteger(0);
-    AtomicLong stableProcessedRecordsPeriodCounterInSeconds = new AtomicLong(0L);
+    AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis = new AtomicLong(
+        System.currentTimeMillis());
     do {
       try {
         Thread.sleep(sleepTime);
-        if (!externalCancelCallSent && (workflowExecutionDao.isCancelling(workflowExecution.getId())
-            || isMinuteCapOverWithoutChangeInProcessedRecords(abstractMetisPlugin,
-            previousProcessedRecords, stableProcessedRecordsPeriodCounterInSeconds))) {
+        if (!externalCancelCallSent && shouldPluginBeCancelled(abstractMetisPlugin,
+            previousProcessedRecords, checkPointDateOfProcessedRecordsPeriodInMillis)) {
           abstractMetisPlugin.cancel(dpsClient);
           externalCancelCallSent = true;
         }
@@ -244,21 +245,32 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         consecutiveCancelOrMonitorFailures);
   }
 
+  private boolean shouldPluginBeCancelled(AbstractMetisPlugin abstractMetisPlugin,
+      AtomicInteger previousProcessedRecords,
+      AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis) {
+    // A plugin with CLEANING state is NOT cancellable, it will be when the state is updated
+    return ((abstractMetisPlugin.getPluginStatus() != PluginStatus.CLEANING && workflowExecutionDao
+        .isCancelling(workflowExecution.getId())) || isMinuteCapOverWithoutChangeInProcessedRecords(
+        abstractMetisPlugin, previousProcessedRecords,
+        checkPointDateOfProcessedRecordsPeriodInMillis));
+  }
+
   private boolean isMinuteCapOverWithoutChangeInProcessedRecords(
       AbstractMetisPlugin abstractMetisPlugin, AtomicInteger previousProcessedRecords,
-      AtomicLong stableRecordCountPeriodCounterInSeconds) {
+      AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis) {
     final int processedRecords = abstractMetisPlugin.getExecutionProgress().getProcessedRecords();
     //If CLEANING is in progress then just reset the values to be sure and return false
     //Or if we have progress
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.CLEANING
         || previousProcessedRecords.get() != processedRecords) {
-      stableRecordCountPeriodCounterInSeconds.set(0L);
+      checkPointDateOfProcessedRecordsPeriodInMillis.set(System.currentTimeMillis());
       previousProcessedRecords.set(processedRecords);
       return false;
     }
 
     final boolean isMinuteCapOverWithoutChangeInProcessedRecords =
-        stableRecordCountPeriodCounterInSeconds.addAndGet(monitorCheckIntervalInSecs)
+        TimeUnit.MILLISECONDS.toSeconds(
+            System.currentTimeMillis() - checkPointDateOfProcessedRecordsPeriodInMillis.get())
             >= periodOfNoProcessedRecordsChangeInSeconds;
     if (isMinuteCapOverWithoutChangeInProcessedRecords) {
       //Request cancelling of the execution
