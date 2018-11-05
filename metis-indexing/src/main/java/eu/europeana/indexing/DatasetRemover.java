@@ -10,7 +10,7 @@ import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
-import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
@@ -47,16 +47,17 @@ public class DatasetRemover {
    * 
    * @param datasetId The ID of the dataset to clear. Is not null.
    * @return The number of records that were removed.
-   * @throws IndexingException In case something went wrong.
+   * @throws IndexerRelatedIndexingException In case something went wrong.
    */
-  public int removeDataset(String datasetId) throws IndexingException {
+  public int removeDataset(String datasetId) throws IndexerRelatedIndexingException {
     final int mongoCount;
     try {
       mongoCount = removeDatasetFromMongo(datasetId);
       solrServer
           .deleteByQuery(EdmLabel.EUROPEANA_COLLECTIONNAME.toString() + ":" + datasetId + "_*");
     } catch (SolrServerException | IOException | RuntimeException e) {
-      throw new IndexingException("Could not remove dataset with ID '" + datasetId + "'.", e);
+      throw new IndexerRelatedIndexingException(
+          "Could not remove dataset with ID '" + datasetId + "'.", e);
     }
     return mongoCount;
   }

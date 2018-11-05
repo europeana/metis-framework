@@ -1,6 +1,9 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.exception.IndexingException;
+import com.mongodb.MongoConfigurationException;
+import com.mongodb.MongoIncompatibleDriverException;
+import com.mongodb.MongoSecurityException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -21,6 +24,7 @@ import com.mongodb.ServerAddress;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 
 /**
  * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection
@@ -31,6 +35,8 @@ import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
  *
  */
 public final class SettingsConnectionProvider extends AbstractConnectionProvider {
+
+  private static final String MONGO_SERVER_SETUP_ERROR = "Could not set up connection to Mongo server.";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SettingsConnectionProvider.class);
 
@@ -43,9 +49,10 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
    * Constructor. Sets up the required connections using the supplied settings.
    * 
    * @param settings The indexing settings (connection settings).
-   * @throws IndexingException In case the connections could not be set up.
+   * @throws SetupRelatedIndexingException In case the connections could not be set up.
    */
-  public SettingsConnectionProvider(IndexingSettings settings) throws IndexingException {
+  public SettingsConnectionProvider(IndexingSettings settings)
+      throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
 
     // Create Solr and Zookeeper connections.
     this.httpSolrClient = setUpHttpSolrConnection(settings);
@@ -56,11 +63,18 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
     }
 
     // Create mongo connection.
-    this.mongoClient = createMongoClient(settings);
-    this.mongoServer = setUpMongoConnection(settings, this.mongoClient);
+    try {
+      this.mongoClient = createMongoClient(settings);
+      this.mongoServer = setUpMongoConnection(settings, this.mongoClient);
+    } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
+      throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
+    } catch (RuntimeException e) {
+      throw new IndexerRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
+    }
   }
 
-  private static MongoClient createMongoClient(IndexingSettings settings) throws IndexingException {
+  private static MongoClient createMongoClient(IndexingSettings settings)
+      throws SetupRelatedIndexingException {
 
     // Extract data from settings
     final List<ServerAddress> hosts = settings.getMongoHosts();
@@ -73,8 +87,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
       LOGGER.info(
           "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
           hosts.stream().map(ServerAddress::toString).collect(Collectors.joining(", ")),
-          databaseName,
-          credentials == null ? "out" : "", enableSsl ? "" : "out");
+          databaseName, credentials == null ? "out" : "", enableSsl ? "" : "out");
     }
 
     // Create client
@@ -87,16 +100,16 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
   }
 
   private static EdmMongoServer setUpMongoConnection(IndexingSettings settings, MongoClient client)
-      throws IndexingException {
+      throws SetupRelatedIndexingException {
     try {
       return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), true);
     } catch (MongoDBException e) {
-      throw new IndexingException("Could not set up mongo server.", e);
+      throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
   }
 
   private static LBHttpSolrClient setUpHttpSolrConnection(IndexingSettings settings)
-      throws IndexingException {
+      throws SetupRelatedIndexingException {
     final String[] solrHosts =
         settings.getSolrHosts().stream().map(URI::toString).toArray(String[]::new);
     if (LOGGER.isInfoEnabled()) {
@@ -106,7 +119,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
   }
 
   private static CloudSolrClient setUpCloudSolrConnection(IndexingSettings settings,
-      LBHttpSolrClient httpSolrClient) throws IndexingException {
+      LBHttpSolrClient httpSolrClient) throws SetupRelatedIndexingException {
 
     // Get information from settings
     final Set<String> hosts = settings.getZookeeperHosts().stream()
