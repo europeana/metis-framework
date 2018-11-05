@@ -110,6 +110,8 @@ public class TestWorkflowExecutor {
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient)).thenReturn(currentlyProcessingExecutionProgress)
         .thenReturn(processedExecutionProgress);
+    when(oaipmhHarvestPlugin.getExecutionProgress()).thenReturn(currentlyProcessingExecutionProgress)
+        .thenReturn(processedExecutionProgress);
 
     when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
@@ -187,6 +189,8 @@ public class TestWorkflowExecutor {
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient)).thenReturn(currentlyProcessingExecutionProgress)
         .thenReturn(droppedExecutionProgress);
+    when(oaipmhHarvestPlugin.getExecutionProgress()).thenReturn(currentlyProcessingExecutionProgress)
+        .thenReturn(droppedExecutionProgress);
 
     when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
@@ -207,6 +211,8 @@ public class TestWorkflowExecutor {
 
   @Test
   public void callNonMockedFieldValue_ConsecutiveMonitorFailures() throws Exception {
+    ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
+    currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.mock(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
@@ -223,6 +229,7 @@ public class TestWorkflowExecutor {
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient)).thenThrow(new ExternalTaskException("Some error"))
         .thenThrow(new ExternalTaskException("Some error"));
+    when(oaipmhHarvestPlugin.getExecutionProgress()).thenReturn(currentlyProcessingExecutionProgress);
 
     when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
@@ -261,6 +268,8 @@ public class TestWorkflowExecutor {
 
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient)).thenReturn(currentlyProcessingExecutionProgress)
+        .thenReturn(processedExecutionProgress);
+    when(oaipmhHarvestPlugin.getExecutionProgress()).thenReturn(currentlyProcessingExecutionProgress)
         .thenReturn(processedExecutionProgress);
     doNothing().when(oaipmhHarvestPlugin).cancel(dpsClient);
 

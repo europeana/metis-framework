@@ -22,8 +22,7 @@ import org.mongodb.morphia.annotations.Indexes;
 /**
  * Is the structure where the combined plugins of harvesting and the other plugins will be stored.
  * <p>This is the object where the execution of the workflow takes place and will host all
- * information,
- * regarding its execution.</p>
+ * information, regarding its execution.</p>
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-26
@@ -87,7 +86,8 @@ public class WorkflowExecution implements HasMongoObjectId {
     for (AbstractMetisPlugin metisPlugin :
         this.getMetisPlugins()) {
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
-          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING) {
+          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
+          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
         metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
       }
     }
@@ -111,7 +111,8 @@ public class WorkflowExecution implements HasMongoObjectId {
       this.setWorkflowStatus(WorkflowStatus.FAILED);
       for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
         if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
-            || metisPlugin.getPluginStatus() == PluginStatus.RUNNING) {
+            || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
+            || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
           metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
         }
       }

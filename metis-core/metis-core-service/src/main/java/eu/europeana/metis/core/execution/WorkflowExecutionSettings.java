@@ -8,6 +8,8 @@ interface WorkflowExecutionSettings {
 
   int getPollingTimeoutForCleaningCompletionServiceInSecs();
 
+  int getPeriodOfNoProcessedRecordsChangeInMinutes();
+
   String getEcloudBaseUrl();
 
   String getEcloudProvider();

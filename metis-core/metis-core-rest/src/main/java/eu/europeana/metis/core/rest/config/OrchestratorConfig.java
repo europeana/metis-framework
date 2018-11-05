@@ -212,6 +212,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
         .setDpsMonitorCheckIntervalInSecs(propertiesHolder.getDpsMonitorCheckIntervalInSecs());
     workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
         propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInSecs());
+    workflowExecutorManager.setPeriodOfNoProcessedRecordsChangeInMinutes(
+        propertiesHolder.getPeriodOfNoProcessedRecordsChangeInMinutes());
     workflowExecutorManager.setEcloudBaseUrl(propertiesHolder.getEcloudBaseUrl());
     workflowExecutorManager.setEcloudProvider(propertiesHolder.getEcloudProvider());
     return workflowExecutorManager;

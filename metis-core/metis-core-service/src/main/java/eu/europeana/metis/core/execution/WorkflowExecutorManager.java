@@ -1,15 +1,15 @@
 package eu.europeana.metis.core.execution;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import org.redisson.api.RedissonClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.MessageProperties;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -22,10 +22,12 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   private static final int DEFAULT_MAX_CONCURRENT_THREADS = 10;
   private static final int DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS = 5;
   private static final int DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS = 10;
+  private static final int DEFAULT_PERIOD_OF_NO_PROCESSED_RECORDS_CHANGE_IN_MINUTES = 30;
 
   private int maxConcurrentThreads = DEFAULT_MAX_CONCURRENT_THREADS; //Use setter otherwise default
   private int dpsMonitorCheckIntervalInSecs = DEFAULT_MONITOR_CHECK_INTERVAL_IN_SECS; //Use setter otherwise default
   private int pollingTimeoutForCleaningCompletionServiceInSecs = DEFAULT_POLLING_TIMEOUT_FOR_CLEANING_COMPLETION_SERVICE_IN_SECS; //Use setter otherwise default
+  private int periodOfNoProcessedRecordsChangeInMinutes = DEFAULT_PERIOD_OF_NO_PROCESSED_RECORDS_CHANGE_IN_MINUTES; //Use setter otherwise default
 
   private String rabbitmqQueueName; //Initialize with setter
   private String ecloudBaseUrl; //Initialize with setter
@@ -40,9 +42,9 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
    * @param redissonClient the redisson client for distributed locks
    * @param dpsClient the Data Processing Service client from ECloud
    */
-  public WorkflowExecutorManager(
-      WorkflowExecutionDao workflowExecutionDao, Channel rabbitmqPublisherChannel,
-      Channel rabbitmqConsumerChannel, RedissonClient redissonClient, DpsClient dpsClient) {
+  public WorkflowExecutorManager(WorkflowExecutionDao workflowExecutionDao,
+      Channel rabbitmqPublisherChannel, Channel rabbitmqConsumerChannel,
+      RedissonClient redissonClient, DpsClient dpsClient) {
     super(rabbitmqPublisherChannel, rabbitmqConsumerChannel, workflowExecutionDao, redissonClient,
         dpsClient);
   }
@@ -94,6 +96,11 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
     this.pollingTimeoutForCleaningCompletionServiceInSecs = pollingTimeoutForCleaningCompletionServiceInSecs;
   }
 
+  public void setPeriodOfNoProcessedRecordsChangeInMinutes(
+      int periodOfNoProcessedRecordsChangeInMinutes) {
+    this.periodOfNoProcessedRecordsChangeInMinutes = periodOfNoProcessedRecordsChangeInMinutes;
+  }
+
   @Override
   public int getDpsMonitorCheckIntervalInSecs() {
     return dpsMonitorCheckIntervalInSecs;
@@ -107,6 +114,11 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   @Override
   public int getPollingTimeoutForCleaningCompletionServiceInSecs() {
     return pollingTimeoutForCleaningCompletionServiceInSecs;
+  }
+
+  @Override
+  public int getPeriodOfNoProcessedRecordsChangeInMinutes() {
+    return periodOfNoProcessedRecordsChangeInMinutes;
   }
 
   @Override

@@ -1,16 +1,5 @@
 package eu.europeana.metis.core.execution;
 
-import java.net.SocketTimeoutException;
-import java.util.Date;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -20,6 +9,14 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.exception.ExternalTaskException;
+import java.util.Date;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is a {@link Callable} class that accepts a {@link WorkflowExecution}. It starts that
@@ -43,6 +40,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private final WorkflowExecutionMonitor workflowExecutionMonitor;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final int monitorCheckIntervalInSecs;
+  private final long periodOfNoProcessedRecordsChangeInSeconds;
   private final DpsClient dpsClient;
   private final String ecloudBaseUrl;
   private final String ecloudProvider;
@@ -56,6 +54,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     this.workflowExecutionDao = persistenceProvider.getWorkflowExecutionDao();
     this.dpsClient = persistenceProvider.getDpsClient();
     this.monitorCheckIntervalInSecs = workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs();
+    this.periodOfNoProcessedRecordsChangeInSeconds = TimeUnit.MINUTES
+        .toSeconds(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes());
     this.ecloudBaseUrl = workflowExecutionSettings.getEcloudBaseUrl();
     this.ecloudProvider = workflowExecutionSettings.getEcloudProvider();
     this.workflowExecutionMonitor = workflowExecutionMonitor;
@@ -114,7 +114,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   /**
    * Will determine from which plugin of the workflow to start execution from and will iterate
    * through the plugins of the workflow one by one.
-   * 
+   *
    * @return The date the full workflow finished (or null if it did not finish successfully).
    */
   private Date runInqueueOrRunningStateWorkflowExecution() {
@@ -124,7 +124,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     for (int i = 0; i < workflowExecution.getMetisPlugins().size(); i++) {
       AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
-          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING) {
+          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
+          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
         firstPluginPositionToStart = i;
         break;
       }
@@ -163,7 +164,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
    * @param previousAbstractMetisPlugin the plugin that was ran before the current plugin if any
    * @param abstractMetisPlugin the current plugin to run
    * @param startDateToUse The date that should be used as start date (if the plugin is not already
-   *        running).
+   * running).
    */
   private void runMetisPlugin(AbstractMetisPlugin previousAbstractMetisPlugin,
       AbstractMetisPlugin abstractMetisPlugin, Date startDateToUse) {
@@ -198,7 +199,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     if (!abstractMetisPlugin.getPluginMetadata().isMocked()) {
       periodicCheckingLoop(sleepTime, abstractMetisPlugin);
     } else {
-      periodicCheckingLoopMocked(sleepTime, MONITOR_ITERATIONS_TO_FAKE, abstractMetisPlugin);
+      periodicCheckingLoopMocked(sleepTime, abstractMetisPlugin);
     }
   }
 
@@ -206,11 +207,14 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     TaskState taskState = null;
     int consecutiveCancelOrMonitorFailures = 0;
     boolean externalCancelCallSent = false;
+    AtomicInteger previousProcessedRecords = new AtomicInteger(0);
+    AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis = new AtomicLong(
+        System.currentTimeMillis());
     do {
       try {
         Thread.sleep(sleepTime);
-        if (!externalCancelCallSent
-            && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+        if (!externalCancelCallSent && shouldPluginBeCancelled(abstractMetisPlugin,
+            previousProcessedRecords, checkPointDateOfProcessedRecordsPeriodInMillis)) {
           abstractMetisPlugin.cancel(dpsClient);
           externalCancelCallSent = true;
         }
@@ -218,6 +222,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         consecutiveCancelOrMonitorFailures = 0;
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
+        abstractMetisPlugin.setPluginStatus(
+            taskState == TaskState.REMOVING_FROM_SOLR_AND_MONGO ? PluginStatus.CLEANING
+                : abstractMetisPlugin.getPluginStatus());
         workflowExecution.setUpdatedDate(updatedDate);
         workflowExecutionDao.updateMonitorInformation(workflowExecution);
       } catch (InterruptedException e) {
@@ -237,7 +244,41 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     preparePluginStateAndFinishedDate(abstractMetisPlugin, taskState,
         consecutiveCancelOrMonitorFailures);
   }
-  
+
+  private boolean shouldPluginBeCancelled(AbstractMetisPlugin abstractMetisPlugin,
+      AtomicInteger previousProcessedRecords,
+      AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis) {
+    // A plugin with CLEANING state is NOT cancellable, it will be when the state is updated
+    return ((abstractMetisPlugin.getPluginStatus() != PluginStatus.CLEANING && workflowExecutionDao
+        .isCancelling(workflowExecution.getId())) || isMinuteCapOverWithoutChangeInProcessedRecords(
+        abstractMetisPlugin, previousProcessedRecords,
+        checkPointDateOfProcessedRecordsPeriodInMillis));
+  }
+
+  private boolean isMinuteCapOverWithoutChangeInProcessedRecords(
+      AbstractMetisPlugin abstractMetisPlugin, AtomicInteger previousProcessedRecords,
+      AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis) {
+    final int processedRecords = abstractMetisPlugin.getExecutionProgress().getProcessedRecords();
+    //If CLEANING is in progress then just reset the values to be sure and return false
+    //Or if we have progress
+    if (abstractMetisPlugin.getPluginStatus() == PluginStatus.CLEANING
+        || previousProcessedRecords.get() != processedRecords) {
+      checkPointDateOfProcessedRecordsPeriodInMillis.set(System.currentTimeMillis());
+      previousProcessedRecords.set(processedRecords);
+      return false;
+    }
+
+    final boolean isMinuteCapOverWithoutChangeInProcessedRecords =
+        TimeUnit.MILLISECONDS.toSeconds(
+            System.currentTimeMillis() - checkPointDateOfProcessedRecordsPeriodInMillis.get())
+            >= periodOfNoProcessedRecordsChangeInSeconds;
+    if (isMinuteCapOverWithoutChangeInProcessedRecords) {
+      //Request cancelling of the execution
+      workflowExecutionDao.setCancellingState(workflowExecution);
+    }
+    return isMinuteCapOverWithoutChangeInProcessedRecords;
+  }
+
   private void preparePluginStateAndFinishedDate(AbstractMetisPlugin abstractMetisPlugin,
       TaskState taskState, int consecutiveCancelOrMonitorFailures) {
     if (taskState == TaskState.PROCESSED) {
@@ -251,16 +292,14 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
   }
 
-  private void periodicCheckingLoopMocked(long sleepTime, int iterationsToFake,
-      AbstractMetisPlugin abstractMetisPlugin) {
-    for (int i = 1; i <= iterationsToFake; i++) {
+  private void periodicCheckingLoopMocked(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
+    for (int i = 1; i <= MONITOR_ITERATIONS_TO_FAKE; i++) {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
           return;
         }
         Thread.sleep(sleepTime);
-        fakeMonitorUpdateProcessedRecords(abstractMetisPlugin, i, iterationsToFake,
-            FAKE_RECORDS_PER_ITERATION);
+        fakeMonitorUpdateProcessedRecords(abstractMetisPlugin, i);
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         workflowExecution.setUpdatedDate(updatedDate);
@@ -277,30 +316,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   }
 
   private void fakeMonitorUpdateProcessedRecords(AbstractMetisPlugin abstractMetisPlugin,
-      int iteration, int totalIterations, int recordPerIteration) {
+      int iteration) {
     ExecutionProgress executionProgress = abstractMetisPlugin.getExecutionProgress();
-    executionProgress.setExpectedRecords(totalIterations * recordPerIteration);
-    executionProgress.setProcessedRecords(iteration * recordPerIteration);
+    executionProgress.setExpectedRecords(MONITOR_ITERATIONS_TO_FAKE * FAKE_RECORDS_PER_ITERATION);
+    executionProgress.setProcessedRecords(iteration * FAKE_RECORDS_PER_ITERATION);
     abstractMetisPlugin.setExecutionProgress(executionProgress);
-  }
-
-  /**
-   * Instances of this interface represent a call to the DPS client.
-   * 
-   * @author jochen
-   *
-   * @param <T> The type of the return value.
-   */
-  @FunctionalInterface
-  interface DpsClientRequest<T> {
-
-    /**
-     * This method makes the request to the DPS client.
-     * 
-     * @param client The client to use as the target DPS client.
-     * @return The result of the request.
-     * @throws ExternalTaskException In case the client reported this exception.
-     */
-    T makeRequest(DpsClient client) throws ExternalTaskException;
   }
 }
