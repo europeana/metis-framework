@@ -1,5 +1,9 @@
 package eu.europeana.indexing;
 
+import com.mongodb.MongoConfigurationException;
+import com.mongodb.MongoIncompatibleDriverException;
+import com.mongodb.MongoSecurityException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -32,6 +36,8 @@ import eu.europeana.indexing.exception.SetupRelatedIndexingException;
  */
 public final class SettingsConnectionProvider extends AbstractConnectionProvider {
 
+  private static final String MONGO_SERVER_SETUP_ERROR = "Could not set up connection to Mongo server.";
+
   private static final Logger LOGGER = LoggerFactory.getLogger(SettingsConnectionProvider.class);
 
   private final LBHttpSolrClient httpSolrClient;
@@ -46,7 +52,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
    * @throws SetupRelatedIndexingException In case the connections could not be set up.
    */
   public SettingsConnectionProvider(IndexingSettings settings)
-      throws SetupRelatedIndexingException {
+      throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
 
     // Create Solr and Zookeeper connections.
     this.httpSolrClient = setUpHttpSolrConnection(settings);
@@ -57,8 +63,14 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
     }
 
     // Create mongo connection.
-    this.mongoClient = createMongoClient(settings);
-    this.mongoServer = setUpMongoConnection(settings, this.mongoClient);
+    try {
+      this.mongoClient = createMongoClient(settings);
+      this.mongoServer = setUpMongoConnection(settings, this.mongoClient);
+    } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
+      throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
+    } catch (RuntimeException e) {
+      throw new IndexerRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
+    }
   }
 
   private static MongoClient createMongoClient(IndexingSettings settings)

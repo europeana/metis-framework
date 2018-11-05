@@ -1,5 +1,23 @@
 package eu.europeana.indexing;
 
+import com.mongodb.MongoClientException;
+import com.mongodb.MongoConfigurationException;
+import com.mongodb.MongoIncompatibleDriverException;
+import com.mongodb.MongoInternalException;
+import com.mongodb.MongoInterruptedException;
+import com.mongodb.MongoSecurityException;
+import com.mongodb.MongoSocketException;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
+import eu.europeana.indexing.mongo.property.FullBeanUpdater;
+import eu.europeana.indexing.solr.SolrDocumentPopulator;
+import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -9,14 +27,6 @@ import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
-import eu.europeana.indexing.mongo.property.FullBeanUpdater;
-import eu.europeana.indexing.solr.SolrDocumentPopulator;
-import eu.europeana.metis.utils.ExternalRequestUtil;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
@@ -25,6 +35,10 @@ import eu.europeana.metis.utils.ExternalRequestUtil;
  * @author jochen
  */
 class FullBeanPublisher {
+
+  private static final String MONGO_SERVER_PUBLISH_ERROR = "Could not publish to Mongo server.";
+
+  private static final String SOLR_SERVER_PUBLISH_ERROR = "Could not publish to Solr server.";
 
   private static final BiConsumer<FullBeanImpl, FullBeanImpl> EMPTY_PREPROCESSOR = (created, updated) -> {
   };
@@ -79,7 +93,7 @@ class FullBeanPublisher {
    * @param rdf RDF to publish.
    * @throws IndexerRelatedIndexingException In case an error occurred during publication.
    */
-  public void publish(RDF rdf) throws IndexerRelatedIndexingException {
+  public void publish(RDF rdf) throws IndexingException {
 
     // Convert RDF to Full Bean.
     final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
@@ -94,8 +108,12 @@ class FullBeanPublisher {
     final FullBeanImpl savedFullBean;
     try {
       savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, mongoClient);
+    } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
+      throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
+    } catch (MongoSocketException | MongoClientException | MongoInternalException | MongoInterruptedException e) {
+      throw new IndexerRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
     } catch (RuntimeException e) {
-      throw new IndexerRelatedIndexingException("Could not publish to Mongo server.", e);
+      throw new RecordRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
     }
 
     // Publish to Solr
@@ -104,13 +122,14 @@ class FullBeanPublisher {
         publishToSolr(rdf, savedFullBean);
         return null;
       }, Collections.singletonMap(UnknownHostException.class, ""), 30, 1000);
+    } catch (IndexingException e) {
+      throw e;
     } catch (Exception e) {
-      throw new IndexerRelatedIndexingException("Could not add Solr input document to Solr server.", e);
+      throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
     }
   }
 
-  private void publishToSolr(RDF rdf, FullBeanImpl fullBean)
-      throws SolrServerException, IOException {
+  private void publishToSolr(RDF rdf, FullBeanImpl fullBean) throws IndexingException {
 
     // Create Solr document.
     final SolrDocumentPopulator documentPopulator = new SolrDocumentPopulator();
@@ -119,6 +138,12 @@ class FullBeanPublisher {
     documentPopulator.populateWithCrfFields(document, rdf);
 
     // Save Solr document.
-    solrServer.add(document);
+    try {
+      solrServer.add(document);
+    } catch (IOException e) {
+      throw new IndexerRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
+    } catch (SolrServerException | RuntimeException e) {
+      throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
+    }
   }
 }

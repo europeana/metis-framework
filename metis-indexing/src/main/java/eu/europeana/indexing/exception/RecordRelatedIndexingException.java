@@ -2,8 +2,8 @@ package eu.europeana.indexing.exception;
 
 /**
  * This exception is one thrown by the indexer if there is a record related problem. This signifies
- * that the problem is likely not with the setup or the indexer, but rather with the individual
- * record that was submitted for indexing.
+ * that the problem is likely not with the setup or the indexer, but rather is assumed to occur only
+ * for the individual record that was submitted for indexing.
  */
 public class RecordRelatedIndexingException extends IndexingException {
 

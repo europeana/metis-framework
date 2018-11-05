@@ -87,8 +87,7 @@ public class IndexerPool implements Closeable {
    * @param record The record to index (can be parsed to RDF).
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
-   * @throws IndexingException In case a problem occurred during indexing.
-   * indexer.
+   * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void index(String record, boolean preserveUpdateAndCreateTimesFromRdf)
       throws IndexingException {
@@ -103,8 +102,7 @@ public class IndexerPool implements Closeable {
    * @param record The record to index.
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
-   * @throws IndexingException In case a problem occurred during indexing.
-   * indexer.
+   * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf)
       throws IndexingException {
@@ -163,7 +161,7 @@ public class IndexerPool implements Closeable {
     }
 
     @Override
-    public Indexer create() throws SetupRelatedIndexingException {
+    public Indexer create() throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
       return indexerFactory.getIndexer();
     }
 
