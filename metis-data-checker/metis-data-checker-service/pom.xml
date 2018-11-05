@@ -88,11 +88,6 @@
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-identifier-client</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-validation-client</artifactId>
       <version>${project.version}</version>
     </dependency>
