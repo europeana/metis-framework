@@ -73,7 +73,7 @@ public class DereferencingController {
    * @return The dereferenced entities
    */
   @RequestMapping(value = RestEndpoints.DEREFERENCE, method = RequestMethod.POST,
-      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+      consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   @ApiOperation(value = "Dereference a list URI", response = EnrichmentResultList.class)
