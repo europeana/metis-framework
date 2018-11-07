@@ -3,6 +3,7 @@ package eu.europeana.indexing;
 import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.util.ClientUtils;
 import org.mongodb.morphia.query.Query;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -14,9 +15,10 @@ import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.solr.EdmLabel;
 
 /**
- * This class provides functionality for removing datasets.
+ * This class provides functionality for removing records that are already indexed from the Mongo
+ * and the Solr data stores.
  */
-public class DatasetRemover {
+public class IndexedRecordRemover {
 
   private final EdmMongoServer mongoServer;
   private final SolrClient solrServer;
@@ -27,7 +29,7 @@ public class DatasetRemover {
    * @param mongoServer The Mongo server connection.
    * @param solrServer The Solr server connection.
    */
-  DatasetRemover(EdmMongoServer mongoServer, SolrClient solrServer) {
+  IndexedRecordRemover(EdmMongoServer mongoServer, SolrClient solrServer) {
     this.mongoServer = mongoServer;
     this.solrServer = solrServer;
   }
@@ -53,8 +55,8 @@ public class DatasetRemover {
     final int mongoCount;
     try {
       mongoCount = removeDatasetFromMongo(datasetId);
-      solrServer
-          .deleteByQuery(EdmLabel.EUROPEANA_COLLECTIONNAME.toString() + ":" + datasetId + "_*");
+      final String queryValue = ClientUtils.escapeQueryChars(datasetId + "_") + "*";
+      solrServer.deleteByQuery(EdmLabel.EUROPEANA_COLLECTIONNAME.toString() + ":" + queryValue);
     } catch (SolrServerException | IOException | RuntimeException e) {
       throw new IndexerRelatedIndexingException(
           "Could not remove dataset with ID '" + datasetId + "'.", e);
