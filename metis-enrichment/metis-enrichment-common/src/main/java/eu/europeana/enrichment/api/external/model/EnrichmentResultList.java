@@ -14,12 +14,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EnrichmentResultList {
 
-  @XmlElements(value={
-      @XmlElement(name="Concept", namespace = "http://www.europeana.eu/schemas/edm/", type=Concept.class),
-      @XmlElement(name="Agent", namespace = "http://www.europeana.eu/schemas/edm/", type=Agent.class),
-      @XmlElement(name="Place", namespace = "http://www.europeana.eu/schemas/edm/", type=Place.class),
-      @XmlElement(name="Timespan", namespace = "http://www.europeana.eu/schemas/edm/", type=Timespan.class)
-      })
+  @XmlElements(value = {
+      @XmlElement(name = "Concept", namespace = "http://www.w3.org/2004/02/skos/core#", type = Concept.class),
+      @XmlElement(name = "Agent", namespace = "http://www.europeana.eu/schemas/edm/", type = Agent.class),
+      @XmlElement(name = "Place", namespace = "http://www.europeana.eu/schemas/edm/", type = Place.class),
+      @XmlElement(name = "Timespan", namespace = "http://www.europeana.eu/schemas/edm/", type = Timespan.class) })
   private final List<EnrichmentBase> result = new ArrayList<>();
 
   public EnrichmentResultList() {}
