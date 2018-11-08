@@ -13,13 +13,19 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
+import eu.europeana.metis.data.checker.common.exception.ZipFileException;
+import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
+import eu.europeana.metis.data.checker.exceptions.handler.ValidationExceptionHandler;
+import eu.europeana.metis.data.checker.service.DataCheckerService;
+import eu.europeana.metis.data.checker.service.ZipService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
@@ -29,12 +35,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.multipart.MultipartFile;
-import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
-import eu.europeana.metis.data.checker.common.exception.ZipFileException;
-import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
-import eu.europeana.metis.data.checker.exceptions.handler.ValidationExceptionHandler;
-import eu.europeana.metis.data.checker.service.DataCheckerService;
-import eu.europeana.metis.data.checker.service.ZipService;
 
 /**
  * Created by erikkonijnenburg on 27/07/2017.
@@ -114,13 +114,11 @@ public class DataCheckerControllerTest {
         .andExpect(status().is(500)).andExpect(jsonPath("$.errorMessage", is("myException")));
   }
 
-  @NotNull
   private MockMultipartFile createMockMultipartFile() throws IOException {
     Resource resource = new ClassPathResource("ValidExternalOk.zip");
     return new MockMultipartFile("file", resource.getInputStream());
   }
 
-  @NotNull
   private ExtendedValidationResult getExtendedValidationResult() {
     Calendar cal = Calendar.getInstance();
     cal.setTimeInMillis(0);

@@ -40,11 +40,6 @@
       <version>${version.ecloud}</version>
     </dependency>
     <dependency>
-      <groupId>com.rabbitmq</groupId>
-      <artifactId>amqp-client</artifactId>
-      <version>${version.rabbitmq}</version>
-    </dependency>
-    <dependency>
       <groupId>org.mongodb.morphia</groupId>
       <artifactId>morphia</artifactId>
       <version>${version.morphia}</version>
@@ -70,19 +65,9 @@
       <version>${version.spring}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework.plugin</groupId>
-      <artifactId>spring-plugin-core</artifactId>
-      <version>${version.spring.plugin.core}</version>
-    </dependency>
-    <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongo-java-driver</artifactId>
       <version>${version.mongo.java.driver}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.plugin</groupId>
-      <artifactId>spring-plugin-metadata</artifactId>
-      <version>${version.spring.plugin.metadata}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

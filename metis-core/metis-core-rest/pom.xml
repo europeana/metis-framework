@@ -149,11 +149,6 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>${version.gson}</version>
-    </dependency>
-    <dependency>
       <groupId>com.jayway.jsonpath</groupId>
       <artifactId>json-path</artifactId>
       <version>${version.json.path}</version>
@@ -182,18 +177,4 @@
       </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>production</id>
-      <properties>
-        <spring.profiles.active>production</spring.profiles.active>
-      </properties>
-    </profile>
-    <profile>
-      <id>development</id>
-      <properties>
-        <spring.profiles.active>development</spring.profiles.active>
-      </properties>
-    </profile>
-  </profiles>
 </project>

@@ -25,7 +25,6 @@
   <artifactId>metis-enrichment-service</artifactId>
   <packaging>jar</packaging>
   <properties>
-    <enrichment.version>1.0-SNAPSHOT</enrichment.version>
     <sesame.version>2.7.8</sesame.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>

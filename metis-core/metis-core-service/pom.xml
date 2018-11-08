@@ -149,10 +149,15 @@
       <artifactId>commons-io</artifactId>
       <version>${version.commons.io}</version>
     </dependency>
+    <!--<dependency>-->
+      <!--<groupId>redis.clients</groupId>-->
+      <!--<artifactId>jedis</artifactId>-->
+      <!--<version>${version.jedis}</version>-->
+    <!--</dependency>-->
     <dependency>
-      <groupId>redis.clients</groupId>
-      <artifactId>jedis</artifactId>
-      <version>${version.jedis}</version>
+      <groupId>com.rabbitmq</groupId>
+      <artifactId>amqp-client</artifactId>
+      <version>${version.rabbitmq}</version>
     </dependency>
     <dependency>
       <groupId>org.redisson</groupId>
