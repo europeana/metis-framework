@@ -1,5 +1,7 @@
 package eu.europeana.metis.dereference.service;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import eu.europeana.enrichment.api.external.EntityWrapper;
@@ -24,9 +26,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
-import org.junit.After;
-import org.junit.jupiter.api.Assertions;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import redis.clients.jedis.Jedis;
@@ -34,7 +35,7 @@ import redis.clients.jedis.Jedis;
 /**
  * Created by ymamakis on 12-2-16.
  */
-public class MongoDereferenceServiceTest {
+class MongoDereferenceServiceTest {
     private MongoDereferenceService service;
     private VocabularyDao vocabularyDao;
     private EntityDao entityDao;
@@ -45,7 +46,7 @@ public class MongoDereferenceServiceTest {
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
     @BeforeEach
-    public void prepare() {
+    void prepare() {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
         int mongoPort = embeddedLocalhostMongo.getMongoPort();
@@ -62,8 +63,13 @@ public class MongoDereferenceServiceTest {
         service = new MongoDereferenceService(retriever, cacheDao, vocabularyDao, enrichmentClient);
     }
 
+    @AfterEach
+    void destroy() {
+        embeddedLocalhostMongo.stop();
+    }
+
     @Test
-    public void testDereference() throws TransformerException, JAXBException, IOException, URISyntaxException {
+    void testDereference() throws TransformerException, JAXBException, IOException, URISyntaxException {
 
         Mockito.when(redisProvider.getJedis()).thenReturn(jedis);
         final String entityId = "http://sws.geonames.org/3020251/";
@@ -86,13 +92,13 @@ public class MongoDereferenceServiceTest {
 
         EnrichmentResultList result = service.dereference(entityId);
 
-        Assert.assertNotNull(result);
+        assertNotNull(result);
 
         OriginalEntity entity = entityDao.get(entityId);
 
-        Assert.assertNotNull(entity);
-        Assert.assertNotNull(entity.getXml());
-        Assert.assertNotNull(entity.getURI());
+        assertNotNull(entity);
+        assertNotNull(entity.getXml());
+        assertNotNull(entity.getURI());
 
         ProcessedEntity entity2 = new ProcessedEntity();
         entity2.setResourceId(entityId);
@@ -103,15 +109,10 @@ public class MongoDereferenceServiceTest {
         Mockito.when(jedis.get(entityId)).thenReturn(new ObjectMapper().writeValueAsString(entity2));
 
         ProcessedEntity entity1 = cacheDao.get(entityId);
-        Assert.assertNotNull(entity1);
-        Assert.assertNotNull(entity1.getResourceId());
-        Assert.assertNotNull(entity1.getXml());
-        Assert.assertNotNull(entity1.getVocabularyId());
-    }
-
-    @AfterEach
-    public void destroy() {
-        embeddedLocalhostMongo.stop();
+        assertNotNull(entity1);
+        assertNotNull(entity1.getResourceId());
+        assertNotNull(entity1.getXml());
+        assertNotNull(entity1.getVocabularyId());
     }
 
     private String serialize(EnrichmentBase base) throws JAXBException, IOException {

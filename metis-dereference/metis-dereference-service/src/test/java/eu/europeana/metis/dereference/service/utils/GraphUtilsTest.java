@@ -17,7 +17,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
-public class GraphUtilsTest {
+class GraphUtilsTest {
 
   /**
    * Value resolver for {@link GraphUtilsTest#testBreadthFirstSearch()}. Only return values for a
@@ -56,7 +56,7 @@ public class GraphUtilsTest {
    * ..., 2^8 as result. We will regard the exponent as key and the power as value.
    */
   @Test
-  public void testBreadthFirstSearch() {
+  void testBreadthFirstSearch() {
 
     // Spies of the functionality hooks. We spy because we want to make sure that the breadth first
     // search does not revisit nodes.

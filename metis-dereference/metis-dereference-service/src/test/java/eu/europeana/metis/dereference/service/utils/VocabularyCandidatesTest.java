@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import eu.europeana.metis.dereference.Vocabulary;
 
-public class VocabularyCandidatesTest {
+class VocabularyCandidatesTest {
 
   @Test
-  public void findVocabulariesForUrlTest() throws URISyntaxException {
+  void findVocabulariesForUrlTest() throws URISyntaxException {
 
     // The host name. Note: this is the only one we need to try as no other host names are
     // returned by the function.
@@ -77,7 +77,7 @@ public class VocabularyCandidatesTest {
   }
 
   @Test
-  public void findVocabulariesForUrlWithoutVocabularies() throws URISyntaxException {
+  void findVocabulariesForUrlWithoutVocabularies() throws URISyntaxException {
 
     // Create mock of vocabulary provider (cannot use lambda as class would be final)
     final Function<String, List<Vocabulary>> vocabularyProvider = new VocabularyProvider(null);
@@ -90,7 +90,7 @@ public class VocabularyCandidatesTest {
   }
 
   @Test
-  public void processTypeRulesTest() {
+  void processTypeRulesTest() {
 
     // Create vocabularies that should match (with and without rules)
     final String correctTypeIdentifier = "#myCorrectType";
@@ -134,7 +134,7 @@ public class VocabularyCandidatesTest {
   }
 
   @Test
-  public void testIsEmpty() {
+  void testIsEmpty() {
     final Vocabulary vocabulary = new Vocabulary();
     vocabulary.setId("vId");
     assertTrue(new VocabularyCandidates("r1", Collections.emptyList()).isEmpty());
@@ -142,7 +142,7 @@ public class VocabularyCandidatesTest {
   }
 
   @Test
-  public void testGetSuffixes() {
+  void testGetSuffixes() {
 
     // Creat vocabularies with suffixes
     final String suffixA = "sa";
@@ -181,7 +181,7 @@ public class VocabularyCandidatesTest {
 
     private final List<Vocabulary> result;
 
-    public VocabularyProvider(List<Vocabulary> result) {
+    VocabularyProvider(List<Vocabulary> result) {
       this.result = result;
     }
 

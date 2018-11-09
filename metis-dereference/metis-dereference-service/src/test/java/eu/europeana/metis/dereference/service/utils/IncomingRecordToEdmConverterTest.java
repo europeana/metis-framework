@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-public class IncomingRecordToEdmConverterTest {
+class IncomingRecordToEdmConverterTest {
 
 
   @Test
-  public void testIsEmptyXml() {
+  void testIsEmptyXml() {
 
     assertTrue(IncomingRecordToEdmConverter.isEmptyXml(""));
     assertTrue(IncomingRecordToEdmConverter.isEmptyXml("<??>"));

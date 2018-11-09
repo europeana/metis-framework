@@ -1,5 +1,8 @@
 package eu.europeana.metis.dereference.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import com.mongodb.MongoClient;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.ContextualClass;
@@ -11,9 +14,8 @@ import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.util.Collections;
 import java.util.List;
-import org.junit.After;
-import org.junit.jupiter.api.Assertions;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import redis.clients.jedis.Jedis;
@@ -21,7 +23,7 @@ import redis.clients.jedis.Jedis;
 /**
  * Created by ymamakis on 2/22/16.
  */
-public class MongoDereferencingManagementServiceTest {
+class MongoDereferencingManagementServiceTest {
     private MongoDereferencingManagementService service;
     private RedisProvider redisProvider;
     private Jedis jedis;
@@ -29,7 +31,7 @@ public class MongoDereferencingManagementServiceTest {
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
     @BeforeEach
-    public void prepare() {
+    void prepare() {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
         int mongoPort = embeddedLocalhostMongo.getMongoPort();
@@ -46,7 +48,7 @@ public class MongoDereferencingManagementServiceTest {
     }
 
     @Test
-    public void testCreateRetrieveVocabulary() {
+    void testCreateRetrieveVocabulary() {
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");
@@ -58,18 +60,18 @@ public class MongoDereferencingManagementServiceTest {
         voc.setSuffix("testSuffix");
         service.saveVocabulary(voc);
         Vocabulary retVoc = service.findByName(voc.getName());
-        Assert.assertEquals(voc.getName(),retVoc.getName());
-        Assert.assertEquals(voc.getIterations(),retVoc.getIterations());
-        Assert.assertEquals(voc.getRules(),retVoc.getRules());
-        Assert.assertEquals(voc.getType(),retVoc.getType());
-        Assert.assertEquals(voc.getTypeRules(),retVoc.getTypeRules());
-        Assert.assertEquals(voc.getUri(),retVoc.getUri());
-        Assert.assertEquals(voc.getXslt(),retVoc.getXslt());
-        Assert.assertEquals(voc.getSuffix(),retVoc.getSuffix());
+        assertEquals(voc.getName(),retVoc.getName());
+        assertEquals(voc.getIterations(),retVoc.getIterations());
+        assertEquals(voc.getRules(),retVoc.getRules());
+        assertEquals(voc.getType(),retVoc.getType());
+        assertEquals(voc.getTypeRules(),retVoc.getTypeRules());
+        assertEquals(voc.getUri(),retVoc.getUri());
+        assertEquals(voc.getXslt(),retVoc.getXslt());
+        assertEquals(voc.getSuffix(),retVoc.getSuffix());
     }
 
     @Test
-    public void testCreateUpdateRetrieveVocabulary() {
+    void testCreateUpdateRetrieveVocabulary() {
         Mockito.doAnswer(invocation -> null).when(jedis).flushAll();
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
@@ -84,18 +86,18 @@ public class MongoDereferencingManagementServiceTest {
         voc.setUri("testUri2");
         service.updateVocabulary(voc);
         Vocabulary retVoc = service.findByName(voc.getName());
-        Assert.assertEquals(voc.getName(),retVoc.getName());
-        Assert.assertEquals(voc.getIterations(),retVoc.getIterations());
-        Assert.assertEquals(voc.getRules(),retVoc.getRules());
-        Assert.assertEquals(voc.getType(),retVoc.getType());
-        Assert.assertEquals(voc.getTypeRules(),retVoc.getTypeRules());
-        Assert.assertEquals(voc.getUri(),retVoc.getUri());
-        Assert.assertEquals(voc.getXslt(),retVoc.getXslt());
-        Assert.assertEquals(voc.getSuffix(),retVoc.getSuffix());
+        assertEquals(voc.getName(),retVoc.getName());
+        assertEquals(voc.getIterations(),retVoc.getIterations());
+        assertEquals(voc.getRules(),retVoc.getRules());
+        assertEquals(voc.getType(),retVoc.getType());
+        assertEquals(voc.getTypeRules(),retVoc.getTypeRules());
+        assertEquals(voc.getUri(),retVoc.getUri());
+        assertEquals(voc.getXslt(),retVoc.getXslt());
+        assertEquals(voc.getSuffix(),retVoc.getSuffix());
     }
 
     @Test
-    public void testGetAllVocabularies() {
+    void testGetAllVocabularies() {
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");
@@ -106,11 +108,11 @@ public class MongoDereferencingManagementServiceTest {
         voc.setXslt("testXSLT");
         service.saveVocabulary(voc);
         List<Vocabulary> retVoc = service.getAllVocabularies();
-        Assert.assertEquals(1,retVoc.size());
+        assertEquals(1,retVoc.size());
     }
 
     @Test
-    public void testDeleteVocabularies() {
+    void testDeleteVocabularies() {
         Mockito.doAnswer(invocation -> null).when(jedis).flushAll();
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
@@ -122,14 +124,14 @@ public class MongoDereferencingManagementServiceTest {
         voc.setXslt("testXSLT");
         service.saveVocabulary(voc);
         List<Vocabulary> retVoc = service.getAllVocabularies();
-        Assert.assertEquals(1,retVoc.size());
+        assertEquals(1,retVoc.size());
         service.deleteVocabulary(voc.getName());
         List<Vocabulary> retVoc2 = service.getAllVocabularies();
-        Assert.assertEquals(0,retVoc2.size());
+        assertEquals(0,retVoc2.size());
     }
 
     @Test
-    public void removeEntity() {
+    void removeEntity() {
         OriginalEntity entity = new OriginalEntity();
         entity.setURI("testUri");
         entity.setXml("testXml");
@@ -137,11 +139,11 @@ public class MongoDereferencingManagementServiceTest {
 
         service.removeEntity(entity.getURI());
 
-        Assert.assertEquals(null,entityDao.get(entity.getURI()));
+        assertNull(entityDao.get(entity.getURI()));
     }
 
     @Test
-    public void updateEntity() {
+    void updateEntity() {
         OriginalEntity entity = new OriginalEntity();
         entity.setURI("testUri");
         entity.setXml("testXml");
@@ -149,11 +151,11 @@ public class MongoDereferencingManagementServiceTest {
 
         service.updateEntity(entity.getURI(),"testXml2");
         OriginalEntity entity1 = entityDao.get(entity.getURI());
-        Assert.assertEquals("testXml2", entity1.getXml());
+        assertEquals("testXml2", entity1.getXml());
     }
 
     @AfterEach
-    public void destroy() {
+    void destroy() {
         embeddedLocalhostMongo.stop();
     }
 }
