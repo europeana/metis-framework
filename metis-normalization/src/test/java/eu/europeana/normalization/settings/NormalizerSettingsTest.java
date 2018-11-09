@@ -1,17 +1,18 @@
 package eu.europeana.normalization.settings;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import eu.europeana.normalization.languages.LanguagesVocabulary;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
+import org.junit.jupiter.api.Test;
 
-public class NormalizerSettingsTest {
+class NormalizerSettingsTest {
 
   @Test
-  public void testNonNullValues() throws NormalizationConfigurationException {
+  void testNonNullValues() throws NormalizationConfigurationException {
 
     // Check default values.
     final NormalizerSettings settings = new NormalizerSettings();
@@ -35,7 +36,7 @@ public class NormalizerSettingsTest {
     assertEquals(AmbiguityHandling.CHOOSE_FIRST, settings.getLanguageAmbiguityHandling());
     assertSame(settings, newSettings);
     newSettings = settings.setLanguageElementsToNormalize(LanguageElement.XML_LANG);
-    assertArrayEquals(new LanguageElement[] {LanguageElement.XML_LANG},
+    assertArrayEquals(new LanguageElement[]{LanguageElement.XML_LANG},
         settings.getLanguageElementsToNormalize());
     assertSame(settings, newSettings);
     newSettings = settings.setMinLanguageLabelLength(6);
@@ -53,35 +54,40 @@ public class NormalizerSettingsTest {
     assertEquals(0, settings.getMinLanguageLabelLength());
   }
 
-  @Test(expected = NormalizationConfigurationException.class)
-  public void testSetMinimumConfidenceToNegativeValue() throws NormalizationConfigurationException {
-    new NormalizerSettings().setMinimumConfidence(-1.0F);
+  @Test
+  void testSetMinimumConfidenceToNegativeValue() {
+    assertThrows(NormalizationConfigurationException.class,
+        () -> new NormalizerSettings().setMinimumConfidence(-1.0F));
   }
 
-  @Test(expected = NormalizationConfigurationException.class)
-  public void testSetMinimumConfidenceToLargeValue() throws NormalizationConfigurationException {
-    new NormalizerSettings().setMinimumConfidence(2.0F);
+  @Test
+  void testSetMinimumConfidenceToLargeValue() {
+    assertThrows(NormalizationConfigurationException.class,
+        () -> new NormalizerSettings().setMinimumConfidence(2.0F));
   }
 
-  @Test(expected = NormalizationConfigurationException.class)
-  public void testSetLanguageElementsToNormalizeToNull()
-      throws NormalizationConfigurationException {
-    new NormalizerSettings().setLanguageElementsToNormalize((LanguageElement[]) null);
+  @Test
+  void testSetLanguageElementsToNormalizeToNull() {
+    assertThrows(NormalizationConfigurationException.class,
+        () -> new NormalizerSettings().setLanguageElementsToNormalize((LanguageElement[]) null));
   }
 
-  @Test(expected = NormalizationConfigurationException.class)
-  public void testSetTargetLanguageVocabularyToNull() throws NormalizationConfigurationException {
-    new NormalizerSettings().setTargetLanguageVocabulary(null);
+  @Test
+  void testSetTargetLanguageVocabularyToNull() {
+    assertThrows(NormalizationConfigurationException.class,
+        () -> new NormalizerSettings().setTargetLanguageVocabulary(null));
   }
 
-  @Test(expected = NormalizationConfigurationException.class)
-  public void testSetLanguageAmbiguityHandlingToNull() throws NormalizationConfigurationException {
-    new NormalizerSettings().setLanguageAmbiguityHandling(null);
+  @Test
+  void testSetLanguageAmbiguityHandlingToNull() {
+    assertThrows(NormalizationConfigurationException.class,
+        () -> new NormalizerSettings().setLanguageAmbiguityHandling(null));
   }
 
-  @Test(expected = NormalizationConfigurationException.class)
-  public void testSetCleanMarkupTagsModeToNull() throws NormalizationConfigurationException {
-    new NormalizerSettings().setCleanMarkupTagsMode(null);
+  @Test
+  void testSetCleanMarkupTagsModeToNull() {
+    assertThrows(NormalizationConfigurationException.class,
+        () -> new NormalizerSettings().setCleanMarkupTagsMode(null));
   }
 
 }

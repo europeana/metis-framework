@@ -1,11 +1,13 @@
 package eu.europeana.normalization.normalizers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import eu.europeana.normalization.settings.CleanMarkupTagsMode;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.junit.Assert;
-import org.junit.Test;
-import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer;
-import eu.europeana.normalization.settings.CleanMarkupTagsMode;
+import org.junit.jupiter.api.Test;
 
 public class CleanMarkupTagsNormalizerTest {
 
@@ -22,13 +24,13 @@ public class CleanMarkupTagsNormalizerTest {
         .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
     System.out.println(html);
     System.out.println(cleaned);
-    Assert.assertEquals(1, cleaned.size());
-    Assert.assertTrue(cleaned.get(0).contains("ire this"));
-    Assert.assertTrue(cleaned.get(0).contains("<made-up-tag>guy</made-up-tag>"));
-    Assert.assertFalse(cleaned.get(0).contains("this is ugly html"));
-    Assert.assertFalse(cleaned.get(0).contains("div"));
-    Assert.assertFalse(cleaned.get(0).contains("alt"));
-    Assert.assertFalse(cleaned.get(0).contains("</div>"));
+    assertEquals(1, cleaned.size());
+    assertTrue(cleaned.get(0).contains("ire this"));
+    assertTrue(cleaned.get(0).contains("<made-up-tag>guy</made-up-tag>"));
+    assertFalse(cleaned.get(0).contains("this is ugly html"));
+    assertFalse(cleaned.get(0).contains("div"));
+    assertFalse(cleaned.get(0).contains("alt"));
+    assertFalse(cleaned.get(0).contains("</div>"));
   }
 
   @Test
@@ -37,11 +39,11 @@ public class CleanMarkupTagsNormalizerTest {
     List<String> cleaned = cleaner.normalizeValue(html).stream()
         .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
     System.out.println(cleaned);
-    Assert.assertEquals(1, cleaned.size());
-    Assert.assertTrue(cleaned.get(0).contains("ire this guy"));
-    Assert.assertFalse(cleaned.get(0).contains("this is ugly html"));
-    Assert.assertFalse(cleaned.get(0).contains("div"));
-    Assert.assertFalse(cleaned.get(0).contains("alt"));
-    Assert.assertFalse(cleaned.get(0).contains("</div>"));
+    assertEquals(1, cleaned.size());
+    assertTrue(cleaned.get(0).contains("ire this guy"));
+    assertFalse(cleaned.get(0).contains("this is ugly html"));
+    assertFalse(cleaned.get(0).contains("div"));
+    assertFalse(cleaned.get(0).contains("alt"));
+    assertFalse(cleaned.get(0).contains("</div>"));
   }
 }

@@ -1,17 +1,19 @@
 package eu.europeana.normalization.languages;
 
-import static org.junit.Assert.assertEquals;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Function;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.settings.AmbiguityHandling;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-public class LanguageMatcherTest {
+class LanguageMatcherTest {
 
   private static final String LANGUAGE_1_CODE_1 = "ca";
   private static final String LANGUAGE_1_CODE_2B = "cab";
@@ -40,7 +42,7 @@ public class LanguageMatcherTest {
   private static Languages languages;
 
   @BeforeAll
-  public static void prepareTests() throws NormalizationConfigurationException {
+  static void prepareTests() throws NormalizationConfigurationException {
 
     final Language language1 = new Language();
     language1.setIso6391(LANGUAGE_1_CODE_1);
@@ -91,7 +93,7 @@ public class LanguageMatcherTest {
   }
 
   @Test
-  public void testSingleMatches() {
+  void testSingleMatches() {
 
     // Create matcher
     final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
@@ -119,7 +121,7 @@ public class LanguageMatcherTest {
   }
 
   @Test
-  public void testMultipleMatches() {
+  void testMultipleMatches() {
 
     // Create matcher
     final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
@@ -150,7 +152,7 @@ public class LanguageMatcherTest {
   }
 
   @Test
-  public void testAmbiguousLabels() {
+  void testAmbiguousLabels() {
 
     // Test ambiguity handling NO_MATCH.
     final LanguageMatcher matcherChooseNone = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
@@ -166,7 +168,7 @@ public class LanguageMatcherTest {
 
 
   @Test
-  public void testNonexistingCodesAndLabels() {
+  void testNonexistingCodesAndLabels() {
 
     // Test what happens when a nonexisting code is matched.
     final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
@@ -176,7 +178,7 @@ public class LanguageMatcherTest {
   }
 
   @Test
-  public void testLanguageWithoutCode() {
+  void testLanguageWithoutCode() {
 
     // Test what happens when a language doesn't have a code in the target vocabulary
     final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
@@ -188,36 +190,40 @@ public class LanguageMatcherTest {
     assertSingleMatch(matcher, LANGUAGE_2_LABEL_1, null, Type.NO_MATCH);
   }
 
-  @Test(expected = RuntimeException.class)
-  public void testLanguageCodeWithBadCharacters() {
+  @Test
+  void testLanguageCodeWithBadCharacters() {
     final Language language = new Language();
     language.setIso6391("A1a");
-    new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_1,
-        createLanguages(language), Function.identity());
+    assertThrows(RuntimeException.class,
+        () -> new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_1,
+            createLanguages(language), Function.identity()));
   }
 
-  @Test(expected = RuntimeException.class)
-  public void testLanguageCodeOfWrongLength() {
+  @Test
+  void testLanguageCodeOfWrongLength() {
     final Language language = new Language();
     language.setIso6391("aaaa");
-    new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_1,
-        createLanguages(language), Function.identity());
+    assertThrows(RuntimeException.class,
+        () -> new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_1,
+            createLanguages(language), Function.identity()));
+
   }
 
-  @Test(expected = RuntimeException.class)
-  public void testConflictingLanguageCodes() {
+  @Test
+  void testConflictingLanguageCodes() {
     final Language language1 = new Language();
     language1.setIso6391("aaa");
     language1.setIso6393("aaa");
     final Language language2 = new Language();
     language2.setIso6391("aaa");
     language2.setIso6393("aab");
-    new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_3,
-        createLanguages(language1, language2), Function.identity());
+    assertThrows(RuntimeException.class,
+        () -> new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_3,
+            createLanguages(language1, language2), Function.identity()));
   }
 
   @Test
-  public void testShortLanguageLabels() {
+  void testShortLanguageLabels() {
     final LanguageMatcher matcherShort = new LanguageMatcher(SHORT_LABEL.length(),
         AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_3, languages, Function.identity());
     assertSingleMatch(matcherShort, SHORT_LABEL, LANGUAGE_1_CODE_3, Type.LABEL_MATCH);

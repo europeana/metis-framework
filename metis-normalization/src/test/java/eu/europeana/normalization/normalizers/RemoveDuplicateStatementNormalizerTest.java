@@ -1,19 +1,20 @@
 package eu.europeana.normalization.normalizers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+
+import eu.europeana.normalization.normalizers.RemoveDuplicateStatementNormalizer.TextAttributesPair;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Attr;
 import org.w3c.dom.NamedNodeMap;
-import eu.europeana.normalization.normalizers.RemoveDuplicateStatementNormalizer.TextAttributesPair;
 
 
 public class RemoveDuplicateStatementNormalizerTest {
