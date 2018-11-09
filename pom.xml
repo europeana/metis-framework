@@ -65,6 +65,7 @@
 
     <version.surefire.plugin>2.18</version.surefire.plugin>
     <version.junit>5.1.0</version.junit>
+    <version.junit.test>5.1.0.RELEASE</version.junit.test>
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
     <version.jacoco>0.8.0</version.jacoco>
     <version.awaitability>1.7.0</version.awaitability>
@@ -149,6 +150,12 @@
         <groupId>org.junit.vintage</groupId>
         <artifactId>junit-vintage-engine</artifactId>
         <version>${version.junit5.vintage.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${version.junit.test}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
