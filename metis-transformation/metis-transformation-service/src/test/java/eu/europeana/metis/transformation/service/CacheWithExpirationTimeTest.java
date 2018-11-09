@@ -1,16 +1,20 @@
 package eu.europeana.metis.transformation.service;
 
-import static org.junit.Assert.assertEquals;
-import java.time.Duration;
-import org.junit.Test;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import eu.europeana.metis.transformation.service.CacheItemWithExpirationTimeTest.SpyableCacheValueSupplier;
 import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
+import java.time.Duration;
+import org.junit.jupiter.api.Test;
 
-public class CacheWithExpirationTimeTest {
+class CacheWithExpirationTimeTest {
 
   @Test
-  public void testConstruction() {
+  void testConstruction() {
 
     // Constructor with arguments
     final Duration expirationTime = CacheWithExpirationTime.DEFAULT_EXPIRATION_TIME.plusHours(1);
@@ -33,7 +37,7 @@ public class CacheWithExpirationTimeTest {
   }
 
   @Test
-  public void testGetFromCache() throws CacheValueSupplierException {
+  void testGetFromCache() throws CacheValueSupplierException {
 
     final CacheWithExpirationTime<String, String> cache = new CacheWithExpirationTime<>();
 
@@ -60,14 +64,14 @@ public class CacheWithExpirationTimeTest {
     final String returnedValue3 = cache.getFromCache(testKey1, supplier3);
     assertEquals(testValue1, returnedValue3);
     verify(supplier3, never()).get();
-    
+
     // Purge items with large interval (should not remove anything)
     final SpyableCacheValueSupplier supplier4 = spy(new SpyableCacheValueSupplier(testValue1));
     cache.removeItemsNotAccessedSince(Duration.ZERO.plusDays(1));
     final String returnedValue4 = cache.getFromCache(testKey1, supplier4);
     assertEquals(testValue1, returnedValue4);
     verify(supplier4, never()).get();
-    
+
     // Purge items with small interval (should remove everything)
     final SpyableCacheValueSupplier supplier5 = spy(new SpyableCacheValueSupplier(testValue1));
     cache.removeItemsNotAccessedSince(Duration.ZERO.minusMillis(1));

@@ -9,12 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import org.bson.types.ObjectId;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
@@ -30,6 +25,11 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import java.time.LocalDateTime;
+import org.bson.types.ObjectId;
+import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -44,7 +44,7 @@ public class TestScheduleWorkflowService {
   private static Authorizer authorizer;
 
   @BeforeAll
-  public static void prepare() throws IOException {
+  public static void prepare() {
     workflowDao = mock(WorkflowDao.class);
     scheduledWorkflowDao = mock(ScheduledWorkflowDao.class);
     datasetDao = mock(DatasetDao.class);

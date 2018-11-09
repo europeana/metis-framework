@@ -1,17 +1,18 @@
 package eu.europeana.metis.core.execution;
 
 import static org.mockito.Mockito.when;
-import java.util.EnumSet;
-import java.util.Set;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mockito.Mockito;
+
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import java.util.EnumSet;
+import java.util.Set;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.mockito.Mockito;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)

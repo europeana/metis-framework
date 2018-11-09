@@ -7,19 +7,20 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import java.io.IOException;
-import java.util.Arrays;
-import org.bson.types.ObjectId;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-import org.redisson.api.RedissonClient;
+
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import java.io.IOException;
+import java.util.Arrays;
+import org.bson.types.ObjectId;
+import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+import org.redisson.api.RedissonClient;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)

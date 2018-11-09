@@ -1,10 +1,11 @@
 package eu.europeana.metis.transformation.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
@@ -12,15 +13,16 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
+import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
 import java.time.Duration;
 import java.time.Instant;
-import org.junit.Test;
-import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
+import org.junit.jupiter.api.Test;
 
-public class CacheItemWithExpirationTimeTest {
+class CacheItemWithExpirationTimeTest {
 
   @Test
-  public void testIsInstantInInterval() {
+  void testIsInstantInInterval() {
 
     // Spy
     final CacheItemWithExpirationTime<?> cacheItem = spy(new CacheItemWithExpirationTime<>());
@@ -53,7 +55,7 @@ public class CacheItemWithExpirationTimeTest {
   }
 
   @Test
-  public void testValueWasAccessedRecently() {
+  void testValueWasAccessedRecently() {
 
     // Define times
     final Duration duration = Duration.ZERO.plusSeconds(600);
@@ -73,7 +75,7 @@ public class CacheItemWithExpirationTimeTest {
   }
 
   @Test
-  public void testGetValue() throws CacheValueSupplierException {
+  void testGetValue() throws CacheValueSupplierException {
 
     // Spy cache item.
     final CacheItemWithExpirationTime<String> cacheItem = spy(new CacheItemWithExpirationTime<>());
@@ -119,7 +121,7 @@ public class CacheItemWithExpirationTimeTest {
   }
 
   @Test
-  public void testWithNullValue() throws CacheValueSupplierException {
+  void testWithNullValue() throws CacheValueSupplierException {
 
     // Spy - check that creation time is null.
     final CacheItemWithExpirationTime<String> cacheItem = spy(new CacheItemWithExpirationTime<>());
@@ -134,33 +136,35 @@ public class CacheItemWithExpirationTimeTest {
     assertEquals(now, cacheItem.getCreationTime());
   }
 
-  @Test(expected = CacheValueSupplierException.class)
-  public void testFirstLoadWithExceptionStrict() throws CacheValueSupplierException {
-    new CacheItemWithExpirationTime<String>().getValue(Duration.ZERO,
-        new ValueSupplierWithException(), false);
-  }
-
-  @Test(expected = CacheValueSupplierException.class)
-  public void testFirstLoadWithExceptionLenient() throws CacheValueSupplierException {
-    new CacheItemWithExpirationTime<String>().getValue(Duration.ZERO,
-        new ValueSupplierWithException(), true);
+  @Test
+  void testFirstLoadWithExceptionStrict() {
+    assertThrows(CacheValueSupplierException.class, () -> new CacheItemWithExpirationTime<String>()
+        .getValue(Duration.ZERO, new ValueSupplierWithException(), false));
   }
 
   @Test
-  public void testSecondLoadWithExceptionStrict() throws CacheValueSupplierException {
+  void testFirstLoadWithExceptionLenient() {
+    assertThrows(CacheValueSupplierException.class,
+        () -> new CacheItemWithExpirationTime<String>().getValue(Duration.ZERO,
+            new ValueSupplierWithException(), true));
+
+  }
+
+  @Test
+  void testSecondLoadWithExceptionStrict() throws CacheValueSupplierException {
     final CacheItemWithExpirationTime<String> cacheItem = spy(new CacheItemWithExpirationTime<>());
     when(cacheItem.isInstantInInterval(any(), any(), any())).thenReturn(false);
     cacheItem.getValue(Duration.ZERO, new SpyableCacheValueSupplier("test"), false);
     try {
       cacheItem.getValue(Duration.ZERO, new ValueSupplierWithException(), false);
-      fail();
+      fail("");
     } catch (CacheValueSupplierException e) {
       // Nothing to do.
     }
   }
 
   @Test
-  public void testSecondLoadWithExceptionLenient() throws CacheValueSupplierException {
+  void testSecondLoadWithExceptionLenient() throws CacheValueSupplierException {
 
     // Create cache item.
     final CacheItemWithExpirationTime<String> cacheItem = spy(new CacheItemWithExpirationTime<>());
