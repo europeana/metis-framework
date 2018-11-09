@@ -1,8 +1,8 @@
 package eu.europeana.enrichment.service.wikidata;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.Map;
 import javax.xml.bind.JAXBException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.enrichment.service.EntityConverterUtils;

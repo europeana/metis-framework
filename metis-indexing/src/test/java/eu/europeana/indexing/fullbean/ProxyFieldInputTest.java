@@ -1,13 +1,9 @@
 package eu.europeana.indexing.fullbean;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Test;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
+
 import eu.europeana.corelib.definitions.jibx.Alternative;
 import eu.europeana.corelib.definitions.jibx.ConformsTo;
 import eu.europeana.corelib.definitions.jibx.Contributor;
@@ -56,11 +52,16 @@ import eu.europeana.corelib.definitions.jibx.Type;
 import eu.europeana.corelib.definitions.jibx.Type2;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 
-public class ProxyFieldInputTest {
+class ProxyFieldInputTest {
 
   @Test
-  public void testProxy() throws InstantiationException, IllegalAccessException {
+  void testProxy() throws InstantiationException, IllegalAccessException {
     // The fields of the proxy come from the ProvidedCHO
     ProxyType proxy = createProxyFields();
     testMongo(proxy);

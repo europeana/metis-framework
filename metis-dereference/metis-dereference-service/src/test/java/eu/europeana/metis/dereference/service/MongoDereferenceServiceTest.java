@@ -25,9 +25,9 @@ import javax.xml.bind.Marshaller;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import redis.clients.jedis.Jedis;
 

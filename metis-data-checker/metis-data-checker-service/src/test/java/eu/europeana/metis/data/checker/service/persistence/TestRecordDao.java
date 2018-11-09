@@ -1,6 +1,6 @@
 package eu.europeana.metis.data.checker.service.persistence;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.Indexer;

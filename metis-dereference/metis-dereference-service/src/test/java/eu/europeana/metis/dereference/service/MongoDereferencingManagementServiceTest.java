@@ -12,9 +12,9 @@ import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.util.Collections;
 import java.util.List;
 import org.junit.After;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import redis.clients.jedis.Jedis;
 

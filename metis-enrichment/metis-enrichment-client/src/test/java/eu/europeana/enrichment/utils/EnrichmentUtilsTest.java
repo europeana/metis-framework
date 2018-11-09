@@ -20,8 +20,8 @@ import eu.europeana.corelib.definitions.jibx.Type;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class EnrichmentUtilsTest {
 

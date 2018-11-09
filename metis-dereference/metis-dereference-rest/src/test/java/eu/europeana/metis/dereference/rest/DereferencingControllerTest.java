@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import javax.xml.transform.TransformerException;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
