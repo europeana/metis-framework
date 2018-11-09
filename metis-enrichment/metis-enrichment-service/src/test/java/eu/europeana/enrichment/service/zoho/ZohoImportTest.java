@@ -4,20 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.text.ParseException;
-import java.util.Date;
-import java.util.Properties;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.jupiter.api.Test;
-
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.service.EntityService;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.Properties;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Disabled integration. Need to implement betamax with https connectivity for
@@ -34,7 +32,7 @@ public class ZohoImportTest extends BaseZohoAccessSetup {
 	EntityService entityService;
 
 	@Override
-    @BeforeEach
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		Properties props = loadProperties("/metis.properties");

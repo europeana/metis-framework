@@ -6,13 +6,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
+
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.utils.InputValue;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class EnricherTest {
   private RedisInternalEnricher internalEnricher;

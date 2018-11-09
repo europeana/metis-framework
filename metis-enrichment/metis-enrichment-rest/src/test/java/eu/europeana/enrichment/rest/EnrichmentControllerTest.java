@@ -29,35 +29,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class EnrichmentControllerTest {
-  private MockMvc enrichmentControllerMock;
-  private Enricher enrichmerMock;
-  private EntityRemover entityRemoverMock;
-  private Converter converterMock;
-  private EnrichmentController enrichmentController;
+  private static MockMvc enrichmentControllerMock;
+  private static Enricher enrichmerMock;
+  private static EntityRemover entityRemoverMock;
+  private static Converter converterMock;
 
-  @BeforeEach
-  public void setUp() throws Exception {
+  @BeforeAll
+  public static void setUp() {
     enrichmerMock = mock(Enricher.class);
     entityRemoverMock = mock(EntityRemover.class);
     converterMock = mock(Converter.class);
 
-    enrichmentController = new EnrichmentController(enrichmerMock, entityRemoverMock, converterMock);
+    EnrichmentController enrichmentController = new EnrichmentController(enrichmerMock, entityRemoverMock, converterMock);
     enrichmentControllerMock = MockMvcBuilders.standaloneSetup(enrichmentController)
         .setControllerAdvice(new RestResponseExceptionHandler())
         .build();
   }
 
   @AfterEach
-  public void tearDown() throws Exception {
+  public void tearDown() {
+    Mockito.reset(enrichmerMock);
+    Mockito.reset(entityRemoverMock);
+    Mockito.reset(converterMock);
+    Mockito.reset(enrichmentControllerMock);
   }
 
   @Test

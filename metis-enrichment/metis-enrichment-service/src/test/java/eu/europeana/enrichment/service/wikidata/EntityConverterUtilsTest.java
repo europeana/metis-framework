@@ -3,6 +3,10 @@ package eu.europeana.enrichment.service.wikidata;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import eu.europeana.enrichment.service.EntityConverterUtils;
+import eu.europeana.enrichment.service.exception.WikidataAccessException;
+import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -13,14 +17,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.xml.bind.JAXBException;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.enrichment.service.EntityConverterUtils;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
 /**
  * Test utils class for entity converter.

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>eu.europeana.metis</groupId>
@@ -43,7 +45,7 @@
   </distributionManagement>
 
   <properties>
-    <jacocoArgLine /> <!-- Leave as is, it's required from jacoco plugin integration -->
+    <jacocoArgLine/> <!-- Leave as is, it's required from jacoco plugin integration -->
     <version.ecloud>1.2.0-SNAPSHOT</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
     <version.redisson>3.5.7</version.redisson>
@@ -115,6 +117,12 @@
         <groupId>eu.europeana.corelib</groupId>
         <artifactId>corelib-storage</artifactId>
         <version>${version.corelib}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
@@ -129,6 +137,21 @@
           <exclusion>
             <artifactId>junit</artifactId>
             <groupId>junit</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.corelib</groupId>
+        <artifactId>corelib-web</artifactId>
+        <version>${version.corelib}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>junit</artifactId>
+            <groupId>junit</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>solr-solrj</artifactId>
+            <groupId>org.apache.solr</groupId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -334,7 +357,7 @@
           <instrumentation>
             <ignoreTrivial>true</ignoreTrivial>
           </instrumentation>
-          <check />
+          <check/>
         </configuration>
       </plugin>
       <plugin>
@@ -359,7 +382,7 @@
             <target>1.8</target>
             <testSource>1.8</testSource>
             <testTarget>1.8</testTarget>
-        </configuration>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>

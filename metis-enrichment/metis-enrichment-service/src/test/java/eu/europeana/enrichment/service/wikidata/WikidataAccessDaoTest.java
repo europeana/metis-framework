@@ -3,6 +3,11 @@ package eu.europeana.enrichment.service.wikidata;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
+import eu.europeana.enrichment.service.exception.WikidataAccessException;
+import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,13 +16,10 @@ import java.text.ParseException;
 import java.util.Locale;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.enrichment.api.external.model.WikidataOrganization;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
 /**
  * Test class for Wikidata Access Dao.
@@ -25,6 +27,7 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
  * @author GrafR
  *
  */
+@Disabled
 public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
 
   final String WIKIDATA_URL_BNF =
@@ -93,7 +96,7 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     WikidataOrganization wikidataOrganization = dereferenceWikidataOrg(acronym, WIKIDATA_URL_BL);
     Organization organizationImpl = convertToCoreOrganization(wikidataOrganization);
     
-    //verify correct parsing of wikidata organization
+    //verify correct parsing of wikidatorg.mockitorg.mockitooa organization
     assertEquals(WIKIDATA_URL_BL, wikidataOrganization.getOrganization().getAbout());
     assertEquals("GB", wikidataOrganization.getOrganization().getCountry());
 

@@ -1,5 +1,9 @@
 package eu.europeana.enrichment.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import eu.europeana.corelib.definitions.jibx.Contributor;
 import eu.europeana.corelib.definitions.jibx.Coverage;
 import eu.europeana.corelib.definitions.jibx.Created;
@@ -20,7 +24,6 @@ import eu.europeana.corelib.definitions.jibx.Type;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class EnrichmentUtilsTest {
@@ -147,8 +150,8 @@ public class EnrichmentUtilsTest {
 
     List<InputValue> result = EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
 
-    Assert.assertNotNull(result);
-    Assert.assertEquals(10, result.size());
+    assertNotNull(result);
+    assertEquals(10, result.size());
 
     ArrayList<String> resultProcessed = new ArrayList<String>();
     for (InputValue inputValue : result) {
@@ -156,17 +159,17 @@ public class EnrichmentUtilsTest {
           .getOriginalField());
     }
 
-    Assert.assertTrue(resultProcessed.contains("Creator|English|DC_CREATOR"));
-    Assert.assertTrue(resultProcessed.contains("Contributor|Dutch|DC_CONTRIBUTOR"));
-    Assert.assertTrue(resultProcessed.contains("Date|German|DC_DATE"));
-    Assert.assertTrue(resultProcessed.contains("Issued|French|DCTERMS_ISSUED"));
-    Assert.assertTrue(resultProcessed.contains("Created|Italian|DCTERMS_CREATED"));
+    assertTrue(resultProcessed.contains("Creator|English|DC_CREATOR"));
+    assertTrue(resultProcessed.contains("Contributor|Dutch|DC_CONTRIBUTOR"));
+    assertTrue(resultProcessed.contains("Date|German|DC_DATE"));
+    assertTrue(resultProcessed.contains("Issued|French|DCTERMS_ISSUED"));
+    assertTrue(resultProcessed.contains("Created|Italian|DCTERMS_CREATED"));
 
-    Assert.assertTrue(resultProcessed.contains("Coverage|Spanish|DC_COVERAGE"));
-    Assert.assertTrue(resultProcessed.contains("Temporal|Polish|DCTERMS_TEMPORAL"));
-    Assert.assertTrue(resultProcessed.contains("Type|Romanian|DC_TYPE"));
-    Assert.assertTrue(resultProcessed.contains("Spatial|Greek|DCTERMS_SPATIAL"));
-    Assert.assertTrue(resultProcessed.contains("Subject|Bulgarian|DC_SUBJECT"));
+    assertTrue(resultProcessed.contains("Coverage|Spanish|DC_COVERAGE"));
+    assertTrue(resultProcessed.contains("Temporal|Polish|DCTERMS_TEMPORAL"));
+    assertTrue(resultProcessed.contains("Type|Romanian|DC_TYPE"));
+    assertTrue(resultProcessed.contains("Spatial|Greek|DCTERMS_SPATIAL"));
+    assertTrue(resultProcessed.contains("Subject|Bulgarian|DC_SUBJECT"));
   }
 
   @Test
@@ -177,6 +180,6 @@ public class EnrichmentUtilsTest {
     EnrichmentUtils.setAdditionalData(rdf);
     EuropeanaAggregationType europeanaAggregationType = rdf.getEuropeanaAggregationList().stream()
         .findAny().orElse(null);
-    Assert.assertEquals("6", europeanaAggregationType.getCompleteness().getString());
+    assertEquals("6", europeanaAggregationType.getCompleteness().getString());
   }
 }

@@ -5,22 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
+import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.metis.authentication.dao.ZohoApiFields;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import eu.europeana.metis.authentication.dao.ZohoApiFields;
 
 /**
  * Disabled integration. Need to implement betamax with https connectivity for
