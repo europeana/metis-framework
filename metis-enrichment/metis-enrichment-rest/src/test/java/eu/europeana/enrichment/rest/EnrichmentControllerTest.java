@@ -44,7 +44,7 @@ public class EnrichmentControllerTest {
   private Converter converterMock;
   private EnrichmentController enrichmentController;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     enrichmerMock = mock(Enricher.class);
     entityRemoverMock = mock(EntityRemover.class);
@@ -56,7 +56,7 @@ public class EnrichmentControllerTest {
         .build();
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
   }
 

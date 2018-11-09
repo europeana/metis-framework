@@ -44,7 +44,7 @@ public class TestQueueConsumer {
   private static WorkflowExecutorManager workflowExecutorManager;
   private static DpsClient dpsClient;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);
@@ -62,7 +62,7 @@ public class TestQueueConsumer {
     workflowExecutorManager.setEcloudProvider("providerExample");
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(workflowExecutionMonitor);

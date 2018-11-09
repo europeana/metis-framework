@@ -43,7 +43,7 @@ public class TestScheduleWorkflowService {
   private static ScheduleWorkflowService scheduleWorkflowService;
   private static Authorizer authorizer;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() throws IOException {
     workflowDao = mock(WorkflowDao.class);
     scheduledWorkflowDao = mock(ScheduledWorkflowDao.class);
@@ -54,7 +54,7 @@ public class TestScheduleWorkflowService {
         datasetDao, authorizer);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     reset(workflowDao);
     reset(scheduledWorkflowDao);

@@ -70,9 +70,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${version.junit}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -203,11 +202,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!--<dependency> -->
-    <!--<groupId>org.codehaus.jackson</groupId> -->
-    <!--<artifactId>jackson-xc</artifactId> -->
-    <!--<version>1.9.9</version> -->
-    <!--</dependency> -->
     <dependency>
       <groupId>de.flapdoodle.embed</groupId>
       <artifactId>de.flapdoodle.embed.mongo</artifactId>
@@ -232,7 +226,7 @@
     <dependency>
       <groupId>redis.clients</groupId>
       <artifactId>jedis</artifactId>
-      <version>2.7.2</version>
+      <version>${version.jedis}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.jena</groupId>
@@ -273,18 +267,6 @@
     <!--<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url> -->
     <!--</repository> -->
   </repositories>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
 
 

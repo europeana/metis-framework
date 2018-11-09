@@ -94,7 +94,7 @@ public class TestDatasetService {
     void test() throws GenericMetisException;
   }
 
-  @Before
+  @BeforeEach
   public void prepare() {
     datasetDao = mock(DatasetDao.class);
     datasetXsltDao = mock(DatasetXsltDao.class);

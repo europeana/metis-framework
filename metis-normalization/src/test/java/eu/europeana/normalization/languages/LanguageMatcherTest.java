@@ -39,7 +39,7 @@ public class LanguageMatcherTest {
 
   private static Languages languages;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepareTests() throws NormalizationConfigurationException {
 
     final Language language1 = new Language();

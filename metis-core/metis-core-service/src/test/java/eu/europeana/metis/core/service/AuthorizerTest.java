@@ -20,7 +20,7 @@ public class AuthorizerTest {
   private DatasetDao datasetDao;
   private Authorizer authorizer;
 
-  @Before
+  @BeforeEach
   public void prepare() {
     datasetDao = mock(DatasetDao.class);
     authorizer = new Authorizer(datasetDao);

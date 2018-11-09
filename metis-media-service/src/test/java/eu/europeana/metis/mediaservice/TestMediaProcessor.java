@@ -35,7 +35,7 @@ public class TestMediaProcessor {
 	private final EdmObject.Parser parser = new EdmObject.Parser();
 	private final EdmObject.Writer writer = new EdmObject.Writer();
 	
-	@BeforeClass
+	@BeforeAll
 	public static void setUp() throws MediaException {
 		AudioVideoProcessor.setCommand("ffprobe");
 		ThumbnailGenerator.setCommand("magick");
@@ -45,12 +45,12 @@ public class TestMediaProcessor {
 		testedProcessor = new MediaProcessor(commandExecutor);
 	}
 	
-	@After
+	@AfterEach
 	public void resetMocks() {
 	  reset(tika, commandExecutor);
 	}
 	
-	@AfterClass
+	@AfterAll
 	public static void cleanUp() {
 		testedProcessor.close();
 	}

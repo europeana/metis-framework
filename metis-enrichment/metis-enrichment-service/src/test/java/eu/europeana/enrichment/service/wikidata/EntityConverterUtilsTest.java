@@ -52,11 +52,11 @@ public class EntityConverterUtilsTest {
 
   final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {}
 
   private void init() {

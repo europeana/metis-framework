@@ -44,7 +44,7 @@ public class TestValidationExecution {
     @Autowired
     ValidationExecutionService validationExecutionService;
 
-    @Before
+    @BeforeEach
     public void prepare() {
         wireMockRule.resetAll();
         wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))

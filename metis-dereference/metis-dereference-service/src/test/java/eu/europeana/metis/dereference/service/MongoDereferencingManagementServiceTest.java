@@ -28,7 +28,7 @@ public class MongoDereferencingManagementServiceTest {
     private EntityDao entityDao;
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
-    @Before
+    @BeforeEach
     public void prepare() {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
@@ -152,7 +152,7 @@ public class MongoDereferencingManagementServiceTest {
         Assert.assertEquals("testXml2", entity1.getXml());
     }
 
-    @After
+    @AfterEach
     public void destroy() {
         embeddedLocalhostMongo.stop();
     }

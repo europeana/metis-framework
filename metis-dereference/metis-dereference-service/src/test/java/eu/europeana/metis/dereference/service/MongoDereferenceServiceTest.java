@@ -44,7 +44,7 @@ public class MongoDereferenceServiceTest {
     private EnrichmentClient enrichmentClient;
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
-    @Before
+    @BeforeEach
     public void prepare() {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
@@ -109,7 +109,7 @@ public class MongoDereferenceServiceTest {
         Assert.assertNotNull(entity1.getVocabularyId());
     }
 
-    @After
+    @AfterEach
     public void destroy() {
         embeddedLocalhostMongo.stop();
     }

@@ -47,7 +47,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.setUp();
     Properties props = loadProperties("/metis.properties");
@@ -57,7 +57,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     initWikidataAccessService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {}
   
   @Test

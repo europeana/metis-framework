@@ -34,7 +34,7 @@ public class DereferencingManagementControllerTest {
 	  private DereferencingManagementService dereferencingManagementServiceMock;
 	  private MockMvc dereferencingManagementControllerMock;
 
-	  @Before
+	  @BeforeEach
 	  public void setUp() throws Exception {
 	    dereferencingManagementServiceMock = mock(DereferencingManagementService.class);
 	    

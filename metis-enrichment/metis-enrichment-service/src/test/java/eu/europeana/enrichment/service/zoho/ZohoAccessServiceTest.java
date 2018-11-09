@@ -29,15 +29,15 @@ import eu.europeana.metis.authentication.dao.ZohoApiFields;
  * @author GordeaS
  *
  */
-@Ignore
+@Disabled
 public class ZohoAccessServiceTest extends BaseZohoAccessSetup {
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 	}
 

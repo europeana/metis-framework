@@ -18,13 +18,13 @@ public class EnricherTest {
   private RedisInternalEnricher internalEnricher;
   private Enricher enricher;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     internalEnricher = mock(RedisInternalEnricher.class);
     enricher = new Enricher(internalEnricher);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
   }
 

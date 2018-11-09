@@ -28,7 +28,7 @@ public class DereferencingControllerTest {
   private MockMvc dereferencingControllerMock;
   private Map<String, String> namespaceMap;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     dereferenceServiceMock = mock(DereferenceService.class);
 

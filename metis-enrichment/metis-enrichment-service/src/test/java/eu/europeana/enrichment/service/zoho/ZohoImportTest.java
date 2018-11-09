@@ -26,7 +26,7 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
  * @author GordeaS
  *
  */
-@Ignore
+@Disabled
 public class ZohoImportTest extends BaseZohoAccessSetup {
 
 	String mongoHost;
@@ -34,7 +34,7 @@ public class ZohoImportTest extends BaseZohoAccessSetup {
 	EntityService entityService;
 
 	@Override
-    @Before
+    @BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		Properties props = loadProperties("/metis.properties");
@@ -43,7 +43,7 @@ public class ZohoImportTest extends BaseZohoAccessSetup {
 		entityService = new EntityService(mongoHost, mongoPort);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 	    entityService.close();
 	}

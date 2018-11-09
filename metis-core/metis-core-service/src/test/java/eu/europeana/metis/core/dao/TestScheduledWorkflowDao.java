@@ -30,7 +30,7 @@ public class TestScheduledWorkflowDao {
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
   private static MorphiaDatastoreProvider provider;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() throws IOException {
     embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     embeddedLocalhostMongo.start();
@@ -44,12 +44,12 @@ public class TestScheduledWorkflowDao {
     scheduledWorkflowDao.setScheduledWorkflowPerRequest(5);
   }
 
-  @AfterClass
+  @AfterAll
   public static void destroy() {
     embeddedLocalhostMongo.stop();
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Datastore datastore = provider.getDatastore();
     datastore.delete(datastore.createQuery(ScheduledWorkflow.class));

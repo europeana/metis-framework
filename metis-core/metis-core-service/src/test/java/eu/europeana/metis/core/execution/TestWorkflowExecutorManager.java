@@ -34,7 +34,7 @@ public class TestWorkflowExecutorManager {
   private static WorkflowExecutorManager workflowExecutorManager;
   private static DpsClient dpsClient;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
@@ -52,7 +52,7 @@ public class TestWorkflowExecutorManager {
     assertEquals(5, workflowExecutorManager.getDpsMonitorCheckIntervalInSecs());
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(redissonClient);

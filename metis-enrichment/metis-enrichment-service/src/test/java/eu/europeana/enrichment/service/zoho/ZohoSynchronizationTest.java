@@ -29,7 +29,7 @@ import eu.europeana.metis.authentication.dao.ZohoApiFields;
  * @author GordeaS
  *
  */
-@Ignore
+@Disabled
 public class ZohoSynchronizationTest extends BaseZohoAccessSetup {
 
   String mongoHost;
@@ -39,7 +39,7 @@ public class ZohoSynchronizationTest extends BaseZohoAccessSetup {
   Set<String> allowedRoles;
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.setUp();
     Properties props = loadProperties("/metis.properties");
@@ -56,7 +56,7 @@ public class ZohoSynchronizationTest extends BaseZohoAccessSetup {
     allowedRoles.add("Aggregator");
   }
   
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     entityService.close();
   }

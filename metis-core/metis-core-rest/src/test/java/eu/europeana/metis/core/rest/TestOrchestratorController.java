@@ -66,7 +66,7 @@ public class TestOrchestratorController {
   private static MockMvc orchestratorControllerMock;
   private static AuthenticationClient authenticationClient;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() {
     orchestratorService = mock(OrchestratorService.class);
     authenticationClient = mock(AuthenticationClient.class);
@@ -78,7 +78,7 @@ public class TestOrchestratorController {
         .build();
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Mockito.reset(orchestratorService, authenticationClient);
   }

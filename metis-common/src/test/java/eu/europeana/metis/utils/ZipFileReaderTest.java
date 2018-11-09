@@ -1,13 +1,14 @@
 package eu.europeana.metis.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,12 +18,12 @@ import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ZipFileReaderTest {
+class ZipFileReaderTest {
 
   @Test
-  public void testGetRecordsFromEmptyZipFile() throws IOException {
+  void testGetRecordsFromEmptyZipFile() throws IOException {
 
     // Call reader for empty zipfile
     final ZipFile emptyZipFile = mock(ZipFile.class);
@@ -40,7 +41,7 @@ public class ZipFileReaderTest {
   }
 
   @Test
-  public void testGetRecordsFromZipFile() throws IOException {
+  void testGetRecordsFromZipFile() throws IOException {
 
     // We have good entries (regular entries) and bad entries (directories).
     final List<ZipEntry> entries = new ArrayList<>();
@@ -68,7 +69,7 @@ public class ZipFileReaderTest {
   }
 
   @Test
-  public void testAccept() {
+  void testAccept() {
     // Test against directories and special Mac files. Entry examples taken from actual zip file.
     ZipFileReader reader = new ZipFileReader();
     assertFalse(reader.accept(createEntry("Internal_valid/", true)));

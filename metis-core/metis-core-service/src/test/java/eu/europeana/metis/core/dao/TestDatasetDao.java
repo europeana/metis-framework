@@ -36,7 +36,7 @@ public class TestDatasetDao {
   private static MorphiaDatastoreProvider provider;
   private static DataSetServiceClient ecloudDataSetServiceClient;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() {
     embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     embeddedLocalhostMongo.start();
@@ -54,12 +54,12 @@ public class TestDatasetDao {
     dataset = TestObjectFactory.createDataset("testName");
   }
 
-  @AfterClass
+  @AfterAll
   public static void destroy() {
     embeddedLocalhostMongo.stop();
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Datastore datastore = provider.getDatastore();
     datastore.delete(datastore.createQuery(Dataset.class));

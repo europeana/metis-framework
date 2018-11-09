@@ -36,7 +36,7 @@ public class TestProxiesController {
   private static AuthenticationClient authenticationClient;
   private static MockMvc proxiesControllerMock;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() {
     proxiesService = mock(ProxiesService.class);
     authenticationClient = mock(AuthenticationClient.class);

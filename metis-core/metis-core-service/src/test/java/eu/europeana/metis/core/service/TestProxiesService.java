@@ -63,7 +63,7 @@ public class TestProxiesService {
   private static FileServiceClient fileServiceClient;
   private static Authorizer authorizer;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() {
     workflowExecutionDao = mock(WorkflowExecutionDao.class);
     ecloudDataSetServiceClient = mock(DataSetServiceClient.class);
@@ -76,7 +76,7 @@ public class TestProxiesService {
         recordServiceClient, fileServiceClient, dpsClient, "ecloudProvider", authorizer);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     reset(workflowExecutionDao);
     reset(ecloudDataSetServiceClient);

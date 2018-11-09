@@ -28,7 +28,7 @@ public class DataCheckerServiceTest {
   private DataCheckerServiceConfig mockConfig;
   private ValidationClient mockValidationClient;
 
-  @Before
+  @BeforeEach
   public void prepare() {
     mockDao = Mockito.mock(RecordDao.class);
     mockConfig = Mockito.mock(DataCheckerServiceConfig.class);

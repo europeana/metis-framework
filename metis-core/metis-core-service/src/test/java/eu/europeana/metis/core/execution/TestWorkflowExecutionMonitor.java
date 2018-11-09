@@ -53,7 +53,7 @@ public class TestWorkflowExecutionMonitor {
   private static RedissonClient redissonClient;
   private static RLock lock;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
@@ -61,14 +61,14 @@ public class TestWorkflowExecutionMonitor {
     lock = mock(RLock.class);
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     when(redissonClient.getFairLock(FAILSAFE_LOCK)).thenReturn(lock);
     doNothing().when(lock).lock();
     doNothing().when(lock).unlock();
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Mockito.reset(workflowExecutorManager);
     Mockito.reset(redissonClient);

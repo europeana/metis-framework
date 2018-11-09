@@ -1,5 +1,7 @@
 package eu.europeana.metis.authentication.dao;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doThrow;
@@ -9,7 +11,6 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,11 +20,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.TransactionException;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -32,7 +32,7 @@ import org.mockito.Mockito;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-11-03
  */
-public class TestPsqlMetisUserDao {
+class TestPsqlMetisUserDao {
 
   private static SessionFactory sessionFactory;
   private static Session session;
@@ -40,8 +40,8 @@ public class TestPsqlMetisUserDao {
   private static Query query;
   private static PsqlMetisUserDao psqlMetisUserDao;
 
-  @BeforeClass
-  public static void prepareBeforeClass() throws IOException {
+  @BeforeAll
+  static void prepareBeforeClass() {
     sessionFactory = Mockito.mock(SessionFactory.class);
     psqlMetisUserDao = new PsqlMetisUserDao(sessionFactory);
     psqlMetisUserDao.setAccessTokenExpireTimeInMins(10);
@@ -51,20 +51,20 @@ public class TestPsqlMetisUserDao {
     query = Mockito.mock(Query.class);
   }
 
-  @Before
-  public void prepare() {
+  @BeforeEach
+  void prepare() {
     when(sessionFactory.openSession()).thenReturn(session);
   }
 
-  @After
-  public void cleanUp() {
+  @AfterEach
+  void cleanUp() {
     Mockito.reset(session);
     Mockito.reset(transaction);
     Mockito.reset(query);
   }
 
   @Test
-  public void createMetisUser() {
+  void createMetisUser() {
     when(session.beginTransaction()).thenReturn(transaction);
     psqlMetisUserDao.createMetisUser(new MetisUser());
 
@@ -76,11 +76,12 @@ public class TestPsqlMetisUserDao {
     inOrder.verifyNoMoreInteractions();
   }
 
-  @Test(expected = TransactionException.class)
-  public void createMetisUserThrowsExceptionOnCommit() {
+  @Test
+  void createMetisUserThrowsExceptionOnCommit() {
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
-    psqlMetisUserDao.createMetisUser(new MetisUser());
+
+    assertThrows(TransactionException.class, () -> psqlMetisUserDao.createMetisUser(new MetisUser()));
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).persist(any(Object.class));
@@ -92,7 +93,7 @@ public class TestPsqlMetisUserDao {
   }
 
   @Test
-  public void updateMetisUser() {
+  void updateMetisUser() {
     when(session.beginTransaction()).thenReturn(transaction);
     psqlMetisUserDao.updateMetisUser(new MetisUser());
 
@@ -104,11 +105,11 @@ public class TestPsqlMetisUserDao {
     inOrder.verifyNoMoreInteractions();
   }
 
-  @Test(expected = TransactionException.class)
-  public void updateMetisUserThrowsExceptionOnCommit() {
+  @Test
+  void updateMetisUserThrowsExceptionOnCommit() {
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
-    psqlMetisUserDao.updateMetisUser(new MetisUser());
+    assertThrows(TransactionException.class, () -> psqlMetisUserDao.updateMetisUser(new MetisUser()));
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).update(any(Object.class));
@@ -120,7 +121,7 @@ public class TestPsqlMetisUserDao {
   }
 
   @Test
-  public void getMetisUserByEmail() {
+  void getMetisUserByEmail() {
     when(session.createQuery(any(String.class))).thenReturn(query);
     ArrayList<MetisUser> metisUsers = new ArrayList<>(1);
     metisUsers.add(new MetisUser());
@@ -135,12 +136,12 @@ public class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("FROM MetisUser"));
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("WHERE email"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("FROM MetisUser"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("WHERE email"));
   }
 
   @Test
-  public void getMetisUserByAccessToken() {
+  void getMetisUserByAccessToken() {
     when(session.createQuery(any(String.class))).thenReturn(query);
     ArrayList<MetisUserAccessToken> metisUserAccessTokens = new ArrayList<>(1);
     MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
@@ -161,14 +162,14 @@ public class TestPsqlMetisUserDao {
     inOrder.verifyNoMoreInteractions();
 
     List<String> allCapturedValues = hqlArgumentCaptor.getAllValues();
-    Assert.assertTrue(allCapturedValues.get(0).contains("FROM MetisUserAccessToken"));
-    Assert.assertTrue(allCapturedValues.get(0).contains("WHERE access_token"));
-    Assert.assertTrue(allCapturedValues.get(1).contains("FROM MetisUser"));
-    Assert.assertTrue(allCapturedValues.get(1).contains("WHERE email"));
+    assertTrue(allCapturedValues.get(0).contains("FROM MetisUserAccessToken"));
+    assertTrue(allCapturedValues.get(0).contains("WHERE access_token"));
+    assertTrue(allCapturedValues.get(1).contains("FROM MetisUser"));
+    assertTrue(allCapturedValues.get(1).contains("WHERE email"));
   }
 
   @Test
-  public void createUserAccessToken() {
+  void createUserAccessToken() {
     when(session.beginTransaction()).thenReturn(transaction);
     psqlMetisUserDao.createUserAccessToken(new MetisUserAccessToken());
 
@@ -180,11 +181,11 @@ public class TestPsqlMetisUserDao {
     inOrder.verifyNoMoreInteractions();
   }
 
-  @Test(expected = TransactionException.class)
-  public void createUserAccessTokenThrowsExceptionOnCommit() {
+  @Test
+  void createUserAccessTokenThrowsExceptionOnCommit() {
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
-    psqlMetisUserDao.createUserAccessToken(new MetisUserAccessToken());
+    assertThrows(TransactionException.class, () -> psqlMetisUserDao.createUserAccessToken(new MetisUserAccessToken()));
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).persist(any(Object.class));
@@ -196,7 +197,7 @@ public class TestPsqlMetisUserDao {
   }
 
   @Test
-  public void expireAccessTokens() {
+  void expireAccessTokens() {
     Criteria criteria = Mockito.mock(Criteria.class);
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createCriteria(MetisUserAccessToken.class)).thenReturn(criteria);
@@ -225,12 +226,12 @@ public class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("DELETE FROM MetisUserAccessToken"));
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("WHERE access_token"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("DELETE FROM MetisUserAccessToken"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("WHERE access_token"));
   }
 
   @Test
-  public void deleteMetisUser() {
+  void deleteMetisUser() {
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createQuery(any(String.class))).thenReturn(query).thenReturn(query);
     when(query.executeUpdate()).thenReturn(1).thenReturn(1);
@@ -247,15 +248,15 @@ public class TestPsqlMetisUserDao {
     verify(session, times(2)).createQuery(hqlArgumentCaptor.capture());
     verify(query, times(2)).executeUpdate();
     List<String> allCapturedValues = hqlArgumentCaptor.getAllValues();
-    Assert.assertTrue(allCapturedValues.get(0).contains("DELETE FROM MetisUserAccessToken"));
-    Assert.assertTrue(allCapturedValues.get(0).contains("WHERE email"));
-    Assert.assertTrue(allCapturedValues.get(1).contains("DELETE FROM MetisUser"));
-    Assert.assertTrue(allCapturedValues.get(1).contains("WHERE email"));
+    assertTrue(allCapturedValues.get(0).contains("DELETE FROM MetisUserAccessToken"));
+    assertTrue(allCapturedValues.get(0).contains("WHERE email"));
+    assertTrue(allCapturedValues.get(1).contains("DELETE FROM MetisUser"));
+    assertTrue(allCapturedValues.get(1).contains("WHERE email"));
 
   }
 
   @Test
-  public void updateAccessTokenTimestamp() {
+  void updateAccessTokenTimestamp() {
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createQuery(any(String.class))).thenReturn(query).thenReturn(query);
     when(query.executeUpdate()).thenReturn(1);
@@ -272,14 +273,13 @@ public class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("UPDATE MetisUserAccessToken"));
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("SET timestamp"));
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("WHERE email"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("UPDATE MetisUserAccessToken"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("SET timestamp"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("WHERE email"));
   }
 
   @Test
-  public void updateAccessTokenTimestampByAccessToken()
-  {
+  void updateAccessTokenTimestampByAccessToken() {
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createQuery(any(String.class))).thenReturn(query).thenReturn(query);
     when(query.executeUpdate()).thenReturn(1);
@@ -295,14 +295,13 @@ public class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("UPDATE MetisUserAccessToken"));
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("SET timestamp"));
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("WHERE access_token"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("UPDATE MetisUserAccessToken"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("SET timestamp"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("WHERE access_token"));
   }
 
   @Test
-  public void updateMetisUserToMakeAdmin()
-  {
+  void updateMetisUserToMakeAdmin() {
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createQuery(any(String.class))).thenReturn(query).thenReturn(query);
     when(query.executeUpdate()).thenReturn(1);
@@ -318,14 +317,13 @@ public class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("UPDATE MetisUser"));
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("SET account_role"));
-    Assert.assertTrue(hqlArgumentCaptor.getValue().contains("WHERE email"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("UPDATE MetisUser"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("SET account_role"));
+    assertTrue(hqlArgumentCaptor.getValue().contains("WHERE email"));
   }
 
   @Test
-  public void getAllMetisUsers()
-  {
+  void getAllMetisUsers() {
     Criteria criteria = Mockito.mock(Criteria.class);
     ArrayList<MetisUser> metisUsers = new ArrayList<>(1);
     metisUsers.add(new MetisUser());

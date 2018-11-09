@@ -90,7 +90,7 @@ public class TestOrchestratorService {
   private static RedissonClient redissonClient;
   private static Authorizer authorizer;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() throws IOException {
     workflowExecutionDao = mock(WorkflowExecutionDao.class);
     workflowDao = mock(WorkflowDao.class);
@@ -113,7 +113,7 @@ public class TestOrchestratorService {
     orchestratorService.setSolrCommitPeriodInMins(SOLR_COMMIT_PERIOD_IN_MINS);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(workflowDao);

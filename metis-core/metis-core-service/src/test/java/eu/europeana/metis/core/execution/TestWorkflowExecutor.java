@@ -43,7 +43,7 @@ public class TestWorkflowExecutor {
   private static PersistenceProvider persistenceProvider;
   private static WorkflowExecutionSettings workflowExecutionSettings;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     dpsClient = Mockito.mock(DpsClient.class);
@@ -53,7 +53,7 @@ public class TestWorkflowExecutor {
     workflowExecutionSettings = Mockito.mock(WorkflowExecutionSettings.class);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(workflowExecutionMonitor);
@@ -61,7 +61,7 @@ public class TestWorkflowExecutor {
     Mockito.reset(workflowExecutionSettings);
   }
 
-  @Before
+  @BeforeEach
   public void setConstants() {
     when(workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs()).thenReturn(0);
   }

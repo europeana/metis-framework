@@ -21,12 +21,12 @@ public class TestExecutionRules {
 
   private static WorkflowExecutionDao workflowExecutionDao;
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Mockito.reset(workflowExecutionDao);
   }

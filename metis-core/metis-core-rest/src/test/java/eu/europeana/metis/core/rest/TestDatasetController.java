@@ -64,7 +64,7 @@ public class TestDatasetController {
   private static AuthenticationClient authenticationClient;
   private static MockMvc datasetControllerMock;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() {
     datasetServiceMock = mock(DatasetService.class);
     authenticationClient = mock(AuthenticationClient.class);
@@ -79,7 +79,7 @@ public class TestDatasetController {
         .build();
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     reset(datasetServiceMock);
     reset(authenticationClient);

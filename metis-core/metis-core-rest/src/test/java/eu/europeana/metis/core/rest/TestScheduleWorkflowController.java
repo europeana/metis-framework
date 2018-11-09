@@ -52,7 +52,7 @@ public class TestScheduleWorkflowController {
   private static MockMvc scheduleWorkflowControllerMock;
   private static AuthenticationClient authenticationClient;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() {
     scheduleWorkflowService = mock(ScheduleWorkflowService.class);
     authenticationClient = mock(AuthenticationClient.class);
@@ -64,7 +64,7 @@ public class TestScheduleWorkflowController {
         .build();
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     reset(scheduleWorkflowService);
     reset(authenticationClient);

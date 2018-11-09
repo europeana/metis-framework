@@ -1,5 +1,9 @@
 package eu.europeana.metis.authentication.user;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.exception.BadContentException;
@@ -9,32 +13,33 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-11-02
  */
-public class TestMetisUser {
+class TestMetisUser {
 
   private static final String DATA_JSON_NODE_ZOHO_USER_EXAMPLE = "data/jsonNodeZohoUserExample";
   private static final String DATA_JSON_NODE_ZOHO_USER_IS_ADMIN_EXAMPLE = "data/jsonNodeZohoUserIsAdminExample";
 
   @Test
-  public void metisUserConstructor() throws Exception {
+  void metisUserConstructor() throws Exception {
     MetisUser metisUser = new MetisUser(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    Assert.assertTrue(metisUser.isMetisUserFlag());
-    Assert.assertEquals(AccountRole.EUROPEANA_DATA_OFFICER, metisUser.getAccountRole());
-    Assert.assertEquals("simon.metis@europeana.eu", metisUser.getEmail());
-    Assert.assertTrue(metisUser.isNetworkMember());
-    Assert.assertNotNull(metisUser.getUserId());
-    Assert.assertEquals("Europeana Foundation", metisUser.getOrganizationName());
+    assertTrue(metisUser.isMetisUserFlag());
+    assertEquals(AccountRole.EUROPEANA_DATA_OFFICER, metisUser.getAccountRole());
+    assertEquals("simon.metis@europeana.eu", metisUser.getEmail());
+    assertTrue(metisUser.isNetworkMember());
+    assertNotNull(metisUser.getUserId());
+    assertEquals("Europeana Foundation", metisUser.getOrganizationName());
   }
 
-  @Test(expected = BadContentException.class)
-  public void metisUserConstructorWithAdminRoleFromZohoFails() throws Exception {
-    new MetisUser(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_IS_ADMIN_EXAMPLE));
+  @Test
+  void metisUserConstructorWithAdminRoleFromZohoFails() {
+    Assertions.assertThrows(BadContentException.class,
+        () -> new MetisUser(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_IS_ADMIN_EXAMPLE)));
   }
 
   private JsonNode getZohoJsonNodeExample(String filePath) throws IOException, URISyntaxException {
@@ -49,6 +54,4 @@ public class TestMetisUser {
     }
     throw new FileNotFoundException();
   }
-
-
 }

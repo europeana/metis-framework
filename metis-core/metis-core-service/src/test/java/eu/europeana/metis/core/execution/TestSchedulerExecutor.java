@@ -43,14 +43,14 @@ public class TestSchedulerExecutor {
   private static RedissonClient redissonClient;
   private static final String SCHEDULER_LOCK = "schedulerLock";
 
-  @BeforeClass
+  @BeforeAll
   public static void prepare() {
     orchestratorService = Mockito.mock(OrchestratorService.class);
     scheduleWorkflowService = Mockito.mock(ScheduleWorkflowService.class);
     redissonClient = Mockito.mock(RedissonClient.class);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     Mockito.reset(orchestratorService);
     Mockito.reset(scheduleWorkflowService);

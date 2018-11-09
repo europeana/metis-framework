@@ -37,12 +37,12 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
   final String TEST_COUNTRY = "FR";
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.initWikidataAccessService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {}
 
   // TODO JV it is not a good idea to test on real-time data that comes from a external source. This

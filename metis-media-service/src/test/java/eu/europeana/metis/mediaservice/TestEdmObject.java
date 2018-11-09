@@ -36,7 +36,7 @@ public class TestEdmObject {
 	
 	public static final String EXAMPLE_URL = "http://example.com";
 	
-	@BeforeClass
+	@BeforeAll
 	public static void setUp() throws ParserConfigurationException {
 		dBuilder = dbFactory.newDocumentBuilder();
 	}

@@ -64,7 +64,7 @@ public class ValidationControllerTest {
 
   private static boolean isOneTime = true;
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     if (isOneTime) {
       mockMvc = MockMvcBuilders
