@@ -10,6 +10,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
+
+import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -19,11 +21,10 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.tika.Tika;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 
 public class TestMediaProcessor {
 	
