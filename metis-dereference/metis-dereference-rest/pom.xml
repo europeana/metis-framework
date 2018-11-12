@@ -140,12 +140,6 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <!-- inherits config from parent: can override if required -->
-      </plugin>
     </plugins>
   </build>
 </project>
