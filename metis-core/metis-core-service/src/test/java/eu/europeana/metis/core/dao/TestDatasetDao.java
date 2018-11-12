@@ -3,6 +3,7 @@ package eu.europeana.metis.core.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -20,11 +21,10 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mongodb.morphia.Datastore;
 
@@ -387,7 +387,7 @@ class TestDatasetDao {
     when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
         .thenThrow(new DataSetAlreadyExistsException("Dataset already exist, not recreating"));
 
-    Assertions.assertThrows(ExternalTaskException.class,
+    assertThrows(ExternalTaskException.class,
         () -> datasetDao.checkAndCreateDatasetInEcloud(dataset));
   }
 
@@ -398,7 +398,7 @@ class TestDatasetDao {
     when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
         .thenThrow(new MCSException("An error has occurred during ecloud dataset creation."));
 
-    Assertions.assertThrows(ExternalTaskException.class,
+    assertThrows(ExternalTaskException.class,
         () -> datasetDao.checkAndCreateDatasetInEcloud(dataset));
   }
 }

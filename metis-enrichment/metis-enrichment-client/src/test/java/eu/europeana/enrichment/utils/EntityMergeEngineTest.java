@@ -3,6 +3,7 @@ package eu.europeana.enrichment.utils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.jibx.AgentType;
@@ -36,7 +37,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.jibx.runtime.JiBXException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class EntityMergeEngineTest {
@@ -617,7 +617,7 @@ public class EntityMergeEngineTest {
     inputList.add(new EnrichmentBase() {
     });
     RDF rdf = new RDF();
-    Assertions.assertThrows(IllegalArgumentException.class,
+    assertThrows(IllegalArgumentException.class,
         () -> new EntityMergeEngine().mergeEntities(rdf, inputList));
   }
 }

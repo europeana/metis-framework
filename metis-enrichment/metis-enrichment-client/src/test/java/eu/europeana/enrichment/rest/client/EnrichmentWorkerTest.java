@@ -2,6 +2,7 @@ package eu.europeana.enrichment.rest.client;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -29,7 +30,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.jibx.runtime.JiBXException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -142,7 +142,7 @@ public class EnrichmentWorkerTest {
     EnrichmentWorker enrichmentWorker = new EnrichmentWorker("", "");
 
     String input = null;
-    Assertions.assertThrows(IllegalArgumentException.class, () -> enrichmentWorker.process(input));
+    assertThrows(IllegalArgumentException.class, () -> enrichmentWorker.process(input));
   }
 
   private void testEnrichmentWorkerNullFlow(Mode mode) throws DereferenceOrEnrichException {

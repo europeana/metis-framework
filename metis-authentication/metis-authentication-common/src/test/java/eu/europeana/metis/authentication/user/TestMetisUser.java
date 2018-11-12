@@ -2,6 +2,7 @@ package eu.europeana.metis.authentication.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,7 +14,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -38,7 +38,7 @@ class TestMetisUser {
 
   @Test
   void metisUserConstructorWithAdminRoleFromZohoFails() {
-    Assertions.assertThrows(BadContentException.class,
+    assertThrows(BadContentException.class,
         () -> new MetisUser(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_IS_ADMIN_EXAMPLE)));
   }
 

@@ -2,6 +2,7 @@ package eu.europeana.enrichment.rest.client;
 
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -21,7 +22,6 @@ import eu.europeana.enrichment.utils.InputValue;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -75,7 +75,7 @@ public class EnrichmentClientTest {
     enrichmentClient.setRestTemplate(restTemplate);
 
     List<InputValue> values = new ArrayList<>();
-    Assertions.assertThrows(UnknownException.class, () -> enrichmentClient.enrich(values));
+    assertThrows(UnknownException.class, () -> enrichmentClient.enrich(values));
   }
 
   @Test

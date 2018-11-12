@@ -1,9 +1,9 @@
 package eu.europeana.metis.authentication.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.metis.exception.BadContentException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -20,7 +20,7 @@ class TestAccountRole {
 
   @Test
   void accountRoleCreationFromStringValueFails() {
-    Assertions.assertThrows(BadContentException.class,
+    assertThrows(BadContentException.class,
         () -> AccountRole.getAccountRoleFromEnumName("METIS_AD"));
   }
 }

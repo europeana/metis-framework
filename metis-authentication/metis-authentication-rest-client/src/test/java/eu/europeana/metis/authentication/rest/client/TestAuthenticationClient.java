@@ -2,13 +2,13 @@ package eu.europeana.metis.authentication.rest.client;
 
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import software.betamax.ConfigurationBuilder;
 import software.betamax.TapeMode;
@@ -44,7 +44,7 @@ public class TestAuthenticationClient {
   @Betamax(tape = "testGetUserByAccessTokenInHeaderHttpClientErrorException")
   @Test
   public void testGetUserByAccessTokenInHeaderHttpClientErrorException() {
-    Assertions.assertThrows(UserUnauthorizedException.class,
+    assertThrows(UserUnauthorizedException.class,
         () -> authenticationClient.getUserByAccessTokenInHeader("Bearer OUwbCoeELS28sF"));
   }
 }
