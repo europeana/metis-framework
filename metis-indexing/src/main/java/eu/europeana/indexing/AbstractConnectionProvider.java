@@ -51,12 +51,12 @@ public abstract class AbstractConnectionProvider implements Closeable {
   }
 
   /**
-   * Provides a remover object for removing all records in given datasets.
+   * Provides a remover object for removing indexed records from the data store.
    * 
    * @return A dataset remover.
    */
-  final DatasetRemover getDatasetRemover() {
-    return new DatasetRemover(getMongoClient(), getSolrClient());
+  final IndexedRecordRemover getIndexedRecordRemover() {
+    return new IndexedRecordRemover(getMongoClient(), getSolrClient());
   }
 
   /**

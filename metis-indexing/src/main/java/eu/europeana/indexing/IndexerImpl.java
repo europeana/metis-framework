@@ -102,9 +102,19 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
+  public boolean remove(String rdfAbout) throws IndexerRelatedIndexingException {
+    try {
+      return this.connectionProvider.getIndexedRecordRemover().removeRecord(rdfAbout);
+    } catch (IndexerRelatedIndexingException e) {
+      LOGGER.warn("Error while removing a record.", e);
+      throw e;
+    }
+  }
+
+  @Override
   public int removeAll(String datasetId) throws IndexerRelatedIndexingException {
     try {
-      return this.connectionProvider.getDatasetRemover().removeDataset(datasetId);
+      return this.connectionProvider.getIndexedRecordRemover().removeDataset(datasetId);
     } catch (IndexerRelatedIndexingException e) {
       LOGGER.warn("Error while removing a dataset.", e);
       throw e;
