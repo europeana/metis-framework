@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -39,13 +39,13 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * Created by erikkonijnenburg on 27/07/2017.
  */
-public class DataCheckerControllerTest {
+class DataCheckerControllerTest {
 
-  public static final MediaType APPLICATION_JSON_UTF8 =
+  static final MediaType APPLICATION_JSON_UTF8 =
       new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(),
           StandardCharsets.UTF_8);
 
-  public static String DATASET_ID = "datasetId";
+  static String DATASET_ID = "datasetId";
 
   private DataCheckerService dataCheckerService;
   private MockMvc datasetControllerMock;
@@ -53,7 +53,7 @@ public class DataCheckerControllerTest {
 
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     dataCheckerService = mock(DataCheckerService.class);
     zipService = mock(ZipService.class);
 
@@ -64,7 +64,7 @@ public class DataCheckerControllerTest {
   }
 
   @Test
-  public void dataCheckerUpload_withOkzipfile_returnsResults() throws Exception {
+  void dataCheckerUpload_withOkzipfile_returnsResults() throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
 
@@ -87,7 +87,7 @@ public class DataCheckerControllerTest {
   }
 
   @Test
-  public void dataCheckerUpload_zipServiceFails_throwsZipException() throws Exception {
+  void dataCheckerUpload_zipServiceFails_throwsZipException() throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
 
     when(zipService.readFileToStringList(any(MultipartFile.class)))
@@ -100,7 +100,7 @@ public class DataCheckerControllerTest {
   }
 
   @Test
-  public void dataCheckerUpload_dataCheckerServiceFails_throwsValidationService() throws Exception {
+  void dataCheckerUpload_dataCheckerServiceFails_throwsValidationService() throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
 
