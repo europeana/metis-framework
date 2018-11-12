@@ -53,6 +53,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @WebAppConfiguration
 class ValidationControllerTest {
 
+  static int portForWireMock = TestApplication.portForWireMock;
   private static WireMockServer wireMockServer;
 
   @Autowired
@@ -66,8 +67,8 @@ class ValidationControllerTest {
   private static boolean isOneTime = true;
 
   @BeforeAll
-  static void setUp() {
-    wireMockServer = new WireMockServer(wireMockConfig().port(9999));
+  static void setUp() throws IOException {
+    wireMockServer = new WireMockServer(wireMockConfig().port(portForWireMock));
     wireMockServer.start();
   }
 
@@ -77,7 +78,7 @@ class ValidationControllerTest {
   }
 
   @BeforeEach
-  void setup() throws Exception {
+  void setup() {
     if (isOneTime) {
       mockMvc = MockMvcBuilders
           .standaloneSetup(new ValidationController(validationExecutionService, schemaProvider))

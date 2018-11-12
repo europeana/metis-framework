@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import eu.europeana.metis.utils.NetworkUtil;
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.service.PredefinedSchemas;
 import eu.europeana.validation.service.SchemaProvider;
@@ -25,21 +26,33 @@ import org.junit.jupiter.api.Test;
  */
 class SchemaProviderTest {
 
-  static WireMockServer wireMockServer;
+  private static int portForWireMock = 9999;
+
+  static {
+    try {
+      portForWireMock = NetworkUtil.getAvailableLocalPort();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static WireMockServer wireMockServer;
   private static final PredefinedSchemas PREDEFINED_SCHEMAS_LOCATIONS = new PredefinedSchemas();
 
   static {
     PREDEFINED_SCHEMAS_LOCATIONS
-        .add("EDM-INTERNAL", "http://localhost:9999/internal_test_schema.zip", "EDM-INTERNAL.xsd",
+        .add("EDM-INTERNAL", "http://localhost:" + portForWireMock + "/internal_test_schema.zip",
+            "EDM-INTERNAL.xsd",
             "schematron/schematron-internal.xsl");
     PREDEFINED_SCHEMAS_LOCATIONS
-        .add("EDM-EXTERNAL", "http://localhost:9999/external_test_schema.zip", "EDM.xsd",
+        .add("EDM-EXTERNAL", "http://localhost:" + portForWireMock + "/external_test_schema.zip",
+            "EDM.xsd",
             "schematron/schematron.xsl");
   }
 
   @BeforeAll
   static void setUp() {
-    wireMockServer = new WireMockServer(wireMockConfig().port(9999));
+    wireMockServer = new WireMockServer(wireMockConfig().port(portForWireMock));
     wireMockServer.start();
   }
 
@@ -94,7 +107,8 @@ class SchemaProviderTest {
     //given
     SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
     //when
-    Schema schema = provider.getSchema("http://localhost:9999/custom_schema.zip", "DC.xsd", null);
+    Schema schema = provider
+        .getSchema("http://localhost:" + portForWireMock + "/custom_schema.zip", "DC.xsd", null);
     //then
     assertEquals("localhost_custom_schema", schema.getName());
     assertEquals(entryFileLocation(provider, "localhost_custom_schema", "DC.xsd"),
@@ -111,7 +125,7 @@ class SchemaProviderTest {
             .withBodyFile("test_schema.zip")));
     SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
     assertThrows(SchemaProviderException.class, () -> provider
-        .getSchema("http://localhost:9999/custom_schema.zip", "nonExisting.xsd", null));
+        .getSchema("http://localhost:" + portForWireMock + "/custom_schema.zip", "nonExisting.xsd", null));
   }
 
   @Test
@@ -169,7 +183,7 @@ class SchemaProviderTest {
     //given
     SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
     //when
-    provider.getSchema("http://localhost:9999/userDefinedSchema.zip", "EDM.xsd",
+    provider.getSchema("http://localhost:" + portForWireMock + "/userDefinedSchema.zip", "EDM.xsd",
         "schematron/schematron.xsl");
     //then
     File directory = new File(SchemaProvider.TMP_DIR,

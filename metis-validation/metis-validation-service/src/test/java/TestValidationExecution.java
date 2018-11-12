@@ -50,6 +50,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration
 class TestValidationExecution {
 
+  private static int portForWireMock = TestApplication.portForWireMock;
+
   private static final String EDM_EXTERNAL = "EDM-EXTERNAL";
 
   private static final String EDM_INTERNAL = "EDM-INTERNAL";
@@ -61,7 +63,8 @@ class TestValidationExecution {
 
   @BeforeAll
   static void setUp() {
-    wireMockServer = new WireMockServer(wireMockConfig().port(9999));
+    System.out.println("PSS" + portForWireMock);
+    wireMockServer = new WireMockServer(wireMockConfig().port(portForWireMock));
     wireMockServer.start();
   }
 
@@ -117,7 +120,8 @@ class TestValidationExecution {
         .toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"),
             StandardCharsets.UTF_8);
     ValidationResult result = validationExecutionService
-        .singleValidation("http://localhost:9999/external_test_schema.zip", "EDM-INTERNAL.xsd",
+        .singleValidation("http://localhost:" + portForWireMock + "/external_test_schema.zip",
+            "EDM-INTERNAL.xsd",
             "schematron/schematron-internal.xsl", fileToValidate);
     assertTrue(result.isSuccess());
     assertNull(result.getRecordId());
@@ -130,7 +134,8 @@ class TestValidationExecution {
         .toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"),
             StandardCharsets.UTF_8);
     ValidationResult result = validationExecutionService
-        .singleValidation("http://localhost:9999/test_schema.zip", null, null, fileToValidate);
+        .singleValidation("http://localhost:" + portForWireMock + "/test_schema.zip", null, null,
+            fileToValidate);
     assertFalse(result.isSuccess());
     assertEquals("Missing record identifier for EDM record", result.getRecordId());
     assertEquals("Missing root file location for custom schema", result.getMessage());

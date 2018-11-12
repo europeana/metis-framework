@@ -9,10 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import eu.europeana.metis.utils.NetworkUtil;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import java.io.File;
+import java.io.IOException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,11 +24,21 @@ import org.junit.jupiter.api.Test;
  */
 class ValidationClientTest {
 
+  private static int portForWireMock = 9999;
+
+  static {
+    try {
+      portForWireMock = NetworkUtil.getAvailableLocalPort();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   private static WireMockServer wireMockServer;
 
   @BeforeAll
   static void setUp() {
-    wireMockServer = new WireMockServer(wireMockConfig().port(9999));
+    wireMockServer = new WireMockServer(wireMockConfig().port(portForWireMock));
     wireMockServer.start();
   }
 
@@ -55,7 +67,7 @@ class ValidationClientTest {
                 "  \"success\": false\n" +
                 "}")));
 
-    ValidationClient client = new ValidationClient("http://127.0.0.1:9999");
+    ValidationClient client = new ValidationClient("http://127.0.0.1:" + portForWireMock);
     ValidationResult result = client.validateRecord("EDM-INTERNAL", "malformedXml");
     assertFalse(result.isSuccess());
     assertNull(result.getMessage());
@@ -77,7 +89,7 @@ class ValidationClientTest {
                 "  \"success\": true\n" +
                 "}")));
 
-    ValidationClient client = new ValidationClient("http://127.0.0.1:9999");
+    ValidationClient client = new ValidationClient("http://127.0.0.1:" + portForWireMock);
     ValidationResult result = client.validateRecord("EDM-INTERNAL", "wellFormedXml");
     assertTrue(result.isSuccess());
     assertNull(result.getMessage());
@@ -97,7 +109,7 @@ class ValidationClientTest {
                 "  \"success\": true\n" +
                 "}")));
 
-    ValidationClient client = new ValidationClient("http://127.0.0.1:9999");
+    ValidationClient client = new ValidationClient("http://127.0.0.1:" + portForWireMock);
     ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", new File("ok"));
     assertTrue(result.isSuccess());
     assertTrue(result.getResultList().size() == 0);
@@ -121,7 +133,7 @@ class ValidationClientTest {
                 "  \"success\": true\n" +
                 "}")));
 
-    ValidationClient client = new ValidationClient("http://127.0.0.1:9999");
+    ValidationClient client = new ValidationClient("http://127.0.0.1:" + portForWireMock);
     ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", new File("ok"));
     assertTrue(result.isSuccess());
     assertTrue(result.getResultList().size() == 1);
