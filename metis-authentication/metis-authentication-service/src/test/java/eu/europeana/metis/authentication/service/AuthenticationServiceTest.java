@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -176,7 +176,7 @@ class AuthenticationServiceTest {
         .thenReturn(ORGANIZATION_ID);
     assertThrows(NoUserFoundException.class,
         () -> authenticationService.updateUserFromZoho(EXAMPLE_EMAIL));
-    verify(psqlMetisUserDao).updateMetisUser(any(MetisUser.class));
+    verify(psqlMetisUserDao, times(0)).updateMetisUser(any(MetisUser.class));
   }
 
   @Test
@@ -408,7 +408,7 @@ class AuthenticationServiceTest {
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(null);
     assertThrows(UserUnauthorizedException.class,
         () -> authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN));
-    verifyNoMoreInteractions(psqlMetisUserDao);
+    verify(psqlMetisUserDao, times(1)).getMetisUserByAccessToken(anyString());
   }
 
   @Test

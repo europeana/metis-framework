@@ -15,7 +15,9 @@
 		  See the Licence for the specific language governing permissions and limitations under
 		  the Licence.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>metis-core</artifactId>
@@ -101,6 +103,16 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <version>${version.spring}</version>
@@ -149,9 +161,9 @@
       <version>${version.commons.io}</version>
     </dependency>
     <!--<dependency>-->
-      <!--<groupId>redis.clients</groupId>-->
-      <!--<artifactId>jedis</artifactId>-->
-      <!--<version>${version.jedis}</version>-->
+    <!--<groupId>redis.clients</groupId>-->
+    <!--<artifactId>jedis</artifactId>-->
+    <!--<version>${version.jedis}</version>-->
     <!--</dependency>-->
     <dependency>
       <groupId>com.rabbitmq</groupId>

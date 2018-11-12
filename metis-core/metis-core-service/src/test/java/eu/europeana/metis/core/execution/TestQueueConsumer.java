@@ -2,6 +2,7 @@ package eu.europeana.metis.core.execution;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -29,7 +30,6 @@ import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -95,11 +95,12 @@ class TestQueueConsumer {
     final String rabbitmqQueueName = "testname";
     when(rabbitmqConsumerChannel.basicConsume(eq(rabbitmqQueueName), anyBoolean(),
         any(QueueConsumer.class))).thenThrow(new IOException("Some Error"));
-    Assertions.assertThrows(IOException.class,
-        () -> new QueueConsumer(rabbitmqConsumerChannel, rabbitmqQueueName, workflowExecutorManager,
+    assertThrows(IOException.class,
+        () ->  new QueueConsumer(rabbitmqConsumerChannel, rabbitmqQueueName, workflowExecutorManager,
             workflowExecutorManager, workflowExecutionMonitor));
     ArgumentCaptor<Integer> basicQos = ArgumentCaptor.forClass(Integer.class);
     verify(rabbitmqConsumerChannel, times(1)).basicQos(basicQos.capture());
+    verify(rabbitmqConsumerChannel, times(1)).basicConsume(eq(rabbitmqQueueName), eq(false), any());
     assertEquals(new Integer(1), basicQos.getValue());
     verifyNoMoreInteractions(rabbitmqConsumerChannel);
   }

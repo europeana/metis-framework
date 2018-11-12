@@ -164,10 +164,8 @@ class TestOrchestratorService {
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, workflow.getDatasetId());
     verifyNoMoreInteractions(authorizer);
-    InOrder inOrder = Mockito.inOrder(workflowDao);
-    inOrder.verify(workflowDao, times(1)).exists(workflow);
-    inOrder.verify(workflowDao, times(1)).create(workflow);
-    inOrder.verifyNoMoreInteractions();
+    verify(workflowDao, times(1)).exists(workflow);
+    verifyNoMoreInteractions(workflowDao);
   }
 
   @Test
@@ -237,7 +235,7 @@ class TestOrchestratorService {
     assertThrows(NoWorkflowFoundException.class,
         () -> orchestratorService.updateWorkflow(metisUser, workflow.getDatasetId(), workflow));
     InOrder inOrder = Mockito.inOrder(workflowDao);
-    inOrder.verify(workflowDao, times(1)).exists(workflow);
+    inOrder.verify(workflowDao, times(1)).getWorkflow(anyString());
     inOrder.verifyNoMoreInteractions();
   }
 

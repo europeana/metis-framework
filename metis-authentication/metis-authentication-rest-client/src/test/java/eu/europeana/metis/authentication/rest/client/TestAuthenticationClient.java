@@ -7,7 +7,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import org.junit.BeforeClass;
 import org.junit.Rule;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import software.betamax.ConfigurationBuilder;

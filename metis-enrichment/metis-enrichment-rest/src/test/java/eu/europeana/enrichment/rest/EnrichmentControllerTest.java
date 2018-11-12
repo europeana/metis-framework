@@ -61,7 +61,6 @@ public class EnrichmentControllerTest {
     Mockito.reset(enrichmerMock);
     Mockito.reset(entityRemoverMock);
     Mockito.reset(converterMock);
-    Mockito.reset(enrichmentControllerMock);
   }
 
   @Test

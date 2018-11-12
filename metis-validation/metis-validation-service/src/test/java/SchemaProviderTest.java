@@ -15,7 +15,6 @@ import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.SchemaProviderException;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicReference;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -110,33 +109,16 @@ class SchemaProviderTest {
         .willReturn(aResponse()
             .withStatus(200)
             .withBodyFile("test_schema.zip")));
-    //given
     SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
-    //when
-    AtomicReference<Schema> schema = new AtomicReference<>();
-    assertThrows(SchemaProviderException.class, () -> schema.set(
-        provider.getSchema("http://localhost:9999/custom_schema.zip", "nonExisting.xsd", null)));
-    //then
-    assertEquals("localhost_custom_schema", schema.get().getName());
-    assertEquals(entryFileLocation(provider, "localhost_custom_schema", "nonExisting.xsd"),
-        schema.get().getPath());
-    assertNull(schema.get().getSchematronPath());
-    assertZipFileExistence(schema.get());
+    assertThrows(SchemaProviderException.class, () -> provider
+        .getSchema("http://localhost:9999/custom_schema.zip", "nonExisting.xsd", null));
   }
 
   @Test
   void exceptionShouldBeThrownForMalformedUrl() {
-    //given
     SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
-    //when
-    AtomicReference<Schema> schema = new AtomicReference<>();
     assertThrows(SchemaProviderException.class,
-        () -> schema.set(provider.getSchema("malformedUrl", "EDM.xsd", null)));
-    //then
-    assertEquals("EDM-EXTERNAL", schema.get().getName());
-    assertEquals(entryFileLocation(provider, "edm-external", "EDM.xsd"), schema.get().getPath());
-    assertNull(schema.get().getSchematronPath());
-    assertZipFileExistence(schema.get());
+        () -> provider.getSchema("malformedUrl", "EDM.xsd", null));
   }
 
   @Test

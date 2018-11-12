@@ -34,16 +34,18 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.powermock.reflect.Whitebox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * Created by gmamakis on 18-12-15.
  */
-//@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestApplication.class, loader = AnnotationConfigContextLoader.class)
 @WebAppConfiguration
 class TestValidationExecution {
