@@ -39,5 +39,9 @@
       <artifactId>Saxon-HE</artifactId>
       <version>${version.saxon.he}</version>
     </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
   </dependencies>
 </project>

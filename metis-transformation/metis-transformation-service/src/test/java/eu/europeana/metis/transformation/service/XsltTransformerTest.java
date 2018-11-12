@@ -4,14 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,7 +28,7 @@ public class XsltTransformerTest {
   @Test
   public void shouldTransformGivenFile()
       throws TransformationException, IOException, ParserConfigurationException, SAXException {
-    URL xsltFile = Resources.getResource("sample_xslt.xslt");
+    URL xsltFile = getClass().getClassLoader().getResource("sample_xslt.xslt");
     byte[] fileToTransform = readFile("xmlForTesting.xml");
     StringWriter wr = new XsltTransformer(xsltFile.toString()).transform(fileToTransform, null);
 
@@ -46,7 +45,7 @@ public class XsltTransformerTest {
 
   @Test
   public void shouldTransformGivenFileWithInjection() throws IOException, TransformationException {
-    URL xsltFile = Resources.getResource("inject_node.xslt");
+    URL xsltFile = getClass().getClassLoader().getResource("inject_node.xslt");
     byte[] fileToTransform = readFile("xmlForTestingParamInjection.xml");
     StringWriter wr = new XsltTransformer(xsltFile.toString(), "sample", null, null)
         .transform(fileToTransform, null);
@@ -58,7 +57,7 @@ public class XsltTransformerTest {
 
   @Test
   public void shouldFailForMalformedFile() throws IOException {
-    URL xsltFile = Resources.getResource("inject_node.xslt");
+    URL xsltFile = getClass().getClassLoader().getResource("inject_node.xslt");
     byte[] fileToTransform = readFile("malformedFile.xml");
     assertThrows(TransformationException.class,
         () -> new XsltTransformer(xsltFile.toString(), "sample", null, null)
@@ -67,7 +66,7 @@ public class XsltTransformerTest {
 
   private byte[] readFile(String fileName) throws IOException {
     String myXml = IOUtils
-        .toString(getClass().getClassLoader().getResource(fileName), Charsets.UTF_8);
+        .toString(getClass().getClassLoader().getResource(fileName), StandardCharsets.UTF_8.name());
     byte[] bytes = myXml.getBytes("UTF-8");
     InputStream contentStream = new ByteArrayInputStream(bytes);
     return IOUtils.toByteArray(contentStream);

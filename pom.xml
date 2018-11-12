@@ -77,7 +77,8 @@
     <version.mongojack>2.3.0</version.mongojack>
     <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.commons.io>2.6</version.commons.io>
-    <version.commons.lang>3.7</version.commons.lang>
+    <version.commons.codec>1.11</version.commons.codec>
+    <version.commons.lang3>3.7</version.commons.lang3>
     <version.httpclient>4.5.2</version.httpclient>
     <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
@@ -113,6 +114,26 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${version.commons.io}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${version.commons.codec}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${version.commons.lang3}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${version.commons.io}</version>
+      </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
         <artifactId>corelib-storage</artifactId>
@@ -201,6 +222,12 @@
         <scope>test</scope>
       </dependency>
       <dependency>
+        <groupId>software.betamax</groupId>
+        <artifactId>betamax-junit</artifactId>
+        <version>${version.betamax}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
         <groupId>com.github.tomakehurst</groupId>
         <artifactId>wiremock</artifactId>
         <version>${version.com.github.tomakehurst.wiremock}</version>
@@ -242,12 +269,6 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
       <version>${version.log4j}</version>
-    </dependency>
-    <dependency>
-      <groupId>software.betamax</groupId>
-      <artifactId>betamax-junit</artifactId>
-      <version>${version.betamax}</version>
-      <scope>test</scope>
     </dependency>
 
   </dependencies>
