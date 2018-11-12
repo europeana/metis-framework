@@ -35,7 +35,7 @@ import org.redisson.client.RedisConnectionException;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-17
  */
-public class TestSchedulerExecutor {
+class TestSchedulerExecutor {
 
   private static int periodicSchedulerCheckInSecs = 1;
   private static OrchestratorService orchestratorService;
@@ -44,21 +44,21 @@ public class TestSchedulerExecutor {
   private static final String SCHEDULER_LOCK = "schedulerLock";
 
   @BeforeAll
-  public static void prepare() {
+  static void prepare() {
     orchestratorService = Mockito.mock(OrchestratorService.class);
     scheduleWorkflowService = Mockito.mock(ScheduleWorkflowService.class);
     redissonClient = Mockito.mock(RedissonClient.class);
   }
 
   @AfterEach
-  public void cleanUp() {
+  void cleanUp() {
     Mockito.reset(orchestratorService);
     Mockito.reset(scheduleWorkflowService);
     Mockito.reset(redissonClient);
   }
 
   @Test
-  public void run() throws Exception {
+  void run() throws Exception {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
@@ -110,7 +110,7 @@ public class TestSchedulerExecutor {
   }
 
   @Test
-  public void runAllSchedulesOutOfRange() throws Exception {
+  void runAllSchedulesOutOfRange() throws Exception {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
@@ -162,7 +162,7 @@ public class TestSchedulerExecutor {
   }
 
   @Test
-  public void runThatThrowsExceptionDuringLockAndContinues() {
+  void runThatThrowsExceptionDuringLockAndContinues() {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
@@ -175,7 +175,7 @@ public class TestSchedulerExecutor {
   }
 
   @Test
-  public void runThatThrowsExceptionDuringLockAndUnlockAndContinues() {
+  void runThatThrowsExceptionDuringLockAndUnlockAndContinues() {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,

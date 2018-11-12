@@ -1,5 +1,10 @@
 package eu.europeana.metis.core.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -8,30 +13,28 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mongodb.morphia.Datastore;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-06
  */
-public class TestScheduledWorkflowDao {
+class TestScheduledWorkflowDao {
 
   private static ScheduledWorkflowDao scheduledWorkflowDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
   private static MorphiaDatastoreProvider provider;
 
   @BeforeAll
-  public static void prepare() throws IOException {
+  static void prepare() {
     embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
@@ -45,26 +48,26 @@ public class TestScheduledWorkflowDao {
   }
 
   @AfterAll
-  public static void destroy() {
+  static void destroy() {
     embeddedLocalhostMongo.stop();
   }
 
   @AfterEach
-  public void cleanUp() {
+  void cleanUp() {
     Datastore datastore = provider.getDatastore();
     datastore.delete(datastore.createQuery(ScheduledWorkflow.class));
   }
 
   @Test
-  public void createScheduledUserWorkflow() {
+  void createScheduledUserWorkflow() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     String objectId = scheduledWorkflowDao.create(scheduledWorkflow);
-    Assert.assertNotNull(objectId);
+    assertNotNull(objectId);
   }
 
   @Test
-  public void updateScheduledUserWorkflow() {
+  void updateScheduledUserWorkflow() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
@@ -73,97 +76,96 @@ public class TestScheduledWorkflowDao {
     scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.MONTHLY);
     String objectId = scheduledWorkflowDao.update(scheduledWorkflow);
     ScheduledWorkflow updatedScheduledWorkflow = scheduledWorkflowDao.getById(objectId);
-    Assert.assertEquals(ScheduleFrequence.MONTHLY,
+    assertEquals(ScheduleFrequence.MONTHLY,
         updatedScheduledWorkflow.getScheduleFrequence());
-    Assert.assertTrue(
-        updatedPointerDate.compareTo(updatedScheduledWorkflow.getPointerDate()) == 0);
+    assertEquals(0, updatedPointerDate.compareTo(updatedScheduledWorkflow.getPointerDate()));
   }
 
   @Test
-  public void getById() {
+  void getById() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     String objectId = scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
         .getById(objectId);
-    Assert.assertEquals(scheduledWorkflow.getDatasetId(),
+    assertEquals(scheduledWorkflow.getDatasetId(),
         retrievedScheduledWorkflow.getDatasetId());
-    Assert.assertEquals(scheduledWorkflow.getScheduleFrequence(),
+    assertEquals(scheduledWorkflow.getScheduleFrequence(),
         retrievedScheduledWorkflow.getScheduleFrequence());
-    Assert.assertEquals(scheduledWorkflow.getWorkflowPriority(),
+    assertEquals(scheduledWorkflow.getWorkflowPriority(),
         retrievedScheduledWorkflow.getWorkflowPriority());
-    Assert.assertTrue(scheduledWorkflow.getPointerDate()
-        .compareTo(retrievedScheduledWorkflow.getPointerDate()) == 0);
+    assertEquals(0, scheduledWorkflow.getPointerDate()
+        .compareTo(retrievedScheduledWorkflow.getPointerDate()));
   }
 
   @Test
-  public void delete() {
-    Assert.assertFalse(scheduledWorkflowDao.delete(null));
+  void delete() {
+    assertFalse(scheduledWorkflowDao.delete(null));
   }
 
   @Test
-  public void getScheduledUserWorkflow() {
+  void getScheduledUserWorkflow() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
         .getScheduledWorkflow(scheduledWorkflow.getDatasetId());
-    Assert.assertEquals(scheduledWorkflow.getScheduleFrequence(),
+    assertEquals(scheduledWorkflow.getScheduleFrequence(),
         retrievedScheduledWorkflow.getScheduleFrequence());
-    Assert.assertTrue(scheduledWorkflow.getPointerDate()
-        .compareTo(retrievedScheduledWorkflow.getPointerDate()) == 0);
+    assertEquals(0, scheduledWorkflow.getPointerDate()
+        .compareTo(retrievedScheduledWorkflow.getPointerDate()));
   }
 
   @Test
-  public void getScheduledUserWorkflowByDatasetName() {
+  void getScheduledUserWorkflowByDatasetName() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
         .getScheduledWorkflowByDatasetId(scheduledWorkflow.getDatasetId());
-    Assert.assertEquals(scheduledWorkflow.getScheduleFrequence(),
+    assertEquals(scheduledWorkflow.getScheduleFrequence(),
         retrievedScheduledWorkflow.getScheduleFrequence());
-    Assert.assertTrue(scheduledWorkflow.getPointerDate()
-        .compareTo(retrievedScheduledWorkflow.getPointerDate()) == 0);
+    assertEquals(0, scheduledWorkflow.getPointerDate()
+        .compareTo(retrievedScheduledWorkflow.getPointerDate()));
   }
 
   @Test
-  public void exists() {
+  void exists() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
-    Assert.assertTrue(scheduledWorkflowDao.exists(scheduledWorkflow));
+    assertTrue(scheduledWorkflowDao.exists(scheduledWorkflow));
   }
 
   @Test
-  public void existsForDatasetName() {
+  void existsForDatasetName() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
-    Assert.assertNotNull(
+    assertNotNull(
         scheduledWorkflowDao.existsForDatasetId(scheduledWorkflow.getDatasetId()));
   }
 
   @Test
-  public void deleteScheduledUserWorkflow() {
+  void deleteScheduledUserWorkflow() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
-    Assert.assertTrue(
+    assertTrue(
         scheduledWorkflowDao.deleteScheduledWorkflow(scheduledWorkflow.getDatasetId()));
   }
 
   @Test
-  public void deleteAllByDatasetId() {
+  void deleteAllByDatasetId() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
-    Assert.assertTrue(
+    assertTrue(
         scheduledWorkflowDao.deleteAllByDatasetId(scheduledWorkflow.getDatasetId()));
   }
 
   @Test
-  public void getAllScheduledUserWorkflows() {
+  void getAllScheduledUserWorkflows() {
     int scheduledUserWorkflowToCreate =
         scheduledWorkflowDao.getScheduledWorkflowPerRequest() + 1;
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
@@ -183,12 +185,11 @@ public class TestScheduledWorkflowDao {
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
     } while (nextPage != -1);
 
-    Assert.assertEquals(scheduledUserWorkflowToCreate, allScheduledUserWorkflowsCount);
+    assertEquals(scheduledUserWorkflowToCreate, allScheduledUserWorkflowsCount);
   }
 
   @Test
-  public void getAllScheduledUserWorkflowsByDateRangeONCE()
-  {
+  void getAllScheduledUserWorkflowsByDateRangeONCE() {
     int minutesRange = 10;
     LocalDateTime lowerBound = LocalDateTime.now();
     LocalDateTime upperBound = lowerBound.plusMinutes(minutesRange);
@@ -217,7 +218,7 @@ public class TestScheduledWorkflowDao {
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
     } while (nextPage != -1);
 
-    Assert.assertEquals(scheduledUserWorkflowToCreate, allScheduledUserWorkflowsCount);
+    assertEquals(scheduledUserWorkflowToCreate, allScheduledUserWorkflowsCount);
   }
 
 }

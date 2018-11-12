@@ -16,13 +16,13 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
-public class AuthorizerTest {
+class AuthorizerTest {
 
   private DatasetDao datasetDao;
   private Authorizer authorizer;
 
   @BeforeEach
-  public void prepare() {
+  void prepare() {
     datasetDao = mock(DatasetDao.class);
     authorizer = new Authorizer(datasetDao);
   }
@@ -56,7 +56,7 @@ public class AuthorizerTest {
       throws NoDatasetFoundException {
     try {
       action.test();
-      fail();
+      fail("");
     } catch (UserUnauthorizedException e) {
       // Success
     }
@@ -66,61 +66,41 @@ public class AuthorizerTest {
       throws UserUnauthorizedException {
     try {
       action.test();
-      fail();
+      fail("");
     } catch (NoDatasetFoundException e) {
       // Success
     }
   }
 
   @Test
-  public void testGetAllDatasets() throws UserUnauthorizedException, NoDatasetFoundException {
+  void testGetAllDatasets() throws UserUnauthorizedException, NoDatasetFoundException {
     authorizer.authorizeReadAllDatasets(createUser(AccountRole.METIS_ADMIN));
     authorizer.authorizeReadAllDatasets(createUser(AccountRole.EUROPEANA_DATA_OFFICER));
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeReadAllDatasets(createUser(AccountRole.PROVIDER_VIEWER));
-    });
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeReadAllDatasets(createUser(null));
-    });
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeReadAllDatasets(null);
-    });
+    expectUnauthorizedException(() -> authorizer.authorizeReadAllDatasets(createUser(AccountRole.PROVIDER_VIEWER)));
+    expectUnauthorizedException(() -> authorizer.authorizeReadAllDatasets(createUser(null)));
+    expectUnauthorizedException(() -> authorizer.authorizeReadAllDatasets(null));
   }
 
   @Test
-  public void testCreatingDefaultXslt() throws UserUnauthorizedException, NoDatasetFoundException {
+  void testCreatingDefaultXslt() throws UserUnauthorizedException, NoDatasetFoundException {
     authorizer.authorizeWriteDefaultXslt(createUser(AccountRole.METIS_ADMIN));
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeWriteDefaultXslt(createUser(AccountRole.EUROPEANA_DATA_OFFICER));
-    });
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeWriteDefaultXslt(createUser(AccountRole.PROVIDER_VIEWER));
-    });
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeWriteDefaultXslt(createUser(null));
-    });
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeWriteDefaultXslt(null);
-    });
+    expectUnauthorizedException(() -> authorizer.authorizeWriteDefaultXslt(createUser(AccountRole.EUROPEANA_DATA_OFFICER)));
+    expectUnauthorizedException(() -> authorizer.authorizeWriteDefaultXslt(createUser(AccountRole.PROVIDER_VIEWER)));
+    expectUnauthorizedException(() -> authorizer.authorizeWriteDefaultXslt(createUser(null)));
+    expectUnauthorizedException(() -> authorizer.authorizeWriteDefaultXslt(null));
   }
 
   @Test
-  public void testCreatingNewDataset() throws UserUnauthorizedException, NoDatasetFoundException {
+  void testCreatingNewDataset() throws UserUnauthorizedException, NoDatasetFoundException {
     authorizer.authorizeWriteNewDataset(createUser(AccountRole.METIS_ADMIN));
     authorizer.authorizeWriteNewDataset(createUser(AccountRole.EUROPEANA_DATA_OFFICER));
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeWriteNewDataset(createUser(AccountRole.PROVIDER_VIEWER));
-    });
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeWriteNewDataset(createUser(null));
-    });
-    expectUnauthorizedException(() -> {
-      authorizer.authorizeWriteNewDataset(null);
-    });
+    expectUnauthorizedException(() -> authorizer.authorizeWriteNewDataset(createUser(AccountRole.PROVIDER_VIEWER)));
+    expectUnauthorizedException(() -> authorizer.authorizeWriteNewDataset(createUser(null)));
+    expectUnauthorizedException(() -> authorizer.authorizeWriteNewDataset(null));
   }
 
   @Test
-  public void testExistingDataset() throws UserUnauthorizedException, NoDatasetFoundException {
+  void testExistingDataset() throws UserUnauthorizedException, NoDatasetFoundException {
     testExistingDataset(authorizer::authorizeWriteExistingDatasetById, Dataset::getDatasetId,
         false);
     testExistingDataset(authorizer::authorizeReadExistingDatasetByName, Dataset::getDatasetName,
@@ -155,66 +135,42 @@ public class AuthorizerTest {
     }
 
     // Test unsuccesful authentications
-    expectUnauthorizedException(() -> {
-      authorizeAction.authorize(
-          createUserNotForDataset(AccountRole.EUROPEANA_DATA_OFFICER, dataset),
-          getDatasetProperty.apply(dataset));
-    });
+    expectUnauthorizedException(() -> authorizeAction.authorize(
+        createUserNotForDataset(AccountRole.EUROPEANA_DATA_OFFICER, dataset),
+        getDatasetProperty.apply(dataset)));
     if (!allowRead) {
-      expectUnauthorizedException(() -> {
-        authorizeAction.authorize(createUserForDataset(AccountRole.PROVIDER_VIEWER, dataset),
-            getDatasetProperty.apply(dataset));
-      });
+      expectUnauthorizedException(() -> authorizeAction.authorize(createUserForDataset(AccountRole.PROVIDER_VIEWER, dataset),
+          getDatasetProperty.apply(dataset)));
     }
-    expectUnauthorizedException(() -> {
-      authorizeAction.authorize(createUserNotForDataset(AccountRole.PROVIDER_VIEWER, dataset),
-          getDatasetProperty.apply(dataset));
-    });
-    expectUnauthorizedException(() -> {
-      authorizeAction.authorize(createUserForDataset(null, dataset),
-          getDatasetProperty.apply(dataset));
-    });
-    expectUnauthorizedException(() -> {
-      authorizeAction.authorize(createUserNotForDataset(null, dataset),
-          getDatasetProperty.apply(dataset));
-    });
-    expectUnauthorizedException(() -> {
-      authorizeAction.authorize(null, getDatasetProperty.apply(dataset));
-    });
+    expectUnauthorizedException(() -> authorizeAction.authorize(createUserNotForDataset(AccountRole.PROVIDER_VIEWER, dataset),
+        getDatasetProperty.apply(dataset)));
+    expectUnauthorizedException(() -> authorizeAction.authorize(createUserForDataset(null, dataset),
+        getDatasetProperty.apply(dataset)));
+    expectUnauthorizedException(() -> authorizeAction.authorize(createUserNotForDataset(null, dataset),
+        getDatasetProperty.apply(dataset)));
+    expectUnauthorizedException(() -> authorizeAction.authorize(null, getDatasetProperty.apply(dataset)));
   }
 
   @Test
-  public void testNonExistingDatasetForId()
+  void testNonExistingDatasetForId()
       throws UserUnauthorizedException, NoDatasetFoundException {
     testNonExistingDataset(authorizer::authorizeWriteExistingDatasetById, "", false);
     testNonExistingDataset(authorizer::authorizeReadExistingDatasetById, "", true);
     testNonExistingDataset(authorizer::authorizeReadExistingDatasetByName, "", true);
   }
 
-  public <T> void testNonExistingDataset(ExistingDatasetAuthorizer<T> authorizeAction,
+  private <T> void testNonExistingDataset(ExistingDatasetAuthorizer<T> authorizeAction,
       T nonExistingValue, boolean allowRead)
       throws UserUnauthorizedException, NoDatasetFoundException {
-    expectNoDatasetFoundException(() -> {
-      authorizeAction.authorize(createUser(AccountRole.METIS_ADMIN), nonExistingValue);
-    });
-    expectNoDatasetFoundException(() -> {
-      authorizeAction.authorize(createUser(AccountRole.EUROPEANA_DATA_OFFICER), nonExistingValue);
-    });
+    expectNoDatasetFoundException(() -> authorizeAction.authorize(createUser(AccountRole.METIS_ADMIN), nonExistingValue));
+    expectNoDatasetFoundException(() -> authorizeAction.authorize(createUser(AccountRole.EUROPEANA_DATA_OFFICER), nonExistingValue));
     if (allowRead) {
-      expectNoDatasetFoundException(() -> {
-        authorizeAction.authorize(createUser(AccountRole.PROVIDER_VIEWER), nonExistingValue);
-      });
+      expectNoDatasetFoundException(() -> authorizeAction.authorize(createUser(AccountRole.PROVIDER_VIEWER), nonExistingValue));
     } else {
-      expectUnauthorizedException(() -> {
-        authorizeAction.authorize(createUser(AccountRole.PROVIDER_VIEWER), nonExistingValue);
-      });
+      expectUnauthorizedException(() -> authorizeAction.authorize(createUser(AccountRole.PROVIDER_VIEWER), nonExistingValue));
     }
-    expectUnauthorizedException(() -> {
-      authorizeAction.authorize(createUser(null), nonExistingValue);
-    });
-    expectUnauthorizedException(() -> {
-      authorizeAction.authorize(null, nonExistingValue);
-    });
+    expectUnauthorizedException(() -> authorizeAction.authorize(createUser(null), nonExistingValue));
+    expectUnauthorizedException(() -> authorizeAction.authorize(null, nonExistingValue));
   }
 
   private interface TestAction {

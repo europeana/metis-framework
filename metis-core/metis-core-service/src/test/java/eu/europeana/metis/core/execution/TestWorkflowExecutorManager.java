@@ -26,22 +26,21 @@ import org.redisson.api.RedissonClient;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-17
  */
-public class TestWorkflowExecutorManager {
+class TestWorkflowExecutorManager {
 
   private static WorkflowExecutionDao workflowExecutionDao;
   private static RedissonClient redissonClient;
   private static Channel rabbitmqPublisherChannel;
   private static Channel rabbitmqConsumerChannel;
   private static WorkflowExecutorManager workflowExecutorManager;
-  private static DpsClient dpsClient;
 
   @BeforeAll
-  public static void prepare() {
+  static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqPublisherChannel = Mockito.mock(Channel.class);
     rabbitmqConsumerChannel = Mockito.mock(Channel.class);
-    dpsClient = Mockito.mock(DpsClient.class);
+    DpsClient dpsClient = Mockito.mock(DpsClient.class);
     workflowExecutorManager =
         new WorkflowExecutorManager(workflowExecutionDao, rabbitmqPublisherChannel,
             rabbitmqConsumerChannel, redissonClient, dpsClient);
@@ -54,7 +53,7 @@ public class TestWorkflowExecutorManager {
   }
 
   @AfterEach
-  public void cleanUp() {
+  void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(redissonClient);
     Mockito.reset(rabbitmqPublisherChannel);
@@ -62,7 +61,7 @@ public class TestWorkflowExecutorManager {
   }
 
   @Test
-  public void addUserWorkflowExecutionToQueue() throws Exception {
+  void addUserWorkflowExecutionToQueue() throws Exception {
     String objectId = new ObjectId().toString();
     int priority = 0;
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
@@ -74,7 +73,7 @@ public class TestWorkflowExecutorManager {
   }
 
   @Test
-  public void addUserWorkflowExecutionToQueueThrowsIOException() throws Exception {
+  void addUserWorkflowExecutionToQueueThrowsIOException() throws Exception {
     String objectId = new ObjectId().toString();
     int priority = 0;
     doThrow(new IOException("Some Error")).when(rabbitmqPublisherChannel)

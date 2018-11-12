@@ -31,14 +31,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-26
  */
-public class TestProxiesController {
+ class TestProxiesController {
 
   private static ProxiesService proxiesService;
   private static AuthenticationClient authenticationClient;
   private static MockMvc proxiesControllerMock;
 
   @BeforeAll
-  public static void setUp() {
+   static void setUp() {
     proxiesService = mock(ProxiesService.class);
     authenticationClient = mock(AuthenticationClient.class);
     ProxiesController proxiesController = new ProxiesController(proxiesService, authenticationClient);
@@ -49,7 +49,7 @@ public class TestProxiesController {
   }
 
   @Test
-  public void getExternalTaskLogs() throws Exception {
+   void getExternalTaskLogs() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -77,7 +77,7 @@ public class TestProxiesController {
   }
 
   @Test
-  public void getExternalTaskReport() throws Exception {
+   void getExternalTaskReport() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -108,7 +108,7 @@ public class TestProxiesController {
   }
   
   @Test
-  public void getExternalTaskStatistics() throws Exception {
+   void getExternalTaskStatistics() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -127,7 +127,7 @@ public class TestProxiesController {
   }
 
   @Test
-  public void getListOfFileContentsFromPluginExecution() throws Exception {
+   void getListOfFileContentsFromPluginExecution() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);

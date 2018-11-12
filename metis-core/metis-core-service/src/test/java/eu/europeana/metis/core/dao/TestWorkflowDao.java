@@ -1,5 +1,10 @@
 package eu.europeana.metis.core.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -7,27 +12,25 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
-import java.io.IOException;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mongodb.morphia.Datastore;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-04
  */
-public class TestWorkflowDao {
+class TestWorkflowDao {
 
   private static WorkflowDao workflowDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
   private static MorphiaDatastoreProvider provider;
 
   @BeforeAll
-  public static void prepare() throws IOException {
+  static void prepare() {
     embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
@@ -41,77 +44,77 @@ public class TestWorkflowDao {
   }
 
   @AfterAll
-  public static void destroy() {
+  static void destroy() {
     embeddedLocalhostMongo.stop();
   }
 
   @AfterEach
-  public void cleanUp() {
+  void cleanUp() {
     Datastore datastore = provider.getDatastore();
     datastore.delete(datastore.createQuery(Workflow.class));
   }
 
   @Test
-  public void createUserWorkflow() {
+  void createUserWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     String objectId = workflowDao.create(workflow);
-    Assert.assertNotNull(objectId);
+    assertNotNull(objectId);
   }
 
   @Test
-  public void testUpdateUserWorkflow() {
+  void testUpdateUserWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
     workflow.setMetisPluginsMetadata(null);
     String objectId = workflowDao.update(workflow);
-    Assert.assertNotNull(objectId);
+    assertNotNull(objectId);
     Workflow updatedWorkflow = workflowDao.getById(objectId);
-    Assert.assertEquals(0, updatedWorkflow.getMetisPluginsMetadata().size());
+    assertEquals(0, updatedWorkflow.getMetisPluginsMetadata().size());
   }
 
   @Test
-  public void getById() {
+  void getById() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     String objectId = workflowDao.create(workflow);
     Workflow retrievedWorkflow = workflowDao.getById(objectId);
-    Assert.assertEquals(workflow.getDatasetId(), retrievedWorkflow.getDatasetId());
+    assertEquals(workflow.getDatasetId(), retrievedWorkflow.getDatasetId());
 
     List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
     List<AbstractMetisPluginMetadata> retrievedUserWorkflowMetisPluginsMetadata = retrievedWorkflow
         .getMetisPluginsMetadata();
-    Assert.assertEquals(metisPluginsMetadata.size(),
+    assertEquals(metisPluginsMetadata.size(),
         retrievedUserWorkflowMetisPluginsMetadata.size());
-    Assert.assertEquals(retrievedUserWorkflowMetisPluginsMetadata.get(0).getPluginType(),
+    assertEquals(retrievedUserWorkflowMetisPluginsMetadata.get(0).getPluginType(),
         metisPluginsMetadata.get(0).getPluginType());
   }
 
   @Test
-  public void delete() {
+  void delete() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
-    Assert.assertTrue(workflowDao.delete(workflow));
-    Assert.assertFalse(workflowDao.delete(workflow));
+    assertTrue(workflowDao.delete(workflow));
+    assertFalse(workflowDao.delete(workflow));
   }
 
   @Test
-  public void deleteUserWorkflow() {
+  void deleteUserWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
-    Assert.assertTrue(workflowDao.deleteWorkflow(workflow.getDatasetId()));
-    Assert.assertFalse(workflowDao.deleteWorkflow(workflow.getDatasetId()));
+    assertTrue(workflowDao.deleteWorkflow(workflow.getDatasetId()));
+    assertFalse(workflowDao.deleteWorkflow(workflow.getDatasetId()));
   }
 
   @Test
-  public void exists() {
+  void exists() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
-    Assert.assertNotNull(workflowDao.exists(workflow));
+    assertNotNull(workflowDao.exists(workflow));
   }
 
   @Test
-  public void getUserWorkflow() {
+  void getUserWorkflow() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
-    Assert.assertNotNull(workflowDao.getWorkflow(workflow.getDatasetId()));
+    assertNotNull(workflowDao.getWorkflow(workflow.getDatasetId()));
   }
 }

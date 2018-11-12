@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.execution;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -25,18 +28,17 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.ArrayList;
 import java.util.Date;
 import org.bson.types.ObjectId;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-17
  */
-public class TestWorkflowExecutor {
+class TestWorkflowExecutor {
 
   private static WorkflowExecutionDao workflowExecutionDao;
   private static DpsClient dpsClient;
@@ -45,7 +47,7 @@ public class TestWorkflowExecutor {
   private static WorkflowExecutionSettings workflowExecutionSettings;
 
   @BeforeAll
-  public static void prepare() {
+  static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     dpsClient = Mockito.mock(DpsClient.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);
@@ -55,7 +57,7 @@ public class TestWorkflowExecutor {
   }
 
   @AfterEach
-  public void cleanUp() {
+  void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(workflowExecutionMonitor);
     Mockito.reset(dpsClient);
@@ -63,12 +65,12 @@ public class TestWorkflowExecutor {
   }
 
   @BeforeEach
-  public void setConstants() {
+  void setConstants() {
     when(workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs()).thenReturn(0);
   }
 
   @Test
-  public void call() {
+  void call() {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(new ObjectId());
 
@@ -84,13 +86,13 @@ public class TestWorkflowExecutor {
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
     workflowExecutor.call();
 
-    Assert.assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
-    Assert.assertNotNull(workflowExecution.getUpdatedDate());
-    Assert.assertNotNull(workflowExecution.getFinishedDate());
+    assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
+    assertNotNull(workflowExecution.getUpdatedDate());
+    assertNotNull(workflowExecution.getFinishedDate());
   }
 
   @Test
-  public void callNonMockedFieldValue() throws Exception {
+  void callNonMockedFieldValue() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
     ExecutionProgress processedExecutionProgress = new ExecutionProgress();
@@ -132,7 +134,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callNonMockedFieldValue_ExceptionWhenExecuteIsCalled() throws Exception {
+  void callNonMockedFieldValue_ExceptionWhenExecuteIsCalled() throws Exception {
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.mock(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
@@ -169,7 +171,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callNonMockedFieldValue_DROPPEDExeternalTaskButNotCancelled() throws Exception {
+  void callNonMockedFieldValue_DROPPEDExeternalTaskButNotCancelled() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
     ExecutionProgress droppedExecutionProgress = new ExecutionProgress();
@@ -211,7 +213,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callNonMockedFieldValue_ConsecutiveMonitorFailures() throws Exception {
+  void callNonMockedFieldValue_ConsecutiveMonitorFailures() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
 
@@ -249,7 +251,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callNonMockedFieldValueCancellingState() throws Exception {
+  void callNonMockedFieldValueCancellingState() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
     ExecutionProgress processedExecutionProgress = new ExecutionProgress();
@@ -293,7 +295,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callExecutionInRUNNINGState() {
+  void callExecutionInRUNNINGState() {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
@@ -313,15 +315,15 @@ public class TestWorkflowExecutor {
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
     workflowExecutor.call();
 
-    Assert.assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
-    Assert.assertNotNull(workflowExecution.getStartedDate());
-    Assert.assertNotNull(workflowExecution.getUpdatedDate());
-    Assert.assertNotNull(workflowExecution.getFinishedDate());
-    Assert.assertNull(workflowExecution.getMetisPlugins().get(0).getFinishedDate());
+    assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
+    assertNotNull(workflowExecution.getStartedDate());
+    assertNotNull(workflowExecution.getUpdatedDate());
+    assertNotNull(workflowExecution.getFinishedDate());
+    assertNull(workflowExecution.getMetisPlugins().get(0).getFinishedDate());
   }
 
   @Test
-  public void callExecutionThatMayNotBeClaimed() {
+  void callExecutionThatMayNotBeClaimed() {
     when(workflowExecutionMonitor.claimExecution(any())).thenReturn(null);
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor("testId", persistenceProvider,
@@ -333,7 +335,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callCancellingStateINQUEUE() {
+  void callCancellingStateINQUEUE() {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(new ObjectId());
 
@@ -346,11 +348,11 @@ public class TestWorkflowExecutor {
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
     workflowExecutor.call();
 
-    Assert.assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
+    assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
   }
 
   @Test
-  public void callCancellingStateRUNNING() {
+  void callCancellingStateRUNNING() {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
@@ -365,6 +367,6 @@ public class TestWorkflowExecutor {
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
     workflowExecutor.call();
 
-    Assert.assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
+    assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
   }
 }

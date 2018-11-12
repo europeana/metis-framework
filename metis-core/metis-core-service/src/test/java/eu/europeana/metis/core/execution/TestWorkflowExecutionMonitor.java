@@ -45,7 +45,7 @@ import org.redisson.client.RedisConnectionException;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-16
  */
-public class TestWorkflowExecutionMonitor {
+class TestWorkflowExecutionMonitor {
 
   private static final String FAILSAFE_LOCK = "failsafeLock";
 
@@ -55,7 +55,7 @@ public class TestWorkflowExecutionMonitor {
   private static RLock lock;
 
   @BeforeAll
-  public static void prepare() {
+  static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
     redissonClient = Mockito.mock(RedissonClient.class);
@@ -63,14 +63,14 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     when(redissonClient.getFairLock(FAILSAFE_LOCK)).thenReturn(lock);
     doNothing().when(lock).lock();
     doNothing().when(lock).unlock();
   }
 
   @AfterEach
-  public void cleanUp() {
+  void cleanUp() {
     Mockito.reset(workflowExecutorManager);
     Mockito.reset(redissonClient);
     Mockito.reset(workflowExecutionDao);
@@ -78,7 +78,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testFailSafe() {
+  void testFailSafe() {
 
     // Create workflow executions
     final long updatedTime = 0;
@@ -141,7 +141,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testFailSafeThatThrowsExceptionDuringLockAndContinues() {
+  void testFailSafeThatThrowsExceptionDuringLockAndContinues() {
     WorkflowExecutionMonitor monitor = new WorkflowExecutionMonitor(workflowExecutorManager,
         workflowExecutionDao, redissonClient, Duration.ofHours(1));
     doThrow(new RedisConnectionException("Connection error")).when(lock).lock();
@@ -150,7 +150,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testFailSafeThatThrowsExceptionDuringLockAndUnlockAndContinues() {
+  void testFailSafeThatThrowsExceptionDuringLockAndUnlockAndContinues() {
     WorkflowExecutionMonitor monitor = new WorkflowExecutionMonitor(workflowExecutorManager,
         workflowExecutionDao, redissonClient, Duration.ofHours(1));
     doThrow(new RedisConnectionException("Connection error")).when(lock).lock();
@@ -161,7 +161,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testClaimExecution() {
+  void testClaimExecution() {
 
     // Create monitor.
     WorkflowExecutionMonitor monitor =
@@ -218,7 +218,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testClaimExecutionWithException() {
+  void testClaimExecutionWithException() {
     final String id = "id";
     WorkflowExecutionMonitor monitor =
         Mockito.spy(new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao,
@@ -229,7 +229,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testEntry() {
+  void testEntry() {
 
     // Create new entry.
     final long updateTime = 0;
@@ -270,7 +270,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testMayClaimExecution() {
+  void testMayClaimExecution() {
 
     // Create monitor
     final Duration leniency = Duration.ofSeconds(10);
@@ -317,7 +317,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testUpdateCurrentExecutions() {
+  void testUpdateCurrentExecutions() {
 
     // Create workflow executions
     final long updatedTime = 0;

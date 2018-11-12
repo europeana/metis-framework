@@ -1,6 +1,10 @@
 package eu.europeana.metis.core.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -42,16 +46,15 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-26
  */
-public class TestProxiesService {
+class TestProxiesService {
 
   private static final long EXTERNAL_TASK_ID = 2070373127078497810L;
   
@@ -64,7 +67,7 @@ public class TestProxiesService {
   private static Authorizer authorizer;
 
   @BeforeAll
-  public static void prepare() {
+  static void prepare() {
     workflowExecutionDao = mock(WorkflowExecutionDao.class);
     ecloudDataSetServiceClient = mock(DataSetServiceClient.class);
     recordServiceClient = mock(RecordServiceClient.class);
@@ -77,7 +80,7 @@ public class TestProxiesService {
   }
 
   @AfterEach
-  public void cleanUp() {
+  void cleanUp() {
     reset(workflowExecutionDao);
     reset(ecloudDataSetServiceClient);
     reset(recordServiceClient);
@@ -87,7 +90,7 @@ public class TestProxiesService {
   }
 
   @Test
-  public void getExternalTaskLogs() throws Exception {
+  void getExternalTaskLogs() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
 
@@ -101,33 +104,33 @@ public class TestProxiesService {
         EXTERNAL_TASK_ID, 1, 100);
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
-    Assert.assertEquals(2, listOfSubTaskInfo.size());
-    Assert.assertNull(listOfSubTaskInfo.get(0).getAdditionalInformations());
-    Assert.assertNull(listOfSubTaskInfo.get(1).getAdditionalInformations());
+    assertEquals(2, listOfSubTaskInfo.size());
+    assertNull(listOfSubTaskInfo.get(0).getAdditionalInformations());
+    assertNull(listOfSubTaskInfo.get(1).getAdditionalInformations());
   }
 
-  @Test(expected = NoWorkflowExecutionFoundException.class)
-  public void getExternalTaskLogs_NoExecutionException() throws Exception {
+  @Test
+  void getExternalTaskLogs_NoExecutionException() {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(null);
-    proxiesService.getExternalTaskLogs(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
-        EXTERNAL_TASK_ID, 1, 100);
+    assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService.getExternalTaskLogs(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        EXTERNAL_TASK_ID, 1, 100));
   }
 
-  @Test(expected = ExternalTaskException.class)
-  public void getExternalTaskLogs_ExternalTaskException() throws Exception {
+  @Test
+  void getExternalTaskLogs_ExternalTaskException() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(dpsClient
         .getDetailedTaskReportBetweenChunks(Topology.OAIPMH_HARVEST.getTopologyName(),
             EXTERNAL_TASK_ID, 1, 100)).thenThrow(new DpsException());
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
-    proxiesService.getExternalTaskLogs(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
-        EXTERNAL_TASK_ID, 1, 100);
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getExternalTaskLogs(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        EXTERNAL_TASK_ID, 1, 100));
   }
 
   @Test
-  public void getExternalTaskReport() throws Exception {
+  void getExternalTaskReport() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithoutIdentifiers(2);
     TaskErrorsInfo taskErrorsInfoWithIdentifiers = TestObjectFactory
@@ -146,20 +149,20 @@ public class TestProxiesService {
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
-    Assert.assertEquals(1, externalTaskReport.getErrors().size());
-    Assert.assertFalse(externalTaskReport.getErrors().get(0).getErrorDetails().isEmpty());
+    assertEquals(1, externalTaskReport.getErrors().size());
+    assertFalse(externalTaskReport.getErrors().get(0).getErrorDetails().isEmpty());
   }
 
-  @Test(expected = NoWorkflowExecutionFoundException.class)
-  public void getExternalTaskReport_NoExecutionException() throws Exception {
+  @Test
+  void getExternalTaskReport_NoExecutionException() {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(null);
-    proxiesService.getExternalTaskReport(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
-        TestObjectFactory.EXTERNAL_TASK_ID, 10);
+    assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService.getExternalTaskReport(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        TestObjectFactory.EXTERNAL_TASK_ID, 10));
   }
 
-  @Test(expected = ExternalTaskException.class)
-  public void getExternalTaskReport_ExternalTaskException() throws Exception {
+  @Test
+  void getExternalTaskReport_ExternalTaskException() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(dpsClient
         .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
@@ -167,12 +170,12 @@ public class TestProxiesService {
         .thenThrow(new DpsException());
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
-    proxiesService.getExternalTaskReport(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
-        TestObjectFactory.EXTERNAL_TASK_ID, 10);
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getExternalTaskReport(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        TestObjectFactory.EXTERNAL_TASK_ID, 10));
   }
 
   @Test
-  public void getExternalTaskStatistics() throws Exception {
+  void getExternalTaskStatistics() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final StatisticsReport taskStatistics = TestObjectFactory.createTaskStatisticsReport();
     when(dpsClient.getTaskStatisticsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
@@ -184,31 +187,31 @@ public class TestProxiesService {
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     assertNotNull(externalTaskStatistics);
-    Assert.assertEquals(TestObjectFactory.EXTERNAL_TASK_ID, externalTaskStatistics.getTaskId());
-    Assert.assertFalse(externalTaskStatistics.getNodeStatistics().isEmpty());
+    assertEquals(TestObjectFactory.EXTERNAL_TASK_ID, externalTaskStatistics.getTaskId());
+    assertFalse(externalTaskStatistics.getNodeStatistics().isEmpty());
   }
 
-  @Test(expected = NoWorkflowExecutionFoundException.class)
-  public void getExternalTaskStatistics_NoExecutionException() throws Exception {
+  @Test
+  void getExternalTaskStatistics_NoExecutionException() {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(null);
-    proxiesService.getExternalTaskStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
-        TestObjectFactory.EXTERNAL_TASK_ID);
+    assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService.getExternalTaskStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        TestObjectFactory.EXTERNAL_TASK_ID));
   }
 
-  @Test(expected = ExternalTaskException.class)
-  public void getExternalTaskStatistics_ExternalTaskException() throws Exception {
+  @Test
+  void getExternalTaskStatistics_ExternalTaskException() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(dpsClient.getTaskStatisticsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
         TestObjectFactory.EXTERNAL_TASK_ID)).thenThrow(new DpsException());
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
-    proxiesService.getExternalTaskStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
-        TestObjectFactory.EXTERNAL_TASK_ID);
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getExternalTaskStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+        TestObjectFactory.EXTERNAL_TASK_ID));
   }
 
   @Test
-  public void getListOfFileContentsFromPluginExecution() throws Exception {
+  void getListOfFileContentsFromPluginExecution() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     WorkflowExecution workflowExecutionObject = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecutionObject.getMetisPlugins()
@@ -246,20 +249,20 @@ public class TestProxiesService {
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, workflowExecutionObject.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
-    Assert.assertEquals(xmlRecord, listOfFileContentsFromPluginExecution.getRecords().get(0).getXmlRecord());
-    Assert.assertEquals(ecloudId, listOfFileContentsFromPluginExecution.getRecords().get(0).getEcloudId());
+    assertEquals(xmlRecord, listOfFileContentsFromPluginExecution.getRecords().get(0).getXmlRecord());
+    assertEquals(ecloudId, listOfFileContentsFromPluginExecution.getRecords().get(0).getEcloudId());
   }
 
-  @Test(expected = NoWorkflowExecutionFoundException.class)
-  public void getListOfFileContentsFromPluginExecution_NoExecutionException() throws Exception {
+  @Test
+  void getListOfFileContentsFromPluginExecution_NoExecutionException() {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(null);
-    proxiesService.getListOfFileContentsFromPluginExecution(metisUser,
-        TestObjectFactory.EXECUTIONID, PluginType.OAIPMH_HARVEST, null, 5);
+    assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService.getListOfFileContentsFromPluginExecution(metisUser,
+        TestObjectFactory.EXECUTIONID, PluginType.OAIPMH_HARVEST, null, 5));
   }
 
-  @Test(expected = ExternalTaskException.class)
-  public void getListOfFileContentsFromPluginExecution_FileReadException() throws Exception {
+  @Test
+  void getListOfFileContentsFromPluginExecution_FileReadException() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     WorkflowExecution workflowExecutionObject = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecutionObject.getMetisPlugins()
@@ -288,12 +291,12 @@ public class TestProxiesService {
         .getFile(representation.getFiles().get(0).getContentUri().toString()))
         .thenThrow(new IOException("Cannot read file"));
 
-    proxiesService.getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
-            PluginType.OAIPMH_HARVEST, null, 5);
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        PluginType.OAIPMH_HARVEST, null, 5));
   }
 
-  @Test(expected = ExternalTaskException.class)
-  public void getListOfFileContentsFromPluginExecution_ExceptionRequestingRevisions() throws Exception {
+  @Test
+  void getListOfFileContentsFromPluginExecution_ExceptionRequestingRevisions() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     WorkflowExecution workflowExecutionObject = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecutionObject.getMetisPlugins()
@@ -309,9 +312,8 @@ public class TestProxiesService {
         .getDataSetRevisionsChunk(anyString(), anyString(), anyString(), anyString(),
             anyString(), anyString(), isNull(), anyInt())).thenThrow(new MCSException("Chunk cannot be retrieved"));
 
-
-    proxiesService.getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
-        PluginType.OAIPMH_HARVEST, null, 5);
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getListOfFileContentsFromPluginExecution(metisUser, TestObjectFactory.EXECUTIONID,
+        PluginType.OAIPMH_HARVEST, null, 5));
   }
 
 }

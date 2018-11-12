@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.execution;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -8,36 +11,35 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.EnumSet;
 import java.util.Set;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-01
  */
-public class TestExecutionRules {
+class TestExecutionRules {
 
   private static WorkflowExecutionDao workflowExecutionDao;
 
   @BeforeAll
-  public static void prepare() {
+  static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
   }
 
   @AfterEach
-  public void cleanUp() {
+  void cleanUp() {
     Mockito.reset(workflowExecutionDao);
   }
 
   @Test
-  public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_HarvestPlugin() {
-    Assert.assertNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
+  void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_HarvestPlugin() {
+    assertNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
         PluginType.OAIPMH_HARVEST, null, Integer.toString(TestObjectFactory.DATASETID),
         workflowExecutionDao));
-    Assert.assertNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
+    assertNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
         PluginType.HTTP_HARVEST, null, Integer.toString(TestObjectFactory.DATASETID),
         workflowExecutionDao));
     Mockito.verify(workflowExecutionDao, Mockito.never())
@@ -46,17 +48,17 @@ public class TestExecutionRules {
   }
 
   @Test
-  public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_EnforcedPluginType() {
+  void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_EnforcedPluginType() {
     when(workflowExecutionDao.getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
         Integer.toString(TestObjectFactory.DATASETID), EnumSet.of(PluginType.OAIPMH_HARVEST)))
             .thenReturn(PluginType.OAIPMH_HARVEST.getNewPlugin(null));
-    Assert.assertNotNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
+    assertNotNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
         PluginType.TRANSFORMATION, PluginType.OAIPMH_HARVEST,
         Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
 
   @Test
-  public void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution() {
+  void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution() {
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.VALIDATION_EXTERNAL,
         ExecutionRules.getHarvestPluginGroup());
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.TRANSFORMATION,
@@ -83,7 +85,7 @@ public class TestExecutionRules {
     final AbstractMetisPlugin plugin = requestedPlugin.getNewPlugin(null);
     when(workflowExecutionDao.getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
         Integer.toString(TestObjectFactory.DATASETID), finishedPlugins)).thenReturn(plugin);
-    Assert.assertSame(plugin,
+    assertSame(plugin,
         ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(requestedPlugin,
             null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
