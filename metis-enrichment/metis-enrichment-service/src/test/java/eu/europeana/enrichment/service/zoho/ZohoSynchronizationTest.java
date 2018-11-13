@@ -1,7 +1,15 @@
 package eu.europeana.enrichment.service.zoho;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
+import eu.europeana.enrichment.api.internal.OrganizationTermList;
+import eu.europeana.enrichment.service.EntityService;
+import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.metis.authentication.dao.ZohoApiFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,17 +19,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
-import eu.europeana.enrichment.api.internal.OrganizationTermList;
-import eu.europeana.enrichment.service.EntityService;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import eu.europeana.metis.authentication.dao.ZohoApiFields;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Disabled integration. Need to implement betamax with https connectivity for Zoho
@@ -29,7 +30,7 @@ import eu.europeana.metis.authentication.dao.ZohoApiFields;
  * @author GordeaS
  *
  */
-@Ignore
+@Disabled
 public class ZohoSynchronizationTest extends BaseZohoAccessSetup {
 
   String mongoHost;
@@ -39,7 +40,7 @@ public class ZohoSynchronizationTest extends BaseZohoAccessSetup {
   Set<String> allowedRoles;
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.setUp();
     Properties props = loadProperties("/metis.properties");
@@ -56,7 +57,7 @@ public class ZohoSynchronizationTest extends BaseZohoAccessSetup {
     allowedRoles.add("Aggregator");
   }
   
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     entityService.close();
   }

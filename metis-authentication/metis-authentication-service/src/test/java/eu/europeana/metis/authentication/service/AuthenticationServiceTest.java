@@ -1,26 +1,27 @@
 package eu.europeana.metis.authentication.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
+import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
+import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
-import eu.europeana.metis.authentication.user.AccountRole;
-import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,9 +34,9 @@ import java.util.List;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
@@ -43,7 +44,7 @@ import org.mockito.Mockito;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-11-07
  */
-public class AuthenticationServiceTest {
+class AuthenticationServiceTest {
 
   private static final String DATA_JSON_NODE_ZOHO_USER_EXAMPLE = "data/jsonNodeZohoUserExample";
   private static final String DATA_JSON_NODE_ZOHO_USER_WRONG_CREATED_DATE_FORMAT_EXAMPLE = "data/jsonNodeZohoUserWrongCreatedDateFormatExample";
@@ -56,21 +57,21 @@ public class AuthenticationServiceTest {
   private static PsqlMetisUserDao psqlMetisUserDao;
   private static AuthenticationService authenticationService;
 
-  @BeforeClass
-  public static void setUp() {
+  @BeforeAll
+  static void setUp() {
     zohoAccessClientDao = Mockito.mock(ZohoAccessClientDao.class);
     psqlMetisUserDao = Mockito.mock(PsqlMetisUserDao.class);
     authenticationService = new AuthenticationService(zohoAccessClientDao, psqlMetisUserDao);
   }
 
-  @After
-  public void cleanUp() {
+  @AfterEach
+  void cleanUp() {
     Mockito.reset(zohoAccessClientDao);
     Mockito.reset(psqlMetisUserDao);
   }
 
   @Test
-  public void registerUser() throws Exception {
+  void registerUser() throws Exception {
 
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
@@ -81,57 +82,64 @@ public class AuthenticationServiceTest {
     verify(psqlMetisUserDao).createMetisUser(any(MetisUser.class));
   }
 
-  @Test(expected = UserAlreadyExistsException.class)
-  public void registerUserAlreadyExistsInDB() throws Exception {
+  @Test
+  void registerUserAlreadyExistsInDB() {
     MetisUser metisUser = new MetisUser();
     metisUser.setEmail(EXAMPLE_EMAIL);
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-    authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+    assertThrows(UserAlreadyExistsException.class,
+        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
-  @Test(expected = BadContentException.class)
-  public void registerUserFailsOnZohoUserRetrieval() throws Exception {
+  @Test
+  void registerUserFailsOnZohoUserRetrieval() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenThrow(new BadContentException("Exception"));
-    authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+    assertThrows(BadContentException.class,
+        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
-  @Test(expected = NoUserFoundException.class)
-  public void registerUserDoesNotExistInZoho() throws Exception {
+  @Test
+  void registerUserDoesNotExistInZoho() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString())).thenReturn(null);
-    authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+    assertThrows(NoUserFoundException.class,
+        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
-  @Test(expected = BadContentException.class)
-  public void registerUserParsingUserFromZohoFailDateFormat() throws Exception {
+  @Test
+  void registerUserParsingUserFromZohoFailDateFormat() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString())).thenReturn(
         getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_WRONG_CREATED_DATE_FORMAT_EXAMPLE));
-    authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+    assertThrows(BadContentException.class,
+        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
-  @Test(expected = BadContentException.class)
-  public void registerUserParsingUserFromZohoNoOrganizationNameProvided() throws Exception {
+  @Test
+  void registerUserParsingUserFromZohoNoOrganizationNameProvided() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_NO_ORGANIZATION_NAME_EXAMPLE));
-    authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+    assertThrows(BadContentException.class,
+        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
+
   }
 
-  @Test(expected = BadContentException.class)
-  public void registerUserFailsOnZohoOrganizationRetrieval() throws Exception {
+  @Test
+  void registerUserFailsOnZohoOrganizationRetrieval() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
     when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
         .thenThrow(new BadContentException("Exception"));
-    authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+    assertThrows(BadContentException.class,
+        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
   @Test
-  public void updateUserFromZoho() throws Exception {
+  void updateUserFromZoho() throws Exception {
     MetisUser metisUser = new MetisUser();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
@@ -143,7 +151,7 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void updateUserFromZohoAnAdminStaysAdmin() throws Exception {
+  void updateUserFromZohoAnAdminStaysAdmin() throws Exception {
     MetisUser metisUser = new MetisUser();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
@@ -159,19 +167,20 @@ public class AuthenticationServiceTest {
     assertEquals(AccountRole.METIS_ADMIN, metisUserArgumentCaptor.getValue().getAccountRole());
   }
 
-  @Test(expected = NoUserFoundException.class)
-  public void updateUserFromZohoNoUserFound() throws Exception {
+  @Test
+  void updateUserFromZohoNoUserFound() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
     when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
         .thenReturn(ORGANIZATION_ID);
-    authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
-    verify(psqlMetisUserDao).updateMetisUser(any(MetisUser.class));
+    assertThrows(NoUserFoundException.class,
+        () -> authenticationService.updateUserFromZoho(EXAMPLE_EMAIL));
+    verify(psqlMetisUserDao, times(0)).updateMetisUser(any(MetisUser.class));
   }
 
   @Test
-  public void validateAuthorizationHeaderWithCredentials() throws Exception {
+  void validateAuthorizationHeaderWithCredentials() throws Exception {
     String authenticationString = EXAMPLE_EMAIL + ":" + EXAMPLE_PASSWORD;
     byte[] base64AuthenticationBytes = Base64.encodeBase64(authenticationString.getBytes());
     String authorizationHeader = "Basic " + new String(base64AuthenticationBytes);
@@ -182,66 +191,65 @@ public class AuthenticationServiceTest {
     assertEquals(EXAMPLE_PASSWORD, credentials.getPassword());
   }
 
-  @Test(expected = BadContentException.class)
-  public void validateAuthorizationHeaderWithCredentialsAuthorizationHeaderEmtpy()
-      throws Exception {
-    authenticationService.validateAuthorizationHeaderWithCredentials("");
-  }
-
-  @Test(expected = BadContentException.class)
-  public void validateAuthorizationHeaderWithCredentialsAuthorizationHeaderNotValid()
-      throws Exception {
-    String authenticationString = EXAMPLE_EMAIL + EXAMPLE_PASSWORD;
-    byte[] base64AuthenticationBytes = Base64.encodeBase64(authenticationString.getBytes());
-    String authorizationHeader = "Basic " + new String(base64AuthenticationBytes);
-    authenticationService.validateAuthorizationHeaderWithCredentials(authorizationHeader);
-  }
-
-  @Test(expected = BadContentException.class)
-  public void validateAuthorizationHeaderWithCredentialsAuthorizationHeaderNotValidScheme()
-      throws Exception {
-    String authenticationString = EXAMPLE_EMAIL + EXAMPLE_PASSWORD;
-    byte[] base64AuthenticationBytes = Base64.encodeBase64(authenticationString.getBytes());
-    String authorizationHeader = "Whatever " + new String(base64AuthenticationBytes);
-    authenticationService.validateAuthorizationHeaderWithCredentials(authorizationHeader);
+  @Test
+  void validateAuthorizationHeaderWithCredentialsAuthorizationHeaderEmtpy() {
+    assertThrows(BadContentException.class,
+        () -> authenticationService.validateAuthorizationHeaderWithCredentials(""));
   }
 
   @Test
-  public void validateAuthorizationHeaderWithAccessToken() throws Exception {
+  void validateAuthorizationHeaderWithCredentialsAuthorizationHeaderNotValid() {
+    String authenticationString = EXAMPLE_EMAIL + EXAMPLE_PASSWORD;
+    byte[] base64AuthenticationBytes = Base64.encodeBase64(authenticationString.getBytes());
+    String authorizationHeader = "Basic " + new String(base64AuthenticationBytes);
+    assertThrows(BadContentException.class, () -> authenticationService
+        .validateAuthorizationHeaderWithCredentials(authorizationHeader));
+  }
+
+  @Test
+  void validateAuthorizationHeaderWithCredentialsAuthorizationHeaderNotValidScheme() {
+    String authenticationString = EXAMPLE_EMAIL + EXAMPLE_PASSWORD;
+    byte[] base64AuthenticationBytes = Base64.encodeBase64(authenticationString.getBytes());
+    String authorizationHeader = "Whatever " + new String(base64AuthenticationBytes);
+    assertThrows(BadContentException.class, () -> authenticationService
+        .validateAuthorizationHeaderWithCredentials(authorizationHeader));
+  }
+
+  @Test
+  void validateAuthorizationHeaderWithAccessToken() throws Exception {
     String authorizationHeader = "Bearer " + EXAMPLE_ACCESS_TOKEN;
     assertEquals(EXAMPLE_ACCESS_TOKEN,
         authenticationService.validateAuthorizationHeaderWithAccessToken(authorizationHeader));
   }
 
-  @Test(expected = UserUnauthorizedException.class)
-  public void validateAuthorizationHeaderWithAccessTokenAuthorizationHeaderEmtpy()
-      throws Exception {
-    authenticationService.validateAuthorizationHeaderWithAccessToken("");
-  }
-
-  @Test(expected = UserUnauthorizedException.class)
-  public void validateAuthorizationHeaderWithAccessTokenAuthorizationHeaderNotValid()
-      throws Exception {
-    authenticationService.validateAuthorizationHeaderWithAccessToken("Bearer ");
-  }
-
-  @Test(expected = UserUnauthorizedException.class)
-  public void validateAuthorizationHeaderWithAccessTokenAuthorizationHeaderNotValidCharacters()
-      throws Exception {
-    String accessToken = authenticationService.generateAccessToken();
-    String invalidAccessToken = "ξξ" + accessToken.substring(2, accessToken.length());
-    authenticationService
-        .validateAuthorizationHeaderWithAccessToken("Bearer " + invalidAccessToken);
-  }
-
-  @Test(expected = UserUnauthorizedException.class)
-  public void validateAuthorizationHeaderWithAccessTokenAuthorizationHeaderNotValidScheme()
-      throws Exception {
-    authenticationService.validateAuthorizationHeaderWithAccessToken("Whatever ");
+  @Test
+  void validateAuthorizationHeaderWithAccessTokenAuthorizationHeaderEmtpy() {
+    assertThrows(UserUnauthorizedException.class,
+        () -> authenticationService.validateAuthorizationHeaderWithAccessToken(""));
   }
 
   @Test
-  public void loginUser() throws Exception {
+  void validateAuthorizationHeaderWithAccessTokenAuthorizationHeaderNotValid() {
+    assertThrows(UserUnauthorizedException.class,
+        () -> authenticationService.validateAuthorizationHeaderWithAccessToken("Bearer "));
+  }
+
+  @Test
+  void validateAuthorizationHeaderWithAccessTokenAuthorizationHeaderNotValidCharacters() {
+    String accessToken = authenticationService.generateAccessToken();
+    String invalidAccessToken = "ξξ" + accessToken.substring(2, accessToken.length());
+    assertThrows(UserUnauthorizedException.class, () -> authenticationService
+        .validateAuthorizationHeaderWithAccessToken("Bearer " + invalidAccessToken));
+  }
+
+  @Test
+  void validateAuthorizationHeaderWithAccessTokenAuthorizationHeaderNotValidScheme() {
+    assertThrows(UserUnauthorizedException.class,
+        () -> authenticationService.validateAuthorizationHeaderWithAccessToken("Whatever "));
+  }
+
+  @Test
+  void loginUser() throws Exception {
     MetisUser metisUser = registerAndCaptureMetisUser();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
@@ -249,7 +257,7 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void loginUserTokenExistsSoUpdateTimestamp() throws Exception {
+  void loginUserTokenExistsSoUpdateTimestamp() throws Exception {
     MetisUser metisUser = registerAndCaptureMetisUser();
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
@@ -258,14 +266,15 @@ public class AuthenticationServiceTest {
     verify(psqlMetisUserDao).updateAccessTokenTimestamp(anyString());
   }
 
-  @Test(expected = UserUnauthorizedException.class)
-  public void loginUserAuthenticateFailure() throws Exception {
+  @Test
+  void loginUserAuthenticateFailure() {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
+    assertThrows(UserUnauthorizedException.class,
+        () -> authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
   @Test
-  public void updateUserPassword() {
+  void updateUserPassword() {
     ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUser.class);
     authenticationService.updateUserPassword(new MetisUser(), EXAMPLE_PASSWORD);
     verify(psqlMetisUserDao).updateMetisUser(metisUserArgumentCaptor.capture());
@@ -273,20 +282,21 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void updateUserMakeAdmin() throws Exception {
+  void updateUserMakeAdmin() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(EXAMPLE_EMAIL)).thenReturn(new MetisUser());
     authenticationService.updateUserMakeAdmin(EXAMPLE_EMAIL);
     verify(psqlMetisUserDao).updateMetisUserToMakeAdmin(EXAMPLE_EMAIL);
   }
 
-  @Test(expected = NoUserFoundException.class)
-  public void updateUserMakeAdminUserDoesNotExist() throws Exception {
+  @Test
+  void updateUserMakeAdminUserDoesNotExist() {
     when(psqlMetisUserDao.getMetisUserByEmail(EXAMPLE_EMAIL)).thenReturn(null);
-    authenticationService.updateUserMakeAdmin(EXAMPLE_EMAIL);
+    assertThrows(NoUserFoundException.class,
+        () -> authenticationService.updateUserMakeAdmin(EXAMPLE_EMAIL));
   }
 
   @Test
-  public void isUserAdmin() throws Exception {
+  void isUserAdmin() throws Exception {
     MetisUser metisUser = new MetisUser();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     metisUser.setMetisUserAccessToken(
@@ -298,7 +308,7 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void isUserAdminFalse() throws Exception {
+  void isUserAdminFalse() throws Exception {
     MetisUser metisUser = new MetisUser();
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
@@ -309,7 +319,7 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void hasPermissionToRequestUserUpdateOwnUser() throws Exception {
+  void hasPermissionToRequestUserUpdateOwnUser() throws Exception {
     final String storedMetisUserEmail = "storedEmail@example.com";
     MetisUser metisUser = new MetisUser();
     metisUser.setEmail(storedMetisUserEmail);
@@ -325,7 +335,7 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void hasPermissionToRequestUserUpdateRequesterIsAdmin() throws Exception {
+  void hasPermissionToRequestUserUpdateRequesterIsAdmin() throws Exception {
     final String storedMetisUserEmail = "storedEmail@example.com";
     final String storedMetisUserEmailToUpdate = "toUpdate@example.com";
     MetisUser metisUser = new MetisUser();
@@ -343,7 +353,7 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void hasPermissionToRequestUserUpdateUserIsEuropeanaDataOfficerAndToUpdateNonAdmin()
+  void hasPermissionToRequestUserUpdateUserIsEuropeanaDataOfficerAndToUpdateNonAdmin()
       throws Exception {
     final String storedMetisUserEmail = "storedEmail@example.com";
     final String storedMetisUserEmailToUpdate = "toUpdate@example.com";
@@ -363,45 +373,46 @@ public class AuthenticationServiceTest {
         .hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, storedMetisUserEmailToUpdate));
   }
 
-  @Test(expected = NoUserFoundException.class)
-  public void hasPermissionToRequestUserUpdateUserToUpdateDoesNotExist() throws Exception {
+  @Test
+  void hasPermissionToRequestUserUpdateUserToUpdateDoesNotExist() {
     final String storedMetisUserEmail = "storedEmail@example.com";
     MetisUser metisUser = new MetisUser();
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
     when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmail)).thenReturn(null);
-    authenticationService
-        .hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, storedMetisUserEmail);
+    assertThrows(NoUserFoundException.class, () -> authenticationService
+        .hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, storedMetisUserEmail));
   }
 
   @Test
-  public void expireAccessTokens() {
+  void expireAccessTokens() {
     authenticationService.expireAccessTokens();
     verify(psqlMetisUserDao).expireAccessTokens(any(Date.class));
   }
 
   @Test
-  public void deleteUser() {
+  void deleteUser() {
     authenticationService.deleteUser(EXAMPLE_EMAIL);
     verify(psqlMetisUserDao).deleteMetisUser(EXAMPLE_EMAIL);
   }
 
   @Test
-  public void authenticateUser() throws Exception {
+  void authenticateUser() throws Exception {
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN))
         .thenReturn(new MetisUser());
     authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN);
     verify(psqlMetisUserDao).updateAccessTokenTimestampByAccessToken(EXAMPLE_ACCESS_TOKEN);
   }
 
-  @Test(expected = UserUnauthorizedException.class)
-  public void authenticateUserWrongCredentials() throws Exception {
+  @Test
+  void authenticateUserWrongCredentials() {
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(null);
-    authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN);
-    verifyNoMoreInteractions(psqlMetisUserDao);
+    assertThrows(UserUnauthorizedException.class,
+        () -> authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN));
+    verify(psqlMetisUserDao, times(1)).getMetisUserByAccessToken(anyString());
   }
 
   @Test
-  public void hasPermissionToRequestAllUsersIsAdmin() throws Exception {
+  void hasPermissionToRequestAllUsersIsAdmin() throws Exception {
     MetisUser metisUser = new MetisUser();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
@@ -409,7 +420,7 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void hasPermissionToRequestAllUsersIsEuropeanaDataOfficer() throws Exception {
+  void hasPermissionToRequestAllUsersIsEuropeanaDataOfficer() throws Exception {
     MetisUser metisUser = new MetisUser();
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
@@ -417,14 +428,14 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void hasPermissionToRequestAllUsersNotPermitted() throws Exception {
+  void hasPermissionToRequestAllUsersNotPermitted() throws Exception {
     MetisUser metisUser = new MetisUser();
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
     assertFalse(authenticationService.hasPermissionToRequestAllUsers(EXAMPLE_ACCESS_TOKEN));
   }
 
   @Test
-  public void getAllUsersIsAdmin() {
+  void getAllUsersIsAdmin() {
     MetisUser metisUser = new MetisUser();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     metisUser.setMetisUserAccessToken(
@@ -449,7 +460,7 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void getAllUsers() {
+  void getAllUsers() {
     MetisUser metisUser = new MetisUser();
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     metisUser.setMetisUserAccessToken(

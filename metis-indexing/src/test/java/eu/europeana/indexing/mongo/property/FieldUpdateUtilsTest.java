@@ -1,25 +1,27 @@
 package eu.europeana.indexing.mongo.property;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class FieldUpdateUtilsTest {
+class FieldUpdateUtilsTest {
 	
 	@Test
-	public void testMapEquals() {
-		Map<String,List<String>> mapA = new HashMap<String, List<String>>();
-		Map<String,List<String>> mapB = new HashMap<String, List<String>>();
-		Map<String,List<String>> mapC = new HashMap<String, List<String>>();
-		Map<String,List<String>> mapD = new HashMap<String, List<String>>();
-		Map<String,List<String>> mapE = new HashMap<String, List<String>>();
-		List<String> listA = new ArrayList<String>();
-		List<String> listB = new ArrayList<String>();
-		List<String> listC = new ArrayList<String>();
-		List<String> listD = new ArrayList<String>();
+	void testMapEquals() {
+		Map<String,List<String>> mapA = new HashMap<>();
+		Map<String,List<String>> mapB = new HashMap<>();
+		Map<String,List<String>> mapC = new HashMap<>();
+		Map<String,List<String>> mapD = new HashMap<>();
+		Map<String,List<String>> mapE = new HashMap<>();
+		List<String> listA = new ArrayList<>();
+		List<String> listB = new ArrayList<>();
+		List<String> listC = new ArrayList<>();
+		List<String> listD = new ArrayList<>();
 		listA.add("1");
 		listA.add("2");
 		listB.add("3");
@@ -37,20 +39,20 @@ public class FieldUpdateUtilsTest {
 		mapD.put("1",listA);
 		mapE.put("1", listA);
 		mapE.put("3", listB);
-		Assert.assertTrue(MongoPropertyUpdater.mapEquals(mapA, mapB));
-		Assert.assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapC));
-		Assert.assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapD));
-		Assert.assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapE));
+		assertTrue(MongoPropertyUpdater.mapEquals(mapA, mapB));
+		assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapC));
+		assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapD));
+		assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapE));
 	}
 
 	@Test
-	public void testArrayEquals() {
+	void testArrayEquals() {
 		String[] arrA = new String[]{"1","2","3"};
 		String[] arrB = new String[]{"1","3","2"};
 		String[] arrC = new String[]{"1","2"};
 		String[] arrD = new String[]{"1","2","4"};
-		Assert.assertTrue(MongoPropertyUpdater.arrayEquals(arrA, arrB));
-		Assert.assertFalse(MongoPropertyUpdater.arrayEquals(arrA, arrC));
-		Assert.assertFalse(MongoPropertyUpdater.arrayEquals(arrA, arrD));
+		assertTrue(MongoPropertyUpdater.arrayEquals(arrA, arrB));
+		assertFalse(MongoPropertyUpdater.arrayEquals(arrA, arrC));
+		assertFalse(MongoPropertyUpdater.arrayEquals(arrA, arrD));
 	}
 }

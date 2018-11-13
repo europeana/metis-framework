@@ -1,5 +1,9 @@
 package eu.europeana.enrichment.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Alternative;
 import eu.europeana.corelib.definitions.jibx.BitRate;
@@ -51,8 +55,7 @@ import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import java.util.ArrayList;
 import java.util.Set;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DereferenceUtilsTest {
 
@@ -104,13 +107,13 @@ public class DereferenceUtilsTest {
 
     Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 
-    Assert.assertNotNull(result);
-    Assert.assertEquals(4, result.size());
+    assertNotNull(result);
+    assertEquals(4, result.size());
 
-    Assert.assertTrue(result.contains("http://dummy1.dum"));
-    Assert.assertTrue(result.contains("http://dummy2.dum"));
-    Assert.assertTrue(result.contains("http://dummy3.dum"));
-    Assert.assertTrue(result.contains("http://dummy4.dum"));
+    assertTrue(result.contains("http://dummy1.dum"));
+    assertTrue(result.contains("http://dummy2.dum"));
+    assertTrue(result.contains("http://dummy3.dum"));
+    assertTrue(result.contains("http://dummy4.dum"));
   }
 
   @Test
@@ -153,12 +156,12 @@ public class DereferenceUtilsTest {
 
     Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 
-    Assert.assertNotNull(result);
-    Assert.assertEquals(3, result.size());
+    assertNotNull(result);
+    assertEquals(3, result.size());
 
-    Assert.assertTrue(result.contains("http://dummy1.dum"));
-    Assert.assertTrue(result.contains("http://dummy2.dum"));
-    Assert.assertTrue(result.contains("http://dummy3.dum"));
+    assertTrue(result.contains("http://dummy1.dum"));
+    assertTrue(result.contains("http://dummy2.dum"));
+    assertTrue(result.contains("http://dummy3.dum"));
   }
 
   @Test
@@ -227,16 +230,16 @@ public class DereferenceUtilsTest {
 
     Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 
-    Assert.assertNotNull(result);
-    Assert.assertEquals(7, result.size());
+    assertNotNull(result);
+    assertEquals(7, result.size());
 
-    Assert.assertTrue(result.contains("http://dummy1.dum"));
-    Assert.assertTrue(result.contains("http://dummy2.dum"));
-    Assert.assertTrue(result.contains("http://dummy3.dum"));
-    Assert.assertTrue(result.contains("http://dummy4.dum"));
-    Assert.assertTrue(result.contains("http://dummy5.dum"));
-    Assert.assertTrue(result.contains("http://dummy6.dum"));
-    Assert.assertTrue(result.contains("http://dummy7.dum"));
+    assertTrue(result.contains("http://dummy1.dum"));
+    assertTrue(result.contains("http://dummy2.dum"));
+    assertTrue(result.contains("http://dummy3.dum"));
+    assertTrue(result.contains("http://dummy4.dum"));
+    assertTrue(result.contains("http://dummy5.dum"));
+    assertTrue(result.contains("http://dummy6.dum"));
+    assertTrue(result.contains("http://dummy7.dum"));
   }
 
   @Test
@@ -287,13 +290,13 @@ public class DereferenceUtilsTest {
 
     Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 
-    Assert.assertNotNull(result);
-    Assert.assertEquals(4, result.size());
+    assertNotNull(result);
+    assertEquals(4, result.size());
 
-    Assert.assertTrue(result.contains("http://dummy1.dum"));
-    Assert.assertTrue(result.contains("http://dummy2.dum"));
-    Assert.assertTrue(result.contains("http://dummy4.dum"));
-    Assert.assertTrue(result.contains("http://dummy5.dum"));
+    assertTrue(result.contains("http://dummy1.dum"));
+    assertTrue(result.contains("http://dummy2.dum"));
+    assertTrue(result.contains("http://dummy4.dum"));
+    assertTrue(result.contains("http://dummy5.dum"));
   }
 
   @Test
@@ -367,15 +370,15 @@ public class DereferenceUtilsTest {
 
     Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 
-    Assert.assertNotNull(result);
-    Assert.assertEquals(6, result.size());
+    assertNotNull(result);
+    assertEquals(6, result.size());
 
-    Assert.assertTrue(result.contains("http://dummy1.dum"));
-    Assert.assertTrue(result.contains("http://dummy2.dum"));
-    Assert.assertTrue(result.contains("http://dummy3.dum"));
-    Assert.assertTrue(result.contains("http://dummy4.dum"));
-    Assert.assertTrue(result.contains("http://dummy5.dum"));
-    Assert.assertTrue(result.contains("http://dummy6.dum"));
+    assertTrue(result.contains("http://dummy1.dum"));
+    assertTrue(result.contains("http://dummy2.dum"));
+    assertTrue(result.contains("http://dummy3.dum"));
+    assertTrue(result.contains("http://dummy4.dum"));
+    assertTrue(result.contains("http://dummy5.dum"));
+    assertTrue(result.contains("http://dummy6.dum"));
   }
 
   @Test
@@ -605,36 +608,36 @@ public class DereferenceUtilsTest {
 
     Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 
-    Assert.assertNotNull(result);
-    Assert.assertEquals(27, result.size());
+    assertNotNull(result);
+    assertEquals(27, result.size());
 
-    Assert.assertTrue(result.contains("http://dummy1.dum"));
-    Assert.assertTrue(result.contains("http://dummy2.dum"));
-    Assert.assertTrue(result.contains("http://dummy3.dum"));
-    Assert.assertTrue(result.contains("http://dummy4.dum"));
-    Assert.assertTrue(result.contains("http://dummy5.dum"));
-    Assert.assertTrue(result.contains("http://dummy6.dum"));
+    assertTrue(result.contains("http://dummy1.dum"));
+    assertTrue(result.contains("http://dummy2.dum"));
+    assertTrue(result.contains("http://dummy3.dum"));
+    assertTrue(result.contains("http://dummy4.dum"));
+    assertTrue(result.contains("http://dummy5.dum"));
+    assertTrue(result.contains("http://dummy6.dum"));
 
-    Assert.assertTrue(result.contains("http://dummy7.dum"));
-    Assert.assertTrue(result.contains("http://dummy8.dum"));
-    Assert.assertTrue(result.contains("http://dummy9.dum"));
+    assertTrue(result.contains("http://dummy7.dum"));
+    assertTrue(result.contains("http://dummy8.dum"));
+    assertTrue(result.contains("http://dummy9.dum"));
 
-    Assert.assertTrue(result.contains("http://dummy20.dum"));
-    Assert.assertTrue(result.contains("http://dummy22.dum"));
-    Assert.assertTrue(result.contains("http://dummy23.dum"));
-    Assert.assertTrue(result.contains("http://dummy24.dum"));
+    assertTrue(result.contains("http://dummy20.dum"));
+    assertTrue(result.contains("http://dummy22.dum"));
+    assertTrue(result.contains("http://dummy23.dum"));
+    assertTrue(result.contains("http://dummy24.dum"));
 
-    Assert.assertTrue(result.contains("http://dummy25.dum"));
-    Assert.assertTrue(result.contains("http://dummy28.dum"));
-    Assert.assertTrue(result.contains("http://dummy29.dum"));
-    Assert.assertTrue(result.contains("http://dummy30.dum"));
+    assertTrue(result.contains("http://dummy25.dum"));
+    assertTrue(result.contains("http://dummy28.dum"));
+    assertTrue(result.contains("http://dummy29.dum"));
+    assertTrue(result.contains("http://dummy30.dum"));
 
-    Assert.assertTrue(result.contains("http://dummy31.dum"));
-    Assert.assertTrue(result.contains("http://dummy33.dum"));
-    Assert.assertTrue(result.contains("http://dummy36.dum"));
-    Assert.assertTrue(result.contains("http://dummy37.dum"));
-    Assert.assertTrue(result.contains("http://dummy38.dum"));
-    Assert.assertTrue(result.contains("http://dummy39.dum"));
-    Assert.assertTrue(result.contains("http://dummy40.dum"));
+    assertTrue(result.contains("http://dummy31.dum"));
+    assertTrue(result.contains("http://dummy33.dum"));
+    assertTrue(result.contains("http://dummy36.dum"));
+    assertTrue(result.contains("http://dummy37.dum"));
+    assertTrue(result.contains("http://dummy38.dum"));
+    assertTrue(result.contains("http://dummy39.dum"));
+    assertTrue(result.contains("http://dummy40.dum"));
   }
 }

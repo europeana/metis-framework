@@ -1,13 +1,15 @@
 package eu.europeana.metis.authentication.rest.client;
 
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 import software.betamax.ConfigurationBuilder;
 import software.betamax.TapeMode;
 import software.betamax.junit.Betamax;
@@ -25,6 +27,7 @@ public class TestAuthenticationClient {
   private static AuthenticationClient authenticationClient;
 
   @BeforeClass
+  @BeforeAll
   public static void beforeClass() {
     authenticationClient = new AuthenticationClient(
         "http://localhost:8080/metis-authentication-rest-test");
@@ -39,10 +42,9 @@ public class TestAuthenticationClient {
   }
 
   @Betamax(tape = "testGetUserByAccessTokenInHeaderHttpClientErrorException")
-  @Test(expected = UserUnauthorizedException.class)
-  public void testGetUserByAccessTokenInHeaderHttpClientErrorException() throws Exception {
-    authenticationClient.getUserByAccessTokenInHeader("Bearer OUwbCoeELS28sF");
+  @Test
+  public void testGetUserByAccessTokenInHeaderHttpClientErrorException() {
+    assertThrows(UserUnauthorizedException.class,
+        () -> authenticationClient.getUserByAccessTokenInHeader("Bearer OUwbCoeELS28sF"));
   }
-
-
 }

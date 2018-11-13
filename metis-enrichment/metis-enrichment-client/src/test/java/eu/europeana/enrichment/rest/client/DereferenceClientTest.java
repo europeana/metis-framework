@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.rest.client;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.eq;
@@ -7,22 +8,19 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import java.net.URI;
 import java.util.ArrayList;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DereferenceClientTest {
 	
 	@Test
@@ -59,7 +57,7 @@ public class DereferenceClientTest {
                 any(HttpEntity.class),
                 eq(EnrichmentResultList.class));
 	    
-	    Assert.assertEquals(res.getResult().get(0).getAbout(), agent1.getAbout());
-	    Assert.assertEquals(res.getResult().get(1).getAbout(), agent2.getAbout());
+	    assertEquals(res.getResult().get(0).getAbout(), agent1.getAbout());
+	    assertEquals(res.getResult().get(1).getAbout(), agent2.getAbout());
 	}
 }

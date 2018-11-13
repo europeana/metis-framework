@@ -1,23 +1,21 @@
 package eu.europeana.enrichment.service.zoho;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.text.ParseException;
-import java.util.Date;
-import java.util.Properties;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.service.EntityService;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.Properties;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Disabled integration. Need to implement betamax with https connectivity for
@@ -26,7 +24,7 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
  * @author GordeaS
  *
  */
-@Ignore
+@Disabled
 public class ZohoImportTest extends BaseZohoAccessSetup {
 
 	String mongoHost;
@@ -34,7 +32,7 @@ public class ZohoImportTest extends BaseZohoAccessSetup {
 	EntityService entityService;
 
 	@Override
-    @Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
 		Properties props = loadProperties("/metis.properties");
@@ -43,7 +41,7 @@ public class ZohoImportTest extends BaseZohoAccessSetup {
 		entityService = new EntityService(mongoHost, mongoPort);
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 	    entityService.close();
 	}

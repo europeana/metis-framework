@@ -2,7 +2,7 @@ package eu.europeana.enrichment.rest;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -29,35 +29,38 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class EnrichmentControllerTest {
-  private MockMvc enrichmentControllerMock;
-  private Enricher enrichmerMock;
-  private EntityRemover entityRemoverMock;
-  private Converter converterMock;
-  private EnrichmentController enrichmentController;
+  private static MockMvc enrichmentControllerMock;
+  private static Enricher enrichmerMock;
+  private static EntityRemover entityRemoverMock;
+  private static Converter converterMock;
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeAll
+  public static void setUp() {
     enrichmerMock = mock(Enricher.class);
     entityRemoverMock = mock(EntityRemover.class);
     converterMock = mock(Converter.class);
 
-    enrichmentController = new EnrichmentController(enrichmerMock, entityRemoverMock, converterMock);
+    EnrichmentController enrichmentController = new EnrichmentController(enrichmerMock, entityRemoverMock, converterMock);
     enrichmentControllerMock = MockMvcBuilders.standaloneSetup(enrichmentController)
         .setControllerAdvice(new RestResponseExceptionHandler())
         .build();
   }
 
-  @After
-  public void tearDown() throws Exception {
+  @AfterEach
+  public void tearDown() {
+    Mockito.reset(enrichmerMock);
+    Mockito.reset(entityRemoverMock);
+    Mockito.reset(converterMock);
   }
 
   @Test

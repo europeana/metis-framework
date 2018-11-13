@@ -1,13 +1,14 @@
 package eu.europeana.indexing;
 
-import static org.junit.Assert.assertEquals;
-import java.net.InetSocketAddress;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SettingsConnectionProviderTest {
+import java.net.InetSocketAddress;
+import org.junit.jupiter.api.Test;
+
+class SettingsConnectionProviderTest {
 
   @Test
-  public void testInetSocketAddressToString() {
+  void testInetSocketAddressToString() {
 
     // Define input
     final String ipAddress = "8.8.8.8";

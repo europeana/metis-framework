@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.service;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
@@ -21,7 +21,7 @@ import org.bson.types.ObjectId;
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.module.SimpleModule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ConverterTest {
   @Test

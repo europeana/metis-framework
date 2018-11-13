@@ -1,11 +1,11 @@
 package eu.europeana.metis.core.execution;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
@@ -19,32 +19,33 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.execution.WorkflowExecutionMonitor.WorkflowExecutionEntry;
+import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.EnumSet;
 import org.bson.types.ObjectId;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.execution.WorkflowExecutionMonitor.WorkflowExecutionEntry;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.WorkflowStatus;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-16
  */
-public class TestWorkflowExecutionMonitor {
+class TestWorkflowExecutionMonitor {
 
   private static final String FAILSAFE_LOCK = "failsafeLock";
 
@@ -53,23 +54,23 @@ public class TestWorkflowExecutionMonitor {
   private static RedissonClient redissonClient;
   private static RLock lock;
 
-  @BeforeClass
-  public static void prepare() {
+  @BeforeAll
+  static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     lock = mock(RLock.class);
   }
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     when(redissonClient.getFairLock(FAILSAFE_LOCK)).thenReturn(lock);
     doNothing().when(lock).lock();
     doNothing().when(lock).unlock();
   }
 
-  @After
-  public void cleanUp() {
+  @AfterEach
+  void cleanUp() {
     Mockito.reset(workflowExecutorManager);
     Mockito.reset(redissonClient);
     Mockito.reset(workflowExecutionDao);
@@ -77,7 +78,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testFailSafe() {
+  void testFailSafe() {
 
     // Create workflow executions
     final long updatedTime = 0;
@@ -140,7 +141,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testFailSafeThatThrowsExceptionDuringLockAndContinues() {
+  void testFailSafeThatThrowsExceptionDuringLockAndContinues() {
     WorkflowExecutionMonitor monitor = new WorkflowExecutionMonitor(workflowExecutorManager,
         workflowExecutionDao, redissonClient, Duration.ofHours(1));
     doThrow(new RedisConnectionException("Connection error")).when(lock).lock();
@@ -149,7 +150,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testFailSafeThatThrowsExceptionDuringLockAndUnlockAndContinues() {
+  void testFailSafeThatThrowsExceptionDuringLockAndUnlockAndContinues() {
     WorkflowExecutionMonitor monitor = new WorkflowExecutionMonitor(workflowExecutorManager,
         workflowExecutionDao, redissonClient, Duration.ofHours(1));
     doThrow(new RedisConnectionException("Connection error")).when(lock).lock();
@@ -160,7 +161,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testClaimExecution() {
+  void testClaimExecution() {
 
     // Create monitor.
     WorkflowExecutionMonitor monitor =
@@ -217,7 +218,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testClaimExecutionWithException() {
+  void testClaimExecutionWithException() {
     final String id = "id";
     WorkflowExecutionMonitor monitor =
         Mockito.spy(new WorkflowExecutionMonitor(workflowExecutorManager, workflowExecutionDao,
@@ -228,7 +229,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testEntry() {
+  void testEntry() {
 
     // Create new entry.
     final long updateTime = 0;
@@ -269,7 +270,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testMayClaimExecution() {
+  void testMayClaimExecution() {
 
     // Create monitor
     final Duration leniency = Duration.ofSeconds(10);
@@ -316,7 +317,7 @@ public class TestWorkflowExecutionMonitor {
   }
 
   @Test
-  public void testUpdateCurrentExecutions() {
+  void testUpdateCurrentExecutions() {
 
     // Create workflow executions
     final long updatedTime = 0;

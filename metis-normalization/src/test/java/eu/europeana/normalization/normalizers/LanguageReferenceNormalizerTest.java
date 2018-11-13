@@ -1,23 +1,24 @@
 package eu.europeana.normalization.normalizers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+
+import eu.europeana.normalization.languages.LanguageMatch;
+import eu.europeana.normalization.languages.LanguageMatch.Type;
+import eu.europeana.normalization.languages.LanguageMatcher;
+import eu.europeana.normalization.settings.LanguageElement;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.junit.Test;
-import eu.europeana.normalization.languages.LanguageMatch;
-import eu.europeana.normalization.languages.LanguageMatch.Type;
-import eu.europeana.normalization.languages.LanguageMatcher;
-import eu.europeana.normalization.settings.LanguageElement;
+import org.junit.jupiter.api.Test;
 
 public class LanguageReferenceNormalizerTest {
 

@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaservice;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
@@ -10,6 +10,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
+
+import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -19,11 +21,10 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.tika.Tika;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class TestMediaProcessor {
 	
@@ -35,7 +36,7 @@ public class TestMediaProcessor {
 	private final EdmObject.Parser parser = new EdmObject.Parser();
 	private final EdmObject.Writer writer = new EdmObject.Writer();
 	
-	@BeforeClass
+	@BeforeAll
 	public static void setUp() throws MediaException {
 		AudioVideoProcessor.setCommand("ffprobe");
 		ThumbnailGenerator.setCommand("magick");
@@ -45,12 +46,12 @@ public class TestMediaProcessor {
 		testedProcessor = new MediaProcessor(commandExecutor);
 	}
 	
-	@After
+	@AfterEach
 	public void resetMocks() {
 	  reset(tika, commandExecutor);
 	}
 	
-	@AfterClass
+	@AfterAll
 	public static void cleanUp() {
 		testedProcessor.close();
 	}

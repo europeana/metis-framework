@@ -1,18 +1,19 @@
 package eu.europeana.indexing.fullbean;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import eu.europeana.corelib.definitions.jibx.LiteralType;
 import eu.europeana.corelib.definitions.jibx.LiteralType.Lang;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import org.junit.jupiter.api.Test;
 
 /**
  * FieldInputUtils unit tests
@@ -20,33 +21,33 @@ import eu.europeana.corelib.definitions.jibx.ResourceType;
  * @author Yorgos.Mamakis@ kb.nl
  * 
  */
-public class FieldInputUtilsTest {
+class FieldInputUtilsTest {
 
   @Test
-  public void testCreateLiteralMapFromObject() {
+  void testCreateLiteralMapFromObject() {
     LiteralType obj = new LiteralType();
     Lang lang = new Lang();
     lang.setLang("en");
     obj.setLang(lang);
     obj.setString("str");
     Map<String, List<String>> testMap = FieldInputUtils.createLiteralMapFromString(obj);
-    Assert.assertNotNull(testMap);
-    Assert.assertEquals(1, testMap.size());
-    Assert.assertEquals("en", testMap.keySet().iterator().next());
-    Assert.assertEquals("str", testMap.get("en").get(0));
+    assertNotNull(testMap);
+    assertEquals(1, testMap.size());
+    assertEquals("en", testMap.keySet().iterator().next());
+    assertEquals("str", testMap.get("en").get(0));
   }
 
   @Test
-  public void testCreateLiteralMapFromString() {
+  void testCreateLiteralMapFromString() {
     Map<String, List<String>> testMap = FieldInputUtils.createLiteralMapFromString("str");
-    Assert.assertNotNull(testMap);
-    Assert.assertEquals(1, testMap.size());
-    Assert.assertEquals("def", testMap.keySet().iterator().next());
-    Assert.assertEquals("str", testMap.get("def").get(0));
+    assertNotNull(testMap);
+    assertEquals(1, testMap.size());
+    assertEquals("def", testMap.keySet().iterator().next());
+    assertEquals("str", testMap.get("def").get(0));
   }
 
   @Test
-  public void testCreateResourceOrLiteralMapFromString() {
+  void testCreateResourceOrLiteralMapFromString() {
 
     ResourceOrLiteralType obj = new ResourceOrLiteralType();
     ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
@@ -54,20 +55,20 @@ public class FieldInputUtilsTest {
     obj.setLang(lang);
     obj.setString("str");
     Map<String, List<String>> testMap = FieldInputUtils.createResourceOrLiteralMapFromString(obj);
-    Assert.assertNotNull(testMap);
-    Assert.assertEquals(1, testMap.size());
-    Assert.assertEquals("en", testMap.keySet().iterator().next());
-    Assert.assertEquals("str", testMap.get("en").get(0));
+    assertNotNull(testMap);
+    assertEquals(1, testMap.size());
+    assertEquals("en", testMap.keySet().iterator().next());
+    assertEquals("str", testMap.get("en").get(0));
 
     ResourceOrLiteralType obj2 = new ResourceOrLiteralType();
     Resource res = new Resource();
     res.setResource("str");
     obj2.setResource(res);
     Map<String, List<String>> testMap2 = FieldInputUtils.createResourceOrLiteralMapFromString(obj2);
-    Assert.assertNotNull(testMap2);
-    Assert.assertEquals(1, testMap2.size());
-    Assert.assertEquals("def", testMap2.keySet().iterator().next());
-    Assert.assertEquals("str", testMap2.get("def").get(0));
+    assertNotNull(testMap2);
+    assertEquals(1, testMap2.size());
+    assertEquals("def", testMap2.keySet().iterator().next());
+    assertEquals("str", testMap2.get("def").get(0));
 
     ResourceOrLiteralType obj3 = new ResourceOrLiteralType();
     ResourceOrLiteralType.Lang lang3 = new ResourceOrLiteralType.Lang();
@@ -78,18 +79,18 @@ public class FieldInputUtilsTest {
     res2.setResource("str2");
     obj3.setResource(res2);
     Map<String, List<String>> testMap3 = FieldInputUtils.createResourceOrLiteralMapFromString(obj3);
-    Assert.assertNotNull(testMap3);
-    Assert.assertEquals(1, testMap3.size());
-    Assert.assertEquals("en", testMap3.keySet().iterator().next());
-    Assert.assertEquals("str", testMap3.get("en").get(0));
-    Assert.assertEquals("str2", testMap3.get("en").get(1));
+    assertNotNull(testMap3);
+    assertEquals(1, testMap3.size());
+    assertEquals("en", testMap3.keySet().iterator().next());
+    assertEquals("str", testMap3.get("en").get(0));
+    assertEquals("str2", testMap3.get("en").get(1));
   }
 
   @Test
-  public void testCreateLiteralMapFromList() {
-    List<LiteralType> listA = new ArrayList<LiteralType>();
-    List<LiteralType> listB = new ArrayList<LiteralType>();
-    List<LiteralType> listC = new ArrayList<LiteralType>();
+  void testCreateLiteralMapFromList() {
+    List<LiteralType> listA = new ArrayList<>();
+    List<LiteralType> listB = new ArrayList<>();
+    List<LiteralType> listC = new ArrayList<>();
     LiteralType ltA = new LiteralType();
 
     LiteralType ltB = new LiteralType();
@@ -106,11 +107,11 @@ public class FieldInputUtilsTest {
     listA.add(ltA);
     listA.add(ltB);
     Map<String, List<String>> mapA = FieldInputUtils.createLiteralMapFromList(listA);
-    Assert.assertNotNull(mapA);
-    Assert.assertEquals(1, mapA.size());
-    Assert.assertEquals("en", mapA.keySet().iterator().next());
-    Assert.assertEquals("strA", mapA.get("en").get(0));
-    Assert.assertEquals("strB", mapA.get("en").get(1));
+    assertNotNull(mapA);
+    assertEquals(1, mapA.size());
+    assertEquals("en", mapA.keySet().iterator().next());
+    assertEquals("strA", mapA.get("en").get(0));
+    assertEquals("strB", mapA.get("en").get(1));
 
     ltC.setString("strC");
     ltC.setLang(lang);
@@ -118,31 +119,31 @@ public class FieldInputUtilsTest {
     listB.add(ltC);
     listB.add(ltD);
     Map<String, List<String>> mapB = FieldInputUtils.createLiteralMapFromList(listB);
-    Assert.assertNotNull(mapB);
-    Assert.assertEquals(2, mapB.size());
-    Assert.assertTrue(mapB.containsKey("def"));
-    Assert.assertTrue(mapB.containsKey("en"));
-    Assert.assertEquals("strC", mapB.get("en").get(0));
-    Assert.assertEquals("strD", mapB.get("def").get(0));
+    assertNotNull(mapB);
+    assertEquals(2, mapB.size());
+    assertTrue(mapB.containsKey("def"));
+    assertTrue(mapB.containsKey("en"));
+    assertEquals("strC", mapB.get("en").get(0));
+    assertEquals("strD", mapB.get("def").get(0));
 
     ltE.setString("strE");
     ltF.setString("strF");
     listC.add(ltE);
     listC.add(ltF);
     Map<String, List<String>> mapC = FieldInputUtils.createLiteralMapFromList(listC);
-    Assert.assertNotNull(mapC);
-    Assert.assertEquals(1, mapC.size());
-    Assert.assertTrue(mapC.containsKey("def"));
-    Assert.assertEquals("strE", mapC.get("def").get(0));
-    Assert.assertEquals("strF", mapC.get("def").get(1));
+    assertNotNull(mapC);
+    assertEquals(1, mapC.size());
+    assertTrue(mapC.containsKey("def"));
+    assertEquals("strE", mapC.get("def").get(0));
+    assertEquals("strF", mapC.get("def").get(1));
   }
 
   @Test
-  public void testCreateResourceOrLiteralMapFromList() {
+  void testCreateResourceOrLiteralMapFromList() {
 
-    List<ResourceOrLiteralType> listA = new ArrayList<ResourceOrLiteralType>();
-    List<ResourceOrLiteralType> listB = new ArrayList<ResourceOrLiteralType>();
-    List<ResourceOrLiteralType> listC = new ArrayList<ResourceOrLiteralType>();
+    List<ResourceOrLiteralType> listA = new ArrayList<>();
+    List<ResourceOrLiteralType> listB = new ArrayList<>();
+    List<ResourceOrLiteralType> listC = new ArrayList<>();
     ResourceOrLiteralType ltA = new ResourceOrLiteralType();
 
     ResourceOrLiteralType ltB = new ResourceOrLiteralType();
@@ -159,11 +160,11 @@ public class FieldInputUtilsTest {
     listA.add(ltA);
     listA.add(ltB);
     Map<String, List<String>> mapA = FieldInputUtils.createResourceOrLiteralMapFromList(listA);
-    Assert.assertNotNull(mapA);
-    Assert.assertEquals(1, mapA.size());
-    Assert.assertEquals("en", mapA.keySet().iterator().next());
-    Assert.assertEquals("strA", mapA.get("en").get(0));
-    Assert.assertEquals("strB", mapA.get("en").get(1));
+    assertNotNull(mapA);
+    assertEquals(1, mapA.size());
+    assertEquals("en", mapA.keySet().iterator().next());
+    assertEquals("strA", mapA.get("en").get(0));
+    assertEquals("strB", mapA.get("en").get(1));
 
     ltC.setString("strC");
     ltC.setLang(lang);
@@ -171,29 +172,29 @@ public class FieldInputUtilsTest {
     listB.add(ltC);
     listB.add(ltD);
     Map<String, List<String>> mapB = FieldInputUtils.createResourceOrLiteralMapFromList(listB);
-    Assert.assertNotNull(mapB);
-    Assert.assertEquals(2, mapB.size());
-    Assert.assertTrue(mapB.containsKey("def"));
-    Assert.assertTrue(mapB.containsKey("en"));
-    Assert.assertEquals("strC", mapB.get("en").get(0));
-    Assert.assertEquals("strD", mapB.get("def").get(0));
+    assertNotNull(mapB);
+    assertEquals(2, mapB.size());
+    assertTrue(mapB.containsKey("def"));
+    assertTrue(mapB.containsKey("en"));
+    assertEquals("strC", mapB.get("en").get(0));
+    assertEquals("strD", mapB.get("def").get(0));
 
     ltE.setString("strE");
     ltF.setString("strF");
     listC.add(ltE);
     listC.add(ltF);
     Map<String, List<String>> mapC = FieldInputUtils.createResourceOrLiteralMapFromList(listC);
-    Assert.assertNotNull(mapC);
-    Assert.assertEquals(1, mapC.size());
-    Assert.assertTrue(mapC.containsKey("def"));
-    Assert.assertEquals("strE", mapC.get("def").get(0));
-    Assert.assertEquals("strF", mapC.get("def").get(1));
+    assertNotNull(mapC);
+    assertEquals(1, mapC.size());
+    assertTrue(mapC.containsKey("def"));
+    assertEquals("strE", mapC.get("def").get(0));
+    assertEquals("strF", mapC.get("def").get(1));
 
   }
 
   @Test
-  public void testResourceOrLiteralListToArray() {
-    List<ResourceOrLiteralType> rltList = new ArrayList<ResourceOrLiteralType>();
+  void testResourceOrLiteralListToArray() {
+    List<ResourceOrLiteralType> rltList = new ArrayList<>();
     rltList.add(prepareRLT());
     String[] rltArray = FieldInputUtils.resourceOrLiteralListToArray(rltList);
     String[] arr = new String[] {"test resource", "test string"};
@@ -202,8 +203,8 @@ public class FieldInputUtilsTest {
   }
 
   @Test
-  public void testResourceListToArray() {
-    List<ResourceType> rtList = new ArrayList<ResourceType>();
+  void testResourceListToArray() {
+    List<ResourceType> rtList = new ArrayList<>();
     rtList.add(prepareRT());
     String[] rtArray = FieldInputUtils.resourceListToArray(rtList);
     String[] arr = new String[] {"test resource"};
@@ -212,7 +213,7 @@ public class FieldInputUtilsTest {
   }
 
   @Test
-  public void testGetResourceString() {
+  void testGetResourceString() {
     assertEquals("test resource", FieldInputUtils.getResourceString(prepareRT()));
   }
 

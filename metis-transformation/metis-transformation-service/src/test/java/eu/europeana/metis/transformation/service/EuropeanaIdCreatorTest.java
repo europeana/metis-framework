@@ -1,15 +1,17 @@
 package eu.europeana.metis.transformation.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
+import eu.europeana.corelib.definitions.jibx.RDF;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.junit.Test;
-import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
-import eu.europeana.corelib.definitions.jibx.RDF;
+import org.junit.jupiter.api.Test;
 
-public class EuropeanaIdCreatorTest {
+class EuropeanaIdCreatorTest {
 
   private static final String RDF_SKELETON = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       + "<rdf:RDF xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
@@ -51,7 +53,7 @@ public class EuropeanaIdCreatorTest {
     return rdf;
   }
 
-  public void testIdCreation(String expectedLegacy, String datasetId, String... ids)
+  void testIdCreation(String expectedLegacy, String datasetId, String... ids)
       throws EuropeanaIdException {
     final RDF rdf = createRdf(ids);
     final String rdfString = createRdfString(ids);
@@ -61,7 +63,7 @@ public class EuropeanaIdCreatorTest {
   }
 
   @Test
-  public void testIdCreation() throws EuropeanaIdException {
+  void testIdCreation() throws EuropeanaIdException {
 
     final String expected0 = "/" + DATASET_ID + "/" + RECORD_ID_PATH + "_" + RECORD_ID;
     testIdCreation(expected0, DATASET_ID, RECORD_ID_PATH + "/" + RECORD_ID);
@@ -86,33 +88,33 @@ public class EuropeanaIdCreatorTest {
 
   }
 
-  @Test(expected = EuropeanaIdException.class)
-  public void testRdfIdCreationWithoutCho() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdf(), DATASET_ID);
+  @Test
+  public void testRdfIdCreationWithoutCho() {
+    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdf(), DATASET_ID));
   }
 
-  @Test(expected = EuropeanaIdException.class)
-  public void testRdfIdCreationWithoutAbout() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdf(null, RECORD_ID), DATASET_ID);
+  @Test
+  public void testRdfIdCreationWithoutAbout() {
+    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdf(null, RECORD_ID), DATASET_ID));
   }
 
-  @Test(expected = EuropeanaIdException.class)
-  public void testRdfIdCreationWithEmptyAbout() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdf("", RECORD_ID), DATASET_ID);
+  @Test
+  public void testRdfIdCreationWithEmptyAbout() {
+    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdf("", RECORD_ID), DATASET_ID));
   }
 
-  @Test(expected = EuropeanaIdException.class)
-  public void testRdfStringIdCreationWithoutCho() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdfString(), DATASET_ID);
+  @Test
+  public void testRdfStringIdCreationWithoutCho() {
+    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdfString(), DATASET_ID));
   }
 
-  @Test(expected = EuropeanaIdException.class)
-  public void testRdfStringIdCreationWithoutAbout() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdfString(null, RECORD_ID), DATASET_ID);
+  @Test
+  public void testRdfStringIdCreationWithoutAbout() {
+    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdfString(null, RECORD_ID), DATASET_ID));
   }
 
-  @Test(expected = EuropeanaIdException.class)
-  public void testRdfStringIdCreationWithEmptyAbout() throws EuropeanaIdException {
-    new EuropeanaIdCreator().constructEuropeanaId(createRdfString("", RECORD_ID), DATASET_ID);
+  @Test
+  public void testRdfStringIdCreationWithEmptyAbout() {
+    assertThrows(EuropeanaIdException.class, () -> new EuropeanaIdCreator().constructEuropeanaId(createRdfString("", RECORD_ID), DATASET_ID));
   }
 }
