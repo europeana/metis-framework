@@ -102,7 +102,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
   private static EdmMongoServer setUpMongoConnection(IndexingSettings settings, MongoClient client)
       throws SetupRelatedIndexingException {
     try {
-      return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), true);
+      return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), false);
     } catch (MongoDBException e) {
       throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
