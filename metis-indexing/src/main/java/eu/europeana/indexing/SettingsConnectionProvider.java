@@ -54,6 +54,11 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
   public SettingsConnectionProvider(IndexingSettings settings)
       throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
 
+    // Sanity check
+    if (settings == null) {
+      throw new SetupRelatedIndexingException("The provided settings object is null.");
+    }
+
     // Create Solr and Zookeeper connections.
     this.httpSolrClient = setUpHttpSolrConnection(settings);
     if (settings.hasZookeeperConnection()) {
