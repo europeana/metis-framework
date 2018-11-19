@@ -89,8 +89,8 @@
     <version.openstack>1.9.0</version.openstack>
     <version.swagger>2.6.1</version.swagger>
     <version.swagger.annotations>1.5.10</version.swagger.annotations>
-    <version.jackson>2.9.1</version.jackson>
-    <version.jackson.xc>1.9.9</version.jackson.xc>
+    <version.jackson>2.9.7</version.jackson>
+    <version.jackson.xc>1.9.13</version.jackson.xc>
     <version.powermock>1.7.1</version.powermock>
     <version.mockito.core>2.22.0</version.mockito.core>
     <version.corelib>2.8.3</version.corelib>
@@ -99,14 +99,11 @@
     <version.morphia>1.3.2</version.morphia>
     <version.xsom>20140925</version.xsom>
     <version.commonscompress>1.11</version.commonscompress>
-    <version.spring.security>4.2.3.RELEASE</version.spring.security>
-    <version.spring>4.3.11.RELEASE</version.spring>
-    <version.spring.context>4.3.11.RELEASE</version.spring.context>
-    <version.spring.beans>4.3.11.RELEASE</version.spring.beans>
-    <version.spring.test>4.3.11.RELEASE</version.spring.test>
-    <version.spring.plugin.metadata>1.2.0.RELEASE</version.spring.plugin.metadata>
-    <version.spring.plugin.core>1.2.0.RELEASE</version.spring.plugin.core>
-    <version.spring.ldap>2.3.1.RELEASE</version.spring.ldap>
+    <version.spring.security>5.1.1.RELEASE</version.spring.security>
+    <version.spring>5.1.2.RELEASE</version.spring>
+    <version.spring.context>5.1.2.RELEASE</version.spring.context>
+    <version.spring.beans>5.1.2.RELEASE</version.spring.beans>
+    <version.spring.test>5.1.2.RELEASE</version.spring.test>
     <version.saxon.he>9.8.0-11</version.saxon.he>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -200,12 +197,6 @@
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>${version.junit}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.vintage</groupId>
-        <artifactId>junit-vintage-engine</artifactId>
-        <version>${version.junit5.vintage.version}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
