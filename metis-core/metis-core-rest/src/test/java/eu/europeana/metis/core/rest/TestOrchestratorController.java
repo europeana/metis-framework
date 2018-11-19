@@ -44,16 +44,20 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -76,6 +80,9 @@ class TestOrchestratorController {
     orchestratorControllerMock = MockMvcBuilders
         .standaloneSetup(orchestratorController)
         .setControllerAdvice(new RestResponseExceptionHandler())
+        .setMessageConverters(new MappingJackson2HttpMessageConverter(),
+            new MappingJackson2XmlHttpMessageConverter(),
+            new StringHttpMessageConverter(StandardCharsets.UTF_8))
         .build();
   }
 
@@ -90,22 +97,25 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(201))
         .andExpect(content().string(""));
 
-    verify(orchestratorService, times(1)).createWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+    verify(orchestratorService, times(1))
+        .createWorkflow(eq(metisUser), anyString(), any(Workflow.class));
   }
 
   @Test
   void createWorkflow_Unauthenticated() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-      .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
+        .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
@@ -122,8 +132,9 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
-      .when(orchestratorService).createWorkflow(eq(metisUser), any(), any());
-    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
+        .when(orchestratorService).createWorkflow(eq(metisUser), any(), any());
+    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
@@ -139,14 +150,16 @@ class TestOrchestratorController {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
         .createWorkflow(any(MetisUser.class), anyString(), any(Workflow.class));
-    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
 
-    verify(orchestratorService, times(1)).createWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+    verify(orchestratorService, times(1))
+        .createWorkflow(eq(metisUser), anyString(), any(Workflow.class));
   }
 
   @Test
@@ -155,14 +168,16 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
 
-    verify(orchestratorService, times(1)).updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+    verify(orchestratorService, times(1))
+        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
   }
 
   @Test
@@ -170,7 +185,8 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
@@ -188,7 +204,8 @@ class TestOrchestratorController {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
         .when(orchestratorService).updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
-    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
@@ -204,14 +221,16 @@ class TestOrchestratorController {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
         .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
-    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
 
-    verify(orchestratorService, times(1)).updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+    verify(orchestratorService, times(1))
+        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
   }
 
   @Test
@@ -219,7 +238,8 @@ class TestOrchestratorController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
@@ -232,7 +252,8 @@ class TestOrchestratorController {
   void deleteWorkflow_Unauthenticated() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
-    orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
@@ -248,7 +269,8 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
         .when(orchestratorService).deleteWorkflow(eq(metisUser), any());
-    orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
@@ -263,7 +285,8 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     when(orchestratorService.getWorkflow(eq(metisUser), anyString())).thenReturn(workflow);
-    orchestratorControllerMock.perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
+    orchestratorControllerMock.perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
+        Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
@@ -295,7 +318,7 @@ class TestOrchestratorController {
   @Test
   void addWorkflowInQueueOfWorkflowExecutions_Unauthenticated() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-    .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
+        .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
@@ -472,7 +495,8 @@ class TestOrchestratorController {
     AbstractMetisPlugin abstractMetisPlugin = PluginType.VALIDATION_EXTERNAL.getNewPlugin(null);
     abstractMetisPlugin.setId("validation_external_id");
     when(orchestratorService.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-        metisUser, Integer.toString(TestObjectFactory.DATASETID), PluginType.VALIDATION_EXTERNAL, null))
+        metisUser, Integer.toString(TestObjectFactory.DATASETID), PluginType.VALIDATION_EXTERNAL,
+        null))
         .thenReturn(abstractMetisPlugin);
 
     orchestratorControllerMock.perform(
@@ -493,7 +517,7 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     when(orchestratorService
-        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, 
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
             Integer.toString(TestObjectFactory.DATASETID), PluginType.OAIPMH_HARVEST, null))
         .thenReturn(null);
 
@@ -532,11 +556,16 @@ class TestOrchestratorController {
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
-        .andExpect(jsonPath("$.lastHarvestedDate", is(simpleDateFormat.format(datasetExecutionInformation.getLastHarvestedDate()))))
-        .andExpect(jsonPath("$.lastHarvestedRecords", is(datasetExecutionInformation.getLastHarvestedRecords())))
-        .andExpect(jsonPath("$.firstPublishedDate", is(simpleDateFormat.format(datasetExecutionInformation.getFirstPublishedDate()))))
-        .andExpect(jsonPath("$.lastPublishedDate", is(simpleDateFormat.format(datasetExecutionInformation.getLastPublishedDate()))))
-        .andExpect(jsonPath("$.lastPublishedRecords", is(datasetExecutionInformation.getLastPublishedRecords())));
+        .andExpect(jsonPath("$.lastHarvestedDate",
+            is(simpleDateFormat.format(datasetExecutionInformation.getLastHarvestedDate()))))
+        .andExpect(jsonPath("$.lastHarvestedRecords",
+            is(datasetExecutionInformation.getLastHarvestedRecords())))
+        .andExpect(jsonPath("$.firstPublishedDate",
+            is(simpleDateFormat.format(datasetExecutionInformation.getFirstPublishedDate()))))
+        .andExpect(jsonPath("$.lastPublishedDate",
+            is(simpleDateFormat.format(datasetExecutionInformation.getLastPublishedDate()))))
+        .andExpect(jsonPath("$.lastPublishedRecords",
+            is(datasetExecutionInformation.getLastPublishedRecords())));
   }
 
   @Test
@@ -551,7 +580,7 @@ class TestOrchestratorController {
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), anyString(),
         ArgumentMatchers.anySet(), any(OrderField.class), anyBoolean(), anyInt()))
-            .thenReturn(listOfWorkflowExecutions);
+        .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
@@ -562,9 +591,11 @@ class TestOrchestratorController {
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
-        .andExpect(jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
+        .andExpect(
+            jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
         .andExpect(jsonPath("$.results[0].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
-        .andExpect(jsonPath("$.results[1].datasetId", is(Integer.toString(TestObjectFactory.DATASETID + 1))))
+        .andExpect(jsonPath("$.results[1].datasetId",
+            is(Integer.toString(TestObjectFactory.DATASETID + 1))))
         .andExpect(jsonPath("$.results[1].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }
@@ -597,7 +628,7 @@ class TestOrchestratorController {
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), isNull(),
         ArgumentMatchers.anySet(), any(OrderField.class), anyBoolean(), anyInt()))
-            .thenReturn(listOfWorkflowExecutions);
+        .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -607,9 +638,11 @@ class TestOrchestratorController {
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
-        .andExpect(jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
+        .andExpect(
+            jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
         .andExpect(jsonPath("$.results[0].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
-        .andExpect(jsonPath("$.results[1].datasetId", is(Integer.toString(TestObjectFactory.DATASETID + 1))))
+        .andExpect(jsonPath("$.results[1].datasetId",
+            is(Integer.toString(TestObjectFactory.DATASETID + 1))))
         .andExpect(jsonPath("$.results[1].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }

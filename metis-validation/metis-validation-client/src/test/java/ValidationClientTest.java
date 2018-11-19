@@ -97,7 +97,7 @@ class ValidationClientTest {
   }
 
   @Test
-  void shouldCreateProperValidationResultForCorrectZipFile() {
+  void shouldCreateProperValidationResultForCorrectZipFile() throws IOException {
     wireMockServer.resetAll();
     wireMockServer.stubFor(post(urlEqualTo("/schema/validate/batch/EDM-INTERNAL"))
         .willReturn(aResponse()
@@ -110,13 +110,15 @@ class ValidationClientTest {
                 "}")));
 
     ValidationClient client = new ValidationClient("http://127.0.0.1:" + portForWireMock);
-    ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", new File("ok"));
+    File tempFile = File.createTempFile("temp_file", ".tmp");
+    tempFile.deleteOnExit();
+    ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", tempFile);
     assertTrue(result.isSuccess());
-    assertTrue(result.getResultList().size() == 0);
+    assertEquals(0, result.getResultList().size());
   }
 
   @Test
-  void shouldCreateProperValidationResultForWrongZipFile() {
+  void shouldCreateProperValidationResultForWrongZipFile() throws IOException {
     wireMockServer.resetAll();
     wireMockServer.stubFor(post(urlEqualTo("/schema/validate/batch/EDM-INTERNAL"))
         .willReturn(aResponse()
@@ -134,9 +136,11 @@ class ValidationClientTest {
                 "}")));
 
     ValidationClient client = new ValidationClient("http://127.0.0.1:" + portForWireMock);
-    ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", new File("ok"));
+    File tempFile = File.createTempFile("temp_file", ".tmp");
+    tempFile.deleteOnExit();
+    ValidationResultList result = client.validateRecordsInFile("EDM-INTERNAL", tempFile);
     assertTrue(result.isSuccess());
-    assertTrue(result.getResultList().size() == 1);
+    assertEquals(1, result.getResultList().size());
     assertFalse(result.getResultList().get(0).isSuccess());
     assertEquals("sampleId", result.getResultList().get(0).getRecordId());
     assertEquals("sampleMessage", result.getResultList().get(0).getMessage());

@@ -35,11 +35,15 @@ import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -62,6 +66,9 @@ class TestScheduleWorkflowController {
     scheduleWorkflowControllerMock = MockMvcBuilders
         .standaloneSetup(scheduleWorkflowController)
         .setControllerAdvice(new RestResponseExceptionHandler())
+        .setMessageConverters(new MappingJackson2HttpMessageConverter(),
+            new MappingJackson2XmlHttpMessageConverter(),
+            new StringHttpMessageConverter(StandardCharsets.UTF_8))
         .build();
   }
 
@@ -83,8 +90,10 @@ class TestScheduleWorkflowController {
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(201))
         .andExpect(content().string(""));
-    verify(authenticationClient, times(1)).getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
-    verify(scheduleWorkflowService, times(1)).scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+    verify(authenticationClient, times(1))
+        .getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
+    verify(scheduleWorkflowService, times(1))
+        .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
   }
 
   @Test
@@ -194,13 +203,15 @@ class TestScheduleWorkflowController {
     scheduleWorkflowControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
-        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .content(""))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.scheduleFrequence", is(ScheduleFrequence.ONCE.name())));
-    verify(authenticationClient, times(1)).getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
-    verify(scheduleWorkflowService, times(1)).getScheduledWorkflowByDatasetId(any(MetisUser.class), anyString());
+    verify(authenticationClient, times(1))
+        .getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
+    verify(scheduleWorkflowService, times(1))
+        .getScheduledWorkflowByDatasetId(any(MetisUser.class), anyString());
   }
 
   @Test
@@ -213,7 +224,8 @@ class TestScheduleWorkflowController {
         .createListOfScheduledWorkflows(listSize + 1);//To get the effect of next page
 
     when(scheduleWorkflowService.getScheduledWorkflowsPerRequest()).thenReturn(listSize);
-    when(scheduleWorkflowService.getAllScheduledWorkflows(any(MetisUser.class), any(ScheduleFrequence.class), anyInt()))
+    when(scheduleWorkflowService
+        .getAllScheduledWorkflows(any(MetisUser.class), any(ScheduleFrequence.class), anyInt()))
         .thenReturn(listOfScheduledWorkflows);
     scheduleWorkflowControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
@@ -223,12 +235,15 @@ class TestScheduleWorkflowController {
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
-        .andExpect(jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
+        .andExpect(
+            jsonPath("$.results[0].datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
         .andExpect(jsonPath("$.results[0].scheduleFrequence", is(ScheduleFrequence.ONCE.name())))
-        .andExpect(jsonPath("$.results[1].datasetId", is(Integer.toString(TestObjectFactory.DATASETID + 1))))
+        .andExpect(jsonPath("$.results[1].datasetId",
+            is(Integer.toString(TestObjectFactory.DATASETID + 1))))
         .andExpect(jsonPath("$.results[1].scheduleFrequence", is(ScheduleFrequence.ONCE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
-    verify(authenticationClient, times(1)).getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
+    verify(authenticationClient, times(1))
+        .getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
   }
 
   @Test
@@ -258,8 +273,10 @@ class TestScheduleWorkflowController {
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
-    verify(authenticationClient, times(1)).getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
-    verify(scheduleWorkflowService, times(1)).updateScheduledWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
+    verify(authenticationClient, times(1))
+        .getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
+    verify(scheduleWorkflowService, times(1))
+        .updateScheduledWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
   }
 
   @Test
@@ -348,14 +365,17 @@ class TestScheduleWorkflowController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     scheduleWorkflowControllerMock.perform(
-        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
-        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .content(""))
+        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
+            Integer.toString(TestObjectFactory.DATASETID))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
-    verify(authenticationClient, times(1)).getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
-    verify(scheduleWorkflowService, times(1)).deleteScheduledWorkflow(any(MetisUser.class), anyString());
+    verify(authenticationClient, times(1))
+        .getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER);
+    verify(scheduleWorkflowService, times(1))
+        .deleteScheduledWorkflow(any(MetisUser.class), anyString());
   }
 
 
@@ -364,10 +384,11 @@ class TestScheduleWorkflowController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     scheduleWorkflowControllerMock.perform(
-        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
-        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .content(""))
+        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
+            Integer.toString(TestObjectFactory.DATASETID))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
   }
@@ -380,10 +401,11 @@ class TestScheduleWorkflowController {
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
         .when(scheduleWorkflowService).deleteScheduledWorkflow(any(), any());
     scheduleWorkflowControllerMock.perform(
-        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, Integer.toString(TestObjectFactory.DATASETID))
-        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .content(""))
+        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
+            Integer.toString(TestObjectFactory.DATASETID))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
   }
