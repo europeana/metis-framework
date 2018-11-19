@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-		 Copyright 2007-2013 The Europeana Foundation
-
-		  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
-		  by the European Commission;
-		  You may not use this work except in compliance with the Licence.
-
-		  You may obtain a copy of the Licence at:
-		  http://joinup.ec.europa.eu/software/page/eupl
-
-		  Unless required by applicable law or agreed to in writing, software distributed under
-		  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
-		  any kind, either express or implied.
-		  See the Licence for the specific language governing permissions and limitations under
-		  the Licence.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -92,11 +76,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <scope>test</scope>
@@ -112,7 +91,6 @@
     <dependency>
       <groupId>com.github.tomakehurst</groupId>
       <artifactId>wiremock</artifactId>
-      <version>2.12.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -129,12 +107,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
-    <!--<dependency>-->
-    <!--<groupId>log4j</groupId>-->
-    <!--<artifactId>log4j</artifactId>-->
-    <!--<version>${version.log4j}</version>-->
-    <!--</dependency>-->
 
     <dependency>
       <groupId>de.flapdoodle.embed</groupId>
@@ -161,7 +133,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>5.1.2.RELEASE</version>
+      <version>${version.spring.context}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
