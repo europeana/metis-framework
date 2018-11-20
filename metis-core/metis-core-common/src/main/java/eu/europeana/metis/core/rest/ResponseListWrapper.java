@@ -31,15 +31,15 @@ public class ResponseListWrapper<T extends HasMongoObjectId> {
   public void setResultsAndLastPage(
       List<T> results,
       int resultsPerRequestLimit, int nextPage) {
-    if (results != null && !results.isEmpty()) {
+    if (results == null || results.isEmpty()) {
+      this.nextPage = -1;
+    } else {
       if (results.size() < resultsPerRequestLimit) {
         this.nextPage = -1;
       } else {
         this.nextPage = nextPage + 1;
       }
       listSize = results.size();
-    } else {
-      this.nextPage = -1;
     }
     this.results = results;
   }

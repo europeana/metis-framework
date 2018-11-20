@@ -40,7 +40,7 @@ import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-04
  */
-public class TestObjectFactory {
+public final class TestObjectFactory {
 
   public static final int DATASETID = 100;
   public static final String XSLTID = "5a9821af34f04b794dcf63df";
@@ -50,12 +50,18 @@ public class TestObjectFactory {
   public static final String EMAIL = "user.metis@europeana.eu";
   public static final String AUTHORIZATION_HEADER = "Bearer 1234567890qwertyuiopasdfghjklQWE";
   public static final String TOPOLOGY_NAME = "topology_name";
-  public static final long EXTERNAL_TASK_ID = 2070373127078497810L;
+  public static final long EXTERNAL_TASK_ID = 2_070_373_127_078_497_810L;
+  public static final int OCCURRENCES = 2;
 
 
   private TestObjectFactory() {
   }
 
+  /**
+   * Create dummy workflow
+   *
+   * @return the created workflow
+   */
   public static Workflow createWorkflowObject() {
     Workflow workflow = new Workflow();
     workflow.setDatasetId(Integer.toString(DATASETID));
@@ -88,6 +94,11 @@ public class TestObjectFactory {
     return workflow;
   }
 
+  /**
+   * Create dummy workflow execution
+   *
+   * @return the created workflow execution
+   */
   public static WorkflowExecution createWorkflowExecutionObject() {
     Dataset dataset = createDataset(DATASETNAME);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
@@ -105,7 +116,7 @@ public class TestObjectFactory {
     return workflowExecution;
   }
 
-  public static WorkflowExecution createWorkflowExecutionObject(Dataset dataset) {
+  private static WorkflowExecution createWorkflowExecutionObject(Dataset dataset) {
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, new ArrayList<>(), 0);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setCreatedDate(new Date());
@@ -113,6 +124,13 @@ public class TestObjectFactory {
     return workflowExecution;
   }
 
+  /**
+   * Create a list of dummy workflow executions. The dataset name will have a suffix number for each
+   * dataset.
+   *
+   * @param size the number of dummy workflow executions to create
+   * @return the created list
+   */
   public static List<WorkflowExecution> createListOfWorkflowExecutions(int size) {
     List<WorkflowExecution> workflowExecutions = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
@@ -125,13 +143,11 @@ public class TestObjectFactory {
     return workflowExecutions;
   }
 
-  public static void updateListOfWorkflowExecutionsWithWorkflowStatus(
-      List<WorkflowExecution> workflowExecutions, WorkflowStatus workflowStatus) {
-    for (WorkflowExecution workflowExecution : workflowExecutions) {
-      workflowExecution.setWorkflowStatus(workflowStatus);
-    }
-  }
-
+  /**
+   * Create a dummy scheduled workflow
+   *
+   * @return the created scheduled workflow
+   */
   public static ScheduledWorkflow createScheduledWorkflowObject() {
     ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
     scheduledWorkflow.setDatasetId(Integer.toString(DATASETID));
@@ -141,6 +157,13 @@ public class TestObjectFactory {
     return scheduledWorkflow;
   }
 
+  /**
+   * Create a list of dummy scheduled workflows. The dataset name will have a suffix number for each
+   * dataset.
+   *
+   * @param size the number of dummy scheduled workflows to create
+   * @return the created list
+   */
   public static List<ScheduledWorkflow> createListOfScheduledWorkflows(int size) {
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
@@ -152,6 +175,15 @@ public class TestObjectFactory {
     return scheduledWorkflows;
   }
 
+  /**
+   * Create a list of dummy scheduled workflows with pointer date and frequency. The dataset name
+   * will have a suffix number for each dataset.
+   *
+   * @param size the number of dummy scheduled workflows to create
+   * @param date the pointer date
+   * @param scheduleFrequence the schedule frequence
+   * @return the created list
+   */
   public static List<ScheduledWorkflow> createListOfScheduledWorkflowsWithDateAndFrequence(
       int size, Date date, ScheduleFrequence scheduleFrequence) {
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>(size);
@@ -166,16 +198,23 @@ public class TestObjectFactory {
     return scheduledWorkflows;
   }
 
+  /**
+   * Create a dummy dataset
+   *
+   * @param datasetName the dataset name to be used
+   * @return the created dataset
+   */
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
     ds.setEcloudDatasetId("NOT_CREATED_YET-f525f64c-fea0-44bf-8c56-88f30962734c");
     ds.setDatasetId(Integer.toString(DATASETID));
     ds.setDatasetName(datasetName);
-    ds.setOrganizationId("1234567890");
+    final String organizationId = "1234567890";
+    ds.setOrganizationId(organizationId);
     ds.setOrganizationName("OrganizationName");
-    ds.setProvider("1234567890");
-    ds.setIntermediateProvider("1234567890");
-    ds.setDataProvider("1234567890");
+    ds.setProvider(organizationId);
+    ds.setIntermediateProvider(organizationId);
+    ds.setDataProvider(organizationId);
     ds.setCreatedByUserId("userId");
     ds.setCreatedDate(new Date());
     ds.setUpdatedDate(new Date());
@@ -188,6 +227,12 @@ public class TestObjectFactory {
     return ds;
   }
 
+  /**
+   * Create a dummy metis user
+   *
+   * @param email the email for the dummy user
+   * @return the created metis user
+   */
   public static MetisUser createMetisUser(String email) {
     MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
     metisUserAccessToken.setAccessToken("AccessToken_12345");
@@ -207,10 +252,16 @@ public class TestObjectFactory {
     return metisUser;
   }
 
+  /**
+   * Create a dummy sub task info
+   *
+   * @return the created sub task info
+   */
   public static List<SubTaskInfo> createListOfSubTaskInfo() {
     SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", States.SUCCESS, "",
         "Sensitive Information");
-    SubTaskInfo subTaskInfo2 = new SubTaskInfo(2, "some_resource_id1", States.SUCCESS, "",
+    final int resourceNum = 2;
+    SubTaskInfo subTaskInfo2 = new SubTaskInfo(resourceNum, "some_resource_id1", States.SUCCESS, "",
         "Sensitive Information");
     ArrayList<SubTaskInfo> subTaskInfos = new ArrayList<>();
     subTaskInfos.add(subTaskInfo1);
@@ -218,21 +269,34 @@ public class TestObjectFactory {
     return subTaskInfos;
   }
 
+  /**
+   * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects.
+   *
+   * @param numberOfErrorTypes the number of dummy error types
+   * @return the created task errors info
+   */
   public static TaskErrorsInfo createTaskErrorsInfoListWithoutIdentifiers(int numberOfErrorTypes) {
     ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
     for (int i = 0; i < numberOfErrorTypes; i++) {
       TaskErrorInfo taskErrorInfo = new TaskErrorInfo("be39ef50-f77d-11e7-af0f-fa163e77119a",
-          String.format("Error%s", i), 2);
+          String.format("Error%s", i), OCCURRENCES);
       taskErrorInfos.add(taskErrorInfo);
     }
     return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
   }
 
+  /**
+   * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects. These
+   * will also contain a list of {@link ErrorDetails} that in turn contain dummy identifiers.
+   *
+   * @param numberOfErrorTypes the number of dummy error types
+   * @return the created task errors info
+   */
   public static TaskErrorsInfo createTaskErrorsInfoListWithIdentifiers(int numberOfErrorTypes) {
     ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
     for (int i = 0; i < numberOfErrorTypes; i++) {
       TaskErrorInfo taskErrorInfo = new TaskErrorInfo("be39ef50-f77d-11e7-af0f-fa163e77119a",
-          String.format("Error%s", i), 2);
+          String.format("Error%s", i), OCCURRENCES);
       ArrayList<ErrorDetails> errorDetails = new ArrayList<>();
       errorDetails.add(new ErrorDetails("identifier1", "error1"));
       errorDetails.add(new ErrorDetails("identifier2", "error2"));
@@ -242,26 +306,45 @@ public class TestObjectFactory {
     return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
   }
 
+  /**
+   * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects. These
+   * will also contain a list of {@link ErrorDetails} that in turn contain dummy identifiers.
+   *
+   * @param errorType the error type to be used for the internal {@link TaskErrorInfo}
+   * @param message the message type to be used for the internal {@link TaskErrorInfo}
+   * @return the created task errors info
+   */
   public static TaskErrorsInfo createTaskErrorsInfoWithIdentifiers(String errorType,
       String message) {
     ArrayList<ErrorDetails> errorDetails = new ArrayList<>();
     errorDetails.add(new ErrorDetails("identifier1", "error1"));
     errorDetails.add(new ErrorDetails("identifier2", "error2"));
     TaskErrorInfo taskErrorInfo1 = new TaskErrorInfo(errorType,
-        message, 2, errorDetails);
+        message, OCCURRENCES, errorDetails);
     ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
     taskErrorInfos.add(taskErrorInfo1);
 
     return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
   }
 
+  /**
+   * Create a dummy {@link StatisticsReport}
+   *
+   * @return the create report
+   */
   public static StatisticsReport createTaskStatisticsReport() {
     List<NodeStatistics> nodeStatistics = new ArrayList<>();
     nodeStatistics.add(new NodeStatistics("parentpath1", "path1", "value1", 1));
-    nodeStatistics.add(new NodeStatistics("parentpath2", "path2", "value2", 2));
+    nodeStatistics.add(new NodeStatistics("parentpath2", "path2", "value2", OCCURRENCES));
     return new StatisticsReport(EXTERNAL_TASK_ID, nodeStatistics);
   }
 
+  /**
+   * Create a dummy dataset xslt. The xslt copies a record.
+   *
+   * @param dataset the dataset to be used for the creation of the {@link DatasetXslt}
+   * @return the created dataset xslt
+   */
   public static DatasetXslt createXslt(Dataset dataset) {
     DatasetXslt datasetXslt = new DatasetXslt(dataset.getDatasetId(),
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -275,6 +358,12 @@ public class TestObjectFactory {
     return datasetXslt;
   }
 
+  /**
+   * Create a dummy list of {@link Record}s
+   *
+   * @param numberOfRecords the number of records to create
+   * @return the created list of records
+   */
   public static List<Record> createListOfRecords(int numberOfRecords) {
     List<Record> records = new ArrayList<>(numberOfRecords);
     for (int i = 0; i < numberOfRecords; i++) {
