@@ -224,7 +224,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         abstractMetisPlugin.setPluginStatus(
             taskState == TaskState.REMOVING_FROM_SOLR_AND_MONGO ? PluginStatus.CLEANING
-                : abstractMetisPlugin.getPluginStatus());
+                : PluginStatus.RUNNING);
         workflowExecution.setUpdatedDate(updatedDate);
         workflowExecutionDao.updateMonitorInformation(workflowExecution);
       } catch (InterruptedException e) {
