@@ -38,7 +38,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -48,7 +48,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
 @EnableWebMvc
-public class Application extends WebMvcConfigurerAdapter {
+public class Application implements WebMvcConfigurer {
 
   private final ConfigurationPropertiesHolder propertiesHolder;
   private MongoClient mongoClient;
@@ -223,6 +223,5 @@ public class Application extends WebMvcConfigurerAdapter {
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new MappingJackson2XmlHttpMessageConverter());
     converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
-    super.configureMessageConverters(converters);
   }
 }
