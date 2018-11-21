@@ -32,6 +32,17 @@ public class QueueConsumer extends DefaultConsumer {
   private final ExecutorCompletionService<WorkflowExecution> completionService;
   private int threadsCounter;
 
+  /**
+   * Constructor with all required parameters to initialize the consumer connection to the
+   * distributed queue and initialize the execution pool
+   *
+   * @param rabbitmqConsumerChannel the consumer channel of the queue
+   * @param rabbitmqQueueName the queue name
+   * @param workflowExecutionSettings the object that contains execution related settings
+   * @param persistenceProvider the object that contains persistence related objects
+   * @param workflowExecutionMonitor the object used to monitor executions
+   * @throws IOException if the consumer channel initialization fails
+   */
   public QueueConsumer(Channel rabbitmqConsumerChannel, String rabbitmqQueueName,
       WorkflowExecutionSettings workflowExecutionSettings, PersistenceProvider persistenceProvider,
       WorkflowExecutionMonitor workflowExecutionMonitor) throws IOException {
@@ -76,16 +87,16 @@ public class QueueConsumer extends DefaultConsumer {
     } else {
       WorkflowExecution workflowExecution =
           persistenceProvider.getWorkflowExecutionDao().getById(objectId);
-      if (!workflowExecution.isCancelling()) { //Submit for execution
-        WorkflowExecutor workflowExecutor = new WorkflowExecutor(objectId, persistenceProvider,
-            workflowExecutionSettings, workflowExecutionMonitor);
-        completionService.submit(workflowExecutor);
-        threadsCounter++;
-      } else { //Has been cancelled, do not execute
+      if (workflowExecution.isCancelling()) { //Has been cancelled, do not execute
         workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
         persistenceProvider.getWorkflowExecutionDao().update(workflowExecution);
         LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
             workflowExecution.getId());
+      } else { //Submit for execution
+        WorkflowExecutor workflowExecutor = new WorkflowExecutor(objectId, persistenceProvider,
+            workflowExecutionSettings, workflowExecutionMonitor);
+        completionService.submit(workflowExecutor);
+        threadsCounter++;
       }
       super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(),
           false);//Send ACK back to remove from queue asap.

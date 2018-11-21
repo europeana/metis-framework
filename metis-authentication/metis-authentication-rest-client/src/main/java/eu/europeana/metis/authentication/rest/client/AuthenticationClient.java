@@ -41,15 +41,15 @@ public class AuthenticationClient {
    * token.
    *
    * @param authorizationHeader the authorization header containing the access token
-   *        <p>
-   *        The expected input should follow the rule Bearer accessTokenHere
-   *        </p>
+   * <p>
+   * The expected input should follow the rule Bearer accessTokenHere
+   * </p>
    * @return {@link MetisUser}.
    * @throws GenericMetisException which can be one of:
-   *         <ul>
-   *         <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
-   *         user cannot be authenticated.</li>
-   *         </ul>
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the
+   * user cannot be authenticated.</li>
+   * </ul>
    */
   public MetisUser getUserByAccessTokenInHeader(String authorizationHeader)
       throws GenericMetisException {
@@ -64,7 +64,7 @@ public class AuthenticationClient {
           ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> restTemplate
               .exchange(String.format("%s%s", baseUrl, RestEndpoints.AUTHENTICATION_USER_BY_TOKEN),
                   HttpMethod.GET, request, String.class));
-      return objectMapper.readValue(response != null ? response.getBody() : null, MetisUser.class);
+      return objectMapper.readValue(response == null ? null : response.getBody(), MetisUser.class);
     } catch (HttpClientErrorException e) {
       LOGGER.error("Could not retrieve MetisUser. Exception: {}, ErrorCode: {}, {}",
           e, e.getRawStatusCode(), e.getResponseBodyAsString());

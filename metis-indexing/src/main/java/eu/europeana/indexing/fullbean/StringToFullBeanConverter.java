@@ -16,9 +16,8 @@ import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 
 /**
  * This class converts String representations of RDF (XML) to instances of {@link FullBeanImpl}.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public class StringToFullBeanConverter extends RdfToFullBeanConverter {
 
@@ -37,10 +36,10 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
 
   /**
    * Constructor for testing purposes.
-   * 
+   *
    * @param rdfBindingFactorySupplier Supplies an instance of {@link IBindingFactory} (RDF Binding
-   *        Factory) used to parse strings to instances of {@link RDF}. Will be called once during
-   *        every call to convert a string.
+   * Factory) used to parse strings to instances of {@link RDF}. Will be called once during every
+   * call to convert a string.
    */
   StringToFullBeanConverter(IndexingSupplier<IBindingFactory> rdfBindingFactorySupplier) {
     this.rdfBindingFactorySupplier = rdfBindingFactorySupplier;
@@ -48,7 +47,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
 
   /**
    * Converts a string (XML of RDF) to Full Bean.
-   * 
+   *
    * @param record The record as an XML string.
    * @return The Full Bean.
    * @throws IndexingException In case there was a problem with the parsing or conversion.
@@ -59,7 +58,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
 
   /**
    * Converts a string (XML of RDF) to an RDF object.
-   * 
+   *
    * @param record The record as an XML string.
    * @return The RDF instance.
    * @throws IndexingException In case there was a problem with the parsing or conversion.
@@ -87,34 +86,36 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
     return rdf;
   }
 
-  private static synchronized IBindingFactory getRdfBindingFactory()
+  private static IBindingFactory getRdfBindingFactory()
       throws IndexerRelatedIndexingException {
-    if (globalRdfBindingFactory == null) {
-      try {
-        globalRdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-      } catch (JiBXException e) {
-        throw new IndexerRelatedIndexingException("Error creating the JibX factory.", e);
+    synchronized (StringToFullBeanConverter.class) {
+      if (globalRdfBindingFactory == null) {
+        try {
+          globalRdfBindingFactory = BindingDirectory.getFactory(RDF.class);
+        } catch (JiBXException e) {
+          throw new IndexerRelatedIndexingException("Error creating the JibX factory.", e);
+        }
       }
+      return globalRdfBindingFactory;
     }
-    return globalRdfBindingFactory;
   }
 
   /**
-   * Similar to the Java interface {@link Supplier}, but one that may throw an
-   * {@link IndexerRelatedIndexingException}.
-   * 
-   * @author jochen
+   * Similar to the Java interface {@link Supplier}, but one that may throw an {@link
+   * IndexerRelatedIndexingException}.
    *
    * @param <T> The type of the object to be supplied.
+   * @author jochen
    */
   @FunctionalInterface
   interface IndexingSupplier<T> {
 
     /**
      * Gets a result.
-     * 
+     *
      * @return A result.
-     * @throws IndexerRelatedIndexingException In case something went wrong while getting the result.
+     * @throws IndexerRelatedIndexingException In case something went wrong while getting the
+     * result.
      */
     public T get() throws IndexerRelatedIndexingException;
   }

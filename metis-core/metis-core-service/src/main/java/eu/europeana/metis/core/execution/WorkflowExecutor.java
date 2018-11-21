@@ -94,15 +94,15 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
       LOGGER.info("Cancelled running user workflow execution with id: {}",
           workflowExecution.getId());
-    } else if (finishDate != null) {
+    } else if (finishDate == null) {
+      // So something went wrong: one plugin must have failed.
+      workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
+    } else {
       // If the workflow finished successfully, we record this.
       workflowExecution.setFinishedDate(finishDate);
       workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
       workflowExecution.setCancelling(false);
       LOGGER.info("Finished user workflow execution with id: {}", workflowExecution.getId());
-    } else {
-      // So something went wrong: one plugin must have failed.
-      workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
     }
 
     // The only full update is used here. The rest of the execution uses partial updates to avoid
@@ -195,10 +195,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-    if (!abstractMetisPlugin.getPluginMetadata().isMocked()) {
-      periodicCheckingLoop(sleepTime, abstractMetisPlugin);
-    } else {
+    if (abstractMetisPlugin.getPluginMetadata().isMocked()) {
       periodicCheckingLoopMocked(sleepTime, abstractMetisPlugin);
+    } else {
+      periodicCheckingLoop(sleepTime, abstractMetisPlugin);
     }
   }
 

@@ -43,6 +43,7 @@ import eu.europeana.metis.utils.NetworkUtil;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -536,7 +537,8 @@ class TestDatasetService {
     listOfRecords.get(0).setXmlRecord("invalid xml");
 
     String xsltUrl = RestEndpoints
-        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
+            Collections.singletonList(datasetXslt.getId().toString()));
     wireMockServer.stubFor(get(urlEqualTo(xsltUrl))
         .willReturn(aResponse()
             .withStatus(200)
@@ -587,7 +589,8 @@ class TestDatasetService {
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
 
     String xsltUrl = RestEndpoints
-        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
+            Collections.singletonList(datasetXslt.getId().toString()));
     wireMockServer.stubFor(get(urlEqualTo(xsltUrl))
         .willReturn(aResponse()
             .withStatus(200)

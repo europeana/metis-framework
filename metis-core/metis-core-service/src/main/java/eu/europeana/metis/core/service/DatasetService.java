@@ -26,6 +26,7 @@ import eu.europeana.metis.transformation.service.EuropeanaIdException;
 import eu.europeana.metis.transformation.service.TransformationException;
 import eu.europeana.metis.transformation.service.XsltTransformer;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -180,11 +181,11 @@ public class DatasetService {
     dataset.setOrganizationName(storedDataset.getOrganizationName());
     dataset.setCreatedByUserId(storedDataset.getCreatedByUserId());
     dataset.setId(storedDataset.getId());
-    if (xsltString != null) {
+    if (xsltString == null) {
+      dataset.setXsltId(storedDataset.getXsltId());
+    } else {
       dataset.setXsltId(new ObjectId(
           datasetXsltDao.create(new DatasetXslt(dataset.getDatasetId(), xsltString))));
-    } else {
-      dataset.setXsltId(storedDataset.getXsltId());
     }
 
     // Update the dataset
@@ -400,7 +401,8 @@ public class DatasetService {
     String xsltUrl;
     synchronized (this) {
       xsltUrl = metisCoreUrl + RestEndpoints
-          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
+              Collections.singletonList(datasetXslt.getId().toString()));
     }
 
     return transformRecords(dataset, records, xsltUrl);
@@ -444,7 +446,7 @@ public class DatasetService {
     String xsltUrl;
     synchronized (this) {
       xsltUrl = metisCoreUrl + RestEndpoints
-          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, datasetXslt.getId().toString());
+          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, Collections.singletonList(datasetXslt.getId().toString()));
     }
 
     return transformRecords(dataset, records, xsltUrl);

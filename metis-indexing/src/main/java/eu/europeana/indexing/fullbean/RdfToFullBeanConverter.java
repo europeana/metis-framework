@@ -60,10 +60,10 @@ public class RdfToFullBeanConverter {
     fullBean.setEuropeanaCollectionName(new String[]{getDatasetNameFromRdf(record)});
 
     final Optional<EuropeanaAggregationType> europeanaAggregation;
-    if (record.getEuropeanaAggregationList() != null) {
-      europeanaAggregation = record.getEuropeanaAggregationList().stream().findFirst();
-    } else {
+    if (record.getEuropeanaAggregationList() == null) {
       europeanaAggregation = Optional.empty();
+    } else {
+      europeanaAggregation = record.getEuropeanaAggregationList().stream().findFirst();
     }
 
     fullBean.setEuropeanaAggregation(
@@ -86,10 +86,10 @@ public class RdfToFullBeanConverter {
   private static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
       boolean returnNullIfEmpty) {
     final List<T> result;
-    if (sourceList != null) {
-      result = sourceList.stream().map(converter).collect(Collectors.toList());
-    } else {
+    if (sourceList == null) {
       result = new ArrayList<>();
+    } else {
+      result = sourceList.stream().map(converter).collect(Collectors.toList());
     }
     if (result.isEmpty() && returnNullIfEmpty) {
       return null;
@@ -127,7 +127,7 @@ public class RdfToFullBeanConverter {
   private static class WebResourcesExtractor implements Supplier<List<WebResourceImpl>> {
 
     private final RDF record;
-    private List<WebResourceImpl> webResources = null;
+    private List<WebResourceImpl> webResources;
 
     public WebResourcesExtractor(RDF record) {
       this.record = record;
@@ -140,11 +140,11 @@ public class RdfToFullBeanConverter {
             .getWebResourcesWithNonemptyAbout(record).collect(Collectors
                 .toMap(WebResourceType::getAbout, UnaryOperator.identity(),
                     (first, second) -> first)).values();
-        if (!webResourcesBeforeConversion.isEmpty()) {
+        if (webResourcesBeforeConversion.isEmpty()) {
+          webResources = Collections.emptyList();
+        } else {
           webResources = webResourcesBeforeConversion.stream().map(new WebResourceFieldInput())
               .collect(Collectors.toList());
-        } else {
-          webResources = Collections.emptyList();
         }
       }
       return Collections.unmodifiableList(webResources);

@@ -162,13 +162,15 @@ public enum ColorEncoding {
   }
 
   private static synchronized BiMap<String, Integer> getColorMap() {
-    if (colorMap == null) {
-      colorMap = HashBiMap.create(ColorEncoding.values().length);
-      for (ColorEncoding encoding : ColorEncoding.values()) {
-        colorMap.put(encoding.hexString, encoding.code);
+    synchronized (ColorEncoding.class) {
+      if (colorMap == null) {
+        colorMap = HashBiMap.create(ColorEncoding.values().length);
+        for (ColorEncoding encoding : ColorEncoding.values()) {
+          colorMap.put(encoding.hexString, encoding.code);
+        }
       }
+      return colorMap;
     }
-    return colorMap;
   }
 
   /**
@@ -197,7 +199,8 @@ public enum ColorEncoding {
     final String hexStringWithoutHash;
     if (StringUtils.isBlank(hexString)) {
       hexStringWithoutHash = "";
-    } else if (hexString.startsWith("#")) {
+//    } else if (hexString.startsWith("#")) {
+    } else if (hexString.charAt(0) == '#') {
       hexStringWithoutHash = hexString.substring(1);
     } else {
       hexStringWithoutHash = hexString;

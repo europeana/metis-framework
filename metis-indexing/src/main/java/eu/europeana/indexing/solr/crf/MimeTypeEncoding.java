@@ -797,14 +797,16 @@ public enum MimeTypeEncoding {
     this.code = code;
   }
 
-  private static synchronized BiMap<String, Integer> getMimeTypeMap() {
-    if (mimeTypeMap == null) {
-      mimeTypeMap = HashBiMap.create(MimeTypeEncoding.values().length);
-      for (MimeTypeEncoding encoding : MimeTypeEncoding.values()) {
-        mimeTypeMap.put(encoding.mimeType, encoding.code);
+  private static BiMap<String, Integer> getMimeTypeMap() {
+    synchronized (MimeTypeEncoding.class) {
+      if (mimeTypeMap == null) {
+        mimeTypeMap = HashBiMap.create(MimeTypeEncoding.values().length);
+        for (MimeTypeEncoding encoding : MimeTypeEncoding.values()) {
+          mimeTypeMap.put(encoding.mimeType, encoding.code);
+        }
       }
+      return mimeTypeMap;
     }
-    return mimeTypeMap;
   }
 
   /**
@@ -813,17 +815,17 @@ public enum MimeTypeEncoding {
   String getMimeType() {
     return mimeType;
   }
-  
+
   /**
    * @return The code (unshifted) that is assigned to this mime type.
    */
   int getCode() {
     return code;
   }
-  
+
   /**
    * Codifies the given mimetype (but doesn't shift the code).
-   * 
+   *
    * @param type The mimetype of the resource
    * @return The integer representation of the mimetype, or 0 if the mime type could not be found.
    */

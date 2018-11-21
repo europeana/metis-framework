@@ -38,15 +38,17 @@ public class SchedulerExecutor {
    * @param scheduleWorkflowService {@link ScheduleWorkflowService}
    * @param redissonClient {@link RedissonClient}
    */
-  public SchedulerExecutor(OrchestratorService orchestratorService, ScheduleWorkflowService scheduleWorkflowService, RedissonClient redissonClient) {
+  public SchedulerExecutor(OrchestratorService orchestratorService,
+      ScheduleWorkflowService scheduleWorkflowService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
     this.scheduleWorkflowService = scheduleWorkflowService;
     this.lock = redissonClient.getFairLock(SCHEDULER_LOCK);
   }
 
   /**
-   * Makes a run to check if there are executions scheduled in a range of dates and if some are found it will send them in the distributed queue.
-   * It is meant that this method is ran periodically.
+   * Makes a run to check if there are executions scheduled in a range of dates and if some are
+   * found it will send them in the distributed queue. It is meant that this method is ran
+   * periodically.
    */
   public void performScheduling() {
     try {
@@ -107,8 +109,7 @@ public class SchedulerExecutor {
     return scheduledWorkflows;
   }
 
-  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceDaily(
-      LocalDateTime lowerBound,
+  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceDaily(LocalDateTime lowerBound,
       LocalDateTime upperBound) {
     List<ScheduledWorkflow> scheduledWorkflows = getScheduledUserWorkflows(
         ScheduleFrequence.DAILY);

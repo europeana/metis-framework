@@ -367,13 +367,14 @@ public final class TestObjectFactory {
   public static List<Record> createListOfRecords(int numberOfRecords) {
     List<Record> records = new ArrayList<>(numberOfRecords);
     for (int i = 0; i < numberOfRecords; i++) {
+      String domain = String.format("http://some.domain.com/id/path/%s", i);
       records.add(new Record(UUID.randomUUID().toString(),
-          String.format("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+          "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
               + "<rdf:RDF xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
               + "\txmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:edm=\"http://www.europeana.eu/schemas/edm/\">\n"
-              + "\t<edm:ProvidedCHO rdf:about=\"http://some.domain.com/id/path/%s\">\n"
+              + "\t<edm:ProvidedCHO rdf:about=\"" + domain + "\">\n"
               + "\t</edm:ProvidedCHO>\n"
-              + "</rdf:RDF>\n", i)));
+              + "</rdf:RDF>\n"));
     }
     return records;
   }
