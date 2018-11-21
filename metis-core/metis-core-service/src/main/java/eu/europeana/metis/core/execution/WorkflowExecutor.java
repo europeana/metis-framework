@@ -183,7 +183,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         }
         abstractMetisPlugin.execute(dpsClient, ecloudBaseUrl, ecloudProvider,
             workflowExecution.getEcloudDatasetId());
-        abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
       } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn("Execution of external task failed", e);
         abstractMetisPlugin.setFinishedDate(null);
