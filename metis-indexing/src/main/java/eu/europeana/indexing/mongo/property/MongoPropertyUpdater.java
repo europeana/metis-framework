@@ -370,10 +370,10 @@ final class MongoPropertyUpdater<T> {
     // Process changes if applicable.
     if (!equality.test(currentValue, updatedValue)) {
       // If there has been a change, either set the value or unset it if it is null.
-      if (updatedValue != null) {
-        mongoOperations.set(updateField, updatedValue);
-      } else {
+      if (updatedValue == null) {
         mongoOperations.unset(updateField);
+      } else {
+        mongoOperations.set(updateField, updatedValue);
       }
     } else if (updatedValue != null) {
       // If there has been no change, set only on insert (only needed if value is not null).

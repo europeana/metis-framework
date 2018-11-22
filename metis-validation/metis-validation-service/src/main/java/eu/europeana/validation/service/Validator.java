@@ -38,12 +38,12 @@ public class Validator implements Callable<ValidationResult> {
   private static final Logger LOGGER = LoggerFactory.getLogger(Validator.class);
   private static ConcurrentMap<String, Templates> templatesCache;
 
-  private String schema;
-  private String rootFileLocation;
-  private String schematronFileLocation;
-  private String document;
-  private SchemaProvider schemaProvider;
-  private ClasspathResourceResolver resolver;
+  private final String schema;
+  private final String rootFileLocation;
+  private final String schematronFileLocation;
+  private final String document;
+  private final SchemaProvider schemaProvider;
+  private final ClasspathResourceResolver resolver;
 
   static {
     templatesCache = new ConcurrentHashMap<>();
@@ -79,10 +79,10 @@ public class Validator implements Callable<ValidationResult> {
     if (schemaProvider.isPredefined(schemaName)) {
       schemaObject = schemaProvider.getSchema(schemaName);
     } else {
-      if (rootFileLocation != null) {
-        schemaObject = schemaProvider.getSchema(schemaName, rootFileLocation, schematronFileLocation);
-      } else {
+      if (rootFileLocation == null) {
         throw new SchemaProviderException("Missing root file location for custom schema");
+      } else {
+        schemaObject = schemaProvider.getSchema(schemaName, rootFileLocation, schematronFileLocation);
       }
     }
     if (schemaObject == null)
@@ -166,10 +166,10 @@ public class Validator implements Callable<ValidationResult> {
     if (StringUtils.isEmpty(res.getRecordId())) {
       res.setRecordId("Missing record identifier for EDM record");
     }
-    if (nodeId != null) {
-      res.setNodeId(nodeId);
-    } else {
+    if (nodeId == null) {
       res.setNodeId("Missing node identifier");
+    } else {
+      res.setNodeId(nodeId);
     }
 
     res.setSuccess(false);

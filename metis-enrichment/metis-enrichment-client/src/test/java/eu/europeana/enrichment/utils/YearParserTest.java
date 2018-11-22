@@ -3,7 +3,6 @@ package eu.europeana.enrichment.utils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.*;
 import java.util.Arrays;
 import java.util.Collections;

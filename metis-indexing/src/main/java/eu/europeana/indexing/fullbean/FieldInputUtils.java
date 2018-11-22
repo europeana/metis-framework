@@ -11,9 +11,8 @@ import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 
 /**
- * Class with utility methods for converting an instance of
- * {@link eu.europeana.corelib.definitions.jibx.RDF} to an instance of
- * {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Class with utility methods for converting an instance of {@link eu.europeana.corelib.definitions.jibx.RDF}
+ * to an instance of {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class FieldInputUtils {
 
@@ -26,8 +25,8 @@ final class FieldInputUtils {
    *
    * @param obj The LiteralType object
    * @return A Map of strings. The keys are the languages and the values are lists of strings for
-   *         the corresponding language. If the object is null, the method returns null. In case a
-   *         language is missing the def notation is used as key
+   * the corresponding language. If the object is null, the method returns null. In case a language
+   * is missing the def notation is used as key
    */
   static <T extends LiteralType> Map<String, List<String>> createLiteralMapFromString(T obj) {
     Map<String, List<String>> retMap = new HashMap<>();
@@ -54,7 +53,6 @@ final class FieldInputUtils {
   /**
    * Method that converts a Enum object to a multilingual map of strings
    *
-   * @param obj
    * @return A Map of strings containing the value with the def notation as key
    */
   static Map<String, List<String>> createLiteralMapFromString(String obj) {
@@ -77,8 +75,8 @@ final class FieldInputUtils {
    *
    * @param obj The ResourceOrLiteralType object
    * @return A Map of strings. The keys are the languages and the values are lists of strings for
-   *         the corresponding language. If the object is null, the method returns null. In case a
-   *         language is missing the def notation is used as key
+   * the corresponding language. If the object is null, the method returns null. In case a language
+   * is missing the def notation is used as key
    */
   static <T extends ResourceOrLiteralType> Map<String, List<String>> createResourceOrLiteralMapFromString(
       T obj) {
@@ -92,8 +90,8 @@ final class FieldInputUtils {
         }
         if (obj.getResource() != null) {
           List<String> val =
-              retMap.get(obj.getLang().getLang()) != null ? retMap.get(obj.getLang().getLang())
-                  : new ArrayList<>();
+              retMap.get(obj.getLang().getLang()) == null ? new ArrayList<>()
+                  : retMap.get(obj.getLang().getLang());
 
           val.add(obj.getResource().getResource());
 
@@ -101,13 +99,13 @@ final class FieldInputUtils {
         }
       } else {
         if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getString()))) {
-          List<String> val = retMap.get("def") != null ? retMap.get("def") : new ArrayList<>();
+          List<String> val = retMap.get("def") == null ? new ArrayList<>() : retMap.get("def");
           val.add(obj.getString());
           retMap.put("def", val);
         }
         if (obj.getResource() != null
             && StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource().getResource()))) {
-          List<String> val = retMap.get("def") != null ? retMap.get("def") : new ArrayList<>();
+          List<String> val = retMap.get("def") == null ? new ArrayList<>() : retMap.get("def");
           val.add(StringUtils.trim(obj.getResource().getResource()));
           retMap.put("def", val);
         }
@@ -123,12 +121,11 @@ final class FieldInputUtils {
     if (obj != null) {
 
       if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource()))) {
-        List<String> val = retMap.get("def") != null ? retMap.get("def") : new ArrayList<>();
+        List<String> val = retMap.get("def") == null ? new ArrayList<>() : retMap.get("def");
         val.add(obj.getResource());
         retMap.put("def", val);
       }
       return retMap;
-
     }
     return null;
   }
@@ -138,8 +135,8 @@ final class FieldInputUtils {
    *
    * @param list The LiteralType list
    * @return A Map of strings. The keys are the languages and the values are lists of strings for
-   *         the corresponding language. If the object is null, the method returns null. In case a
-   *         language is missing the def notation is used as key
+   * the corresponding language. If the object is null, the method returns null. In case a language
+   * is missing the def notation is used as key
    */
   static <T extends LiteralType> Map<String, List<String>> createLiteralMapFromList(List<T> list) {
     if (list != null && !list.isEmpty()) {
@@ -195,8 +192,8 @@ final class FieldInputUtils {
    *
    * @param list The ResourceOrLiteralType list
    * @return A Map of strings. The keys are the languages and the values are lists of strings for
-   *         the corresponding language. If the object is null, the method returns null. In case a
-   *         language is missing the def notation is used as key
+   * the corresponding language. If the object is null, the method returns null. In case a language
+   * is missing the def notation is used as key
    */
   static <T extends ResourceOrLiteralType> Map<String, List<String>> createResourceOrLiteralMapFromList(
       List<T> list) {
@@ -227,7 +224,16 @@ final class FieldInputUtils {
           }
         }
         if (obj.getResource() != null && StringUtils.isNotBlank(obj.getResource().getResource())) {
-          if (obj.getLang() != null) {
+          if (obj.getLang() == null) {
+            List<String> val = retMap.get("def");
+            if (val == null) {
+              val = new ArrayList<>();
+            }
+            if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource().getResource()))) {
+              val.add(obj.getResource().getResource());
+              retMap.put("def", val);
+            }
+          } else {
             String lang = obj.getLang().getLang();
             List<String> val;
             if (retMap.containsKey(lang)) {
@@ -239,15 +245,6 @@ final class FieldInputUtils {
             if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource().getResource()))) {
               val.add(obj.getResource().getResource());
               retMap.put(lang, val);
-            }
-          } else {
-            List<String> val = retMap.get("def");
-            if (val == null) {
-              val = new ArrayList<>();
-            }
-            if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource().getResource()))) {
-              val.add(obj.getResource().getResource());
-              retMap.put("def", val);
             }
           }
         }
@@ -281,7 +278,7 @@ final class FieldInputUtils {
       }
       return lst.stream().toArray(String[]::new);
     }
-    return new String[] {};
+    return new String[]{};
   }
 
   /**
@@ -300,17 +297,16 @@ final class FieldInputUtils {
       }
       return arr;
     }
-    return new String[] {};
+    return new String[]{};
   }
 
   /**
-   *
    * @param obj The ResourceType object
    * @return a string from a ResourceType object
    */
   static String getResourceString(ResourceType obj) {
     if (obj != null) {
-      return obj.getResource() != null ? obj.getResource() : null;
+      return obj.getResource();
     }
     return null;
   }

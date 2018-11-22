@@ -142,7 +142,7 @@ class WebResource {
 
   public void setResolution(Integer resolution) {
     resource.setSpatialResolution(
-        resolution != null ? uintVal(new SpatialResolution(), resolution) : null);
+        resolution == null ? null : uintVal(new SpatialResolution(), resolution));
   }
 
   private static <T extends IntegerType> T intVal(T element, int value) {

@@ -73,7 +73,7 @@ public class RemoveDuplicateStatementNormalizerTest {
     assertFalse(pair.equals(new Object()));
 
     // Test with itself
-    assertTrue(pair.equals(pair));
+    assertEquals(pair, pair);
 
     // Test with actual and empty names
     assertTrue(new TextAttributesPair("A", null).equals(new TextAttributesPair("A", null)));

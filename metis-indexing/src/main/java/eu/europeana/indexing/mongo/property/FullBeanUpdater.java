@@ -1,5 +1,6 @@
 package eu.europeana.indexing.mongo.property;
 
+import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import java.util.ArrayList;
 import java.util.function.BiConsumer;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
@@ -96,11 +97,11 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
   }
 
   private static EuropeanaAggregationImpl getEuropeanaAggregationFromFullBean(
-      FullBeanImpl fullBean) {
+      FullBean fullBean) {
     return (EuropeanaAggregationImpl) fullBean.getEuropeanaAggregation();
   }
 
-  private static RootAbout createRootAbout(FullBeanImpl fullBean) {
+  private static RootAbout createRootAbout(FullBean fullBean) {
     return new RootAbout(fullBean.getAbout());
   }
 }

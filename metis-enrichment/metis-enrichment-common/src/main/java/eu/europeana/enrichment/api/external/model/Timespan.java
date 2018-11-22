@@ -8,10 +8,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Timespan model class.
+ */
 @XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "Timespan")
 @XmlAccessorType(XmlAccessType.FIELD)
-
 public class Timespan extends EnrichmentBase {
+
   @XmlElement(name = "isPartOf", namespace = "http://purl.org/dc/terms/")
   private List<Part> isPartOfList = new ArrayList<>();
   @XmlElement(name = "hasPart", namespace = "http://purl.org/dc/terms/")

@@ -7,10 +7,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Place model class
+ */
 @XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "Place")
 @XmlAccessorType(XmlAccessType.FIELD)
-
 public class Place extends EnrichmentBase {
+
   @XmlElement(name = "isPartOf", namespace = "http://purl.org/dc/terms/")
   private List<Part> isPartOfList = new ArrayList<>();
   @XmlElement(name = "hasPart", namespace = "http://purl.org/dc/terms/")
@@ -24,7 +27,6 @@ public class Place extends EnrichmentBase {
   private String lon;
   @XmlElement(name = "alt", namespace = "http://www.w3.org/2003/01/geo/wgs84_pos#")
   private String alt;
-
 
   public List<Part> getIsPartOfList() {
     return unmodifiableListAcceptingNull(isPartOfList);
@@ -58,7 +60,7 @@ public class Place extends EnrichmentBase {
     this.lat = lat;
   }
 
- public String getLon() {
+  public String getLon() {
     return lon;
   }
 
@@ -66,7 +68,7 @@ public class Place extends EnrichmentBase {
     this.lon = lon;
   }
 
-   public String getAlt() {
+  public String getAlt() {
     return alt;
   }
 

@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.service.zoho.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import eu.europeana.metis.authentication.dao.ZohoApi2Fields;
 import eu.europeana.metis.authentication.dao.ZohoApiFields;
 

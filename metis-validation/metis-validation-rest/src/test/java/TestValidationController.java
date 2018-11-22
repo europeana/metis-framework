@@ -3,6 +3,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -51,7 +52,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestApplication.class)
 @WebAppConfiguration
-class ValidationControllerTest {
+class TestValidationController {
 
   static int portForWireMock = TestApplication.portForWireMock;
   private static WireMockServer wireMockServer;
@@ -206,7 +207,7 @@ class ValidationControllerTest {
     ValidationResultList validationResultList = unmarshalXMLToValidationResultSet(result);
     assertFalse(validationResultList.isSuccess());
     List<ValidationResult> validationResults = validationResultList.getResultList();
-    assertTrue(validationResults == null);
+    assertNull(validationResults);
 
   }
 

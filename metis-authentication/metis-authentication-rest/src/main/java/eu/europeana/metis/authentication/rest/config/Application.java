@@ -26,7 +26,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -37,7 +37,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @PropertySource("classpath:authentication.properties")
 @EnableWebMvc
 @EnableScheduling
-public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+public class Application implements WebMvcConfigurer, InitializingBean {
 
   //Custom trustore
   @Value("${truststore.path}")
@@ -123,6 +123,5 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new MappingJackson2XmlHttpMessageConverter());
-    super.configureMessageConverters(converters);
   }
 }

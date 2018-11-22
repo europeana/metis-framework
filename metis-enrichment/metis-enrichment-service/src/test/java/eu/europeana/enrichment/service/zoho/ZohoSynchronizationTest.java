@@ -1,6 +1,8 @@
 package eu.europeana.enrichment.service.zoho;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
@@ -163,21 +165,21 @@ public class ZohoSynchronizationTest extends BaseZohoAccessSetup {
         assertNotNull(otl2);
         /* validate URLs and labels of nearly stored organizations */
         Organization storedOrg1 = entityService.getOrganizationById(org1.getAbout());
-        assertTrue(storedOrg1.getAbout().equals(TEST_BNF_URL_TMP_1));
-        assertTrue(storedOrg1.getEdmAcronym().get(Locale.ENGLISH.getLanguage()).get(0)
-            .equals(TEST_BNF_PREF_LABEL_1));
+        assertEquals(storedOrg1.getAbout(), TEST_BNF_URL_TMP_1);
+        assertEquals(storedOrg1.getEdmAcronym().get(Locale.ENGLISH.getLanguage()).get(0),
+            TEST_BNF_PREF_LABEL_1);
         Organization storedOrg2 = entityService.getOrganizationById(org2.getAbout());
-        assertTrue(storedOrg2.getAbout().equals(TEST_BNF_URL_TMP_2));
-        assertTrue(storedOrg2.getEdmAcronym().get(Locale.ENGLISH.getLanguage()).get(0)
-            .equals(TEST_BNF_PREF_LABEL_2));
+        assertEquals(storedOrg2.getAbout(), TEST_BNF_URL_TMP_2);
+        assertEquals(storedOrg2.getEdmAcronym().get(Locale.ENGLISH.getLanguage()).get(0),
+            TEST_BNF_PREF_LABEL_2);
         /* remove nearly stored organizations by list of URLs */
         entityService.deleteOrganizations(
             new ArrayList<String>(Arrays.asList(org1.getAbout(), org2.getAbout())));
         /* verify that organizations were removed */
         Organization removedOrg1 = entityService.getOrganizationById(org1.getAbout());
         Organization removedOrg2 = entityService.getOrganizationById(org2.getAbout());
-        assertTrue(removedOrg1 == null);
-        assertTrue(removedOrg2 == null);        
+        assertNull(removedOrg1);
+        assertNull(removedOrg2);
       }
   }
 

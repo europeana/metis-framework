@@ -1,19 +1,21 @@
 package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 /**
  * Provides schemas based on url of predefined name (EDM-Internal on EDM-External).
@@ -33,6 +35,7 @@ public class SchemaProvider {
 
   /**
    * Creates {@link SchemaProvider} for given {@link PredefinedSchemas} object.
+   *
    * @param predefinedSchemasLocations the wrapper class with all the schema locations
    */
   public SchemaProvider(PredefinedSchemas predefinedSchemasLocations) {
@@ -49,10 +52,10 @@ public class SchemaProvider {
   /**
    * Retrieves schema object from given (remote) location.
    *
-   * @param fileLocation place where (remote) zip file is located.
-   * Accepts url to file or one of the predefined values (EDM-INTERNAL or EDM-EXTERNAL)
-   * @param rootFileLocation indicates where root xsd file is located inside zip.
-   * The caller is responsible to provide propper path (for example propper slashes)
+   * @param fileLocation place where (remote) zip file is located. Accepts url to file or one of the
+   * predefined values (EDM-INTERNAL or EDM-EXTERNAL)
+   * @param rootFileLocation indicates where root xsd file is located inside zip. The caller is
+   * responsible to provide propper path (for example propper slashes)
    * @param schematronLocation place where schematron file is located
    * @return schema object
    * @throws SchemaProviderException any exception that can occur during retrieving schema files
@@ -69,7 +72,8 @@ public class SchemaProvider {
   /**
    * Creates intance of {@link Schema} class based on provided type of schema
    *
-   * @param fileLocation location of schema files. Can be url to zip or predefined value (that will be taken from properties file)
+   * @param fileLocation location of schema files. Can be url to zip or predefined value (that will
+   * be taken from properties file)
    * @return the instance
    * @throws SchemaProviderException any exception that can occur during retrieving schema files
    */
@@ -134,15 +138,16 @@ public class SchemaProvider {
       throw new SchemaProviderException("Unable to clean schemaDirecory", e);
     }
 
-    if(!schemasLocation.mkdirs())
+    if (!schemasLocation.mkdirs()) {
       throw new SchemaProviderException("Unable to create schemaDirecory");
+    }
 
     try (InputStream urlLocation = new URL(zipLocation).openStream();
-        ReadableByteChannel rbc = Channels.newChannel(urlLocation);
-        FileOutputStream fos = new FileOutputStream(new File(schemasLocation, ZIP_FILE_NAME), false)) {
+        OutputStream fos = Files
+            .newOutputStream(new File(schemasLocation, ZIP_FILE_NAME).toPath())) {
 
       File destinationFile = new File(schemasLocation, ZIP_FILE_NAME);
-      fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+      IOUtils.copy(urlLocation, fos);
       return destinationFile;
     } catch (IOException e) {
       throw new SchemaProviderException("Unable to store schema file", e);

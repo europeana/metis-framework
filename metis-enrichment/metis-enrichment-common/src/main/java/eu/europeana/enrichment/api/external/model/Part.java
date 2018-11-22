@@ -4,11 +4,20 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
+/**
+ * Part model class. Basically encapsulating a resource field.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Part implements WebResource {
+
   @XmlAttribute(name = "resource", namespace = "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
   private String resource;
 
+  /**
+   * Constructor with initial field value.
+   *
+   * @param resource the initial resource value
+   */
   public Part(String resource) {
     this.resource = resource;
   }
@@ -23,7 +32,7 @@ public class Part implements WebResource {
   public void setResource(String resource) {
     this.resource = resource;
   }
-  
+
   @Override
   public String getResourceUri() {
     return getResource();
@@ -33,5 +42,5 @@ public class Part implements WebResource {
   public void setResourceUri(String resource) {
     setResource(resource);
   }
-  
+
 }

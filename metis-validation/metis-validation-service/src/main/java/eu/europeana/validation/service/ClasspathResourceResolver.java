@@ -1,6 +1,7 @@
 package eu.europeana.validation.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +30,14 @@ public class ClasspathResourceResolver implements LSResourceResolver {
     try {
       LSInput input = new ClasspathLSInput();
       InputStream stream;
-      if (!systemId.startsWith("http")) {
+      if (systemId.startsWith("http")) {
+        if (cache.get(systemId) == null) {
+          stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("xml.xsd");
+          cache.put(systemId, stream);
+        } else {
+          stream = cache.get(systemId);
+        }
+      } else {
         String fullPath = new File(prefix, systemId).getAbsolutePath();
         if (cache.get(fullPath) == null) {
           stream = Files.newInputStream(Paths.get(fullPath));
@@ -37,21 +45,14 @@ public class ClasspathResourceResolver implements LSResourceResolver {
         } else {
           stream = cache.get(fullPath);
         }
-      } else {
-        if (cache.get(systemId) == null) {
-          stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("xml.xsd");
-          cache.put(systemId, stream);
-        } else {
-          stream = cache.get(systemId);
-        }
       }
       input.setPublicId(publicId);
       input.setSystemId(systemId);
       input.setBaseURI(baseURI);
       input.setCharacterStream(new InputStreamReader(stream, StandardCharsets.UTF_8.name()));
       return input;
-    } catch (java.io.IOException e) {
-      LOGGER.error(e.getMessage(), e);
+    } catch (IOException e) {
+      LOGGER.error("An error occurred while resolving a resource", e);
     }
     return null;
   }

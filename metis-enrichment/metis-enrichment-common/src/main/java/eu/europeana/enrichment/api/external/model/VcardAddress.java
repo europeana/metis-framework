@@ -7,18 +7,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This class supports parsing of the content of Wikidata Address class
- * 
- * @author GrafR
  *
+ * @author GrafR
  */
 @XmlRootElement(namespace = "http://www.w3.org/2006/vcard/ns#", name = "Address")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class VcardAddress { 
-  
-  public VcardAddress() {
-    super();
-  }
-  
+public class VcardAddress {
+
   @XmlElement(name = "country-name", namespace = "http://www.w3.org/2006/vcard/ns#")
   private String countryName;
 
@@ -33,7 +28,14 @@ public class VcardAddress {
 
   @XmlElement(name = "post-office-box", namespace = "http://www.w3.org/2006/vcard/ns#")
   private String postOfficeBox;
-  
+
+  /**
+   * Default constructor
+   */
+  public VcardAddress() {
+    super();
+  }
+
   public String getCountryName() {
     return countryName;
   }
@@ -41,7 +43,7 @@ public class VcardAddress {
   public void setCountryName(String countryName) {
     this.countryName = countryName;
   }
-  
+
   public String getLocality() {
     return locality;
   }
@@ -49,7 +51,7 @@ public class VcardAddress {
   public void setLocality(String locality) {
     this.locality = locality;
   }
-  
+
   public String getPostalCode() {
     return postalCode;
   }
@@ -57,7 +59,7 @@ public class VcardAddress {
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
   }
-  
+
   public String getPostOfficeBox() {
     return postOfficeBox;
   }
@@ -65,7 +67,7 @@ public class VcardAddress {
   public void setPostOfficeBox(String postOfficeBox) {
     this.postOfficeBox = postOfficeBox;
   }
-  
+
   public String getStreetAddress() {
     return streetAddress;
   }
@@ -73,5 +75,5 @@ public class VcardAddress {
   public void setStreetAddress(String streetAddress) {
     this.streetAddress = streetAddress;
   }
-  
+
 }

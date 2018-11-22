@@ -11,144 +11,147 @@ import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
- * A controlled vocabulary representation
- * Created by ymamakis on 2/11/16.
+ * A controlled vocabulary representation Created by ymamakis on 2/11/16.
  */
 
 @Entity("Vocabulary")
 public class Vocabulary implements Serializable {
 
-	/** Required for implementations of {@link Serializable}. **/
-	private static final long serialVersionUID = 2946293185967000824L;
-	
-	@Id
-    private String id;
-	
-    /**
-     * The URI of the controlled vocabulary
-     */
-    @Indexed
-    private String uri;
+  /**
+   * Required for implementations of {@link Serializable}.
+   **/
+  private static final long serialVersionUID = 2946293185967000824L;
 
-    /**
-     * The suffix of the vocabulary: needs to be added after the variable bit of the URI.
-     */
-    private String suffix;
-    
-    /**
-     * Rules that take into account the rdf:type attribute of an rdf:Description to specify whether
-     */
-    private Set<String> typeRules;
+  @Id
+  private String id;
 
-    /**
-     * Rules by URL
-     */
-    private Set<String> rules;
+  /**
+   * The URI of the controlled vocabulary
+   */
+  @Indexed
+  private String uri;
 
-    /**
-     * The XSLT to convert an external entity to an internal entity
-     */
-    private String xslt;
+  /**
+   * The suffix of the vocabulary: needs to be added after the variable bit of the URI.
+   */
+  private String suffix;
 
-    /**
-     * The iterations (broader) that we need to retrieve
-     */
-    private int iterations;
+  /**
+   * Rules that take into account the rdf:type attribute of an rdf:Description to specify whether
+   */
+  private Set<String> typeRules;
 
-    /**
-     * The name of the vocabulary
-     */
-    @Indexed(options = @IndexOptions(unique = true))
-    private String name;
+  /**
+   * Rules by URL
+   */
+  private Set<String> rules;
 
-    private ContextualClass type;
+  /**
+   * The XSLT to convert an external entity to an internal entity
+   */
+  private String xslt;
 
-    @XmlElement
-    public String getUri() {
-        return uri;
-    }
+  /**
+   * The iterations (broader) that we need to retrieve
+   */
+  private int iterations;
 
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-    
-    @XmlElement
-    public String getSuffix() {
-        return suffix;
-    }
-    
-    public void setSuffix(String suffix) {
-        this.suffix = suffix;
-    }
-  
-    @XmlElement
-    public Set<String> getTypeRules() {
-        return this.typeRules == null ? null : Collections.unmodifiableSet(this.typeRules);
-    }
-  
-    public void setTypeRules(Set<String> typeRules) {
-        if (typeRules == null || typeRules.isEmpty()) {
-            this.typeRules = null;
-        } else {
-            this.typeRules = new HashSet<>(typeRules);
-        }
-    }
-  
-    @XmlElement
-    public String getXslt() {
-        return xslt;
-    }
+  /**
+   * The name of the vocabulary
+   */
+  @Indexed(options = @IndexOptions(unique = true))
+  private String name;
 
-    public void setXslt(String xslt) {
-        this.xslt = xslt;
-    }
+  private ContextualClass type;
 
-    @XmlElement
-    public int getIterations() {
-        return iterations;
-    }
+  @XmlElement
+  public String getUri() {
+    return uri;
+  }
 
-    public void setIterations(int iterations) {
-        this.iterations = iterations;
-    }
-    
-    @XmlElement
-    public Set<String> getRules() {
-      return this.rules == null ? null : Collections.unmodifiableSet(this.rules);
-    }
+  public void setUri(String uri) {
+    this.uri = uri;
+  }
 
-    public void setRules(Set<String> rules) {
-        if (rules == null || rules.isEmpty()) {
-            this.rules = null;
-        } else {
-            this.rules = new HashSet<>(rules);
-            // For people who have old stubborn habits.
-            this.rules.remove("*"); 
-        }
-    }
-    
-    @XmlElement
-    public String getName() {
-        return name;
-    }
+  @XmlElement
+  public String getSuffix() {
+    return suffix;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    @XmlElement
-    public ContextualClass getType() {
-        return type;
-    }
+  public void setSuffix(String suffix) {
+    this.suffix = suffix;
+  }
 
-    public void setType(ContextualClass type) {
-        this.type = type;
-    }
-    @XmlElement
-    public String getId() {
-        return id;
-    }
+  @XmlElement
+  public Set<String> getTypeRules() {
+    return this.typeRules == null ? null : Collections.unmodifiableSet(this.typeRules);
+  }
 
-    public void setId(String id) {
-        this.id = id;
+  public void setTypeRules(Set<String> typeRules) {
+    if (typeRules == null || typeRules.isEmpty()) {
+      this.typeRules = null;
+    } else {
+      this.typeRules = new HashSet<>(typeRules);
     }
+  }
+
+  @XmlElement
+  public String getXslt() {
+    return xslt;
+  }
+
+  public void setXslt(String xslt) {
+    this.xslt = xslt;
+  }
+
+  @XmlElement
+  public int getIterations() {
+    return iterations;
+  }
+
+  public void setIterations(int iterations) {
+    this.iterations = iterations;
+  }
+
+  @XmlElement
+  public Set<String> getRules() {
+    return this.rules == null ? null : Collections.unmodifiableSet(this.rules);
+  }
+
+  public void setRules(Set<String> rules) {
+    if (rules == null || rules.isEmpty()) {
+      this.rules = null;
+    } else {
+      this.rules = new HashSet<>(rules);
+      // For people who have old stubborn habits.
+      this.rules.remove("*");
+    }
+  }
+
+  @XmlElement
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  @XmlElement
+  public ContextualClass getType() {
+    return type;
+  }
+
+  public void setType(ContextualClass type) {
+    this.type = type;
+  }
+
+  @XmlElement
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 }

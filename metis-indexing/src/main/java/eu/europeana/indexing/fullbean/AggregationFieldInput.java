@@ -65,12 +65,12 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
         FieldInputUtils.createResourceMapFromString(aggregation.getRights());
     mongoAggregation.setEdmRights(rights);
 
-    if (aggregation.getUgc() != null) {
-      mongoAggregation
-          .setEdmUgc(aggregation.getUgc().getUgc().toString().toLowerCase(Locale.ENGLISH));
-    } else {
+    if (aggregation.getUgc() == null) {
       //False value is not supported in the RDF enumeration so we have to manually add it if Ugc is not present
       mongoAggregation.setEdmUgc("false");
+    } else {
+      mongoAggregation
+          .setEdmUgc(aggregation.getUgc().getUgc().toString().toLowerCase(Locale.ENGLISH));
     }
 
     String agCHO = Optional.ofNullable(aggregation.getAggregatedCHO())
@@ -81,14 +81,13 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
         FieldInputUtils.createResourceOrLiteralMapFromList(aggregation.getRightList());
     mongoAggregation.setDcRights(rights1);
 
-    if (aggregation.getHasViewList() != null) {
+    if (aggregation.getHasViewList() == null) {
+      mongoAggregation.setHasView(null);
+    } else {
       String[] hasViewList = aggregation.getHasViewList().stream()
           .map(hasView -> processResource(webResources, hasView)).filter(Objects::nonNull)
           .toArray(String[]::new);
       mongoAggregation.setHasView(hasViewList);
-    } else {
-      mongoAggregation.setHasView(null);
-
     }
 
     mongoAggregation.setWebResources(webResources);

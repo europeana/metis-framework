@@ -18,8 +18,8 @@ public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date untilDate;
   private String datasetId;
-  //If false, it indicates that the ProvidedCHO rdf:about should be used to set the identifier for ECloud
-  private boolean useDefaultIdentifiers = false;
+  //Default false. If false, it indicates that the ProvidedCHO rdf:about should be used to set the identifier for ECloud
+  private boolean useDefaultIdentifiers;
   //If useDefaultIdentifiers == true then this is the prefix to be trimmed from the OAI Header Identifier
   private String identifierPrefixRemoval;
 

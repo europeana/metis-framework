@@ -94,15 +94,15 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
       LOGGER.info("Cancelled running user workflow execution with id: {}",
           workflowExecution.getId());
-    } else if (finishDate != null) {
+    } else if (finishDate == null) {
+      // So something went wrong: one plugin must have failed.
+      workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
+    } else {
       // If the workflow finished successfully, we record this.
       workflowExecution.setFinishedDate(finishDate);
       workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
       workflowExecution.setCancelling(false);
       LOGGER.info("Finished user workflow execution with id: {}", workflowExecution.getId());
-    } else {
-      // So something went wrong: one plugin must have failed.
-      workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
     }
 
     // The only full update is used here. The rest of the execution uses partial updates to avoid
@@ -183,7 +183,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         }
         abstractMetisPlugin.execute(dpsClient, ecloudBaseUrl, ecloudProvider,
             workflowExecution.getEcloudDatasetId());
-        abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
       } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn("Execution of external task failed", e);
         abstractMetisPlugin.setFinishedDate(null);
@@ -196,10 +195,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-    if (!abstractMetisPlugin.getPluginMetadata().isMocked()) {
-      periodicCheckingLoop(sleepTime, abstractMetisPlugin);
-    } else {
+    if (abstractMetisPlugin.getPluginMetadata().isMocked()) {
       periodicCheckingLoopMocked(sleepTime, abstractMetisPlugin);
+    } else {
+      periodicCheckingLoop(sleepTime, abstractMetisPlugin);
     }
   }
 
@@ -224,7 +223,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         abstractMetisPlugin.setPluginStatus(
             taskState == TaskState.REMOVING_FROM_SOLR_AND_MONGO ? PluginStatus.CLEANING
-                : abstractMetisPlugin.getPluginStatus());
+                : PluginStatus.RUNNING);
         workflowExecution.setUpdatedDate(updatedDate);
         workflowExecutionDao.updateMonitorInformation(workflowExecution);
       } catch (InterruptedException e) {

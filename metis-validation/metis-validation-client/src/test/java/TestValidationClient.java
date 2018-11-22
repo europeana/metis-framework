@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Created by pwozniak on 1/17/18
  */
-class ValidationClientTest {
+class TestValidationClient {
 
   private static int portForWireMock = 9999;
 

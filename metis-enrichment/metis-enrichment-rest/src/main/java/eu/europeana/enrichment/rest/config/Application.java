@@ -1,5 +1,13 @@
 package eu.europeana.enrichment.rest.config;
 
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.enrichment.service.Converter;
+import eu.europeana.enrichment.service.Enricher;
+import eu.europeana.enrichment.service.EntityRemover;
+import eu.europeana.enrichment.service.RedisInternalEnricher;
+import eu.europeana.enrichment.utils.EnrichmentEntityDao;
+import eu.europeana.metis.cache.redis.RedisProvider;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,15 +20,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.enrichment.service.Converter;
-import eu.europeana.enrichment.service.Enricher;
-import eu.europeana.enrichment.service.EntityRemover;
-import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.enrichment.utils.EnrichmentEntityDao;
-import eu.europeana.metis.cache.redis.RedisProvider;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -39,7 +39,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @PropertySource("classpath:enrichment.properties")
 @EnableWebMvc
 @EnableSwagger2
-public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+public class Application implements WebMvcConfigurer, InitializingBean {
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")

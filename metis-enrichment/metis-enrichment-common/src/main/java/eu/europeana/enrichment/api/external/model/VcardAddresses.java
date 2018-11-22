@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class VcardAddresses { 
   
   @XmlElement(name = "Address", namespace = "http://www.w3.org/2006/vcard/ns#")
-  private List<VcardAddress> vcardAddresses = new ArrayList<VcardAddress>();
+  private List<VcardAddress> vcardAddresses = new ArrayList<>();
   
   public List<VcardAddress> getVcardAddresses() {
     return vcardAddresses;

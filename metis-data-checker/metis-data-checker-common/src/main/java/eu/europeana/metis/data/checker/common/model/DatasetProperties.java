@@ -37,8 +37,8 @@ public class DatasetProperties {
     final String nonBlankDatasetName =
         StringUtils.isBlank(datasetName) ? DEFAULT_DATASET_NAME : datasetName;
     this.datasetName = datasetId + DATASET_NAME_SEPARATOR + nonBlankDatasetName;
-    this.edmCountry = edmCountry != null ? edmCountry : DEFAULT_EDM_COUNTRY;
-    this.edmLanguage = edmLanguage != null ? edmLanguage : DEFAULT_EDM_LANGUAGE;
+    this.edmCountry = edmCountry == null ? DEFAULT_EDM_COUNTRY : edmCountry;
+    this.edmLanguage = edmLanguage == null ? DEFAULT_EDM_LANGUAGE : edmLanguage;
   }
 
   /**

@@ -1,10 +1,13 @@
 package eu.europeana.validation.rest.config;
 
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.validation.service.ClasspathResourceResolver;
 import eu.europeana.validation.service.PredefinedSchemas;
 import eu.europeana.validation.service.PredefinedSchemasGenerator;
 import eu.europeana.validation.service.SchemaProvider;
-import eu.europeana.validation.service.ClasspathResourceResolver;
+import java.util.List;
+import java.util.Properties;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
@@ -21,7 +24,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -29,10 +32,6 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Properties;
 
 /**
  * Configuration file for Jersey
@@ -43,7 +42,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableSwagger2
 @Configuration
-public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+public class Application implements WebMvcConfigurer, InitializingBean {
 
   public static final int MAX_UPLOAD_SIZE = 50_000_000;
 
@@ -89,7 +88,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new StringHttpMessageConverter());
-    super.configureMessageConverters(converters);
   }
 
   @Override
