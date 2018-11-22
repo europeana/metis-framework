@@ -95,9 +95,8 @@ public class WikidataAccessDao {
    * @param uri The Wikidata URI in string format
    * @return String The Result of Wikidata query in XML format
    * @throws WikidataAccessException
-   * @throws IOException
    */
-  public StringBuilder getEntity(String uri) throws WikidataAccessException, IOException {
+  public StringBuilder getEntity(String uri) throws WikidataAccessException {
 
     StringBuilder res = new StringBuilder();
     StreamResult wikidataRes = new StreamResult(new StringBuilderWriter(res));
@@ -124,9 +123,8 @@ public class WikidataAccessDao {
    * @param xml The Wikidata organization object in string XML format
    * @return Wikidata organization object
    * @throws JAXBException
-   * @throws IOException
    */
-  public WikidataOrganization parse(String xml) throws JAXBException, IOException {
+  public WikidataOrganization parse(String xml) throws JAXBException {
     JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
 
     Unmarshaller unmarshaller = jc.createUnmarshaller();
@@ -189,11 +187,10 @@ public class WikidataAccessDao {
    * 
    * @param inputFile The file containing the wikidata
    * @return WikidataOrganization object
-   * @throws IOException
    * @throws JAXBException
    */
   public WikidataOrganization parseWikidataOrganization(File inputFile)
-      throws IOException, JAXBException {
+      throws JAXBException {
 
     JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
 

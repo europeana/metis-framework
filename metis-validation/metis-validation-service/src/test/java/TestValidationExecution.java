@@ -14,7 +14,6 @@ import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.service.ClasspathResourceResolver;
 import eu.europeana.validation.service.PredefinedSchemas;
 import eu.europeana.validation.service.SchemaProvider;
-import eu.europeana.validation.service.SchemaProviderException;
 import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationServiceConfig;
 import java.io.File;
@@ -284,8 +283,7 @@ class TestValidationExecution {
   }
 
   @Test
-  void ValidationExecutionServiceTestWithProvidedProperties()
-      throws SchemaProviderException {
+  void ValidationExecutionServiceTestWithProvidedProperties() {
     Properties property = loadDefaultProperties("src/test/resources/custom-validation.properties");
     ValidationExecutionService validationExecutionService = new ValidationExecutionService(
         property);
@@ -311,8 +309,7 @@ class TestValidationExecution {
   }
 
   @Test
-  void ValidationExecutionServiceTestWithCustomConfiguration()
-      throws SchemaProviderException {
+  void ValidationExecutionServiceTestWithCustomConfiguration() {
     PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
     predefinedSchemas.add("name", "location", "root", "schematronFile");
     predefinedSchemas.add("name1", "location1", "root1", "schematronFile1");

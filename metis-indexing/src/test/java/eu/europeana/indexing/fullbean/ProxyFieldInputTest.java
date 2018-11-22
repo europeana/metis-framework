@@ -67,7 +67,7 @@ class ProxyFieldInputTest {
     testMongo(proxy);
   }
 
-  private void testMongo(ProxyType proxy) throws InstantiationException, IllegalAccessException {
+  private void testMongo(ProxyType proxy) {
 
     EdmMongoServer mongoServerMock = mock(EdmMongoServer.class);
     Datastore datastoreMock = mock(Datastore.class);

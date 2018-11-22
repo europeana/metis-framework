@@ -33,7 +33,7 @@ import eu.europeana.corelib.definitions.jibx.Width;
 class WebResource {
 
   enum Orientation {
-    PORTRAIT, LANDSCAPE;
+    PORTRAIT, LANDSCAPE
   }
 
   private final WebResourceType resource;

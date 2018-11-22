@@ -269,11 +269,9 @@ public final class EuropeanaIdCreator {
     if (exception.getCause() instanceof NullPointerException) {
       final StackTraceElement[] stackTrace = exception.getCause().getStackTrace();
       final StackTraceElement firstMethod = stackTrace.length > 0 ? stackTrace[0] : null;
-      if (firstMethod != null
+      return firstMethod != null
           && "org.apache.xerces.parsers.AbstractDOMParser".equals(firstMethod.getClassName())
-          && "characters".equals(firstMethod.getMethodName())) {
-        return true;
-      }
+          && "characters".equals(firstMethod.getMethodName());
     }
 
     // So it is not

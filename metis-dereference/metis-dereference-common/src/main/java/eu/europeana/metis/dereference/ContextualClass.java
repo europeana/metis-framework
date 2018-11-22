@@ -5,5 +5,5 @@ package eu.europeana.metis.dereference;
  * Created by ymamakis on 2/11/16.
  */
 public enum ContextualClass {
-    AGENT,CONCEPT,PLACE,TIMESPAN;
+    AGENT,CONCEPT,PLACE,TIMESPAN
 }

@@ -61,7 +61,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   }
 
   @AfterEach
-  public void tearDown() throws Exception {}
+  public void tearDown() {}
   
   @Test
   public void testMergeLists(){
@@ -74,8 +74,8 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   }
 
   @Test
-  public void mergeOrganizationsFromFilesTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, IOException, JAXBException, URISyntaxException {
+  public void mergeOrganizationsFromFilesTest() throws ZohoAccessException,
+      IOException, JAXBException, URISyntaxException {
 
     // 1. Get organization from Zoho file
     File zohoTestInputFile = getClasspathFile(ZOHO_TEST_INPUT_FILE);
@@ -127,10 +127,9 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
    * 
    * @param organization
    * @return wikidata organization
-   * @throws JAXBException
    * @throws IOException
    */
-  private static String serialize(OrganizationImpl organization) throws JAXBException, IOException {
+  private static String serialize(OrganizationImpl organization) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     SimpleModule sm = new SimpleModule("objId", Version.unknownVersion());
     sm.addSerializer(new ObjectIdSerializer());
@@ -140,8 +139,8 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   }
 
   @Test
-  public void mergeZohoAndWikidataOrganizationsTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, IOException, JAXBException, URISyntaxException {
+  public void mergeZohoAndWikidataOrganizationsTest() throws ZohoAccessException,
+      IOException, JAXBException, URISyntaxException {
 
 //     Get Zoho organization 
     File zohoTestInputFile = getClasspathFile(ZOHO_TEST_INPUT_FILE);
@@ -175,7 +174,7 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
 
   @Test
   public void retrieveWikidataOrganigationXmlTest()
-      throws WikidataAccessException, ZohoAccessException, ParseException, IOException {
+      throws WikidataAccessException, IOException {
 
     String uri =
         wikidataAccessService.buildOrganizationUri(TEST_WIKIDATA_ORGANIZATION_ID).toString();
@@ -184,8 +183,8 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   }
 
   @Test
-  public void parseWikidataFromXmlFileTest() throws WikidataAccessException,
-      ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
+  public void parseWikidataFromXmlFileTest() throws
+      IOException, JAXBException, URISyntaxException {
 
     File wikidataTestOutputFile = getClasspathFile(WIKIDATA_TEST_OUTPUT_FILE);
     WikidataOrganization wikidataOrganization = wikidataAccessDao
@@ -196,14 +195,14 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
     LOGGER.info(
         "wikidata organization country: " + wikidataOrganization.getOrganization().getCountry());
     LOGGER.info("wikidata organization homepage: "
-        + wikidataOrganization.getOrganization().getHomepage().getResource().toString());
+        + wikidataOrganization.getOrganization().getHomepage().getResource());
     assertNotNull(wikidataOrganization.getOrganization().getCountry());
-    assertNotNull(wikidataOrganization.getOrganization().getHomepage().getResource().toString());
+    assertNotNull(wikidataOrganization.getOrganization().getHomepage().getResource());
   }
 
   @Test
-  public void mergeZohoAndWikidataOrganizationFromFilesTest() throws WikidataAccessException,
-      ZohoAccessException, ParseException, IOException, JAXBException, URISyntaxException {
+  public void mergeZohoAndWikidataOrganizationFromFilesTest() throws
+      ZohoAccessException, IOException, JAXBException, URISyntaxException {
 
 //    ZohoOrganization zohoOrganization = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
     File zohoTestInputFile = getClasspathFile(ZOHO_TEST_INPUT_FILE);

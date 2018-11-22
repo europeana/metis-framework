@@ -68,7 +68,7 @@ class TestValidationController {
   private static boolean isOneTime = true;
 
   @BeforeAll
-  static void setUp() throws IOException {
+  static void setUp() {
     wireMockServer = new WireMockServer(wireMockConfig().port(portForWireMock));
     wireMockServer.start();
   }

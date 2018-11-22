@@ -53,7 +53,7 @@ class DataCheckerControllerTest {
 
 
   @BeforeEach
-  void setUp() throws Exception {
+  void setUp() {
     dataCheckerService = mock(DataCheckerService.class);
     zipService = mock(ZipService.class);
 

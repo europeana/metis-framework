@@ -194,7 +194,7 @@ class CacheItemWithExpirationTimeTest {
     }
 
     @Override
-    public String get() throws CacheValueSupplierException {
+    public String get() {
       return value;
     }
   }

@@ -42,7 +42,7 @@ class LanguageMatcherTest {
   private static Languages languages;
 
   @BeforeAll
-  static void prepareTests() throws NormalizationConfigurationException {
+  static void prepareTests() {
 
     final Language language1 = new Language();
     language1.setIso6391(LANGUAGE_1_CODE_1);

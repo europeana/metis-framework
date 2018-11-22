@@ -18,7 +18,7 @@ public class CleanMarkupTagsNormalizerTest {
       + "</div>";
 
   @Test
-  public void testHtmlMarkup() throws Exception {
+  public void testHtmlMarkup() {
     CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(CleanMarkupTagsMode.HTML_ONLY);
     List<String> cleaned = cleaner.normalizeValue(html).stream()
         .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
@@ -34,7 +34,7 @@ public class CleanMarkupTagsNormalizerTest {
   }
 
   @Test
-  public void testAllMarkup() throws Exception {
+  public void testAllMarkup() {
     CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(CleanMarkupTagsMode.ALL_MARKUP);
     List<String> cleaned = cleaner.normalizeValue(html).stream()
         .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());

@@ -21,7 +21,7 @@ public interface PropertySolrCreator<T extends AbstractEdmEntity> {
    * @param document The Solr document to which to add the data.
    * @param properties The EDM properties from which to extract the data.
    */
-  public default void addAllToDocument(SolrInputDocument document,
+  default void addAllToDocument(SolrInputDocument document,
       Collection<? extends T> properties) {
     if (properties != null) {
       for (T property : properties) {
@@ -37,6 +37,6 @@ public interface PropertySolrCreator<T extends AbstractEdmEntity> {
    * @param document The Solr document to which to add the data.
    * @param property The EDM property from which to extract the data.
    */
-  public abstract void addToDocument(SolrInputDocument document, T property);
+  void addToDocument(SolrInputDocument document, T property);
 
 }

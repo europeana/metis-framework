@@ -266,7 +266,7 @@ public class RedisInternalEnricher {
     return entities;
   }
 
-  private List<String> findParents(String parent, EntityClass entityClass) throws IOException {
+  private List<String> findParents(String parent, EntityClass entityClass) {
     List<String> parentEntities = new ArrayList<>();
     MongoTermList<?> parents = entityDao.findByCode(parent, entityClass);
     if (parents != null) {

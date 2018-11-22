@@ -70,7 +70,7 @@ public class EntityService implements Closeable {
    */
   public List<String> getOrganizationRoles(Organization org) {
 
-    return ((OrganizationImpl) org).getEdmEuropeanaRole().get(Locale.ENGLISH.toString());
+    return org.getEdmEuropeanaRole().get(Locale.ENGLISH.toString());
   }
 
   

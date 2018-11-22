@@ -35,7 +35,7 @@ public enum PluginType {
   private final Function<AbstractMetisPluginMetadata, AbstractMetisPlugin> pluginCreator;
   private final boolean revisionLess;
 
-  private PluginType(Function<AbstractMetisPluginMetadata, AbstractMetisPlugin> pluginCreator,
+  PluginType(Function<AbstractMetisPluginMetadata, AbstractMetisPlugin> pluginCreator,
       boolean revisionLess) {
     this.pluginCreator = pluginCreator;
     this.revisionLess = revisionLess;

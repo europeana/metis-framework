@@ -204,7 +204,7 @@ public class CacheWithExpirationTime<K, V> {
     }
   }
 
-  private static interface CacheValueResolver<V> {
-    public V apply(CacheValueSupplier<V> cacheValueSupplier) throws CacheValueSupplierException;
+  private interface CacheValueResolver<V> {
+    V apply(CacheValueSupplier<V> cacheValueSupplier) throws CacheValueSupplierException;
   }
 }

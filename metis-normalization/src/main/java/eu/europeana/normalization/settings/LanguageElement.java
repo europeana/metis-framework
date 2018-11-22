@@ -20,7 +20,7 @@ public enum LanguageElement {
 
   private final XpathQuery elementQuery;
 
-  private LanguageElement(XpathQuery languageQuery) {
+  LanguageElement(XpathQuery languageQuery) {
     this.elementQuery = languageQuery;
   }
 

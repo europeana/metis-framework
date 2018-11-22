@@ -65,7 +65,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
    * Used for overwriting properties if cloud foundry environment is used
    */
   @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet() {
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }

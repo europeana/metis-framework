@@ -36,7 +36,7 @@ public enum TechnicalFacet {
   private final int numberOfBits;
   private final Function<WebResourceWrapper, Set<Integer>> facetExtractor;
 
-  private TechnicalFacet(final int bitPosition, final int numberOfBits,
+  TechnicalFacet(final int bitPosition, final int numberOfBits,
       Function<WebResourceWrapper, Set<Integer>> facetExtractor) {
     this.bitPosition = bitPosition;
     this.numberOfBits = numberOfBits;

@@ -34,7 +34,7 @@ public interface Indexer extends Closeable {
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * <p>
@@ -50,7 +50,7 @@ public interface Indexer extends Closeable {
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * <p>
@@ -66,7 +66,7 @@ public interface Indexer extends Closeable {
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void index(String record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void index(String record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * <p>
@@ -82,7 +82,7 @@ public interface Indexer extends Closeable {
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void index(List<String> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void index(List<String> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * This method will trigger a flush operation on pending changes/updates to the persistent data,
@@ -94,7 +94,7 @@ public interface Indexer extends Closeable {
    * @param blockUntilComplete If true, the call blocks until the flush is complete.
    * @throws IndexingException In case something went wrong.
    */
-  public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException;
+  void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException;
 
   /**
    * <p>
@@ -120,7 +120,7 @@ public interface Indexer extends Closeable {
    * @return Whether a record was removed.
    * @throws IndexingException In case something went wrong.
    */
-  public boolean remove(String rdfAbout) throws IndexingException;
+  boolean remove(String rdfAbout) throws IndexingException;
 
   /**
    * <p>
@@ -155,5 +155,5 @@ public interface Indexer extends Closeable {
    * @return The number of records that were removed.
    * @throws IndexingException In case something went wrong.
    */
-  public int removeAll(String datasetId) throws IndexingException;
+  int removeAll(String datasetId) throws IndexingException;
 }

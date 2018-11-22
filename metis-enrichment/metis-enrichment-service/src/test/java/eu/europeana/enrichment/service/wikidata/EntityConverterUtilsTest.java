@@ -5,10 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.enrichment.service.EntityConverterUtils;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javax.xml.bind.JAXBException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,11 +49,11 @@ public class EntityConverterUtilsTest {
   final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
   @BeforeEach
-  public void setUp() throws Exception {
+  public void setUp() {
   }
 
   @AfterEach
-  public void tearDown() throws Exception {}
+  public void tearDown() {}
 
   private void init() {
     prefLabel = new HashMap<String, List<String>>();
@@ -84,8 +79,7 @@ public class EntityConverterUtilsTest {
   }
   
   @Test
-  public void mergeTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, JAXBException, IOException {
+  public void mergeTest() {
 
     init();
 

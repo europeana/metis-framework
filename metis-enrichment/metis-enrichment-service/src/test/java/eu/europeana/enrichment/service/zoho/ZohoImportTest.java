@@ -9,7 +9,6 @@ import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.service.EntityService;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
@@ -48,7 +47,7 @@ public class ZohoImportTest extends BaseZohoAccessSetup {
 
 	@Test
 	public void importOrganizationTest()
-			throws ZohoAccessException, ParseException {
+			throws ZohoAccessException {
 		
 		ZohoOrganization org = zohoAccessService
 				.getOrganization(TEST_ORGANIZATION_ID);

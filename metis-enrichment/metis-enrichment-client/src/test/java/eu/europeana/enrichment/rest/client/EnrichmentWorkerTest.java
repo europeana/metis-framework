@@ -138,8 +138,7 @@ public class EnrichmentWorkerTest {
   }
 
   @Test
-  public void testIllegalArgumentException()
-      throws UnsupportedEncodingException, DereferenceOrEnrichException, JiBXException {
+  public void testIllegalArgumentException() {
     EnrichmentWorker enrichmentWorker = new EnrichmentWorker("", "");
 
     String input = null;

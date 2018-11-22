@@ -117,6 +117,6 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
      * @throws IndexerRelatedIndexingException In case something went wrong while getting the
      * result.
      */
-    public T get() throws IndexerRelatedIndexingException;
+    T get() throws IndexerRelatedIndexingException;
   }
 }

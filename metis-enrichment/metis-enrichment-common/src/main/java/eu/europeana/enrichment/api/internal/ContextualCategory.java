@@ -11,7 +11,7 @@ public enum ContextualCategory {
 
   private String entityClass;
 
-  private ContextualCategory(String label, String entityClass) {
+  ContextualCategory(String label, String entityClass) {
     this.label = label;
     this.entityClass = entityClass;
   }

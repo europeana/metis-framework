@@ -36,7 +36,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessSetup {
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	public void tearDown() {
 	}
 
 	@Test
