@@ -16,9 +16,11 @@ import java.net.URI;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -202,6 +204,11 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
+  @Bean(name = "datasetIdGenerator")
+  Supplier<String> getDatasetIdGenerator() {
+    return () -> UUID.randomUUID().toString();
+  }
+
   @Bean
   ValidationClient validationClient() throws IOException {
     return new ValidationClient();
@@ -212,7 +219,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     return new ZipService();
   }
 
-  @Bean()
+  @Bean
   AbstractConnectionProvider getIndexingConnection() {
     return indexingConnection;
   }
