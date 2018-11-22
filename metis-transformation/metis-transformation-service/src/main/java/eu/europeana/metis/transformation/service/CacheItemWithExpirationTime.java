@@ -21,10 +21,10 @@ class CacheItemWithExpirationTime<V> {
   private V value;
 
   // Locked: change only with write lock.
-  private Instant creationTime = null;
+  private Instant creationTime;
 
   // No need to be locked: is independent of other data.
-  private Instant lastAccessTime = null;
+  private Instant lastAccessTime;
 
   private ReadWriteLock lock = new ReentrantReadWriteLock();
 

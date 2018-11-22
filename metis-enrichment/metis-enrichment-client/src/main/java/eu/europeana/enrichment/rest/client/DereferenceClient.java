@@ -119,7 +119,7 @@ public class DereferenceClient {
     Map<String, String> params = new HashMap<>();
     params.put("uri", uri);
     params.put("xml", xml);
-    restTemplate.postForEntity(hostUrl + RestEndpoints.ENTITY, params, null);
+    restTemplate.put(hostUrl + RestEndpoints.ENTITY, params);
   }
 
   /**

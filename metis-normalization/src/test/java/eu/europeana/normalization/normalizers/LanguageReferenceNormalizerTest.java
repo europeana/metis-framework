@@ -93,7 +93,7 @@ public class LanguageReferenceNormalizerTest {
         normalizer.determineConfidence(Arrays.asList(exactMatch, labelMatch)));
 
     // Test no match
-    assertEquals(null, normalizer.determineConfidence(Arrays.asList(noMatch)));
+    assertNull(normalizer.determineConfidence(Arrays.asList(noMatch)));
     assertEquals(null, normalizer.determineConfidence(Arrays.asList(exactMatch, noMatch)));
     assertEquals(null,
         normalizer.determineConfidence(Arrays.asList(noMatch, exactMatch, codeMatch)));

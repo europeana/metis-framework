@@ -103,7 +103,7 @@ public final class XmlUtil {
    */
   public static String getElementTextByTagName(Element n, String elementName) {
     final Element subEl = getElementByTagName(n, elementName);
-    return subEl != null ? getElementText(subEl) : null;
+    return subEl == null ? null : getElementText(subEl);
   }
 
   /**

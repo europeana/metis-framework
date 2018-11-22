@@ -195,17 +195,16 @@ public class MongoDereferenceService implements DereferenceService {
 
     // Parse the entity.
     final Pair<EnrichmentBase, Vocabulary> result;
-    if (entityString != null && vocabulary != null) {
+    if (entityString == null || vocabulary == null) {
+      result = null;
+    } else {
       final StringReader reader = new StringReader(entityString);
       final JAXBContext context = JAXBContext.newInstance(EnrichmentBase.class);
       final EnrichmentBase resource =
           (EnrichmentBase) context.createUnmarshaller().unmarshal(reader);
       result = new ImmutablePair<>(resource, vocabulary);
-    } else {
-      result = null;
     }
 
-    // Done
     return result;
   }
 

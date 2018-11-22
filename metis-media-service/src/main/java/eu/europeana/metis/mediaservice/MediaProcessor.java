@@ -89,7 +89,7 @@ public class MediaProcessor implements Closeable {
       throws MediaException {
     String mimeType;
     try {
-      mimeType = contents != null ? tika.detect(contents) : tika.detect(URI.create(url).toURL());
+      mimeType = contents == null ? tika.detect(URI.create(url).toURL()) : tika.detect(contents);
     } catch (IOException e) {
       throw new MediaException("Mime type checking error", "IOException " + e.getMessage(), e,
           contents == null);

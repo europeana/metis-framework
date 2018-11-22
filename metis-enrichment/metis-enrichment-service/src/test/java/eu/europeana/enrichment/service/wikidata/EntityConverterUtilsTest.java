@@ -88,31 +88,31 @@ public class EntityConverterUtilsTest {
       ParseException, JAXBException, IOException {
 
     init();
-       
-    /** merge two equal prefLabels */
+
+    //merge two equal prefLabels
     Map<String, List<String>> mergedFromEqualMap = getEntityConverterUtils().mergeMapsWithLists(
         prefLabel, prefLabel);
     assertNotNull(mergedFromEqualMap);
-    
-    /** merge unequal prefLabels to an altLabel and check resulting altLabel */
+
+    // merge unequal prefLabels to an altLabel and check resulting altLabel
     Map<String, List<String>> newValuesMap = new HashMap<>();
     newValuesMap.put(Locale.ENGLISH.getLanguage(), Collections.singletonList(TEST_LABEL_EN));
     newValuesMap.put(Locale.FRENCH.getLanguage(), Arrays.asList(TEST_LABEL_FR, TEST_LABEL_FR2));
     Map<String, List<String>> mergedMap =
         getEntityConverterUtils().mergeMapsWithLists(altLabel, newValuesMap);
     assertNotNull(mergedMap);
-    assertTrue(mergedMap.size() == 3);
+    assertEquals(3, mergedMap.size());
     assertEquals(mergedMap.get(Locale.ENGLISH.getLanguage()).get(0), TEST_LABEL_EN);
     assertTrue(mergedMap.get(Locale.FRENCH.getLanguage()).contains(TEST_LABEL_FR));
     assertTrue(mergedMap.get(Locale.FRENCH.getLanguage()).contains(TEST_LABEL_FR2));
     assertEquals(mergedMap.get(Locale.ITALIAN.getLanguage()).get(0), TEST_LABEL_IT);
     
-    /** merge unequal string arrays and remove duplicates */
+    // merge unequal string arrays and remove duplicates
     String[] base = {"a","b","c"};
     String[] add = {"d","b"};    
     String[] mergedArray = getEntityConverterUtils().mergeStringArrays(base, add);
     assertNotNull(mergedArray);
-    assertTrue(mergedArray.length == 4);    
+    assertEquals(4, mergedArray.length);
   }
 
 }

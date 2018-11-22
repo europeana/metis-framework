@@ -64,15 +64,15 @@ public class VocabularyDao {
     UpdateOperations<Vocabulary> ops = ds.createUpdateOperations(Vocabulary.class);
 
     ops.set("iterations", entity.getIterations());
-    if (entity.getRules() != null) {
-      ops.set("rules", entity.getRules());
-    } else {
+    if (entity.getRules() == null) {
       ops.unset("rules");
-    }
-    if (entity.getTypeRules() != null) {
-      ops.set("typeRules", entity.getTypeRules());
     } else {
+      ops.set("rules", entity.getRules());
+    }
+    if (entity.getTypeRules() == null) {
       ops.unset("typeRules");
+    } else {
+      ops.set("typeRules", entity.getTypeRules());
     }
     if (entity.getType() != null) {
       ops.set("type", entity.getType());

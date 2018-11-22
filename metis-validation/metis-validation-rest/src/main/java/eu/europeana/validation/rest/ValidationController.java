@@ -35,13 +35,13 @@ import io.swagger.annotations.ApiParam;
  */
 
 @Controller
-@Api(value = "/", description = "Schema validation service")
+@Api(value = "/")
 public class ValidationController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ValidationController.class);
 
-  private ValidationExecutionService validator;
-  private SchemaProvider schemaProvider;
+  private final ValidationExecutionService validator;
+  private final SchemaProvider schemaProvider;
 
   /**
    * Cretes validation controller based on provided {@link ValidationExecutionService}

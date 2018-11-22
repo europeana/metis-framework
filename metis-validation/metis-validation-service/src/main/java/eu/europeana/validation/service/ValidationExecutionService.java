@@ -61,12 +61,7 @@ public class ValidationExecutionService {
      * @param predefinedSchemasLocations properties with defined URLs and locations for edm-internal and edm-external schemas
      */
     public ValidationExecutionService(Properties predefinedSchemasLocations) {
-        this(new ValidationServiceConfig() {
-            @Override
-            public int getThreadCount() {
-                return DEFAULT_THREADS_COUNT;
-            }
-        }, new ClasspathResourceResolver());
+        this(() -> DEFAULT_THREADS_COUNT, new ClasspathResourceResolver());
         this.schemaProvider = getSchemaProvider(predefinedSchemasLocations);
     }
 

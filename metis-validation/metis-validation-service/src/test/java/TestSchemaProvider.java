@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Created by pwozniak on 12/21/17
  */
-class SchemaProviderTest {
+class TestSchemaProvider {
 
   private static int portForWireMock = 9999;
 

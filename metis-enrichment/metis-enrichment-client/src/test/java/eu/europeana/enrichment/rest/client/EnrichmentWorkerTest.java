@@ -25,6 +25,7 @@ import eu.europeana.enrichment.utils.InputValue;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -155,7 +156,7 @@ public class EnrichmentWorkerTest {
     // Create enrichment worker and mock the enrichment and dereferencing results.
     final EnrichmentWorker worker =
         spy(new EnrichmentWorker(dereferenceClient, enrichmentClient, entityMergeEngine));
-    doReturn(Arrays.asList(new InputValue[0])).when(worker).extractFieldsForEnrichment(any());
+    doReturn(Collections.emptyList()).when(worker).extractFieldsForEnrichment(any());
     doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(worker)
         .extractValuesForDereferencing(any());
 
