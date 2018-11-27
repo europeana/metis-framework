@@ -1,5 +1,13 @@
 package eu.europeana.enrichment.service;
 
+import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.enrichment.api.external.ObjectIdSerializer;
+import eu.europeana.enrichment.api.internal.MongoTerm;
+import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.utils.EnrichmentEntityDao;
+import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.metis.cache.redis.RedisProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,14 +21,6 @@ import org.codehaus.jackson.map.module.SimpleModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.ObjectIdSerializer;
-import eu.europeana.enrichment.api.internal.MongoTerm;
-import eu.europeana.enrichment.api.internal.MongoTermList;
-import eu.europeana.enrichment.utils.EntityClass;
-import eu.europeana.enrichment.utils.EnrichmentEntityDao;
-import eu.europeana.enrichment.utils.InputValue;
-import eu.europeana.metis.cache.redis.RedisProvider;
 import redis.clients.jedis.Jedis;
 
 
@@ -56,24 +56,8 @@ public class RedisInternalEnricher {
   private static final int SECONDS_PER_MINUTE = 60;
   private static final int MILLISECONDS_PER_SECOND = 1000;
 
-  private enum EntityType {
-
-    AGENT(EntityClass.AGENT, CACHED_AGENT),
-
-    CONCEPT(EntityClass.CONCEPT, CACHED_CONCEPT),
-
-    PLACE(EntityClass.PLACE, CACHED_PLACE),
-
-    TIMESTAMP(EntityClass.TIMESPAN, CACHED_TIMESPAN);
-
-    public final EntityClass entityClass;
-    public final String cachedEntityPrefix;
-
-    EntityType(EntityClass entityClass, String cachedEntityPrefix) {
-      this.entityClass = entityClass;
-      this.cachedEntityPrefix = cachedEntityPrefix;
-    }
-  }
+  private static final List<EntityType> ENTITY_TYPES = createEntityTypeList();
+  public static final int LANGUAGE_TAG_LENGTH = 2;
 
   private final EnrichmentEntityDao entityDao;
   private final RedisProvider redisProvider;
@@ -101,6 +85,15 @@ public class RedisInternalEnricher {
         }
       }
     }
+  }
+
+  private static List<EntityType> createEntityTypeList() {
+    final ArrayList<EntityType> entityTypes = new ArrayList<>();
+    entityTypes.add(new EntityType(EntityClass.AGENT, CACHED_AGENT));
+    entityTypes.add(new EntityType(EntityClass.CONCEPT, CACHED_CONCEPT));
+    entityTypes.add(new EntityType(EntityClass.PLACE, CACHED_PLACE));
+    entityTypes.add(new EntityType(EntityClass.TIMESPAN, CACHED_TIMESPAN));
+    return entityTypes;
   }
 
   /**
@@ -176,7 +169,7 @@ public class RedisInternalEnricher {
   private void populate() {
     long startTime = System.currentTimeMillis();
     setStatus("started");
-    for (EntityType type : EntityType.values()) {
+    for (EntityType type : ENTITY_TYPES) {
       loadEntities(type);
     }
     setStatus("finished");
@@ -201,7 +194,8 @@ public class RedisInternalEnricher {
     for (MongoTerm term : terms) {
       loadEntity(entityType, term, jedis);
       i++;
-      if (i % 100 == 0) {
+      final int countOfItemsCollectedToLog = 100;
+      if (i % countOfItemsCollectedToLog == 0) {
         LOGGER.info("Elements added: {} out of: {}", i, termCount);
       }
     }
@@ -273,14 +267,6 @@ public class RedisInternalEnricher {
     if (parents != null) {
       parentEntities.add(parents.getCodeUri());
       if (parents.getParent() != null && !parent.equals(parents.getParent())) {
-        // TODO why is this necessary in this particular case?
-        if (entityClass == EntityClass.TIMESPAN) {
-          try {
-            Thread.sleep(10L);
-          } catch (InterruptedException var5) {
-            Thread.currentThread().interrupt();
-          }
-        }
         parentEntities.addAll(this.findParents(parents.getParent(), entityClass));
       }
     }
@@ -314,7 +300,7 @@ public class RedisInternalEnricher {
       String cachedEntityPrefix) throws IOException {
     Set<EntityWrapper> result = new HashSet<>();
 
-    if (StringUtils.isEmpty(lang) || lang.length() != 2) {
+    if (StringUtils.isEmpty(lang) || lang.length() != LANGUAGE_TAG_LENGTH) {
       lang = "def";
     }
     Jedis jedis = redisProvider.getJedis();
@@ -388,5 +374,16 @@ public class RedisInternalEnricher {
 
   private ObjectMapper getObjectMapper() {
     return OBJECT_MAPPER;
+  }
+
+  private static class EntityType {
+
+    private final EntityClass entityClass;
+    private final String cachedEntityPrefix;
+
+    EntityType(EntityClass entityClass, String cachedEntityPrefix) {
+      this.entityClass = entityClass;
+      this.cachedEntityPrefix = cachedEntityPrefix;
+    }
   }
 }
