@@ -158,7 +158,7 @@ public class AuthenticationService {
    * The expected input should follow the rule
    * Basic Base64Encoded(email:password)
    * </p>
-   * @return a String array containing the email and password decoded, in that order
+   * @return a credentials object containing the email and password decoded
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the content of the authorization String is un-parsable</li>
