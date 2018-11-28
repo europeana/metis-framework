@@ -127,7 +127,6 @@ public class RedisInternalEnricher {
     Jedis jedis = redisProvider.getJedis();
     jedis.flushAll();
     jedis.close();
-    populate();
   }
 
   /**
