@@ -54,6 +54,7 @@ public class RedisInternalEnricher {
   private static final int SECONDS_PER_MINUTE = 60;
   private static final int MILLISECONDS_PER_SECOND = 1000;
   private static final int LANGUAGE_TAG_LENGTH = 2;
+  private static final int COUNT_OF_ITEMS_COLLECTED_TO_LOG = 100;
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final List<EntityType> ENTITY_TYPES = createEntityTypeList();
@@ -188,11 +189,10 @@ public class RedisInternalEnricher {
     int termCount = terms.size();
     LOGGER.info("Found entities of type {}: {}", entityType.entityClass, termCount);
     int i = 0;
-    final int countOfItemsCollectedToLog = 100;
     for (MongoTerm term : terms) {
       loadEntity(entityType, term, jedis);
       i++;
-      if (i % countOfItemsCollectedToLog == 0) {
+      if (i % COUNT_OF_ITEMS_COLLECTED_TO_LOG == 0) {
         LOGGER.info("Elements added: {} out of: {}", i, termCount);
       }
     }
