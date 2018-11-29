@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaservice;
+package eu.europeana.metis.mediaprocessing.exception;
 
 /**
  * General class for exceptions generated in media topology.

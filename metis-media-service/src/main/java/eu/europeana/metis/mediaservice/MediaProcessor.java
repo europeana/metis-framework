@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.tika.Tika;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.metis.mediaprocessing.exception.MediaException;
 
 /**
  * Extracts technical metadata and generates thumbnails for web resources.

@@ -1,11 +1,10 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.Set;
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.mediaprocessing.exception.MediaException;
 import eu.europeana.metis.mediaservice.EdmObject;
-import eu.europeana.metis.mediaservice.MediaException;
 import eu.europeana.metis.mediaservice.UrlType;
 
 @Deprecated
@@ -26,7 +25,12 @@ public class TemporaryMediaHandler {
   }
 
   // This method is thread-safe.
-  public Set<String> getResourceUrls(RDF rdf, Collection<UrlType> urlTypes) {
-    return new EdmObject(rdf).getResourceUrls(urlTypes).keySet();
+  public Set<String> getResourceUrlsForMetadataExtraction(RDF rdf) {
+    return new EdmObject(rdf).getResourceUrls(UrlType.URL_TYPES_FOR_METADATA_EXTRACTION).keySet();
+  }
+
+  // This method is thread-safe.
+  public Set<String> getResourceUrlsForLinkChecking(RDF rdf) {
+    return new EdmObject(rdf).getResourceUrls(UrlType.URL_TYPES_FOR_LINK_CHECKING).keySet();
   }
 }

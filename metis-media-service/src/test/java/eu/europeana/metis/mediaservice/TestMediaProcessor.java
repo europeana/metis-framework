@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
-
+import eu.europeana.metis.mediaprocessing.exception.MediaException;
 import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 import java.io.File;
 import java.io.IOException;

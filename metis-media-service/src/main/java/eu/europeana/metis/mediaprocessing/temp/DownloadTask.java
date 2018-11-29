@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
-import eu.europeana.metis.mediaprocessing.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaservice.MediaProcessor;
 import java.io.File;
 import java.io.FileNotFoundException;

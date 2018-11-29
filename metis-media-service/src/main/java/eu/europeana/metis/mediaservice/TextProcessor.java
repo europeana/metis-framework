@@ -12,6 +12,7 @@ import com.itextpdf.text.pdf.parser.ImageRenderInfo;
 import com.itextpdf.text.pdf.parser.Matrix;
 import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
+import eu.europeana.metis.mediaprocessing.exception.MediaException;
 
 class TextProcessor {
 

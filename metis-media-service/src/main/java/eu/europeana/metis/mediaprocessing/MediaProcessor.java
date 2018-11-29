@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing;
 
 import java.io.Closeable;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 
 public interface MediaProcessor extends Closeable {
 

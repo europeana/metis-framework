@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaservice;
 
+import eu.europeana.metis.mediaprocessing.exception.MediaException;
 import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
 import java.io.File;
 import java.io.IOException;

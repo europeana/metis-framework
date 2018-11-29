@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing;
+package eu.europeana.metis.mediaprocessing.exception;
 
 // TODO Should also allow multiple MediaExceptions to be wrapped in one MediaProcessorException?
 // MediaException pertains to one media. This pertains to a run of the media processor.

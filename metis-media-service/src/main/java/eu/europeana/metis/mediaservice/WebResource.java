@@ -26,6 +26,7 @@ import eu.europeana.corelib.definitions.jibx.StringType;
 import eu.europeana.corelib.definitions.jibx.Type1;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.definitions.jibx.Width;
+import eu.europeana.metis.mediaprocessing.exception.MediaException;
 
 /**
  * Helper class for manipulating {@link WebResourceType}

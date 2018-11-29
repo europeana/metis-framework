@@ -23,6 +23,7 @@ import eu.europeana.corelib.definitions.jibx.HasView;
 import eu.europeana.corelib.definitions.jibx.Preview;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.metis.mediaprocessing.exception.MediaException;
 
 /**
  * Objects of this class represent contents of EDM XML documents that can be modified by {@link

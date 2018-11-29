@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import eu.europeana.metis.mediaprocessing.MediaProcessor;
-import eu.europeana.metis.mediaprocessing.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.MetadataExtractionResult;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 
 @Deprecated
 public class TemporaryMediaProcessor extends TemporaryMediaService implements MediaProcessor {

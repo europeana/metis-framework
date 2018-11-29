@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
-import eu.europeana.metis.mediaprocessing.MediaProcessorException;
 import java.io.IOException;
 import java.util.function.BiConsumer;
 import org.apache.http.HttpEntity;
@@ -18,6 +17,7 @@ import org.apache.http.nio.protocol.HttpAsyncResponseConsumer;
 import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 
 public class LinkCheckTask extends HttpClientTask {
 
