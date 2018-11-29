@@ -51,14 +51,12 @@ public class RedisInternalEnricher {
 
   private static final String CACHED_ENRICHMENT_STATUS = "enrichmentstatus";
 
-  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
   private static final int SECONDS_PER_MINUTE = 60;
   private static final int MILLISECONDS_PER_SECOND = 1000;
+  private static final int LANGUAGE_TAG_LENGTH = 2;
 
+  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final List<EntityType> ENTITY_TYPES = createEntityTypeList();
-  public static final int LANGUAGE_TAG_LENGTH = 2;
-
   private final EnrichmentEntityDao entityDao;
   private final RedisProvider redisProvider;
 
@@ -190,10 +188,10 @@ public class RedisInternalEnricher {
     int termCount = terms.size();
     LOGGER.info("Found entities of type {}: {}", entityType.entityClass, termCount);
     int i = 0;
+    final int countOfItemsCollectedToLog = 100;
     for (MongoTerm term : terms) {
       loadEntity(entityType, term, jedis);
       i++;
-      final int countOfItemsCollectedToLog = 100;
       if (i % countOfItemsCollectedToLog == 0) {
         LOGGER.info("Elements added: {} out of: {}", i, termCount);
       }
@@ -221,7 +219,7 @@ public class RedisInternalEnricher {
         jedis.hset(entityType.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
             OBJECT_MAPPER.writeValueAsString(entityWrapper));
         List<String> parents = this.findParents(termList.getParent(), entityType.entityClass);
-        if (parents != null && !parents.isEmpty()) {
+        if (!parents.isEmpty()) {
           jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
               parents.toArray(new String[]{}));
         }
