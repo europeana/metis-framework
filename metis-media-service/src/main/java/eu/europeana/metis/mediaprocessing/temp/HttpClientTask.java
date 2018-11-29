@@ -26,10 +26,10 @@ abstract class HttpClientTask implements Closeable {
 
   private static final Logger logger = LoggerFactory.getLogger(HttpClientTask.class);
 
-  protected final transient RequestConfig requestConfig;
+  protected final RequestConfig requestConfig;
 
-  protected transient CloseableHttpAsyncClient httpClient;
-  private transient ConnPoolControl<HttpRoute> connPoolControl;
+  protected CloseableHttpAsyncClient httpClient;
+  private ConnPoolControl<HttpRoute> connPoolControl;
   private HashMap<String, Integer> connectionLimitsPerHost = new HashMap<>();
   private HashMap<HttpRoute, Integer> currentClientLimits = new HashMap<>();
 
@@ -58,12 +58,12 @@ abstract class HttpClientTask implements Closeable {
   public void close() {
     try {
       httpClient.close();
-    } catch (IOException e) {
+    } catch (RuntimeException | IOException e) {
       logger.error("HttpClient could not close", e);
     }
   }
 
-  // TODO Callback with null means that the status is OK.
+  // TODO triggering callback with null status means that the status is OK.
   public void execute(List<FileInfo> files, Map<String, Integer> connectionLimitsPerSource,
       BiConsumer<FileInfo, String> callback) throws MediaProcessorException {
 
@@ -79,7 +79,7 @@ abstract class HttpClientTask implements Closeable {
       for (HttpAsyncResponseConsumer<Void> c : responseConsumers) {
         c.failed(e);
       }
-      throw new MediaProcessorException("", e);
+      throw new MediaProcessorException(e);
     }
     for (int i = 0; i < files.size(); i++) {
       // TODO use the callback function provided by httpClient.execute.

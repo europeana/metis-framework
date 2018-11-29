@@ -1,7 +1,6 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
 import java.io.File;
-import java.io.Serializable;
 import java.net.InetAddress;
 
 public class FileInfo {

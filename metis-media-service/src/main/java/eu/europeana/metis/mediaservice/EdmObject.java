@@ -42,8 +42,12 @@ public final class EdmObject {
 
   private final RDF rdf;
 
-  private EdmObject(RDF rdf) {
+  public EdmObject(RDF rdf) {
     this.rdf = rdf;
+  }
+  
+  public RDF getRdf() {
+    return rdf;
   }
 
   /**
