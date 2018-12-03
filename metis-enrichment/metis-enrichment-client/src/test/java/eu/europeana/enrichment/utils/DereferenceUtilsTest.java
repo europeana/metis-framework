@@ -371,12 +371,11 @@ public class DereferenceUtilsTest {
     Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 
     assertNotNull(result);
-    assertEquals(6, result.size());
+    assertEquals(5, result.size());
 
     assertTrue(result.contains("http://dummy1.dum"));
     assertTrue(result.contains("http://dummy2.dum"));
     assertTrue(result.contains("http://dummy3.dum"));
-    assertTrue(result.contains("http://dummy4.dum"));
     assertTrue(result.contains("http://dummy5.dum"));
     assertTrue(result.contains("http://dummy6.dum"));
   }
@@ -609,7 +608,7 @@ public class DereferenceUtilsTest {
     Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 
     assertNotNull(result);
-    assertEquals(27, result.size());
+    assertEquals(25, result.size());
 
     assertTrue(result.contains("http://dummy1.dum"));
     assertTrue(result.contains("http://dummy2.dum"));
@@ -624,12 +623,9 @@ public class DereferenceUtilsTest {
 
     assertTrue(result.contains("http://dummy20.dum"));
     assertTrue(result.contains("http://dummy22.dum"));
-    assertTrue(result.contains("http://dummy23.dum"));
-    assertTrue(result.contains("http://dummy24.dum"));
 
     assertTrue(result.contains("http://dummy25.dum"));
     assertTrue(result.contains("http://dummy28.dum"));
-    assertTrue(result.contains("http://dummy29.dum"));
     assertTrue(result.contains("http://dummy30.dum"));
 
     assertTrue(result.contains("http://dummy31.dum"));
