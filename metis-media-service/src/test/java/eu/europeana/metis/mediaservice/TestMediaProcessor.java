@@ -11,7 +11,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 import eu.europeana.metis.mediaprocessing.exception.MediaException;
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
+import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -95,7 +95,7 @@ public class TestMediaProcessor {
 		}).when(commandExecutor).runCommand(any(), eq(false));
 		
 		doReturn("image/jpeg").when(tika).detect(file);
-		
+
 		EdmObject edm;
 		try {
 			edm = edm("image1-input.xml");
@@ -110,10 +110,10 @@ public class TestMediaProcessor {
 		
 		List<Thumbnail> thumbnails = testedProcessor.getThumbnails();
 		assertEquals(2, thumbnails.size());
-		assertEquals(url, thumbnails.get(0).url);
-		assertEquals(url, thumbnails.get(1).url);
-		assertEquals(md5 + "-MEDIUM", thumbnails.get(0).targetName);
-		assertEquals(md5 + "-LARGE", thumbnails.get(1).targetName);
+		assertEquals(url, thumbnails.get(0).getResourceUrl());
+		assertEquals(url, thumbnails.get(1).getResourceUrl());
+		assertEquals(md5 + "-MEDIUM", thumbnails.get(0).getTargetName());
+		assertEquals(md5 + "-LARGE", thumbnails.get(1).getTargetName());
 	}
 	
 	@Test
@@ -153,7 +153,7 @@ public class TestMediaProcessor {
 	@Test
 	public void processPdf() throws MediaException, IOException, URISyntaxException {
 		File contents = new File(getClass().getClassLoader().getResource("pdf1.pdf").toURI());
-		
+
         File[] thumbs = new File[2];
         
 	    doAnswer(i -> {

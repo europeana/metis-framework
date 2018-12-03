@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing;
 
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
+import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.List;
 public class MetadataExtractionResult {
 
   private final byte[] recordWithMetadata;
-  private final Collection<Thumbnail> thumbnails;
+  private final Collection<ThumbnailImpl> thumbnails;
 
-  public MetadataExtractionResult(byte[] recordWithMetadata, List<Thumbnail> thumbnails) {
+  public MetadataExtractionResult(byte[] recordWithMetadata, List<ThumbnailImpl> thumbnails) {
     this.recordWithMetadata = recordWithMetadata;
     this.thumbnails = new ArrayList<>(thumbnails);
   }
@@ -22,7 +22,7 @@ public class MetadataExtractionResult {
     return new ByteArrayInputStream(recordWithMetadata);
   }
 
-  public Collection<Thumbnail> getThumbnails() {
+  public Collection<ThumbnailImpl> getThumbnails() {
     return Collections.unmodifiableCollection(thumbnails);
   }
 }

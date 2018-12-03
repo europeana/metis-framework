@@ -1,19 +1,20 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.Thumbnail;
+import eu.europeana.metis.mediaservice.EdmObject;
+import eu.europeana.metis.mediaservice.MediaProcessor;
+import eu.europeana.metis.mediaservice.UrlType;
 import java.io.Closeable;
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
-import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
-import eu.europeana.metis.mediaservice.EdmObject;
-import eu.europeana.metis.mediaservice.MediaProcessor;
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
-import eu.europeana.metis.mediaservice.UrlType;
 
 @Deprecated
 public class TemporaryMediaService extends TemporaryMediaHandler implements Closeable {
@@ -30,27 +31,28 @@ public class TemporaryMediaService extends TemporaryMediaHandler implements Clos
 
   // This method is not thread-safe.
   // The files are done sequentially: the next one begins only if the previous one is completed.
-  public Pair<RDF, List<Thumbnail>> performMediaProcessing(RDF incomingRdf,
-      List<FileInfo> fileInfos, MediaProcessingListener listener) {
+  public <I extends ThumbnailSource> Pair<RDF, List<Thumbnail>> performMediaProcessing(
+      RDF incomingRdf, List<I> sources, MediaProcessingListener<I> listener) {
     final EdmObject edm = new EdmObject(incomingRdf);
     mediaProcessor.setEdm(edm);
-    for (FileInfo file : fileInfos) {
+    for (I source : sources) {
       try {
-        listener.beforeStartingFile(file);
-        mediaProcessor.processResource(file.getUrl(), file.getMimeType(), file.getContent());
+        listener.beforeStartingFile(source);
+        final File file = source.getContentPath() == null ? null : source.getContentPath().toFile();
+        mediaProcessor.processResource(source.getResourceUrl(), source.getMimeType(), file);
       } catch (Exception e) {
         final boolean stopProcessing;
         if (e instanceof MediaException) {
-          stopProcessing = listener.handleMediaException(file, (MediaException) e);
+          stopProcessing = listener.handleMediaException(source, (MediaException) e);
         } else {
-          stopProcessing = listener.handleOtherException(file, e);
+          stopProcessing = listener.handleOtherException(source, e);
         }
         if (stopProcessing) {
           return new ImmutablePair<>(mediaProcessor.getEdm().getRdf(),
               mediaProcessor.getThumbnails());
         }
       } finally {
-        listener.afterCompletingFile(file);
+        listener.afterCompletingFile(source);
       }
     }
     final EdmObject resultEdm = mediaProcessor.getEdm();
@@ -67,10 +69,10 @@ public class TemporaryMediaService extends TemporaryMediaHandler implements Clos
       edm.updateEdmPreview(objectUrls.iterator().next());
     } else {
       Optional<Thumbnail> thumbnail = mediaProcessor.getThumbnails().stream()
-          .filter(t -> t.targetName.contains("-LARGE") && otherUrls.contains(t.url)).findFirst();
+          .filter(t -> t.getTargetName().contains("-LARGE") && otherUrls.contains(t.getResourceUrl())).findFirst();
 
       if (thumbnail.isPresent()) {
-        String url = String.format("%s", thumbnail.get().targetName);
+        String url = String.format("%s", thumbnail.get().getTargetName());
         edm.updateEdmPreview(url);
       }
     }
@@ -81,17 +83,17 @@ public class TemporaryMediaService extends TemporaryMediaHandler implements Clos
     mediaProcessor.close();
   }
 
-  public interface MediaProcessingListener {
+  public interface MediaProcessingListener<I extends ThumbnailSource> {
 
-    void beforeStartingFile(FileInfo file) throws MediaException;
-
-    // If this returns true, we will stop processing.
-    boolean handleMediaException(FileInfo file, MediaException exception);
+    void beforeStartingFile(I source) throws MediaException;
 
     // If this returns true, we will stop processing.
-    boolean handleOtherException(FileInfo file, Exception exception);
+    boolean handleMediaException(I source, MediaException exception);
 
-    void afterCompletingFile(FileInfo file);
+    // If this returns true, we will stop processing.
+    boolean handleOtherException(I source, Exception exception);
+
+    void afterCompletingFile(I source);
 
   }
 }

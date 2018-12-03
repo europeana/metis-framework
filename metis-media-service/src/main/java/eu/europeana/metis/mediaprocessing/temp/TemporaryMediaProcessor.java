@@ -1,11 +1,12 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
 import eu.europeana.metis.mediaprocessing.MediaProcessor;
 import eu.europeana.metis.mediaprocessing.MetadataExtractionResult;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.Resource;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 @Deprecated
 public class TemporaryMediaProcessor extends TemporaryMediaService implements MediaProcessor {
@@ -23,11 +24,11 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
 
   // TODO triggering callback with null status means that the status is OK.
   // This method is thread-safe.
-  public void executeLinkCheckTask(List<FileInfo> files,
-      Map<String, Integer> connectionLimitsPerSource, BiConsumer<FileInfo, String> callback)
-      throws MediaProcessorException {
+  public <I> void executeLinkCheckTask(List<I> resourceLinks,
+      Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, Void> callback,
+      Function<I, String> urlExtractor) throws MediaProcessorException {
     try {
-      linkCheckTask.execute(files, connectionLimitsPerSource, callback);
+      linkCheckTask.execute(resourceLinks, connectionLimitsPerSource, callback, urlExtractor);
     } catch (RuntimeException e) {
       throw new MediaProcessorException(e);
     }
@@ -35,11 +36,11 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
 
   // TODO triggering callback with null status means that the status is OK.
   // This method is thread-safe.
-  public void executeDownloadTask(List<FileInfo> files,
-      Map<String, Integer> connectionLimitsPerSource, BiConsumer<FileInfo, String> callback)
-      throws MediaProcessorException {
+  public <I> void executeDownloadTask(List<I> resourceLinks,
+      Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, Resource> callback,
+      Function<I, String> urlExtractor) throws MediaProcessorException {
     try {
-      downloadTask.execute(files, connectionLimitsPerSource, callback);
+      downloadTask.execute(resourceLinks, connectionLimitsPerSource, callback, urlExtractor);
     } catch (RuntimeException e) {
       throw new MediaProcessorException(e);
     }

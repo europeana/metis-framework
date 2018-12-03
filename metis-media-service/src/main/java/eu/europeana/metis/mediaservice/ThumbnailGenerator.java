@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaservice;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaException;
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
+import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -35,8 +35,6 @@ public class ThumbnailGenerator {
 
   private static final int[] THUMB_SIZE = {200, 400};
   private static final String[] THUMB_SUFFIX = {"-MEDIUM", "-LARGE"};
-
-  private static final File tempDir = new File(System.getProperty("java.io.tmpdir"));
 
   private static final String COMMAND_RESULT_FORMAT = "%w\n%h\n%[colorspace]\n";
   private static final int COMMAND_RESULT_WIDTH_LINE = 0;
@@ -68,7 +66,7 @@ public class ThumbnailGenerator {
 
   private final CommandExecutor commandExecutor;
 
-  protected final ArrayList<Thumbnail> thumbnails = new ArrayList<>();
+  protected final ArrayList<ThumbnailImpl> thumbnails = new ArrayList<>();
 
   ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaException {
     this.commandExecutor = commandExecutor;
@@ -156,7 +154,7 @@ public class ThumbnailGenerator {
       throw new MediaException("File content is null", "File content cannot be null");
     }
 
-    final List<Thumbnail> thumbs = prepareThumbnailFiles(url);
+    final List<ThumbnailImpl> thumbs = prepareThumbnailFiles(url);
     int sizes = THUMB_SIZE.length;
 
     ArrayList<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
@@ -171,7 +169,7 @@ public class ThumbnailGenerator {
         command.add("+clone");
       }
       command.addAll(Arrays.asList("-thumbnail", THUMB_SIZE[i] + "x", "-write",
-          thumbs.get(i).content.getPath()));
+          thumbs.get(i).getContentPath().toString()));
       if (i != sizes - 1) {
         command.add("+delete");
         command.add(")");
@@ -200,12 +198,12 @@ public class ThumbnailGenerator {
     }
 
     for (int i = 0; i < sizes; i++) {
-      File thumb = thumbs.get(i).content;
-      if (thumb.length() == 0) {
-        throw new MediaException("Thumbnail file empty: " + thumb, "THUMBNAIL ERROR");
+      Path thumb = thumbs.get(i).getContentPath();
+      if (Files.size(thumb) == 0) {
+        throw new MediaException("ThumbnailImpl file empty: " + thumb, "THUMBNAIL ERROR");
       }
       if (!"application/pdf".equals(mimeType) && result.getWidth() < THUMB_SIZE[i]) {
-        FileUtils.copyFile(content, thumb);
+        Files.copy(content.toPath(), thumb);
       }
     }
     thumbnails.addAll(thumbs);
@@ -213,17 +211,12 @@ public class ThumbnailGenerator {
     return result;
   }
 
-  private List<Thumbnail> prepareThumbnailFiles(String url)
-      throws IOException, NoSuchAlgorithmException {
-    File thumbsDir = new File(tempDir, "media_thumbnails");
-    if (!thumbsDir.isDirectory() && !thumbsDir.mkdir()) {
-      throw new IOException("Could not create thumbnails subdirectory: " + thumbsDir);
-    }
+  private List<ThumbnailImpl> prepareThumbnailFiles(String url)
+      throws IOException, NoSuchAlgorithmException, MediaException {
     String md5 = md5Hex(url);
-    List<Thumbnail> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
+    List<ThumbnailImpl> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
     for (String thumbnailSuffix : THUMB_SUFFIX) {
-      File f = File.createTempFile("thumb", ".tmp", thumbsDir);
-      thumbs.add(new Thumbnail(url, md5 + thumbnailSuffix, f));
+      thumbs.add(new ThumbnailImpl(url, md5 + thumbnailSuffix));
     }
     return thumbs;
   }

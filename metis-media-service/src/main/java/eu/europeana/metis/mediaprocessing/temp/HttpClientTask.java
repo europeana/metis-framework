@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
+import eu.europeana.metis.mediaprocessing.exception.MediaException;
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.URI;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
+import java.util.function.Function;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.routing.HttpRoute;
@@ -22,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 
-abstract class HttpClientTask implements Closeable {
+abstract class HttpClientTask<O> implements Closeable {
 
   private static final Logger logger = LoggerFactory.getLogger(HttpClientTask.class);
 
@@ -64,34 +65,36 @@ abstract class HttpClientTask implements Closeable {
   }
 
   // TODO triggering callback with null status means that the status is OK.
-  public void execute(List<FileInfo> files, Map<String, Integer> connectionLimitsPerSource,
-      BiConsumer<FileInfo, String> callback) throws MediaProcessorException {
+  public <I> void execute(List<I> resourceLinks, Map<String, Integer> connectionLimitsPerSource,
+      HttpClientCallback<I, O> callback, Function<I, String> urlExtractor)
+      throws MediaProcessorException {
 
-    updateConnectionLimits(files, connectionLimitsPerSource);
+    updateConnectionLimits(resourceLinks, connectionLimitsPerSource, urlExtractor);
 
     List<HttpAsyncResponseConsumer<Void>> responseConsumers = new ArrayList<>();
     try {
-      for (FileInfo fileInfo : files) {
-        responseConsumers.add(createResponseConsumer(fileInfo, callback));
+      for (I resourceLink : resourceLinks) {
+        responseConsumers.add(createResponseConsumer(resourceLink, callback, urlExtractor));
       }
-    } catch (IOException e) {
+    } catch (IOException | MediaException e) {
       logger.error("Disk error?", e);
       for (HttpAsyncResponseConsumer<Void> c : responseConsumers) {
         c.failed(e);
       }
       throw new MediaProcessorException(e);
     }
-    for (int i = 0; i < files.size(); i++) {
+    for (int i = 0; i < resourceLinks.size(); i++) {
       // TODO use the callback function provided by httpClient.execute.
-      httpClient.execute(createRequestProducer(files.get(i)), responseConsumers.get(i), null);
+      httpClient.execute(createRequestProducer(urlExtractor.apply(resourceLinks.get(i))),
+          responseConsumers.get(i), null);
     }
   }
 
-  private void updateConnectionLimits(List<FileInfo> fileInfos,
-      Map<String, Integer> connectionLimitsPerSource) {
+  private <I> void updateConnectionLimits(List<I> resourceLinks,
+      Map<String, Integer> connectionLimitsPerSource, Function<I, String> urlExtractor) {
     connectionLimitsPerHost.putAll(connectionLimitsPerSource);
-    for (FileInfo fileInfo : fileInfos) {
-      URI uri = URI.create(fileInfo.getUrl());
+    for (I resourceLink : resourceLinks) {
+      URI uri = URI.create(urlExtractor.apply(resourceLink));
       Integer limit = connectionLimitsPerHost.get(uri.getHost());
       if (limit == null) {
         continue;
@@ -107,8 +110,9 @@ abstract class HttpClientTask implements Closeable {
     }
   }
 
-  protected abstract HttpAsyncRequestProducer createRequestProducer(FileInfo fileInfo);
+  protected abstract HttpAsyncRequestProducer createRequestProducer(String resourceUrl);
 
-  protected abstract HttpAsyncResponseConsumer<Void> createResponseConsumer(FileInfo fileInfo,
-      BiConsumer<FileInfo, String> callback) throws IOException;
+  protected abstract <I> HttpAsyncResponseConsumer<Void> createResponseConsumer(I input,
+      HttpClientCallback<I, O> callback, Function<I, String> urlExtractor)
+      throws IOException, MediaException;
 }

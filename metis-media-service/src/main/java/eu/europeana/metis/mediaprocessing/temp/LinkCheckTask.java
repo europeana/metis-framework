@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
 import java.io.IOException;
-import java.util.function.BiConsumer;
+import java.util.function.Function;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 
-public class LinkCheckTask extends HttpClientTask {
+public class LinkCheckTask extends HttpClientTask<Void> {
 
   private static final Logger logger = LoggerFactory.getLogger(LinkCheckTask.class);
 
@@ -29,38 +29,41 @@ public class LinkCheckTask extends HttpClientTask {
   }
 
   @Override
-  protected HttpAsyncRequestProducer createRequestProducer(FileInfo fileInfo) {
-    HttpHead request = new HttpHead(fileInfo.getUrl());
+  protected HttpAsyncRequestProducer createRequestProducer(String resourceUrl) {
+    HttpHead request = new HttpHead(resourceUrl);
     request.setConfig(requestConfig);
     return HttpAsyncMethods.create(request);
   }
 
   @Override
-  protected HttpAsyncResponseConsumer<Void> createResponseConsumer(FileInfo fileInfo,
-      BiConsumer<FileInfo, String> callback) {
-    return new HeadResponseConsumer(fileInfo, callback);
+  protected <I> HttpAsyncResponseConsumer<Void> createResponseConsumer(I resourceLink,
+      HttpClientCallback<I, Void> callback, Function<I, String> urlExtractor) {
+    return new HeadResponseConsumer<>(resourceLink, callback, urlExtractor.apply(resourceLink));
   }
 
-  private abstract class ResponseConsumer extends AbstractAsyncResponseConsumer<Void> {
+  private abstract class ResponseConsumer<I> extends AbstractAsyncResponseConsumer<Void> {
 
-    final FileInfo fileInfo;
-    final BiConsumer<FileInfo, String> callback;
+    final I resourceLink;
+    final String resourceUrl;
+    final HttpClientCallback<I, Void> callback;
 
-    protected ResponseConsumer(FileInfo fileInfo, BiConsumer<FileInfo, String> callback) {
-      this.fileInfo = fileInfo;
+    protected ResponseConsumer(I resourceLink, HttpClientCallback<I, Void> callback,
+        String resourceUrl) {
+      this.resourceLink = resourceLink;
       this.callback = callback;
+      this.resourceUrl = resourceUrl;
     }
 
     @Override
     protected void onResponseReceived(HttpResponse response) throws HttpException, IOException {
       int status = response.getStatusLine().getStatusCode();
       if (status < 200 || status >= 300) {
-        logger.info("Link error (code {}) for {}", status, fileInfo.getUrl());
-        callback.accept(fileInfo, "STATUS CODE " + status);
+        logger.info("Link error (code {}) for {}", status, resourceUrl);
+        callback.accept(resourceLink, null, "STATUS CODE " + status);
         return;
       }
-      logger.debug("Link OK: {}", fileInfo.getUrl());
-      callback.accept(fileInfo, null);
+      logger.debug("Link OK: {}", resourceUrl);
+      callback.accept(resourceLink, null, null);
     }
 
     @Override
@@ -84,17 +87,18 @@ public class LinkCheckTask extends HttpClientTask {
       Exception e = getException();
       if (e != null) {
         Object msg = e.getMessage() != null ? e.getMessage() : e.getClass().getSimpleName();
-        logger.info("Link exception ({}) for {}", msg, fileInfo.getUrl());
+        logger.info("Link exception ({}) for {}", msg, resourceUrl);
         logger.trace("Link failure details:", e);
-        callback.accept(fileInfo, "CONNECTION ERROR: " + msg);
+        callback.accept(resourceLink, null, "CONNECTION ERROR: " + msg);
       }
     }
   }
 
-  private class HeadResponseConsumer extends ResponseConsumer {
+  private class HeadResponseConsumer<I> extends ResponseConsumer<I> {
 
-    protected HeadResponseConsumer(FileInfo fileInfo, BiConsumer<FileInfo, String> callback) {
-      super(fileInfo, callback);
+    protected HeadResponseConsumer(I resourceLink, HttpClientCallback<I, Void> callback,
+        String resourceUrl) {
+      super(resourceLink, callback, resourceUrl);
     }
 
     @Override
@@ -103,21 +107,22 @@ public class LinkCheckTask extends HttpClientTask {
       int status = response.getStatusLine().getStatusCode();
       if (status >= 400 && status < 500) {
         logger.info("HEAD rejected ({}), retrying with GET: {}", response.getStatusLine(),
-            fileInfo.getUrl());
-        HttpGet request = new HttpGet(fileInfo.getUrl());
+            resourceUrl);
+        HttpGet request = new HttpGet(resourceUrl);
         request.setConfig(requestConfig);
         httpClient.execute(HttpAsyncMethods.create(request),
-            new GetResponseConsumer(fileInfo, callback), null);
+            new GetResponseConsumer<>(resourceLink, callback, resourceUrl), null);
         return;
       }
       super.onResponseReceived(response);
     }
   }
 
-  private class GetResponseConsumer extends ResponseConsumer {
+  private class GetResponseConsumer<I> extends ResponseConsumer<I> {
 
-    protected GetResponseConsumer(FileInfo fileInfo, BiConsumer<FileInfo, String> callback) {
-      super(fileInfo, callback);
+    protected GetResponseConsumer(I resourceLink, HttpClientCallback<I, Void> callback,
+        String resourceUrl) {
+      super(resourceLink, callback, resourceUrl);
     }
 
     @Override

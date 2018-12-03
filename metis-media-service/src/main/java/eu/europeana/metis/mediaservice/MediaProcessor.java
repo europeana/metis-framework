@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaservice;
 
+import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -17,31 +18,6 @@ import eu.europeana.metis.mediaprocessing.exception.MediaException;
  * Extracts technical metadata and generates thumbnails for web resources.
  */
 public class MediaProcessor implements Closeable {
-
-  /**
-   * Information about a generated thumbnail
-   */
-  public static class Thumbnail {
-
-    /**
-     * The original resource url
-     */
-    public final String url;
-    /**
-     * The name this thumbnail should be stored under
-     */
-    public final String targetName;
-    /**
-     * Temporary file with the thumbnail content. Don't forget to remove it!
-     */
-    public final File content;
-
-    Thumbnail(String url, String targetName, File content) {
-      this.url = url;
-      this.targetName = targetName;
-      this.content = content;
-    }
-  }
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MediaProcessor.class);
 
