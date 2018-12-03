@@ -106,12 +106,10 @@ public final class DereferenceUtils {
     convertValue(choice.ifExtent(), choice.getExtent(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifFormat(), choice.getFormat(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifHasFormat(), choice.getHasFormat(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.ifHasPart(), choice.getHasPart(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifHasVersion(), choice.getHasVersion(), RESOURCE_OR_LITERAL_EXTRACTOR,
         values);
     convertValue(choice.ifIsFormatOf(), choice.getIsFormatOf(), RESOURCE_OR_LITERAL_EXTRACTOR,
         values);
-    convertValue(choice.ifIsPartOf(), choice.getIsPartOf(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifIsReferencedBy(), choice.getIsReferencedBy(),
         RESOURCE_OR_LITERAL_EXTRACTOR, values);
     convertValue(choice.ifIsReplacedBy(), choice.getIsReplacedBy(), RESOURCE_OR_LITERAL_EXTRACTOR,
@@ -169,7 +167,6 @@ public final class DereferenceUtils {
     convertValues(wr.getCreatedList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
     convertValues(wr.getExtentList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
     convertValues(wr.getFormatList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
-    convertValues(wr.getHasPartList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
     convertValues(wr.getIsFormatOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
     convertValues(wr.getIssuedList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
   }
