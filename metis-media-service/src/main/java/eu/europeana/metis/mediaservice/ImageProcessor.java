@@ -1,9 +1,14 @@
 package eu.europeana.metis.mediaservice;
 
+import eu.europeana.metis.mediaprocessing.UrlType;
 import eu.europeana.metis.mediaprocessing.exception.MediaException;
-import eu.europeana.metis.mediaservice.WebResource.Orientation;
+import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.ResourceProcessingResult;
+import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.io.File;
-import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import org.apache.commons.lang3.tuple.Pair;
 
 class ImageProcessor {
 
@@ -13,30 +18,25 @@ class ImageProcessor {
     this.thumbnailGenerator = thumbnailGenerator;
   }
 
-  static boolean isImage(String mimeType) {
-    return mimeType.startsWith("image/");
-  }
-
-  void processImage(String url, Collection<UrlType> urlTypes, String mimeType, File content,
-      EdmObject edm) throws MediaException {
+  ResourceProcessingResult processImage(String url, Set<UrlType> urlTypes, String mimeType,
+      File content) throws MediaException {
 
     // Create the thumbnails for this image.
-    final ImageMetadata imageMetadata =
+    final Pair<ImageMetadata, List<? extends Thumbnail>> thumbnailsAndMetadata =
         thumbnailGenerator.generateThumbnails(url, mimeType, content);
 
-
     // Set the metadata in the web resource.
+    final ImageResourceMetadata resourceMetadata;
     if (UrlType.shouldExtractMetadata(urlTypes)) {
-      WebResource resource = edm.getWebResource(url);
-      resource.setMimeType(mimeType);
-      resource.setFileSize(content.length());
-      resource.setWidth(imageMetadata.getWidth());
-      resource.setHeight(imageMetadata.getHeight());
-      resource.setOrientation(
-          imageMetadata.getWidth() > imageMetadata.getHeight() ? Orientation.LANDSCAPE
-              : Orientation.PORTRAIT);
-      resource.setColorspace(imageMetadata.getColorSpace());
-      resource.setDominantColors(imageMetadata.getDominantColors());
+      final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
+      resourceMetadata = new ImageResourceMetadata(mimeType, url, content.length(),
+          imageMetadata.getWidth(), imageMetadata.getHeight(),
+          imageMetadata.getColorSpace(), imageMetadata.getDominantColors());
+    } else {
+      resourceMetadata = null;
     }
+
+    // Done
+    return new ResourceProcessingResult(resourceMetadata, thumbnailsAndMetadata.getRight());
   }
 }

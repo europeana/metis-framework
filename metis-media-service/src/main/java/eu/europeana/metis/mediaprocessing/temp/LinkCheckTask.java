@@ -1,7 +1,8 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import java.io.IOException;
-import java.util.function.Function;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
@@ -17,7 +18,6 @@ import org.apache.http.nio.protocol.HttpAsyncResponseConsumer;
 import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 
 public class LinkCheckTask extends HttpClientTask<Void> {
 
@@ -36,9 +36,9 @@ public class LinkCheckTask extends HttpClientTask<Void> {
   }
 
   @Override
-  protected <I> HttpAsyncResponseConsumer<Void> createResponseConsumer(I resourceLink,
-      HttpClientCallback<I, Void> callback, Function<I, String> urlExtractor) {
-    return new HeadResponseConsumer<>(resourceLink, callback, urlExtractor.apply(resourceLink));
+  protected <I extends RdfResourceEntry> HttpAsyncResponseConsumer<Void> createResponseConsumer(
+      I resourceLink, HttpClientCallback<I, Void> callback) {
+    return new HeadResponseConsumer<>(resourceLink, callback, resourceLink.getResourceUrl());
   }
 
   private abstract class ResponseConsumer<I> extends AbstractAsyncResponseConsumer<Void> {

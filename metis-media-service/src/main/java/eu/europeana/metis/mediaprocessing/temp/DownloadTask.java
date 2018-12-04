@@ -2,13 +2,13 @@ package eu.europeana.metis.mediaprocessing.temp;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaservice.MediaProcessor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.function.Function;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.ContentType;
@@ -35,10 +35,9 @@ public class DownloadTask extends HttpClientTask<Resource> {
   }
 
   @Override
-  protected <I> ZeroCopyConsumer<Void> createResponseConsumer(I resourceLink,
-      HttpClientCallback<I, Resource> callback, Function<I, String> urlExtractor)
-      throws IOException, MediaException {
-    final ResourceImpl resource = new ResourceImpl(urlExtractor.apply(resourceLink), null);
+  protected <I extends RdfResourceEntry> ZeroCopyConsumer<Void> createResponseConsumer(
+      I resourceLink, HttpClientCallback<I, Resource> callback) throws IOException, MediaException {
+    final ResourceImpl resource = new ResourceImpl(resourceLink, null);
     return new DownloadConsumer<>(resourceLink, resource, callback);
   }
 

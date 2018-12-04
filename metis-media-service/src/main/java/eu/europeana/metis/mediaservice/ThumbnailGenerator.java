@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaservice;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,8 +68,6 @@ public class ThumbnailGenerator {
   }
 
   private final CommandExecutor commandExecutor;
-
-  protected final ArrayList<ThumbnailImpl> thumbnails = new ArrayList<>();
 
   ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaException {
     this.commandExecutor = commandExecutor;
@@ -127,8 +128,7 @@ public class ThumbnailGenerator {
   }
 
   /**
-   * This is the main method of this class. It generates thumbnails for the given content. These
-   * thumbnails are added to {@link #thumbnails}.
+   * This is the main method of this class. It generates thumbnails for the given content.
    * 
    * @param url The URL of the content. Used for determining the name of the output files.
    * @param mimeType The mime type of the content.
@@ -136,8 +136,8 @@ public class ThumbnailGenerator {
    * @return The metadata of the image as gathered during processing.
    * @throws MediaException In case a problem occurred.
    */
-  public ImageMetadata generateThumbnails(String url, String mimeType, File content)
-      throws MediaException {
+  public Pair<ImageMetadata, List<? extends Thumbnail>> generateThumbnails(String url,
+      String mimeType, File content) throws MediaException {
     try {
       return generateThumbnailsInternal(url, mimeType, content);
     } catch (IOException e) {
@@ -147,8 +147,8 @@ public class ThumbnailGenerator {
     }
   }
 
-  private ImageMetadata generateThumbnailsInternal(String url, String mimeType, File content)
-      throws IOException, MediaException, NoSuchAlgorithmException {
+  private Pair<ImageMetadata, List<? extends Thumbnail>> generateThumbnailsInternal(String url,
+      String mimeType, File content) throws IOException, MediaException, NoSuchAlgorithmException {
 
     if (content == null) {
       throw new MediaException("File content is null", "File content cannot be null");
@@ -206,9 +206,8 @@ public class ThumbnailGenerator {
         Files.copy(content.toPath(), thumb);
       }
     }
-    thumbnails.addAll(thumbs);
 
-    return result;
+    return new ImmutablePair<>(result, thumbs);
   }
 
   private List<ThumbnailImpl> prepareThumbnailFiles(String url)

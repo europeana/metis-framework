@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-public interface Resource extends TemporaryResourceFile {
+import eu.europeana.metis.mediaprocessing.temp.DownloadedResource;
 
-  String getMimeType();
+public interface Resource extends TemporaryResourceFile, DownloadedResource {
 
 }

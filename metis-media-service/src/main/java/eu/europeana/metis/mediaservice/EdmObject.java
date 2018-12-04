@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaservice;
 
+import eu.europeana.metis.mediaprocessing.UrlType;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -92,7 +93,7 @@ public final class EdmObject {
     rdf.getEuropeanaAggregationList().get(0).setPreview(preview);
   }
 
-  WebResource getWebResource(String url) {
+  public WebResource getWebResource(String url) {
     if (rdf.getWebResourceList() == null) {
       rdf.setWebResourceList(new ArrayList<>());
     }

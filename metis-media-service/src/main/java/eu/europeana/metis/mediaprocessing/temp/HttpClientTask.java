@@ -1,6 +1,8 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.URI;
@@ -8,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.routing.HttpRoute;
@@ -21,7 +22,6 @@ import org.apache.http.nio.protocol.HttpAsyncResponseConsumer;
 import org.apache.http.pool.ConnPoolControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 
 abstract class HttpClientTask<O> implements Closeable {
 
@@ -65,16 +65,16 @@ abstract class HttpClientTask<O> implements Closeable {
   }
 
   // TODO triggering callback with null status means that the status is OK.
-  public <I> void execute(List<I> resourceLinks, Map<String, Integer> connectionLimitsPerSource,
-      HttpClientCallback<I, O> callback, Function<I, String> urlExtractor)
+  public <I extends RdfResourceEntry> void execute(List<I> resourceLinks,
+      Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, O> callback)
       throws MediaProcessorException {
 
-    updateConnectionLimits(resourceLinks, connectionLimitsPerSource, urlExtractor);
+    updateConnectionLimits(resourceLinks, connectionLimitsPerSource);
 
     List<HttpAsyncResponseConsumer<Void>> responseConsumers = new ArrayList<>();
     try {
       for (I resourceLink : resourceLinks) {
-        responseConsumers.add(createResponseConsumer(resourceLink, callback, urlExtractor));
+        responseConsumers.add(createResponseConsumer(resourceLink, callback));
       }
     } catch (IOException | MediaException e) {
       logger.error("Disk error?", e);
@@ -85,16 +85,16 @@ abstract class HttpClientTask<O> implements Closeable {
     }
     for (int i = 0; i < resourceLinks.size(); i++) {
       // TODO use the callback function provided by httpClient.execute.
-      httpClient.execute(createRequestProducer(urlExtractor.apply(resourceLinks.get(i))),
+      httpClient.execute(createRequestProducer(resourceLinks.get(i).getResourceUrl()),
           responseConsumers.get(i), null);
     }
   }
 
-  private <I> void updateConnectionLimits(List<I> resourceLinks,
-      Map<String, Integer> connectionLimitsPerSource, Function<I, String> urlExtractor) {
+  private <I extends RdfResourceEntry> void updateConnectionLimits(List<I> resourceLinks,
+      Map<String, Integer> connectionLimitsPerSource) {
     connectionLimitsPerHost.putAll(connectionLimitsPerSource);
     for (I resourceLink : resourceLinks) {
-      URI uri = URI.create(urlExtractor.apply(resourceLink));
+      URI uri = URI.create(resourceLink.getResourceUrl());
       Integer limit = connectionLimitsPerHost.get(uri.getHost());
       if (limit == null) {
         continue;
@@ -112,7 +112,6 @@ abstract class HttpClientTask<O> implements Closeable {
 
   protected abstract HttpAsyncRequestProducer createRequestProducer(String resourceUrl);
 
-  protected abstract <I> HttpAsyncResponseConsumer<Void> createResponseConsumer(I input,
-      HttpClientCallback<I, O> callback, Function<I, String> urlExtractor)
-      throws IOException, MediaException;
+  protected abstract <I extends RdfResourceEntry> HttpAsyncResponseConsumer<Void> createResponseConsumer(
+      I input, HttpClientCallback<I, O> callback) throws IOException, MediaException;
 }
