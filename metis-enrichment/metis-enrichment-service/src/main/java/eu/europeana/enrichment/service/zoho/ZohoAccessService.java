@@ -1,35 +1,28 @@
 package eu.europeana.enrichment.service.zoho;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import com.zoho.crm.library.api.response.BulkAPIResponse;
+import com.zoho.crm.library.crud.ZCRMModule;
+import com.zoho.crm.library.crud.ZCRMRecord;
+import com.zoho.crm.library.crud.ZCRMTrashRecord;
+import com.zoho.crm.library.exception.ZCRMException;
+import com.zoho.crm.library.setup.restclient.ZCRMRestClient;
+import eu.europeana.corelib.definitions.edm.entity.Address;
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.AddressImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.service.EntityConverterUtils;
+import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.metis.authentication.dao.ZohoApiFields;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.databind.JsonNode;
-import eu.europeana.corelib.definitions.edm.entity.Address;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.AddressImpl;
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
-import eu.europeana.enrichment.service.EntityConverterUtils;
-import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import eu.europeana.enrichment.service.zoho.model.DeletedZohoOrganizationAdapter;
-import eu.europeana.enrichment.service.zoho.model.ZohoOrganizationAdapter;
-import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
-import eu.europeana.metis.authentication.dao.ZohoApi2Fields;
-import eu.europeana.metis.authentication.dao.ZohoApiFields;
-import eu.europeana.metis.exception.GenericMetisException;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -41,167 +34,111 @@ public class ZohoAccessService {
   public static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
   private static final String UNDEFINED_LANGUAGE_KEY = "def";
   private static final int LANGUAGE_CODE_LENGTH = 2;
-  private final ZohoAccessClientDao zohoAccessClientDao;
-  private final ZohoV2AccessDao zohoV2AccessDao;
+  private static final int MAX_ALTERNATIVES = 5;
+  private static final int MAX_LANG_ALTERNATIVES = 5;
+  private static final int MAX_SAME_AS = 3;
   private final EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
 
   /**
    * Constructor of class with required parameters
-   *
-   * @param zohoAccessClientDao {@link ZohoAccessClientDao}
-   * @param zohoV2AccessDao {@link ZohoV2AccessDao}
    */
   @Autowired
-  public ZohoAccessService(ZohoAccessClientDao zohoAccessClientDao,
-      ZohoV2AccessDao zohoV2AccessDao) {
-    this.zohoAccessClientDao = zohoAccessClientDao;
-    this.zohoV2AccessDao = zohoV2AccessDao;
+  public ZohoAccessService() throws Exception {
+    //Initialize Zoho client with default configuration locations
+    ZCRMRestClient.initialize();
   }
 
-  /**
-   * This method retrieves OrganizationImpl object from Zoho organization record.
-   *
-   * @param organizationId the organization id used to retrieve the organization information
-   * @return representation of the Zoho organization record in OrganizatinImpl format
-   * @throws ZohoAccessException if an error occurred during retrieval from Zoho
-   */
-  public ZohoOrganization getOrganization(String organizationId) throws ZohoAccessException {
-
-    JsonNode jsonRecordsResponse;
-    try {
-      jsonRecordsResponse = zohoAccessClientDao.getOrganizationById(organizationId);
-    } catch (GenericMetisException e) {
-      throw new ZohoAccessException("Cannot get organization by id: " + organizationId, e);
-    }
-    return parseOrganization(jsonRecordsResponse);
-  }
-
-  /**
-   * This method retrieves OrganizationImpl object for Zoho organization record from the given file.
-   *
-   * @param contentFile file that contains a Zoho Organization response
-   * @return representation of the Zoho organization record in OrganizatinImpl format
-   * @throws ZohoAccessException if an error occurred during retrieval from Zoho
-   */
-  public ZohoOrganization getOrganizationFromFile(File contentFile) throws ZohoAccessException {
-
-    JsonNode jsonRecordsResponse;
-    try {
-      jsonRecordsResponse = zohoAccessClientDao.getOrganizationFromFile(contentFile);
-    } catch (IOException e) {
-      throw new ZohoAccessException("Cannot get organization from file. ", e);
-    } catch (GenericMetisException e) {
-      throw new ZohoAccessException("Cannot extract organization from file. ", e);
-    }
-    return parseOrganization(jsonRecordsResponse);
-  }
-
-  /**
-   * This method retrieves OrganizationImpl object for Zoho organization record from the given stream.
-   *
-   * @param contentStream stream that accesses a Zoho Organization response
-   * @return representation of the Zoho organization record in OrganizatinImpl format
-   * @throws ZohoAccessException if an error occurred during retrieval from Zoho
-   */
-  public ZohoOrganization getOrganizationFromStream(InputStream contentStream) throws ZohoAccessException {
-
-    JsonNode jsonRecordsResponse;
-    try {
-      jsonRecordsResponse = zohoAccessClientDao.getOrganizationFromStream(contentStream);
-    } catch (IOException e) {
-      throw new ZohoAccessException("Cannot get organization from stream. ", e);
-    } catch (GenericMetisException e) {
-      throw new ZohoAccessException("Cannot extract organization from stream. ", e);
-    }
-    return parseOrganization(jsonRecordsResponse);
-  }
-
-  
-  /**
-   * 
-   * @param jsonRecordsResponse
-   * @return
-   * @throws ZohoAccessException
-   */
-  private ZohoOrganization parseOrganization(JsonNode jsonRecordsResponse)
+  //  /**
+//   * This method retrieves OrganizationImpl object from Zoho organization record.
+//   *
+//   * @param organizationId the organization id used to retrieve the organization information
+//   * @return representation of the Zoho organization record in OrganizatinImpl format
+//   * @throws ZohoAccessException if an error occurred during retrieval from Zoho
+//   */
+  public ZCRMRecord getOrganization(String organizationId)
       throws ZohoAccessException {
-    JsonNode accountsNode =
-        findRecordsByType(jsonRecordsResponse, ZohoApiFields.ACCOUNTS_MODULE_STRING);
-    JsonNode jsonRecord = accountsNode.findValue(ZohoApiFields.FIELDS_LABEL);
-
-    return new ZohoOrganizationAdapter(jsonRecord);
-  }
-
-  /**
-   * This method retrieves a list of Zoho records in {@link JsonNode} format.
-   *
-   * @param jsonLeadsResponse the parserd Zoho response
-   * @param type the type of the objects to be retrieved
-   * @return {@link JsonNode} representation of the organization
-   */
-  JsonNode findRecordsByType(JsonNode jsonLeadsResponse, String type) {
-    if (jsonLeadsResponse.get(ZohoApiFields.RESPONSE_STRING)
-        .get(ZohoApiFields.RESULT_STRING) == null) {
-      return null;
+    ZCRMModule zcrmModuleAccounts = ZCRMModule.getInstance("Accounts");
+    final BulkAPIResponse bulkAPIResponseAccounts;
+    try {
+      bulkAPIResponseAccounts = zcrmModuleAccounts
+          .searchByCriteria(
+              String.format("(id:equals:%s)", organizationId));
+    } catch (ZCRMException e) {
+      throw new ZohoAccessException("Zoho search by email threw an exception", e);
     }
-    return jsonLeadsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING)
-        .get(type).get(ZohoApiFields.ROW_STRING);
+    final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseAccounts.getData();
+    if (zcrmRecords.isEmpty()) {
+      throw new ZohoAccessException("Organization Role from Zoho is empty");
+    }
+
+    return zcrmRecords.get(0);
   }
 
 
   /**
-   * Converter for {@link ZohoOrganization} to {@link Organization}
+   * Converter for {@link ZCRMRecord} containing Zoho organization info to {@link Organization}
    *
    * @param zohoOrganization the Zoho Organization object to convert
    * @return the converted Organization object
    */
-  public Organization toEdmOrganization(ZohoOrganization zohoOrganization) {
+  public Organization toEdmOrganization(ZCRMRecord zohoOrganization) {
 
     OrganizationImpl org = new OrganizationImpl();
 
-    org.setAbout(URL_ORGANIZATION_PREFFIX + zohoOrganization.getZohoId());
-    org.setDcIdentifier(getEntityConverterUtils().createMapWithLists(UNDEFINED_LANGUAGE_KEY,
-        zohoOrganization.getZohoId()));
-    String isoLanguage = toIsoLanguage(zohoOrganization.getLanguageForOrganizationName());
-    org.setPrefLabel(getEntityConverterUtils().createMapWithLists(isoLanguage,
-        zohoOrganization.getOrganizationName()));
-    org.setAltLabel(getEntityConverterUtils().createMapWithLists(
-        zohoOrganization.getAlternativeLanguage(),
-        zohoOrganization.getAlternativeOrganizationName()));
-    org.setEdmAcronym(getEntityConverterUtils().createLanguageMapOfStringList(
-        zohoOrganization.getLangAcronym(), zohoOrganization.getAcronym()));
-    org.setFoafLogo(zohoOrganization.getLogo());
-    org.setFoafHomepage(zohoOrganization.getWebsite());
+    final HashMap<String, Object> zohoOrganizationFields = zohoOrganization.getData();
 
-    if (zohoOrganization.getRole() != null) {
-      String[] role = zohoOrganization.getRole().split(";");
+    org.setAbout(URL_ORGANIZATION_PREFFIX + zohoOrganization.getEntityId());
+    org.setDcIdentifier(getEntityConverterUtils().createMapWithLists(UNDEFINED_LANGUAGE_KEY,
+        Long.toString(zohoOrganization.getEntityId())));
+
+    String isoLanguage = toIsoLanguage(
+        (String) zohoOrganizationFields.get("Lang_Organisation_Name"));
+    org.setPrefLabel(getEntityConverterUtils()
+        .createMapWithLists(isoLanguage, (String) zohoOrganizationFields.get("Account_Name")));
+    org.setAltLabel(getEntityConverterUtils().createMapWithLists(
+        getFieldArray(zohoOrganizationFields, "Lang_Alternative", MAX_LANG_ALTERNATIVES),
+        getFieldArray(zohoOrganizationFields, "Alternative", MAX_ALTERNATIVES)));
+    org.setEdmAcronym(getEntityConverterUtils().createLanguageMapOfStringList(
+        (String) zohoOrganizationFields.get("Lang_Acronym"),
+        (String) zohoOrganizationFields.get("Acronym")));
+    org.setFoafLogo((String) zohoOrganizationFields.get("Logo_link_to_WikimediaCommons"));
+    org.setFoafHomepage((String) zohoOrganizationFields.get("Website"));
+    final List<String> organizationRoleStringList = (List<String>) zohoOrganizationFields
+        .get("Organisation_Role2");
+    if (organizationRoleStringList != null) {
       org.setEdmEuropeanaRole(getEntityConverterUtils()
-          .createLanguageMapOfStringList(Locale.ENGLISH.getLanguage(), Arrays.asList(role)));
+          .createLanguageMapOfStringList(Locale.ENGLISH.getLanguage(), organizationRoleStringList));
     }
+    final List<String> organizationDomainStringList = (List<String>) zohoOrganizationFields
+        .get("Domain2");
     org.setEdmOrganizationDomain(getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(),
-        zohoOrganization.getDomain()));
+        CollectionUtils.isEmpty(organizationDomainStringList) ? null
+            : organizationDomainStringList.get(0)));
     org.setEdmOrganizationSector(getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(),
-        zohoOrganization.getSector()));
+        (String) zohoOrganizationFields.get("Sector")));
     org.setEdmOrganizationScope(getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(),
-        zohoOrganization.getScope()));
+        (String) zohoOrganizationFields.get("Scope")));
+    final List<String> geographicLevelList = (List<String>) zohoOrganizationFields
+        .get("Geographic_Level");
     org.setEdmGeorgraphicLevel(getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(),
-        zohoOrganization.getGeographicLevel()));
-    String organizationCountry = toEdmCountry(zohoOrganization.getOrganizationCountry());
+        CollectionUtils.isEmpty(geographicLevelList) ? null : geographicLevelList.get(0)));
+    String organizationCountry = toEdmCountry((String) zohoOrganizationFields.get("Country1"));
     org.setEdmCountry(
         getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
-
-    if (zohoOrganization.getSameAs() != null && !zohoOrganization.getSameAs().isEmpty()) {
-      org.setOwlSameAs(zohoOrganization.getSameAs().toArray(new String[]{}));
+    final List<String> sameAsList = getFieldArray(zohoOrganizationFields, "SameAs", MAX_SAME_AS);
+    if (!CollectionUtils.isEmpty(sameAsList)) {
+      org.setOwlSameAs(sameAsList.toArray(new String[]{}));
     }
 
     // address
     Address address = new AddressImpl();
     address.setAbout(org.getAbout() + "#address");
-    address.setVcardStreetAddress(zohoOrganization.getStreet());
-    address.setVcardLocality(zohoOrganization.getCity());
-    address.setVcardCountryName(zohoOrganization.getCountry());
-    address.setVcardPostalCode(zohoOrganization.getZipCode());
-    address.setVcardPostOfficeBox(zohoOrganization.getPostBox());
+    address.setVcardStreetAddress((String) zohoOrganizationFields.get("Street"));
+    address.setVcardLocality((String) zohoOrganizationFields.get("City"));
+    address.setVcardCountryName((String) zohoOrganizationFields.get(
+        "Country")); //This is the Address Information Country as opposed to the Organization one above
+    address.setVcardPostalCode((String) zohoOrganizationFields.get("ZIP_code"));
+    address.setVcardPostOfficeBox((String) zohoOrganizationFields.get("PO_box"));
     org.setAddress(address);
 
     return org;
@@ -245,7 +182,7 @@ public class ZohoAccessService {
    * @return the list of Zoho Organizations
    * @throws ZohoAccessException if an error occurred during accessing Zoho
    */
-  public List<ZohoOrganization> getOrganizations(int start, int rows,
+  public List<ZCRMRecord> getOrganizations(int start, int rows,
       Date lastModified) throws ZohoAccessException {
     return getOrganizations(start, rows, lastModified, null);
   }
@@ -260,7 +197,7 @@ public class ZohoAccessService {
    * @return the list of Zoho Organizations
    * @throws ZohoAccessException if an error occurred during accessing Zoho
    */
-  public List<ZohoOrganization> getOrganizations(int start, int rows,
+  public List<ZCRMRecord> getOrganizations(int start, int rows,
       Date lastModified, Map<String, String> searchCriteria)
       throws ZohoAccessException {
 
@@ -270,32 +207,63 @@ public class ZohoAccessService {
           new IllegalArgumentException("start: " + start));
     }
 
-    JsonNode jsonRecordsResponse;
     String lastModifiedTime = null;
     if (lastModified != null) {
-      lastModifiedTime = getDateFormatter().format(lastModified);
+      lastModifiedTime = ZohoApiFields.getZohoTimeFormatter().format(lastModified);
     }
 
+    ZCRMModule zcrmModuleAccounts = ZCRMModule.getInstance("Accounts");
+    final BulkAPIResponse bulkAPIResponseRecordsOrganizations;
     try {
       if (searchCriteria == null || searchCriteria.isEmpty()) {//No searchCriteria available
-        jsonRecordsResponse = zohoAccessClientDao
-            .getOrganizations(start, rows, lastModifiedTime);
+        bulkAPIResponseRecordsOrganizations = zcrmModuleAccounts
+            .getRecords(null, null, null, start, rows, lastModifiedTime, null, false);
       } else {
-        jsonRecordsResponse = zohoAccessClientDao.searchOrganizations(
-            start, rows, lastModifiedTime, searchCriteria);
+        // TODO: 5-12-18 If last modified is required here it should be part of the criteria and the method that creates the string below it should support it
+        bulkAPIResponseRecordsOrganizations = zcrmModuleAccounts
+            .searchByCriteria(createZohoCriteriaString(searchCriteria), start, rows);
       }
-    } catch (GenericMetisException e) {
+    } catch (ZCRMException e) {
       throw new ZohoAccessException("Cannot get organization list from: "
           + start + " rows :" + rows, e);
     }
-    return getOrganizationsListFromJsonNode(jsonRecordsResponse);
+
+    return (List<ZCRMRecord>) bulkAPIResponseRecordsOrganizations
+        .getData();
+  }
+
+  // TODO: 5-12-18 This criteria creation is for equals only, for last modified there should be an extension here
+  private String createZohoCriteriaString(Map<String, String> searchCriteria) {
+    if (searchCriteria == null || searchCriteria.isEmpty()) {
+      return null;
+    }
+
+    String[] filterCriteria;
+    StringBuilder criteriaStringBuilder = new StringBuilder();
+
+    for (Map.Entry<String, String> entry : searchCriteria.entrySet()) {
+      criteriaStringBuilder = new StringBuilder();
+      filterCriteria = entry.getValue().split(ZohoApiFields.DELIMITER_COMMA);
+
+      for (String filter : filterCriteria) {
+        criteriaStringBuilder
+            .append(String.format("(%s:equals:%s)", entry.getKey(), filter.trim()));
+        criteriaStringBuilder.append(ZohoApiFields.OR);
+      }
+    }
+
+    // remove last OR
+    criteriaStringBuilder.delete(criteriaStringBuilder.length() - ZohoApiFields.OR.length(),
+        criteriaStringBuilder.length());
+    return criteriaStringBuilder.toString();
+
   }
 
   /**
    * Get deleted organizations paged.
    *
-   * @param startPage The number of start page first index starts with 1. Zoho response
-   * has maximal 200 items
+   * @param startPage The number of start page first index starts with 1. Zoho response has maximal
+   * 200 items
    * @return the list of deleted Zoho Organizations
    * @throws ZohoAccessException if an error occurred during accessing Zoho
    */
@@ -307,19 +275,19 @@ public class ZohoAccessService {
           "Invalid start page index. Index must be >= 1",
           new IllegalArgumentException("start page: " + startPage));
     }
-
-    JsonNode jsonRecordsResponse;
+    ZCRMModule zcrmModuleAccounts = ZCRMModule.getInstance("Accounts");
+    final BulkAPIResponse bulkAPIResponseDeletedRecords;
     try {
-      jsonRecordsResponse = zohoV2AccessDao
-          .getDeletedOrganizations(startPage);
-    } catch (GenericMetisException e) {
+      bulkAPIResponseDeletedRecords = zcrmModuleAccounts
+          .getDeletedRecords(startPage, 200);
+    } catch (ZCRMException e) {
       throw new ZohoAccessException("Cannot get deleted organization list from: "
           + startPage, e);
     }
+    final List<ZCRMTrashRecord> zcrmRecordsDeletedOrganizations = (List<ZCRMTrashRecord>) bulkAPIResponseDeletedRecords
+        .getData();
 
-    List<DeletedZohoOrganizationAdapter> deletedOrganizationsList =
-        getDeletedOrganizationsListFromJsonNode(jsonRecordsResponse);
-    return extractIdsFromDeletedZohoOrganizations(deletedOrganizationsList);
+    return extractIdsFromDeletedZohoOrganizations(zcrmRecordsDeletedOrganizations);
   }
 
   /**
@@ -329,153 +297,31 @@ public class ZohoAccessService {
    * @return ID list
    */
   private List<String> extractIdsFromDeletedZohoOrganizations(
-      List<DeletedZohoOrganizationAdapter> deletedOrganizationsList) {
+      List<ZCRMTrashRecord> deletedOrganizationsList) {
     List<String> idList = new ArrayList<>(deletedOrganizationsList.size());
 
-    for (DeletedZohoOrganizationAdapter deletedOrganization : deletedOrganizationsList) {
-      idList.add(ZohoAccessService.URL_ORGANIZATION_PREFFIX + deletedOrganization.getZohoId());
+    for (ZCRMTrashRecord deletedOrganization : deletedOrganizationsList) {
+      idList.add(ZohoAccessService.URL_ORGANIZATION_PREFFIX + deletedOrganization.getEntityId());
     }
     return idList;
   }
 
-
-  /**
-   * This method retrieves map of records.
-   *
-   * @return map representation of the records
-   */
-  protected List<ZohoOrganization> getOrganizationsListFromJsonNode(
-      JsonNode jsonRecordsResponse) throws ZohoAccessException {
-
-    JsonNode accountsNode = findRecordsByType(jsonRecordsResponse,
-        ZohoApiFields.ACCOUNTS_MODULE_STRING);
-    List<ZohoOrganization> res = new ArrayList<>();
-    if (accountsNode == null) {
-      return res;
+  private List<String> getFieldArray(
+      HashMap<String, Object> zohoOrganizationFields,
+      String fieldBaseName, int size) {
+    List<String> res = new ArrayList<>(size);
+    String fieldName = fieldBaseName + "_" + "%d";
+    for (int i = 0; i < size; i++) {
+      String fieldValue = (String) zohoOrganizationFields.get(String.format(fieldName, i));
+      // add only existing values
+      if (StringUtils.isNotBlank(fieldValue)) {
+        res.add(fieldValue);
+      }
     }
-
-    // one result in the response
-    boolean oneResult = accountsNode.get(0) == null;
-    if (oneResult) {
-      addAccountToOrgList(accountsNode, res);
-      return res;
+    if (res.isEmpty()) {
+      return null;
     }
-
-    // a list of results in the response
-    for (JsonNode accountNode : accountsNode) {
-      addAccountToOrgList(accountNode, res);
-    }
-
     return res;
-  }
-
-  /**
-   * This method retrieves map of records for deleted organizations.
-   *
-   * @return map representation of the records
-   */
-  protected List<DeletedZohoOrganizationAdapter> getDeletedOrganizationsListFromJsonNode(
-      JsonNode jsonRecordsResponse) {
-
-    JsonNode accountsNode = jsonRecordsResponse.get(ZohoApi2Fields.DATA_STRING);
-    List<DeletedZohoOrganizationAdapter> organizationList = new ArrayList<>();
-    if (accountsNode == null) {
-      return organizationList;
-    }
-
-    // one result in the response
-    boolean oneResult = accountsNode.get(0) == null;
-    if (oneResult) {
-      organizationList.add(new DeletedZohoOrganizationAdapter(accountsNode));
-      return organizationList;
-    }
-
-    // a list of results in the response
-    organizationList = new ArrayList<>(accountsNode.size()); //Pre-size list
-    for (JsonNode accountNode : accountsNode) {
-      organizationList.add(new DeletedZohoOrganizationAdapter(accountNode));
-    }
-
-    return organizationList;
-  }
-
-  private void addAccountToOrgList(JsonNode accountNode,
-      List<ZohoOrganization> res) throws ZohoAccessException {
-    JsonNode organizationNode = accountNode.get(ZohoApiFields.FIELDS_LABEL);
-    ZohoOrganization zoa = new ZohoOrganizationAdapter(organizationNode);
-    res.add(zoa);
-  }
-
-  /**
-   * Create OrganizationImpl map from value
-   *
-   * @param key The field name
-   * @param value The value
-   * @return map of strings and lists
-   */
-  Map<String, List<String>> createMapOfStringList(String key, String value) {
-    if (value == null) {
-      return null;
-    }
-    return createMapOfStringList(key, createList(value));
-  }
-
-  Map<String, String> createMap(String key, String value) {
-    if (value == null) {
-      return null;
-    }
-    return Collections.singletonMap(key, value);
-  }
-
-  List<String> createList(String value) {
-    if (value == null) {
-      return null;
-    }
-    return Collections.singletonList(value);
-  }
-
-  /**
-   * Create OrganizationImpl map from list of values
-   *
-   * @param key The field name
-   * @param value The list of values
-   * @return map of strings and lists
-   */
-  Map<String, List<String>> createMapOfStringList(String key,
-      List<String> value) {
-    return Collections.singletonMap(key, value);
-  }
-
-  Map<String, List<String>> createLanguageMapOfStringList(List<String> languages,
-      List<String> values) {
-    if (languages == null) {
-      return null;
-    }
-    Map<String, List<String>> resMap = new HashMap<>(languages.size());
-    for (int i = 0; i < languages.size(); i++) {
-      resMap.put(toIsoLanguage(languages.get(i)), createList(values.get(i)));
-    }
-    return resMap;
-  }
-
-  Map<String, List<String>> createLanguageMapOfStringList(String language,
-      String value) {
-    if (value == null) {
-      return null;
-    }
-    return Collections.singletonMap(toIsoLanguage(language), createList(value));
-  }
-
-  Map<String, List<String>> createLanguageMapOfStringList(String language,
-      List<String> value) {
-    if (value == null) {
-      return null;
-    }
-    return Collections.singletonMap(toIsoLanguage(language), value);
-  }
-
-  public FastDateFormat getDateFormatter() {
-    return ZohoApiFields.getZohoTimeFormatter();
   }
 
   public EntityConverterUtils getEntityConverterUtils() {

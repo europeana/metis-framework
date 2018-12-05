@@ -12,10 +12,15 @@ public class ZohoAccessException extends Exception {
   /**
    * Constructs a new exception with the specified detail message.
    *
-   * @param message the detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
+   * @param message the detail message. The detail message is saved for later retrieval by the
+   * {@link #getMessage()} method.
    * @param th the cause of the exception
    */
   public ZohoAccessException(String message, Throwable th) {
     super(message, th);
+  }
+
+  public ZohoAccessException(String message) {
+    super(message);
   }
 }

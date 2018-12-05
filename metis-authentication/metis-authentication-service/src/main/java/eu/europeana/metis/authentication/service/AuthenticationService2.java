@@ -170,9 +170,16 @@ public class AuthenticationService2 {
       throw new BadContentException("Organization Role from Zoho is empty");
     }
     final HashMap<String, Object> propertiesMap = zcrmRecords.get(0).getData();
-    final String organizationRole = (String) propertiesMap.get("Organisation_Role2");
+    final List<String> organizationRoleStringList = (List<String>) propertiesMap
+        .get("Organisation_Role2");
 
-    OrganizationRole.getRoleFromName(organizationRole);
+    OrganizationRole organizationRole = null;
+    for (String organizationRoleString : organizationRoleStringList) {
+      organizationRole = OrganizationRole.getRoleFromName(organizationRoleString);
+      if (organizationRole != null) {
+        break;
+      }
+    }
     if (organizationRole == null) {
       throw new BadContentException("Organization Role from Zoho is empty");
     }

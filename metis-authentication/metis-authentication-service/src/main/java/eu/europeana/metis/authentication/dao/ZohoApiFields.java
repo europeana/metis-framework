@@ -1,6 +1,5 @@
 package eu.europeana.metis.authentication.dao;
 
-import java.util.TimeZone;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 /**
@@ -32,7 +31,7 @@ public final class ZohoApiFields {
   public static final String ID = "id";
   public static final String FROM_INDEX_STRING = "fromIndex";
   public static final String TO_INDEX_STRING = "toIndex";
-  public static final String ZOHO_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+  public static final String ZOHO_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
   public static final String SORT_COLUMN = "sortColumnString";
   public static final String SORT_ORDER = "sortOrderString";
   public static final String SORT_ORDER_DESC = "desc";
@@ -44,8 +43,7 @@ public final class ZohoApiFields {
   public static final String OR = "OR";
 
 
-  private static final FastDateFormat formatter = FastDateFormat
-      .getInstance(ZOHO_TIME_FORMAT, TimeZone.getTimeZone("GMT"));
+  private static final FastDateFormat formatter = FastDateFormat.getInstance(ZOHO_TIME_FORMAT);
 
   private ZohoApiFields() {
     //this class is "static" and should never be instantiated or subclassed
