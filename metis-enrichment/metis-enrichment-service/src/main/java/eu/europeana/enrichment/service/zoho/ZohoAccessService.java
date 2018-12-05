@@ -12,7 +12,7 @@ import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.service.EntityConverterUtils;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import eu.europeana.metis.authentication.dao.ZohoApiFields;
+import eu.europeana.metis.zoho.ZohoApiFields;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;

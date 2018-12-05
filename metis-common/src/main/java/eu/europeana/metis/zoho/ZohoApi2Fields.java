@@ -1,4 +1,4 @@
-package eu.europeana.metis.authentication.dao;
+package eu.europeana.metis.zoho;
 
 /**
  * Fields used in the Zoho version 2 API request and response fields, but not Model fields. see

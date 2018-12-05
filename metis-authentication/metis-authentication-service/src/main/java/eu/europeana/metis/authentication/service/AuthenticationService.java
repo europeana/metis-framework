@@ -37,7 +37,7 @@ import org.springframework.util.StringUtils;
  * @since 2018-12-05
  */
 @Service
-public class AuthenticationService2 {
+public class AuthenticationService {
 
   private static final int LOG_ROUNDS = 13;
   private static final int CREDENTIAL_FIELDS_NUMBER = 2;
@@ -51,7 +51,7 @@ public class AuthenticationService2 {
    * @param psqlMetisUserDao {@link PsqlMetisUserDao}
    */
   @Autowired
-  public AuthenticationService2(PsqlMetisUserDao psqlMetisUserDao) throws Exception {
+  public AuthenticationService(PsqlMetisUserDao psqlMetisUserDao) throws Exception {
     this.psqlMetisUserDao = psqlMetisUserDao;
     //Initialize Zoho client with default configuration locations
     ZCRMRestClient.initialize();

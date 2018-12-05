@@ -1,4 +1,4 @@
-package eu.europeana.metis.authentication.dao;
+package eu.europeana.metis.zoho;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 

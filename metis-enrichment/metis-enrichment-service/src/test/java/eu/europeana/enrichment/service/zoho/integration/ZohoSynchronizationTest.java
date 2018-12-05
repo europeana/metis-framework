@@ -1,8 +1,17 @@
-package eu.europeana.enrichment.service.zoho.integration;
+package eu.europeana.enrichment.service.zoho;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
+import eu.europeana.enrichment.api.internal.OrganizationTermList;
+import eu.europeana.enrichment.service.EntityService;
+import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.metis.zoho.ZohoApiFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,14 +25,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
-import eu.europeana.enrichment.api.internal.OrganizationTermList;
-import eu.europeana.enrichment.service.EntityService;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import eu.europeana.enrichment.service.zoho.BaseZohoAccessSetup;
-import eu.europeana.metis.authentication.dao.ZohoApiFields;
 
 /**
  * Disabled integration. Need to implement betamax with https connectivity for Zoho

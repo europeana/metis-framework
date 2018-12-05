@@ -1,8 +1,8 @@
 package eu.europeana.enrichment.service.zoho.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import eu.europeana.metis.authentication.dao.ZohoApi2Fields;
-import eu.europeana.metis.authentication.dao.ZohoApiFields;
+import eu.europeana.metis.zoho.ZohoApi2Fields;
+import eu.europeana.metis.zoho.ZohoApiFields;
 
 /**
  * This class provides interface to deleted Zoho orgnization object.
