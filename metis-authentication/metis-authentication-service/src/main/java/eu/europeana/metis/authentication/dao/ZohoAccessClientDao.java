@@ -1,5 +1,9 @@
 package eu.europeana.metis.authentication.dao;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,11 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.europeana.metis.common.model.OrganizationRole;
-import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.GenericMetisException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -43,107 +42,107 @@ public class ZohoAccessClientDao {
     this.zohoAuthenticationToken = zohoAuthenticationToken;
   }
 
-  /**
-   * Retrieves a {@link JsonNode} containing user details from the remote CRM, using an email
-   *
-   * @param email the email to search for the user
-   * @return {@link JsonNode}
-   * @throws GenericMetisException which can be one of:
-   *         <ul>
-   *         <li>{@link BadContentException} if any other problem occurred while constructing the
-   *         user, if the response cannot be converted to {@link JsonNode}</li>
-   *         </ul>
-   */
-  public JsonNode getUserByEmail(String email) throws GenericMetisException {
-    String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
-        ZohoApiFields.CONTACTS_MODULE_STRING, ZohoApiFields.SEARCH_RECORDS_STRING);
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
-        .queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-        .queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
-        .queryParam(ZohoApiFields.CRITERIA_STRING,
-            String.format("(%s:%s)", ZohoApiFields.EMAIL_FIELD, email));
+//  /**
+//   * Retrieves a {@link JsonNode} containing user details from the remote CRM, using an email
+//   *
+//   * @param email the email to search for the user
+//   * @return {@link JsonNode}
+//   * @throws GenericMetisException which can be one of:
+//   *         <ul>
+//   *         <li>{@link BadContentException} if any other problem occurred while constructing the
+//   *         user, if the response cannot be converted to {@link JsonNode}</li>
+//   *         </ul>
+//   */
+//  public JsonNode getUserByEmail(String email) throws GenericMetisException {
+//    String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
+//        ZohoApiFields.CONTACTS_MODULE_STRING, ZohoApiFields.SEARCH_RECORDS_STRING);
+//    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
+//        .queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
+//        .queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
+//        .queryParam(ZohoApiFields.CRITERIA_STRING,
+//            String.format("(%s:%s)", ZohoApiFields.EMAIL_FIELD, email));
+//
+//    RestTemplate restTemplate = new RestTemplate();
+//    String contactResponse =
+//        restTemplate.getForObject(builder.build().encode().toUri(), String.class);
+//    LOGGER.info(contactResponse);
+//    ObjectMapper mapper = new ObjectMapper();
+//    JsonNode jsonContactResponse = null;
+//    try {
+//      jsonContactResponse = mapper.readTree(contactResponse);
+//    } catch (IOException e) {
+//      throw new BadContentException(
+//          String.format("Cannot retrieve user with email %s, from Zoho", email), e);
+//    }
+//    if (jsonContactResponse.get(ZohoApiFields.RESPONSE_STRING)
+//        .get(ZohoApiFields.RESULT_STRING) == null) {
+//      return null;
+//    }
+//    return jsonContactResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING)
+//        .get(ZohoApiFields.CONTACTS_MODULE_STRING).get(ZohoApiFields.ROW_STRING)
+//        .get(ZohoApiFields.FIELDS_LABEL);
+//  }
 
-    RestTemplate restTemplate = new RestTemplate();
-    String contactResponse =
-        restTemplate.getForObject(builder.build().encode().toUri(), String.class);
-    LOGGER.info(contactResponse);
-    ObjectMapper mapper = new ObjectMapper();
-    JsonNode jsonContactResponse = null;
-    try {
-      jsonContactResponse = mapper.readTree(contactResponse);
-    } catch (IOException e) {
-      throw new BadContentException(
-          String.format("Cannot retrieve user with email %s, from Zoho", email), e);
-    }
-    if (jsonContactResponse.get(ZohoApiFields.RESPONSE_STRING)
-        .get(ZohoApiFields.RESULT_STRING) == null) {
-      return null;
-    }
-    return jsonContactResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING)
-        .get(ZohoApiFields.CONTACTS_MODULE_STRING).get(ZohoApiFields.ROW_STRING)
-        .get(ZohoApiFields.FIELDS_LABEL);
-  }
+//  /**
+//   * Using an organizationName find its corresponding organizationId.
+//   * <p>
+//   * It will try to fetch the organization from the external CRM. The external CRM does NOT check
+//   * for an exact match, so it is possible that instead of a singe organization it will return a
+//   * list of organization in json format. The exact match will be checked in memory and the correct
+//   * organizationId will be returned
+//   * </p>
+//   *
+//   * @param organizationName to search for
+//   * @return the String representation of the organizationId
+//   * @throws GenericMetisException which can be one of:
+//   *         <ul>
+//   *         <li>{@link BadContentException} if any other problem occurred while constructing the
+//   *         user, like an organization did not have a role defined or the response cannot be
+//   *         converted to {@link JsonNode}</li>
+//   *         </ul>
+//   */
+//  public String getOrganizationIdByOrganizationName(String organizationName)
+//      throws GenericMetisException {
+//    String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
+//        ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.SEARCH_RECORDS_STRING);
+//    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
+//        .queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
+//        .queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
+//        .queryParam(ZohoApiFields.CRITERIA_STRING,
+//            String.format("(%s:%s)", ZohoApiFields.ORGANIZATION_NAME_FIELD, organizationName));
+//
+//    RestTemplate restTemplate = new RestTemplate();
+//    String contactResponse =
+//        restTemplate.getForObject(builder.build().encode().toUri(), String.class);
+//    LOGGER.info(contactResponse);
+//    ObjectMapper mapper = new ObjectMapper();
+//    JsonNode jsonContactResponse;
+//    try {
+//      jsonContactResponse = mapper.readTree(contactResponse);
+//    } catch (IOException e) {
+//      throw new BadContentException(
+//          String.format("Cannot retrieve organization with orgnaization name %s, from Zoho",
+//              organizationName),
+//          e);
+//    }
+//    return checkOrganizationRoleAndGetOrganizationIdFromJsonNode(
+//        findExactMatchOfOrganization(jsonContactResponse, organizationName));
+//  }
 
-  /**
-   * Using an organizationName find its corresponding organizationId.
-   * <p>
-   * It will try to fetch the organization from the external CRM. The external CRM does NOT check
-   * for an exact match, so it is possible that instead of a singe organization it will return a
-   * list of organization in json format. The exact match will be checked in memory and the correct
-   * organizationId will be returned
-   * </p>
-   *
-   * @param organizationName to search for
-   * @return the String representation of the organizationId
-   * @throws GenericMetisException which can be one of:
-   *         <ul>
-   *         <li>{@link BadContentException} if any other problem occurred while constructing the
-   *         user, like an organization did not have a role defined or the response cannot be
-   *         converted to {@link JsonNode}</li>
-   *         </ul>
-   */
-  public String getOrganizationIdByOrganizationName(String organizationName)
-      throws GenericMetisException {
-    String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
-        ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.SEARCH_RECORDS_STRING);
-    UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
-        .queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-        .queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
-        .queryParam(ZohoApiFields.CRITERIA_STRING,
-            String.format("(%s:%s)", ZohoApiFields.ORGANIZATION_NAME_FIELD, organizationName));
-
-    RestTemplate restTemplate = new RestTemplate();
-    String contactResponse =
-        restTemplate.getForObject(builder.build().encode().toUri(), String.class);
-    LOGGER.info(contactResponse);
-    ObjectMapper mapper = new ObjectMapper();
-    JsonNode jsonContactResponse;
-    try {
-      jsonContactResponse = mapper.readTree(contactResponse);
-    } catch (IOException e) {
-      throw new BadContentException(
-          String.format("Cannot retrieve organization with orgnaization name %s, from Zoho",
-              organizationName),
-          e);
-    }
-    return checkOrganizationRoleAndGetOrganizationIdFromJsonNode(
-        findExactMatchOfOrganization(jsonContactResponse, organizationName));
-  }
-
-  private JsonNode findExactMatchOfOrganization(JsonNode jsonOrgizationsResponse,
-      String organizationName) {
-    if (jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING)
-        .get(ZohoApiFields.RESULT_STRING) == null) {
-      return null;
-    }
-    if (jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING)
-        .get(ZohoApiFields.ACCOUNTS_MODULE_STRING).get(ZohoApiFields.ROW_STRING).isArray()) {
-      return findOrganizationFromListOfJsonNodes(jsonOrgizationsResponse, organizationName);
-    }
-    return jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING)
-        .get(ZohoApiFields.RESULT_STRING).get(ZohoApiFields.ACCOUNTS_MODULE_STRING)
-        .get(ZohoApiFields.ROW_STRING).get(ZohoApiFields.FIELDS_LABEL);
-  }
+//  private JsonNode findExactMatchOfOrganization(JsonNode jsonOrgizationsResponse,
+//      String organizationName) {
+//    if (jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING)
+//        .get(ZohoApiFields.RESULT_STRING) == null) {
+//      return null;
+//    }
+//    if (jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING)
+//        .get(ZohoApiFields.ACCOUNTS_MODULE_STRING).get(ZohoApiFields.ROW_STRING).isArray()) {
+//      return findOrganizationFromListOfJsonNodes(jsonOrgizationsResponse, organizationName);
+//    }
+//    return jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING)
+//        .get(ZohoApiFields.RESULT_STRING).get(ZohoApiFields.ACCOUNTS_MODULE_STRING)
+//        .get(ZohoApiFields.ROW_STRING).get(ZohoApiFields.FIELDS_LABEL);
+//  }
 
   private JsonNode findOrganizationFromListOfJsonNodes(JsonNode jsonOrgizationsResponse,
       String organizationName) {
@@ -170,33 +169,33 @@ public class ZohoAccessClientDao {
     return null;
   }
 
-  private String checkOrganizationRoleAndGetOrganizationIdFromJsonNode(JsonNode jsonNode)
-      throws BadContentException {
-    String organizationId = null;
-    if (jsonNode != null) {
-      Iterator<JsonNode> elements = jsonNode.elements();
-      OrganizationRole organizationRole = null;
-      while (elements.hasNext()) {
-        JsonNode next = elements.next();
-        JsonNode val = next.get(ZohoApiFields.VALUE_LABEL);
-        JsonNode content = next.get(ZohoApiFields.CONTENT_LABEL);
-        switch (val.textValue()) {
-          case "ACCOUNTID":
-            organizationId = content.textValue();
-            break;
-          case "Organisation Role":
-            organizationRole = OrganizationRole.getRoleFromName(content.textValue());
-            break;
-          default:
-            break;
-        }
-      }
-      if (organizationRole == null) {
-        throw new BadContentException("Organization Role from Zoho is empty");
-      }
-    }
-    return organizationId;
-  }
+//  private String checkOrganizationRoleAndGetOrganizationIdFromJsonNode(JsonNode jsonNode)
+//      throws BadContentException {
+//    String organizationId = null;
+//    if (jsonNode != null) {
+//      Iterator<JsonNode> elements = jsonNode.elements();
+//      OrganizationRole organizationRole = null;
+//      while (elements.hasNext()) {
+//        JsonNode next = elements.next();
+//        JsonNode val = next.get(ZohoApiFields.VALUE_LABEL);
+//        JsonNode content = next.get(ZohoApiFields.CONTENT_LABEL);
+//        switch (val.textValue()) {
+//          case "ACCOUNTID":
+//            organizationId = content.textValue();
+//            break;
+//          case "Organisation Role":
+//            organizationRole = OrganizationRole.getRoleFromName(content.textValue());
+//            break;
+//          default:
+//            break;
+//        }
+//      }
+//      if (organizationRole == null) {
+//        throw new BadContentException("Organization Role from Zoho is empty");
+//      }
+//    }
+//    return organizationId;
+//  }
 
   /**
    * This method adds filters to the Zoho query if values exist in properties. e.g.

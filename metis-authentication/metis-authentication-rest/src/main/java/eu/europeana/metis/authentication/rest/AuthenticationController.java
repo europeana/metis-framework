@@ -2,7 +2,7 @@ package eu.europeana.metis.authentication.rest;
 
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.authentication.service.AuthenticationService;
+import eu.europeana.metis.authentication.service.AuthenticationService2;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.EmailParameter;
@@ -41,7 +41,7 @@ public class AuthenticationController {
   private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
   private static final String ACTION_NOT_ALLOWED_FOR_USER = "Action not allowed";
 
-  private final AuthenticationService authenticationService;
+  private final AuthenticationService2 authenticationService;
 
   /**
    * Contains all the REST API methods for the metis-authentication.
@@ -50,7 +50,7 @@ public class AuthenticationController {
    */
   @Autowired
   public AuthenticationController(
-      AuthenticationService authenticationService) {
+      AuthenticationService2 authenticationService) {
     this.authenticationService = authenticationService;
   }
 

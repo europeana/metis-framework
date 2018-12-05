@@ -25,6 +25,11 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.zoho.crm</groupId>
+      <artifactId>java-sdk</artifactId>
+      <version>${version.com.zoho.crm.java-sdk}</version>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>

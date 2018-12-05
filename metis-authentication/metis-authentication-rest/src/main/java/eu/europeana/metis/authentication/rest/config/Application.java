@@ -2,7 +2,7 @@ package eu.europeana.metis.authentication.rest.config;
 
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
-import eu.europeana.metis.authentication.service.AuthenticationService;
+import eu.europeana.metis.authentication.service.AuthenticationService2;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
@@ -57,7 +57,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   private String[] allowedCorsHosts;
 
   private SessionFactory sessionFactory;
-  private AuthenticationService authenticationService;
+  private AuthenticationService2 authenticationService;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -83,9 +83,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
    * @return the authentication service instance
    */
   @Bean
-  public AuthenticationService getAuthenticationService(ZohoAccessClientDao zohoAccessClientDao,
-      PsqlMetisUserDao psqlMetisUserDao) {
-    authenticationService = new AuthenticationService(zohoAccessClientDao, psqlMetisUserDao);
+  public AuthenticationService2 getAuthenticationService(PsqlMetisUserDao psqlMetisUserDao)
+      throws Exception {
+    authenticationService = new AuthenticationService2(psqlMetisUserDao);
     return authenticationService;
   }
 

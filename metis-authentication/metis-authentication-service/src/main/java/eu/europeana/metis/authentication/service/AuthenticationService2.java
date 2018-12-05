@@ -1,13 +1,17 @@
 package eu.europeana.metis.authentication.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.zoho.crm.library.api.response.BulkAPIResponse;
+import com.zoho.crm.library.crud.ZCRMModule;
+import com.zoho.crm.library.crud.ZCRMRecord;
+import com.zoho.crm.library.exception.ZCRMException;
+import com.zoho.crm.library.setup.restclient.ZCRMRestClient;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
-import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
@@ -18,6 +22,7 @@ import java.security.SecureRandom;
 import java.text.ParseException;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -29,30 +34,27 @@ import org.springframework.util.StringUtils;
  * service.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-10-27
+ * @since 2018-12-05
  */
 @Service
-public class AuthenticationService {
+public class AuthenticationService2 {
 
   private static final int LOG_ROUNDS = 13;
   private static final int CREDENTIAL_FIELDS_NUMBER = 2;
   private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   private static final int ACCESS_TOKEN_LENGTH = 32;
-  private final ZohoAccessClientDao zohoAccessClientDao;
   private final PsqlMetisUserDao psqlMetisUserDao;
 
   /**
    * Constructor of class with required parameters
    *
-   * @param zohoAccessClientDao {@link ZohoAccessClientDao}
    * @param psqlMetisUserDao {@link PsqlMetisUserDao}
    */
   @Autowired
-  public AuthenticationService(
-      ZohoAccessClientDao zohoAccessClientDao,
-      PsqlMetisUserDao psqlMetisUserDao) {
-    this.zohoAccessClientDao = zohoAccessClientDao;
+  public AuthenticationService2(PsqlMetisUserDao psqlMetisUserDao) throws Exception {
     this.psqlMetisUserDao = psqlMetisUserDao;
+    //Initialize Zoho client with default configuration locations
+    ZCRMRestClient.initialize();
   }
 
   /**
@@ -69,8 +71,7 @@ public class AuthenticationService {
    * system.</li>
    * </ul>
    */
-  public void registerUser(String email, String password)
-      throws GenericMetisException {
+  public void registerUser(String email, String password) throws GenericMetisException {
 
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser != null) {
@@ -120,19 +121,27 @@ public class AuthenticationService {
   private MetisUser constructMetisUserFromZoho(String email)
       throws GenericMetisException {
     //Get user from zoho
-    JsonNode userByEmailJsonNode;
-    userByEmailJsonNode = zohoAccessClientDao.getUserByEmail(email);
-    if (userByEmailJsonNode == null) {
+    ZCRMModule zcrmModule = ZCRMModule.getInstance("Contacts");
+    final BulkAPIResponse bulkAPIResponseContacts;
+    try {
+      bulkAPIResponseContacts = zcrmModule.searchByEmail(email);
+    } catch (ZCRMException e) {
+      throw new BadContentException("Zoho search by email threw an exception", e);
+    }
+    final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseContacts.getData();
+    if (zcrmRecords.isEmpty()) {
       throw new NoUserFoundException("User was not found in Zoho");
     }
 
     //Construct User
-    MetisUser metisUser;
+    MetisUser metisUser = new MetisUser();
+    final ZCRMRecord zcrmRecord = zcrmRecords.get(0);
     try {
-      metisUser = new MetisUser(userByEmailJsonNode);
+      metisUser.checkZohoFieldsAndPopulate(zcrmRecord);
     } catch (ParseException e) {
       throw new BadContentException("Bad content while constructing metisUser", e);
     }
+
     if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {
       throw new BadContentException(
@@ -140,12 +149,33 @@ public class AuthenticationService {
               + "required fields defined properly in Zoho(Organization Name, Metis user, Account Role)");
     }
 
-    //Get Organization Id related to user
-    String organizationId;
-    organizationId = zohoAccessClientDao
-        .getOrganizationIdByOrganizationName(metisUser.getOrganizationName());
-    metisUser.setOrganizationId(organizationId);
+    //Check if organization role is valid
+    checkMetisUserOrganizationRole(metisUser);
+
     return metisUser;
+  }
+
+  private void checkMetisUserOrganizationRole(MetisUser metisUser) throws BadContentException {
+    ZCRMModule zcrmModuleAccounts = ZCRMModule.getInstance("Accounts");
+    final BulkAPIResponse bulkAPIResponseAccounts;
+    try {
+      bulkAPIResponseAccounts = zcrmModuleAccounts
+          .searchByCriteria(
+              String.format("(Account_Name:equals:%s)", metisUser.getOrganizationName()));
+    } catch (ZCRMException e) {
+      throw new BadContentException("Zoho search by email threw an exception", e);
+    }
+    final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseAccounts.getData();
+    if (zcrmRecords.isEmpty()) {
+      throw new BadContentException("Organization Role from Zoho is empty");
+    }
+    final HashMap<String, Object> propertiesMap = zcrmRecords.get(0).getData();
+    final String organizationRole = (String) propertiesMap.get("Organisation_Role2");
+
+    OrganizationRole.getRoleFromName(organizationRole);
+    if (organizationRole == null) {
+      throw new BadContentException("Organization Role from Zoho is empty");
+    }
   }
 
   private String generatePasswordHashing(String password) {
@@ -455,3 +485,4 @@ public class AuthenticationService {
     return allMetisUsers;
   }
 }
+
