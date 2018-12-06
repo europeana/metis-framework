@@ -14,13 +14,16 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.ObjIntConsumer;
 import org.apache.commons.collections.CollectionUtils;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.client.HttpServerErrorException;
 
 /**
  * This class performs the task of dereferencing and enrichment for a given RDF document.
@@ -32,6 +35,7 @@ public class EnrichmentWorker {
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
   public static final int EXTERNAL_CALL_MAX_RETRIES = 30;
   public static final int EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
+  public static final Map<Class<?>, String> mapWithRetrieableExceptions = createMapWithRetrieableExceptions();
 
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
@@ -42,6 +46,14 @@ public class EnrichmentWorker {
    */
   public enum Mode {
     ENRICHMENT_ONLY, DEREFERENCE_ONLY, DEREFERENCE_AND_ENRICHMENT
+  }
+
+  private static Map<Class<?>, String> createMapWithRetrieableExceptions() {
+    Map<Class<?>, String> mapWithRetrieableExceptions = new HashMap<>();
+    mapWithRetrieableExceptions.put(UnknownHostException.class, "");
+    mapWithRetrieableExceptions.put(HttpServerErrorException.class, "Internal Server Error");
+
+    return mapWithRetrieableExceptions;
   }
 
   /**
@@ -196,8 +208,8 @@ public class EnrichmentWorker {
       return CollectionUtils.isEmpty(fieldsForEnrichment) ? null :
           ExternalRequestUtil
               .retryableExternalRequest(() -> enrichmentClient.enrich(fieldsForEnrichment),
-                  Collections.singletonMap(UnknownHostException.class, ""),
-                  EXTERNAL_CALL_MAX_RETRIES, EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
+                  mapWithRetrieableExceptions, EXTERNAL_CALL_MAX_RETRIES,
+                  EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
     } catch (Exception e) {
       throw new DereferenceOrEnrichException(
           "Exception occurred while trying to perform enrichment.", e);
@@ -244,8 +256,8 @@ public class EnrichmentWorker {
         EnrichmentResultList result =
             ExternalRequestUtil
                 .retryableExternalRequest(() -> dereferenceClient.dereference(resourceId),
-                    Collections.singletonMap(UnknownHostException.class, ""),
-                    EXTERNAL_CALL_MAX_RETRIES, EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
+                    mapWithRetrieableExceptions, EXTERNAL_CALL_MAX_RETRIES,
+                    EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
         if (result == null || result.getResult() == null || result.getResult().isEmpty()) {
           LOGGER.debug("==== Null or empty value received for reference {}", resourceId);
         } else {
