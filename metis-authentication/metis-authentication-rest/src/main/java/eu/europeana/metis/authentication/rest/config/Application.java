@@ -47,12 +47,10 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${truststore.password}")
   private String truststorePassword;
 
-  @Value("${zoho.base.url}")
-  private String zohoBaseUrl;
-  @Value("${zoho.authentication.token}")
-  private String zohoAuthenticationToken;
-  @Value("${access.token.expire.time.in.mins}")
-  private int accessTokenExpireTimeInMins;
+  @Value("${zoho.initial.grant.token}")
+  private String zohoInitialGrantToken;
+  @Value("${metis.access.token.expire.time.in.mins}")
+  private int metisAccessTokenExpireTimeInMins;
   @Value("${allowed.cors.hosts}")
   private String[] allowedCorsHosts;
 
@@ -91,7 +89,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Bean
   public ZohoAccessClient getZohoAccessClient() throws Exception {
-    return new ZohoAccessClient();
+    return new ZohoAccessClient(zohoInitialGrantToken);
   }
 
   @Bean
@@ -115,7 +113,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Bean
   public PsqlMetisUserDao getPsqlMetisUserDao(SessionFactory sessionFactory) {
     PsqlMetisUserDao psqlMetisUserDao = new PsqlMetisUserDao(sessionFactory);
-    psqlMetisUserDao.setAccessTokenExpireTimeInMins(accessTokenExpireTimeInMins);
+    psqlMetisUserDao.setAccessTokenExpireTimeInMins(metisAccessTokenExpireTimeInMins);
     return psqlMetisUserDao;
   }
 

@@ -1,0 +1,12 @@
+#Should be filled in with the values coming from the Zoho registration of the application
+client_id=
+client_secret=
+redirect_uri=
+#Aaaserver.profile.read is a scope required for a java application, add more roles to modules(comma separated)
+scope=Aaaserver.profile.read,ZohoCRM.modules.ALL
+access_type=online
+#Using the file persistence handler
+persistence_handler_class=com.zoho.oauth.clientapp.ZohoOAuthFilePersistence
+#Path of where the file persistence handler will store/update the authentication tokens
+#In cloud foundry it follows different path
+oauth_tokens_file_path=src/main/resources/oauthtokens.properties

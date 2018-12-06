@@ -5,9 +5,13 @@ import com.zoho.crm.library.crud.ZCRMModule;
 import com.zoho.crm.library.crud.ZCRMRecord;
 import com.zoho.crm.library.exception.ZCRMException;
 import com.zoho.crm.library.setup.restclient.ZCRMRestClient;
+import com.zoho.oauth.client.ZohoOAuthClient;
+import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -15,11 +19,21 @@ import java.util.List;
  */
 public class ZohoAccessClient {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(ZohoAccessClient.class);
   private final ZCRMModule zcrmModule;
   private final ZCRMModule zcrmModuleAccounts;
 
-  public ZohoAccessClient() throws Exception {
+  public ZohoAccessClient(String grantToken) throws Exception {
     ZCRMRestClient.initialize();
+    ZohoOAuthClient cli = ZohoOAuthClient.getInstance();
+    try {
+      cli.generateAccessToken(grantToken);
+    } catch (ZohoOAuthException ex) {
+      LOGGER
+          .warn("Exception when generating access token. Grant tokens can be used only once, "
+              + "so when the access and refresh tokens are generated, the grant token becomes obsolete on subsequent deployments");
+    }
+
     zcrmModule = ZCRMModule.getInstance("Contacts");
     zcrmModuleAccounts = ZCRMModule.getInstance("Accounts");
   }

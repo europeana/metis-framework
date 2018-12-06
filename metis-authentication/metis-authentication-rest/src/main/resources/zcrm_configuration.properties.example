@@ -1,0 +1,5 @@
+minLogLevel=INFO
+#The user email used to access Zoho, with this account the oauth_configuration was used too
+currentUserEmail=
+domainSuffix=www.zohoapis.com
+accessType=Production
