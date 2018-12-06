@@ -3,21 +3,21 @@ package eu.europeana.metis.authentication.service;
 import com.zoho.crm.library.crud.ZCRMRecord;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
-import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.authentication.utils.ZohoMetisUserUtils;
 import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.zoho.ZohoConstants;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
-import java.text.ParseException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,8 +28,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
- * Service class that controls communication between the postgresql database and Zoho external
- * service.
+ * Service that handles all related operations to authentication including  communication between a
+ * psql database and Zoho.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-12-05
@@ -47,7 +47,8 @@ public class AuthenticationService {
   /**
    * Constructor of class with required parameters
    *
-   * @param psqlMetisUserDao {@link PsqlMetisUserDao}
+   * @param psqlMetisUserDao the psql object to access postgres database
+   * @param zohoAccessClient the object to communicate with Zoho
    */
   @Autowired
   public AuthenticationService(PsqlMetisUserDao psqlMetisUserDao,
@@ -126,12 +127,7 @@ public class AuthenticationService {
     }
 
     //Construct User
-    MetisUser metisUser = new MetisUser();
-    try {
-      metisUser.checkZohoFieldsAndPopulate(zcrmRecordContact);
-    } catch (ParseException e) {
-      throw new BadContentException("Bad content while constructing metisUser", e);
-    }
+    MetisUser metisUser = ZohoMetisUserUtils.checkZohoFieldsAndPopulate(zcrmRecordContact);
 
     if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {
