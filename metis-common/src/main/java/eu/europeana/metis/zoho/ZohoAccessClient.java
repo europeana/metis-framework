@@ -136,8 +136,8 @@ public class ZohoAccessClient {
    * @return the list of Zoho Organizations
    * @throws BadContentException if an error occurred during accessing Zoho
    */
-  public List<ZCRMRecord> getOrganizations(int start, int rows,
-      Date lastModified) throws BadContentException {
+  public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows, Date lastModified)
+      throws BadContentException {
     return getZcrmRecordOrganizations(start, rows, lastModified, null);
   }
 
@@ -151,8 +151,8 @@ public class ZohoAccessClient {
    * @return the list of Zoho Organizations
    * @throws BadContentException if an error occurred during accessing Zoho
    */
-  public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows,
-      Date lastModified, Map<String, String> searchCriteria) throws BadContentException {
+  public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows, Date lastModified,
+      Map<String, String> searchCriteria) throws BadContentException {
 
     if (start < 1) {
       throw new BadContentException(

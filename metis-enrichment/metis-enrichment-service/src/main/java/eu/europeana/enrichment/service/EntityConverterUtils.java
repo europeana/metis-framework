@@ -1,10 +1,14 @@
 package eu.europeana.enrichment.service;
 
+import com.zoho.crm.library.crud.ZCRMRecord;
+import com.zoho.crm.library.crud.ZCRMTrashRecord;
 import eu.europeana.corelib.definitions.edm.entity.Address;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.AddressImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.TextProperty;
 import eu.europeana.enrichment.api.external.model.WebResource;
+import eu.europeana.metis.zoho.ZohoConstants;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,21 +21,25 @@ import java.util.Set;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 /**
  * This class supports conversion of different organization objects into OrganizationImpl object.
- * 
- * @author GrafR
  *
+ * @author GrafR
  */
 public class EntityConverterUtils {
 
+  public static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
   private static final String UNDEFINED_LANGUAGE_KEY = "def";
   private static final int LANGUAGE_CODE_LENGTH = 2;
+  private static final int MAX_ALTERNATIVES = 5;
+  private static final int MAX_LANG_ALTERNATIVES = 5;
+  private static final int MAX_SAME_AS = 3;
 
   /**
    * Create singleton map mapping to a list.
-   * 
+   *
    * @param key The key
    * @param value The value
    * @return map with list, or null if the value is null.
@@ -45,7 +53,7 @@ public class EntityConverterUtils {
 
   /**
    * Create singleton map.
-   * 
+   *
    * @param key The key.
    * @param value The value.
    * @return The map, or null if the value is null.
@@ -59,7 +67,7 @@ public class EntityConverterUtils {
 
   /**
    * Create singleton list.
-   * 
+   *
    * @param value The value.
    * @return The list, or null if the value is null.
    */
@@ -74,7 +82,7 @@ public class EntityConverterUtils {
    * Create map mapping to a list. The map will contain all keys and the associated values (that
    * have the same index as its key). Note: in case of duplicate keys only one of the values will be
    * present in the result.
-   * 
+   *
    * @param keys The list of keys.
    * @param values The list of associated values.
    * @return The map, or null if it is empty.
@@ -116,12 +124,12 @@ public class EntityConverterUtils {
 
   /**
    * This method creates language map from text property object list. Lists are <b>not</b>
-   * concatenated: if two properties with the same language are passed, one of them will be ignored.
-   * 
+   * concatenated: if two properties with the same language are passed, one of them will be
+   * ignored.
+   *
    * @param textPropertyList the list of text property objects
    * @param mergeLists determines what to do in case two properties with the same language are
-   *        found. If true, the lists will be merged. If false, one of the properties will be
-   *        ignored.
+   * found. If true, the lists will be merged. If false, one of the properties will be ignored.
    * @return the language map
    */
   private Map<String, List<String>> createMapWithListsFromTextPropertyList(
@@ -149,7 +157,7 @@ public class EntityConverterUtils {
   /**
    * This method creates language map from text property object list. Note: if two properties with
    * the same language are passed, one of them will be ignored.
-   * 
+   *
    * @param textPropertyList The list of text property objects
    * @return The language map
    */
@@ -165,7 +173,7 @@ public class EntityConverterUtils {
 
   /**
    * This method converts a list of web resource objects to a string array.
-   * 
+   *
    * @param resources The list of web resource objects
    * @return string array, or null if no resources are found.
    */
@@ -178,7 +186,7 @@ public class EntityConverterUtils {
 
   /**
    * Creates a map of a single key and a List with a single value
-   * 
+   *
    * @param language the language to use
    * @param value the element value
    * @return the created map
@@ -192,7 +200,7 @@ public class EntityConverterUtils {
 
   /**
    * Creates a map of a single key and maps it to the provided list.
-   * 
+   *
    * @param language the language to use
    * @param value the list of values
    * @return the created map
@@ -203,6 +211,27 @@ public class EntityConverterUtils {
       return null;
     }
     return Collections.singletonMap(toIsoLanguage(language), value);
+  }
+
+  String toEdmCountry(String organizationCountry) {
+    if (StringUtils.isBlank(organizationCountry)) {
+      return null;
+    }
+
+    String isoCode = null;
+    int commaSeparatorPos = organizationCountry.indexOf(',');
+    // TODO: remove the support for FR(France), when Zoho data is updated and consistent.
+    int bracketSeparatorPos = organizationCountry.indexOf('(');
+
+    if (commaSeparatorPos > 0) {
+      // example: FR(France)
+      isoCode = organizationCountry.substring(commaSeparatorPos + 1).trim();
+    } else if (bracketSeparatorPos > 0) {
+      // example: France, FR
+      isoCode = organizationCountry.substring(0, bracketSeparatorPos).trim();
+    }
+
+    return isoCode;
   }
 
   /**
@@ -220,7 +249,7 @@ public class EntityConverterUtils {
    * This method merges two maps with lists. The result will be one map with all values. If a key
    * occurs in both input maps, the result map will contain a merged list for the given key. When
    * adding values from the add map to the base map, duplicates are prevented.
-   * 
+   *
    * @param baseMap The original map to which the new values will be added
    * @param addMap the map containing new values to be added to the map
    * @return enriched base map
@@ -261,14 +290,14 @@ public class EntityConverterUtils {
    * and the not merged map will be updated to contain all values in the add map that could not be
    * added to the base map.
    * </p>
-   * 
+   *
    * @param baseMap The base map containing singleton lists. This map will not be changed. Is not
-   *        null.
+   * null.
    * @param addMap The add map containing singleton lists. This map will not be changed. Is not
-   *        null.
+   * null.
    * @param notMergedMap The not merged map, containing lists of arbitrary size. This map will be
-   *        updated to contain those values in the add map that could not be added to the base map.
-   *        Is not null.
+   * updated to contain those values in the add map that could not be added to the base map. Is not
+   * null.
    * @return The new merged base map. Is not null.
    */
   public Map<String, List<String>> mergeMapsWithSingletonLists(Map<String, List<String>> baseMap,
@@ -300,7 +329,7 @@ public class EntityConverterUtils {
   /**
    * This method extends base list by elements of add list. The result will not contain any
    * duplicates.
-   * 
+   *
    * @param baseList The base list, or null (which is treated as an empty list).
    * @param addList The list of items to add, or null (which is treated as an empty list).
    * @return the list containing the sum of the two provided lists, or null if there are no items.
@@ -319,7 +348,7 @@ public class EntityConverterUtils {
   /**
    * This method is a wrapper for {@link #mergeStringLists(List, List)}. It converts the arrays to
    * lists, executes that method and converts it back.
-   * 
+   *
    * @param base The base string array, or null (which is treated as an empty array).
    * @param add The array of items to add, or null (which is treated as an empty array).
    * @return the resulting string array, or null if there are no items.
@@ -335,7 +364,7 @@ public class EntityConverterUtils {
    * Merges two addresses. If the base organization already has an address set that contains any
    * non-country data then nothing happens. Otherwise, the address properties from the
    * addOrganization are copied to the baseOrganization.
-   * 
+   *
    * @param baseOrganization The base organization. Cannot be null.
    * @param addOrganization The add organization. Cannot be null.
    */
@@ -361,17 +390,123 @@ public class EntityConverterUtils {
     // baseAddress.setVcardPostalCode(addAddress.getVcardPostalCode());
     // baseAddress.setVcardPostOfficeBox(addAddress.getVcardPostOfficeBox());
     // baseAddress.setVcardStreetAddress(addAddress.getVcardStreetAddress());
-    
+
     //update country only if not available in base
     if (StringUtils.isEmpty(baseAddress.getVcardCountryName())
         && StringUtils.isNotEmpty(addAddress.getVcardCountryName())) {
       baseAddress.setVcardCountryName(addAddress.getVcardCountryName());
     }
-    
+
     //update hasGeo if not available in base
     if(StringUtils.isEmpty(baseAddress.getVcardHasGeo())){
       baseAddress.setVcardHasGeo(addAddress.getVcardHasGeo());
     }
-      
+
+  }
+
+  /**
+   * Converter for {@link ZCRMRecord} containing Zoho organization info to {@link Organization}
+   *
+   * @param zohoOrganization the Zoho Organization object to convert
+   * @return the converted Organization object
+   */
+  public Organization toEdmOrganization(ZCRMRecord zohoOrganization) {
+
+    OrganizationImpl org = new OrganizationImpl();
+
+    final HashMap<String, Object> zohoOrganizationFields = zohoOrganization.getData();
+
+    org.setAbout(URL_ORGANIZATION_PREFFIX + zohoOrganization.getEntityId());
+    org.setDcIdentifier(createMapWithLists(UNDEFINED_LANGUAGE_KEY,
+        Long.toString(zohoOrganization.getEntityId())));
+
+    String isoLanguage = toIsoLanguage(
+        (String) zohoOrganizationFields.get(ZohoConstants.LANG_ORGANIZATION_NAME_FIELD));
+    org.setPrefLabel(createMapWithLists(isoLanguage,
+        (String) zohoOrganizationFields.get(ZohoConstants.ACCOUNT_NAME_FIELD)));
+    org.setAltLabel(createMapWithLists(
+        getFieldArray(zohoOrganizationFields, ZohoConstants.LANG_ALTERNATIVE_FIELD,
+            MAX_LANG_ALTERNATIVES),
+        getFieldArray(zohoOrganizationFields, ZohoConstants.ALTERNATIVE_FIELD, MAX_ALTERNATIVES)));
+    org.setEdmAcronym(createLanguageMapOfStringList(
+        (String) zohoOrganizationFields.get(ZohoConstants.LANG_ACRONYM_FIELD),
+        (String) zohoOrganizationFields.get(ZohoConstants.ACRONYM_FIELD)));
+    org.setFoafLogo(
+        (String) zohoOrganizationFields.get(ZohoConstants.LOGO_LINK_TO_WIKIMEDIACOMMONS_FIELD));
+    org.setFoafHomepage((String) zohoOrganizationFields.get(ZohoConstants.WEBSITE_FIELD));
+    final List<String> organizationRoleStringList = (List<String>) zohoOrganizationFields
+        .get(ZohoConstants.ORGANIZATION_ROLE_FIELD);
+    if (organizationRoleStringList != null) {
+      org.setEdmEuropeanaRole(
+          createLanguageMapOfStringList(Locale.ENGLISH.getLanguage(), organizationRoleStringList));
+    }
+    final List<String> organizationDomainStringList = (List<String>) zohoOrganizationFields
+        .get(ZohoConstants.DOMAIN_FIELD);
+    org.setEdmOrganizationDomain(createMap(Locale.ENGLISH.getLanguage(),
+        CollectionUtils.isEmpty(organizationDomainStringList) ? null
+            : organizationDomainStringList.get(0)));
+    org.setEdmOrganizationSector(createMap(Locale.ENGLISH.getLanguage(),
+        (String) zohoOrganizationFields.get(ZohoConstants.SECTOR_FIELD)));
+    org.setEdmOrganizationScope(createMap(Locale.ENGLISH.getLanguage(),
+        (String) zohoOrganizationFields.get(ZohoConstants.SCOPE_FIELD)));
+    final List<String> geographicLevelList = (List<String>) zohoOrganizationFields
+        .get(ZohoConstants.GEOGRAPHIC_LEVEL_FIELD);
+    org.setEdmGeorgraphicLevel(createMap(Locale.ENGLISH.getLanguage(),
+        CollectionUtils.isEmpty(geographicLevelList) ? null : geographicLevelList.get(0)));
+    String organizationCountry = toEdmCountry(
+        (String) zohoOrganizationFields.get(ZohoConstants.ORGANIZATION_COUNTRY_FIELD));
+    org.setEdmCountry(createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
+    final List<String> sameAsList = getFieldArray(zohoOrganizationFields,
+        ZohoConstants.SAME_AS_FIELD, MAX_SAME_AS);
+    if (!CollectionUtils.isEmpty(sameAsList)) {
+      org.setOwlSameAs(sameAsList.toArray(new String[]{}));
+    }
+
+    // address
+    Address address = new AddressImpl();
+    address.setAbout(org.getAbout() + "#address");
+    address.setVcardStreetAddress((String) zohoOrganizationFields.get(ZohoConstants.STREET_FIELD));
+    address.setVcardLocality((String) zohoOrganizationFields.get(ZohoConstants.CITY_FIELD));
+    address.setVcardCountryName((String) zohoOrganizationFields.get(
+        ZohoConstants.COUNTRY_FIELD)); //This is the Address Information Country as opposed to the Organization one above
+    address.setVcardPostalCode((String) zohoOrganizationFields.get(ZohoConstants.ZIP_CODE_FIELD));
+    address.setVcardPostOfficeBox((String) zohoOrganizationFields.get(ZohoConstants.PO_BOX_FIELD));
+    org.setAddress(address);
+
+    return org;
+  }
+
+  private List<String> getFieldArray(
+      HashMap<String, Object> zohoOrganizationFields,
+      String fieldBaseName, int size) {
+    List<String> res = new ArrayList<>(size);
+    String fieldName = fieldBaseName + "_" + "%d";
+    for (int i = 0; i < size; i++) {
+      String fieldValue = (String) zohoOrganizationFields.get(String.format(fieldName, i));
+      // add only existing values
+      if (StringUtils.isNotBlank(fieldValue)) {
+        res.add(fieldValue);
+      }
+    }
+    if (res.isEmpty()) {
+      return null;
+    }
+    return res;
+  }
+
+  /**
+   * This method extracts organization URIs from deleted organizations.
+   *
+   * @param deletedOrganizationsList The list of deleted organizations
+   * @return ID list
+   */
+  private List<String> extractIdsFromDeletedZohoOrganizations(
+      List<ZCRMTrashRecord> deletedOrganizationsList) {
+    List<String> idList = new ArrayList<>(deletedOrganizationsList.size());
+
+    for (ZCRMTrashRecord deletedOrganization : deletedOrganizationsList) {
+      idList.add(URL_ORGANIZATION_PREFFIX + deletedOrganization.getEntityId());
+    }
+    return idList;
   }
 }

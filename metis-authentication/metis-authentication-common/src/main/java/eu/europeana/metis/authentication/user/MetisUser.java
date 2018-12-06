@@ -85,7 +85,7 @@ public class MetisUser {
         zcrmRecord.getCreatedTime() == null ? null : dateFormat.parse(zcrmRecord.getCreatedTime());
     updatedDate = zcrmRecord.getModifiedTime() == null ? null
         : dateFormat.parse(zcrmRecord.getModifiedTime());
-    country = (String) zohoFields.get(ZohoConstants.COUNTRY_FIELD);
+    country = (String) zohoFields.get(ZohoConstants.USER_COUNTRY_FIELD);
     final List<String> participationLevel = (List<String>) (zohoFields
         .get(ZohoConstants.PARTICIPATION_LEVEL_FIELD));
     if (!CollectionUtils.isEmpty(participationLevel) && participationLevel
