@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.rest.config;
 
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
-import eu.europeana.metis.authentication.dao.ZohoAccessClient;
+import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;

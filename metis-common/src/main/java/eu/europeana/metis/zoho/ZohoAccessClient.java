@@ -1,4 +1,4 @@
-package eu.europeana.metis.authentication.dao;
+package eu.europeana.metis.zoho;
 
 import com.zoho.crm.library.api.response.BulkAPIResponse;
 import com.zoho.crm.library.crud.ZCRMModule;

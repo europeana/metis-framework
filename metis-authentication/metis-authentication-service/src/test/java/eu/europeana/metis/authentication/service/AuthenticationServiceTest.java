@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 
 import com.zoho.crm.library.crud.ZCRMRecord;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
-import eu.europeana.metis.authentication.dao.ZohoAccessClient;
+import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
