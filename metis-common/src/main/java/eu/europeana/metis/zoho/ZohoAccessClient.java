@@ -33,8 +33,8 @@ public class ZohoAccessClient {
               + "so when the access and refresh tokens are generated, the grant token becomes obsolete on subsequent deployments");
     }
 
-    zcrmModule = ZCRMModule.getInstance("Contacts");
-    zcrmModuleAccounts = ZCRMModule.getInstance("Accounts");
+    zcrmModule = ZCRMModule.getInstance(ZohoConstants.CONTACTS_MODULE);
+    zcrmModuleAccounts = ZCRMModule.getInstance(ZohoConstants.ACCOUNTS_MODULE);
   }
 
   public ZCRMRecord getZcrmRecordContactByEmail(String email) throws BadContentException {
@@ -59,7 +59,7 @@ public class ZohoAccessClient {
     try {
       bulkAPIResponseAccounts = zcrmModuleAccounts
           .searchByCriteria(
-              String.format("(Account_Name:equals:%s)", organizationName));
+              String.format("(%s:%s:%s)", ZohoConstants.ACCOUNT_NAME_FIELD, ZohoConstants.EQUALS_OPERATION, organizationName));
     } catch (ZCRMException e) {
       throw new BadContentException("Zoho search organization by organization name threw an exception", e);
     }

@@ -12,7 +12,6 @@ import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.service.EntityConverterUtils;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
-import eu.europeana.metis.zoho.ZohoApiFields;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -37,6 +37,10 @@ public class ZohoAccessService {
   private static final int MAX_ALTERNATIVES = 5;
   private static final int MAX_LANG_ALTERNATIVES = 5;
   private static final int MAX_SAME_AS = 3;
+  public static final String DELIMITER_COMMA = ",";
+  public static final String OR = "OR";
+  public static final String ZOHO_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
+  private static final FastDateFormat formatter = FastDateFormat.getInstance(ZOHO_TIME_FORMAT);
   private final EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
 
   /**
@@ -209,7 +213,7 @@ public class ZohoAccessService {
 
     String lastModifiedTime = null;
     if (lastModified != null) {
-      lastModifiedTime = ZohoApiFields.getZohoTimeFormatter().format(lastModified);
+      lastModifiedTime = formatter.format(lastModified);
     }
 
     ZCRMModule zcrmModuleAccounts = ZCRMModule.getInstance("Accounts");
@@ -243,17 +247,17 @@ public class ZohoAccessService {
 
     for (Map.Entry<String, String> entry : searchCriteria.entrySet()) {
       criteriaStringBuilder = new StringBuilder();
-      filterCriteria = entry.getValue().split(ZohoApiFields.DELIMITER_COMMA);
+      filterCriteria = entry.getValue().split(DELIMITER_COMMA);
 
       for (String filter : filterCriteria) {
         criteriaStringBuilder
             .append(String.format("(%s:equals:%s)", entry.getKey(), filter.trim()));
-        criteriaStringBuilder.append(ZohoApiFields.OR);
+        criteriaStringBuilder.append(OR);
       }
     }
 
     // remove last OR
-    criteriaStringBuilder.delete(criteriaStringBuilder.length() - ZohoApiFields.OR.length(),
+    criteriaStringBuilder.delete(criteriaStringBuilder.length() - OR.length(),
         criteriaStringBuilder.length());
     return criteriaStringBuilder.toString();
 

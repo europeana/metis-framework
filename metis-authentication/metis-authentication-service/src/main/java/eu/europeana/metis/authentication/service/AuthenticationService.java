@@ -14,6 +14,7 @@ import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.zoho.ZohoConstants;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.text.ParseException;
@@ -153,7 +154,7 @@ public class AuthenticationService {
     }
     final HashMap<String, Object> propertiesMap = zcrmRecordOrganization.getData();
     final List<String> organizationRoleStringList = (List<String>) propertiesMap
-        .get("Organisation_Role2");
+        .get(ZohoConstants.ORGANIZATION_ROLE_FIELD);
 
     OrganizationRole organizationRole = null;
     for (String organizationRoleString : organizationRoleStringList) {

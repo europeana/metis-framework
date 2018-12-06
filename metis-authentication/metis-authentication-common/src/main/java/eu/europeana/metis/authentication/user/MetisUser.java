@@ -3,6 +3,7 @@ package eu.europeana.metis.authentication.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zoho.crm.library.crud.ZCRMRecord;
 import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.zoho.ZohoConstants;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,29 +78,31 @@ public class MetisUser {
     HashMap<String, Object> zohoFields = zcrmRecord.getData();
 
     userId = Long.toString(zcrmRecord.getEntityId());
-    firstName = (String) zohoFields.get("First_Name");
-    lastName = (String) zohoFields.get("Last_Name");
-    email = (String) zohoFields.get("Email");
+    firstName = (String) zohoFields.get(ZohoConstants.FIRST_NAME_FIELD);
+    lastName = (String) zohoFields.get(ZohoConstants.LAST_NAME_FIELD);
+    email = (String) zohoFields.get(ZohoConstants.EMAIL_FIELD);
     createdDate =
         zcrmRecord.getCreatedTime() == null ? null : dateFormat.parse(zcrmRecord.getCreatedTime());
     updatedDate = zcrmRecord.getModifiedTime() == null ? null
         : dateFormat.parse(zcrmRecord.getModifiedTime());
-    country = (String) zohoFields.get("Country");
-    final List<String> participationLevel = (List<String>) (zohoFields.get("Participation_level"));
+    country = (String) zohoFields.get(ZohoConstants.COUNTRY_FIELD);
+    final List<String> participationLevel = (List<String>) (zohoFields
+        .get(ZohoConstants.PARTICIPATION_LEVEL_FIELD));
     if (!CollectionUtils.isEmpty(participationLevel) && participationLevel
         .contains("Network Association Member")) {
       networkMember = true;
     }
     metisUserFlag =
-        zohoFields.get("Metis_user") == null ? false : (Boolean) zohoFields.get("Metis_user");
+        zohoFields.get(ZohoConstants.METIS_USER_FIELD) == null ? false
+            : (Boolean) zohoFields.get(ZohoConstants.METIS_USER_FIELD);
 
     accountRole = AccountRole.getAccountRoleFromEnumName(
-        (String) zohoFields.get("Pick_List_3"));// This is actually the Account Role field
+        (String) zohoFields.get(ZohoConstants.ACCOUNT_ROLE_FIELD));
     if (accountRole == AccountRole.METIS_ADMIN) {
       throw new BadContentException("Account Role in Zoho is not valid");
     }
     final ZCRMRecord accountName = (ZCRMRecord) zohoFields
-        .get("Account_Name");//This is actually the organization Name in Zoho
+        .get(ZohoConstants.ACCOUNT_NAME_FIELD);
     organizationId = Long.toString(accountName.getEntityId());
     organizationName = accountName.getLookupLabel();
   }
