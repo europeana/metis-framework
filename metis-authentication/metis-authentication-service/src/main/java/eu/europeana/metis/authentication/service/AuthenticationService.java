@@ -1,12 +1,9 @@
 package eu.europeana.metis.authentication.service;
 
-import com.zoho.crm.library.api.response.BulkAPIResponse;
-import com.zoho.crm.library.crud.ZCRMModule;
 import com.zoho.crm.library.crud.ZCRMRecord;
-import com.zoho.crm.library.exception.ZCRMException;
-import com.zoho.crm.library.setup.restclient.ZCRMRestClient;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
+import eu.europeana.metis.authentication.dao.ZohoAccessClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
@@ -44,6 +41,7 @@ public class AuthenticationService {
   private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   private static final int ACCESS_TOKEN_LENGTH = 32;
   private final PsqlMetisUserDao psqlMetisUserDao;
+  private final ZohoAccessClient zohoAccessClient;
 
   /**
    * Constructor of class with required parameters
@@ -51,10 +49,10 @@ public class AuthenticationService {
    * @param psqlMetisUserDao {@link PsqlMetisUserDao}
    */
   @Autowired
-  public AuthenticationService(PsqlMetisUserDao psqlMetisUserDao) throws Exception {
+  public AuthenticationService(PsqlMetisUserDao psqlMetisUserDao,
+      ZohoAccessClient zohoAccessClient) {
     this.psqlMetisUserDao = psqlMetisUserDao;
-    //Initialize Zoho client with default configuration locations
-    ZCRMRestClient.initialize();
+    this.zohoAccessClient = zohoAccessClient;
   }
 
   /**
@@ -121,23 +119,12 @@ public class AuthenticationService {
   private MetisUser constructMetisUserFromZoho(String email)
       throws GenericMetisException {
     //Get user from zoho
-    ZCRMModule zcrmModule = ZCRMModule.getInstance("Contacts");
-    final BulkAPIResponse bulkAPIResponseContacts;
-    try {
-      bulkAPIResponseContacts = zcrmModule.searchByEmail(email);
-    } catch (ZCRMException e) {
-      throw new BadContentException("Zoho search by email threw an exception", e);
-    }
-    final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseContacts.getData();
-    if (zcrmRecords.isEmpty()) {
-      throw new NoUserFoundException("User was not found in Zoho");
-    }
+    final ZCRMRecord zcrmRecordContact = zohoAccessClient.getZcrmRecordContactByEmail(email);
 
     //Construct User
     MetisUser metisUser = new MetisUser();
-    final ZCRMRecord zcrmRecord = zcrmRecords.get(0);
     try {
-      metisUser.checkZohoFieldsAndPopulate(zcrmRecord);
+      metisUser.checkZohoFieldsAndPopulate(zcrmRecordContact);
     } catch (ParseException e) {
       throw new BadContentException("Bad content while constructing metisUser", e);
     }
@@ -156,20 +143,9 @@ public class AuthenticationService {
   }
 
   private void checkMetisUserOrganizationRole(MetisUser metisUser) throws BadContentException {
-    ZCRMModule zcrmModuleAccounts = ZCRMModule.getInstance("Accounts");
-    final BulkAPIResponse bulkAPIResponseAccounts;
-    try {
-      bulkAPIResponseAccounts = zcrmModuleAccounts
-          .searchByCriteria(
-              String.format("(Account_Name:equals:%s)", metisUser.getOrganizationName()));
-    } catch (ZCRMException e) {
-      throw new BadContentException("Zoho search by email threw an exception", e);
-    }
-    final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseAccounts.getData();
-    if (zcrmRecords.isEmpty()) {
-      throw new BadContentException("Organization Role from Zoho is empty");
-    }
-    final HashMap<String, Object> propertiesMap = zcrmRecords.get(0).getData();
+    final ZCRMRecord zcrmRecordOrganization = zohoAccessClient
+        .getZcrmRecordOrganizationByName(metisUser.getOrganizationName());
+    final HashMap<String, Object> propertiesMap = zcrmRecordOrganization.getData();
     final List<String> organizationRoleStringList = (List<String>) propertiesMap
         .get("Organisation_Role2");
 

@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.springframework.util.CollectionUtils;
 
 /**
  * The Metis user containing all parameters.
@@ -79,14 +80,18 @@ public class MetisUser {
     firstName = (String) zohoFields.get("First_Name");
     lastName = (String) zohoFields.get("Last_Name");
     email = (String) zohoFields.get("Email");
-    createdDate = dateFormat.parse(zcrmRecord.getCreatedTime());
-    updatedDate = dateFormat.parse(zcrmRecord.getModifiedTime());
+    createdDate =
+        zcrmRecord.getCreatedTime() == null ? null : dateFormat.parse(zcrmRecord.getCreatedTime());
+    updatedDate = zcrmRecord.getModifiedTime() == null ? null
+        : dateFormat.parse(zcrmRecord.getModifiedTime());
     country = (String) zohoFields.get("Country");
     final List<String> participationLevel = (List<String>) (zohoFields.get("Participation_level"));
-    if (participationLevel.contains("Network Association Member")) {
+    if (!CollectionUtils.isEmpty(participationLevel) && participationLevel
+        .contains("Network Association Member")) {
       networkMember = true;
     }
-    metisUserFlag = (Boolean) zohoFields.get("Metis_user");
+    metisUserFlag =
+        zohoFields.get("Metis_user") == null ? false : (Boolean) zohoFields.get("Metis_user");
 
     accountRole = AccountRole.getAccountRoleFromEnumName(
         (String) zohoFields.get("Pick_List_3"));// This is actually the Account Role field
