@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.routing.HttpRoute;
@@ -66,8 +69,8 @@ abstract class HttpClientTask<O> implements Closeable {
 
   // TODO triggering callback with null status means that the status is OK.
   public <I extends RdfResourceEntry> void execute(List<I> resourceLinks,
-      Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, O> callback)
-      throws MediaProcessorException {
+      Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, O> callback,
+      boolean blockUntilDone) throws MediaProcessorException {
 
     updateConnectionLimits(resourceLinks, connectionLimitsPerSource);
 
@@ -83,10 +86,24 @@ abstract class HttpClientTask<O> implements Closeable {
       }
       throw new MediaProcessorException(e);
     }
+    final List<Future<Void>> futures = new ArrayList<>();
     for (int i = 0; i < resourceLinks.size(); i++) {
       // TODO use the callback function provided by httpClient.execute.
-      httpClient.execute(createRequestProducer(resourceLinks.get(i).getResourceUrl()),
-          responseConsumers.get(i), null);
+      final Future<Void> future = httpClient
+          .execute(createRequestProducer(resourceLinks.get(i).getResourceUrl()),
+              responseConsumers.get(i), null);
+      futures.add(future);
+    }
+    if (blockUntilDone) {
+      for (Future<Void> future : futures) {
+        try {
+          future.get();
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+        } catch (ExecutionException | CancellationException e) {
+          logger.debug("Exception occurred while waiting. This is probably processed elsewhere.", e);
+        }
+      }
     }
   }
 

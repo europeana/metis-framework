@@ -1,9 +1,8 @@
 package eu.europeana.metis.mediaprocessing.model;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaException;
-import eu.europeana.metis.mediaservice.WebResource;
-import eu.europeana.metis.mediaservice.WebResource.ColorSpace;
-import eu.europeana.metis.mediaservice.WebResource.Orientation;
+import eu.europeana.metis.mediaprocessing.model.WebResource.ColorSpace;
+import eu.europeana.metis.mediaprocessing.model.WebResource.Orientation;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -20,10 +19,11 @@ public class ImageResourceMetadata extends ResourceMetadata {
   private final List<String> dominantColors;
 
   public ImageResourceMetadata(String mimeType, String resourceUrl, long contentSize, int width,
-      int height, String colorSpace, List<String> dominantColors) throws MediaException {
+      int height, String colorSpace, List<String> dominantColors,
+      List<? extends Thumbnail> thumbnails) throws MediaException {
 
     // Call super constructor.
-    super(mimeType, resourceUrl, contentSize);
+    super(mimeType, resourceUrl, contentSize, thumbnails);
 
     // Set basic parameters.
     this.width = width;
@@ -51,7 +51,7 @@ public class ImageResourceMetadata extends ResourceMetadata {
   }
 
   @Override
-  protected void updateResource(WebResource resource) {
+  protected void setSpecializedFieldsToResource(WebResource resource) {
     resource.setWidth(width);
     resource.setHeight(height);
     resource.setOrientation(width > height ? Orientation.LANDSCAPE : Orientation.PORTRAIT);

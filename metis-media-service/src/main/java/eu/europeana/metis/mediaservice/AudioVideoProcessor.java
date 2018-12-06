@@ -84,8 +84,8 @@ class AudioVideoProcessor {
         metadata = new VideoResourceMetadata(mimeType, url, fileSize, duration, bitRate, width,
             height, codecName, frameRate);
       } else if (audioStream != null) {
-        final double duration = videoStream.getDouble("duration");
-        final int bitRate =videoStream.getInt("bit_rate");
+        final double duration = audioStream.getDouble("duration");
+        final int bitRate =audioStream.getInt("bit_rate");
         final int channels = audioStream.getInt("channels");
         final int sampleRate = audioStream.getInt("sample_rate");
         final int sampleSize = audioStream.getInt("bits_per_sample");

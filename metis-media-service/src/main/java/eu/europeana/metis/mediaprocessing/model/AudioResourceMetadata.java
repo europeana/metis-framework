@@ -1,7 +1,5 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaservice.WebResource;
-
 public class AudioResourceMetadata extends ResourceMetadata {
 
   private final double duration;
@@ -25,7 +23,7 @@ public class AudioResourceMetadata extends ResourceMetadata {
   }
 
   @Override
-  protected void updateResource(WebResource resource) {
+  protected void setSpecializedFieldsToResource(WebResource resource) {
     resource.setDuration(duration);
     resource.setBitrate(bitRate);
     resource.setChannels(channels);

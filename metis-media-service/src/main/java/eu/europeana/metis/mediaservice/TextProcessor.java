@@ -81,7 +81,7 @@ class TextProcessor {
 
     // Done
     final ResourceMetadata metadata = new TextResourceMetadata(mimeType, url, content.length(),
-        containsText, resolution);
+        containsText, resolution, thumbnails);
     return new ResourceProcessingResult(metadata, thumbnails);
   }
 

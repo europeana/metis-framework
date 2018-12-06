@@ -31,7 +31,8 @@ class ImageProcessor {
       final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
       resourceMetadata = new ImageResourceMetadata(mimeType, url, content.length(),
           imageMetadata.getWidth(), imageMetadata.getHeight(),
-          imageMetadata.getColorSpace(), imageMetadata.getDominantColors());
+          imageMetadata.getColorSpace(), imageMetadata.getDominantColors(),
+          thumbnailsAndMetadata.getRight());
     } else {
       resourceMetadata = null;
     }

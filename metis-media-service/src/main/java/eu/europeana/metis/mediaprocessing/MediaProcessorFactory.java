@@ -17,17 +17,18 @@ public class MediaProcessorFactory {
     this.redirectCount = redirectCount;
   }
 
-  public void setGeneralConnectionLimit(int generalConnectionLimit) {
-    this.generalConnectionLimit = generalConnectionLimit;
-  }
-
+  @Deprecated
   public void setConnectionLimitPerSource(int connectionLimitPerSource) {
     this.connectionLimitPerSource = connectionLimitPerSource;
+  }
+
+  @Deprecated
+  public void setGeneralConnectionLimit(int generalConnectionLimit) {
+    this.generalConnectionLimit = generalConnectionLimit;
   }
 
   public MediaProcessor createMediaProcessor() throws MediaProcessorException {
     return new TemporaryMediaProcessor(redirectCount, generalConnectionLimit,
         connectionLimitPerSource);
   }
-
 }

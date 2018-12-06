@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaservice.WebResource;
+import java.util.List;
 
 public class TextResourceMetadata extends ResourceMetadata {
 
@@ -9,14 +9,14 @@ public class TextResourceMetadata extends ResourceMetadata {
   private final Integer resolution;
 
   public TextResourceMetadata(String mimeType, String resourceUrl, long contentSize,
-      boolean containsText, Integer resolution) {
-    super(mimeType, resourceUrl, contentSize);
+      boolean containsText, Integer resolution, List<? extends Thumbnail> thumbnails) {
+    super(mimeType, resourceUrl, contentSize, thumbnails);
     this.containsText = containsText;
     this.resolution = resolution;
   }
 
   @Override
-  protected void updateResource(WebResource resource) {
+  protected void setSpecializedFieldsToResource(WebResource resource) {
     resource.setContainsText(containsText);
     resource.setResolution(resolution);
   }

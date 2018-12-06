@@ -1,8 +1,10 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.mediaservice.EdmObject;
-import eu.europeana.metis.mediaservice.WebResource;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class ResourceMetadata {
 
@@ -12,10 +14,21 @@ public abstract class ResourceMetadata {
 
   private final long contentSize;
 
+  private final Set<String> thumbnailTargetNames;
+
   protected ResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
+    this(mimeType, resourceUrl, contentSize, null);
+  }
+
+  protected ResourceMetadata(String mimeType, String resourceUrl, long contentSize,
+      Collection<? extends Thumbnail> thumbnails) {
     this.mimeType = mimeType;
     this.resourceUrl = resourceUrl;
     this.contentSize = contentSize;
+    final Stream<? extends Thumbnail> thumbnailStream =
+        thumbnails == null ? Stream.empty() : thumbnails.stream();
+    this.thumbnailTargetNames = thumbnailStream.map(Thumbnail::getTargetName)
+        .collect(Collectors.toSet());
   }
 
   public String getResourceUrl() {
@@ -26,16 +39,18 @@ public abstract class ResourceMetadata {
     return mimeType;
   }
 
-  public final void updateRdf(RDF rdf) {
-    updateRdf(new EdmObject(rdf));
+  // Is not null.
+  public Set<String> getThumbnailTargetNames() {
+    return Collections.unmodifiableSet(thumbnailTargetNames);
   }
 
-  public final void updateRdf(EdmObject rdf) {
-    final WebResource resource = rdf.getWebResource(resourceUrl);
+  // Does not set or check the resource URL: the caller should make sure that the right
+  // web resource is passed.
+  final void updateResource(WebResource resource) {
     resource.setMimeType(mimeType);
     resource.setFileSize(contentSize);
-    updateResource(resource);
+    setSpecializedFieldsToResource(resource);
   }
 
-  protected abstract void updateResource(WebResource resource);
+  protected abstract void setSpecializedFieldsToResource(WebResource resource);
 }

@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaservice;
+package eu.europeana.metis.mediaprocessing.model;
 
 import eu.europeana.corelib.definitions.jibx.AudioChannelNumber;
 import eu.europeana.corelib.definitions.jibx.BitRate;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 /**
  * Helper class for manipulating {@link WebResourceType}
  */
-public class WebResource {
+class WebResource {
 
   public enum Orientation {
     PORTRAIT, LANDSCAPE

@@ -3,26 +3,22 @@ package eu.europeana.metis.mediaprocessing.temp;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.metis.mediaprocessing.exception.MediaException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
+import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceProcessingResult;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
-import eu.europeana.metis.mediaservice.EdmObject;
 import eu.europeana.metis.mediaservice.MediaProcessor;
-import eu.europeana.metis.mediaprocessing.UrlType;
 import java.io.Closeable;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 @Deprecated
-public class TemporaryMediaService extends TemporaryMediaHandler implements Closeable {
+public class TemporaryMediaService implements Closeable {
 
   private final MediaProcessor mediaProcessor;
 
@@ -38,15 +34,14 @@ public class TemporaryMediaService extends TemporaryMediaHandler implements Clos
   // The files are done sequentially: the next one begins only if the previous one is completed.
   public <I extends DownloadedResource> Pair<RDF, List<Thumbnail>> performMediaProcessing(
       RDF incomingRdf, List<I> sources, MediaProcessingListener<I> listener) {
-    final List<ResourceProcessingResult> processedResources = performResourceProcessing(incomingRdf,
-        sources, listener);
+    final List<ResourceProcessingResult> processedResources = performResourceProcessing(sources, listener);
     return mergeProcessedResources(incomingRdf, processedResources);
   }
 
   // This method is probably thread-safe.
   // The files are done sequentially: the next one begins only if the previous one is completed.
   public <I extends DownloadedResource> List<ResourceProcessingResult> performResourceProcessing(
-      RDF incomingRdf, List<I> sources, MediaProcessingListener<I> listener) {
+      List<I> sources, MediaProcessingListener<I> listener) {
     final List<ResourceProcessingResult> result = new ArrayList<>();
     for (I source : sources) {
       try {
@@ -78,38 +73,13 @@ public class TemporaryMediaService extends TemporaryMediaHandler implements Clos
   // This method is probably thread-safe.
   public Pair<RDF, List<Thumbnail>> mergeProcessedResources(RDF incomingRdf,
       List<ResourceProcessingResult> processedResources) {
-
-    // Aggregate the results and update the RDF.
-    final EdmObject edm = new EdmObject(incomingRdf);
+    final EnrichedRdf enrichedRdf = new EnrichedRdfImpl(incomingRdf);
+    processedResources.stream().map(ResourceProcessingResult::getMetadata)
+        .forEach(enrichedRdf::enrichResource);
     final List<Thumbnail> thumbnails = processedResources.stream()
         .map(ResourceProcessingResult::getThumbnails).filter(Objects::nonNull).flatMap(List::stream)
         .collect(Collectors.toList());
-    processedResources.stream().map(ResourceProcessingResult::getMetadata).filter(Objects::nonNull)
-        .forEach(metadata -> metadata.updateRdf(edm));
-
-    // Set the preview based on the new data
-    updateEdmPreview(edm, thumbnails);
-
-    // Done
-    return new ImmutablePair<>(edm.getRdf(), thumbnails);
-  }
-
-  private void updateEdmPreview(EdmObject edm, List<Thumbnail> thumbnails) {
-    Set<String> objectUrls = edm.getResourceUrls(Arrays.asList(UrlType.OBJECT)).keySet();
-    Set<String> otherUrls =
-        edm.getResourceUrls(Arrays.asList(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW)).keySet();
-
-    if (!objectUrls.isEmpty()) {
-      edm.updateEdmPreview(objectUrls.iterator().next());
-    } else {
-      Optional<Thumbnail> thumbnail = thumbnails.stream().filter(
-          t -> t.getTargetName().contains("-LARGE") && otherUrls.contains(t.getResourceUrl()))
-          .findFirst();
-      if (thumbnail.isPresent()) {
-        String url = String.format("%s", thumbnail.get().getTargetName());
-        edm.updateEdmPreview(url);
-      }
-    }
+    return new ImmutablePair<>(enrichedRdf.finalizeRdf(), thumbnails);
   }
 
   @Override
