@@ -5,10 +5,10 @@ import com.itextpdf.text.pdf.parser.ImageRenderInfo;
 import com.itextpdf.text.pdf.parser.Matrix;
 import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
-import eu.europeana.metis.mediaprocessing.UrlType;
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceMetadata;
-import eu.europeana.metis.mediaprocessing.model.ResourceProcessingResult;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.awt.image.BufferedImage;
@@ -32,15 +32,15 @@ class TextProcessor {
     this.thumbnailGenerator = thumbnailGenerator;
   }
 
-  ResourceProcessingResult processText(String url, Set<UrlType> urlTypes, String mimeType,
-      File content) throws IOException, MediaException {
+  ResourceExtractionResult processText(String url, Set<UrlType> urlTypes, String mimeType,
+      File content) throws MediaExtractionException {
 
     // Sanity checks
     if (!UrlType.shouldExtractMetadata(urlTypes)) {
       return null;
     }
     if (content == null) {
-      throw new MediaException("File content is null", "File content cannot be null");
+      throw new MediaExtractionException("File content is null");
     }
 
     // Create thumbnails in case of PDF file.
@@ -57,8 +57,9 @@ class TextProcessor {
     if ("application/pdf".equals(mimeType)) {
       boolean containsTextTemp = false;
       Integer resolutionTemp = null;
-      PdfReader reader = new PdfReader(content.getAbsolutePath());
+      PdfReader reader = null;
       try {
+        reader = new PdfReader(content.getAbsolutePath());
         PdfReaderContentParser parser = new PdfReaderContentParser(reader);
         PdfListener pdfListener = new PdfListener();
         for (int i = 1; i <= reader.getNumberOfPages(); i++) {
@@ -69,8 +70,12 @@ class TextProcessor {
             break;
           }
         }
+      } catch (IOException e) {
+        throw new MediaExtractionException("Problem while reading PDF file.", e);
       } finally {
-        reader.close();
+        if (reader != null) {
+          reader.close();
+        }
       }
       containsText = containsTextTemp;
       resolution = resolutionTemp;
@@ -82,7 +87,7 @@ class TextProcessor {
     // Done
     final ResourceMetadata metadata = new TextResourceMetadata(mimeType, url, content.length(),
         containsText, resolution, thumbnails);
-    return new ResourceProcessingResult(metadata, thumbnails);
+    return new ResourceExtractionResult(metadata, thumbnails);
   }
 
   private static class PdfListener extends SimpleTextExtractionStrategy {

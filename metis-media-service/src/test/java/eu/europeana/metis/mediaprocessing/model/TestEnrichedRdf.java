@@ -9,7 +9,9 @@ import eu.europeana.metis.mediaprocessing.RdfConverter.Writer;
 import eu.europeana.metis.mediaprocessing.RdfConverterFactory;
 import eu.europeana.metis.mediaprocessing.RdfDeserializer;
 import eu.europeana.metis.mediaprocessing.RdfSerializer;
-import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
+import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
+import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -39,7 +41,7 @@ public class TestEnrichedRdf {
   private static RdfSerializer serializer;
 
   @BeforeAll
-  public static void setUp() throws ParserConfigurationException, MediaProcessorException {
+  public static void setUp() throws ParserConfigurationException, RdfConverterException {
     deserializer = new RdfConverterFactory().createRdfDeserializer();
     serializer = new RdfConverterFactory().createRdfSerializer();
     dBuilder = dbFactory.newDocumentBuilder();
@@ -48,7 +50,7 @@ public class TestEnrichedRdf {
   @Test
   public void shouldPreviewdBeSetIfNotExistsInEuropeanaAggregationList()
       throws ParserConfigurationException, SAXException, IOException,
-      TransformerException, TransformerFactoryConfigurationError, MediaProcessorException {
+      TransformerException, TransformerFactoryConfigurationError, RdfDeserializationException, RdfSerializationException {
     EnrichedRdfImpl edm = getEdmObjectWithoutPreview();
     edm.updateEdmPreview(EXAMPLE_URL);
     assertEquals(EXAMPLE_URL, getPreviewContent(edm));
@@ -56,7 +58,7 @@ public class TestEnrichedRdf {
 
   @Test
   public void shouldNewPreviewBeSet()
-      throws MediaProcessorException, SAXException, IOException, ParserConfigurationException {
+      throws SAXException, IOException, ParserConfigurationException, RdfSerializationException, RdfDeserializationException {
     EnrichedRdfImpl edm = getEnrichedRdf("image1-input.xml");
     String oldPreview = getPreviewContent(edm);
     edm.updateEdmPreview(EXAMPLE_URL);
@@ -65,7 +67,7 @@ public class TestEnrichedRdf {
   }
 
   private EnrichedRdfImpl getEdmObjectWithoutPreview()
-      throws SAXException, IOException, TransformerException, TransformerFactoryConfigurationError, MediaProcessorException {
+      throws SAXException, IOException, TransformerException, TransformerFactoryConfigurationError, RdfDeserializationException {
 
     Document doc = dBuilder.parse(getClass().getClassLoader().getResourceAsStream("image1-input.xml"));
 
@@ -86,13 +88,13 @@ public class TestEnrichedRdf {
     return (EnrichedRdfImpl) deserializer.getRdfForResourceEnriching(new ByteArrayInputStream(outputStream.toByteArray()));
   }
 
-  private EnrichedRdfImpl getEnrichedRdf(String resource) throws MediaProcessorException {
+  private EnrichedRdfImpl getEnrichedRdf(String resource) throws RdfDeserializationException {
     return (EnrichedRdfImpl) deserializer
         .getRdfForResourceEnriching(getClass().getClassLoader().getResourceAsStream(resource));
   }
 
   private String getPreviewContent(EnrichedRdfImpl edm)
-      throws ParserConfigurationException, SAXException, IOException, MediaProcessorException {
+      throws ParserConfigurationException, SAXException, IOException, RdfSerializationException {
     byte[] source = ((Writer) serializer).serialize(edm.getRdf());
 
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

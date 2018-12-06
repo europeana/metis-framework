@@ -1,11 +1,11 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
-import eu.europeana.metis.mediaprocessing.model.ResourceProcessingResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaservice.MediaProcessor;
 import java.io.Closeable;
@@ -23,45 +23,37 @@ public class TemporaryMediaService implements Closeable {
   private final MediaProcessor mediaProcessor;
 
   public TemporaryMediaService() throws MediaProcessorException {
-    try {
-      mediaProcessor = new MediaProcessor();
-    } catch (MediaException e) {
-      throw new MediaProcessorException(e);
-    }
+    mediaProcessor = new MediaProcessor();
   }
 
   // This method is probably thread-safe.
   // The files are done sequentially: the next one begins only if the previous one is completed.
   public <I extends DownloadedResource> Pair<RDF, List<Thumbnail>> performMediaProcessing(
       RDF incomingRdf, List<I> sources, MediaProcessingListener<I> listener) {
-    final List<ResourceProcessingResult> processedResources = performResourceProcessing(sources, listener);
+    final List<ResourceExtractionResult> processedResources = performResourceProcessing(sources, listener);
     return mergeProcessedResources(incomingRdf, processedResources);
   }
 
   // This method is probably thread-safe.
   // The files are done sequentially: the next one begins only if the previous one is completed.
-  public <I extends DownloadedResource> List<ResourceProcessingResult> performResourceProcessing(
+  public <I extends DownloadedResource> List<ResourceExtractionResult> performResourceProcessing(
       List<I> sources, MediaProcessingListener<I> listener) {
-    final List<ResourceProcessingResult> result = new ArrayList<>();
+    final List<ResourceExtractionResult> result = new ArrayList<>();
     for (I source : sources) {
       try {
         listener.beforeStartingFile(source);
         final File file = source.getContentPath() == null ? null : source.getContentPath().toFile();
-        final ResourceProcessingResult resourceResult = mediaProcessor
+        final ResourceExtractionResult resourceResult = mediaProcessor
             .processResource(source.getResourceUrl(), source.getUrlTypes(), source.getMimeType(),
                 file);
         if (resourceResult != null) {
           result.add(resourceResult);
         }
       } catch (Exception e) {
-        final boolean stopProcessing;
-        if (e instanceof MediaException) {
-          stopProcessing = listener.handleMediaException(source, (MediaException) e);
+        if (e instanceof MediaExtractionException) {
+          listener.handleMediaExtractionException(source, (MediaExtractionException) e);
         } else {
-          stopProcessing = listener.handleOtherException(source, e);
-        }
-        if (stopProcessing) {
-          break;
+          listener.handleOtherException(source, e);
         }
       } finally {
         listener.afterCompletingFile(source);
@@ -72,12 +64,12 @@ public class TemporaryMediaService implements Closeable {
 
   // This method is probably thread-safe.
   public Pair<RDF, List<Thumbnail>> mergeProcessedResources(RDF incomingRdf,
-      List<ResourceProcessingResult> processedResources) {
+      List<ResourceExtractionResult> processedResources) {
     final EnrichedRdf enrichedRdf = new EnrichedRdfImpl(incomingRdf);
-    processedResources.stream().map(ResourceProcessingResult::getMetadata)
+    processedResources.stream().map(ResourceExtractionResult::getMetadata)
         .forEach(enrichedRdf::enrichResource);
     final List<Thumbnail> thumbnails = processedResources.stream()
-        .map(ResourceProcessingResult::getThumbnails).filter(Objects::nonNull).flatMap(List::stream)
+        .map(ResourceExtractionResult::getThumbnails).filter(Objects::nonNull).flatMap(List::stream)
         .collect(Collectors.toList());
     return new ImmutablePair<>(enrichedRdf.finalizeRdf(), thumbnails);
   }
@@ -89,13 +81,11 @@ public class TemporaryMediaService implements Closeable {
 
   public interface MediaProcessingListener<I extends DownloadedResource> {
 
-    void beforeStartingFile(I source) throws MediaException;
+    void beforeStartingFile(I source) throws MediaExtractionException;
 
-    // If this returns true, we will stop processing.
-    boolean handleMediaException(I source, MediaException exception);
+    void handleMediaExtractionException(I source, MediaExtractionException exception);
 
-    // If this returns true, we will stop processing.
-    boolean handleOtherException(I source, Exception exception);
+    void handleOtherException(I source, Exception exception);
 
     void afterCompletingFile(I source);
 

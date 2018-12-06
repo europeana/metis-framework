@@ -1,9 +1,9 @@
 package eu.europeana.metis.mediaservice;
 
-import eu.europeana.metis.mediaprocessing.UrlType;
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
-import eu.europeana.metis.mediaprocessing.model.ResourceProcessingResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.io.File;
 import java.util.List;
@@ -18,8 +18,8 @@ class ImageProcessor {
     this.thumbnailGenerator = thumbnailGenerator;
   }
 
-  ResourceProcessingResult processImage(String url, Set<UrlType> urlTypes, String mimeType,
-      File content) throws MediaException {
+  ResourceExtractionResult processImage(String url, Set<UrlType> urlTypes, String mimeType,
+      File content) throws MediaExtractionException {
 
     // Create the thumbnails for this image.
     final Pair<ImageMetadata, List<? extends Thumbnail>> thumbnailsAndMetadata =
@@ -38,6 +38,6 @@ class ImageProcessor {
     }
 
     // Done
-    return new ResourceProcessingResult(resourceMetadata, thumbnailsAndMetadata.getRight());
+    return new ResourceExtractionResult(resourceMetadata, thumbnailsAndMetadata.getRight());
   }
 }

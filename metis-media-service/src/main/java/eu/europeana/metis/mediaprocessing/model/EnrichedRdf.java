@@ -4,8 +4,8 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 
 public interface EnrichedRdf {
 
-  public void enrichResource(ResourceMetadata resource);
+  void enrichResource(ResourceMetadata resource);
 
-  public RDF finalizeRdf();
+  RDF finalizeRdf();
 
 }

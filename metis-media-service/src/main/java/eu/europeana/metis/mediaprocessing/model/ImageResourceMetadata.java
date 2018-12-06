@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.WebResource.ColorSpace;
 import eu.europeana.metis.mediaprocessing.model.WebResource.Orientation;
 import java.util.Collections;
@@ -20,7 +20,7 @@ public class ImageResourceMetadata extends ResourceMetadata {
 
   public ImageResourceMetadata(String mimeType, String resourceUrl, long contentSize, int width,
       int height, String colorSpace, List<String> dominantColors,
-      List<? extends Thumbnail> thumbnails) throws MediaException {
+      List<? extends Thumbnail> thumbnails) throws MediaExtractionException {
 
     // Call super constructor.
     super(mimeType, resourceUrl, contentSize, thumbnails);
@@ -33,8 +33,7 @@ public class ImageResourceMetadata extends ResourceMetadata {
     final Optional<String> badColor = dominantColors.stream()
         .filter(color -> !color.matches("[0-9A-F]{6}")).findAny();
     if (badColor.isPresent()) {
-      throw new MediaException("Color does not match the hexademic template",
-          "Unrecognized hex String: " + badColor.get());
+      throw new MediaExtractionException("Unrecognized hex String: " + badColor.get());
     }
     // TODO dominant colors start with '#' due to legacy systems
     this.dominantColors = dominantColors.stream().map(c -> "#" + c).collect(Collectors.toList());
@@ -45,8 +44,7 @@ public class ImageResourceMetadata extends ResourceMetadata {
     } else if ("sRGB".equals(colorSpace)) {
       this.colorSpace = ColorSpace.S_RGB;
     } else {
-      throw new MediaException("Failed to recognize color space",
-          "Unrecognized color space: " + colorSpace);
+      throw new MediaExtractionException("Unrecognized color space: " + colorSpace);
     }
   }
 

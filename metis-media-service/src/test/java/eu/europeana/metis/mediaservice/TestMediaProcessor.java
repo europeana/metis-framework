@@ -11,18 +11,17 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.mediaprocessing.RdfConverter;
-import eu.europeana.metis.mediaprocessing.RdfConverter.Parser;
-import eu.europeana.metis.mediaprocessing.RdfConverter.Writer;
 import eu.europeana.metis.mediaprocessing.RdfConverterFactory;
 import eu.europeana.metis.mediaprocessing.RdfDeserializer;
 import eu.europeana.metis.mediaprocessing.RdfSerializer;
-import eu.europeana.metis.mediaprocessing.UrlType;
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
+import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
+import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
-import eu.europeana.metis.mediaprocessing.model.ResourceProcessingResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class TestMediaProcessor {
 	private static RdfSerializer serializer;
 
 	@BeforeAll
-	public static void setUp() throws MediaException, MediaProcessorException {
+	public static void setUp() throws MediaProcessorException, RdfConverterException {
 		deserializer = new RdfConverterFactory().createRdfDeserializer();
 		serializer = new RdfConverterFactory().createRdfSerializer();
 		AudioVideoProcessor.setCommand("ffprobe");
@@ -79,12 +78,13 @@ public class TestMediaProcessor {
 		return IOUtils.toString(getClass().getClassLoader().getResourceAsStream(resource), "UTF-8");
 	}
 	
-	private EnrichedRdf rdf(String resource) throws MediaProcessorException {
+	private EnrichedRdf rdf(String resource) throws RdfDeserializationException {
 		return deserializer.getRdfForResourceEnriching(getClass().getClassLoader().getResourceAsStream(resource));
 	}
 
 	@Test
-	public void processImage() throws IOException, MediaException, MediaProcessorException {
+	public void processImage()
+      throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException {
 		String url = "http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg";
 		String md5 = "6d27e9f0dcdbf33afc07d952cc5c2833";
 		File file = spy(new File(tempDir, "media8313043870723212585.tmp"));
@@ -111,7 +111,7 @@ public class TestMediaProcessor {
 		
 		doReturn("image/jpeg").when(tika).detect(file);
 
-		final ResourceProcessingResult result;
+		final ResourceExtractionResult result;
 		try {
 			result = testedProcessor.processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "image/jpeg", file);
 		} finally {
@@ -134,7 +134,8 @@ public class TestMediaProcessor {
 	}
 
 	@Test
-	public void processAudio() throws IOException, MediaException, MediaProcessorException {
+  public void processAudio()
+      throws IOException, RdfDeserializationException, MediaExtractionException, RdfSerializationException {
 		String url = "http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3";
 		
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
@@ -143,7 +144,7 @@ public class TestMediaProcessor {
 		
 		when(tika.detect(any(URL.class))).thenReturn("audio/mpeg");
 
-    final ResourceProcessingResult result = testedProcessor
+    final ResourceExtractionResult result = testedProcessor
         .processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "audio/mpeg", null);
 
     final EnrichedRdf rdf = rdf("audio1-input.xml");
@@ -154,7 +155,8 @@ public class TestMediaProcessor {
 	}
 
 	@Test
-	public void processVideo() throws IOException, MediaException, MediaProcessorException {
+	public void processVideo()
+      throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException {
 		String url = "http://maccinema.com/info/filmovi/dae.mp4";
 		
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
@@ -163,7 +165,7 @@ public class TestMediaProcessor {
 		
 		when(tika.detect(any(URL.class))).thenReturn("video/mp4");
 
-    final ResourceProcessingResult result = testedProcessor
+    final ResourceExtractionResult result = testedProcessor
         .processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "audio/mpeg", null);
 
     final EnrichedRdf rdf = rdf("video1-input.xml");
@@ -174,7 +176,8 @@ public class TestMediaProcessor {
 	}
 
 	@Test
-	public void processPdf() throws MediaException, IOException, URISyntaxException, MediaProcessorException {
+	public void processPdf()
+      throws IOException, URISyntaxException, MediaExtractionException, RdfSerializationException, RdfDeserializationException {
 		File contents = new File(getClass().getClassLoader().getResource("pdf1.pdf").toURI());
 
         File[] thumbs = new File[2];
@@ -199,7 +202,7 @@ public class TestMediaProcessor {
 
 		when(tika.detect(contents)).thenReturn("application/pdf");
 
-    final ResourceProcessingResult result = testedProcessor
+    final ResourceExtractionResult result = testedProcessor
         .processResource("http://sample.edu.eu/data/sample1.pdf",
             Collections.singleton(UrlType.IS_SHOWN_BY), "application/pdf", contents);
 

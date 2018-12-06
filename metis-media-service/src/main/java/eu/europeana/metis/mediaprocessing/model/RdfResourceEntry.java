@@ -1,9 +1,9 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaprocessing.UrlType;
+import java.io.Serializable;
 import java.util.Set;
 
-public interface RdfResourceEntry {
+public interface RdfResourceEntry extends Serializable {
 
   String getResourceUrl();
 

@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import java.io.Closeable;
@@ -70,7 +69,7 @@ abstract class HttpClientTask<O> implements Closeable {
   // TODO triggering callback with null status means that the status is OK.
   public <I extends RdfResourceEntry> void execute(List<I> resourceLinks,
       Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, O> callback,
-      boolean blockUntilDone) throws MediaProcessorException {
+      boolean blockUntilDone) throws IOException {
 
     updateConnectionLimits(resourceLinks, connectionLimitsPerSource);
 
@@ -79,12 +78,12 @@ abstract class HttpClientTask<O> implements Closeable {
       for (I resourceLink : resourceLinks) {
         responseConsumers.add(createResponseConsumer(resourceLink, callback));
       }
-    } catch (IOException | MediaException e) {
+    } catch (IOException e) {
       logger.error("Disk error?", e);
       for (HttpAsyncResponseConsumer<Void> c : responseConsumers) {
         c.failed(e);
       }
-      throw new MediaProcessorException(e);
+      throw e;
     }
     final List<Future<Void>> futures = new ArrayList<>();
     for (int i = 0; i < resourceLinks.size(); i++) {
@@ -130,5 +129,5 @@ abstract class HttpClientTask<O> implements Closeable {
   protected abstract HttpAsyncRequestProducer createRequestProducer(String resourceUrl);
 
   protected abstract <I extends RdfResourceEntry> HttpAsyncResponseConsumer<Void> createResponseConsumer(
-      I input, HttpClientCallback<I, O> callback) throws IOException, MediaException;
+      I input, HttpClientCallback<I, O> callback) throws IOException;
 }

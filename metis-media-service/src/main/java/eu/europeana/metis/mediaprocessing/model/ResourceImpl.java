@@ -1,18 +1,16 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaprocessing.UrlType;
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ResourceImpl extends TemporaryResourceFileImpl implements Resource {
+public class ResourceImpl extends TemporaryFileImpl implements Resource {
 
   private String mimeType;
   private Set<UrlType> urlTypes;
 
-  public ResourceImpl(RdfResourceEntry rdfResourceEntry, String mimeType)
-      throws MediaException {
+  public ResourceImpl(RdfResourceEntry rdfResourceEntry, String mimeType) throws IOException {
     super(rdfResourceEntry.getResourceUrl(), "media_resources", "media", null);
     this.mimeType = mimeType;
     this.urlTypes = new HashSet<>(rdfResourceEntry.getUrlTypes());

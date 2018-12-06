@@ -1,10 +1,10 @@
 package eu.europeana.metis.mediaservice;
 
-import eu.europeana.metis.mediaprocessing.UrlType;
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceMetadata;
-import eu.europeana.metis.mediaprocessing.model.ResourceProcessingResult;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import java.io.File;
 import java.io.IOException;
@@ -45,8 +45,8 @@ class AudioVideoProcessor {
     }
   }
 
-  ResourceProcessingResult processAudioVideo(String url, Set<UrlType> urlTypes,
-      String mimeType, File contents) throws MediaException, IOException {
+  ResourceExtractionResult processAudioVideo(String url, Set<UrlType> urlTypes,
+      String mimeType, File contents) throws MediaExtractionException {
 
     // Sanity check
     if (!UrlType.shouldExtractMetadata(urlTypes)) {
@@ -57,7 +57,12 @@ class AudioVideoProcessor {
     List<String> command = Arrays.asList(ffprobeCmd, "-v", "quiet", "-print_format", "json",
         "-show_format", "-show_streams", "-hide_banner",
         contents == null ? url : contents.getPath());
-    List<String> resultLines = ce.runCommand(command, false);
+    List<String> resultLines;
+    try {
+      resultLines = ce.runCommand(command, false);
+    } catch (IOException e) {
+      throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
+    }
 
     final ResourceMetadata metadata;
     try {
@@ -65,7 +70,7 @@ class AudioVideoProcessor {
       // Analyze command result
       JSONObject result = new JSONObject(new JSONTokener(String.join("", resultLines)));
       if (contents == null && result.length() == 0) {
-        throw new MediaException("Probably download failed", "", null, true);
+        throw new MediaExtractionException("Probably download failed");
       }
       final long fileSize = result.getJSONObject("format").getLong("size");
       final JSONObject videoStream = findStream(result, "video");
@@ -74,8 +79,8 @@ class AudioVideoProcessor {
       // Process the video or audio stream
       if (videoStream != null) {
         final double duration = videoStream.getDouble("duration");
-        final int bitRate =videoStream.getInt("bit_rate");
-        final int width  = videoStream.getInt("width");
+        final int bitRate = videoStream.getInt("bit_rate");
+        final int width = videoStream.getInt("width");
         final int height = videoStream.getInt("height");
         final String codecName = videoStream.getString("codec_name");
         final String[] frameRateParts = videoStream.getString("avg_frame_rate").split("/");
@@ -85,24 +90,22 @@ class AudioVideoProcessor {
             height, codecName, frameRate);
       } else if (audioStream != null) {
         final double duration = audioStream.getDouble("duration");
-        final int bitRate =audioStream.getInt("bit_rate");
+        final int bitRate = audioStream.getInt("bit_rate");
         final int channels = audioStream.getInt("channels");
         final int sampleRate = audioStream.getInt("sample_rate");
         final int sampleSize = audioStream.getInt("bits_per_sample");
         metadata = new AudioResourceMetadata(mimeType, url, fileSize, duration, bitRate, channels,
             sampleRate, sampleSize);
       } else {
-        throw new MediaException("No media streams", "AUDIOVIDEO ERROR");
+        throw new MediaExtractionException("No media streams");
       }
-    } catch (MediaException e) {
-      throw e;
     } catch (RuntimeException e) {
       LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(resultLines, "\n"), e);
-      throw new MediaException("File seems to be corrupted", "AUDIOVIDEO ERROR", e);
+      throw new MediaExtractionException("File seems to be corrupted", e);
     }
 
     // Done
-    return new ResourceProcessingResult(metadata, null);
+    return new ResourceExtractionResult(metadata, null);
   }
 
   private JSONObject findStream(JSONObject data, String codecType) {

@@ -1,12 +1,14 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class ResourceMetadata {
+// Should be interface?
+public abstract class ResourceMetadata implements Serializable {
 
   private final String mimeType;
 

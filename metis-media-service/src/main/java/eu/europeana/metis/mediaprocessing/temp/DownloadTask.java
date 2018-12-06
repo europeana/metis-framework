@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
@@ -36,7 +35,7 @@ public class DownloadTask extends HttpClientTask<Resource> {
 
   @Override
   protected <I extends RdfResourceEntry> ZeroCopyConsumer<Void> createResponseConsumer(
-      I resourceLink, HttpClientCallback<I, Resource> callback) throws IOException, MediaException {
+      I resourceLink, HttpClientCallback<I, Resource> callback) throws IOException {
     final ResourceImpl resource = new ResourceImpl(resourceLink, null);
     return new DownloadConsumer<>(resourceLink, resource, callback);
   }
@@ -103,9 +102,9 @@ public class DownloadTask extends HttpClientTask<Resource> {
 
     private void deleteFile() {
       try {
-        resource.deleteFile();
-      } catch (MediaProcessorException e) {
-        logger.warn("Could not delete thumbnail.", e);
+        resource.close();
+      } catch (IOException e) {
+        logger.warn("Could not delete resource.", e);
       }
     }
   }

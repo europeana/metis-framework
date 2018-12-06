@@ -1,8 +1,9 @@
 package eu.europeana.metis.mediaservice;
 
-import eu.europeana.metis.mediaprocessing.UrlType;
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
-import eu.europeana.metis.mediaprocessing.model.ResourceProcessingResult;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class MediaProcessor implements Closeable {
   private final AudioVideoProcessor audioVideoProcessor;
   private final TextProcessor textProcessor;
 
-  MediaProcessor(CommandExecutor commandExecutor) throws MediaException {
+  MediaProcessor(CommandExecutor commandExecutor) throws MediaProcessorException {
     this.commandExecutor = commandExecutor;
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(commandExecutor);
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
@@ -36,7 +37,7 @@ public class MediaProcessor implements Closeable {
     this.textProcessor = new TextProcessor(thumbnailGenerator);
   }
 
-  public MediaProcessor() throws MediaException {
+  public MediaProcessor() throws MediaProcessorException {
     this(new CommandExecutor());
   }
 
@@ -44,16 +45,15 @@ public class MediaProcessor implements Closeable {
    * @param contents downloaded file, can be {@code null} for mime types accepted by {@link
    * #supportsLinkProcessing(String)}
    */
-  public ResourceProcessingResult processResource(String url, Set<UrlType> urlTypes,
-      String providedMimeType, File contents) throws MediaException {
+  public ResourceExtractionResult processResource(String url, Set<UrlType> urlTypes,
+      String providedMimeType, File contents) throws MediaExtractionException {
 
     // Obtain the mime type
     final String mimeType;
     try {
       mimeType = contents == null ? tika.detect(URI.create(url).toURL()) : tika.detect(contents);
     } catch (IOException e) {
-      throw new MediaException("Mime type checking error", "IOException " + e.getMessage(), e,
-          contents == null);
+      throw new MediaExtractionException("Mime type checking error", e);
     }
 
     // Verify the mime type. Permit the application/xhtml+xml detected from tika to be virtually
@@ -65,31 +65,26 @@ public class MediaProcessor implements Closeable {
               url);
     }
     if (contents == null && !supportsLinkProcessing(mimeType)) {
-      throw new MediaException("File content is null and mimeType does not support link processing",
-          "Contents file is required for mime type " + mimeType);
+      throw new MediaExtractionException("File content is null and mimeType does not support link processing");
     }
 
     // Process the resource.
-    final ResourceProcessingResult result;
-    try {
-      switch (getResourceType(mimeType)) {
-        case TEXT:
-          result = textProcessor.processText(url, urlTypes, mimeType, contents);
-          break;
-        case AUDIO:
-        case VIDEO:
-          result = audioVideoProcessor
-              .processAudioVideo(url, urlTypes, mimeType, contents);
-          break;
-        case IMAGE:
-          result = imageProcessor.processImage(url, urlTypes, mimeType, contents);
-          break;
-        default:
-          result = null;
-          break;
-      }
-    } catch (IOException e) {
-      throw new MediaException("I/O error during procesing", "IOException " + e.getMessage(), e);
+    final ResourceExtractionResult result;
+    switch (getResourceType(mimeType)) {
+      case TEXT:
+        result = textProcessor.processText(url, urlTypes, mimeType, contents);
+        break;
+      case AUDIO:
+      case VIDEO:
+        result = audioVideoProcessor
+            .processAudioVideo(url, urlTypes, mimeType, contents);
+        break;
+      case IMAGE:
+        result = imageProcessor.processImage(url, urlTypes, mimeType, contents);
+        break;
+      default:
+        result = null;
+        break;
     }
 
     // Done

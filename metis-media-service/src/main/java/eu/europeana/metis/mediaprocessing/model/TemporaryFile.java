@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import java.io.Closeable;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -13,18 +14,19 @@ import java.io.InputStream;
  * </p>
  * <p>
  * Please note that this represents a temporary file. It is created upon construction and should
- * therefore always be removed (using {@link TemporaryResourceFile#deleteFile()}).
+ * therefore always be removed (using {@link TemporaryFile#close()}).
  * </p>
  */
-public interface TemporaryResourceFile {
+public interface TemporaryFile extends Closeable {
 
   String getResourceUrl();
 
-  InputStream getContentStream() throws MediaProcessorException;
+  InputStream getContentStream() throws IOException;
 
-  long getContentSize() throws MediaProcessorException;
-
-  void deleteFile() throws MediaProcessorException;
+  long getContentSize() throws IOException;
 
   boolean hasContent();
+
+  @Override
+  void close() throws IOException;
 }

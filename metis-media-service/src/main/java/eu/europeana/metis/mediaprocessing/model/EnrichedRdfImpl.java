@@ -3,7 +3,6 @@ package eu.europeana.metis.mediaprocessing.model;
 import eu.europeana.corelib.definitions.jibx.Preview;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.metis.mediaprocessing.UrlType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing;
+package eu.europeana.metis.mediaprocessing.model;
 
 import java.util.Collection;
 import java.util.EnumSet;
@@ -14,7 +14,7 @@ public enum UrlType {
 
   public static final Set<UrlType> URL_TYPES_FOR_LINK_CHECKING = EnumSet.allOf(UrlType.class);
   public static final Set<UrlType> URL_TYPES_FOR_MEDIA_EXTRACTION = EnumSet.allOf(UrlType.class);
-  protected static final Set<UrlType> URL_TYPES_FOR_METADATA_EXTRACTION = EnumSet
+  public static final Set<UrlType> URL_TYPES_FOR_METADATA_EXTRACTION = EnumSet
       .of(HAS_VIEW, IS_SHOWN_BY, IS_SHOWN_AT);
 
   public static boolean shouldExtractMetadata(Collection<UrlType> resourceTypes) {

@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaprocessing.UrlType;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;

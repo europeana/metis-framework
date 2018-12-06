@@ -1,12 +1,15 @@
 package eu.europeana.metis.mediaprocessing;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
+import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
+import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntryImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfWrapper;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,12 +28,12 @@ public class RdfConverter {
 
   private static IBindingFactory rdfBindingFactory;
 
-  private static synchronized IBindingFactory getBindingFactory() throws MediaProcessorException {
+  private static synchronized IBindingFactory getBindingFactory() throws RdfConverterException {
     if (rdfBindingFactory == null) {
       try {
         rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
       } catch (JiBXException e) {
-        throw new MediaProcessorException("Unable to create binding factory", e);
+        throw new RdfConverterException("Unable to create binding factory", e);
       }
     }
     return rdfBindingFactory;
@@ -47,63 +50,63 @@ public class RdfConverter {
 
     private final IUnmarshallingContext context;
 
-    public Parser() throws MediaProcessorException {
+    public Parser() throws RdfConverterException {
       try {
         context = getBindingFactory().createUnmarshallingContext();
       } catch (JiBXException e) {
-        throw new MediaProcessorException("Problem creating deserializer.", e);
+        throw new RdfConverterException("Problem creating deserializer.", e);
       }
     }
 
     @Override
-    public List<RdfResourceEntry> getResourceEntriesForMetadataExtraction(byte[] input)
-        throws MediaProcessorException {
+    public List<RdfResourceEntry> getResourceEntriesForMediaExtraction(byte[] input)
+        throws RdfDeserializationException {
       try (InputStream inputStream = new ByteArrayInputStream(input)) {
-        return getResourceEntriesForMetadataExtraction(inputStream);
+        return getResourceEntriesForMediaExtraction(inputStream);
       } catch (IOException e) {
-        throw new MediaProcessorException("Problem with deserializing RDF.", e);
+        throw new RdfDeserializationException("Problem with deserializing RDF.", e);
       }
     }
 
     @Override
-    public List<RdfResourceEntry> getResourceEntriesForMetadataExtraction(InputStream inputStream)
-        throws MediaProcessorException {
+    public List<RdfResourceEntry> getResourceEntriesForMediaExtraction(InputStream inputStream)
+        throws RdfDeserializationException {
       return getResourceEntries(inputStream, UrlType.URL_TYPES_FOR_MEDIA_EXTRACTION);
     }
 
     @Override
     public List<RdfResourceEntry> getResourceEntriesForLinkChecking(byte[] input)
-        throws MediaProcessorException {
+        throws RdfDeserializationException {
       try (InputStream inputStream = new ByteArrayInputStream(input)) {
         return getResourceEntriesForLinkChecking(inputStream);
       } catch (IOException e) {
-        throw new MediaProcessorException("Problem with deserializing RDF.", e);
+        throw new RdfDeserializationException("Problem with deserializing RDF.", e);
       }
     }
 
     @Override
     public List<RdfResourceEntry> getResourceEntriesForLinkChecking(InputStream inputStream)
-        throws MediaProcessorException {
+        throws RdfDeserializationException {
       return getResourceEntries(inputStream, UrlType.URL_TYPES_FOR_LINK_CHECKING);
     }
 
     @Override
-    public EnrichedRdf getRdfForResourceEnriching(byte[] input) throws MediaProcessorException {
+    public EnrichedRdf getRdfForResourceEnriching(byte[] input) throws RdfDeserializationException {
       try (InputStream inputStream = new ByteArrayInputStream(input)) {
         return getRdfForResourceEnriching(inputStream);
       } catch (IOException e) {
-        throw new MediaProcessorException("Problem with deserializing RDF.", e);
+        throw new RdfDeserializationException("Problem with deserializing RDF.", e);
       }
     }
 
     @Override
     public EnrichedRdf getRdfForResourceEnriching(InputStream inputStream)
-        throws MediaProcessorException {
+        throws RdfDeserializationException {
       return new EnrichedRdfImpl(deserialize(inputStream));
     }
 
     private List<RdfResourceEntry> getResourceEntries(InputStream inputStream,
-        Set<UrlType> allowedUrlTypes) throws MediaProcessorException {
+        Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
       return getResourceEntries(deserialize(inputStream), allowedUrlTypes);
     }
 
@@ -113,11 +116,11 @@ public class RdfConverter {
           .collect(Collectors.toList());
     }
 
-    public RDF deserialize(InputStream inputStream) throws MediaProcessorException {
+    public RDF deserialize(InputStream inputStream) throws RdfDeserializationException {
       try {
         return (RDF) context.unmarshalDocument(inputStream, "UTF-8");
       } catch (JiBXException e) {
-        throw new MediaProcessorException("Problem with deserializing RDF.", e);
+        throw new RdfDeserializationException("Problem with deserializing RDF.", e);
       }
     }
   }
@@ -133,39 +136,39 @@ public class RdfConverter {
 
     private final IMarshallingContext context;
 
-    public Writer() throws MediaProcessorException {
+    public Writer() throws RdfConverterException {
       try {
         context = getBindingFactory().createMarshallingContext();
       } catch (JiBXException e) {
-        throw new MediaProcessorException("Problem creating serializer.", e);
+        throw new RdfConverterException("Problem creating serializer.", e);
       }
     }
 
-    public byte[] serialize(RDF rdf) throws MediaProcessorException {
+    public byte[] serialize(RDF rdf) throws RdfSerializationException {
       try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
         serialize(rdf, outputStream);
         return outputStream.toByteArray();
       } catch (IOException e) {
-        throw new MediaProcessorException("Problem with serializing RDF.", e);
+        throw new RdfSerializationException("Problem with serializing RDF.", e);
       }
     }
 
-    private void serialize(RDF rdf, OutputStream outputStream) throws MediaProcessorException {
+    private void serialize(RDF rdf, OutputStream outputStream) throws RdfSerializationException {
       try {
         context.marshalDocument(rdf, "UTF-8", null, outputStream);
       } catch (JiBXException e) {
-        throw new MediaProcessorException("Problem with serializing RDF.", e);
+        throw new RdfSerializationException("Problem with serializing RDF.", e);
       }
     }
 
     @Override
-    public byte[] serialize(EnrichedRdf rdf) throws MediaProcessorException {
+    public byte[] serialize(EnrichedRdf rdf) throws RdfSerializationException {
       return serialize(rdf.finalizeRdf());
     }
 
     @Override
     public void serialize(EnrichedRdf rdf, OutputStream outputStream)
-        throws MediaProcessorException {
+        throws RdfSerializationException {
       serialize(rdf.finalizeRdf(), outputStream);
     }
   }

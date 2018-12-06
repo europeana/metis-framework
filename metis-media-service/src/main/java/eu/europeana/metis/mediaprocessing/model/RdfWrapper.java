@@ -3,7 +3,6 @@ package eu.europeana.metis.mediaprocessing.model;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
 import eu.europeana.corelib.definitions.jibx.HasView;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.mediaprocessing.UrlType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

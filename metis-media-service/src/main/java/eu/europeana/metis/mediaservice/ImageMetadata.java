@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author jochen
  */
-public class ImageMetadata {
+class ImageMetadata {
 
   private final int width;
   private final int height;
@@ -24,26 +24,26 @@ public class ImageMetadata {
    * @param colorSpace The color space.
    * @param dominantColors The dominant colors.
    */
-  public ImageMetadata(int width, int height, String colorSpace, List<String> dominantColors) {
+  ImageMetadata(int width, int height, String colorSpace, List<String> dominantColors) {
     this.width = width;
     this.height = height;
     this.colorSpace = colorSpace;
     this.dominantColors = new ArrayList<>(dominantColors);
   }
 
-  public int getWidth() {
+  int getWidth() {
     return width;
   }
 
-  public int getHeight() {
+  int getHeight() {
     return height;
   }
 
-  public String getColorSpace() {
+  String getColorSpace() {
     return colorSpace;
   }
 
-  public List<String> getDominantColors() {
+  List<String> getDominantColors() {
     return Collections.unmodifiableList(dominantColors);
   }
 }

@@ -1,17 +1,21 @@
 package eu.europeana.metis.mediaprocessing.temp;
 
-import eu.europeana.metis.mediaprocessing.MediaProcessor;
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
+import eu.europeana.metis.mediaprocessing.LinkChecker;
+import eu.europeana.metis.mediaprocessing.MediaExtractor;
+import eu.europeana.metis.mediaprocessing.exception.LinkCheckingException;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceProcessingResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @Deprecated
-public class TemporaryMediaProcessor extends TemporaryMediaService implements MediaProcessor {
+public class TemporaryMediaProcessor extends TemporaryMediaService implements MediaExtractor,
+    LinkChecker {
 
   private final LinkCheckTask linkCheckTask;
   private final DownloadTask downloadTask;
@@ -31,13 +35,13 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
       this.callbackExecuted = true;
     }
 
-    public T verify() throws MediaException {
+    public T verify() throws IOException {
       if (!this.callbackExecuted) {
-        throw new MediaException("Problem while processing " + this.url,
-            "Callback not yet executed.");
+        throw new IOException(
+            "Problem while processing " + this.url + ": Callback not yet executed.");
       }
       if (status != null) {
-        throw new MediaException("Problem while processing " + this.url, status);
+        throw new IOException("Problem while processing " + this.url + ": " + status);
       }
       return result;
     }
@@ -52,61 +56,67 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
   }
 
   @Override
-  public void performLinkChecking(RdfResourceEntry resourceEntry)
-      throws MediaException, MediaProcessorException {
+  public void performLinkChecking(RdfResourceEntry resourceEntry) throws LinkCheckingException {
     final ExecutionResult<Void> result = new ExecutionResult<>();
     executeLinkCheckTask(Collections.singletonList(resourceEntry), Collections.emptyMap(), result,
         true);
-    result.verify();
+    try {
+      result.verify();
+    } catch (IOException e) {
+      throw new LinkCheckingException(e);
+    }
   }
 
   // TODO triggering callback with null status means that the status is OK.
   // This method is thread-safe.
   public <I extends RdfResourceEntry> void executeLinkCheckTask(List<I> resourceLinks,
       Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, Void> callback)
-      throws MediaProcessorException {
+      throws LinkCheckingException {
     executeLinkCheckTask(resourceLinks, connectionLimitsPerSource, callback, false);
   }
 
   // This method is thread-safe.
   private <I extends RdfResourceEntry> void executeLinkCheckTask(List<I> resourceLinks,
       Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, Void> callback,
-      boolean blockUntilDone) throws MediaProcessorException {
+      boolean blockUntilDone) throws LinkCheckingException {
     try {
       linkCheckTask.execute(resourceLinks, connectionLimitsPerSource, callback, blockUntilDone);
-    } catch (RuntimeException e) {
-      throw new MediaProcessorException(e);
+    } catch (IOException | RuntimeException e) {
+      throw new LinkCheckingException(e);
     }
   }
 
   @Override
-  public ResourceProcessingResult performMediaExtraction(RdfResourceEntry resourceEntry)
-      throws MediaException, MediaProcessorException {
+  public ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry)
+      throws MediaExtractionException {
 
     // Perform download of resource.
     final ExecutionResult<Resource> resourceContainer = new ExecutionResult<>();
     executeDownloadTask(Collections.singletonList(resourceEntry), Collections.emptyMap(),
         resourceContainer, true);
-    final Resource resource = resourceContainer.verify();
+    final Resource resource;
+    try {
+      resource = resourceContainer.verify();
+    } catch (IOException e) {
+      throw new MediaExtractionException(e);
+    }
 
     // Perform metadata extraction
     final Exception[] exceptionContainer = new Exception[1];
-    final ResourceProcessingResult result = performResourceProcessing(
+    final ResourceExtractionResult result = performResourceProcessing(
         Collections.singletonList(resource), new MediaProcessingListener<Resource>() {
           @Override
           public void beforeStartingFile(Resource source) {
           }
 
           @Override
-          public boolean handleMediaException(Resource source, MediaException exception) {
+          public void handleMediaExtractionException(Resource source, MediaExtractionException exception) {
             exceptionContainer[0] = exception;
-            return false;
           }
 
           @Override
-          public boolean handleOtherException(Resource source, Exception exception) {
+          public void handleOtherException(Resource source, Exception exception) {
             exceptionContainer[0] = exception;
-            return false;
           }
 
           @Override
@@ -115,14 +125,11 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
         }).get(0);
 
     // Check for errors
-    if (exceptionContainer[0] instanceof MediaException) {
-      throw (MediaException) exceptionContainer[0];
-    }
-    if (exceptionContainer[0] instanceof MediaProcessorException) {
-      throw (MediaProcessorException) exceptionContainer[0];
+    if (exceptionContainer[0] instanceof MediaExtractionException) {
+      throw (MediaExtractionException) exceptionContainer[0];
     }
     if (exceptionContainer[0] != null) {
-      throw new MediaProcessorException("Problem while processing " + resource.getResourceUrl(),
+      throw new MediaExtractionException("Problem while processing " + resource.getResourceUrl(),
           exceptionContainer[0]);
     }
 
@@ -134,18 +141,18 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
   // This method is thread-safe.
   public <I extends RdfResourceEntry> void executeDownloadTask(List<I> resourceLinks,
       Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, Resource> callback)
-      throws MediaProcessorException {
+      throws MediaExtractionException {
     executeDownloadTask(resourceLinks, connectionLimitsPerSource, callback, false);
   }
 
   // This method is thread-safe.
   private <I extends RdfResourceEntry> void executeDownloadTask(List<I> resourceLinks,
       Map<String, Integer> connectionLimitsPerSource, HttpClientCallback<I, Resource> callback,
-      boolean blockUntilDone) throws MediaProcessorException {
+      boolean blockUntilDone) throws MediaExtractionException {
     try {
       downloadTask.execute(resourceLinks, connectionLimitsPerSource, callback, blockUntilDone);
-    } catch (RuntimeException e) {
-      throw new MediaProcessorException(e);
+    } catch (IOException | RuntimeException e) {
+      throw new MediaExtractionException(e);
     }
   }
 

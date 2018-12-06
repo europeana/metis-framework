@@ -1,14 +1,13 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaprocessing.exception.MediaException;
-import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public abstract class TemporaryResourceFileImpl implements TemporaryResourceFile {
+public abstract class TemporaryFileImpl implements TemporaryFile, Closeable {
 
   private static final Path TEMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"));
 
@@ -22,8 +21,8 @@ public abstract class TemporaryResourceFileImpl implements TemporaryResourceFile
    */
   private Path contentPath;
 
-  protected TemporaryResourceFileImpl(String resourceUrl, String subDirectory, String prefix,
-      String suffix) throws MediaException {
+  protected TemporaryFileImpl(String resourceUrl, String subDirectory, String prefix,
+      String suffix) throws IOException {
 
     // Construct the target directory.
     final Path directory = TEMP_DIR.resolve(subDirectory);
@@ -31,25 +30,17 @@ public abstract class TemporaryResourceFileImpl implements TemporaryResourceFile
     // Create the directory in the temporary folder if needed.
     // Note: should use Files.exists instead when migrating away from Java 8.
     if (!directory.toFile().exists()) {
-      try {
-        Files.createDirectory(directory);
-      } catch (IOException e) {
-        throw new MediaException("Could not create thumbnails subdirectory: " + directory, e);
-      }
+      Files.createDirectory(directory);
     }
 
     // Check that the directory exists and is a directory.
     // Note: should use Files.isDirectory instead when migrating away from Java 8.
     if (!directory.toFile().isDirectory()) {
-      throw new MediaException("Thumbnails directory is not a directory: " + directory);
+      throw new IOException("Directory is not a directory: " + directory);
     }
 
     // Create temporary file.
-    try {
-      this.contentPath = Files.createTempFile(directory, prefix, suffix);
-    } catch (IOException e) {
-      throw new MediaException("Could not create thumbnails file. ", e);
-    }
+    this.contentPath = Files.createTempFile(directory, prefix, suffix);
 
     // Set resource URL.
     this.resourceUrl = resourceUrl;
@@ -75,37 +66,27 @@ public abstract class TemporaryResourceFileImpl implements TemporaryResourceFile
   }
 
   @Override
-  public InputStream getContentStream() throws MediaProcessorException {
+  public InputStream getContentStream() throws IOException {
     if (!hasContent()) {
       throw new IllegalStateException("Cannot get the file content: file does not exist.");
     }
-    try {
-      return Files.newInputStream(this.contentPath);
-    } catch (IOException e) {
-      throw new MediaProcessorException("Could not read file " + this.contentPath, e);
-    }
+    return Files.newInputStream(this.contentPath);
   }
 
   @Override
-  public long getContentSize() throws MediaProcessorException {
+  public long getContentSize() throws IOException {
     if (!hasContent()) {
       throw new IllegalStateException("Cannot get the file size: file does not exist.");
     }
-    try {
-      return Files.size(this.contentPath);
-    } catch (IOException e) {
-      throw new MediaProcessorException("Could not read file " + this.contentPath, e);
-    }
+    return Files.size(this.contentPath);
   }
 
   @Override
-  public void deleteFile() throws MediaProcessorException {
+  public void close() throws IOException {
     try {
       if (hasContent()) {
         Files.delete(this.contentPath);
       }
-    } catch (IOException e) {
-      throw new MediaProcessorException("Could not delete file: " + this.contentPath, e);
     } finally {
       this.contentPath = null;
     }
