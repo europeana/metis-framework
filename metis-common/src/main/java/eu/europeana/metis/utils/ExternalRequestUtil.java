@@ -86,9 +86,9 @@ public final class ExternalRequestUtil {
    * @return the expected object as a result of the external request
    * @throws Exception any exception that the supplier could throw
    */
-  public static <R, T extends Exception> R retryableExternalRequest(
+  public static <R> R retryableExternalRequest(
       SupplierThrowingException<R> supplierThrowingException,
-      Map<Class<T>, String> exceptionStringMap)
+      Map<Class<?>, String> exceptionStringMap)
       throws Exception {
     return retryableExternalRequest(supplierThrowingException, exceptionStringMap, -1, -1);
   }
@@ -110,9 +110,9 @@ public final class ExternalRequestUtil {
    * @return the expected object as a result of the external request
    * @throws Exception any exception that the supplier could throw
    */
-  public static <R, T extends Exception> R retryableExternalRequest(
+  public static <R> R retryableExternalRequest(
       SupplierThrowingException<R> supplierThrowingException,
-      Map<Class<T>, String> exceptionStringMap, int maxRetries,
+      Map<Class<?>, String> exceptionStringMap, int maxRetries,
       int periodBetweenRetriesInMillis) throws Exception {
     maxRetries =
         maxRetries < 0 ? MAX_RETRIES : maxRetries; //If not specified, set default value of retries
@@ -145,8 +145,8 @@ public final class ExternalRequestUtil {
    * if set to -1, the default value will be set
    * @return the expected object as a result of the external request
    */
-  public static <R, T extends Exception> R retryableExternalRequestForRuntimeExceptions(
-      Supplier<R> supplier, Map<Class<T>, String> runtimeExceptionStringMap, int maxRetries,
+  public static <R> R retryableExternalRequestForRuntimeExceptions(
+      Supplier<R> supplier, Map<Class<?>, String> runtimeExceptionStringMap, int maxRetries,
       int periodBetweenRetriesInMillis) {
     maxRetries =
         maxRetries < 0 ? MAX_RETRIES : maxRetries; //If not specified, set default value of retries
@@ -168,8 +168,8 @@ public final class ExternalRequestUtil {
     } while (true);
   }
 
-  private static <R, T extends Exception> R doWhenExceptionCaught(Exception e,
-      Map<Class<T>, String> runtimeExceptionStringMap,
+  private static <R> R doWhenExceptionCaught(Exception e,
+      Map<Class<?>, String> runtimeExceptionStringMap,
       AtomicInteger retriesCounter, int maxRetries, int periodBetweenRetriesInMillis)
       throws Exception {
     retriesCounter.incrementAndGet();
@@ -206,7 +206,7 @@ public final class ExternalRequestUtil {
    *
    * @return the created map
    */
-  public static Map<Class<SocketException>, String> getSocketExceptionConnectionReset() {
+  public static Map<Class<?>, String> getSocketExceptionConnectionReset() {
     return Collections.singletonMap(SocketException.class, "Connection reset");
   }
 
