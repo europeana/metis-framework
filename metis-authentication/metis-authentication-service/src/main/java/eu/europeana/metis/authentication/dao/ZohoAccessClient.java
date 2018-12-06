@@ -8,7 +8,6 @@ import com.zoho.crm.library.setup.restclient.ZCRMRestClient;
 import com.zoho.oauth.client.ZohoOAuthClient;
 import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.NoUserFoundException;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +37,7 @@ public class ZohoAccessClient {
     zcrmModuleAccounts = ZCRMModule.getInstance("Accounts");
   }
 
-  public ZCRMRecord getZcrmRecordContactByEmail(String email)
-      throws NoUserFoundException, BadContentException {
+  public ZCRMRecord getZcrmRecordContactByEmail(String email) throws BadContentException {
     final BulkAPIResponse bulkAPIResponseContacts;
     try {
       bulkAPIResponseContacts = zcrmModule.searchByEmail(email);
@@ -48,7 +46,7 @@ public class ZohoAccessClient {
     }
     final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseContacts.getData();
     if (zcrmRecords.isEmpty()) {
-      throw new NoUserFoundException("User was not found in Zoho");
+      return null;
     }
 
     return zcrmRecords.get(0);
@@ -63,11 +61,11 @@ public class ZohoAccessClient {
           .searchByCriteria(
               String.format("(Account_Name:equals:%s)", organizationName));
     } catch (ZCRMException e) {
-      throw new BadContentException("Zoho search by email threw an exception", e);
+      throw new BadContentException("Zoho search organization by organization name threw an exception", e);
     }
     final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseAccounts.getData();
     if (zcrmRecords.isEmpty()) {
-      throw new BadContentException("Organization Role from Zoho is empty");
+      return null;
     }
 
     return zcrmRecords.get(0);

@@ -120,6 +120,9 @@ public class AuthenticationService {
       throws GenericMetisException {
     //Get user from zoho
     final ZCRMRecord zcrmRecordContact = zohoAccessClient.getZcrmRecordContactByEmail(email);
+    if (zcrmRecordContact == null) {
+      throw new NoUserFoundException("User was not found in Zoho");
+    }
 
     //Construct User
     MetisUser metisUser = new MetisUser();
@@ -145,6 +148,9 @@ public class AuthenticationService {
   private void checkMetisUserOrganizationRole(MetisUser metisUser) throws BadContentException {
     final ZCRMRecord zcrmRecordOrganization = zohoAccessClient
         .getZcrmRecordOrganizationByName(metisUser.getOrganizationName());
+    if (zcrmRecordOrganization == null) {
+      throw new BadContentException("Organization Role from Zoho is empty");
+    }
     final HashMap<String, Object> propertiesMap = zcrmRecordOrganization.getData();
     final List<String> organizationRoleStringList = (List<String>) propertiesMap
         .get("Organisation_Role2");
