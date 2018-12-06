@@ -14,6 +14,7 @@ public final class ZohoConstants {
 
   //Fields
   //Accounts is the equivalent to Organizations
+  public static final String ID_FIELD = "id";
   public static final String ACCOUNT_NAME_FIELD = "Account_Name"; //This is the organization Name in Zoho
   public static final String FIRST_NAME_FIELD = "First_Name";
   public static final String LAST_NAME_FIELD = "Last_Name";
@@ -26,6 +27,12 @@ public final class ZohoConstants {
 
   //Operations
   public static final String EQUALS_OPERATION = "equals";
+
+  //General constants
+  public static final String ZOHO_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
+  public static final String DELIMITER_COMMA = ",";
+  public static final String OR = "OR";
+
 
   private ZohoConstants() {
   }
