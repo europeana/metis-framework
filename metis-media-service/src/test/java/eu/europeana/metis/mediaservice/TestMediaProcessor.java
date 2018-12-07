@@ -11,12 +11,24 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
+import eu.europeana.metis.mediaprocessing.RdfConverterFactory;
+import eu.europeana.metis.mediaprocessing.RdfDeserializer;
+import eu.europeana.metis.mediaprocessing.RdfSerializer;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
+import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
+import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
+import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -32,12 +44,14 @@ public class TestMediaProcessor {
 	private static Tika tika;
 	private static CommandExecutor commandExecutor;
 	private static MediaProcessor testedProcessor;
-	
-	private final EdmObject.Parser parser = new EdmObject.Parser();
-	private final EdmObject.Writer writer = new EdmObject.Writer();
-	
+
+	private static RdfDeserializer deserializer;
+	private static RdfSerializer serializer;
+
 	@BeforeAll
-	public static void setUp() throws MediaException {
+	public static void setUp() throws MediaProcessorException, RdfConverterException {
+		deserializer = new RdfConverterFactory().createRdfDeserializer();
+		serializer = new RdfConverterFactory().createRdfSerializer();
 		AudioVideoProcessor.setCommand("ffprobe");
 		ThumbnailGenerator.setCommand("magick");
 		tika = mock(Tika.class);
@@ -64,12 +78,13 @@ public class TestMediaProcessor {
 		return IOUtils.toString(getClass().getClassLoader().getResourceAsStream(resource), "UTF-8");
 	}
 	
-	private EdmObject edm(String resource) throws MediaException {
-		return parser.parseXml(getClass().getClassLoader().getResourceAsStream(resource));
+	private EnrichedRdf rdf(String resource) throws RdfDeserializationException {
+		return deserializer.getRdfForResourceEnriching(getClass().getClassLoader().getResourceAsStream(resource));
 	}
-	
+
 	@Test
-	public void processImage() throws IOException, MediaException {
+	public void processImage()
+      throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException {
 		String url = "http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg";
 		String md5 = "6d27e9f0dcdbf33afc07d952cc5c2833";
 		File file = spy(new File(tempDir, "media8313043870723212585.tmp"));
@@ -95,29 +110,32 @@ public class TestMediaProcessor {
 		}).when(commandExecutor).runCommand(any(), eq(false));
 		
 		doReturn("image/jpeg").when(tika).detect(file);
-		
-		EdmObject edm;
+
+		final ResourceExtractionResult result;
 		try {
-			edm = edm("image1-input.xml");
-			testedProcessor.setEdm(edm);
-			testedProcessor.processResource(url, "image/jpeg", file);
+			result = testedProcessor.processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "image/jpeg", file);
 		} finally {
 			assertTrue(thumbs[0].delete());
 			assertTrue(thumbs[1].delete());
 		}
+
+    final EnrichedRdf rdf = rdf("image1-input.xml");
+		rdf.enrichResource(result.getMetadata());
+		final String resultFile = new String(serializer.serialize(rdf), "UTF-8");
+
+		assertEquals(string("image1-output.xml"), resultFile);
 		
-		assertEquals(string("image1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
-		
-		List<Thumbnail> thumbnails = testedProcessor.getThumbnails();
+		List<Thumbnail> thumbnails = result.getThumbnails();
 		assertEquals(2, thumbnails.size());
-		assertEquals(url, thumbnails.get(0).url);
-		assertEquals(url, thumbnails.get(1).url);
-		assertEquals(md5 + "-MEDIUM", thumbnails.get(0).targetName);
-		assertEquals(md5 + "-LARGE", thumbnails.get(1).targetName);
+		assertEquals(url, thumbnails.get(0).getResourceUrl());
+		assertEquals(url, thumbnails.get(1).getResourceUrl());
+		assertEquals(md5 + "-MEDIUM", thumbnails.get(0).getTargetName());
+		assertEquals(md5 + "-LARGE", thumbnails.get(1).getTargetName());
 	}
-	
+
 	@Test
-	public void processAudio() throws IOException, MediaException {
+  public void processAudio()
+      throws IOException, RdfDeserializationException, MediaExtractionException, RdfSerializationException {
 		String url = "http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3";
 		
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
@@ -125,16 +143,20 @@ public class TestMediaProcessor {
 		when(commandExecutor.runCommand(command, false)).thenReturn(lines("audio1-ffprobe-output1.txt"));
 		
 		when(tika.detect(any(URL.class))).thenReturn("audio/mpeg");
-		
-		EdmObject edm = edm("audio1-input.xml");
-		testedProcessor.setEdm(edm);
-		testedProcessor.processResource(url, "audio/mpeg", null);
-		
-		assertEquals(string("audio1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
+
+    final ResourceExtractionResult result = testedProcessor
+        .processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "audio/mpeg", null);
+
+    final EnrichedRdf rdf = rdf("audio1-input.xml");
+    rdf.enrichResource(result.getMetadata());
+    final String resultFile = new String(serializer.serialize(rdf), "UTF-8");
+
+		assertEquals(string("audio1-output.xml"), resultFile);
 	}
-	
+
 	@Test
-	public void processVideo() throws IOException, MediaException {
+	public void processVideo()
+      throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException {
 		String url = "http://maccinema.com/info/filmovi/dae.mp4";
 		
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
@@ -142,18 +164,22 @@ public class TestMediaProcessor {
 		when(commandExecutor.runCommand(command, false)).thenReturn(lines("video1-ffprobe-outptu1.txt"));
 		
 		when(tika.detect(any(URL.class))).thenReturn("video/mp4");
-		
-		EdmObject edm = edm("video1-input.xml");
-		testedProcessor.setEdm(edm);
-		testedProcessor.processResource(url, "audio/mpeg", null);
-		
-		assertEquals(string("video1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
+
+    final ResourceExtractionResult result = testedProcessor
+        .processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "audio/mpeg", null);
+
+    final EnrichedRdf rdf = rdf("video1-input.xml");
+    rdf.enrichResource(result.getMetadata());
+    final String resultFile = new String(serializer.serialize(rdf), "UTF-8");
+
+		assertEquals(string("video1-output.xml"), resultFile);
 	}
-	
+
 	@Test
-	public void processPdf() throws MediaException, IOException, URISyntaxException {
+	public void processPdf()
+      throws IOException, URISyntaxException, MediaExtractionException, RdfSerializationException, RdfDeserializationException {
 		File contents = new File(getClass().getClassLoader().getResource("pdf1.pdf").toURI());
-		
+
         File[] thumbs = new File[2];
         
 	    doAnswer(i -> {
@@ -175,12 +201,15 @@ public class TestMediaProcessor {
         }).when(commandExecutor).runCommand(any(), eq(false));
 
 		when(tika.detect(contents)).thenReturn("application/pdf");
-		
-		EdmObject edm = edm("pdf1-input.xml");
-		testedProcessor.setEdm(edm);
-		testedProcessor.processResource("http://sample.edu.eu/data/sample1.pdf", "application/pdf",
-				contents);
-		
-		assertEquals(string("pdf1-output.xml"), new String(writer.toXmlBytes(edm), "UTF-8"));
+
+    final ResourceExtractionResult result = testedProcessor
+        .processResource("http://sample.edu.eu/data/sample1.pdf",
+            Collections.singleton(UrlType.IS_SHOWN_BY), "application/pdf", contents);
+
+    final EnrichedRdf rdf = rdf("pdf1-input.xml");
+    rdf.enrichResource(result.getMetadata());
+    final String resultFile = new String(serializer.serialize(rdf), "UTF-8");
+
+		assertEquals(string("pdf1-output.xml"), resultFile);
 	}
 }

@@ -1,13 +1,14 @@
 package eu.europeana.metis.mediaservice;
 
+import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import org.apache.tika.Tika;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,85 +18,46 @@ import org.slf4j.LoggerFactory;
  */
 public class MediaProcessor implements Closeable {
 
-  /**
-   * Information about a generated thumbnail
-   */
-  public static class Thumbnail {
-
-    /**
-     * The original resource url
-     */
-    public final String url;
-    /**
-     * The name this thumbnail should be stored under
-     */
-    public final String targetName;
-    /**
-     * Temporary file with the thumbnail content. Don't forget to remove it!
-     */
-    public final File content;
-
-    Thumbnail(String url, String targetName, File content) {
-      this.url = url;
-      this.targetName = targetName;
-      this.content = content;
-    }
-  }
+  enum ResourceType {AUDIO, VIDEO, TEXT, IMAGE, UNKNOWN}
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MediaProcessor.class);
 
   private static Tika tika = new Tika();
 
   private final CommandExecutor commandExecutor;
-  private final ThumbnailGenerator thumbnailGenerator;
   private final ImageProcessor imageProcessor;
   private final AudioVideoProcessor audioVideoProcessor;
   private final TextProcessor textProcessor;
 
-  private EdmObject edm;
-  private Map<String, List<UrlType>> urlTypes;
-
-  MediaProcessor(CommandExecutor commandExecutor) throws MediaException {
+  MediaProcessor(CommandExecutor commandExecutor) throws MediaProcessorException {
     this.commandExecutor = commandExecutor;
-    this.thumbnailGenerator = new ThumbnailGenerator(commandExecutor);
-    this.imageProcessor = new ImageProcessor(this.thumbnailGenerator);
+    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(commandExecutor);
+    this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(commandExecutor);
-    this.textProcessor = new TextProcessor(this.thumbnailGenerator);
+    this.textProcessor = new TextProcessor(thumbnailGenerator);
   }
 
-  public MediaProcessor() throws MediaException {
+  public MediaProcessor() throws MediaProcessorException {
     this(new CommandExecutor());
-  }
-
-  /**
-   * @param edm future calls to {@link #processResource(String, String, File)} will store extracted
-   * metadata in given EDM.
-   */
-  public void setEdm(EdmObject edm) {
-    this.edm = edm;
-    urlTypes = edm.getResourceUrls(Arrays.asList(UrlType.values()));
-    thumbnailGenerator.thumbnails.clear();
-  }
-
-  public EdmObject getEdm() {
-    return edm;
   }
 
   /**
    * @param contents downloaded file, can be {@code null} for mime types accepted by {@link
    * #supportsLinkProcessing(String)}
    */
-  public void processResource(String url, String providedMimeType, File contents)
-      throws MediaException {
-    String mimeType;
+  public ResourceExtractionResult processResource(String url, Set<UrlType> urlTypes,
+      String providedMimeType, File contents) throws MediaExtractionException {
+
+    // Obtain the mime type
+    final String mimeType;
     try {
       mimeType = contents == null ? tika.detect(URI.create(url).toURL()) : tika.detect(contents);
     } catch (IOException e) {
-      throw new MediaException("Mime type checking error", "IOException " + e.getMessage(), e,
-          contents == null);
+      throw new MediaExtractionException("Mime type checking error", e);
     }
 
-    //Permit the application/xhtml+xml detected from tika to be virtually equal to the text/html detected from the providedMimeType
+    // Verify the mime type. Permit the application/xhtml+xml detected from tika to be virtually
+    // equal to the text/html detected from the providedMimeType.
     if (!("application/xhtml+xml".equals(mimeType) && "text/html".equals(providedMimeType))
         && !mimeType.equals(providedMimeType)) {
       LOGGER
@@ -103,31 +65,59 @@ public class MediaProcessor implements Closeable {
               url);
     }
     if (contents == null && !supportsLinkProcessing(mimeType)) {
-      throw new MediaException("File content is null and mimeType does not support link processing",
-          "Contents file is required for mime type " + mimeType);
+      throw new MediaExtractionException("File content is null and mimeType does not support link processing");
     }
 
-    try {
-      if (ImageProcessor.isImage(mimeType)) {
-        imageProcessor.processImage(url, urlTypes.get(url), mimeType, contents, edm);
-      }
-      if (AudioVideoProcessor.isAudioVideo(mimeType)) {
-        audioVideoProcessor.processAudioVideo(url, urlTypes.get(url), mimeType, contents, edm);
-      }
-      if (TextProcessor.isText(mimeType)) {
-        textProcessor.processText(url, urlTypes.get(url), mimeType, contents, edm);
-      }
-    } catch (IOException e) {
-      throw new MediaException("I/O error during procesing", "IOException " + e.getMessage(), e);
+    // Process the resource.
+    final ResourceExtractionResult result;
+    switch (getResourceType(mimeType)) {
+      case TEXT:
+        result = textProcessor.processText(url, urlTypes, mimeType, contents);
+        break;
+      case AUDIO:
+      case VIDEO:
+        result = audioVideoProcessor
+            .processAudioVideo(url, urlTypes, mimeType, contents);
+        break;
+      case IMAGE:
+        result = imageProcessor.processImage(url, urlTypes, mimeType, contents);
+        break;
+      default:
+        result = null;
+        break;
     }
+
+    // Done
+    return result;
   }
 
-  /**
-   * @return thumbnails for all the image resources processed since the last call to {@link
-   * #setEdm(EdmObject)}. Remember to remove the files when they are no longer needed.
-   */
-  public List<Thumbnail> getThumbnails() {
-    return new ArrayList<>(thumbnailGenerator.thumbnails);
+  private static ResourceType getResourceType(String mimeType) {
+    final ResourceType result;
+    if (mimeType.startsWith("image/")) {
+      result = ResourceType.IMAGE;
+    } else if (mimeType.startsWith("audio/")) {
+      result = ResourceType.AUDIO;
+    } else if (mimeType.startsWith("video/")) {
+      result = ResourceType.VIDEO;
+    } else if (isText(mimeType)) {
+      result = ResourceType.TEXT;
+    } else {
+      result = ResourceType.UNKNOWN;
+    }
+    return result;
+  }
+
+  private static boolean isText(String mimeType) {
+    switch (mimeType) {
+      case "application/xml":
+      case "application/rtf":
+      case "application/epub":
+      case "application/pdf":
+      case "application/xhtml+xml":
+        return true;
+      default:
+        return mimeType.startsWith("text/");
+    }
   }
 
   @Override
@@ -139,7 +129,8 @@ public class MediaProcessor implements Closeable {
    * @return if true, resources of given type don't need to be downloaded before processing.
    */
   public static boolean supportsLinkProcessing(String mimeType) {
-    return AudioVideoProcessor.isAudioVideo(mimeType);
+    final ResourceType resourceType = getResourceType(mimeType);
+    return ResourceType.AUDIO == resourceType || ResourceType.VIDEO == resourceType;
   }
 
   static void setTika(Tika tika) {

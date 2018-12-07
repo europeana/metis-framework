@@ -1,11 +1,16 @@
 package eu.europeana.metis.mediaservice;
 
+import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-
+import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -40,59 +45,67 @@ class AudioVideoProcessor {
     }
   }
 
-  static boolean isAudioVideo(String mimeType) {
-    return mimeType.startsWith("audio/") || mimeType.startsWith("video/");
-  }
+  ResourceExtractionResult processAudioVideo(String url, Set<UrlType> urlTypes,
+      String mimeType, File contents) throws MediaExtractionException {
 
-  void processAudioVideo(String url, Collection<UrlType> urlTypes, String mimeType, File contents,
-      EdmObject edm)
-      throws MediaException, IOException {
+    // Sanity check
     if (!UrlType.shouldExtractMetadata(urlTypes)) {
-      return;
+      return null;
     }
 
+    // Execute command
     List<String> command = Arrays.asList(ffprobeCmd, "-v", "quiet", "-print_format", "json",
         "-show_format", "-show_streams", "-hide_banner",
         contents == null ? url : contents.getPath());
-    List<String> resultLines = ce.runCommand(command, false);
-
+    List<String> resultLines;
     try {
+      resultLines = ce.runCommand(command, false);
+    } catch (IOException e) {
+      throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
+    }
+
+    final ResourceMetadata metadata;
+    try {
+
+      // Analyze command result
       JSONObject result = new JSONObject(new JSONTokener(String.join("", resultLines)));
       if (contents == null && result.length() == 0) {
-        throw new MediaException("Probably downlaod failed", "", null, true);
+        throw new MediaExtractionException("Probably download failed");
       }
-      WebResource resource = edm.getWebResource(url);
-      resource.setMimeType(mimeType);
-      resource.setFileSize(result.getJSONObject("format").getLong("size"));
+      final long fileSize = result.getJSONObject("format").getLong("size");
+      final JSONObject videoStream = findStream(result, "video");
+      final JSONObject audioStream = findStream(result, "audio");
 
-      JSONObject videoStream = findStream(result, "video");
-      JSONObject audioStream = findStream(result, "audio");
+      // Process the video or audio stream
       if (videoStream != null) {
-        resource.setDuration(videoStream.getDouble("duration"));
-        resource.setBitrate(videoStream.getInt("bit_rate"));
-        resource.setWidth(videoStream.getInt("width"));
-        resource.setHeight(videoStream.getInt("height"));
-        resource.setCodecName(videoStream.getString("codec_name"));
-
-        String[] frameRateParts = videoStream.getString("avg_frame_rate").split("/");
-        double frameRate =
+        final double duration = videoStream.getDouble("duration");
+        final int bitRate = videoStream.getInt("bit_rate");
+        final int width = videoStream.getInt("width");
+        final int height = videoStream.getInt("height");
+        final String codecName = videoStream.getString("codec_name");
+        final String[] frameRateParts = videoStream.getString("avg_frame_rate").split("/");
+        final double frameRate =
             Double.parseDouble(frameRateParts[0]) / Double.parseDouble(frameRateParts[1]);
-        resource.setFrameRete(frameRate);
+        metadata = new VideoResourceMetadata(mimeType, url, fileSize, duration, bitRate, width,
+            height, codecName, frameRate);
       } else if (audioStream != null) {
-        resource.setDuration(audioStream.getDouble("duration"));
-        resource.setBitrate(audioStream.getInt("bit_rate"));
-        resource.setCahhnels(audioStream.getInt("channels"));
-        resource.setSampleRate(audioStream.getInt("sample_rate"));
-        resource.setSampleSize(audioStream.getInt("bits_per_sample"));
+        final double duration = audioStream.getDouble("duration");
+        final int bitRate = audioStream.getInt("bit_rate");
+        final int channels = audioStream.getInt("channels");
+        final int sampleRate = audioStream.getInt("sample_rate");
+        final int sampleSize = audioStream.getInt("bits_per_sample");
+        metadata = new AudioResourceMetadata(mimeType, url, fileSize, duration, bitRate, channels,
+            sampleRate, sampleSize);
       } else {
-        throw new MediaException("No media streams", "AUDIOVIDEO ERROR");
+        throw new MediaExtractionException("No media streams");
       }
-    } catch (MediaException e) {
-      throw e;
     } catch (RuntimeException e) {
       LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(resultLines, "\n"), e);
-      throw new MediaException("File seems to be corrupted", "AUDIOVIDEO ERROR", e);
+      throw new MediaExtractionException("File seems to be corrupted", e);
     }
+
+    // Done
+    return new ResourceExtractionResult(metadata, null);
   }
 
   private JSONObject findStream(JSONObject data, String codecType) {

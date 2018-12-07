@@ -1,6 +1,9 @@
 package eu.europeana.metis.mediaservice;
 
-import eu.europeana.metis.mediaservice.MediaProcessor.Thumbnail;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.Thumbnail;
+import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -19,9 +23,10 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +39,6 @@ public class ThumbnailGenerator {
 
   private static final int[] THUMB_SIZE = {200, 400};
   private static final String[] THUMB_SUFFIX = {"-MEDIUM", "-LARGE"};
-
-  private static final File tempDir = new File(System.getProperty("java.io.tmpdir"));
 
   private static final String COMMAND_RESULT_FORMAT = "%w\n%h\n%[colorspace]\n";
   private static final int COMMAND_RESULT_WIDTH_LINE = 0;
@@ -67,14 +70,12 @@ public class ThumbnailGenerator {
 
   private final CommandExecutor commandExecutor;
 
-  protected final ArrayList<Thumbnail> thumbnails = new ArrayList<>();
-
-  ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaException {
+  ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaProcessorException {
     this.commandExecutor = commandExecutor;
     init(commandExecutor);
   }
 
-  private static synchronized void init(CommandExecutor commandExecutor) throws MediaException {
+  private static synchronized void init(CommandExecutor commandExecutor) throws MediaProcessorException {
 
     // If we already found the command, we don't need to do this.
     if (magickCmd != null) {
@@ -124,38 +125,35 @@ public class ThumbnailGenerator {
 
     // So no image magick was found.
     LOGGER.error("Could not find ImageMagick 6 or 7. See previous log statements for details.");
-    throw new MediaException("Could not find ImageMagick 6 or 7.");
+    throw new MediaProcessorException("Could not find ImageMagick 6 or 7.");
   }
 
   /**
-   * This is the main method of this class. It generates thumbnails for the given content. These
-   * thumbnails are added to {@link #thumbnails}.
+   * This is the main method of this class. It generates thumbnails for the given content.
    * 
    * @param url The URL of the content. Used for determining the name of the output files.
    * @param mimeType The mime type of the content.
    * @param content The content for which to generate thumbnails.
    * @return The metadata of the image as gathered during processing.
-   * @throws MediaException In case a problem occurred.
+   * @throws MediaExtractionException In case a problem occurred.
    */
-  public ImageMetadata generateThumbnails(String url, String mimeType, File content)
-      throws MediaException {
+  public Pair<ImageMetadata, List<? extends Thumbnail>> generateThumbnails(String url,
+      String mimeType, File content) throws MediaExtractionException {
     try {
       return generateThumbnailsInternal(url, mimeType, content);
-    } catch (IOException e) {
-      throw new MediaException("I/O error during procesing", "IOException " + e.getMessage(), e);
-    } catch (NoSuchAlgorithmException | RuntimeException e) {
-      throw new MediaException("Unexpected error during procesing", e);
+    } catch (RuntimeException e) {
+      throw new MediaExtractionException("Unexpected error during procesing", e);
     }
   }
 
-  private ImageMetadata generateThumbnailsInternal(String url, String mimeType, File content)
-      throws IOException, MediaException, NoSuchAlgorithmException {
+  private Pair<ImageMetadata, List<? extends Thumbnail>> generateThumbnailsInternal(String url,
+      String mimeType, File content) throws MediaExtractionException {
 
     if (content == null) {
-      throw new MediaException("File content is null", "File content cannot be null");
+      throw new MediaExtractionException("File content is null");
     }
 
-    final List<Thumbnail> thumbs = prepareThumbnailFiles(url);
+    final List<ThumbnailImpl> thumbs = prepareThumbnailFiles(url);
     int sizes = THUMB_SIZE.length;
 
     ArrayList<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
@@ -170,7 +168,7 @@ public class ThumbnailGenerator {
         command.add("+clone");
       }
       command.addAll(Arrays.asList("-thumbnail", THUMB_SIZE[i] + "x", "-write",
-          thumbs.get(i).content.getPath()));
+          thumbs.get(i).getContentPath().toString()));
       if (i != sizes - 1) {
         command.add("+delete");
         command.add(")");
@@ -182,7 +180,12 @@ public class ThumbnailGenerator {
       command.addAll(Arrays.asList("-remap", colormapFile.getPath()));
     }
 
-    List<String> results = commandExecutor.runCommand(command, false);
+    final List<String> results;
+    try {
+      results = commandExecutor.runCommand(command, false);
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not analyze content and generate thumbnails.", e);
+    }
 
     // Read the image properties from the command output.
     final ImageMetadata result;
@@ -195,43 +198,47 @@ public class ThumbnailGenerator {
       result = new ImageMetadata(width, height, colorSpace, dominantColors);
     } catch (RuntimeException e) {
       LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
-      throw new MediaException("File seems to be corrupted", "IMAGE ERROR", e);
+      throw new MediaExtractionException("File seems to be corrupted", e);
     }
 
     for (int i = 0; i < sizes; i++) {
-      File thumb = thumbs.get(i).content;
-      if (thumb.length() == 0) {
-        throw new MediaException("Thumbnail file empty: " + thumb, "THUMBNAIL ERROR");
-      }
-      if (!"application/pdf".equals(mimeType) && result.getWidth() < THUMB_SIZE[i]) {
-        FileUtils.copyFile(content, thumb);
+      try {
+        Path thumb = thumbs.get(i).getContentPath();
+        if (Files.size(thumb) == 0) {
+          throw new MediaExtractionException("Thumbnail file empty: " + thumb);
+        }
+        if (!"application/pdf".equals(mimeType) && result.getWidth() < THUMB_SIZE[i]) {
+          Files.copy(content.toPath(), thumb);
+        }
+      } catch (IOException e) {
+        throw new MediaExtractionException("Could not access thumbnail file", e);
       }
     }
-    thumbnails.addAll(thumbs);
 
-    return result;
+    return new ImmutablePair<>(result, thumbs);
   }
 
-  private List<Thumbnail> prepareThumbnailFiles(String url)
-      throws IOException, NoSuchAlgorithmException {
-    File thumbsDir = new File(tempDir, "media_thumbnails");
-    if (!thumbsDir.isDirectory() && !thumbsDir.mkdir()) {
-      throw new IOException("Could not create thumbnails subdirectory: " + thumbsDir);
-    }
+  private List<ThumbnailImpl> prepareThumbnailFiles(String url) throws MediaExtractionException {
     String md5 = md5Hex(url);
-    List<Thumbnail> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
-    for (String thumbnailSuffix : THUMB_SUFFIX) {
-      File f = File.createTempFile("thumb", ".tmp", thumbsDir);
-      thumbs.add(new Thumbnail(url, md5 + thumbnailSuffix, f));
+    List<ThumbnailImpl> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
+    try {
+      for (String thumbnailSuffix : THUMB_SUFFIX) {
+        thumbs.add(new ThumbnailImpl(url, md5 + thumbnailSuffix));
+      }
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not create thumbnail files.", e);
     }
     return thumbs;
   }
 
-  private static String md5Hex(String s)
-      throws UnsupportedEncodingException, NoSuchAlgorithmException {
-    byte[] bytes = s.getBytes(StandardCharsets.UTF_8.name());
-    byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
-    return String.format("%032x", new BigInteger(1, md5bytes));
+  private static String md5Hex(String s) throws MediaExtractionException {
+    try {
+      byte[] bytes = s.getBytes(StandardCharsets.UTF_8.name());
+      byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
+      return String.format("%032x", new BigInteger(1, md5bytes));
+    } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+      throw new MediaExtractionException("Could not compute md5 hash", e);
+    }
   }
 
   private List<String> extractDominantColors(List<String> results, int skipLines) {

@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaservice;
+package eu.europeana.metis.mediaprocessing.model;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -32,8 +32,18 @@ import eu.europeana.corelib.definitions.jibx.Width;
  */
 class WebResource {
 
-  enum Orientation {
+  public enum Orientation {
     PORTRAIT, LANDSCAPE
+  }
+
+  public enum ColorSpace {
+    S_RGB(ColorSpaceType.S_RGB), GRAYSCALE(ColorSpaceType.GRAYSCALE);
+
+    private final ColorSpaceType mappedColorSpace;
+
+    ColorSpace(ColorSpaceType mappedColorSpace) {
+      this.mappedColorSpace = mappedColorSpace;
+    }
   }
 
   private final WebResourceType resource;
@@ -60,14 +70,9 @@ class WebResource {
     resource.setFileByteSize(longVal(fileSize));
   }
 
-  public void setColorspace(String colorspace) throws MediaException {
-    if (!"Gray".equals(colorspace) && !"sRGB".equals(colorspace)) {
-      throw new MediaException("Failed to recognize color space",
-          "Unrecognized color space: " + colorspace);
-    }
+  public void setColorspace(ColorSpace colorspace) {
     HasColorSpace hasColorSpace = new HasColorSpace();
-    hasColorSpace.setHasColorSpace(
-        "sRGB".equals(colorspace) ? ColorSpaceType.S_RGB : ColorSpaceType.GRAYSCALE);
+    hasColorSpace.setHasColorSpace(colorspace.mappedColorSpace);
     resource.setHasColorSpace(hasColorSpace);
   }
 
@@ -76,25 +81,13 @@ class WebResource {
         stringVal(new OrientationType(), orientation.name().toLowerCase(Locale.ENGLISH)));
   }
 
-  public void setDominantColors(List<String> dominantColors) throws MediaException {
-    try {
-      resource.setComponentColorList(dominantColors.stream()
-          .peek(c -> {
-            if (!c.matches("[0-9A-F]{6}")) {
-              throw new IllegalArgumentException("Unrecognized hex String: " + c);
-            }
-          })
-          .map(c -> "#" + c) // TODO dominant colors start with '#' due to legacy systems
-          .map(c -> {
-            HexBinaryType hex = new HexBinaryType();
-            hex.setString(c);
-            hex.setDatatype("http://www.w3.org/2001/XMLSchema#hexBinary");
-            return hex;
-          })
-          .collect(Collectors.toList()));
-    } catch (RuntimeException e) { //Need to catch the IllegalArgumentException and send MediaException
-      throw new MediaException("Color does not match the hexademic template", e.getMessage(), e);
-    }
+  public void setDominantColors(List<String> dominantColors) {
+    resource.setComponentColorList(dominantColors.stream().map(c -> {
+      HexBinaryType hex = new HexBinaryType();
+      hex.setString(c);
+      hex.setDatatype("http://www.w3.org/2001/XMLSchema#hexBinary");
+      return hex;
+    }).collect(Collectors.toList()));
   }
 
   public void setDuration(double seconds) {
@@ -118,7 +111,7 @@ class WebResource {
     resource.setCodecName(codecName2);
   }
 
-  public void setCahhnels(int channels) {
+  public void setChannels(int channels) {
     resource.setAudioChannelNumber(uintVal(new AudioChannelNumber(), channels));
   }
 
