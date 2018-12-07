@@ -17,6 +17,9 @@ import java.util.Map;
 public class TemporaryMediaProcessor extends TemporaryMediaService implements MediaExtractor,
     LinkChecker {
 
+  private static final int GENERAL_CONNECTION_LIMIT = 200;
+  private static final int CONNECTION_LIMIT_PER_SOURCE = 4;
+
   private final LinkCheckTask linkCheckTask;
   private final DownloadTask downloadTask;
 
@@ -47,12 +50,11 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
     }
   }
 
-  public TemporaryMediaProcessor(int redirectCount, int generalConnectionLimit,
-      int connectionLimitPerSource) throws MediaProcessorException {
+  public TemporaryMediaProcessor(int redirectCount) throws MediaProcessorException {
     linkCheckTask =
-        new LinkCheckTask(redirectCount, generalConnectionLimit, connectionLimitPerSource);
+        new LinkCheckTask(redirectCount, GENERAL_CONNECTION_LIMIT, CONNECTION_LIMIT_PER_SOURCE);
     downloadTask =
-        new DownloadTask(redirectCount, generalConnectionLimit, connectionLimitPerSource);
+        new DownloadTask(redirectCount, GENERAL_CONNECTION_LIMIT, CONNECTION_LIMIT_PER_SOURCE);
   }
 
   @Override
