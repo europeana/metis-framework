@@ -5,7 +5,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import eu.europeana.metis.mediaprocessing.RdfConverter.Writer;
+import eu.europeana.metis.mediaprocessing.RdfSerializerImpl;
 import eu.europeana.metis.mediaprocessing.RdfConverterFactory;
 import eu.europeana.metis.mediaprocessing.RdfDeserializer;
 import eu.europeana.metis.mediaprocessing.RdfSerializer;
@@ -95,7 +95,7 @@ public class TestEnrichedRdf {
 
   private String getPreviewContent(EnrichedRdfImpl edm)
       throws ParserConfigurationException, SAXException, IOException, RdfSerializationException {
-    byte[] source = ((Writer) serializer).serialize(edm.getRdf());
+    byte[] source = ((RdfSerializerImpl) serializer).serialize(edm.getRdf());
 
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

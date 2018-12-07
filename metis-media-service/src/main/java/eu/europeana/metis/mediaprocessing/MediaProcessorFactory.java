@@ -3,37 +3,44 @@ package eu.europeana.metis.mediaprocessing;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.temp.TemporaryMediaProcessor;
 
+/**
+ * This factory creates objects for media extraction and link checking.
+ */
 public class MediaProcessorFactory {
 
-  private static final int DEFAULT_REDIRECT_COUNT = 3;
-  private static final int DEFAULT_GENERAL_CONNECTION_LIMIT = 200;
-  private static final int DEFAULT_CONNECTION_LIMIT_PER_SOURCE = 4;
+  /**
+   * The default value of the maximum number of times we will follow a redirect.
+   **/
+  private static final int DEFAULT_MAX_REDIRECT_COUNT = 3;
 
-  private int redirectCount = DEFAULT_REDIRECT_COUNT;
-  private int generalConnectionLimit = DEFAULT_GENERAL_CONNECTION_LIMIT;
-  private int connectionLimitPerSource = DEFAULT_CONNECTION_LIMIT_PER_SOURCE;
+  private int maxRedirectCount = DEFAULT_MAX_REDIRECT_COUNT;
 
-  public void setRedirectCount(int redirectCount) {
-    this.redirectCount = redirectCount;
+  /**
+   * Set the maximum number of times we will follow a redirect.
+   *
+   * @param maxRedirectCount The maximum number of times we will follow a redirect.
+   */
+  public void setMaxRedirectCount(int maxRedirectCount) {
+    this.maxRedirectCount = maxRedirectCount;
   }
 
-  @Deprecated
-  public void setConnectionLimitPerSource(int connectionLimitPerSource) {
-    this.connectionLimitPerSource = connectionLimitPerSource;
-  }
-
-  @Deprecated
-  public void setGeneralConnectionLimit(int generalConnectionLimit) {
-    this.generalConnectionLimit = generalConnectionLimit;
-  }
-
+  /**
+   * Create a media extractor object that can be used to extract media metadata and thumbnails.
+   *
+   * @return A media extractor.
+   * @throws MediaProcessorException In case there was a problem creating the media extractor.
+   */
   public MediaExtractor createMediaExtractor() throws MediaProcessorException {
-    return new TemporaryMediaProcessor(redirectCount, generalConnectionLimit,
-        connectionLimitPerSource);
+    return new TemporaryMediaProcessor(maxRedirectCount);
   }
 
+  /**
+   * Create a link checker object that can be used to check links.
+   *
+   * @return A link checker.
+   * @throws MediaProcessorException In case there was a problem creating the link checker.
+   */
   public LinkChecker createLinkChecker() throws MediaProcessorException {
-    return new TemporaryMediaProcessor(redirectCount, generalConnectionLimit,
-        connectionLimitPerSource);
+    return new TemporaryMediaProcessor(maxRedirectCount);
   }
 }
