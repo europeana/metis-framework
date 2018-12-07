@@ -3,7 +3,6 @@ package eu.europeana.metis.mediaprocessing.temp;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaservice.MediaProcessor;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,17 +35,17 @@ public class DownloadTask extends HttpClientTask<Resource> {
   @Override
   protected <I extends RdfResourceEntry> ZeroCopyConsumer<Void> createResponseConsumer(
       I resourceLink, HttpClientCallback<I, Resource> callback) throws IOException {
-    final ResourceImpl resource = new ResourceImpl(resourceLink, null);
+    final Resource resource = new Resource(resourceLink, null);
     return new DownloadConsumer<>(resourceLink, resource, callback);
   }
 
   private final class DownloadConsumer<I> extends ZeroCopyConsumer<Void> {
 
     private final I resourceLink;
-    private final ResourceImpl resource;
+    private final Resource resource;
     private final HttpClientCallback<I, Resource> callback;
 
-    private DownloadConsumer(I resourceLink, ResourceImpl resource,
+    private DownloadConsumer(I resourceLink, Resource resource,
         HttpClientCallback<I, Resource> callback) throws FileNotFoundException {
       super(resource.getContentPath().toFile());
       this.resourceLink = resourceLink;

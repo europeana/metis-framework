@@ -7,8 +7,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// Should be interface?
+/**
+ * This class represents resource metadata.
+ */
 public abstract class ResourceMetadata implements Serializable {
+
+  /**
+   * Implements {@link java.io.Serializable}.
+   */
+  private static final long serialVersionUID = 4578729338510378084L;
 
   private final String mimeType;
 
@@ -18,10 +25,25 @@ public abstract class ResourceMetadata implements Serializable {
 
   private final Set<String> thumbnailTargetNames;
 
+  /**
+   * Constructor for a resource without thumbnails.
+   *
+   * @param mimeType The resource mime type.
+   * @param resourceUrl The resource URL.
+   * @param contentSize The file content size.
+   */
   protected ResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
     this(mimeType, resourceUrl, contentSize, null);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param mimeType The resource mime type.
+   * @param resourceUrl The resource URL.
+   * @param contentSize The file content size.
+   * @param thumbnails The thumbnails generated for this resource.
+   */
   protected ResourceMetadata(String mimeType, String resourceUrl, long contentSize,
       Collection<? extends Thumbnail> thumbnails) {
     this.mimeType = mimeType;
@@ -41,18 +63,20 @@ public abstract class ResourceMetadata implements Serializable {
     return mimeType;
   }
 
-  // Is not null.
+  /**
+   * @return The target names of the thumbnails. This list is not null, but could be empty.
+   */
   public Set<String> getThumbnailTargetNames() {
     return Collections.unmodifiableSet(thumbnailTargetNames);
   }
 
-  // Does not set or check the resource URL: the caller should make sure that the right
-  // web resource is passed.
-  final void updateResource(WebResource resource) {
+  /**
+   * This method copies the metadata to the resource. This method should be extended by subclasses.
+   *
+   * @param resource The resource to update.
+   */
+  protected void updateResource(WebResource resource) {
     resource.setMimeType(mimeType);
     resource.setFileSize(contentSize);
-    setSpecializedFieldsToResource(resource);
   }
-
-  protected abstract void setSpecializedFieldsToResource(WebResource resource);
 }

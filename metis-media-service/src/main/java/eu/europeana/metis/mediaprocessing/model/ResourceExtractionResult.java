@@ -4,27 +4,37 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Should be interface?
+/**
+ * This class contains the result of a resource extraction, consisting of metadata and thumbnails.
+ */
 public class ResourceExtractionResult {
 
-  // Can be null.
   private final ResourceMetadata metadata;
 
-  // Can be null.
   private final List<Thumbnail> thumbnails;
 
+  /**
+   * Constructor.
+   *
+   * @param metadata The metadata extracted for this resource. Can be null.
+   * @param thumbnails The thumbnails generated for this resource. Can be null.
+   */
   public ResourceExtractionResult(ResourceMetadata metadata, List<? extends Thumbnail> thumbnails) {
     this.metadata = metadata;
     this.thumbnails = thumbnails == null ? null : new ArrayList<>(thumbnails);
   }
 
-  // Can be null.
+  /**
+   * @return The metadata of this resource. Can be null.
+   */
   public ResourceMetadata getMetadata() {
     return metadata;
   }
 
-  // Can be null.
+  /**
+   * @return The thumbnails generated for this resource. Can be null or empty.
+   */
   public List<Thumbnail> getThumbnails() {
-    return thumbnails == null ? Collections.emptyList() : Collections.unmodifiableList(thumbnails);
+    return thumbnails == null ? null : Collections.unmodifiableList(thumbnails);
   }
 }

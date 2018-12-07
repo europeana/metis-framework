@@ -28,14 +28,20 @@ import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.definitions.jibx.Width;
 
 /**
- * Helper class for manipulating {@link WebResourceType}
+ * Helper class for manipulating {@link WebResourceType} in RDF files.
  */
 class WebResource {
 
+  /**
+   * Enum for the permissible values of image orientation.
+   */
   public enum Orientation {
     PORTRAIT, LANDSCAPE
   }
 
+  /**
+   * Enum for the supported values of image color space.
+   */
   public enum ColorSpace {
     S_RGB(ColorSpaceType.S_RGB), GRAYSCALE(ColorSpaceType.GRAYSCALE);
 
@@ -48,40 +54,45 @@ class WebResource {
 
   private final WebResourceType resource;
 
+  /**
+   * Constructor.
+   *
+   * @param resource The resource that is being manipulated.
+   */
   WebResource(WebResourceType resource) {
     this.resource = resource;
   }
 
-  public void setWidth(int width) {
+  void setWidth(int width) {
     resource.setWidth(intVal(new Width(), width));
   }
 
-  public void setHeight(int height) {
+  void setHeight(int height) {
     resource.setHeight(intVal(new Height(), height));
   }
 
-  public void setMimeType(String mimeType) {
+  void setMimeType(String mimeType) {
     HasMimeType hasMimeType = new HasMimeType();
     hasMimeType.setHasMimeType(mimeType);
     resource.setHasMimeType(hasMimeType);
   }
 
-  public void setFileSize(long fileSize) {
+  void setFileSize(long fileSize) {
     resource.setFileByteSize(longVal(fileSize));
   }
 
-  public void setColorspace(ColorSpace colorspace) {
+  void setColorspace(ColorSpace colorspace) {
     HasColorSpace hasColorSpace = new HasColorSpace();
     hasColorSpace.setHasColorSpace(colorspace.mappedColorSpace);
     resource.setHasColorSpace(hasColorSpace);
   }
 
-  public void setOrientation(Orientation orientation) {
+  void setOrientation(Orientation orientation) {
     resource.setOrientation(
         stringVal(new OrientationType(), orientation.name().toLowerCase(Locale.ENGLISH)));
   }
 
-  public void setDominantColors(List<String> dominantColors) {
+  void setDominantColors(List<String> dominantColors) {
     resource.setComponentColorList(dominantColors.stream().map(c -> {
       HexBinaryType hex = new HexBinaryType();
       hex.setString(c);
@@ -90,40 +101,40 @@ class WebResource {
     }).collect(Collectors.toList()));
   }
 
-  public void setDuration(double seconds) {
+  void setDuration(double seconds) {
     final int millisInSecond = 1000;
     Duration duration2 = new Duration();
     duration2.setDuration(Integer.toString((int) Math.round(seconds * millisInSecond)));
     resource.setDuration(duration2);
   }
 
-  public void setBitrate(int bitrate) {
+  void setBitrate(int bitrate) {
     resource.setBitRate(uintVal(new BitRate(), bitrate));
   }
 
-  public void setFrameRete(double frameRate) {
+  void setFrameRete(double frameRate) {
     resource.setFrameRate(doubleVal(frameRate));
   }
 
-  public void setCodecName(String codecName) {
+  void setCodecName(String codecName) {
     CodecName codecName2 = new CodecName();
     codecName2.setCodecName(codecName);
     resource.setCodecName(codecName2);
   }
 
-  public void setChannels(int channels) {
+  void setChannels(int channels) {
     resource.setAudioChannelNumber(uintVal(new AudioChannelNumber(), channels));
   }
 
-  public void setSampleRate(int sampleRate) {
+  void setSampleRate(int sampleRate) {
     resource.setSampleRate(intVal(new SampleRate(), sampleRate));
   }
 
-  public void setSampleSize(int sampleSize) {
+  void setSampleSize(int sampleSize) {
     resource.setSampleSize(intVal(new SampleSize(), sampleSize));
   }
 
-  public void setContainsText(boolean containsText) {
+  void setContainsText(boolean containsText) {
     if (containsText) {
       Type1 type = new Type1();
       type.setResource("http://www.europeana.eu/schemas/edm/FullTextResource");
@@ -133,7 +144,7 @@ class WebResource {
     }
   }
 
-  public void setResolution(Integer resolution) {
+  void setResolution(Integer resolution) {
     resource.setSpatialResolution(
         resolution == null ? null : uintVal(new SpatialResolution(), resolution));
   }

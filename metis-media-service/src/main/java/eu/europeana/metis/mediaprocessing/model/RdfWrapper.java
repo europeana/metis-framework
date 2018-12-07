@@ -10,23 +10,36 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
+/**
+ * This class provides extra functionality in relation to an RDF file.
+ */
 public class RdfWrapper {
 
   private final RDF rdf;
 
+  /**
+   * Constructor.
+   *
+   * @param rdf The RDF file.
+   */
   public RdfWrapper(RDF rdf) {
     this.rdf = rdf;
   }
 
+  /**
+   * @return The RDF file.
+   */
   protected RDF getRdf() {
     return rdf;
   }
 
   /**
-   * Finds links to resources listed in this EDM. Each resource can be listed under some URL type.
+   * Retrieves resources from the RDF that are referenced with one of the given reference URL
+   * types.
    *
-   * @param urlTypes types of URLs to find
-   * @return resource URLs mapped to their types
+   * @param urlTypes The URL types with which a resource is to be referenced.
+   * @return A map containing the resource URLs as keys and their respective reference URL types as
+   * values.
    */
   public Map<String, List<UrlType>> getResourceUrls(Set<UrlType> urlTypes) {
     Map<String, List<UrlType>> urls = new HashMap<>();

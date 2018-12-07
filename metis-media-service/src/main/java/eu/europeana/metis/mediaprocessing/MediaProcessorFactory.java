@@ -9,19 +9,21 @@ import eu.europeana.metis.mediaprocessing.temp.TemporaryMediaProcessor;
 public class MediaProcessorFactory {
 
   /**
-   * The default value of the maximum number of times we will follow a redirect.
+   * The default value of the maximum number of times we will follow a redirect. It's currently set
+   * to {@value MediaProcessorFactory#DEFAULT_MAX_REDIRECT_COUNT};
    **/
-  private static final int DEFAULT_MAX_REDIRECT_COUNT = 3;
+  public static final int DEFAULT_MAX_REDIRECT_COUNT = 3;
 
   private int maxRedirectCount = DEFAULT_MAX_REDIRECT_COUNT;
 
   /**
-   * Set the maximum number of times we will follow a redirect.
+   * Set the maximum number of times we will follow a redirect. The default (when not calling this
+   * method or calling it with a negative number) is {@link MediaProcessorFactory#DEFAULT_MAX_REDIRECT_COUNT}.
    *
    * @param maxRedirectCount The maximum number of times we will follow a redirect.
    */
   public void setMaxRedirectCount(int maxRedirectCount) {
-    this.maxRedirectCount = maxRedirectCount;
+    this.maxRedirectCount = maxRedirectCount < 0 ? DEFAULT_MAX_REDIRECT_COUNT : maxRedirectCount;
   }
 
   /**

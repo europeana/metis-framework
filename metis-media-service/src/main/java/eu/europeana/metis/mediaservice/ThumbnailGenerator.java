@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This class performs thumbnail generation for images and PDF files using ImageMagick.
  */
-public class ThumbnailGenerator {
+class ThumbnailGenerator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ThumbnailGenerator.class);
 

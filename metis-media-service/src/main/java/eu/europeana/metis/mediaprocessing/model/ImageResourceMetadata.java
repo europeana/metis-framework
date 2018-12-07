@@ -8,7 +8,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Resource metadata for image resources.
+ */
 public class ImageResourceMetadata extends ResourceMetadata {
+
+  /**
+   * Implements {@link java.io.Serializable}.
+   */
+  private static final long serialVersionUID = -1818426883878915580L;
 
   private final int width;
 
@@ -18,6 +26,19 @@ public class ImageResourceMetadata extends ResourceMetadata {
 
   private final List<String> dominantColors;
 
+  /**
+   * Constructor.
+   *
+   * @param mimeType The resource mime type.
+   * @param resourceUrl The resource URL.
+   * @param contentSize The file content size.
+   * @param width The image width.
+   * @param height The image height.
+   * @param colorSpace The image color space.
+   * @param dominantColors The image dominant colors.
+   * @param thumbnails The thumbnails generated for this image.
+   * @throws MediaExtractionException In case there was a problem with the supplied data.
+   */
   public ImageResourceMetadata(String mimeType, String resourceUrl, long contentSize, int width,
       int height, String colorSpace, List<String> dominantColors,
       List<? extends Thumbnail> thumbnails) throws MediaExtractionException {
@@ -49,7 +70,8 @@ public class ImageResourceMetadata extends ResourceMetadata {
   }
 
   @Override
-  protected void setSpecializedFieldsToResource(WebResource resource) {
+  protected void updateResource(WebResource resource) {
+    super.updateResource(resource);
     resource.setWidth(width);
     resource.setHeight(height);
     resource.setOrientation(width > height ? Orientation.LANDSCAPE : Orientation.PORTRAIT);

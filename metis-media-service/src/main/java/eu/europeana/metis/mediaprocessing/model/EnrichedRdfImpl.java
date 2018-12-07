@@ -13,10 +13,18 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Implementation of an RDF file that can be enriched with extracted resource metadata.
+ */
 public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
 
   private final Map<String, Set<String>> thumbnailTargetNames = new HashMap<>();
 
+  /**
+   * Constructor.
+   *
+   * @param rdf The RDF to enrich.
+   */
   public EnrichedRdfImpl(RDF rdf) {
     super(rdf);
   }
@@ -49,7 +57,7 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
     return getRdf();
   }
 
-  protected void updateEdmPreview() {
+  private void updateEdmPreview() {
 
     // First try taking it from the object URL.
     final Set<String> objectUrls = getResourceUrls(Collections.singleton(UrlType.OBJECT)).keySet();
@@ -71,7 +79,8 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
     return targetNames.stream().filter(name -> name.contains("-LARGE")).findAny().orElse(null);
   }
 
-  protected void updateEdmPreview(String url) {
+  // TODO should become private: do unit testing some other way.
+  void updateEdmPreview(String url) {
     if (getRdf().getEuropeanaAggregationList() == null || getRdf().getEuropeanaAggregationList()
         .isEmpty()) {
       return;

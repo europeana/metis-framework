@@ -6,7 +6,6 @@ import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntryImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfWrapper;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.ByteArrayInputStream;
@@ -82,7 +81,7 @@ public class RdfDeserializerImpl extends RdfConverter implements RdfDeserializer
   // TODO should be integrated with private method above and become private.
   public List<RdfResourceEntry> getResourceEntries(RDF rdf, Set<UrlType> allowedUrlTypes) {
     return new RdfWrapper(rdf).getResourceUrls(allowedUrlTypes).entrySet().stream()
-        .map(entry -> new RdfResourceEntryImpl(entry.getKey(), entry.getValue()))
+        .map(entry -> new RdfResourceEntry(entry.getKey(), entry.getValue()))
         .collect(Collectors.toList());
   }
 
