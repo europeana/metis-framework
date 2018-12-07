@@ -1,5 +1,7 @@
 package eu.europeana.metis.authentication.utils;
 
+import static eu.europeana.metis.zoho.ZohoUtils.stringFieldSupplier;
+
 import com.zoho.crm.library.crud.ZCRMRecord;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
@@ -39,9 +41,9 @@ public final class ZohoMetisUserUtils {
     final MetisUser metisUser = new MetisUser();
 
     metisUser.setUserId(Long.toString(zcrmRecord.getEntityId()));
-    metisUser.setFirstName((String) zohoFields.get(ZohoConstants.FIRST_NAME_FIELD));
-    metisUser.setLastName((String) zohoFields.get(ZohoConstants.LAST_NAME_FIELD));
-    metisUser.setEmail((String) zohoFields.get(ZohoConstants.EMAIL_FIELD));
+    metisUser.setFirstName(stringFieldSupplier(zohoFields.get(ZohoConstants.FIRST_NAME_FIELD)));
+    metisUser.setLastName(stringFieldSupplier(zohoFields.get(ZohoConstants.LAST_NAME_FIELD)));
+    metisUser.setEmail(stringFieldSupplier(zohoFields.get(ZohoConstants.EMAIL_FIELD)));
     try {
       metisUser.setCreatedDate(zcrmRecord.getCreatedTime() == null ? null
           : dateFormat.parse(zcrmRecord.getCreatedTime()));
@@ -50,7 +52,7 @@ public final class ZohoMetisUserUtils {
     } catch (ParseException ex) {
       throw new BadContentException("Created or updated date could not be parsed.");
     }
-    metisUser.setCountry((String) zohoFields.get(ZohoConstants.USER_COUNTRY_FIELD));
+    metisUser.setCountry(stringFieldSupplier(zohoFields.get(ZohoConstants.USER_COUNTRY_FIELD)));
     final List<String> participationLevel = (List<String>) (zohoFields
         .get(ZohoConstants.PARTICIPATION_LEVEL_FIELD));
     if (!CollectionUtils.isEmpty(participationLevel) && participationLevel
@@ -62,7 +64,8 @@ public final class ZohoMetisUserUtils {
     }
 
     metisUser.setAccountRole(AccountRole
-        .getAccountRoleFromEnumName((String) zohoFields.get(ZohoConstants.ACCOUNT_ROLE_FIELD)));
+        .getAccountRoleFromEnumName(
+            stringFieldSupplier(zohoFields.get(ZohoConstants.ACCOUNT_ROLE_FIELD))));
     if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
       throw new BadContentException("Account Role in Zoho is not valid");
     }

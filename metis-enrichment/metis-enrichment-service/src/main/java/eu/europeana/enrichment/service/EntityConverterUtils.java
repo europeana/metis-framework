@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.service;
 
+import static eu.europeana.metis.zoho.ZohoUtils.stringFieldSupplier;
+
 import com.zoho.crm.library.crud.ZCRMRecord;
 import com.zoho.crm.library.crud.ZCRMTrashRecord;
 import eu.europeana.corelib.definitions.edm.entity.Address;
@@ -421,19 +423,22 @@ public class EntityConverterUtils {
         Long.toString(zohoOrganization.getEntityId())));
 
     String isoLanguage = toIsoLanguage(
-        (String) zohoOrganizationFields.get(ZohoConstants.LANG_ORGANIZATION_NAME_FIELD));
+        stringFieldSupplier(
+            zohoOrganizationFields.get(ZohoConstants.LANG_ORGANIZATION_NAME_FIELD)));
     org.setPrefLabel(createMapWithLists(isoLanguage,
-        (String) zohoOrganizationFields.get(ZohoConstants.ACCOUNT_NAME_FIELD)));
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.ACCOUNT_NAME_FIELD))));
     org.setAltLabel(createMapWithLists(
         getFieldArray(zohoOrganizationFields, ZohoConstants.LANG_ALTERNATIVE_FIELD,
             MAX_LANG_ALTERNATIVES),
         getFieldArray(zohoOrganizationFields, ZohoConstants.ALTERNATIVE_FIELD, MAX_ALTERNATIVES)));
     org.setEdmAcronym(createLanguageMapOfStringList(
-        (String) zohoOrganizationFields.get(ZohoConstants.LANG_ACRONYM_FIELD),
-        (String) zohoOrganizationFields.get(ZohoConstants.ACRONYM_FIELD)));
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.LANG_ACRONYM_FIELD)),
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.ACRONYM_FIELD))));
     org.setFoafLogo(
-        (String) zohoOrganizationFields.get(ZohoConstants.LOGO_LINK_TO_WIKIMEDIACOMMONS_FIELD));
-    org.setFoafHomepage((String) zohoOrganizationFields.get(ZohoConstants.WEBSITE_FIELD));
+        stringFieldSupplier(
+            zohoOrganizationFields.get(ZohoConstants.LOGO_LINK_TO_WIKIMEDIACOMMONS_FIELD)));
+    org.setFoafHomepage(
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.WEBSITE_FIELD)));
     final List<String> organizationRoleStringList = (List<String>) zohoOrganizationFields
         .get(ZohoConstants.ORGANIZATION_ROLE_FIELD);
     if (organizationRoleStringList != null) {
@@ -446,15 +451,15 @@ public class EntityConverterUtils {
         CollectionUtils.isEmpty(organizationDomainStringList) ? null
             : organizationDomainStringList.get(0)));
     org.setEdmOrganizationSector(createMap(Locale.ENGLISH.getLanguage(),
-        (String) zohoOrganizationFields.get(ZohoConstants.SECTOR_FIELD)));
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.SECTOR_FIELD))));
     org.setEdmOrganizationScope(createMap(Locale.ENGLISH.getLanguage(),
-        (String) zohoOrganizationFields.get(ZohoConstants.SCOPE_FIELD)));
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.SCOPE_FIELD))));
     final List<String> geographicLevelList = (List<String>) zohoOrganizationFields
         .get(ZohoConstants.GEOGRAPHIC_LEVEL_FIELD);
     org.setEdmGeorgraphicLevel(createMap(Locale.ENGLISH.getLanguage(),
         CollectionUtils.isEmpty(geographicLevelList) ? null : geographicLevelList.get(0)));
     String organizationCountry = toEdmCountry(
-        (String) zohoOrganizationFields.get(ZohoConstants.ORGANIZATION_COUNTRY_FIELD));
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.ORGANIZATION_COUNTRY_FIELD)));
     org.setEdmCountry(createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
     final List<String> sameAsList = getFieldArray(zohoOrganizationFields,
         ZohoConstants.SAME_AS_FIELD, MAX_SAME_AS);
@@ -465,12 +470,16 @@ public class EntityConverterUtils {
     // address
     Address address = new AddressImpl();
     address.setAbout(org.getAbout() + "#address");
-    address.setVcardStreetAddress((String) zohoOrganizationFields.get(ZohoConstants.STREET_FIELD));
-    address.setVcardLocality((String) zohoOrganizationFields.get(ZohoConstants.CITY_FIELD));
-    address.setVcardCountryName((String) zohoOrganizationFields.get(
-        ZohoConstants.COUNTRY_FIELD)); //This is the Address Information Country as opposed to the Organization one above
-    address.setVcardPostalCode((String) zohoOrganizationFields.get(ZohoConstants.ZIP_CODE_FIELD));
-    address.setVcardPostOfficeBox((String) zohoOrganizationFields.get(ZohoConstants.PO_BOX_FIELD));
+    address.setVcardStreetAddress(
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.STREET_FIELD)));
+    address.setVcardLocality(
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.CITY_FIELD)));
+    address.setVcardCountryName(stringFieldSupplier(zohoOrganizationFields.get(
+        ZohoConstants.ADDRESS_COUNTRY_FIELD))); //This is the Address Information Country as opposed to the Organization one above
+    address.setVcardPostalCode(
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.ZIP_CODE_FIELD)));
+    address.setVcardPostOfficeBox(
+        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.PO_BOX_FIELD)));
     org.setAddress(address);
 
     return org;
@@ -482,7 +491,8 @@ public class EntityConverterUtils {
     List<String> res = new ArrayList<>(size);
     String fieldName = fieldBaseName + "_" + "%d";
     for (int i = 0; i < size; i++) {
-      String fieldValue = (String) zohoOrganizationFields.get(String.format(fieldName, i));
+      String fieldValue = stringFieldSupplier(
+          zohoOrganizationFields.get(String.format(fieldName, i)));
       // add only existing values
       if (StringUtils.isNotBlank(fieldValue)) {
         res.add(fieldValue);
