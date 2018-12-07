@@ -61,7 +61,7 @@ class WebResource {
   }
 
   public void setColorspace(String colorspace) throws MediaException {
-    if (!"grayscale".equals(colorspace) && !"sRGB".equals(colorspace)) {
+    if (!"Gray".equals(colorspace) && !"sRGB".equals(colorspace)) {
       throw new MediaException("Failed to recognize color space",
           "Unrecognized color space: " + colorspace);
     }
