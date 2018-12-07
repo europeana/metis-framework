@@ -10,8 +10,10 @@ import com.zoho.oauth.client.ZohoOAuthClient;
 import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.exception.BadContentException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,30 +130,30 @@ public class ZohoAccessClient {
   }
 
   /**
-   * Get organization items paged, filtering by lastModified date.
+   * Get organization items paged, filtering by modifiedDate date.
    *
    * @param start first index starts with 1
    * @param rows the number of entries to be returned, Zoho will have an upper limit
-   * @param lastModified the date of last modification to check
+   * @param modifiedDate the date of last modification to check
    * @return the list of Zoho Organizations
    * @throws BadContentException if an error occurred during accessing Zoho
    */
-  public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows, Date lastModified)
+  public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows, Date modifiedDate)
       throws BadContentException {
-    return getZcrmRecordOrganizations(start, rows, lastModified, null);
+    return getZcrmRecordOrganizations(start, rows, modifiedDate, null);
   }
 
   /**
-   * Get organization items paged, filtering by lastModified date and searchCriteria.
+   * Get organization items paged, filtering by modifiedDate date and searchCriteria.
    *
    * @param start first index starts with 1
    * @param rows the number of entries to be returned, Zoho will have an upper limit
-   * @param lastModified the date of last modification to check
+   * @param modifiedDate the date of last modification to check
    * @param searchCriteria the searchCriteria to apply during the Zoho search
    * @return the list of Zoho Organizations
    * @throws BadContentException if an error occurred during accessing Zoho
    */
-  public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows, Date lastModified,
+  public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows, Date modifiedDate,
       Map<String, String> searchCriteria) throws BadContentException {
 
     if (start < 1) {
@@ -160,33 +162,36 @@ public class ZohoAccessClient {
           new IllegalArgumentException("start: " + start));
     }
 
-    String lastModifiedTime = null;
-    if (lastModified != null) {
-      lastModifiedTime = formatter.format(lastModified);
+    String modifiedDateString = null;
+    if (modifiedDate != null) {
+      modifiedDateString = formatter.format(modifiedDate);
     }
 
-    final BulkAPIResponse bulkAPIResponseRecordsOrganizations;
+    final BulkAPIResponse bulkAPIResponse;
     try {
       if (searchCriteria == null || searchCriteria.isEmpty()) {//No searchCriteria available
-        bulkAPIResponseRecordsOrganizations = zcrmModuleAccounts
-            .getRecords(null, null, null, start, rows, lastModifiedTime, null, false);
+        bulkAPIResponse = zcrmModuleAccounts
+            .getRecords(null, null, null, start, rows, modifiedDateString, null, false);
       } else {
-        // TODO: 5-12-18 If last modified is required here it should be part of the criteria and the method that creates the string below it should support it
-        bulkAPIResponseRecordsOrganizations = zcrmModuleAccounts
-            .searchByCriteria(createZohoCriteriaString(searchCriteria), start, rows);
+        bulkAPIResponse = zcrmModuleAccounts
+            .searchByCriteria(createZohoCriteriaString(searchCriteria, modifiedDateString), start,
+                rows);
       }
     } catch (ZCRMException e) {
       throw new BadContentException(
           "Cannot get organization list from: " + start + " rows :" + rows, e);
     }
 
-    return (List<ZCRMRecord>) bulkAPIResponseRecordsOrganizations.getData();
+    return (List<ZCRMRecord>) bulkAPIResponse.getData();
   }
 
-  // TODO: 5-12-18 This criteria creation is for equals only, for last modified there should be an extension here
-  private String createZohoCriteriaString(Map<String, String> searchCriteria) {
+  private String createZohoCriteriaString(Map<String, String> searchCriteria,
+      String modifiedDateString) {
     if (searchCriteria == null || searchCriteria.isEmpty()) {
-      return null;
+      searchCriteria = new HashMap<>();
+    }
+    if (StringUtils.isNotBlank(modifiedDateString)) {
+      searchCriteria.put(ZohoConstants.LAST_ACTIVITY_TIME_FIELD, modifiedDateString);
     }
 
     String[] filterCriteria;
@@ -204,9 +209,11 @@ public class ZohoAccessClient {
     }
 
     // remove last OR
-    criteriaStringBuilder.delete(criteriaStringBuilder.length() - ZohoConstants.OR.length(),
-        criteriaStringBuilder.length());
-    return criteriaStringBuilder.toString();
-
+    if (criteriaStringBuilder.length() > 0) {
+      criteriaStringBuilder.delete(criteriaStringBuilder.length() - ZohoConstants.OR.length(),
+          criteriaStringBuilder.length());
+      return criteriaStringBuilder.toString();
+    }
+    return null;
   }
 }

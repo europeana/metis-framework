@@ -127,7 +127,7 @@ public class AuthenticationService {
     }
 
     //Construct User
-    MetisUser metisUser = ZohoMetisUserUtils.checkZohoFieldsAndPopulate(zcrmRecordContact);
+    MetisUser metisUser = ZohoMetisUserUtils.checkZohoFieldsAndPopulateMetisUser(zcrmRecordContact);
 
     if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {

@@ -31,7 +31,7 @@ public final class ZohoMetisUserUtils {
    * @return the metis user with its fields populated
    * @throws BadContentException if a problem occurs during parsing of the fields
    */
-  public static MetisUser checkZohoFieldsAndPopulate(ZCRMRecord zcrmRecord)
+  public static MetisUser checkZohoFieldsAndPopulateMetisUser(ZCRMRecord zcrmRecord)
       throws BadContentException {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
     HashMap<String, Object> zohoFields = zcrmRecord.getData();
