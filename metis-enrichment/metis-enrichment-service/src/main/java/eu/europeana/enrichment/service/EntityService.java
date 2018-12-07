@@ -1,13 +1,5 @@
 package eu.europeana.enrichment.service;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.ContextualClassImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
@@ -15,6 +7,13 @@ import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import eu.europeana.enrichment.utils.EntityClass;
+import java.io.Closeable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EntityService implements Closeable {
 
@@ -31,7 +30,7 @@ public class EntityService implements Closeable {
     }
 	
     @Override
-    public void close() throws IOException {
+    public void close() {
         this.entityDao.close();
     }
 	  

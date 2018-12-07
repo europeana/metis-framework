@@ -47,10 +47,7 @@ public class EntityConverterUtils {
    * @return map with list, or null if the value is null.
    */
   public Map<String, List<String>> createMapWithLists(String key, String value) {
-    if (value == null) {
-      return null;
-    }
-    return Collections.singletonMap(key, Collections.singletonList(value));
+    return value == null ? null : Collections.singletonMap(key, Collections.singletonList(value));
   }
 
   /**
@@ -61,10 +58,7 @@ public class EntityConverterUtils {
    * @return The map, or null if the value is null.
    */
   public Map<String, String> createMap(String key, String value) {
-    if (value == null) {
-      return null;
-    }
-    return Collections.singletonMap(key, value);
+    return value == null ? null : Collections.singletonMap(key, value);
   }
 
   /**
@@ -74,10 +68,7 @@ public class EntityConverterUtils {
    * @return The list, or null if the value is null.
    */
   List<String> createList(String value) {
-    if (value == null) {
-      return null;
-    }
-    return Collections.singletonList(value);
+    return value == null ? Collections.emptyList() : Collections.singletonList(value);
   }
 
   /**
@@ -90,7 +81,7 @@ public class EntityConverterUtils {
    * @return The map, or null if it is empty.
    */
   public Map<String, List<String>> createMapWithLists(List<String> keys, List<String> values) {
-    if (keys == null || keys.isEmpty()) {
+    if (CollectionUtils.isEmpty(keys)) {
       return null;
     }
     final Map<String, List<String>> resMap = new HashMap<>(keys.size());
@@ -165,10 +156,7 @@ public class EntityConverterUtils {
    */
   public Map<String, String> createMapFromTextPropertyList(
       List<? extends TextProperty> textPropertyList) {
-    if (textPropertyList == null) {
-      return null;
-    }
-    return textPropertyList.stream()
+    return textPropertyList == null ? null : textPropertyList.stream()
         .collect(Collectors.toMap(property -> toIsoLanguage(property.getKey()),
             TextProperty::getValue, (value1, value2) -> value1));
   }
@@ -177,13 +165,11 @@ public class EntityConverterUtils {
    * This method converts a list of web resource objects to a string array.
    *
    * @param resources The list of web resource objects
-   * @return string array, or null if no resources are found.
+   * @return string array, or empty array if no resources are found.
    */
   public String[] createStringArrayFromPartList(List<? extends WebResource> resources) {
-    if (resources == null) {
-      return null;
-    }
-    return resources.stream().map(WebResource::getResourceUri).toArray(String[]::new);
+    return resources == null ? new String[0]
+        : resources.stream().map(WebResource::getResourceUri).toArray(String[]::new);
   }
 
   /**
@@ -194,10 +180,8 @@ public class EntityConverterUtils {
    * @return the created map
    */
   public Map<String, List<String>> createLanguageMapOfStringList(String language, String value) {
-    if (value == null) {
-      return null;
-    }
-    return Collections.singletonMap(toIsoLanguage(language), createList(value));
+    return value == null ? null
+        : Collections.singletonMap(toIsoLanguage(language), createList(value));
   }
 
   /**
@@ -209,12 +193,15 @@ public class EntityConverterUtils {
    */
   public Map<String, List<String>> createLanguageMapOfStringList(String language,
       List<String> value) {
-    if (value == null) {
-      return null;
-    }
-    return Collections.singletonMap(toIsoLanguage(language), value);
+    return value == null ? null : Collections.singletonMap(toIsoLanguage(language), value);
   }
 
+  /**
+   * Extracts the country code from a country field with example format "France, FR"
+   *
+   * @param organizationCountry the country to extract the iso code from
+   * @return the iso code of the country extracted
+   */
   String toEdmCountry(String organizationCountry) {
     if (StringUtils.isBlank(organizationCountry)) {
       return null;
@@ -222,23 +209,19 @@ public class EntityConverterUtils {
 
     String isoCode = null;
     int commaSeparatorPos = organizationCountry.indexOf(',');
-    // TODO: remove the support for FR(France), when Zoho data is updated and consistent.
-    int bracketSeparatorPos = organizationCountry.indexOf('(');
 
     if (commaSeparatorPos > 0) {
-      // example: FR(France)
       isoCode = organizationCountry.substring(commaSeparatorPos + 1).trim();
-    } else if (bracketSeparatorPos > 0) {
-      // example: France, FR
-      isoCode = organizationCountry.substring(0, bracketSeparatorPos).trim();
     }
 
     return isoCode;
   }
 
   /**
-   * @param language
-   * @return
+   * Extracts the language code from a language field with example format "EN(English)"
+   *
+   * @param language the language field
+   * @return the iso code of the language extracted
    */
   private static String toIsoLanguage(String language) {
     if (StringUtils.isBlank(language)) {
@@ -272,16 +255,10 @@ public class EntityConverterUtils {
 
     // Merge the add map data.
     if (addMap != null) {
-      for (Map.Entry<String, List<String>> entry : addMap.entrySet()) {
-        result.merge(entry.getKey(), new ArrayList<>(entry.getValue()), this::mergeStringLists);
-      }
+      addMap.forEach(
+          (key, value) -> result.merge(key, new ArrayList<>(value), this::mergeStringLists));
     }
-
-    // Return the result.
-    if (result.isEmpty()) {
-      return null;
-    }
-    return result;
+    return result.isEmpty() ? null : result;
   }
 
   /**
@@ -302,7 +279,8 @@ public class EntityConverterUtils {
    * null.
    * @return The new merged base map. Is not null.
    */
-  public Map<String, List<String>> mergeMapsWithSingletonLists(Map<String, List<String>> baseMap,
+  public Map<String, List<String>> mergeMapsWithSingletonLists
+  (Map<String, List<String>> baseMap,
       Map<String, List<String>> addMap, Map<String, List<String>> notMergedMap) {
 
     // Create the result from the base map.
@@ -430,7 +408,8 @@ public class EntityConverterUtils {
     org.setAltLabel(createMapWithLists(
         getFieldArray(zohoOrganizationFields, ZohoConstants.LANG_ALTERNATIVE_FIELD,
             MAX_LANG_ALTERNATIVES),
-        getFieldArray(zohoOrganizationFields, ZohoConstants.ALTERNATIVE_FIELD, MAX_ALTERNATIVES)));
+        getFieldArray(zohoOrganizationFields, ZohoConstants.ALTERNATIVE_FIELD,
+            MAX_ALTERNATIVES)));
     org.setEdmAcronym(createLanguageMapOfStringList(
         stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.LANG_ACRONYM_FIELD)),
         stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.ACRONYM_FIELD))));
@@ -443,7 +422,8 @@ public class EntityConverterUtils {
         .get(ZohoConstants.ORGANIZATION_ROLE_FIELD);
     if (organizationRoleStringList != null) {
       org.setEdmEuropeanaRole(
-          createLanguageMapOfStringList(Locale.ENGLISH.getLanguage(), organizationRoleStringList));
+          createLanguageMapOfStringList(Locale.ENGLISH.getLanguage(),
+              organizationRoleStringList));
     }
     final List<String> organizationDomainStringList = (List<String>) zohoOrganizationFields
         .get(ZohoConstants.DOMAIN_FIELD);
@@ -459,7 +439,8 @@ public class EntityConverterUtils {
     org.setEdmGeorgraphicLevel(createMap(Locale.ENGLISH.getLanguage(),
         CollectionUtils.isEmpty(geographicLevelList) ? null : geographicLevelList.get(0)));
     String organizationCountry = toEdmCountry(
-        stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.ORGANIZATION_COUNTRY_FIELD)));
+        stringFieldSupplier(
+            zohoOrganizationFields.get(ZohoConstants.ORGANIZATION_COUNTRY_FIELD)));
     org.setEdmCountry(createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
     final List<String> sameAsList = getFieldArray(zohoOrganizationFields,
         ZohoConstants.SAME_AS_FIELD, MAX_SAME_AS);
@@ -485,11 +466,11 @@ public class EntityConverterUtils {
     return org;
   }
 
-  private List<String> getFieldArray(
-      HashMap<String, Object> zohoOrganizationFields,
+  private List<String> getFieldArray(HashMap<String, Object> zohoOrganizationFields,
       String fieldBaseName, int size) {
     List<String> res = new ArrayList<>(size);
     String fieldName = fieldBaseName + "_" + "%d";
+
     for (int i = 0; i < size; i++) {
       String fieldValue = stringFieldSupplier(
           zohoOrganizationFields.get(String.format(fieldName, i)));
@@ -497,9 +478,6 @@ public class EntityConverterUtils {
       if (StringUtils.isNotBlank(fieldValue)) {
         res.add(fieldValue);
       }
-    }
-    if (res.isEmpty()) {
-      return null;
     }
     return res;
   }

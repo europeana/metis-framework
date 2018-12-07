@@ -9,16 +9,19 @@ import com.zoho.crm.library.setup.restclient.ZCRMRestClient;
 import com.zoho.oauth.client.ZohoOAuthClient;
 import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.exception.BadContentException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Class that contains methods related to communication with the Zoho service.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-12-06
  */
@@ -26,80 +29,105 @@ public class ZohoAccessClient {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ZohoAccessClient.class);
   private static final int ITEMS_PER_PAGE = 200;
-  private static final FastDateFormat formatter = FastDateFormat
-      .getInstance(ZohoConstants.ZOHO_TIME_FORMAT);
-  private final ZCRMModule zcrmModule;
+  private final ZCRMModule zcrmModuleContacts;
   private final ZCRMModule zcrmModuleAccounts;
 
+  /**
+   * Constructor with the grant token provided as a parameter.
+   * <p>
+   * It will try to initialize the connection with the Zoho service. Uses the grant token for the
+   * initial setup to generate the access and refresh tokens. If the grant token was used once
+   * before already then the exception that would normally the initialization will throw, will be
+   * caught instead and logged. The process will continue and it will try to use the already
+   * generated access/refresh tokens.
+   * </p>
+   *
+   * @param grantToken the grant token key to be used
+   * @throws Exception if an exception occurred during initialization
+   */
   public ZohoAccessClient(String grantToken) throws Exception {
     ZCRMRestClient.initialize();
     ZohoOAuthClient cli = ZohoOAuthClient.getInstance();
     try {
       cli.generateAccessToken(grantToken);
-    } catch (ZohoOAuthException ex) {
+    } catch (ZohoOAuthException e) {
       LOGGER
-          .warn("Exception when generating access token. Grant tokens can be used only once, "
-              + "so when the access and refresh tokens are generated, the grant token becomes obsolete on subsequent deployments");
+          .warn(
+              "THIS EXCEPTION IS PROBABLY NORMAL IF THE GRANT TOKEN HAS BEEN SUCCESSFULLY USED ONCE ALREADY!"
+                  + "Exception when generating access token. Grant tokens can be used only once, "
+                  + "so when the access and refresh tokens are generated, the grant token becomes obsolete on subsequent deployments",
+              e);
     }
 
-    zcrmModule = ZCRMModule.getInstance(ZohoConstants.CONTACTS_MODULE);
-    zcrmModuleAccounts = ZCRMModule.getInstance(ZohoConstants.ACCOUNTS_MODULE);
+    zcrmModuleContacts = ZCRMModule.getInstance(ZohoConstants.CONTACTS_MODULE_NAME);
+    zcrmModuleAccounts = ZCRMModule.getInstance(ZohoConstants.ACCOUNTS_MODULE_NAME);
   }
 
+  /**
+   * Get a contact by using an email.
+   *
+   * @param email the email to search for
+   * @return the contact corresponding to the email
+   * @throws BadContentException if an exception occurred during searching
+   */
   public ZCRMRecord getZcrmRecordContactByEmail(String email) throws BadContentException {
     final BulkAPIResponse bulkAPIResponseContacts;
     try {
-      bulkAPIResponseContacts = zcrmModule.searchByEmail(email);
+      bulkAPIResponseContacts = zcrmModuleContacts.searchByEmail(email);
     } catch (ZCRMException e) {
       throw new BadContentException("Zoho search by email threw an exception", e);
     }
     final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseContacts.getData();
-    if (zcrmRecords.isEmpty()) {
-      return null;
-    }
-
-    return zcrmRecords.get(0);
+    return zcrmRecords.isEmpty() ? null : zcrmRecords.get(0);
   }
 
 
+  /**
+   * Get a contact by using an organization email.
+   *
+   * @param organizationName the organization name to search for
+   * @return the organization corresponding to the organization name
+   * @throws BadContentException if an exception occurred during searching
+   */
   public ZCRMRecord getZcrmRecordOrganizationByName(String organizationName)
       throws BadContentException {
     final BulkAPIResponse bulkAPIResponseAccounts;
     try {
       bulkAPIResponseAccounts = zcrmModuleAccounts
           .searchByCriteria(
-              String.format("(%s:%s:%s)", ZohoConstants.ACCOUNT_NAME_FIELD,
+              String.format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING,
+                  ZohoConstants.ACCOUNT_NAME_FIELD,
                   ZohoConstants.EQUALS_OPERATION, organizationName));
     } catch (ZCRMException e) {
       throw new BadContentException(
           "Zoho search organization by organization name threw an exception", e);
     }
     final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseAccounts.getData();
-    if (zcrmRecords.isEmpty()) {
-      return null;
-    }
-
-    return zcrmRecords.get(0);
+    return zcrmRecords.isEmpty() ? null : zcrmRecords.get(0);
   }
 
+  /**
+   * Get a contact by using an organization id.
+   *
+   * @param organizationId the organization id to search for
+   * @return the organization corresponding to the organization id
+   * @throws BadContentException if an exception occurred during searching
+   */
   public ZCRMRecord getZcrmRecordOrganizationById(String organizationId)
       throws BadContentException {
     final BulkAPIResponse bulkAPIResponseAccounts;
     try {
       bulkAPIResponseAccounts = zcrmModuleAccounts
           .searchByCriteria(
-              String.format("(%s:%s:%s)", ZohoConstants.ID_FIELD, ZohoConstants.EQUALS_OPERATION,
+              String.format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING, ZohoConstants.ID_FIELD,
+                  ZohoConstants.EQUALS_OPERATION,
                   organizationId));
     } catch (ZCRMException e) {
       throw new BadContentException(
           "Zoho search organization by organization id threw an exception", e);
     }
     final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseAccounts.getData();
-    if (zcrmRecords.isEmpty()) {
-      return null;
-    }
-
-    return zcrmRecords.get(0);
+    return zcrmRecords.isEmpty() ? null : zcrmRecords.get(0);
   }
 
   /**
@@ -164,7 +192,7 @@ public class ZohoAccessClient {
 
     String modifiedDateString = null;
     if (modifiedDate != null) {
-      modifiedDateString = formatter.format(modifiedDate);
+      modifiedDateString = ZohoConstants.ZOHO_DATE_FORMATTER.format(modifiedDate);
     }
 
     final BulkAPIResponse bulkAPIResponse;
@@ -185,6 +213,15 @@ public class ZohoAccessClient {
     return (List<ZCRMRecord>) bulkAPIResponse.getData();
   }
 
+  /**
+   * Using the search criteria provided and the modifiedDate if available it will create the
+   * criteria in the format that Zoho accepts. Result will be depicted as
+   * "(field1:equals:valueA)OR(field1:equals:valueB)OR(field2:equals:valueC)" or "".
+   *
+   * @param searchCriteria the search criteria map provided, values can be comma separated per key
+   * @param modifiedDateString the modified date that should be checked if any
+   * @return the created criteria in the format Zoho accepts
+   */
   private String createZohoCriteriaString(Map<String, String> searchCriteria,
       String modifiedDateString) {
     if (searchCriteria == null || searchCriteria.isEmpty()) {
@@ -194,26 +231,11 @@ public class ZohoAccessClient {
       searchCriteria.put(ZohoConstants.LAST_ACTIVITY_TIME_FIELD, modifiedDateString);
     }
 
-    String[] filterCriteria;
-    StringBuilder criteriaStringBuilder = new StringBuilder();
-
-    for (Map.Entry<String, String> entry : searchCriteria.entrySet()) {
-      criteriaStringBuilder = new StringBuilder();
-      filterCriteria = entry.getValue().split(ZohoConstants.DELIMITER_COMMA);
-
-      for (String filter : filterCriteria) {
-        criteriaStringBuilder.append(String
-            .format("(%s:%s:%s)", entry.getKey(), ZohoConstants.EQUALS_OPERATION, filter.trim()));
-        criteriaStringBuilder.append(ZohoConstants.OR);
-      }
-    }
-
-    // remove last OR
-    if (criteriaStringBuilder.length() > 0) {
-      criteriaStringBuilder.delete(criteriaStringBuilder.length() - ZohoConstants.OR.length(),
-          criteriaStringBuilder.length());
-      return criteriaStringBuilder.toString();
-    }
-    return null;
+    return searchCriteria.entrySet().stream().map(entry ->
+        Arrays.stream(entry.getValue().split(ZohoConstants.DELIMITER_COMMA))
+            .map(value -> String
+                .format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING, entry.getKey(),
+                    ZohoConstants.EQUALS_OPERATION, value.trim())).collect(
+            Collectors.joining(ZohoConstants.OR))).collect(Collectors.joining(ZohoConstants.OR));
   }
 }

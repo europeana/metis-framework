@@ -1,5 +1,7 @@
 package eu.europeana.metis.zoho;
 
+import org.apache.commons.lang3.time.FastDateFormat;
+
 /**
  * Final class containing Zoho constants used for modules, fields, operations.
  *
@@ -9,8 +11,8 @@ package eu.europeana.metis.zoho;
 public final class ZohoConstants {
 
   //Modules
-  public static final String CONTACTS_MODULE = "Contacts";
-  public static final String ACCOUNTS_MODULE = "Accounts";
+  public static final String CONTACTS_MODULE_NAME = "Contacts";
+  public static final String ACCOUNTS_MODULE_NAME = "Accounts";
 
   //Fields
   //Accounts is the equivalent to Organizations
@@ -48,9 +50,12 @@ public final class ZohoConstants {
   public static final String EQUALS_OPERATION = "equals";
 
   //General constants
+  public static final String ZOHO_OPERATION_FORMAT_STRING = "(%s:%s:%s)";
   public static final String ZOHO_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
   public static final String DELIMITER_COMMA = ",";
   public static final String OR = "OR";
+  public static final FastDateFormat ZOHO_DATE_FORMATTER = FastDateFormat
+      .getInstance(ZohoConstants.ZOHO_TIME_FORMAT);
 
   private ZohoConstants() {
   }
