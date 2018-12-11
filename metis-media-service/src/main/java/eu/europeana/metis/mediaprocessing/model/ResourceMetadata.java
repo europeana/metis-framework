@@ -17,13 +17,13 @@ public abstract class ResourceMetadata implements Serializable {
    */
   private static final long serialVersionUID = 4578729338510378084L;
 
-  private final String mimeType;
+  private String mimeType;
 
-  private final String resourceUrl;
+  private String resourceUrl;
 
-  private final long contentSize;
+  private long contentSize;
 
-  private final Set<String> thumbnailTargetNames;
+  private Set<String> thumbnailTargetNames;
 
   /**
    * Constructor for a resource without thumbnails.
@@ -53,6 +53,12 @@ public abstract class ResourceMetadata implements Serializable {
         thumbnails == null ? Stream.empty() : thumbnails.stream();
     this.thumbnailTargetNames = thumbnailStream.map(Thumbnail::getTargetName)
         .collect(Collectors.toSet());
+  }
+
+  /**
+   * Constructor. Don't use this: it's required for serialization.
+   */
+  ResourceMetadata() {
   }
 
   public String getResourceUrl() {

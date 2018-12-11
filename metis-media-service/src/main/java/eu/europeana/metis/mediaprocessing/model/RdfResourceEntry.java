@@ -12,11 +12,13 @@ import java.util.Set;
  */
 public class RdfResourceEntry implements Serializable {
 
-  /** Implements {@link java.io.Serializable} **/
+  /**
+   * Implements {@link java.io.Serializable}
+   **/
   private static final long serialVersionUID = -5873067668837140080L;
 
-  private final String resourceUrl;
-  private final Set<UrlType> urlTypes;
+  private String resourceUrl;
+  private Set<UrlType> urlTypes;
 
   /**
    * Constructor.
@@ -27,6 +29,12 @@ public class RdfResourceEntry implements Serializable {
   public RdfResourceEntry(String resourceUrl, List<UrlType> urlTypes) {
     this.resourceUrl = resourceUrl;
     this.urlTypes = new HashSet<>(urlTypes);
+  }
+
+  /**
+   * Constructor. Don't use this: it's required for serialization.
+   */
+  RdfResourceEntry() {
   }
 
   public String getResourceUrl() {
