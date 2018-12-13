@@ -178,8 +178,7 @@ public final class ExternalRequestUtil {
     final boolean causeMatches = runtimeExceptionStringMap.entrySet().stream()
         .anyMatch(
             entry -> entry.getKey().isInstance(cause) && (StringUtils.isBlank(entry.getValue())
-                || cause
-                .getMessage().contains(entry.getValue()))
+                || cause.getMessage().toLowerCase().contains(entry.getValue().toLowerCase()))
         );
     //Rethrow the exception if more than maxRetries occurred or the cause doesn't match any expected causes.
     if (retriesCounter.get() > maxRetries || !causeMatches) {

@@ -51,7 +51,7 @@ public class EnrichmentWorker {
   private static Map<Class<?>, String> createMapWithRetrieableExceptions() {
     Map<Class<?>, String> mapWithRetrieableExceptions = new HashMap<>();
     mapWithRetrieableExceptions.put(UnknownHostException.class, "");
-    mapWithRetrieableExceptions.put(HttpServerErrorException.class, "Internal Server Error");
+    mapWithRetrieableExceptions.put(HttpServerErrorException.class, "");
 
     return mapWithRetrieableExceptions;
   }
