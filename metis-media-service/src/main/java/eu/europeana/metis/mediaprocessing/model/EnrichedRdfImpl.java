@@ -47,7 +47,7 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
   @Override
   public void enrichResource(ResourceMetadata resource) {
     final WebResource webResource = getWebResource(resource.getResourceUrl());
-    resource.updateResource(webResource);
+    resource.getMetaData().updateResource(webResource);
     thumbnailTargetNames.put(resource.getResourceUrl(), resource.getThumbnailTargetNames());
   }
 

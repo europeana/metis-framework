@@ -5,16 +5,16 @@ import java.util.List;
 /**
  * Resource metadata for text resources.
  */
-public class TextResourceMetadata extends ResourceMetadata {
+public class TextResourceMetadata extends AbstractResourceMetadata {
 
   /**
    * Implements {@link java.io.Serializable}.
    */
   private static final long serialVersionUID = 96571759753604500L;
 
-  private final boolean containsText;
+  private boolean containsText;
 
-  private final Integer resolution;
+  private Integer resolution;
 
   /**
    * Constructor.
@@ -31,6 +31,17 @@ public class TextResourceMetadata extends ResourceMetadata {
     super(mimeType, resourceUrl, contentSize, thumbnails);
     this.containsText = containsText;
     this.resolution = resolution;
+  }
+
+  /**
+   * Constructor. Don't use this: it's required for deserialization.
+   */
+  TextResourceMetadata() {
+  }
+
+  @Override
+  protected ResourceMetadata prepareForSerialization() {
+    return new ResourceMetadata(this);
   }
 
   @Override

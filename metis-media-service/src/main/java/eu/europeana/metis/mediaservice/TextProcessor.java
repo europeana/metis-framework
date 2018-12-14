@@ -8,7 +8,6 @@ import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.ResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.awt.image.BufferedImage;
@@ -85,7 +84,7 @@ class TextProcessor {
     }
 
     // Done
-    final ResourceMetadata metadata = new TextResourceMetadata(mimeType, url, content.length(),
+    final TextResourceMetadata metadata = new TextResourceMetadata(mimeType, url, content.length(),
         containsText, resolution, thumbnails);
     return new ResourceExtractionResult(metadata, thumbnails);
   }

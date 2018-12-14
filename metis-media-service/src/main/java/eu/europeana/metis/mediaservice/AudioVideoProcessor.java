@@ -4,7 +4,7 @@ import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.ResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +64,7 @@ class AudioVideoProcessor {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
     }
 
-    final ResourceMetadata metadata;
+    final AbstractResourceMetadata metadata;
     try {
 
       // Analyze command result

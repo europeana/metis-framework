@@ -32,7 +32,7 @@ public class RdfResourceEntry implements Serializable {
   }
 
   /**
-   * Constructor. Don't use this: it's required for serialization.
+   * Constructor. Don't use this: it's required for deserialization.
    */
   RdfResourceEntry() {
   }

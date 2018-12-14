@@ -3,22 +3,22 @@ package eu.europeana.metis.mediaprocessing.model;
 /**
  * Resource metadata for audio resources.
  */
-public class AudioResourceMetadata extends ResourceMetadata {
+public class AudioResourceMetadata extends AbstractResourceMetadata {
 
   /**
    * Implements {@link java.io.Serializable}
    */
   private static final long serialVersionUID = 7680381750866877618L;
 
-  private final double duration;
+  private double duration;
 
-  private final int bitRate;
+  private int bitRate;
 
-  private final int channels;
+  private int channels;
 
-  private final int sampleRate;
+  private int sampleRate;
 
-  private final int sampleSize;
+  private int sampleSize;
 
   /**
    * Constructor.
@@ -40,6 +40,17 @@ public class AudioResourceMetadata extends ResourceMetadata {
     this.channels = channels;
     this.sampleRate = sampleRate;
     this.sampleSize = sampleSize;
+  }
+
+  /**
+   * Constructor. Don't use this: it's required for deserialization.
+   */
+  AudioResourceMetadata() {
+  }
+  
+  @Override
+  protected ResourceMetadata prepareForSerialization() {
+    return new ResourceMetadata(this);
   }
 
   @Override

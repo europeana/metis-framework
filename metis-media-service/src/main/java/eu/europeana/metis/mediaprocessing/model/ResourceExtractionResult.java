@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class ResourceExtractionResult {
 
-  private final ResourceMetadata metadata;
+  private final AbstractResourceMetadata metadata;
 
   private final List<Thumbnail> thumbnails;
 
@@ -19,7 +19,8 @@ public class ResourceExtractionResult {
    * @param metadata The metadata extracted for this resource. Can be null.
    * @param thumbnails The thumbnails generated for this resource. Can be null.
    */
-  public ResourceExtractionResult(ResourceMetadata metadata, List<? extends Thumbnail> thumbnails) {
+  public ResourceExtractionResult(AbstractResourceMetadata metadata,
+      List<? extends Thumbnail> thumbnails) {
     this.metadata = metadata;
     this.thumbnails = thumbnails == null ? null : new ArrayList<>(thumbnails);
   }
@@ -28,7 +29,7 @@ public class ResourceExtractionResult {
    * @return The metadata of this resource. Can be null.
    */
   public ResourceMetadata getMetadata() {
-    return metadata;
+    return metadata == null ? null : metadata.prepareForSerialization();
   }
 
   /**

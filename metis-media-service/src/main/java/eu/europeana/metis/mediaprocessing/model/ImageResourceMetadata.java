@@ -11,20 +11,20 @@ import java.util.stream.Collectors;
 /**
  * Resource metadata for image resources.
  */
-public class ImageResourceMetadata extends ResourceMetadata {
+public class ImageResourceMetadata extends AbstractResourceMetadata {
 
   /**
    * Implements {@link java.io.Serializable}.
    */
   private static final long serialVersionUID = -1818426883878915580L;
 
-  private final int width;
+  private int width;
 
-  private final int height;
+  private int height;
 
-  private final ColorSpace colorSpace;
+  private ColorSpace colorSpace;
 
-  private final List<String> dominantColors;
+  private List<String> dominantColors;
 
   /**
    * Constructor.
@@ -67,6 +67,17 @@ public class ImageResourceMetadata extends ResourceMetadata {
     } else {
       throw new MediaExtractionException("Unrecognized color space: " + colorSpace);
     }
+  }
+
+  /**
+   * Constructor. Don't use this: it's required for deserialization.
+   */
+  ImageResourceMetadata() {
+  }
+
+  @Override
+  protected ResourceMetadata prepareForSerialization() {
+    return new ResourceMetadata(this);
   }
 
   @Override

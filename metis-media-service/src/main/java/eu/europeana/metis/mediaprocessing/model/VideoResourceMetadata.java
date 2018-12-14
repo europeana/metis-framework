@@ -3,24 +3,24 @@ package eu.europeana.metis.mediaprocessing.model;
 /**
  * Resource metadata for video resources.
  */
-public class VideoResourceMetadata extends ResourceMetadata {
+public class VideoResourceMetadata extends AbstractResourceMetadata {
 
   /**
    * Implements {@link java.io.Serializable}.
    */
   private static final long serialVersionUID = 2909859187992441100L;
 
-  private final double duration;
+  private double duration;
 
-  private final int bitRate;
+  private int bitRate;
 
-  private final int width;
+  private int width;
 
-  private final int height;
+  private int height;
 
-  private final String codecName;
+  private String codecName;
 
-  private final double frameRate;
+  private double frameRate;
 
   /**
    * Constructor.
@@ -44,6 +44,17 @@ public class VideoResourceMetadata extends ResourceMetadata {
     this.height = height;
     this.codecName = codecName;
     this.frameRate = frameRate;
+  }
+  
+  /**
+   * Constructor. Don't use this: it's required for deserialization.
+   */
+  VideoResourceMetadata() {
+  }
+
+  @Override
+  protected ResourceMetadata prepareForSerialization() {
+    return new ResourceMetadata(this);
   }
 
   @Override
