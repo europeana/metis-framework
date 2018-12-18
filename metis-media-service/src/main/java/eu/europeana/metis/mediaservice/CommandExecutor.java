@@ -36,7 +36,7 @@ class CommandExecutor {
             LOGGER.warn("Command: {}\nerror output:\n{}", command, output);
           }
         } catch (IOException e) {
-          LOGGER.error("Error stream reading faild for command " + command, e);
+          LOGGER.error("Error stream reading failed for command " + command, e);
         }
       });
     }

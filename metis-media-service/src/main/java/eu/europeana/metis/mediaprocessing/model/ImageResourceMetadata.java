@@ -60,7 +60,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     this.dominantColors = dominantColors.stream().map(c -> "#" + c).collect(Collectors.toList());
 
     // Set color space.
-    if ("grayscale".equals(colorSpace)) {
+    if ("Gray".equals(colorSpace)) {
       this.colorSpace = ColorSpace.GRAYSCALE;
     } else if ("sRGB".equals(colorSpace)) {
       this.colorSpace = ColorSpace.S_RGB;
