@@ -36,6 +36,7 @@ public class TemporaryMediaService implements Closeable {
 
   // This method is probably thread-safe.
   // The files are done sequentially: the next one begins only if the previous one is completed.
+  // TODO this should be only for one source.
   public <I extends DownloadedResource> List<ResourceExtractionResult> performResourceProcessing(
       List<I> sources, MediaProcessingListener<I> listener) {
     final List<ResourceExtractionResult> result = new ArrayList<>();

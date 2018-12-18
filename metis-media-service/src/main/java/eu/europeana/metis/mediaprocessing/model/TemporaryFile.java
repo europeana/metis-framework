@@ -12,8 +12,6 @@ import java.nio.file.Paths;
  */
 public abstract class TemporaryFile implements ResourceFile {
 
-  private static final Path TEMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"));
-
   /**
    * The resource URL of the resource with which this file is associated.
    */
@@ -28,34 +26,12 @@ public abstract class TemporaryFile implements ResourceFile {
    * Constructor.
    *
    * @param resourceUrl The URL of the resource with which this file is associated.
-   * @param subDirectory The subdirectory within the user's temporary directory in which the file is
-   * to be located.
    * @param prefix The prefix used for generating the file.
    * @param suffix The suffix used for generating the file.
    * @throws IOException In case there was a problem creating the file.
    */
-  protected TemporaryFile(String resourceUrl, String subDirectory, String prefix,
-      String suffix) throws IOException {
-
-    // Construct the target directory.
-    final Path directory = TEMP_DIR.resolve(subDirectory);
-
-    // Create the directory in the temporary folder if needed.
-    // Note: should use Files.exists instead when migrating away from Java 8.
-    if (!directory.toFile().exists()) {
-      Files.createDirectory(directory);
-    }
-
-    // Check that the directory exists and is a directory.
-    // Note: should use Files.isDirectory instead when migrating away from Java 8.
-    if (!directory.toFile().isDirectory()) {
-      throw new IOException("Directory is not a directory: " + directory);
-    }
-
-    // Create temporary file.
-    this.contentPath = Files.createTempFile(directory, prefix, suffix);
-
-    // Set resource URL.
+  protected TemporaryFile(String resourceUrl, String prefix, String suffix) throws IOException {
+    this.contentPath = Files.createTempFile(prefix, suffix);
     this.resourceUrl = resourceUrl;
   }
 

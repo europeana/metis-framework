@@ -94,8 +94,6 @@ abstract class HttpClientTask<O> implements Closeable {
       futures.add(future);
     }
     if (blockUntilDone) {
-
-      // Wait for all tasks to be done.
       for (Future<Void> future : futures) {
         try {
           future.get();
@@ -104,11 +102,6 @@ abstract class HttpClientTask<O> implements Closeable {
         } catch (ExecutionException | CancellationException e) {
           logger.debug("Exception occurred while waiting. This is probably processed elsewhere.", e);
         }
-      }
-
-      // When they are, we close the consumers.
-      for (Closeable consumer : responseConsumers) {
-        consumer.close();
       }
     }
   }

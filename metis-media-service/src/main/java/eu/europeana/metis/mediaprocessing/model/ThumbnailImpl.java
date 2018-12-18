@@ -17,7 +17,7 @@ public class ThumbnailImpl extends TemporaryFile implements Thumbnail {
    * @throws IOException In case the thumbnail could not be created.
    */
   public ThumbnailImpl(String resourceUrl, String targetName) throws IOException {
-    super(resourceUrl, "media_thumbnails", "thumb", ".tmp");
+    super(resourceUrl, "media_thumbnail_", ".tmp");
     this.targetName = targetName;
   }
 

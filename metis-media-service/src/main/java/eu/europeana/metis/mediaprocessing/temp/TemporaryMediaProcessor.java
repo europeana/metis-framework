@@ -12,10 +12,14 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Deprecated
 public class TemporaryMediaProcessor extends TemporaryMediaService implements MediaExtractor,
     LinkChecker {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(TemporaryMediaProcessor.class);
 
   private static final int GENERAL_CONNECTION_LIMIT = 200;
   private static final int CONNECTION_LIMIT_PER_SOURCE = 4;
@@ -105,14 +109,15 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
 
     // Perform metadata extraction
     final Exception[] exceptionContainer = new Exception[1];
-    final ResourceExtractionResult result = performResourceProcessing(
+    final List<ResourceExtractionResult> results = performResourceProcessing(
         Collections.singletonList(resource), new MediaProcessingListener<Resource>() {
           @Override
           public void beforeStartingFile(Resource source) {
           }
 
           @Override
-          public void handleMediaExtractionException(Resource source, MediaExtractionException exception) {
+          public void handleMediaExtractionException(Resource source,
+              MediaExtractionException exception) {
             exceptionContainer[0] = exception;
           }
 
@@ -123,8 +128,13 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
 
           @Override
           public void afterCompletingFile(Resource source) {
+            try {
+              source.close();
+            } catch (IOException e) {
+              LOGGER.warn("", e);
+            }
           }
-        }).get(0);
+        });
 
     // Check for errors
     if (exceptionContainer[0] instanceof MediaExtractionException) {
@@ -136,7 +146,10 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
     }
 
     // Return result.
-    return result;
+    if (results.size() != 1) {
+      throw new IllegalStateException("Unexpected result size!");
+    }
+    return results.get(0);
   }
 
   // TODO triggering callback with null status means that the status is OK.

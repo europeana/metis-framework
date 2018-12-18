@@ -24,7 +24,7 @@ public class Resource extends TemporaryFile implements DownloadedResource {
    * @throws IOException In case the temporary file could not be created.
    */
   public Resource(RdfResourceEntry rdfResourceEntry, String mimeType) throws IOException {
-    super(rdfResourceEntry.getResourceUrl(), "media_resources", "media", null);
+    super(rdfResourceEntry.getResourceUrl(), "media_resource_", null);
     this.mimeType = mimeType;
     this.urlTypes = new HashSet<>(rdfResourceEntry.getUrlTypes());
   }
