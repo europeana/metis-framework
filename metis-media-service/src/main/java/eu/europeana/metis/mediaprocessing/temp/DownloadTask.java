@@ -3,7 +3,7 @@ package eu.europeana.metis.mediaprocessing.temp;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaservice.MediaProcessor;
+import eu.europeana.metis.mediaprocessing.extraction.MediaProcessor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -7,7 +7,7 @@ import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
-import eu.europeana.metis.mediaservice.MediaProcessor;
+import eu.europeana.metis.mediaprocessing.extraction.MediaProcessor;
 import java.io.Closeable;
 import java.io.File;
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ public class TemporaryMediaService implements Closeable {
 
   private final MediaProcessor mediaProcessor;
 
-  public TemporaryMediaService() throws MediaProcessorException {
-    mediaProcessor = new MediaProcessor();
+  public TemporaryMediaService(int commandIOThreadPoolSize) throws MediaProcessorException {
+    mediaProcessor = new MediaProcessor(commandIOThreadPoolSize);
   }
 
   // This method is probably thread-safe.

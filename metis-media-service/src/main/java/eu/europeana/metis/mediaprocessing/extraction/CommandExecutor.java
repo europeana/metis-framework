@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaservice;
+package eu.europeana.metis.mediaprocessing.extraction;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,10 +16,12 @@ import org.slf4j.LoggerFactory;
 class CommandExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
-  private static final int NUMBER_OF_THREADS_IN_POOL = 2;
 
-  private ExecutorService commandIOThreadPool = Executors.newFixedThreadPool(
-      NUMBER_OF_THREADS_IN_POOL);
+  private final ExecutorService commandIOThreadPool;
+
+  CommandExecutor(int commandIOThreadPoolSize) {
+    this.commandIOThreadPool = Executors.newFixedThreadPool(commandIOThreadPoolSize);
+  }
 
   List<String> runCommand(List<String> command, boolean mergeError) throws IOException {
     return runCommand(command, mergeError, null);

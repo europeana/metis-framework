@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaservice;
+package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
@@ -37,8 +37,8 @@ public class MediaProcessor implements Closeable {
     this.textProcessor = new TextProcessor(thumbnailGenerator);
   }
 
-  public MediaProcessor() throws MediaProcessorException {
-    this(new CommandExecutor());
+  public MediaProcessor(int commandIOThreadPoolSize) throws MediaProcessorException {
+    this(new CommandExecutor(commandIOThreadPoolSize));
   }
 
   /**
