@@ -100,10 +100,9 @@ public class TestMediaProcessor {
 					"-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
 					"(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
 					"-thumbnail", "400x", "-write", thumbs[1].getPath(),
-					"-colorspace", "sRGB", "-dither", "Riemersma",
-                    "-format", "\n%c", "histogram:info:", "-remap", 
-					ThumbnailGenerator.getColormapFile().getPath()),
-					command);
+					"-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
+					ThumbnailGenerator.getColormapFile().toString(),
+					"-format", "\n%c", "histogram:info:"), command);
 			FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
 			FileUtils.writeByteArrayToFile(thumbs[1], new byte[] { 0 });
 			return lines("image1-magick-output1.txt");
@@ -191,10 +190,9 @@ public class TestMediaProcessor {
                     "-background", "white", "-alpha", "remove",
                     "(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
                     "-thumbnail", "400x", "-write", thumbs[1].getPath(),
-                    "-colorspace", "sRGB", "-dither", "Riemersma",
-                    "-format", "\n%c", "histogram:info:", "-remap", 
-                    ThumbnailGenerator.getColormapFile().getPath()),
-                    command);
+                    "-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
+										ThumbnailGenerator.getColormapFile().toString(),
+                    "-format", "\n%c", "histogram:info:"), command);
             FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
             FileUtils.writeByteArrayToFile(thumbs[1], new byte[] { 0 });
             return lines("pdf1-magick-output1.txt");

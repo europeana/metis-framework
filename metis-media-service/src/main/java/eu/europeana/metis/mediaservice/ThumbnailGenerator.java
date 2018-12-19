@@ -7,12 +7,12 @@ import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -23,7 +23,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -49,33 +48,43 @@ class ThumbnailGenerator {
 
   private static String magickCmd;
 
-  private static final File colormapFile;
-
-  static {
-    File foundColormapFile;
-    try (InputStream is =
-        Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
-      foundColormapFile = File.createTempFile("colormap", ".png");
-      foundColormapFile.deleteOnExit();
-      try (OutputStream out = Files.newOutputStream(foundColormapFile.toPath())) {
-        IOUtils.copy(is, out);
-      }
-    } catch (IOException e) {
-      foundColormapFile = null;
-      LOGGER.warn("Could not load color map file: {}. No remapping will take place.",
-          "colormap.png", e);
-    }
-    colormapFile = foundColormapFile;
-  }
+  private static Path colormapFile;
 
   private final CommandExecutor commandExecutor;
 
   ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaProcessorException {
     this.commandExecutor = commandExecutor;
-    init(commandExecutor);
+    initImageMagick(commandExecutor);
+    initColorMap();
   }
 
-  private static synchronized void init(CommandExecutor commandExecutor) throws MediaProcessorException {
+  private static synchronized void initColorMap() throws MediaProcessorException {
+
+    // If we already found the color map, we don't need to do this
+    if (colormapFile != null) {
+      return;
+    }
+
+    // Copy the color map file to the temp directory for use during this session.
+    final Path colormapTempFile;
+    try (InputStream colorMapInputStream =
+        Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
+      colormapTempFile = Files.createTempFile("colormap", ".png");
+      Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
+    } catch (IOException e) {
+      LOGGER.warn("Could not load color map file: {}.", "colormap.png", e);
+      throw new MediaProcessorException("Could not load color map file.", e);
+    }
+
+    // Make sure that the temporary file is removed when we're done with it.
+    colormapTempFile.toFile().deleteOnExit();
+
+    // So everything went well. We set this as the new color map file.
+    colormapFile = colormapTempFile;
+  }
+
+  private static synchronized void initImageMagick(CommandExecutor commandExecutor)
+      throws MediaProcessorException {
 
     // If we already found the command, we don't need to do this.
     if (magickCmd != null) {
@@ -174,11 +183,8 @@ class ThumbnailGenerator {
         command.add(")");
       }
     }
-    command.addAll(Arrays.asList("-colorspace", "sRGB", "-dither", "Riemersma", "-format", "\n%c",
-        "histogram:info:"));
-    if (colormapFile != null) {
-      command.addAll(Arrays.asList("-remap", colormapFile.getPath()));
-    }
+    command.addAll(Arrays.asList("-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
+        colormapFile.toString(), "-format", "\n%c", "histogram:info:"));
 
     final List<String> results;
     try {
@@ -255,7 +261,7 @@ class ThumbnailGenerator {
     magickCmd = magick;
   }
 
-  static File getColormapFile() {
+  static Path getColormapFile() {
     return colormapFile;
   }
 }

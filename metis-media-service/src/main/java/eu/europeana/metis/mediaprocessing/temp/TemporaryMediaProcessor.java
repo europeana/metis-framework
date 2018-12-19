@@ -173,6 +173,7 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
 
   @Override
   public void close() {
+    super.close();
     linkCheckTask.close();
     downloadTask.close();
   }
