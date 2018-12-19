@@ -35,7 +35,7 @@ class AudioVideoProcessor {
       return;
     }
     try {
-      String output = String.join("", ce.runCommand(Arrays.asList("ffprobe"), true));
+      String output = String.join("", ce.execute(Arrays.asList("ffprobe"), true));
       if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
         throw new RuntimeException("ffprobe 2.x/3.x not found");
       }
@@ -59,7 +59,7 @@ class AudioVideoProcessor {
         contents == null ? url : contents.getPath());
     List<String> resultLines;
     try {
-      resultLines = ce.runCommand(command, false);
+      resultLines = ce.execute(command, false);
     } catch (IOException e) {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
     }

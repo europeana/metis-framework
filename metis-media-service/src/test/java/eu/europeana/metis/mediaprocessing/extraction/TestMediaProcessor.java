@@ -14,10 +14,6 @@ import static org.mockito.Mockito.when;
 import eu.europeana.metis.mediaprocessing.RdfConverterFactory;
 import eu.europeana.metis.mediaprocessing.RdfDeserializer;
 import eu.europeana.metis.mediaprocessing.RdfSerializer;
-import eu.europeana.metis.mediaprocessing.extraction.AudioVideoProcessor;
-import eu.europeana.metis.mediaprocessing.extraction.CommandExecutor;
-import eu.europeana.metis.mediaprocessing.extraction.MediaProcessor;
-import eu.europeana.metis.mediaprocessing.extraction.ThumbnailGenerator;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
@@ -110,7 +106,7 @@ public class TestMediaProcessor {
 			FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
 			FileUtils.writeByteArrayToFile(thumbs[1], new byte[] { 0 });
 			return lines("image1-magick-output1.txt");
-		}).when(commandExecutor).runCommand(any(), eq(false));
+		}).when(commandExecutor).execute(any(), eq(false));
 		
 		doReturn("image/jpeg").when(tika).detect(file);
 
@@ -143,7 +139,7 @@ public class TestMediaProcessor {
 		
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
 				"-show_format", "-show_streams", "-hide_banner", url);
-		when(commandExecutor.runCommand(command, false)).thenReturn(lines("audio1-ffprobe-output1.txt"));
+		when(commandExecutor.execute(command, false)).thenReturn(lines("audio1-ffprobe-output1.txt"));
 		
 		when(tika.detect(any(URL.class))).thenReturn("audio/mpeg");
 
@@ -164,7 +160,7 @@ public class TestMediaProcessor {
 		
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
 				"-show_format", "-show_streams", "-hide_banner", url);
-		when(commandExecutor.runCommand(command, false)).thenReturn(lines("video1-ffprobe-outptu1.txt"));
+		when(commandExecutor.execute(command, false)).thenReturn(lines("video1-ffprobe-outptu1.txt"));
 		
 		when(tika.detect(any(URL.class))).thenReturn("video/mp4");
 
@@ -200,7 +196,7 @@ public class TestMediaProcessor {
             FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
             FileUtils.writeByteArrayToFile(thumbs[1], new byte[] { 0 });
             return lines("pdf1-magick-output1.txt");
-        }).when(commandExecutor).runCommand(any(), eq(false));
+        }).when(commandExecutor).execute(any(), eq(false));
 
 		when(tika.detect(contents)).thenReturn("application/pdf");
 

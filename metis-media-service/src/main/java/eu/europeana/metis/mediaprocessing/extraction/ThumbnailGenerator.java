@@ -94,7 +94,7 @@ class ThumbnailGenerator {
     // Try the 'magick' command for ImageMagick 7.
     try {
       final List<String> lines =
-          commandExecutor.runCommand(Arrays.asList("magick", "-version"), true);
+          commandExecutor.execute(Arrays.asList("magick", "-version"), true);
       if (String.join("", lines).startsWith("Version: ImageMagick 7")) {
         magickCmd = "magick";
         LOGGER.info("Found ImageMagic 7. Command: {}", magickCmd);
@@ -111,7 +111,7 @@ class ThumbnailGenerator {
     List<String> paths;
     try {
       paths =
-          commandExecutor.runCommand(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
+          commandExecutor.execute(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
     } catch (IOException e) {
       LOGGER.warn("Could not find ImageMagick 6 due to following problem.", e);
       paths = Collections.emptyList();
@@ -119,7 +119,7 @@ class ThumbnailGenerator {
     for (String path : paths) {
       try {
         final List<String> lines =
-            commandExecutor.runCommand(Arrays.asList(path, "-version"), true);
+            commandExecutor.execute(Arrays.asList(path, "-version"), true);
         if (String.join("", lines).startsWith("Version: ImageMagick 6")) {
           magickCmd = path;
           LOGGER.info("Found ImageMagic 6. Command: {}", magickCmd);
@@ -188,7 +188,7 @@ class ThumbnailGenerator {
 
     final List<String> results;
     try {
-      results = commandExecutor.runCommand(command, false);
+      results = commandExecutor.execute(command, false);
     } catch (IOException e) {
       throw new MediaExtractionException("Could not analyze content and generate thumbnails.", e);
     }
