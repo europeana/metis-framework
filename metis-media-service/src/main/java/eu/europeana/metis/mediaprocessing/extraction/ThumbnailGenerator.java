@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
@@ -100,7 +101,7 @@ class ThumbnailGenerator {
         LOGGER.info("Found ImageMagic 7. Command: {}", magickCmd);
         return;
       }
-    } catch (IOException e) {
+    } catch (CommandExecutionException e) {
       LOGGER.info("Could not find ImageMagick 7 because of: {}.", e.getMessage());
       LOGGER.debug("Could not find ImageMagick 7 due to following problem.", e);
     }
@@ -112,7 +113,7 @@ class ThumbnailGenerator {
     try {
       paths =
           commandExecutor.execute(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
-    } catch (IOException e) {
+    } catch (CommandExecutionException e) {
       LOGGER.warn("Could not find ImageMagick 6 due to following problem.", e);
       paths = Collections.emptyList();
     }
@@ -125,7 +126,7 @@ class ThumbnailGenerator {
           LOGGER.info("Found ImageMagic 6. Command: {}", magickCmd);
           return;
         }
-      } catch (IOException e) {
+      } catch (CommandExecutionException e) {
         LOGGER.info("Could not find ImageMagick 6 at path {} because of: {}.", path,
             e.getMessage());
         LOGGER.debug("Could not find ImageMagick 6 at path {} due to following problem.", path, e);
@@ -189,7 +190,7 @@ class ThumbnailGenerator {
     final List<String> results;
     try {
       results = commandExecutor.execute(command, false);
-    } catch (IOException e) {
+    } catch (CommandExecutionException e) {
       throw new MediaExtractionException("Could not analyze content and generate thumbnails.", e);
     }
 

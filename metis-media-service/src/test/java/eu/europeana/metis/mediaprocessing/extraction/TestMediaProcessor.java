@@ -14,6 +14,7 @@ import static org.mockito.Mockito.when;
 import eu.europeana.metis.mediaprocessing.RdfConverterFactory;
 import eu.europeana.metis.mediaprocessing.RdfDeserializer;
 import eu.europeana.metis.mediaprocessing.RdfSerializer;
+import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
@@ -84,7 +85,7 @@ public class TestMediaProcessor {
 
 	@Test
 	public void processImage()
-      throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException {
+			throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException, CommandExecutionException {
 		String url = "http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg";
 		String md5 = "6d27e9f0dcdbf33afc07d952cc5c2833";
 		File file = spy(new File(tempDir, "media8313043870723212585.tmp"));
@@ -134,7 +135,7 @@ public class TestMediaProcessor {
 
 	@Test
   public void processAudio()
-      throws IOException, RdfDeserializationException, MediaExtractionException, RdfSerializationException {
+      throws IOException, RdfDeserializationException, MediaExtractionException, RdfSerializationException, CommandExecutionException {
 		String url = "http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3";
 		
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
@@ -155,7 +156,7 @@ public class TestMediaProcessor {
 
 	@Test
 	public void processVideo()
-      throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException {
+      throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException, CommandExecutionException {
 		String url = "http://maccinema.com/info/filmovi/dae.mp4";
 		
 		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
@@ -176,7 +177,7 @@ public class TestMediaProcessor {
 
 	@Test
 	public void processPdf()
-      throws IOException, URISyntaxException, MediaExtractionException, RdfSerializationException, RdfDeserializationException {
+      throws IOException, URISyntaxException, MediaExtractionException, RdfSerializationException, RdfDeserializationException, CommandExecutionException {
 		File contents = new File(getClass().getClassLoader().getResource("pdf1.pdf").toURI());
 
         File[] thumbs = new File[2];

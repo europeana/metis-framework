@@ -22,8 +22,8 @@ public class TemporaryMediaService implements Closeable {
 
   private final MediaProcessor mediaProcessor;
 
-  public TemporaryMediaService(int commandIOThreadPoolSize) throws MediaProcessorException {
-    mediaProcessor = new MediaProcessor(commandIOThreadPoolSize);
+  public TemporaryMediaService(int commandThreadPoolSize) throws MediaProcessorException {
+    mediaProcessor = new MediaProcessor(commandThreadPoolSize);
   }
 
   // This method is probably thread-safe.

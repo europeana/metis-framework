@@ -1,14 +1,16 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
@@ -25,24 +27,25 @@ class AudioVideoProcessor {
 
   private CommandExecutor ce;
 
-  AudioVideoProcessor(CommandExecutor ce) {
+  AudioVideoProcessor(CommandExecutor ce) throws MediaProcessorException {
     this.ce = ce;
     init(ce);
   }
 
-  private static synchronized void init(CommandExecutor ce) {
+  private static synchronized void init(CommandExecutor ce) throws MediaProcessorException {
     if (ffprobeCmd != null) {
       return;
     }
+    final String output;
     try {
-      String output = String.join("", ce.execute(Arrays.asList("ffprobe"), true));
-      if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
-        throw new RuntimeException("ffprobe 2.x/3.x not found");
-      }
-      ffprobeCmd = "ffprobe";
-    } catch (IOException e) {
-      throw new RuntimeException("Error while looking for ffprobe tools", e);
+      output = String.join("", ce.execute(Collections.singletonList("ffprobe"), true));
+    } catch (CommandExecutionException e) {
+      throw new MediaProcessorException("Error while looking for ffprobe tools", e);
     }
+    if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
+      throw new MediaProcessorException("ffprobe 2.x/3.x not found");
+    }
+    ffprobeCmd = "ffprobe";
   }
 
   ResourceExtractionResult processAudioVideo(String url, Set<UrlType> urlTypes,
@@ -60,7 +63,7 @@ class AudioVideoProcessor {
     List<String> resultLines;
     try {
       resultLines = ce.execute(command, false);
-    } catch (IOException e) {
+    } catch (CommandExecutionException e) {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
     }
 

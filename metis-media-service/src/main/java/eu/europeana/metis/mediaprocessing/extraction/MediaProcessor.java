@@ -37,8 +37,8 @@ public class MediaProcessor implements Closeable {
     this.textProcessor = new TextProcessor(thumbnailGenerator);
   }
 
-  public MediaProcessor(int commandIOThreadPoolSize) throws MediaProcessorException {
-    this(new CommandExecutor(commandIOThreadPoolSize));
+  public MediaProcessor(int commandThreadPoolSize) throws MediaProcessorException {
+    this(new CommandExecutor(commandThreadPoolSize));
   }
 
   /**

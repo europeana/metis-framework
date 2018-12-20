@@ -17,13 +17,13 @@ public class MediaProcessorFactory {
   /**
    * The default value of the maximum number of processes that can do command-line IO at any given
    * time. This maximum will hold for individual processors created using this class, not in total.
-   * It's currently set to {@value MediaProcessorFactory#DEFAULT_COMMAND_IO_THREAD_POOL_SIZE}.
+   * It's currently set to {@value MediaProcessorFactory#DEFAULT_COMMAND_THREAD_POOL_SIZE}.
    */
-  public static final int DEFAULT_COMMAND_IO_THREAD_POOL_SIZE = 2;
+  public static final int DEFAULT_COMMAND_THREAD_POOL_SIZE = 2;
 
   private int maxRedirectCount = DEFAULT_MAX_REDIRECT_COUNT;
 
-  private int commandIOThreadPoolSize = DEFAULT_COMMAND_IO_THREAD_POOL_SIZE;
+  private int commandThreadPoolSize = DEFAULT_COMMAND_THREAD_POOL_SIZE;
 
   /**
    * Set the maximum number of times we will follow a redirect. The default (when not calling this
@@ -38,13 +38,13 @@ public class MediaProcessorFactory {
   /**
    * Set the maximum number of processes that can do command-line IO at any given time (per
    * processor created using this factory). The default (when not calling this method or calling it
-   * with a negative number) is {@link MediaProcessorFactory#DEFAULT_COMMAND_IO_THREAD_POOL_SIZE}.
+   * with a negative number) is {@link MediaProcessorFactory#DEFAULT_COMMAND_THREAD_POOL_SIZE}.
    *
-   * @param commandIOThreadPoolSize The maximum number of processes that can do command-line IO.
+   * @param commandThreadPoolSize The maximum number of processes that can do command-line IO.
    */
-  public void setCommandIOThreadPoolSize(int commandIOThreadPoolSize) {
-    this.commandIOThreadPoolSize =
-        commandIOThreadPoolSize < 1 ? DEFAULT_COMMAND_IO_THREAD_POOL_SIZE : commandIOThreadPoolSize;
+  public void setCommandIOThreadPoolSize(int commandThreadPoolSize) {
+    this.commandThreadPoolSize =
+        commandThreadPoolSize < 1 ? DEFAULT_COMMAND_THREAD_POOL_SIZE : commandThreadPoolSize;
   }
 
   /**
@@ -54,7 +54,7 @@ public class MediaProcessorFactory {
    * @throws MediaProcessorException In case there was a problem creating the media extractor.
    */
   public MediaExtractor createMediaExtractor() throws MediaProcessorException {
-    return new TemporaryMediaProcessor(maxRedirectCount, commandIOThreadPoolSize);
+    return new TemporaryMediaProcessor(maxRedirectCount, commandThreadPoolSize);
   }
 
   /**
@@ -64,6 +64,6 @@ public class MediaProcessorFactory {
    * @throws MediaProcessorException In case there was a problem creating the link checker.
    */
   public LinkChecker createLinkChecker() throws MediaProcessorException {
-    return new TemporaryMediaProcessor(maxRedirectCount, commandIOThreadPoolSize);
+    return new TemporaryMediaProcessor(maxRedirectCount, commandThreadPoolSize);
   }
 }

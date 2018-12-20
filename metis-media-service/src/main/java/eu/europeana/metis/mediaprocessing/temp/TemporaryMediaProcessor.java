@@ -54,9 +54,9 @@ public class TemporaryMediaProcessor extends TemporaryMediaService implements Me
     }
   }
 
-  public TemporaryMediaProcessor(int redirectCount, int commandIOThreadPoolSize)
+  public TemporaryMediaProcessor(int redirectCount, int commandThreadPoolSize)
       throws MediaProcessorException {
-    super(commandIOThreadPoolSize);
+    super(commandThreadPoolSize);
     linkCheckTask =
         new LinkCheckTask(redirectCount, GENERAL_CONNECTION_LIMIT, CONNECTION_LIMIT_PER_SOURCE);
     downloadTask =
