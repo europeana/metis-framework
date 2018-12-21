@@ -163,6 +163,7 @@ class ThumbnailGenerator {
       throw new MediaExtractionException("File content is null");
     }
 
+    // TODO make sure that they are always removed if there is an exception!
     final List<ThumbnailImpl> thumbs = prepareThumbnailFiles(url);
     int sizes = THUMB_SIZE.length;
 

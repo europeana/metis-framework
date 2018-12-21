@@ -129,6 +129,7 @@ public class MediaProcessor implements Closeable {
    * @return if true, resources of given type don't need to be downloaded before processing.
    */
   public static boolean supportsLinkProcessing(String mimeType) {
+    // TODO also when type is UNKNOWN! So that we don't download something that is not processable.
     final ResourceType resourceType = getResourceType(mimeType);
     return ResourceType.AUDIO == resourceType || ResourceType.VIDEO == resourceType;
   }
