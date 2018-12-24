@@ -17,8 +17,8 @@ public abstract class HttpClient<R> implements Closeable {
 
   private final CloseableHttpClient client;
 
-  public HttpClient(int followRedirects, int connectTimeout, int socketTimeout) {
-    final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(followRedirects)
+  public HttpClient(int maxRedirectCount, int connectTimeout, int socketTimeout) {
+    final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount)
         .setConnectTimeout(connectTimeout).setSocketTimeout(socketTimeout).build();
     client = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();
   }

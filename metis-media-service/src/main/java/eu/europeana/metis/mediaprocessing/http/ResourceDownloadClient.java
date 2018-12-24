@@ -1,22 +1,25 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-import eu.europeana.metis.mediaprocessing.extraction.MediaProcessor;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
-import eu.europeana.metis.mediaprocessing.model.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.Resource;
 
 public class ResourceDownloadClient extends HttpClient<Resource> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceDownloadClient.class);
 
-  public ResourceDownloadClient(int followRedirects) {
-    super(followRedirects, 10000, 20000);
+  private final Predicate<String> shouldDownloadMimetype;
+
+  public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype) {
+    super(maxRedirectCount, 10000, 20000);
+    this.shouldDownloadMimetype = shouldDownloadMimetype;
   }
 
   @Override
@@ -28,7 +31,7 @@ public class ResourceDownloadClient extends HttpClient<Resource> {
 
     // In case we are expecting a file, we download it.
     try {
-      if (!MediaProcessor.supportsLinkProcessing(mimeType)) {
+      if (shouldDownloadMimetype.test(mimeType)) {
         LOGGER.debug("Starting download of resource: {}", resourceEntry.getResourceUrl());
         downloadResource(resourceEntry.getResourceUrl(), resource, contentRetriever);
         LOGGER.debug("Finished download of resource: {}", resourceEntry.getResourceUrl());

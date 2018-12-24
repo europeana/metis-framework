@@ -1,7 +1,8 @@
 package eu.europeana.metis.mediaprocessing;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
-import eu.europeana.metis.mediaprocessing.temp.TemporaryMediaProcessor;
+import eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl;
+import eu.europeana.metis.mediaprocessing.linkchecking.LinkCheckerImpl;
 
 /**
  * This factory creates objects for media extraction and link checking.
@@ -54,7 +55,7 @@ public class MediaProcessorFactory {
    * @throws MediaProcessorException In case there was a problem creating the media extractor.
    */
   public MediaExtractor createMediaExtractor() throws MediaProcessorException {
-    return new TemporaryMediaProcessor(maxRedirectCount, commandThreadPoolSize);
+    return new MediaExtractorImpl(maxRedirectCount, commandThreadPoolSize);
   }
 
   /**
@@ -64,6 +65,6 @@ public class MediaProcessorFactory {
    * @throws MediaProcessorException In case there was a problem creating the link checker.
    */
   public LinkChecker createLinkChecker() throws MediaProcessorException {
-    return new TemporaryMediaProcessor(maxRedirectCount, commandThreadPoolSize);
+    return new LinkCheckerImpl(maxRedirectCount);
   }
 }

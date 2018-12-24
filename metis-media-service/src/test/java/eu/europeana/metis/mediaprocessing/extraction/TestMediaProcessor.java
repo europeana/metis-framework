@@ -21,6 +21,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
 import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
+import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
@@ -42,9 +43,10 @@ import org.junit.jupiter.api.Test;
 public class TestMediaProcessor {
 	
 	private static File tempDir = new File(System.getProperty("java.io.tmpdir"));
-	private static Tika tika;
 	private static CommandExecutor commandExecutor;
-	private static MediaProcessor testedProcessor;
+    private static ResourceDownloadClient resourceDownloadClient; 
+    private static Tika tika;
+	private static MediaExtractorImpl testedExtractor;
 
 	private static RdfDeserializer deserializer;
 	private static RdfSerializer serializer;
@@ -55,10 +57,10 @@ public class TestMediaProcessor {
 		serializer = new RdfConverterFactory().createRdfSerializer();
 		AudioVideoProcessor.setCommand("ffprobe");
 		ThumbnailGenerator.setCommand("magick");
-		tika = mock(Tika.class);
-		MediaProcessor.setTika(tika);
 		commandExecutor = mock(CommandExecutor.class);
-		testedProcessor = new MediaProcessor(commandExecutor);
+		resourceDownloadClient = mock(ResourceDownloadClient.class);
+        tika = mock(Tika.class);
+		testedExtractor = new MediaExtractorImpl(resourceDownloadClient, commandExecutor, tika);
 	}
 	
 	@AfterEach
@@ -67,8 +69,8 @@ public class TestMediaProcessor {
 	}
 	
 	@AfterAll
-	public static void cleanUp() {
-		testedProcessor.close();
+	public static void cleanUp() throws IOException {
+		testedExtractor.close();
 	}
 	
 	private List<String> lines(String resource) throws IOException {
@@ -113,7 +115,7 @@ public class TestMediaProcessor {
 
 		final ResourceExtractionResult result;
 		try {
-			result = testedProcessor.processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "image/jpeg", file);
+			result = testedExtractor.processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "image/jpeg", file);
 		} finally {
 			assertTrue(thumbs[0].delete());
 			assertTrue(thumbs[1].delete());
@@ -144,7 +146,7 @@ public class TestMediaProcessor {
 		
 		when(tika.detect(any(URL.class))).thenReturn("audio/mpeg");
 
-    final ResourceExtractionResult result = testedProcessor
+    final ResourceExtractionResult result = testedExtractor
         .processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "audio/mpeg", null);
 
     final EnrichedRdf rdf = rdf("audio1-input.xml");
@@ -165,7 +167,7 @@ public class TestMediaProcessor {
 		
 		when(tika.detect(any(URL.class))).thenReturn("video/mp4");
 
-    final ResourceExtractionResult result = testedProcessor
+    final ResourceExtractionResult result = testedExtractor
         .processResource(url, Collections.singleton(UrlType.IS_SHOWN_BY), "audio/mpeg", null);
 
     final EnrichedRdf rdf = rdf("video1-input.xml");
@@ -201,7 +203,7 @@ public class TestMediaProcessor {
 
 		when(tika.detect(contents)).thenReturn("application/pdf");
 
-    final ResourceExtractionResult result = testedProcessor
+    final ResourceExtractionResult result = testedExtractor
         .processResource("http://sample.edu.eu/data/sample1.pdf",
             Collections.singleton(UrlType.IS_SHOWN_BY), "application/pdf", contents);
 
