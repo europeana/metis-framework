@@ -20,7 +20,7 @@ import org.jibx.runtime.JiBXException;
 /**
  * This object implements RDF deserialization functionality.
  */
-public class RdfDeserializerImpl extends RdfConverter implements RdfDeserializer {
+class RdfDeserializerImpl extends RdfConverter implements RdfDeserializer {
 
   private final IUnmarshallingContext context;
 
@@ -29,8 +29,7 @@ public class RdfDeserializerImpl extends RdfConverter implements RdfDeserializer
    *
    * @throws RdfConverterException In case something went wrong constructing this object.
    */
-  // TODO should become package-private.
-  public RdfDeserializerImpl() throws RdfConverterException {
+  RdfDeserializerImpl() throws RdfConverterException {
     try {
       context = getBindingFactory().createUnmarshallingContext();
     } catch (JiBXException e) {
@@ -75,12 +74,8 @@ public class RdfDeserializerImpl extends RdfConverter implements RdfDeserializer
 
   private List<RdfResourceEntry> getResourceEntries(InputStream inputStream,
       Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
-    return getResourceEntries(deserialize(inputStream), allowedUrlTypes);
-  }
-
-  // TODO should be integrated with private method above and become private.
-  public List<RdfResourceEntry> getResourceEntries(RDF rdf, Set<UrlType> allowedUrlTypes) {
-    return new RdfWrapper(rdf).getResourceUrls(allowedUrlTypes).entrySet().stream()
+    final RdfWrapper rdf = new RdfWrapper(deserialize(inputStream));
+    return rdf.getResourceUrls(allowedUrlTypes).entrySet().stream()
         .map(entry -> new RdfResourceEntry(entry.getKey(), entry.getValue()))
         .collect(Collectors.toList());
   }
@@ -100,8 +95,7 @@ public class RdfDeserializerImpl extends RdfConverter implements RdfDeserializer
     R deserialize(InputStream inputStream) throws RdfDeserializationException;
   }
 
-  // TODO should become private method.
-  public RDF deserialize(InputStream inputStream) throws RdfDeserializationException {
+  private RDF deserialize(InputStream inputStream) throws RdfDeserializationException {
     try {
       return (RDF) context.unmarshalDocument(inputStream, "UTF-8");
     } catch (JiBXException e) {

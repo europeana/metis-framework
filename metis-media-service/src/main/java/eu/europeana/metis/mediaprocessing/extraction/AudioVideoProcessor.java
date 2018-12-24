@@ -121,6 +121,7 @@ class AudioVideoProcessor {
     return null;
   }
 
+  // TODO Don't use this: use proper mocking.
   static void setCommand(String ffprobe) {
     AudioVideoProcessor.ffprobeCmd = ffprobe;
   }

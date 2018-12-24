@@ -14,8 +14,4 @@ public class MediaProcessorException extends Exception {
   public MediaProcessorException(String message, Exception cause) {
     super(message, cause);
   }
-
-  public MediaProcessorException(Exception cause) {
-    super(cause);
-  }
 }

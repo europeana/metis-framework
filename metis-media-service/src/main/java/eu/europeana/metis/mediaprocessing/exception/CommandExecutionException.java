@@ -10,10 +10,6 @@ public class CommandExecutionException extends Exception {
    **/
   private static final long serialVersionUID = 456553694666317036L;
 
-  public CommandExecutionException(String s) {
-    super(s);
-  }
-
   public CommandExecutionException(String s, Throwable throwable) {
     super(s, throwable);
   }

@@ -259,10 +259,12 @@ class ThumbnailGenerator {
         }).collect(Collectors.toList());
   }
 
+  // TODO don't use this! Use proper mocking!
   static synchronized void setCommand(String magick) {
     magickCmd = magick;
   }
 
+  // TODO don't use this! Use proper mocking!
   static Path getColormapFile() {
     return colormapFile;
   }

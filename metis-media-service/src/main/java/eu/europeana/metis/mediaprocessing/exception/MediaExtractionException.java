@@ -9,8 +9,4 @@ public class MediaExtractionException extends Exception {
   public MediaExtractionException(String message, Throwable throwable) {
     super(message, throwable);
   }
-
-  public MediaExtractionException(Throwable throwable) {
-    super(throwable);
-  }
 }

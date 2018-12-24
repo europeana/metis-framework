@@ -22,10 +22,6 @@ import eu.europeana.metis.mediaprocessing.model.UrlType;
  */
 public class MediaExtractorImpl implements MediaExtractor, Closeable {
 
-  enum ResourceType {
-    AUDIO, VIDEO, TEXT, IMAGE, UNKNOWN
-  }
-
   private static final Logger LOGGER = LoggerFactory.getLogger(MediaExtractorImpl.class);
 
   private final ResourceDownloadClient resourceDownloadClient;
@@ -49,7 +45,7 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
 
   public MediaExtractorImpl(int redirectCount, int commandThreadPoolSize)
       throws MediaProcessorException {
-    this(new ResourceDownloadClient(redirectCount, MediaExtractorImpl::shouldDownloadMimetype),
+    this(new ResourceDownloadClient(redirectCount, ResourceType::shouldDownloadMimetype),
         new CommandExecutor(commandThreadPoolSize), new Tika());
   }
 
@@ -81,6 +77,7 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
    * @param contents downloaded file, can be {@code null} for mime types accepted by
    *        {@link #supportsLinkProcessing(String)}
    */
+  // TODO only not private because of unit tests: should fix tests.
   ResourceExtractionResult processResource(String url, Set<UrlType> urlTypes,
       String providedMimeType, File contents) throws MediaExtractionException {
 
@@ -99,14 +96,14 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
       LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", mimeType,
           providedMimeType, url);
     }
-    if (contents == null && shouldDownloadMimetype(mimeType)) {
+    if (contents == null && ResourceType.shouldDownloadMimetype(mimeType)) {
       throw new MediaExtractionException(
-          "File content is null and mimeType does not support link processing");
+          "File content is not downloaded and mimeType does not support processing without a downloaded file.");
     }
 
     // Process the resource.
     final ResourceExtractionResult result;
-    switch (getResourceType(mimeType)) {
+    switch (ResourceType.getResourceType(mimeType)) {
       case TEXT:
         result = textProcessor.processText(url, urlTypes, mimeType, contents);
         break;
@@ -126,35 +123,6 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
     return result;
   }
 
-  private static ResourceType getResourceType(String mimeType) {
-    final ResourceType result;
-    if (mimeType.startsWith("image/")) {
-      result = ResourceType.IMAGE;
-    } else if (mimeType.startsWith("audio/")) {
-      result = ResourceType.AUDIO;
-    } else if (mimeType.startsWith("video/")) {
-      result = ResourceType.VIDEO;
-    } else if (isText(mimeType)) {
-      result = ResourceType.TEXT;
-    } else {
-      result = ResourceType.UNKNOWN;
-    }
-    return result;
-  }
-
-  private static boolean isText(String mimeType) {
-    switch (mimeType) {
-      case "application/xml":
-      case "application/rtf":
-      case "application/epub":
-      case "application/pdf":
-      case "application/xhtml+xml":
-        return true;
-      default:
-        return mimeType.startsWith("text/");
-    }
-  }
-
   @Override
   public void close() throws IOException {
     try {
@@ -162,16 +130,5 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
     } finally {
       resourceDownloadClient.close();
     }
-  }
-
-  /**
-   * @return true if and only if resources of the given type need to be downloaded before
-   *         processing.
-   */
-  // TODO where should this method be?? In ResourceType?
-  private static boolean shouldDownloadMimetype(String mimeType) {
-    // TODO also when type is UNKNOWN! So that we don't download something that is not processable.
-    final ResourceType resourceType = getResourceType(mimeType);
-    return ResourceType.AUDIO != resourceType && ResourceType.VIDEO != resourceType;
   }
 }
