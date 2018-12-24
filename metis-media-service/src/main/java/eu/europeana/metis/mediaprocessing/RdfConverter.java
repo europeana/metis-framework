@@ -13,8 +13,10 @@ class RdfConverter {
 
   private static IBindingFactory rdfBindingFactory;
 
-  RdfConverter() {
-  }
+  /**
+   * Constructor.
+   */
+  RdfConverter() {}
 
   /**
    * @return A binding factory.

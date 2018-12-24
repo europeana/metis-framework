@@ -22,8 +22,7 @@ public class RdfSerializerImpl extends RdfConverter implements RdfSerializer {
    *
    * @throws RdfConverterException In case something went wrong constructing this object.
    */
-  // TODO should become package-private.
-  public RdfSerializerImpl() throws RdfConverterException {
+  RdfSerializerImpl() throws RdfConverterException {
     try {
       context = getBindingFactory().createMarshallingContext();
     } catch (JiBXException e) {
@@ -31,8 +30,7 @@ public class RdfSerializerImpl extends RdfConverter implements RdfSerializer {
     }
   }
 
-  // TODO should become private.
-  public byte[] serialize(RDF rdf) throws RdfSerializationException {
+  private byte[] serialize(RDF rdf) throws RdfSerializationException {
     try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
       serialize(rdf, outputStream);
       return outputStream.toByteArray();

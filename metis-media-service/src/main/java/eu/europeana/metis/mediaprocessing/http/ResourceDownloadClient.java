@@ -11,12 +11,21 @@ import org.slf4j.LoggerFactory;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 
+/**
+ * An {@link HttpClient} that obtains the actual content of a resource link.
+ */
 public class ResourceDownloadClient extends HttpClient<Resource> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceDownloadClient.class);
 
   private final Predicate<String> shouldDownloadMimetype;
 
+  /**
+   * 
+   * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
+   * @param shouldDownloadMimetype A predicate that, based on the mime type, can decide whether or
+   *        not to proceed with the download.
+   */
   public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype) {
     super(maxRedirectCount, 10000, 20000);
     this.shouldDownloadMimetype = shouldDownloadMimetype;

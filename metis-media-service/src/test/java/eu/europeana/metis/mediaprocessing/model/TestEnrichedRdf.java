@@ -4,14 +4,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import eu.europeana.metis.mediaprocessing.RdfSerializerImpl;
-import eu.europeana.metis.mediaprocessing.RdfConverterFactory;
-import eu.europeana.metis.mediaprocessing.RdfDeserializer;
-import eu.europeana.metis.mediaprocessing.RdfSerializer;
-import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
-import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
-import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,12 +15,21 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.jibx.runtime.BindingDirectory;
+import org.jibx.runtime.IMarshallingContext;
+import org.jibx.runtime.JiBXException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.metis.mediaprocessing.RdfConverterFactory;
+import eu.europeana.metis.mediaprocessing.RdfDeserializer;
+import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
+import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
+import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
 
 public class TestEnrichedRdf {
 
@@ -38,12 +39,10 @@ public class TestEnrichedRdf {
   public static final String EXAMPLE_URL = "http://example.com";
 
   private static RdfDeserializer deserializer;
-  private static RdfSerializer serializer;
 
   @BeforeAll
   public static void setUp() throws ParserConfigurationException, RdfConverterException {
     deserializer = new RdfConverterFactory().createRdfDeserializer();
-    serializer = new RdfConverterFactory().createRdfSerializer();
     dBuilder = dbFactory.newDocumentBuilder();
   }
 
@@ -95,7 +94,15 @@ public class TestEnrichedRdf {
 
   private String getPreviewContent(EnrichedRdfImpl edm)
       throws ParserConfigurationException, SAXException, IOException, RdfSerializationException {
-    byte[] source = ((RdfSerializerImpl) serializer).serialize(edm.getRdf());
+    
+    final byte[] source;
+    try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+      final IMarshallingContext context =  BindingDirectory.getFactory(RDF.class).createMarshallingContext();
+      context.marshalDocument(edm.getRdf(), "UTF-8", null, outputStream);
+      source = outputStream.toByteArray();
+    } catch (IOException | JiBXException e) {
+      throw new RdfSerializationException("Problem with serializing RDF.", e);
+    }
 
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

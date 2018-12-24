@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.exception;
 
 /**
- * This exception represents a problem that occurred during the execution of a command.
+ * This exception represents a problem that occurred during the execution of a system command.
  */
 public class CommandExecutionException extends Exception {
 
@@ -10,7 +10,13 @@ public class CommandExecutionException extends Exception {
    **/
   private static final long serialVersionUID = 456553694666317036L;
 
-  public CommandExecutionException(String s, Throwable throwable) {
-    super(s, throwable);
+  /**
+   * Constructor.
+   * 
+   * @param message The exception message.
+   * @param cause The cause.
+   */
+  public CommandExecutionException(String message, Throwable cause) {
+    super(message, cause);
   }
 }
