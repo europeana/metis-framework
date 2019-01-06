@@ -143,7 +143,7 @@ public class TestMediaProcessor {
       throws IOException, RdfDeserializationException, MediaExtractionException, RdfSerializationException, CommandExecutionException {
 		String url = "http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3";
 		
-		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
+		List<String> command = Arrays.asList(AUDIO_VIDEO_COMMAND, "-v", "quiet", "-print_format", "json",
 				"-show_format", "-show_streams", "-hide_banner", url);
 		when(commandExecutor.execute(command, false)).thenReturn(lines("audio1-ffprobe-output1.txt"));
 		
@@ -164,7 +164,7 @@ public class TestMediaProcessor {
       throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException, CommandExecutionException {
 		String url = "http://maccinema.com/info/filmovi/dae.mp4";
 		
-		List<String> command = Arrays.asList("ffprobe", "-v", "quiet", "-print_format", "json",
+		List<String> command = Arrays.asList(AUDIO_VIDEO_COMMAND, "-v", "quiet", "-print_format", "json",
 				"-show_format", "-show_streams", "-hide_banner", url);
 		when(commandExecutor.execute(command, false)).thenReturn(lines("video1-ffprobe-outptu1.txt"));
 		
