@@ -33,14 +33,19 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
   private final TextProcessor textProcessor;
 
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient, CommandExecutor commandExecutor,
-      Tika tika) throws MediaProcessorException {
+      Tika tika, ThumbnailGenerator thumbnailGenerator, AudioVideoProcessor audioVideoProcessor) {
     this.resourceDownloadClient = resourceDownloadClient;
     this.commandExecutor = commandExecutor;
     this.tika = tika;
-    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(commandExecutor);
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
-    this.audioVideoProcessor = new AudioVideoProcessor(commandExecutor);
+    this.audioVideoProcessor = audioVideoProcessor;
     this.textProcessor = new TextProcessor(thumbnailGenerator);
+  }
+
+  private MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
+      CommandExecutor commandExecutor, Tika tika) throws MediaProcessorException {
+    this(resourceDownloadClient, commandExecutor, tika, new ThumbnailGenerator(commandExecutor),
+        new AudioVideoProcessor(commandExecutor));
   }
 
   public MediaExtractorImpl(int redirectCount, int commandThreadPoolSize)

@@ -22,8 +22,8 @@ class ImageProcessor {
       File content) throws MediaExtractionException {
 
     // Create the thumbnails for this image.
-    final Pair<ImageMetadata, List<? extends Thumbnail>> thumbnailsAndMetadata =
-        thumbnailGenerator.generateThumbnails(url, mimeType, content);
+    final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata =
+        thumbnailGenerator.generateThumbnails(url, ResourceType.IMAGE, content);
 
     // Set the metadata in the web resource.
     final ImageResourceMetadata resourceMetadata;

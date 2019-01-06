@@ -41,6 +41,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class TestMediaProcessor {
+  
+    private static final String THUMBNAIL_COMMAND = "thumbnail command";
+    private static final String AUDIO_VIDEO_COMMAND = "audio/video command";
+    private static final String COLOR_MAP_FILE = "color map file";
 	
 	private static File tempDir = new File(System.getProperty("java.io.tmpdir"));
 	private static CommandExecutor commandExecutor;
@@ -55,12 +59,12 @@ public class TestMediaProcessor {
 	public static void setUp() throws MediaProcessorException, RdfConverterException {
 		deserializer = new RdfConverterFactory().createRdfDeserializer();
 		serializer = new RdfConverterFactory().createRdfSerializer();
-		AudioVideoProcessor.setCommand("ffprobe");
-		ThumbnailGenerator.setCommand("magick");
 		commandExecutor = mock(CommandExecutor.class);
 		resourceDownloadClient = mock(ResourceDownloadClient.class);
         tika = mock(Tika.class);
-		testedExtractor = new MediaExtractorImpl(resourceDownloadClient, commandExecutor, tika);
+        final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(commandExecutor, THUMBNAIL_COMMAND, COLOR_MAP_FILE);
+        final AudioVideoProcessor audioVideoProcessor = new AudioVideoProcessor(commandExecutor, AUDIO_VIDEO_COMMAND);
+        testedExtractor = new MediaExtractorImpl(resourceDownloadClient, commandExecutor, tika, thumbnailGenerator, audioVideoProcessor);
 	}
 	
 	@AfterEach
@@ -99,12 +103,11 @@ public class TestMediaProcessor {
 			List<String> command = i.getArgument(0);
 			thumbs[0] = new File(command.get(11));
 			thumbs[1] = new File(command.get(17));
-			assertEquals(Arrays.asList("magick", file.getPath() + "[0]",
+			assertEquals(Arrays.asList(THUMBNAIL_COMMAND, file.getPath() + "[0]",
 					"-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
 					"(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
 					"-thumbnail", "400x", "-write", thumbs[1].getPath(),
-					"-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
-					ThumbnailGenerator.getColormapFile().toString(),
+					"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
 					"-format", "\n%c", "histogram:info:"), command);
 			FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
 			FileUtils.writeByteArrayToFile(thumbs[1], new byte[] { 0 });
@@ -188,13 +191,12 @@ public class TestMediaProcessor {
             List<String> command = i.getArgument(0);
             thumbs[0] = new File(command.get(15));
             thumbs[1] = new File(command.get(21));
-            assertEquals(Arrays.asList("magick", contents.getPath() + "[0]",
+            assertEquals(Arrays.asList(THUMBNAIL_COMMAND, contents.getPath() + "[0]",
                     "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
                     "-background", "white", "-alpha", "remove",
                     "(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
                     "-thumbnail", "400x", "-write", thumbs[1].getPath(),
-                    "-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
-										ThumbnailGenerator.getColormapFile().toString(),
+                    "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
                     "-format", "\n%c", "histogram:info:"), command);
             FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
             FileUtils.writeByteArrayToFile(thumbs[1], new byte[] { 0 });

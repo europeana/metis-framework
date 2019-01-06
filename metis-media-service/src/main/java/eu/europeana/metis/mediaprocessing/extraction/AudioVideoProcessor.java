@@ -23,19 +23,28 @@ class AudioVideoProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AudioVideoProcessor.class);
 
-  private static String ffprobeCmd;
+  private static String globalFfprobeCommand;
 
-  private CommandExecutor ce;
-
-  AudioVideoProcessor(CommandExecutor ce) throws MediaProcessorException {
-    this.ce = ce;
-    init(ce);
+  private final CommandExecutor commandExecutor;
+  private final String ffprobeCommand;
+  
+  AudioVideoProcessor(CommandExecutor commandExecutor) throws MediaProcessorException {
+    this(commandExecutor, initFfprobe(commandExecutor));
   }
 
-  private static synchronized void init(CommandExecutor ce) throws MediaProcessorException {
-    if (ffprobeCmd != null) {
-      return;
+  AudioVideoProcessor(CommandExecutor commandExecutor, String ffprobeCommand) {
+    this.commandExecutor = commandExecutor;
+    this.ffprobeCommand = ffprobeCommand;
+  }
+
+  private static synchronized String initFfprobe(CommandExecutor ce) throws MediaProcessorException {
+    
+    // If it is already set, we are done.
+    if (globalFfprobeCommand != null) {
+      return globalFfprobeCommand;
     }
+    
+    // Check whether ffprobe is installed.
     final String output;
     try {
       output = String.join("", ce.execute(Collections.singletonList("ffprobe"), true));
@@ -45,7 +54,10 @@ class AudioVideoProcessor {
     if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
       throw new MediaProcessorException("ffprobe 2.x/3.x not found");
     }
-    ffprobeCmd = "ffprobe";
+    
+    // So it is installed and available.
+    globalFfprobeCommand = "ffprobe";
+    return globalFfprobeCommand;
   }
 
   ResourceExtractionResult processAudioVideo(String url, Set<UrlType> urlTypes,
@@ -57,21 +69,22 @@ class AudioVideoProcessor {
     }
 
     // Execute command
-    List<String> command = Arrays.asList(ffprobeCmd, "-v", "quiet", "-print_format", "json",
+    List<String> command = Arrays.asList(ffprobeCommand, "-v", "quiet", "-print_format", "json",
         "-show_format", "-show_streams", "-hide_banner",
         contents == null ? url : contents.getPath());
     List<String> resultLines;
     try {
-      resultLines = ce.execute(command, false);
+      resultLines = commandExecutor.execute(command, false);
     } catch (CommandExecutionException e) {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
     }
 
+    // Parse command result.
     final AbstractResourceMetadata metadata;
     try {
 
       // Analyze command result
-      JSONObject result = new JSONObject(new JSONTokener(String.join("", resultLines)));
+      final JSONObject result = new JSONObject(new JSONTokener(String.join("", resultLines)));
       if (contents == null && result.length() == 0) {
         throw new MediaExtractionException("Probably download failed");
       }
@@ -81,6 +94,8 @@ class AudioVideoProcessor {
 
       // Process the video or audio stream
       if (videoStream != null) {
+        
+        // We have a video file
         final double duration = videoStream.getDouble("duration");
         final int bitRate = videoStream.getInt("bit_rate");
         final int width = videoStream.getInt("width");
@@ -92,6 +107,8 @@ class AudioVideoProcessor {
         metadata = new VideoResourceMetadata(mimeType, url, fileSize, duration, bitRate, width,
             height, codecName, frameRate);
       } else if (audioStream != null) {
+        
+        // We have an audio file
         final double duration = audioStream.getDouble("duration");
         final int bitRate = audioStream.getInt("bit_rate");
         final int channels = audioStream.getInt("channels");
@@ -113,16 +130,11 @@ class AudioVideoProcessor {
 
   private JSONObject findStream(JSONObject data, String codecType) {
     for (Object streamObject : data.getJSONArray("streams")) {
-      JSONObject stream = (JSONObject) streamObject;
+      final JSONObject stream = (JSONObject) streamObject;
       if (codecType.equals(stream.getString("codec_type"))) {
         return stream;
       }
     }
     return null;
-  }
-
-  // TODO Don't use this: use proper mocking.
-  static void setCommand(String ffprobe) {
-    AudioVideoProcessor.ffprobeCmd = ffprobe;
   }
 }

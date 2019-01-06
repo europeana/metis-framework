@@ -47,23 +47,44 @@ class ThumbnailGenerator {
   private static final int COMMAND_RESULT_COLORS_LINE = 3;
   private static final int COMMAND_RESULT_MAX_COLORS = 6;
 
-  private static String magickCmd;
-
-  private static Path colormapFile;
-
+  private static String globalMagickCmd;
+  private static Path globalColormapFile;
+  
+  private final String magickCmd;
+  private final String colormapFile;
+  
   private final CommandExecutor commandExecutor;
 
+  /**
+   * Constructor. This is a wrapper for
+   * {@link ThumbnailGenerator#ThumbnailGenerator(CommandExecutor, String, Path)} where the
+   * properties are detected. It is advisable to use this constructor for non-testing purposes.
+   * 
+   * @param commandExecutor A command executor.
+   * @throws MediaProcessorException In case the properties could not be initialized.
+   */
   ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaProcessorException {
-    this.commandExecutor = commandExecutor;
-    initImageMagick(commandExecutor);
-    initColorMap();
+    this(commandExecutor, initImageMagick(commandExecutor), initColorMap().toString());
   }
 
-  private static synchronized void initColorMap() throws MediaProcessorException {
+  /**
+   * Constructor.
+   * 
+   * @param commandExecutor A command executor.
+   * @param magickCommand The magick command (how to trigger imageMagick).
+   * @param colorMapFile The location of the color map file.
+   */
+  ThumbnailGenerator(CommandExecutor commandExecutor, String magickCommand, String colorMapFile) {
+    this.commandExecutor = commandExecutor;
+    this.magickCmd = magickCommand;
+    this.colormapFile = colorMapFile;
+  }
+
+  private static synchronized Path initColorMap() throws MediaProcessorException {
 
     // If we already found the color map, we don't need to do this
-    if (colormapFile != null) {
-      return;
+    if (globalColormapFile != null) {
+      return globalColormapFile;
     }
 
     // Copy the color map file to the temp directory for use during this session.
@@ -81,15 +102,16 @@ class ThumbnailGenerator {
     colormapTempFile.toFile().deleteOnExit();
 
     // So everything went well. We set this as the new color map file.
-    colormapFile = colormapTempFile;
+    globalColormapFile = colormapTempFile;
+    return globalColormapFile;
   }
 
-  private static synchronized void initImageMagick(CommandExecutor commandExecutor)
+  private static synchronized String initImageMagick(CommandExecutor commandExecutor)
       throws MediaProcessorException {
 
     // If we already found the command, we don't need to do this.
-    if (magickCmd != null) {
-      return;
+    if (globalMagickCmd != null) {
+      return globalMagickCmd;
     }
 
     // Try the 'magick' command for ImageMagick 7.
@@ -97,16 +119,16 @@ class ThumbnailGenerator {
       final List<String> lines =
           commandExecutor.execute(Arrays.asList("magick", "-version"), true);
       if (String.join("", lines).startsWith("Version: ImageMagick 7")) {
-        magickCmd = "magick";
-        LOGGER.info("Found ImageMagic 7. Command: {}", magickCmd);
-        return;
+        globalMagickCmd = "magick";
+        LOGGER.info("Found ImageMagic 7. Command: {}", globalMagickCmd);
+        return globalMagickCmd;
       }
     } catch (CommandExecutionException e) {
       LOGGER.info("Could not find ImageMagick 7 because of: {}.", e.getMessage());
       LOGGER.debug("Could not find ImageMagick 7 due to following problem.", e);
     }
 
-    // Try the 'convert' command for ImageMagick 6.
+    // Try the 'convert' command for ImageMagick 6: find locations of the executable.
     final boolean isWindows =
         System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win");
     List<String> paths;
@@ -117,14 +139,16 @@ class ThumbnailGenerator {
       LOGGER.warn("Could not find ImageMagick 6 due to following problem.", e);
       paths = Collections.emptyList();
     }
+    
+    // Try the 'convert' command for ImageMagick 6: try executables to find the right one.
     for (String path : paths) {
       try {
         final List<String> lines =
             commandExecutor.execute(Arrays.asList(path, "-version"), true);
         if (String.join("", lines).startsWith("Version: ImageMagick 6")) {
-          magickCmd = path;
-          LOGGER.info("Found ImageMagic 6. Command: {}", magickCmd);
-          return;
+          globalMagickCmd = path;
+          LOGGER.info("Found ImageMagic 6. Command: {}", globalMagickCmd);
+          return globalMagickCmd;
         }
       } catch (CommandExecutionException e) {
         LOGGER.info("Could not find ImageMagick 6 at path {} because of: {}.", path,
@@ -142,34 +166,54 @@ class ThumbnailGenerator {
    * This is the main method of this class. It generates thumbnails for the given content.
    * 
    * @param url The URL of the content. Used for determining the name of the output files.
-   * @param mimeType The mime type of the content.
-   * @param content The content for which to generate thumbnails.
+   * @param resourceType The resource type of the content.
+   * @param content The resource content for which to generate thumbnails.
    * @return The metadata of the image as gathered during processing.
    * @throws MediaExtractionException In case a problem occurred.
    */
-  public Pair<ImageMetadata, List<? extends Thumbnail>> generateThumbnails(String url,
-      String mimeType, File content) throws MediaExtractionException {
-    try {
-      return generateThumbnailsInternal(url, mimeType, content);
-    } catch (RuntimeException e) {
-      throw new MediaExtractionException("Unexpected error during procesing", e);
-    }
-  }
-
-  private Pair<ImageMetadata, List<? extends Thumbnail>> generateThumbnailsInternal(String url,
-      String mimeType, File content) throws MediaExtractionException {
-
+  public Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url,
+      ResourceType resourceType, File content) throws MediaExtractionException {
+    
+    // Sanity checking
     if (content == null) {
       throw new MediaExtractionException("File content is null");
     }
+    
+    // Obtain the thumbnail files (they are still empty)
+    final List<ThumbnailImpl> thumbnails = prepareThumbnailFiles(url);
 
-    // TODO make sure that they are always removed if there is an exception!
-    final List<ThumbnailImpl> thumbs = prepareThumbnailFiles(url);
-    int sizes = THUMB_SIZE.length;
+    // Load the thumbnail files: in case of problems, make sure to delete them.
+    final ImageMetadata result;
+    try {
+      result = generateThumbnailsInternal(thumbnails, resourceType, content);
+    } catch (RuntimeException e) {
+      closeAllThumbnailsSilently(thumbnails);
+      throw new MediaExtractionException("Unexpected error during procesing", e);
+    } catch (MediaExtractionException e) {
+      closeAllThumbnailsSilently(thumbnails);
+      throw e;
+    }
 
-    ArrayList<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
+    // Done.
+    return new ImmutablePair<>(result, new ArrayList<>(thumbnails));
+  }
+  
+  private static void closeAllThumbnailsSilently(List<? extends Thumbnail> thumbnails) {
+    thumbnails.forEach(thumbnail -> {
+      try {
+        thumbnail.close();
+      } catch (IOException e) {
+        LOGGER.warn("Could not close thumbnail: {}", thumbnail.getResourceUrl(), e);
+      }
+    });
+  }
+
+  private List<String> createThumbnailGenerationCommand(List<ThumbnailImpl> thumbs, ResourceType resourceType, File content){
+    final int sizes = THUMB_SIZE.length;
+    final List<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
         "-format", COMMAND_RESULT_FORMAT, "-write", "info:"));
-    if ("application/pdf".equals(mimeType)) {
+    if (resourceType == ResourceType.TEXT) {
+      // in case of text (i.e. PDFs): specify white background
       command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
     }
     for (int i = 0; i < sizes; i++) {
@@ -186,11 +230,17 @@ class ThumbnailGenerator {
       }
     }
     command.addAll(Arrays.asList("-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
-        colormapFile.toString(), "-format", "\n%c", "histogram:info:"));
+        colormapFile, "-format", "\n%c", "histogram:info:"));
+    return command;
+  }
+  
+  private ImageMetadata generateThumbnailsInternal(List<ThumbnailImpl> thumbs, ResourceType resourceType,
+      File content) throws MediaExtractionException {
 
+    // Generate the thumbnails and read image properties.
     final List<String> results;
     try {
-      results = commandExecutor.execute(command, false);
+      results = commandExecutor.execute(createThumbnailGenerationCommand(thumbs, resourceType, content), false);
     } catch (CommandExecutionException e) {
       throw new MediaExtractionException("Could not analyze content and generate thumbnails.", e);
     }
@@ -209,13 +259,18 @@ class ThumbnailGenerator {
       throw new MediaExtractionException("File seems to be corrupted", e);
     }
 
-    for (int i = 0; i < sizes; i++) {
+    // Check the thumbnails.
+    for (int i = 0; i < THUMB_SIZE.length; i++) {
       try {
-        Path thumb = thumbs.get(i).getContentPath();
+        
+        // Check that the thumbnails are not empty.
+        final Path thumb = thumbs.get(i).getContentPath();
         if (Files.size(thumb) == 0) {
           throw new MediaExtractionException("Thumbnail file empty: " + thumb);
         }
-        if (!"application/pdf".equals(mimeType) && result.getWidth() < THUMB_SIZE[i]) {
+        
+        // In case of actual images: don't make a thumbnail larger than the original.
+        if (resourceType == ResourceType.IMAGE && result.getWidth() < THUMB_SIZE[i]) {
           Files.copy(content.toPath(), thumb);
         }
       } catch (IOException e) {
@@ -223,7 +278,8 @@ class ThumbnailGenerator {
       }
     }
 
-    return new ImmutablePair<>(result, thumbs);
+    // Done.
+    return result;
   }
 
   private List<ThumbnailImpl> prepareThumbnailFiles(String url) throws MediaExtractionException {
@@ -257,15 +313,5 @@ class ThumbnailGenerator {
           m.find();
           return m.group(1); // throw exception if not found
         }).collect(Collectors.toList());
-  }
-
-  // TODO don't use this! Use proper mocking!
-  static synchronized void setCommand(String magick) {
-    magickCmd = magick;
-  }
-
-  // TODO don't use this! Use proper mocking!
-  static Path getColormapFile() {
-    return colormapFile;
   }
 }

@@ -43,9 +43,9 @@ class TextProcessor {
     }
 
     // Create thumbnails in case of PDF file.
-    final List<? extends Thumbnail> thumbnails;
+    final List<Thumbnail> thumbnails;
     if ("application/pdf".equals(mimeType)) {
-      thumbnails = thumbnailGenerator.generateThumbnails(url, mimeType, content).getRight();
+      thumbnails = thumbnailGenerator.generateThumbnails(url, ResourceType.TEXT, content).getRight();
     } else {
       thumbnails = null;
     }
