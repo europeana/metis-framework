@@ -79,8 +79,7 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
     return targetNames.stream().filter(name -> name.contains("-LARGE")).findAny().orElse(null);
   }
 
-  // TODO should become private: do unit testing some other way.
-  void updateEdmPreview(String url) {
+  private void updateEdmPreview(String url) {
     if (getRdf().getEuropeanaAggregationList() == null || getRdf().getEuropeanaAggregationList()
         .isEmpty()) {
       return;

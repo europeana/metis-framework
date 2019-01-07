@@ -3,7 +3,6 @@ package eu.europeana.metis.mediaprocessing.extraction;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;

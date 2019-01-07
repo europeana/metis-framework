@@ -9,10 +9,14 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 
 /**
  * This class performs link checking.
+ * 
+ * Note: previously it was implemented by first trying a HEAD request, and only if that fails do we
+ * do a GET. The thinking was probably that a HEAD is typically faster than a GET. However, since we
+ * are not downloading any content it may be more accurate (at the cost of probably only a small
+ * delay) to do the GET request right away: this is after all what the link represents. In case we
+ * wish to introduce the HEAD request again, the solution would be to maintain two versions of the
+ * LinkCheckClient: one that does HEAD requests, and one that does GET requests.
  */
-// TODO should we first try a HEAD request before a GET? Pro: it may be faster. Con: it is not
-// definitive as maybe the HEAD works but the GET doesn't. Solution: Maintain two LinkCheckClient
-// objects: one for HEAD requests and one for GET requests.
 public class LinkCheckerImpl implements LinkChecker, Closeable {
 
   private final LinkCheckClient linkCheckClient;
