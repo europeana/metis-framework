@@ -34,7 +34,7 @@ abstract class TemporaryFile implements ResourceFile {
     this.resourceUrl = resourceUrl;
   }
 
-  private boolean hasContent() {
+  boolean hasContent() {
     // Note: should use Files.exists instead when migrating away from Java 8.
     final boolean result = this.contentPath != null && this.contentPath.toFile().exists();
     if (!result) {

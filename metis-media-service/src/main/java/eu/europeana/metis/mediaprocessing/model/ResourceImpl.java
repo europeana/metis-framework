@@ -46,4 +46,9 @@ public class ResourceImpl extends TemporaryFile implements Resource {
   public URI getActualLocation() {
     return actualLocation;
   }
+  
+  @Override
+  public boolean hasContent() {
+    return super.hasContent();
+  }
 }

@@ -1,23 +1,22 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
-import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
-import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
-import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
-import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
-import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 
 /**
  * Implementation of {@link MediaProcessor} that is designed to handle resources of types
@@ -80,18 +79,17 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult process(String url, Set<UrlType> urlTypes, String mimeType,
-      File contents) throws MediaExtractionException {
+  public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
 
     // Sanity check
-    if (!UrlType.shouldExtractMetadata(urlTypes)) {
+    if (!UrlType.shouldExtractMetadata(resource.getUrlTypes())) {
       return null;
     }
 
     // Execute command
-    final List<String> command =
-        Arrays.asList(ffprobeCommand, "-v", "quiet", "-print_format", "json", "-show_format",
-            "-show_streams", "-hide_banner", contents == null ? url : contents.getPath());
+    final List<String> command = Arrays.asList(ffprobeCommand, "-v", "quiet", "-print_format",
+        "json", "-show_format", "-show_streams", "-hide_banner",
+        resource.hasContent() ? resource.getContentPath().toString() : resource.getResourceUrl());
     final List<String> resultLines;
     try {
       resultLines = commandExecutor.execute(command, false);
@@ -105,7 +103,7 @@ class AudioVideoProcessor implements MediaProcessor {
 
       // Analyze command result
       final JSONObject result = new JSONObject(new JSONTokener(String.join("", resultLines)));
-      if (contents == null && result.length() == 0) {
+      if (!resource.hasContent() && result.length() == 0) {
         throw new MediaExtractionException("Probably download failed");
       }
       final long fileSize = result.getJSONObject("format").getLong("size");
@@ -124,8 +122,8 @@ class AudioVideoProcessor implements MediaProcessor {
         final String[] frameRateParts = videoStream.getString("avg_frame_rate").split("/");
         final double frameRate =
             Double.parseDouble(frameRateParts[0]) / Double.parseDouble(frameRateParts[1]);
-        metadata = new VideoResourceMetadata(mimeType, url, fileSize, duration, bitRate, width,
-            height, codecName, frameRate);
+        metadata = new VideoResourceMetadata(resource.getMimeType(), resource.getResourceUrl(),
+            fileSize, duration, bitRate, width, height, codecName, frameRate);
       } else if (audioStream != null) {
 
         // We have an audio file
@@ -134,8 +132,8 @@ class AudioVideoProcessor implements MediaProcessor {
         final int channels = audioStream.getInt("channels");
         final int sampleRate = audioStream.getInt("sample_rate");
         final int sampleSize = audioStream.getInt("bits_per_sample");
-        metadata = new AudioResourceMetadata(mimeType, url, fileSize, duration, bitRate, channels,
-            sampleRate, sampleSize);
+        metadata = new AudioResourceMetadata(resource.getMimeType(), resource.getResourceUrl(),
+            fileSize, duration, bitRate, channels, sampleRate, sampleSize);
       } else {
         throw new MediaExtractionException("No media streams");
       }

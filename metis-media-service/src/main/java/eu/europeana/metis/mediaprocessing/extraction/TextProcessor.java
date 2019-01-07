@@ -1,23 +1,23 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.ImageRenderInfo;
 import com.itextpdf.text.pdf.parser.Matrix;
 import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
 
 /**
  * Implementation of {@link MediaProcessor} that is designed to handle resources of type
@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 class TextProcessor implements MediaProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TextProcessor.class);
-  
+
   private static final String PDF_MIME_TYPE = "application/pdf";
 
   private static final int DISPLAY_DPI = 72;
@@ -43,21 +43,21 @@ class TextProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult process(String url, Set<UrlType> urlTypes, String mimeType,
-      File content) throws MediaExtractionException {
+  public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
 
     // Sanity checks
-    if (!UrlType.shouldExtractMetadata(urlTypes)) {
+    if (!UrlType.shouldExtractMetadata(resource.getUrlTypes())) {
       return null;
     }
-    if (content == null) {
+    if (!resource.hasContent()) {
       throw new MediaExtractionException("File content is null");
     }
 
     // Create thumbnails in case of PDF file.
     final List<Thumbnail> thumbnails;
-    if (PDF_MIME_TYPE.equals(mimeType)) {
-      thumbnails = thumbnailGenerator.generateThumbnails(url, ResourceType.TEXT, content).getRight();
+    if (PDF_MIME_TYPE.equals(resource.getMimeType())) {
+      thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
+          ResourceType.TEXT, resource.getContentPath().toFile()).getRight();
     } else {
       thumbnails = null;
     }
@@ -65,21 +65,31 @@ class TextProcessor implements MediaProcessor {
     // Set the resource properties relating to content.
     final boolean containsText;
     final Integer resolution;
-    if (PDF_MIME_TYPE.equals(mimeType)) {
-      final PdfPage characteristicPage = findCharacteristicPdfPage(content);
+    if (PDF_MIME_TYPE.equals(resource.getMimeType())) {
+      final PdfPage characteristicPage =
+          findCharacteristicPdfPage(resource.getContentPath().toFile());
       containsText = characteristicPage.containsText;
       resolution = characteristicPage.resolution;
     } else {
-      containsText = mimeType.startsWith("text/") || "application/xhtml+xml".equals(mimeType);
+      containsText = resource.getMimeType().startsWith("text/")
+          || "application/xhtml+xml".equals(resource.getMimeType());
       resolution = null;
     }
 
+    // Get the size of the resource
+    final long contentSize;
+    try {
+      contentSize = resource.getContentSize();
+    } catch (IOException e) {
+      throw new MediaExtractionException(
+          "Could not determine the size of the resource " + resource.getResourceUrl(), e);
+    }
     // Done
-    final TextResourceMetadata metadata = new TextResourceMetadata(mimeType, url, content.length(),
-        containsText, resolution, thumbnails);
+    final TextResourceMetadata metadata = new TextResourceMetadata(resource.getMimeType(),
+        resource.getResourceUrl(), contentSize, containsText, resolution, thumbnails);
     return new ResourceExtractionResult(metadata, thumbnails);
   }
-  
+
   private static PdfPage findCharacteristicPdfPage(File content) throws MediaExtractionException {
     boolean containsText = false;
     Integer resolution = null;
@@ -107,7 +117,7 @@ class TextProcessor implements MediaProcessor {
   }
 
   private static class PdfPage {
-    
+
     final boolean containsText;
     final Integer resolution;
 

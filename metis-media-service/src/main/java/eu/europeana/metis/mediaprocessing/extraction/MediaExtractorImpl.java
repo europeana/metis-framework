@@ -1,10 +1,8 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import java.io.Closeable;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Set;
 import org.apache.tika.Tika;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +13,6 @@ import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
 
 /**
  * Extracts technical metadata and generates thumbnails for web resources.
@@ -76,42 +73,41 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
 
     // Download resource and then perform media extraction on it.
     try (Resource resource = resourceDownloadClient.download(resourceEntry)) {
-      final File file =
-          resource.getContentPath() == null ? null : resource.getContentPath().toFile();
-      return processResource(resource.getResourceUrl(), resource.getUrlTypes(),
-          resource.getMimeType(), file);
+      return processResource(resource);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
           "Problem while processing " + resourceEntry.getResourceUrl(), e);
     }
   }
 
-  private ResourceExtractionResult processResource(String url, Set<UrlType> urlTypes,
-      String providedMimeType, File contents) throws MediaExtractionException {
+  private ResourceExtractionResult processResource(Resource resource)
+      throws MediaExtractionException {
 
     // Obtain the mime type
-    final String mimeType;
+    final String detectedMimeType;
     try {
-      mimeType = contents == null ? tika.detect(URI.create(url).toURL()) : tika.detect(contents);
+      detectedMimeType = resource.hasContent() ? tika.detect(resource.getContentPath())
+          : tika.detect(URI.create(resource.getResourceUrl()).toURL());
     } catch (IOException e) {
       throw new MediaExtractionException("Mime type checking error", e);
     }
 
     // Verify the mime type. Permit the application/xhtml+xml detected from tika to be virtually
     // equal to the text/html detected from the providedMimeType.
-    if (!("application/xhtml+xml".equals(mimeType) && "text/html".equals(providedMimeType))
-        && !mimeType.equals(providedMimeType)) {
-      LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", mimeType,
-          providedMimeType, url);
+    final String providedMimeType = resource.getMimeType();
+    if (!("application/xhtml+xml".equals(detectedMimeType) && "text/html".equals(providedMimeType))
+        && !detectedMimeType.equals(providedMimeType)) {
+      LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", detectedMimeType,
+          providedMimeType, resource.getResourceUrl());
     }
-    if (contents == null && ResourceType.shouldDownloadMimetype(mimeType)) {
+    if (!resource.hasContent() && ResourceType.shouldDownloadMimetype(providedMimeType)) {
       throw new MediaExtractionException(
           "File content is not downloaded and mimeType does not support processing without a downloaded file.");
     }
 
     // Choose the right media processor.
     final MediaProcessor processor;
-    switch (ResourceType.getResourceType(mimeType)) {
+    switch (ResourceType.getResourceType(detectedMimeType)) {
       case TEXT:
         processor = textProcessor;
         break;
@@ -128,7 +124,7 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
     }
 
     // Process the resource.
-    return processor != null ? processor.process(url, urlTypes, mimeType, contents) : null;
+    return processor != null ? processor.process(resource) : null;
   }
 
   @Override

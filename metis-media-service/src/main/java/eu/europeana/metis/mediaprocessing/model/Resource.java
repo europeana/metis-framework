@@ -17,5 +17,7 @@ public interface Resource extends ResourceFile {
   URI getActualLocation();
   
   Path getContentPath();
+  
+  boolean hasContent();
 
 }
