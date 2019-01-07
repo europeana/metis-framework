@@ -10,15 +10,25 @@ import java.util.List;
 import java.util.Set;
 import org.apache.commons.lang3.tuple.Pair;
 
-class ImageProcessor {
+/**
+ * Implementation of {@link MediaProcessor} that is designed to handle resources of type
+ * {@link ResourceType#IMAGE}.
+ */
+class ImageProcessor implements MediaProcessor {
 
   private final ThumbnailGenerator thumbnailGenerator;
 
+  /**
+   * Constructor.
+   * 
+   * @param thumbnailGenerator An object that can generate thumbnails.
+   */
   ImageProcessor(ThumbnailGenerator thumbnailGenerator) {
     this.thumbnailGenerator = thumbnailGenerator;
   }
 
-  ResourceExtractionResult processImage(String url, Set<UrlType> urlTypes, String mimeType,
+  @Override
+  public ResourceExtractionResult process(String url, Set<UrlType> urlTypes, String mimeType,
       File content) throws MediaExtractionException {
 
     // Create the thumbnails for this image.
@@ -30,9 +40,8 @@ class ImageProcessor {
     if (UrlType.shouldExtractMetadata(urlTypes)) {
       final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
       resourceMetadata = new ImageResourceMetadata(mimeType, url, content.length(),
-          imageMetadata.getWidth(), imageMetadata.getHeight(),
-          imageMetadata.getColorSpace(), imageMetadata.getDominantColors(),
-          thumbnailsAndMetadata.getRight());
+          imageMetadata.getWidth(), imageMetadata.getHeight(), imageMetadata.getColorSpace(),
+          imageMetadata.getDominantColors(), thumbnailsAndMetadata.getRight());
     } else {
       resourceMetadata = null;
     }

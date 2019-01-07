@@ -1,10 +1,35 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+/**
+ * Instances of this enum represent resource classes.
+ */
 enum ResourceType {
-  
-  AUDIO, VIDEO, TEXT, IMAGE, UNKNOWN;
 
+  /** Audio resources **/
+  AUDIO,
+
+  /** Video resources **/
+  VIDEO,
+
+  /** Text resources (including PDFs) **/
+  TEXT,
+
+  /** Graphical resources **/
+  IMAGE,
+
+  /** Resources that are not of any of the other kinds. **/
+  UNKNOWN;
+
+  /**
+   * Obtains the resource type of a given mime type.
+   * 
+   * @param mimeType The mime type.
+   * @return The resource type to which the mime type belongs.
+   */
   static ResourceType getResourceType(String mimeType) {
+    if (mimeType == null) {
+      return ResourceType.UNKNOWN;
+    }
     final ResourceType result;
     if (mimeType.startsWith("image/")) {
       result = ResourceType.IMAGE;
@@ -37,10 +62,8 @@ enum ResourceType {
    * @return true if and only if resources of the given type need to be downloaded before
    *         processing.
    */
-  // TODO where should this method be?? In ResourceType?
   static boolean shouldDownloadMimetype(String mimeType) {
-    // TODO also when type is UNKNOWN! So that we don't download something that is not processable.
     final ResourceType resourceType = getResourceType(mimeType);
-    return ResourceType.AUDIO != resourceType && ResourceType.VIDEO != resourceType;
+    return ResourceType.IMAGE == resourceType || ResourceType.TEXT == resourceType;
   }
 }

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 
 /**
  * An {@link HttpClient} that obtains the actual content of a resource link.
@@ -36,7 +37,7 @@ public class ResourceDownloadClient extends HttpClient<Resource> {
       ContentRetriever contentRetriever) throws IOException {
 
     // Create resource
-    final Resource resource = new Resource(resourceEntry, mimeType, actualUri);
+    final ResourceImpl resource = new ResourceImpl(resourceEntry, mimeType, actualUri);
 
     // In case we are expecting a file, we download it.
     try {
@@ -55,7 +56,7 @@ public class ResourceDownloadClient extends HttpClient<Resource> {
     return resource;
   }
 
-  private static void downloadResource(String resourceUrl, Resource resource,
+  private static void downloadResource(String resourceUrl, ResourceImpl resource,
       ContentRetriever contentRetriever) throws IOException {
     try (final InputStream inputStream = contentRetriever.getContent()) {
       Files.copy(inputStream, resource.getContentPath(), StandardCopyOption.REPLACE_EXISTING);

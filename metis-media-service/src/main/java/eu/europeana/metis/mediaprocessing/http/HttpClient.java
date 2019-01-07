@@ -36,14 +36,15 @@ abstract class HttpClient<R> implements Closeable {
   }
 
   /**
-   * This method resolves a resource link and returns the result.
+   * This method resolves a resource link and returns the result. Note: this method is not meant to
+   * be overridden/extended by subclasses.
    * 
    * @param resourceEntry The entry (resource link) to resolve.
    * @return The resulting/downloaded object.
    * @throws IOException In case a connection or other IO problem occurred (including an HTTP status
    *         other than 2xx).
    */
-  public final R download(RdfResourceEntry resourceEntry) throws IOException {
+  public R download(RdfResourceEntry resourceEntry) throws IOException {
 
     // Set up the connection.
     final HttpGet httpGet = new HttpGet(resourceEntry.getResourceUrl());

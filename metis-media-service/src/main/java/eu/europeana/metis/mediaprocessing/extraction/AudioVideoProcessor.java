@@ -19,7 +19,11 @@ import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class AudioVideoProcessor {
+/**
+ * Implementation of {@link MediaProcessor} that is designed to handle resources of types
+ * {@link ResourceType#AUDIO} and {@link ResourceType#VIDEO}.
+ */
+class AudioVideoProcessor implements MediaProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AudioVideoProcessor.class);
 
@@ -27,23 +31,38 @@ class AudioVideoProcessor {
 
   private final CommandExecutor commandExecutor;
   private final String ffprobeCommand;
-  
+
+  /**
+   * Constructor. This is a wrapper for
+   * {@link AudioVideoProcessor#AudioVideoProcessor(CommandExecutor, String)} where the property is
+   * detected. It is advisable to use this constructor for non-testing purposes.
+   * 
+   * @param commandExecutor A command executor.
+   * @throws MediaProcessorException In case the properties could not be initialized.
+   */
   AudioVideoProcessor(CommandExecutor commandExecutor) throws MediaProcessorException {
     this(commandExecutor, initFfprobe(commandExecutor));
   }
 
+  /**
+   * Constructor.
+   * 
+   * @param commandExecutor A command executor.
+   * @param ffprobeCommand The ffprobe command (how to trigger ffprobe).
+   */
   AudioVideoProcessor(CommandExecutor commandExecutor, String ffprobeCommand) {
     this.commandExecutor = commandExecutor;
     this.ffprobeCommand = ffprobeCommand;
   }
 
-  private static synchronized String initFfprobe(CommandExecutor ce) throws MediaProcessorException {
-    
+  private static synchronized String initFfprobe(CommandExecutor ce)
+      throws MediaProcessorException {
+
     // If it is already set, we are done.
     if (globalFfprobeCommand != null) {
       return globalFfprobeCommand;
     }
-    
+
     // Check whether ffprobe is installed.
     final String output;
     try {
@@ -54,14 +73,15 @@ class AudioVideoProcessor {
     if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
       throw new MediaProcessorException("ffprobe 2.x/3.x not found");
     }
-    
+
     // So it is installed and available.
     globalFfprobeCommand = "ffprobe";
     return globalFfprobeCommand;
   }
 
-  ResourceExtractionResult processAudioVideo(String url, Set<UrlType> urlTypes,
-      String mimeType, File contents) throws MediaExtractionException {
+  @Override
+  public ResourceExtractionResult process(String url, Set<UrlType> urlTypes, String mimeType,
+      File contents) throws MediaExtractionException {
 
     // Sanity check
     if (!UrlType.shouldExtractMetadata(urlTypes)) {
@@ -69,10 +89,10 @@ class AudioVideoProcessor {
     }
 
     // Execute command
-    List<String> command = Arrays.asList(ffprobeCommand, "-v", "quiet", "-print_format", "json",
-        "-show_format", "-show_streams", "-hide_banner",
-        contents == null ? url : contents.getPath());
-    List<String> resultLines;
+    final List<String> command =
+        Arrays.asList(ffprobeCommand, "-v", "quiet", "-print_format", "json", "-show_format",
+            "-show_streams", "-hide_banner", contents == null ? url : contents.getPath());
+    final List<String> resultLines;
     try {
       resultLines = commandExecutor.execute(command, false);
     } catch (CommandExecutionException e) {
@@ -94,7 +114,7 @@ class AudioVideoProcessor {
 
       // Process the video or audio stream
       if (videoStream != null) {
-        
+
         // We have a video file
         final double duration = videoStream.getDouble("duration");
         final int bitRate = videoStream.getInt("bit_rate");
@@ -107,7 +127,7 @@ class AudioVideoProcessor {
         metadata = new VideoResourceMetadata(mimeType, url, fileSize, duration, bitRate, width,
             height, codecName, frameRate);
       } else if (audioStream != null) {
-        
+
         // We have an audio file
         final double duration = audioStream.getDouble("duration");
         final int bitRate = audioStream.getInt("bit_rate");

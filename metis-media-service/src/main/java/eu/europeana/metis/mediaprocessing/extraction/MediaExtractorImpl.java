@@ -32,6 +32,15 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
   private final AudioVideoProcessor audioVideoProcessor;
   private final TextProcessor textProcessor;
 
+  /**
+   * Constructor meant for testing purposes.
+   * 
+   * @param resourceDownloadClient The download client for resources.
+   * @param commandExecutor A command executor.
+   * @param tika A tika instance.
+   * @param thumbnailGenerator A thumbnail generator.
+   * @param audioVideoProcessor An audio/video processor.
+   */
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient, CommandExecutor commandExecutor,
       Tika tika, ThumbnailGenerator thumbnailGenerator, AudioVideoProcessor audioVideoProcessor) {
     this.resourceDownloadClient = resourceDownloadClient;
@@ -48,6 +57,13 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
         new AudioVideoProcessor(commandExecutor));
   }
 
+  /**
+   * Constructor for non-testing purposes.
+   * 
+   * @param redirectCount The maximum number of times we will follow a redirect.
+   * @param commandThreadPoolSize The maximum number of processes that can do command-line IO.
+   * @throws MediaProcessorException In case something went wrong while initializing the extractor.
+   */
   public MediaExtractorImpl(int redirectCount, int commandThreadPoolSize)
       throws MediaProcessorException {
     this(new ResourceDownloadClient(redirectCount, ResourceType::shouldDownloadMimetype),
@@ -59,31 +75,18 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
       throws MediaExtractionException {
 
     // Download resource and then perform media extraction on it.
-    final ResourceExtractionResult result;
     try (Resource resource = resourceDownloadClient.download(resourceEntry)) {
       final File file =
           resource.getContentPath() == null ? null : resource.getContentPath().toFile();
-      result = processResource(resource.getResourceUrl(), resource.getUrlTypes(),
+      return processResource(resource.getResourceUrl(), resource.getUrlTypes(),
           resource.getMimeType(), file);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
           "Problem while processing " + resourceEntry.getResourceUrl(), e);
     }
-
-    // Return result.
-    if (result == null) {
-      // TODO unknown type... should that result in an exception? Or should we just return null.
-      throw new IllegalStateException("Unexpected result size!");
-    }
-    return result;
   }
 
-  /**
-   * @param contents downloaded file, can be {@code null} for mime types accepted by
-   *        {@link #supportsLinkProcessing(String)}
-   */
-  // TODO only not private because of unit tests: should fix tests.
-  ResourceExtractionResult processResource(String url, Set<UrlType> urlTypes,
+  private ResourceExtractionResult processResource(String url, Set<UrlType> urlTypes,
       String providedMimeType, File contents) throws MediaExtractionException {
 
     // Obtain the mime type
@@ -106,26 +109,26 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
           "File content is not downloaded and mimeType does not support processing without a downloaded file.");
     }
 
-    // Process the resource.
-    final ResourceExtractionResult result;
+    // Choose the right media processor.
+    final MediaProcessor processor;
     switch (ResourceType.getResourceType(mimeType)) {
       case TEXT:
-        result = textProcessor.processText(url, urlTypes, mimeType, contents);
+        processor = textProcessor;
         break;
       case AUDIO:
       case VIDEO:
-        result = audioVideoProcessor.processAudioVideo(url, urlTypes, mimeType, contents);
+        processor = audioVideoProcessor;
         break;
       case IMAGE:
-        result = imageProcessor.processImage(url, urlTypes, mimeType, contents);
+        processor = imageProcessor;
         break;
       default:
-        result = null;
+        processor = null;
         break;
     }
 
-    // Done
-    return result;
+    // Process the resource.
+    return processor != null ? processor.process(url, urlTypes, mimeType, contents) : null;
   }
 
   @Override

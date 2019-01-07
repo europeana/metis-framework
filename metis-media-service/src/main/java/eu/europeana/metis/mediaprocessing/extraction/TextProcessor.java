@@ -19,19 +19,31 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class TextProcessor {
+/**
+ * Implementation of {@link MediaProcessor} that is designed to handle resources of type
+ * {@link ResourceType#TEXT}.
+ */
+class TextProcessor implements MediaProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TextProcessor.class);
+  
+  private static final String PDF_MIME_TYPE = "application/pdf";
 
   private static final int DISPLAY_DPI = 72;
 
   private final ThumbnailGenerator thumbnailGenerator;
 
+  /**
+   * Constructor.
+   * 
+   * @param thumbnailGenerator An object that can generate thumbnails.
+   */
   TextProcessor(ThumbnailGenerator thumbnailGenerator) {
     this.thumbnailGenerator = thumbnailGenerator;
   }
 
-  ResourceExtractionResult processText(String url, Set<UrlType> urlTypes, String mimeType,
+  @Override
+  public ResourceExtractionResult process(String url, Set<UrlType> urlTypes, String mimeType,
       File content) throws MediaExtractionException {
 
     // Sanity checks
@@ -44,7 +56,7 @@ class TextProcessor {
 
     // Create thumbnails in case of PDF file.
     final List<Thumbnail> thumbnails;
-    if ("application/pdf".equals(mimeType)) {
+    if (PDF_MIME_TYPE.equals(mimeType)) {
       thumbnails = thumbnailGenerator.generateThumbnails(url, ResourceType.TEXT, content).getRight();
     } else {
       thumbnails = null;
@@ -53,31 +65,10 @@ class TextProcessor {
     // Set the resource properties relating to content.
     final boolean containsText;
     final Integer resolution;
-    if ("application/pdf".equals(mimeType)) {
-      boolean containsTextTemp = false;
-      Integer resolutionTemp = null;
-      PdfReader reader = null;
-      try {
-        reader = new PdfReader(content.getAbsolutePath());
-        PdfReaderContentParser parser = new PdfReaderContentParser(reader);
-        PdfListener pdfListener = new PdfListener();
-        for (int i = 1; i <= reader.getNumberOfPages(); i++) {
-          parser.processContent(i, pdfListener);
-          resolutionTemp = pdfListener.dpi;
-          containsTextTemp = !StringUtils.isBlank(pdfListener.getResultantText());
-          if (resolutionTemp != null && containsTextTemp) {
-            break;
-          }
-        }
-      } catch (IOException e) {
-        throw new MediaExtractionException("Problem while reading PDF file.", e);
-      } finally {
-        if (reader != null) {
-          reader.close();
-        }
-      }
-      containsText = containsTextTemp;
-      resolution = resolutionTemp;
+    if (PDF_MIME_TYPE.equals(mimeType)) {
+      final PdfPage characteristicPage = findCharacteristicPdfPage(content);
+      containsText = characteristicPage.containsText;
+      resolution = characteristicPage.resolution;
     } else {
       containsText = mimeType.startsWith("text/") || "application/xhtml+xml".equals(mimeType);
       resolution = null;
@@ -87,6 +78,43 @@ class TextProcessor {
     final TextResourceMetadata metadata = new TextResourceMetadata(mimeType, url, content.length(),
         containsText, resolution, thumbnails);
     return new ResourceExtractionResult(metadata, thumbnails);
+  }
+  
+  private static PdfPage findCharacteristicPdfPage(File content) throws MediaExtractionException {
+    boolean containsText = false;
+    Integer resolution = null;
+    PdfReader reader = null;
+    try {
+      reader = new PdfReader(content.getAbsolutePath());
+      PdfReaderContentParser parser = new PdfReaderContentParser(reader);
+      PdfListener pdfListener = new PdfListener();
+      for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+        parser.processContent(i, pdfListener);
+        resolution = pdfListener.dpi;
+        containsText = !StringUtils.isBlank(pdfListener.getResultantText());
+        if (resolution != null && containsText) {
+          break;
+        }
+      }
+    } catch (IOException e) {
+      throw new MediaExtractionException("Problem while reading PDF file.", e);
+    } finally {
+      if (reader != null) {
+        reader.close();
+      }
+    }
+    return new PdfPage(containsText, resolution);
+  }
+
+  private static class PdfPage {
+    
+    final boolean containsText;
+    final Integer resolution;
+
+    public PdfPage(boolean containsText, Integer resolution) {
+      this.containsText = containsText;
+      this.resolution = resolution;
+    }
   }
 
   private static class PdfListener extends SimpleTextExtractionStrategy {
