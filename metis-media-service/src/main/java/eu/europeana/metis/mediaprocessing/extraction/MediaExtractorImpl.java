@@ -2,7 +2,6 @@ package eu.europeana.metis.mediaprocessing.extraction;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.net.URI;
 import org.apache.tika.Tika;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,11 +82,12 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
   private ResourceExtractionResult processResource(Resource resource)
       throws MediaExtractionException {
 
-    // Obtain the mime type
+    // Obtain the mime type. If no content, check against the URL. Note: we use the actual location
+    // instead of the resource URL (because Tika doesn't seem to do forwarding properly).
     final String detectedMimeType;
     try {
       detectedMimeType = resource.hasContent() ? tika.detect(resource.getContentPath())
-          : tika.detect(URI.create(resource.getResourceUrl()).toURL());
+          : tika.detect(resource.getActualLocation().toURL());
     } catch (IOException e) {
       throw new MediaExtractionException("Mime type checking error", e);
     }

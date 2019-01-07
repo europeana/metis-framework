@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -94,7 +95,7 @@ public class TestMediaProcessor {
 	}
 
   private static Resource createResourceForExtraction(String url, String providedMimeType,
-      File contents) throws IOException {
+      File contents) throws IOException, URISyntaxException {
     final Resource resource = spy(Resource.class);
     when(resource.getResourceUrl()).thenReturn(url);
     when(resource.getUrlTypes()).thenReturn(Collections.singleton(UrlType.IS_SHOWN_BY));
@@ -102,6 +103,7 @@ public class TestMediaProcessor {
     when(resource.getContentPath()).thenReturn(contents == null ? null : contents.toPath());
     when(resource.hasContent()).thenReturn(contents != null);
     when(resource.getContentSize()).thenReturn(contents == null ? 0 : contents.length());
+    when(resource.getActualLocation()).thenReturn(new URI(url));
     return resource;
   }
   
@@ -111,7 +113,7 @@ public class TestMediaProcessor {
 
 	@Test
 	public void processImage()
-			throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException, CommandExecutionException {
+			throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException, CommandExecutionException, URISyntaxException {
 		String url = "http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg";
 		String md5 = "6d27e9f0dcdbf33afc07d952cc5c2833";
 		File file = new File(tempDir, "media8313043870723212585.tmp");
@@ -164,7 +166,7 @@ public class TestMediaProcessor {
 
 	@Test
   public void processAudio()
-      throws IOException, RdfDeserializationException, MediaExtractionException, RdfSerializationException, CommandExecutionException {
+      throws IOException, RdfDeserializationException, MediaExtractionException, RdfSerializationException, CommandExecutionException, URISyntaxException {
 		String url = "http://cressound.grenoble.archi.fr/son/rap076/bogota_30_tercer_milenio_parade.mp3";
 		
 		List<String> command = Arrays.asList(AUDIO_VIDEO_COMMAND, "-v", "quiet", "-print_format", "json",
@@ -186,7 +188,7 @@ public class TestMediaProcessor {
 	
 	@Test
 	public void processVideo()
-      throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException, CommandExecutionException {
+      throws IOException, MediaExtractionException, RdfDeserializationException, RdfSerializationException, CommandExecutionException, URISyntaxException {
 		String url = "http://maccinema.com/info/filmovi/dae.mp4";
 		
 		List<String> command = Arrays.asList(AUDIO_VIDEO_COMMAND, "-v", "quiet", "-print_format", "json",
