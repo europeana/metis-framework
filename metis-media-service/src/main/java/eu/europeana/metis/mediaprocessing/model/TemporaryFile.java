@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * This class represents a file in the temporary folder that's associated with a resource. Please
  * see {@link ResourceFile} for more information.
  */
-public abstract class TemporaryFile implements ResourceFile {
+abstract class TemporaryFile implements ResourceFile {
 
   /**
    * The resource URL of the resource with which this file is associated.
@@ -35,8 +34,7 @@ public abstract class TemporaryFile implements ResourceFile {
     this.resourceUrl = resourceUrl;
   }
 
-  // TODO should be private
-  public boolean hasContent() {
+  boolean hasContent() {
     // Note: should use Files.exists instead when migrating away from Java 8.
     final boolean result = this.contentPath != null && this.contentPath.toFile().exists();
     if (!result) {

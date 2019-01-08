@@ -10,7 +10,7 @@ import java.io.InputStream;
  * {@link Closeable} interface, meaning that a resource file's {@link ResourceFile#close()} method
  * needs to be called when the caller has finished with it.
  */
-public interface ResourceFile extends Closeable {
+interface ResourceFile extends Closeable {
 
   /**
    * @return The resource URL of the resource with which this file is associated.
@@ -35,6 +35,5 @@ public interface ResourceFile extends Closeable {
 
   @Override
   void close() throws IOException;
-
 
 }

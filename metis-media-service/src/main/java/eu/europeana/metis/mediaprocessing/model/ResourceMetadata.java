@@ -6,7 +6,7 @@ import java.util.Set;
  * This class wraps an instance of {@link AbstractResourceMetadata} in a class that can be used for
  * deserialization without knowing the type of the class.
  */
-public class ResourceMetadata implements IResourceMetadata {
+class ResourceMetadata implements IResourceMetadata {
 
   /**
    * Implements {@link java.io.Serializable}.
@@ -18,28 +18,28 @@ public class ResourceMetadata implements IResourceMetadata {
   private TextResourceMetadata textResourceMetadata = null;
   private VideoResourceMetadata videoResourceMetadata = null;
 
-  public ResourceMetadata(AudioResourceMetadata audioResourceMetadata) {
+  ResourceMetadata(AudioResourceMetadata audioResourceMetadata) {
     if (audioResourceMetadata == null) {
       throw new IllegalArgumentException();
     }
     this.audioResourceMetadata = audioResourceMetadata;
   }
 
-  public ResourceMetadata(ImageResourceMetadata imageResourceMetadata) {
+  ResourceMetadata(ImageResourceMetadata imageResourceMetadata) {
     if (imageResourceMetadata == null) {
       throw new IllegalArgumentException();
     }
     this.imageResourceMetadata = imageResourceMetadata;
   }
 
-  public ResourceMetadata(TextResourceMetadata textResourceMetadata) {
+  ResourceMetadata(TextResourceMetadata textResourceMetadata) {
     if (textResourceMetadata == null) {
       throw new IllegalArgumentException();
     }
     this.textResourceMetadata = textResourceMetadata;
   }
 
-  public ResourceMetadata(VideoResourceMetadata videoResourceMetadata) {
+  ResourceMetadata(VideoResourceMetadata videoResourceMetadata) {
     if (videoResourceMetadata == null) {
       throw new IllegalArgumentException();
     }

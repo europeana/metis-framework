@@ -1,16 +1,19 @@
 package eu.europeana.metis.mediaprocessing.exception;
 
+/**
+ * This exception represents a problem that occurred during link checking. 
+ */
 public class LinkCheckingException extends Exception {
 
-  public LinkCheckingException(String message) {
-    super(message);
-  }
+  /** This class implements {@link java.io.Serializable}. **/
+  private static final long serialVersionUID = 3926174673354061384L;
 
-  public LinkCheckingException(String message, Throwable throwable) {
-    super(message, throwable);
-  }
-
-  public LinkCheckingException(Throwable throwable) {
-    super(throwable);
+  /**
+   * Constructor.
+   * 
+   * @param cause The cause.
+   */
+  public LinkCheckingException(Throwable cause) {
+    super(cause);
   }
 }

@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaservice;
+package eu.europeana.metis.mediaprocessing.extraction;
 
 import java.util.ArrayList;
 import java.util.Collections;

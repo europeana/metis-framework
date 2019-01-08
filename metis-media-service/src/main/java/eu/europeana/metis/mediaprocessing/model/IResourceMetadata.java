@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * This interface represents resource metadata.
  */
-public interface IResourceMetadata extends Serializable {
+interface IResourceMetadata extends Serializable {
 
   String getResourceUrl();
 

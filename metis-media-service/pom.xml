@@ -49,13 +49,13 @@
       <artifactId>commons-lang3</artifactId>
     </dependency>
 
-    <!-->TODO JV: do we still need this?<-->
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpasyncclient</artifactId>
-      <version>4.1.3</version>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.6</version>
     </dependency>
 
+    <!--TODO JV: do we still need these testing frameworks?-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
