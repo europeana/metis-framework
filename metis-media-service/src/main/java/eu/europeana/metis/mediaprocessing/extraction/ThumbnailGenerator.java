@@ -271,7 +271,8 @@ class ThumbnailGenerator {
         
         // In case of actual images: don't make a thumbnail larger than the original.
         if (resourceType == ResourceType.IMAGE && result.getWidth() < THUMB_SIZE[i]) {
-          Files.copy(content.toPath(), thumb);
+          // Replace thumbnail by copy of original.
+          Files.copy(content.toPath(), thumb, StandardCopyOption.REPLACE_EXISTING);
         }
       } catch (IOException e) {
         throw new MediaExtractionException("Could not access thumbnail file", e);
