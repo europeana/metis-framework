@@ -6,7 +6,7 @@ import java.util.Set;
  * This class wraps an instance of {@link AbstractResourceMetadata} in a class that can be used for
  * deserialization without knowing the type of the class.
  */
-class ResourceMetadata implements IResourceMetadata {
+public class ResourceMetadata implements IResourceMetadata {
 
   /**
    * Implements {@link java.io.Serializable}.
