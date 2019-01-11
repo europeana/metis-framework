@@ -205,9 +205,7 @@ public class Converter {
       return parts;
     }
     map.forEach((key, entry) ->
-        entry.stream().map(
-            value -> new Part(key)
-        ).forEach(parts::add)
+        entry.stream().map(Part::new).forEach(parts::add)
     );
     return parts;
   }

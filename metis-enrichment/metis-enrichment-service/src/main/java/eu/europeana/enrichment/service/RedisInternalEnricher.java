@@ -213,8 +213,8 @@ public class RedisInternalEnricher {
         jedis.sadd(entityType.cachedEntityPrefix + CACHED_ENTITY_DEF + term.getLabel(),
             term.getCodeUri());
         if (term.getLang() != null) {
-          jedis.sadd(entityType.cachedEntityPrefix + CACHED_ENTITY + term.getLang() + ":"
-              + term.getLabel(), term.getCodeUri());
+          jedis.sadd(entityType.cachedEntityPrefix + CACHED_ENTITY + term.getLang() +
+              CACHE_NAME_SEPARATOR + term.getLabel(), term.getCodeUri());
         }
         jedis.hset(entityType.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
             OBJECT_MAPPER.writeValueAsString(entityWrapper));
@@ -304,9 +304,9 @@ public class RedisInternalEnricher {
     if (!jedis.isConnected()) {
       jedis.connect();
     }
-    if (jedis.exists(cachedEntityPrefix + CACHED_ENTITY + lang + ":" + value)) {
-      Set<String> urisToCheck =
-          jedis.smembers(cachedEntityPrefix + CACHED_ENTITY + lang + ":" + value);
+    final String cacheKey = cachedEntityPrefix + CACHED_ENTITY + lang + CACHE_NAME_SEPARATOR + value;
+    if (jedis.exists(cacheKey)) {
+      Set<String> urisToCheck = jedis.smembers(cacheKey);
       for (String uri : urisToCheck) {
         EntityWrapper entity = OBJECT_MAPPER
             .readValue(jedis.hget(cachedEntityPrefix + CACHED_URI, uri), EntityWrapper.class);
