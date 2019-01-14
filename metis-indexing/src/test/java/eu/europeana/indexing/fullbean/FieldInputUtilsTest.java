@@ -3,6 +3,7 @@ package eu.europeana.indexing.fullbean;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.jibx.LiteralType;
@@ -11,6 +12,7 @@ import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -35,15 +37,21 @@ class FieldInputUtilsTest {
     assertEquals(1, testMap.size());
     assertEquals("en", testMap.keySet().iterator().next());
     assertEquals("str", testMap.get("en").get(0));
+
+    assertNull(FieldInputUtils.createLiteralMapFromString(null));
+    assertNull(FieldInputUtils.createLiteralMapFromString(new LiteralType()));
   }
 
   @Test
   void testCreateLiteralMapFromString() {
-    Map<String, List<String>> testMap = FieldInputUtils.createLiteralMapFromString("str");
+    Map<String, List<String>> testMap = FieldInputUtils.createMapFromString("str");
     assertNotNull(testMap);
     assertEquals(1, testMap.size());
     assertEquals("def", testMap.keySet().iterator().next());
     assertEquals("str", testMap.get("def").get(0));
+
+    assertNull(FieldInputUtils.createMapFromString(null));
+    assertNull(FieldInputUtils.createMapFromString(" "));
   }
 
   @Test
@@ -84,6 +92,9 @@ class FieldInputUtilsTest {
     assertEquals("en", testMap3.keySet().iterator().next());
     assertEquals("str", testMap3.get("en").get(0));
     assertEquals("str2", testMap3.get("en").get(1));
+
+    assertNull(FieldInputUtils.createResourceOrLiteralMapFromString(null));
+    assertNull(FieldInputUtils.createResourceOrLiteralMapFromString(new ResourceOrLiteralType()));
   }
 
   @Test
@@ -136,6 +147,9 @@ class FieldInputUtilsTest {
     assertTrue(mapC.containsKey("def"));
     assertEquals("strE", mapC.get("def").get(0));
     assertEquals("strF", mapC.get("def").get(1));
+
+    assertNull(FieldInputUtils.createLiteralMapFromList(null));
+    assertNull(FieldInputUtils.createLiteralMapFromList(Collections.emptyList()));
   }
 
   @Test
@@ -190,6 +204,8 @@ class FieldInputUtilsTest {
     assertEquals("strE", mapC.get("def").get(0));
     assertEquals("strF", mapC.get("def").get(1));
 
+    assertNull(FieldInputUtils.createResourceOrLiteralMapFromList(null));
+    assertNull(FieldInputUtils.createResourceOrLiteralMapFromList(Collections.emptyList()));
   }
 
   @Test
@@ -197,7 +213,7 @@ class FieldInputUtilsTest {
     List<ResourceOrLiteralType> rltList = new ArrayList<>();
     rltList.add(prepareRLT());
     String[] rltArray = FieldInputUtils.resourceOrLiteralListToArray(rltList);
-    String[] arr = new String[] {"test resource", "test string"};
+    String[] arr = new String[] {"test string", "test resource"};
     assertArrayEquals(arr, rltArray);
     assertNotNull(FieldInputUtils.resourceOrLiteralListToArray(null));
   }

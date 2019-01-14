@@ -1,10 +1,19 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
 import eu.europeana.corelib.definitions.jibx.LiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
@@ -16,8 +25,88 @@ import eu.europeana.corelib.definitions.jibx.ResourceType;
  */
 final class FieldInputUtils {
 
+  private static final String DEFAULT_LANG_KEY = "def";
+
+  private static final Function<LiteralType, String> LITERAL_TYPE_KEY_GETTER = literal ->
+      Optional.ofNullable(literal.getLang()).map(LiteralType.Lang::getLang).orElse(null);
+  private static final Function<ResourceOrLiteralType, String> RESOURCE_OR_LITERAL_TYPE_KEY_GETTER = object ->
+      Optional.ofNullable(object.getLang()).map(ResourceOrLiteralType.Lang::getLang).orElse(null);
+
+  private static final Function<String, List<String>> STRING_TYPE_VALUES_GETTER = Collections::singletonList;
+  private static final Function<LiteralType, List<String>> LITERAL_TYPE_VALUES_GETTER = literal ->
+      Collections.singletonList(literal.getString());
+  private static final Function<ResourceType, List<String>> RESOURCE_TYPE_VALUES_GETTER = resource ->
+      Collections.singletonList(resource.getResource());
+  private static final Function<ResourceOrLiteralType, List<String>> RESOURCE_OR_LITERAL_TYPE_VALUES_GETTER = object -> {
+    final String objectString = object.getString();
+    final String resourceString = Optional.ofNullable(object.getResource())
+        .map(Resource::getResource).orElse(null);
+    return Arrays.asList(objectString, resourceString);
+  };
+
   private FieldInputUtils() {
     // This class should not be instantiated.
+  }
+
+  private static <T> Function<T, String> singleKeyGetter() {
+    return v -> null;
+  }
+
+  private static <T> Map<String, List<String>> createMapFromList(List<? extends T> list,
+      Function<T, String> keyGetter, Function<T, List<String>> valuesGetter) {
+
+    // Sanity check
+    if (list == null || list.isEmpty()) {
+      return null;
+    }
+
+    // Go by all objects in input list
+    final Map<String, List<String>> retMap = new HashMap<>();
+    for (T listItem : list) {
+
+      // Obtain the trimmed non-null non-empty values to add.
+      final Stream<String> values = Optional.ofNullable(listItem).map(valuesGetter)
+          .filter(valueList -> !valueList.isEmpty()).map(List::stream).orElse(Stream.empty());
+      final List<String> filteredValues = values.filter(Objects::nonNull).map(String::trim)
+          .filter(StringUtils::isNotEmpty).collect(Collectors.toList());
+
+      // If there are values to add, we add them to the map.
+      if (!filteredValues.isEmpty()) {
+        final String key = Optional.ofNullable(listItem).map(keyGetter)
+            .filter(StringUtils::isNotBlank).orElse(DEFAULT_LANG_KEY);
+        retMap.computeIfAbsent(key, k -> new ArrayList<>()).addAll(filteredValues);
+      }
+    }
+
+    // Return result.
+    return retMap.isEmpty() ? null : retMap;
+  }
+
+  private static <T> String[] createArrayFromList(List<? extends T> list,
+      Function<T, List<String>> valuesGetter) {
+    final Map<String, List<String>> map = createMapFromList(list, singleKeyGetter(), valuesGetter);
+    final Stream<String> result = Optional.ofNullable(map).map(Map::values).map(Collection::stream)
+        .flatMap(Stream::findAny).map(List::stream).orElse(Stream.empty());
+    return result.toArray(String[]::new);
+  }
+
+  /**
+   * Method that converts a Enum object to a multilingual map of strings
+   *
+   * @return A Map of strings containing the value with the def notation as key
+   */
+  static Map<String, List<String>> createMapFromString(String obj) {
+    return createMapFromList(Collections.singletonList(obj), singleKeyGetter(),
+        STRING_TYPE_VALUES_GETTER);
+  }
+
+  static <T extends ResourceType> Map<String, List<String>> createResourceMapFromString(T obj) {
+    return createResourceMapFromList(Collections.singletonList(obj));
+  }
+
+  static <T extends ResourceType> Map<String, List<String>> createResourceMapFromList(
+      List<T> list) {
+    return createMapFromList(list, singleKeyGetter(), RESOURCE_TYPE_VALUES_GETTER);
   }
 
   /**
@@ -29,45 +118,19 @@ final class FieldInputUtils {
    * is missing the def notation is used as key
    */
   static <T extends LiteralType> Map<String, List<String>> createLiteralMapFromString(T obj) {
-    Map<String, List<String>> retMap = new HashMap<>();
-    if (obj != null) {
-      if (obj.getLang() != null && StringUtils.isNotBlank(obj.getLang().getLang())) {
-        List<String> val = new ArrayList<>();
-        if (StringUtils.isNotBlank(obj.getString())) {
-          val.add(obj.getString());
-          retMap.put(obj.getLang().getLang(), val);
-        }
-      } else {
-        List<String> val = new ArrayList<>();
-        if (StringUtils.isNotBlank(obj.getString())) {
-          val.add(obj.getString());
-          retMap.put("def", val);
-        }
-      }
-      return retMap.isEmpty() ? null : retMap;
-    }
-
-    return null;
+    return createLiteralMapFromList(Collections.singletonList(obj));
   }
 
   /**
-   * Method that converts a Enum object to a multilingual map of strings
+   * Method that converts a LiteralType.class list to a multilingual map of strings
    *
-   * @return A Map of strings containing the value with the def notation as key
+   * @param list The LiteralType list
+   * @return A Map of strings. The keys are the languages and the values are lists of strings for
+   * the corresponding language. If the object is null, the method returns null. In case a language
+   * is missing the def notation is used as key
    */
-  static Map<String, List<String>> createLiteralMapFromString(String obj) {
-    Map<String, List<String>> retMap = new HashMap<>();
-
-    if (obj != null) {
-      List<String> val = new ArrayList<>();
-      if (StringUtils.isNotBlank(obj)) {
-        val.add(obj);
-        retMap.put("def", val);
-      }
-      return retMap.isEmpty() ? null : retMap;
-    }
-
-    return null;
+  static <T extends LiteralType> Map<String, List<String>> createLiteralMapFromList(List<T> list) {
+    return createMapFromList(list, LITERAL_TYPE_KEY_GETTER, LITERAL_TYPE_VALUES_GETTER);
   }
 
   /**
@@ -80,111 +143,7 @@ final class FieldInputUtils {
    */
   static <T extends ResourceOrLiteralType> Map<String, List<String>> createResourceOrLiteralMapFromString(
       T obj) {
-    Map<String, List<String>> retMap = new HashMap<>();
-    if (obj != null) {
-      if (obj.getLang() != null && StringUtils.isNotEmpty(obj.getLang().getLang())) {
-        if (obj.getString() != null && StringUtils.trimToNull(obj.getString()) != null) {
-          List<String> val = new ArrayList<>();
-          val.add(StringUtils.trim(obj.getString()));
-          retMap.put(obj.getLang().getLang(), val);
-        }
-        if (obj.getResource() != null) {
-          List<String> val =
-              retMap.get(obj.getLang().getLang()) == null ? new ArrayList<>()
-                  : retMap.get(obj.getLang().getLang());
-
-          val.add(obj.getResource().getResource());
-
-          retMap.put(obj.getLang().getLang(), val);
-        }
-      } else {
-        if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getString()))) {
-          List<String> val = retMap.get("def") == null ? new ArrayList<>() : retMap.get("def");
-          val.add(obj.getString());
-          retMap.put("def", val);
-        }
-        if (obj.getResource() != null
-            && StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource().getResource()))) {
-          List<String> val = retMap.get("def") == null ? new ArrayList<>() : retMap.get("def");
-          val.add(StringUtils.trim(obj.getResource().getResource()));
-          retMap.put("def", val);
-        }
-      }
-      return retMap;
-    }
-
-    return null;
-  }
-
-  static <T extends ResourceType> Map<String, List<String>> createResourceMapFromString(T obj) {
-    Map<String, List<String>> retMap = new HashMap<>();
-    if (obj != null) {
-
-      if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource()))) {
-        List<String> val = retMap.get("def") == null ? new ArrayList<>() : retMap.get("def");
-        val.add(obj.getResource());
-        retMap.put("def", val);
-      }
-      return retMap;
-    }
-    return null;
-  }
-
-  /**
-   * Method that converts a LiteralType.class list to a multilingual map of strings
-   *
-   * @param list The LiteralType list
-   * @return A Map of strings. The keys are the languages and the values are lists of strings for
-   * the corresponding language. If the object is null, the method returns null. In case a language
-   * is missing the def notation is used as key
-   */
-  static <T extends LiteralType> Map<String, List<String>> createLiteralMapFromList(List<T> list) {
-    if (list != null && !list.isEmpty()) {
-      Map<String, List<String>> retMap = new HashMap<>();
-      for (T obj : list) {
-        if (obj.getLang() != null && StringUtils.isNotBlank(obj.getLang().getLang())) {
-          String lang = obj.getLang().getLang();
-          List<String> val = retMap.get(lang);
-          if (val == null) {
-            val = new ArrayList<>();
-          }
-          val.add(StringUtils.trim(obj.getString()));
-          retMap.put(lang, val);
-        } else {
-          List<String> val = retMap.get("def");
-          if (val == null) {
-            val = new ArrayList<>();
-          }
-          if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getString()))) {
-            val.add(obj.getString());
-            retMap.put("def", val);
-          }
-        }
-      }
-      return retMap.isEmpty() ? null : retMap;
-    }
-    return null;
-  }
-
-  static <T extends ResourceType> Map<String, List<String>> createResourceMapFromList(
-      List<T> list) {
-    if (list != null && !list.isEmpty()) {
-      Map<String, List<String>> retMap = new HashMap<>();
-      for (T obj : list) {
-
-        List<String> val = retMap.get("def");
-        if (val == null) {
-          val = new ArrayList<>();
-        }
-        if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource()))) {
-          val.add(obj.getResource());
-          retMap.put("def", val);
-        }
-
-      }
-      return retMap.isEmpty() ? null : retMap;
-    }
-    return null;
+    return createResourceOrLiteralMapFromList(Collections.singletonList(obj));
   }
 
   /**
@@ -197,63 +156,8 @@ final class FieldInputUtils {
    */
   static <T extends ResourceOrLiteralType> Map<String, List<String>> createResourceOrLiteralMapFromList(
       List<T> list) {
-    if (list != null && !list.isEmpty()) {
-      Map<String, List<String>> retMap = new HashMap<>();
-      for (T obj : list) {
-        if (obj.getString() != null && StringUtils.isNotBlank(obj.getString())) {
-          if (obj.getLang() != null && StringUtils.isNotBlank(obj.getLang().getLang())) {
-            List<String> val = retMap.get((obj.getLang().getLang()));
-            if (val == null) {
-              val = new ArrayList<>();
-
-            }
-            if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getString()))) {
-              val.add(obj.getString());
-              retMap.put(obj.getLang().getLang(), val);
-            }
-
-          } else {
-            List<String> val = retMap.get("def");
-            if (val == null) {
-              val = new ArrayList<>();
-            }
-            if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getString()))) {
-              val.add(obj.getString());
-              retMap.put("def", val);
-            }
-          }
-        }
-        if (obj.getResource() != null && StringUtils.isNotBlank(obj.getResource().getResource())) {
-          if (obj.getLang() == null) {
-            List<String> val = retMap.get("def");
-            if (val == null) {
-              val = new ArrayList<>();
-            }
-            if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource().getResource()))) {
-              val.add(obj.getResource().getResource());
-              retMap.put("def", val);
-            }
-          } else {
-            String lang = obj.getLang().getLang();
-            List<String> val;
-            if (retMap.containsKey(lang)) {
-              val = retMap.get(lang);
-
-            } else {
-              val = new ArrayList<>();
-            }
-            if (StringUtils.isNotBlank(StringUtils.trimToNull(obj.getResource().getResource()))) {
-              val.add(obj.getResource().getResource());
-              retMap.put(lang, val);
-            }
-          }
-        }
-      }
-      if (!retMap.isEmpty()) {
-        return retMap;
-      }
-    }
-    return null;
+    return createMapFromList(list, RESOURCE_OR_LITERAL_TYPE_KEY_GETTER,
+        RESOURCE_OR_LITERAL_TYPE_VALUES_GETTER);
   }
 
   /**
@@ -264,21 +168,8 @@ final class FieldInputUtils {
    * @param list The ResourceOrLiteralType list
    * @return An array of strings with the values of the list
    */
-  public static String[] resourceOrLiteralListToArray(List<? extends ResourceOrLiteralType> list) {
-    if (list != null) {
-      List<String> lst = new ArrayList<>();
-
-      for (ResourceOrLiteralType obj : list) {
-        if (obj.getResource() != null) {
-          lst.add(obj.getResource().getResource());
-        }
-        if (obj.getString() != null && StringUtils.isNotEmpty(obj.getString())) {
-          lst.add(obj.getString());
-        }
-      }
-      return lst.stream().toArray(String[]::new);
-    }
-    return new String[]{};
+  static String[] resourceOrLiteralListToArray(List<? extends ResourceOrLiteralType> list) {
+    return createArrayFromList(list, RESOURCE_OR_LITERAL_TYPE_VALUES_GETTER);
   }
 
   /**
@@ -288,16 +179,7 @@ final class FieldInputUtils {
    * @return An array of strings with the values of the list
    */
   static String[] resourceListToArray(List<? extends ResourceType> list) {
-    if (list != null) {
-      String[] arr = new String[list.size()];
-      int i = 0;
-      for (ResourceType obj : list) {
-        arr[i] = obj.getResource();
-        i++;
-      }
-      return arr;
-    }
-    return new String[]{};
+    return createArrayFromList(list, RESOURCE_TYPE_VALUES_GETTER);
   }
 
   /**
@@ -305,10 +187,8 @@ final class FieldInputUtils {
    * @return a string from a ResourceType object
    */
   static String getResourceString(ResourceType obj) {
-    if (obj != null) {
-      return obj.getResource();
-    }
-    return null;
+    final String[] array = resourceListToArray(Collections.singletonList(obj));
+    return array.length > 0 ? array[0] : null;
   }
 
   static Map<String, List<String>> mergeMaps(Map<String, List<String>> map1,
