@@ -94,7 +94,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     // Verify the mime type. Permit the application/xhtml+xml detected from tika to be virtually
     // equal to the text/html detected from the providedMimeType.
     final String providedMimeType = resource.getMimeType();
-    if (!("application/xhtml+xml".equals(detectedMimeType) && "text/html".equals(providedMimeType))
+    if (!("application/xhtml+xml".equals(detectedMimeType) && providedMimeType.startsWith("text/html"))
         && !detectedMimeType.equals(providedMimeType)) {
       LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", detectedMimeType,
           providedMimeType, resource.getResourceUrl());
