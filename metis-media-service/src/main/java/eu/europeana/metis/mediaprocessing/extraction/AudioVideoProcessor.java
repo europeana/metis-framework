@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -19,8 +20,13 @@ import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 
 /**
+ * <p>
  * Implementation of {@link MediaProcessor} that is designed to handle resources of types
  * {@link ResourceType#AUDIO} and {@link ResourceType#VIDEO}.
+ * </p>
+ * <p>
+ * Note: No thumbnails are created for audio or video files.
+ * </p>
  */
 class AudioVideoProcessor implements MediaProcessor {
 
@@ -86,10 +92,18 @@ class AudioVideoProcessor implements MediaProcessor {
       return null;
     }
 
+    // Determine whether the resource has content.
+    final boolean resourceHasContent;
+    try {
+      resourceHasContent = resource.hasContent();
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not determine whether resource has content.", e);
+    }
+
     // Execute command
     final List<String> command = Arrays.asList(ffprobeCommand, "-v", "quiet", "-print_format",
         "json", "-show_format", "-show_streams", "-hide_banner",
-        resource.hasContent() ? resource.getContentPath().toString() : resource.getResourceUrl());
+        resourceHasContent ? resource.getContentPath().toString() : resource.getResourceUrl());
     final List<String> resultLines;
     try {
       resultLines = commandExecutor.execute(command, false);
@@ -103,7 +117,7 @@ class AudioVideoProcessor implements MediaProcessor {
 
       // Analyze command result
       final JSONObject result = new JSONObject(new JSONTokener(String.join("", resultLines)));
-      if (!resource.hasContent() && result.length() == 0) {
+      if (!resourceHasContent && result.length() == 0) {
         throw new MediaExtractionException("Probably download failed");
       }
       final long fileSize = result.getJSONObject("format").getLong("size");

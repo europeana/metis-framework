@@ -34,15 +34,6 @@ abstract class TemporaryFile implements ResourceFile {
     this.resourceUrl = resourceUrl;
   }
 
-  boolean hasContent() {
-    // Note: should use Files.exists instead when migrating away from Java 8.
-    final boolean result = this.contentPath != null && this.contentPath.toFile().exists();
-    if (!result) {
-      this.contentPath = null;
-    }
-    return result;
-  }
-
   @Override
   public String getResourceUrl() {
     return resourceUrl;
@@ -52,24 +43,42 @@ abstract class TemporaryFile implements ResourceFile {
     return this.contentPath;
   }
 
+  private long getContentSizeInternal() throws IOException {
+
+    // If the content path does not exist, remove the reference.
+    // Note: should use Files.exists instead when migrating away from Java 8.
+    if (this.contentPath != null && !this.contentPath.toFile().exists()) {
+      this.contentPath = null;
+    }
+
+    // Return the size and 0 in case the content file does not exist.
+    return this.contentPath == null ? 0 : Files.size(this.contentPath);
+  }
+
+  @Override
+  public boolean hasContent() throws IOException {
+    return getContentSizeInternal() > 0;
+  }
+
   @Override
   public InputStream getContentStream() throws IOException {
     if (!hasContent()) {
-      throw new IOException("Cannot get the file content: file does not exist.");
+      throw new IOException("Cannot get the file content: file does not exist or is empty.");
     }
     return Files.newInputStream(this.contentPath);
   }
 
   @Override
   public long getContentSize() throws IOException {
-    if (!hasContent()) {
-      throw new IOException("Cannot get the file size: file does not exist.");
+    final long result = getContentSizeInternal();
+    if (result == 0) {
+      throw new IOException("Cannot get the file size: file does not exist or is empty.");
     }
-    return Files.size(this.contentPath);
+    return result;
   }
 
   @Override
-  public void close() throws IOException {
+  public void markAsNoContent() throws IOException {
     try {
       if (hasContent()) {
         Files.delete(this.contentPath);
@@ -77,5 +86,10 @@ abstract class TemporaryFile implements ResourceFile {
     } finally {
       this.contentPath = null;
     }
+  }
+
+  @Override
+  public void close() throws IOException {
+    this.markAsNoContent();
   }
 }

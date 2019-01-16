@@ -17,7 +17,9 @@ public class ResourceExtractionResult {
    * Constructor.
    *
    * @param metadata The metadata extracted for this resource. Can be null.
-   * @param thumbnails The thumbnails generated for this resource. Can be null.
+   * @param thumbnails The thumbnails generated for this resource. Can be null or empty, but does
+   * not contain null values or thumbnails that have no content (see {@link
+   * Thumbnail#hasContent()}).
    */
   public ResourceExtractionResult(AbstractResourceMetadata metadata,
       List<? extends Thumbnail> thumbnails) {

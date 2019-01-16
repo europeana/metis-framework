@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import java.io.Closeable;
 import java.io.IOException;
 import org.apache.tika.Tika;
 import org.slf4j.Logger;
@@ -16,7 +15,7 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 /**
  * Extracts technical metadata and generates thumbnails for web resources.
  */
-public class MediaExtractorImpl implements MediaExtractor, Closeable {
+public class MediaExtractorImpl implements MediaExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MediaExtractorImpl.class);
 
@@ -100,9 +99,15 @@ public class MediaExtractorImpl implements MediaExtractor, Closeable {
       LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", detectedMimeType,
           providedMimeType, resource.getResourceUrl());
     }
-    if (!resource.hasContent() && ResourceType.shouldDownloadMimetype(providedMimeType)) {
-      throw new MediaExtractionException(
-          "File content is not downloaded and mimeType does not support processing without a downloaded file.");
+
+    // Verify that we have content when we need to.
+    try {
+      if (!resource.hasContent() && ResourceType.shouldDownloadMimetype(providedMimeType)) {
+        throw new MediaExtractionException(
+            "File content is not downloaded and mimeType does not support processing without a downloaded file.");
+      }
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not determine whether resource has content.", e);
     }
 
     // Choose the right media processor.

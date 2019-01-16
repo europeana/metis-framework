@@ -57,7 +57,7 @@ class ThumbnailGenerator {
 
   /**
    * Constructor. This is a wrapper for
-   * {@link ThumbnailGenerator#ThumbnailGenerator(CommandExecutor, String, Path)} where the
+   * {@link ThumbnailGenerator#ThumbnailGenerator(CommandExecutor, String, String)} where the
    * properties are detected. It is advisable to use this constructor for non-testing purposes.
    * 
    * @param commandExecutor A command executor.
@@ -164,14 +164,15 @@ class ThumbnailGenerator {
 
   /**
    * This is the main method of this class. It generates thumbnails for the given content.
-   * 
+   *
    * @param url The URL of the content. Used for determining the name of the output files.
    * @param resourceType The resource type of the content.
    * @param content The resource content for which to generate thumbnails.
-   * @return The metadata of the image as gathered during processing.
+   * @return The metadata of the image as gathered during processing, together with the thumbnails.
+   * The list can be null or empty, but does not contain null values or thumbnails without content.
    * @throws MediaExtractionException In case a problem occurred.
    */
-  public Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url,
+  Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url,
       ResourceType resourceType, File content) throws MediaExtractionException {
     
     // Sanity checking

@@ -19,16 +19,19 @@ public class ResourceDownloadClient extends HttpClient<Resource> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceDownloadClient.class);
 
+  private static final int CONNECT_TIMEOUT = 10_000;
+  private static final int SOCKET_TIMEOUT = 20_000;
+
   private final Predicate<String> shouldDownloadMimetype;
 
   /**
-   * 
+   * Constructor.
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    * @param shouldDownloadMimetype A predicate that, based on the mime type, can decide whether or
    *        not to proceed with the download.
    */
   public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype) {
-    super(maxRedirectCount, 10000, 20000);
+    super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT );
     this.shouldDownloadMimetype = shouldDownloadMimetype;
   }
 
@@ -45,6 +48,8 @@ public class ResourceDownloadClient extends HttpClient<Resource> {
         LOGGER.debug("Starting download of resource: {}", resourceEntry.getResourceUrl());
         downloadResource(resourceEntry.getResourceUrl(), resource, contentRetriever);
         LOGGER.debug("Finished download of resource: {}", resourceEntry.getResourceUrl());
+      } else {
+        resource.markAsNoContent();
       }
     } catch (IOException | RuntimeException e) {
       // Close the resource if a problem occurs.

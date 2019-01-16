@@ -11,8 +11,14 @@ import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 
 /**
- * Implementation of {@link MediaProcessor} that is designed to handle resources of type
+ * <p>Implementation of {@link MediaProcessor} that is designed to handle resources of type
  * {@link ResourceType#IMAGE}.
+ * </p>
+ * <p>
+ * Note: if we don't have metadata, we still return the thumbnails. This is according to the specs:
+ * a thumbnail may be designated by the source record that is not itself a source image (it may be
+ * derived from for instance a video).
+ * </p>
  */
 class ImageProcessor implements MediaProcessor {
 
@@ -31,15 +37,14 @@ class ImageProcessor implements MediaProcessor {
   public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
 
     // Sanity checks
-    if (!resource.hasContent()) {
-      throw new MediaExtractionException("File content is null");
+    try {
+      if (!resource.hasContent()) {
+        throw new MediaExtractionException("File content is null");
+      }
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not determine whether resource has content.", e);
     }
     
-    // Create the thumbnails for this image.
-    final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata =
-        thumbnailGenerator.generateThumbnails(resource.getResourceUrl(), ResourceType.IMAGE,
-            resource.getContentPath().toFile());
-
     // Get the size of the resource
     final long contentSize;
     try {
@@ -48,6 +53,11 @@ class ImageProcessor implements MediaProcessor {
       throw new MediaExtractionException(
           "Could not determine the size of the resource " + resource.getResourceUrl(), e);
     }
+
+    // Create the thumbnails for this image.
+    final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata =
+        thumbnailGenerator.generateThumbnails(resource.getResourceUrl(), ResourceType.IMAGE,
+            resource.getContentPath().toFile());
 
     // Set the metadata in the web resource.
     final ImageResourceMetadata resourceMetadata;
@@ -61,7 +71,7 @@ class ImageProcessor implements MediaProcessor {
       resourceMetadata = null;
     }
 
-    // Done
+    // Done.
     return new ResourceExtractionResult(resourceMetadata, thumbnailsAndMetadata.getRight());
   }
 }

@@ -20,8 +20,13 @@ import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 
 /**
+ * <p>
  * Implementation of {@link MediaProcessor} that is designed to handle resources of type {@link
  * ResourceType#TEXT}.
+ * </p>
+ * <p>
+ * Note: if we don't have metadata, we don't return thumbnails either.
+ * </p>
  */
 class TextProcessor implements MediaProcessor {
 
@@ -49,8 +54,12 @@ class TextProcessor implements MediaProcessor {
     if (!UrlType.shouldExtractMetadata(resource.getUrlTypes())) {
       return null;
     }
-    if (!resource.hasContent()) {
-      throw new MediaExtractionException("File content is null");
+    try {
+      if (!resource.hasContent()) {
+        throw new MediaExtractionException("File content is null");
+      }
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not determine whether resource has content.", e);
     }
 
     // Create thumbnails in case of PDF file.
