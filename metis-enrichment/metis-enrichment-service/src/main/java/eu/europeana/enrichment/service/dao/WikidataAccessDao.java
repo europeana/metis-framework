@@ -1,7 +1,5 @@
 package eu.europeana.enrichment.service.dao;
 
-import eu.europeana.enrichment.api.external.model.WikidataOrganization;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -24,10 +22,16 @@ import org.apache.commons.io.output.StringBuilderWriter;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFWriter;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RiotException;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
+import org.apache.jena.vocabulary.OWL;
+import org.apache.jena.vocabulary.RDFS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
+import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
 
 /**
@@ -83,6 +87,9 @@ public class WikidataAccessDao {
       Source xslt = new StreamSource(xslTemplate);
       transformer = transformerFactory.newTransformer(xslt);
       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+      transformer.setParameter("deref", Boolean.TRUE);
+      transformer.setParameter("address", Boolean.FALSE);
+
     } catch (TransformerConfigurationException e) {
       throw new WikidataAccessException(WikidataAccessException.TRANSFORMER_CONFIGURATION_ERROR, e);
     }
@@ -140,47 +147,84 @@ public class WikidataAccessDao {
    * @param uri The Wikidata URI in string format
    * @return RDF model
    */
-  private Model getModelFromSPARQL(String uri) {
+  private Resource getModelFromSPARQL(String uri) {
+    Resource resource = fetchFromSPARQL(uri);
+    if (!isDuplicate(resource)) {
+      return resource;
+    }
+
+    //if duplication fetch main resource
+    StmtIterator iter = resource.listProperties(OWL.sameAs);
+    try {
+      while (iter.hasNext()) {
+        String sameAs = iter.next().getResource().getURI();
+        Resource r2 = fetchFromSPARQL(sameAs);
+        //check if main resource
+        if (!isDuplicate(r2)) {
+          resource = r2;
+          break;
+        }
+      }
+    } finally {
+      iter.close();
+    }
+
+    return resource;
+  }
+
+  /**
+   * 
+   * @param resource
+   * @return true if the retrieved resource is duplicated
+   */
+  private boolean isDuplicate(Resource resource) {
+    return (resource.hasProperty(OWL.sameAs) && !resource.hasProperty(RDFS.label));
+  }
+
+  private Resource fetchFromSPARQL(String uri) {
     String sDescribe = "DESCRIBE <" + uri + ">";
 
     Model m = ModelFactory.createDefaultModel();
     QueryEngineHTTP endpoint = new QueryEngineHTTP(SPARQL, sDescribe);
-
     try {
-      return endpoint.execDescribe(m);
+      return endpoint.execDescribe(m).getResource(uri);
     } catch (RiotException e) {
       LOGGER.error("Interrupted while querying Wikidata from the WikidataAccessDao", e);
     } finally {
       endpoint.close();
     }
 
-    return m;
+//    return m.getResource(uri);
+    return null;
   }
 
   /**
    * This method transforms StreamResult to XML format
    * 
-   * @param m The RDF model
-   * @param t The transformer e.g. based on XSLT template
+   * @param resource The RDF resource
    * @param res The StreamResult of Wikidata query
    * @throws WikidataAccessException
    */
-  private synchronized void transform(Model m, Transformer t, StreamResult res)
+  private synchronized void transform(Resource resource, StreamResult res)
       throws WikidataAccessException {
 
+    // set rdf_about
+    transformer.setParameter("rdf_about", resource.getURI());
     StringBuilder sb = new StringBuilder(SIZE);
 
     try (StringBuilderWriter sbw = new StringBuilderWriter(sb)) {
-      RDFWriter writer = m.getWriter("RDF/XML");
+      Model model = resource.getModel();
+      RDFWriter writer = model.getWriter("RDF/XML");
       writer.setProperty("tab", "0");
       writer.setProperty("allowBadURIs", "true");
       writer.setProperty("relativeURIs", "");
-      writer.write(m, sbw, "RDF/XML");
-      t.transform(new StreamSource(new CharSequenceReader(sb)), res);
-      sb.setLength(0);
+      writer.write(model, sbw, "RDF/XML");
+      transformer.transform(new StreamSource(new CharSequenceReader(sb)), res);
     } catch (TransformerException e) {
       throw new WikidataAccessException(WikidataAccessException.TRANSFORM_WIKIDATA_TO_RDF_XML_ERROR,
           e);
+    } finally {
+      sb.setLength(0);
     }
   }
 
@@ -211,10 +255,7 @@ public class WikidataAccessDao {
    * @throws WikidataAccessException
    */
   public void translate(String uri, StreamResult res) throws WikidataAccessException {
-    transformer.setParameter("rdf_about", uri);
-    transformer.setParameter("deref", Boolean.TRUE);
-    transformer.setParameter("address", Boolean.FALSE);
-    transform(getModelFromSPARQL(uri), transformer, res);
+    transform(getModelFromSPARQL(uri), res);
   }
 
 }

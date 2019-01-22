@@ -203,7 +203,7 @@ public class WikidataAccessService {
       //create content file if needed
       final boolean wasFileCreated = contentFile.createNewFile();
       if (!wasFileCreated) {
-        LOGGER.warn("File was already present and therefore not created");
+        LOGGER.warn("Content file existed, it will be overwritten: {}", contentFile.getAbsolutePath());
       }
       FileUtils.write(contentFile, xml, StandardCharsets.UTF_8.name());
     } catch (IOException e) {
