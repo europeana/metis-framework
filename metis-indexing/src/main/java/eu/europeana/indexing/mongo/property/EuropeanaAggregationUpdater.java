@@ -15,12 +15,6 @@ public class EuropeanaAggregationUpdater
   }
 
   @Override
-  protected void preprocessEntity(EuropeanaAggregationImpl newEntity,
-      RootAbout ancestorInformation) {
-    super.preprocessEntity(newEntity, ancestorInformation);
-  }
-
-  @Override
   protected void update(MongoPropertyUpdater<EuropeanaAggregationImpl> propertyUpdater,
       RootAbout ancestorInformation) {
     propertyUpdater.updateString("aggregatedCHO", EuropeanaAggregation::getAggregatedCHO);

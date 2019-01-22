@@ -5,6 +5,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
 
+/**
+ * Label model class
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Label implements TextProperty {
 
@@ -14,17 +17,29 @@ public class Label implements TextProperty {
   @XmlValue
   private String value;
 
-  public Label() {}
-  
+  public Label() {
+  }
+
+  /**
+   * Constructor with initial label value without a language. Language is null.
+   *
+   * @param value1 the value of the label
+   */
   public Label(String value1) {
     this(null, value1);
   }
 
+  /**
+   * Constructor with initial field values.
+   *
+   * @param lang1 the language of the corresponding label
+   * @param value1 the value of the label
+   */
   public Label(String lang1, String value1) {
     lang = lang1;
     value = value1;
   }
-  
+
   public String getLang() {
     return lang;
   }
@@ -40,7 +55,7 @@ public class Label implements TextProperty {
   public void setValue(String value) {
     this.value = value;
   }
-  
+
   public String getKey() {
     return getLang();
   }

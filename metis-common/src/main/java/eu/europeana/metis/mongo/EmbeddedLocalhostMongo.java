@@ -15,6 +15,9 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Starts an in memory Mongo database. This class is to be used for unit testing on localhost.
+ */
 public class EmbeddedLocalhostMongo {
 
   private static final String DEFAULT_MONGO_HOST = "127.0.0.1";

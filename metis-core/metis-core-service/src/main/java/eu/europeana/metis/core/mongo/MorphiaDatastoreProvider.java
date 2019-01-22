@@ -47,7 +47,6 @@ public class MorphiaDatastoreProvider {
     morphia.map(AbstractMetisPluginMetadata.class);
     morphia.map(DatasetXslt.class);
     datastore = morphia.createDatastore(mongoClient, databaseName);
-    datastore.ensureIndexes();
 
     DatasetIdSequence datasetIdSequence = datastore.find(DatasetIdSequence.class).get();
     if (datasetIdSequence == null) {

@@ -1,26 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-		 Copyright 2007-2013 The Europeana Foundation
-
-		  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
-		  by the European Commission;
-		  You may not use this work except in compliance with the Licence.
-
-		  You may obtain a copy of the Licence at:
-		  http://joinup.ec.europa.eu/software/page/eupl
-
-		  Unless required by applicable law or agreed to in writing, software distributed under
-		  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
-		  any kind, either express or implied.
-		  See the Licence for the specific language governing permissions and limitations under
-		  the Licence.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
   </parent>
   <artifactId>metis-validation-rest</artifactId>
   <packaging>war</packaging>
@@ -66,6 +50,10 @@
           <artifactId>httpclient</artifactId>
           <groupId>org.apache.httpcomponents</groupId>
         </exclusion>
+        <exclusion>
+          <artifactId>junit</artifactId>
+          <groupId>junit</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -76,12 +64,20 @@
 
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${version.junit}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
@@ -93,7 +89,6 @@
     <dependency>
       <groupId>com.github.tomakehurst</groupId>
       <artifactId>wiremock</artifactId>
-      <version>2.12.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -104,14 +99,12 @@
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-core</artifactId>
         </exclusion>
+        <exclusion>
+          <artifactId>junit</artifactId>
+          <groupId>junit</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
-
-    <!--<dependency>-->
-    <!--<groupId>log4j</groupId>-->
-    <!--<artifactId>log4j</artifactId>-->
-    <!--<version>${version.log4j}</version>-->
-    <!--</dependency>-->
 
     <dependency>
       <groupId>de.flapdoodle.embed</groupId>
@@ -138,7 +131,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>${version.spring}</version>
+      <version>${version.spring.context}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -167,12 +160,6 @@
       <version>${version.commons-fileupload}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>${version.spring}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>${version.servlet.api}</version>
@@ -197,11 +184,6 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
     </plugins>
   </build>
-
 </project>

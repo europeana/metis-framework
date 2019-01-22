@@ -1,8 +1,8 @@
 package eu.europeana.metis.dereference.service.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -15,9 +15,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GraphUtilsTest {
+class GraphUtilsTest {
 
   /**
    * Value resolver for {@link GraphUtilsTest#testBreadthFirstSearch()}. Only return values for a
@@ -56,7 +56,7 @@ public class GraphUtilsTest {
    * ..., 2^8 as result. We will regard the exponent as key and the power as value.
    */
   @Test
-  public void testBreadthFirstSearch() {
+  void testBreadthFirstSearch() {
 
     // Spies of the functionality hooks. We spy because we want to make sure that the breadth first
     // search does not revisit nodes.

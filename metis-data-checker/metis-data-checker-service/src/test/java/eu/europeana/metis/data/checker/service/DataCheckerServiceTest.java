@@ -1,14 +1,9 @@
 package eu.europeana.metis.data.checker.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
+
 import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
 import eu.europeana.metis.data.checker.common.model.DatasetProperties;
 import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
@@ -17,6 +12,13 @@ import eu.europeana.metis.data.checker.service.executor.ValidationUtils;
 import eu.europeana.metis.data.checker.service.persistence.RecordDao;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 /**
  * Created by ymamakis on 9/6/16.
@@ -28,7 +30,7 @@ public class DataCheckerServiceTest {
   private DataCheckerServiceConfig mockConfig;
   private ValidationClient mockValidationClient;
 
-  @Before
+  @BeforeEach
   public void prepare() {
     mockDao = Mockito.mock(RecordDao.class);
     mockConfig = Mockito.mock(DataCheckerServiceConfig.class);
@@ -57,8 +59,8 @@ public class DataCheckerServiceTest {
     ExtendedValidationResult extendedValidationResult =
         service.createRecords(records, properties, false, false);
 
-    Assert.assertEquals("test/12345_*", extendedValidationResult.getPortalUrl());
-    Assert.assertEquals(0, extendedValidationResult.getResultList().size());
-    Assert.assertTrue(extendedValidationResult.isSuccess());
+    assertEquals("test/12345_*", extendedValidationResult.getPortalUrl());
+    assertEquals(0, extendedValidationResult.getResultList().size());
+    assertTrue(extendedValidationResult.isSuccess());
   }
 }

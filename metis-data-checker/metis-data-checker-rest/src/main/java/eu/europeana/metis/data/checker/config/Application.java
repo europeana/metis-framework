@@ -16,9 +16,11 @@ import java.net.URI;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -36,7 +38,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -55,7 +57,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableSwagger2
 @EnableScheduling
-public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+public class Application implements WebMvcConfigurer, InitializingBean {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
@@ -192,7 +194,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
-    super.configureMessageConverters(converters);
   }
 
   @Override
@@ -201,6 +202,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .addResourceLocations("classpath:/META-INF/resources/");
     registry.addResourceHandler("/webjars/**")
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
+
+  @Bean(name = "datasetIdGenerator")
+  Supplier<String> getDatasetIdGenerator() {
+    return () -> UUID.randomUUID().toString();
   }
 
   @Bean
@@ -213,7 +219,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new ZipService();
   }
 
-  @Bean()
+  @Bean
   AbstractConnectionProvider getIndexingConnection() {
     return indexingConnection;
   }

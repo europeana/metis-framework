@@ -20,7 +20,7 @@ public class ValidationException extends Exception {
     /**
      * Creates exception instance based on provided parameters
      * @param id record id that causes the problem
-     * @param nodeId
+     * @param nodeId the node id related to the exception
      * @param message message provided by validation engine
      */
     public ValidationException(String id, String nodeId, String message) {

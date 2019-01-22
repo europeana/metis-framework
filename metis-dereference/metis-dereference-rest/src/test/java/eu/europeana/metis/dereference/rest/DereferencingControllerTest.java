@@ -7,29 +7,30 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.xml.transform.TransformerException;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferenceService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.xml.transform.TransformerException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-public class DereferencingControllerTest {
+class DereferencingControllerTest {
   private DereferenceService dereferenceServiceMock;
   private MockMvc dereferencingControllerMock;
   private Map<String, String> namespaceMap;
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeEach
+  void setUp() {
     dereferenceServiceMock = mock(DereferenceService.class);
 
     namespaceMap = getNamespaceMap();
@@ -40,7 +41,7 @@ public class DereferencingControllerTest {
   }
 
   @Test
-  public void dereferenceGet_outputXML() throws Exception {
+  void dereferenceGet_outputXML() throws Exception {
     EnrichmentResultList list = new EnrichmentResultList();
     list.getResult().add(getAgent("http://www.fennek-it.nl"));
     when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenReturn(list);
@@ -56,7 +57,7 @@ public class DereferencingControllerTest {
   }
 
   @Test
-  public void dereferencePost_outputXML() throws Exception {
+  void dereferencePost_outputXML() throws Exception {
     EnrichmentResultList list = new EnrichmentResultList();
     list.getResult().add(getAgent("http://www.fennek-it.nl"));
     when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenReturn(list);
@@ -74,7 +75,7 @@ public class DereferencingControllerTest {
   }
 
   @Test
-  public void exceptionHandling() throws Exception {
+  void exceptionHandling() throws Exception {
     when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenThrow(new TransformerException("myException"));
     dereferencingControllerMock.perform(post("/dereference")
         .content("[ \"http://www.fennek-it.nl\" ]")

@@ -1,5 +1,6 @@
 package eu.europeana.metis;
 
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -124,8 +125,8 @@ public final class RestEndpoints {
    * @param params all the parameters specified
    * @return the resolved endpoint
    */
-  public static String resolve(String endpoint, String... params) {
-    if (params == null || params.length == 0) {
+  public static String resolve(String endpoint, List<String> params) {
+    if (params == null || params.isEmpty()) {
       return endpoint;
     }
     String[] test = StringUtils.split(endpoint, "{");
@@ -136,7 +137,7 @@ public final class RestEndpoints {
         fin = new StringBuilder(en);
       } else {
         fin.append(
-            StringUtils.replace(en, StringUtils.substringBefore(en, "}") + "}", params[i - 1]));
+            StringUtils.replace(en, StringUtils.substringBefore(en, "}") + "}", params.get(i - 1)));
       }
       i++;
     }

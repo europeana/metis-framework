@@ -12,7 +12,7 @@ import org.mongodb.morphia.query.UpdateOperations;
  */
 public class EntityDao implements AbstractDao<OriginalEntity> {
 
-  private Datastore ds;
+  private final Datastore ds;
 
   /**
    * Constructor.

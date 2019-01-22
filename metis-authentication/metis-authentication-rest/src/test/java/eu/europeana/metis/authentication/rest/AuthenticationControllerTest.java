@@ -17,19 +17,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.authentication.rest.exception.RestResponseExceptionHandler;
+import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.Credentials;
+import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
-import eu.europeana.metis.authentication.rest.exception.RestResponseExceptionHandler;
-import eu.europeana.metis.authentication.service.AuthenticationService;
-import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.util.ArrayList;
 import java.util.Date;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,7 +39,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-11-08
  */
-public class AuthenticationControllerTest {
+class AuthenticationControllerTest {
 
   private static final String EXAMPLE_EMAIL = "example@example.com";
   private static final String EXAMPLE_PASSWORD = "123qwe456";
@@ -47,8 +47,8 @@ public class AuthenticationControllerTest {
   private static AuthenticationService authenticationService;
   private static MockMvc authenticationControllerMock;
 
-  @BeforeClass
-  public static void oneTimeSetUp() {
+  @BeforeAll
+  static void oneTimeSetUp() {
     authenticationService = mock(AuthenticationService.class);
     AuthenticationController authenticationController = new AuthenticationController(
         authenticationService);
@@ -58,13 +58,13 @@ public class AuthenticationControllerTest {
         .build();
   }
 
-  @After
-  public void tearDown() {
+  @AfterEach
+  void tearDown() {
     reset(authenticationService);
   }
 
   @Test
-  public void registerUser() throws Exception {
+  void registerUser() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
 
@@ -76,7 +76,7 @@ public class AuthenticationControllerTest {
   }
 
   @Test
-  public void registerUserHeaderBadContentException() throws Exception {
+  void registerUserHeaderBadContentException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenThrow(new BadContentException(""));
 
@@ -99,7 +99,7 @@ public class AuthenticationControllerTest {
   }
 
   @Test
-  public void registerUserUserAlreadyExistsException() throws Exception {
+  void registerUserUserAlreadyExistsException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
     doThrow(new UserAlreadyExistsException("")).when(authenticationService)
@@ -110,7 +110,7 @@ public class AuthenticationControllerTest {
   }
 
   @Test
-  public void loginUser() throws Exception {
+  void loginUser() throws Exception {
     MetisUser metisUser = new MetisUser();
     metisUser.setEmail(EXAMPLE_EMAIL);
     metisUser.setMetisUserAccessToken(
@@ -127,7 +127,7 @@ public class AuthenticationControllerTest {
   }
 
   @Test
-  public void loginUserBadContentException() throws Exception {
+  void loginUserBadContentException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenThrow(new BadContentException(""));
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_LOGIN).header(

@@ -34,7 +34,7 @@ public interface Indexer extends Closeable {
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * <p>
@@ -50,7 +50,7 @@ public interface Indexer extends Closeable {
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * <p>
@@ -66,7 +66,7 @@ public interface Indexer extends Closeable {
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void index(String record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void index(String record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * <p>
@@ -82,7 +82,7 @@ public interface Indexer extends Closeable {
    *        updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  public void index(List<String> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void index(List<String> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
 
   /**
    * This method will trigger a flush operation on pending changes/updates to the persistent data,
@@ -94,7 +94,33 @@ public interface Indexer extends Closeable {
    * @param blockUntilComplete If true, the call blocks until the flush is complete.
    * @throws IndexingException In case something went wrong.
    */
-  public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException;
+  void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException;
+
+  /**
+   * <p>
+   * Removes the record with the given rdf:about value. This method also removes the associated
+   * objects (i.e. those objects that are always part of only one record and the removal of which
+   * can not invalidate references from other records):
+   * <ul>
+   * <li>Aggregation</li>
+   * <li>EuropeanaAggregation</li>
+   * <li>ProvidedCHO</li>
+   * <li>Proxy</li>
+   * </ul>
+   * This does not remove any records that are potentially shared (like web resources, places,
+   * concepts etc.).
+   * </p>
+   * <p>
+   * <b>NOTE:</b> this operation should not coincide with indexing operations on the same dataset.
+   * They are not put into a transaction and therefore this method may remove what the indexing
+   * method just added.
+   * </p>
+   *
+   * @param rdfAbout The ID of the record to remove. Is not null.
+   * @return Whether a record was removed.
+   * @throws IndexingException In case something went wrong.
+   */
+  boolean remove(String rdfAbout) throws IndexingException;
 
   /**
    * <p>
@@ -111,12 +137,13 @@ public interface Indexer extends Closeable {
    * concepts etc.).
    * </p>
    * <p>
-   * Please note that the criteria for whether a record or any of the listed dependencies are
-   * removed is based on the value of these objects'
-   * {@link eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity#getAbout()} and
-   * {@link eu.europeana.corelib.definitions.edm.beans.FullBean#getAbout()} values. So the value of
+   * Please <b>NOTE</b> that the criteria for whether a record or any of the listed dependencies are
+   * removed is based on the value of {@link eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity#getAbout()}
+   * and {@link eu.europeana.corelib.definitions.edm.beans.FullBean#getAbout()}. So the value of
    * {@link eu.europeana.corelib.definitions.edm.beans.FullBean#getEuropeanaCollectionName()} does
-   * <b>not</b> play any role in determining which records to remove.
+   * <b>not</b> play any role in determining which records to remove. This should eventually be
+   * changed so that the structure of the rdf:about value is taken out of the equation (like it is
+   * in {@link #remove(String)}).
    * </p>
    * <p>
    * <b>NOTE:</b> this operation should not coincide with indexing operations on the same dataset.
@@ -128,5 +155,5 @@ public interface Indexer extends Closeable {
    * @return The number of records that were removed.
    * @throws IndexingException In case something went wrong.
    */
-  public int removeAll(String datasetId) throws IndexingException;
+  int removeAll(String datasetId) throws IndexingException;
 }

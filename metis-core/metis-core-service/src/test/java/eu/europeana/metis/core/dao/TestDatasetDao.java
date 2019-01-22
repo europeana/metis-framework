@@ -1,9 +1,10 @@
 package eu.europeana.metis.core.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -20,15 +21,14 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mongodb.morphia.Datastore;
 
-public class TestDatasetDao {
+class TestDatasetDao {
 
   private static DatasetDao datasetDao;
   private static Dataset dataset;
@@ -36,8 +36,8 @@ public class TestDatasetDao {
   private static MorphiaDatastoreProvider provider;
   private static DataSetServiceClient ecloudDataSetServiceClient;
 
-  @BeforeClass
-  public static void prepare() {
+  @BeforeAll
+  static void prepare() {
     embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
@@ -54,13 +54,13 @@ public class TestDatasetDao {
     dataset = TestObjectFactory.createDataset("testName");
   }
 
-  @AfterClass
-  public static void destroy() {
+  @AfterAll
+  static void destroy() {
     embeddedLocalhostMongo.stop();
   }
 
-  @After
-  public void cleanUp() {
+  @AfterEach
+  void cleanUp() {
     Datastore datastore = provider.getDatastore();
     datastore.delete(datastore.createQuery(Dataset.class));
     datastore.delete(datastore.createQuery(DatasetIdSequence.class));
@@ -68,7 +68,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testCreateRetrieveDataset() {
+  void testCreateRetrieveDataset() {
     datasetDao.create(dataset);
     Dataset storedDataset = datasetDao.getDatasetByDatasetId(dataset.getDatasetId());
     assertEquals(dataset.getDatasetName(), storedDataset.getDatasetName());
@@ -84,7 +84,7 @@ public class TestDatasetDao {
 
 
   @Test
-  public void testUpdateRetrieveDataset() {
+  void testUpdateRetrieveDataset() {
     datasetDao.create(dataset);
     datasetDao.update(dataset);
     Dataset storedDataset = datasetDao.getDatasetByDatasetId(dataset.getDatasetId());
@@ -100,16 +100,16 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testDeleteDataset() {
+  void testDeleteDataset() {
     datasetDao.create(dataset);
     Dataset storedDataset = datasetDao.getDatasetByDatasetId(dataset.getDatasetId());
     datasetDao.delete(storedDataset);
     storedDataset = datasetDao.getDatasetByDatasetId(dataset.getDatasetId());
-    Assert.assertNull(storedDataset);
+    assertNull(storedDataset);
   }
 
   @Test
-  public void testDelete() {
+  void testDelete() {
     String key = datasetDao.create(dataset);
     Dataset storedDataset = datasetDao.getById(key);
     assertTrue(datasetDao.delete(storedDataset));
@@ -117,7 +117,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testDeleteByDatasetId() {
+  void testDeleteByDatasetId() {
     String key = datasetDao.create(dataset);
     Dataset storedDataset = datasetDao.getById(key);
     assertTrue(datasetDao.deleteByDatasetId(storedDataset.getDatasetId()));
@@ -125,21 +125,21 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testGetByDatasetName() {
+  void testGetByDatasetName() {
     Dataset createdDataset = datasetDao.getById(datasetDao.create(dataset));
     Dataset storedDataset = datasetDao.getDatasetByDatasetName(createdDataset.getDatasetName());
     assertEquals(createdDataset.getDatasetId(), storedDataset.getDatasetId());
   }
 
   @Test
-  public void testGetByDatasetId() {
+  void testGetByDatasetId() {
     Dataset createdDataset = datasetDao.getById(datasetDao.create(dataset));
     Dataset storedDataset = datasetDao.getDatasetByDatasetId(createdDataset.getDatasetId());
     assertEquals(createdDataset.getDatasetName(), storedDataset.getDatasetName());
   }
 
   @Test
-  public void getDatasetByOrganizationIdAndDatasetName() {
+  void getDatasetByOrganizationIdAndDatasetName() {
     Dataset createdDataset = datasetDao.getById(datasetDao.create(dataset));
     Dataset storedDataset = datasetDao
         .getDatasetByOrganizationIdAndDatasetName(createdDataset.getOrganizationId(),
@@ -148,7 +148,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testExistsDatasetByDatasetName() {
+  void testExistsDatasetByDatasetName() {
     Dataset createdDataset = datasetDao.getById(datasetDao.create(dataset));
     assertTrue(datasetDao.existsDatasetByDatasetName(createdDataset.getDatasetName()));
     datasetDao.deleteByDatasetId(createdDataset.getDatasetId());
@@ -156,7 +156,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testGetAllDatasetByProvider() {
+  void testGetAllDatasetByProvider() {
     Dataset ds1 = TestObjectFactory.createDataset("dataset1");
     //add some required fields (indexed)
     ds1.setProvider("myProvider");
@@ -193,7 +193,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testGetAllDatasetByIntermediateProvider() {
+  void testGetAllDatasetByIntermediateProvider() {
     Dataset ds1 = TestObjectFactory.createDataset("dataset1");
     //add some required fields (indexed)
     ds1.setIntermediateProvider("myProvider");
@@ -230,7 +230,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testGetAllDatasetByDataProvider() {
+  void testGetAllDatasetByDataProvider() {
     Dataset ds1 = TestObjectFactory.createDataset("dataset1");
     //add some required fields (indexed)
     ds1.setDataProvider("myProvider");
@@ -267,7 +267,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testGetAllDatasetByOrganizationId() {
+  void testGetAllDatasetByOrganizationId() {
     Dataset ds1 = TestObjectFactory.createDataset("dataset1");
     //add some required fields (indexed)
     ds1.setOrganizationId("organizationId1");
@@ -309,7 +309,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testGetAllDatasetByOrganizationName() {
+  void testGetAllDatasetByOrganizationName() {
     Dataset ds1 = TestObjectFactory.createDataset("dataset1");
     //add some required fields (indexed)
     ds1.setOrganizationName("organizationName1");
@@ -346,7 +346,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testFindNextInSequenceDatasetId() {
+  void testFindNextInSequenceDatasetId() {
     DatasetIdSequence datasetIdSequence = new DatasetIdSequence(0);
     provider.getDatastore().save(datasetIdSequence);
 
@@ -362,7 +362,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testCheckAndCreateDatasetInEcloud() throws Exception {
+  void testCheckAndCreateDatasetInEcloud() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset("datasetName");
     datasetDao.create(dataset);
     when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenReturn(null);
@@ -371,7 +371,7 @@ public class TestDatasetDao {
   }
 
   @Test
-  public void testCheckAndCreateDatasetInEcloud_FieldWithEcloudIdIsAlreadyPresent() throws Exception {
+  void testCheckAndCreateDatasetInEcloud_FieldWithEcloudIdIsAlreadyPresent() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset("datasetName");
     dataset.setEcloudDatasetId("f525f64c-fea0-44bf-8c56-88f30962734c");
     datasetDao.create(dataset);
@@ -380,21 +380,25 @@ public class TestDatasetDao {
     datasetDao.checkAndCreateDatasetInEcloud(dataset);
   }
 
-  @Test(expected = ExternalTaskException.class)
-  public void testCheckAndCreateDatasetInEcloud_DataSetAlreadyExistsException() throws Exception {
+  @Test
+  void testCheckAndCreateDatasetInEcloud_DataSetAlreadyExistsException() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset("datasetName");
     datasetDao.create(dataset);
-    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenThrow(new DataSetAlreadyExistsException("Dataset already exist, not recreating"));
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
+        .thenThrow(new DataSetAlreadyExistsException("Dataset already exist, not recreating"));
 
-    datasetDao.checkAndCreateDatasetInEcloud(dataset);
+    assertThrows(ExternalTaskException.class,
+        () -> datasetDao.checkAndCreateDatasetInEcloud(dataset));
   }
 
-  @Test(expected = ExternalTaskException.class)
-  public void testCheckAndCreateDatasetInEcloud_MCSException() throws Exception {
+  @Test
+  void testCheckAndCreateDatasetInEcloud_MCSException() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset("datasetName");
     datasetDao.create(dataset);
-    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenThrow(new MCSException("An error has occurred during ecloud dataset creation."));
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
+        .thenThrow(new MCSException("An error has occurred during ecloud dataset creation."));
 
-    datasetDao.checkAndCreateDatasetInEcloud(dataset);
+    assertThrows(ExternalTaskException.class,
+        () -> datasetDao.checkAndCreateDatasetInEcloud(dataset));
   }
 }

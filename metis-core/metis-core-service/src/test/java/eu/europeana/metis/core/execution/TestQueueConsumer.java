@@ -1,7 +1,8 @@
 package eu.europeana.metis.core.execution;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -11,18 +12,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Date;
-import java.time.Instant;
-import java.util.concurrent.TimeUnit;
-import org.bson.types.ObjectId;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-import org.redisson.api.RedissonClient;
+
 import com.jayway.awaitility.Awaitility;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
@@ -33,8 +23,24 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.time.Instant;
+import java.util.concurrent.TimeUnit;
+import org.bson.types.ObjectId;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+import org.redisson.api.RedissonClient;
 
-public class TestQueueConsumer {
+/**
+ * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
+ * @since 2017-10-17
+ */
+class TestQueueConsumer {
 
   private static WorkflowExecutionDao workflowExecutionDao;
   private static RedissonClient redissonClient;
@@ -42,16 +48,15 @@ public class TestQueueConsumer {
   private static Channel rabbitmqPublisherChannel;
   private static WorkflowExecutionMonitor workflowExecutionMonitor;
   private static WorkflowExecutorManager workflowExecutorManager;
-  private static DpsClient dpsClient;
 
-  @BeforeClass
-  public static void prepare() {
+  @BeforeAll
+  static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqPublisherChannel = Mockito.mock(Channel.class);
     rabbitmqConsumerChannel = Mockito.mock(Channel.class);
-    dpsClient = Mockito.mock(DpsClient.class);
+    DpsClient dpsClient = Mockito.mock(DpsClient.class);
     workflowExecutorManager =
         new WorkflowExecutorManager(workflowExecutionDao, rabbitmqPublisherChannel,
             rabbitmqConsumerChannel, redissonClient, dpsClient);
@@ -62,8 +67,8 @@ public class TestQueueConsumer {
     workflowExecutorManager.setEcloudProvider("providerExample");
   }
 
-  @After
-  public void cleanUp() {
+  @AfterEach
+  void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(workflowExecutionMonitor);
     Mockito.reset(redissonClient);
@@ -72,7 +77,7 @@ public class TestQueueConsumer {
   }
 
   @Test
-  public void initiateConsumer() throws Exception {
+  void initiateConsumer() throws Exception {
     final String rabbitmqQueueName = "testname";
     new QueueConsumer(rabbitmqConsumerChannel, rabbitmqQueueName, workflowExecutorManager,
         workflowExecutorManager, workflowExecutionMonitor);
@@ -85,21 +90,23 @@ public class TestQueueConsumer {
     assertFalse(autoAcknowledge.getValue());
   }
 
-  @Test(expected = IOException.class)
-  public void initiateConsumerThrowsIOException() throws Exception {
+  @Test
+  void initiateConsumerThrowsIOException() throws Exception {
     final String rabbitmqQueueName = "testname";
     when(rabbitmqConsumerChannel.basicConsume(eq(rabbitmqQueueName), anyBoolean(),
         any(QueueConsumer.class))).thenThrow(new IOException("Some Error"));
-    new QueueConsumer(rabbitmqConsumerChannel, rabbitmqQueueName, workflowExecutorManager,
-        workflowExecutorManager, workflowExecutionMonitor);
+    assertThrows(IOException.class,
+        () ->  new QueueConsumer(rabbitmqConsumerChannel, rabbitmqQueueName, workflowExecutorManager,
+            workflowExecutorManager, workflowExecutionMonitor));
     ArgumentCaptor<Integer> basicQos = ArgumentCaptor.forClass(Integer.class);
     verify(rabbitmqConsumerChannel, times(1)).basicQos(basicQos.capture());
+    verify(rabbitmqConsumerChannel, times(1)).basicConsume(eq(rabbitmqQueueName), eq(false), any());
     assertEquals(new Integer(1), basicQos.getValue());
     verifyNoMoreInteractions(rabbitmqConsumerChannel);
   }
 
   @Test
-  public void handleDelivery() throws Exception {
+  void handleDelivery() throws Exception {
     String objectId = new ObjectId().toString();
     int priority = 0;
     Envelope envelope = new Envelope(1, false, "", "");
@@ -118,7 +125,7 @@ public class TestQueueConsumer {
   }
 
   @Test
-  public void handleDeliveryStateCancelling() throws Exception {
+  void handleDeliveryStateCancelling() throws Exception {
     String objectId = new ObjectId().toString();
     int priority = 0;
     Envelope envelope = new Envelope(1, false, "", "");
@@ -140,7 +147,7 @@ public class TestQueueConsumer {
   }
 
   @Test
-  public void handleDeliveryOverMaxConcurrentThreads() throws Exception {
+  void handleDeliveryOverMaxConcurrentThreads() throws Exception {
 
     int priority = 0;
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
@@ -193,7 +200,7 @@ public class TestQueueConsumer {
   }
 
   @Test
-  public void handleDeliveryOverMaxConcurrentThreadsSendNack() throws Exception {
+  void handleDeliveryOverMaxConcurrentThreadsSendNack() throws Exception {
 
     workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(0);
 
@@ -247,7 +254,7 @@ public class TestQueueConsumer {
   }
 
   @Test
-  public void handleDeliveryOverMaxConcurrentThreadsInterruptWillPolling() throws Exception {
+  void handleDeliveryOverMaxConcurrentThreadsInterruptWillPolling() throws Exception {
 
     int priority = 0;
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()

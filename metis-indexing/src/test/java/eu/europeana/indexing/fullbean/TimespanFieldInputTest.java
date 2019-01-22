@@ -1,16 +1,11 @@
 package eu.europeana.indexing.fullbean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Test;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Key;
-import org.mongodb.morphia.query.Query;
+
 import eu.europeana.corelib.definitions.jibx.AltLabel;
 import eu.europeana.corelib.definitions.jibx.Begin;
 import eu.europeana.corelib.definitions.jibx.End;
@@ -21,6 +16,12 @@ import eu.europeana.corelib.definitions.jibx.PrefLabel;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.Query;
 
 /**
  * Timespan Field Input Creator
@@ -28,10 +29,10 @@ import eu.europeana.corelib.solr.entity.TimespanImpl;
  * @author Yorgos.Mamakis@ kb.nl
  *
  */
-public class TimespanFieldInputTest {
+class TimespanFieldInputTest {
 
   @Test
-  public void testTimespan() {
+  void testTimespan() {
     TimeSpanType timespan = new TimeSpanType();
     timespan.setAbout("test about");
     List<AltLabel> altLabelList = new ArrayList<>();

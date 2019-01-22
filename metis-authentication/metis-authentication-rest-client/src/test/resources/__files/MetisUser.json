@@ -1,0 +1,17 @@
+{
+  "userId": "1482250000003948017",
+  "email": "simon.metis@europeana.eu",
+  "firstName": "Simon",
+  "lastName": "Metis",
+  "organizationId": "1482250000001617026",
+  "organizationName": "Europeana Foundation",
+  "accountRole": "METIS_ADMIN",
+  "country": "Netherlands",
+  "networkMember": false,
+  "metisUserFlag": true,
+  "createdDate": 1509694575000,
+  "updatedDate": 1509695365000,
+  "metisUserAccessToken": {
+    "accessToken": "vq6V1YJIOfLC0pSTeb1plANiopyVlwrx"
+  }
+}

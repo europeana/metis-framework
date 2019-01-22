@@ -14,12 +14,12 @@ public class EuropeanaGeneratedIdsMap {
   private static final String PROXY_ABOUT_PREFIX = "/proxy/provider";
   private static final String EUROPEANA_PROXY_ABOUT_PREFIX = "/proxy/europeana";
 
-  private String sourceProvidedChoAbout;
-  private String europeanaGeneratedId;
-  private String aggregationAboutPrefixed;
-  private String europeanaAggregationAboutPrefixed;
-  private String proxyAboutPrefixed;
-  private String europeanaProxyAboutPrefixed;
+  private final String sourceProvidedChoAbout;
+  private final String europeanaGeneratedId;
+  private final String aggregationAboutPrefixed;
+  private final String europeanaAggregationAboutPrefixed;
+  private final String proxyAboutPrefixed;
+  private final String europeanaProxyAboutPrefixed;
 
   /**
    * Constructor that created the map in one go.

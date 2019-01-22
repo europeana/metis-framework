@@ -37,7 +37,7 @@ public class WebResourceWrapper {
    * @author jochen
    */
   public enum ColorSpace {
-    SRGB, GRAYSCALE;
+    SRGB, GRAYSCALE
   }
 
   /**
@@ -46,7 +46,7 @@ public class WebResourceWrapper {
    * @author jochen
    */
   public enum Orientation {
-    PORTRAIT, LANDSCAPE;
+    PORTRAIT, LANDSCAPE
   }
 
   /**

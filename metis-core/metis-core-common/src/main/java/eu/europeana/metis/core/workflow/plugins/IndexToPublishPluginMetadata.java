@@ -28,7 +28,7 @@ public class IndexToPublishPluginMetadata extends AbstractMetisPluginMetadata {
     this.datasetId = datasetId;
   }
 
-  public boolean getUseAlternativeIndexingEnvironment() {
+  public boolean isUseAlternativeIndexingEnvironment() {
     return useAlternativeIndexingEnvironment;
   }
 

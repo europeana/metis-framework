@@ -4,22 +4,11 @@
   <parent>
     <artifactId>metis-core</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
   </parent>
   <artifactId>metis-core-rest</artifactId>
   <packaging>war</packaging>
   <dependencies>
-    <dependency>
-      <groupId>eu.europeana.cloud</groupId>
-      <artifactId>ecloud-service-uis-rest-client-java</artifactId>
-      <version>${version.ecloud}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-simple</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
     <dependency>
       <groupId>eu.europeana.cloud</groupId>
       <artifactId>ecloud-service-mcs-rest-client-java</artifactId>
@@ -116,7 +105,6 @@
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>
-      <version>${version.hamcrest}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -127,9 +115,13 @@
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${version.junit}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -149,11 +141,6 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>${version.gson}</version>
-    </dependency>
-    <dependency>
       <groupId>com.jayway.jsonpath</groupId>
       <artifactId>json-path</artifactId>
       <version>${version.json.path}</version>
@@ -170,10 +157,6 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>${version.maven.war.plugin}</version>
         <configuration>
@@ -182,18 +165,4 @@
       </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>production</id>
-      <properties>
-        <spring.profiles.active>production</spring.profiles.active>
-      </properties>
-    </profile>
-    <profile>
-      <id>development</id>
-      <properties>
-        <spring.profiles.active>development</spring.profiles.active>
-      </properties>
-    </profile>
-  </profiles>
 </project>

@@ -16,28 +16,19 @@
 		  the Licence.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>eu.europeana.metis</groupId>
-        <version>1.0.1</version>
-        <artifactId>metis-framework</artifactId>
-    </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.europeana.metis</groupId>
+    <version>1.1.0</version>
+    <artifactId>metis-framework</artifactId>
+  </parent>
 
-    <artifactId>metis-dereference</artifactId>
-    <packaging>pom</packaging>
+  <artifactId>metis-dereference</artifactId>
+  <packaging>pom</packaging>
 
-    <modules>
-        <module>metis-dereference-common</module>
-        <module>metis-dereference-service</module>
-        <module>metis-dereference-rest</module>
-    </modules>
-  <build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-        </plugin>
-    </plugins>
-</build>
-
+  <modules>
+    <module>metis-dereference-common</module>
+    <module>metis-dereference-service</module>
+    <module>metis-dereference-rest</module>
+  </modules>
 </project>

@@ -1,8 +1,10 @@
 package eu.europeana.enrichment.service.zoho;
 
+import eu.europeana.enrichment.service.EntityConverterUtils;
+import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
+import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,9 +12,6 @@ import java.net.URL;
 import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.enrichment.service.EntityConverterUtils;
-import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
-import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 
 public abstract class BaseZohoAccessSetup {
 
@@ -59,7 +58,7 @@ public abstract class BaseZohoAccessSetup {
 
 
   protected Properties loadProperties(String propertiesFile)
-      throws URISyntaxException, IOException, FileNotFoundException {
+      throws URISyntaxException, IOException {
     Properties appProps = new Properties();
     
     File propsFile = getClasspathFile(propertiesFile);
@@ -79,11 +78,9 @@ public abstract class BaseZohoAccessSetup {
    * @param fileName the name of the file to be searched in the classpath
    * @return the File object 
    * @throws URISyntaxException
-   * @throws IOException
-   * @throws FileNotFoundException
    */
   protected File getClasspathFile(String fileName)
-      throws URISyntaxException, IOException, FileNotFoundException {
+      throws URISyntaxException {
     URL resource = getClass().getResource(fileName);
     if(resource == null)
       return null;

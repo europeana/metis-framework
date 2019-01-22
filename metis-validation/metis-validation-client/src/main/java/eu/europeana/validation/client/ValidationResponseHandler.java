@@ -17,7 +17,7 @@ public class ValidationResponseHandler implements ResponseErrorHandler {
     }
 
     @Override
-    public void handleError(ClientHttpResponse response) throws IOException {
+    public void handleError(ClientHttpResponse response) {
         //DO NOTHING. That way we can handle the response on the client side as a string
     }
 }

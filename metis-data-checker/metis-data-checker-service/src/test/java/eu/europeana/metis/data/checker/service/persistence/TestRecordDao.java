@@ -1,6 +1,6 @@
 package eu.europeana.metis.data.checker.service.persistence;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.Indexer;
@@ -8,10 +8,10 @@ import eu.europeana.indexing.Indexer;
 /**
  * Created by ymamakis on 9/5/16.
  */
-public class TestRecordDao {
+class TestRecordDao {
 
   @Test
-  public void test() throws Exception {
+  void test() throws Exception {
 
     final Indexer indexer = Mockito.mock(Indexer.class);
     final RecordDao recordDao = Mockito.spy(new RecordDao(null, null, indexer));

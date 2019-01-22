@@ -20,7 +20,7 @@
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
   </parent>
   <artifactId>metis-validation-common</artifactId>
 
@@ -41,12 +41,4 @@
       <version>${version.jackson}</version>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 </project>

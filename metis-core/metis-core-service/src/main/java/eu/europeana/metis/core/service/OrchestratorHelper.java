@@ -24,6 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -264,7 +265,8 @@ public class OrchestratorHelper {
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
       ((TransformationPluginMetadata) abstractMetisPluginMetadata)
           .setXsltUrl(getMetisCoreUrl() + RestEndpoints
-              .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, xsltObject.getId().toString()));
+              .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, Collections
+                  .singletonList(xsltObject.getId().toString())));
     }
     ((TransformationPluginMetadata) abstractMetisPluginMetadata)
         .setDatasetId(dataset.getDatasetId());

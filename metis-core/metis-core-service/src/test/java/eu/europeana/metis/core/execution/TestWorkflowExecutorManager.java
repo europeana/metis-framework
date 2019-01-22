@@ -1,46 +1,46 @@
 package eu.europeana.metis.core.execution;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import java.io.IOException;
-import java.util.Arrays;
-import org.bson.types.ObjectId;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-import org.redisson.api.RedissonClient;
+
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import java.io.IOException;
+import java.util.Arrays;
+import org.bson.types.ObjectId;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+import org.redisson.api.RedissonClient;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-17
  */
-public class TestWorkflowExecutorManager {
+class TestWorkflowExecutorManager {
 
   private static WorkflowExecutionDao workflowExecutionDao;
   private static RedissonClient redissonClient;
   private static Channel rabbitmqPublisherChannel;
   private static Channel rabbitmqConsumerChannel;
   private static WorkflowExecutorManager workflowExecutorManager;
-  private static DpsClient dpsClient;
 
-  @BeforeClass
-  public static void prepare() {
+  @BeforeAll
+  static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqPublisherChannel = Mockito.mock(Channel.class);
     rabbitmqConsumerChannel = Mockito.mock(Channel.class);
-    dpsClient = Mockito.mock(DpsClient.class);
+    DpsClient dpsClient = Mockito.mock(DpsClient.class);
     workflowExecutorManager =
         new WorkflowExecutorManager(workflowExecutionDao, rabbitmqPublisherChannel,
             rabbitmqConsumerChannel, redissonClient, dpsClient);
@@ -52,8 +52,8 @@ public class TestWorkflowExecutorManager {
     assertEquals(5, workflowExecutorManager.getDpsMonitorCheckIntervalInSecs());
   }
 
-  @After
-  public void cleanUp() {
+  @AfterEach
+  void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(redissonClient);
     Mockito.reset(rabbitmqPublisherChannel);
@@ -61,7 +61,7 @@ public class TestWorkflowExecutorManager {
   }
 
   @Test
-  public void addUserWorkflowExecutionToQueue() throws Exception {
+  void addUserWorkflowExecutionToQueue() throws Exception {
     String objectId = new ObjectId().toString();
     int priority = 0;
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
@@ -73,7 +73,7 @@ public class TestWorkflowExecutorManager {
   }
 
   @Test
-  public void addUserWorkflowExecutionToQueueThrowsIOException() throws Exception {
+  void addUserWorkflowExecutionToQueueThrowsIOException() throws Exception {
     String objectId = new ObjectId().toString();
     int priority = 0;
     doThrow(new IOException("Some Error")).when(rabbitmqPublisherChannel)

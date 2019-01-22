@@ -20,7 +20,7 @@ public class NormalizerSettings {
   protected static final AmbiguityHandling DEFAULT_LANGUAGE_AMBIGUITY_HANDLING =
       AmbiguityHandling.NO_MATCH;
   protected static final CleanMarkupTagsMode DEFAULT_CLEAN_MARKUP_TAGS_MODE =
-      CleanMarkupTagsMode.ALL_MARKUP;
+      CleanMarkupTagsMode.HTML_ONLY;
 
   private float minimumConfidence = DEFAULT_MINIMUM_CONFIDENCE;
   private LanguagesVocabulary targetLanguageVocabulary = DEFAULT_VOCABULARY;

@@ -1,11 +1,11 @@
 package eu.europeana.metis.dereference;
 
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.IndexOptions;
+import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * An original Entity as downloaded from an online RDF repository
@@ -20,7 +20,7 @@ public class OriginalEntity {
     /**
      * The URI it was downloaded from
      */
-    @Indexed(unique = true)
+    @Indexed(options = @IndexOptions(unique = true))
     private String URI;
 
     /**

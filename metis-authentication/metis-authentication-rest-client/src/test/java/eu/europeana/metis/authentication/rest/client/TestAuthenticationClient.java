@@ -1,48 +1,80 @@
 package eu.europeana.metis.authentication.rest.client;
 
 
-import static org.junit.Assert.assertNotNull;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import software.betamax.ConfigurationBuilder;
-import software.betamax.TapeMode;
-import software.betamax.junit.Betamax;
-import software.betamax.junit.RecorderRule;
+import eu.europeana.metis.utils.NetworkUtil;
+import java.io.IOException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-02
  */
-public class TestAuthenticationClient {
+class TestAuthenticationClient {
 
-  @Rule
-  public RecorderRule recorder = new RecorderRule(
-      new ConfigurationBuilder().defaultMode(TapeMode.READ_ONLY).build());
-  private static AuthenticationClient authenticationClient;
+  private static int portForWireMock = 9999;
 
-  @BeforeClass
-  public static void beforeClass() {
-    authenticationClient = new AuthenticationClient(
-        "http://localhost:8080/metis-authentication-rest-test");
+  static {
+    try {
+      portForWireMock = NetworkUtil.getAvailableLocalPort();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
-  @Betamax(tape = "testGetUserByAccessTokenInHeader")
+  private static WireMockServer wireMockServer;
+  private static AuthenticationClient authenticationClient;
+
+  @BeforeAll
+  static void setUp() {
+    wireMockServer = new WireMockServer(wireMockConfig().port(portForWireMock));
+    wireMockServer.start();
+    authenticationClient = new AuthenticationClient("http://127.0.0.1:" + portForWireMock);
+  }
+
+  @AfterAll
+  static void destroy() {
+    wireMockServer.stop();
+  }
+
   @Test
-  public void testGetUserByAccessTokenInHeader() throws Exception {
+  void testGetUserByAccessTokenInHeader() throws Exception {
+    wireMockServer.stubFor(get(urlEqualTo("/authentication/user_by_access_token"))
+        .withHeader("Authorization", equalTo("Bearer vq6V1YJIOfLC0pSTeb1plANiopyVlwrx"))
+        .withHeader("Accept", equalTo("application/json"))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "application/json")
+            .withBodyFile("MetisUser.json")));
+
     MetisUser userByAccessTokenInHeader = authenticationClient
         .getUserByAccessTokenInHeader("Bearer vq6V1YJIOfLC0pSTeb1plANiopyVlwrx");
     assertNotNull(userByAccessTokenInHeader);
   }
 
-  @Betamax(tape = "testGetUserByAccessTokenInHeaderHttpClientErrorException")
-  @Test(expected = UserUnauthorizedException.class)
-  public void testGetUserByAccessTokenInHeaderHttpClientErrorException() throws Exception {
-    authenticationClient.getUserByAccessTokenInHeader("Bearer OUwbCoeELS28sF");
+  @Test
+  void testGetUserByAccessTokenInHeaderHttpClientErrorException() {
+    wireMockServer.stubFor(get(urlEqualTo("/authentication/user_by_access_token"))
+        .withHeader("Authorization", equalTo("Bearer OUwbCoeELS28sF"))
+        .withHeader("Accept", equalTo("application/json"))
+        .willReturn(aResponse()
+            .withStatus(401)
+            .withHeader("Content-Type", "application/json")
+            .withBody("{\"errorMessage\":\"Wrong access token\"}")));
+
+    assertThrows(UserUnauthorizedException.class,
+        () -> authenticationClient.getUserByAccessTokenInHeader("Bearer OUwbCoeELS28sF"));
   }
-
-
 }

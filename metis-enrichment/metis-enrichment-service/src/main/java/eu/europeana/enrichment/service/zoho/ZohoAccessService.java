@@ -42,7 +42,7 @@ public class ZohoAccessService {
   private static final int LANGUAGE_CODE_LENGTH = 2;
   private final ZohoAccessClientDao zohoAccessClientDao;
   private final ZohoV2AccessDao zohoV2AccessDao;
-  private EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
+  private final EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
 
   /**
    * Constructor of class with required parameters

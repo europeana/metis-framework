@@ -1,15 +1,16 @@
 package eu.europeana.normalization;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import eu.europeana.normalization.model.NormalizationBatchResult;
+import eu.europeana.normalization.util.NormalizationConfigurationException;
+import eu.europeana.normalization.util.NormalizationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
-import eu.europeana.normalization.model.NormalizationBatchResult;
-import eu.europeana.normalization.util.NormalizationConfigurationException;
-import eu.europeana.normalization.util.NormalizationException;
+import org.junit.jupiter.api.Test;
 
 /**
  * Command line test for the NormalizationLanguageClient

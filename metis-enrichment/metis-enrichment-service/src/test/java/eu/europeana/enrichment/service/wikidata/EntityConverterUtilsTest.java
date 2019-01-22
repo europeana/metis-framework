@@ -1,10 +1,10 @@
 package eu.europeana.enrichment.service.wikidata;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import java.io.IOException;
-import java.text.ParseException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import eu.europeana.enrichment.service.EntityConverterUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,15 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javax.xml.bind.JAXBException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.enrichment.service.EntityConverterUtils;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
 /**
  * Test utils class for entity converter.
@@ -52,12 +48,12 @@ public class EntityConverterUtilsTest {
 
   final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeEach
+  public void setUp() {
   }
 
-  @After
-  public void tearDown() throws Exception {}
+  @AfterEach
+  public void tearDown() {}
 
   private void init() {
     prefLabel = new HashMap<String, List<String>>();
@@ -83,35 +79,34 @@ public class EntityConverterUtilsTest {
   }
   
   @Test
-  public void mergeTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, JAXBException, IOException {
+  public void mergeTest() {
 
     init();
-       
-    /** merge two equal prefLabels */
+
+    //merge two equal prefLabels
     Map<String, List<String>> mergedFromEqualMap = getEntityConverterUtils().mergeMapsWithLists(
         prefLabel, prefLabel);
     assertNotNull(mergedFromEqualMap);
-    
-    /** merge unequal prefLabels to an altLabel and check resulting altLabel */
+
+    // merge unequal prefLabels to an altLabel and check resulting altLabel
     Map<String, List<String>> newValuesMap = new HashMap<>();
     newValuesMap.put(Locale.ENGLISH.getLanguage(), Collections.singletonList(TEST_LABEL_EN));
     newValuesMap.put(Locale.FRENCH.getLanguage(), Arrays.asList(TEST_LABEL_FR, TEST_LABEL_FR2));
     Map<String, List<String>> mergedMap =
         getEntityConverterUtils().mergeMapsWithLists(altLabel, newValuesMap);
     assertNotNull(mergedMap);
-    assertTrue(mergedMap.size() == 3);
+    assertEquals(3, mergedMap.size());
     assertEquals(mergedMap.get(Locale.ENGLISH.getLanguage()).get(0), TEST_LABEL_EN);
     assertTrue(mergedMap.get(Locale.FRENCH.getLanguage()).contains(TEST_LABEL_FR));
     assertTrue(mergedMap.get(Locale.FRENCH.getLanguage()).contains(TEST_LABEL_FR2));
     assertEquals(mergedMap.get(Locale.ITALIAN.getLanguage()).get(0), TEST_LABEL_IT);
     
-    /** merge unequal string arrays and remove duplicates */
+    // merge unequal string arrays and remove duplicates
     String[] base = {"a","b","c"};
     String[] add = {"d","b"};    
     String[] mergedArray = getEntityConverterUtils().mergeStringArrays(base, add);
     assertNotNull(mergedArray);
-    assertTrue(mergedArray.length == 4);    
+    assertEquals(4, mergedArray.length);
   }
 
 }

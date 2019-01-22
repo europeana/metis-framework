@@ -70,8 +70,10 @@ public class ScheduleWorkflowController {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     ScheduledWorkflow scheduledWorkflow = scheduleWorkflowService
         .getScheduledWorkflowByDatasetId(metisUser, datasetId);
-    LOGGER.info("ScheduledWorkflow with with datasetId '{}' found",
-        datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("ScheduledWorkflow with with datasetId '{}' found",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
     return scheduledWorkflow;
   }
 
@@ -120,7 +122,9 @@ public class ScheduleWorkflowController {
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     scheduleWorkflowService.deleteScheduledWorkflow(metisUser, datasetId);
-    LOGGER.info("ScheduledWorkflowExecution for datasetId '{}' deleted",
-        datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("ScheduledWorkflowExecution for datasetId '{}' deleted",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
   }
 }

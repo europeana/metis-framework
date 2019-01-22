@@ -28,14 +28,14 @@ final class EuropeanaAggregationFieldInput
 
     mongoAggregation.setDcCreator(creator);
 
-    Map<String, List<String>> country = FieldInputUtils.createLiteralMapFromString(
+    Map<String, List<String>> country = FieldInputUtils.createMapFromString(
         aggregation.getCountry().getCountry().xmlValue());
     mongoAggregation.setEdmCountry(country);
     String isShownBy =
         Optional.ofNullable(aggregation.getIsShownBy()).map(ResourceType::getResource).orElse(null);
     mongoAggregation.setEdmIsShownBy(isShownBy);
 
-    Map<String, List<String>> language = FieldInputUtils.createLiteralMapFromString(
+    Map<String, List<String>> language = FieldInputUtils.createMapFromString(
         aggregation.getLanguage().getLanguage().xmlValue().toLowerCase(Locale.ENGLISH));
 
     mongoAggregation.setEdmLanguage(language);

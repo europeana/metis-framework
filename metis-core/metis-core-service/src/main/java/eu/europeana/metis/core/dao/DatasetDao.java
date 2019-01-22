@@ -65,11 +65,12 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public String create(Dataset dataset) {
     Key<Dataset> datasetKey = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().save(dataset));
+        .retryableExternalRequestConnectionReset(
+            () -> morphiaDatastoreProvider.getDatastore().save(dataset));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' created in Mongo",
         dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
-    return datasetKey != null ? datasetKey.getId().toString() : null;
+    return datasetKey == null ? null : datasetKey.getId().toString();
   }
 
   /**
@@ -81,11 +82,12 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public String update(Dataset dataset) {
     Key<Dataset> datasetKey = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().save(dataset));
+        .retryableExternalRequestConnectionReset(
+            () -> morphiaDatastoreProvider.getDatastore().save(dataset));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' updated in Mongo",
         dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
-    return datasetKey != null ? datasetKey.getId().toString() : null;
+    return datasetKey == null ? null : datasetKey.getId().toString();
   }
 
   /**
@@ -110,9 +112,10 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public boolean delete(Dataset dataset) {
     ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().delete(
-            morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class).field(DATASET_ID)
-                .equal(dataset.getDatasetId())));
+        .retryableExternalRequestConnectionReset(
+            () -> morphiaDatastoreProvider.getDatastore().delete(
+                morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class).field(DATASET_ID)
+                    .equal(dataset.getDatasetId())));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' deleted in Mongo",
         dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
@@ -151,8 +154,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   public Dataset getDatasetByDatasetId(String datasetId) {
     return ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
-            .filter(DATASET_ID, datasetId).get());
+        .retryableExternalRequestConnectionReset(
+            () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+                .filter(DATASET_ID, datasetId).get());
   }
 
   /**
@@ -175,7 +179,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @param datasetName the datasetName
    * @return true if exist or false if it does not exist
    */
-  public boolean existsDatasetByDatasetName(String datasetName) {
+  boolean existsDatasetByDatasetName(String datasetName) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME)
             .equal(datasetName).project("_id", true).get()) != null;
@@ -254,7 +258,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationId").equal(organizationId);
     query.order(OrderField.ID.getOrderFieldName());
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> query.asList(options.apply(new FindOptions())));
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+        () -> query.asList(options.apply(new FindOptions())));
   }
 
   /**

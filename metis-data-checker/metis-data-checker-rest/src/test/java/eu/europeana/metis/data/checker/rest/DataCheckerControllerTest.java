@@ -13,15 +13,21 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
+import eu.europeana.metis.data.checker.common.exception.ZipFileException;
+import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
+import eu.europeana.metis.data.checker.exceptions.handler.ValidationExceptionHandler;
+import eu.europeana.metis.data.checker.service.DataCheckerService;
+import eu.europeana.metis.data.checker.service.ZipService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -29,31 +35,25 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.multipart.MultipartFile;
-import eu.europeana.metis.data.checker.common.exception.DataCheckerServiceException;
-import eu.europeana.metis.data.checker.common.exception.ZipFileException;
-import eu.europeana.metis.data.checker.common.model.ExtendedValidationResult;
-import eu.europeana.metis.data.checker.exceptions.handler.ValidationExceptionHandler;
-import eu.europeana.metis.data.checker.service.DataCheckerService;
-import eu.europeana.metis.data.checker.service.ZipService;
 
 /**
  * Created by erikkonijnenburg on 27/07/2017.
  */
-public class DataCheckerControllerTest {
+class DataCheckerControllerTest {
 
-  public static final MediaType APPLICATION_JSON_UTF8 =
+  static final MediaType APPLICATION_JSON_UTF8 =
       new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(),
           StandardCharsets.UTF_8);
 
-  public static String DATASET_ID = "datasetId";
+  static String DATASET_ID = "datasetId";
 
   private DataCheckerService dataCheckerService;
   private MockMvc datasetControllerMock;
   private ZipService zipService;
 
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeEach
+  void setUp() {
     dataCheckerService = mock(DataCheckerService.class);
     zipService = mock(ZipService.class);
 
@@ -64,7 +64,7 @@ public class DataCheckerControllerTest {
   }
 
   @Test
-  public void dataCheckerUpload_withOkzipfile_returnsResults() throws Exception {
+  void dataCheckerUpload_withOkzipfile_returnsResults() throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
 
@@ -87,7 +87,7 @@ public class DataCheckerControllerTest {
   }
 
   @Test
-  public void dataCheckerUpload_zipServiceFails_throwsZipException() throws Exception {
+  void dataCheckerUpload_zipServiceFails_throwsZipException() throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
 
     when(zipService.readFileToStringList(any(MultipartFile.class)))
@@ -100,7 +100,7 @@ public class DataCheckerControllerTest {
   }
 
   @Test
-  public void dataCheckerUpload_dataCheckerServiceFails_throwsValidationService() throws Exception {
+  void dataCheckerUpload_dataCheckerServiceFails_throwsValidationService() throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
 
@@ -114,13 +114,11 @@ public class DataCheckerControllerTest {
         .andExpect(status().is(500)).andExpect(jsonPath("$.errorMessage", is("myException")));
   }
 
-  @NotNull
   private MockMultipartFile createMockMultipartFile() throws IOException {
     Resource resource = new ClassPathResource("ValidExternalOk.zip");
     return new MockMultipartFile("file", resource.getInputStream());
   }
 
-  @NotNull
   private ExtendedValidationResult getExtendedValidationResult() {
     Calendar cal = Calendar.getInstance();
     cal.setTimeInMillis(0);

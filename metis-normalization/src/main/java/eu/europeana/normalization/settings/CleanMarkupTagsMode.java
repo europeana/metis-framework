@@ -19,7 +19,7 @@ public enum CleanMarkupTagsMode {
 
   private final Function<String, String> cleaner;
 
-  private CleanMarkupTagsMode(Function<String, String> cleaner) {
+  CleanMarkupTagsMode(Function<String, String> cleaner) {
     this.cleaner = cleaner;
   }
 

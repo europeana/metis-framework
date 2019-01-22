@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.execution;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -9,15 +12,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import java.util.ArrayList;
-import java.util.Date;
-import org.bson.types.ObjectId;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.mockito.Mockito;
+
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -30,12 +25,20 @@ import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.exception.ExternalTaskException;
+import java.util.ArrayList;
+import java.util.Date;
+import org.bson.types.ObjectId;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-17
  */
-public class TestWorkflowExecutor {
+class TestWorkflowExecutor {
 
   private static WorkflowExecutionDao workflowExecutionDao;
   private static DpsClient dpsClient;
@@ -43,8 +46,8 @@ public class TestWorkflowExecutor {
   private static PersistenceProvider persistenceProvider;
   private static WorkflowExecutionSettings workflowExecutionSettings;
 
-  @BeforeClass
-  public static void prepare() {
+  @BeforeAll
+  static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     dpsClient = Mockito.mock(DpsClient.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);
@@ -53,21 +56,21 @@ public class TestWorkflowExecutor {
     workflowExecutionSettings = Mockito.mock(WorkflowExecutionSettings.class);
   }
 
-  @After
-  public void cleanUp() {
+  @AfterEach
+  void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(workflowExecutionMonitor);
     Mockito.reset(dpsClient);
     Mockito.reset(workflowExecutionSettings);
   }
 
-  @Before
-  public void setConstants() {
+  @BeforeEach
+  void setConstants() {
     when(workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs()).thenReturn(0);
   }
 
   @Test
-  public void call() {
+  void call() {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(new ObjectId());
 
@@ -83,13 +86,13 @@ public class TestWorkflowExecutor {
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
     workflowExecutor.call();
 
-    Assert.assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
-    Assert.assertNotNull(workflowExecution.getUpdatedDate());
-    Assert.assertNotNull(workflowExecution.getFinishedDate());
+    assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
+    assertNotNull(workflowExecution.getUpdatedDate());
+    assertNotNull(workflowExecution.getFinishedDate());
   }
 
   @Test
-  public void callNonMockedFieldValue() throws Exception {
+  void callNonMockedFieldValue() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
     ExecutionProgress processedExecutionProgress = new ExecutionProgress();
@@ -131,7 +134,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callNonMockedFieldValue_ExceptionWhenExecuteIsCalled() throws Exception {
+  void callNonMockedFieldValue_ExceptionWhenExecuteIsCalled() throws Exception {
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.mock(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
@@ -168,7 +171,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callNonMockedFieldValue_DROPPEDExeternalTaskButNotCancelled() throws Exception {
+  void callNonMockedFieldValue_DROPPEDExeternalTaskButNotCancelled() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
     ExecutionProgress droppedExecutionProgress = new ExecutionProgress();
@@ -210,7 +213,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callNonMockedFieldValue_ConsecutiveMonitorFailures() throws Exception {
+  void callNonMockedFieldValue_ConsecutiveMonitorFailures() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
 
@@ -248,7 +251,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callNonMockedFieldValueCancellingState() throws Exception {
+  void callNonMockedFieldValueCancellingState() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
     ExecutionProgress processedExecutionProgress = new ExecutionProgress();
@@ -292,7 +295,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callExecutionInRUNNINGState() {
+  void callExecutionInRUNNINGState() {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
@@ -312,15 +315,15 @@ public class TestWorkflowExecutor {
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
     workflowExecutor.call();
 
-    Assert.assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
-    Assert.assertNotNull(workflowExecution.getStartedDate());
-    Assert.assertNotNull(workflowExecution.getUpdatedDate());
-    Assert.assertNotNull(workflowExecution.getFinishedDate());
-    Assert.assertNull(workflowExecution.getMetisPlugins().get(0).getFinishedDate());
+    assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
+    assertNotNull(workflowExecution.getStartedDate());
+    assertNotNull(workflowExecution.getUpdatedDate());
+    assertNotNull(workflowExecution.getFinishedDate());
+    assertNull(workflowExecution.getMetisPlugins().get(0).getFinishedDate());
   }
 
   @Test
-  public void callExecutionThatMayNotBeClaimed() {
+  void callExecutionThatMayNotBeClaimed() {
     when(workflowExecutionMonitor.claimExecution(any())).thenReturn(null);
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor("testId", persistenceProvider,
@@ -332,7 +335,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callCancellingStateINQUEUE() {
+  void callCancellingStateINQUEUE() {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(new ObjectId());
 
@@ -345,11 +348,11 @@ public class TestWorkflowExecutor {
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
     workflowExecutor.call();
 
-    Assert.assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
+    assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
   }
 
   @Test
-  public void callCancellingStateRUNNING() {
+  void callCancellingStateRUNNING() {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
@@ -364,6 +367,6 @@ public class TestWorkflowExecutor {
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
     workflowExecutor.call();
 
-    Assert.assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
+    assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
   }
 }

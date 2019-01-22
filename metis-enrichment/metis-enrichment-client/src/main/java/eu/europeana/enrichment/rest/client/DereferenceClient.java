@@ -1,11 +1,15 @@
 package eu.europeana.enrichment.rest.client;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.dereference.Vocabulary;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +20,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.dereference.Vocabulary;
 
 /**
  * A REST wrapper client to be used for dereferencing
@@ -64,7 +65,8 @@ public class DereferenceClient {
    * @param name The vocabulary to delete
    */
   public void deleteVocabulary(String name) {
-    restTemplate.delete(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, name));
+    restTemplate.delete(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, Collections
+        .singletonList(name)));
   }
 
   /**
@@ -75,7 +77,8 @@ public class DereferenceClient {
    */
   public Vocabulary getVocabularyByName(String name) {
     return restTemplate
-        .getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, name),
+        .getForObject(hostUrl + RestEndpoints
+                .resolve(RestEndpoints.VOCABULARY_BYNAME, Collections.singletonList(name)),
             Vocabulary.class);
   }
 
@@ -99,7 +102,8 @@ public class DereferenceClient {
       //URLEncoder converts spaces to "+" signs.
       // Replace any plus "+" characters to a proper space encoding "%20".
       String encodedUri = URLEncoder.encode(uri, StandardCharsets.UTF_8.name()).replace("+", "%20");
-      restTemplate.delete(hostUrl + RestEndpoints.resolve(RestEndpoints.ENTITY_DELETE, encodedUri));
+      restTemplate.delete(hostUrl + RestEndpoints
+          .resolve(RestEndpoints.ENTITY_DELETE, Collections.singletonList(encodedUri)));
     } catch (UnsupportedEncodingException e) {
       LOGGER.error("Exception occurred while deleting entity", e);
     }
@@ -115,7 +119,7 @@ public class DereferenceClient {
     Map<String, String> params = new HashMap<>();
     params.put("uri", uri);
     params.put("xml", xml);
-    restTemplate.postForEntity(hostUrl + RestEndpoints.ENTITY, params, null);
+    restTemplate.put(hostUrl + RestEndpoints.ENTITY, params);
   }
 
   /**
@@ -131,7 +135,8 @@ public class DereferenceClient {
     try {
       //URLEncoder converts spaces to "+" signs.
       // Replace any plus "+" characters to a proper space encoding "%20".
-      resourceString = URLEncoder.encode(resourceId, StandardCharsets.UTF_8.name()).replace("+", "%20");
+      resourceString = URLEncoder.encode(resourceId, StandardCharsets.UTF_8.name())
+          .replace("+", "%20");
     } catch (UnsupportedEncodingException e) {
       throw new IllegalStateException(e);
     }

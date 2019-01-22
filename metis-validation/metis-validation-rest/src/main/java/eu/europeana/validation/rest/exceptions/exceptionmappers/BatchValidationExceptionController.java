@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class BatchValidationExceptionController {
 
-    /**
-     * Handles specified exception
-     *
-     * @param e exception to be handled
-     * @return
-     */
-    @ExceptionHandler(BatchValidationException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ValidationResultList handleException(BatchValidationException e) {
-        return e.getList();
-    }
+  /**
+   * Handles specified exception
+   *
+   * @param e exception to be handled
+   * @return {@link ValidationResultList} a json friendly class that contains validation results
+   */
+  @ExceptionHandler(BatchValidationException.class)
+  @ResponseBody
+  @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+  public ValidationResultList handleException(BatchValidationException e) {
+    return e.getList();
+  }
 }

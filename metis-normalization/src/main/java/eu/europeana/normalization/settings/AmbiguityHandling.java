@@ -16,7 +16,7 @@ public enum AmbiguityHandling {
 
   private final Function<List<String>, String> ambiguousMatchResolver;
 
-  private AmbiguityHandling(Function<List<String>, String> ambiguousMatchResolver) {
+  AmbiguityHandling(Function<List<String>, String> ambiguousMatchResolver) {
     this.ambiguousMatchResolver = ambiguousMatchResolver;
   }
 

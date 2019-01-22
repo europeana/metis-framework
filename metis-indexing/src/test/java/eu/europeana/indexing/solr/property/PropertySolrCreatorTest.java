@@ -6,11 +6,11 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import eu.europeana.corelib.solr.entity.PlaceImpl;
 import java.util.Arrays;
 import org.apache.solr.common.SolrInputDocument;
-import org.junit.Test;
-import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.indexing.solr.property.PropertySolrCreator;
+import org.junit.jupiter.api.Test;
 
 public class PropertySolrCreatorTest {
 

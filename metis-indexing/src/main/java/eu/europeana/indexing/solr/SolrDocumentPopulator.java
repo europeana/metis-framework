@@ -53,17 +53,16 @@ public class SolrDocumentPopulator {
    *
    * @param document The Solr document to populate.
    * @param fullBean The FullBean to populate from.
-   * @return The SolrInputDocument representation of the FullBean
    */
-  public SolrInputDocument populateWithProperties(SolrInputDocument document,
+  public void populateWithProperties(SolrInputDocument document,
       FullBeanImpl fullBean) {
 
     final List<LicenseImpl> lincenses;
-    if (fullBean.getLicenses() != null) {
+    if (fullBean.getLicenses() == null) {
+      lincenses = Collections.emptyList();
+    } else {
       lincenses = fullBean.getLicenses().stream().filter(Objects::nonNull)
           .collect(Collectors.toList());
-    } else {
-      lincenses = Collections.emptyList();
     }
 
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
@@ -90,8 +89,6 @@ public class SolrDocumentPopulator {
         fullBean.getEuropeanaCollectionName()[0]);
     document.addField(EdmLabel.TIMESTAMP_CREATED.toString(), fullBean.getTimestampCreated());
     document.addField(EdmLabel.TIMESTAMP_UPDATED.toString(), fullBean.getTimestampUpdated());
-
-    return document;
   }
 
   /**
@@ -105,8 +102,8 @@ public class SolrDocumentPopulator {
 
     // Check Europeana aggregation list.
     final List<EuropeanaAggregationType> aggregationList =
-        rdf.getEuropeanaAggregationList() != null ? rdf.getEuropeanaAggregationList()
-            : Collections.emptyList();
+        rdf.getEuropeanaAggregationList() == null ? Collections.emptyList()
+            : rdf.getEuropeanaAggregationList();
     if (aggregationList.size() > 1) {
       LOGGER
           .info("Multiple Europeana aggregations found in RDF: ignoring all except the last one.");

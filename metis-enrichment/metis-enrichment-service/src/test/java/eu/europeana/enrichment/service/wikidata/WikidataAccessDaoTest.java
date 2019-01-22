@@ -1,23 +1,22 @@
 package eu.europeana.enrichment.service.wikidata;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.util.Locale;
-import javax.xml.bind.JAXBException;
-import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Locale;
+import javax.xml.bind.JAXBException;
+import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for Wikidata Access Dao.
@@ -25,6 +24,7 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
  * @author GrafR
  *
  */
+@Disabled
 public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
 
   final String WIKIDATA_URL_BNF =
@@ -37,13 +37,13 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
   final String TEST_COUNTRY = "FR";
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.initWikidataAccessService();
   }
 
-  @After
-  public void tearDown() throws Exception {}
+  @AfterEach
+  public void tearDown() {}
 
   // TODO JV it is not a good idea to test on real-time data that comes from a external source. This
   // can break our tests if the data is changed.
@@ -53,15 +53,13 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
   /**
    * SG: This is an integration test accessing data directly from wikidata  
    * @throws WikidataAccessException
-   * @throws ZohoAccessException
-   * @throws ParseException
    * @throws JAXBException
    * @throws IOException
    * @throws URISyntaxException
    */
   @Test
-  public void dereferenceBnfTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, JAXBException, IOException, URISyntaxException {
+  public void dereferenceBnfTest() throws WikidataAccessException,
+      JAXBException, IOException, URISyntaxException {
 
     //create Wikidata URI from ID 
     String uri =
@@ -86,14 +84,14 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
   }
   
   @Test
-  public void dereferenceBLTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, JAXBException, IOException, URISyntaxException {
+  public void dereferenceBLTest() throws WikidataAccessException,
+      JAXBException, IOException, URISyntaxException {
 
     String acronym = "BL";
     WikidataOrganization wikidataOrganization = dereferenceWikidataOrg(acronym, WIKIDATA_URL_BL);
     Organization organizationImpl = convertToCoreOrganization(wikidataOrganization);
     
-    //verify correct parsing of wikidata organization
+    //verify correct parsing of wikidatorg.mockitorg.mockitooa organization
     assertEquals(WIKIDATA_URL_BL, wikidataOrganization.getOrganization().getAbout());
     assertEquals("GB", wikidataOrganization.getOrganization().getCountry());
 
@@ -111,8 +109,8 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
   }
   
   @Test
-  public void dereferenceNisvTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, JAXBException, IOException, URISyntaxException {
+  public void dereferenceNisvTest() throws WikidataAccessException,
+      JAXBException, IOException, URISyntaxException {
 
     String acronym = "NIBG";
     WikidataOrganization wikidataOrganization = dereferenceWikidataOrg(acronym, WIKIDATA_URL_NISV);
@@ -143,7 +141,7 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
   }
 
   private WikidataOrganization dereferenceWikidataOrg(String acronym, String uri)
-      throws WikidataAccessException, IOException, URISyntaxException, FileNotFoundException,
+      throws WikidataAccessException, IOException, URISyntaxException,
       JAXBException {
     //dereference Wikidata URI
     String wikidataXml = wikidataAccessDao.getEntity(uri).toString();
@@ -162,16 +160,13 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
 
   /**
    * SG: This is a unit test using local files
-   * @throws WikidataAccessException
-   * @throws ZohoAccessException
-   * @throws ParseException
    * @throws JAXBException
    * @throws IOException
    * @throws URISyntaxException
    */
   @Test
-  public void dereferenceInsertFromFileTest() throws WikidataAccessException, ZohoAccessException,
-      ParseException, JAXBException, IOException, URISyntaxException {
+  public void dereferenceInsertFromFileTest() throws
+      JAXBException, IOException, URISyntaxException {
 
     // dereference Wikidata URI
     File wikidataTestManualInputFile = getClasspathFile(WIKIDATA_TEST_MANUAL_INPUT_FILE);

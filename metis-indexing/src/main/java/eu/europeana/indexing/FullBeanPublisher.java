@@ -7,6 +7,8 @@ import com.mongodb.MongoInternalException;
 import com.mongodb.MongoInterruptedException;
 import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoSocketException;
+import eu.europeana.corelib.definitions.edm.beans.FullBean;
+import eu.europeana.corelib.definitions.edm.beans.IdBean;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -42,6 +44,8 @@ class FullBeanPublisher {
 
   private static final BiConsumer<FullBeanImpl, FullBeanImpl> EMPTY_PREPROCESSOR = (created, updated) -> {
   };
+  private static final int PUBLISH_MAX_RETRIES = 30;
+  public static final int PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 
@@ -81,9 +85,9 @@ class FullBeanPublisher {
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
   }
 
-  private static void setUpdateAndCreateTime(FullBeanImpl current, FullBeanImpl updated) {
+  private static void setUpdateAndCreateTime(IdBean current, FullBean updated) {
     final Date currentDate = new Date();
-    updated.setTimestampCreated(current != null ? current.getTimestampCreated() : currentDate);
+    updated.setTimestampCreated(current == null ? currentDate : current.getTimestampCreated());
     updated.setTimestampUpdated(currentDate);
   }
 
@@ -91,7 +95,13 @@ class FullBeanPublisher {
    * Publishes an RDF.
    *
    * @param rdf RDF to publish.
-   * @throws IndexerRelatedIndexingException In case an error occurred during publication.
+   * @throws IndexingException which can be one of:
+   * <ul>
+   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
+   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
+   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
+   * contents</li>
+   * </ul>
    */
   public void publish(RDF rdf) throws IndexingException {
 
@@ -119,9 +129,10 @@ class FullBeanPublisher {
     // Publish to Solr
     try {
       ExternalRequestUtil.retryableExternalRequest(() -> {
-        publishToSolr(rdf, savedFullBean);
-        return null;
-      }, Collections.singletonMap(UnknownHostException.class, ""), 30, 1000);
+            publishToSolr(rdf, savedFullBean);
+            return null;
+          }, Collections.singletonMap(UnknownHostException.class, ""), PUBLISH_MAX_RETRIES,
+          PERIOD_BETWEEN_RETRIES_IN_MILLIS);
     } catch (IndexingException e) {
       throw e;
     } catch (Exception e) {
