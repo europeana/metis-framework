@@ -142,6 +142,11 @@ public class WikidataAccessService {
       org.setFoafLogo(logo);
     }
 
+    if (edmOrganization.getDepiction() != null) {
+      String depiction = edmOrganization.getDepiction().getResource();
+      org.setFoafDepiction(depiction);
+    }
+    
     if (edmOrganization.getMbox() != null) {
       String mbox = edmOrganization.getMbox();
       org.setFoafMbox(getEntityConverterUtils().createList(mbox));
@@ -180,11 +185,13 @@ public class WikidataAccessService {
       VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddresses().get(0);
       Address address = new AddressImpl();
       address.setAbout(org.getAbout() + "#address");
-      address.setVcardStreetAddress(vcardAddress.getStreetAddress());
-      address.setVcardLocality(vcardAddress.getLocality());
-      address.setVcardCountryName(vcardAddress.getCountryName());
-      address.setVcardPostalCode(vcardAddress.getPostalCode());
-      address.setVcardPostOfficeBox(vcardAddress.getPostOfficeBox());
+      address.setVcardHasGeo(vcardAddress.getHasGeo().getResource());
+// TODO: enable support for other address fields and locality when the issues related to the dereferencing localities, and support for multiple addresses are available 
+//      address.setVcardStreetAddress(vcardAddress.getStreetAddress());
+//      address.setVcardLocality(vcardAddress.getLocality());
+//      address.setVcardCountryName(vcardAddress.getCountryName());
+//      address.setVcardPostalCode(vcardAddress.getPostalCode());
+//      address.setVcardPostOfficeBox(vcardAddress.getPostOfficeBox());
       org.setAddress(address);
     }
 
@@ -247,7 +254,12 @@ public class WikidataAccessService {
     if (StringUtils.isEmpty(zohoOrganization.getFoafLogo())) {
       zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());
     }
-
+    
+    // depiction (if not available in zoho)
+    if (StringUtils.isEmpty(zohoOrganization.getFoafDepiction())) {
+      zohoOrganization.setFoafDepiction(wikidataOrganization.getFoafDepiction());
+    }
+    
     // homepage (if not available in zoho)
     if (StringUtils.isEmpty(zohoOrganization.getFoafHomepage())) {
       zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());

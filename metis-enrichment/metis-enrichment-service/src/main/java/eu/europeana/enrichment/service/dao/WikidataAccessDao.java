@@ -88,7 +88,7 @@ public class WikidataAccessDao {
       transformer = transformerFactory.newTransformer(xslt);
       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
       transformer.setParameter("deref", Boolean.TRUE);
-      transformer.setParameter("address", Boolean.FALSE);
+      transformer.setParameter("address", Boolean.TRUE);
 
     } catch (TransformerConfigurationException e) {
       throw new WikidataAccessException(WikidataAccessException.TRANSFORMER_CONFIGURATION_ERROR, e);

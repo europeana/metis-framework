@@ -86,6 +86,10 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     assertEquals(WIKIDATA_URL_BNF, organizationImpl.getAbout());
     assertEquals(testAcronym,
         organizationImpl.getEdmAcronym().get(Locale.FRENCH.getLanguage()).get(0));
+    
+    assertNotNull(organizationImpl.getFoafDepiction());
+    assertNotNull(organizationImpl.getAddress());
+    assertEquals("geo:48.833611111,2.375833333", organizationImpl.getAddress().getVcardHasGeo());
     // disabled address until the locality issue is solved
     // assertNotNull(organizationImpl.getAddress());
     // assertNotNull(organizationImpl.getAddress().getVcardStreetAddress());
