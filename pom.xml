@@ -94,7 +94,11 @@
     <version.jackson.xc>1.9.13</version.jackson.xc>
     <version.powermock>1.7.1</version.powermock>
     <version.mockito.core>2.22.0</version.mockito.core>
+<<<<<<< Upstream, based on origin/develop
     <version.corelib>2.8.6-SNAPSHOT</version.corelib>
+=======
+    <version.corelib>2.8.5-SNAPSHOT</version.corelib>
+>>>>>>> 016255f #EA-1471 #EA-1468 updated enrichment with wikidata for depiction and address
     <version.servlet.api>3.1.0</version.servlet.api>
     <version.commons-fileupload>1.3</version.commons-fileupload>
     <version.morphia>1.3.2</version.morphia>
