@@ -37,7 +37,7 @@ public class WebResourceWrapper {
    * @author jochen
    */
   public enum ColorSpace {
-    SRGB, GRAYSCALE
+    COLOR, GRAYSCALE, OTHER
   }
 
   /**
@@ -166,17 +166,30 @@ public class WebResourceWrapper {
    *         the value was not recognized.
    */
   public ColorSpace getColorSpace() {
+
+    // Sanity check.
     final HasColorSpace colorSpace = webResource.getHasColorSpace();
-    final ColorSpace result;
     if (colorSpace == null || colorSpace.getHasColorSpace() == null) {
-      result = null;
-    } else if (colorSpace.getHasColorSpace() == ColorSpaceType.S_RGB) {
-      result = ColorSpace.SRGB;
-    } else if (colorSpace.getHasColorSpace() == ColorSpaceType.GRAYSCALE) {
-      result = ColorSpace.GRAYSCALE;
-    } else {
-      result = null;
+      return null;
     }
+
+    // Determine color space type.
+    final ColorSpace result;
+    switch (colorSpace.getHasColorSpace()) {
+      case OTHER:
+        result = ColorSpace.OTHER;
+        break;
+      case GRAYSCALE:
+      case REC601_LUMA:
+      case REC709_LUMA:
+        result = ColorSpace.GRAYSCALE;
+        break;
+      default:
+        result = ColorSpace.COLOR;
+        break;
+    }
+
+    // Done.
     return result;
   }
 

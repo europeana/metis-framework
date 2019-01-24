@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
 import java.io.IOException;
 import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
@@ -63,9 +64,11 @@ class ImageProcessor implements MediaProcessor {
     final ImageResourceMetadata resourceMetadata;
     if (UrlType.shouldExtractMetadata(resource.getUrlTypes())) {
       final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
+      final ColorSpaceType colorSpace = ColorSpaceMapping
+          .getColorSpaceType(imageMetadata.getColorSpace());
       resourceMetadata =
           new ImageResourceMetadata(resource.getMimeType(), resource.getResourceUrl(), contentSize,
-              imageMetadata.getWidth(), imageMetadata.getHeight(), imageMetadata.getColorSpace(),
+              imageMetadata.getWidth(), imageMetadata.getHeight(), colorSpace,
               imageMetadata.getDominantColors(), thumbnailsAndMetadata.getRight());
     } else {
       resourceMetadata = null;

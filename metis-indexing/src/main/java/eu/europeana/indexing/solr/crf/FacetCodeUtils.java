@@ -26,8 +26,9 @@ public final class FacetCodeUtils {
   private static final Integer IMAGE_LARGE = 3;
   private static final Integer IMAGE_HUGE = 4;
 
-  private static final Integer IMAGE_SRGB = 1;
+  private static final Integer IMAGE_COLOR = 1;
   private static final Integer IMAGE_GRAYSCALE = 2;
+  private static final Integer IMAGE_OTHER_SCHEME = 3;
 
   private static final Integer IMAGE_PORTRAIT = 1;
   private static final Integer IMAGE_LANDSCAPE = 2;
@@ -134,10 +135,12 @@ public final class FacetCodeUtils {
   public static Set<Integer> getImageColorSpaceCode(final WebResourceWrapper webResource) {
     final ColorSpace colorSpace = webResource.getColorSpace();
     final Integer result;
-    if (ColorSpace.SRGB == colorSpace) {
-      result = IMAGE_SRGB;
+    if (ColorSpace.COLOR == colorSpace) {
+      result = IMAGE_COLOR;
     } else if (ColorSpace.GRAYSCALE == colorSpace) {
       result = IMAGE_GRAYSCALE;
+    } else if (ColorSpace.OTHER == colorSpace) {
+      result = IMAGE_OTHER_SCHEME;
     } else {
       result = UNKNOWN;
     }
