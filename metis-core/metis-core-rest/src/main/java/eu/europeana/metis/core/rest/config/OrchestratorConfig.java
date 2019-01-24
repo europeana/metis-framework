@@ -65,6 +65,8 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrchestratorConfig.class);
 
+  private static final int WAITING_TIME_FOR_THREAD_DEATH = 2;
+
   private final ConfigurationPropertiesHolder propertiesHolder;
   private SchedulerExecutor schedulerExecutor;
   private WorkflowExecutionMonitor workflowExecutionMonitor;
@@ -318,8 +320,11 @@ public class OrchestratorConfig implements WebMvcConfigurer {
       FastThreadLocal.destroy();
       InternalThreadLocalMap.remove();
       InternalThreadLocalMap.destroy();
-      ThreadDeathWatcher.awaitInactivity(2, TimeUnit.SECONDS);
-    } catch (IOException | TimeoutException | InterruptedException e) {
+      ThreadDeathWatcher.awaitInactivity(WAITING_TIME_FOR_THREAD_DEATH, TimeUnit.SECONDS);
+    } catch (IOException | TimeoutException e) {
+      throw new GenericMetisException("Could not shutdown resources properly.", e);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
       throw new GenericMetisException("Could not shutdown resources properly.", e);
     }
   }

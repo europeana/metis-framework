@@ -66,7 +66,7 @@ final class FieldInputUtils {
 
       // Obtain the trimmed non-null non-empty values to add.
       final Stream<String> values = Optional.ofNullable(listItem).map(valuesGetter)
-          .filter(valueList -> !valueList.isEmpty()).map(List::stream).orElse(Stream.empty());
+          .filter(valueList -> !valueList.isEmpty()).map(List::stream).orElseGet(Stream::empty);
       final List<String> filteredValues = values.filter(Objects::nonNull).map(String::trim)
           .filter(StringUtils::isNotEmpty).collect(Collectors.toList());
 
@@ -86,7 +86,7 @@ final class FieldInputUtils {
       Function<T, List<String>> valuesGetter) {
     final Map<String, List<String>> map = createMapFromList(list, singleKeyGetter(), valuesGetter);
     final Stream<String> result = Optional.ofNullable(map).map(Map::values).map(Collection::stream)
-        .flatMap(Stream::findAny).map(List::stream).orElse(Stream.empty());
+        .flatMap(Stream::findAny).map(List::stream).orElseGet(Stream::empty);
     return result.toArray(String[]::new);
   }
 

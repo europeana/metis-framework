@@ -33,9 +33,16 @@ import org.springframework.web.client.HttpServerErrorException;
 public class EnrichmentWorker {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
-  public static final int EXTERNAL_CALL_MAX_RETRIES = 30;
-  public static final int EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
-  public static final Map<Class<?>, String> mapWithRetrieableExceptions = createMapWithRetrieableExceptions();
+  private static final int EXTERNAL_CALL_MAX_RETRIES = 30;
+  private static final int EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
+  private static final Map<Class<?>, String> mapWithRetrieableExceptions;
+
+  static {
+    final Map<Class<?>, String> retriableExceptionMap = new HashMap<>();
+    retriableExceptionMap.put(UnknownHostException.class, "");
+    retriableExceptionMap.put(HttpServerErrorException.class, "");
+    mapWithRetrieableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
+  }
 
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
@@ -46,14 +53,6 @@ public class EnrichmentWorker {
    */
   public enum Mode {
     ENRICHMENT_ONLY, DEREFERENCE_ONLY, DEREFERENCE_AND_ENRICHMENT
-  }
-
-  private static Map<Class<?>, String> createMapWithRetrieableExceptions() {
-    Map<Class<?>, String> mapWithRetrieableExceptions = new HashMap<>();
-    mapWithRetrieableExceptions.put(UnknownHostException.class, "");
-    mapWithRetrieableExceptions.put(HttpServerErrorException.class, "");
-
-    return mapWithRetrieableExceptions;
   }
 
   /**

@@ -58,7 +58,7 @@ public class EntityService implements Closeable {
 		LOGGER.trace("Stored new lables: {}", newLabels);
 
 		// store term list
-    return (OrganizationTermList) entityDao.storeMongoTermList(termList);
+    return entityDao.storeMongoTermList(termList);
 
   }
 

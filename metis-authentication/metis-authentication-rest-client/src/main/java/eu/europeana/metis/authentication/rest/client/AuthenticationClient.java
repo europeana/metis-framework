@@ -70,7 +70,7 @@ public class AuthenticationClient {
           e, e.getRawStatusCode(), e.getResponseBodyAsString());
       throw new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN, e);
     } catch (IOException e) {
-      LOGGER.error("Could not parse response to Object, {}", e);
+      LOGGER.error("Could not parse response to Object, {}: {}", e.getCause(), e.getMessage());
       throw new UserUnauthorizedException("Could not parse response to Object, {}", e);
     }
   }

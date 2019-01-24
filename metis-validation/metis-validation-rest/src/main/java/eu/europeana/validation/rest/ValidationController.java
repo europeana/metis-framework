@@ -128,7 +128,10 @@ public class ValidationController {
       } else {
         throw new BatchValidationException("Batch service failed", list);
       }
-    } catch (InterruptedException | ExecutionException e) {
+    } catch (ExecutionException e) {
+      throw new ServerException(e);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
       throw new ServerException(e);
     }
   }

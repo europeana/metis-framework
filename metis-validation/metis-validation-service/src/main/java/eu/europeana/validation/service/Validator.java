@@ -2,8 +2,10 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.model.ValidationResult;
-
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,7 +20,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -137,7 +139,7 @@ public class Validator implements Callable<ValidationResult> {
 
     if (!templatesCache.containsKey(schematronPath)) {
       reader = new StringReader(
-          IOUtils.toString(new FileInputStream(schematronPath), StandardCharsets.UTF_8));
+          FileUtils.readFileToString(new File(schematronPath), StandardCharsets.UTF_8.name()));
       Templates template = TransformerFactory.newInstance()
           .newTemplates(new StreamSource(reader));
       templatesCache.put(schematronPath, template);

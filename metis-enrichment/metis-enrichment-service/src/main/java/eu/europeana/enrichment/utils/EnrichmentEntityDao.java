@@ -457,7 +457,7 @@ public class EnrichmentEntityDao implements Closeable {
    * This method stores the provided object in the database. If the _id is present, it will
    * overwrite the existing database record
    */
-  public MongoTermList<? extends ContextualClassImpl> storeMongoTermList(
+  public OrganizationTermList storeMongoTermList(
       MongoTermList<? extends ContextualClassImpl> termList) {
     initDbIfNeeded();
     String type = termList.getEntityType();

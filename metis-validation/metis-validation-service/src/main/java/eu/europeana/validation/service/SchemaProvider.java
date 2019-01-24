@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -142,11 +143,10 @@ public class SchemaProvider {
       throw new SchemaProviderException("Unable to create schemaDirecory");
     }
 
+    final File destinationFile = new File(schemasLocation, ZIP_FILE_NAME);
     try (InputStream urlLocation = new URL(zipLocation).openStream();
-        OutputStream fos = Files
-            .newOutputStream(new File(schemasLocation, ZIP_FILE_NAME).toPath())) {
-
-      File destinationFile = new File(schemasLocation, ZIP_FILE_NAME);
+        OutputStream fos = Files.newOutputStream(destinationFile.toPath())
+    ) {
       IOUtils.copy(urlLocation, fos);
       return destinationFile;
     } catch (IOException e) {
