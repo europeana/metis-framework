@@ -39,19 +39,6 @@ class WebResource {
     PORTRAIT, LANDSCAPE
   }
 
-  /**
-   * Enum for the supported values of image color space.
-   */
-  public enum ColorSpace {
-    S_RGB(ColorSpaceType.S_RGB), GRAYSCALE(ColorSpaceType.GRAYSCALE);
-
-    private final ColorSpaceType mappedColorSpace;
-
-    ColorSpace(ColorSpaceType mappedColorSpace) {
-      this.mappedColorSpace = mappedColorSpace;
-    }
-  }
-
   private final WebResourceType resource;
 
   /**
@@ -81,9 +68,9 @@ class WebResource {
     resource.setFileByteSize(longVal(fileSize));
   }
 
-  void setColorspace(ColorSpace colorspace) {
+  void setColorspace(ColorSpaceType colorSpace) {
     HasColorSpace hasColorSpace = new HasColorSpace();
-    hasColorSpace.setHasColorSpace(colorspace.mappedColorSpace);
+    hasColorSpace.setHasColorSpace(colorSpace);
     resource.setHasColorSpace(hasColorSpace);
   }
 

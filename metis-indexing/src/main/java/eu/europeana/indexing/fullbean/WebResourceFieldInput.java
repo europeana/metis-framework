@@ -195,10 +195,12 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
 
     metaInfo.setHeight(convertToInteger(source.getHeight()));
     metaInfo.setWidth(convertToInteger(source.getWidth()));
-    metaInfo.setColorSpace(Optional.ofNullable(source.getHasColorSpace())
-        .map(HasColorSpace::getHasColorSpace).map(ColorSpaceType::xmlValue)
-        .map(value -> "grayscale".equals(value) ? "Gray" : value).orElse(null));
+
     // TODO: 3-8-18 Gray is used because of backwards compatibility but the actual value defined in the xsd is grayscale
+    final Function<ColorSpaceType, String> colorSpaceToString = value ->
+        value == ColorSpaceType.GRAYSCALE ? "Gray" : value.xmlValue();
+    metaInfo.setColorSpace(Optional.ofNullable(source.getHasColorSpace())
+        .map(HasColorSpace::getHasColorSpace).map(colorSpaceToString).orElse(null));
 
     final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList())
         .map(List::stream).orElseGet(Stream::empty);
