@@ -10,7 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.FileUtils;
-import org.apache.maven.shared.utils.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
