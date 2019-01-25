@@ -26,6 +26,10 @@ public class EntityService implements Closeable {
 	    this.entityDao = new EnrichmentEntityDao(mongoHost, mongoPort);
 	}
 
+	public EntityService(String mongoConnectionUrl) {
+      this.entityDao = new EnrichmentEntityDao(mongoConnectionUrl);
+    }
+	
     @Override
     public void close() throws IOException {
         this.entityDao.close();
