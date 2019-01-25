@@ -70,6 +70,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+<<<<<<< Upstream, based on origin/develop
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
@@ -77,6 +78,10 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
+=======
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+>>>>>>> f7b4408 #EA-1468 updated corelib version to support depiction and hasGeo 
       <scope>test</scope>
     </dependency>
     <dependency>
