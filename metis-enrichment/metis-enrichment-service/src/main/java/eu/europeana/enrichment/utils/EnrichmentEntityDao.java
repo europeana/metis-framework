@@ -19,6 +19,7 @@ package eu.europeana.enrichment.utils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import eu.europeana.corelib.solr.entity.ContextualClassImpl;
 import eu.europeana.enrichment.api.internal.AgentTermList;
@@ -88,8 +89,17 @@ public class EnrichmentEntityDao implements Closeable {
 
   private final MongoClient mongo;
 
+  /**
+   * @deprecated see 
+   * @param host
+   * @param port
+   */
   public EnrichmentEntityDao(String host, int port) {
     this.mongo = new MongoClient(host, port);
+  }
+  
+  public EnrichmentEntityDao(String connectionUrl) {
+    this.mongo = new MongoClient(new MongoClientURI(connectionUrl));
   }
 
   @Override
