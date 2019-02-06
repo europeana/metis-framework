@@ -89,6 +89,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     // Process the results
     if (finishDate == null && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+      // Update workflowExecution first, to retrieve cancelling information from db
+      workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
       // If the workflow was cancelled before it had the chance to finish, we cancel all remaining
       // plugins.
       workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
