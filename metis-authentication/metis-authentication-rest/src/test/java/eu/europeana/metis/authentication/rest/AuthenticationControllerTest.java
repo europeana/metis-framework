@@ -26,12 +26,18 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -88,7 +94,7 @@ class AuthenticationControllerTest {
   }
 
   @Test
-  public void registerUserNoUserFoundException() throws Exception {
+  void registerUserNoUserFoundException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
     doThrow(new NoUserFoundException("")).when(authenticationService)
@@ -137,7 +143,7 @@ class AuthenticationControllerTest {
   }
 
   @Test
-  public void updateUserPassword() throws Exception {
+  void updateUserPassword() throws Exception {
     MetisUser metisUser = new MetisUser();
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
@@ -147,87 +153,104 @@ class AuthenticationControllerTest {
 
     authenticationControllerMock
         .perform(
-            put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD).param("oldPassword", oldPassword)
-                .param("newPassword", newPassword).header(
-                HttpHeaders.AUTHORIZATION, ""))
+            put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD)
+                .header(HttpHeaders.AUTHORIZATION, "")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+                    new BasicNameValuePair("oldPassword", oldPassword),
+                    new BasicNameValuePair("newPassword", newPassword))))))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
     verify(authenticationService).authenticateUser(metisUser.getEmail(), oldPassword);
     verify(authenticationService).updateUserPassword(metisUser, newPassword);
   }
 
   @Test
-  public void updateUserPasswordBadContentException() throws Exception {
+  void updateUserPasswordBadContentException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenThrow(new BadContentException(""));
     final String oldPassword = "123";
     final String newPassword = "12345";
     authenticationControllerMock
         .perform(
-            put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD).param("oldPassword", oldPassword)
-                .param("newPassword", newPassword).header(
-                HttpHeaders.AUTHORIZATION, ""))
+            put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD)
+                .header(HttpHeaders.AUTHORIZATION, "")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
+                    new BasicNameValuePair("oldPassword", oldPassword),
+                    new BasicNameValuePair("newPassword", newPassword))))))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
 
     verify(authenticationService, times(0)).updateUserPassword(any(MetisUser.class), anyString());
   }
 
   @Test
-  public void updateUserPasswordBadContentExceptionNewPasswordEmpty() throws Exception {
+  void updateUserPasswordBadContentExceptionNewPasswordEmpty() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     final String oldPassword = "123";
     authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD).param("oldPassword", oldPassword)
-            .param("newPassword", "  ").header(
-                HttpHeaders.AUTHORIZATION, ""))
+        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD)
+            .header(HttpHeaders.AUTHORIZATION, "")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                new BasicNameValuePair("oldPassword", oldPassword))))))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0)).updateUserPassword(any(MetisUser.class), anyString());
   }
 
   @Test
-  public void deleteUser() throws Exception {
+  void deleteUser() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.isUserAdmin(EXAMPLE_ACCESS_TOKEN)).thenReturn(true);
 
     authenticationControllerMock
         .perform(
-            delete(RestEndpoints.AUTHENTICATION_DELETE).param("userEmailToDelete", EXAMPLE_EMAIL)
-                .header(HttpHeaders.AUTHORIZATION, ""))
+            delete(RestEndpoints.AUTHENTICATION_DELETE)
+                .header(HttpHeaders.AUTHORIZATION, "")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                    new BasicNameValuePair("userEmailToDelete", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
 
     verify(authenticationService).deleteUser(anyString());
   }
 
   @Test
-  public void deleteUserBadContentException() throws Exception {
+  void deleteUserBadContentException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenThrow(new BadContentException(""));
     authenticationControllerMock
         .perform(
-            delete(RestEndpoints.AUTHENTICATION_DELETE).param("userEmailToDelete", EXAMPLE_EMAIL)
-                .header(HttpHeaders.AUTHORIZATION, ""))
+            delete(RestEndpoints.AUTHENTICATION_DELETE)
+                .header(HttpHeaders.AUTHORIZATION, "")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                    new BasicNameValuePair("userEmailToDelete", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
 
     verify(authenticationService, times(0)).deleteUser(anyString());
   }
 
   @Test
-  public void deleteUserUserUnauthorizedException() throws Exception {
+  void deleteUserUserUnauthorizedException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.isUserAdmin(EXAMPLE_ACCESS_TOKEN)).thenReturn(false);
     authenticationControllerMock
         .perform(
-            delete(RestEndpoints.AUTHENTICATION_DELETE).param("userEmailToDelete", EXAMPLE_EMAIL)
-                .header(HttpHeaders.AUTHORIZATION, ""))
+            delete(RestEndpoints.AUTHENTICATION_DELETE)
+                .header(HttpHeaders.AUTHORIZATION, "")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                    new BasicNameValuePair("userEmailToDelete", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
 
     verify(authenticationService, times(0)).deleteUser(anyString());
   }
 
   @Test
-  public void updateUser() throws Exception {
+  void updateUser() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
 
@@ -236,19 +259,25 @@ class AuthenticationControllerTest {
         .thenReturn(true);
 
     authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE).param("userEmailToUpdate", EXAMPLE_EMAIL)
-            .header(HttpHeaders.AUTHORIZATION, ""))
+        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
+            .header(HttpHeaders.AUTHORIZATION, "")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                new BasicNameValuePair("userEmailToUpdate", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.OK.value()));
     verify(authenticationService).updateUserFromZoho(EXAMPLE_EMAIL);
   }
 
   @Test
-  public void updateUserBadContentException() throws Exception {
+  void updateUserBadContentException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenThrow(new BadContentException(""));
     authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE).param("userEmailToUpdate", EXAMPLE_EMAIL)
-            .header(HttpHeaders.AUTHORIZATION, ""))
+        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
+            .header(HttpHeaders.AUTHORIZATION, "")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                new BasicNameValuePair("userEmailToUpdate", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0))
         .hasPermissionToRequestUserUpdate(anyString(), anyString());
@@ -256,7 +285,7 @@ class AuthenticationControllerTest {
   }
 
   @Test
-  public void updateUserNoUserFoundException() throws Exception {
+  void updateUserNoUserFoundException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
 
@@ -267,13 +296,16 @@ class AuthenticationControllerTest {
         .updateUserFromZoho(EXAMPLE_EMAIL);
 
     authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE).param("userEmailToUpdate", EXAMPLE_EMAIL)
-            .header(HttpHeaders.AUTHORIZATION, ""))
+        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
+            .header(HttpHeaders.AUTHORIZATION, "")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                new BasicNameValuePair("userEmailToUpdate", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
   }
 
   @Test
-  public void updateUserUserUnauthorizedException() throws Exception {
+  void updateUserUserUnauthorizedException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
 
@@ -282,38 +314,47 @@ class AuthenticationControllerTest {
         .thenReturn(false);
 
     authenticationControllerMock
-        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE).param("userEmailToUpdate", EXAMPLE_EMAIL)
-            .header(HttpHeaders.AUTHORIZATION, ""))
+        .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
+            .header(HttpHeaders.AUTHORIZATION, "")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                new BasicNameValuePair("userEmailToUpdate", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     verify(authenticationService, times(0)).updateUserFromZoho(anyString());
   }
 
   @Test
-  public void updateUserToMakeAdmin() throws Exception {
+  void updateUserToMakeAdmin() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.isUserAdmin(EXAMPLE_ACCESS_TOKEN)).thenReturn(true);
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
-            .param("userEmailToMakeAdmin", EXAMPLE_EMAIL).header(HttpHeaders.AUTHORIZATION, ""))
+            .header(HttpHeaders.AUTHORIZATION, "")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                new BasicNameValuePair("userEmailToMakeAdmin", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
     verify(authenticationService).updateUserMakeAdmin(EXAMPLE_EMAIL);
   }
 
   @Test
-  public void updateUserToMakeAdminBadContentException() throws Exception {
+  void updateUserToMakeAdminBadContentException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenThrow(new BadContentException(""));
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
-            .param("userEmailToMakeAdmin", EXAMPLE_EMAIL).header(HttpHeaders.AUTHORIZATION, ""))
+            .header(HttpHeaders.AUTHORIZATION, "")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                new BasicNameValuePair("userEmailToMakeAdmin", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0)).isUserAdmin(anyString());
     verify(authenticationService, times(0)).updateUserMakeAdmin(anyString());
   }
 
   @Test
-  public void updateUserToMakeAdminNoUserFoundException() throws Exception {
+  void updateUserToMakeAdminNoUserFoundException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.isUserAdmin(EXAMPLE_ACCESS_TOKEN)).thenReturn(true);
@@ -321,24 +362,30 @@ class AuthenticationControllerTest {
         .updateUserMakeAdmin(EXAMPLE_EMAIL);
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
-            .param("userEmailToMakeAdmin", EXAMPLE_EMAIL).header(HttpHeaders.AUTHORIZATION, ""))
+            .header(HttpHeaders.AUTHORIZATION, "")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                new BasicNameValuePair("userEmailToMakeAdmin", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
   }
 
   @Test
-  public void updateUserToMakeAdminUserUnauthorizedException() throws Exception {
+  void updateUserToMakeAdminUserUnauthorizedException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.isUserAdmin(EXAMPLE_ACCESS_TOKEN)).thenReturn(false);
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
-            .param("userEmailToMakeAdmin", EXAMPLE_EMAIL).header(HttpHeaders.AUTHORIZATION, ""))
+            .header(HttpHeaders.AUTHORIZATION, "")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .content(EntityUtils.toString(new UrlEncodedFormEntity(Collections.singletonList(
+                new BasicNameValuePair("userEmailToMakeAdmin", EXAMPLE_EMAIL))))))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     verify(authenticationService, times(0)).updateUserMakeAdmin(anyString());
   }
 
   @Test
-  public void getUserByAccessToken() throws Exception {
+  void getUserByAccessToken() throws Exception {
     MetisUser metisUser = new MetisUser();
     metisUser.setEmail(EXAMPLE_EMAIL);
     metisUser.setMetisUserAccessToken(
@@ -355,7 +402,7 @@ class AuthenticationControllerTest {
   }
 
   @Test
-  public void getUserByAccessTokenBadContentException() throws Exception {
+  void getUserByAccessTokenBadContentException() throws Exception {
     MetisUser metisUser = new MetisUser();
     metisUser.setEmail(EXAMPLE_EMAIL);
     metisUser.setMetisUserAccessToken(
@@ -372,7 +419,7 @@ class AuthenticationControllerTest {
 
 
   @Test
-  public void getAllUsers() throws Exception {
+  void getAllUsers() throws Exception {
     MetisUser metisUser0 = new MetisUser();
     metisUser0.setEmail("0" + EXAMPLE_EMAIL);
     MetisUser metisUser1 = new MetisUser();
@@ -394,7 +441,7 @@ class AuthenticationControllerTest {
   }
 
   @Test
-  public void getAllUsersBadContentException() throws Exception {
+  void getAllUsersBadContentException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenThrow(new BadContentException(""));
     authenticationControllerMock
@@ -403,7 +450,7 @@ class AuthenticationControllerTest {
   }
 
   @Test
-  public void getAllUsersUserUnauthorizedException() throws Exception {
+  void getAllUsersUserUnauthorizedException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.hasPermissionToRequestAllUsers(EXAMPLE_ACCESS_TOKEN))
