@@ -367,7 +367,7 @@ public class OrchestratorService {
     if (workflowExecution != null && (
         workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
             || workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE)) {
-      workflowExecutionDao.setCancellingState(workflowExecution);
+      workflowExecutionDao.setCancellingState(workflowExecution, metisUser);
       LOGGER.info(
           "Cancelling user workflow execution with id: {}", workflowExecution.getId());
     } else {

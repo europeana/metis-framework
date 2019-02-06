@@ -39,6 +39,8 @@ public class WorkflowExecution implements HasMongoObjectId {
   private WorkflowStatus workflowStatus;
   @Indexed
   private String ecloudDatasetId;
+  @Indexed
+  private String cancelledBy;
   private int workflowPriority;
   private boolean cancelling;
 
@@ -151,6 +153,14 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
+  }
+
+  public String getCancelledBy() {
+    return cancelledBy;
+  }
+
+  public void setCancelledBy(String cancelledBy) {
+    this.cancelledBy = cancelledBy;
   }
 
   public String getEcloudDatasetId() {

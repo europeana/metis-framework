@@ -1,8 +1,10 @@
 package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
+import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -31,6 +33,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
 /**
+ * Data Access Object for workflow executions using mongo.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-26
  */
@@ -132,13 +136,28 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         updateResults == null ? 0 : updateResults.getUpdatedCount());
   }
 
-  public void setCancellingState(WorkflowExecution workflowExecution) {
+  /**
+   * Set the cancelling field in the database.
+   * <p>Also adds information of the user identifier that cancelled the execution or if it was by a
+   * system operation, using {@link CancelledSystemId} values as identifiers. For historical
+   * executions the value of the <code>cancelledBy</code> field will remain <code>null</code></p>
+   *
+   * @param workflowExecution the workflowExecution to be cancelled
+   * @param metisUser the user that triggered the cancellation or null if it was the system
+   */
+  public void setCancellingState(WorkflowExecution workflowExecution, MetisUser metisUser) {
     UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
         .getDatastore().createUpdateOperations(WorkflowExecution.class);
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
         .filter("_id", workflowExecution.getId());
     workflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
+    if (metisUser != null && metisUser.getUserId() != null) {
+      workflowExecutionUpdateOperations.set("cancelledBy", metisUser.getUserId());
+    } else {
+      workflowExecutionUpdateOperations
+          .set("cancelledBy", CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+    }
     UpdateResults updateResults = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore()
             .update(query, workflowExecutionUpdateOperations));
