@@ -12,7 +12,7 @@ public class Credentials {
   private String password;
 
   /**
-   * Contstructor with required fields.
+   * Constructor with required fields.
    * @param email the email of the user
    * @param password the passsword of the user
    */
