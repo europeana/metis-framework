@@ -81,7 +81,10 @@
 =======
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+<<<<<<< HEAD
 >>>>>>> f7b4408 #EA-1468 updated corelib version to support depiction and hasGeo 
+=======
+>>>>>>> branch 'v1.0.2-zoho-import-updates' of https://github.com/europeana/metis-framework.git
       <scope>test</scope>
     </dependency>
     <dependency>

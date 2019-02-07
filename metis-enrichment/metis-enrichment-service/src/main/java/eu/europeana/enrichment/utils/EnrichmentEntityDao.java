@@ -16,6 +16,21 @@
  */
 package eu.europeana.enrichment.utils;
 
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+import org.mongojack.DBCursor;
+import org.mongojack.DBSort;
+import org.mongojack.JacksonDBCollection;
+import org.mongojack.WriteResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
@@ -29,19 +44,6 @@ import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.api.internal.PlaceTermList;
 import eu.europeana.enrichment.api.internal.TimespanTermList;
-import java.io.Closeable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-import org.mongojack.DBCursor;
-import org.mongojack.DBSort;
-import org.mongojack.JacksonDBCollection;
-import org.mongojack.WriteResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Util class for saving and retrieving TermLists from Mongo It is used to bypass the memory-based
@@ -103,7 +105,7 @@ public class EnrichmentEntityDao implements Closeable {
   }
 
   @Override
-  public void close() {
+  public void close() throws IOException {
     mongo.close();
   }
 
@@ -467,7 +469,7 @@ public class EnrichmentEntityDao implements Closeable {
    * This method stores the provided object in the database. If the _id is present, it will
    * overwrite the existing database record
    */
-  public OrganizationTermList storeMongoTermList(
+  public MongoTermList<? extends ContextualClassImpl> storeMongoTermList(
       MongoTermList<? extends ContextualClassImpl> termList) {
     initDbIfNeeded();
     String type = termList.getEntityType();

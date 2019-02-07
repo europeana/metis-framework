@@ -88,108 +88,104 @@ public class WikidataAccessDao {
       transformer = transformerFactory.newTransformer(xslt);
       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
       transformer.setParameter("deref", Boolean.TRUE);
-<<<<<<< Upstream, based on origin/develop
-      transformer.setParameter("address", Boolean.FALSE);
-
-    } catch (TransformerConfigurationException e) {
-      throw new WikidataAccessException(WikidataAccessException.TRANSFORMER_CONFIGURATION_ERROR, e);
-    }
-  }
-
-  /**
-   * This method retrieves organization RDF/XML data from Wikidata using SPARQL query and stores it
-   * in XSLT/XML format in a given file applying XSLT template.
-   * 
-   * @param uri The Wikidata URI in string format
-   * @return String The Result of Wikidata query in XML format
-   * @throws WikidataAccessException
-   * @throws IOException
-   */
-  public StringBuilder getEntity(String uri) throws WikidataAccessException, IOException {
-
-    StringBuilder res = new StringBuilder();
-    StreamResult wikidataRes = new StreamResult(new StringBuilderWriter(res));
-    translate(uri, wikidataRes);
-    return res;
-  }
-
-  /**
-   * This method converts XML string to Wikidata organization object.
-   * 
-   * @param xmlFile The Wikidata organization object in XML format
-   * @return Wikidata organization object
-   * @throws JAXBException
-   * @throws IOException
-   */
-  public WikidataOrganization parse(File xmlFile) throws JAXBException, IOException {
-    String xml = FileUtils.readFileToString(xmlFile, "UTF-8");
-    return parse(xml);
-  }
-
-  /**
-   * This method converts XML string to Wikidata organization object.
-   * 
-   * @param xml The Wikidata organization object in string XML format
-   * @return Wikidata organization object
-   * @throws JAXBException
-   * @throws IOException
-   */
-  public WikidataOrganization parse(String xml) throws JAXBException, IOException {
-    JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
-
-    Unmarshaller unmarshaller = jc.createUnmarshaller();
-    InputStream stream = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
-    return (WikidataOrganization) unmarshaller.unmarshal(stream);
-  }
-
-  /**
-   * This method creates SPARQL query by passed URI to Wikidata.
-   * 
-   * @param uri The Wikidata URI in string format
-   * @return RDF model
-   */
-  private Resource getModelFromSPARQL(String uri) {
-    Resource resource = fetchFromSPARQL(uri);
-    if (!isDuplicate(resource)) {
-      return resource;
-    }
-
-    //if duplication fetch main resource
-    StmtIterator iter = resource.listProperties(OWL.sameAs);
-    try {
-      while (iter.hasNext()) {
-        String sameAs = iter.next().getResource().getURI();
-        Resource r2 = fetchFromSPARQL(sameAs);
-        //check if main resource
-        if (!isDuplicate(r2)) {
-          resource = r2;
-          break;
-        }
-      }
-    } finally {
-      iter.close();
-    }
-
-    return resource;
-  }
-
-  /**
-   * 
-   * @param resource
-   * @return true if the retrieved resource is duplicated
-   */
-  private boolean isDuplicate(Resource resource) {
-    return (resource.hasProperty(OWL.sameAs) && !resource.hasProperty(RDFS.label));
-  }
-
-  private Resource fetchFromSPARQL(String uri) {
-    String sDescribe = "DESCRIBE <" + uri + ">";
-
-    Model m = ModelFactory.createDefaultModel();
-    QueryEngineHTTP endpoint = new QueryEngineHTTP(SPARQL, sDescribe);
-
-=======
       transformer.setParameter("address", Boolean.TRUE);
+    } catch (TransformerConfigurationException e) {
+      throw new WikidataAccessException(WikidataAccessException.TRANSFORMER_CONFIGURATION_ERROR, e);
+    }
+  }
+
+  /**
+   * This method retrieves organization RDF/XML data from Wikidata using SPARQL query and stores it
+   * in XSLT/XML format in a given file applying XSLT template.
+   * 
+   * @param uri The Wikidata URI in string format
+   * @return String The Result of Wikidata query in XML format
+   * @throws WikidataAccessException
+   * @throws IOException
+   */
+  public StringBuilder getEntity(String uri) throws WikidataAccessException, IOException {
+
+    StringBuilder res = new StringBuilder();
+    StreamResult wikidataRes = new StreamResult(new StringBuilderWriter(res));
+    translate(uri, wikidataRes);
+    return res;
+  }
+
+  /**
+   * This method converts XML string to Wikidata organization object.
+   * 
+   * @param xmlFile The Wikidata organization object in XML format
+   * @return Wikidata organization object
+   * @throws JAXBException
+   * @throws IOException
+   */
+  public WikidataOrganization parse(File xmlFile) throws JAXBException, IOException {
+    String xml = FileUtils.readFileToString(xmlFile, "UTF-8");
+    return parse(xml);
+  }
+
+  /**
+   * This method converts XML string to Wikidata organization object.
+   * 
+   * @param xml The Wikidata organization object in string XML format
+   * @return Wikidata organization object
+   * @throws JAXBException
+   * @throws IOException
+   */
+  public WikidataOrganization parse(String xml) throws JAXBException, IOException {
+    JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
+
+    Unmarshaller unmarshaller = jc.createUnmarshaller();
+    InputStream stream = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
+    return (WikidataOrganization) unmarshaller.unmarshal(stream);
+  }
+
+  /**
+   * This method creates SPARQL query by passed URI to Wikidata.
+   * 
+   * @param uri The Wikidata URI in string format
+   * @return RDF model
+   */
+  private Resource getModelFromSPARQL(String uri) {
+    Resource resource = fetchFromSPARQL(uri);
+    if (!isDuplicate(resource)) {
+      return resource;
+    }
+
+    //if duplication fetch main resource
+    StmtIterator iter = resource.listProperties(OWL.sameAs);
+    try {
+      while (iter.hasNext()) {
+        String sameAs = iter.next().getResource().getURI();
+        Resource r2 = fetchFromSPARQL(sameAs);
+        //check if main resource
+        if (!isDuplicate(r2)) {
+          resource = r2;
+          break;
+        }
+      }
+    } finally {
+      iter.close();
+    }
+
+    return resource;
+  }
+
+  /**
+   * 
+   * @param resource
+   * @return true if the retrieved resource is duplicated
+   */
+  private boolean isDuplicate(Resource resource) {
+    return (resource.hasProperty(OWL.sameAs) && !resource.hasProperty(RDFS.label));
+  }
+
+  private Resource fetchFromSPARQL(String uri) {
+    String sDescribe = "DESCRIBE <" + uri + ">";
+
+    Model m = ModelFactory.createDefaultModel();
+    QueryEngineHTTP endpoint = new QueryEngineHTTP(SPARQL, sDescribe);
+    //transformer.setParameter("address", Boolean.TRUE);
 
     } catch (TransformerConfigurationException e) {
       throw new WikidataAccessException(WikidataAccessException.TRANSFORMER_CONFIGURATION_ERROR, e);
@@ -287,7 +283,6 @@ public class WikidataAccessDao {
 
     Model m = ModelFactory.createDefaultModel();
     QueryEngineHTTP endpoint = new QueryEngineHTTP(SPARQL, sDescribe);
->>>>>>> 016255f #EA-1471 #EA-1468 updated enrichment with wikidata for depiction and address
     try {
       return endpoint.execDescribe(m).getResource(uri);
     } catch (RiotException e) {

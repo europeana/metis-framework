@@ -10,8 +10,6 @@ import java.util.Locale;
 import java.util.Map;
 import javax.xml.bind.JAXBException;
 import org.apache.commons.io.FileUtils;
-<<<<<<< Upstream, based on origin/develop
-<<<<<<< Upstream, based on origin/develop
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -575,4 +573,3 @@ public class WikidataAccessService {
   }
 
 }
->>>>>>> 016255f #EA-1471 #EA-1468 updated enrichment with wikidata for depiction and address
