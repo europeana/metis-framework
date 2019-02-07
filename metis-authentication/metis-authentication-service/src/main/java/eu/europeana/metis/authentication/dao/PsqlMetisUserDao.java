@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
+ * Dataset Access Object for datasets using Postgresql.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
  */
@@ -30,6 +32,7 @@ public class PsqlMetisUserDao {
   private static final int DEFAULT_PAGE_SIZE_FOR_ACCESS_TOKENS = 100;
   private static final String ACCESS_TOKEN_STRING = "accessToken";
   private static final String EMAIL_STRING = "email";
+  private static final String USER_ID_STRING = "user_id";
   private static final String TIMESTAMP_STRING = "timestamp";
   private static final String ACCESS_ROLE_STRING = "accessRole";
 
@@ -84,11 +87,25 @@ public class PsqlMetisUserDao {
    * @return the {@link MetisUser}
    */
   public MetisUser getMetisUserByEmail(String email) {
+    return getMetisUserByField(EMAIL_STRING, email);
+  }
+
+  /**
+   * Retrieve a {@link MetisUser} from the database using an email.
+   *
+   * @param userId the userId to use.
+   * @return the {@link MetisUser}
+   */
+  public MetisUser getMetisUserByUserId(String userId) {
+    return getMetisUserByField(USER_ID_STRING, userId);
+  }
+
+  private MetisUser getMetisUserByField(String fieldName, String fieldValue) {
     Session session = sessionFactory.openSession();
 
     Query query = session
-        .createQuery(String.format("FROM MetisUser WHERE email = :%s", EMAIL_STRING));
-    query.setString(EMAIL_STRING, email);
+        .createQuery(String.format("FROM MetisUser WHERE %s = :%s", fieldName, fieldName));
+    query.setString(fieldName, fieldValue);
     MetisUser metisUser = null;
     if (!query.list().isEmpty()) {
       metisUser = (MetisUser) query.list().get(0);
@@ -162,7 +179,8 @@ public class PsqlMetisUserDao {
 
   /**
    * Goes through all the access tokens in the database and removes the ones that are expired.
-   * <p>Requests access tokens from the database by pages and checks the stored timestamps and the timestamp provided.
+   * <p>Requests access tokens from the database by pages and checks the stored timestamps and the
+   * timestamp provided.
    * If the expire time has passed it will remove the access token from the database.</p>
    *
    * @param date the {@link Date} to compare the stored timestamp with

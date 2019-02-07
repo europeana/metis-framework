@@ -11,6 +11,7 @@ import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -134,10 +135,12 @@ class TestWorkflowExecutionDao {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     String objectId = workflowExecutionDao.create(workflowExecution);
-    workflowExecutionDao.setCancellingState(workflowExecution);
+    workflowExecutionDao.setCancellingState(workflowExecution, null);
     WorkflowExecution cancellingWorkflowExecution = workflowExecutionDao
         .getById(objectId);
     assertTrue(cancellingWorkflowExecution.isCancelling());
+    assertEquals(CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name(),
+        cancellingWorkflowExecution.getCancelledBy());
   }
 
   @Test
@@ -218,7 +221,8 @@ class TestWorkflowExecutionDao {
     for (int i = 0; i < workflowExecutionSecond.getMetisPlugins().size(); i++) {
       workflowExecutionFirst.getMetisPlugins().get(i).setFinishedDate(new Date());
       workflowExecutionSecond.getMetisPlugins().get(i).setFinishedDate(
-          new Date(workflowExecutionFirst.getMetisPlugins().get(i).getFinishedDate().getTime() + 1000));
+          new Date(
+              workflowExecutionFirst.getMetisPlugins().get(i).getFinishedDate().getTime() + 1000));
       workflowExecutionFirst.getMetisPlugins().get(i).setPluginStatus(PluginStatus.FINISHED);
       workflowExecutionSecond.getMetisPlugins().get(i).setPluginStatus(PluginStatus.FINISHED);
     }
@@ -227,7 +231,8 @@ class TestWorkflowExecutionDao {
     workflowExecutionDao.create(workflowExecutionSecond);
 
     AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+            Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST));
 
     assertEquals(latestFinishedWorkflowExecutionByDatasetIdAndPluginType.getFinishedDate(),
@@ -237,7 +242,8 @@ class TestWorkflowExecutionDao {
   @Test
   void getLastFinishedWorkflowExecutionByDatasetIdAndPluginType_isNull() {
     AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+            Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST));
 
     assertNull(latestFinishedWorkflowExecutionByDatasetIdAndPluginType);
@@ -260,14 +266,16 @@ class TestWorkflowExecutionDao {
       workflowExecutionSecond.getMetisPlugins().get(i).setPluginStatus(PluginStatus.FINISHED);
       workflowExecutionFirst.getMetisPlugins().get(i).setFinishedDate(new Date());
       workflowExecutionSecond.getMetisPlugins().get(i).setFinishedDate(
-          new Date(workflowExecutionFirst.getMetisPlugins().get(i).getFinishedDate().getTime() + 1000));
+          new Date(
+              workflowExecutionFirst.getMetisPlugins().get(i).getFinishedDate().getTime() + 1000));
     }
 
     workflowExecutionDao.create(workflowExecutionFirst);
     workflowExecutionDao.create(workflowExecutionSecond);
 
     AbstractMetisPlugin firstFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-        .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
+        .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+            Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST));
 
     assertEquals(firstFinishedWorkflowExecutionByDatasetIdAndPluginType.getFinishedDate(),
@@ -277,7 +285,8 @@ class TestWorkflowExecutionDao {
   @Test
   void getFirstFinishedWorkflowExecutionByDatasetIdAndPluginType_isNull() {
     AbstractMetisPlugin firstFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-        .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Integer.toString(TestObjectFactory.DATASETID),
+        .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+            Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST));
 
     assertNull(firstFinishedWorkflowExecutionByDatasetIdAndPluginType);
