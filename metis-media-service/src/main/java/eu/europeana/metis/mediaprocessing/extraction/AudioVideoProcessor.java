@@ -1,14 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
@@ -18,6 +9,17 @@ import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -120,20 +122,22 @@ class AudioVideoProcessor implements MediaProcessor {
       if (!resourceHasContent && result.length() == 0) {
         throw new MediaExtractionException("Probably download failed");
       }
-      final long fileSize = result.getJSONObject("format").getLong("size");
+      final JSONObject format = result.getJSONObject("format");
       final JSONObject videoStream = findStream(result, "video");
       final JSONObject audioStream = findStream(result, "audio");
 
       // Process the video or audio stream
+      final long fileSize = format.getLong("size");
       if (videoStream != null) {
 
         // We have a video file
-        final double duration = videoStream.getDouble("duration");
-        final int bitRate = videoStream.getInt("bit_rate");
-        final int width = videoStream.getInt("width");
-        final int height = videoStream.getInt("height");
-        final String codecName = videoStream.getString("codec_name");
-        final String[] frameRateParts = videoStream.getString("avg_frame_rate").split("/");
+        final JSONObject[] candidates = new JSONObject[]{videoStream, format};
+        final double duration = findDouble("duration", candidates);
+        final int bitRate = findInt("bit_rate", candidates);
+        final int width = findInt("width", candidates);
+        final int height = findInt("height", candidates);
+        final String codecName = findString("codec_name", candidates);
+        final String[] frameRateParts = findString("avg_frame_rate", candidates).split("/");
         final double frameRate =
             Double.parseDouble(frameRateParts[0]) / Double.parseDouble(frameRateParts[1]);
         metadata = new VideoResourceMetadata(resource.getMimeType(), resource.getResourceUrl(),
@@ -141,11 +145,12 @@ class AudioVideoProcessor implements MediaProcessor {
       } else if (audioStream != null) {
 
         // We have an audio file
-        final double duration = audioStream.getDouble("duration");
-        final int bitRate = audioStream.getInt("bit_rate");
-        final int channels = audioStream.getInt("channels");
-        final int sampleRate = audioStream.getInt("sample_rate");
-        final int sampleSize = audioStream.getInt("bits_per_sample");
+        final JSONObject[] candidates = new JSONObject[]{audioStream, format};
+        final double duration = findDouble("duration", candidates);
+        final int bitRate = findInt("bit_rate", candidates);
+        final int channels = findInt("channels", candidates);
+        final int sampleRate = findInt("sample_rate", candidates);
+        final int sampleSize = findInt("bits_per_sample", candidates);
         metadata = new AudioResourceMetadata(resource.getMimeType(), resource.getResourceUrl(),
             fileSize, duration, bitRate, channels, sampleRate, sampleSize);
       } else {
@@ -158,6 +163,24 @@ class AudioVideoProcessor implements MediaProcessor {
 
     // Done
     return new ResourceExtractionResult(metadata, null);
+  }
+
+  private static int findInt(String key, JSONObject[] candidates) {
+    return Stream.of(candidates).map(candidate -> candidate.optInt(key, Integer.MIN_VALUE))
+        .filter(value -> Integer.MIN_VALUE != value).findFirst()
+        .orElseThrow(() -> new JSONException("Could not find integer for field: " + key));
+  }
+
+  private static double findDouble(String key, JSONObject[] candidates) {
+    return Stream.of(candidates).map(candidate -> candidate.optDouble(key, Double.NaN))
+        .filter(value -> !Double.isNaN(value)).findFirst()
+        .orElseThrow(() -> new JSONException("Could not find double for field: " + key));
+  }
+
+  private static String findString(String key, JSONObject[] candidates) {
+    return Stream.of(candidates).map(candidate -> candidate.optString(key, StringUtils.EMPTY))
+        .filter(StringUtils::isNotBlank).findFirst()
+        .orElseThrow(() -> new JSONException("Could not find String for field: " + key));
   }
 
   private JSONObject findStream(JSONObject data, String codecType) {
