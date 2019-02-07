@@ -25,6 +25,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
+ * Service class that controls communication between the postgresql database and Zoho external
+ * service.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
  */
@@ -59,9 +62,11 @@ public class AuthenticationService {
    * @param password the password of the user
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if any other problem occurred while constructing the user.</li>
+   * <li>{@link BadContentException} if any other problem occurred while constructing the
+   * user.</li>
    * <li>{@link NoUserFoundException} if user was not found in the system.</li>
-   * <li>{@link UserAlreadyExistsException} if user with the same email already exists in the system.</li>
+   * <li>{@link UserAlreadyExistsException} if user with the same email already exists in the
+   * system.</li>
    * </ul>
    */
   public void registerUser(String email, String password)
@@ -87,7 +92,8 @@ public class AuthenticationService {
    * @return the updated {@link MetisUser}
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if any other problem occurred while constructing the user.</li>
+   * <li>{@link BadContentException} if any other problem occurred while constructing the
+   * user.</li>
    * <li>{@link NoUserFoundException} if the user was not found in the system.</li>
    * </ul>
    */
@@ -155,13 +161,13 @@ public class AuthenticationService {
    *
    * @param authorization the String provided by an HTTP Authorization header
    * <p>
-   * The expected input should follow the rule
-   * Basic Base64Encoded(email:password)
+   * The expected input should follow the rule Basic Base64Encoded(email:password)
    * </p>
    * @return a credentials object containing the email and password decoded
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link UserUnauthorizedException} if the content of the authorization String is un-parsable</li>
+   * <li>{@link UserUnauthorizedException} if the content of the authorization String is
+   * un-parsable</li>
    * </ul>
    */
   public Credentials validateAuthorizationHeaderWithCredentials(String authorization)
@@ -182,13 +188,13 @@ public class AuthenticationService {
    *
    * @param authorization the String provided by an HTTP Authorization header
    * <p>
-   * The expected input should follow the rule
-   * Bearer accessTokenHere
+   * The expected input should follow the rule Bearer accessTokenHere
    * </p>
    * @return the string representation of the access token
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link UserUnauthorizedException} if the content of the authorization String is un-parsable</li>
+   * <li>{@link UserUnauthorizedException} if the content of the authorization String is
+   * un-parsable</li>
    * </ul>
    */
   public String validateAuthorizationHeaderWithAccessToken(String authorization)
@@ -408,6 +414,25 @@ public class AuthenticationService {
     MetisUser storedMetisUser = authenticateUser(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN
         || storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER;
+  }
+
+  /**
+   * Get a metis user using a user identifier.
+   *
+   * @param accessToken the access token used to authenticate the user asking the request
+   * @param userIdToRetrieve the user identifier of the user to be retrieved from the database
+   * @return the metis user with any sensitive information removed
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
+   * </ul>
+   */
+  public MetisUser getMetisUserByUserIdOnlyWithPublicFields(String accessToken,
+      String userIdToRetrieve) throws GenericMetisException {
+    authenticateUser(accessToken);
+    final MetisUser metisUserByUserId = psqlMetisUserDao.getMetisUserByUserId(userIdToRetrieve);
+    metisUserByUserId.removePrivateDataForPublicUse();
+    return metisUserByUserId;
   }
 
   /**

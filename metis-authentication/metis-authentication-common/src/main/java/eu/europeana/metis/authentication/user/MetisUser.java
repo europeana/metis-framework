@@ -19,6 +19,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * The Metis user containing all parameters.
+ * <p>This class is a model class that is also used as a JPA class to the postgresql database</p>
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
  */
@@ -71,10 +74,20 @@ public class MetisUser {
    *
    * @param jsonNode the {@link JsonNode} to construct the MetisUser
    * @throws ParseException if the content is unparsable
-   * @throws BadContentException if the content of the JsonNode is unacceptable because of rules that should be followed
+   * @throws BadContentException if the content of the JsonNode is unacceptable because of rules
+   * that should be followed
    */
   public MetisUser(JsonNode jsonNode) throws ParseException, BadContentException {
     parseJsonNodeZohoUserToMetisUser(jsonNode);
+  }
+
+  /**
+   * Nullifies any sensitive information of this user.
+   */
+  public void removePrivateDataForPublicUse() {
+    this.setPassword(null);
+    this.setCreatedDate(null);
+    this.setUpdatedDate(null);
   }
 
   private void parseJsonNodeZohoUserToMetisUser(JsonNode jsonNode)

@@ -8,6 +8,7 @@ import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.EmailParameter;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.OldNewPasswordParameters;
+import eu.europeana.metis.authentication.user.UserIdParameter;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
@@ -251,6 +252,34 @@ public class AuthenticationController {
       LOGGER.info("User with email: {} made admin", emailParameter.getEmail().replaceAll(
           CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
+  }
+
+  /**
+   * Get a user using a user identifier.
+   * <p>POST method is used to pass the user identifier through the body</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param userIdParameter the class that contains the userId parameter to act upon
+   * @return the metis user with sensitive information removed
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user
+   * cannot be authenticated.</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_USER_ID, method = RequestMethod.POST, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseBody
+  public MetisUser getUserByUserId(@RequestHeader("Authorization") String authorization,
+      @RequestBody UserIdParameter userIdParameter) throws GenericMetisException {
+    String accessToken = authenticationService
+        .validateAuthorizationHeaderWithAccessToken(authorization);
+    MetisUser metisUser = authenticationService
+        .getMetisUserByUserIdOnlyWithPublicFields(accessToken, userIdParameter.getUserId());
+    LOGGER.info("User with email: {} and user id: {} found", metisUser.getEmail(),
+        metisUser.getUserId());
+    return metisUser;
   }
 
   /**
