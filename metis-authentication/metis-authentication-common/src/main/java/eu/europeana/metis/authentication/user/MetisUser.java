@@ -81,15 +81,6 @@ public class MetisUser {
     parseJsonNodeZohoUserToMetisUser(jsonNode);
   }
 
-  /**
-   * Nullifies any sensitive information of this user.
-   */
-  public void removePrivateDataForPublicUse() {
-    this.setPassword(null);
-    this.setCreatedDate(null);
-    this.setUpdatedDate(null);
-  }
-
   private void parseJsonNodeZohoUserToMetisUser(JsonNode jsonNode)
       throws BadContentException, ParseException {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

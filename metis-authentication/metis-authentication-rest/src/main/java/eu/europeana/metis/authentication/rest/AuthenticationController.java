@@ -261,7 +261,7 @@ public class AuthenticationController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param userIdParameter the class that contains the userId parameter to act upon
-   * @return the metis user with sensitive information removed
+   * @return the metis user
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user

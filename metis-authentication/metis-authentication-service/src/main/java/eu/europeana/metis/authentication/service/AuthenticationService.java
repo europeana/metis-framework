@@ -421,7 +421,7 @@ public class AuthenticationService {
    *
    * @param accessToken the access token used to authenticate the user asking the request
    * @param userIdToRetrieve the user identifier of the user to be retrieved from the database
-   * @return the metis user with any sensitive information removed
+   * @return the metis user
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
@@ -430,9 +430,7 @@ public class AuthenticationService {
   public MetisUser getMetisUserByUserIdOnlyWithPublicFields(String accessToken,
       String userIdToRetrieve) throws GenericMetisException {
     authenticateUser(accessToken);
-    final MetisUser metisUserByUserId = psqlMetisUserDao.getMetisUserByUserId(userIdToRetrieve);
-    metisUserByUserId.removePrivateDataForPublicUse();
-    return metisUserByUserId;
+    return psqlMetisUserDao.getMetisUserByUserId(userIdToRetrieve);
   }
 
   /**

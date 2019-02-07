@@ -152,12 +152,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .find(WorkflowExecution.class)
         .filter("_id", workflowExecution.getId());
     workflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
+    String cancelledBy;
     if (metisUser != null && metisUser.getUserId() != null) {
-      workflowExecutionUpdateOperations.set("cancelledBy", metisUser.getUserId());
+      cancelledBy = metisUser.getUserId();
     } else {
-      workflowExecutionUpdateOperations
-          .set("cancelledBy", CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+      cancelledBy = CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name();
     }
+    workflowExecutionUpdateOperations.set("cancelledBy", cancelledBy);
     UpdateResults updateResults = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore()
             .update(query, workflowExecutionUpdateOperations));
