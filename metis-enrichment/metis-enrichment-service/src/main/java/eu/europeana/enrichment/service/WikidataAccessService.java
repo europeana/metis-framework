@@ -470,7 +470,8 @@ public class WikidataAccessService {
       VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddresses().get(0);
       Address address = new AddressImpl();
       address.setAbout(org.getAbout() + "#address");
-      address.setVcardHasGeo(vcardAddress.getHasGeo().getResource());
+      if(vcardAddress.getHasGeo() != null)
+        address.setVcardHasGeo(vcardAddress.getHasGeo().getResource());
 // TODO: enable support for other address fields and locality when the issues related to the dereferencing localities, and support for multiple addresses are available 
 //      address.setVcardStreetAddress(vcardAddress.getStreetAddress());
 //      address.setVcardLocality(vcardAddress.getLocality());
