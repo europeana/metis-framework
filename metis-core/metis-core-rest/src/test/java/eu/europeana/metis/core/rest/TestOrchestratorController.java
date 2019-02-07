@@ -36,7 +36,7 @@ import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsExceptio
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.test.utils.TestUtils;
+import eu.europeana.metis.utils.TestUtils;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;

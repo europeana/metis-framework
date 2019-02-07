@@ -5,7 +5,9 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
+import eu.europeana.metis.authentication.user.EmailParameter;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.OldNewPasswordParameters;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
@@ -19,11 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -109,8 +110,7 @@ public class AuthenticationController {
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @param oldAndNewPasswordParameters contains the old and new password that is retrieved from the
-   * body as application/x-www-form-urlencoded mime type
+   * @param oldAndNewPasswordParameters contains the old and new password
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user
@@ -118,18 +118,19 @@ public class AuthenticationController {
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSD, method = RequestMethod.PUT,
-      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
+      consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserPassword(@RequestHeader("Authorization") String authorization,
-      @RequestParam MultiValueMap<String, String> oldAndNewPasswordParameters)
+      @RequestBody OldNewPasswordParameters oldAndNewPasswordParameters)
       throws GenericMetisException {
-    final String oldPassword = oldAndNewPasswordParameters.getFirst("oldPassword");
-    final String newPassword = oldAndNewPasswordParameters.getFirst("newPassword");
-    if (StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword)) {
+    if (oldAndNewPasswordParameters == null || StringUtils
+        .isBlank(oldAndNewPasswordParameters.getOldPassword()) || StringUtils
+        .isBlank(oldAndNewPasswordParameters.getNewPassword())) {
       throw new BadContentException("oldPassword or newPassword not provided");
     }
-    if (oldPassword.equals(newPassword)) {
+    if (oldAndNewPasswordParameters.getOldPassword()
+        .equals(oldAndNewPasswordParameters.getNewPassword())) {
       throw new BadContentException("newPassword must be different than oldPassword");
     }
     String accessToken = authenticationService
@@ -137,8 +138,10 @@ public class AuthenticationController {
             authorization);//Before any action, validate token
     MetisUser metisUser = authenticationService.authenticateUser(accessToken);
     authenticationService.authenticateUser(metisUser.getEmail(),
-        oldPassword);//If no exception authentication with password succeeds
-    authenticationService.updateUserPassword(metisUser, newPassword);
+        oldAndNewPasswordParameters
+            .getOldPassword());//If no exception authentication with password succeeds
+    authenticationService
+        .updateUserPassword(metisUser, oldAndNewPasswordParameters.getNewPassword());
     LOGGER.info("User with access_token: {} updated password", accessToken);
   }
 
@@ -147,8 +150,7 @@ public class AuthenticationController {
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @param mapWithUserEmailToDelete the user email used to delete a user account that is retrieved
-   * from the body as application/x-www-form-urlencoded mime type
+   * @param emailParameter the class that contains the email parameter to act upon
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user
@@ -156,14 +158,13 @@ public class AuthenticationController {
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.DELETE,
-      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
+      consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteUser(@RequestHeader("Authorization") String authorization,
-      @RequestParam MultiValueMap<String, String> mapWithUserEmailToDelete)
+      @RequestBody EmailParameter emailParameter)
       throws GenericMetisException {
-    final String userEmailToDelete = mapWithUserEmailToDelete.getFirst("userEmailToDelete");
-    if (StringUtils.isBlank(userEmailToDelete)) {
+    if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
       throw new BadContentException("userEmailToDelete is empty");
     }
     String accessToken = authenticationService
@@ -172,9 +173,9 @@ public class AuthenticationController {
     if (!authenticationService.isUserAdmin(accessToken)) {
       throw new UserUnauthorizedException("Action allowed only from admin users");
     }
-    authenticationService.deleteUser(userEmailToDelete);
+    authenticationService.deleteUser(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} deleted", userEmailToDelete.replaceAll(
+      LOGGER.info("User with email: {} deleted", emailParameter.getEmail().replaceAll(
           CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
   }
@@ -184,8 +185,7 @@ public class AuthenticationController {
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @param mapWithUserEmailToUpdate the map that contains the user email used to update a user
-   * account that is retrieved from the body as application/x-www-form-urlencoded mime type
+   * @param emailParameter the class that contains the email parameter to act upon
    * @return updated {@link MetisUser}
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -195,25 +195,24 @@ public class AuthenticationController {
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.PUT,
-      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
+      consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   public MetisUser updateUser(@RequestHeader("Authorization") String authorization,
-      @RequestParam MultiValueMap<String, String> mapWithUserEmailToUpdate)
+      @RequestBody EmailParameter emailParameter)
       throws GenericMetisException {
-    final String userEmailToUpdate = mapWithUserEmailToUpdate.getFirst("userEmailToUpdate");
-    if (StringUtils.isBlank(userEmailToUpdate)) {
-      throw new BadContentException("userEmailToUpdate is empty");
+    if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
+      throw new BadContentException("email parameter is empty");
     }
     String accessToken = authenticationService
         .validateAuthorizationHeaderWithAccessToken(authorization);
     if (!authenticationService
-        .hasPermissionToRequestUserUpdate(accessToken, userEmailToUpdate)) {
+        .hasPermissionToRequestUserUpdate(accessToken, emailParameter.getEmail())) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
-    MetisUser metisUser = authenticationService.updateUserFromZoho(userEmailToUpdate);
+    MetisUser metisUser = authenticationService.updateUserFromZoho(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} updated", userEmailToUpdate.replaceAll(
+      LOGGER.info("User with email: {} updated", emailParameter.getEmail().replaceAll(
           CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
     return metisUser;
@@ -224,8 +223,7 @@ public class AuthenticationController {
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @param mapWithUserEmailToMakeAdmin the email used to change a user's account to make
-   * administrator that is retrieved from the body as application/x-www-form-urlencoded mime type
+   * @param emailParameter the class that contains the email parameter to act upon
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user
@@ -234,15 +232,13 @@ public class AuthenticationController {
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN, method = RequestMethod.PUT,
-      consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
+      consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserToMakeAdmin(@RequestHeader("Authorization") String authorization,
-      @RequestParam MultiValueMap<String, String> mapWithUserEmailToMakeAdmin)
+      @RequestBody EmailParameter emailParameter)
       throws GenericMetisException {
-    final String userEmailToMakeAdmin = mapWithUserEmailToMakeAdmin
-        .getFirst("userEmailToMakeAdmin");
-    if (StringUtils.isBlank(userEmailToMakeAdmin)) {
+    if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
       throw new BadContentException("userEmailToMakeAdmin is empty");
     }
     String accessToken = authenticationService
@@ -250,9 +246,9 @@ public class AuthenticationController {
     if (!authenticationService.isUserAdmin(accessToken)) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
-    authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
+    authenticationService.updateUserMakeAdmin(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} made admin", userEmailToMakeAdmin.replaceAll(
+      LOGGER.info("User with email: {} made admin", emailParameter.getEmail().replaceAll(
           CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
     }
   }

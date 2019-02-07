@@ -1,10 +1,8 @@
 package eu.europeana.metis.authentication.rest.config;
 
-import javax.servlet.Filter;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.filter.FormContentFilter;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
 /**
@@ -30,11 +28,6 @@ public class ServletInitializer extends AbstractDispatcherServletInitializer {
   @Override
   protected WebApplicationContext createRootApplicationContext() {
     return null;
-  }
-
-  @Override
-  protected Filter[] getServletFilters() {
-    return new Filter[]{new FormContentFilter()};
   }
 
 }
