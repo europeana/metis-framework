@@ -166,9 +166,8 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   private static int findInt(String key, JSONObject[] candidates) {
-    final int defaultValue = Integer.MIN_VALUE;
-    return Stream.of(candidates).map(candidate -> candidate.optInt(key, defaultValue))
-        .filter(value -> defaultValue != value).findFirst()
+    return Stream.of(candidates).map(candidate -> candidate.optInt(key, Integer.MIN_VALUE))
+        .filter(value -> Integer.MIN_VALUE != value).findFirst()
         .orElseThrow(() -> new JSONException("Could not find integer for field: " + key));
   }
 
@@ -179,7 +178,7 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   private static String findString(String key, JSONObject[] candidates) {
-    return Stream.of(candidates).map(candidate -> candidate.optString(key, ""))
+    return Stream.of(candidates).map(candidate -> candidate.optString(key, StringUtils.EMPTY))
         .filter(StringUtils::isNotBlank).findFirst()
         .orElseThrow(() -> new JSONException("Could not find String for field: " + key));
   }
