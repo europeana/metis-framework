@@ -44,14 +44,10 @@
 
   <properties>
     <jacocoArgLine /> <!-- Leave as is, it's required from jacoco plugin integration -->
-<<<<<<< HEAD
     <version.ecloud>1.3.0-SNAPSHOT</version.ecloud>
     <!--
     <version.ecloud>1.1.2</version.ecloud>
     -->
-=======
-    <version.ecloud>1.1.2</version.ecloud>
->>>>>>> branch 'v1.0.2-zoho-import-updates' of https://github.com/europeana/metis-framework.git
     <version.jedis>2.9.0</version.jedis>
     <version.redisson>3.5.7</version.redisson>
     <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
@@ -98,19 +94,7 @@
     <version.jackson.xc>1.9.13</version.jackson.xc>
     <version.powermock>1.7.1</version.powermock>
     <version.mockito.core>2.22.0</version.mockito.core>
-<<<<<<< HEAD
-<<<<<<< Upstream, based on origin/develop
-<<<<<<< Upstream, based on origin/develop
     <version.corelib>2.8.6-SNAPSHOT</version.corelib>
-=======
-    <version.corelib>2.8.5-SNAPSHOT</version.corelib>
->>>>>>> 016255f #EA-1471 #EA-1468 updated enrichment with wikidata for depiction and address
-=======
-    <version.corelib>2.8.5</version.corelib>
->>>>>>> f7b4408 #EA-1468 updated corelib version to support depiction and hasGeo 
-=======
-    <version.corelib>2.8.5</version.corelib>
->>>>>>> branch 'v1.0.2-zoho-import-updates' of https://github.com/europeana/metis-framework.git
     <version.servlet.api>3.1.0</version.servlet.api>
     <version.commons-fileupload>1.3</version.commons-fileupload>
     <version.morphia>1.3.2</version.morphia>

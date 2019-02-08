@@ -38,10 +38,6 @@ public class VcardAddress {
   public VcardAddress() {
     super();
   }
-
-  
-  @XmlElement(name = "hasGeo", namespace = "http://www.w3.org/2006/vcard/ns#")
-  private Resource hasGeo;
   
   public String getCountryName() {
     return countryName;

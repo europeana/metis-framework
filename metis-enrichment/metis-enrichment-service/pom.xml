@@ -70,7 +70,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-<<<<<<< Upstream, based on origin/develop
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
@@ -78,13 +77,6 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-=======
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-<<<<<<< HEAD
->>>>>>> f7b4408 #EA-1468 updated corelib version to support depiction and hasGeo 
-=======
->>>>>>> branch 'v1.0.2-zoho-import-updates' of https://github.com/europeana/metis-framework.git
       <scope>test</scope>
     </dependency>
     <dependency>

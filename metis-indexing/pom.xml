@@ -76,16 +76,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common</artifactId>
       <version>${project.version}</version>
