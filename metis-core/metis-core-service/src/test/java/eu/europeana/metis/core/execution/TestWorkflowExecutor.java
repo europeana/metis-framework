@@ -4,10 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -21,6 +26,7 @@ import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
@@ -34,6 +40,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mockito;
 
 /**
@@ -113,8 +120,9 @@ class TestWorkflowExecutor {
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
-    when(oaipmhHarvestPlugin.monitor(dpsClient)).thenReturn(currentlyProcessingExecutionProgress)
-        .thenReturn(processedExecutionProgress);
+    when(oaipmhHarvestPlugin.monitor(dpsClient))
+        .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
+        .thenReturn(new MonitorResult(processedExecutionProgress.getStatus(), null));
     when(oaipmhHarvestPlugin.getExecutionProgress())
         .thenReturn(currentlyProcessingExecutionProgress)
         .thenReturn(processedExecutionProgress);
@@ -134,6 +142,12 @@ class TestWorkflowExecutor {
 
     verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
+
+    InOrder inOrderForPlugin = inOrder(oaipmhHarvestPlugin);
+    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(2)).setPluginStatus(PluginStatus.RUNNING);
+    inOrderForPlugin.verify(oaipmhHarvestPlugin).setPluginStatus(PluginStatus.FINISHED);
+    verify(oaipmhHarvestPlugin, atMost(3)).setPluginStatus(any());
+    verify(oaipmhHarvestPlugin, never()).setFailMessage(anyString());
   }
 
   @Test
@@ -153,7 +167,6 @@ class TestWorkflowExecutor {
 
     doThrow(new ExternalTaskException("Some error")).when(oaipmhHarvestPlugin).execute(
         any(DpsClient.class), isNull(), isNull(), eq(workflowExecution.getEcloudDatasetId()));
-    when(oaipmhHarvestPlugin.getPluginStatus()).thenReturn(PluginStatus.FAILED);
 
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
 
@@ -171,6 +184,11 @@ class TestWorkflowExecutor {
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
+
+    verify(oaipmhHarvestPlugin).setPluginStatus(PluginStatus.FAILED);
+    verify(oaipmhHarvestPlugin, atMost(1)).setPluginStatus(any());
+    verify(oaipmhHarvestPlugin).setFailMessage(notNull());
+    verify(oaipmhHarvestPlugin, times(1)).setFailMessage(anyString());
   }
 
   @Test
@@ -193,8 +211,9 @@ class TestWorkflowExecutor {
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
-    when(oaipmhHarvestPlugin.monitor(dpsClient)).thenReturn(currentlyProcessingExecutionProgress)
-        .thenReturn(droppedExecutionProgress);
+    when(oaipmhHarvestPlugin.monitor(dpsClient))
+        .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
+        .thenReturn(new MonitorResult(droppedExecutionProgress.getStatus(), null));
     when(oaipmhHarvestPlugin.getExecutionProgress())
         .thenReturn(currentlyProcessingExecutionProgress)
         .thenReturn(droppedExecutionProgress);
@@ -214,6 +233,13 @@ class TestWorkflowExecutor {
 
     verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
+
+    InOrder inOrderForPlugin = inOrder(oaipmhHarvestPlugin);
+    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(2)).setPluginStatus(PluginStatus.RUNNING);
+    inOrderForPlugin.verify(oaipmhHarvestPlugin).setPluginStatus(PluginStatus.FAILED);
+    verify(oaipmhHarvestPlugin, atMost(3)).setPluginStatus(any());
+    verify(oaipmhHarvestPlugin).setFailMessage(notNull());
+    verify(oaipmhHarvestPlugin, times(1)).setFailMessage(anyString());
   }
 
   @Test
@@ -253,6 +279,11 @@ class TestWorkflowExecutor {
     workflowExecutor.call();
 
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
+
+    verify(oaipmhHarvestPlugin).setPluginStatus(PluginStatus.FAILED);
+    verify(oaipmhHarvestPlugin, atMost(1)).setPluginStatus(any());
+    verify(oaipmhHarvestPlugin).setFailMessage(notNull());
+    verify(oaipmhHarvestPlugin, times(1)).setFailMessage(anyString());
   }
 
   @Test
@@ -275,8 +306,9 @@ class TestWorkflowExecutor {
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
-    when(oaipmhHarvestPlugin.monitor(dpsClient)).thenReturn(currentlyProcessingExecutionProgress)
-        .thenReturn(processedExecutionProgress);
+    when(oaipmhHarvestPlugin.monitor(dpsClient))
+        .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
+        .thenReturn(new MonitorResult(processedExecutionProgress.getStatus(), null));
     when(oaipmhHarvestPlugin.getExecutionProgress())
         .thenReturn(currentlyProcessingExecutionProgress)
         .thenReturn(processedExecutionProgress);
@@ -300,6 +332,8 @@ class TestWorkflowExecutor {
 
     verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
+
+    verify(oaipmhHarvestPlugin, never()).setFailMessage(anyString());
   }
 
   @Test

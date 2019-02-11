@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
@@ -57,6 +58,7 @@ public abstract class AbstractMetisPlugin {
   private String id;
 
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
+  private String failMessage;
   @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date startedDate;
@@ -176,10 +178,20 @@ public abstract class AbstractMetisPlugin {
   }
 
   /**
+   * This method also clears the fail message if the status is set to anything other than {@link
+   * PluginStatus#FAILED}.
+   *
    * @param pluginStatus {@link PluginStatus}
    */
   public void setPluginStatus(PluginStatus pluginStatus) {
     this.pluginStatus = pluginStatus;
+    if (this.pluginStatus != PluginStatus.FAILED) {
+      this.failMessage = null;
+    }
+  }
+
+  public void setFailMessage(String failMessage) {
+    this.failMessage = failMessage;
   }
 
   /**
@@ -345,13 +357,14 @@ public abstract class AbstractMetisPlugin {
   }
 
   /**
-   * Request a monitor call to the external execution.
+   * Request a monitor call to the external execution. This method also updates the execution
+   * progress statistics.
    *
    * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
-   * @return {@link ExecutionProgress} of the plugin.
+   * @return {@link MonitorResult} object containing the current state of the task.
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException {
+  public MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException {
     LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
     TaskInfo taskInfo;
     try {
@@ -360,7 +373,8 @@ public abstract class AbstractMetisPlugin {
       throw new ExternalTaskException("Requesting task progress failed", e);
     }
     LOGGER.info("Task information received for externalTaskId: {}", getExternalTaskId());
-    return getExecutionProgress().copyExternalTaskInformation(taskInfo);
+    getExecutionProgress().copyExternalTaskInformation(taskInfo);
+    return new MonitorResult(taskInfo.getState(), taskInfo.getInfo());
   }
 
   /**
@@ -375,6 +389,35 @@ public abstract class AbstractMetisPlugin {
       dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()));
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task cancellation failed", e);
+    }
+  }
+
+  /**
+   * This object represents the result of a monitor call. It contains the information that
+   * monitoring processes need.
+   */
+  public static class MonitorResult {
+
+    private final TaskState taskState;
+    private final String taskInfo;
+
+    /**
+     * Constructor.
+     *
+     * @param taskState The current state of the task.
+     * @param taskInfo The info message. Can be null or empty.
+     */
+    public MonitorResult(TaskState taskState, String taskInfo) {
+      this.taskState = taskState;
+      this.taskInfo = taskInfo;
+    }
+
+    public TaskState getTaskState() {
+      return taskState;
+    }
+
+    public String getTaskInfo() {
+      return taskInfo;
     }
   }
 }

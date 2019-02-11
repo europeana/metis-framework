@@ -21,15 +21,13 @@ public class ExecutionProgress {
    * Copy information from {@link TaskInfo} to {@link ExecutionProgress}
    *
    * @param taskInfo {@link TaskInfo}
-   * @return the current object
    */
-  public ExecutionProgress copyExternalTaskInformation(TaskInfo taskInfo) {
+  void copyExternalTaskInformation(TaskInfo taskInfo) {
     expectedRecords = taskInfo.getExpectedSize();
     processedRecords = taskInfo.getProcessedElementCount();
     progressPercentage = taskInfo.getProcessedPercentage();
     errors = taskInfo.getErrors();
     status = taskInfo.getState();
-    return this;
   }
 
   public int getExpectedRecords() {
