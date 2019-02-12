@@ -78,6 +78,10 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
     return Collections.unmodifiableSet(thumbnailTargetNames);
   }
 
+  public long getContentSize() {
+    return contentSize;
+  }
+
   /**
    * This method copies the metadata to the resource. This method should be extended by subclasses.
    *
@@ -87,7 +91,7 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
     resource.setMimeType(mimeType);
     resource.setFileSize(contentSize);
   }
-  
+
   /**
    * @return A serializable (and deserializable) wrapper containing this resource metadata. 
    */

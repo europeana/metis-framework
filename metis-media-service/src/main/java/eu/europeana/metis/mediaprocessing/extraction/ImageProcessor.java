@@ -58,11 +58,11 @@ class ImageProcessor implements MediaProcessor {
     // Create the thumbnails for this image.
     final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata =
         thumbnailGenerator.generateThumbnails(resource.getResourceUrl(), ResourceType.IMAGE,
-            resource.getContentPath().toFile());
+            resource.getContentFile());
 
     // Set the metadata in the web resource.
     final ImageResourceMetadata resourceMetadata;
-    if (UrlType.shouldExtractMetadata(resource.getUrlTypes())) {
+    if (shouldExtractMetadata(resource)) {
       final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
       final ColorSpaceType colorSpace = ColorSpaceMapping
           .getColorSpaceType(imageMetadata.getColorSpace());

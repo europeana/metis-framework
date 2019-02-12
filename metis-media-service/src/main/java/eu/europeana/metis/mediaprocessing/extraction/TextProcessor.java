@@ -51,7 +51,7 @@ class TextProcessor implements MediaProcessor {
   public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
 
     // Sanity checks
-    if (!UrlType.shouldExtractMetadata(resource.getUrlTypes())) {
+    if (!shouldExtractMetadata(resource)) {
       return null;
     }
     try {

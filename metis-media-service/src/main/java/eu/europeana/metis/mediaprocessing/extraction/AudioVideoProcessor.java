@@ -90,7 +90,7 @@ class AudioVideoProcessor implements MediaProcessor {
   public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
 
     // Sanity check
-    if (!UrlType.shouldExtractMetadata(resource.getUrlTypes())) {
+    if (!shouldExtractMetadata(resource)) {
       return null;
     }
 
