@@ -75,7 +75,7 @@ public class ResourceMetadata implements IResourceMetadata {
 
   @Override
   public String getMimeType() {
-    return getMetaData().getResourceUrl();
+    return getMetaData().getMimeType();
   }
 
   @Override
