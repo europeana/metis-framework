@@ -177,17 +177,23 @@ public abstract class AbstractMetisPlugin {
     return pluginStatus;
   }
 
+  public void setPluginStatus(PluginStatus pluginStatus) {
+    this.pluginStatus = pluginStatus;
+  }
+
   /**
    * This method also clears the fail message if the status is set to anything other than {@link
    * PluginStatus#FAILED}.
    *
    * @param pluginStatus {@link PluginStatus}
    */
-  public void setPluginStatus(PluginStatus pluginStatus) {
-    this.pluginStatus = pluginStatus;
-    if (this.pluginStatus != PluginStatus.FAILED) {
-      this.failMessage = null;
-    }
+  public void setPluginStatusAndResetFailMessage(PluginStatus pluginStatus) {
+    setPluginStatus(pluginStatus);
+    setFailMessage(null);
+  }
+
+  public String getFailMessage() {
+    return failMessage;
   }
 
   public void setFailMessage(String failMessage) {

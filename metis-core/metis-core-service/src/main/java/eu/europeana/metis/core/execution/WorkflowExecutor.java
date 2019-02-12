@@ -192,7 +192,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn("Execution of external task failed", e);
         abstractMetisPlugin.setFinishedDate(null);
-        abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
+        abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
         abstractMetisPlugin.setFailMessage(MONITOR_ERROR_PREFIX + e.getMessage());
         return;
       } finally {
@@ -228,7 +228,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         consecutiveCancelOrMonitorFailures = 0;
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
-        abstractMetisPlugin.setPluginStatus(
+        abstractMetisPlugin.setPluginStatusAndResetFailMessage(
             monitorResult.getTaskState() == TaskState.REMOVING_FROM_SOLR_AND_MONGO
                 ? PluginStatus.CLEANING : PluginStatus.RUNNING);
         workflowExecution.setUpdatedDate(updatedDate);
@@ -291,10 +291,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       MonitorResult monitorResult, boolean localErrorOccurred) {
     if (monitorResult.getTaskState() == TaskState.PROCESSED) {
       abstractMetisPlugin.setFinishedDate(new Date());
-      abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
+      abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
     } else if (localErrorOccurred || (monitorResult.getTaskState() == TaskState.DROPPED
         && !workflowExecutionDao.isCancelling(workflowExecution.getId()))) {
-      abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
+      abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
       final String prefix = localErrorOccurred ? MONITOR_ERROR_PREFIX : EXECUTION_ERROR_PREFIX;
       final String failMessage =
           StringUtils.isBlank(monitorResult.getTaskInfo()) ? "No further information received."
@@ -323,7 +323,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       }
     }
     abstractMetisPlugin.setFinishedDate(new Date());
-    abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
+    abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
   }
 
