@@ -40,7 +40,7 @@ class ImageProcessor implements MediaProcessor {
     // Sanity checks
     try {
       if (!resource.hasContent()) {
-        throw new MediaExtractionException("File content is null");
+        throw new MediaExtractionException("File does not exist or does not have content.");
       }
     } catch (IOException e) {
       throw new MediaExtractionException("Could not determine whether resource has content.", e);

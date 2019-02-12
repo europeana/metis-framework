@@ -35,20 +35,22 @@ interface ResourceFile extends Closeable {
    *
    * @return The content of the file. Is not null.
    * @throws IOException In case there was a problem creating the input stream, if there is no
-   * content (see {@link #hasContent()}) or if this object's {@link #close()} method was called.
+   * content (see {@link #hasContent()}) or if this object's {@link #close()} or {@link
+   * #markAsNoContent()} method was called.
    */
   InputStream getContentStream() throws IOException;
 
   /**
-   * @return The length of the content in bytes. Returns a number greater than 0.
-   * @throws IOException In case there was a problem obtaining the content's length, if there is no
-   * content (see {@link #hasContent()}) or if this object's {@link #close()} method was called.
+   * @return The length of the content in bytes. Returns a number greater than or equal to 0.
+   * @throws IOException In case there was a problem obtaining the content's length or if this
+   * object's {@link #close()} or {@link #markAsNoContent()} method was called.
    */
   long getContentSize() throws IOException;
 
   /**
    * Remove any content and make this resource one without content. From now on, {@link
    * #hasContent()} will return false. Calling this method a second time has no effect.
+   *
    * @throws IOException In case there was a problem removing the content.
    */
   void markAsNoContent() throws IOException;

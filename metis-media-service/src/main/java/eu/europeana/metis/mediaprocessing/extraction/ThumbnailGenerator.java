@@ -19,8 +19,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -37,8 +40,12 @@ class ThumbnailGenerator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ThumbnailGenerator.class);
 
-  private static final int[] THUMB_SIZE = {200, 400};
-  private static final String[] THUMB_SUFFIX = {"-MEDIUM", "-LARGE"};
+  private static final Map<Integer, String> THUMBNAIL_SIZES_AND_SUFFIXES = new HashMap<>();
+
+  static {
+    THUMBNAIL_SIZES_AND_SUFFIXES.put(200, "-MEDIUM");
+    THUMBNAIL_SIZES_AND_SUFFIXES.put(400, "-LARGE");
+  }
 
   private static final String COMMAND_RESULT_FORMAT = "%w\n%h\n%[colorspace]\n";
   private static final int COMMAND_RESULT_WIDTH_LINE = 0;
@@ -181,50 +188,54 @@ class ThumbnailGenerator {
     }
     
     // Obtain the thumbnail files (they are still empty)
-    final List<ThumbnailImpl> thumbnails = prepareThumbnailFiles(url);
+    final List<ThumbnailWithSize> thumbnails = prepareThumbnailFiles(url);
 
     // Load the thumbnail files: in case of problems, make sure to delete them.
-    final ImageMetadata result;
+    final ImageMetadata image;
     try {
-      result = generateThumbnailsInternal(thumbnails, resourceType, content);
+      image = generateThumbnailsInternal(thumbnails, resourceType, content);
     } catch (RuntimeException e) {
       closeAllThumbnailsSilently(thumbnails);
-      throw new MediaExtractionException("Unexpected error during procesing", e);
+      throw new MediaExtractionException("Unexpected error during processing", e);
     } catch (MediaExtractionException e) {
       closeAllThumbnailsSilently(thumbnails);
       throw e;
     }
 
     // Done.
-    return new ImmutablePair<>(result, new ArrayList<>(thumbnails));
+    final List<Thumbnail> resultThumbnails = thumbnails.stream()
+        .map(ThumbnailWithSize::getThumbnail).collect(Collectors.toList());
+    return new ImmutablePair<>(image, resultThumbnails);
   }
   
-  private static void closeAllThumbnailsSilently(List<? extends Thumbnail> thumbnails) {
+  private static void closeAllThumbnailsSilently(List<ThumbnailWithSize> thumbnails) {
     thumbnails.forEach(thumbnail -> {
       try {
-        thumbnail.close();
+        thumbnail.getThumbnail().close();
       } catch (IOException e) {
-        LOGGER.warn("Could not close thumbnail: {}", thumbnail.getResourceUrl(), e);
+        LOGGER.warn("Could not close thumbnail: {}", thumbnail.getThumbnail().getResourceUrl(), e);
       }
     });
   }
 
-  private List<String> createThumbnailGenerationCommand(List<ThumbnailImpl> thumbs, ResourceType resourceType, File content){
-    final int sizes = THUMB_SIZE.length;
+  List<String> createThumbnailGenerationCommand(List<ThumbnailWithSize> thumbnails,
+      ResourceType resourceType, File content) {
     final List<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
         "-format", COMMAND_RESULT_FORMAT, "-write", "info:"));
     if (resourceType == ResourceType.TEXT) {
       // in case of text (i.e. PDFs): specify white background
       command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
     }
+    final int sizes = thumbnails.size();
     for (int i = 0; i < sizes; i++) {
       // do not +delete the last one, use it to find dominant colors (smaller=quicker)
       if (i != sizes - 1) {
         command.add("(");
         command.add("+clone");
       }
-      command.addAll(Arrays.asList("-thumbnail", THUMB_SIZE[i] + "x", "-write",
-          thumbs.get(i).getContentPath().toString()));
+      ThumbnailWithSize thumbnail = thumbnails.get(i);
+      command.addAll(Arrays.asList("-thumbnail", thumbnail.getImageSize() + "x", "-write",
+          thumbnail.getThumbnail().getContentPath().toString()));
       if (i != sizes - 1) {
         command.add("+delete");
         command.add(")");
@@ -234,46 +245,35 @@ class ThumbnailGenerator {
         colormapFile, "-format", "\n%c", "histogram:info:"));
     return command;
   }
-  
-  private ImageMetadata generateThumbnailsInternal(List<ThumbnailImpl> thumbs, ResourceType resourceType,
+
+  private ImageMetadata generateThumbnailsInternal(List<ThumbnailWithSize> thumbnails,
+      ResourceType resourceType,
       File content) throws MediaExtractionException {
 
     // Generate the thumbnails and read image properties.
-    final List<String> results;
+    final List<String> response;
     try {
-      results = commandExecutor.execute(createThumbnailGenerationCommand(thumbs, resourceType, content), false);
+      response = commandExecutor
+          .execute(createThumbnailGenerationCommand(thumbnails, resourceType, content), false);
     } catch (CommandExecutionException e) {
       throw new MediaExtractionException("Could not analyze content and generate thumbnails.", e);
     }
-
-    // Read the image properties from the command output.
-    final ImageMetadata result;
-    try {
-      final int width = Integer.parseInt(results.get(COMMAND_RESULT_WIDTH_LINE));
-      final int height = Integer.parseInt(results.get(COMMAND_RESULT_HEIGHT_LINE));
-      final String colorSpace = results.get(COMMAND_RESULT_COLORSPACE_LINE);
-      final List<String> dominantColors =
-          extractDominantColors(results, COMMAND_RESULT_COLORS_LINE);
-      result = new ImageMetadata(width, height, colorSpace, dominantColors);
-    } catch (RuntimeException e) {
-      LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(results, "\n"), e);
-      throw new MediaExtractionException("File seems to be corrupted", e);
-    }
+    final ImageMetadata result = parseCommandResponse(response);
 
     // Check the thumbnails.
-    for (int i = 0; i < THUMB_SIZE.length; i++) {
+    for (ThumbnailWithSize thumbnail : thumbnails) {
       try {
         
         // Check that the thumbnails are not empty.
-        final Path thumb = thumbs.get(i).getContentPath();
-        if (Files.size(thumb) == 0) {
+        final Path thumb = thumbnail.getThumbnail().getContentPath();
+        if (getFileSize(thumb) == 0) {
           throw new MediaExtractionException("Thumbnail file empty: " + thumb);
         }
         
         // In case of actual images: don't make a thumbnail larger than the original.
-        if (resourceType == ResourceType.IMAGE && result.getWidth() < THUMB_SIZE[i]) {
+        if (resourceType == ResourceType.IMAGE && result.getWidth() < thumbnail.getImageSize()) {
           // Replace thumbnail by copy of original.
-          Files.copy(content.toPath(), thumb, StandardCopyOption.REPLACE_EXISTING);
+          copyFile(content, thumb);
         }
       } catch (IOException e) {
         throw new MediaExtractionException("Could not access thumbnail file", e);
@@ -284,17 +284,26 @@ class ThumbnailGenerator {
     return result;
   }
 
-  private List<ThumbnailImpl> prepareThumbnailFiles(String url) throws MediaExtractionException {
+  long getFileSize(Path file) throws IOException {
+    return Files.size(file);
+  }
+
+  void copyFile(File source, Path destination) throws IOException {
+    Files.copy(source.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+  }
+
+  List<ThumbnailWithSize> prepareThumbnailFiles(String url) throws MediaExtractionException {
     String md5 = md5Hex(url);
-    List<ThumbnailImpl> thumbs = new ArrayList<>(THUMB_SUFFIX.length);
+    List<ThumbnailWithSize> result = new ArrayList<>(THUMBNAIL_SIZES_AND_SUFFIXES.size());
     try {
-      for (String thumbnailSuffix : THUMB_SUFFIX) {
-        thumbs.add(new ThumbnailImpl(url, md5 + thumbnailSuffix));
+      for (Entry<Integer, String> entry : THUMBNAIL_SIZES_AND_SUFFIXES.entrySet()) {
+        final ThumbnailImpl thumbnail = new ThumbnailImpl(url, md5 + entry.getValue());
+        result.add(new ThumbnailWithSize(thumbnail, entry.getKey()));
       }
     } catch (IOException e) {
       throw new MediaExtractionException("Could not create thumbnail files.", e);
     }
-    return thumbs;
+    return result;
   }
 
   private static String md5Hex(String s) throws MediaExtractionException {
@@ -307,7 +316,21 @@ class ThumbnailGenerator {
     }
   }
 
-  private List<String> extractDominantColors(List<String> results, int skipLines) {
+  ImageMetadata parseCommandResponse(List<String> response) throws MediaExtractionException {
+    try {
+      final int width = Integer.parseInt(response.get(COMMAND_RESULT_WIDTH_LINE));
+      final int height = Integer.parseInt(response.get(COMMAND_RESULT_HEIGHT_LINE));
+      final String colorSpace = response.get(COMMAND_RESULT_COLORSPACE_LINE);
+      final List<String> dominantColors = extractDominantColors(response,
+          COMMAND_RESULT_COLORS_LINE);
+      return new ImageMetadata(width, height, colorSpace, dominantColors);
+    } catch (RuntimeException e) {
+      LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(response, "\n"), e);
+      throw new MediaExtractionException("File seems to be corrupted", e);
+    }
+  }
+
+  private static List<String> extractDominantColors(List<String> results, int skipLines) {
     final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
     return results.stream().skip(skipLines).sorted(Collections.reverseOrder())
         .limit(COMMAND_RESULT_MAX_COLORS).map(line -> {
@@ -315,5 +338,24 @@ class ThumbnailGenerator {
           m.find();
           return m.group(1); // throw exception if not found
         }).collect(Collectors.toList());
+  }
+
+  static class ThumbnailWithSize {
+
+    private final ThumbnailImpl thumbnail;
+    private final int imageSize;
+
+    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize) {
+      this.thumbnail = thumbnail;
+      this.imageSize = imageSize;
+    }
+
+    ThumbnailImpl getThumbnail() {
+      return thumbnail;
+    }
+
+    int getImageSize() {
+      return imageSize;
+    }
   }
 }

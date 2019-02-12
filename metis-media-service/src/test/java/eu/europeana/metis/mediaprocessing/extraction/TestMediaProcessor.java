@@ -129,8 +129,8 @@ public class TestMediaProcessor {
 			thumbs[1] = new File(command.get(17));
 			assertEquals(Arrays.asList(THUMBNAIL_COMMAND, file.getPath() + "[0]",
 					"-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
-					"(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
-					"-thumbnail", "400x", "-write", thumbs[1].getPath(),
+					"(", "+clone", "-thumbnail", "400x", "-write", thumbs[0].getPath(), "+delete", ")",
+					"-thumbnail", "200x", "-write", thumbs[1].getPath(),
 					"-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
 					"-format", "\n%c", "histogram:info:"), command);
 			FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });
@@ -160,8 +160,8 @@ public class TestMediaProcessor {
 		assertEquals(2, thumbnails.size());
 		assertEquals(url, thumbnails.get(0).getResourceUrl());
 		assertEquals(url, thumbnails.get(1).getResourceUrl());
-		assertEquals(md5 + "-MEDIUM", thumbnails.get(0).getTargetName());
-		assertEquals(md5 + "-LARGE", thumbnails.get(1).getTargetName());
+		assertEquals(md5 + "-LARGE", thumbnails.get(0).getTargetName());
+		assertEquals(md5 + "-MEDIUM", thumbnails.get(1).getTargetName());
 	}
 
 	@Test
@@ -222,8 +222,8 @@ public class TestMediaProcessor {
             assertEquals(Arrays.asList(THUMBNAIL_COMMAND, contents.getPath() + "[0]",
                     "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
                     "-background", "white", "-alpha", "remove",
-                    "(", "+clone", "-thumbnail", "200x", "-write", thumbs[0].getPath(), "+delete", ")",
-                    "-thumbnail", "400x", "-write", thumbs[1].getPath(),
+                    "(", "+clone", "-thumbnail", "400x", "-write", thumbs[0].getPath(), "+delete", ")",
+                    "-thumbnail", "200x", "-write", thumbs[1].getPath(),
                     "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
                     "-format", "\n%c", "histogram:info:"), command);
             FileUtils.writeByteArrayToFile(thumbs[0], new byte[] { 0 });

@@ -22,6 +22,8 @@ class CommandExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
 
+  private final ProcessFactory processFactory;
+
   private final ExecutorService commandThreadPool;
 
   /**
@@ -31,7 +33,21 @@ class CommandExecutor {
    * at any given time.
    */
   CommandExecutor(int commandThreadPoolSize) {
+    this(commandThreadPoolSize, (command, redirectErrorStream) -> new ProcessBuilder(command)
+        .redirectErrorStream(redirectErrorStream).start());
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param commandThreadPoolSize The maximum number of processes that can perform command-line IO
+   * at any given time.
+   * @param processFactory A function that, given a command and whether to redirect the error
+   * stream, creates a {@link Process} for executing that command.
+   */
+  CommandExecutor(int commandThreadPoolSize, ProcessFactory processFactory) {
     this.commandThreadPool = Executors.newFixedThreadPool(commandThreadPoolSize);
+    this.processFactory = processFactory;
   }
 
   /**
@@ -61,8 +77,7 @@ class CommandExecutor {
       throws IOException {
 
     // Create process and start it.
-    final Process process = new ProcessBuilder(command).redirectErrorStream(redirectErrorStream)
-        .start();
+    final Process process = processFactory.createProcess(command, redirectErrorStream);
 
     // Open error stream and read it.
     final String error;
@@ -102,5 +117,22 @@ class CommandExecutor {
    */
   void shutdown() {
     commandThreadPool.shutdown();
+  }
+
+  /**
+   * Implementations of this class can create {@link Process} instances.
+   */
+  public interface ProcessFactory {
+
+    /**
+     * Create a {@link Process} instance.
+     *
+     * @param command The command to execute.
+     * @param redirectErrorStream Whether to return the contents of the error stream as part of the
+     * command's output.
+     * @return The process.
+     * @throws IOException In case a problem occurs creating the process.
+     */
+    Process createProcess(List<String> command, boolean redirectErrorStream) throws IOException;
   }
 }
