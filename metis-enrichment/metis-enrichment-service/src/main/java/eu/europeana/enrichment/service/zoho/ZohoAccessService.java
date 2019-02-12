@@ -2,6 +2,7 @@ package eu.europeana.enrichment.service.zoho;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,15 +73,11 @@ public class ZohoAccessService {
     } catch (GenericMetisException e) {
       throw new ZohoAccessException("Cannot get organization by id: " + organizationId, e);
     }
-    JsonNode accountsNode =
-        findRecordsByType(jsonRecordsResponse, ZohoApiFields.ACCOUNTS_MODULE_STRING);
-    JsonNode jsonRecord = accountsNode.findValue(ZohoApiFields.FIELDS_LABEL);
-
-    return new ZohoOrganizationAdapter(jsonRecord);
+    return parseOrganization(jsonRecordsResponse);
   }
 
   /**
-   * This method retrieves OrganizationImpl object for Zoho organization record from given file.
+   * This method retrieves OrganizationImpl object for Zoho organization record from the given file.
    *
    * @param contentFile file that contains a Zoho Organization response
    * @return representation of the Zoho organization record in OrganizatinImpl format
@@ -96,6 +93,38 @@ public class ZohoAccessService {
     } catch (GenericMetisException e) {
       throw new ZohoAccessException("Cannot extract organization from file. ", e);
     }
+    return parseOrganization(jsonRecordsResponse);
+  }
+
+  /**
+   * This method retrieves OrganizationImpl object for Zoho organization record from the given stream.
+   *
+   * @param contentStream stream that accesses a Zoho Organization response
+   * @return representation of the Zoho organization record in OrganizatinImpl format
+   * @throws ZohoAccessException if an error occurred during retrieval from Zoho
+   */
+  public ZohoOrganization getOrganizationFromStream(InputStream contentStream) throws ZohoAccessException {
+
+    JsonNode jsonRecordsResponse;
+    try {
+      jsonRecordsResponse = zohoAccessClientDao.getOrganizationFromStream(contentStream);
+    } catch (IOException e) {
+      throw new ZohoAccessException("Cannot get organization from stream. ", e);
+    } catch (GenericMetisException e) {
+      throw new ZohoAccessException("Cannot extract organization from stream. ", e);
+    }
+    return parseOrganization(jsonRecordsResponse);
+  }
+
+  
+  /**
+   * 
+   * @param jsonRecordsResponse
+   * @return
+   * @throws ZohoAccessException
+   */
+  private ZohoOrganization parseOrganization(JsonNode jsonRecordsResponse)
+      throws ZohoAccessException {
     JsonNode accountsNode =
         findRecordsByType(jsonRecordsResponse, ZohoApiFields.ACCOUNTS_MODULE_STRING);
     JsonNode jsonRecord = accountsNode.findValue(ZohoApiFields.FIELDS_LABEL);

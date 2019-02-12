@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import javax.xml.bind.JAXBContext;
@@ -17,6 +18,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.CharSequenceReader;
 import org.apache.commons.io.output.StringBuilderWriter;
 import org.apache.jena.rdf.model.Model;
@@ -125,6 +127,23 @@ public class WikidataAccessDao {
     return parse(xml);
   }
 
+  /**
+   * This method converts XML string to Wikidata organization object.
+   * 
+   * @param xmlFile The Wikidata organization object in XML format
+   * @return Wikidata organization object
+   * @throws JAXBException
+   * @throws IOException
+   */
+  public WikidataOrganization parse(InputStream xmlStream) throws JAXBException, IOException {
+    StringWriter writer = new StringWriter();
+    IOUtils.copy(xmlStream, writer, StandardCharsets.UTF_8);
+    String wikidataXml = writer.toString();
+    
+    return parse(wikidataXml);
+  }
+  
+  
   /**
    * This method converts XML string to Wikidata organization object.
    * 
