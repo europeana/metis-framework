@@ -177,13 +177,15 @@ public abstract class AbstractMetisPlugin {
     return pluginStatus;
   }
 
+  /**
+   * @param pluginStatus {@link PluginStatus}
+   */
   public void setPluginStatus(PluginStatus pluginStatus) {
     this.pluginStatus = pluginStatus;
   }
 
   /**
-   * This method also clears the fail message if the status is set to anything other than {@link
-   * PluginStatus#FAILED}.
+   * This method sets the plugin status and also clears the fail message.
    *
    * @param pluginStatus {@link PluginStatus}
    */
