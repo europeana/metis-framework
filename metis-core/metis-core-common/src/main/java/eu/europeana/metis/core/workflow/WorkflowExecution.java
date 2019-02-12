@@ -90,7 +90,7 @@ public class WorkflowExecution implements HasMongoObjectId {
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
           || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
           || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
-        metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
+        metisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.CANCELLED);
       }
     }
     this.setCancelling(false);
@@ -115,7 +115,7 @@ public class WorkflowExecution implements HasMongoObjectId {
         if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
             || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
             || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
-          metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
+          metisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.CANCELLED);
         }
       }
     }
