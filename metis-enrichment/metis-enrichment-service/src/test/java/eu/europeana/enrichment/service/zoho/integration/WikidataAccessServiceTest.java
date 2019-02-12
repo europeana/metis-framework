@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.service.wikidata;
+package eu.europeana.enrichment.service.zoho.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Locale;
 import javax.xml.bind.JAXBException;
@@ -21,23 +22,13 @@ import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
 /**
- * Test class for Wikidata Access Dao.
+ * Test class for Wikidata Access Service.
  * 
  * @author GrafR
  *
  */
 @Disabled
-public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
-
-  final String WIKIDATA_URL_BNF =
-      "http://www.wikidata.org/entity/Q" + TEST_WIKIDATA_ORGANIZATION_ID;
-  final String WIKIDATA_URL_BL = "http://www.wikidata.org/entity/Q23308";
-
-  final String WIKIDATA_URL_SSA_REDIRECT = "http://www.wikidata.org/entity/Q27490300";
-  final String WIKIDATA_URL_SSA = "http://www.wikidata.org/entity/Q2256734";
-  final String WIKIDATA_URL_NISV = "http://www.wikidata.org/entity/Q1131877";
-  final String TEST_ACRONYM = "BNF";
-  final String TEST_COUNTRY = "FR";
+public class WikidataAccessServiceTest extends BaseWikidataIntegrationSetup {
 
   @Override
   @BeforeEach
@@ -46,7 +37,8 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
   }
 
   @AfterEach
-  public void tearDown() {}
+  public void tearDown() {
+  }
 
   // TODO JV it is not a good idea to test on real-time data that comes from a external source. This
   // can break our tests if the data is changed.
@@ -88,7 +80,7 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     assertEquals(WIKIDATA_URL_BNF, organizationImpl.getAbout());
     assertEquals(testAcronym,
         organizationImpl.getEdmAcronym().get(Locale.FRENCH.getLanguage()).get(0));
-    
+
     assertNotNull(organizationImpl.getFoafDepiction());
     assertNotNull(organizationImpl.getAddress());
     assertEquals("geo:48.833611111,2.375833333", organizationImpl.getAddress().getVcardHasGeo());
@@ -129,7 +121,8 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
       ParseException, JAXBException, IOException, URISyntaxException {
 
     String acronym = "SSA";
-    WikidataOrganization wikidataOrganization = dereferenceWikidataOrg(acronym, WIKIDATA_URL_SSA_REDIRECT);
+    WikidataOrganization wikidataOrganization =
+        dereferenceWikidataOrg(acronym, WIKIDATA_URL_SSA_REDIRECT);
     Organization organizationImpl = convertToCoreOrganization(wikidataOrganization);
 
     // verify correct parsing of wikidata organization
@@ -140,8 +133,8 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     // in the future more labels might be available, therefore use in comparison and not equality
     assertTrue(4 <= organizationImpl.getPrefLabel().values().size());
     assertEquals(WIKIDATA_URL_SSA, organizationImpl.getAbout());
-//    assertTrue(
-//        organizationImpl.getEdmAcronym().get(Locale.ENGLISH.getLanguage()).contains(acronym));
+    // assertTrue(
+    // organizationImpl.getEdmAcronym().get(Locale.ENGLISH.getLanguage()).contains(acronym));
     // disabled address until the locality issue is solved
     // assertNotNull(organizationImpl.getAddress());
     // assertNotNull(organizationImpl.getAddress().getVcardStreetAddress());
@@ -197,7 +190,8 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     wikidataAccessService.saveXmlToFile(wikidataXml, wikidataOutputFile);
 
     // read organization XML from file
-    String savedWikidataXml = FileUtils.readFileToString(wikidataOutputFile, "UTF-8");
+    String savedWikidataXml =
+        FileUtils.readFileToString(wikidataOutputFile, StandardCharsets.UTF_8);
     WikidataOrganization wikidataOrganization = wikidataAccessDao.parse(savedWikidataXml);
     assertNotNull(wikidataOrganization);
     return wikidataOrganization;
@@ -247,6 +241,16 @@ public class WikidataAccessDaoTest extends BaseWikidataAccessSetup {
     assertNotNull(organizationImpl.getAddress().getVcardPostalCode());
     assertNotNull(organizationImpl.getAddress().getVcardPostOfficeBox());
     assertNotNull(organizationImpl.getAddress().getVcardStreetAddress());
+  }
+
+  protected File getDerefFile(String testAcronym) throws URISyntaxException, IOException {
+
+    File contentDir = getClasspathFile(CONTENT_DIR);
+    File derefFile = new File(contentDir, testAcronym + ".deref.xml");
+    if (!derefFile.exists())
+      derefFile.createNewFile();
+
+    return derefFile;
   }
 
 }

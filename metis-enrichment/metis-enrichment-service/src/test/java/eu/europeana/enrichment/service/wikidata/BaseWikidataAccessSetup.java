@@ -1,17 +1,17 @@
 package eu.europeana.enrichment.service.wikidata;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import eu.europeana.enrichment.service.WikidataAccessService;
 import eu.europeana.enrichment.service.dao.WikidataAccessDao;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import eu.europeana.enrichment.service.zoho.BaseZohoAccessSetup;
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class BaseWikidataAccessSetup extends BaseZohoAccessSetup {
 
-  WikidataAccessService wikidataAccessService;
-  WikidataAccessDao wikidataAccessDao;
+  protected WikidataAccessService wikidataAccessService;
+  protected WikidataAccessDao wikidataAccessDao;
 
   /**
    * This method initializes classes needed for Wikidata related activities
@@ -24,12 +24,8 @@ public class BaseWikidataAccessSetup extends BaseZohoAccessSetup {
     wikidataAccessService = new WikidataAccessService(wikidataAccessDao);
   }
   
-  File getDerefFile(String testAcronym) throws URISyntaxException, IOException {
-    File contentDir = getClasspathFile(CONTENT_DIR);
-    File derefFile = new File(contentDir, testAcronym + ".deref.xml");
-    if(!derefFile.exists())
-      derefFile.createNewFile();
-    
-    return derefFile;
+  protected InputStream getDerefStream(String testAcronym) throws URISyntaxException, IOException {
+    return BaseWikidataAccessSetup.class.getResourceAsStream(CONTENT_DIR+ testAcronym + ".deref.xml");
   }
+ 
 }
