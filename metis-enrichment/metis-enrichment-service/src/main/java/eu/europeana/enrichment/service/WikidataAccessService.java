@@ -80,8 +80,6 @@ public class WikidataAccessService {
     try {
       wikidataXml = getWikidataAccessDao().getEntity(wikidataUri);
       wikidataOrganization = getWikidataAccessDao().parse(wikidataXml.toString());
-    } catch (IOException e) {
-      LOGGER.warn("Cannot fetch wikidata entity with uri: {}", wikidataUri, e);
     } catch (JAXBException e) {
       LOGGER.debug("Cannot parse wikidata response: {}", wikidataXml);
       throw new WikidataAccessException(

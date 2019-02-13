@@ -90,7 +90,7 @@ public class EnrichmentEntityDao implements Closeable {
   private final MongoClient mongo;
 
   /**
-   * @deprecated see 
+   * @deprecated use {@link #EnrichmentEntityDao(String)}
    * @param host
    * @param port
    */
