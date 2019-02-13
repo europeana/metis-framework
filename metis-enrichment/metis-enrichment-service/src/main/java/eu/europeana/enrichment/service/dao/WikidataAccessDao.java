@@ -201,7 +201,6 @@ public class WikidataAccessDao {
     try {
       return endpoint.execDescribe(m).getResource(uri);
     } catch (Exception e) {
-      //LOGGER.error("Interrupted while querying Wikidata from the WikidataAccessDao", e);
       throw new WikidataAccessException(WikidataAccessException.CANNOT_ACCESS_WIKIDATA_RESOURCE_ERROR + uri , e);
     } finally {
       endpoint.close();
