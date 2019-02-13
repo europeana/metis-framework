@@ -100,7 +100,7 @@ public class WikidataAccessDao {
    * @throws WikidataAccessException
    * @throws IOException
    */
-  public StringBuilder getEntity(String uri) throws WikidataAccessException, IOException {
+  public StringBuilder getEntity(String uri) throws WikidataAccessException {
 
     StringBuilder res = new StringBuilder();
     StreamResult wikidataRes = new StreamResult(new StringBuilderWriter(res));
