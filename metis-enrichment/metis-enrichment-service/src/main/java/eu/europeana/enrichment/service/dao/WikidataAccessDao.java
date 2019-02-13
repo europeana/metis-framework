@@ -265,7 +265,7 @@ public class WikidataAccessDao {
    */
   public void translate(String uri, StreamResult res) throws WikidataAccessException {
     Resource wikidataResource = getModelFromSPARQL(uri);
-    if(wikidataResource == null) {
+    if(wikidataResource == null || wikidataResource.getURI() == null) {
       throw new WikidataAccessException(WikidataAccessException.CANNOT_ACCESS_WIKIDATA_RESOURCE_ERROR + uri, null);
     }
     transform(wikidataResource, res);
