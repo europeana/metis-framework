@@ -7,13 +7,15 @@ import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,8 +25,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>
- * Implementation of {@link MediaProcessor} that is designed to handle resources of types
- * {@link ResourceType#AUDIO} and {@link ResourceType#VIDEO}.
+ * Implementation of {@link MediaProcessor} that is designed to handle resources of types {@link
+ * ResourceType#AUDIO} and {@link ResourceType#VIDEO}.
  * </p>
  * <p>
  * Note: No thumbnails are created for audio or video files.
@@ -40,10 +42,10 @@ class AudioVideoProcessor implements MediaProcessor {
   private final String ffprobeCommand;
 
   /**
-   * Constructor. This is a wrapper for
-   * {@link AudioVideoProcessor#AudioVideoProcessor(CommandExecutor, String)} where the property is
-   * detected. It is advisable to use this constructor for non-testing purposes.
-   * 
+   * Constructor. This is a wrapper for {@link AudioVideoProcessor#AudioVideoProcessor(CommandExecutor,
+   * String)} where the property is detected. It is advisable to use this constructor for
+   * non-testing purposes.
+   *
    * @param commandExecutor A command executor.
    * @throws MediaProcessorException In case the properties could not be initialized.
    */
@@ -53,7 +55,7 @@ class AudioVideoProcessor implements MediaProcessor {
 
   /**
    * Constructor.
-   * 
+   *
    * @param commandExecutor A command executor.
    * @param ffprobeCommand The ffprobe command (how to trigger ffprobe).
    */
@@ -86,6 +88,21 @@ class AudioVideoProcessor implements MediaProcessor {
     return globalFfprobeCommand;
   }
 
+  private static boolean resourceHasContent(Resource resource) throws MediaExtractionException {
+    try {
+      return resource.hasContent();
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not determine whether resource has content.", e);
+    }
+  }
+
+  List<String> createAudioVideoAnalysisCommand(Resource resource) throws MediaExtractionException {
+    final String resourceLocation = resourceHasContent(resource) ?
+        resource.getContentPath().toString() : resource.getResourceUrl();
+    return Arrays.asList(ffprobeCommand, "-v", "quiet", "-print_format",
+        "json", "-show_format", "-show_streams", "-hide_banner", resourceLocation);
+  }
+
   @Override
   public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
 
@@ -94,32 +111,31 @@ class AudioVideoProcessor implements MediaProcessor {
       return null;
     }
 
-    // Determine whether the resource has content.
-    final boolean resourceHasContent;
-    try {
-      resourceHasContent = resource.hasContent();
-    } catch (IOException e) {
-      throw new MediaExtractionException("Could not determine whether resource has content.", e);
-    }
-
     // Execute command
-    final List<String> command = Arrays.asList(ffprobeCommand, "-v", "quiet", "-print_format",
-        "json", "-show_format", "-show_streams", "-hide_banner",
-        resourceHasContent ? resource.getContentPath().toString() : resource.getResourceUrl());
-    final List<String> resultLines;
+    final List<String> response;
     try {
-      resultLines = commandExecutor.execute(command, false);
+      response = commandExecutor.execute(createAudioVideoAnalysisCommand(resource), false);
     } catch (CommandExecutionException e) {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
     }
 
     // Parse command result.
+    final AbstractResourceMetadata metadata = parseCommandResponse(resource, response);
+    return new ResourceExtractionResult(metadata, null);
+  }
+
+  JSONObject readCommandResponseToJson(List<String> response) {
+    return new JSONObject(new JSONTokener(String.join("", response)));
+  }
+
+  AbstractResourceMetadata parseCommandResponse(Resource resource, List<String> response)
+      throws MediaExtractionException {
     final AbstractResourceMetadata metadata;
     try {
 
       // Analyze command result
-      final JSONObject result = new JSONObject(new JSONTokener(String.join("", resultLines)));
-      if (!resourceHasContent && result.length() == 0) {
+      final JSONObject result = readCommandResponseToJson(response);
+      if (!resourceHasContent(resource) && result.length() == 0) {
         throw new MediaExtractionException("Probably download failed");
       }
       final JSONObject format = result.getJSONObject("format");
@@ -157,33 +173,36 @@ class AudioVideoProcessor implements MediaProcessor {
         throw new MediaExtractionException("No media streams");
       }
     } catch (RuntimeException e) {
-      LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(resultLines, "\n"), e);
+      LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(response, "\n"), e);
       throw new MediaExtractionException("File seems to be corrupted", e);
     }
 
     // Done
-    return new ResourceExtractionResult(metadata, null);
+    return metadata;
   }
 
-  private static int findInt(String key, JSONObject[] candidates) {
-    return Stream.of(candidates).map(candidate -> candidate.optInt(key, Integer.MIN_VALUE))
-        .filter(value -> Integer.MIN_VALUE != value).findFirst()
-        .orElseThrow(() -> new JSONException("Could not find integer for field: " + key));
+  int findInt(String key, JSONObject[] candidates) {
+    return findValue(key, candidates, candidate -> candidate.optInt(key, Integer.MIN_VALUE),
+        value -> Integer.MIN_VALUE != value);
   }
 
-  private static double findDouble(String key, JSONObject[] candidates) {
-    return Stream.of(candidates).map(candidate -> candidate.optDouble(key, Double.NaN))
-        .filter(value -> !Double.isNaN(value)).findFirst()
-        .orElseThrow(() -> new JSONException("Could not find double for field: " + key));
+  double findDouble(String key, JSONObject[] candidates) {
+    return findValue(key, candidates, candidate -> candidate.optDouble(key, Double.NaN),
+        value -> !value.isNaN());
   }
 
-  private static String findString(String key, JSONObject[] candidates) {
-    return Stream.of(candidates).map(candidate -> candidate.optString(key, StringUtils.EMPTY))
-        .filter(StringUtils::isNotBlank).findFirst()
+  String findString(String key, JSONObject[] candidates) {
+    return findValue(key, candidates, candidate -> candidate.optString(key, StringUtils.EMPTY),
+        StringUtils::isNotBlank);
+  }
+
+  <T> T findValue(String key, JSONObject[] candidates, Function<JSONObject, T> valueGetter,
+      Predicate<T> valueValidator) {
+    return Stream.of(candidates).map(valueGetter).filter(valueValidator).findFirst()
         .orElseThrow(() -> new JSONException("Could not find String for field: " + key));
   }
 
-  private JSONObject findStream(JSONObject data, String codecType) {
+  JSONObject findStream(JSONObject data, String codecType) {
     for (Object streamObject : data.getJSONArray("streams")) {
       final JSONObject stream = (JSONObject) streamObject;
       if (codecType.equals(stream.getString("codec_type"))) {

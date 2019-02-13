@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -128,6 +129,9 @@ class ThumbnailGeneratorTest {
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
     verify(thumbnail1, times(4)).close();
     verify(thumbnail2, times(4)).close();
+
+    // Check that all is well again.
+    thumbnailGenerator.generateThumbnails(url, ResourceType.IMAGE, content);
   }
 
   @Test
@@ -153,6 +157,31 @@ class ThumbnailGeneratorTest {
     assertTrue(colorSet.contains("2F4F4F"));
     assertTrue(colorSet.contains("483D8B"));
     assertTrue(colorSet.contains("556B2F"));
+
+    // Check unexpected input
+    assertThrows(MediaExtractionException.class,
+        () -> thumbnailGenerator.parseCommandResponse(null));
+    assertThrows(MediaExtractionException.class, () -> thumbnailGenerator.parseCommandResponse(
+        Collections.emptyList()));
+    input.set(0, null);
+    assertThrows(MediaExtractionException.class,
+        () -> thumbnailGenerator.parseCommandResponse(input));
+    input.set(0, "");
+    assertThrows(MediaExtractionException.class,
+        () -> thumbnailGenerator.parseCommandResponse(input));
+    input.set(0, "A");
+    assertThrows(MediaExtractionException.class,
+        () -> thumbnailGenerator.parseCommandResponse(input));
+    input.set(0, "589");
+    thumbnailGenerator.parseCommandResponse(input);
+
+    // Check missing value
+    assertThrows(MediaExtractionException.class,
+        () -> thumbnailGenerator.parseCommandResponse(input.subList(0, 1)));
+
+    // Check empty color list
+    assertThrows(MediaExtractionException.class,
+        () -> thumbnailGenerator.parseCommandResponse(input.subList(0, 2)));
   }
 
   @Test

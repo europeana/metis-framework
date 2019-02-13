@@ -122,5 +122,7 @@ class ImageProcessorTest {
     assertThrows(MediaExtractionException.class, () -> imageProcessor.process(resource));
     doReturn(1234L).when(resource).getContentSize();
 
+    // Check that all is well again.
+    imageProcessor.process(resource);
   }
 }
