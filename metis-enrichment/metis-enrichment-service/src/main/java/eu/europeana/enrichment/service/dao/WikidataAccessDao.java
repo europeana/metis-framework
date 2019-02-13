@@ -117,7 +117,7 @@ public class WikidataAccessDao {
    * @throws IOException
    */
   public WikidataOrganization parse(File xmlFile) throws JAXBException, IOException {
-    String xml = FileUtils.readFileToString(xmlFile, "UTF-8");
+    String xml = FileUtils.readFileToString(xmlFile, StandardCharsets.UTF_8);
     return parse(xml);
   }
 
@@ -144,9 +144,8 @@ public class WikidataAccessDao {
    * @param xml The Wikidata organization object in string XML format
    * @return Wikidata organization object
    * @throws JAXBException
-   * @throws IOException
    */
-  public WikidataOrganization parse(String xml) throws JAXBException, IOException {
+  public WikidataOrganization parse(String xml) throws JAXBException {
     JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
 
     Unmarshaller unmarshaller = jc.createUnmarshaller();
