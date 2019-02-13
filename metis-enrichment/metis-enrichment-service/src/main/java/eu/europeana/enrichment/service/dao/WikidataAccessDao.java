@@ -26,12 +26,9 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFWriter;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.riot.RiotException;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDFS;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
@@ -45,9 +42,6 @@ public class WikidataAccessDao {
   public static final String WIKIDATA_ORGANIZATION_XSL_FILE = "/wkd2org.xsl";
   private static final String SPARQL = "https://query.wikidata.org/sparql";
   private static final int SIZE = 1024 * 1024;
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(WikidataAccessDao.class);
-
   private Transformer transformer;
 
   private WikidataAccessDao(InputStreamCreator inputStreamSupplier) throws WikidataAccessException {
@@ -165,8 +159,9 @@ public class WikidataAccessDao {
    * 
    * @param uri The Wikidata URI in string format
    * @return RDF model
+   * @throws WikidataAccessException 
    */
-  private Resource getModelFromSPARQL(String uri) {
+  private Resource getModelFromSPARQL(String uri) throws WikidataAccessException {
     Resource resource = fetchFromSPARQL(uri);
     if (!isDuplicate(resource)) {
       return resource;
@@ -197,25 +192,24 @@ public class WikidataAccessDao {
    * @return true if the retrieved resource is duplicated
    */
   private boolean isDuplicate(Resource resource) {
-    return (resource.hasProperty(OWL.sameAs) && !resource.hasProperty(RDFS.label));
+    return (resource!= null && resource.hasProperty(OWL.sameAs) && !resource.hasProperty(RDFS.label));
   }
 
-  private Resource fetchFromSPARQL(String uri) {
+  private Resource fetchFromSPARQL(String uri) throws WikidataAccessException {
     String sDescribe = "DESCRIBE <" + uri + ">";
 
     Model m = ModelFactory.createDefaultModel();
     QueryEngineHTTP endpoint = new QueryEngineHTTP(SPARQL, sDescribe);
     try {
       return endpoint.execDescribe(m).getResource(uri);
-    } catch (RiotException e) {
-      LOGGER.error("Interrupted while querying Wikidata from the WikidataAccessDao", e);
+    } catch (Exception e) {
+      //LOGGER.error("Interrupted while querying Wikidata from the WikidataAccessDao", e);
+      throw new WikidataAccessException(WikidataAccessException.CANNOT_ACCESS_WIKIDATA_RESOURCE_ERROR + uri , e);
     } finally {
       endpoint.close();
     }
-
-//    return m.getResource(uri);
-    return null;
   }
+   
 
   /**
    * This method transforms StreamResult to XML format
@@ -274,7 +268,8 @@ public class WikidataAccessDao {
    * @throws WikidataAccessException
    */
   public void translate(String uri, StreamResult res) throws WikidataAccessException {
-    transform(getModelFromSPARQL(uri), res);
+    Resource wikidataResource = getModelFromSPARQL(uri);
+    transform(wikidataResource, res);
   }
 
 }
