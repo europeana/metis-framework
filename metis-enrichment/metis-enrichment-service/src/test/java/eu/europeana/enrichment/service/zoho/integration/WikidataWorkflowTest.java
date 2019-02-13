@@ -1,26 +1,13 @@
-package eu.europeana.enrichment.service.wikidata;
+package eu.europeana.enrichment.service.zoho.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.external.ObjectIdSerializer;
-import eu.europeana.enrichment.api.external.model.WikidataOrganization;
-import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
-import eu.europeana.enrichment.service.EntityService;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
-import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.text.ParseException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 import javax.xml.bind.JAXBException;
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -31,6 +18,14 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.ObjectIdSerializer;
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
+import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
+import eu.europeana.enrichment.service.EntityService;
+import eu.europeana.enrichment.service.exception.WikidataAccessException;
+import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
 /**
  * Test class for Wikidata workflow.
@@ -44,7 +39,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 @Disabled
-public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
+public class WikidataWorkflowTest extends BaseWikidataIntegrationSetup {
 
   EntityService entityService;
   final Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -63,16 +58,6 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
   @AfterEach
   public void tearDown() {}
   
-  @Test
-  public void testMergeLists(){
-    List<String> list1 = Arrays.asList("a", "b", "c");
-    List<String> list2 = Arrays.asList("b", "c", "d");
-    List<String> list3 = Arrays.asList("a", "b", "c", "d");
-    @SuppressWarnings("unchecked")
-    List<String> res = ListUtils.sum(list1, list2);
-    assertEquals(list3, res);
-  }
-
   @Test
   public void mergeOrganizationsFromFilesTest() throws ZohoAccessException,
       IOException, JAXBException, URISyntaxException {
@@ -218,5 +203,6 @@ public class WikidataWorkflowTest extends BaseWikidataAccessSetup {
         .mergePropsFromWikidata(zohoOrganizationImpl, wikidataOrganizationImpl);
     assertNotNull(zohoOrganizationImpl);
   }
+
 
 }

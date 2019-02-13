@@ -16,18 +16,6 @@
  */
 package eu.europeana.enrichment.utils;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
-import eu.europeana.corelib.solr.entity.ContextualClassImpl;
-import eu.europeana.enrichment.api.internal.AgentTermList;
-import eu.europeana.enrichment.api.internal.ConceptTermList;
-import eu.europeana.enrichment.api.internal.MongoTerm;
-import eu.europeana.enrichment.api.internal.MongoTermList;
-import eu.europeana.enrichment.api.internal.OrganizationTermList;
-import eu.europeana.enrichment.api.internal.PlaceTermList;
-import eu.europeana.enrichment.api.internal.TimespanTermList;
 import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +29,19 @@ import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.MongoException;
+import eu.europeana.corelib.solr.entity.ContextualClassImpl;
+import eu.europeana.enrichment.api.internal.AgentTermList;
+import eu.europeana.enrichment.api.internal.ConceptTermList;
+import eu.europeana.enrichment.api.internal.MongoTerm;
+import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.api.internal.OrganizationTermList;
+import eu.europeana.enrichment.api.internal.PlaceTermList;
+import eu.europeana.enrichment.api.internal.TimespanTermList;
 
 /**
  * Util class for saving and retrieving TermLists from Mongo It is used to bypass the memory-based
@@ -88,8 +89,17 @@ public class EnrichmentEntityDao implements Closeable {
 
   private final MongoClient mongo;
 
+  /**
+   * @deprecated use {@link #EnrichmentEntityDao(String)}
+   * @param host
+   * @param port
+   */
   public EnrichmentEntityDao(String host, int port) {
     this.mongo = new MongoClient(host, port);
+  }
+  
+  public EnrichmentEntityDao(String connectionUrl) {
+    this.mongo = new MongoClient(new MongoClientURI(connectionUrl));
   }
 
   @Override

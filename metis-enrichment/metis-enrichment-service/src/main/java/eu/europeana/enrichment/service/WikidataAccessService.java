@@ -140,6 +140,11 @@ public class WikidataAccessService {
       org.setFoafLogo(logo);
     }
 
+    if (edmOrganization.getDepiction() != null) {
+      String depiction = edmOrganization.getDepiction().getResource();
+      org.setFoafDepiction(depiction);
+    }
+    
     if (edmOrganization.getMbox() != null) {
       String mbox = edmOrganization.getMbox();
       org.setFoafMbox(getEntityConverterUtils().createList(mbox));
@@ -178,11 +183,14 @@ public class WikidataAccessService {
       VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddresses().get(0);
       Address address = new AddressImpl();
       address.setAbout(org.getAbout() + "#address");
-      address.setVcardStreetAddress(vcardAddress.getStreetAddress());
-      address.setVcardLocality(vcardAddress.getLocality());
-      address.setVcardCountryName(vcardAddress.getCountryName());
-      address.setVcardPostalCode(vcardAddress.getPostalCode());
-      address.setVcardPostOfficeBox(vcardAddress.getPostOfficeBox());
+      if(vcardAddress.getHasGeo() != null)
+        address.setVcardHasGeo(vcardAddress.getHasGeo().getResource());
+// TODO: enable support for other address fields and locality when the issues related to the dereferencing localities, and support for multiple addresses are available 
+//      address.setVcardStreetAddress(vcardAddress.getStreetAddress());
+//      address.setVcardLocality(vcardAddress.getLocality());
+//      address.setVcardCountryName(vcardAddress.getCountryName());
+//      address.setVcardPostalCode(vcardAddress.getPostalCode());
+//      address.setVcardPostOfficeBox(vcardAddress.getPostOfficeBox());
       org.setAddress(address);
     }
 
@@ -201,7 +209,7 @@ public class WikidataAccessService {
       //create content file if needed
       final boolean wasFileCreated = contentFile.createNewFile();
       if (!wasFileCreated) {
-        LOGGER.warn("File was already present and therefore not created");
+        LOGGER.warn("Content file existed, it will be overwritten: {}", contentFile.getAbsolutePath());
       }
       FileUtils.write(contentFile, xml, StandardCharsets.UTF_8.name());
     } catch (IOException e) {
@@ -246,6 +254,11 @@ public class WikidataAccessService {
       zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());
     }
 
+    // depiction (if not available in zoho)
+    if (StringUtils.isEmpty(zohoOrganization.getFoafDepiction())) {
+      zohoOrganization.setFoafDepiction(wikidataOrganization.getFoafDepiction());
+    }
+    
     // homepage (if not available in zoho)
     if (StringUtils.isEmpty(zohoOrganization.getFoafHomepage())) {
       zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());

@@ -34,6 +34,9 @@ public class EdmOrganization extends EnrichmentBase {
   @XmlElement(name = "logo", namespace = "http://xmlns.com/foaf/0.1/")
   private Resource logo;
 
+  @XmlElement(name = "depiction", namespace = "http://xmlns.com/foaf/0.1/")
+  private Resource depiction;
+
   @XmlElement(name = "phone", namespace = "http://xmlns.com/foaf/0.1/")
   private String phone;
 
@@ -113,6 +116,14 @@ public class EdmOrganization extends EnrichmentBase {
 
   public void setMbox(String mbox) {
     this.mbox = mbox;
+  }
+
+  public Resource getDepiction() {
+    return depiction;
+  }
+
+  public void setDepiction(Resource depiction) {
+    this.depiction = depiction;
   }
   
 }

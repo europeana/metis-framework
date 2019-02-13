@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:edm="http://www.europeana.eu/schemas/edm/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+         xmlns:vcard="http://www.w3.org/2006/vcard/ns#">
+   <foaf:Organization rdf:about="http://www.wikidata.org/entity/Q23308">
+      <foaf:depiction rdf:resource="http://commons.wikimedia.org/wiki/Special:FilePath/British%20Library%20%2B%20St%20Pancras%207527-31hug.jpg"/>
+      <skos:prefLabel xml:lang="zh">大英图书馆</skos:prefLabel>
+      <skos:prefLabel xml:lang="ja">大英図書館</skos:prefLabel>
+      <skos:prefLabel xml:lang="be">Брытанская бібліятэка</skos:prefLabel>
+      <skos:prefLabel xml:lang="ko">대영도서관</skos:prefLabel>
+      <skos:prefLabel xml:lang="bg">Британска библиотека</skos:prefLabel>
+      <skos:prefLabel xml:lang="sr">Британска библиотека</skos:prefLabel>
+      <skos:prefLabel xml:lang="cy">Y Llyfrgell Brydeinig</skos:prefLabel>
+      <skos:prefLabel xml:lang="el">Βρετανική Βιβλιοθήκη</skos:prefLabel>
+      <skos:prefLabel xml:lang="pl">Biblioteka Brytyjska</skos:prefLabel>
+      <skos:prefLabel xml:lang="hy">Բրիտանական գրադարան</skos:prefLabel>
+      <skos:prefLabel xml:lang="is">Þjóðbókasafn Bretlands</skos:prefLabel>
+      <skos:prefLabel xml:lang="cs">Britská knihovna</skos:prefLabel>
+      <skos:prefLabel xml:lang="az">Britaniya Milli Kitabxanası</skos:prefLabel>
+      <skos:prefLabel xml:lang="ro">Biblioteca Britanică</skos:prefLabel>
+      <skos:prefLabel xml:lang="he">הספרייה הבריטית</skos:prefLabel>
+      <skos:prefLabel xml:lang="ar">المكتبة البريطانية</skos:prefLabel>
+      <skos:prefLabel xml:lang="ru">Британская библиотека</skos:prefLabel>
+      <skos:prefLabel xml:lang="es">Biblioteca Británica</skos:prefLabel>
+      <skos:prefLabel xml:lang="ga">Leabharlann Briotanach</skos:prefLabel>
+      <skos:prefLabel xml:lang="pt">Biblioteca Britânica</skos:prefLabel>
+      <skos:prefLabel xml:lang="ca">Biblioteca Britànica</skos:prefLabel>
+      <skos:prefLabel xml:lang="tr">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="bs">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="da">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="de">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="nl">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="it">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="hu">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="gl">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="fr">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="fi">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="eu">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="et">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="en">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="sk">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="sv">British Library</skos:prefLabel>
+      <skos:prefLabel xml:lang="uk">Британська бібліотека</skos:prefLabel>
+      <skos:prefLabel xml:lang="hi">ब्रिटिश पुस्तकालय</skos:prefLabel>
+      <skos:prefLabel xml:lang="sl">Britanska knjižnica</skos:prefLabel>
+      <skos:altLabel xml:lang="uk">Британська Бібліотека</skos:altLabel>
+      <skos:altLabel xml:lang="ar">المكتبه البريطانيه</skos:altLabel>
+      <skos:altLabel xml:lang="cy">Llyfrgell Brydeinig</skos:altLabel>
+      <skos:altLabel xml:lang="de">Britische Nationalbibliothek</skos:altLabel>
+      <skos:altLabel xml:lang="es">Biblioteca Britanica</skos:altLabel>
+      <skos:altLabel xml:lang="bg">Британската библиотека</skos:altLabel>
+      <edm:acronym xml:lang="pl">BL</edm:acronym>
+      <edm:acronym xml:lang="de">BL</edm:acronym>
+      <edm:acronym xml:lang="en">BL</edm:acronym>
+      <skos:altLabel xml:lang="ja">英国図書館</skos:altLabel>
+      <skos:altLabel xml:lang="pl">British Library</skos:altLabel>
+      <skos:altLabel xml:lang="ca">British Library</skos:altLabel>
+      <skos:altLabel xml:lang="uk">Бібліотека Британіка</skos:altLabel>
+      <skos:altLabel xml:lang="zh">不列颠图书馆</skos:altLabel>
+      <skos:altLabel xml:lang="ar">مكتبة بريطانية</skos:altLabel>
+      <edm:acronym xml:lang="en">B.L.</edm:acronym>
+      <dc:description xml:lang="sv">Storbritanniens nationalbibliotek</dc:description>
+      <dc:description xml:lang="en">national library of the United Kingdom</dc:description>
+      <dc:description xml:lang="zh">英国的国家图书馆</dc:description>
+      <dc:description xml:lang="it">biblioteca nazionale britannica</dc:description>
+      <dc:description xml:lang="de">Nationalbibliothek des Vereinigten Königreichs</dc:description>
+      <dc:description xml:lang="fr">Bibliothèque nationale du Royaume-Uni</dc:description>
+      <dc:description xml:lang="pl">biblioteka narodowa Wielkiej Brytanii</dc:description>
+      <dc:description xml:lang="bg">националната библиотека на Великобритания</dc:description>
+      <dc:description xml:lang="cy">prif lyfrgell y Deyrnas Unedig, yn Llundain</dc:description>
+      <dc:description xml:lang="bs">državna biblioteka Ujednjenog kraljevstva</dc:description>
+      <dc:description xml:lang="es">Biblioteca Nacional del Reino Unido</dc:description>
+      <dc:description xml:lang="ja">イギリスの国立図書館</dc:description>
+      <dc:description xml:lang="az">Böyük Britaniyada kitabxana</dc:description>
+      <dc:description xml:lang="ko">영국의 국립 도서관이다.</dc:description>
+      <dc:description xml:lang="nl">museum in Londen</dc:description>
+      <dc:description xml:lang="ca">Biblioteca Nacional del Regne Unit</dc:description>
+      <foaf:homepage rdf:resource="https://www.bl.uk/"/>
+      <foaf:logo rdf:resource="http://commons.wikimedia.org/wiki/Special:FilePath/Britishlibrary.png"/>
+      <foaf:phone>+44-330-333-1144</foaf:phone>
+      <edm:country>GB</edm:country>
+      <vcard:hasAddress>
+         <vcard:Address rdf:about="http://www.wikidata.org/entity/Q23308#address">
+            <vcard:country-name>United Kingdom</vcard:country-name>
+            <vcard:street-address>Euston Road</vcard:street-address>
+            <vcard:hasGeo rdf:resource="geo:51.529444,-0.126944"/>
+         </vcard:Address>
+      </vcard:hasAddress>
+      <owl:sameAs rdf:resource="http://isni.org/isni/0000000123081542"/>
+      <owl:sameAs rdf:resource="http://viaf.org/viaf/121814978"/>
+      <owl:sameAs rdf:resource="https://www.freebase.com/m/01bmj"/>
+      <owl:sameAs rdf:resource="https://g.co/kg/m/01bmj"/>
+      <owl:sameAs rdf:resource="http://d-nb.info/gnd/1023420-2"/>
+      <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb118714563"/>
+      <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n81139951"/>
+      <owl:sameAs rdf:resource="http://vocab.getty.edu/ulan/500301700"/>
+      <owl:sameAs rdf:resource="http://sws.geonames.org/6944331/"/>
+      <owl:sameAs rdf:resource="http://datos.bne.es/resource/XX102906"/>
+   </foaf:Organization>
+</rdf:RDF>

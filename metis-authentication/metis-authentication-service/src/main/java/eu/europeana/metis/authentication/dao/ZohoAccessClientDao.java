@@ -2,10 +2,14 @@ package eu.europeana.metis.authentication.dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -303,8 +307,49 @@ public class ZohoAccessClientDao {
   public JsonNode getOrganizationFromFile(File contentFile) throws GenericMetisException, IOException {
 
     String organisationsResponse = FileUtils.readFileToString(contentFile, "UTF-8");
+    return parseZohoResponse(organisationsResponse);
+  }
+  
+  /**
+   * Retrieve Zoho organization from given input stream (useful for packaged resources).
+   * <p>
+   * It will try to fetch the organization from the given input stream. This method returns an
+   * organization in JSON format.
+   * </p>
+   *
+   * @param responseStream The input stream used to access representation of a Zoho response
+   * @return the Zoho organizations in JsonNode format
+   * @throws GenericMetisException which can be one of:
+   *         <ul>
+   *         <li>{@link BadContentException} if any other problem occurred while constructing the
+   *         user, like an organization did not have a role defined or the response cannot be
+   *         converted to {@link JsonNode}</li>
+   *         </ul>
+   * @throws IOException
+   */
+  public JsonNode getOrganizationFromStream(InputStream responseStream) throws GenericMetisException, IOException {
 
-    LOGGER.debug("Content of Zoho response file: {}", organisationsResponse);
+    StringWriter writer = new StringWriter();
+    IOUtils.copy(responseStream, writer, StandardCharsets.UTF_8);
+    String organisationsResponse = writer.toString();
+    return parseZohoResponse(organisationsResponse);
+  }
+
+
+  /**
+   * Parse the input string and convert it to JsonNode representation of a Zoho Organization
+   * 
+   * @param organisationsResponse
+   * @return the Zoho organizations in JsonNode format
+   * @throws GenericMetisException which can be one of:
+   *         <ul>
+   *         <li>{@link BadContentException} if any other problem occurred while constructing the
+   *         user, like an organization did not have a role defined or the response cannot be
+   *         converted to {@link JsonNode}</li>
+   *         </ul>
+   */
+  private JsonNode parseZohoResponse(String organisationsResponse) throws GenericMetisException {
+    LOGGER.debug("Parsing zoho response: {}", organisationsResponse);
     
     ObjectMapper mapper = new ObjectMapper();
     try {
@@ -313,7 +358,8 @@ public class ZohoAccessClientDao {
       throw new GenericMetisException("Cannot parse zoho response: " + organisationsResponse, e);
     }
   }
-    
+  
+      
   /**
    * Retrieve organizations using getRecords query, start and end index. 
    * The organizations are pre-ordered by modified time ascending

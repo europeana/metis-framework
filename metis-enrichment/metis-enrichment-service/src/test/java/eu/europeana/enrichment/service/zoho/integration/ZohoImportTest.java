@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.service.zoho;
+package eu.europeana.enrichment.service.zoho.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,6 +9,7 @@ import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.service.EntityService;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.enrichment.service.zoho.BaseZohoAccessSetup;
 import java.util.Date;
 import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
