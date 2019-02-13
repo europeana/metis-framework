@@ -98,7 +98,6 @@ public class WikidataAccessDao {
    * @param uri The Wikidata URI in string format
    * @return String The Result of Wikidata query in XML format
    * @throws WikidataAccessException
-   * @throws IOException
    */
   public StringBuilder getEntity(String uri) throws WikidataAccessException {
 
@@ -245,11 +244,10 @@ public class WikidataAccessDao {
    * 
    * @param inputFile The file containing the wikidata
    * @return WikidataOrganization object
-   * @throws IOException
    * @throws JAXBException
    */
   public WikidataOrganization parseWikidataOrganization(File inputFile)
-      throws IOException, JAXBException {
+      throws JAXBException {
 
     JAXBContext jc = JAXBContext.newInstance(WikidataOrganization.class);
 
