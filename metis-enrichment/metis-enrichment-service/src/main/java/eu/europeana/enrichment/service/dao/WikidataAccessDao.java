@@ -115,9 +115,9 @@ public class WikidataAccessDao {
   }
 
   /**
-   * This method converts XML string to Wikidata organization object.
+   * This method converts the XML representation from to given file into a WikidataOrganization object.
    * 
-   * @param xmlFile The Wikidata organization object in XML format
+   * @param xmlFile The file containing the representation of Wikidata organization in XML format
    * @return Wikidata organization object
    * @throws JAXBException
    * @throws IOException
@@ -128,9 +128,9 @@ public class WikidataAccessDao {
   }
 
   /**
-   * This method converts XML string to Wikidata organization object.
+   * This method converts XML representation accessible through the InputStream into a Wikidata organization object.
    * 
-   * @param xmlFile The Wikidata organization object in XML format
+   * @param xmlStream The stream accessing the XML representation of Wikidata Organization
    * @return Wikidata organization object
    * @throws JAXBException
    * @throws IOException
@@ -145,7 +145,7 @@ public class WikidataAccessDao {
   
   
   /**
-   * This method converts XML string to Wikidata organization object.
+   * This method converts XML string into a Wikidata organization object.
    * 
    * @param xml The Wikidata organization object in string XML format
    * @return Wikidata organization object
