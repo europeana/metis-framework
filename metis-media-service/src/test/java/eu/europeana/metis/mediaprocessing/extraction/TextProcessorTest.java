@@ -56,7 +56,6 @@ class TextProcessorTest {
   void testProcessForRegularText() throws IOException, MediaExtractionException {
 
     // Define input
-    final String url = "testUrl";
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
         Collections.singletonList(UrlType.IS_SHOWN_BY));
     final ResourceImpl resource = spy(new ResourceImpl(rdfResourceEntry, "mime type",

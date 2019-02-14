@@ -135,11 +135,11 @@ class TextProcessor implements MediaProcessor {
       this.resolution = resolution;
     }
 
-    public boolean containsText() {
+    boolean containsText() {
       return containsText;
     }
 
-    public Integer getResolution() {
+    Integer getResolution() {
       return resolution;
     }
   }

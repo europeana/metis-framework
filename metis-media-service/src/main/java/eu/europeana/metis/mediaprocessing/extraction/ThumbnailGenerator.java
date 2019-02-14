@@ -40,11 +40,14 @@ class ThumbnailGenerator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ThumbnailGenerator.class);
 
+  private static final int MEDIUM_THUMBNAIL_SIZE = 200;
+  private static final int LARGE_THUMBNAIL_SIZE = 400;
+
   private static final Map<Integer, String> THUMBNAIL_SIZES_AND_SUFFIXES = new HashMap<>();
 
   static {
-    THUMBNAIL_SIZES_AND_SUFFIXES.put(200, "-MEDIUM");
-    THUMBNAIL_SIZES_AND_SUFFIXES.put(400, "-LARGE");
+    THUMBNAIL_SIZES_AND_SUFFIXES.put(MEDIUM_THUMBNAIL_SIZE, "-MEDIUM");
+    THUMBNAIL_SIZES_AND_SUFFIXES.put(LARGE_THUMBNAIL_SIZE, "-LARGE");
   }
 
   private static final String COMMAND_RESULT_FORMAT = "%w\n%h\n%[colorspace]\n";
