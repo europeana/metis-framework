@@ -1,23 +1,22 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.parser.ImageRenderInfo;
+import com.itextpdf.text.pdf.parser.Matrix;
+import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.RenderListener;
 import com.itextpdf.text.pdf.parser.TextRenderInfo;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.parser.ImageRenderInfo;
-import com.itextpdf.text.pdf.parser.Matrix;
-import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
-import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
-import eu.europeana.metis.mediaprocessing.model.Thumbnail;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
 
 /**
  * <p>
@@ -41,14 +40,15 @@ class TextProcessor implements MediaProcessor {
   /**
    * Constructor.
    *
-   * @param thumbnailGenerator An object that can generate thumbnails.
+   * @param thumbnailGenerator An object that can generate thumbnails. The calling class is
+   * responsible for closing this object.
    */
   TextProcessor(ThumbnailGenerator thumbnailGenerator) {
     this.thumbnailGenerator = thumbnailGenerator;
   }
 
   @Override
-  public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
+  public ResourceExtractionResult process(Resource resource, String detectedMimeType) throws MediaExtractionException {
 
     // Sanity checks
     if (!shouldExtractMetadata(resource)) {
@@ -64,20 +64,20 @@ class TextProcessor implements MediaProcessor {
 
     // Create thumbnails in case of PDF file.
     final List<Thumbnail> thumbnails;
-    if (PDF_MIME_TYPE.equals(resource.getMimeType())) {
+    if (PDF_MIME_TYPE.equals(detectedMimeType)) {
       thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
-          ResourceType.TEXT, resource.getContentPath().toFile()).getRight();
+          ResourceType.TEXT, resource.getContentFile()).getRight();
     } else {
       thumbnails = null;
     }
 
     // Set the resource properties relating to content.
     final PdfCharacteristics characteristics;
-    if (PDF_MIME_TYPE.equals(resource.getMimeType())) {
-      characteristics = findPdfCharacteristics(resource.getContentPath().toFile());
+    if (PDF_MIME_TYPE.equals(detectedMimeType)) {
+      characteristics = findPdfCharacteristics(resource.getContentFile());
     } else {
-      final boolean hasText = resource.getMimeType().startsWith("text/")
-          || "application/xhtml+xml".equals(resource.getMimeType());
+      final boolean hasText = detectedMimeType.startsWith("text/")
+          || "application/xhtml+xml".equals(detectedMimeType);
       characteristics = new PdfCharacteristics(hasText, null);
     }
 
@@ -91,13 +91,13 @@ class TextProcessor implements MediaProcessor {
     }
 
     // Done
-    final TextResourceMetadata metadata = new TextResourceMetadata(resource.getMimeType(),
-        resource.getResourceUrl(), contentSize, characteristics.containsText,
-        characteristics.resolution, thumbnails);
+    final TextResourceMetadata metadata = new TextResourceMetadata(detectedMimeType,
+        resource.getResourceUrl(), contentSize, characteristics.containsText(),
+        characteristics.getResolution(), thumbnails);
     return new ResourceExtractionResult(metadata, thumbnails);
   }
 
-  private static PdfCharacteristics findPdfCharacteristics(File content) throws MediaExtractionException {
+  PdfCharacteristics findPdfCharacteristics(File content) throws MediaExtractionException {
     PdfReader reader = null;
     try {
 
@@ -125,7 +125,7 @@ class TextProcessor implements MediaProcessor {
     }
   }
 
-  private static class PdfCharacteristics {
+  static class PdfCharacteristics {
 
     private final boolean containsText;
     private final Integer resolution;
@@ -133,6 +133,14 @@ class TextProcessor implements MediaProcessor {
     PdfCharacteristics(boolean containsText, Integer resolution) {
       this.containsText = containsText;
       this.resolution = resolution;
+    }
+
+    public boolean containsText() {
+      return containsText;
+    }
+
+    public Integer getResolution() {
+      return resolution;
     }
   }
 

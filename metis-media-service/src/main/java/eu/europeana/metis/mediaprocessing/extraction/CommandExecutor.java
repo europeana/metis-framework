@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -18,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * This class executes commands (like you would in a terminal). It imposes a maximum number of
  * processes that can perform command-line IO at any given time.
  */
-class CommandExecutor {
+class CommandExecutor implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
 
@@ -33,20 +34,20 @@ class CommandExecutor {
    * at any given time.
    */
   CommandExecutor(int commandThreadPoolSize) {
-    this(commandThreadPoolSize, (command, redirectErrorStream) -> new ProcessBuilder(command)
-        .redirectErrorStream(redirectErrorStream).start());
+    this(Executors.newFixedThreadPool(commandThreadPoolSize),
+        (command, redirectErrorStream) -> new ProcessBuilder(command)
+            .redirectErrorStream(redirectErrorStream).start());
   }
 
   /**
    * Constructor.
    *
-   * @param commandThreadPoolSize The maximum number of processes that can perform command-line IO
-   * at any given time.
+   * @param commandThreadPool The {@link ExecutorService} functioning as command thread pool.
    * @param processFactory A function that, given a command and whether to redirect the error
    * stream, creates a {@link Process} for executing that command.
    */
-  CommandExecutor(int commandThreadPoolSize, ProcessFactory processFactory) {
-    this.commandThreadPool = Executors.newFixedThreadPool(commandThreadPoolSize);
+  CommandExecutor(ExecutorService commandThreadPool, ProcessFactory processFactory) {
+    this.commandThreadPool = commandThreadPool;
     this.processFactory = processFactory;
   }
 
@@ -73,7 +74,7 @@ class CommandExecutor {
     }
   }
 
-  private List<String> executeInternal(List<String> command, boolean redirectErrorStream)
+  List<String> executeInternal(List<String> command, boolean redirectErrorStream)
       throws IOException {
 
     // Create process and start it.
@@ -115,7 +116,8 @@ class CommandExecutor {
    * Shuts down this command executor. Current tasks will be finished, but no new tasks will be
    * accepted.
    */
-  void shutdown() {
+  @Override
+  public void close() {
     commandThreadPool.shutdown();
   }
 

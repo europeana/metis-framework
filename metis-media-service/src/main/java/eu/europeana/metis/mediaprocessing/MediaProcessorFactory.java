@@ -55,7 +55,7 @@ public class MediaProcessorFactory {
    * @throws MediaProcessorException In case there was a problem creating the media extractor.
    */
   public MediaExtractor createMediaExtractor() throws MediaProcessorException {
-    return new MediaExtractorImpl(maxRedirectCount, commandThreadPoolSize);
+    return MediaExtractorImpl.newInstance(maxRedirectCount, commandThreadPoolSize);
   }
 
   /**

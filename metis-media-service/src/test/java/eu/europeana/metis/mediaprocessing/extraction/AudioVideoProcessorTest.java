@@ -16,7 +16,6 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockingDetails;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 
@@ -37,7 +36,6 @@ import java.util.function.Function;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,7 +83,7 @@ class AudioVideoProcessorTest {
     final List<String> expectedWithoutContent = Arrays
         .asList(FF_PROBE_COMMAND, "-v", "quiet", "-print_format", "json", "-show_format",
             "-show_streams", "-hide_banner", resource.getResourceUrl());
-    assertEquals(expectedWithContent, resultWithContent);
+    assertEquals(expectedWithoutContent, resultWithoutContent);
 
     // test with exception
     doThrow(new IOException()).when(resource).hasContent();
@@ -201,6 +199,7 @@ class AudioVideoProcessorTest {
     doReturn("resource url").when(resource).getResourceUrl();
     doReturn("mime type").when(resource).getMimeType();
     doReturn(true).when(resource).hasContent();
+    final String detectedMimeType = "detected mime type";
 
     // Create json objects
     final List<String> commandResponse = Collections.emptyList();
@@ -223,10 +222,10 @@ class AudioVideoProcessorTest {
 
     // Run and verify
     final AbstractResourceMetadata abstractMetadata = audioVideoProcessor
-        .parseCommandResponse(resource, commandResponse);
+        .parseCommandResponse(resource, detectedMimeType, commandResponse);
     assertTrue(abstractMetadata instanceof AudioResourceMetadata);
     final AudioResourceMetadata metadata = (AudioResourceMetadata) abstractMetadata;
-    assertEquals(metadata.getMimeType(), resource.getMimeType());
+    assertEquals(metadata.getMimeType(), detectedMimeType);
     assertEquals(metadata.getResourceUrl(), resource.getResourceUrl());
     assertTrue(metadata.getThumbnailTargetNames().isEmpty());
     assertEquals(7205015L, metadata.getContentSize());
@@ -245,6 +244,7 @@ class AudioVideoProcessorTest {
     doReturn("resource url").when(resource).getResourceUrl();
     doReturn("mime type").when(resource).getMimeType();
     doReturn(true).when(resource).hasContent();
+    final String detectedMimeType = "detected mime type";
 
     // Create json objects
     final List<String> commandResponse = Collections.emptyList();
@@ -270,10 +270,10 @@ class AudioVideoProcessorTest {
 
     // Run and verify
     final AbstractResourceMetadata abstractMetadata = audioVideoProcessor
-        .parseCommandResponse(resource, commandResponse);
+        .parseCommandResponse(resource, detectedMimeType, commandResponse);
     assertTrue(abstractMetadata instanceof VideoResourceMetadata);
     final VideoResourceMetadata metadata = (VideoResourceMetadata) abstractMetadata;
-    assertEquals(metadata.getMimeType(), resource.getMimeType());
+    assertEquals(metadata.getMimeType(), detectedMimeType);
     assertEquals(metadata.getResourceUrl(), resource.getResourceUrl());
     assertTrue(metadata.getThumbnailTargetNames().isEmpty());
     assertEquals(92224193L, metadata.getContentSize());
@@ -291,6 +291,7 @@ class AudioVideoProcessorTest {
     // Create resource
     final Resource resource = mock(Resource.class);
     doReturn(true).when(resource).hasContent();
+    final String detectedMimeType = "detected mime type";
 
     // Create json objects
     final List<String> commandResponse = Collections.emptyList();
@@ -309,29 +310,34 @@ class AudioVideoProcessorTest {
     doReturn("1").when(audioVideoProcessor).findString(any(), any());
 
     // Verify that all is well
-    assertNotNull(audioVideoProcessor.parseCommandResponse(resource, commandResponse));
+    assertNotNull(
+        audioVideoProcessor.parseCommandResponse(resource, detectedMimeType, commandResponse));
 
     // The resource has no content
     doReturn(false).when(resource).hasContent();
     doReturn(0).when(object).length();
     assertThrows(MediaExtractionException.class,
-        () -> audioVideoProcessor.parseCommandResponse(resource, commandResponse));
+        () -> audioVideoProcessor
+            .parseCommandResponse(resource, detectedMimeType, commandResponse));
     doReturn(true).when(resource).hasContent();
 
     // The right streams are not found
     doReturn(null).when(audioVideoProcessor).findStream(object, "audio");
     assertThrows(MediaExtractionException.class,
-        () -> audioVideoProcessor.parseCommandResponse(resource, commandResponse));
+        () -> audioVideoProcessor
+            .parseCommandResponse(resource, detectedMimeType, commandResponse));
     doReturn(audioStream).when(audioVideoProcessor).findStream(object, "audio");
 
     // A value could not be found.
     doThrow(JSONException.class).when(audioVideoProcessor).findInt(any(), any());
     assertThrows(MediaExtractionException.class,
-        () -> audioVideoProcessor.parseCommandResponse(resource, commandResponse));
+        () -> audioVideoProcessor
+            .parseCommandResponse(resource, detectedMimeType, commandResponse));
     doReturn(1).when(audioVideoProcessor).findInt(any(), any());
 
     // Verify that all is well again
-    assertNotNull(audioVideoProcessor.parseCommandResponse(resource, commandResponse));
+    assertNotNull(
+        audioVideoProcessor.parseCommandResponse(resource, detectedMimeType, commandResponse));
   }
 
   @Test
@@ -340,6 +346,7 @@ class AudioVideoProcessorTest {
     // Create resource
     final Resource resource = mock(Resource.class);
     doReturn(true).when(resource).hasContent();
+    final String detectedMimeType = "detected mime type";
 
     // Prepare processor
     doReturn(true).when(audioVideoProcessor).shouldExtractMetadata(resource);
@@ -348,24 +355,26 @@ class AudioVideoProcessorTest {
     final List<String> response = Collections.emptyList();
     doReturn(response).when(commandExecutor).execute(command, false);
     final AbstractResourceMetadata metadata = mock(AbstractResourceMetadata.class);
-    doReturn(metadata).when(audioVideoProcessor).parseCommandResponse(resource, response);
+    doReturn(metadata).when(audioVideoProcessor)
+        .parseCommandResponse(resource, detectedMimeType, response);
 
     // Check that all is well
-    final ResourceExtractionResult result = audioVideoProcessor.process(resource);
+    final ResourceExtractionResult result = audioVideoProcessor.process(resource, detectedMimeType);
     assertEquals(metadata, result.getOriginalMetadata());
     assertNull(result.getThumbnails());
 
     // In case we should not extract metadata at all
     doReturn(false).when(audioVideoProcessor).shouldExtractMetadata(resource);
-    assertNull(audioVideoProcessor.process(resource));
+    assertNull(audioVideoProcessor.process(resource, detectedMimeType));
     doReturn(true).when(audioVideoProcessor).shouldExtractMetadata(resource);
 
     // In case there was a command execution issue
     doThrow(new CommandExecutionException("", null)).when(commandExecutor).execute(command, false);
-    assertThrows(MediaExtractionException.class, () -> audioVideoProcessor.process(resource));
+    assertThrows(MediaExtractionException.class,
+        () -> audioVideoProcessor.process(resource, detectedMimeType));
     doReturn(response).when(commandExecutor).execute(command, false);
 
     // Check that all is well again
-    assertNotNull(audioVideoProcessor.process(resource));
+    assertNotNull(audioVideoProcessor.process(resource, detectedMimeType));
   }
 }

@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -60,6 +61,7 @@ class ImageProcessorTest {
         Collections.singletonList(UrlType.IS_SHOWN_BY));
     final ResourceImpl resource = spy(new ResourceImpl(rdfResourceEntry, "mime type",
         URI.create("http://www.test.com")));
+    final String detectedMimeType = "detected mime type";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();
     doReturn(content).when(resource).getContentFile();
@@ -81,13 +83,13 @@ class ImageProcessorTest {
         .generateThumbnails(url, ResourceType.IMAGE, content);
 
     // Call method
-    final ResourceExtractionResult result = imageProcessor.process(resource);
+    final ResourceExtractionResult result = imageProcessor.process(resource, detectedMimeType);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof ImageResourceMetadata);
     final ImageResourceMetadata metadata = (ImageResourceMetadata) result.getOriginalMetadata();
     assertEquals(rdfResourceEntry.getResourceUrl(), metadata.getResourceUrl());
-    assertEquals(resource.getMimeType(), metadata.getMimeType());
+    assertEquals(detectedMimeType, metadata.getMimeType());
     assertEquals(2, metadata.getThumbnailTargetNames().size());
     assertTrue(metadata.getThumbnailTargetNames().contains(thumbnail1.getTargetName()));
     assertTrue(metadata.getThumbnailTargetNames().contains(thumbnail2.getTargetName()));
@@ -103,26 +105,31 @@ class ImageProcessorTest {
     // Verify result thumbnails
     assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());
 
-    // Check for resource type for which no metadata is created
+    // Check for resource link type for which no metadata is created
     doReturn(false).when(imageProcessor).shouldExtractMetadata(notNull());
-    final ResourceExtractionResult resultWithoutMetadata = imageProcessor.process(resource);
+    final ResourceExtractionResult resultWithoutMetadata = imageProcessor
+        .process(resource, detectedMimeType);
     assertNull(resultWithoutMetadata.getMetadata());
     assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());
+    doReturn(true).when(imageProcessor).shouldExtractMetadata(notNull());
 
     // Check for resource with no content
     doReturn(false).when(resource).hasContent();
-    assertThrows(MediaExtractionException.class, () -> imageProcessor.process(resource));
+    assertThrows(MediaExtractionException.class,
+        () -> imageProcessor.process(resource, detectedMimeType));
     doReturn(true).when(resource).hasContent();
 
     // Check for resource with IO exception
     doThrow(new IOException()).when(resource).hasContent();
-    assertThrows(MediaExtractionException.class, () -> imageProcessor.process(resource));
+    assertThrows(MediaExtractionException.class,
+        () -> imageProcessor.process(resource, detectedMimeType));
     doReturn(true).when(resource).hasContent();
     doThrow(new IOException()).when(resource).getContentSize();
-    assertThrows(MediaExtractionException.class, () -> imageProcessor.process(resource));
+    assertThrows(MediaExtractionException.class,
+        () -> imageProcessor.process(resource, detectedMimeType));
     doReturn(1234L).when(resource).getContentSize();
 
     // Check that all is well again.
-    imageProcessor.process(resource);
+    assertNotNull(imageProcessor.process(resource, detectedMimeType));
   }
 }

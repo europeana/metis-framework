@@ -56,18 +56,19 @@ class ThumbnailGenerator {
 
   private static String globalMagickCmd;
   private static Path globalColormapFile;
-  
+
   private final String magickCmd;
   private final String colormapFile;
-  
+
   private final CommandExecutor commandExecutor;
 
   /**
-   * Constructor. This is a wrapper for
-   * {@link ThumbnailGenerator#ThumbnailGenerator(CommandExecutor, String, String)} where the
-   * properties are detected. It is advisable to use this constructor for non-testing purposes.
-   * 
-   * @param commandExecutor A command executor.
+   * Constructor. This is a wrapper for {@link ThumbnailGenerator#ThumbnailGenerator(CommandExecutor,
+   * String, String)} where the properties are detected. It is advisable to use this constructor for
+   * non-testing purposes.
+   *
+   * @param commandExecutor A command executor. The calling class is responsible for closing this
+   * object.
    * @throws MediaProcessorException In case the properties could not be initialized.
    */
   ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaProcessorException {
@@ -76,8 +77,9 @@ class ThumbnailGenerator {
 
   /**
    * Constructor.
-   * 
-   * @param commandExecutor A command executor.
+   *
+   * @param commandExecutor A command executor.The calling class is responsible for closing this
+   * object
    * @param magickCommand The magick command (how to trigger imageMagick).
    * @param colorMapFile The location of the color map file.
    */
@@ -146,7 +148,7 @@ class ThumbnailGenerator {
       LOGGER.warn("Could not find ImageMagick 6 due to following problem.", e);
       paths = Collections.emptyList();
     }
-    
+
     // Try the 'convert' command for ImageMagick 6: try executables to find the right one.
     for (String path : paths) {
       try {
@@ -181,12 +183,12 @@ class ThumbnailGenerator {
    */
   Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url,
       ResourceType resourceType, File content) throws MediaExtractionException {
-    
+
     // Sanity checking
     if (content == null) {
       throw new MediaExtractionException("File content is null");
     }
-    
+
     // Obtain the thumbnail files (they are still empty)
     final List<ThumbnailWithSize> thumbnails = prepareThumbnailFiles(url);
 
@@ -207,7 +209,7 @@ class ThumbnailGenerator {
         .map(ThumbnailWithSize::getThumbnail).collect(Collectors.toList());
     return new ImmutablePair<>(image, resultThumbnails);
   }
-  
+
   private static void closeAllThumbnailsSilently(List<ThumbnailWithSize> thumbnails) {
     thumbnails.forEach(thumbnail -> {
       try {
@@ -263,13 +265,13 @@ class ThumbnailGenerator {
     // Check the thumbnails.
     for (ThumbnailWithSize thumbnail : thumbnails) {
       try {
-        
+
         // Check that the thumbnails are not empty.
         final Path thumb = thumbnail.getThumbnail().getContentPath();
         if (getFileSize(thumb) == 0) {
           throw new MediaExtractionException("Thumbnail file empty: " + thumb);
         }
-        
+
         // In case of actual images: don't make a thumbnail larger than the original.
         if (resourceType == ResourceType.IMAGE && result.getWidth() < thumbnail.getImageSize()) {
           // Replace thumbnail by copy of original.

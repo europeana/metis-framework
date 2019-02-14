@@ -107,6 +107,10 @@ class ThumbnailGeneratorTest {
     thumbnailGenerator.generateThumbnails(url, ResourceType.TEXT, content);
     verify(thumbnailGenerator, times(1)).copyFile(any(), any());
 
+    // Check null content
+    assertThrows(MediaExtractionException.class,
+        () -> thumbnailGenerator.generateThumbnails(url, ResourceType.TEXT, null));
+
     // Check exception during command execution - thumbnails should be closed.
     doThrow(new CommandExecutionException("TEST", null)).when(commandExecutor)
         .execute(command, false);

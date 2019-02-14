@@ -27,7 +27,7 @@ class ImageProcessor implements MediaProcessor {
 
   /**
    * Constructor.
-   * 
+   *
    * @param thumbnailGenerator An object that can generate thumbnails.
    */
   ImageProcessor(ThumbnailGenerator thumbnailGenerator) {
@@ -35,7 +35,8 @@ class ImageProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
+  public ResourceExtractionResult process(Resource resource, String detectedMimeType)
+      throws MediaExtractionException {
 
     // Sanity checks
     try {
@@ -45,7 +46,7 @@ class ImageProcessor implements MediaProcessor {
     } catch (IOException e) {
       throw new MediaExtractionException("Could not determine whether resource has content.", e);
     }
-    
+
     // Get the size of the resource
     final long contentSize;
     try {
@@ -67,7 +68,7 @@ class ImageProcessor implements MediaProcessor {
       final ColorSpaceType colorSpace = ColorSpaceMapping
           .getColorSpaceType(imageMetadata.getColorSpace());
       resourceMetadata =
-          new ImageResourceMetadata(resource.getMimeType(), resource.getResourceUrl(), contentSize,
+          new ImageResourceMetadata(detectedMimeType, resource.getResourceUrl(), contentSize,
               imageMetadata.getWidth(), imageMetadata.getHeight(), colorSpace,
               imageMetadata.getDominantColors(), thumbnailsAndMetadata.getRight());
     } else {

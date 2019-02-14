@@ -104,7 +104,8 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
+  public ResourceExtractionResult process(Resource resource, String detectedMimeType)
+      throws MediaExtractionException {
 
     // Sanity check
     if (!shouldExtractMetadata(resource)) {
@@ -120,7 +121,8 @@ class AudioVideoProcessor implements MediaProcessor {
     }
 
     // Parse command result.
-    final AbstractResourceMetadata metadata = parseCommandResponse(resource, response);
+    final AbstractResourceMetadata metadata = parseCommandResponse(resource, detectedMimeType,
+        response);
     return new ResourceExtractionResult(metadata, null);
   }
 
@@ -128,8 +130,8 @@ class AudioVideoProcessor implements MediaProcessor {
     return new JSONObject(new JSONTokener(String.join("", response)));
   }
 
-  AbstractResourceMetadata parseCommandResponse(Resource resource, List<String> response)
-      throws MediaExtractionException {
+  AbstractResourceMetadata parseCommandResponse(Resource resource, String detectedMimeType,
+      List<String> response) throws MediaExtractionException {
     final AbstractResourceMetadata metadata;
     try {
 
@@ -156,7 +158,7 @@ class AudioVideoProcessor implements MediaProcessor {
         final String[] frameRateParts = findString("avg_frame_rate", candidates).split("/");
         final double frameRate =
             Double.parseDouble(frameRateParts[0]) / Double.parseDouble(frameRateParts[1]);
-        metadata = new VideoResourceMetadata(resource.getMimeType(), resource.getResourceUrl(),
+        metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
             fileSize, duration, bitRate, width, height, codecName, frameRate);
       } else if (audioStream != null) {
 
@@ -167,7 +169,7 @@ class AudioVideoProcessor implements MediaProcessor {
         final int channels = findInt("channels", candidates);
         final int sampleRate = findInt("sample_rate", candidates);
         final int sampleSize = findInt("bits_per_sample", candidates);
-        metadata = new AudioResourceMetadata(resource.getMimeType(), resource.getResourceUrl(),
+        metadata = new AudioResourceMetadata(detectedMimeType, resource.getResourceUrl(),
             fileSize, duration, bitRate, channels, sampleRate, sampleSize);
       } else {
         throw new MediaExtractionException("No media streams");
