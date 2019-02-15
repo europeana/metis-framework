@@ -329,8 +329,7 @@
             <xsl:apply-templates select="." mode="schematron-select-full-path"/>
           </xsl:attribute>
           <svrl:text>
-            Empty rdf:resource attribute is not allowed for
-            <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/> element.
+            Empty rdf:resource attribute is not allowed for <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/> element.
           </svrl:text>
         </svrl:failed-assert>
       </xsl:otherwise>
@@ -359,9 +358,7 @@
             <xsl:apply-templates select="." mode="schematron-select-full-path"/>
           </xsl:attribute>
           <svrl:text>
-            Element
-            <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/> should not have both rdf:resource
-            attribute and text value populated.
+            Element <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/> should not have both rdf:resource attribute and text value populated.
           </svrl:text>
         </svrl:failed-assert>
       </xsl:otherwise>
@@ -754,8 +751,7 @@
             <xsl:value-of select="@rdf:about"/>
           </xsl:attribute>
           <svrl:text>
-            The element dcterms:isPartOf should not have a literal value in the edm:WebResource
-            context with this id. Use an rdf:resource instead.
+            The element dcterms:isPartOf should not have a literal value in the edm:WebResource context with this id. Use an rdf:resource instead.
           </svrl:text>
         </svrl:failed-assert>
       </xsl:otherwise>
@@ -794,33 +790,28 @@
       </xsl:otherwise>
     </xsl:choose>
 
-    <xsl:for-each select="dc:subject | dc:type | dct:temporal | dct:spatial">
-      <xsl:choose>
-        <xsl:when
-          test="@rdf:resource or normalize-space(text())!=''">
-        </xsl:when>
-        <xsl:otherwise>
-          <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl">
-            <xsl:attribute name="location">
-              <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-              If ProvidedCHO has any of the nodes dc:subject or dc:type or dct:temporal or
-              dct:spatial, they must ALL contain an rdf:resource attribure or have non empty
-              text value.
-            </svrl:text>
-          </svrl:failed-assert>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:for-each>
+    <xsl:choose>
+      <xsl:when
+        test="dc:subject[@rdf:resource] or dc:subject[normalize-space(text())!=''] or dc:type[@rdf:resource] or dc:type[normalize-space(text())!=''] or dct:temporal[@rdf:resource] or dct:temporal[normalize-space(text())!=''] or dct:spatial[@rdf:resource] or dct:spatial[normalize-space(text())!='']">
+      </xsl:when>
+      <xsl:otherwise>
+        <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl">
+          <xsl:attribute name="location">
+            <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+          </xsl:attribute>
+          <svrl:text>
+            A ProvidedCHO must have at least one of dc:subject or dc:type or dct:temporal or dct:spatial, that has an rdf:resource attribute or have non empty text value.
+          </svrl:text>
+        </svrl:failed-assert>
+      </xsl:otherwise>
+    </xsl:choose>
 
     <!--ASSERT -->
     <xsl:choose>
       <xsl:when
-        test="(dc:title and normalize-space(dc:title)!='') or (dc:description and (dc:description/@rdf:resource or normalize-space(dc:description)!=''))"/>
+        test="(dc:title and dc:title[normalize-space(text())!='']) or (dc:description[@rdf:resource] or dc:description[normalize-space(text())!=''])"/>
       <xsl:otherwise>
-        <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-          test="dc:title or dc:description">
+        <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl">
           <xsl:attribute name="location">
             <xsl:apply-templates select="." mode="schematron-select-full-path"/>
           </xsl:attribute>
@@ -828,7 +819,7 @@
             <xsl:value-of select="@rdf:about"/>
           </xsl:attribute>
           <svrl:text>
-            A Proxy must have a non empty dc:title or a non empty dc:description
+            A ProvidedCHO must have a non empty dc:title or a non empty dc:description
           </svrl:text>
         </svrl:failed-assert>
       </xsl:otherwise>
@@ -847,8 +838,7 @@
             <xsl:value-of select="@rdf:about"/>
           </xsl:attribute>
           <svrl:text>
-            Within a ProvidedCHO context, dc:language is mandatory when edm:type has the value
-            'TEXT'.
+            Within a ProvidedCHO context, dc:language is mandatory when edm:type has the value 'TEXT'.
           </svrl:text>
         </svrl:failed-assert>
       </xsl:otherwise>
