@@ -128,7 +128,8 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   JSONObject readCommandResponseToJson(List<String> response) {
-    return new JSONObject(new JSONTokener(String.join("", response)));
+    final String jsonString = String.join("", response);
+    return new JSONObject(new JSONTokener(jsonString));
   }
 
   AbstractResourceMetadata parseCommandResponse(Resource resource, String detectedMimeType,

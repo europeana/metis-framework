@@ -15,9 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +35,7 @@ class TextProcessor implements MediaProcessor {
 
   private static final String PDF_MIME_TYPE = "application/pdf";
 
-  static final int DISPLAY_DPI = 72;
+  protected static final int DISPLAY_DPI = 72;
 
   private final ThumbnailGenerator thumbnailGenerator;
 
@@ -164,11 +162,11 @@ class TextProcessor implements MediaProcessor {
     private Integer dpi = null;
     private boolean hasText = false;
 
-    public Integer getDpi() {
+    Integer getDpi() {
       return dpi;
     }
 
-    public boolean hasText() {
+    boolean hasText() {
       return hasText;
     }
 

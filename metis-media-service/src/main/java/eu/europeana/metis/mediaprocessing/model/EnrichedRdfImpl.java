@@ -53,26 +53,27 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
 
   @Override
   public RDF finalizeRdf() {
-    updateEdmPreview();
+    final String edmPreviewUrl = getEdmPreviewUrl();
+    if (edmPreviewUrl != null) {
+      updateEdmPreview(edmPreviewUrl);
+    }
     return getRdf();
   }
 
-  private void updateEdmPreview() {
+  String getEdmPreviewUrl() {
 
     // First try taking it from the object URL.
     final Set<String> objectUrls = getResourceUrls(Collections.singleton(UrlType.OBJECT)).keySet();
     if (!objectUrls.isEmpty()) {
-      updateEdmPreview(objectUrls.iterator().next());
-      return;
+      return objectUrls.iterator().next();
     }
 
     // That failed. Now find the first large thumbnail in a is shown by or has view resource.
     final Set<UrlType> otherTypes = EnumSet.of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW);
     final Set<String> otherUrls = getResourceUrls(otherTypes).keySet();
-    final Optional<String> thumbnailName = thumbnailTargetNames.entrySet().stream()
+    return thumbnailTargetNames.entrySet().stream()
         .filter(entry -> otherUrls.contains(entry.getKey())).map(Entry::getValue)
-        .map(this::getEligiblePreviewThumbnail).filter(Objects::nonNull).findFirst();
-    thumbnailName.ifPresent(this::updateEdmPreview);
+        .map(this::getEligiblePreviewThumbnail).filter(Objects::nonNull).findFirst().orElse(null);
   }
 
   private String getEligiblePreviewThumbnail(Set<String> targetNames) {
@@ -87,5 +88,10 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
     final Preview preview = new Preview();
     preview.setResource(url);
     getRdf().getEuropeanaAggregationList().get(0).setPreview(preview);
+  }
+
+  Set<String> getThumbnailTargetNames(String resourceUrl) {
+    return Optional.ofNullable(thumbnailTargetNames.get(resourceUrl))
+        .map(Collections::unmodifiableSet).orElse(null);
   }
 }
