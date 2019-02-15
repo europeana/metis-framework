@@ -21,6 +21,7 @@ import static org.mockito.Mockito.spy;
 
 import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
@@ -57,6 +58,42 @@ class AudioVideoProcessorTest {
   void resetMocks() {
     reset(commandExecutor);
     doReturn(true).when(audioVideoProcessor).shouldExtractMetadata(notNull());
+  }
+
+  @Test
+  void testDiscoverFfprobeCommand() throws CommandExecutionException, MediaProcessorException {
+
+    // ffprobe command
+    final String ffprobeCommand = "ffprobe";
+
+    // Test ffprobe 3
+    doReturn(Collections.singletonList(
+        "ffprobe version 3.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers"))
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
+
+    // Test ffprobe 2
+    doReturn(Collections.singletonList(
+        "ffprobe version 2.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers"))
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
+
+    // Test other commands
+    doReturn(Collections.singletonList(
+        "ffprobe version 1.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers"))
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    assertThrows(MediaProcessorException.class,
+        () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
+    doReturn(Collections.singletonList("Other command")).when(commandExecutor)
+        .execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    assertThrows(MediaProcessorException.class,
+        () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
+
+    // Test command execution exception
+    doThrow(new CommandExecutionException("", null)).when(commandExecutor)
+        .execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    assertThrows(MediaProcessorException.class,
+        () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
   }
 
   @Test

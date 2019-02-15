@@ -57,7 +57,7 @@ class ThumbnailGenerator {
   private static final int COMMAND_RESULT_COLORS_LINE = 3;
   private static final int COMMAND_RESULT_MAX_COLORS = 6;
 
-  private static String globalMagickCmd;
+  private static String globalMagickCommand;
   private static Path globalColormapFile;
 
   private final String magickCmd;
@@ -75,7 +75,7 @@ class ThumbnailGenerator {
    * @throws MediaProcessorException In case the properties could not be initialized.
    */
   ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaProcessorException {
-    this(commandExecutor, initImageMagick(commandExecutor), initColorMap().toString());
+    this(commandExecutor, getImageMagickCommand(commandExecutor), initColorMap().toString());
   }
 
   /**
@@ -118,22 +118,25 @@ class ThumbnailGenerator {
     return globalColormapFile;
   }
 
-  private static synchronized String initImageMagick(CommandExecutor commandExecutor)
+  private static synchronized String getImageMagickCommand(CommandExecutor commandExecutor)
       throws MediaProcessorException {
-
-    // If we already found the command, we don't need to do this.
-    if (globalMagickCmd != null) {
-      return globalMagickCmd;
+    if (globalMagickCommand == null) {
+      globalMagickCommand = discoverImageMagickCommand(commandExecutor);
     }
+    return globalMagickCommand;
+  }
+
+  static String discoverImageMagickCommand(CommandExecutor commandExecutor)
+      throws MediaProcessorException {
 
     // Try the 'magick' command for ImageMagick 7.
     try {
       final List<String> lines =
           commandExecutor.execute(Arrays.asList("magick", "-version"), true);
       if (String.join("", lines).startsWith("Version: ImageMagick 7")) {
-        globalMagickCmd = "magick";
-        LOGGER.info("Found ImageMagic 7. Command: {}", globalMagickCmd);
-        return globalMagickCmd;
+        final String result = "magick";
+        LOGGER.info("Found ImageMagic 7. Command: {}", result);
+        return result;
       }
     } catch (CommandExecutionException e) {
       LOGGER.info("Could not find ImageMagick 7 because of: {}.", e.getMessage());
@@ -158,9 +161,8 @@ class ThumbnailGenerator {
         final List<String> lines =
             commandExecutor.execute(Arrays.asList(path, "-version"), true);
         if (String.join("", lines).startsWith("Version: ImageMagick 6")) {
-          globalMagickCmd = path;
-          LOGGER.info("Found ImageMagic 6. Command: {}", globalMagickCmd);
-          return globalMagickCmd;
+          LOGGER.info("Found ImageMagic 6. Command: {}", path);
+          return path;
         }
       } catch (CommandExecutionException e) {
         LOGGER.info("Could not find ImageMagick 6 at path {} because of: {}.", path,

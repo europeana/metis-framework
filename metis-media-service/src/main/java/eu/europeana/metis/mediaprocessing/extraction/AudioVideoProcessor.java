@@ -49,7 +49,7 @@ class AudioVideoProcessor implements MediaProcessor {
    * @throws MediaProcessorException In case the properties could not be initialized.
    */
   AudioVideoProcessor(CommandExecutor commandExecutor) throws MediaProcessorException {
-    this(commandExecutor, initFfprobe(commandExecutor));
+    this(commandExecutor, getFfprobeCommand(commandExecutor));
   }
 
   /**
@@ -63,18 +63,21 @@ class AudioVideoProcessor implements MediaProcessor {
     this.ffprobeCommand = ffprobeCommand;
   }
 
-  private static synchronized String initFfprobe(CommandExecutor ce)
+  private static synchronized String getFfprobeCommand(CommandExecutor commandExecutor)
       throws MediaProcessorException {
-
-    // If it is already set, we are done.
-    if (globalFfprobeCommand != null) {
-      return globalFfprobeCommand;
+    if (globalFfprobeCommand == null) {
+      globalFfprobeCommand = discoverFfprobeCommand(commandExecutor);
     }
+    return globalFfprobeCommand;
+  }
+
+  static String discoverFfprobeCommand(CommandExecutor commandExecutor)
+      throws MediaProcessorException {
 
     // Check whether ffprobe is installed.
     final String output;
     try {
-      output = String.join("", ce.execute(Collections.singletonList("ffprobe"), true));
+      output = String.join("", commandExecutor.execute(Collections.singletonList("ffprobe"), true));
     } catch (CommandExecutionException e) {
       throw new MediaProcessorException("Error while looking for ffprobe tools", e);
     }
@@ -83,8 +86,7 @@ class AudioVideoProcessor implements MediaProcessor {
     }
 
     // So it is installed and available.
-    globalFfprobeCommand = "ffprobe";
-    return globalFfprobeCommand;
+    return "ffprobe";
   }
 
   private static boolean resourceHasContent(Resource resource) throws MediaExtractionException {

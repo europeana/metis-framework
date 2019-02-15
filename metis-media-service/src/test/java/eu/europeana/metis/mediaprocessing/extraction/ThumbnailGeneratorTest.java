@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.doNothing;
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.extraction.ThumbnailGenerator.ThumbnailWithSize;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
@@ -56,6 +58,70 @@ class ThumbnailGeneratorTest {
   @BeforeEach
   void resetMocks() {
     reset(commandExecutor, thumbnailGenerator);
+  }
+
+  @Test
+  void testDiscoverImageMagickCommand() throws CommandExecutionException, MediaProcessorException {
+
+    // magick commands
+    final String magick7Command = "magick";
+    final String magick6Command = "convert";
+    final String versionDirective = "-version";
+    final String whichCommand = "which";
+    final String whereCommand = "where";
+
+    // Test I.M. 7
+    final List<String> versionCommand = Arrays.asList(magick7Command, versionDirective);
+    doReturn(Collections.singletonList(
+        "Version: ImageMagick 7.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org"))
+        .when(commandExecutor).execute(eq(versionCommand), eq(true));
+    assertEquals(magick7Command, ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
+    doReturn(Collections.singletonList("Command unknown")).when(commandExecutor)
+        .execute(eq(versionCommand), eq(true));
+
+    // Test I.M. 6: detect three locations, the last of which is the correct one.
+    final List<String> convertLocations = Arrays.asList("convert 1", "convert 2", "convert 3");
+    doReturn(convertLocations).when(commandExecutor)
+        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true));
+    doReturn(convertLocations).when(commandExecutor)
+        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true));
+    final List<String> versionCommand0 = Arrays.asList(convertLocations.get(0), versionDirective);
+    doReturn(Collections.singletonList("Command unknown")).when(commandExecutor)
+        .execute(eq(versionCommand0), eq(true));
+    final List<String> versionCommand1 = Arrays.asList(convertLocations.get(1), versionDirective);
+    doThrow(CommandExecutionException.class).when(commandExecutor)
+        .execute(eq(versionCommand1), eq(true));
+    final List<String> versionCommand2 = Arrays.asList(convertLocations.get(2), versionDirective);
+    doReturn(Collections.singletonList(
+        "Version: ImageMagick 6.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org"))
+        .when(commandExecutor).execute(eq(versionCommand2), eq(true));
+    assertEquals(convertLocations.get(2),
+        ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
+
+    // Change previous test by throwing exception for I.M 7 - should still detect I.M. 6.
+    doThrow(CommandExecutionException.class).when(commandExecutor)
+        .execute(eq(versionCommand), eq(true));
+    assertEquals(convertLocations.get(2),
+        ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
+
+    // Change previous test by throwing exception when doing where/which. Should now fail.
+    doThrow(CommandExecutionException.class).when(commandExecutor)
+        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true));
+    doThrow(CommandExecutionException.class).when(commandExecutor)
+        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true));
+    assertThrows(MediaProcessorException.class,
+        () -> ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
+
+    // Test other version of I.M. (make sure that where/which works again).
+    doReturn(convertLocations).when(commandExecutor)
+        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true));
+    doReturn(convertLocations).when(commandExecutor)
+        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true));
+    doReturn(Collections.singletonList(
+        "Version: ImageMagick 5.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org"))
+        .when(commandExecutor).execute(eq(versionCommand2), eq(true));
+    assertThrows(MediaProcessorException.class,
+        () -> ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
   }
 
   @Test
