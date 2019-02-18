@@ -52,7 +52,7 @@ class CommandExecutorTest {
   private static CommandExecutor commandExecutor;
 
   @BeforeAll
-  static void prepare() {
+  static void createMocks() {
     process = mock(Process.class);
     processFactory = mock(ProcessFactory.class);
     commandThreadPool = mock(ExecutorService.class);

@@ -55,7 +55,7 @@ class TextProcessorTest {
   private static TextProcessor textProcessor;
 
   @BeforeAll
-  static void prepare() {
+  static void createMocks() {
     thumbnailGenerator = mock(ThumbnailGenerator.class);
     textProcessor = spy(new TextProcessor(thumbnailGenerator));
   }

@@ -40,7 +40,7 @@ class ImageProcessorTest {
   private static ImageProcessor imageProcessor;
 
   @BeforeAll
-  static void prepare() {
+  static void createMocks() {
     thumbnailGenerator = mock(ThumbnailGenerator.class);
     imageProcessor = spy(new ImageProcessor(thumbnailGenerator));
   }

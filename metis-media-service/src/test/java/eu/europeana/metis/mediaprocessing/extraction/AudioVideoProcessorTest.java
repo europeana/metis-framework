@@ -49,7 +49,7 @@ class AudioVideoProcessorTest {
   private static AudioVideoProcessor audioVideoProcessor;
 
   @BeforeAll
-  static void prepare() {
+  static void createMocks() {
     commandExecutor = mock(CommandExecutor.class);
     audioVideoProcessor = spy(new AudioVideoProcessor(commandExecutor, FF_PROBE_COMMAND));
   }

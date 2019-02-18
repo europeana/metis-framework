@@ -50,7 +50,7 @@ class ThumbnailGeneratorTest {
   private static ThumbnailGenerator thumbnailGenerator;
 
   @BeforeAll
-  static void prepare() {
+  static void createMocks() {
     commandExecutor = mock(CommandExecutor.class);
     thumbnailGenerator = spy(new ThumbnailGenerator(commandExecutor, IMAGE_MAGICK, COLOR_MAP_FILE));
   }
