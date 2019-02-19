@@ -81,4 +81,20 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     resource.setColorspace(colorSpace);
     resource.setDominantColors(Collections.unmodifiableList(dominantColors));
   }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public ColorSpaceType getColorSpace() {
+    return colorSpace;
+  }
+
+  public List<String> getDominantColors() {
+    return Collections.unmodifiableList(dominantColors);
+  }
 }

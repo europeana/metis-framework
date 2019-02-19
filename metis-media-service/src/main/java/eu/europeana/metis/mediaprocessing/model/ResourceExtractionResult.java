@@ -28,7 +28,15 @@ public class ResourceExtractionResult {
   }
 
   /**
-   * @return The metadata of this resource. Can be null.
+   * @return The metadata of this resource. Can be null. Note: this object is not serializable. For
+   * a serializable version please use {@link #getMetadata()}.
+   */
+  public AbstractResourceMetadata getOriginalMetadata() {
+    return metadata;
+  }
+
+  /**
+   * @return The serializable metadata of this resource. Can be null.
    */
   public ResourceMetadata getMetadata() {
     return metadata == null ? null : metadata.prepareForSerialization();

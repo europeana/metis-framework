@@ -63,7 +63,6 @@
       <version>4.5.6</version>
     </dependency>
 
-    <!--TODO JV: do we still need these testing frameworks?-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>

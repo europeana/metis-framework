@@ -32,6 +32,8 @@ import eu.europeana.corelib.definitions.jibx.Width;
  */
 class WebResource {
 
+  static final String FULL_TEXT_RESOURCE = "http://www.europeana.eu/schemas/edm/FullTextResource";
+
   /**
    * Enum for the permissible values of image orientation.
    */
@@ -124,7 +126,7 @@ class WebResource {
   void setContainsText(boolean containsText) {
     if (containsText) {
       Type1 type = new Type1();
-      type.setResource("http://www.europeana.eu/schemas/edm/FullTextResource");
+      type.setResource(FULL_TEXT_RESOURCE);
       resource.setType(type);
     } else {
       resource.setType(null);

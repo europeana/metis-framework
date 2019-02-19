@@ -1,15 +1,14 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
-import java.io.IOException;
-import java.util.List;
-import org.apache.commons.lang3.tuple.Pair;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
+import java.io.IOException;
+import java.util.List;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * <p>Implementation of {@link MediaProcessor} that is designed to handle resources of type
@@ -27,7 +26,7 @@ class ImageProcessor implements MediaProcessor {
 
   /**
    * Constructor.
-   * 
+   *
    * @param thumbnailGenerator An object that can generate thumbnails.
    */
   ImageProcessor(ThumbnailGenerator thumbnailGenerator) {
@@ -35,17 +34,18 @@ class ImageProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
+  public ResourceExtractionResult process(Resource resource, String detectedMimeType)
+      throws MediaExtractionException {
 
     // Sanity checks
     try {
       if (!resource.hasContent()) {
-        throw new MediaExtractionException("File content is null");
+        throw new MediaExtractionException("File does not exist or does not have content.");
       }
     } catch (IOException e) {
       throw new MediaExtractionException("Could not determine whether resource has content.", e);
     }
-    
+
     // Get the size of the resource
     final long contentSize;
     try {
@@ -58,16 +58,16 @@ class ImageProcessor implements MediaProcessor {
     // Create the thumbnails for this image.
     final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata =
         thumbnailGenerator.generateThumbnails(resource.getResourceUrl(), ResourceType.IMAGE,
-            resource.getContentPath().toFile());
+            resource.getContentFile());
 
     // Set the metadata in the web resource.
     final ImageResourceMetadata resourceMetadata;
-    if (UrlType.shouldExtractMetadata(resource.getUrlTypes())) {
+    if (shouldExtractMetadata(resource)) {
       final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
       final ColorSpaceType colorSpace = ColorSpaceMapping
           .getColorSpaceType(imageMetadata.getColorSpace());
       resourceMetadata =
-          new ImageResourceMetadata(resource.getMimeType(), resource.getResourceUrl(), contentSize,
+          new ImageResourceMetadata(detectedMimeType, resource.getResourceUrl(), contentSize,
               imageMetadata.getWidth(), imageMetadata.getHeight(), colorSpace,
               imageMetadata.getDominantColors(), thumbnailsAndMetadata.getRight());
     } else {

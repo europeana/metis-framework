@@ -50,4 +50,12 @@ public class TextResourceMetadata extends AbstractResourceMetadata {
     resource.setContainsText(containsText);
     resource.setResolution(resolution);
   }
+
+  public boolean containsText() {
+    return containsText;
+  }
+
+  public Integer getResolution() {
+    return resolution;
+  }
 }

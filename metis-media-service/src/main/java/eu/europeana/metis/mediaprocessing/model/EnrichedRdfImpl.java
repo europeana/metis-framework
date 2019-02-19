@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -53,39 +52,49 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
 
   @Override
   public RDF finalizeRdf() {
-    updateEdmPreview();
+
+    // Compute the edm preview URL and set it in the RDF
+    final String edmPreviewUrl = getEdmPreviewUrl();
+    updateEdmPreview(edmPreviewUrl);
+
+    // Done: return the RDF.
     return getRdf();
   }
 
-  private void updateEdmPreview() {
+  String getEdmPreviewUrl() {
 
     // First try taking it from the object URL.
     final Set<String> objectUrls = getResourceUrls(Collections.singleton(UrlType.OBJECT)).keySet();
     if (!objectUrls.isEmpty()) {
-      updateEdmPreview(objectUrls.iterator().next());
-      return;
+      return objectUrls.iterator().next();
     }
 
     // That failed. Now find the first large thumbnail in a is shown by or has view resource.
     final Set<UrlType> otherTypes = EnumSet.of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW);
     final Set<String> otherUrls = getResourceUrls(otherTypes).keySet();
-    final Optional<String> thumbnailName = thumbnailTargetNames.entrySet().stream()
-        .filter(entry -> otherUrls.contains(entry.getKey())).map(Entry::getValue)
-        .map(this::getEligiblePreviewThumbnail).filter(Objects::nonNull).findFirst();
-    thumbnailName.ifPresent(this::updateEdmPreview);
+    return getResourceUrls().stream().filter(otherUrls::contains).map(this::getThumbnailTargetNames)
+        .map(this::getEligiblePreviewThumbnail).filter(Objects::nonNull).findFirst().orElse(null);
   }
 
   private String getEligiblePreviewThumbnail(Set<String> targetNames) {
     return targetNames.stream().filter(name -> name.contains("-LARGE")).findAny().orElse(null);
   }
 
-  private void updateEdmPreview(String url) {
-    if (getRdf().getEuropeanaAggregationList() == null || getRdf().getEuropeanaAggregationList()
-        .isEmpty()) {
-      return;
+  void updateEdmPreview(String url) {
+    if (url != null && getRdf().getEuropeanaAggregationList() != null &&
+        !getRdf().getEuropeanaAggregationList().isEmpty()) {
+      final Preview preview = new Preview();
+      preview.setResource(url);
+      getRdf().getEuropeanaAggregationList().get(0).setPreview(preview);
     }
-    final Preview preview = new Preview();
-    preview.setResource(url);
-    getRdf().getEuropeanaAggregationList().get(0).setPreview(preview);
+  }
+
+  Set<String> getResourceUrls() {
+    return Collections.unmodifiableSet(thumbnailTargetNames.keySet());
+  }
+
+  Set<String> getThumbnailTargetNames(String resourceUrl) {
+    return Optional.ofNullable(thumbnailTargetNames.get(resourceUrl))
+        .map(Collections::unmodifiableSet).orElse(null);
   }
 }

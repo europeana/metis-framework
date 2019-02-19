@@ -47,7 +47,7 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
    */
   AudioResourceMetadata() {
   }
-  
+
   @Override
   protected ResourceMetadata prepareForSerialization() {
     return new ResourceMetadata(this);
@@ -61,5 +61,25 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
     resource.setChannels(channels);
     resource.setSampleRate(sampleRate);
     resource.setSampleSize(sampleSize);
+  }
+
+  public double getDuration() {
+    return duration;
+  }
+
+  public int getBitRate() {
+    return bitRate;
+  }
+
+  public int getChannels() {
+    return channels;
+  }
+
+  public int getSampleRate() {
+    return sampleRate;
+  }
+
+  public int getSampleSize() {
+    return sampleSize;
   }
 }

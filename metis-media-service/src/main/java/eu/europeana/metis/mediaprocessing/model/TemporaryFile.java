@@ -43,7 +43,7 @@ abstract class TemporaryFile implements ResourceFile {
     return this.contentPath;
   }
 
-  private long getContentSizeInternal() throws IOException {
+  private Long computeContentSizeInternal() throws IOException {
 
     // If the content path does not exist, remove the reference.
     // Note: should use Files.exists instead when migrating away from Java 8.
@@ -51,13 +51,14 @@ abstract class TemporaryFile implements ResourceFile {
       this.contentPath = null;
     }
 
-    // Return the size and 0 in case the content file does not exist.
-    return this.contentPath == null ? 0 : Files.size(this.contentPath);
+    // Return the size and null in case the content file does not exist.
+    return this.contentPath == null ? null : Files.size(this.contentPath);
   }
 
   @Override
   public boolean hasContent() throws IOException {
-    return getContentSizeInternal() > 0;
+    final Long result = computeContentSizeInternal();
+    return result != null && result > 0;
   }
 
   @Override
@@ -70,9 +71,9 @@ abstract class TemporaryFile implements ResourceFile {
 
   @Override
   public long getContentSize() throws IOException {
-    final long result = getContentSizeInternal();
-    if (result == 0) {
-      throw new IOException("Cannot get the file size: file does not exist or is empty.");
+    final Long result = computeContentSizeInternal();
+    if (result == null) {
+      throw new IOException("Cannot get the file size: file does not exist.");
     }
     return result;
   }

@@ -17,7 +17,7 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
  * wish to introduce the HEAD request again, the solution would be to maintain two versions of the
  * LinkCheckClient: one that does HEAD requests, and one that does GET requests.
  */
-public class LinkCheckerImpl implements LinkChecker, Closeable {
+public class LinkCheckerImpl implements LinkChecker {
 
   private final LinkCheckClient linkCheckClient;
 
