@@ -18,13 +18,13 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.ImageRenderInfo;
 import com.itextpdf.text.pdf.parser.Matrix;
 import com.itextpdf.text.pdf.parser.PdfImageObject;
 import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.TextRenderInfo;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.OpenPdfFile;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfCharacteristics;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfListener;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
@@ -43,7 +43,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -182,12 +181,13 @@ class TextProcessorTest {
 
     // Mock pdf reading utility classes: we have 4 pages.
     final File content = new File("content file");
-    final PdfReader pdfReader = mock(PdfReader.class);
+    final OpenPdfFile openPdfFile = mock(OpenPdfFile.class);
+    doReturn(4).when(openPdfFile).getNumberOfPages();
+    doReturn(openPdfFile).when(textProcessor).openPdfFile(content);
     final PdfReaderContentParser pdfParser = mock(PdfReaderContentParser.class);
+    doReturn(pdfParser).when(openPdfFile).getPdfParser();
     final PdfListener pdfListener = mock(PdfListener.class);
-    doReturn(4).when(pdfReader).getNumberOfPages();
-    doReturn(new ImmutableTriple<>(pdfReader, pdfParser, pdfListener)).when(textProcessor)
-        .openPdfFile(content);
+    doReturn(pdfListener).when(openPdfFile).getPdfListener();
 
     // First parse pdf that has image on page 3 and text content on page 2.
     doAnswer(invocation -> {

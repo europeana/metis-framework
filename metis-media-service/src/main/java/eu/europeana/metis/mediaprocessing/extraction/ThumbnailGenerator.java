@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -233,17 +232,17 @@ class ThumbnailGenerator {
       // in case of text (i.e. PDFs): specify white background
       command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
     }
-    final int sizes = thumbnails.size();
-    for (int i = 0; i < sizes; i++) {
+    final int thumbnailCounter = thumbnails.size();
+    for (int i = 0; i < thumbnailCounter; i++) {
       // do not +delete the last one, use it to find dominant colors (smaller=quicker)
-      if (i != sizes - 1) {
+      if (i != thumbnailCounter - 1) {
         command.add("(");
         command.add("+clone");
       }
       ThumbnailWithSize thumbnail = thumbnails.get(i);
       command.addAll(Arrays.asList("-thumbnail", thumbnail.getImageSize() + "x", "-write",
           thumbnail.getThumbnail().getContentPath().toString()));
-      if (i != sizes - 1) {
+      if (i != thumbnailCounter - 1) {
         command.add("+delete");
         command.add(")");
       }
@@ -340,11 +339,11 @@ class ThumbnailGenerator {
   private static List<String> extractDominantColors(List<String> results, int skipLines) {
     final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
     return results.stream().skip(skipLines).sorted(Collections.reverseOrder())
-        .limit(COMMAND_RESULT_MAX_COLORS).map(line -> {
-          Matcher m = pattern.matcher(line);
-          m.find();
-          return m.group(1); // throw exception if not found
-        }).collect(Collectors.toList());
+        .limit(COMMAND_RESULT_MAX_COLORS).map(pattern::matcher).peek(m -> {
+          if (!m.find()) {
+            throw new IllegalStateException("Invalid color line found.");
+          }
+        }).map(matcher -> matcher.group(1)).collect(Collectors.toList());
   }
 
   static class ThumbnailWithSize {

@@ -203,7 +203,7 @@ class AudioVideoProcessor implements MediaProcessor {
   <T> T findValue(String key, JSONObject[] candidates, Function<JSONObject, T> valueGetter,
       Predicate<T> valueValidator) {
     return Stream.of(candidates).map(valueGetter).filter(valueValidator).findFirst()
-        .orElseThrow(() -> new JSONException("Could not find String for field: " + key));
+        .orElseThrow(() -> new JSONException("Could not find value for field: " + key));
   }
 
   JSONObject findStream(JSONObject data, String codecType) {

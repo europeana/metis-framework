@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -252,6 +253,12 @@ class ThumbnailGeneratorTest {
     // Check empty color list
     assertThrows(MediaExtractionException.class,
         () -> thumbnailGenerator.parseCommandResponse(input.subList(0, 2)));
+
+    // Check bad color value
+    final List<String> inputWithBadColor = Stream.concat(input.stream(), Stream.of("BAD COLOR"))
+        .collect(Collectors.toList());
+    assertThrows(MediaExtractionException.class,
+        () -> thumbnailGenerator.parseCommandResponse(inputWithBadColor));
   }
 
   @Test

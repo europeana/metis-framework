@@ -12,11 +12,10 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.awt.image.BufferedImage;
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,36 +100,56 @@ class TextProcessor implements MediaProcessor {
   }
 
   PdfCharacteristics findPdfCharacteristics(File content) throws MediaExtractionException {
-    Triple<PdfReader, PdfReaderContentParser, PdfListener> openPdf = null;
-    try {
-
-      // Set up PDF parsing.
-      openPdf = openPdfFile(content);
-      final PdfListener pdfListener = openPdf.getRight();
+    try (OpenPdfFile openPdf = openPdfFile(content)) {
 
       // Go by each page: if we find the data we need, we can stop.
-      for (int i = 1; i <= openPdf.getLeft().getNumberOfPages(); i++) {
-        openPdf.getMiddle().processContent(i, pdfListener);
-        if (pdfListener.getDpi() != null && pdfListener.hasText()) {
+      for (int i = 1; i <= openPdf.getNumberOfPages(); i++) {
+        openPdf.getPdfParser().processContent(i, openPdf.getPdfListener());
+        if (openPdf.getPdfListener().getDpi() != null && openPdf.getPdfListener().hasText()) {
           break;
         }
       }
 
       // Done.
-      return new PdfCharacteristics(pdfListener.hasText(), pdfListener.getDpi());
+      return new PdfCharacteristics(openPdf.getPdfListener().hasText(),
+          openPdf.getPdfListener().getDpi());
     } catch (IOException e) {
       throw new MediaExtractionException("Problem while reading PDF file.", e);
-    } finally {
-      if (openPdf != null) {
-        openPdf.getLeft().close();
-      }
     }
   }
 
-  Triple<PdfReader, PdfReaderContentParser, PdfListener> openPdfFile(File content)
-      throws IOException {
-    final PdfReader reader = new PdfReader(content.getAbsolutePath());
-    return new ImmutableTriple<>(reader, new PdfReaderContentParser(reader), new PdfListener());
+  OpenPdfFile openPdfFile(File content) throws IOException {
+    return new OpenPdfFile(content);
+  }
+
+  static class OpenPdfFile implements Closeable {
+
+    private final PdfReader pdfReader;
+    private PdfListener pdfListener;
+    private PdfReaderContentParser pdfParser;
+
+    OpenPdfFile(File content) throws IOException {
+      pdfReader = new PdfReader(content.getAbsolutePath());
+    }
+
+    int getNumberOfPages() {
+      return pdfReader.getNumberOfPages();
+    }
+
+    PdfListener getPdfListener() {
+      pdfListener = pdfListener == null ? new PdfListener() : pdfListener;
+      return pdfListener;
+    }
+
+    PdfReaderContentParser getPdfParser() {
+      pdfParser = pdfParser == null ? new PdfReaderContentParser(pdfReader) : pdfParser;
+      return pdfParser;
+    }
+
+    @Override
+    public void close() {
+      pdfReader.close();
+    }
   }
 
   static class PdfCharacteristics {
