@@ -93,8 +93,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     // Process the results
     if (finishDate == null && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
-      // Update workflowExecution first, to retrieve cancelling information from db
-      workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
       // If the workflow was cancelled before it had the chance to finish, we cancel all remaining
       // plugins.
       workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
@@ -221,7 +219,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         Thread.sleep(sleepTime);
         if (!externalCancelCallSent && shouldPluginBeCancelled(abstractMetisPlugin,
             previousProcessedRecords, checkPointDateOfProcessedRecordsPeriodInMillis)) {
-          abstractMetisPlugin.cancel(dpsClient);
+          // Update workflowExecution first, to retrieve cancelling information from db
+          workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
+          abstractMetisPlugin.cancel(dpsClient, workflowExecution.getCancelledBy());
           externalCancelCallSent = true;
         }
         monitorResult = abstractMetisPlugin.monitor(dpsClient);
@@ -308,6 +308,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     for (int i = 1; i <= MONITOR_ITERATIONS_TO_FAKE; i++) {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+          // Update workflowExecution first, to retrieve cancelling information from db
+          workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
           return;
         }
         Thread.sleep(sleepTime);
