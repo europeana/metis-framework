@@ -392,16 +392,16 @@ public abstract class AbstractMetisPlugin {
    * Request a cancel call to the external execution.
    *
    * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
-   * @param cancelId the reason a task is being cancelled, is it a user identifier of a system
+   * @param cancelledById the reason a task is being cancelled, is it a user identifier of a system
    * identifier
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public void cancel(DpsClient dpsClient, String cancelId) throws ExternalTaskException {
+  public void cancel(DpsClient dpsClient, String cancelledById) throws ExternalTaskException {
     LOGGER.info("Cancel execution for externalTaskId: {}", getExternalTaskId());
     try {
       dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()),
-          !CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelId)
-              ? "Cancelled By User" : "Cancelled By System");
+          CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelledById)
+              ? "Cancelled By System" : "Cancelled By User");
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task cancellation failed", e);
     }
