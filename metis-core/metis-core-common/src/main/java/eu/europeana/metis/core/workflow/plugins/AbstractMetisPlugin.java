@@ -11,6 +11,7 @@ import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,8 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This abstract class specifies the minimum o plugin should support so that it can be plugged in the
- * Metis workflow registry and can be accessible via the REST API of Metis.
+ * This abstract class specifies the minimum o plugin should support so that it can be plugged in
+ * the Metis workflow registry and can be accessible via the REST API of Metis.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
@@ -304,7 +305,8 @@ public abstract class AbstractMetisPlugin {
         ecloudDataset, false);
   }
 
-  DpsTask createDpsTaskForIndexPlugin(String datasetId, boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
+  DpsTask createDpsTaskForIndexPlugin(String datasetId, boolean useAlternativeIndexingEnvironment,
+      boolean preserveTimestamps,
       String targetDatabase, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("METIS_DATASET_ID", datasetId);
@@ -340,7 +342,8 @@ public abstract class AbstractMetisPlugin {
 
   /**
    * Starts the execution of the plugin at the external location.
-   * <p>It is non blocking method and the {@link #monitor(DpsClient)} should be used to monitor the external execution</p>
+   * <p>It is non blocking method and the {@link #monitor(DpsClient)} should be used to monitor the
+   * external execution</p>
    *
    * @param dpsClient {@link DpsClient} used to submit the external execution
    * @param ecloudBaseUrl the base url of the ecloud apis
@@ -389,12 +392,16 @@ public abstract class AbstractMetisPlugin {
    * Request a cancel call to the external execution.
    *
    * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
+   * @param cancelId the reason a task is being cancelled, is it a user identifier of a system
+   * identifier
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public void cancel(DpsClient dpsClient) throws ExternalTaskException {
+  public void cancel(DpsClient dpsClient, String cancelId) throws ExternalTaskException {
     LOGGER.info("Cancel execution for externalTaskId: {}", getExternalTaskId());
     try {
-      dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()));
+      dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()),
+          !CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelId)
+              ? "Cancelled By User" : "Cancelled By System");
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task cancellation failed", e);
     }
