@@ -11,6 +11,7 @@ import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,7 +48,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
   @Override
   public List<RdfResourceEntry> getResourceEntriesForMediaExtraction(InputStream inputStream)
       throws RdfDeserializationException {
-    return getResourceEntries(inputStream, UrlType.URL_TYPES_FOR_MEDIA_EXTRACTION);
+    return convertToResourceEntries(
+        getResourceEntries(inputStream, UrlType.URL_TYPES_FOR_MEDIA_EXTRACTION));
   }
 
   @Override
@@ -59,8 +61,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
   @Override
   public List<String> getResourceEntriesForLinkChecking(InputStream inputStream)
       throws RdfDeserializationException {
-    return getResourceEntries(inputStream, UrlType.URL_TYPES_FOR_LINK_CHECKING).stream()
-        .map(RdfResourceEntry::getResourceUrl).collect(Collectors.toList());
+    return new ArrayList<>(
+        getResourceEntries(inputStream, UrlType.URL_TYPES_FOR_LINK_CHECKING).keySet());
   }
 
   @Override
@@ -74,13 +76,13 @@ class RdfDeserializerImpl implements RdfDeserializer {
     return new EnrichedRdfImpl(deserialize(inputStream));
   }
 
-  List<RdfResourceEntry> getResourceEntries(InputStream inputStream,
+  Map<String, List<UrlType>> getResourceEntries(InputStream inputStream,
       Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
-    final RdfWrapper rdf = new RdfWrapper(deserialize(inputStream));
-    return convertToResourceEntries(rdf.getResourceUrls(allowedUrlTypes));
+    return new RdfWrapper(deserialize(inputStream)).getResourceUrls(allowedUrlTypes);
   }
 
-  static List<RdfResourceEntry> convertToResourceEntries(Map<String, List<UrlType>> urlWithTypes) {
+  private static List<RdfResourceEntry> convertToResourceEntries(
+      Map<String, List<UrlType>> urlWithTypes) {
     return urlWithTypes.entrySet().stream()
         .map(entry -> new RdfResourceEntry(entry.getKey(), entry.getValue()))
         .collect(Collectors.toList());

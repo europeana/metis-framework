@@ -2,7 +2,6 @@ package eu.europeana.metis.mediaprocessing;
 
 import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
 import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,7 +58,7 @@ class RdfDeserializerWithXPath extends RdfDeserializerImpl {
   }
 
   @Override
-  List<RdfResourceEntry> getResourceEntries(InputStream inputStream,
+  Map<String, List<UrlType>> getResourceEntries(InputStream inputStream,
       Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
 
     // Parse document to schema-agnostic XML document (but make parsing namespace-aware).
@@ -83,7 +82,7 @@ class RdfDeserializerWithXPath extends RdfDeserializerImpl {
     }
 
     // Convert them to resource entries and return.
-    return convertToResourceEntries(urls);
+    return urls;
   }
 
   private  Set<String> getUrls(Document document, UrlType type) throws RdfDeserializationException {
