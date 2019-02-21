@@ -7,16 +7,18 @@ import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.JiBXException;
 
 /**
- * This is the super class of all RDF converters, providing an instance of {@link IBindingFactory}.
+ * This class maintains an instance of {@link IBindingFactory} which it can make available upon
+ * request.
  */
-class RdfConverter {
+final class RdfBindingFactoryProvider {
 
   private static IBindingFactory rdfBindingFactory;
 
   /**
-   * Constructor.
+   * Constructor - this class should not be initialized.
    */
-  RdfConverter() {}
+  private RdfBindingFactoryProvider() {
+  }
 
   /**
    * @return A binding factory.
