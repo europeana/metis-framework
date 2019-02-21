@@ -15,7 +15,7 @@ import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 /**
  * An {@link HttpClient} that obtains the actual content of a resource link.
  */
-public class ResourceDownloadClient extends HttpClient<Resource> {
+public class ResourceDownloadClient extends HttpClient<RdfResourceEntry, Resource> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceDownloadClient.class);
 
@@ -33,6 +33,11 @@ public class ResourceDownloadClient extends HttpClient<Resource> {
   public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype) {
     super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT );
     this.shouldDownloadMimetype = shouldDownloadMimetype;
+  }
+
+  @Override
+  protected String getResourceUrl(RdfResourceEntry resourceEntry) {
+    return resourceEntry.getResourceUrl();
   }
 
   @Override
