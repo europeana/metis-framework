@@ -3,23 +3,28 @@ package eu.europeana.metis.core.execution;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * This class is a utility class that can answer questions about which workflow steps (plugins) can
+ * occur before/after which.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-29
  */
 public final class ExecutionRules {
 
-  private static final Set<PluginType> HARVEST_PLUGIN_GROUP = EnumSet
-      .of(PluginType.OAIPMH_HARVEST, PluginType.HTTP_HARVEST);
-  private static final Set<PluginType> PROCESS_PLUGIN_GROUP = EnumSet
+  private static final Set<PluginType> HARVEST_PLUGIN_GROUP = Collections.unmodifiableSet(EnumSet
+      .of(PluginType.OAIPMH_HARVEST, PluginType.HTTP_HARVEST));
+  private static final Set<PluginType> PROCESS_PLUGIN_GROUP = Collections.unmodifiableSet(EnumSet
       .of(PluginType.VALIDATION_EXTERNAL, PluginType.TRANSFORMATION,
           PluginType.VALIDATION_INTERNAL, PluginType.NORMALIZATION, PluginType.ENRICHMENT,
-          PluginType.MEDIA_PROCESS, PluginType.LINK_CHECKING);
-  private static final Set<PluginType> INDEX_PLUGIN_GROUP =
-      EnumSet.of(PluginType.PREVIEW, PluginType.PUBLISH);
+          PluginType.MEDIA_PROCESS, PluginType.LINK_CHECKING));
+  private static final Set<PluginType> INDEX_PLUGIN_GROUP = Collections.unmodifiableSet(
+      EnumSet.of(PluginType.PREVIEW, PluginType.PUBLISH));
 
   private ExecutionRules() {
     //Private constructor
@@ -109,9 +114,8 @@ public final class ExecutionRules {
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(PluginType.PREVIEW);
         break;
       case LINK_CHECKING:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(PluginType.VALIDATION_INTERNAL,
-            PluginType.NORMALIZATION, PluginType.ENRICHMENT, PluginType.MEDIA_PROCESS,
-            PluginType.PREVIEW, PluginType.PUBLISH);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(PROCESS_PLUGIN_GROUP);
+        pluginTypesSetThatPluginTypeCanBeBasedOn.addAll(INDEX_PLUGIN_GROUP);
         break;
       default:
         break;
@@ -124,20 +128,20 @@ public final class ExecutionRules {
    *         workflows and don't need another plugin type as base.
    */
   public static Set<PluginType> getHarvestPluginGroup() {
-    return EnumSet.copyOf(HARVEST_PLUGIN_GROUP);
+    return HARVEST_PLUGIN_GROUP;
   }
 
   /**
    * @return The plugin types that are of the 'processing' kind.
    */
   public static Set<PluginType> getProcessPluginGroup() {
-    return EnumSet.copyOf(PROCESS_PLUGIN_GROUP);
+    return PROCESS_PLUGIN_GROUP;
   }
 
   /**
    * @return The plugin types that are of the 'indexing' kind.
    */
   public static Set<PluginType> getIndexPluginGroup() {
-    return EnumSet.copyOf(INDEX_PLUGIN_GROUP);
+    return INDEX_PLUGIN_GROUP;
   }
 }
