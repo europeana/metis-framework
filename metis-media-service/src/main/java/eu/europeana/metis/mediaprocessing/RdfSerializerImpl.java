@@ -13,7 +13,7 @@ import org.jibx.runtime.JiBXException;
 /**
  * This object implements RDF serialization functionality.
  */
-public class RdfSerializerImpl extends RdfConverter implements RdfSerializer {
+class RdfSerializerImpl implements RdfSerializer {
 
   private final IMarshallingContext context;
 
@@ -24,7 +24,7 @@ public class RdfSerializerImpl extends RdfConverter implements RdfSerializer {
    */
   RdfSerializerImpl() throws RdfConverterException {
     try {
-      context = getBindingFactory().createMarshallingContext();
+      context = RdfBindingFactoryProvider.getBindingFactory().createMarshallingContext();
     } catch (JiBXException e) {
       throw new RdfConverterException("Problem creating serializer.", e);
     }
