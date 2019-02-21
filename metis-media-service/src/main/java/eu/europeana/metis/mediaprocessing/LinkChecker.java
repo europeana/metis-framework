@@ -1,7 +1,6 @@
 package eu.europeana.metis.mediaprocessing;
 
 import eu.europeana.metis.mediaprocessing.exception.LinkCheckingException;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import java.io.Closeable;
 
 /**
@@ -17,6 +16,6 @@ public interface LinkChecker extends Closeable {
    * @param resourceEntry The resource entry (obtained from an RDF)
    * @throws LinkCheckingException In case of issues occurring during link checking.
    */
-  void performLinkChecking(RdfResourceEntry resourceEntry) throws LinkCheckingException;
+  void performLinkChecking(String resourceEntry) throws LinkCheckingException;
 
 }

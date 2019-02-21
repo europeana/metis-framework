@@ -40,8 +40,7 @@ public interface RdfDeserializer {
    * @return The list of resource entries that are subject to link checking.
    * @throws RdfDeserializationException In case something went wrong deserializing the RDF.
    */
-  List<RdfResourceEntry> getResourceEntriesForLinkChecking(byte[] input)
-      throws RdfDeserializationException;
+  List<String> getResourceEntriesForLinkChecking(byte[] input) throws RdfDeserializationException;
 
   /**
    * Obtain the resource entries for link checking from an RDF file.
@@ -50,7 +49,7 @@ public interface RdfDeserializer {
    * @return The list of resource entries that are subject to link checking.
    * @throws RdfDeserializationException In case something went wrong deserializing the RDF.
    */
-  List<RdfResourceEntry> getResourceEntriesForLinkChecking(InputStream inputStream)
+  List<String> getResourceEntriesForLinkChecking(InputStream inputStream)
       throws RdfDeserializationException;
 
   /**

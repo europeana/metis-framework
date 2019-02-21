@@ -50,15 +50,16 @@ class RdfDeserializerImpl extends RdfConverter implements RdfDeserializer {
   }
 
   @Override
-  public List<RdfResourceEntry> getResourceEntriesForLinkChecking(byte[] input)
+  public List<String> getResourceEntriesForLinkChecking(byte[] input)
       throws RdfDeserializationException {
     return performDeserialization(input, this::getResourceEntriesForLinkChecking);
   }
 
   @Override
-  public List<RdfResourceEntry> getResourceEntriesForLinkChecking(InputStream inputStream)
+  public List<String> getResourceEntriesForLinkChecking(InputStream inputStream)
       throws RdfDeserializationException {
-    return getResourceEntries(inputStream, UrlType.URL_TYPES_FOR_LINK_CHECKING);
+    return getResourceEntries(inputStream, UrlType.URL_TYPES_FOR_LINK_CHECKING).stream()
+        .map(RdfResourceEntry::getResourceUrl).collect(Collectors.toList());
   }
 
   @Override

@@ -1,11 +1,9 @@
 package eu.europeana.metis.mediaprocessing.linkchecking;
 
-import java.io.Closeable;
-import java.io.IOException;
 import eu.europeana.metis.mediaprocessing.LinkChecker;
 import eu.europeana.metis.mediaprocessing.exception.LinkCheckingException;
 import eu.europeana.metis.mediaprocessing.http.LinkCheckClient;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import java.io.IOException;
 
 /**
  * This class performs link checking.
@@ -31,7 +29,7 @@ public class LinkCheckerImpl implements LinkChecker {
   }
 
   @Override
-  public void performLinkChecking(RdfResourceEntry resourceEntry) throws LinkCheckingException {
+  public void performLinkChecking(String resourceEntry) throws LinkCheckingException {
     try {
       linkCheckClient.download(resourceEntry);
     } catch (IOException | RuntimeException e) {
