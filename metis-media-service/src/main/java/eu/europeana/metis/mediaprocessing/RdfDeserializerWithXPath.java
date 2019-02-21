@@ -81,7 +81,7 @@ class RdfDeserializerWithXPath extends RdfDeserializerImpl {
       }
     }
 
-    // Convert them to resource entries and return.
+    // Done.
     return urls;
   }
 

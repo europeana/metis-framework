@@ -10,14 +10,14 @@ import org.jibx.runtime.JiBXException;
  * This class maintains an instance of {@link IBindingFactory} which it can make available upon
  * request.
  */
-class RdfBindingFactoryProvider {
+final class RdfBindingFactoryProvider {
 
   private static IBindingFactory rdfBindingFactory;
 
   /**
-   * Constructor.
+   * Constructor - this class should not be initialized.
    */
-  RdfBindingFactoryProvider() {
+  private RdfBindingFactoryProvider() {
   }
 
   /**
