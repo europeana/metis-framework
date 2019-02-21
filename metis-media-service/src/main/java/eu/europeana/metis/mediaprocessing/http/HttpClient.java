@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -19,6 +20,9 @@ import org.apache.http.impl.client.HttpClients;
  * @param <R> The type of the resulting/downloaded object (the result of the request).
  */
 abstract class HttpClient<I, R> implements Closeable {
+
+  private static final int HTTP_SUCCESS_MIN_INCLUSIVE = HttpStatus.SC_OK;
+  private static final int HTTP_SUCCESS_MAX_EXCLUSIVE = HttpStatus.SC_MULTIPLE_CHOICES;
 
   private final CloseableHttpClient client;
 
@@ -54,7 +58,7 @@ abstract class HttpClient<I, R> implements Closeable {
 
       // Check response code.
       final int status = response.getStatusLine().getStatusCode();
-      if (status < 200 || status >= 300) {
+      if (!httpCallIsSuccessful(status)) {
         throw new IOException("Download failed of resource " + resourceUlr + ". Status code " +
             status + " (message: " + response.getStatusLine().getReasonPhrase() + ").");
       }
@@ -68,6 +72,10 @@ abstract class HttpClient<I, R> implements Closeable {
       // Process the result.
       return createResult(resourceEntry, actualUri, mimeType, response.getEntity()::getContent);
     }
+  }
+
+  private static boolean httpCallIsSuccessful(int status) {
+    return status >= HTTP_SUCCESS_MIN_INCLUSIVE && status < HTTP_SUCCESS_MAX_EXCLUSIVE;
   }
 
   /**
