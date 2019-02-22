@@ -71,6 +71,9 @@ public class ConfigurationPropertiesHolder {
   @Value("${metis.use.alternative.indexing.environment}")
   private boolean metisUseAlternativeIndexingEnvironment;
 
+  @Value("${metis.link.checking.default.sampling.size}")
+  private int metisLinkCheckingDefaultSamplingSize;
+
   @Value("${solr.commit.period.in.mins}")
   private int solrCommitPeriodInMins;
 
@@ -237,6 +240,10 @@ public class ConfigurationPropertiesHolder {
 
   public boolean getMetisUseAlternativeIndexingEnvironment() {
     return metisUseAlternativeIndexingEnvironment;
+  }
+
+  public int getMetisLinkCheckingDefaultSamplingSize() {
+    return metisLinkCheckingDefaultSamplingSize;
   }
 
   public int getSolrCommitPeriodInMins() {

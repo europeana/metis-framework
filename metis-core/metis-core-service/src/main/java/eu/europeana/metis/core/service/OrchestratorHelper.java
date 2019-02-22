@@ -15,6 +15,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
@@ -49,6 +50,7 @@ public class OrchestratorHelper {
   private ValidationProperties validationInternalProperties; // Use getter and setter!
   private String metisCoreUrl; // Use getter and setter for this field!
   private boolean metisUseAlternativeIndexingEnvironment; // Use getter and setter for this field!
+  private int defaultSamplingSizeForLinkChecking; // Use getter and setter for this field!
 
   /**
    * Constructor with parameters required to support the {@link OrchestratorService}
@@ -182,6 +184,10 @@ public class OrchestratorHelper {
           ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
           ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
               getMetisUseAlternativeIndexingEnvironment());
+          break;
+        case LINK_CHECKING:
+          ((LinkCheckingPluginMetadata) pluginMetadata)
+              .setSampleSize(getDefaultSamplingSizeForLinkChecking());
           break;
         default:
           break;
@@ -329,6 +335,18 @@ public class OrchestratorHelper {
       boolean metisUseAlternativeIndexingEnvironment) {
     synchronized (this) {
       this.metisUseAlternativeIndexingEnvironment = metisUseAlternativeIndexingEnvironment;
+    }
+  }
+
+  private int getDefaultSamplingSizeForLinkChecking() {
+    synchronized (this) {
+      return defaultSamplingSizeForLinkChecking;
+    }
+  }
+
+  public void setDefaultSamplingSizeForLinkChecking(int defaultSamplingSizeForLinkChecking) {
+    synchronized (this) {
+      this.defaultSamplingSizeForLinkChecking = defaultSamplingSizeForLinkChecking;
     }
   }
 }
