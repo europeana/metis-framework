@@ -215,13 +215,13 @@ class ThumbnailGenerator {
   }
 
   private static void closeAllThumbnailsSilently(List<ThumbnailWithSize> thumbnails) {
-    thumbnails.forEach(thumbnail -> {
+    for (ThumbnailWithSize thumbnail : thumbnails) {
       try {
         thumbnail.getThumbnail().close();
       } catch (IOException e) {
         LOGGER.warn("Could not close thumbnail: {}", thumbnail.getThumbnail().getResourceUrl(), e);
       }
-    });
+    }
   }
 
   List<String> createThumbnailGenerationCommand(List<ThumbnailWithSize> thumbnails,
