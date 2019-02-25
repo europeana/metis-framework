@@ -181,6 +181,8 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     orchestratorHelper.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     orchestratorHelper.setMetisUseAlternativeIndexingEnvironment(
         propertiesHolder.getMetisUseAlternativeIndexingEnvironment());
+    orchestratorHelper.setDefaultSamplingSizeForLinkChecking(
+        propertiesHolder.getMetisLinkCheckingDefaultSamplingSize());
     return orchestratorHelper;
   }
 
