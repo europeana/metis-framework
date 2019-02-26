@@ -45,7 +45,7 @@ class FullBeanPublisher {
   private static final BiConsumer<FullBeanImpl, FullBeanImpl> EMPTY_PREPROCESSOR = (created, updated) -> {
   };
   private static final int PUBLISH_MAX_RETRIES = 30;
-  public static final int PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
+  private static final int PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 

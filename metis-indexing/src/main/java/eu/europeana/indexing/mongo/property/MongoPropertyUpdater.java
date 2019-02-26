@@ -34,7 +34,7 @@ import eu.europeana.corelib.storage.MongoServer;
  *
  * @param <T> The type of the object to update.
  */
-final class MongoPropertyUpdater<T> {
+class MongoPropertyUpdater<T> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoPropertyUpdater.class);
 
