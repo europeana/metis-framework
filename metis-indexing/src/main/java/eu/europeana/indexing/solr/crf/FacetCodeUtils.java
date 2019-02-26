@@ -6,8 +6,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import eu.europeana.indexing.solr.crf.WebResourceWrapper.ColorSpace;
-import eu.europeana.indexing.solr.crf.WebResourceWrapper.Orientation;
+import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.indexing.utils.WebResourceWrapper.ColorSpace;
+import eu.europeana.indexing.utils.WebResourceWrapper.Orientation;
 
 /**
  * This class contains methods to convert web resource properties to codes that may be used as

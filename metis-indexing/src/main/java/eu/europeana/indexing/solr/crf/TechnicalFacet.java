@@ -3,6 +3,7 @@ package eu.europeana.indexing.solr.crf;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import eu.europeana.indexing.utils.WebResourceWrapper;
 
 /**
  * This enum contains all supported facets, including the functionality to evaluate them and shift

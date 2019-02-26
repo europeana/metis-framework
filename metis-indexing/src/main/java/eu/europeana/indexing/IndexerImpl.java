@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
+import eu.europeana.indexing.utils.RdfWrapper;
 
 /**
  * Implementation of {@link Indexer}.
@@ -50,13 +52,12 @@ class IndexerImpl implements Indexer {
     this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
   }
 
-  @Override
-  public void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+  private void indexRecords(List<RdfWrapper> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
     LOGGER.info("Processing {} records...", records.size());
     try {
       final FullBeanPublisher publisher =
           connectionProvider.getFullBeanPublisher(preserveUpdateAndCreateTimesFromRdf);
-      for (RDF record : records) {
+      for (RdfWrapper record : records) {
         publisher.publish(record);
       }
       LOGGER.info("Successfully processed {} records.", records.size());
@@ -64,6 +65,12 @@ class IndexerImpl implements Indexer {
       LOGGER.warn("Error while indexing a record.", e);
       throw e;
     }
+  }
+
+  @Override
+  public void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+    final List<RdfWrapper> wrappedRecords = records.stream().map(RdfWrapper::new).collect(Collectors.toList());
+    indexRecords(wrappedRecords, preserveUpdateAndCreateTimesFromRdf);
   }
 
   @Override
@@ -75,11 +82,11 @@ class IndexerImpl implements Indexer {
   public void index(List<String> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
     LOGGER.info("Parsing {} records...", records.size());
     final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
-    final List<RDF> rdfs = new ArrayList<>(records.size());
+    final List<RdfWrapper> wrappedRecords = new ArrayList<>(records.size());
     for (String record : records) {
-      rdfs.add(stringToRdfConverter.convertStringToRdf(record));
+      wrappedRecords.add(stringToRdfConverter.convertStringToRdf(record));
     }
-    indexRdfs(rdfs, preserveUpdateAndCreateTimesFromRdf);
+    indexRecords(wrappedRecords, preserveUpdateAndCreateTimesFromRdf);
   }
 
   @Override
