@@ -82,9 +82,12 @@ public class ProxiesService {
    * @return the list of logs
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link DpsException} if an error occurred while retrieving the logs from the external resource</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow execution exists for the provided external task identifier</li>
+   * <li>{@link DpsException} if an error occurred while retrieving the logs from the external
+   * resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
    * </ul>
    */
   public List<SubTaskInfo> getExternalTaskLogs(MetisUser metisUser, String topologyName,
@@ -107,6 +110,29 @@ public class ProxiesService {
   }
 
   /**
+   * Check if final report is available.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @return true if final report available, false if not or ecloud response {@link
+   * javax.ws.rs.core.Response.Status)} is not OK, based on {@link DpsClient#checkIfErrorReportExists}
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
+   * </ul>
+   */
+  public boolean existsExternalTaskReport(MetisUser metisUser, String topologyName, long externalTaskId)
+      throws GenericMetisException {
+    authorizer.authorizeReadExistingDatasetById(metisUser,
+        getDatasetIdFromExternalTaskId(externalTaskId));
+    return dpsClient.checkIfErrorReportExists(topologyName, externalTaskId);
+  }
+
+  /**
    * Get the final report that includes all the errors grouped. The number of ids per error can be
    * specified through the parameters.
    *
@@ -117,9 +143,12 @@ public class ProxiesService {
    * @return the list of errors grouped
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link DpsException} if an error occurred while retrieving the report from the external resource</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow execution exists for the provided external task identifier</li>
+   * <li>{@link DpsException} if an error occurred while retrieving the report from the external
+   * resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
    * </ul>
    */
   public TaskErrorsInfo getExternalTaskReport(MetisUser metisUser, String topologyName,
@@ -147,9 +176,12 @@ public class ProxiesService {
    * @return the list of errors grouped
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link DpsException} if an error occurred while retrieving the statistics from the external resource</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow execution exists for the provided external task identifier</li>
+   * <li>{@link DpsException} if an error occurred while retrieving the statistics from the
+   * external resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
    * </ul>
    */
   public StatisticsReport getExternalTaskStatistics(MetisUser metisUser, String topologyName,
@@ -189,9 +221,12 @@ public class ProxiesService {
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link MCSException} if an error occurred while retrieving the records from the external resource</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow execution exists for the provided identifier</li>
+   * <li>{@link MCSException} if an error occurred while retrieving the records from the external
+   * resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided identifier</li>
    * </ul>
    */
   public RecordsResponse getListOfFileContentsFromPluginExecution(MetisUser metisUser,
@@ -215,7 +250,6 @@ public class ProxiesService {
     String nextPageAfterResponse = null;
     List<Record> records = new ArrayList<>();
     if (abstractMetisPluginToGetRecords != null) {
-      String providerId = ecloudProvider;
       String datasetId = workflowExecution.getEcloudDatasetId();
       String representationName = AbstractMetisPlugin.getRepresentationName();
       String revisionName = abstractMetisPluginToGetRecords.getPluginType().name();
@@ -225,7 +259,7 @@ public class ProxiesService {
           dateFormat.format(abstractMetisPluginToGetRecords.getStartedDate());
       try {
         ResultSlice<CloudTagsResponse> resultSlice = ecloudDataSetServiceClient
-            .getDataSetRevisionsChunk(providerId, datasetId, representationName, revisionName,
+            .getDataSetRevisionsChunk(ecloudProvider, datasetId, representationName, revisionName,
                 revisionProviderId, revisionTimestamp, nextPage, numberOfRecords);
         nextPageAfterResponse = resultSlice.getNextSlice();
 
