@@ -13,9 +13,9 @@ import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 
 /**
- * An {@link HttpClient} that obtains the actual content of a resource link.
+ * An {@link AbstractHttpClient} that obtains the actual content of a resource link.
  */
-public class ResourceDownloadClient extends HttpClient<RdfResourceEntry, Resource> {
+public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry, Resource> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceDownloadClient.class);
 

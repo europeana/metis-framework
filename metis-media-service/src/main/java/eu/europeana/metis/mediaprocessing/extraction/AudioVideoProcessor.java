@@ -49,7 +49,7 @@ class AudioVideoProcessor implements MediaProcessor {
    * @throws MediaProcessorException In case the properties could not be initialized.
    */
   AudioVideoProcessor(CommandExecutor commandExecutor) throws MediaProcessorException {
-    this(commandExecutor, getFfprobeCommand(commandExecutor));
+    this(commandExecutor, getGlobalFfprobeCommand(commandExecutor));
   }
 
   /**
@@ -63,12 +63,14 @@ class AudioVideoProcessor implements MediaProcessor {
     this.ffprobeCommand = ffprobeCommand;
   }
 
-  private static synchronized String getFfprobeCommand(CommandExecutor commandExecutor)
+  private static String getGlobalFfprobeCommand(CommandExecutor commandExecutor)
       throws MediaProcessorException {
-    if (globalFfprobeCommand == null) {
-      globalFfprobeCommand = discoverFfprobeCommand(commandExecutor);
+    synchronized (AudioVideoProcessor.class) {
+      if (globalFfprobeCommand == null) {
+        globalFfprobeCommand = discoverFfprobeCommand(commandExecutor);
+      }
+      return globalFfprobeCommand;
     }
-    return globalFfprobeCommand;
   }
 
   static String discoverFfprobeCommand(CommandExecutor commandExecutor)

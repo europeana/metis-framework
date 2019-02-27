@@ -153,7 +153,7 @@ class RdfDeserializerWithXPath extends RdfDeserializerImpl {
     @Override
     public Iterator<String> getPrefixes(String s) {
       return Optional.ofNullable(getPrefix(s)).map(Collections::singletonList)
-          .orElse(Collections.emptyList()).iterator();
+          .orElseGet(Collections::emptyList).iterator();
     }
   }
 }

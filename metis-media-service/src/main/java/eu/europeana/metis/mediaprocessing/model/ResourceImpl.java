@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * This class implements {@link Resource}.
  */
-public class ResourceImpl extends TemporaryFile implements Resource {
+public class ResourceImpl extends AbstractTemporaryFile implements Resource {
 
   private final String mimeType;
   private final Set<UrlType> urlTypes;

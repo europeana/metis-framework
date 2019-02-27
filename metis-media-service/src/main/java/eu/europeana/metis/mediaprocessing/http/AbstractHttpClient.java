@@ -19,7 +19,7 @@ import org.apache.http.impl.client.HttpClients;
  * @param <I> The type of the resource entry (the input object defining the request).
  * @param <R> The type of the resulting/downloaded object (the result of the request).
  */
-abstract class HttpClient<I, R> implements Closeable {
+abstract class AbstractHttpClient<I, R> implements Closeable {
 
   private static final int HTTP_SUCCESS_MIN_INCLUSIVE = HttpStatus.SC_OK;
   private static final int HTTP_SUCCESS_MAX_EXCLUSIVE = HttpStatus.SC_MULTIPLE_CHOICES;
@@ -33,7 +33,7 @@ abstract class HttpClient<I, R> implements Closeable {
    * @param connectTimeout The connection timeout in milliseconds.
    * @param socketTimeout The socket timeout in milliseconds.
    */
-  HttpClient(int maxRedirectCount, int connectTimeout, int socketTimeout) {
+  AbstractHttpClient(int maxRedirectCount, int connectTimeout, int socketTimeout) {
     final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount)
         .setConnectTimeout(connectTimeout).setSocketTimeout(socketTimeout).build();
     client = HttpClients.custom().setDefaultRequestConfig(requestConfig).build();

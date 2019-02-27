@@ -74,7 +74,7 @@ class ThumbnailGenerator {
    * @throws MediaProcessorException In case the properties could not be initialized.
    */
   ThumbnailGenerator(CommandExecutor commandExecutor) throws MediaProcessorException {
-    this(commandExecutor, getImageMagickCommand(commandExecutor), initColorMap().toString());
+    this(commandExecutor, getGlobalImageMagickCommand(commandExecutor), initColorMap().toString());
   }
 
   /**
@@ -117,12 +117,14 @@ class ThumbnailGenerator {
     return globalColormapFile;
   }
 
-  private static synchronized String getImageMagickCommand(CommandExecutor commandExecutor)
+  private static synchronized String getGlobalImageMagickCommand(CommandExecutor commandExecutor)
       throws MediaProcessorException {
-    if (globalMagickCommand == null) {
-      globalMagickCommand = discoverImageMagickCommand(commandExecutor);
+    synchronized (ThumbnailGenerator.class) {
+      if (globalMagickCommand == null) {
+        globalMagickCommand = discoverImageMagickCommand(commandExecutor);
+      }
+      return globalMagickCommand;
     }
-    return globalMagickCommand;
   }
 
   static String discoverImageMagickCommand(CommandExecutor commandExecutor)
