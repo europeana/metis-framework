@@ -3,6 +3,7 @@ package eu.europeana.indexing.utils;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
@@ -31,8 +32,13 @@ import eu.europeana.corelib.definitions.jibx.WebResourceType;
  */
 public class RdfWrapper {
 
-  final RDF record;
+  private final RDF record;
 
+  /**
+   * Constructor.
+   *
+   * @param record The record to wrap.
+   */
   public RdfWrapper(RDF record) {
     this.record = record;
   }
@@ -101,12 +107,13 @@ public class RdfWrapper {
 
   /**
    * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those that need to be indexed.
-   * 
-   * @return The list of web resources. Is not null, but could be empty.
+   * only returns those that need to be indexed. Those web resources will be processed using the
+   * function, the result of which will be returned.
+   *
+   * @return The list of processed web resources. Is not null, but could be empty.
    */
-  public List<WebResourceWrapper> getWrappedWebResources() {
-    return getFilteredPropertyStream(record.getWebResourceList()).map(WebResourceWrapper::new)
+  public <T> List<T> getWebResources(Function<WebResourceType, T> webResourceProcessor) {
+    return getFilteredPropertyStream(record.getWebResourceList()).map(webResourceProcessor)
         .collect(Collectors.toList());
   }
 
@@ -124,7 +131,6 @@ public class RdfWrapper {
    * Obtains the list of agents from an RDF record. This will filter the objects: it only returns
    * those that need to be indexed.
    *
-   * @param record The record from which to obtain the agents.
    * @return The agents that need to be indexed.
    */
   public List<AgentType> getAgents() {
@@ -135,7 +141,6 @@ public class RdfWrapper {
    * Obtains the list of concepts from an RDF record. This will filter the objects: it only returns
    * those that need to be indexed.
    *
-   * @param record The record from which to obtain the concepts.
    * @return The concepts that need to be indexed.
    */
   public List<Concept> getConcepts() {
@@ -146,7 +151,6 @@ public class RdfWrapper {
    * Obtains the list of licenses from an RDF record. This will filter the objects: it only returns
    * those that need to be indexed.
    *
-   * @param record The record from which to obtain the licenses.
    * @return The licenses that need to be indexed.
    */
   public List<License> getLicenses() {
@@ -157,7 +161,6 @@ public class RdfWrapper {
    * Obtains the list of places from an RDF record. This will filter the objects: it only returns
    * those that need to be indexed.
    *
-   * @param record The record from which to obtain the places.
    * @return The places that need to be indexed.
    */
   public List<PlaceType> getPlaces() {
@@ -168,7 +171,6 @@ public class RdfWrapper {
    * Obtains the list of time spans from an RDF record. This will filter the objects: it only
    * returns those that need to be indexed.
    *
-   * @param record The record from which to obtain the time spans.
    * @return The time spans that need to be indexed.
    */
   public List<TimeSpanType> getTimeSpans() {
@@ -179,7 +181,6 @@ public class RdfWrapper {
    * Obtains the list of services from an RDF record. This will filter the objects: it only returns
    * those that need to be indexed.
    *
-   * @param record The record from which to obtain the services.
    * @return The services that need to be indexed.
    */
   public List<Service> getServices() {

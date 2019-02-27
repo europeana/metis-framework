@@ -8,13 +8,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import org.junit.jupiter.api.Test;
+
 import eu.europeana.corelib.definitions.jibx.AboutType;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
@@ -30,6 +24,12 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.Service;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import org.junit.jupiter.api.Test;
 
 class RdfWrapperTest {
 
@@ -91,7 +91,7 @@ class RdfWrapperTest {
   }
 
   @Test
-  void testGetWrappedWebResources() {
+  void testGetWebResourcesWithProcessing() {
 
     // Create entities
     final WebResourceType entity0 = mock(WebResourceType.class);
@@ -105,12 +105,11 @@ class RdfWrapperTest {
     final RDF rdf = mock(RDF.class);
     when(rdf.getWebResourceList()).thenReturn(Arrays.asList(entity0, entity1, entity2));
     assertEquals(Collections.singletonList(entity1.getAbout()),
-        new RdfWrapper(rdf).getWrappedWebResources().stream().map(WebResourceWrapper::getAbout)
-            .collect(Collectors.toList()));
+        new RdfWrapper(rdf).getWebResources(WebResourceType::getAbout));
 
     // Test rdf that returns null
     when(rdf.getWebResourceList()).thenReturn(null);
-    assertTrue(new RdfWrapper(rdf).getWrappedWebResources().isEmpty());
+    assertTrue(new RdfWrapper(rdf).getWebResources(WebResourceType::getAbout).isEmpty());
   }
 
   @Test

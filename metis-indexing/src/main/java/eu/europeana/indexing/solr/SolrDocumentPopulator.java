@@ -21,7 +21,7 @@ import eu.europeana.indexing.solr.property.ServiceSolrCreator;
 import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.indexing.solr.crf.WebResourceWrapper;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -99,7 +99,7 @@ public class SolrDocumentPopulator {
     final EuropeanaAggregationType aggregation = rdf.getEuropeanaAggregation().orElse(null);
 
     // Get the web resources.
-    final List<WebResourceWrapper> webResources = rdf.getWrappedWebResources();
+    final List<WebResourceWrapper> webResources = WebResourceWrapper.extractWebResources(rdf);
 
     // has_thumbnails is true if and only if edm:EuropeanaAggregation/edm:preview is filled and the
     // associated edm:webResource exists with technical metadata (i.e. ebucore:hasMimetype is set).

@@ -1,6 +1,9 @@
-package eu.europeana.indexing.utils;
+package eu.europeana.indexing.solr.crf;
 
+import eu.europeana.indexing.utils.MediaType;
+import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -13,7 +16,6 @@ import eu.europeana.corelib.definitions.jibx.HasMimeType;
 import eu.europeana.corelib.definitions.jibx.HexBinaryType;
 import eu.europeana.corelib.definitions.jibx.OrientationType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.indexing.solr.crf.EncodedMediaType;
 
 /**
  * This class is a wrapper around instances of type {@link WebResourceType}. Its responsibility is
@@ -52,6 +54,16 @@ public class WebResourceWrapper {
    */
   WebResourceWrapper(WebResourceType webResource) {
     this.webResource = webResource;
+  }
+
+  /**
+   * This method extracts web resources from an instance of {@link RdfWrapper}.
+   *
+   * @param rdf The RDF from which to extract web resources.
+   * @return The instances of this class representing the web resources.
+   */
+  public static List<WebResourceWrapper> extractWebResources(RdfWrapper rdf) {
+    return rdf.getWebResources(WebResourceWrapper::new);
   }
 
   /**

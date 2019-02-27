@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import eu.europeana.indexing.utils.SetUtils;
-import eu.europeana.indexing.utils.WebResourceWrapper;
 
 /**
  * This class provides functionality to extract the facet codes from web resources and combine them
