@@ -7,7 +7,7 @@ import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
  * Field updater for instances of {@link EuropeanaAggregation}.
  */
 public class EuropeanaAggregationUpdater
-    extends AbstractEdmEntityUpdater<EuropeanaAggregationImpl, RootAbout> {
+    extends AbstractEdmEntityUpdater<EuropeanaAggregationImpl, RootAboutWrapper> {
 
   @Override
   protected Class<EuropeanaAggregationImpl> getObjectClass() {
@@ -16,7 +16,7 @@ public class EuropeanaAggregationUpdater
 
   @Override
   protected void update(MongoPropertyUpdater<EuropeanaAggregationImpl> propertyUpdater,
-      RootAbout ancestorInformation) {
+      RootAboutWrapper ancestorInformation) {
     propertyUpdater.updateString("aggregatedCHO", EuropeanaAggregation::getAggregatedCHO);
     propertyUpdater.updateString("edmIsShownBy", EuropeanaAggregation::getEdmIsShownBy);
     propertyUpdater.updateMap("edmRights", EuropeanaAggregation::getEdmRights);

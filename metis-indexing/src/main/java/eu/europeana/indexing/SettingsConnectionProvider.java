@@ -50,6 +50,7 @@ public final class SettingsConnectionProvider extends AbstractConnectionProvider
    * 
    * @param settings The indexing settings (connection settings).
    * @throws SetupRelatedIndexingException In case the connections could not be set up.
+   * @throws IndexerRelatedIndexingException In case the connection could not be established.
    */
   public SettingsConnectionProvider(IndexingSettings settings)
       throws SetupRelatedIndexingException, IndexerRelatedIndexingException {

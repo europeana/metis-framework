@@ -161,7 +161,7 @@ public enum ColorEncoding {
     this.code = code;
   }
 
-  private static synchronized BiMap<String, Integer> getColorMap() {
+  private static BiMap<String, Integer> getColorMap() {
     synchronized (ColorEncoding.class) {
       if (colorMap == null) {
         colorMap = HashBiMap.create(ColorEncoding.values().length);
@@ -199,7 +199,6 @@ public enum ColorEncoding {
     final String hexStringWithoutHash;
     if (StringUtils.isBlank(hexString)) {
       hexStringWithoutHash = "";
-//    } else if (hexString.startsWith("#")) {
     } else if (hexString.charAt(0) == '#') {
       hexStringWithoutHash = hexString.substring(1);
     } else {

@@ -1,18 +1,8 @@
 package eu.europeana.indexing.solr;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.solr.common.SolrInputDocument;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.IsShownAt;
-import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -32,13 +22,22 @@ import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.solr.common.SolrInputDocument;
 
 /**
  * This class provides functionality to populate Solr documents. Both methods in this class should
  * be called to fill the Solr document. The method {@link #populateWithProperties(SolrInputDocument,
  * FullBeanImpl)} copies properties from the source to the Solr document. The method {@link
- * #populateWithCrfFields(SolrInputDocument, RDF)} on the other hand performs some analysis and sets
- * technical metadata.
+ * #populateWithCrfFields(SolrInputDocument, RdfWrapper)} on the other hand performs some analysis
+ * and sets technical metadata.
  *
  * @author jochen
  */
@@ -53,18 +52,18 @@ public class SolrDocumentPopulator {
    */
   public void populateWithProperties(SolrInputDocument document, FullBeanImpl fullBean) {
 
-    final List<LicenseImpl> lincenses;
+    final List<LicenseImpl> licenses;
     if (fullBean.getLicenses() == null) {
-      lincenses = Collections.emptyList();
+      licenses = Collections.emptyList();
     } else {
-      lincenses = fullBean.getLicenses().stream().filter(Objects::nonNull)
+      licenses = fullBean.getLicenses().stream().filter(Objects::nonNull)
           .collect(Collectors.toList());
     }
 
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
-    new AggregationSolrCreator(lincenses).addToDocument(document,
+    new AggregationSolrCreator(licenses).addToDocument(document,
         fullBean.getAggregations().get(0));
-    new EuropeanaAggregationSolrCreator(lincenses).addToDocument(document,
+    new EuropeanaAggregationSolrCreator(licenses).addToDocument(document,
         fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
     new ConceptSolrCreator().addAllToDocument(document, fullBean.getConcepts());

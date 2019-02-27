@@ -272,7 +272,7 @@ class MongoPropertyUpdater<T> {
    * @param ancestorInformation The parent entity's info to be used for updating the web resources.
    */
   public void updateWebResources(String updateField,
-      Function<T, List<? extends WebResource>> getter, RootAbout ancestorInformation) {
+      Function<T, List<? extends WebResource>> getter, RootAboutWrapper ancestorInformation) {
     final Function<T, List<WebResourceImpl>> castGetter =
         getter.andThen(MongoPropertyUpdater::castWebResourceList);
     updateReferencedEntities(updateField, castGetter, entity -> ancestorInformation,
