@@ -2,7 +2,6 @@ package eu.europeana.enrichment.service.wikidata;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -15,13 +14,14 @@ import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.enrichment.service.zoho.BaseZohoAccessSetup;
 
-public class WikidataAccessServiceTest extends BaseWikidataAccessSetup{
+public class WikidataAccessServiceTest extends BaseZohoAccessSetup{
 
   @Override
   @BeforeEach
   public void setUp() throws Exception {
-    super.initWikidataAccessService();
+    super.setUp();
   }
   
   @Test
