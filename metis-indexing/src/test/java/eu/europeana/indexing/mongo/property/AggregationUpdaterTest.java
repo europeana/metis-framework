@@ -1,5 +1,6 @@
 package eu.europeana.indexing.mongo.property;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
@@ -11,6 +12,11 @@ class AggregationUpdaterTest extends MongoEntityUpdaterTest<AggregationImpl> {
   @Override
   AggregationImpl createEmptyMongoEntity() {
     return new AggregationImpl();
+  }
+
+  @Test
+  void testGetObjectClass() {
+    assertEquals(AggregationImpl.class, new AggregationUpdater().getObjectClass());
   }
 
   @Test

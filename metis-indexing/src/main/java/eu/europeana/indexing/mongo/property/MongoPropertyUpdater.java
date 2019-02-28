@@ -253,7 +253,27 @@ class MongoPropertyUpdater<T> {
    * @param getter The getter that obtains the property value from the object.
    */
   public <P> void updateObject(String updateField, Function<T, P> getter) {
-    updateProperty(updateField, getter, Objects::equals, UnaryOperator.identity());
+    updateObject(updateField, getter, UnaryOperator.identity());
+  }
+
+  /**
+   * <p>
+   * This method updates a generic property with pre-processing.
+   * </p>
+   * <p>
+   * This method tests if there is anything to update. If there is, after this method is called,
+   * {@link #applyOperations()} will include the update.
+   * </p>
+   *
+   * @param updateField The name of the field to update. This is the name under which they will be
+   *        stored in the operations list (see {@link #applyOperations()}).
+   * @param getter The getter that obtains the property value from the object.
+   * @param preprocessing The pre-processing to be applied to the update property value before
+   *        comparing and storing.
+   */
+  public <P> void updateObject(String updateField, Function<T, P> getter,
+      UnaryOperator<P> preprocessing) {
+    updateProperty(updateField, getter, Objects::equals, preprocessing);
   }
 
   /**
