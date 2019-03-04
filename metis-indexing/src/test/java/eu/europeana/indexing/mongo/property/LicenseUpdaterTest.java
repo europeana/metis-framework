@@ -5,6 +5,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.corelib.solr.entity.LicenseImpl;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +40,7 @@ class LicenseUpdaterTest extends MongoEntityUpdaterTest<LicenseImpl> {
     testObjectPropertyUpdate(propertyUpdater, "odrlInheritFrom", LicenseImpl::setOdrlInheritFrom,
         "test");
     testObjectPropertyUpdate(propertyUpdater, "ccDeprecatedOn", LicenseImpl::setCcDeprecatedOn,
-        new Date(), LicenseUpdater.DATE_PREPROCESSING);
+        new Date(), LicenseUpdater.DEPRECATED_ON_PREPROCESSING);
 
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
@@ -43,10 +48,17 @@ class LicenseUpdaterTest extends MongoEntityUpdaterTest<LicenseImpl> {
 
   @Test
   void testDatePreprocessing() {
-    final long timestamp = 1234567890L;
-    final java.sql.Date input = new java.sql.Date(timestamp);
-    final Date output = LicenseUpdater.DATE_PREPROCESSING.apply(input);
-    assertEquals(timestamp, output.getTime());
+
+    // Convert from local time to UTC time: this is what we expect to come out.
+    final long utcTimestamp = 1234567890L;
+    final ZonedDateTime utcTime = Instant.ofEpochMilli(utcTimestamp).atZone(ZoneId.systemDefault());
+    final ZonedDateTime timeHere = utcTime.withZoneSameLocal(ZoneOffset.UTC);
+    final long timestampHere = timeHere.toInstant().toEpochMilli();
+
+    // Perform the call.
+    final java.sql.Date input = new java.sql.Date(utcTimestamp);
+    final Date output = LicenseUpdater.DEPRECATED_ON_PREPROCESSING.apply(input);
+    assertEquals(timestampHere, output.getTime());
     assertEquals(Date.class, output.getClass());
   }
 }
