@@ -13,10 +13,10 @@ public class ResourceMetadata implements IResourceMetadata {
    */
   private static final long serialVersionUID = 1648797505550562988L;
 
-  private AudioResourceMetadata audioResourceMetadata = null;
-  private ImageResourceMetadata imageResourceMetadata = null;
-  private TextResourceMetadata textResourceMetadata = null;
-  private VideoResourceMetadata videoResourceMetadata = null;
+  private AudioResourceMetadata audioResourceMetadata;
+  private ImageResourceMetadata imageResourceMetadata;
+  private TextResourceMetadata textResourceMetadata;
+  private VideoResourceMetadata videoResourceMetadata;
 
   ResourceMetadata(AudioResourceMetadata audioResourceMetadata) {
     if (audioResourceMetadata == null) {

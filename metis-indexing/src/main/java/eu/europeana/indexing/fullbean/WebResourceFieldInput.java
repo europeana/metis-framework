@@ -1,6 +1,5 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.jibx.Type1;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,7 @@ import eu.europeana.corelib.definitions.jibx.IntegerType;
 import eu.europeana.corelib.definitions.jibx.LongType;
 import eu.europeana.corelib.definitions.jibx.NonNegativeIntegerType;
 import eu.europeana.corelib.definitions.jibx.OrientationType;
+import eu.europeana.corelib.definitions.jibx.Type1;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;

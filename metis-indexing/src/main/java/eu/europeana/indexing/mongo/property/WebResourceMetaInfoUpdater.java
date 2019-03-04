@@ -98,7 +98,7 @@ public class WebResourceMetaInfoUpdater
           createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getFileSize));
       propertyUpdater.updateObject("textMetaInfo.resolution",
           createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getResolution));
-      propertyUpdater.updateObject("textMetaInfo.rdfType",
+      propertyUpdater.updateString("textMetaInfo.rdfType",
           createGetter(WebResourceMetaInfoImpl::getTextMetaInfo, TextMetaInfo::getRdfType));
     }
 

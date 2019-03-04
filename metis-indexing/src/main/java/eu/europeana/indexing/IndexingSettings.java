@@ -102,7 +102,7 @@ public final class IndexingSettings {
   public void setZookeeperChroot(String chroot) throws SetupRelatedIndexingException {
     if (chroot == null || chroot.trim().isEmpty()) {
       this.zookeeperChroot = null;
-    } else if (chroot.startsWith("/")) {
+    } else if (chroot.charAt(0) == '/') {
       this.zookeeperChroot = chroot;
     } else {
       throw new SetupRelatedIndexingException("A chroot, if provided, must start with '/'.");

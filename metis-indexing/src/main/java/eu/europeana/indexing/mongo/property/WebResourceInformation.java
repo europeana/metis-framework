@@ -6,7 +6,7 @@ import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
  * Ancestor information for {@link WebResourceMetaInfoImpl}, that contains the about values of the
  * root (i.e. full bean) and the web resource the meta info belongs to.
  */
-public class WebResourceInformation extends RootAbout {
+public class WebResourceInformation extends RootAboutWrapper {
 
   private final String webResourceAbout;
 

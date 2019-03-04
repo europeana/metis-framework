@@ -82,13 +82,13 @@ class CommandExecutor implements Closeable {
 
     // Open error stream and read it.
     final String error;
-    if (!redirectErrorStream) {
+    if (redirectErrorStream) {
+      error = null;
+    } else {
       try (InputStream errorStream = process.getErrorStream()) {
         final String errorStreamContents = IOUtils.toString(errorStream, Charset.defaultCharset());
         error = StringUtils.isBlank(errorStreamContents) ? null : errorStreamContents;
       }
-    } else {
-      error = null;
     }
 
     // Read process output into lines.

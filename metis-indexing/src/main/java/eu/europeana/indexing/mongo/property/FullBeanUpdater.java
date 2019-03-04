@@ -101,7 +101,7 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
     return (EuropeanaAggregationImpl) fullBean.getEuropeanaAggregation();
   }
 
-  private static RootAbout createRootAbout(FullBean fullBean) {
-    return new RootAbout(fullBean.getAbout());
+  private static RootAboutWrapper createRootAbout(FullBean fullBean) {
+    return new RootAboutWrapper(fullBean.getAbout());
   }
 }

@@ -24,14 +24,16 @@ final class RdfBindingFactoryProvider {
    * @return A binding factory.
    * @throws RdfConverterException In case the binding factory could not be created.
    */
-  static synchronized IBindingFactory getBindingFactory() throws RdfConverterException {
-    if (rdfBindingFactory == null) {
-      try {
-        rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-      } catch (JiBXException e) {
-        throw new RdfConverterException("Unable to create binding factory", e);
+  static IBindingFactory getBindingFactory() throws RdfConverterException {
+    synchronized (RdfBindingFactoryProvider.class) {
+      if (rdfBindingFactory == null) {
+        try {
+          rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
+        } catch (JiBXException e) {
+          throw new RdfConverterException("Unable to create binding factory", e);
+        }
       }
+      return rdfBindingFactory;
     }
-    return rdfBindingFactory;
   }
 }

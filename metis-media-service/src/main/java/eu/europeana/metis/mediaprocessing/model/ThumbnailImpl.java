@@ -5,7 +5,7 @@ import java.io.IOException;
 /**
  * This class implements {@link Thumbnail}.
  */
-public class ThumbnailImpl extends TemporaryFile implements Thumbnail {
+public class ThumbnailImpl extends AbstractTemporaryFile implements Thumbnail {
 
   private final String targetName;
 

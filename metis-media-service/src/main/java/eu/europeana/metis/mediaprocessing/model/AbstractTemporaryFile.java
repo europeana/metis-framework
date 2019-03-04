@@ -9,7 +9,7 @@ import java.nio.file.Path;
  * This class represents a file in the temporary folder that's associated with a resource. Please
  * see {@link ResourceFile} for more information.
  */
-abstract class TemporaryFile implements ResourceFile {
+abstract class AbstractTemporaryFile implements ResourceFile {
 
   /**
    * The resource URL of the resource with which this file is associated.
@@ -29,7 +29,7 @@ abstract class TemporaryFile implements ResourceFile {
    * @param suffix The suffix used for generating the file.
    * @throws IOException In case there was a problem creating the file.
    */
-  protected TemporaryFile(String resourceUrl, String prefix, String suffix) throws IOException {
+  protected AbstractTemporaryFile(String resourceUrl, String prefix, String suffix) throws IOException {
     this.contentPath = Files.createTempFile(prefix, suffix);
     this.resourceUrl = resourceUrl;
   }

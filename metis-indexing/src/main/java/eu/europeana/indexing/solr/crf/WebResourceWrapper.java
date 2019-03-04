@@ -1,6 +1,7 @@
 package eu.europeana.indexing.solr.crf;
 
-import eu.europeana.indexing.utils.RdfUtils;
+import eu.europeana.indexing.utils.MediaType;
+import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -9,15 +10,12 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
 import eu.europeana.corelib.definitions.jibx.Duration;
 import eu.europeana.corelib.definitions.jibx.HasColorSpace;
 import eu.europeana.corelib.definitions.jibx.HasMimeType;
 import eu.europeana.corelib.definitions.jibx.HexBinaryType;
 import eu.europeana.corelib.definitions.jibx.OrientationType;
-import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.indexing.utils.MediaType;
 
 /**
  * This class is a wrapper around instances of type {@link WebResourceType}. Its responsibility is
@@ -54,18 +52,18 @@ public class WebResourceWrapper {
    * 
    * @param webResource The web resource to wrap.
    */
-  public WebResourceWrapper(WebResourceType webResource) {
+  WebResourceWrapper(WebResourceType webResource) {
     this.webResource = webResource;
   }
 
   /**
-   * This method extracts all web resources from the RDF object.
-   * 
-   * @param rdf The RDF object to extract the web resources from.
-   * @return The list of web resources. Is not null, but could be empty.
+   * This method extracts web resources from an instance of {@link RdfWrapper}.
+   *
+   * @param rdf The RDF from which to extract web resources.
+   * @return The instances of this class representing the web resources.
    */
-  public static List<WebResourceWrapper> getListFromRdf(RDF rdf) {
-    return RdfUtils.getWebResourcesWithNonemptyAbout(rdf).map(WebResourceWrapper::new).collect(Collectors.toList());
+  public static List<WebResourceWrapper> extractWebResources(RdfWrapper rdf) {
+    return rdf.getWebResources(WebResourceWrapper::new);
   }
 
   /**

@@ -144,7 +144,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     final MediaProcessor processor = chooseMediaProcessor(ResourceType.getResourceType(detectedMimeType));
 
     // Process the resource.
-    return processor != null ? processor.process(resource, detectedMimeType) : null;
+    return processor == null ? null : processor.process(resource, detectedMimeType);
   }
 
   @Override
