@@ -549,14 +549,16 @@ public class OrchestratorService {
 
     final WorkflowExecution runningOrInQueueExecution = workflowExecutionDao
         .getRunningOrInQueueExecution(datasetId);
-    final boolean isPreviewCleaning = runningOrInQueueExecution.getMetisPlugins().stream()
-        .filter(metisPlugin -> metisPlugin.getPluginType() == PluginType.PREVIEW)
-        .map(AbstractMetisPlugin::getPluginStatus)
-        .anyMatch(pluginStatus -> pluginStatus == PluginStatus.CLEANING);
-    final boolean isPublishCleaning = runningOrInQueueExecution.getMetisPlugins().stream()
-        .filter(metisPlugin -> metisPlugin.getPluginType() == PluginType.PUBLISH)
-        .map(AbstractMetisPlugin::getPluginStatus)
-        .anyMatch(pluginStatus -> pluginStatus == PluginStatus.CLEANING);
+    final boolean isPreviewCleaning =
+        runningOrInQueueExecution != null && runningOrInQueueExecution.getMetisPlugins().stream()
+            .filter(metisPlugin -> metisPlugin.getPluginType() == PluginType.PREVIEW)
+            .map(AbstractMetisPlugin::getPluginStatus)
+            .anyMatch(pluginStatus -> pluginStatus == PluginStatus.CLEANING);
+    final boolean isPublishCleaning =
+        runningOrInQueueExecution != null && runningOrInQueueExecution.getMetisPlugins().stream()
+            .filter(metisPlugin -> metisPlugin.getPluginType() == PluginType.PUBLISH)
+            .map(AbstractMetisPlugin::getPluginStatus)
+            .anyMatch(pluginStatus -> pluginStatus == PluginStatus.CLEANING);
 
     DatasetExecutionInformation datasetExecutionInformation = new DatasetExecutionInformation();
     if (lastHarvestPlugin != null) {
