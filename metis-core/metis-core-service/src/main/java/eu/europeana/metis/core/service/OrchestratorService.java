@@ -22,6 +22,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
@@ -539,12 +540,23 @@ public class OrchestratorService {
     AbstractMetisPlugin firstPublishPlugin = workflowExecutionDao
         .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
             .of(PluginType.PUBLISH));
-    AbstractMetisPlugin lastPublishPlugin = workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(PluginType.PUBLISH));
     AbstractMetisPlugin lastPreviewPlugin = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
             .of(PluginType.PREVIEW));
+    AbstractMetisPlugin lastPublishPlugin = workflowExecutionDao
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
+            .of(PluginType.PUBLISH));
+
+    final WorkflowExecution runningOrInQueueExecution = workflowExecutionDao
+        .getRunningOrInQueueExecution(datasetId);
+    final boolean isPreviewCleaning = runningOrInQueueExecution.getMetisPlugins().stream()
+        .filter(metisPlugin -> metisPlugin.getPluginType() == PluginType.PREVIEW)
+        .map(AbstractMetisPlugin::getPluginStatus)
+        .anyMatch(pluginStatus -> pluginStatus == PluginStatus.CLEANING);
+    final boolean isPublishCleaning = runningOrInQueueExecution.getMetisPlugins().stream()
+        .filter(metisPlugin -> metisPlugin.getPluginType() == PluginType.PUBLISH)
+        .map(AbstractMetisPlugin::getPluginStatus)
+        .anyMatch(pluginStatus -> pluginStatus == PluginStatus.CLEANING);
 
     DatasetExecutionInformation datasetExecutionInformation = new DatasetExecutionInformation();
     if (lastHarvestPlugin != null) {
@@ -556,22 +568,22 @@ public class OrchestratorService {
     datasetExecutionInformation.setFirstPublishedDate(firstPublishPlugin == null ? null :
         firstPublishPlugin.getFinishedDate());
     Date currentDate = new Date();
-    if (lastPublishPlugin != null) {
-      datasetExecutionInformation.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
-      datasetExecutionInformation.setLastPublishedRecords(
-          lastPublishPlugin.getExecutionProgress().getProcessedRecords() - lastPublishPlugin
-              .getExecutionProgress().getErrors());
-      datasetExecutionInformation.setLastPublishedRecordsReadyForViewing(
-          DateUtils.calculateDateDifference(lastPublishPlugin.getFinishedDate(), currentDate,
-              TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
-    }
     if (lastPreviewPlugin != null) {
       datasetExecutionInformation.setLastPreviewDate(lastPreviewPlugin.getFinishedDate());
       datasetExecutionInformation.setLastPreviewRecords(
           lastPreviewPlugin.getExecutionProgress().getProcessedRecords() - lastPreviewPlugin
               .getExecutionProgress().getErrors());
-      datasetExecutionInformation.setLastPreviewRecordsReadyForViewing(
+      datasetExecutionInformation.setLastPreviewRecordsReadyForViewing(!isPreviewCleaning &&
           DateUtils.calculateDateDifference(lastPreviewPlugin.getFinishedDate(), currentDate,
+              TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
+    }
+    if (lastPublishPlugin != null) {
+      datasetExecutionInformation.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
+      datasetExecutionInformation.setLastPublishedRecords(
+          lastPublishPlugin.getExecutionProgress().getProcessedRecords() - lastPublishPlugin
+              .getExecutionProgress().getErrors());
+      datasetExecutionInformation.setLastPublishedRecordsReadyForViewing(!isPublishCleaning &&
+          DateUtils.calculateDateDifference(lastPublishPlugin.getFinishedDate(), currentDate,
               TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
     }
 

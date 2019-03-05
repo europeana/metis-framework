@@ -48,6 +48,7 @@ import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
@@ -763,6 +764,15 @@ class TestOrchestratorService {
         .setFinishedDate(DateUtils
             .modifyDateByTimeUnitAmount(new Date(), -SOLR_COMMIT_PERIOD_IN_MINS, TimeUnit.MINUTES));
     lastPublishPlugin.setExecutionProgress(executionProgress);
+    final WorkflowExecution workflowExecutionObject = TestObjectFactory
+        .createWorkflowExecutionObject();
+    workflowExecutionObject.setWorkflowStatus(WorkflowStatus.RUNNING);
+    final List<AbstractMetisPlugin> metisPlugins = workflowExecutionObject.getMetisPlugins();
+    final AbstractMetisPlugin cleaningPublishPlugin = PluginType.PUBLISH
+        .getNewPlugin(new IndexToPublishPluginMetadata());
+    cleaningPublishPlugin.setPluginStatus(PluginStatus.CLEANING);
+    metisPlugins.add(cleaningPublishPlugin);
+    workflowExecutionObject.setMetisPlugins(metisPlugins);
 
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
@@ -775,10 +785,12 @@ class TestOrchestratorService {
             datasetId, EnumSet.of(PluginType.PUBLISH))).thenReturn(firstPublishPlugin);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(PluginType.PUBLISH))).thenReturn(lastPublishPlugin);
+            EnumSet.of(PluginType.PREVIEW))).thenReturn(lastPreviewPlugin);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(PluginType.PREVIEW))).thenReturn(lastPreviewPlugin);
+            EnumSet.of(PluginType.PUBLISH))).thenReturn(lastPublishPlugin);
+    when(workflowExecutionDao.getRunningOrInQueueExecution(datasetId))
+        .thenReturn(workflowExecutionObject);
 
     DatasetExecutionInformation datasetExecutionInformation = orchestratorService
         .getDatasetExecutionInformation(metisUser, datasetId);
