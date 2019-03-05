@@ -549,9 +549,9 @@ public class OrchestratorService {
 
     final WorkflowExecution runningOrInQueueExecution = workflowExecutionDao
         .getRunningOrInQueueExecution(datasetId);
-    final boolean isPreviewCleaning =
+    final boolean isPreviewCleaningOrRunning =
         isPluginInWorkflowCleaningOrRunning(runningOrInQueueExecution, PluginType.PREVIEW);
-    final boolean isPublishCleaning =
+    final boolean isPublishCleaningOrRunning =
         isPluginInWorkflowCleaningOrRunning(runningOrInQueueExecution, PluginType.PUBLISH);
 
     DatasetExecutionInformation datasetExecutionInformation = new DatasetExecutionInformation();
@@ -569,18 +569,20 @@ public class OrchestratorService {
       datasetExecutionInformation.setLastPreviewRecords(
           lastPreviewPlugin.getExecutionProgress().getProcessedRecords() - lastPreviewPlugin
               .getExecutionProgress().getErrors());
-      datasetExecutionInformation.setLastPreviewRecordsReadyForViewing(!isPreviewCleaning &&
-          DateUtils.calculateDateDifference(lastPreviewPlugin.getFinishedDate(), currentDate,
-              TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
+      datasetExecutionInformation
+          .setLastPreviewRecordsReadyForViewing(!isPreviewCleaningOrRunning &&
+              DateUtils.calculateDateDifference(lastPreviewPlugin.getFinishedDate(), currentDate,
+                  TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
     }
     if (lastPublishPlugin != null) {
       datasetExecutionInformation.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       datasetExecutionInformation.setLastPublishedRecords(
           lastPublishPlugin.getExecutionProgress().getProcessedRecords() - lastPublishPlugin
               .getExecutionProgress().getErrors());
-      datasetExecutionInformation.setLastPublishedRecordsReadyForViewing(!isPublishCleaning &&
-          DateUtils.calculateDateDifference(lastPublishPlugin.getFinishedDate(), currentDate,
-              TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
+      datasetExecutionInformation
+          .setLastPublishedRecordsReadyForViewing(!isPublishCleaningOrRunning &&
+              DateUtils.calculateDateDifference(lastPublishPlugin.getFinishedDate(), currentDate,
+                  TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
     }
 
     return datasetExecutionInformation;
