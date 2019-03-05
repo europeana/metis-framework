@@ -1,5 +1,8 @@
 package eu.europeana.metis.mediaprocessing.http;
 
+import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -8,9 +11,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
-import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 
 /**
  * An {@link AbstractHttpClient} that obtains the actual content of a resource link.
@@ -26,12 +26,13 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
 
   /**
    * Constructor.
+   *
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    * @param shouldDownloadMimetype A predicate that, based on the mime type, can decide whether or
-   *        not to proceed with the download.
+   * not to proceed with the download.
    */
   public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype) {
-    super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT );
+    super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT);
     this.shouldDownloadMimetype = shouldDownloadMimetype;
   }
 
