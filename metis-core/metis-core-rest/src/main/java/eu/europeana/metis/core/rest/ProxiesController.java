@@ -12,7 +12,9 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.GenericMetisException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,8 +71,8 @@ public class ProxiesController {
    * <ul>
    * <li>{@link DpsException} if an error occurred while retrieving the logs from the external
    * resource</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
-   * execution exists for the provided external task identifier</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
@@ -96,6 +98,41 @@ public class ProxiesController {
   }
 
   /**
+   * Check if final report is available.
+   *
+   * @param authorization the authorization header with the access token
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @return true if final report available, false if not or ecloud response {@link
+   * javax.ws.rs.core.Response.Status)} is not OK, based on {@link eu.europeana.cloud.client.dps.rest.DpsClient#checkIfErrorReportExists}
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT_EXISTS, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public Map<String, Boolean> existsExternalTaskReport(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("topologyName") String topologyName,
+      @PathVariable("externalTaskId") long externalTaskId) throws GenericMetisException {
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info(
+          "Requesting proxy call to check if task report exists for topologyName: {}, externalTaskId: {}",
+          topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
+          externalTaskId);
+    }
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return Collections.singletonMap("existsExternalTaskReport",
+        proxiesService.existsExternalTaskReport(metisUser, topologyName, externalTaskId));
+  }
+
+  /**
    * Get the final report that includes all the errors grouped. The number of ids per error can be
    * specified through the parameters.
    *
@@ -108,8 +145,8 @@ public class ProxiesController {
    * <ul>
    * <li>{@link DpsException} if an error occurred while retrieving the report from the external
    * resource</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
-   * execution exists for the provided external task identifier</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
@@ -142,10 +179,10 @@ public class ProxiesController {
    * @return the task statistics
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link DpsException} if an error occurred while retrieving the statistics from the external
-   * resource</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
-   * execution exists for the provided external task identifier</li>
+   * <li>{@link DpsException} if an error occurred while retrieving the statistics from the
+   * external resource</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
@@ -182,8 +219,8 @@ public class ProxiesController {
    * <ul>
    * <li>{@link MCSException} if an error occurred while retrieving the records from the external
    * resource</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
-   * execution exists for the provided identifier</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided identifier</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>

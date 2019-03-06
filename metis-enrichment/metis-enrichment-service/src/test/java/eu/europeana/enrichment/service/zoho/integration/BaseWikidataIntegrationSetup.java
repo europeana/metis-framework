@@ -4,9 +4,9 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import eu.europeana.enrichment.service.wikidata.BaseWikidataAccessSetup;
+import eu.europeana.enrichment.service.zoho.BaseZohoAccessSetup;
 
-public abstract class BaseWikidataIntegrationSetup extends BaseWikidataAccessSetup {
+public abstract class BaseWikidataIntegrationSetup extends BaseZohoAccessSetup {
 
   /**
    * This method returns the classpath file for the give path name

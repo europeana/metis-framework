@@ -31,17 +31,18 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-26
  */
- class TestProxiesController {
+class TestProxiesController {
 
   private static ProxiesService proxiesService;
   private static AuthenticationClient authenticationClient;
   private static MockMvc proxiesControllerMock;
 
   @BeforeAll
-   static void setUp() {
+  static void setUp() {
     proxiesService = mock(ProxiesService.class);
     authenticationClient = mock(AuthenticationClient.class);
-    ProxiesController proxiesController = new ProxiesController(proxiesService, authenticationClient);
+    ProxiesController proxiesController = new ProxiesController(proxiesService,
+        authenticationClient);
     proxiesControllerMock = MockMvcBuilders
         .standaloneSetup(proxiesController)
         .setControllerAdvice(new RestResponseExceptionHandler())
@@ -49,11 +50,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
   }
 
   @Test
-   void getExternalTaskLogs() throws Exception {
+  void getExternalTaskLogs() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    
+
     int from = 1;
     int to = 100;
     List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
@@ -77,11 +78,30 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
   }
 
   @Test
-   void getExternalTaskReport() throws Exception {
+  void existsExternalTaskReport() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    
+
+    when(proxiesService.existsExternalTaskReport(metisUser, TestObjectFactory.TOPOLOGY_NAME,
+        TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(true);
+
+    proxiesControllerMock.perform(
+        get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT_EXISTS,
+            TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.existsExternalTaskReport", is(true)));
+  }
+
+  @Test
+  void getExternalTaskReport() throws Exception {
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
     List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
     for (SubTaskInfo subTaskInfo : listOfSubTaskInfo) {
       subTaskInfo.setAdditionalInformations(null);
@@ -106,32 +126,33 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
         .andExpect(jsonPath("$.errors[1].errorDetails",
             hasSize(taskErrorsInfo.getErrors().get(1).getErrorDetails().size())));
   }
-  
+
   @Test
-   void getExternalTaskStatistics() throws Exception {
+  void getExternalTaskStatistics() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    
+
     final StatisticsReport taskStatistics = TestObjectFactory.createTaskStatisticsReport();
     when(proxiesService.getExternalTaskStatistics(metisUser, TestObjectFactory.TOPOLOGY_NAME,
         TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(taskStatistics);
     proxiesControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_STATISTICS,
             TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
-        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8).content(""))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .contentType(MediaType.APPLICATION_JSON_UTF8).content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.taskId", is(TestObjectFactory.EXTERNAL_TASK_ID)))
-        .andExpect(jsonPath("$.nodeStatistics", hasSize(taskStatistics.getNodeStatistics().size())));
+        .andExpect(
+            jsonPath("$.nodeStatistics", hasSize(taskStatistics.getNodeStatistics().size())));
   }
 
   @Test
-   void getListOfFileContentsFromPluginExecution() throws Exception {
+  void getListOfFileContentsFromPluginExecution() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    
+
     ArrayList<Record> records = new ArrayList<>();
     Record record1 = new Record("ECLOUDID1",
         "<rdf:RDF><edm:ProvidedCHO rdf:about=\"/some/path1\"></edm:ProvidedCHO></rdf:RDF>");
@@ -143,7 +164,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
     when(proxiesService.getListOfFileContentsFromPluginExecution(metisUser,
         TestObjectFactory.EXECUTIONID, PluginType.TRANSFORMATION, null, 5))
-            .thenReturn(recordsResponse);
+        .thenReturn(recordsResponse);
 
     proxiesControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS)

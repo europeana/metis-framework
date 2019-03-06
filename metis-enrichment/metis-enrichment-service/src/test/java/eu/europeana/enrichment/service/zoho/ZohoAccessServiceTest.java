@@ -3,14 +3,19 @@ package eu.europeana.enrichment.service.zoho;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Set;
+import javax.xml.bind.JAXBException;
 import java.util.Map.Entry;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
@@ -61,5 +66,28 @@ public class ZohoAccessServiceTest extends BaseZohoAccessSetup {
     
     assertNotNull(bnf.getAddress());
     assertEquals("Paris", bnf.getAddress().getVcardLocality());
+  }
+  
+  @Test
+  public void enrichOrganizationWkdtRedirection() throws ZohoAccessException, JAXBException, IOException, URISyntaxException {
+    
+    //SSA in wikidata
+    String acronym = "SSA";
+    WikidataOrganization wikidataOrganization = wikidataAccessDao.parse(getDerefStream(acronym));
+    Organization wikidataOrg = wikidataAccessService.toOrganizationImpl(wikidataOrganization);
+    
+    // SSA in Zoho
+    InputStream zohoStream = getZohoStream(acronym);
+    ZohoOrganization zohoOrganization = zohoAccessService.getOrganizationFromStream(zohoStream);
+    Organization zohoOrg = zohoAccessService.toEdmOrganization(zohoOrganization);
+    
+    //merge properties
+    wikidataAccessService.mergePropsFromWikidata(zohoOrg, wikidataOrg);   
+    
+    String[] sameAs = zohoOrg.getOwlSameAs();
+    //verify that both main and dupplicated resources are available in sameAs
+    assertTrue(ArrayUtils.contains(sameAs, WIKIDATA_URL_SSA_REDIRECT));
+    assertTrue(ArrayUtils.contains(sameAs, WIKIDATA_URL_SSA));
+
   }
 }

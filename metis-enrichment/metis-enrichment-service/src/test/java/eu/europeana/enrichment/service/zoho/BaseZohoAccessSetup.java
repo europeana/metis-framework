@@ -10,13 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.enrichment.service.EntityConverterUtils;
 import eu.europeana.enrichment.service.dao.ZohoV2AccessDao;
+import eu.europeana.enrichment.service.wikidata.BaseWikidataAccessSetup;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 
-public abstract class BaseZohoAccessSetup {
+public abstract class BaseZohoAccessSetup extends BaseWikidataAccessSetup{
 
   public final String CONTENT_DIR = "/content/";
   public final String ZOHO_TEST_INPUT_FILE = CONTENT_DIR + "bnf-zoho.json";
   public final String WIKIDATA_TEST_INPUT_FILE = CONTENT_DIR + "bnf-wikidata.xml";
+  public final String WIKIDATA_DEREF_SSA_FILE = CONTENT_DIR + "SSA.deref.v1.xml";
   public final String ORGANIZATION_IMPL_TEST_OUTPUT_FILE =
       CONTENT_DIR + "bnf-organization-impl-output.json";
   public final String ORGANIZATION_IMPL_TEST_EXPECTED_FILE =
@@ -25,7 +27,8 @@ public abstract class BaseZohoAccessSetup {
   public final String WIKIDATA_TEST_MANUAL_INPUT_FILE = CONTENT_DIR + "bnf-manual-test.xml";
   public final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
   protected final String TEST_ORGANIZATION_ID = "1482250000002112001";
-
+  public final String ZOHO_ID_SSA = "1482250000004513401";
+      
   public final String TEST_BNF_URL = "http://data.europeana.eu/organization/1482250000002112001";
   public final String TEST_BNF_URL_TMP_1 =
       "http://data.europeana.eu/organization/1482250000002112222";
@@ -50,8 +53,6 @@ public abstract class BaseZohoAccessSetup {
   ZohoAccessClientDao zohoAccessClientDao;
   ZohoV2AccessDao zohoV2AccessDao;
 
-  EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
-
   public void setUp() throws Exception {
     // TODO use constant for authentication properties, if possible in a
     // common interface an reuse it everywhere
@@ -63,12 +64,9 @@ public abstract class BaseZohoAccessSetup {
     zohoV2AccessDao = new ZohoV2AccessDao(appProps.getProperty("zoho.base.url.v2"),
         appProps.getProperty("zoho.authentication.token"));
     zohoAccessService = new ZohoAccessService(zohoAccessClientDao, zohoV2AccessDao);
+    
+    super.initWikidataAccessService();
   }
-
-  public EntityConverterUtils getEntityConverterUtils() {
-    return entityConverterUtils;
-  }
-
 
   protected Properties loadProperties(String propertiesFile)
       throws URISyntaxException, IOException {
@@ -90,4 +88,11 @@ public abstract class BaseZohoAccessSetup {
     return appProps;
   }
 
+  protected InputStream getDerefStream(String testAcronym) throws URISyntaxException, IOException {
+    return BaseWikidataAccessSetup.class.getResourceAsStream(CONTENT_DIR+ testAcronym + ".deref.v1.xml");
+  }
+  
+  protected InputStream getZohoStream(String testAcronym) throws URISyntaxException, IOException {
+    return BaseWikidataAccessSetup.class.getResourceAsStream(CONTENT_DIR+ testAcronym + "-zoho.json");
+  }
 }
