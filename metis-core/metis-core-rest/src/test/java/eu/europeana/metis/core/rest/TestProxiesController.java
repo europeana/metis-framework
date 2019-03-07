@@ -160,7 +160,7 @@ class TestProxiesController {
         "<rdf:RDF><edm:ProvidedCHO rdf:about=\"/some/path2\"></edm:ProvidedCHO></rdf:RDF>");
     records.add(record1);
     records.add(record2);
-    RecordsResponse recordsResponse = new RecordsResponse(records, null);
+    PaginatedRecordsResponse recordsResponse = new PaginatedRecordsResponse(records, null);
 
     when(proxiesService.getListOfFileContentsFromPluginExecution(metisUser,
         TestObjectFactory.EXECUTIONID, PluginType.TRANSFORMATION, null, 5))
