@@ -16,6 +16,8 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.core.rest.VersionEvolution;
+import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -31,6 +33,7 @@ import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.DateUtils;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -40,6 +43,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -605,6 +610,106 @@ public class OrchestratorService {
           String.format("No workflow found with datasetId: %s, in METIS", datasetId));
     }
     return workflow;
+  }
+
+  /**
+   * Get the evolution of the records from when they were first imported until (and excluding) the
+   * specified version.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param workflowExecutionId The ID of the workflow exection in which the version is created.
+   * @param pluginType The step within the workflow execution that created the version.
+   * @return The record evolution.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
+   * non-existing version is provided.</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  public VersionEvolution getRecordEvolutionForVersion(MetisUser metisUser,
+      String workflowExecutionId, PluginType pluginType) throws GenericMetisException {
+
+    // Get the workflow execution in question
+    final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
+    if (workflowExecution == null) {
+      throw new NoWorkflowExecutionFoundException(
+          String.format("No workflow execution found for workflowExecutionId: %s",
+              workflowExecutionId));
+    }
+
+    // Check that the user is authorized.
+    authorizer.authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
+
+    // Find the plugin (workflow step) in question.
+    final AbstractMetisPlugin plugin = getPluginFromExecution(workflowExecution, pluginType);
+    if (plugin == null) {
+      throw new NoWorkflowExecutionFoundException(String
+          .format("No plugin of type %s found for workflowExecution with id: %s", pluginType.name(),
+              workflowExecutionId));
+    }
+
+    // Loop backwards to find the plugin. Don't add the first plugin to the result list.
+    Pair<WorkflowExecution, AbstractMetisPlugin> currentExecutionAndPlugin = new ImmutablePair<>(
+        workflowExecution, plugin);
+    final ArrayDeque<VersionEvolutionStep> evolutionSteps = new ArrayDeque<>();
+    while (true) {
+
+      // Move to the previous execution
+      currentExecutionAndPlugin = getPreviousExecutionAndPlugin(
+          currentExecutionAndPlugin.getRight(), currentExecutionAndPlugin.getLeft().getDatasetId());
+      if (currentExecutionAndPlugin == null) {
+        break;
+      }
+
+      // Add step to the beginning of the list.
+      final VersionEvolutionStep evolutionStep = new VersionEvolutionStep();
+      evolutionStep.setWorkflowExecutionId(currentExecutionAndPlugin.getLeft().getId().toString());
+      evolutionStep.setPluginType(currentExecutionAndPlugin.getRight().getPluginType());
+      evolutionStep.setFinishedTime(currentExecutionAndPlugin.getRight().getFinishedDate());
+      evolutionSteps.addFirst(evolutionStep);
+    }
+
+    // Done
+    final VersionEvolution versionEvolution = new VersionEvolution();
+    versionEvolution.setEvolutionSteps(evolutionSteps);
+    return versionEvolution;
+  }
+
+  private Pair<WorkflowExecution, AbstractMetisPlugin> getPreviousExecutionAndPlugin(
+      AbstractMetisPlugin plugin, String datasetId) {
+
+    // Check whether we are at the end of the chain.
+    final Date previousPluginTimestamp = plugin.getPluginMetadata()
+        .getRevisionTimestampPreviousPlugin();
+    final PluginType previousPluginType = PluginType.getPluginTypeFromEnumName(
+        plugin.getPluginMetadata().getRevisionNamePreviousPlugin());
+    if (previousPluginTimestamp == null || previousPluginType == null) {
+      return null;
+    }
+
+    // Obtain the previous execution and plugin.
+    final WorkflowExecution previousExecution = workflowExecutionDao
+        .getByTaskExecution(previousPluginTimestamp,
+            previousPluginType, datasetId);
+    final AbstractMetisPlugin previousPlugin = getPluginFromExecution(previousExecution,
+        previousPluginType);
+    if (previousExecution == null || previousPlugin == null) {
+      return null;
+    }
+
+    // Done
+    return new ImmutablePair<>(previousExecution, previousPlugin);
+  }
+
+  private static AbstractMetisPlugin getPluginFromExecution(WorkflowExecution workflowExecution,
+      PluginType pluginType) {
+    if (workflowExecution == null) {
+      return null;
+    }
+    return workflowExecution.getMetisPlugins().stream()
+        .filter(plugin -> plugin.getPluginType() == pluginType).findFirst().orElse(null);
   }
 
   public int getSolrCommitPeriodInMins() {
