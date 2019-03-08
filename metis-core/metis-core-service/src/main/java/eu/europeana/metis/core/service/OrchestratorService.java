@@ -643,12 +643,10 @@ public class OrchestratorService {
     authorizer.authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
 
     // Find the plugin (workflow step) in question.
-    final AbstractMetisPlugin plugin = getPluginFromExecution(workflowExecution, pluginType);
-    if (plugin == null) {
-      throw new NoWorkflowExecutionFoundException(String
-          .format("No plugin of type %s found for workflowExecution with id: %s", pluginType.name(),
-              workflowExecutionId));
-    }
+    final AbstractMetisPlugin plugin = workflowExecution.getMetisPluginWithType(pluginType)
+        .orElseThrow(() -> new NoWorkflowExecutionFoundException(
+            String.format("No plugin of type %s found for workflowExecution with id: %s",
+                pluginType.name(), workflowExecutionId)));
 
     // Loop backwards to find the plugin. Don't add the first plugin to the result list.
     Pair<WorkflowExecution, AbstractMetisPlugin> currentExecutionAndPlugin = new ImmutablePair<>(
@@ -657,7 +655,7 @@ public class OrchestratorService {
     while (true) {
 
       // Move to the previous execution
-      currentExecutionAndPlugin = getPreviousExecutionAndPlugin(
+      currentExecutionAndPlugin = orchestratorHelper.getPreviousExecutionAndPlugin(
           currentExecutionAndPlugin.getRight(), currentExecutionAndPlugin.getLeft().getDatasetId());
       if (currentExecutionAndPlugin == null) {
         break;
@@ -675,41 +673,6 @@ public class OrchestratorService {
     final VersionEvolution versionEvolution = new VersionEvolution();
     versionEvolution.setEvolutionSteps(evolutionSteps);
     return versionEvolution;
-  }
-
-  private Pair<WorkflowExecution, AbstractMetisPlugin> getPreviousExecutionAndPlugin(
-      AbstractMetisPlugin plugin, String datasetId) {
-
-    // Check whether we are at the end of the chain.
-    final Date previousPluginTimestamp = plugin.getPluginMetadata()
-        .getRevisionTimestampPreviousPlugin();
-    final PluginType previousPluginType = PluginType.getPluginTypeFromEnumName(
-        plugin.getPluginMetadata().getRevisionNamePreviousPlugin());
-    if (previousPluginTimestamp == null || previousPluginType == null) {
-      return null;
-    }
-
-    // Obtain the previous execution and plugin.
-    final WorkflowExecution previousExecution = workflowExecutionDao
-        .getByTaskExecution(previousPluginTimestamp,
-            previousPluginType, datasetId);
-    final AbstractMetisPlugin previousPlugin = getPluginFromExecution(previousExecution,
-        previousPluginType);
-    if (previousExecution == null || previousPlugin == null) {
-      return null;
-    }
-
-    // Done
-    return new ImmutablePair<>(previousExecution, previousPlugin);
-  }
-
-  private static AbstractMetisPlugin getPluginFromExecution(WorkflowExecution workflowExecution,
-      PluginType pluginType) {
-    if (workflowExecution == null) {
-      return null;
-    }
-    return workflowExecution.getMetisPlugins().stream()
-        .filter(plugin -> plugin.getPluginType() == pluginType).findFirst().orElse(null);
   }
 
   public int getSolrCommitPeriodInMins() {

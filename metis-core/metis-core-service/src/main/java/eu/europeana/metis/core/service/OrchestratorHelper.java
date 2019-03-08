@@ -10,6 +10,7 @@ import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
@@ -26,6 +27,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -33,6 +35,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.bson.types.ObjectId;
 
 /**
@@ -283,6 +287,31 @@ public class OrchestratorHelper {
         .setCountry(dataset.getCountry().getName());
     ((TransformationPluginMetadata) abstractMetisPluginMetadata)
         .setLanguage(dataset.getLanguage().name().toLowerCase(Locale.US));
+  }
+
+  Pair<WorkflowExecution, AbstractMetisPlugin> getPreviousExecutionAndPlugin(
+      AbstractMetisPlugin plugin, String datasetId) {
+
+    // Check whether we are at the end of the chain.
+    final Date previousPluginTimestamp = plugin.getPluginMetadata()
+        .getRevisionTimestampPreviousPlugin();
+    final PluginType previousPluginType = PluginType.getPluginTypeFromEnumName(
+        plugin.getPluginMetadata().getRevisionNamePreviousPlugin());
+    if (previousPluginTimestamp == null || previousPluginType == null) {
+      return null;
+    }
+
+    // Obtain the previous execution and plugin.
+    final WorkflowExecution previousExecution = workflowExecutionDao
+        .getByTaskExecution(previousPluginTimestamp, previousPluginType, datasetId);
+    final AbstractMetisPlugin previousPlugin = previousExecution == null ? null
+        : previousExecution.getMetisPluginWithType(previousPluginType).orElse(null);
+    if (previousExecution == null || previousPlugin == null) {
+      return null;
+    }
+
+    // Done
+    return new ImmutablePair<>(previousExecution, previousPlugin);
   }
 
   <T> boolean listContainsDuplicates(List<T> list) {

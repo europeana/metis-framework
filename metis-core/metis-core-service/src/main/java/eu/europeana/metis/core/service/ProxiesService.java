@@ -317,7 +317,6 @@ public class ProxiesService {
     return new RecordsResponse(records);
   }
 
-
   private Pair<WorkflowExecution, AbstractMetisPlugin> getExecutionAndPlugin(MetisUser metisUser,
       String workflowExecutionId, PluginType pluginType ) throws GenericMetisException {
 
@@ -330,13 +329,9 @@ public class ProxiesService {
     }
     authorizer.authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
 
-    // Get the plugin for which to get the records.
-    final Optional<AbstractMetisPlugin> pluginOptional = workflowExecution.getMetisPlugins()
-        .stream().filter(plugin -> plugin.getPluginType() == pluginType).findFirst();
-
-    // Compile into a pair and return.
-    return pluginOptional.map(plugin -> new ImmutablePair<>(workflowExecution, plugin))
-        .orElse(null);
+    // Get the plugin for which to get the records and return.
+    return workflowExecution.getMetisPluginWithType(pluginType)
+        .map(plugin -> new ImmutablePair<>(workflowExecution, plugin)).orElse(null);
   }
 
   private Record getRecord(AbstractMetisPlugin plugin, String ecloudId)
