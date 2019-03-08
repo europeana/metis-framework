@@ -110,7 +110,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     if (finishDate == null && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
       // If the workflow was cancelled before it had the chance to finish, we cancel all remaining
       // plugins.
-      workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
+      workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
       LOGGER.info("Cancelled running user workflow execution with id: {}",
           workflowExecution.getId());
     } else if (finishDate == null) {
@@ -144,7 +144,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
           || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
-          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
+          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
+          || metisPlugin.getPluginStatus() == PluginStatus.PENDING) {
         firstPluginPositionToStart = i;
         break;
       }
@@ -256,7 +257,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
             .doesExceptionCauseMatchAnyOfProvidedExceptions(mapWithRetriableExceptions, e)) {
           consecutiveCancelOrMonitorFailures++;
           LOGGER.warn(String.format(
-              "Monitoring of external task failed %s. After exceeding %s retries, pending status will be set",
+              "Monitoring of external task failed %s consecutive times. After exceeding %s retries, pending status will be set",
               consecutiveCancelOrMonitorFailures, MAX_CANCEL_OR_MONITOR_FAILURES), e);
           if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
             //Set pending status once
@@ -286,12 +287,13 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         abstractMetisPlugin.getPluginStatus() != PluginStatus.CLEANING && workflowExecutionDao
             .isCancelling(workflowExecution.getId());
     // A cleaning or a pending task should not be cancelled by exceeding the minute cap
-    final boolean notCleaningOrPendingAndMinuteCapExceeded =
-        (abstractMetisPlugin.getPluginStatus() != PluginStatus.CLEANING
-            && abstractMetisPlugin.getPluginStatus() != PluginStatus.PENDING)
-            && isMinuteCapOverWithoutChangeInProcessedRecords(abstractMetisPlugin,
-            previousProcessedRecords, checkPointDateOfProcessedRecordsPeriodInMillis);
-    return (notCleaningAndCancelling || notCleaningOrPendingAndMinuteCapExceeded);
+    final boolean notCleaningOrPending =
+        abstractMetisPlugin.getPluginStatus() != PluginStatus.CLEANING
+            && abstractMetisPlugin.getPluginStatus() != PluginStatus.PENDING;
+    final boolean isMinuteCapExceeded = isMinuteCapOverWithoutChangeInProcessedRecords(
+        abstractMetisPlugin, previousProcessedRecords,
+        checkPointDateOfProcessedRecordsPeriodInMillis);
+    return (notCleaningAndCancelling || (notCleaningOrPending && isMinuteCapExceeded));
   }
 
   private boolean isMinuteCapOverWithoutChangeInProcessedRecords(
@@ -301,6 +303,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     //If CLEANING is in progress then just reset the values to be sure and return false
     //Or if we have progress
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.CLEANING
+        || abstractMetisPlugin.getPluginStatus() == PluginStatus.PENDING
         || previousProcessedRecords.get() != processedRecords) {
       checkPointDateOfProcessedRecordsPeriodInMillis.set(System.currentTimeMillis());
       previousProcessedRecords.set(processedRecords);
