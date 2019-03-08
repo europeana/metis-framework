@@ -88,7 +88,7 @@ public class QueueConsumer extends DefaultConsumer {
       WorkflowExecution workflowExecution =
           persistenceProvider.getWorkflowExecutionDao().getById(objectId);
       if (workflowExecution.isCancelling()) { //Has been cancelled, do not execute
-        workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
+        workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
         persistenceProvider.getWorkflowExecutionDao().update(workflowExecution);
         LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
             workflowExecution.getId());

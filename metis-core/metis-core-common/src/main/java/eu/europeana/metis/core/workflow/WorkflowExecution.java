@@ -83,25 +83,19 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   /**
    * Sets all plugins inside the execution, that have status {@link PluginStatus#INQUEUE} or {@link
-   * PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
+   * PluginStatus#RUNNING} or {@link PluginStatus#CLEANING} or {@link PluginStatus#PENDING}, to
+   * {@link PluginStatus#CANCELLED}
    */
-  public void setAllRunningAndInqueuePluginsToCancelled() {
+  public void setWorkflowAndAllQualifiedPluginsToCancelled() {
     this.setWorkflowStatus(WorkflowStatus.CANCELLED);
-    for (AbstractMetisPlugin metisPlugin :
-        this.getMetisPlugins()) {
-      if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
-          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
-          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
-        metisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.CANCELLED);
-      }
-    }
+    setAllQualifiedPluginsToCancelled();
     this.setCancelling(false);
   }
 
   /**
    * Checks if one of the plugins has {@link PluginStatus#FAILED} and if yes sets all other plugins
-   * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING}, to {@link
-   * PluginStatus#CANCELLED}
+   * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING} or {@link
+   * PluginStatus#CLEANING} or {@link PluginStatus#PENDING}, to {@link PluginStatus#CANCELLED}
    */
   public void checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed() {
     boolean hasAPluginFailed = false;
@@ -113,12 +107,17 @@ public class WorkflowExecution implements HasMongoObjectId {
     }
     if (hasAPluginFailed) {
       this.setWorkflowStatus(WorkflowStatus.FAILED);
-      for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
-        if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
-            || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
-            || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
-          metisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.CANCELLED);
-        }
+      setAllQualifiedPluginsToCancelled();
+    }
+  }
+
+  private void setAllQualifiedPluginsToCancelled() {
+    for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
+      if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
+          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
+          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
+          || metisPlugin.getPluginStatus() == PluginStatus.PENDING) {
+        metisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.CANCELLED);
       }
     }
   }

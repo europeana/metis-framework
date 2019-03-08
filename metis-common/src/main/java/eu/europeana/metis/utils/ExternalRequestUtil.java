@@ -4,6 +4,7 @@ import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoSocketException;
 import java.net.SocketException;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
@@ -81,8 +82,8 @@ public final class ExternalRequestUtil {
    *
    * @param supplierThrowingException the respective supplierThrowingException encapsulating the
    * external request
-   * @param exceptionStringMap the map that contains all the type of exceptions to match with
-   * a message to check, if any. If message is null or empty, all messages will match
+   * @param exceptionStringMap the map that contains all the type of exceptions to match with a
+   * message to check, if any. If message is null or empty, all messages will match
    * @return the expected object as a result of the external request
    * @throws Exception any exception that the supplier could throw
    */
@@ -101,8 +102,8 @@ public final class ExternalRequestUtil {
    *
    * @param supplierThrowingException the respective supplierThrowingException encapsulating the
    * external request
-   * @param exceptionStringMap the map that contains all the type of exceptions to match with
-   * a message to check, if any. If message is null or empty, all messages will match
+   * @param exceptionStringMap the map that contains all the type of exceptions to match with a
+   * message to check, if any. If message is null or empty, all messages will match
    * @param maxRetries the maximum amount of retries to perform, if set to -1, the default value
    * will be set
    * @param periodBetweenRetriesInMillis the amount of period spend sleeping in between two retries,
@@ -174,12 +175,7 @@ public final class ExternalRequestUtil {
       throws Exception {
     retriesCounter.incrementAndGet();
     //Re-throw if it's not a Connection reset error or max retries exceeded.
-    Throwable cause = getCause(e);
-    final boolean causeMatches = runtimeExceptionStringMap.entrySet().stream()
-        .anyMatch(
-            entry -> entry.getKey().isInstance(cause) && (StringUtils.isBlank(entry.getValue())
-                || cause.getMessage().toLowerCase().contains(entry.getValue().toLowerCase()))
-        );
+    final boolean causeMatches = doesExceptionCauseMatchAnyOfProvidedExceptions(runtimeExceptionStringMap, e);
     //Rethrow the exception if more than maxRetries occurred or the cause doesn't match any expected causes.
     if (retriesCounter.get() > maxRetries || !causeMatches) {
       throw e;
@@ -207,6 +203,26 @@ public final class ExternalRequestUtil {
    */
   public static Map<Class<?>, String> getSocketExceptionConnectionReset() {
     return Collections.singletonMap(SocketException.class, "Connection reset");
+  }
+
+  /**
+   * Checks if an exception cause, matches any of the exception rules in the provided exception
+   * map.
+   *
+   * @param runtimeExceptionStringMap the map that contains all the type of exceptions to match with
+   * a message to check, if any. If message is null or empty, all messages will match
+   * @param e the exception to check the cause and try the matching
+   * @return true if there is a match, otherwise false
+   */
+  public static boolean doesExceptionCauseMatchAnyOfProvidedExceptions(
+      Map<Class<?>, String> runtimeExceptionStringMap, Exception e) {
+    Throwable cause = getCause(e);
+    return runtimeExceptionStringMap.entrySet().stream()
+        .anyMatch(
+            entry -> entry.getKey().isInstance(cause) && (StringUtils.isBlank(entry.getValue())
+                || cause.getMessage().toLowerCase(Locale.US)
+                .contains(entry.getValue().toLowerCase(Locale.US)))
+        );
   }
 
   private static Throwable getCause(Throwable e) {

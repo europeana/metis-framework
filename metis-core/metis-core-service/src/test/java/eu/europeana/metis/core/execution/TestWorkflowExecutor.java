@@ -42,6 +42,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpServerErrorException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -292,6 +294,69 @@ class TestWorkflowExecutor {
     verify(oaipmhHarvestPlugin).setFailMessage(notNull());
     verify(oaipmhHarvestPlugin, times(1)).setFailMessage(anyString());
   }
+
+  @Test
+  void callNonMockedFieldValue_ReachPendingState_and_then_finish() throws Exception {
+    ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
+    currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
+    ExecutionProgress processedExecutionProgress = new ExecutionProgress();
+    processedExecutionProgress.setStatus(TaskState.PROCESSED);
+
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.mock(OaipmhHarvestPlugin.class);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setMocked(false);
+    oaipmhHarvestPlugin.setPluginMetadata(oaipmhHarvestPluginMetadata);
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    abstractMetisPlugins.add(oaipmhHarvestPlugin);
+
+    WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
+    workflowExecution.setId(new ObjectId());
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution.setMetisPlugins(abstractMetisPlugins);
+
+    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
+    when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
+    when(oaipmhHarvestPlugin.monitor(dpsClient))
+        .thenThrow(new ExternalTaskException("Some error", new HttpServerErrorException(
+            HttpStatus.BAD_GATEWAY)))
+        .thenThrow(new ExternalTaskException("Some error", new HttpServerErrorException(
+            HttpStatus.BAD_GATEWAY)))
+        .thenThrow(new ExternalTaskException("Some error", new HttpServerErrorException(
+            HttpStatus.BAD_GATEWAY)))
+        .thenThrow(new ExternalTaskException("Some error", new HttpServerErrorException(
+            HttpStatus.BAD_GATEWAY)))
+        .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
+        .thenReturn(new MonitorResult(processedExecutionProgress.getStatus(), null));
+    when(oaipmhHarvestPlugin.getExecutionProgress())
+        .thenReturn(currentlyProcessingExecutionProgress)
+        .thenReturn(processedExecutionProgress);
+
+    when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
+        .thenReturn(workflowExecution);
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
+
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
+    when(workflowExecutionDao.update(workflowExecution))
+        .thenReturn(workflowExecution.getId().toString());
+
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
+        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
+    workflowExecutor.call();
+
+    verify(workflowExecutionDao, times(1)).update(workflowExecution);
+
+    InOrder inOrderForPlugin = inOrder(oaipmhHarvestPlugin);
+    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(1))
+        .setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
+    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(2))
+        .setPluginStatusAndResetFailMessage(PluginStatus.RUNNING);
+    inOrderForPlugin.verify(oaipmhHarvestPlugin, times(1))
+        .setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
+    verify(oaipmhHarvestPlugin, atMost(4)).setPluginStatusAndResetFailMessage(any());
+    verify(oaipmhHarvestPlugin, never()).setFailMessage(anyString());
+  }
+
 
   @Test
   void callNonMockedFieldValueCancellingState() throws Exception {
