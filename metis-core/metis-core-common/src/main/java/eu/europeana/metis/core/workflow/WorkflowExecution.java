@@ -93,7 +93,7 @@ public class WorkflowExecution implements HasMongoObjectId {
   /**
    * Checks if one of the plugins has {@link PluginStatus#FAILED} and if yes sets all other plugins
    * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING} or {@link
-   * PluginStatus#CLEANING} or {@link PluginStatus#PENDING, to {@link PluginStatus#CANCELLED}
+   * PluginStatus#CLEANING} or {@link PluginStatus#PENDING}, to {@link PluginStatus#CANCELLED}
    */
   public void checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed() {
     boolean hasAPluginFailed = false;
