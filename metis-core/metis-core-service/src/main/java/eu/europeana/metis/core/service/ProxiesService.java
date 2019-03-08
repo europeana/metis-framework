@@ -15,6 +15,8 @@ import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
+import eu.europeana.metis.core.rest.ListOfIds;
+import eu.europeana.metis.core.rest.PaginatedRecordsResponse;
 import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.rest.RecordsResponse;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -28,8 +30,12 @@ import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * Proxies Service which encapsulates functionality that has to be proxied to an external resource.
@@ -38,6 +44,9 @@ import org.apache.commons.io.IOUtils;
  * @since 2018-02-26
  */
 public class ProxiesService {
+
+  private final DateFormat pluginDateFormatForEcloud = new SimpleDateFormat(
+      "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final DataSetServiceClient ecloudDataSetServiceClient;
@@ -210,7 +219,7 @@ public class ProxiesService {
 
   /**
    * Get a list with record contents from the external resource based on an workflow execution and
-   * {@link PluginType}
+   * {@link PluginType}.
    *
    * @param metisUser the user wishing to perform this operation
    * @param workflowExecutionId the execution identifier of the workflow
@@ -229,10 +238,90 @@ public class ProxiesService {
    * workflow execution exists for the provided identifier</li>
    * </ul>
    */
-  public RecordsResponse getListOfFileContentsFromPluginExecution(MetisUser metisUser,
+  public PaginatedRecordsResponse getListOfFileContentsFromPluginExecution(MetisUser metisUser,
       String workflowExecutionId, PluginType pluginType, String nextPage, int numberOfRecords)
       throws GenericMetisException {
-    WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
+
+    // Get the right workflow execution and plugin type.
+    final Pair<WorkflowExecution, AbstractMetisPlugin> executionAndPlugin = getExecutionAndPlugin(
+        metisUser, workflowExecutionId, pluginType);
+    if (executionAndPlugin == null) {
+      return new PaginatedRecordsResponse(Collections.emptyList(), null);
+    }
+
+    // Get the list of records.
+    final String datasetId = executionAndPlugin.getLeft().getEcloudDatasetId();
+    final String representationName = AbstractMetisPlugin.getRepresentationName();
+    final String revisionName = executionAndPlugin.getRight().getPluginType().name();
+    final String revisionTimestamp = pluginDateFormatForEcloud
+        .format(executionAndPlugin.getRight().getStartedDate());
+    final ResultSlice<CloudTagsResponse> resultSlice;
+    final String nextPageAfterResponse;
+    try {
+      resultSlice = ecloudDataSetServiceClient
+          .getDataSetRevisionsChunk(ecloudProvider, datasetId, representationName, revisionName,
+              ecloudProvider, revisionTimestamp, nextPage, numberOfRecords);
+      nextPageAfterResponse = resultSlice.getNextSlice();
+    } catch (MCSException e) {
+      throw new ExternalTaskException(String.format(
+          "Getting record list with file content failed. workflowExecutionId: %s, pluginType: %s",
+          workflowExecutionId, pluginType), e);
+    }
+
+    // Get the records themselves.
+    final List<Record> records = new ArrayList<>();
+    for (CloudTagsResponse cloudTagsResponse : resultSlice.getResults()) {
+      records.add(getRecord(executionAndPlugin.getRight(), cloudTagsResponse.getCloudId()));
+    }
+
+    // Compile the result.
+    return new PaginatedRecordsResponse(records, nextPageAfterResponse);
+  }
+
+  /**
+   * Get a list with record contents from the external resource based on an workflow execution and
+   * {@link PluginType}.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param workflowExecutionId the execution identifier of the workflow
+   * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
+   * @return the list of records from the external resource
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link MCSException} if an error occurred while retrieving the records from the external resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow execution exists for the provided identifier</li>
+   * </ul>
+   */
+  public RecordsResponse getListOfFileContentsFromPluginExecution(MetisUser metisUser,
+      String workflowExecutionId, PluginType pluginType, ListOfIds ecloudIds)
+      throws GenericMetisException {
+
+    // Get the right workflow execution and plugin type.
+    final Pair<WorkflowExecution, AbstractMetisPlugin> executionAndPlugin = getExecutionAndPlugin(
+        metisUser, workflowExecutionId, pluginType);
+    if (executionAndPlugin == null) {
+      throw new NoWorkflowExecutionFoundException(String
+          .format("No plugin of type %s found for workflowExecution with id: %s", pluginType.name(),
+              workflowExecutionId));
+    }
+
+    // Get the records.
+    final List<Record> records = new ArrayList<>();
+    for (String cloudId : ecloudIds.getIds()) {
+      records.add(getRecord(executionAndPlugin.getRight(), cloudId));
+    }
+
+    // Done.
+    return new RecordsResponse(records);
+  }
+
+  private Pair<WorkflowExecution, AbstractMetisPlugin> getExecutionAndPlugin(MetisUser metisUser,
+      String workflowExecutionId, PluginType pluginType ) throws GenericMetisException {
+
+    // Get the workflow execution - check that the user has rights to access this.
+    final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
     if (workflowExecution == null) {
       throw new NoWorkflowExecutionFoundException(
           String.format("No workflow execution found for workflowExecutionId: %s, in METIS",
@@ -240,46 +329,27 @@ public class ProxiesService {
     }
     authorizer.authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
 
-    AbstractMetisPlugin abstractMetisPluginToGetRecords = null;
-    for (AbstractMetisPlugin abstractMetisPlugin : workflowExecution.getMetisPlugins()) {
-      if (abstractMetisPlugin.getPluginType() == pluginType) {
-        abstractMetisPluginToGetRecords = abstractMetisPlugin;
-      }
-    }
+    // Get the plugin for which to get the records and return.
+    return workflowExecution.getMetisPluginWithType(pluginType)
+        .map(plugin -> new ImmutablePair<>(workflowExecution, plugin)).orElse(null);
+  }
 
-    String nextPageAfterResponse = null;
-    List<Record> records = new ArrayList<>();
-    if (abstractMetisPluginToGetRecords != null) {
-      String datasetId = workflowExecution.getEcloudDatasetId();
-      String representationName = AbstractMetisPlugin.getRepresentationName();
-      String revisionName = abstractMetisPluginToGetRecords.getPluginType().name();
-      String revisionProviderId = ecloudProvider;
-      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-      String revisionTimestamp =
-          dateFormat.format(abstractMetisPluginToGetRecords.getStartedDate());
-      try {
-        ResultSlice<CloudTagsResponse> resultSlice = ecloudDataSetServiceClient
-            .getDataSetRevisionsChunk(ecloudProvider, datasetId, representationName, revisionName,
-                revisionProviderId, revisionTimestamp, nextPage, numberOfRecords);
-        nextPageAfterResponse = resultSlice.getNextSlice();
-
-        for (CloudTagsResponse cloudTagsResponse : resultSlice.getResults()) {
-          Representation representation =
-              recordServiceClient.getRepresentationByRevision(cloudTagsResponse.getCloudId(),
-                  representationName, revisionName, revisionProviderId, revisionTimestamp);
-          InputStream inputStream = fileServiceClient
-              .getFile(representation.getFiles().get(0).getContentUri().toString());
-          records.add(new Record(cloudTagsResponse.getCloudId(),
-              IOUtils.toString(inputStream, StandardCharsets.UTF_8.name())));
-        }
-      } catch (MCSException e) {
-        throw new ExternalTaskException(String.format(
-            "Getting record list with file content failed. workflowExecutionId: %s, pluginType: %s",
-            workflowExecutionId, pluginType), e);
-      } catch (IOException e) {
-        throw new ExternalTaskException("Getting while reading the contents of the file.", e);
-      }
+  private Record getRecord(AbstractMetisPlugin plugin, String ecloudId)
+      throws ExternalTaskException {
+    try {
+      final Representation representation = recordServiceClient
+          .getRepresentationByRevision(ecloudId, AbstractMetisPlugin.getRepresentationName(),
+              plugin.getPluginType().name(), ecloudProvider,
+              pluginDateFormatForEcloud.format(plugin.getStartedDate()));
+      InputStream inputStream = fileServiceClient
+          .getFile(representation.getFiles().get(0).getContentUri().toString());
+      return new Record(ecloudId, IOUtils.toString(inputStream, StandardCharsets.UTF_8.name()));
+    } catch (MCSException e) {
+      throw new ExternalTaskException(String.format(
+          "Getting record list with file content failed. externalTaskId: %s, pluginType: %s",
+          plugin.getExternalTaskId(), plugin.getPluginType()), e);
+    } catch (IOException e) {
+      throw new ExternalTaskException("Getting while reading the contents of the file.", e);
     }
-    return new RecordsResponse(records, nextPageAfterResponse);
   }
 }

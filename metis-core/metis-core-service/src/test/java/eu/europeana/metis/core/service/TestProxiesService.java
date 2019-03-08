@@ -32,7 +32,7 @@ import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
-import eu.europeana.metis.core.rest.RecordsResponse;
+import eu.europeana.metis.core.rest.PaginatedRecordsResponse;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -272,7 +272,7 @@ class TestProxiesService {
         .getFile(representation.getFiles().get(0).getContentUri().toString()))
         .thenReturn(stubInputStream);
 
-    RecordsResponse listOfFileContentsFromPluginExecution =
+    PaginatedRecordsResponse listOfFileContentsFromPluginExecution =
         proxiesService.getListOfFileContentsFromPluginExecution(metisUser,
             TestObjectFactory.EXECUTIONID, PluginType.OAIPMH_HARVEST, null, 5);
     verify(authorizer, times(1))

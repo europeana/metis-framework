@@ -13,6 +13,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -422,7 +423,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * This method retrieves the workflow execution of which the task with the given ID is a subtask.
    *
    * @param externalTaskId The external task ID that is to be queried.
-   * @return The dataset ID.
+   * @return The workflow execution.
    */
   public WorkflowExecution getByExternalTaskId(long externalTaskId) {
     final Query<AbstractMetisPlugin> subQuery =
@@ -431,6 +432,36 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     final Query<WorkflowExecution> query =
         morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
     query.field(METIS_PLUGINS).elemMatch(subQuery);
+    final List<WorkflowExecution> resultList = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(() -> query.asList(new FindOptions().limit(1)));
+    return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);
+  }
+
+  /**
+   * This method retrieves the workflow execution that contains a subtask satisfying the given
+   * parameters.
+   *
+   * @param startedDate The started date of the subtask.
+   * @param pluginType The plugin type of the subtask.
+   * @param datasetId The dataset ID of the workflow execution.
+   * @return The workflow execution.
+   */
+  public WorkflowExecution getByTaskExecution(Date startedDate, PluginType pluginType,
+      String datasetId) {
+
+    // Create subquery to find the correct plugin.
+    final Query<AbstractMetisPlugin> subQuery =
+        morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
+    subQuery.field("startedDate").equal(startedDate);
+    subQuery.field("pluginType").equal(pluginType);
+
+    // Create query to find workflow execution
+    final Query<WorkflowExecution> query =
+        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+    query.field(DATASET_ID).equal(datasetId);
+    query.field(METIS_PLUGINS).elemMatch(subQuery);
+
+    // Execute query
     final List<WorkflowExecution> resultList = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(() -> query.asList(new FindOptions().limit(1)));
     return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);

@@ -23,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -207,7 +208,7 @@ public class ProxiesController {
 
   /**
    * Get a list with record contents from the external resource based on an workflow execution and
-   * {@link PluginType}
+   * {@link PluginType}.
    *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
@@ -225,8 +226,8 @@ public class ProxiesController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS, method = RequestMethod.GET,
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public RecordsResponse getListOfFileContentsFromPluginExecution(
@@ -241,4 +242,35 @@ public class ProxiesController {
             StringUtils.isEmpty(nextPage) ? null : nextPage, NUMBER_OF_RECORDS);
   }
 
+  /**
+   * Get a list with record contents from the external resource based on an workflow execution and
+   * {@link PluginType}.
+   *
+   * @param authorization the authorization header with the access token
+   * @param workflowExecutionId the execution identifier of the workflow
+   * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
+   * @return the list of records from the external resource
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link MCSException} if an error occurred while retrieving the records from the external resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow execution exists for the provided identifier</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS, method = RequestMethod.POST,
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public RecordsResponse getListOfFileContentsFromPluginExecution(
+      @RequestHeader("Authorization") String authorization,
+      @RequestParam("workflowExecutionId") String workflowExecutionId,
+      @RequestParam("pluginType") PluginType pluginType,
+      @RequestBody ListOfIds ecloudIds
+  ) throws GenericMetisException {
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return proxiesService.getListOfFileContentsFromPluginExecution(metisUser, workflowExecutionId,
+        pluginType, ecloudIds);
+  }
 }

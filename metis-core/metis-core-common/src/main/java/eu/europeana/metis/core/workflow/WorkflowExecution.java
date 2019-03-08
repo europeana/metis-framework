@@ -6,11 +6,13 @@ import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
@@ -119,6 +121,17 @@ public class WorkflowExecution implements HasMongoObjectId {
         }
       }
     }
+  }
+
+  /**
+   * Returns an {@link Optional} for the plugin with the given plugin type.
+   *
+   * @param pluginType The type of the plugin we are looking for.
+   * @return The plugin.
+   */
+  public Optional<AbstractMetisPlugin> getMetisPluginWithType(PluginType pluginType) {
+    return getMetisPlugins().stream().filter(plugin -> plugin.getPluginType() == pluginType)
+        .findFirst();
   }
 
   @Override
@@ -237,5 +250,3 @@ public class WorkflowExecution implements HasMongoObjectId {
     return Objects.equals(id, that.getId()) && Objects.equals(datasetId, that.datasetId);
   }
 }
-
-
