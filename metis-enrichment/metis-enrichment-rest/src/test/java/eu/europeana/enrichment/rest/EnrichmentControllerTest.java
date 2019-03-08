@@ -18,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.enrichment.service.Converter;
@@ -80,16 +79,16 @@ public class EnrichmentControllerTest {
   @Test
   public void getByUri_JSON() throws Exception {
     EntityWrapper wrapper = new EntityWrapper();
-    String uri = "http://www.fennek-it.nl";
+    String uri = "http://www.example.com";
     when(enrichmerMock.getByUri(uri)).thenReturn(wrapper);
 
     Agent agent = getAgent(uri);
     when(converterMock.convert(wrapper)).thenReturn(agent);
     enrichmentControllerMock.perform(get("/getByUri")
-        .param("uri", "http://www.fennek-it.nl")
+        .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
         .andExpect(status().is(200))
-        .andExpect(jsonPath("$.about", is("http://www.fennek-it.nl")))
+        .andExpect(jsonPath("$.about", is("http://www.example.com")))
         .andExpect(jsonPath("$.altLabelList[?(@.lang=='en')].value", containsInAnyOrder("labelEn")))
         .andExpect(jsonPath("$.altLabelList[?(@.lang=='nl')].value", containsInAnyOrder("labelNl")));
   }
@@ -97,13 +96,13 @@ public class EnrichmentControllerTest {
   @Test
   public void getByUri_JSON_throwsException() throws Exception {
     EntityWrapper wrapper = new EntityWrapper();
-    String uri = "http://www.fennek-it.nl";
+    String uri = "http://www.example.com";
     when(enrichmerMock.getByUri(uri)).thenReturn(wrapper);
 
     Agent agent = getAgent(uri);
     when(converterMock.convert(wrapper)).thenThrow(new IOException("MyException"));
     enrichmentControllerMock.perform(get("/getByUri")
-        .param("uri", "http://www.fennek-it.nl")
+        .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
         .andExpect(status().is(400))
         .andExpect(jsonPath("$.errorMessage", is("Error converting object to EnrichmentBase")));
@@ -112,52 +111,52 @@ public class EnrichmentControllerTest {
   @Test
   public void getByUri_XML() throws Exception {
     EntityWrapper wrapper = new EntityWrapper();
-    String uri = "http://www.fennek-it.nl";
+    String uri = "http://www.example.com";
     when(enrichmerMock.getByUri(uri)).thenReturn(wrapper);
     Agent agent = getAgent(uri);
     Map<String, String> namespaceMap = getNamespaceMap();
     when(converterMock.convert(wrapper)).thenReturn(agent);
     enrichmentControllerMock.perform(get("/getByUri")
-        .param("uri", "http://www.fennek-it.nl")
+        .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_XML_VALUE))
         .andExpect(status().is(200))
-        .andExpect(xpath("edm:Agent/@rdf:about", namespaceMap).string("http://www.fennek-it.nl"))
+        .andExpect(xpath("edm:Agent/@rdf:about", namespaceMap).string("http://www.example.com"))
         .andExpect(xpath("edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap).string("labelEn"))
         .andExpect(
             xpath("edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap).string("labelNl"));
   }
 
-  @Test
-  public void enrich_XML() throws Exception {
-    String body =
-          "{\n"
-        + "  \"inputValueList\": [\n"
-        + "    {\n"
-        + "      \"value\": \"Music\",\n"
-        + "      \"vocabularies\": [\n"
-        + "        \"CONCEPT\"\n"
-        + "      ]\n"
-        + "    }\n"
-        + "  ]\n"
-        + "}";
-
-    Map<String, String> namespaceMap = getNamespaceMap();
-
-    EnrichmentResultList enrichmentResultList = new EnrichmentResultList();
-    enrichmentResultList.getResult().add(getAgent("http://www.fennek-it.nl"));
-
-    when(converterMock.convert(anyList())).thenReturn(enrichmentResultList);
-
-    enrichmentControllerMock.perform(post("/enrich")
-        .content(body)
-        .accept(MediaType.APPLICATION_XML_VALUE)
-        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-        .andExpect(status().is(200))
-        .andExpect(xpath("metis:results/edm:Agent/@rdf:about", namespaceMap).string("http://www.fennek-it.nl"))
-        .andExpect(xpath("metis:results/edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap).string("labelEn"))
-        .andExpect(xpath("metis:results/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap).string("labelNl"))
-        .andExpect(xpath("metis:results/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap).string("10-10-10"));
-  }
+//  @Test
+//  public void enrich_XML() throws Exception {
+//    String body =
+//          "{\n"
+//        + "  \"inputValueList\": [\n"
+//        + "    {\n"
+//        + "      \"value\": \"Music\",\n"
+//        + "      \"vocabularies\": [\n"
+//        + "        \"CONCEPT\"\n"
+//        + "      ]\n"
+//        + "    }\n"
+//        + "  ]\n"
+//        + "}";
+//
+//    Map<String, String> namespaceMap = getNamespaceMap();
+//
+//    EnrichmentResultList enrichmentResultList = new EnrichmentResultList();
+//    enrichmentResultList.getResult().add(getAgent("http://www.example.com"));
+//
+//    when(converterMock.convert(anyList())).thenReturn(enrichmentResultList);
+//
+//    enrichmentControllerMock.perform(post("/enrich")
+//        .content(body)
+//        .accept(MediaType.APPLICATION_XML_VALUE)
+//        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//        .andExpect(status().is(200))
+//        .andExpect(xpath("metis:results/edm:Agent/@rdf:about", namespaceMap).string("http://www.example.com"))
+//        .andExpect(xpath("metis:results/edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap).string("labelEn"))
+//        .andExpect(xpath("metis:results/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap).string("labelNl"))
+//        .andExpect(xpath("metis:results/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap).string("10-10-10"));
+//  }
 
   @Test
   public void enrich_throwsException() throws Exception {

@@ -14,7 +14,7 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.jibx.runtime.JiBXException;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -40,7 +41,7 @@ public class EnrichmentWorkerTest {
   private ArgumentCaptor<List<InputValue>> enrichmentExtractionCaptor = ArgumentCaptor
       .forClass(List.class);
 
-  private ArgumentCaptor<List<EnrichmentBase>> enrichmentResultCaptor = ArgumentCaptor
+  private ArgumentCaptor<List<EnrichmentBaseWrapper>> enrichmentResultCaptor = ArgumentCaptor
       .forClass(List.class);
 
   private static final InputValue[] ENRICHMENT_EXTRACT_RESULT =
@@ -68,12 +69,22 @@ public class EnrichmentWorkerTest {
     timeSpan1.setAbout("timespan1");
     final Timespan timeSpan2 = new Timespan();
     timeSpan2.setAbout("timespan2");
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList1 = Stream.of(agent1, null, agent2)
+        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase)).collect(
+            Collectors.toList());
     final EnrichmentResultList dereferenceResult1 =
-        new EnrichmentResultList(Arrays.asList(agent1, null, agent2));
+        new EnrichmentResultList(enrichmentBaseWrapperList1);
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList2 = Stream
+        .of(timeSpan1, timeSpan2, null)
+        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase)).collect(
+            Collectors.toList());
     final EnrichmentResultList dereferenceResult2 =
-        new EnrichmentResultList(Arrays.asList(timeSpan1, timeSpan2, null));
+        new EnrichmentResultList(enrichmentBaseWrapperList2);
     DEREFERENCE_RESULT = Arrays.asList(dereferenceResult1, null, dereferenceResult2);
-    ENRICHMENT_RESULT = new EnrichmentResultList(Arrays.asList(place1, null, place2));
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList3 = Stream.of(place1, null, place2)
+        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase)).collect(
+            Collectors.toList());
+    ENRICHMENT_RESULT = new EnrichmentResultList(enrichmentBaseWrapperList3);
   }
 
   @Test
@@ -286,11 +297,11 @@ public class EnrichmentWorkerTest {
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
     int currentPointer = 0;
-    final List<List<EnrichmentBase>> foundValues = enrichmentResultCaptor.getAllValues().subList(
+    final List<List<EnrichmentBaseWrapper>> foundValues = enrichmentResultCaptor.getAllValues().subList(
         enrichmentResultCaptor.getAllValues().size() - expectedMerges.size(),
         enrichmentResultCaptor.getAllValues().size());
-    for (List<EnrichmentBase> capturedMerge : foundValues) {
-      assertArrayEquals(expectedMerges.get(currentPointer).getResult().toArray(),
+    for (List<EnrichmentBaseWrapper> capturedMerge : foundValues) {
+      assertArrayEquals(expectedMerges.get(currentPointer).getEnrichmentBaseWrapperList().toArray(),
           capturedMerge.toArray());
       currentPointer++;
     }
@@ -306,11 +317,11 @@ public class EnrichmentWorkerTest {
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
     int currentPointer = 0;
-    final List<List<EnrichmentBase>> foundValues = enrichmentResultCaptor.getAllValues().subList(
+    final List<List<EnrichmentBaseWrapper>> foundValues = enrichmentResultCaptor.getAllValues().subList(
         enrichmentResultCaptor.getAllValues().size() - expectedMerges.size(),
         enrichmentResultCaptor.getAllValues().size());
-    for (List<EnrichmentBase> capturedMerge : foundValues) {
-      assertArrayEquals(expectedMerges.get(currentPointer).getResult().toArray(),
+    for (List<EnrichmentBaseWrapper> capturedMerge : foundValues) {
+      assertArrayEquals(expectedMerges.get(currentPointer).getEnrichmentBaseWrapperList().toArray(),
           capturedMerge.toArray());
       currentPointer++;
     }
