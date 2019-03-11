@@ -50,6 +50,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Class that contains logic for converting class entity types and/or merging entities to {@link
+ * RDF}
+ */
 public class EntityMergeEngine {
 
   private static PlaceType convertAndAddPlace(Place place, List<PlaceType> destination) {
@@ -331,7 +335,6 @@ public class EntityMergeEngine {
 
   private static void convertAndAddEntity(RDF rdf, EnrichmentBaseWrapper enrichmentBaseWrapper) {
     final EnrichmentBase enrichmentBase = enrichmentBaseWrapper.getEnrichmentBase();
-    final String originalField = enrichmentBaseWrapper.getOriginalField();
 
     // Convert the entity.
     final AboutType entity;
@@ -347,6 +350,7 @@ public class EntityMergeEngine {
       throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
     }
 
+    final String originalField = enrichmentBaseWrapper.getOriginalField();
     // Append it to the europeana proxy if needed.
     if (entity != null && StringUtils.isNotBlank(originalField)) {
       RdfProxyUtils.appendToEuropeanaProxy(rdf, entity, originalField);
