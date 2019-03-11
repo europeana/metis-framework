@@ -1,5 +1,8 @@
 package eu.europeana.enrichment.api.external.model;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 
@@ -32,5 +35,12 @@ public class EnrichmentBaseWrapper {
 
   public EnrichmentBase getEnrichmentBase() {
     return enrichmentBase;
+  }
+
+  public static List<EnrichmentBaseWrapper> createNullOriginalFieldEnrichmentBaseWrapperList(
+      Collection<EnrichmentBase> resultList) {
+    return resultList.stream()
+        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase)).collect(
+            Collectors.toList());
   }
 }

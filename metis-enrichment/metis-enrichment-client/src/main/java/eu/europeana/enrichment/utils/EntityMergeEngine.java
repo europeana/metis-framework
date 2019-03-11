@@ -329,8 +329,9 @@ public class EntityMergeEngine {
     return timeSpanType;
   }
 
-  private static void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
-      String fieldName) {
+  private static void convertAndAddEntity(RDF rdf, EnrichmentBaseWrapper enrichmentBaseWrapper) {
+    final EnrichmentBase enrichmentBase = enrichmentBaseWrapper.getEnrichmentBase();
+    final String originalField = enrichmentBaseWrapper.getOriginalField();
 
     // Convert the entity.
     final AboutType entity;
@@ -347,35 +348,30 @@ public class EntityMergeEngine {
     }
 
     // Append it to the europeana proxy if needed.
-    if (entity != null && StringUtils.isNotBlank(fieldName)) {
-      RdfProxyUtils.appendToEuropeanaProxy(rdf, entity, fieldName);
+    if (entity != null && StringUtils.isNotBlank(originalField)) {
+      RdfProxyUtils.appendToEuropeanaProxy(rdf, entity, originalField);
     }
   }
 
   /**
-   * Merge entities in a record. Wrapper for {@link #mergeEntity(RDF, EnrichmentBase, String)}
-   * without a field name.
+   * Merge entities in a record.
    *
    * @param rdf The RDF to enrich
    * @param enrichmentBaseWrapperList The information to append
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBaseWrapper> enrichmentBaseWrapperList) {
     for (EnrichmentBaseWrapper enrichmentBaseWrapper : enrichmentBaseWrapperList) {
-      mergeEntity(rdf, enrichmentBaseWrapper.getEnrichmentBase(),
-          enrichmentBaseWrapper.getOriginalField());
+      mergeEntity(rdf, enrichmentBaseWrapper);
     }
   }
 
   /**
-   * Merge entities in a record
+   * Merge entity in a record
    *
    * @param rdf The RDF to enrich
-   * @param enrichmentBase The information to append
-   * @param fieldName The name of the field so that it can be connected to Europeana Proxy
+   * @param enrichmentBaseWrapper The information to append
    */
-  private void mergeEntity(final RDF rdf, EnrichmentBase enrichmentBase,
-      String fieldName) {
-
+  private void mergeEntity(final RDF rdf, EnrichmentBaseWrapper enrichmentBaseWrapper) {
     // Ensure that there are lists for all four types.
     if (rdf.getAgentList() == null) {
       rdf.setAgentList(new ArrayList<>());
@@ -389,6 +385,6 @@ public class EntityMergeEngine {
     if (rdf.getTimeSpanList() == null) {
       rdf.setTimeSpanList(new ArrayList<>());
     }
-    convertAndAddEntity(rdf, enrichmentBase, fieldName);
+    convertAndAddEntity(rdf, enrichmentBaseWrapper);
   }
 }

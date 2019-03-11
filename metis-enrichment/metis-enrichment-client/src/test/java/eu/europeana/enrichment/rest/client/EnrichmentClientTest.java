@@ -23,7 +23,6 @@ import eu.europeana.enrichment.utils.InputValue;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -45,9 +44,8 @@ public class EnrichmentClientTest {
     agentList.add(agent1);
     agentList.add(agent2);
 
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = agentList.stream()
-        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase)).collect(
-            Collectors.toList());
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(agentList);
     EnrichmentResultList result = new EnrichmentResultList(enrichmentBaseWrapperList);
 
     final RestTemplate restTemplate = mock(RestTemplate.class);
@@ -65,8 +63,10 @@ public class EnrichmentClientTest {
     verify(enrichmentClient).enrich(values);
     verify(restTemplate, times(1)).postForObject(eq(ENRICHMENT_ENRICH), any(InputValueList.class),
         eq(EnrichmentResultList.class));
-    assertEquals(res.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase().getAbout(), agent1.getAbout());
-    assertEquals(res.getEnrichmentBaseWrapperList().get(1).getEnrichmentBase().getAbout(), agent2.getAbout());
+    assertEquals(res.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase().getAbout(),
+        agent1.getAbout());
+    assertEquals(res.getEnrichmentBaseWrapperList().get(1).getEnrichmentBase().getAbout(),
+        agent2.getAbout());
   }
 
   @Test

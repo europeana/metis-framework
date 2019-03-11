@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -84,9 +83,9 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     // Prepare the result: empty if we didn't find an entity.
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = resultList.stream()
-        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase)).collect(
-            Collectors.toList());
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(
+        resultList);
     return new EnrichmentResultList(enrichmentBaseWrapperList);
   }
 
