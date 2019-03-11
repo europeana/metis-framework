@@ -286,8 +286,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       }
     }
     if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer
-          .toArray(new CriteriaContainerImpl[criteriaContainer.size()]));
+      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
     }
 
     Iterator<WorkflowExecution> metisPluginsIterator = ExternalRequestUtil

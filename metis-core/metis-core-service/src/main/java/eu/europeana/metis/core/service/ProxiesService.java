@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -45,8 +44,7 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class ProxiesService {
 
-  private final DateFormat pluginDateFormatForEcloud = new SimpleDateFormat(
-      "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+  protected final DateFormat pluginDateFormatForEcloud = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final DataSetServiceClient ecloudDataSetServiceClient;
@@ -317,7 +315,7 @@ public class ProxiesService {
     return new RecordsResponse(records);
   }
 
-  private Pair<WorkflowExecution, AbstractMetisPlugin> getExecutionAndPlugin(MetisUser metisUser,
+  Pair<WorkflowExecution, AbstractMetisPlugin> getExecutionAndPlugin(MetisUser metisUser,
       String workflowExecutionId, PluginType pluginType ) throws GenericMetisException {
 
     // Get the workflow execution - check that the user has rights to access this.
@@ -334,8 +332,7 @@ public class ProxiesService {
         .map(plugin -> new ImmutablePair<>(workflowExecution, plugin)).orElse(null);
   }
 
-  private Record getRecord(AbstractMetisPlugin plugin, String ecloudId)
-      throws ExternalTaskException {
+  Record getRecord(AbstractMetisPlugin plugin, String ecloudId) throws ExternalTaskException {
     try {
       final Representation representation = recordServiceClient
           .getRepresentationByRevision(ecloudId, AbstractMetisPlugin.getRepresentationName(),
@@ -351,5 +348,9 @@ public class ProxiesService {
     } catch (IOException e) {
       throw new ExternalTaskException("Getting while reading the contents of the file.", e);
     }
+  }
+
+  String getEcloudProvider() {
+    return ecloudProvider;
   }
 }

@@ -2,9 +2,19 @@ package eu.europeana.metis.core.rest;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.same;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,12 +24,19 @@ import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
+import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
@@ -180,4 +197,94 @@ class TestProxiesController {
         .andExpect(jsonPath("$.records[1].xmlRecord", is(record2.getXmlRecord())));
   }
 
+  @Test
+  void testGetRecordEvolutionForVersion() throws Exception {
+
+    // Get the user
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
+    // Create nonempty ID list and result list.
+    final Record record1 = new Record("ID 1", "content 1");
+    final Record record2 = new Record("ID 2", "content 2");
+    final RecordsResponse output = new RecordsResponse(Arrays.asList(record1, record2));
+    final List<String> expectedInput = output.getRecords().stream().map(Record::getEcloudId)
+        .collect(Collectors.toList());
+
+    // Test happy flow with non-empty ID list
+    final PluginType pluginType = PluginType.MEDIA_PROCESS;
+    doAnswer(invocation -> {
+      final ListOfIds input = invocation.getArgument(3);
+      assertEquals(expectedInput, input.getIds());
+      return output;
+    }).when(proxiesService).getListOfFileContentsFromPluginExecution(same(metisUser),
+        eq(TestObjectFactory.EXECUTIONID), eq(pluginType), any());
+    proxiesControllerMock
+        .perform(post(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
+            .param("pluginType", pluginType.name())
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content("{\"ids\":[\"" + String.join("\",\"", expectedInput) + "\"]}"))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.records", hasSize(2)))
+        .andExpect(jsonPath("$.records[0].ecloudId", is(record1.getEcloudId())))
+        .andExpect(jsonPath("$.records[0].xmlRecord", is(record1.getXmlRecord())))
+        .andExpect(jsonPath("$.records[1].ecloudId", is(record2.getEcloudId())))
+        .andExpect(jsonPath("$.records[1].xmlRecord", is(record2.getXmlRecord())));
+
+    // Test happy flow with empty ID list
+    final RecordsResponse emptyOutput = new RecordsResponse(Collections.emptyList());
+    doAnswer(invocation -> {
+      final ListOfIds input = invocation.getArgument(3);
+      assertTrue(input.getIds().isEmpty());
+      return emptyOutput;
+    }).when(proxiesService).getListOfFileContentsFromPluginExecution(same(metisUser),
+        eq(TestObjectFactory.EXECUTIONID), eq(pluginType), any());
+    proxiesControllerMock
+        .perform(post(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
+            .param("pluginType", pluginType.name())
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content("{\"ids\":[]}"))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.records", hasSize(0)));
+    proxiesControllerMock
+        .perform(post(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
+            .param("pluginType", pluginType.name())
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content("{}"))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.records", hasSize(0)));
+
+    // Test for bad input
+    when(proxiesService.getListOfFileContentsFromPluginExecution(same(metisUser),
+        eq(TestObjectFactory.EXECUTIONID), eq(pluginType), any()))
+        .thenThrow(new NoWorkflowExecutionFoundException(""));
+    proxiesControllerMock
+        .perform(post(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
+            .param("pluginType", pluginType.name())
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content("{}"))
+        .andExpect(status().is(404));
+
+    // Test for unauthorized user
+    doThrow(new UserUnauthorizedException("")).when(proxiesService)
+        .getListOfFileContentsFromPluginExecution(same(metisUser),
+            eq(TestObjectFactory.EXECUTIONID), eq(pluginType), any());
+    proxiesControllerMock
+        .perform(post(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
+            .param("pluginType", pluginType.name())
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content("{}"))
+        .andExpect(status().is(401));
+  }
 }

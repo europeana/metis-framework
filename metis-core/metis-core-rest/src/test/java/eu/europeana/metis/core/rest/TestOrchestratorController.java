@@ -692,9 +692,7 @@ class TestOrchestratorController {
         .thenReturn(resultNonEmpty);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(""))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.evolutionSteps", hasSize(2)))
         .andExpect(
@@ -713,9 +711,7 @@ class TestOrchestratorController {
         .thenReturn(resultEmpty);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(""))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.evolutionSteps", hasSize(0)));
 
@@ -725,9 +721,7 @@ class TestOrchestratorController {
         .thenThrow(new NoWorkflowExecutionFoundException(""));
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(""))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(404));
 
     // Test for unauthorized user
@@ -735,9 +729,7 @@ class TestOrchestratorController {
         .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(""))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(401));
   }
 }
