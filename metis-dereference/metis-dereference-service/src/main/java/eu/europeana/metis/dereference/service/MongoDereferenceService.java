@@ -1,9 +1,11 @@
 package eu.europeana.metis.dereference.service;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
@@ -47,7 +49,7 @@ public class MongoDereferenceService implements DereferenceService {
 
   /**
    * Constructor.
-   * 
+   *
    * @param retriever Object that retrieves entities from their source services.
    * @param cacheDao Object that accesses the cache of processed entities.
    * @param vocabularyDao Object that accesses vocabularies.
@@ -81,7 +83,10 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     // Prepare the result: empty if we didn't find an entity.
-    return new EnrichmentResultList(resultList);
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(
+        resultList);
+    return new EnrichmentResultList(enrichmentBaseWrapperList);
   }
 
   /**
@@ -97,7 +102,7 @@ public class MongoDereferenceService implements DereferenceService {
    * a breadth-first search through this graph to retrieve all resources within a certain distance
    * from the requested resource.
    * </p>
-   * 
+   *
    * @param resourceId The resource to dereference.
    * @return A collection of dereferenced resources.
    * @throws JAXBException

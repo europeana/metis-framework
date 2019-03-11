@@ -126,6 +126,7 @@ public enum EnrichmentFields {
       final ResourceOrLiteralType.Resource resource = new ResourceOrLiteralType.Resource();
       resource.setResource(about);
       content.setResource(resource);
+      content.setString(""); // Required, otherwise jibx (de)serialization fails
       contentSetter.accept(choice, content);
       return choice;
     }

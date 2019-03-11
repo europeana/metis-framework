@@ -20,6 +20,7 @@ import eu.europeana.corelib.definitions.jibx._Long;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Part;
@@ -553,10 +554,11 @@ public class EntityMergeEngineTest {
     inputList.add(createPlace());
     inputList.add(createFirstPlaceWithNullValues());
     inputList.add(createSecondPlaceWithNullValues());
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper.createNullOriginalFieldEnrichmentBaseWrapperList(inputList);
 
     // Perform merge
     RDF rdf = new RDF();
-    new EntityMergeEngine().mergeEntities(rdf, inputList);
+    new EntityMergeEngine().mergeEntities(rdf, enrichmentBaseWrapperList);
 
     // Verify RDF
     verifyRdf(rdf);
@@ -584,6 +586,7 @@ public class EntityMergeEngineTest {
     inputList.add(createTimeSpan());
     inputList.add(createAgentWithNullValues());
     inputList.add(createConceptWithNullValues());
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper.createNullOriginalFieldEnrichmentBaseWrapperList(inputList);
 
     // Perform merge
     RDF rdf = new RDF();
@@ -591,7 +594,7 @@ public class EntityMergeEngineTest {
     rdf.setAgentList(null);
     rdf.setConceptList(null);
     rdf.setTimeSpanList(null);
-    new EntityMergeEngine().mergeEntities(rdf, inputList);
+    new EntityMergeEngine().mergeEntities(rdf, enrichmentBaseWrapperList);
 
     // Verify RDF
     verifyRdf(rdf);
@@ -616,8 +619,10 @@ public class EntityMergeEngineTest {
     final List<EnrichmentBase> inputList = new ArrayList<>();
     inputList.add(new EnrichmentBase() {
     });
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
+        .createNullOriginalFieldEnrichmentBaseWrapperList(inputList);
     RDF rdf = new RDF();
     assertThrows(IllegalArgumentException.class,
-        () -> new EntityMergeEngine().mergeEntities(rdf, inputList));
+        () -> new EntityMergeEngine().mergeEntities(rdf, enrichmentBaseWrapperList));
   }
 }

@@ -8,6 +8,7 @@ import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
@@ -41,7 +42,7 @@ public class Converter {
     EnrichmentResultList list = new EnrichmentResultList();
 
     for (EntityWrapper wrapper : wrapperList) {
-      list.getResult().add(convert(wrapper));
+      list.getEnrichmentBaseWrapperList().add(new EnrichmentBaseWrapper(wrapper.getOriginalField(), convert(wrapper)));
     }
     return list;
 

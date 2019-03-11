@@ -21,13 +21,13 @@ public final class RdfProxyUtils {
    * @param about the about value to use for the field
    * @param fieldName the name of the field to add
    */
-  public static void appendToProxy(RDF rdf, AboutType about, String fieldName) {
+  public static void appendToEuropeanaProxy(RDF rdf, AboutType about, String fieldName) {
     ProxyType europeanaProxy = getEuropeanaProxy(rdf);
-    appendToProxy(europeanaProxy, EnrichmentFields.valueOf(fieldName), about.getAbout());
+    appendToEuropeanaProxy(europeanaProxy, EnrichmentFields.valueOf(fieldName), about.getAbout());
     replaceProxy(rdf, europeanaProxy);
   }
 
-  private static void appendToProxy(ProxyType europeanaProxy, EnrichmentFields enrichmentFields,
+  private static void appendToEuropeanaProxy(ProxyType europeanaProxy, EnrichmentFields enrichmentFields,
       String about) {
     List<EuropeanaType.Choice> choices = europeanaProxy.getChoiceList();
     choices.add(enrichmentFields.createChoice(about));
