@@ -2,6 +2,7 @@ package eu.europeana.metis.core.execution;
 
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -60,6 +61,20 @@ public final class ExecutionRules {
       // Get latest FINISHED plugin for datasetId
       abstractMetisPlugin = getLatestFinishedPluginAllowedForExecution(pluginType, datasetId,
           workflowExecutionDao);
+      // TODO: 12-3-19 The following code should be removed after DPS technical gap applied. At about September 2019
+      // If pluginType is MEDIA_PROCESS and there is no latest plugin allowed, therefore abstractMetisPlugin == null,
+      // check latest successful OAIPMH_HARVEST and if that was based on the europeana endpoint during migration, then
+      // we return that instead.
+      if (pluginType.equals(PluginType.MEDIA_PROCESS) && abstractMetisPlugin == null) {
+        final AbstractMetisPlugin latestOaiPlugin = workflowExecutionDao
+            .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
+                EnumSet.of(PluginType.OAIPMH_HARVEST));
+        if (latestOaiPlugin != null && "https://oai-pmh.eanadev.org/oai"
+            .equalsIgnoreCase(((OaipmhHarvestPluginMetadata) latestOaiPlugin
+                .getPluginMetadata()).getUrl().trim())) {
+          return latestOaiPlugin;
+        }
+      }
     }
     return abstractMetisPlugin;
   }
@@ -69,7 +84,8 @@ public final class ExecutionRules {
 
     AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = null;
 
-    Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = getPluginTypesSetThatPluginTypeCanBeBasedOn(pluginType);
+    Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = getPluginTypesSetThatPluginTypeCanBeBasedOn(
+        pluginType);
     if (pluginTypesSetThatPluginTypeCanBeBasedOn != null) {
       latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
           .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
@@ -81,10 +97,10 @@ public final class ExecutionRules {
   /**
    * This method determines what plugin types a plugin of the given type can be based on. This means
    * that the given type can only occur after one of the returned base types.
-   * 
+   *
    * @param pluginType The plugin type for which to return the base types.
    * @return The base types of the given plugin type: those plugin types that a plugin of the given
-   *         type can be based on.
+   * type can be based on.
    */
   public static Set<PluginType> getPluginTypesSetThatPluginTypeCanBeBasedOn(PluginType pluginType) {
     Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = null;
@@ -125,7 +141,7 @@ public final class ExecutionRules {
 
   /**
    * @return The plugin types that are of the 'harvesting' kind: they can occur at the beginning of
-   *         workflows and don't need another plugin type as base.
+   * workflows and don't need another plugin type as base.
    */
   public static Set<PluginType> getHarvestPluginGroup() {
     return HARVEST_PLUGIN_GROUP;
