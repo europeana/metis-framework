@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -58,7 +59,8 @@ public class RedisInternalEnricher {
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final List<EntityType> ENTITY_TYPES = createEntityTypeList();
-  private static final String REGEX_MATCHING_VERY_BROAD_TIMESPANS = ".*/ChronologicalPeriod$|.*/Time$|.*/(AD|BC)[1-9]x{3}$";
+  private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
+      .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
   private final EnrichmentEntityDao entityDao;
   private final RedisProvider redisProvider;
 
@@ -325,16 +327,16 @@ public class RedisInternalEnricher {
       String uri) throws IOException {
     Set<EntityWrapper> entityWrapperSet = new HashSet<>();
     if (jedis.exists(cachedEntityPrefix + CACHED_PARENT + uri)) {
-      Set<String> parents = jedis.smembers(cachedEntityPrefix + CACHED_PARENT + uri);
-      for (String parent : parents) {
+      Set<String> parentEntityUrls = jedis.smembers(cachedEntityPrefix + CACHED_PARENT + uri);
+      for (String parentEntityUrl : parentEntityUrls) {
         //For timespans, do not get entities for very broad timespans
-        if (cachedEntityPrefix.equals(CACHED_TIMESPAN) && parent
-            .matches(REGEX_MATCHING_VERY_BROAD_TIMESPANS)) {
+        if (cachedEntityPrefix.equals(CACHED_TIMESPAN) && PATTERN_MATCHING_VERY_BROAD_TIMESPANS
+            .matcher(parentEntityUrl).matches()) {
           continue;
         }
-        EntityWrapper parentEntity = OBJECT_MAPPER.readValue(
-            jedis.hget(cachedEntityPrefix + CACHED_URI, parent), EntityWrapper.class);
-        entityWrapperSet.add(parentEntity);
+        EntityWrapper parentEntityWrapper = OBJECT_MAPPER.readValue(
+            jedis.hget(cachedEntityPrefix + CACHED_URI, parentEntityUrl), EntityWrapper.class);
+        entityWrapperSet.add(parentEntityWrapper);
       }
     }
     return entityWrapperSet;
