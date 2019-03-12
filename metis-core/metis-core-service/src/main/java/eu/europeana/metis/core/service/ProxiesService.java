@@ -2,6 +2,7 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Representation;
+import eu.europeana.cloud.common.model.dps.NodeReport;
 import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
@@ -200,6 +201,38 @@ public class ProxiesService {
     } catch (DpsException e) {
       throw new ExternalTaskException(String.format(
           "Getting the task statistics failed. topologyName: %s, externalTaskId: %s",
+          topologyName, externalTaskId), e);
+    }
+  }
+
+  /**
+   * Get additional statistics on a node. This method can be used to elaborate on one of the items
+   * returned by {@link #getExternalTaskStatistics(MetisUser, String, long)}.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @param nodePath the path of the node for which this request is made
+   * @return the list of errors grouped
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link DpsException} if an error occurred while retrieving the statistics from the
+   * external resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
+   * </ul>
+   */
+  public List<NodeReport> getAdditionalNodeStatistics(MetisUser metisUser, String topologyName,
+      long externalTaskId, String nodePath) throws GenericMetisException {
+    authorizer.authorizeReadExistingDatasetById(metisUser,
+        getDatasetIdFromExternalTaskId(externalTaskId));
+    try {
+      return dpsClient.getElementReport(topologyName, externalTaskId, nodePath);
+    } catch (DpsException e) {
+      throw new ExternalTaskException(String.format(
+          "Getting the additional node statistics failed. topologyName: %s, externalTaskId: %s",
           topologyName, externalTaskId), e);
     }
   }

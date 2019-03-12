@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.File;
 import eu.europeana.cloud.common.model.Representation;
+import eu.europeana.cloud.common.model.dps.NodeReport;
 import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
@@ -252,6 +253,46 @@ class TestProxiesService {
     assertThrows(ExternalTaskException.class, () -> proxiesService
         .getExternalTaskStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID));
+  }
+
+  @Test
+  void getAdditionalNodeStatistics() throws Exception {
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final String nodePath = "node path";
+    final List<NodeReport> nodeReportList = new ArrayList<>();
+    when(dpsClient.getElementReport(Topology.OAIPMH_HARVEST.getTopologyName(),
+        TestObjectFactory.EXTERNAL_TASK_ID, nodePath)).thenReturn(nodeReportList);
+    final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
+    when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
+    final List<NodeReport> result = proxiesService
+        .getAdditionalNodeStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+            TestObjectFactory.EXTERNAL_TASK_ID, nodePath);
+    verify(authorizer, times(1))
+        .authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
+    verifyNoMoreInteractions(authorizer);
+    assertSame(nodeReportList, result);
+  }
+
+  @Test
+  void getAdditionalNodeStatistics_NoExecutionException() {
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(null);
+    assertThrows(NoWorkflowExecutionFoundException.class, () -> proxiesService
+        .getAdditionalNodeStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+            TestObjectFactory.EXTERNAL_TASK_ID, "node path"));
+  }
+
+  @Test
+  void getAdditionalNodeStatistics_ExternalTaskException() throws Exception {
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final String nodePath = "node path";
+    when(dpsClient.getElementReport(Topology.OAIPMH_HARVEST.getTopologyName(),
+        TestObjectFactory.EXTERNAL_TASK_ID, nodePath)).thenThrow(new DpsException());
+    final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
+    when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
+    assertThrows(ExternalTaskException.class, () -> proxiesService
+        .getAdditionalNodeStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
+            TestObjectFactory.EXTERNAL_TASK_ID, nodePath));
   }
 
   @Test

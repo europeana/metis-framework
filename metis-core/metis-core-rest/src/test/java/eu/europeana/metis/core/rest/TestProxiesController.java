@@ -8,16 +8,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import eu.europeana.cloud.common.model.dps.NodeReport;
 import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
@@ -25,7 +24,6 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
-import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
@@ -34,7 +32,6 @@ import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.hamcrest.core.IsNull;
@@ -162,6 +159,42 @@ class TestProxiesController {
         .andExpect(jsonPath("$.taskId", is(TestObjectFactory.EXTERNAL_TASK_ID)))
         .andExpect(
             jsonPath("$.nodeStatistics", hasSize(taskStatistics.getNodeStatistics().size())));
+  }
+
+  @Test
+  void getExternalTaskNodeStatistics() throws Exception {
+
+    // Create user and set authentication.
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
+    // Create response object.
+    final NodeReport report1 = new NodeReport();
+    report1.setNodeValue("node value 1");
+    report1.setOccurrence(1);
+    final NodeReport report2 = new NodeReport();
+    report2.setNodeValue("node value 2");
+    report2.setOccurrence(2);
+    final List<NodeReport> nodeReports = Arrays.asList(report1, report2);
+
+    // Mock the proxiesService instance.
+    final String nodePath = "node path";
+    when(proxiesService.getAdditionalNodeStatistics(metisUser, TestObjectFactory.TOPOLOGY_NAME,
+        TestObjectFactory.EXTERNAL_TASK_ID, nodePath)).thenReturn(nodeReports);
+
+    // Make the call and verify the result.
+    proxiesControllerMock.perform(
+        get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_NODE_STATISTICS,
+            TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .param("nodePath", nodePath))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$", hasSize(nodeReports.size())))
+        .andExpect(jsonPath("$[0].nodeValue", is(report1.getNodeValue())))
+        .andExpect(jsonPath("$[0].occurrence", is((int) report1.getOccurrence())))
+        .andExpect(jsonPath("$[1].nodeValue", is(report2.getNodeValue())))
+        .andExpect(jsonPath("$[1].occurrence", is((int) report2.getOccurrence())));
   }
 
   @Test

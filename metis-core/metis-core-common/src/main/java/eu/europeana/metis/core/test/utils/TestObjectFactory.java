@@ -1,7 +1,9 @@
 package eu.europeana.metis.core.test.utils;
 
+import eu.europeana.cloud.common.model.dps.NodeReport;
 import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -330,13 +332,28 @@ public final class TestObjectFactory {
   /**
    * Create a dummy {@link StatisticsReport}
    *
-   * @return the create report
+   * @return the created report
    */
   public static StatisticsReport createTaskStatisticsReport() {
     List<NodeStatistics> nodeStatistics = new ArrayList<>();
     nodeStatistics.add(new NodeStatistics("parentpath1", "path1", "value1", 1));
     nodeStatistics.add(new NodeStatistics("parentpath2", "path2", "value2", OCCURRENCES));
     return new StatisticsReport(EXTERNAL_TASK_ID, nodeStatistics);
+  }
+
+  /**
+   * Create a dummy {@link NodeReport}
+   *
+   * @return the created report
+   */
+  public static List<NodeReport> createNodeReportList() {
+    final NodeReport report1 = new NodeReport();
+    report1.setNodeValue("node value 1");
+    report1.setOccurrence(1);
+    final NodeReport report2 = new NodeReport();
+    report2.setNodeValue("node value 2");
+    report2.setOccurrence(2);
+    return Arrays.asList(report1, report2);
   }
 
   /**
