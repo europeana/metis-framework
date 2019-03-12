@@ -58,6 +58,7 @@ public class RedisInternalEnricher {
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final List<EntityType> ENTITY_TYPES = createEntityTypeList();
+  private static final String REGEX_MATCHING_VERY_BROAD_TIMESPANS = ".*/ChronologicalPeriod$|.*/Time$|.*/(AD|BC)[1-9]x{3}$";
   private final EnrichmentEntityDao entityDao;
   private final RedisProvider redisProvider;
 
@@ -304,7 +305,8 @@ public class RedisInternalEnricher {
     if (!jedis.isConnected()) {
       jedis.connect();
     }
-    final String cacheKey = cachedEntityPrefix + CACHED_ENTITY + lang + CACHE_NAME_SEPARATOR + value;
+    final String cacheKey =
+        cachedEntityPrefix + CACHED_ENTITY + lang + CACHE_NAME_SEPARATOR + value;
     if (jedis.exists(cacheKey)) {
       Set<String> urisToCheck = jedis.smembers(cacheKey);
       for (String uri : urisToCheck) {
@@ -312,18 +314,30 @@ public class RedisInternalEnricher {
             .readValue(jedis.hget(cachedEntityPrefix + CACHED_URI, uri), EntityWrapper.class);
         entity.setOriginalField(originalField);
         result.add(entity);
-        if (jedis.exists(cachedEntityPrefix + CACHED_PARENT + uri)) {
-          Set<String> parents = jedis.smembers(cachedEntityPrefix + CACHED_PARENT + uri);
-          for (String parent : parents) {
-            EntityWrapper parentEntity = OBJECT_MAPPER.readValue(
-                jedis.hget(cachedEntityPrefix + CACHED_URI, parent), EntityWrapper.class);
-            result.add(parentEntity);
-          }
-        }
+        result.addAll(findParentEntities(cachedEntityPrefix, jedis, uri));
       }
     }
     jedis.close();
     return new ArrayList<>(result);
+  }
+
+  private Set<EntityWrapper> findParentEntities(String cachedEntityPrefix, Jedis jedis,
+      String uri) throws IOException {
+    Set<EntityWrapper> entityWrapperSet = new HashSet<>();
+    if (jedis.exists(cachedEntityPrefix + CACHED_PARENT + uri)) {
+      Set<String> parents = jedis.smembers(cachedEntityPrefix + CACHED_PARENT + uri);
+      for (String parent : parents) {
+        //For timespans, do not get entities for very broad timespans
+        if (cachedEntityPrefix.equals(CACHED_TIMESPAN) && parent
+            .matches(REGEX_MATCHING_VERY_BROAD_TIMESPANS)) {
+          continue;
+        }
+        EntityWrapper parentEntity = OBJECT_MAPPER.readValue(
+            jedis.hget(cachedEntityPrefix + CACHED_URI, parent), EntityWrapper.class);
+        entityWrapperSet.add(parentEntity);
+      }
+    }
+    return entityWrapperSet;
   }
 
   public EntityWrapper getByUri(String uri) throws IOException {
