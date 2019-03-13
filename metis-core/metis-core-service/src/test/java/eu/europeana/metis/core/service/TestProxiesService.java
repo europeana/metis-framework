@@ -20,7 +20,22 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.File;
 import eu.europeana.cloud.common.model.Representation;
@@ -42,6 +57,8 @@ import eu.europeana.metis.core.rest.ListOfIds;
 import eu.europeana.metis.core.rest.PaginatedRecordsResponse;
 import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.rest.RecordsResponse;
+import eu.europeana.metis.core.rest.stats.NodePathStatistics;
+import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
@@ -50,21 +67,6 @@ import eu.europeana.metis.core.workflow.plugins.Topology;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -81,6 +83,7 @@ class TestProxiesService {
   private static RecordServiceClient recordServiceClient;
   private static FileServiceClient fileServiceClient;
   private static Authorizer authorizer;
+  private static ProxiesHelper proxiesHelper;
 
   @BeforeAll
   static void prepare() {
@@ -90,9 +93,10 @@ class TestProxiesService {
     fileServiceClient = mock(FileServiceClient.class);
     dpsClient = mock(DpsClient.class);
     authorizer = mock(Authorizer.class);
+    proxiesHelper = mock(ProxiesHelper.class);
 
     proxiesService = spy(new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient,
-        recordServiceClient, fileServiceClient, dpsClient, "ecloudProvider", authorizer));
+        recordServiceClient, fileServiceClient, dpsClient, "ecloudProvider", authorizer, proxiesHelper));
   }
 
   @AfterEach
@@ -103,6 +107,7 @@ class TestProxiesService {
     reset(fileServiceClient);
     reset(dpsClient);
     reset(authorizer);
+    reset(proxiesHelper);
     reset(proxiesService);
   }
 
@@ -223,15 +228,14 @@ class TestProxiesService {
         TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(taskStatistics);
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
-    final StatisticsReport externalTaskStatistics = proxiesService
-        .getExternalTaskStatistics(metisUser,
+    final RecordStatistics recordStatistics = new RecordStatistics();
+    when(proxiesHelper.convertRecordStatistics(taskStatistics)).thenReturn(recordStatistics);
+    final RecordStatistics result = proxiesService.getExternalTaskStatistics(metisUser,
             Topology.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID);
     verify(authorizer, times(1))
         .authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
-    assertNotNull(externalTaskStatistics);
-    assertEquals(TestObjectFactory.EXTERNAL_TASK_ID, externalTaskStatistics.getTaskId());
-    assertFalse(externalTaskStatistics.getNodeStatistics().isEmpty());
+    assertSame(recordStatistics, result);
   }
 
   @Test
@@ -264,13 +268,15 @@ class TestProxiesService {
         TestObjectFactory.EXTERNAL_TASK_ID, nodePath)).thenReturn(nodeReportList);
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
-    final List<NodeReport> result = proxiesService
+    final NodePathStatistics nodePathStatistics = new NodePathStatistics();
+    when(proxiesHelper.convertNodePathStatistics(nodePath, nodeReportList)).thenReturn(nodePathStatistics);
+    final NodePathStatistics result = proxiesService
         .getAdditionalNodeStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, nodePath);
     verify(authorizer, times(1))
         .authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
     verifyNoMoreInteractions(authorizer);
-    assertSame(nodeReportList, result);
+    assertSame(nodePathStatistics, result);
   }
 
   @Test

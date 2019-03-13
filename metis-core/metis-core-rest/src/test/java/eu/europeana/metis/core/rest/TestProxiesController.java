@@ -15,9 +15,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import eu.europeana.cloud.common.model.dps.NodeReport;
-import eu.europeana.cloud.common.model.dps.StatisticsReport;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.hamcrest.core.IsNull;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.RestEndpoints;
@@ -25,21 +33,14 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
+import eu.europeana.metis.core.rest.stats.AttributeStatistics;
+import eu.europeana.metis.core.rest.stats.NodePathStatistics;
+import eu.europeana.metis.core.rest.stats.NodeValueStatistics;
+import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.hamcrest.core.IsNull;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -143,13 +144,27 @@ class TestProxiesController {
 
   @Test
   void getExternalTaskStatistics() throws Exception {
+    
+    // Create user and set authentication.
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
 
-    final StatisticsReport taskStatistics = TestObjectFactory.createTaskStatisticsReport();
+    // Create response object.
+    final NodeValueStatistics nodeValue = new NodeValueStatistics();
+    nodeValue.setOccurrences(3);
+    nodeValue.setValue("node value");
+    nodeValue.setAttributeStatistics(Collections.emptyList());
+    final NodePathStatistics nodePath = new NodePathStatistics();
+    nodePath.setxPath("node path");
+    nodePath.setNodeValueStatistics(Collections.singletonList(nodeValue));
+    final RecordStatistics record = new RecordStatistics();
+    record.setTaskId(TestObjectFactory.EXTERNAL_TASK_ID);
+    record.setNodePathStatistics(Collections.singletonList(nodePath));
+    
+    // Make the call and verify the result.
     when(proxiesService.getExternalTaskStatistics(metisUser, TestObjectFactory.TOPOLOGY_NAME,
-        TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(taskStatistics);
+        TestObjectFactory.EXTERNAL_TASK_ID)).thenReturn(record);
     proxiesControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_STATISTICS,
             TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
@@ -157,8 +172,12 @@ class TestProxiesController {
             .contentType(MediaType.APPLICATION_JSON_UTF8).content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.taskId", is(TestObjectFactory.EXTERNAL_TASK_ID)))
-        .andExpect(
-            jsonPath("$.nodeStatistics", hasSize(taskStatistics.getNodeStatistics().size())));
+        .andExpect(jsonPath("$.nodePathStatistics", hasSize(record.getNodePathStatistics().size())))
+        .andExpect(jsonPath("$.nodePathStatistics[0].xPath", is(nodePath.getxPath())))
+        .andExpect(jsonPath("$.nodePathStatistics[0].nodeValueStatistics", hasSize(nodePath.getNodeValueStatistics().size())))
+        .andExpect(jsonPath("$.nodePathStatistics[0].nodeValueStatistics[0].value", is(nodeValue.getValue())))
+        .andExpect(jsonPath("$.nodePathStatistics[0].nodeValueStatistics[0].occurrences", is((int) nodeValue.getOccurrences())))
+        .andExpect(jsonPath("$.nodePathStatistics[0].nodeValueStatistics[0].attributeStatistics", hasSize(nodeValue.getAttributeStatistics().size())));
   }
 
   @Test
@@ -170,31 +189,44 @@ class TestProxiesController {
         .thenReturn(metisUser);
 
     // Create response object.
-    final NodeReport report1 = new NodeReport();
-    report1.setNodeValue("node value 1");
-    report1.setOccurrence(1);
-    final NodeReport report2 = new NodeReport();
-    report2.setNodeValue("node value 2");
-    report2.setOccurrence(2);
-    final List<NodeReport> nodeReports = Arrays.asList(report1, report2);
+    final AttributeStatistics attribute1 = new AttributeStatistics();
+    attribute1.setxPath("attribute path 1");
+    attribute1.setValue("attribute value 1");
+    attribute1.setOccurrence(1);
+    final AttributeStatistics attribute2 = new AttributeStatistics();
+    attribute2.setxPath("attribute path 2");
+    attribute2.setValue("attribute value 2");
+    attribute2.setOccurrence(2);
+    final NodeValueStatistics nodeValue = new NodeValueStatistics();
+    nodeValue.setOccurrences(3);
+    nodeValue.setValue("node value");
+    nodeValue.setAttributeStatistics(Arrays.asList(attribute1, attribute2));
+    final NodePathStatistics nodePath = new NodePathStatistics();
+    nodePath.setxPath("node path");
+    nodePath.setNodeValueStatistics(Collections.singletonList(nodeValue));
 
     // Mock the proxiesService instance.
-    final String nodePath = "node path";
     when(proxiesService.getAdditionalNodeStatistics(metisUser, TestObjectFactory.TOPOLOGY_NAME,
-        TestObjectFactory.EXTERNAL_TASK_ID, nodePath)).thenReturn(nodeReports);
+        TestObjectFactory.EXTERNAL_TASK_ID, nodePath.getxPath())).thenReturn(nodePath);
 
     // Make the call and verify the result.
     proxiesControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_NODE_STATISTICS,
             TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("nodePath", nodePath))
+            .param("nodePath", nodePath.getxPath()))
         .andExpect(status().is(200))
-        .andExpect(jsonPath("$", hasSize(nodeReports.size())))
-        .andExpect(jsonPath("$[0].nodeValue", is(report1.getNodeValue())))
-        .andExpect(jsonPath("$[0].occurrence", is((int) report1.getOccurrence())))
-        .andExpect(jsonPath("$[1].nodeValue", is(report2.getNodeValue())))
-        .andExpect(jsonPath("$[1].occurrence", is((int) report2.getOccurrence())));
+        .andExpect(jsonPath("$.xPath", is(nodePath.getxPath())))
+        .andExpect(jsonPath("$.nodeValueStatistics", hasSize(nodePath.getNodeValueStatistics().size())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].value", is(nodeValue.getValue())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].occurrences", is((int) nodeValue.getOccurrences())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics", hasSize(nodeValue.getAttributeStatistics().size())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[0].xPath", is(attribute1.getxPath())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[0].value", is(attribute1.getValue())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[0].occurrence", is((int) attribute1.getOccurrence())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[1].xPath", is(attribute2.getxPath())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[1].value", is(attribute2.getValue())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[1].occurrence", is((int) attribute2.getOccurrence())));
   }
 
   @Test
