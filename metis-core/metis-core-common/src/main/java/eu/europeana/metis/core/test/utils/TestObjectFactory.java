@@ -330,7 +330,7 @@ public final class TestObjectFactory {
   /**
    * Create a dummy {@link StatisticsReport}
    *
-   * @return the create report
+   * @return the created report
    */
   public static StatisticsReport createTaskStatisticsReport() {
     List<NodeStatistics> nodeStatistics = new ArrayList<>();

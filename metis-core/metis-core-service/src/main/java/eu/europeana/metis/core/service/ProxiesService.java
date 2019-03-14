@@ -2,6 +2,7 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Representation;
+import eu.europeana.cloud.common.model.dps.NodeReport;
 import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
@@ -19,6 +20,8 @@ import eu.europeana.metis.core.rest.ListOfIds;
 import eu.europeana.metis.core.rest.PaginatedRecordsResponse;
 import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.rest.RecordsResponse;
+import eu.europeana.metis.core.rest.stats.NodePathStatistics;
+import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -53,6 +56,7 @@ public class ProxiesService {
   private final DpsClient dpsClient;
   private final String ecloudProvider;
   private final Authorizer authorizer;
+  private final ProxiesHelper proxiesHelper;
 
   /**
    * Constructor with required parameters.
@@ -69,6 +73,14 @@ public class ProxiesService {
       DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
       FileServiceClient fileServiceClient, DpsClient dpsClient, String ecloudProvider,
       Authorizer authorizer) {
+    this(workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient, fileServiceClient,
+        dpsClient, ecloudProvider, authorizer, new ProxiesHelper());
+  }
+
+  ProxiesService(WorkflowExecutionDao workflowExecutionDao,
+      DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
+      FileServiceClient fileServiceClient, DpsClient dpsClient, String ecloudProvider,
+      Authorizer authorizer, ProxiesHelper proxiesHelper) {
     this.workflowExecutionDao = workflowExecutionDao;
     this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
     this.recordServiceClient = recordServiceClient;
@@ -76,6 +88,7 @@ public class ProxiesService {
     this.dpsClient = dpsClient;
     this.ecloudProvider = ecloudProvider;
     this.authorizer = authorizer;
+    this.proxiesHelper = proxiesHelper;
   }
 
   /**
@@ -180,7 +193,7 @@ public class ProxiesService {
    * @param metisUser the user wishing to perform this operation
    * @param topologyName the topology name of the task
    * @param externalTaskId the task identifier
-   * @return the list of errors grouped
+   * @return the record statistics for the given task.
    * @throws GenericMetisException can be one of:
    * <ul>
    * <li>{@link DpsException} if an error occurred while retrieving the statistics from the
@@ -191,17 +204,65 @@ public class ProxiesService {
    * workflow execution exists for the provided external task identifier</li>
    * </ul>
    */
-  public StatisticsReport getExternalTaskStatistics(MetisUser metisUser, String topologyName,
+  public RecordStatistics getExternalTaskStatistics(MetisUser metisUser, String topologyName,
       long externalTaskId) throws GenericMetisException {
+
+    // Authorize
     authorizer.authorizeReadExistingDatasetById(metisUser,
         getDatasetIdFromExternalTaskId(externalTaskId));
+
+    // Obtain the report from eCloud.
+    final StatisticsReport report;
     try {
-      return dpsClient.getTaskStatisticsReport(topologyName, externalTaskId);
+      report = dpsClient.getTaskStatisticsReport(topologyName, externalTaskId);
     } catch (DpsException e) {
       throw new ExternalTaskException(String.format(
           "Getting the task statistics failed. topologyName: %s, externalTaskId: %s",
           topologyName, externalTaskId), e);
     }
+
+    // Convert them and done.
+    return proxiesHelper.compileRecordStatistics(report);
+  }
+
+  /**
+   * Get additional statistics on a node. This method can be used to elaborate on one of the items
+   * returned by {@link #getExternalTaskStatistics(MetisUser, String, long)}.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @param nodePath the path of the node for which this request is made
+   * @return the node statistics for the given path in the given task.
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link DpsException} if an error occurred while retrieving the statistics from the
+   * external resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
+   * </ul>
+   */
+  public NodePathStatistics getAdditionalNodeStatistics(MetisUser metisUser, String topologyName,
+      long externalTaskId, String nodePath) throws GenericMetisException {
+
+    // Authorize
+    authorizer.authorizeReadExistingDatasetById(metisUser,
+        getDatasetIdFromExternalTaskId(externalTaskId));
+
+    // Obtain the reports from eCloud.
+    final List<NodeReport> nodeReports;
+    try {
+      nodeReports = dpsClient.getElementReport(topologyName, externalTaskId, nodePath);
+    } catch (DpsException e) {
+      throw new ExternalTaskException(String.format(
+          "Getting the additional node statistics failed. topologyName: %s, externalTaskId: %s",
+          topologyName, externalTaskId), e);
+    }
+
+    // Convert them and done.
+    return proxiesHelper.compileNodePathStatistics(nodePath, nodeReports);
   }
 
   private String getDatasetIdFromExternalTaskId(long externalTaskId)
