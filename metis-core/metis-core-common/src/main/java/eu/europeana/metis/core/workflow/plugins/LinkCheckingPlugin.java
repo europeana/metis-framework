@@ -36,10 +36,13 @@ public class LinkCheckingPlugin extends AbstractMetisPlugin {
 
   @Override
   DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    Map<String, Integer> connectionLimitToDomains = ((LinkCheckingPluginMetadata) getPluginMetadata())
-        .getConnectionLimitToDomains();
-    return createDpsTaskForProcessPlugin(
-        createParametersForHostConnectionLimits(connectionLimitToDomains), ecloudBaseUrl,
-        ecloudProvider, ecloudDataset);
+    final LinkCheckingPluginMetadata metadata = (LinkCheckingPluginMetadata) getPluginMetadata();
+    final Map<String, String> extraParameters = createParametersForHostConnectionLimits(
+        metadata.getConnectionLimitToDomains());
+    if (Boolean.TRUE.equals(metadata.getPerformSampling()) && metadata.getSampleSize() != null) {
+      extraParameters.put("SAMPLE_SIZE", metadata.getSampleSize().toString());
+    }
+    return createDpsTaskForProcessPlugin(extraParameters, ecloudBaseUrl, ecloudProvider,
+        ecloudDataset);
   }
 }
