@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Statistics object that reflect the record level: statistics cover all records.
+ */
 public class RecordStatistics {
 
   private long taskId;

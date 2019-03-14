@@ -90,7 +90,7 @@ class ProxiesHelper {
     final AttributeStatistics attributeStatistics = new AttributeStatistics();
     attributeStatistics.setxPath(input.getName());
     attributeStatistics.setValue(input.getValue());
-    attributeStatistics.setOccurrence(input.getOccurrence());
+    attributeStatistics.setOccurrences(input.getOccurrence());
     return attributeStatistics;
   }
 }

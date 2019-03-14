@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Statistics object that reflect the node value level: statistics cover all nodes with the same
+ * xPath and the same node value.
+ */
 public class NodeValueStatistics {
 
   private String value;

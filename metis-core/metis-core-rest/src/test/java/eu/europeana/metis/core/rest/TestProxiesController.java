@@ -192,11 +192,11 @@ class TestProxiesController {
     final AttributeStatistics attribute1 = new AttributeStatistics();
     attribute1.setxPath("attribute path 1");
     attribute1.setValue("attribute value 1");
-    attribute1.setOccurrence(1);
+    attribute1.setOccurrences(1);
     final AttributeStatistics attribute2 = new AttributeStatistics();
     attribute2.setxPath("attribute path 2");
     attribute2.setValue("attribute value 2");
-    attribute2.setOccurrence(2);
+    attribute2.setOccurrences(2);
     final NodeValueStatistics nodeValue = new NodeValueStatistics();
     nodeValue.setOccurrences(3);
     nodeValue.setValue("node value");
@@ -223,10 +223,10 @@ class TestProxiesController {
         .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics", hasSize(nodeValue.getAttributeStatistics().size())))
         .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[0].xPath", is(attribute1.getxPath())))
         .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[0].value", is(attribute1.getValue())))
-        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[0].occurrence", is((int) attribute1.getOccurrence())))
+        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[0].occurrences", is((int) attribute1.getOccurrences())))
         .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[1].xPath", is(attribute2.getxPath())))
         .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[1].value", is(attribute2.getValue())))
-        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[1].occurrence", is((int) attribute2.getOccurrence())));
+        .andExpect(jsonPath("$.nodeValueStatistics[0].attributeStatistics[1].occurrences", is((int) attribute2.getOccurrences())));
   }
 
   @Test
