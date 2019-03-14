@@ -39,7 +39,7 @@ public class TestApplication {
   @Bean
   @DependsOn(value = "lsResourcResolver")
   ValidationExecutionService getValidationExecutionService() {
-    return new ValidationExecutionService(new Config(), getLSResourceResolver());
+    return new ValidationExecutionService(new Config(), getLSResourceResolver(), getSchemaProvider());
   }
 
   @Bean(name = "lsResourcResolver")
@@ -48,7 +48,7 @@ public class TestApplication {
   }
 
   @Bean
-  public SchemaProvider schemaManager() {
+  public SchemaProvider getSchemaProvider() {
     PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
 
     predefinedSchemas
