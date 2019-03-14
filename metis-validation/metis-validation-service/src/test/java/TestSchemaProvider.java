@@ -61,7 +61,7 @@ class TestSchemaProvider {
   @AfterAll
   static void destroy() throws IOException {
     wireMockServer.stop();
-    FileUtils.deleteDirectory(new File(schemaProvider.getSchemasDirectory()));
+    schemaProvider.cleanUp();
   }
 
   @Test

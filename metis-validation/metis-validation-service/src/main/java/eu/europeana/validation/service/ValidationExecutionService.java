@@ -2,6 +2,7 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,8 @@ public class ValidationExecutionService {
    * and edm-external schemas
    */
   public ValidationExecutionService(Properties predefinedSchemasLocations) {
-    this(() -> DEFAULT_THREADS_COUNT, new ClasspathResourceResolver(), getSchemaProvider(predefinedSchemasLocations));
+    this(() -> DEFAULT_THREADS_COUNT, new ClasspathResourceResolver(),
+        getSchemaProvider(predefinedSchemasLocations));
   }
 
 
@@ -110,9 +112,12 @@ public class ValidationExecutionService {
   }
 
   @PreDestroy
-  void cleanup() {
+  void cleanup() throws IOException {
     if (es != null) {
       es.shutdown();
+    }
+    if (schemaProvider != null) {
+      schemaProvider.cleanUp();
     }
   }
 

@@ -31,9 +31,8 @@ public class SchemaProvider {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SchemaProvider.class);
 
-  public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
+  private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
   private static final String ZIP_FILE_NAME = "zip.zip";
-  public final String UUID_FOR_SCHEMA_PROVIDER = UUID.randomUUID().toString();
   private String schemasRootDirectory;
 
   private final PredefinedSchemas predefinedSchemasLocations;
@@ -46,10 +45,11 @@ public class SchemaProvider {
    * @param predefinedSchemasLocations the wrapper class with all the schema locations
    */
   public SchemaProvider(PredefinedSchemas predefinedSchemasLocations) {
+    String uuidForSchemaProvider = UUID.randomUUID().toString();
     if (TMP_DIR.endsWith(File.separator)) {
-      schemasRootDirectory = TMP_DIR + UUID_FOR_SCHEMA_PROVIDER + File.separator;
+      schemasRootDirectory = TMP_DIR + uuidForSchemaProvider + File.separator;
     } else {
-      schemasRootDirectory = TMP_DIR + File.separator + UUID_FOR_SCHEMA_PROVIDER + File.separator;
+      schemasRootDirectory = TMP_DIR + File.separator + uuidForSchemaProvider + File.separator;
     }
 
     LOGGER.info("Creating schema manager. Files will be stored in: {}", schemasRootDirectory);
@@ -138,12 +138,7 @@ public class SchemaProvider {
       return new File(schemasLocation, ZIP_FILE_NAME);
     }
 
-    try {
-      FileUtils.deleteDirectory(schemasLocation);
-    } catch (IOException e) {
-      throw new SchemaProviderException("Unable to clean schemaDirecory", e);
-    }
-
+    //If the zip file does not exist it means the directory would not exist either
     if (!schemasLocation.mkdirs()) {
       throw new SchemaProviderException("Unable to create schemaDirecory");
     }
@@ -207,5 +202,9 @@ public class SchemaProvider {
   private boolean rootFileExists(File unzippedSchemaLocation, String rootFileLocation) {
     File rootFile = new File(unzippedSchemaLocation, rootFileLocation);
     return rootFile.exists();
+  }
+
+  public void cleanUp() throws IOException {
+    FileUtils.deleteDirectory(new File(schemasRootDirectory));
   }
 }
