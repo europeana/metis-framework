@@ -20,13 +20,13 @@ class ProxiesHelper {
   ProxiesHelper() {
   }
 
-  RecordStatistics convertRecordStatistics(StatisticsReport report) {
+  RecordStatistics compileRecordStatistics(StatisticsReport report) {
 
     // Group the node statistics by their respective xpath.
     final Map<String, List<NodeStatistics>> nodesByXPath = report.getNodeStatistics().stream()
         .collect(Collectors.groupingBy(NodeStatistics::getXpath));
     final List<NodePathStatistics> nodePathStatisticsList = nodesByXPath.entrySet().stream()
-        .map(ProxiesHelper::convertNodePathStatistics)
+        .map(ProxiesHelper::compileNodePathStatistics)
         .sorted(Comparator.comparing(NodePathStatistics::getxPath))
         .collect(Collectors.toList());
 
@@ -37,18 +37,18 @@ class ProxiesHelper {
     return result;
   }
 
-  private static NodePathStatistics convertNodePathStatistics(
+  private static NodePathStatistics compileNodePathStatistics(
       Entry<String, List<NodeStatistics>> nodeWithXPath) {
-    return convertNodePathStatistics(nodeWithXPath.getKey(), nodeWithXPath.getValue(),
-        ProxiesHelper::convertNodeValueStatistics);
+    return compileNodePathStatistics(nodeWithXPath.getKey(), nodeWithXPath.getValue(),
+        ProxiesHelper::compileNodeValueStatistics);
   }
 
-  NodePathStatistics convertNodePathStatistics(String nodePath, List<NodeReport> nodeReports) {
-    return convertNodePathStatistics(nodePath, nodeReports,
-        ProxiesHelper::convertNodeValueStatistics);
+  NodePathStatistics compileNodePathStatistics(String nodePath, List<NodeReport> nodeReports) {
+    return compileNodePathStatistics(nodePath, nodeReports,
+        ProxiesHelper::compileNodeValueStatistics);
   }
 
-  private static <I> NodePathStatistics convertNodePathStatistics(String nodePath,
+  private static <I> NodePathStatistics compileNodePathStatistics(String nodePath,
       List<I> nodes, Function<I, NodeValueStatistics> nodeValueConverter) {
     final List<NodeValueStatistics> nodeValueStatisticsList = nodes.stream()
         .map(nodeValueConverter)
@@ -60,21 +60,21 @@ class ProxiesHelper {
     return nodePathStatistics;
   }
 
-  private static NodeValueStatistics convertNodeValueStatistics(NodeStatistics nodeStatistics) {
-    return convertNodeValueStatistics(nodeStatistics.getValue(), nodeStatistics.getOccurrence(),
+  private static NodeValueStatistics compileNodeValueStatistics(NodeStatistics nodeStatistics) {
+    return compileNodeValueStatistics(nodeStatistics.getValue(), nodeStatistics.getOccurrence(),
         nodeStatistics.getAttributesStatistics());
   }
 
-  private static NodeValueStatistics convertNodeValueStatistics(NodeReport nodeReport) {
-    return convertNodeValueStatistics(nodeReport.getNodeValue(), nodeReport.getOccurrence(),
+  private static NodeValueStatistics compileNodeValueStatistics(NodeReport nodeReport) {
+    return compileNodeValueStatistics(nodeReport.getNodeValue(), nodeReport.getOccurrence(),
         nodeReport.getAttributeStatistics());
   }
 
-  private static NodeValueStatistics convertNodeValueStatistics(String nodeValue,
+  private static NodeValueStatistics compileNodeValueStatistics(String nodeValue,
       long occurrence,
       Collection<eu.europeana.cloud.common.model.dps.AttributeStatistics> attributes) {
     final List<AttributeStatistics> attributeStatistics = attributes.stream()
-        .map(ProxiesHelper::convertAttributeStatistics)
+        .map(ProxiesHelper::compileAttributeStatistics)
         .sorted(Comparator.comparing(AttributeStatistics::getxPath)
             .thenComparing(AttributeStatistics::getValue))
         .collect(Collectors.toList());
@@ -85,7 +85,7 @@ class ProxiesHelper {
     return nodeValueStatistics;
   }
 
-  private static AttributeStatistics convertAttributeStatistics(
+  private static AttributeStatistics compileAttributeStatistics(
       eu.europeana.cloud.common.model.dps.AttributeStatistics input) {
     final AttributeStatistics attributeStatistics = new AttributeStatistics();
     attributeStatistics.setxPath(input.getName());

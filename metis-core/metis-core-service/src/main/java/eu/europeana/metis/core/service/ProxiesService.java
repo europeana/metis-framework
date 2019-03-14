@@ -222,7 +222,7 @@ public class ProxiesService {
     }
 
     // Convert them and done.
-    return proxiesHelper.convertRecordStatistics(report);
+    return proxiesHelper.compileRecordStatistics(report);
   }
 
   /**
@@ -262,7 +262,7 @@ public class ProxiesService {
     }
 
     // Convert them and done.
-    return proxiesHelper.convertNodePathStatistics(nodePath, nodeReports);
+    return proxiesHelper.compileNodePathStatistics(nodePath, nodeReports);
   }
 
   private String getDatasetIdFromExternalTaskId(long externalTaskId)

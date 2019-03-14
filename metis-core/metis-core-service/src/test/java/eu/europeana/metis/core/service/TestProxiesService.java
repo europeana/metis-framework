@@ -229,7 +229,7 @@ class TestProxiesService {
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
     final RecordStatistics recordStatistics = new RecordStatistics();
-    when(proxiesHelper.convertRecordStatistics(taskStatistics)).thenReturn(recordStatistics);
+    when(proxiesHelper.compileRecordStatistics(taskStatistics)).thenReturn(recordStatistics);
     final RecordStatistics result = proxiesService.getExternalTaskStatistics(metisUser,
             Topology.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID);
     verify(authorizer, times(1))
@@ -269,7 +269,7 @@ class TestProxiesService {
     final WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getByExternalTaskId(EXTERNAL_TASK_ID)).thenReturn(workflowExecution);
     final NodePathStatistics nodePathStatistics = new NodePathStatistics();
-    when(proxiesHelper.convertNodePathStatistics(nodePath, nodeReportList)).thenReturn(nodePathStatistics);
+    when(proxiesHelper.compileNodePathStatistics(nodePath, nodeReportList)).thenReturn(nodePathStatistics);
     final NodePathStatistics result = proxiesService
         .getAdditionalNodeStatistics(metisUser, Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, nodePath);
