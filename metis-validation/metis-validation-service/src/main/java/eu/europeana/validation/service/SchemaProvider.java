@@ -8,8 +8,8 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Enumeration;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.apache.commons.io.FileUtils;
@@ -19,7 +19,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Provides schemas based on url of predefined name (EDM-Internal on EDM-External).
+ * Provides schemas based on url of predefined name (EDM-INTERNAL on EDM-EXTERNAL). Per instance of
+ * this class there is a UUID generated that is used to create the directory path of where the
+ * schemas will be stored. This is done so, to avoid file system collisions of processes that run
+ * the exact same code and are independent from each other.
  * <p>
  * Created by pwozniak on 12/20/17
  * <p>
@@ -30,67 +33,69 @@ public class SchemaProvider {
 
   public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
   private static final String ZIP_FILE_NAME = "zip.zip";
-  private String schemasDir;
+  public final String UUID_FOR_SCHEMA_PROVIDER = UUID.randomUUID().toString();
+  private String schemasRootDirectory;
 
   private final PredefinedSchemas predefinedSchemasLocations;
 
   /**
-   * Creates {@link SchemaProvider} for given {@link PredefinedSchemas} object.
+   * Creates {@link SchemaProvider} for given {@link PredefinedSchemas} object. The {@link
+   * #schemasRootDirectory} is also calculated which includes the UUID of this {@link
+   * SchemaProvider}.
    *
    * @param predefinedSchemasLocations the wrapper class with all the schema locations
    */
   public SchemaProvider(PredefinedSchemas predefinedSchemasLocations) {
     if (TMP_DIR.endsWith(File.separator)) {
-      schemasDir = TMP_DIR + "schemas" + File.separator;
+      schemasRootDirectory = TMP_DIR + UUID_FOR_SCHEMA_PROVIDER + File.separator;
     } else {
-      schemasDir = TMP_DIR + File.separator + "schemas" + File.separator;
+      schemasRootDirectory = TMP_DIR + File.separator + UUID_FOR_SCHEMA_PROVIDER + File.separator;
     }
 
-    LOGGER.info("Creating schema manager. Files will be stored in: {}", schemasDir);
+    LOGGER.info("Creating schema manager. Files will be stored in: {}", schemasRootDirectory);
     this.predefinedSchemasLocations = predefinedSchemasLocations;
   }
 
   /**
    * Retrieves schema object from given (remote) location.
    *
-   * @param fileLocation place where (remote) zip file is located. Accepts url to file or one of the
-   * predefined values (EDM-INTERNAL or EDM-EXTERNAL)
+   * @param zipUrl place where (remote) zip file is located. Accepts url to file.
    * @param rootFileLocation indicates where root xsd file is located inside zip. The caller is
-   * responsible to provide propper path (for example propper slashes)
+   * responsible to provide a valid path to that file
    * @param schematronLocation place where schematron file is located
    * @return schema object
    * @throws SchemaProviderException any exception that can occur during retrieving schema files
    */
-  public synchronized Schema getSchema(String fileLocation, String rootFileLocation,
+  public synchronized Schema getSchema(String zipUrl, String rootFileLocation,
       String schematronLocation) throws SchemaProviderException {
 
-    File downloadedFile = downloadZipIfNeeded(fileLocation, prepareDirectoryName(fileLocation));
+    final String schemasDirectoryName = prepareDirectoryName(zipUrl);
+    File downloadedFile = downloadZipIfNeeded(zipUrl, schemasDirectoryName);
     unzipArchiveIfNeeded(downloadedFile, rootFileLocation);
-    return prepareSchema(prepareDirectoryName(fileLocation), downloadedFile.getParentFile(),
-        rootFileLocation, schematronLocation);
+    return prepareSchema(schemasDirectoryName, downloadedFile.getParentFile(), rootFileLocation,
+        schematronLocation);
   }
 
   /**
-   * Creates intance of {@link Schema} class based on provided type of schema
+   * Creates instance of {@link Schema} class based on provided type of schema
    *
-   * @param fileLocation location of schema files. Can be url to zip or predefined value (that will
-   * be taken from properties file)
+   * @param schemaName the schema name (that will be taken from properties file)
    * @return the instance
    * @throws SchemaProviderException any exception that can occur during retrieving schema files
    */
-  public Schema getSchema(String fileLocation) throws SchemaProviderException {
-    if (isPredefined(fileLocation)) {
+  public Schema getSchema(String schemaName) throws SchemaProviderException {
+    if (isPredefined(schemaName)) {
       return getSchema(
-          predefinedSchemasLocations.get(fileLocation).getLocation(),
-          predefinedSchemasLocations.get(fileLocation).getRootFileLocation(),
-          predefinedSchemasLocations.get(fileLocation).getSchematronFileLocation());
+          predefinedSchemasLocations.get(schemaName).getLocation(),
+          predefinedSchemasLocations.get(schemaName).getRootFileLocation(),
+          predefinedSchemasLocations.get(schemaName).getSchematronFileLocation());
     } else {
       throw new SchemaProviderException("XSD root file not provided");
     }
   }
 
   public String getSchemasDirectory() {
-    return schemasDir;
+    return schemasRootDirectory;
   }
 
   private String prepareDirectoryName(String name) throws SchemaProviderException {
@@ -126,7 +131,7 @@ public class SchemaProvider {
   private File downloadZipIfNeeded(String zipLocation, String destinationDir)
       throws SchemaProviderException {
 
-    File schemasLocation = new File(schemasDir, destinationDir);
+    File schemasLocation = new File(schemasRootDirectory, destinationDir);
 
     if (new File(schemasLocation, ZIP_FILE_NAME).exists()) {
       LOGGER.debug("Zip file will not be downloaded, already exists in temp directory");
@@ -182,11 +187,8 @@ public class SchemaProvider {
     }
   }
 
-  private Schema prepareSchema(
-      String schemaName,
-      File unzippedSchemaLocation,
-      String rootFileLocation,
-      String schematronLocation) throws SchemaProviderException {
+  private Schema prepareSchema(String schemaName, File unzippedSchemaLocation,
+      String rootFileLocation, String schematronLocation) throws SchemaProviderException {
 
     Schema schema = new Schema();
     schema.setName(schemaName);

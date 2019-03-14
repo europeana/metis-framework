@@ -59,6 +59,8 @@ public class Validator implements Callable<ValidationResult> {
    * @param rootFileLocation location of the schema root file
    * @param schematronFileLocation location of the schematron file
    * @param document document that will be validated
+   * @param schemaProvider the class that provides the schemas
+   * @param resolver the resolver used for parsing split xsds
    */
   public Validator(String schema, String rootFileLocation, String schematronFileLocation,
       String document, SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {

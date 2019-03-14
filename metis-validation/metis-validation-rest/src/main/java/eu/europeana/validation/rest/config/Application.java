@@ -116,7 +116,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
    * @return SchemaProvider instance
    */
   @Bean
-  public SchemaProvider schemaManager() {
+  public SchemaProvider getSchemaProvider() {
     PredefinedSchemas predefinedSchemas = PredefinedSchemasGenerator.generate(predefinedSchemasLocations);
     return new SchemaProvider(predefinedSchemas);
   }
