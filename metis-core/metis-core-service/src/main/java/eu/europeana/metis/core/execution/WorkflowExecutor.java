@@ -242,12 +242,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         }
         monitorResult = abstractMetisPlugin.monitor(dpsClient);
         consecutiveCancelOrMonitorFailures = 0;
-        Date updatedDate = new Date();
-        abstractMetisPlugin.setUpdatedDate(updatedDate);
         abstractMetisPlugin.setPluginStatusAndResetFailMessage(
             monitorResult.getTaskState() == TaskState.REMOVING_FROM_SOLR_AND_MONGO
                 ? PluginStatus.CLEANING : PluginStatus.RUNNING);
-        workflowExecution.setUpdatedDate(updatedDate);
       } catch (InterruptedException e) {
         LOGGER.warn("Thread was interrupted during monitoring of external task", e);
         Thread.currentThread().interrupt();
@@ -271,6 +268,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
           return;
         }
       } finally {
+        Date updatedDate = new Date();
+        abstractMetisPlugin.setUpdatedDate(updatedDate);
+        workflowExecution.setUpdatedDate(updatedDate);
         workflowExecutionDao.updateMonitorInformation(workflowExecution);
       }
     } while (monitorResult == null || (monitorResult.getTaskState() != TaskState.DROPPED
