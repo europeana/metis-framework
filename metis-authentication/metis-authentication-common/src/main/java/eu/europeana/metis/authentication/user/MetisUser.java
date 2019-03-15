@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -83,7 +84,7 @@ public class MetisUser {
 
   private void parseJsonNodeZohoUserToMetisUser(JsonNode jsonNode)
       throws BadContentException, ParseException {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {
       JsonNode next = elements.next();

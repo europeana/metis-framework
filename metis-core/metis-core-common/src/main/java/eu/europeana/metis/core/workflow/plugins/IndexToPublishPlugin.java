@@ -3,6 +3,8 @@ package eu.europeana.metis.core.workflow.plugins;
 import eu.europeana.cloud.service.dps.DpsTask;
 
 /**
+ * Index to Publish Plugin.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-03
  */
@@ -46,7 +48,8 @@ public class IndexToPublishPlugin extends AbstractMetisPlugin {
         .isUseAlternativeIndexingEnvironment();
     boolean preserveTimestamps = ((IndexToPublishPluginMetadata) getPluginMetadata())
         .isPreserveTimestamps();
-    return createDpsTaskForIndexPlugin(datasetId, useAlternativeIndexingEnvironment, preserveTimestamps,
+    return createDpsTaskForIndexPlugin(datasetId, useAlternativeIndexingEnvironment,
+        preserveTimestamps,
         "PUBLISH", ecloudBaseUrl, ecloudProvider,
         ecloudDataset);
   }

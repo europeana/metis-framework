@@ -42,30 +42,6 @@ public final class ExternalRequestUtil {
    *
    * @param supplier the respective supplier encapsulating the external request
    * @return the expected object as a result of the external request
-   * @deprecated As of 01-10-2018. Use the one of the following method {@link
-   * #retryableExternalRequestConnectionReset(Supplier)} or the more controlled method, {@link
-   * #retryableExternalRequestForRuntimeExceptions(Supplier, Map, int, int)}  instead by providing
-   * the Map containing the required class types and String message of the caused exception
-   */
-  @Deprecated
-  public static <R> R retryableExternalRequest(Supplier<R> supplier) {
-    return retryableExternalRequestForRuntimeExceptions(supplier,
-        getSocketExceptionConnectionReset(), -1, -1);
-  }
-
-  /**
-   * Retries a request to an external service like a database. This method is meant to be called
-   * when request throws a {@link RuntimeException} that contains a {@link SocketException} cause
-   * with message "Connection reset". This method was intentionally implemented for the above
-   * described issue that is caused in the Bluemix Cloud Foundry environment. Some examples are:
-   * <ul>
-   * <li>{@link MongoSocketException}</li> From a Mongo request
-   * <li>{@link MongoSecurityException}</li> From a Mongo request
-   * <li>{@link ResourceAccessException}</li> From an HTTP request
-   * </ul>
-   *
-   * @param supplier the respective supplier encapsulating the external request
-   * @return the expected object as a result of the external request
    */
   public static <R> R retryableExternalRequestConnectionReset(Supplier<R> supplier) {
     return retryableExternalRequestForRuntimeExceptions(supplier,

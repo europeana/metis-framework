@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.annotations.Embedded;
@@ -294,7 +295,7 @@ public abstract class AbstractMetisPlugin {
     parameters.put("REPRESENTATION_NAME", getRepresentationName());
     parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
     parameters.put("REVISION_PROVIDER", ecloudProvider);
-    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT);
+    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
     parameters.put("REVISION_TIMESTAMP",
         dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
     parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
@@ -306,8 +307,8 @@ public abstract class AbstractMetisPlugin {
   }
 
   DpsTask createDpsTaskForIndexPlugin(String datasetId, boolean useAlternativeIndexingEnvironment,
-      boolean preserveTimestamps,
-      String targetDatabase, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+      boolean preserveTimestamps, String targetDatabase, String ecloudBaseUrl,
+      String ecloudProvider, String ecloudDataset) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("METIS_DATASET_ID", datasetId);
     extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);

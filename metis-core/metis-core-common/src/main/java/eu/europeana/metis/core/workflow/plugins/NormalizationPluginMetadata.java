@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 /**
+ * Normalization Plugin Metadata.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-26
  */

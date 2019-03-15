@@ -100,7 +100,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     LOGGER.debug(
         "WorkflowExecution metisPlugins for datasetId '{}' updated in Mongo. (UpdateResults: {})",
         workflowExecution.getDatasetId(),
-        updateResults != null ? updateResults.getUpdatedCount() : 0);
+        updateResults == null ? 0 : updateResults.getUpdatedCount());
   }
 
   /**

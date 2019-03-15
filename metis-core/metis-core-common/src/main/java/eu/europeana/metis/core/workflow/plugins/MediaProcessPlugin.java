@@ -4,6 +4,8 @@ import eu.europeana.cloud.service.dps.DpsTask;
 import java.util.Map;
 
 /**
+ * Media Process Plugin.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-20
  */
@@ -12,7 +14,8 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.MEDIA_PROCESS.getTopologyName();
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
+   * plugin.
    */
   MediaProcessPlugin() {
     //Required for json serialization

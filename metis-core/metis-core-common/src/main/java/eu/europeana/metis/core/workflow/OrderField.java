@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.workflow;
 
 /**
+ * Enumeration that contains field names that can be used for ordering queries.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-23
  */

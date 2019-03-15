@@ -1,6 +1,7 @@
 package eu.europeana.metis;
 
 /**
+ * Contains common used String values
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-02
  */

@@ -10,6 +10,8 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 /**
+ * OAIPMH Harvest Plugin.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-24
  */
@@ -18,7 +20,8 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.OAIPMH_HARVEST.getTopologyName();
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
+   * plugin.
    */
   OaipmhHarvestPlugin() {
     //Required for json serialization
@@ -60,7 +63,8 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
     if (useDefaultIdentifiers && !StringUtils.isBlank(identifierPrefixRemoval)) {
       parameters.put("MIGRATION_IDENTIFIER_PREFIX", identifierPrefixRemoval);
     }
-    DpsTask dpsTask = createDpsTaskForHarvestPlugin(parameters, targetUrl, ecloudBaseUrl, ecloudProvider,
+    DpsTask dpsTask = createDpsTaskForHarvestPlugin(parameters, targetUrl, ecloudBaseUrl,
+        ecloudProvider,
         ecloudDataset);
 
     String setSpec = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getSetSpec();

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
+ * Contains all Plugin types.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-24
  */
@@ -53,6 +55,7 @@ public enum PluginType {
 
   /**
    * Describes if a PluginType has executions that contain revision information.
+   *
    * @return true if there are not revision related with the particular PluginType
    */
   public boolean isRevisionLess() {
