@@ -1,9 +1,7 @@
 package eu.europeana.metis.core.utils;
 
 import eu.europeana.cloud.common.model.dps.ErrorDetails;
-import eu.europeana.cloud.common.model.dps.NodeStatistics;
 import eu.europeana.cloud.common.model.dps.States;
-import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
@@ -13,7 +11,6 @@ import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -46,12 +43,11 @@ public class TestObjectFactory {
   public static final String XSLTID = "5a9821af34f04b794dcf63df";
   public static final String EXECUTIONID = "5a5dc67ba458bb00083d49e3";
   public static final String DATASETNAME = "datasetName";
-  public static final String WORKFLOWNAME = "workflowName";
   public static final String EMAIL = "user.metis@europeana.eu";
   public static final String AUTHORIZATION_HEADER = "Bearer 1234567890qwertyuiopasdfghjklQWE";
   public static final String TOPOLOGY_NAME = "topology_name";
   public static final long EXTERNAL_TASK_ID = 2_070_373_127_078_497_810L;
-  public static final int OCCURRENCES = 2;
+  private static final int OCCURRENCES = 2;
 
 
   private TestObjectFactory() {
@@ -176,29 +172,6 @@ public class TestObjectFactory {
   }
 
   /**
-   * Create a list of dummy scheduled workflows with pointer date and frequency. The dataset name
-   * will have a suffix number for each dataset.
-   *
-   * @param size the number of dummy scheduled workflows to create
-   * @param date the pointer date
-   * @param scheduleFrequence the schedule frequence
-   * @return the created list
-   */
-  public static List<ScheduledWorkflow> createListOfScheduledWorkflowsWithDateAndFrequence(
-      int size, Date date, ScheduleFrequence scheduleFrequence) {
-    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>(size);
-    for (int i = 0; i < size; i++) {
-      ScheduledWorkflow scheduledWorkflow = createScheduledWorkflowObject();
-      scheduledWorkflow.setId(new ObjectId());
-      scheduledWorkflow.setDatasetId(Integer.toString(DATASETID + i));
-      scheduledWorkflow.setPointerDate(date);
-      scheduledWorkflow.setScheduleFrequence(scheduleFrequence);
-      scheduledWorkflows.add(scheduledWorkflow);
-    }
-    return scheduledWorkflows;
-  }
-
-  /**
    * Create a dummy dataset
    *
    * @param datasetName the dataset name to be used
@@ -270,22 +243,6 @@ public class TestObjectFactory {
   }
 
   /**
-   * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects.
-   *
-   * @param numberOfErrorTypes the number of dummy error types
-   * @return the created task errors info
-   */
-  public static TaskErrorsInfo createTaskErrorsInfoListWithoutIdentifiers(int numberOfErrorTypes) {
-    ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
-    for (int i = 0; i < numberOfErrorTypes; i++) {
-      TaskErrorInfo taskErrorInfo = new TaskErrorInfo("be39ef50-f77d-11e7-af0f-fa163e77119a",
-          String.format("Error%s", i), OCCURRENCES);
-      taskErrorInfos.add(taskErrorInfo);
-    }
-    return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
-  }
-
-  /**
    * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects. These
    * will also contain a list of {@link ErrorDetails} that in turn contain dummy identifiers.
    *
@@ -304,58 +261,6 @@ public class TestObjectFactory {
       taskErrorInfos.add(taskErrorInfo);
     }
     return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
-  }
-
-  /**
-   * Create a task errors info object, which contains a list of {@link TaskErrorInfo} objects. These
-   * will also contain a list of {@link ErrorDetails} that in turn contain dummy identifiers.
-   *
-   * @param errorType the error type to be used for the internal {@link TaskErrorInfo}
-   * @param message the message type to be used for the internal {@link TaskErrorInfo}
-   * @return the created task errors info
-   */
-  public static TaskErrorsInfo createTaskErrorsInfoWithIdentifiers(String errorType,
-      String message) {
-    ArrayList<ErrorDetails> errorDetails = new ArrayList<>();
-    errorDetails.add(new ErrorDetails("identifier1", "error1"));
-    errorDetails.add(new ErrorDetails("identifier2", "error2"));
-    TaskErrorInfo taskErrorInfo1 = new TaskErrorInfo(errorType,
-        message, OCCURRENCES, errorDetails);
-    ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
-    taskErrorInfos.add(taskErrorInfo1);
-
-    return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
-  }
-
-  /**
-   * Create a dummy {@link StatisticsReport}
-   *
-   * @return the created report
-   */
-  public static StatisticsReport createTaskStatisticsReport() {
-    List<NodeStatistics> nodeStatistics = new ArrayList<>();
-    nodeStatistics.add(new NodeStatistics("parentpath1", "path1", "value1", 1));
-    nodeStatistics.add(new NodeStatistics("parentpath2", "path2", "value2", OCCURRENCES));
-    return new StatisticsReport(EXTERNAL_TASK_ID, nodeStatistics);
-  }
-
-  /**
-   * Create a dummy dataset xslt. The xslt copies a record.
-   *
-   * @param dataset the dataset to be used for the creation of the {@link DatasetXslt}
-   * @return the created dataset xslt
-   */
-  public static DatasetXslt createXslt(Dataset dataset) {
-    DatasetXslt datasetXslt = new DatasetXslt(dataset.getDatasetId(),
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<xsl:stylesheet version=\"2.0\"\n"
-            + "xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">\n"
-            + "<xsl:template match=\"/\">\n"
-            + "<xsl:copy-of select=\"node()\"/>\n"
-            + "</xsl:template>\n"
-            + "</xsl:stylesheet>");
-    datasetXslt.setId(new ObjectId());
-    return datasetXslt;
   }
 
   /**

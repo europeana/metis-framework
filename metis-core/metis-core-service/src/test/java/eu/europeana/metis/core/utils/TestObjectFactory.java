@@ -46,12 +46,11 @@ public class TestObjectFactory {
   public static final String XSLTID = "5a9821af34f04b794dcf63df";
   public static final String EXECUTIONID = "5a5dc67ba458bb00083d49e3";
   public static final String DATASETNAME = "datasetName";
-  public static final String WORKFLOWNAME = "workflowName";
   public static final String EMAIL = "user.metis@europeana.eu";
   public static final String AUTHORIZATION_HEADER = "Bearer 1234567890qwertyuiopasdfghjklQWE";
   public static final String TOPOLOGY_NAME = "topology_name";
   public static final long EXTERNAL_TASK_ID = 2_070_373_127_078_497_810L;
-  public static final int OCCURRENCES = 2;
+  private static final int OCCURRENCES = 2;
 
 
   private TestObjectFactory() {
