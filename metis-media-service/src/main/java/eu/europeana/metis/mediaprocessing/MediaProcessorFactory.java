@@ -6,6 +6,7 @@ import eu.europeana.metis.mediaprocessing.linkchecking.LinkCheckerImpl;
 
 /**
  * This factory creates objects for media extraction and link checking.
+ * <p>Used by external like scripts or ECloud.</p>
  */
 public class MediaProcessorFactory {
 

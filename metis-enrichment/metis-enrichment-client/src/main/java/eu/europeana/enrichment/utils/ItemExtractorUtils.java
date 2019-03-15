@@ -19,6 +19,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
+ * Utility class for extracting items from different structures.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-09-13
  */

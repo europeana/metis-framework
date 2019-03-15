@@ -66,14 +66,16 @@ public class SchemaProvider {
    * @return schema object
    * @throws SchemaProviderException any exception that can occur during retrieving schema files
    */
-  public synchronized Schema getSchema(String zipUrl, String rootFileLocation,
+  public Schema getSchema(String zipUrl, String rootFileLocation,
       String schematronLocation) throws SchemaProviderException {
+    synchronized (this) {
 
-    final String schemasDirectoryName = prepareDirectoryName(zipUrl);
-    File downloadedFile = downloadZipIfNeeded(zipUrl, schemasDirectoryName);
-    unzipArchiveIfNeeded(downloadedFile, rootFileLocation);
-    return prepareSchema(schemasDirectoryName, downloadedFile.getParentFile(), rootFileLocation,
-        schematronLocation);
+      final String schemasDirectoryName = prepareDirectoryName(zipUrl);
+      File downloadedFile = downloadZipIfNeeded(zipUrl, schemasDirectoryName);
+      unzipArchiveIfNeeded(downloadedFile, rootFileLocation);
+      return prepareSchema(schemasDirectoryName, downloadedFile.getParentFile(), rootFileLocation,
+          schematronLocation);
+    }
   }
 
   /**
@@ -204,6 +206,11 @@ public class SchemaProvider {
     return rootFile.exists();
   }
 
+  /**
+   * Delete {@link #schemasRootDirectory} that was generated for this instance at the beginning.
+   *
+   * @throws IOException if an exception happened while trying to delete the directory
+   */
   public void cleanUp() throws IOException {
     FileUtils.deleteDirectory(new File(schemasRootDirectory));
   }

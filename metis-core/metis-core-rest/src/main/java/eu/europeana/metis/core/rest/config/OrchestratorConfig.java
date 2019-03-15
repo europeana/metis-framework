@@ -55,6 +55,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
+ * Orchestrator configuration class.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-11-22
  */
@@ -76,6 +78,11 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   private Channel consumerChannel;
   private RedissonClient redissonClient;
 
+  /**
+   * Constructor with the required properties class.
+   *
+   * @param propertiesHolder the properties holder
+   */
   @Autowired
   public OrchestratorConfig(ConfigurationPropertiesHolder propertiesHolder) {
     this.propertiesHolder = propertiesHolder;

@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.execution;
 
+import com.rabbitmq.client.AMQP.BasicProperties;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorCompletionService;
@@ -17,6 +18,10 @@ import com.rabbitmq.client.Envelope;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 
 /**
+ * Class that handles the initializing connection to the RabbitMQ distributed queue and handling the
+ * consuming of items from the queue, through the implemented {@link #handleDelivery(String,
+ * Envelope, BasicProperties, byte[])} method.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-13
  */

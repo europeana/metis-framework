@@ -14,9 +14,9 @@ import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -60,7 +60,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final Map<Class<?>, String> mapWithRetriableExceptions;
 
   static {
-    final Map<Class<?>, String> retriableExceptionMap = new HashMap<>();
+    final Map<Class<?>, String> retriableExceptionMap = new ConcurrentHashMap<>();
     retriableExceptionMap.put(UnknownHostException.class, "");
     retriableExceptionMap.put(HttpServerErrorException.class, "");
     mapWithRetriableExceptions = Collections.unmodifiableMap(retriableExceptionMap);

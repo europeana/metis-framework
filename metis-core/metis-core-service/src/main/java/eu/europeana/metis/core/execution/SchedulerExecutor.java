@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Class that is responsible for scheduling executions.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-09-27
  */
@@ -90,8 +92,7 @@ public class SchedulerExecutor {
     return scheduledWorkflows;
   }
 
-  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceOnce(
-      LocalDateTime lowerBound,
+  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceOnce(LocalDateTime lowerBound,
       LocalDateTime upperBound) {
     int nextPage = 0;
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
@@ -132,21 +133,14 @@ public class SchedulerExecutor {
     return scheduledWorkflows;
   }
 
-  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceWeekly(
-      LocalDateTime lowerBound,
+  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceWeekly(LocalDateTime lowerBound,
       LocalDateTime upperBound) {
     List<ScheduledWorkflow> scheduledWorkflows = getScheduledUserWorkflows(
         ScheduleFrequence.WEEKLY);
-    for (Iterator<ScheduledWorkflow> iterator = scheduledWorkflows.iterator();
-        iterator.hasNext(); ) {
-      ScheduledWorkflow scheduledWorkflow = iterator.next();
-      LocalDateTime pointerDate = LocalDateTime
-          .ofInstant(scheduledWorkflow.getPointerDate().toInstant(), ZoneId.systemDefault());
-      LocalDateTime localDateToCheck = lowerBound.withYear(lowerBound.getYear())
-          .withMonth(lowerBound.getMonthValue()).withDayOfMonth(pointerDate.getDayOfMonth())
-          .withHour(pointerDate.getHour())
-          .withMinute(pointerDate.getMinute()).withSecond(pointerDate.getSecond())
-          .withNano(pointerDate.getNano());
+    for (Iterator<ScheduledWorkflow> scheduledWorkflowIterator = scheduledWorkflows.iterator();
+        scheduledWorkflowIterator.hasNext(); ) {
+      LocalDateTime localDateToCheck = getLocalDateTimeBasedOnLowerBound(lowerBound,
+          scheduledWorkflowIterator.next());
 
       if (lowerBound.getDayOfWeek() == localDateToCheck.getDayOfWeek()) {
         localDateToCheck = localDateToCheck.withDayOfMonth(lowerBound.getDayOfMonth());
@@ -154,28 +148,20 @@ public class SchedulerExecutor {
 
       if (localDateToCheck.isBefore(lowerBound) || localDateToCheck.isEqual(upperBound)
           || localDateToCheck.isAfter(upperBound)) {
-        iterator.remove();
+        scheduledWorkflowIterator.remove();
       }
     }
     return scheduledWorkflows;
   }
 
   private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceMonthly(
-      LocalDateTime lowerBound,
-      LocalDateTime upperBound) {
+      LocalDateTime lowerBound, LocalDateTime upperBound) {
     List<ScheduledWorkflow> scheduledWorkflows = getScheduledUserWorkflows(
         ScheduleFrequence.MONTHLY);
-    for (Iterator<ScheduledWorkflow> iterator = scheduledWorkflows.iterator();
-        iterator.hasNext(); ) {
-      ScheduledWorkflow scheduledWorkflow = iterator.next();
-
-      LocalDateTime pointerDate = LocalDateTime
-          .ofInstant(scheduledWorkflow.getPointerDate().toInstant(), ZoneId.systemDefault());
-      LocalDateTime localDateToCheck = lowerBound.withYear(lowerBound.getYear())
-          .withMonth(pointerDate.getMonthValue()).withDayOfMonth(pointerDate.getDayOfMonth())
-          .withHour(pointerDate.getHour())
-          .withMinute(pointerDate.getMinute()).withSecond(pointerDate.getSecond())
-          .withNano(pointerDate.getNano());
+    for (Iterator<ScheduledWorkflow> scheduledWorkflowIterator = scheduledWorkflows.iterator();
+        scheduledWorkflowIterator.hasNext(); ) {
+      LocalDateTime localDateToCheck = getLocalDateTimeBasedOnLowerBound(lowerBound,
+          scheduledWorkflowIterator.next());
 
       if (lowerBound.getDayOfMonth() == localDateToCheck.getDayOfMonth()) {
         localDateToCheck = localDateToCheck.withMonth(lowerBound.getMonthValue());
@@ -183,10 +169,21 @@ public class SchedulerExecutor {
 
       if (localDateToCheck.isBefore(lowerBound) || localDateToCheck.isEqual(upperBound)
           || localDateToCheck.isAfter(upperBound)) {
-        iterator.remove();
+        scheduledWorkflowIterator.remove();
       }
     }
     return scheduledWorkflows;
+  }
+
+  private LocalDateTime getLocalDateTimeBasedOnLowerBound(LocalDateTime lowerBound,
+      ScheduledWorkflow scheduledWorkflow) {
+    LocalDateTime pointerDate = LocalDateTime
+        .ofInstant(scheduledWorkflow.getPointerDate().toInstant(), ZoneId.systemDefault());
+    return lowerBound.withYear(lowerBound.getYear())
+        .withMonth(pointerDate.getMonthValue()).withDayOfMonth(pointerDate.getDayOfMonth())
+        .withHour(pointerDate.getHour())
+        .withMinute(pointerDate.getMinute()).withSecond(pointerDate.getSecond())
+        .withNano(pointerDate.getNano());
   }
 
   private List<ScheduledWorkflow> getScheduledUserWorkflows(
