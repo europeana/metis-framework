@@ -138,12 +138,13 @@ public class EntityService implements Closeable {
 		termList.setEntityType(OrganizationImpl.class.getSimpleName());
 
 		// enforce created not null
-		if (created != null)
-			termList.setCreated(created);
-		else
-			termList.setCreated(new Date());
+    if (created == null) {
+      termList.setCreated(new Date());
+    } else {
+      termList.setCreated(created);
+    }
 
-		termList.setModified(modified);
+    termList.setModified(modified);
 
 		return termList;
 	}

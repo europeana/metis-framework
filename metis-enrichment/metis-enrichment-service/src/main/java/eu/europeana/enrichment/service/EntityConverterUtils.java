@@ -280,16 +280,16 @@ public class EntityConverterUtils {
     // Process the entries in the add map.
     for (Map.Entry<String, List<String>> entry : addMap.entrySet()) {
       final String key = entry.getKey();
-      if (!result.containsKey(key)) {
-        // If the base map has no singleton for the key, add it.
-        result.put(key, new ArrayList<>(entry.getValue()));
-      } else {
+      if (result.containsKey(key)) {
         // If it does, add to the not-merged-map that which is not already in the base map.
         final List<String> unmergedValues = entry.getValue().stream().distinct()
             .filter(value -> !result.get(key).contains(value)).collect(Collectors.toList());
         if (!unmergedValues.isEmpty()) {
           notMergedMap.merge(key, unmergedValues, this::mergeStringLists);
         }
+      } else {
+        // If the base map has no singleton for the key, add it.
+        result.put(key, new ArrayList<>(entry.getValue()));
       }
     }
 

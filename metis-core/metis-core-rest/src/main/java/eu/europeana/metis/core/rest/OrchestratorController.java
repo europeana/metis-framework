@@ -302,11 +302,13 @@ public class OrchestratorController {
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, datasetId,
             pluginType, enforcedPluginType);
-    if (latestFinishedPluginWorkflowExecutionByDatasetId != null) {
+    if (latestFinishedPluginWorkflowExecutionByDatasetId == null) {
+      if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
+        LOGGER.info("PluginType allowed by default");
+      }
+    } else {
       LOGGER.info("Latest Plugin WorkflowExecution with id '{}' found",
           latestFinishedPluginWorkflowExecutionByDatasetId.getId());
-    } else if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
-      LOGGER.info("PluginType allowed by default");
     }
     return latestFinishedPluginWorkflowExecutionByDatasetId;
   }

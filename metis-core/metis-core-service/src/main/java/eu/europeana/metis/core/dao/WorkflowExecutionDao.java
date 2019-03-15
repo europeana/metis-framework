@@ -154,10 +154,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .filter("_id", workflowExecution.getId());
     workflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
     String cancelledBy;
-    if (metisUser != null && metisUser.getUserId() != null) {
-      cancelledBy = metisUser.getUserId();
-    } else {
+    if (metisUser == null || metisUser.getUserId() == null) {
       cancelledBy = CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name();
+    } else {
+      cancelledBy = metisUser.getUserId();
     }
     workflowExecutionUpdateOperations.set("cancelledBy", cancelledBy);
     UpdateResults updateResults = ExternalRequestUtil

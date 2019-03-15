@@ -197,10 +197,10 @@ public class RdfWrapper {
   }
 
   private static <T extends AboutType> List<T> getPropertyList(List<T> propertyList) {
-    return propertyList != null ? propertyList : Collections.emptyList();
+    return propertyList == null ? Collections.emptyList() : propertyList;
   }
 
   private static <T extends AboutType> Stream<T> getPropertyStream(List<T> propertyList) {
-    return propertyList != null ? propertyList.stream() : Stream.empty();
+    return propertyList == null ? Stream.empty() : propertyList.stream();
   }
 }

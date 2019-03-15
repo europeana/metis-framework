@@ -73,18 +73,18 @@ public class RedisInternalEnricher {
     redisProvider = provider;
     if (populate) {
       Jedis jedis = redisProvider.getJedis();
-      if (!jedis.exists(CACHED_ENRICHMENT_STATUS)
-          || (!StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "started")
-          && !StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "finished"))) {
+      if (jedis.exists(CACHED_ENRICHMENT_STATUS)
+          && (StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "started")
+          || StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "finished"))) {
+        if (LOGGER.isInfoEnabled()) {
+          LOGGER.info("Status 'enrichmentstatus' exists with value: {}", check());
+        }
+      } else {
         LOGGER.info(
             "Redis status 'enrichmentstatus' does not exist or is not in a 'started' or 'finished' state.");
         LOGGER.info("Re-populating Redis from Mongo");
         jedis.close();
         populate();
-      } else {
-        if (LOGGER.isInfoEnabled()) {
-          LOGGER.info("Status 'enrichmentstatus' exists with value: {}", check());
-        }
       }
     }
   }

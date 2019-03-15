@@ -388,16 +388,18 @@ class MongoPropertyUpdater<T> {
     final P updatedValue = Optional.of(updated).map(getter).map(preprocessing).orElse(null);
 
     // Process changes if applicable.
-    if (!equality.test(currentValue, updatedValue)) {
+    if (equality.test(currentValue, updatedValue)) {
+      if (updatedValue != null) {
+        // If there has been no change, set only on insert (only needed if value is not null).
+        mongoOperations.setOnInsert(updateField, updatedValue);
+      }
+    } else {
       // If there has been a change, either set the value or unset it if it is null.
       if (updatedValue == null) {
         mongoOperations.unset(updateField);
       } else {
         mongoOperations.set(updateField, updatedValue);
       }
-    } else if (updatedValue != null) {
-      // If there has been no change, set only on insert (only needed if value is not null).
-      mongoOperations.setOnInsert(updateField, updatedValue);
     }
   }
 
