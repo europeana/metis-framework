@@ -1,11 +1,5 @@
-package eu.europeana.metis.core.test.utils;
+package eu.europeana.metis.core.utils;
 
-import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-import org.bson.types.ObjectId;
 import eu.europeana.cloud.common.model.dps.ErrorDetails;
 import eu.europeana.cloud.common.model.dps.NodeStatistics;
 import eu.europeana.cloud.common.model.dps.States;
@@ -29,18 +23,24 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+import org.bson.types.ObjectId;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-10-04
+ * @since 2019-03-15
  */
-public final class TestObjectFactory {
+public class TestObjectFactory {
 
   public static final int DATASETID = 100;
   public static final String XSLTID = "5a9821af34f04b794dcf63df";
@@ -378,5 +378,5 @@ public final class TestObjectFactory {
     }
     return records;
   }
-}
 
+}

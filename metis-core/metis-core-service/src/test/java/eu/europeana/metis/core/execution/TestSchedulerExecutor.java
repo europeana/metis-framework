@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import java.time.LocalDateTime;
