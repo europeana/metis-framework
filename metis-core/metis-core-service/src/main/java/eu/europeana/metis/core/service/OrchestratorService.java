@@ -509,13 +509,15 @@ public class OrchestratorService {
 
     // Determine the dataset IDs to filter on.
     final Set<String> datasetIds;
-    if (datasetId != null) {
-      datasetIds = Collections.singleton(datasetId);
-    } else if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
-      datasetIds = null;
+    if (datasetId == null) {
+      if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
+        datasetIds = null;
+      } else {
+        datasetIds = datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()).stream()
+            .map(Dataset::getDatasetId).collect(Collectors.toSet());
+      }
     } else {
-      datasetIds = datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()).stream()
-          .map(Dataset::getDatasetId).collect(Collectors.toSet());
+      datasetIds = Collections.singleton(datasetId);
     }
 
     // Find the executions.

@@ -134,11 +134,6 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
     </dependency>
-    <!--<dependency>-->
-    <!--<groupId>redis.clients</groupId>-->
-    <!--<artifactId>jedis</artifactId>-->
-    <!--<version>${version.jedis}</version>-->
-    <!--</dependency>-->
     <dependency>
       <groupId>com.rabbitmq</groupId>
       <artifactId>amqp-client</artifactId>

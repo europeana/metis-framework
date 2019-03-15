@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Validation Internal Plugin.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-29
  */
@@ -13,7 +15,8 @@ public class ValidationInternalPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.VALIDATION.getTopologyName();
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
+   * plugin.
    */
   ValidationInternalPlugin() {
     //Required for json serialization

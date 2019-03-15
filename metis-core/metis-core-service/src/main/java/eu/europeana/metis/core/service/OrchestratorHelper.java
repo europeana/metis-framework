@@ -47,8 +47,8 @@ import org.bson.types.ObjectId;
  */
 public class OrchestratorHelper {
 
-  private WorkflowExecutionDao workflowExecutionDao;
-  private DatasetXsltDao datasetXsltDao;
+  private final WorkflowExecutionDao workflowExecutionDao;
+  private final DatasetXsltDao datasetXsltDao;
 
   private ValidationProperties validationExternalProperties; // Use getter and setter!
   private ValidationProperties validationInternalProperties; // Use getter and setter!

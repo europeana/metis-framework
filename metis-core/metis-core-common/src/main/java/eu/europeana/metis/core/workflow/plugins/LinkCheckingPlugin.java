@@ -4,6 +4,8 @@ import eu.europeana.cloud.service.dps.DpsTask;
 import java.util.Map;
 
 /**
+ * Link Checking Plugin.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-05-16
  */

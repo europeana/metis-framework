@@ -7,10 +7,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 
 /**
+ * Wrapper of {@link EnrichmentBase}, used for easier (de)serialization.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-03-07
  */
 public class EnrichmentBaseWrapper {
+
   @XmlElement(name = "originalField")
   private String originalField;
 
@@ -24,6 +27,12 @@ public class EnrichmentBaseWrapper {
   public EnrichmentBaseWrapper() {
   }
 
+  /**
+   * Constructor with all fields
+   *
+   * @param originalField the original field that this enrichment was generated from
+   * @param enrichmentBase the enrichment information class generated
+   */
   public EnrichmentBaseWrapper(String originalField, EnrichmentBase enrichmentBase) {
     this.originalField = originalField;
     this.enrichmentBase = enrichmentBase;
@@ -37,6 +46,14 @@ public class EnrichmentBaseWrapper {
     return enrichmentBase;
   }
 
+  /**
+   * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentBaseWrapper} with
+   * 'null' {@link #originalField}.
+   * <p>This is mostly used for dereferencing.</p>
+   *
+   * @param resultList the collection of {@link EnrichmentBase}
+   * @return the converted list
+   */
   public static List<EnrichmentBaseWrapper> createNullOriginalFieldEnrichmentBaseWrapperList(
       Collection<EnrichmentBase> resultList) {
     return resultList.stream()

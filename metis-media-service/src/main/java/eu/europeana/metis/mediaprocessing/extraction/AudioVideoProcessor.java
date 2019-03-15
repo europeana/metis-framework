@@ -151,7 +151,6 @@ class AudioVideoProcessor implements MediaProcessor {
       // Process the video or audio stream
       final long fileSize = format.getLong("size");
       if (videoStream != null) {
-
         // We have a video file
         final JSONObject[] candidates = new JSONObject[]{videoStream, format};
         final double duration = findDouble("duration", candidates);
@@ -165,7 +164,6 @@ class AudioVideoProcessor implements MediaProcessor {
         metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
             fileSize, duration, bitRate, width, height, codecName, frameRate);
       } else if (audioStream != null) {
-
         // We have an audio file
         final JSONObject[] candidates = new JSONObject[]{audioStream, format};
         final double duration = findDouble("duration", candidates);

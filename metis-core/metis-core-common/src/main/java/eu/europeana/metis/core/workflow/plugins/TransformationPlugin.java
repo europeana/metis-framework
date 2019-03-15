@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Transformation Plugin.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-29
  */
@@ -13,7 +15,8 @@ public class TransformationPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.TRANSFORMATION.getTopologyName();
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
+   * plugin.
    */
   TransformationPlugin() {
     //Required for json serialization

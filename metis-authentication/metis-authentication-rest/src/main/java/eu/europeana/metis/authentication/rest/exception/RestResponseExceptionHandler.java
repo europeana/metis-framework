@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
+ * Handler for exceptions.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
  */
@@ -32,7 +34,10 @@ public class RestResponseExceptionHandler {
   @ExceptionHandler(GenericMetisException.class)
   @ResponseBody
   public StructuredExceptionWrapper handleException(Exception ex, HttpServletResponse response) {
-    HttpStatus status = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class).value();
+    final ResponseStatus annotationResponseStatus = AnnotationUtils
+        .findAnnotation(ex.getClass(), ResponseStatus.class);
+    HttpStatus status = annotationResponseStatus == null ? HttpStatus.INTERNAL_SERVER_ERROR
+        : annotationResponseStatus.value();
     response.setStatus(status.value());
     return new StructuredExceptionWrapper(ex.getMessage());
   }

@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.rest;
 
 /**
+ * Contains default values for limits per specific endpoint requests.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-16
  */

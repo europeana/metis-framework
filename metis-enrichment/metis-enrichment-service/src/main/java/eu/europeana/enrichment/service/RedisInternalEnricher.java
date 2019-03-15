@@ -73,18 +73,18 @@ public class RedisInternalEnricher {
     redisProvider = provider;
     if (populate) {
       Jedis jedis = redisProvider.getJedis();
-      if (!jedis.exists(CACHED_ENRICHMENT_STATUS)
-          || (!StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "started")
-          && !StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "finished"))) {
+      if (jedis.exists(CACHED_ENRICHMENT_STATUS)
+          && (StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "started")
+          || StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "finished"))) {
+        if (LOGGER.isInfoEnabled()) {
+          LOGGER.info("Status 'enrichmentstatus' exists with value: {}", check());
+        }
+      } else {
         LOGGER.info(
             "Redis status 'enrichmentstatus' does not exist or is not in a 'started' or 'finished' state.");
         LOGGER.info("Re-populating Redis from Mongo");
         jedis.close();
         populate();
-      } else {
-        if (LOGGER.isInfoEnabled()) {
-          LOGGER.info("Status 'enrichmentstatus' exists with value: {}", check());
-        }
       }
     }
   }
@@ -147,24 +147,19 @@ public class RedisInternalEnricher {
       jedis.hdel(CACHED_AGENT + CACHED_URI, str);
       jedis.hdel(CACHED_TIMESPAN + CACHED_URI, str);
       jedis.hdel(CACHED_PLACE + CACHED_URI, str);
-      Set<String> conceptKeys = jedis.keys(CACHED_CONCEPT + CACHED_ENTITY_WILDCARD);
-      for (String key : conceptKeys) {
-        jedis.srem(key, str);
-      }
-      Set<String> agentKeys = jedis.keys(CACHED_AGENT + CACHED_ENTITY_WILDCARD);
-      for (String key : agentKeys) {
-        jedis.srem(key, str);
-      }
-      Set<String> placeKeys = jedis.keys(CACHED_PLACE + CACHED_ENTITY_WILDCARD);
-      for (String key : placeKeys) {
-        jedis.srem(key, str);
-      }
-      Set<String> timespanKeys = jedis.keys(CACHED_TIMESPAN + CACHED_ENTITY_WILDCARD);
-      for (String key : timespanKeys) {
-        jedis.srem(key, str);
-      }
+      removeKeysForEntity(jedis, str, CACHED_CONCEPT);
+      removeKeysForEntity(jedis, str, CACHED_AGENT);
+      removeKeysForEntity(jedis, str, CACHED_PLACE);
+      removeKeysForEntity(jedis, str, CACHED_TIMESPAN);
     }
     jedis.close();
+  }
+
+  private void removeKeysForEntity(Jedis jedis, String str, String cachedEntity) {
+    Set<String> conceptKeys = jedis.keys(cachedEntity + CACHED_ENTITY_WILDCARD);
+    for (String key : conceptKeys) {
+      jedis.srem(key, str);
+    }
   }
 
   private void populate() {
@@ -330,7 +325,7 @@ public class RedisInternalEnricher {
       Set<String> parentEntityUrls = jedis.smembers(cachedEntityPrefix + CACHED_PARENT + uri);
       for (String parentEntityUrl : parentEntityUrls) {
         //For timespans, do not get entities for very broad timespans
-        if (cachedEntityPrefix.equals(CACHED_TIMESPAN) && PATTERN_MATCHING_VERY_BROAD_TIMESPANS
+        if (CACHED_TIMESPAN.equals(cachedEntityPrefix) && PATTERN_MATCHING_VERY_BROAD_TIMESPANS
             .matcher(parentEntityUrl).matches()) {
           continue;
         }
@@ -345,43 +340,35 @@ public class RedisInternalEnricher {
   public EntityWrapper getByUri(String uri) throws IOException {
     Jedis jedis = redisProvider.getJedis();
     EntityWrapper entityWrapper = null;
-    if (jedis.hexists(CACHED_AGENT + CACHED_URI, uri)) {
-      entityWrapper =
-          OBJECT_MAPPER.readValue(jedis.hget(CACHED_AGENT + CACHED_URI, uri), EntityWrapper.class);
-    }
-    if (jedis.hexists(CACHED_CONCEPT + CACHED_URI, uri)) {
-      entityWrapper = OBJECT_MAPPER.readValue(jedis.hget(CACHED_CONCEPT + CACHED_URI, uri),
-          EntityWrapper.class);
-    }
-    if (jedis.hexists(CACHED_TIMESPAN + CACHED_URI, uri)) {
-      entityWrapper = OBJECT_MAPPER.readValue(jedis.hget(CACHED_TIMESPAN + CACHED_URI, uri),
-          EntityWrapper.class);
-    }
-    if (jedis.hexists(CACHED_PLACE + CACHED_URI, uri)) {
-      entityWrapper =
-          OBJECT_MAPPER.readValue(jedis.hget(CACHED_PLACE + CACHED_URI, uri), EntityWrapper.class);
-    }
+    entityWrapper = getEntityWrapper(uri, jedis, entityWrapper, CACHED_AGENT);
+    entityWrapper = getEntityWrapper(uri, jedis, entityWrapper, CACHED_CONCEPT);
+    entityWrapper = getEntityWrapper(uri, jedis, entityWrapper, CACHED_TIMESPAN);
+    entityWrapper = getEntityWrapper(uri, jedis, entityWrapper, CACHED_PLACE);
 
-    if (jedis.hexists(CACHED_AGENT + CACHED_SAMEAS, uri)) {
-      entityWrapper = OBJECT_MAPPER.readValue(
-          jedis.hget(CACHED_AGENT + CACHED_URI, jedis.hget(CACHED_AGENT + CACHED_SAMEAS, uri)),
-          EntityWrapper.class);
-    }
-    if (jedis.hexists(CACHED_CONCEPT + CACHED_SAMEAS, uri)) {
-      entityWrapper = OBJECT_MAPPER.readValue(
-          jedis.hget(CACHED_CONCEPT + CACHED_URI, jedis.hget(CACHED_CONCEPT + CACHED_SAMEAS, uri)),
-          EntityWrapper.class);
-    }
-    if (jedis.hexists(CACHED_TIMESPAN + CACHED_SAMEAS, uri)) {
-      entityWrapper = OBJECT_MAPPER.readValue(jedis.hget(CACHED_TIMESPAN + CACHED_URI,
-          jedis.hget(CACHED_TIMESPAN + CACHED_SAMEAS, uri)), EntityWrapper.class);
-    }
-    if (jedis.hexists(CACHED_PLACE + CACHED_SAMEAS, uri)) {
-      entityWrapper = OBJECT_MAPPER.readValue(
-          jedis.hget(CACHED_PLACE + CACHED_URI, jedis.hget(CACHED_PLACE + CACHED_SAMEAS, uri)),
-          EntityWrapper.class);
-    }
+    entityWrapper = getEntityWrapperFromSameAs(uri, jedis, entityWrapper, CACHED_AGENT);
+    entityWrapper = getEntityWrapperFromSameAs(uri, jedis, entityWrapper, CACHED_CONCEPT);
+    entityWrapper = getEntityWrapperFromSameAs(uri, jedis, entityWrapper, CACHED_TIMESPAN);
+    entityWrapper = getEntityWrapperFromSameAs(uri, jedis, entityWrapper, CACHED_PLACE);
     jedis.close();
+    return entityWrapper;
+  }
+
+  private EntityWrapper getEntityWrapperFromSameAs(String uri, Jedis jedis, EntityWrapper entityWrapper,
+      String cachedEntity) throws IOException {
+    if (jedis.hexists(cachedEntity + CACHED_SAMEAS, uri)) {
+      entityWrapper = OBJECT_MAPPER.readValue(
+          jedis.hget(cachedEntity + CACHED_URI, jedis.hget(cachedEntity + CACHED_SAMEAS, uri)),
+          EntityWrapper.class);
+    }
+    return entityWrapper;
+  }
+
+  private EntityWrapper getEntityWrapper(String uri, Jedis jedis, EntityWrapper entityWrapper,
+      String cachedEntity) throws IOException {
+    if (jedis.hexists(cachedEntity + CACHED_URI, uri)) {
+      entityWrapper = OBJECT_MAPPER
+          .readValue(jedis.hget(cachedEntity + CACHED_URI, uri), EntityWrapper.class);
+    }
     return entityWrapper;
   }
 

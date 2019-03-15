@@ -3,6 +3,8 @@ package eu.europeana.metis.core.workflow.plugins;
 import eu.europeana.cloud.service.dps.DpsTask;
 
 /**
+ * Normalization Plugin.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-26
  */
@@ -11,7 +13,8 @@ public class NormalizationPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.NORMALIZATION.getTopologyName();
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
+   * plugin.
    */
   NormalizationPlugin() {
     //Required for json serialization

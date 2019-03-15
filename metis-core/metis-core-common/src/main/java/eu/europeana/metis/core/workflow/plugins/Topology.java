@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 /**
+ * Contains all topology names.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-12
  */

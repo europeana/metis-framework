@@ -10,12 +10,15 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * The token of a user, which related to an email of that user.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-30
  */
 @Entity
 @Table(name = "metis_user_access_tokens")
 public class MetisUserAccessToken {
+
   @Id
   @Column(name = "email")
   @JsonIgnore
@@ -33,6 +36,7 @@ public class MetisUserAccessToken {
 
   /**
    * Contains the access token information of a user.
+   *
    * @param email the email of the user
    * @param accessToken the String representation of an access token
    * @param timestamp the timestamp of the token

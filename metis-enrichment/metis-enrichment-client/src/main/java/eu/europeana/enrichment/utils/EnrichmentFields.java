@@ -92,7 +92,7 @@ public enum EnrichmentFields {
   }
   
   private InputValue convert(ResourceOrLiteralType content) {
-    final String language = content.getLang() != null ? content.getLang().getLang() : null;
+    final String language = content.getLang() == null ? null : content.getLang().getLang();
     return new InputValue(this.name(), content.getString(), language, entityClass);
   }
 

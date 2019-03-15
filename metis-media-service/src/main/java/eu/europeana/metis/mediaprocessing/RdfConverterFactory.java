@@ -3,7 +3,8 @@ package eu.europeana.metis.mediaprocessing;
 import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
 
 /**
- * This factory creates objects for serializing and deserializing RDF files.
+ * This factory creates objects for (de)serializing RDF files.
+ * <p>Used by external like scripts or ECloud.</p>
  */
 public class RdfConverterFactory {
 

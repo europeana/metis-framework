@@ -3,6 +3,7 @@ package eu.europeana.metis.core.workflow;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 /**
+ * Enumeration with all the possible frequence values
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-09-25
  */

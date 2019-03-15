@@ -13,6 +13,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
@@ -49,7 +50,8 @@ public class XsltTransformer {
    * @param datasetName the dataset name related to the dataset
    * @param edmCountry the Country related to the dataset
    * @param edmLanguage the language related to the dataset
-   * @throws TransformationException In case there was a problem with setting up the transformation.
+   * @throws TransformationException In case there was a problem with setting up the
+   * transformation.
    */
   public XsltTransformer(String xsltUrl, String datasetName, String edmCountry, String edmLanguage)
       throws TransformationException {
@@ -59,13 +61,13 @@ public class XsltTransformer {
       LOGGER.error("Exception during transformation setup", e);
       throw new TransformationException(e);
     }
-    if (datasetName != null && !datasetName.trim().isEmpty()) {
+    if (StringUtils.isNotBlank(datasetName)) {
       transformer.setParameter("datasetName", datasetName);
     }
-    if (edmLanguage != null && !edmLanguage.trim().isEmpty()) {
+    if (StringUtils.isNotBlank(edmLanguage)) {
       transformer.setParameter("edmLanguage", edmLanguage);
     }
-    if (edmCountry != null && !edmCountry.trim().isEmpty()) {
+    if (StringUtils.isNotBlank(edmCountry)) {
       transformer.setParameter("edmCountry", edmCountry);
     }
   }
@@ -118,9 +120,9 @@ public class XsltTransformer {
   }
 
   /**
-   * Set a new expiration time for the internal XSLT cache by calling
-   * {@link CacheWithExpirationTime#setExpirationTime(Duration)}.
-   * 
+   * Set a new expiration time for the internal XSLT cache by calling {@link
+   * CacheWithExpirationTime#setExpirationTime(Duration)}.
+   *
    * @param expirationTime The new expiration time.
    */
   public static void setExpirationTime(Duration expirationTime) {
@@ -128,9 +130,9 @@ public class XsltTransformer {
   }
 
   /**
-   * Set a new leniency mode for the internal XSLT cache by calling
-   * {@link CacheWithExpirationTime#setLenientWithReloads(boolean)}.
-   * 
+   * Set a new leniency mode for the internal XSLT cache by calling {@link
+   * CacheWithExpirationTime#setLenientWithReloads(boolean)}.
+   *
    * @param lenientWithReloads The new leniency mode.
    */
   public static void setLenientWithReloads(boolean lenientWithReloads) {
@@ -138,11 +140,10 @@ public class XsltTransformer {
   }
 
   /**
-   * Clean up the internal XSLT cache by calling
-   * {@link CacheWithExpirationTime#removeItemsNotAccessedSince(Duration)}.
-   * 
+   * Clean up the internal XSLT cache by calling {@link CacheWithExpirationTime#removeItemsNotAccessedSince(Duration)}.
+   *
    * @param since The interval length of the period we want to check (which ends now). A negative
-   *        duration cleans everything.
+   * duration cleans everything.
    */
   public static void removeItemsNotAccessedSince(Duration since) {
     TEMPLATES_CACHE.removeItemsNotAccessedSince(since);

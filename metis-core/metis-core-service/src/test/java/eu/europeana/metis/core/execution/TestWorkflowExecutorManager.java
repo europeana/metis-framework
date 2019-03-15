@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.execution;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
@@ -13,11 +13,11 @@ import com.rabbitmq.client.Channel;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import java.io.IOException;
-import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
 import org.bson.types.ObjectId;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.redisson.api.RedissonClient;
@@ -69,7 +69,7 @@ class TestWorkflowExecutorManager {
     verify(rabbitmqPublisherChannel, times(1))
         .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class),
             byteArrayArgumentCaptor.capture());
-    assertTrue(Arrays.equals(objectId.getBytes("UTF-8"), byteArrayArgumentCaptor.getValue()));
+    assertArrayEquals(objectId.getBytes(StandardCharsets.UTF_8), byteArrayArgumentCaptor.getValue());
   }
 
   @Test
