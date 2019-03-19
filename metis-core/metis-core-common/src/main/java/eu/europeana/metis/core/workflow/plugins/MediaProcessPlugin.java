@@ -38,12 +38,12 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
   }
 
   @Override
-  DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+  DpsTask prepareDpsTask(
+      EcloudBasePluginParameters ecloudBasePluginParameters) {
     Map<String, Integer> connectionLimitToDomains = ((MediaProcessPluginMetadata) getPluginMetadata())
         .getConnectionLimitToDomains();
-    return createDpsTaskForProcessPlugin(
-        createParametersForHostConnectionLimits(connectionLimitToDomains), ecloudBaseUrl,
-        ecloudProvider, ecloudDataset);
+    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters,
+        createParametersForHostConnectionLimits(connectionLimitToDomains));
   }
 
 }

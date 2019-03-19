@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -45,17 +44,15 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
   }
 
   @Override
-  DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+  DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
     String urlOfSchemasZip = ((ValidationExternalPluginMetadata) getPluginMetadata())
         .getUrlOfSchemasZip();
     String schemaRootPath = ((ValidationExternalPluginMetadata) getPluginMetadata())
         .getSchemaRootPath();
     String schematronRootPath = ((ValidationExternalPluginMetadata) getPluginMetadata())
         .getSchematronRootPath();
-    Map<String, String> parameters = new HashMap<>();
-    parameters.put("SCHEMA_NAME", urlOfSchemasZip);
-    parameters.put("ROOT_LOCATION", schemaRootPath);
-    parameters.put("SCHEMATRON_LOCATION", schematronRootPath);
-    return createDpsTaskForProcessPlugin(parameters, ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    Map<String, String> extraParameters = createParametersForValidation(urlOfSchemasZip,
+        schemaRootPath, schematronRootPath);
+    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 }

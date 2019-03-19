@@ -7,6 +7,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin.MonitorResult;
+import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.exception.ExternalTaskException;
@@ -201,8 +202,11 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
           abstractMetisPlugin.setStartedDate(startDateToUse);
         }
-        abstractMetisPlugin.execute(dpsClient, ecloudBaseUrl, ecloudProvider,
-            workflowExecution.getEcloudDatasetId());
+        final String previousExternalTaskId = previousAbstractMetisPlugin == null ? null
+            : previousAbstractMetisPlugin.getExternalTaskId();
+        final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(ecloudBaseUrl,
+            ecloudProvider, workflowExecution.getEcloudDatasetId(), previousExternalTaskId);
+        abstractMetisPlugin.execute(dpsClient, ecloudBasePluginParameters);
       } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn("Execution of external task failed", e);
         abstractMetisPlugin.setFinishedDate(null);

@@ -37,8 +37,8 @@ public class NormalizationPlugin extends AbstractMetisPlugin {
   }
 
   @Override
-  DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    return createDpsTaskForProcessPlugin(null, ecloudBaseUrl, ecloudProvider, ecloudDataset);
+  DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
+    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, null);
   }
 
 }

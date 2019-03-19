@@ -49,8 +49,7 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
   }
 
   @Override
-  DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-
+  DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
     String targetUrl = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getUrl();
     String datasetId = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getDatasetId();
     boolean useDefaultIdentifiers = ((OaipmhHarvestPluginMetadata) getPluginMetadata())
@@ -63,9 +62,7 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
     if (useDefaultIdentifiers && !StringUtils.isBlank(identifierPrefixRemoval)) {
       parameters.put("MIGRATION_IDENTIFIER_PREFIX", identifierPrefixRemoval);
     }
-    DpsTask dpsTask = createDpsTaskForHarvestPlugin(parameters, targetUrl, ecloudBaseUrl,
-        ecloudProvider,
-        ecloudDataset);
+    DpsTask dpsTask = createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters, targetUrl);
 
     String setSpec = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getSetSpec();
     String metadataFormat = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getMetadataFormat();

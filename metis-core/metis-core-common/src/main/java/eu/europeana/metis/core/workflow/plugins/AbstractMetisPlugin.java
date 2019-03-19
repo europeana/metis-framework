@@ -263,8 +263,8 @@ public abstract class AbstractMetisPlugin {
     return dpsTask;
   }
 
-  DpsTask createDpsTaskForHarvestPlugin(Map<String, String> extraParameters, String targetUrl,
-      String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+  DpsTask createDpsTaskForHarvestPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
+      Map<String, String> extraParameters, String targetUrl) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
@@ -275,47 +275,51 @@ public abstract class AbstractMetisPlugin {
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
     }
-    parameters.put("PROVIDER_ID", ecloudProvider);
+    parameters.put("PROVIDER_ID", ecloudBasePluginParameters.getEcloudProvider());
     parameters.put("OUTPUT_DATA_SETS",
-        String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, ecloudBaseUrl,
-            ecloudProvider, ecloudDataset));
+        String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+            ecloudBasePluginParameters.getEcloudBaseUrl(), ecloudBasePluginParameters.getEcloudProvider(),
+            ecloudBasePluginParameters.getEcloudDataset()));
     parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
     dpsTask.setParameters(parameters);
 
-    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider, false));
+    dpsTask.setOutputRevision(
+        createOutputRevisionForExecution(ecloudBasePluginParameters.getEcloudProvider(), false));
     return dpsTask;
   }
 
-  DpsTask createDpsTaskForProcessPlugin(Map<String, String> extraParameters, String ecloudBaseUrl,
-      String ecloudProvider, String ecloudDataset) {
+  DpsTask createDpsTaskForProcessPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
+      Map<String, String> extraParameters) {
     Map<String, String> parameters = new HashMap<>();
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
     }
     parameters.put("REPRESENTATION_NAME", getRepresentationName());
     parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
-    parameters.put("REVISION_PROVIDER", ecloudProvider);
+    parameters.put("REVISION_PROVIDER", ecloudBasePluginParameters.getEcloudProvider());
     DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
     parameters.put("REVISION_TIMESTAMP",
         dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
+    parameters.put("PREVIOUS_TASK_ID", ecloudBasePluginParameters.getPreviousExternalTaskId());
     parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
     parameters.put("OUTPUT_DATA_SETS",
         String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
-            ecloudBaseUrl, ecloudProvider, ecloudDataset));
-    return createDpsTaskForPluginWithExistingDataset(parameters, ecloudBaseUrl, ecloudProvider,
-        ecloudDataset, false);
+            ecloudBasePluginParameters.getEcloudBaseUrl(), ecloudBasePluginParameters.getEcloudProvider(),
+            ecloudBasePluginParameters.getEcloudDataset()));
+    return createDpsTaskForPluginWithExistingDataset(parameters,
+        ecloudBasePluginParameters.getEcloudBaseUrl(), ecloudBasePluginParameters.getEcloudProvider(),
+        ecloudBasePluginParameters.getEcloudDataset(), false);
   }
 
-  DpsTask createDpsTaskForIndexPlugin(String datasetId, boolean useAlternativeIndexingEnvironment,
-      boolean preserveTimestamps, String targetDatabase, String ecloudBaseUrl,
-      String ecloudProvider, String ecloudDataset) {
+  DpsTask createDpsTaskForIndexPlugin(EcloudBasePluginParameters ecloudBasePluginParameters, String datasetId,
+      boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
+      String targetDatabase) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("METIS_DATASET_ID", datasetId);
     extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
     extraParameters.put("USE_ALT_INDEXING_ENV", String.valueOf(useAlternativeIndexingEnvironment));
     extraParameters.put("PRESERVE_TIMESTAMPS", String.valueOf(preserveTimestamps));
-    return createDpsTaskForProcessPlugin(extraParameters, ecloudBaseUrl, ecloudProvider,
-        ecloudDataset);
+    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 
   Map<String, String> createParametersForHostConnectionLimits(
@@ -330,16 +334,22 @@ public abstract class AbstractMetisPlugin {
     return parameters;
   }
 
+  Map<String, String> createParametersForValidation(String urlOfSchemasZip, String schemaRootPath,
+      String schematronRootPath) {
+    Map<String, String> extraParameters = new HashMap<>();
+    extraParameters.put("SCHEMA_NAME", urlOfSchemasZip);
+    extraParameters.put("ROOT_LOCATION", schemaRootPath);
+    extraParameters.put("SCHEMATRON_LOCATION", schematronRootPath);
+    return extraParameters;
+  }
+
   /**
    * Prepare the {@link DpsTask} based on the specific implementation of the plugin.
    *
-   * @param ecloudBaseUrl the base url of the ecloud apis
-   * @param ecloudProvider the ecloud provider to be used for the external task
-   * @param ecloudDataset the ecloud dataset identifier to be used for the external task
+   * @param ecloudBasePluginParameters the basic parameter required for each execution
    * @return the {@link DpsTask} prepared with all the required parameters
    */
-  abstract DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset);
+  abstract DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters);
 
   /**
    * Starts the execution of the plugin at the external location.
@@ -347,19 +357,17 @@ public abstract class AbstractMetisPlugin {
    * external execution</p>
    *
    * @param dpsClient {@link DpsClient} used to submit the external execution
-   * @param ecloudBaseUrl the base url of the ecloud apis
-   * @param ecloudProvider the ecloud provider to be used for the external task
-   * @param ecloudDataset the ecloud dataset identifier to be used for the external task
+   * @param ecloudBasePluginParameters the basic parameter required for each execution
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset) throws ExternalTaskException {
+  public void execute(DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
+      throws ExternalTaskException {
     if (!getPluginMetadata().isMocked()) {
       String pluginTypeName = getPluginType().name();
       LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
-          ecloudDataset);
+          ecloudBasePluginParameters.getEcloudDataset());
       try {
-        DpsTask dpsTask = prepareDpsTask(ecloudBaseUrl, ecloudProvider, ecloudDataset);
+        DpsTask dpsTask = prepareDpsTask(ecloudBasePluginParameters);
         setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
       } catch (DpsException | RuntimeException e) {
         throw new ExternalTaskException("Submitting task failed", e);
