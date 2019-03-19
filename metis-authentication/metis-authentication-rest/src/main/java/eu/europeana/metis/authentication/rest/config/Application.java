@@ -76,8 +76,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   /**
    * Get the Service for authentication.
    *
-   * @param zohoAccessClientDao the dao instance to access Zoho
    * @param psqlMetisUserDao the dao instance to access user information from the internal database
+   * @param zohoAccessClient the zoho client
    * @return the authentication service instance
    */
   @Bean

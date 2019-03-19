@@ -51,12 +51,11 @@ public class ZohoAccessClient {
     try {
       cli.generateAccessToken(grantToken);
     } catch (ZohoOAuthException e) {
-      LOGGER
-          .warn(
-              "THIS EXCEPTION IS PROBABLY NORMAL IF THE GRANT TOKEN HAS BEEN SUCCESSFULLY USED ONCE ALREADY!"
-                  + "Exception when generating access token. Grant tokens can be used only once, "
-                  + "so when the access and refresh tokens are generated, the grant token becomes obsolete on subsequent deployments",
-              e);
+      LOGGER.warn(
+          "THIS EXCEPTION IS PROBABLY NORMAL. THAT CAN HAPPEN IF THE GRANT TOKEN HAS BEEN SUCCESSFULLY USED ONCE ALREADY!"
+              + "Exception when generating access token. Grant tokens can be used only once, "
+              + "so when the access and refresh tokens are generated, the grant token becomes obsolete on subsequent deployments",
+          e);
     }
 
     zcrmModuleContacts = ZCRMModule.getInstance(ZohoConstants.CONTACTS_MODULE_NAME);

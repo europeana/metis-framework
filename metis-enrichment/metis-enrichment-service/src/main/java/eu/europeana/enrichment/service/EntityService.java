@@ -17,57 +17,57 @@ import org.slf4j.LoggerFactory;
 
 public class EntityService implements Closeable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EntityService.class);
-  
-    private final EnrichmentEntityDao entityDao;
+  private static final Logger LOGGER = LoggerFactory.getLogger(EntityService.class);
 
-	public EntityService(String mongoHost, int mongoPort) {
-	    this.entityDao = new EnrichmentEntityDao(mongoHost, mongoPort);
-	}
+  private final EnrichmentEntityDao entityDao;
 
-	public EntityService(String mongoConnectionUrl) {
-      this.entityDao = new EnrichmentEntityDao(mongoConnectionUrl);
+  public EntityService(String mongoHost, int mongoPort) {
+    this.entityDao = new EnrichmentEntityDao(mongoHost, mongoPort);
+  }
+
+  public EntityService(String mongoConnectionUrl) {
+    this.entityDao = new EnrichmentEntityDao(mongoConnectionUrl);
+  }
+
+  @Override
+  public void close() {
+    this.entityDao.close();
+  }
+
+  public OrganizationTermList storeOrganization(Organization org,
+      Date created, Date modified) {
+
+    // build term list
+    OrganizationTermList termList = organizationToOrganizationTermList(
+        (OrganizationImpl) org, created, modified);
+
+    MongoTermList<ContextualClassImpl> storedOrg = entityDao
+        .findByCode(org.getAbout(), EntityClass.ORGANIZATION);
+
+    // it is an update
+    if (storedOrg != null) {
+      // set database id
+      termList.setId(storedOrg.getId());
     }
-	
-    @Override
-    public void close() {
-        this.entityDao.close();
-    }
-	  
-	public OrganizationTermList storeOrganization(Organization org,
-			Date created, Date modified) {
 
-		// build term list
-		OrganizationTermList termList = organizationToOrganizationTermList(
-				(OrganizationImpl) org, created, modified);
+    // delete old terms (labels), also when the termList is not found to
+    // will avoid problems when manually deleting the entries in the
+    // database
+    entityDao.deleteOrganizationTerms(org.getAbout());
 
-		MongoTermList<ContextualClassImpl> storedOrg = entityDao
-				.findByCode(org.getAbout(), EntityClass.ORGANIZATION);
+    // store labels
+    int newLabels = entityDao.storeEntityLabels(
+        (OrganizationImpl) org, EntityClass.ORGANIZATION);
+    LOGGER.trace("Stored new lables: {}", newLabels);
 
-		// it is an update
-		if (storedOrg != null) {
-			// set database id
-			termList.setId(storedOrg.getId());
-		}
-
-		// delete old terms (labels), also when the termList is not found to
-		// will avoid problems when manually deleting the entries in the
-		// database
-		entityDao.deleteOrganizationTerms(org.getAbout());
-
-		// store labels
-		int newLabels = entityDao.storeEntityLabels(
-				(OrganizationImpl) org, EntityClass.ORGANIZATION);
-		LOGGER.trace("Stored new lables: {}", newLabels);
-
-		// store term list
+    // store term list
     return entityDao.storeMongoTermList(termList);
 
   }
 
   /**
    * This method retrieves organization roles from given organization object
-   * 
+   *
    * @param org The OrganizationImpl object
    * @return list of organization roles
    */
@@ -76,10 +76,10 @@ public class EntityService implements Closeable {
     return org.getEdmEuropeanaRole().get(Locale.ENGLISH.toString());
   }
 
-  
+
   /**
    * This method returns organization stored in database by given organization
-   * 
+   *
    * @param uri The EDM organization uri (codeUri)
    * @return OrganizationImpl object
    */
@@ -87,19 +87,20 @@ public class EntityService implements Closeable {
 
     MongoTermList<ContextualClassImpl> storedOrg =
         entityDao.findByCode(uri, EntityClass.ORGANIZATION);
-    if (storedOrg == null)
+    if (storedOrg == null) {
       return null;
+    }
     return ((OrganizationImpl) storedOrg.getRepresentation());
   }
 
   /**
    * This method returns the list of ids for existing organizations from database
-   * 
+   *
    * @param organizationIds The organization IDs to search for
    * @return list of ids for existing organization
    */
   public List<String> findExistingOrganizations(List<String> organizationIds) {
-    List<String> res = new ArrayList<String>();
+    List<String> res = new ArrayList<>();
     for (String id : organizationIds) {
       Organization organization = getOrganizationById(id);
       if (organization != null) {
@@ -111,7 +112,7 @@ public class EntityService implements Closeable {
 
   /**
    * This method removes organizations from database by given URL
-   * 
+   *
    * @param organizationIds The organization IDs
    */
   public void deleteOrganizations(List<String> organizationIds) {
@@ -120,7 +121,7 @@ public class EntityService implements Closeable {
 
   /**
    * This method removes organization from database by given URL
-   * 
+   *
    * @param organizationId The organization ID
    */
   public void deleteOrganization(String organizationId) {
@@ -130,13 +131,13 @@ public class EntityService implements Closeable {
 
   private OrganizationTermList organizationToOrganizationTermList(OrganizationImpl organization,
       Date created, Date modified) {
-		OrganizationTermList termList = new OrganizationTermList();
+    OrganizationTermList termList = new OrganizationTermList();
 
-		termList.setCodeUri(organization.getAbout());
-		termList.setRepresentation(organization);
-		termList.setEntityType(OrganizationImpl.class.getSimpleName());
+    termList.setCodeUri(organization.getAbout());
+    termList.setRepresentation(organization);
+    termList.setEntityType(OrganizationImpl.class.getSimpleName());
 
-		// enforce created not null
+    // enforce created not null
     if (created == null) {
       termList.setCreated(new Date());
     } else {
@@ -145,15 +146,15 @@ public class EntityService implements Closeable {
 
     termList.setModified(modified);
 
-		return termList;
-	}
+    return termList;
+  }
 
-	/**
-	 * This method returns last modified date for organizations.
-	 * 
-	 * @return the last modified date
-	 */
-	public Date getLastOrganizationImportDate() {
-		return entityDao.getLastModifiedDate(EntityClass.ORGANIZATION);
-	}
+  /**
+   * This method returns last modified date for organizations.
+   *
+   * @return the last modified date
+   */
+  public Date getLastOrganizationImportDate() {
+    return entityDao.getLastModifiedDate(EntityClass.ORGANIZATION);
+  }
 }
