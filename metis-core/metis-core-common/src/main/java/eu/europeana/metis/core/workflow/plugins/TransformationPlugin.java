@@ -44,18 +44,18 @@ public class TransformationPlugin extends AbstractMetisPlugin {
   }
 
   @Override
-  public DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    Map<String, String> parameters = new HashMap<>();
-    parameters.put("XSLT_URL", ((TransformationPluginMetadata) getPluginMetadata()).getXsltUrl());
-    parameters.put("METIS_DATASET_ID",
+  public DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
+    Map<String, String> extraParameters = new HashMap<>();
+    extraParameters.put("XSLT_URL", ((TransformationPluginMetadata) getPluginMetadata()).getXsltUrl());
+    extraParameters.put("METIS_DATASET_ID",
         ((TransformationPluginMetadata) getPluginMetadata()).getDatasetId());
-    parameters.put("METIS_DATASET_NAME",
+    extraParameters.put("METIS_DATASET_NAME",
         ((TransformationPluginMetadata) getPluginMetadata()).getDatasetName());
-    parameters.put("METIS_DATASET_COUNTRY",
+    extraParameters.put("METIS_DATASET_COUNTRY",
         ((TransformationPluginMetadata) getPluginMetadata()).getCountry());
-    parameters.put("METIS_DATASET_LANGUAGE",
+    extraParameters.put("METIS_DATASET_LANGUAGE",
         ((TransformationPluginMetadata) getPluginMetadata()).getLanguage());
 
-    return createDpsTaskForProcessPlugin(parameters, ecloudBaseUrl, ecloudProvider, ecloudDataset);
+    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 }

@@ -41,7 +41,7 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
   }
 
   @Override
-  DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+  DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
     String targetUrl = ((HTTPHarvestPluginMetadata) getPluginMetadata()).getUrl();
     String datasetId = ((HTTPHarvestPluginMetadata) getPluginMetadata()).getDatasetId();
     boolean useDefaultIdentifiers = ((HTTPHarvestPluginMetadata) getPluginMetadata())
@@ -49,7 +49,6 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
     Map<String, String> parameters = new HashMap<>();
     parameters.put("METIS_DATASET_ID", datasetId);
     parameters.put("USE_DEFAULT_IDENTIFIERS", String.valueOf(useDefaultIdentifiers));
-    return createDpsTaskForHarvestPlugin(parameters, targetUrl, ecloudBaseUrl, ecloudProvider,
-        ecloudDataset);
+    return createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters, targetUrl);
   }
 }
