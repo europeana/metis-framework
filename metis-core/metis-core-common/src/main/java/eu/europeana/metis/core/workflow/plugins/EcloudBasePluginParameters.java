@@ -11,7 +11,7 @@ public class EcloudBasePluginParameters {
 
   private final String ecloudBaseUrl;
   private final String ecloudProvider;
-  private final String ecloudDataset;
+  private final String ecloudDatasetId;
   private final String previousExternalTaskId;
 
   /**
@@ -19,16 +19,16 @@ public class EcloudBasePluginParameters {
    *
    * @param ecloudBaseUrl the base url endpoint to ecloud api
    * @param ecloudProvider the ecloud provider to use
-   * @param ecloudDataset the ecloud dataset to use
-   * @param previousExternalTaskId the task identifier from the previous plugin execution. It is used
-   * to calculate faster the total records for the current execution on the ecloud side. Can be null
-   * if there is no previous task, like for example a harvesting plugin.
+   * @param ecloudDatasetId the ecloud dataset to use
+   * @param previousExternalTaskId the task identifier from the previous plugin execution. It is
+   * used to calculate faster the total records for the current execution on the ecloud side. Can be
+   * null if there is no previous task, like for example a harvesting plugin.
    */
-  public EcloudBasePluginParameters(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset,
-      String previousExternalTaskId) {
+  public EcloudBasePluginParameters(String ecloudBaseUrl, String ecloudProvider,
+      String ecloudDatasetId, String previousExternalTaskId) {
     this.ecloudBaseUrl = ecloudBaseUrl;
     this.ecloudProvider = ecloudProvider;
-    this.ecloudDataset = ecloudDataset;
+    this.ecloudDatasetId = ecloudDatasetId;
     this.previousExternalTaskId = previousExternalTaskId;
   }
 
@@ -40,8 +40,8 @@ public class EcloudBasePluginParameters {
     return ecloudProvider;
   }
 
-  public String getEcloudDataset() {
-    return ecloudDataset;
+  public String getEcloudDatasetId() {
+    return ecloudDatasetId;
   }
 
   public String getPreviousExternalTaskId() {

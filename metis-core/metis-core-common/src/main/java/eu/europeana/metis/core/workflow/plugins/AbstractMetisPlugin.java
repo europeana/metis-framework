@@ -248,18 +248,20 @@ public abstract class AbstractMetisPlugin {
   }
 
   private DpsTask createDpsTaskForPluginWithExistingDataset(Map<String, String> parameters,
-      String ecloudBaseUrl, String ecloudProvider, String ecloudDataset, boolean publish) {
+      EcloudBasePluginParameters ecloudBasePluginParameters, boolean publish) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
-    dataEntries.put(InputDataType.DATASET_URLS,
-        Collections
-            .singletonList(String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
-                ecloudBaseUrl, ecloudProvider, ecloudDataset)));
+    dataEntries.put(InputDataType.DATASET_URLS, Collections
+        .singletonList(String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+            ecloudBasePluginParameters.getEcloudBaseUrl(),
+            ecloudBasePluginParameters.getEcloudProvider(),
+            ecloudBasePluginParameters.getEcloudDatasetId())));
     dpsTask.setInputData(dataEntries);
 
     dpsTask.setParameters(parameters);
-    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider, publish));
+    dpsTask.setOutputRevision(
+        createOutputRevisionForExecution(ecloudBasePluginParameters.getEcloudProvider(), publish));
     return dpsTask;
   }
 
@@ -278,8 +280,9 @@ public abstract class AbstractMetisPlugin {
     parameters.put("PROVIDER_ID", ecloudBasePluginParameters.getEcloudProvider());
     parameters.put("OUTPUT_DATA_SETS",
         String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
-            ecloudBasePluginParameters.getEcloudBaseUrl(), ecloudBasePluginParameters.getEcloudProvider(),
-            ecloudBasePluginParameters.getEcloudDataset()));
+            ecloudBasePluginParameters.getEcloudBaseUrl(),
+            ecloudBasePluginParameters.getEcloudProvider(),
+            ecloudBasePluginParameters.getEcloudDatasetId()));
     parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
     dpsTask.setParameters(parameters);
 
@@ -304,14 +307,14 @@ public abstract class AbstractMetisPlugin {
     parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
     parameters.put("OUTPUT_DATA_SETS",
         String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
-            ecloudBasePluginParameters.getEcloudBaseUrl(), ecloudBasePluginParameters.getEcloudProvider(),
-            ecloudBasePluginParameters.getEcloudDataset()));
-    return createDpsTaskForPluginWithExistingDataset(parameters,
-        ecloudBasePluginParameters.getEcloudBaseUrl(), ecloudBasePluginParameters.getEcloudProvider(),
-        ecloudBasePluginParameters.getEcloudDataset(), false);
+            ecloudBasePluginParameters.getEcloudBaseUrl(),
+            ecloudBasePluginParameters.getEcloudProvider(),
+            ecloudBasePluginParameters.getEcloudDatasetId()));
+    return createDpsTaskForPluginWithExistingDataset(parameters, ecloudBasePluginParameters, false);
   }
 
-  DpsTask createDpsTaskForIndexPlugin(EcloudBasePluginParameters ecloudBasePluginParameters, String datasetId,
+  DpsTask createDpsTaskForIndexPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
+      String datasetId,
       boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
       String targetDatabase) {
     Map<String, String> extraParameters = new HashMap<>();
@@ -365,7 +368,7 @@ public abstract class AbstractMetisPlugin {
     if (!getPluginMetadata().isMocked()) {
       String pluginTypeName = getPluginType().name();
       LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
-          ecloudBasePluginParameters.getEcloudDataset());
+          ecloudBasePluginParameters.getEcloudDatasetId());
       try {
         DpsTask dpsTask = prepareDpsTask(ecloudBasePluginParameters);
         setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));

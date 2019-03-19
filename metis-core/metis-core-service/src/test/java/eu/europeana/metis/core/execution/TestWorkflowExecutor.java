@@ -169,8 +169,6 @@ class TestWorkflowExecutor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
-    final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(null, null,
-        workflowExecution.getEcloudDatasetId(), null);
     doThrow(new ExternalTaskException("Some error")).when(oaipmhHarvestPlugin).execute(
         any(DpsClient.class), any(EcloudBasePluginParameters.class));
 
