@@ -1,6 +1,9 @@
 package eu.europeana.metis.authentication.rest.config;
 
+import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
+import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
+import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
@@ -88,7 +91,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  public ZohoAccessClient getZohoAccessClient() throws Exception {
+  public ZohoAccessClient getZohoAccessClient() throws ZohoOAuthException {
     return new ZohoAccessClient(zohoInitialGrantToken);
   }
 
@@ -97,6 +100,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
     configuration.addAnnotatedClass(MetisUser.class);
     configuration.addAnnotatedClass(MetisUserAccessToken.class);
+    configuration.addAnnotatedClass(MetisZohoOAuthToken.class);
     configuration.configure();
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
         configuration.getProperties()).build();
@@ -133,6 +137,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     if (sessionFactory != null && !sessionFactory.isClosed()) {
       sessionFactory.close();
     }
+    //Close static session factory
+    MetisZohoOAuthPSQLHandler.close();
   }
 
   @Override

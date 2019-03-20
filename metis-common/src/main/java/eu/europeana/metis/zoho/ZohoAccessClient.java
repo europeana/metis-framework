@@ -33,20 +33,37 @@ public class ZohoAccessClient {
   private final ZCRMModule zcrmModuleAccounts;
 
   /**
+   * Default constructor.
+   * <p>This constructor expects that the access/refresh tokens are already present in the
+   * persistence storage. If instead the generation of the tokens is required during initialization
+   * of this class then refer to the {@link #ZohoAccessClient(String)} costructor.
+   * </p>
+   */
+  public ZohoAccessClient() {
+    zcrmModuleContacts = ZCRMModule.getInstance(ZohoConstants.CONTACTS_MODULE_NAME);
+    zcrmModuleAccounts = ZCRMModule.getInstance(ZohoConstants.ACCOUNTS_MODULE_NAME);
+  }
+
+  /**
    * Constructor with the grant token provided as a parameter.
    * <p>
    * It will try to initialize the connection with the Zoho service. Uses the grant token for the
-   * initial setup to generate the access and refresh tokens. If the grant token was used once
-   * before already then the exception that would normally the initialization will throw, will be
-   * caught instead and logged. The process will continue and it will try to use the already
-   * generated access/refresh tokens.
+   * initial setup to generate the access and refresh tokens. If the grant token was already used
+   * once before, then the exception that the initialization will throw, will be caught instead and
+   * logged. The process will continue and it will try to use the already generated access/refresh
+   * tokens from the persistence storage.
    * </p>
    *
    * @param grantToken the grant token key to be used
-   * @throws Exception if an exception occurred during initialization
+   * @throws ZohoOAuthException if initialization of {@link ZCRMRestClient} failed.
    */
-  public ZohoAccessClient(String grantToken) throws Exception {
-    ZCRMRestClient.initialize();
+  public ZohoAccessClient(String grantToken) throws ZohoOAuthException {
+    try {
+      ZCRMRestClient.initialize();
+    } catch (Exception ex) {
+      LOGGER.error("ZCRMRestClient failure!");
+      throw new ZohoOAuthException(ex);
+    }
     ZohoOAuthClient cli = ZohoOAuthClient.getInstance();
     try {
       cli.generateAccessToken(grantToken);

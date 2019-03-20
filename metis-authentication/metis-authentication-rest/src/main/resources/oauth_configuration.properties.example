@@ -5,8 +5,7 @@ redirect_uri=
 #Aaaserver.profile.read is a scope required for a java application, add more roles to modules(comma separated)
 scope=Aaaserver.profile.read,ZohoCRM.modules.ALL
 access_type=online
-#Using the file persistence handler
+#The persistence handler to use, create own class for custom persistence provider implementations
 persistence_handler_class=com.zoho.oauth.clientapp.ZohoOAuthFilePersistence
-#Path of where the file persistence handler will store/update the authentication tokens
-#In cloud foundry it follows different path
+#If file persistence. Path of where the file persistence handler will store/update the authentication tokens.
 oauth_tokens_file_path=src/main/resources/oauthtokens.properties
