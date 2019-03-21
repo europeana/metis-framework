@@ -33,7 +33,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
   private static final String DATASET_NAME = "datasetName";
-  private static final String DATASET_ID = "datasetId";
+  static final String DATASET_ID = "datasetId";
   private int datasetsPerRequest = RequestLimits.DATASETS_PER_REQUEST.getLimit();
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;

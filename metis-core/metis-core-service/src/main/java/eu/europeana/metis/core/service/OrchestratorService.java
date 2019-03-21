@@ -16,6 +16,7 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.core.rest.ExecutionWithDataset;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.workflow.OrderField;
@@ -510,12 +511,7 @@ public class OrchestratorService {
     // Determine the dataset IDs to filter on.
     final Set<String> datasetIds;
     if (datasetId == null) {
-      if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
-        datasetIds = null;
-      } else {
-        datasetIds = datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()).stream()
-            .map(Dataset::getDatasetId).collect(Collectors.toSet());
-      }
+      datasetIds = getDatasetIdsToFilterOn(metisUser);
     } else {
       datasetIds = Collections.singleton(datasetId);
     }
@@ -523,6 +519,40 @@ public class OrchestratorService {
     // Find the executions.
     return workflowExecutionDao.getAllWorkflowExecutions(datasetIds, workflowStatuses, orderField,
         ascending, nextPage);
+  }
+
+  /**
+   * Get the overview of WorkflowExecutions. This returns a list of executions ordered to display an
+   * overview. First the ones in queue, then those in progress and then those that are finalized.
+   * They will be sorted by creation date. This method does support pagination.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param nextPage the nextPage token, the end of the list is marked with -1 on the response
+   * @return a list of all the WorkflowExecutions together with the datasets that they belong to.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  public List<ExecutionWithDataset> getWorkflowExecutionsOverview(MetisUser metisUser, int nextPage)
+      throws GenericMetisException {
+    authorizer.authorizeReadAllDatasets(metisUser);
+    final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
+    return workflowExecutionDao.getWorkflowExecutionsOverview(datasetIds, nextPage).stream()
+        .map(result -> new ExecutionWithDataset(result.getExecution(), result.getDataset()))
+        .collect(Collectors.toList());
+  }
+
+  private Set<String> getDatasetIdsToFilterOn(MetisUser metisUser) {
+    final Set<String> datasetIds;
+    if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
+      datasetIds = null;
+    } else {
+      datasetIds = datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()).stream()
+          .map(Dataset::getDatasetId).collect(Collectors.toSet());
+    }
+    return datasetIds;
   }
 
   /**

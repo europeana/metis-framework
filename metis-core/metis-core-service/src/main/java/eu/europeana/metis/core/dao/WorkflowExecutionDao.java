@@ -2,6 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.CancelledSystemId;
@@ -20,8 +21,10 @@ import java.util.Set;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.aggregation.AggregationPipeline;
+import org.mongodb.morphia.aggregation.Projection;
 import org.mongodb.morphia.query.Criteria;
 import org.mongodb.morphia.query.CriteriaContainerImpl;
+import org.mongodb.morphia.query.FilterOperator;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.Sort;
@@ -46,6 +49,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   private static final String WORKFLOW_STATUS = "workflowStatus";
   private static final String DATASET_ID = "datasetId";
   private static final String METIS_PLUGINS = "metisPlugins";
+
+  private static final int INQUEUE_POSITION_IN_OVERVIEW = 1;
+  private static final int RUNNING_POSITION_IN_OVERVIEW = 2;
+  private static final int DEFAULT_POSITION_IN_OVERVIEW = 3;
+
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
   private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST
       .getLimit();
@@ -344,6 +352,114 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> query.asList(new FindOptions().skip(nextPage * getWorkflowExecutionsPerRequest())
             .limit(getWorkflowExecutionsPerRequest())));
+  }
+
+  /**
+   * Get an overview of all WorkflowExecutions. This returns a list of executions ordered to display
+   * an overview. First the ones in queue, then those in progress and then those that are finalized.
+   * They will be sorted by creation date. This method does support pagination.
+   *
+   * TODO when we migrate to mongo 3.4 or later, we can do this easier with new aggregation pipeline
+   * stages and operators. The main improvements are 1) to try to map the root to the 'execution'
+   * variable so that we don't have to look it up afterwards, and 2) to use $addFields with $switch
+   * to add the statusIndex instead of having to go through creating and subtracting the two
+   * temporary fields.
+   *
+   * @param datasetIds a set of dataset identifiers to filter, can be empty or null to get all
+   * @param nextPage the nextPage token
+   * @return a list of all the WorkflowExecutions found
+   */
+  public List<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
+      int nextPage) {
+
+    // Create the aggregate pipeline
+    final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
+        .createAggregation(WorkflowExecution.class);
+
+    // Step 1: match the datasets that are in the list.
+    if (datasetIds != null) {
+      final Query<WorkflowExecution> query =
+          morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+      query.field(DATASET_ID).in(datasetIds);
+      pipeline.match(query);
+    }
+
+    // Step 2: Add difference integers on whether the status is INQUEUE or RUNNING.
+    final String statusInQueueField = "statusInQueue";
+    final String statusRunningField = "statusRunning";
+    final int inqueueDifferennce = DEFAULT_POSITION_IN_OVERVIEW - INQUEUE_POSITION_IN_OVERVIEW;
+    final int runningDifferennce = DEFAULT_POSITION_IN_OVERVIEW - RUNNING_POSITION_IN_OVERVIEW;
+    pipeline.project(
+        Projection.projection(statusInQueueField, Projection.expression("$cond",
+            Projection.expression(FilterOperator.EQUAL.val(), "INQUEUE", "$" + WORKFLOW_STATUS),
+            inqueueDifferennce, 0)),
+        Projection.projection(statusRunningField, Projection.expression("$cond",
+            Projection.expression(FilterOperator.EQUAL.val(), "RUNNING", "$" + WORKFLOW_STATUS),
+            runningDifferennce, 0)),
+        Projection.projection(OrderField.CREATED_DATE.getOrderFieldName()),
+        Projection.projection(DATASET_ID)
+    );
+
+    // Step 3: Subtract these integers from the default value to obtain the right ordering.
+    final String statusIndexField = "statusIndex";
+    pipeline.project(
+        Projection.projection(statusIndexField, Projection.subtract(DEFAULT_POSITION_IN_OVERVIEW,
+            Projection.add("$" + statusInQueueField, "$" + statusRunningField))),
+        Projection.projection(OrderField.CREATED_DATE.getOrderFieldName()),
+        Projection.projection(DATASET_ID)
+    );
+
+    // Step 4: Sort - first on the status index, then on the createdDate.
+    pipeline.sort(Sort.ascending(statusIndexField),
+        Sort.descending(OrderField.CREATED_DATE.getOrderFieldName()));
+
+    // Step 5: Apply pagination
+    pipeline.skip(nextPage * getWorkflowExecutionsPerRequest())
+        .limit(getWorkflowExecutionsPerRequest());
+
+    // Step 6: Join with the dataset and the execution
+    final String datasetCollectionName = morphiaDatastoreProvider.getDatastore()
+        .getCollection(Dataset.class).getName();
+    final String executionCollectionName = morphiaDatastoreProvider.getDatastore()
+        .getCollection(WorkflowExecution.class).getName();
+    final String datasetListField = "datasetList";
+    final String executionListField = "executionList";
+    pipeline.lookup(datasetCollectionName, DATASET_ID, DatasetDao.DATASET_ID, datasetListField);
+    pipeline.lookup(executionCollectionName, "_id", "_id", executionListField);
+
+    // Step 7: Keep only the first entry in the dataset and execution lists.
+    final String datasetField = "dataset";
+    final String executionField = "execution";
+    pipeline.project(
+        Projection.projection(datasetField,
+            Projection.expression("$arrayElemAt", "$" + datasetListField, 0)),
+        Projection.projection(executionField,
+            Projection.expression("$arrayElemAt", "$" + executionListField, 0)),
+        Projection.projection("_id").suppress()
+    );
+
+    // Done: execute and return result.
+    final List<ExecutionDatasetPair> result = new ArrayList<>();
+    pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
+    return result;
+  }
+
+  /**
+   * This object contains a pair consisting of a dataset and an execution. It is meant to be a
+   * result of aggregate queries, so the field names cannot easily be changed.
+   */
+  public static class ExecutionDatasetPair {
+
+    private Dataset dataset;
+    private WorkflowExecution execution;
+
+    public Dataset getDataset() {
+      return dataset;
+    }
+
+    public WorkflowExecution getExecution() {
+      return execution;
+    }
   }
 
   /**
