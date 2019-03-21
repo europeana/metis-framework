@@ -378,14 +378,15 @@ public class OrchestratorController {
         orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
             orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
-    LOGGER.debug("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
-        responseListWrapper.getListSize(), nextPage);
+    logPaging(responseListWrapper, nextPage);
     return responseListWrapper;
   }
 
   /**
    * Get all WorkflowExecutions paged.
    * Not filtered by datasetId.
+   *
+   * TODO JV This endpoint is no longer in use. Consider removing it.
    *
    * @param authorization the authorization header with the access token
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
@@ -419,9 +420,48 @@ public class OrchestratorController {
         orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses, orderField,
             ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
+    logPaging(responseListWrapper, nextPage);
+    return responseListWrapper;
+  }
+
+  /**
+   * Get the overview of WorkflowExecutions. This returns a list of executions ordered to display an
+   * overview. First the ones in queue, then those in progress and then those that are finalized.
+   * They will be sorted by creation date. This method does support pagination.
+   *
+   * @param authorization the authorization header with the access token
+   * @param nextPage the nextPage token, the end of the list is marked with -1 on the response
+   * @return a list of all the WorkflowExecutions together with the datasets that they belong to.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link BadContentException} if paging is not correctly provided</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public ResponseListWrapper<ExecutionWithDataset> getWorkflowExecutionsOverview(
+      @RequestHeader("Authorization") String authorization,
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws GenericMetisException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final ResponseListWrapper<ExecutionWithDataset> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper.setResultsAndLastPage(
+        orchestratorService.getWorkflowExecutionsOverview(metisUser, nextPage),
+        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
+    logPaging(responseListWrapper, nextPage);
+    return responseListWrapper;
+  }
+
+  private static void logPaging(ResponseListWrapper<?> responseListWrapper, int nextPage) {
     LOGGER.debug("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
-    return responseListWrapper;
   }
 
   /**
