@@ -10,8 +10,10 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionOverview;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 
 /**
@@ -128,15 +131,33 @@ public class TestObjectFactory {
    * @return the created list
    */
   public static List<WorkflowExecution> createListOfWorkflowExecutions(int size) {
-    List<WorkflowExecution> workflowExecutions = new ArrayList<>(size);
+    return createExecutionsWithDatasets(size).stream().map(ExecutionDatasetPair::getExecution)
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Create a list of dummy execution overviews. The dataset name will have a suffix number for each
+   * dataset.
+   *
+   * @param size the number of dummy execution overviews to create
+   * @return the created list
+   */
+  public static List<ExecutionOverview> createListOfExecutionOverviews(int size) {
+    return createExecutionsWithDatasets(size).stream()
+        .map(pair -> new ExecutionOverview(pair.getExecution(), pair.getDataset()))
+        .collect(Collectors.toList());
+  }
+
+  private static List<ExecutionDatasetPair> createExecutionsWithDatasets(int size) {
+    final List<ExecutionDatasetPair> result = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
       dataset.setDatasetId(Integer.toString(DATASETID + i));
       WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset);
       workflowExecution.setId(new ObjectId());
-      workflowExecutions.add(workflowExecution);
+      result.add(new ExecutionDatasetPair(dataset, workflowExecution));
     }
-    return workflowExecutions;
+    return result;
   }
 
   /**
