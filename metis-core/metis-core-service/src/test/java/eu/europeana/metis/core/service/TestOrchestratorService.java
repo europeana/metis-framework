@@ -26,6 +26,7 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetXslt;
@@ -39,6 +40,9 @@ import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
+import eu.europeana.metis.core.rest.execution.overview.DatasetSummary;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionOverview;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionSummary;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ValidationProperties;
@@ -741,6 +745,75 @@ class TestOrchestratorService {
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(), eq(workflowStatuses),
         eq(OrderField.CREATED_DATE), eq(true), eq(nextPage));
     verifyNoMoreInteractions(workflowExecutionDao);
+  }
+
+  @Test
+  void getWorkflowExecutionOverviewForRegularUser() throws GenericMetisException {
+
+    // Define some constants
+    final int nextPage = 1;
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final Set<String> datasetIds = new HashSet<>(Arrays.asList("A", "B", "C"));
+    final List<Dataset> datasets = datasetIds.stream().map(id -> {
+      final Dataset result = new Dataset();
+      result.setDatasetId(id);
+      return result;
+    }).collect(Collectors.toList());
+    final List<ExecutionDatasetPair> data = TestObjectFactory.createExecutionsWithDatasets(4);
+
+    // Check for all datasets and for regular user: should query all datasets to which that user's
+    // organization has rights.
+    when(datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()))
+        .thenReturn(datasets);
+    when(workflowExecutionDao.getWorkflowExecutionsOverview(eq(datasetIds), eq(nextPage)))
+        .thenReturn(data);
+    final List<ExecutionOverview> result = orchestratorService
+        .getWorkflowExecutionsOverview(metisUser, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+    verifyNoMoreInteractions(authorizer);
+    verify(workflowExecutionDao, times(1))
+        .getWorkflowExecutionsOverview(eq(datasetIds), eq(nextPage));
+    verifyNoMoreInteractions(workflowExecutionDao);
+    assertEquals(data.size(), result.size());
+    assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
+            .collect(Collectors.toList()),
+        result.stream().map(ExecutionOverview::getDataset).map(DatasetSummary::getDatasetId)
+            .collect(Collectors.toList()));
+    assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
+            .collect(Collectors.toList()),
+        result.stream().map(ExecutionOverview::getExecution).map(ExecutionSummary::getId)
+            .collect(Collectors.toList()));
+  }
+
+  @Test
+  void getWorkflowExecutionOverviewForAdmin() throws GenericMetisException {
+
+    // Define some constants
+    final int nextPage = 1;
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
+    final List<ExecutionDatasetPair> data = TestObjectFactory.createExecutionsWithDatasets(4);
+
+    // Check for all datasets and for admin user: should query all datasets.
+    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    when(workflowExecutionDao.getWorkflowExecutionsOverview(isNull(), eq(nextPage)))
+        .thenReturn(data);
+    final List<ExecutionOverview> result = orchestratorService
+        .getWorkflowExecutionsOverview(metisUser, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+    verifyNoMoreInteractions(authorizer);
+    verify(workflowExecutionDao, times(1))
+        .getWorkflowExecutionsOverview(isNull(), eq(nextPage));
+    verifyNoMoreInteractions(workflowExecutionDao);
+    assertEquals(data.size(), result.size());
+    assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
+            .collect(Collectors.toList()),
+        result.stream().map(ExecutionOverview::getDataset).map(DatasetSummary::getDatasetId)
+            .collect(Collectors.toList()));
+    assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
+            .collect(Collectors.toList()),
+        result.stream().map(ExecutionOverview::getExecution).map(ExecutionSummary::getId)
+            .collect(Collectors.toList()));
   }
 
   @Test

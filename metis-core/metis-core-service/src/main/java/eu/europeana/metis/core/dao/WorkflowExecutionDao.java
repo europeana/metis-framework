@@ -453,6 +453,14 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     private Dataset dataset;
     private WorkflowExecution execution;
 
+    public ExecutionDatasetPair() {
+    }
+
+    public ExecutionDatasetPair(Dataset dataset, WorkflowExecution execution) {
+      this.dataset = dataset;
+      this.execution = execution;
+    }
+
     public Dataset getDataset() {
       return dataset;
     }

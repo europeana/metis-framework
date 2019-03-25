@@ -35,6 +35,7 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionOverview;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.utils.TestUtils;
@@ -659,6 +660,51 @@ class TestOrchestratorController {
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
+            .param("nextPage", "-1")
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
+        .andExpect(status().is(406));
+  }
+
+  @Test
+  void getWorkflowExecutionsOverview() throws Exception {
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    final int listSize = 2;
+    final int nextPage = 5;
+    final List<ExecutionOverview> listOfExecutionOverviews = TestObjectFactory
+        .createListOfExecutionOverviews(listSize);
+
+    when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
+    when(orchestratorService.getWorkflowExecutionsOverview(eq(metisUser), eq(nextPage)))
+        .thenReturn(listOfExecutionOverviews);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .param("nextPage", "" + nextPage)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.results", hasSize(listSize)))
+        .andExpect(
+            jsonPath("$.results[0].dataset.datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
+        .andExpect(jsonPath("$.results[0].execution.workflowStatus", is(WorkflowStatus.INQUEUE.name())))
+        .andExpect(jsonPath("$.results[1].dataset.datasetId",
+            is(Integer.toString(TestObjectFactory.DATASETID + 1))))
+        .andExpect(jsonPath("$.results[1].execution.workflowStatus", is(WorkflowStatus.INQUEUE.name())))
+        .andExpect(jsonPath("$.nextPage", is(nextPage + 1)))
+        .andExpect(jsonPath("$.listSize", is(listSize)));
+  }
+
+  @Test
+  void getWorkflowExecutionsOverviewNegativeNextPage() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("nextPage", "-1")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
