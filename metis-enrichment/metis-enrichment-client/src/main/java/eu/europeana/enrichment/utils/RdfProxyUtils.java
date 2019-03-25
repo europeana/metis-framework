@@ -13,10 +13,12 @@ import eu.europeana.corelib.definitions.jibx.RDF;
  */
 public final class RdfProxyUtils {
 
-  private RdfProxyUtils() {}
+  private RdfProxyUtils() {
+  }
 
   /**
    * Add a field with the specified {@link AboutType} to the EuropeanaProxy.
+   *
    * @param rdf the rdf to append to
    * @param about the about value to use for the field
    * @param fieldName the name of the field to add
@@ -27,15 +29,18 @@ public final class RdfProxyUtils {
     replaceProxy(rdf, europeanaProxy);
   }
 
-  private static void appendToEuropeanaProxy(ProxyType europeanaProxy, EnrichmentFields enrichmentFields,
-      String about) {
-    List<EuropeanaType.Choice> choices = europeanaProxy.getChoiceList();
-    choices.add(enrichmentFields.createChoice(about));
+  private static void appendToEuropeanaProxy(ProxyType europeanaProxy,
+      EnrichmentFields enrichmentField, String about) {
+    //Choice might be null. That probably happens because of jibx deserialization works.
+    List<EuropeanaType.Choice> choices =
+        europeanaProxy.getChoiceList() == null ? new ArrayList<>() : europeanaProxy.getChoiceList();
+    choices.add(enrichmentField.createChoice(about));
     europeanaProxy.setChoiceList(choices);
   }
 
   /**
    * Retrieve the Provider proxy from the proxy list in the {@link RDF}
+   *
    * @param rdf the rdf used to search for the proxy
    * @return the Provider proxy
    */
