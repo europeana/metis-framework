@@ -5,10 +5,13 @@ import eu.europeana.metis.CommonStringValues;
 import java.util.Date;
 
 /**
+ * OAIPMH Harvest Plugin Metadata.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
 public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
+
   private static final PluginType PLUGIN_TYPE = PluginType.OAIPMH_HARVEST;
   private String url;
   private String metadataFormat;
@@ -52,11 +55,11 @@ public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   }
 
   public Date getFromDate() {
-    return fromDate == null?null:new Date(fromDate.getTime());
+    return fromDate == null ? null : new Date(fromDate.getTime());
   }
 
   public void setFromDate(Date fromDate) {
-    this.fromDate = fromDate == null?null:new Date(fromDate.getTime());
+    this.fromDate = fromDate == null ? null : new Date(fromDate.getTime());
   }
 
   public String getDatasetId() {
@@ -84,11 +87,11 @@ public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   }
 
   public Date getUntilDate() {
-    return untilDate == null?null:new Date(untilDate.getTime());
+    return untilDate == null ? null : new Date(untilDate.getTime());
   }
 
   public void setUntilDate(Date untilDate) {
-    this.untilDate = untilDate == null?null:new Date(untilDate.getTime());
+    this.untilDate = untilDate == null ? null : new Date(untilDate.getTime());
   }
 
   @Override

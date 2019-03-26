@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.rest.client;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
@@ -33,9 +33,16 @@ import org.springframework.web.client.HttpServerErrorException;
 public class EnrichmentWorker {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
-  public static final int EXTERNAL_CALL_MAX_RETRIES = 30;
-  public static final int EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
-  public static final Map<Class<?>, String> mapWithRetrieableExceptions = createMapWithRetrieableExceptions();
+  private static final int EXTERNAL_CALL_MAX_RETRIES = 30;
+  private static final int EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
+  private static final Map<Class<?>, String> mapWithRetrieableExceptions;
+
+  static {
+    final Map<Class<?>, String> retriableExceptionMap = new HashMap<>();
+    retriableExceptionMap.put(UnknownHostException.class, "");
+    retriableExceptionMap.put(HttpServerErrorException.class, "");
+    mapWithRetrieableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
+  }
 
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
@@ -46,14 +53,6 @@ public class EnrichmentWorker {
    */
   public enum Mode {
     ENRICHMENT_ONLY, DEREFERENCE_ONLY, DEREFERENCE_AND_ENRICHMENT
-  }
-
-  private static Map<Class<?>, String> createMapWithRetrieableExceptions() {
-    Map<Class<?>, String> mapWithRetrieableExceptions = new HashMap<>();
-    mapWithRetrieableExceptions.put(UnknownHostException.class, "");
-    mapWithRetrieableExceptions.put(HttpServerErrorException.class, "");
-
-    return mapWithRetrieableExceptions;
   }
 
   /**
@@ -192,8 +191,8 @@ public class EnrichmentWorker {
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
     if (enrichmentInformation != null && CollectionUtils
-        .isNotEmpty(enrichmentInformation.getResult())) {
-      entityMergeEngine.mergeEntities(rdf, enrichmentInformation.getResult());
+        .isNotEmpty(enrichmentInformation.getEnrichmentBaseWrapperList())) {
+      entityMergeEngine.mergeEntities(rdf, enrichmentInformation.getEnrichmentBaseWrapperList());
     }
 
     // [4] Setting additional field values and set them in the RDF.
@@ -236,9 +235,9 @@ public class EnrichmentWorker {
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
     for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
-      if (dereferenceResultList != null && dereferenceResultList.getResult() != null
-          && !dereferenceResultList.getResult().isEmpty()) {
-        entityMergeEngine.mergeEntities(rdf, dereferenceResultList.getResult());
+      if (dereferenceResultList != null && dereferenceResultList.getEnrichmentBaseWrapperList() != null
+          && !dereferenceResultList.getEnrichmentBaseWrapperList().isEmpty()) {
+        entityMergeEngine.mergeEntities(rdf, dereferenceResultList.getEnrichmentBaseWrapperList());
       }
     }
     LOGGER.debug("Dereference completed.");
@@ -258,7 +257,7 @@ public class EnrichmentWorker {
                 .retryableExternalRequest(() -> dereferenceClient.dereference(resourceId),
                     mapWithRetrieableExceptions, EXTERNAL_CALL_MAX_RETRIES,
                     EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
-        if (result == null || result.getResult() == null || result.getResult().isEmpty()) {
+        if (result == null || result.getEnrichmentBaseWrapperList() == null || result.getEnrichmentBaseWrapperList().isEmpty()) {
           LOGGER.debug("==== Null or empty value received for reference {}", resourceId);
         } else {
           dereferenceInformation.add(result);
@@ -305,14 +304,14 @@ public class EnrichmentWorker {
         if (result == null) {
           continue;
         }
-        for (EnrichmentBase enrichmentBase : result.getResult()) {
-          if (enrichmentBase == null) {
+        for (EnrichmentBaseWrapper enrichmentBaseWrapper : result.getEnrichmentBaseWrapperList()) {
+          if (enrichmentBaseWrapper == null) {
             continue;
           }
           count++;
           LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
-              enrichmentBase.getAbout(), enrichmentBase.getAltLabelList(),
-              enrichmentBase.getNotes(), enrichmentBase.getPrefLabelList());
+              enrichmentBaseWrapper.getEnrichmentBase().getAbout(), enrichmentBaseWrapper.getEnrichmentBase().getAltLabelList(),
+              enrichmentBaseWrapper.getEnrichmentBase().getNotes(), enrichmentBaseWrapper.getEnrichmentBase().getPrefLabelList());
         }
       }
     }

@@ -33,10 +33,11 @@ import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.test.utils.TestUtils;
+import eu.europeana.metis.core.utils.TestObjectFactory;
+import eu.europeana.metis.utils.TestUtils;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -46,6 +47,8 @@ import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -660,5 +663,73 @@ class TestOrchestratorController {
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(406));
+  }
+
+  @Test
+  void testGetRecordEvolutionForVersion() throws Exception {
+
+    // Get the user
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
+    // Create nonempty evolution step
+    final VersionEvolutionStep step1 = new VersionEvolutionStep();
+    step1.setFinishedTime(new Date(1));
+    step1.setPluginType(PluginType.OAIPMH_HARVEST);
+    step1.setWorkflowExecutionId("execution 1");
+    final VersionEvolutionStep step2 = new VersionEvolutionStep();
+    step2.setFinishedTime(new Date(2));
+    step2.setPluginType(PluginType.TRANSFORMATION);
+    step2.setWorkflowExecutionId("execution 2");
+    final VersionEvolution resultNonEmpty = new VersionEvolution();
+    resultNonEmpty.setEvolutionSteps(Arrays.asList(step1, step2));
+
+    // Test happy flow with non-empty evolution
+    final PluginType pluginType = PluginType.MEDIA_PROCESS;
+    when(orchestratorService
+        .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType))
+        .thenReturn(resultNonEmpty);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.evolutionSteps", hasSize(2)))
+        .andExpect(
+            jsonPath("$.evolutionSteps[0].workflowExecutionId", is(step1.getWorkflowExecutionId())))
+        .andExpect(jsonPath("$.evolutionSteps[0].pluginType", is(step1.getPluginType().name())))
+        .andExpect(jsonPath("$.evolutionSteps[0].finishedTime", is((int) step1.getFinishedTime().getTime())))
+        .andExpect(jsonPath("$.evolutionSteps[1].workflowExecutionId", is(step2.getWorkflowExecutionId())))
+        .andExpect(jsonPath("$.evolutionSteps[1].pluginType", is(step2.getPluginType().name())))
+        .andExpect(jsonPath("$.evolutionSteps[1].finishedTime", is((int) step2.getFinishedTime().getTime())));
+
+    // Test happy flow with empty evolution
+    final VersionEvolution resultEmpty = new VersionEvolution();
+    resultEmpty.setEvolutionSteps(Collections.emptyList());
+    when(orchestratorService
+        .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType))
+        .thenReturn(resultEmpty);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.evolutionSteps", hasSize(0)));
+
+    // Test for bad input
+    when(orchestratorService
+        .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType))
+        .thenThrow(new NoWorkflowExecutionFoundException(""));
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(404));
+
+    // Test for unauthorized user
+    doThrow(new UserUnauthorizedException("")).when(orchestratorService)
+        .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(401));
   }
 }

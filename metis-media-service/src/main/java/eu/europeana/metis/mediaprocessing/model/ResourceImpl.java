@@ -1,15 +1,18 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
  * This class implements {@link Resource}.
  */
-public class ResourceImpl extends TemporaryFile implements Resource {
+public class ResourceImpl extends AbstractTemporaryFile implements Resource {
 
   private final String mimeType;
   private final Set<UrlType> urlTypes;
@@ -45,5 +48,10 @@ public class ResourceImpl extends TemporaryFile implements Resource {
   @Override
   public URI getActualLocation() {
     return actualLocation;
+  }
+
+  @Override
+  public File getContentFile() {
+    return Optional.ofNullable(getContentPath()).map(Path::toFile).orElse(null);
   }
 }

@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.execution.WorkflowExecutionMonitor.WorkflowExecutionEntry;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.time.Duration;

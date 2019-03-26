@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
   </parent>
   <artifactId>metis-media-service</artifactId>
 
@@ -63,7 +63,6 @@
       <version>4.5.6</version>
     </dependency>
 
-    <!--TODO JV: do we still need these testing frameworks?-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>

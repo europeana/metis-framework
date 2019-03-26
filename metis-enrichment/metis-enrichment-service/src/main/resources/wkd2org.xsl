@@ -3,7 +3,7 @@
   Document   : wkd2org.xsl
   Author     : hmanguinhas
   Created on : March 17, 2018
-  Updated on : May 30, 2018
+  Updated on : Jan 25, 2019
 -->
 <xsl:stylesheet version="2.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -61,6 +61,12 @@
 
             <xsl:copy-of select="@rdf:about"/>
 
+            <xsl:for-each select="wdt:P18[1]">
+                <xsl:element name="foaf:depiction">
+                    <xsl:copy-of select="@rdf:resource"/>
+                </xsl:element>
+            </xsl:for-each>
+
             <xsl:for-each select="rdfs:label">
                 <xsl:call-template name="label">
                     <xsl:with-param name="property" select="'skos:prefLabel'"/>
@@ -115,13 +121,14 @@
             </xsl:if>
 
             <!-- Address -->
-            <xsl:if test="$address and (($deref and wdt:P669) or wdt:P969 or wdt:P281 or wdt:P2918)">
+            <xsl:if test="$address and (($deref and wdt:P669) or wdt:P969 or wdt:P281 or wdt:P2918 or wdt:P625)">
                 <xsl:variable name="countryName"   select="lib:toCountryName(wdt:P17[1]/@rdf:resource)"/>
 <!--            <xsl:variable name="locality"      select="wdt:P276[1]/@rdf:resource"/>  -->
                 <xsl:variable name="streetAddress" select="wdt:P969[1]/text()"/>
                 <xsl:variable name="street"        select="wdt:P669[1]/@rdf:resource"/>
                 <xsl:variable name="postal"        select="wdt:P281[1]/text()"/>
                 <xsl:variable name="pobox"         select="wdt:P2918[1]/text()"/>
+                <xsl:variable name="geo"           select="wdt:P625[1]"/>
 
                 <xsl:element name="vcard:hasAddress">
 
@@ -167,6 +174,15 @@
                             <xsl:element name="vcard:post-office-box">
                                 <xsl:value-of select="$pobox"/>
                             </xsl:element>
+                        </xsl:if>
+
+                        <xsl:if test="$geo">
+                            <xsl:variable name="geo_value" select="lib:getGeoURI($geo)"/>
+                            <xsl:if test="$geo_value">
+	                            <xsl:element name="vcard:hasGeo">
+	                                <xsl:attribute name="rdf:resource"><xsl:value-of select="$geo_value"/></xsl:attribute>
+	                            </xsl:element>
+                            </xsl:if>
                         </xsl:if>
 
                     </xsl:element>
@@ -293,6 +309,38 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+                            <!-- Geo Coordinates -->
+
+    <xsl:function name="lib:getGeoURI" as="xs:string">
+        <xsl:param name="arg"/>
+
+        <xsl:choose>
+            <xsl:when test="$arg/@rdf:datatype='http://www.opengis.net/ont/geosparql#wktLiteral'">
+                <xsl:value-of select="lib:getGeoURIFromGeoSPARQL($arg/text())"/>
+            </xsl:when>
+            <xsl:otherwise><xsl:value-of select="''"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+
+    <!-- 
+        Point(2.3758 48.8336) => geo:48.8336,2.3758
+        Altitudde and Longitude are inverted
+    -->
+    <xsl:function name="lib:getGeoURIFromGeoSPARQL" as="xs:string">
+        <xsl:param    name="arg"/>
+        <xsl:variable name="value" select="fn:normalize-space($arg)"/>
+        <xsl:variable name="pattern_point" select="'Point[(]([-]?[0-9]+([.][0-9]+)?)[ ]([-]?[0-9]+([.][0-9]+)?)[)]'"/>
+        <xsl:choose>
+            <xsl:when test="fn:matches($value,$pattern_point)">
+                <xsl:value-of select="fn:replace($value,$pattern_point,'geo:$3,$1')"/>
+            </xsl:when>
+            <xsl:otherwise><xsl:value-of select="''"/></xsl:otherwise>
+        </xsl:choose>
+     </xsl:function>
+
+
+                            <!-- Utilities -->
 
     <xsl:function name="lib:getLabel" as="xs:string">
         <xsl:param name="uri"/>

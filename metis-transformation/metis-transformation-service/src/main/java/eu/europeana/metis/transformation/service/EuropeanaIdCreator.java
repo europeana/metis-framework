@@ -16,6 +16,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -24,14 +25,15 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 
 /**
  * An instance of this class can be used to create Europeana IDs for RDF records. This class is
- * <b>not thread-safe</b>: this means that instances should not be shared between different threads.
+ * <b>not thread-safe</b>: this means that instances should not be shared between different
+ * threads.
  *
  * @author jochen
  */
 public final class EuropeanaIdCreator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EuropeanaIdCreator.class);
-  
+
   private static final int EVALUATE_XPATH_ATTEMPT_COUNT = 20;
   private static final int EVALUATE_XPATH_ATTEMPT_INTERVAL_IN_MS = 50;
 
@@ -111,7 +113,8 @@ public final class EuropeanaIdCreator {
   /**
    * <p>
    * This method sanitizes the RDF about for inclusion in the Europeana record ID. This is the
-   * legacy method (the UIM way). This sanitization consists of two steps (in the order given here):
+   * legacy method (the UIM way). This sanitization consists of two steps (in the order given
+   * here):
    * <ol>
    * <li><b>Shortening</b> the string, removing some structure in the case it is a URI.</li>
    * <li><b>Normalizing</b> the characters, replacing unsupported ones by a default
@@ -121,11 +124,13 @@ public final class EuropeanaIdCreator {
    * <p>
    * The rules for <b>shortening</b> are as follows:
    * <ul>
-   * <li>If the input represents a link starting with <code>http://</code> then everything after the
+   * <li>If the input represents a link starting with <code>http://</code> then everything after
+   * the
    * first <code>/</code> that follows that prefix will be kept, the rest will be discarded. For
    * instance, the URI <code> http://www.europeana.eu/somepath/someid </code> would become
    * <code>somepath/someid</code>.</li>
-   * <li>As a special case of the previous rule, if there is no <code>/</code> after the prefix (for
+   * <li>As a special case of the previous rule, if there is no <code>/</code> after the prefix
+   * (for
    * instance for the URI <code>http://someid</code>), the empty string will be returned.</li>
    * <li>In all other cases shortening has no effect: the entire string is kept.</li>
    * </ul>
@@ -176,7 +181,7 @@ public final class EuropeanaIdCreator {
   private String extractRdfAboutFromRdf(RDF rdf) throws EuropeanaIdException {
     final String result = rdf.getProvidedCHOList().stream().filter(Objects::nonNull).findFirst()
         .map(ProvidedCHOType::getAbout).orElse(null);
-    if (result == null || result.trim().isEmpty()) {
+    if (StringUtils.isBlank(result)) {
       throw ID_NOT_FOUND_EXCEPTION_SUPPLIER.get();
     }
     return result;
@@ -199,7 +204,7 @@ public final class EuropeanaIdCreator {
     }
 
     // Check it for presence before returning it.
-    if (result == null || result.trim().isEmpty()) {
+    if (StringUtils.isBlank(result)) {
       throw ID_NOT_FOUND_EXCEPTION_SUPPLIER.get();
     }
     return result;
@@ -216,34 +221,34 @@ public final class EuropeanaIdCreator {
    */
   private String extractRdfAboutFromInputStream(InputStream inputStream)
       throws EuropeanaIdException, InterruptedException {
-    
+
     // Keep track of the latest exception received.
     XPathExpressionException xpathException = null;
-    
+
     // Try a number of times.
     for (int i = 0; i < EVALUATE_XPATH_ATTEMPT_COUNT; i++) {
-      
+
       // Sleep first to give a race condition time to resolve itself (except during the first run).
       if (i > 0) {
         Thread.sleep(EVALUATE_XPATH_ATTEMPT_INTERVAL_IN_MS);
       }
-      
+
       // Make sure that no other thread in this JVM goes here at the same time.
       synchronized (EuropeanaIdCreator.class) {
         try {
-          
+
           // Attempt evaluation of XPath.
           return (String) rdfAboutExtractor.evaluate(new InputSource(inputStream),
               XPathConstants.STRING);
         } catch (XPathExpressionException e) {
           if (isRaceCondition(e)) {
-            
+
             // Handle exception that is caused by a race condition: remember it and try again.
             LOGGER.warn("Race condition error occurred during attempt {} of {}. Trying again...", i,
                 EVALUATE_XPATH_ATTEMPT_COUNT, e);
             xpathException = e;
           } else {
-            
+
             // Handle unexpected exception that is not caused by a race condition: re-throw.
             throw new EuropeanaIdException(
                 "Something went wrong while extracting the provider ID from the source.", e);
@@ -251,14 +256,14 @@ public final class EuropeanaIdCreator {
         }
       }
     }
-    
+
     // If we are here, it is because all attempts have failed. Re-throw the latest exception.
     throw new EuropeanaIdException("Last XPath evaluation attempt generated exception.",
         xpathException);
   }
-  
+
   private static boolean isRaceCondition(Exception exception) {
-    
+
     // Check for the thread collision exception
     if (exception.getMessage() != null
         && exception.getMessage().contains("FWK005 parse may not be called while parsing")) {
@@ -277,6 +282,7 @@ public final class EuropeanaIdCreator {
     // So it is not
     return false;
   }
+
   private static final class RdfNamespaceResolver implements NamespaceContext {
 
     @Override

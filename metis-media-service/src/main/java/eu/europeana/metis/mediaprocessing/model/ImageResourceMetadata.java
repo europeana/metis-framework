@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.model.WebResource.ColorSpace;
 import eu.europeana.metis.mediaprocessing.model.WebResource.Orientation;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +22,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
 
   private int height;
 
-  private ColorSpace colorSpace;
+  private ColorSpaceType colorSpace;
 
   private List<String> dominantColors;
 
@@ -40,7 +40,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
    * @throws MediaExtractionException In case there was a problem with the supplied data.
    */
   public ImageResourceMetadata(String mimeType, String resourceUrl, long contentSize, int width,
-      int height, String colorSpace, List<String> dominantColors,
+      int height, ColorSpaceType colorSpace, List<String> dominantColors,
       List<? extends Thumbnail> thumbnails) throws MediaExtractionException {
 
     // Call super constructor.
@@ -49,6 +49,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     // Set basic parameters.
     this.width = width;
     this.height = height;
+    this.colorSpace = colorSpace;
 
     // Set dominant colors.
     final Optional<String> badColor = dominantColors.stream()
@@ -58,15 +59,6 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     }
     // TODO dominant colors start with '#' due to legacy systems
     this.dominantColors = dominantColors.stream().map(c -> "#" + c).collect(Collectors.toList());
-
-    // Set color space.
-    if ("Gray".equals(colorSpace)) {
-      this.colorSpace = ColorSpace.GRAYSCALE;
-    } else if ("sRGB".equals(colorSpace)) {
-      this.colorSpace = ColorSpace.S_RGB;
-    } else {
-      throw new MediaExtractionException("Unrecognized color space: " + colorSpace);
-    }
   }
 
   /**
@@ -88,5 +80,21 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     resource.setOrientation(width > height ? Orientation.LANDSCAPE : Orientation.PORTRAIT);
     resource.setColorspace(colorSpace);
     resource.setDominantColors(Collections.unmodifiableList(dominantColors));
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public ColorSpaceType getColorSpace() {
+    return colorSpace;
+  }
+
+  public List<String> getDominantColors() {
+    return Collections.unmodifiableList(dominantColors);
   }
 }

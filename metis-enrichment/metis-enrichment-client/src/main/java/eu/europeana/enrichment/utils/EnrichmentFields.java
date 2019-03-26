@@ -92,7 +92,7 @@ public enum EnrichmentFields {
   }
   
   private InputValue convert(ResourceOrLiteralType content) {
-    final String language = content.getLang() != null ? content.getLang().getLang() : null;
+    final String language = content.getLang() == null ? null : content.getLang().getLang();
     return new InputValue(this.name(), content.getString(), language, entityClass);
   }
 
@@ -126,6 +126,7 @@ public enum EnrichmentFields {
       final ResourceOrLiteralType.Resource resource = new ResourceOrLiteralType.Resource();
       resource.setResource(about);
       content.setResource(resource);
+      content.setString(""); // Required, otherwise jibx (de)serialization fails
       contentSetter.accept(choice, content);
       return choice;
     }

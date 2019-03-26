@@ -29,13 +29,16 @@ public class VcardAddress {
   @XmlElement(name = "post-office-box", namespace = "http://www.w3.org/2006/vcard/ns#")
   private String postOfficeBox;
 
+  @XmlElement(name = "hasGeo", namespace = "http://www.w3.org/2006/vcard/ns#")
+  private Resource hasGeo;
+  
   /**
    * Default constructor
    */
   public VcardAddress() {
     super();
   }
-
+  
   public String getCountryName() {
     return countryName;
   }
@@ -76,4 +79,12 @@ public class VcardAddress {
     this.streetAddress = streetAddress;
   }
 
+  public Resource getHasGeo() {
+    return hasGeo;
+  }
+
+  public void setHasGeo(Resource hasGeo) {
+    this.hasGeo = hasGeo;
+  }
+  
 }

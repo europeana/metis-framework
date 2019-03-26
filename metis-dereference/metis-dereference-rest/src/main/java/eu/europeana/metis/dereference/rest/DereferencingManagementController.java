@@ -41,7 +41,7 @@ public class DereferencingManagementController {
    * @param vocabulary The vocabulary to save
    * @return OK
    */
-  @RequestMapping(value = RestEndpoints.VOCABULARY, consumes = "application/json", method = RequestMethod.POST)
+  @RequestMapping(value = RestEndpoints.VOCABULARY, method = RequestMethod.POST, consumes = "application/json")
   @ResponseStatus(HttpStatus.OK)
   @ApiOperation(value = "Save a vocabulary")
   public void saveVocabulary(@ApiParam @RequestBody Vocabulary vocabulary) {
@@ -54,7 +54,7 @@ public class DereferencingManagementController {
    * @param vocabulary The vocabulary to update
    * @return OK
    */
-  @RequestMapping(value = RestEndpoints.VOCABULARY, consumes = "application/json", method = RequestMethod.PUT)
+  @RequestMapping(value = RestEndpoints.VOCABULARY, method = RequestMethod.PUT, consumes = "application/json")
   @ResponseStatus(HttpStatus.OK)
   @ApiOperation(value = "Update a vocabulary")
   public void updateVocabulary(@ApiParam @RequestBody Vocabulary vocabulary) {
@@ -80,7 +80,7 @@ public class DereferencingManagementController {
    * @param name The name of the vocabulary
    * @return The Vocabulary with this name
    */
-  @RequestMapping(value = RestEndpoints.VOCABULARY_BYNAME, produces = "application/json", method = RequestMethod.GET)
+  @RequestMapping(value = RestEndpoints.VOCABULARY_BYNAME, method = RequestMethod.GET, produces = "application/json")
   @ResponseBody
   @ApiOperation(value = "Retrieve a vocabulary by name")
   public Vocabulary getVocabulary(@ApiParam("name") @PathVariable("name") String name) {
@@ -92,7 +92,7 @@ public class DereferencingManagementController {
    *
    * @return The List of all the registered vocabularies
    */
-  @RequestMapping(value = RestEndpoints.VOCABULARIES, produces = "application/json", method = RequestMethod.GET)
+  @RequestMapping(value = RestEndpoints.VOCABULARIES, method = RequestMethod.GET, produces = "application/json")
   @ResponseBody
   @ApiOperation(value = "Retrieve all the vocabularies", response = List.class)
   public List<Vocabulary> getAllVocabularies() {

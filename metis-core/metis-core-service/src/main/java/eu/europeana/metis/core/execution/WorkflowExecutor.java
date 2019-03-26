@@ -6,17 +6,26 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin.MonitorResult;
+import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.net.UnknownHostException;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.client.HttpServerErrorException;
 
 /**
  * This class is a {@link Callable} class that accepts a {@link WorkflowExecution}. It starts that
@@ -30,6 +39,9 @@ import org.slf4j.LoggerFactory;
  * @since 2017-05-29
  */
 public class WorkflowExecutor implements Callable<WorkflowExecution> {
+
+  private static final String EXECUTION_ERROR_PREFIX = "Execution of external task presented with an error. ";
+  private static final String MONITOR_ERROR_PREFIX = "An error occurred while monitoring the external task. ";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
   private static final int MONITOR_ITERATIONS_TO_FAKE = 2;
@@ -46,6 +58,15 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private final String ecloudProvider;
 
   private WorkflowExecution workflowExecution;
+
+  private static final Map<Class<?>, String> mapWithRetriableExceptions;
+
+  static {
+    final Map<Class<?>, String> retriableExceptionMap = new ConcurrentHashMap<>();
+    retriableExceptionMap.put(UnknownHostException.class, "");
+    retriableExceptionMap.put(HttpServerErrorException.class, "");
+    mapWithRetriableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
+  }
 
   WorkflowExecutor(String workflowExecutionId, PersistenceProvider persistenceProvider,
       WorkflowExecutionSettings workflowExecutionSettings,
@@ -91,7 +112,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     if (finishDate == null && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
       // If the workflow was cancelled before it had the chance to finish, we cancel all remaining
       // plugins.
-      workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
+      workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
       LOGGER.info("Cancelled running user workflow execution with id: {}",
           workflowExecution.getId());
     } else if (finishDate == null) {
@@ -125,7 +146,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(i);
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
           || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
-          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
+          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
+          || metisPlugin.getPluginStatus() == PluginStatus.PENDING) {
         firstPluginPositionToStart = i;
         break;
       }
@@ -168,7 +190,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
    */
   private void runMetisPlugin(AbstractMetisPlugin previousAbstractMetisPlugin,
       AbstractMetisPlugin abstractMetisPlugin, Date startDateToUse) {
-
     // Set previous plugin revision information
     if (previousAbstractMetisPlugin != null) {
       abstractMetisPlugin.getPluginMetadata()
@@ -181,12 +202,16 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
           abstractMetisPlugin.setStartedDate(startDateToUse);
         }
-        abstractMetisPlugin.execute(dpsClient, ecloudBaseUrl, ecloudProvider,
-            workflowExecution.getEcloudDatasetId());
+
+        final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
+            ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
+            resolvePreviousExternalTaskId(previousAbstractMetisPlugin, abstractMetisPlugin));
+        abstractMetisPlugin.execute(dpsClient, ecloudBasePluginParameters);
       } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn("Execution of external task failed", e);
         abstractMetisPlugin.setFinishedDate(null);
-        abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
+        abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+        abstractMetisPlugin.setFailMessage(MONITOR_ERROR_PREFIX + e.getMessage());
         return;
       } finally {
         workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
@@ -202,8 +227,32 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     }
   }
 
+  private String resolvePreviousExternalTaskId(AbstractMetisPlugin previousAbstractMetisPlugin,
+      AbstractMetisPlugin abstractMetisPlugin) {
+    String previousExternalTaskId = null;
+    if (previousAbstractMetisPlugin == null && !ExecutionRules.getHarvestPluginGroup()
+        .contains(abstractMetisPlugin.getPluginType())) {
+      final PluginType previousPluginType = PluginType
+          .getPluginTypeFromEnumName(abstractMetisPlugin.getPluginMetadata()
+              .getRevisionNamePreviousPlugin());
+      final Date previousPluginStartDate = abstractMetisPlugin.getPluginMetadata()
+          .getRevisionTimestampPreviousPlugin();
+      final WorkflowExecution previousExecution = workflowExecutionDao
+          .getByTaskExecution(previousPluginStartDate, previousPluginType,
+              workflowExecution.getDatasetId());
+      final AbstractMetisPlugin previousPlugin = previousExecution == null ? null
+          : previousExecution.getMetisPluginWithType(previousPluginType).orElse(null);
+      if (previousPlugin != null) {
+        previousExternalTaskId = previousPlugin.getExternalTaskId();
+      }
+    } else if (previousAbstractMetisPlugin != null) {
+      previousExternalTaskId = previousAbstractMetisPlugin.getExternalTaskId();
+    }
+    return previousExternalTaskId;
+  }
+
   private void periodicCheckingLoop(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
-    TaskState taskState = null;
+    MonitorResult monitorResult = null;
     int consecutiveCancelOrMonitorFailures = 0;
     boolean externalCancelCallSent = false;
     AtomicInteger previousProcessedRecords = new AtomicInteger(0);
@@ -214,44 +263,65 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         Thread.sleep(sleepTime);
         if (!externalCancelCallSent && shouldPluginBeCancelled(abstractMetisPlugin,
             previousProcessedRecords, checkPointDateOfProcessedRecordsPeriodInMillis)) {
-          abstractMetisPlugin.cancel(dpsClient);
+          // Update workflowExecution first, to retrieve cancelling information from db
+          workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
+          abstractMetisPlugin.cancel(dpsClient, workflowExecution.getCancelledBy());
           externalCancelCallSent = true;
         }
-        taskState = abstractMetisPlugin.monitor(dpsClient).getStatus();
+        monitorResult = abstractMetisPlugin.monitor(dpsClient);
         consecutiveCancelOrMonitorFailures = 0;
-        Date updatedDate = new Date();
-        abstractMetisPlugin.setUpdatedDate(updatedDate);
-        abstractMetisPlugin.setPluginStatus(
-            taskState == TaskState.REMOVING_FROM_SOLR_AND_MONGO ? PluginStatus.CLEANING
-                : PluginStatus.RUNNING);
-        workflowExecution.setUpdatedDate(updatedDate);
-        workflowExecutionDao.updateMonitorInformation(workflowExecution);
+        abstractMetisPlugin.setPluginStatusAndResetFailMessage(
+            monitorResult.getTaskState() == TaskState.REMOVING_FROM_SOLR_AND_MONGO
+                ? PluginStatus.CLEANING : PluginStatus.RUNNING);
       } catch (InterruptedException e) {
         LOGGER.warn("Thread was interrupted during monitoring of external task", e);
         Thread.currentThread().interrupt();
         return;
       } catch (ExternalTaskException e) {
-        consecutiveCancelOrMonitorFailures++;
-        LOGGER.warn(String.format("Monitoring of external task failed %s/%s",
-            consecutiveCancelOrMonitorFailures, MAX_CANCEL_OR_MONITOR_FAILURES), e);
-        if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
-          break;
+        if (ExternalRequestUtil
+            .doesExceptionCauseMatchAnyOfProvidedExceptions(mapWithRetriableExceptions, e)) {
+          consecutiveCancelOrMonitorFailures++;
+          LOGGER.warn(String.format(
+              "Monitoring of external task failed %s consecutive times. After exceeding %s retries, pending status will be set",
+              consecutiveCancelOrMonitorFailures, MAX_CANCEL_OR_MONITOR_FAILURES), e);
+          if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
+            //Set pending status once
+            abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
+          }
+        } else {
+          // Set plugin to FAILED and return immediately
+          abstractMetisPlugin.setFinishedDate(null);
+          abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+          abstractMetisPlugin.setFailMessage(MONITOR_ERROR_PREFIX + e.getMessage());
+          return;
         }
+      } finally {
+        Date updatedDate = new Date();
+        abstractMetisPlugin.setUpdatedDate(updatedDate);
+        workflowExecution.setUpdatedDate(updatedDate);
+        workflowExecutionDao.updateMonitorInformation(workflowExecution);
       }
-    } while (taskState != TaskState.DROPPED && taskState != TaskState.PROCESSED);
+    } while (monitorResult == null || (monitorResult.getTaskState() != TaskState.DROPPED
+        && monitorResult.getTaskState() != TaskState.PROCESSED));
 
-    preparePluginStateAndFinishedDate(abstractMetisPlugin, taskState,
-        consecutiveCancelOrMonitorFailures);
+    preparePluginStateAndFinishedDate(abstractMetisPlugin, monitorResult);
   }
 
   private boolean shouldPluginBeCancelled(AbstractMetisPlugin abstractMetisPlugin,
       AtomicInteger previousProcessedRecords,
       AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis) {
     // A plugin with CLEANING state is NOT cancellable, it will be when the state is updated
-    return ((abstractMetisPlugin.getPluginStatus() != PluginStatus.CLEANING && workflowExecutionDao
-        .isCancelling(workflowExecution.getId())) || isMinuteCapOverWithoutChangeInProcessedRecords(
+    final boolean notCleaningAndCancelling =
+        abstractMetisPlugin.getPluginStatus() != PluginStatus.CLEANING && workflowExecutionDao
+            .isCancelling(workflowExecution.getId());
+    // A cleaning or a pending task should not be cancelled by exceeding the minute cap
+    final boolean notCleaningOrPending =
+        abstractMetisPlugin.getPluginStatus() != PluginStatus.CLEANING
+            && abstractMetisPlugin.getPluginStatus() != PluginStatus.PENDING;
+    final boolean isMinuteCapExceeded = isMinuteCapOverWithoutChangeInProcessedRecords(
         abstractMetisPlugin, previousProcessedRecords,
-        checkPointDateOfProcessedRecordsPeriodInMillis));
+        checkPointDateOfProcessedRecordsPeriodInMillis);
+    return (notCleaningAndCancelling || (notCleaningOrPending && isMinuteCapExceeded));
   }
 
   private boolean isMinuteCapOverWithoutChangeInProcessedRecords(
@@ -261,6 +331,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     //If CLEANING is in progress then just reset the values to be sure and return false
     //Or if we have progress
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.CLEANING
+        || abstractMetisPlugin.getPluginStatus() == PluginStatus.PENDING
         || previousProcessedRecords.get() != processedRecords) {
       checkPointDateOfProcessedRecordsPeriodInMillis.set(System.currentTimeMillis());
       previousProcessedRecords.set(processedRecords);
@@ -273,20 +344,23 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
             >= periodOfNoProcessedRecordsChangeInSeconds;
     if (isMinuteCapOverWithoutChangeInProcessedRecords) {
       //Request cancelling of the execution
-      workflowExecutionDao.setCancellingState(workflowExecution);
+      workflowExecutionDao.setCancellingState(workflowExecution, null);
     }
     return isMinuteCapOverWithoutChangeInProcessedRecords;
   }
 
   private void preparePluginStateAndFinishedDate(AbstractMetisPlugin abstractMetisPlugin,
-      TaskState taskState, int consecutiveCancelOrMonitorFailures) {
-    if (taskState == TaskState.PROCESSED) {
+      MonitorResult monitorResult) {
+    if (monitorResult.getTaskState() == TaskState.PROCESSED) {
       abstractMetisPlugin.setFinishedDate(new Date());
-      abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
-    } else if ((taskState == TaskState.DROPPED
-        && !workflowExecutionDao.isCancelling(workflowExecution.getId()))
-        || consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
-      abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
+      abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
+    } else if (monitorResult.getTaskState() == TaskState.DROPPED && !workflowExecutionDao
+        .isCancelling(workflowExecution.getId())) {
+      abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+      final String failMessage =
+          StringUtils.isBlank(monitorResult.getTaskInfo()) ? "No further information received."
+              : monitorResult.getTaskInfo();
+      abstractMetisPlugin.setFailMessage(EXECUTION_ERROR_PREFIX + failMessage);
     }
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
   }
@@ -295,6 +369,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     for (int i = 1; i <= MONITOR_ITERATIONS_TO_FAKE; i++) {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+          // Update workflowExecution first, to retrieve cancelling information from db
+          workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
           return;
         }
         Thread.sleep(sleepTime);
@@ -310,7 +386,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       }
     }
     abstractMetisPlugin.setFinishedDate(new Date());
-    abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
+    abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
   }
 

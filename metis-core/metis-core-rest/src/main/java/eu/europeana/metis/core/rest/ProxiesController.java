@@ -1,18 +1,19 @@
 package eu.europeana.metis.core.rest;
 
-import eu.europeana.cloud.common.model.dps.StatisticsReport;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
-import eu.europeana.cloud.service.dps.exception.DpsException;
-import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.rest.stats.NodePathStatistics;
+import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.GenericMetisException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -67,10 +69,10 @@ public class ProxiesController {
    * @return the list of logs
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link DpsException} if an error occurred while retrieving the logs from the external
-   * resource</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
-   * execution exists for the provided external task identifier</li>
+   * <li>{@link eu.europeana.cloud.service.dps.exception.DpsException} if an error occurred while
+   * retrieving the logs from the external resource</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
@@ -96,6 +98,41 @@ public class ProxiesController {
   }
 
   /**
+   * Check if final report is available.
+   *
+   * @param authorization the authorization header with the access token
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @return true if final report available, false if not or ecloud response {@link
+   * javax.ws.rs.core.Response.Status)} is not OK, based on {@link eu.europeana.cloud.client.dps.rest.DpsClient#checkIfErrorReportExists}
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT_EXISTS, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public Map<String, Boolean> existsExternalTaskReport(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("topologyName") String topologyName,
+      @PathVariable("externalTaskId") long externalTaskId) throws GenericMetisException {
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info(
+          "Requesting proxy call to check if task report exists for topologyName: {}, externalTaskId: {}",
+          topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
+          externalTaskId);
+    }
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return Collections.singletonMap("existsExternalTaskReport",
+        proxiesService.existsExternalTaskReport(metisUser, topologyName, externalTaskId));
+  }
+
+  /**
    * Get the final report that includes all the errors grouped. The number of ids per error can be
    * specified through the parameters.
    *
@@ -106,10 +143,10 @@ public class ProxiesController {
    * @return the list of errors grouped
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link DpsException} if an error occurred while retrieving the report from the external
-   * resource</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
-   * execution exists for the provided external task identifier</li>
+   * <li>{@link eu.europeana.cloud.service.dps.exception.DpsException} if an error occurred while
+   * retrieving the report from the external resource</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
@@ -142,10 +179,10 @@ public class ProxiesController {
    * @return the task statistics
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link DpsException} if an error occurred while retrieving the statistics from the external
-   * resource</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
-   * execution exists for the provided external task identifier</li>
+   * <li>{@link eu.europeana.cloud.service.dps.exception.DpsException} if an error occurred while
+   * retrieving the statistics from the external resource</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
@@ -155,7 +192,7 @@ public class ProxiesController {
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public StatisticsReport getExternalTaskStatistics(
+  public RecordStatistics getExternalTaskStatistics(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("topologyName") String topologyName,
       @PathVariable("externalTaskId") long externalTaskId) throws GenericMetisException {
@@ -169,8 +206,46 @@ public class ProxiesController {
   }
 
   /**
+   * Get additional statistics on a node. This method can be used to elaborate on one of the items
+   * returned by {@link #getExternalTaskStatistics(String, String, long)}.
+   *
+   * @param authorization the authorization header with the access token
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @param nodePath the path of the node for which this request is made
+   * @return the list of errors grouped
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.cloud.service.dps.exception.DpsException} if an error occurred while
+   * retrieving the statistics from the external resource</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided external task identifier</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_NODE_STATISTICS,
+      method = RequestMethod.GET,
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public NodePathStatistics getAdditionalNodeStatistics(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("topologyName") String topologyName,
+      @PathVariable("externalTaskId") long externalTaskId,
+      @RequestParam("nodePath") String nodePath) throws GenericMetisException {
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("Requesting proxy call additional node statistics for topologyName: {}, externalTaskId: {}",
+          topologyName.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
+          externalTaskId);
+    }
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return proxiesService.getAdditionalNodeStatistics(metisUser, topologyName, externalTaskId, nodePath);
+  }
+
+  /**
    * Get a list with record contents from the external resource based on an workflow execution and
-   * {@link PluginType}
+   * {@link PluginType}.
    *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
@@ -180,16 +255,16 @@ public class ProxiesController {
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link MCSException} if an error occurred while retrieving the records from the external
-   * resource</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
-   * execution exists for the provided identifier</li>
+   * <li>{@link eu.europeana.cloud.service.mcs.exception.MCSException} if an error occurred while
+   * retrieving the records from the external resource</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * workflow execution exists for the provided identifier</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS, method = RequestMethod.GET,
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public RecordsResponse getListOfFileContentsFromPluginExecution(
@@ -204,4 +279,38 @@ public class ProxiesController {
             StringUtils.isEmpty(nextPage) ? null : nextPage, NUMBER_OF_RECORDS);
   }
 
+  /**
+   * Get a list with record contents from the external resource based on an workflow execution and
+   * {@link PluginType}.
+   *
+   * @param authorization the authorization header with the access token
+   * @param workflowExecutionId the execution identifier of the workflow
+   * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
+   * @return the list of records from the external resource
+   * @throws GenericMetisException can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.cloud.service.mcs.exception.MCSException} if an error occurred while
+   * retrieving the records from the external resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
+   * execution exists for the provided identifier</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS_BY_IDS, method = RequestMethod.POST,
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public RecordsResponse getListOfFileContentsFromPluginExecution(
+      @RequestHeader("Authorization") String authorization,
+      @RequestParam("workflowExecutionId") String workflowExecutionId,
+      @RequestParam("pluginType") PluginType pluginType,
+      @RequestBody ListOfIds ecloudIds
+  ) throws GenericMetisException {
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return proxiesService.getListOfFileContentsFromPluginExecution(metisUser, workflowExecutionId,
+        pluginType, ecloudIds);
+  }
 }

@@ -26,6 +26,10 @@ public class EntityService implements Closeable {
 	    this.entityDao = new EnrichmentEntityDao(mongoHost, mongoPort);
 	}
 
+	public EntityService(String mongoConnectionUrl) {
+      this.entityDao = new EnrichmentEntityDao(mongoConnectionUrl);
+    }
+	
     @Override
     public void close() throws IOException {
         this.entityDao.close();
@@ -58,7 +62,7 @@ public class EntityService implements Closeable {
 		LOGGER.trace("Stored new lables: {}", newLabels);
 
 		// store term list
-    return (OrganizationTermList) entityDao.storeMongoTermList(termList);
+    return entityDao.storeMongoTermList(termList);
 
   }
 
@@ -134,12 +138,13 @@ public class EntityService implements Closeable {
 		termList.setEntityType(OrganizationImpl.class.getSimpleName());
 
 		// enforce created not null
-		if (created != null)
-			termList.setCreated(created);
-		else
-			termList.setCreated(new Date());
+    if (created == null) {
+      termList.setCreated(new Date());
+    } else {
+      termList.setCreated(created);
+    }
 
-		termList.setModified(modified);
+    termList.setModified(modified);
 
 		return termList;
 	}

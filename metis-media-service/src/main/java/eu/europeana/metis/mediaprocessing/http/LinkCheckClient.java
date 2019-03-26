@@ -1,20 +1,20 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import java.net.URI;
 
 /**
- * An {@link HttpClient} that checks whether a given resource link actually points to content. It
- * doesn't download the content, but just checks whether the link resolves.
+ * An {@link AbstractHttpClient} that checks whether a given resource link actually points to content. It
+ * doesn't download the content, but just checks whether the link resolves. It expects the URL
+ * itself as resource entry input.
  */
-public class LinkCheckClient extends HttpClient<Void> {
+public class LinkCheckClient extends AbstractHttpClient<String, Void> {
 
   private static final int CONNECT_TIMEOUT = 2_000;
   private static final int SOCKET_TIMEOUT = 5_000;
 
   /**
    * Constructor.
-   * 
+   *
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    */
   public LinkCheckClient(int maxRedirectCount) {
@@ -22,7 +22,12 @@ public class LinkCheckClient extends HttpClient<Void> {
   }
 
   @Override
-  protected Void createResult(RdfResourceEntry resourceEntry, URI actualUri, String mimeType,
+  protected String getResourceUrl(String resourceEntry) {
+    return resourceEntry;
+  }
+
+  @Override
+  protected Void createResult(String resourceEntry, URI actualUri, String mimeType,
       ContentRetriever contentRetriever) {
     return null;
   }

@@ -91,8 +91,8 @@ public class EntityConverterUtils {
   }
 
   /**
-   * This method creates language map from text property object list.
-   * Values are merged if the same key is encountered
+   * This method creates language map from text property object list. Values are merged if the same
+   * key is encountered
    *
    * @param textPropertyList the list of text property objects
    * @return the language map
@@ -103,8 +103,8 @@ public class EntityConverterUtils {
   }
 
   /**
-   * This method creates language map from text property object list.
-   * Values are ignored if the same key is encountered.
+   * This method creates language map from text property object list. Values are ignored if the same
+   * key is encountered.
    *
    * @param textPropertyList the list of text property objects
    * @return the language map
@@ -126,12 +126,12 @@ public class EntityConverterUtils {
    */
   private Map<String, List<String>> createMapWithListsFromTextPropertyList(
       List<? extends TextProperty> textPropertyList, boolean mergeLists) {
-    
+
     // Sanity check.
     if (textPropertyList == null) {
       return null;
     }
-    
+
     // Determine what to do with language collisions.
     final BinaryOperator<List<String>> mergeOperator;
     if (mergeLists) {
@@ -139,7 +139,7 @@ public class EntityConverterUtils {
     } else {
       mergeOperator = (list1, list2) -> list1;
     }
-    
+
     // Convert the list to a map.
     return textPropertyList.stream()
         .collect(Collectors.toMap(property -> toIsoLanguage(property.getKey()),
@@ -178,6 +178,7 @@ public class EntityConverterUtils {
 
   /**
    * Creates a map of a single key and a List with a single value
+   * 
    * @param language the language to use
    * @param value the element value
    * @return the created map
@@ -191,6 +192,7 @@ public class EntityConverterUtils {
 
   /**
    * Creates a map of a single key and maps it to the provided list.
+   * 
    * @param language the language to use
    * @param value the list of values
    * @return the created map
@@ -278,16 +280,16 @@ public class EntityConverterUtils {
     // Process the entries in the add map.
     for (Map.Entry<String, List<String>> entry : addMap.entrySet()) {
       final String key = entry.getKey();
-      if (!result.containsKey(key)) {
-        // If the base map has no singleton for the key, add it.
-        result.put(key, new ArrayList<>(entry.getValue()));
-      } else {
+      if (result.containsKey(key)) {
         // If it does, add to the not-merged-map that which is not already in the base map.
         final List<String> unmergedValues = entry.getValue().stream().distinct()
             .filter(value -> !result.get(key).contains(value)).collect(Collectors.toList());
         if (!unmergedValues.isEmpty()) {
           notMergedMap.merge(key, unmergedValues, this::mergeStringLists);
         }
+      } else {
+        // If the base map has no singleton for the key, add it.
+        result.put(key, new ArrayList<>(entry.getValue()));
       }
     }
 
@@ -331,28 +333,16 @@ public class EntityConverterUtils {
 
   /**
    * Merges two addresses. If the base organization already has an address set that contains any
-   * non-country data then nothing happens. Otherwise, the address properties from the add
-   * organization are copied to the base organization.
+   * non-country data then nothing happens. Otherwise, the address properties from the
+   * addOrganization are copied to the baseOrganization.
    * 
    * @param baseOrganization The base organization. Cannot be null.
    * @param addOrganization The add organization. Cannot be null.
    */
   public void mergeAddress(Organization baseOrganization, Organization addOrganization) {
 
-    // Determine if the base organization has an address.
-    final boolean baseHasAddressData;
-    if (baseOrganization.getAddress() != null) {
-      final Address baseAddress = baseOrganization.getAddress();
-      baseHasAddressData = StringUtils.isNotEmpty(baseAddress.getVcardLocality())
-          || StringUtils.isNotEmpty(baseAddress.getVcardPostalCode())
-          || StringUtils.isNotEmpty(baseAddress.getVcardPostOfficeBox())
-          || StringUtils.isNotEmpty(baseAddress.getVcardStreetAddress());
-    } else {
-      baseHasAddressData = false;
-    }
-
     // If does, or the add organization has nothing to replace, we're done.
-    if (baseHasAddressData || addOrganization.getAddress() == null) {
+    if (addOrganization.getAddress() == null) {
       return;
     }
 
@@ -365,12 +355,23 @@ public class EntityConverterUtils {
     // (otherwise keep the base country).
     final Address baseAddress = baseOrganization.getAddress();
     final Address addAddress = addOrganization.getAddress();
-    baseAddress.setVcardLocality(addAddress.getVcardLocality());
-    baseAddress.setVcardPostalCode(addAddress.getVcardPostalCode());
-    baseAddress.setVcardPostOfficeBox(addAddress.getVcardPostOfficeBox());
-    baseAddress.setVcardStreetAddress(addAddress.getVcardStreetAddress());
-    if (StringUtils.isNotEmpty(addAddress.getVcardCountryName())) {
+
+    // TODO: enable when the issues related to locality and street address are solved in the mapping
+    // baseAddress.setVcardLocality(addAddress.getVcardLocality());
+    // baseAddress.setVcardPostalCode(addAddress.getVcardPostalCode());
+    // baseAddress.setVcardPostOfficeBox(addAddress.getVcardPostOfficeBox());
+    // baseAddress.setVcardStreetAddress(addAddress.getVcardStreetAddress());
+    
+    //update country only if not available in base
+    if (StringUtils.isEmpty(baseAddress.getVcardCountryName())
+        && StringUtils.isNotEmpty(addAddress.getVcardCountryName())) {
       baseAddress.setVcardCountryName(addAddress.getVcardCountryName());
     }
+    
+    //update hasGeo if not available in base
+    if(StringUtils.isEmpty(baseAddress.getVcardHasGeo())){
+      baseAddress.setVcardHasGeo(addAddress.getVcardHasGeo());
+    }
+      
   }
 }

@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,6 +20,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
+ * The Metis user containing all parameters.
+ * <p>This class is a model class that is also used as a JPA class to the postgresql database</p>
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
  */
@@ -71,7 +75,8 @@ public class MetisUser {
    *
    * @param jsonNode the {@link JsonNode} to construct the MetisUser
    * @throws ParseException if the content is unparsable
-   * @throws BadContentException if the content of the JsonNode is unacceptable because of rules that should be followed
+   * @throws BadContentException if the content of the JsonNode is unacceptable because of rules
+   * that should be followed
    */
   public MetisUser(JsonNode jsonNode) throws ParseException, BadContentException {
     parseJsonNodeZohoUserToMetisUser(jsonNode);
@@ -79,7 +84,7 @@ public class MetisUser {
 
   private void parseJsonNodeZohoUserToMetisUser(JsonNode jsonNode)
       throws BadContentException, ParseException {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {
       JsonNode next = elements.next();

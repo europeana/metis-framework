@@ -302,11 +302,13 @@ public class OrchestratorController {
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, datasetId,
             pluginType, enforcedPluginType);
-    if (latestFinishedPluginWorkflowExecutionByDatasetId != null) {
+    if (latestFinishedPluginWorkflowExecutionByDatasetId == null) {
+      if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
+        LOGGER.info("PluginType allowed by default");
+      }
+    } else {
       LOGGER.info("Latest Plugin WorkflowExecution with id '{}' found",
           latestFinishedPluginWorkflowExecutionByDatasetId.getId());
-    } else if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
-      LOGGER.info("PluginType allowed by default");
     }
     return latestFinishedPluginWorkflowExecutionByDatasetId;
   }
@@ -420,5 +422,35 @@ public class OrchestratorController {
     LOGGER.debug("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
+  }
+
+  /**
+   * Get the evolution of the records from when they were first imported until (and excluding) the
+   * specified version.
+   *
+   * @param authorization The authorization header with the access token
+   * @param workflowExecutionId The ID of the workflow exection in which the version is created.
+   * @param pluginType The step within the workflow execution that created the version.
+   * @return The record evolution.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
+   * non-existing version is provided.</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public VersionEvolution getRecordEvolutionForVersion(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("workflowExecutionId") String workflowExecutionId,
+      @PathVariable("pluginType") PluginType pluginType
+  ) throws GenericMetisException {
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return orchestratorService
+        .getRecordEvolutionForVersion(metisUser, workflowExecutionId, pluginType);
   }
 }

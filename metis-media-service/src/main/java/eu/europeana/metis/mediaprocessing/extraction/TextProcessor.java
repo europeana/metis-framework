@@ -1,23 +1,23 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import com.itextpdf.text.pdf.parser.RenderListener;
-import com.itextpdf.text.pdf.parser.TextRenderInfo;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.ImageRenderInfo;
 import com.itextpdf.text.pdf.parser.Matrix;
 import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
+import com.itextpdf.text.pdf.parser.RenderListener;
+import com.itextpdf.text.pdf.parser.TextRenderInfo;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
+import java.awt.image.BufferedImage;
+import java.io.Closeable;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -34,29 +34,31 @@ class TextProcessor implements MediaProcessor {
 
   private static final String PDF_MIME_TYPE = "application/pdf";
 
-  private static final int DISPLAY_DPI = 72;
+  protected static final int DISPLAY_DPI = 72;
 
   private final ThumbnailGenerator thumbnailGenerator;
 
   /**
    * Constructor.
    *
-   * @param thumbnailGenerator An object that can generate thumbnails.
+   * @param thumbnailGenerator An object that can generate thumbnails. The calling class is
+   * responsible for closing this object.
    */
   TextProcessor(ThumbnailGenerator thumbnailGenerator) {
     this.thumbnailGenerator = thumbnailGenerator;
   }
 
   @Override
-  public ResourceExtractionResult process(Resource resource) throws MediaExtractionException {
+  public ResourceExtractionResult process(Resource resource, String detectedMimeType)
+      throws MediaExtractionException {
 
     // Sanity checks
-    if (!UrlType.shouldExtractMetadata(resource.getUrlTypes())) {
+    if (!shouldExtractMetadata(resource)) {
       return null;
     }
     try {
       if (!resource.hasContent()) {
-        throw new MediaExtractionException("File content is null");
+        throw new MediaExtractionException("File does not exist or does not have content.");
       }
     } catch (IOException e) {
       throw new MediaExtractionException("Could not determine whether resource has content.", e);
@@ -64,20 +66,20 @@ class TextProcessor implements MediaProcessor {
 
     // Create thumbnails in case of PDF file.
     final List<Thumbnail> thumbnails;
-    if (PDF_MIME_TYPE.equals(resource.getMimeType())) {
+    if (PDF_MIME_TYPE.equals(detectedMimeType)) {
       thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
-          ResourceType.TEXT, resource.getContentPath().toFile()).getRight();
+          ResourceType.TEXT, resource.getContentFile()).getRight();
     } else {
       thumbnails = null;
     }
 
     // Set the resource properties relating to content.
     final PdfCharacteristics characteristics;
-    if (PDF_MIME_TYPE.equals(resource.getMimeType())) {
-      characteristics = findPdfCharacteristics(resource.getContentPath().toFile());
+    if (PDF_MIME_TYPE.equals(detectedMimeType)) {
+      characteristics = findPdfCharacteristics(resource.getContentFile());
     } else {
-      final boolean hasText = resource.getMimeType().startsWith("text/")
-          || "application/xhtml+xml".equals(resource.getMimeType());
+      final boolean hasText = detectedMimeType.startsWith("text/")
+          || "application/xhtml+xml".equals(detectedMimeType);
       characteristics = new PdfCharacteristics(hasText, null);
     }
 
@@ -91,41 +93,66 @@ class TextProcessor implements MediaProcessor {
     }
 
     // Done
-    final TextResourceMetadata metadata = new TextResourceMetadata(resource.getMimeType(),
-        resource.getResourceUrl(), contentSize, characteristics.containsText,
-        characteristics.resolution, thumbnails);
+    final TextResourceMetadata metadata = new TextResourceMetadata(detectedMimeType,
+        resource.getResourceUrl(), contentSize, characteristics.containsText(),
+        characteristics.getResolution(), thumbnails);
     return new ResourceExtractionResult(metadata, thumbnails);
   }
 
-  private static PdfCharacteristics findPdfCharacteristics(File content) throws MediaExtractionException {
-    PdfReader reader = null;
-    try {
-
-      // Set up PDF parsing.
-      reader = new PdfReader(content.getAbsolutePath());
-      final PdfReaderContentParser parser = new PdfReaderContentParser(reader);
-      final PdfListener pdfListener = new PdfListener();
+  PdfCharacteristics findPdfCharacteristics(File content) throws MediaExtractionException {
+    try (OpenPdfFile openPdf = openPdfFile(content)) {
 
       // Go by each page: if we find the data we need, we can stop.
-      for (int i = 1; i <= reader.getNumberOfPages(); i++) {
-        parser.processContent(i, pdfListener);
-        if (pdfListener.dpi != null && pdfListener.hasText) {
+      for (int i = 1; i <= openPdf.getNumberOfPages(); i++) {
+        openPdf.getPdfParser().processContent(i, openPdf.getPdfListener());
+        if (openPdf.getPdfListener().getDpi() != null && openPdf.getPdfListener().hasText()) {
           break;
         }
       }
 
       // Done.
-      return new PdfCharacteristics(pdfListener.hasText, pdfListener.dpi);
+      return new PdfCharacteristics(openPdf.getPdfListener().hasText(),
+          openPdf.getPdfListener().getDpi());
     } catch (IOException e) {
       throw new MediaExtractionException("Problem while reading PDF file.", e);
-    } finally {
-      if (reader != null) {
-        reader.close();
-      }
     }
   }
 
-  private static class PdfCharacteristics {
+  OpenPdfFile openPdfFile(File content) throws IOException {
+    return new OpenPdfFile(content);
+  }
+
+  static class OpenPdfFile implements Closeable {
+
+    private final PdfReader pdfReader;
+    private PdfListener pdfListener;
+    private PdfReaderContentParser pdfParser;
+
+    OpenPdfFile(File content) throws IOException {
+      pdfReader = new PdfReader(content.getAbsolutePath());
+    }
+
+    int getNumberOfPages() {
+      return pdfReader.getNumberOfPages();
+    }
+
+    PdfListener getPdfListener() {
+      pdfListener = pdfListener == null ? new PdfListener() : pdfListener;
+      return pdfListener;
+    }
+
+    PdfReaderContentParser getPdfParser() {
+      pdfParser = pdfParser == null ? new PdfReaderContentParser(pdfReader) : pdfParser;
+      return pdfParser;
+    }
+
+    @Override
+    public void close() {
+      pdfReader.close();
+    }
+  }
+
+  static class PdfCharacteristics {
 
     private final boolean containsText;
     private final Integer resolution;
@@ -134,6 +161,14 @@ class TextProcessor implements MediaProcessor {
       this.containsText = containsText;
       this.resolution = resolution;
     }
+
+    boolean containsText() {
+      return containsText;
+    }
+
+    Integer getResolution() {
+      return resolution;
+    }
   }
 
   /**
@@ -141,10 +176,18 @@ class TextProcessor implements MediaProcessor {
    * PDF, as well as whether any textual content is encountered in the PDF. If it is applied to each
    * page of the PDF in order, it will therefore find the resolution of the PDF's first image.
    */
-  private static class PdfListener implements RenderListener {
+  static class PdfListener implements RenderListener {
 
     private Integer dpi = null;
     private boolean hasText = false;
+
+    Integer getDpi() {
+      return dpi;
+    }
+
+    boolean hasText() {
+      return hasText;
+    }
 
     @Override
     public void beginTextBlock() {

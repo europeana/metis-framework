@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import eu.europeana.metis.exception.BadContentException;
 
 /**
+ * The Role of an account.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-31
  */
@@ -19,8 +21,8 @@ public enum AccountRole {
    */
   @JsonCreator
   public static AccountRole getAccountRoleFromEnumName(String name) throws BadContentException {
-    for (AccountRole acountRole: AccountRole.values()) {
-      if(acountRole.name().equalsIgnoreCase(name)){
+    for (AccountRole acountRole : AccountRole.values()) {
+      if (acountRole.name().equalsIgnoreCase(name)) {
         return acountRole;
       }
     }

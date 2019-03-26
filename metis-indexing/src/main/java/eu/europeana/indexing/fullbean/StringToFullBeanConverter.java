@@ -13,6 +13,7 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.utils.RdfWrapper;
 
 /**
  * This class converts String representations of RDF (XML) to instances of {@link FullBeanImpl}.
@@ -63,7 +64,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
    * @return The RDF instance.
    * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
-  public RDF convertStringToRdf(String record) throws IndexingException {
+  public RdfWrapper convertStringToRdf(String record) throws IndexingException {
 
     // Convert string to RDF
     final RDF rdf;
@@ -83,7 +84,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
     }
 
     // Done.
-    return rdf;
+    return new RdfWrapper(rdf);
   }
 
   private static IBindingFactory getRdfBindingFactory()

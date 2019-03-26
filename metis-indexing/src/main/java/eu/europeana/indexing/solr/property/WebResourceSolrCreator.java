@@ -1,5 +1,8 @@
 package eu.europeana.indexing.solr.property;
 
+import eu.europeana.corelib.definitions.edm.entity.License;
+import eu.europeana.corelib.definitions.edm.entity.WebResource;
+import eu.europeana.indexing.solr.EdmLabel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,9 +14,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
-import eu.europeana.corelib.definitions.edm.entity.WebResource;
-import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.indexing.solr.EdmLabel;
 
 /**
  * Property Solr Creator for 'edm:WebResource' tags.
@@ -22,14 +22,14 @@ import eu.europeana.indexing.solr.EdmLabel;
  */
 public class WebResourceSolrCreator implements PropertySolrCreator<WebResource> {
 
-  private final List<LicenseImpl> licenses;
+  private final List<? extends License> licenses;
 
   /**
    * Constructor.
    *
    * @param licenses the list of licenses for the record.
    */
-  public WebResourceSolrCreator(List<LicenseImpl> licenses) {
+  public WebResourceSolrCreator(List<? extends License> licenses) {
     this.licenses = new ArrayList<>(licenses);
   }
 
@@ -70,7 +70,7 @@ public class WebResourceSolrCreator implements PropertySolrCreator<WebResource> 
     // Go through the licenses to see which of these are referenced and return the
     // odrlInheritedFrom for each of these.
     return licenses.stream().filter(license -> StringUtils.isNotBlank(license.getAbout()))
-        .filter(license -> rights.contains(license.getAbout())).map(LicenseImpl::getOdrlInheritFrom)
+        .filter(license -> rights.contains(license.getAbout())).map(License::getOdrlInheritFrom)
         .distinct().toArray(String[]::new);
   }
 }

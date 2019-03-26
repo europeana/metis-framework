@@ -1,11 +1,9 @@
 package eu.europeana.metis.mediaprocessing.linkchecking;
 
-import java.io.Closeable;
-import java.io.IOException;
 import eu.europeana.metis.mediaprocessing.LinkChecker;
 import eu.europeana.metis.mediaprocessing.exception.LinkCheckingException;
 import eu.europeana.metis.mediaprocessing.http.LinkCheckClient;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import java.io.IOException;
 
 /**
  * This class performs link checking.
@@ -17,7 +15,7 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
  * wish to introduce the HEAD request again, the solution would be to maintain two versions of the
  * LinkCheckClient: one that does HEAD requests, and one that does GET requests.
  */
-public class LinkCheckerImpl implements LinkChecker, Closeable {
+public class LinkCheckerImpl implements LinkChecker {
 
   private final LinkCheckClient linkCheckClient;
 
@@ -31,7 +29,7 @@ public class LinkCheckerImpl implements LinkChecker, Closeable {
   }
 
   @Override
-  public void performLinkChecking(RdfResourceEntry resourceEntry) throws LinkCheckingException {
+  public void performLinkChecking(String resourceEntry) throws LinkCheckingException {
     try {
       linkCheckClient.download(resourceEntry);
     } catch (IOException | RuntimeException e) {

@@ -9,7 +9,7 @@ import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

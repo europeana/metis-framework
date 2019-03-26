@@ -17,7 +17,7 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.util.List;

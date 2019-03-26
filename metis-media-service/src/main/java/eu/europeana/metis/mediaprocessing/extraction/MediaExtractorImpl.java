@@ -29,40 +29,42 @@ public class MediaExtractorImpl implements MediaExtractor {
 
   /**
    * Constructor meant for testing purposes.
-   * 
+   *
    * @param resourceDownloadClient The download client for resources.
    * @param commandExecutor A command executor.
    * @param tika A tika instance.
-   * @param thumbnailGenerator A thumbnail generator.
+   * @param imageProcessor An image processor.
    * @param audioVideoProcessor An audio/video processor.
+   * @param textProcessor A text processor.
    */
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient, CommandExecutor commandExecutor,
-      Tika tika, ThumbnailGenerator thumbnailGenerator, AudioVideoProcessor audioVideoProcessor) {
+      Tika tika, ImageProcessor imageProcessor, AudioVideoProcessor audioVideoProcessor,
+      TextProcessor textProcessor) {
     this.resourceDownloadClient = resourceDownloadClient;
     this.commandExecutor = commandExecutor;
     this.tika = tika;
-    this.imageProcessor = new ImageProcessor(thumbnailGenerator);
+    this.imageProcessor = imageProcessor;
     this.audioVideoProcessor = audioVideoProcessor;
-    this.textProcessor = new TextProcessor(thumbnailGenerator);
-  }
-
-  private MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
-      CommandExecutor commandExecutor, Tika tika) throws MediaProcessorException {
-    this(resourceDownloadClient, commandExecutor, tika, new ThumbnailGenerator(commandExecutor),
-        new AudioVideoProcessor(commandExecutor));
+    this.textProcessor = textProcessor;
   }
 
   /**
-   * Constructor for non-testing purposes.
-   * 
+   * Factory method for non-testing purposes.
+   *
    * @param redirectCount The maximum number of times we will follow a redirect.
    * @param commandThreadPoolSize The maximum number of processes that can do command-line IO.
+   * @return A new instance of this class.
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
-  public MediaExtractorImpl(int redirectCount, int commandThreadPoolSize)
+  public static MediaExtractorImpl newInstance(int redirectCount, int commandThreadPoolSize)
       throws MediaProcessorException {
-    this(new ResourceDownloadClient(redirectCount, ResourceType::shouldDownloadMimetype),
-        new CommandExecutor(commandThreadPoolSize), new Tika());
+    final CommandExecutor commandExecutor = new CommandExecutor(commandThreadPoolSize);
+    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(commandExecutor);
+    final ResourceDownloadClient downloadClient = new ResourceDownloadClient(redirectCount,
+        ResourceType::shouldDownloadMimetype);
+    return new MediaExtractorImpl(downloadClient, commandExecutor, new Tika(),
+        new ImageProcessor(thumbnailGenerator), new AudioVideoProcessor(commandExecutor),
+        new TextProcessor(thumbnailGenerator));
   }
 
   @Override
@@ -78,8 +80,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
   }
 
-  private ResourceExtractionResult processResource(Resource resource)
-      throws MediaExtractionException {
+  String verifyMimeType(Resource resource) throws MediaExtractionException {
 
     // Obtain the mime type. If no content, check against the URL. Note: we use the actual location
     // instead of the resource URL (because Tika doesn't seem to do forwarding properly).
@@ -94,25 +95,19 @@ public class MediaExtractorImpl implements MediaExtractor {
     // Verify the mime type. Permit the application/xhtml+xml detected from tika to be virtually
     // equal to the text/html detected from the providedMimeType.
     final String providedMimeType = resource.getMimeType();
-    if (!("application/xhtml+xml".equals(detectedMimeType) && providedMimeType.startsWith("text/html"))
-        && !detectedMimeType.equals(providedMimeType)) {
+    if (!("application/xhtml+xml".equals(detectedMimeType) && providedMimeType
+        .startsWith("text/html")) && !detectedMimeType.equals(providedMimeType)) {
       LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", detectedMimeType,
           providedMimeType, resource.getResourceUrl());
     }
 
-    // Verify that we have content when we need to.
-    try {
-      if (!resource.hasContent() && ResourceType.shouldDownloadMimetype(providedMimeType)) {
-        throw new MediaExtractionException(
-            "File content is not downloaded and mimeType does not support processing without a downloaded file.");
-      }
-    } catch (IOException e) {
-      throw new MediaExtractionException("Could not determine whether resource has content.", e);
-    }
+    // Done
+    return detectedMimeType;
+  }
 
-    // Choose the right media processor.
+  MediaProcessor chooseMediaProcessor(ResourceType resourceType){
     final MediaProcessor processor;
-    switch (ResourceType.getResourceType(detectedMimeType)) {
+    switch (resourceType) {
       case TEXT:
         processor = textProcessor;
         break;
@@ -127,15 +122,35 @@ public class MediaExtractorImpl implements MediaExtractor {
         processor = null;
         break;
     }
+    return processor;
+  }
+
+  ResourceExtractionResult processResource(Resource resource) throws MediaExtractionException {
+
+    // Detect and verify the mime type
+    final String detectedMimeType = verifyMimeType(resource);
+
+    // Verify that we have content when we need to.
+    try {
+      if (!resource.hasContent() && ResourceType.shouldDownloadMimetype(detectedMimeType)) {
+        throw new MediaExtractionException(
+            "File content is not downloaded and mimeType does not support processing without a downloaded file.");
+      }
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not determine whether resource has content.", e);
+    }
+
+    // Choose the right media processor.
+    final MediaProcessor processor = chooseMediaProcessor(ResourceType.getResourceType(detectedMimeType));
 
     // Process the resource.
-    return processor != null ? processor.process(resource) : null;
+    return processor == null ? null : processor.process(resource, detectedMimeType);
   }
 
   @Override
   public void close() throws IOException {
     try {
-      commandExecutor.shutdown();
+      commandExecutor.close();
     } finally {
       resourceDownloadClient.close();
     }

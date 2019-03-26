@@ -4,6 +4,8 @@ import eu.europeana.cloud.service.dps.DpsTask;
 import java.util.Map;
 
 /**
+ * Link Checking Plugin.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-05-16
  */
@@ -12,7 +14,8 @@ public class LinkCheckingPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.LINK_CHECKING.getTopologyName();
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
+   * plugin.
    */
   LinkCheckingPlugin() {
     //Required for json serialization
@@ -35,11 +38,13 @@ public class LinkCheckingPlugin extends AbstractMetisPlugin {
   }
 
   @Override
-  DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    Map<String, Integer> connectionLimitToDomains = ((LinkCheckingPluginMetadata) getPluginMetadata())
-        .getConnectionLimitToDomains();
-    return createDpsTaskForProcessPlugin(
-        createParametersForHostConnectionLimits(connectionLimitToDomains), ecloudBaseUrl,
-        ecloudProvider, ecloudDataset);
+  DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
+    final LinkCheckingPluginMetadata metadata = (LinkCheckingPluginMetadata) getPluginMetadata();
+    final Map<String, String> extraParameters = createParametersForHostConnectionLimits(
+        metadata.getConnectionLimitToDomains());
+    if (Boolean.TRUE.equals(metadata.getPerformSampling()) && metadata.getSampleSize() != null) {
+      extraParameters.put("SAMPLE_SIZE", metadata.getSampleSize().toString());
+    }
+    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 }

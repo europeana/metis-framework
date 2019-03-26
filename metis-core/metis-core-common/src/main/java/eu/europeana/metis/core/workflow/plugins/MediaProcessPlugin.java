@@ -4,6 +4,8 @@ import eu.europeana.cloud.service.dps.DpsTask;
 import java.util.Map;
 
 /**
+ * Media Process Plugin.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-20
  */
@@ -12,7 +14,8 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.MEDIA_PROCESS.getTopologyName();
 
   /**
-   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
+   * plugin.
    */
   MediaProcessPlugin() {
     //Required for json serialization
@@ -35,12 +38,12 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
   }
 
   @Override
-  DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+  DpsTask prepareDpsTask(
+      EcloudBasePluginParameters ecloudBasePluginParameters) {
     Map<String, Integer> connectionLimitToDomains = ((MediaProcessPluginMetadata) getPluginMetadata())
         .getConnectionLimitToDomains();
-    return createDpsTaskForProcessPlugin(
-        createParametersForHostConnectionLimits(connectionLimitToDomains), ecloudBaseUrl,
-        ecloudProvider, ecloudDataset);
+    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters,
+        createParametersForHostConnectionLimits(connectionLimitToDomains));
   }
 
 }

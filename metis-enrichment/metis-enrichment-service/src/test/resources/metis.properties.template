@@ -33,6 +33,7 @@ mongo.username=
 mongo.password=
 mongo.enableSSL=
 mongo.db=
+mongo.connectionUrl=mongodb://localhost:27017
 
 #Redis
 redis.host=

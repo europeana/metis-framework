@@ -6,10 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -75,9 +76,11 @@ class TestExecutionRules {
         EnumSet.of(PluginType.MEDIA_PROCESS));
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.PUBLISH,
         EnumSet.of(PluginType.PREVIEW));
+    final Set<PluginType> allowedSetForLinkChecking = new HashSet<>(
+        ExecutionRules.getProcessPluginGroup());
+    allowedSetForLinkChecking.addAll(ExecutionRules.getIndexPluginGroup());
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.LINK_CHECKING,
-        EnumSet.of(PluginType.VALIDATION_INTERNAL, PluginType.NORMALIZATION, PluginType.ENRICHMENT,
-            PluginType.MEDIA_PROCESS, PluginType.PREVIEW, PluginType.PUBLISH));
+        allowedSetForLinkChecking);
   }
 
   private void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(

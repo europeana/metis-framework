@@ -6,7 +6,7 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
 /**
  * Field updater for instances of {@link WebResourceImpl}.
  */
-public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl, RootAbout> {
+public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl, RootAboutWrapper> {
 
   @Override
   protected Class<WebResourceImpl> getObjectClass() {
@@ -15,7 +15,7 @@ public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl
 
   @Override
   protected void update(MongoPropertyUpdater<WebResourceImpl> propertyUpdater,
-      RootAbout ancestorInformation) {
+      RootAboutWrapper ancestorInformation) {
     propertyUpdater.updateMap("dcDescription", WebResource::getDcDescription);
     propertyUpdater.updateMap("dcFormat", WebResource::getDcFormat);
     propertyUpdater.updateMap("dcCreator", WebResource::getDcCreator);
@@ -41,7 +41,7 @@ public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl
   }
 
   private static WebResourceInformation createWebResourceInfo(WebResourceImpl webResource,
-      RootAbout rootAbout) {
+      RootAboutWrapper rootAbout) {
     return new WebResourceInformation(rootAbout.getRootAbout(), webResource.getAbout());
   }
 }

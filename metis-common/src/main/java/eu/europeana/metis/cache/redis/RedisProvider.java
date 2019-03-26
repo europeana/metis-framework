@@ -118,8 +118,10 @@ public class RedisProvider {
    */
   @PreDestroy
   public void close() {
-    if (pool != null && !pool.isClosed()) {
-      pool.close();
+    synchronized (this) {
+      if (pool != null && !pool.isClosed()) {
+        pool.close();
+      }
     }
   }
 }

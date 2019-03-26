@@ -6,10 +6,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -18,6 +20,7 @@ import java.util.Date;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.annotations.Embedded;
@@ -26,8 +29,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This abstract class specifies the minimum o plugin should support so that it can be plugged in the
- * Metis workflow registry and can be accessible via the REST API of Metis.
+ * This abstract class specifies the minimum o plugin should support so that it can be plugged in
+ * the Metis workflow registry and can be accessible via the REST API of Metis.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
@@ -57,6 +60,7 @@ public abstract class AbstractMetisPlugin {
   private String id;
 
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
+  private String failMessage;
   @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date startedDate;
@@ -183,6 +187,24 @@ public abstract class AbstractMetisPlugin {
   }
 
   /**
+   * This method sets the plugin status and also clears the fail message.
+   *
+   * @param pluginStatus {@link PluginStatus}
+   */
+  public void setPluginStatusAndResetFailMessage(PluginStatus pluginStatus) {
+    setPluginStatus(pluginStatus);
+    setFailMessage(null);
+  }
+
+  public String getFailMessage() {
+    return failMessage;
+  }
+
+  public void setFailMessage(String failMessage) {
+    this.failMessage = failMessage;
+  }
+
+  /**
    * @return String representation of the external task identifier of the execution
    */
   public String getExternalTaskId() {
@@ -226,23 +248,25 @@ public abstract class AbstractMetisPlugin {
   }
 
   private DpsTask createDpsTaskForPluginWithExistingDataset(Map<String, String> parameters,
-      String ecloudBaseUrl, String ecloudProvider, String ecloudDataset, boolean publish) {
+      EcloudBasePluginParameters ecloudBasePluginParameters, boolean publish) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
-    dataEntries.put(InputDataType.DATASET_URLS,
-        Collections
-            .singletonList(String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
-                ecloudBaseUrl, ecloudProvider, ecloudDataset)));
+    dataEntries.put(InputDataType.DATASET_URLS, Collections
+        .singletonList(String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+            ecloudBasePluginParameters.getEcloudBaseUrl(),
+            ecloudBasePluginParameters.getEcloudProvider(),
+            ecloudBasePluginParameters.getEcloudDatasetId())));
     dpsTask.setInputData(dataEntries);
 
     dpsTask.setParameters(parameters);
-    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider, publish));
+    dpsTask.setOutputRevision(
+        createOutputRevisionForExecution(ecloudBasePluginParameters.getEcloudProvider(), publish));
     return dpsTask;
   }
 
-  DpsTask createDpsTaskForHarvestPlugin(Map<String, String> extraParameters, String targetUrl,
-      String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+  DpsTask createDpsTaskForHarvestPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
+      Map<String, String> extraParameters, String targetUrl) {
     DpsTask dpsTask = new DpsTask();
 
     Map<InputDataType, List<String>> dataEntries = new EnumMap<>(InputDataType.class);
@@ -253,46 +277,52 @@ public abstract class AbstractMetisPlugin {
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
     }
-    parameters.put("PROVIDER_ID", ecloudProvider);
+    parameters.put("PROVIDER_ID", ecloudBasePluginParameters.getEcloudProvider());
     parameters.put("OUTPUT_DATA_SETS",
-        String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE, ecloudBaseUrl,
-            ecloudProvider, ecloudDataset));
+        String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
+            ecloudBasePluginParameters.getEcloudBaseUrl(),
+            ecloudBasePluginParameters.getEcloudProvider(),
+            ecloudBasePluginParameters.getEcloudDatasetId()));
     parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
     dpsTask.setParameters(parameters);
 
-    dpsTask.setOutputRevision(createOutputRevisionForExecution(ecloudProvider, false));
+    dpsTask.setOutputRevision(
+        createOutputRevisionForExecution(ecloudBasePluginParameters.getEcloudProvider(), false));
     return dpsTask;
   }
 
-  DpsTask createDpsTaskForProcessPlugin(Map<String, String> extraParameters, String ecloudBaseUrl,
-      String ecloudProvider, String ecloudDataset) {
+  DpsTask createDpsTaskForProcessPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
+      Map<String, String> extraParameters) {
     Map<String, String> parameters = new HashMap<>();
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
     }
     parameters.put("REPRESENTATION_NAME", getRepresentationName());
     parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
-    parameters.put("REVISION_PROVIDER", ecloudProvider);
-    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT);
+    parameters.put("REVISION_PROVIDER", ecloudBasePluginParameters.getEcloudProvider());
+    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
     parameters.put("REVISION_TIMESTAMP",
         dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
+    parameters.put("PREVIOUS_TASK_ID", ecloudBasePluginParameters.getPreviousExternalTaskId());
     parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
     parameters.put("OUTPUT_DATA_SETS",
         String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
-            ecloudBaseUrl, ecloudProvider, ecloudDataset));
-    return createDpsTaskForPluginWithExistingDataset(parameters, ecloudBaseUrl, ecloudProvider,
-        ecloudDataset, false);
+            ecloudBasePluginParameters.getEcloudBaseUrl(),
+            ecloudBasePluginParameters.getEcloudProvider(),
+            ecloudBasePluginParameters.getEcloudDatasetId()));
+    return createDpsTaskForPluginWithExistingDataset(parameters, ecloudBasePluginParameters, false);
   }
 
-  DpsTask createDpsTaskForIndexPlugin(String datasetId, boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
-      String targetDatabase, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+  DpsTask createDpsTaskForIndexPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
+      String datasetId,
+      boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
+      String targetDatabase) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("METIS_DATASET_ID", datasetId);
     extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
     extraParameters.put("USE_ALT_INDEXING_ENV", String.valueOf(useAlternativeIndexingEnvironment));
     extraParameters.put("PRESERVE_TIMESTAMPS", String.valueOf(preserveTimestamps));
-    return createDpsTaskForProcessPlugin(extraParameters, ecloudBaseUrl, ecloudProvider,
-        ecloudDataset);
+    return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 
   Map<String, String> createParametersForHostConnectionLimits(
@@ -307,35 +337,40 @@ public abstract class AbstractMetisPlugin {
     return parameters;
   }
 
+  Map<String, String> createParametersForValidation(String urlOfSchemasZip, String schemaRootPath,
+      String schematronRootPath) {
+    Map<String, String> extraParameters = new HashMap<>();
+    extraParameters.put("SCHEMA_NAME", urlOfSchemasZip);
+    extraParameters.put("ROOT_LOCATION", schemaRootPath);
+    extraParameters.put("SCHEMATRON_LOCATION", schematronRootPath);
+    return extraParameters;
+  }
+
   /**
    * Prepare the {@link DpsTask} based on the specific implementation of the plugin.
    *
-   * @param ecloudBaseUrl the base url of the ecloud apis
-   * @param ecloudProvider the ecloud provider to be used for the external task
-   * @param ecloudDataset the ecloud dataset identifier to be used for the external task
+   * @param ecloudBasePluginParameters the basic parameter required for each execution
    * @return the {@link DpsTask} prepared with all the required parameters
    */
-  abstract DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset);
+  abstract DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters);
 
   /**
    * Starts the execution of the plugin at the external location.
-   * <p>It is non blocking method and the {@link #monitor(DpsClient)} should be used to monitor the external execution</p>
+   * <p>It is non blocking method and the {@link #monitor(DpsClient)} should be used to monitor the
+   * external execution</p>
    *
    * @param dpsClient {@link DpsClient} used to submit the external execution
-   * @param ecloudBaseUrl the base url of the ecloud apis
-   * @param ecloudProvider the ecloud provider to be used for the external task
-   * @param ecloudDataset the ecloud dataset identifier to be used for the external task
+   * @param ecloudBasePluginParameters the basic parameter required for each execution
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset) throws ExternalTaskException {
+  public void execute(DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
+      throws ExternalTaskException {
     if (!getPluginMetadata().isMocked()) {
       String pluginTypeName = getPluginType().name();
       LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
-          ecloudDataset);
+          ecloudBasePluginParameters.getEcloudDatasetId());
       try {
-        DpsTask dpsTask = prepareDpsTask(ecloudBaseUrl, ecloudProvider, ecloudDataset);
+        DpsTask dpsTask = prepareDpsTask(ecloudBasePluginParameters);
         setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
       } catch (DpsException | RuntimeException e) {
         throw new ExternalTaskException("Submitting task failed", e);
@@ -345,13 +380,14 @@ public abstract class AbstractMetisPlugin {
   }
 
   /**
-   * Request a monitor call to the external execution.
+   * Request a monitor call to the external execution. This method also updates the execution
+   * progress statistics.
    *
    * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
-   * @return {@link ExecutionProgress} of the plugin.
+   * @return {@link MonitorResult} object containing the current state of the task.
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException {
+  public MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException {
     LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
     TaskInfo taskInfo;
     try {
@@ -360,21 +396,55 @@ public abstract class AbstractMetisPlugin {
       throw new ExternalTaskException("Requesting task progress failed", e);
     }
     LOGGER.info("Task information received for externalTaskId: {}", getExternalTaskId());
-    return getExecutionProgress().copyExternalTaskInformation(taskInfo);
+    getExecutionProgress().copyExternalTaskInformation(taskInfo);
+    return new MonitorResult(taskInfo.getState(), taskInfo.getInfo());
   }
 
   /**
    * Request a cancel call to the external execution.
    *
    * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
+   * @param cancelledById the reason a task is being cancelled, is it a user identifier of a system
+   * identifier
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public void cancel(DpsClient dpsClient) throws ExternalTaskException {
+  public void cancel(DpsClient dpsClient, String cancelledById) throws ExternalTaskException {
     LOGGER.info("Cancel execution for externalTaskId: {}", getExternalTaskId());
     try {
-      dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()));
+      dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()),
+          CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelledById)
+              ? "Cancelled By System" : "Cancelled By User");
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task cancellation failed", e);
+    }
+  }
+
+  /**
+   * This object represents the result of a monitor call. It contains the information that
+   * monitoring processes need.
+   */
+  public static class MonitorResult {
+
+    private final TaskState taskState;
+    private final String taskInfo;
+
+    /**
+     * Constructor.
+     *
+     * @param taskState The current state of the task.
+     * @param taskInfo The info message. Can be null or empty.
+     */
+    public MonitorResult(TaskState taskState, String taskInfo) {
+      this.taskState = taskState;
+      this.taskInfo = taskInfo;
+    }
+
+    public TaskState getTaskState() {
+      return taskState;
+    }
+
+    public String getTaskInfo() {
+      return taskInfo;
     }
   }
 }

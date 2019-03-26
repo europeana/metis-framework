@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 /**
+ * HTTP Harvest Plugin Metadata.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */

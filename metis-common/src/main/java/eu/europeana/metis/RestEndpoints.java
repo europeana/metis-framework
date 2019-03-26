@@ -34,6 +34,7 @@ public final class RestEndpoints {
   public static final String AUTHENTICATION_UPDATE_PASSD = "/authentication/update/password";
   public static final String AUTHENTICATION_UPDATE_ROLE_ADMIN = "/authentication/update/role/admin";
   public static final String AUTHENTICATION_USER_BY_TOKEN = "/authentication/user_by_access_token";
+  public static final String AUTHENTICATION_USER_BY_USER_ID = "/authentication/user_by_user_id";
   public static final String AUTHENTICATION_USERS = "/authentication/users";
 
   //ORCHESTRATION
@@ -49,10 +50,14 @@ public final class RestEndpoints {
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION =
       "/orchestrator/workflows/executions/dataset/{datasetId}/information";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS = "/orchestrator/workflows/executions";
+  public static final String ORCHESTRATOR_WORKFLOWS_EVOLUTION = "/orchestrator/workflows/evolution/{workflowExecutionId}/{pluginType}";
   public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_LOGS = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/logs";
   public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/report";
+  public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT_EXISTS = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/report/exists";
   public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_STATISTICS = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/statistics";
+  public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_NODE_STATISTICS = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/nodestatistics";
   public static final String ORCHESTRATOR_PROXIES_RECORDS = "/orchestrator/proxies/records";
+  public static final String ORCHESTRATOR_PROXIES_RECORDS_BY_IDS = "/orchestrator/proxies/recordsbyids";
 
   /* METIS-DEREFERENCE Endpoints*/
   public static final String DEREFERENCE = "/dereference";

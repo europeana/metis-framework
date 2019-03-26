@@ -19,6 +19,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
+ * Utility class for extracting items from different structures.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-09-13
  */
@@ -39,11 +41,11 @@ public final class ItemExtractorUtils {
 
   static <S, T> List<T> extractItems(List<S> sourceList, Function<S, T> converter) {
     final List<T> result;
-    if (sourceList != null) {
+    if (sourceList == null) {
+      result = new ArrayList<>();
+    } else {
       result = sourceList.stream().filter(Objects::nonNull).map(converter)
           .collect(Collectors.toList());
-    } else {
-      result = new ArrayList<>();
     }
     return result;
   }
@@ -90,7 +92,7 @@ public final class ItemExtractorUtils {
     } else {
       firstLabel = sourceList.stream().filter(Objects::nonNull).findFirst().orElse(null);
     }
-    return firstLabel != null ? extractLabel(firstLabel, newInstanceProvider) : null;
+    return firstLabel == null ? null : extractLabel(firstLabel, newInstanceProvider);
   }
 
   static <T extends LiteralType> T extractLabel(Label label,
@@ -101,7 +103,7 @@ public final class ItemExtractorUtils {
       lang.setLang(label.getLang());
       result.setLang(lang);
     }
-    result.setString(label.getValue() != null ? label.getValue() : "");
+    result.setString(label.getValue() == null ? "" : label.getValue());
     return result;
   }
 
@@ -113,7 +115,7 @@ public final class ItemExtractorUtils {
       lang.setLang(label.getLang());
       result.setLang(lang);
     }
-    result.setString(label.getValue() != null ? label.getValue() : "");
+    result.setString(label.getValue() == null ? "" : label.getValue());
     return result;
   }
 
@@ -130,7 +132,7 @@ public final class ItemExtractorUtils {
       resrc.setResource(labelResource.getResource());
       result.setResource(resrc);
     }
-    result.setString(labelResource.getValue() != null ? labelResource.getValue() : "");
+    result.setString(labelResource.getValue() == null ? "" : labelResource.getValue());
     return result;
   }
 
@@ -150,7 +152,7 @@ public final class ItemExtractorUtils {
       Supplier<T> newInstanceProvider, Function<S, String> resourceProvider) {
     final T result = newInstanceProvider.get();
     final String inputString = resourceProvider.apply(input);
-    result.setResource(inputString != null ? inputString : "");
+    result.setResource(inputString == null ? "" : inputString);
     return result;
   }
 

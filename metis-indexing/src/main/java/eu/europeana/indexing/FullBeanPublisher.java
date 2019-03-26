@@ -1,25 +1,5 @@
 package eu.europeana.indexing;
 
-import com.mongodb.MongoClientException;
-import com.mongodb.MongoConfigurationException;
-import com.mongodb.MongoIncompatibleDriverException;
-import com.mongodb.MongoInternalException;
-import com.mongodb.MongoInterruptedException;
-import com.mongodb.MongoSecurityException;
-import com.mongodb.MongoSocketException;
-import eu.europeana.corelib.definitions.edm.beans.FullBean;
-import eu.europeana.corelib.definitions.edm.beans.IdBean;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
-import eu.europeana.indexing.mongo.property.FullBeanUpdater;
-import eu.europeana.indexing.solr.SolrDocumentPopulator;
-import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -29,6 +9,26 @@ import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
+import com.mongodb.MongoClientException;
+import com.mongodb.MongoConfigurationException;
+import com.mongodb.MongoIncompatibleDriverException;
+import com.mongodb.MongoInternalException;
+import com.mongodb.MongoInterruptedException;
+import com.mongodb.MongoSecurityException;
+import com.mongodb.MongoSocketException;
+import eu.europeana.corelib.definitions.edm.beans.FullBean;
+import eu.europeana.corelib.definitions.edm.beans.IdBean;
+import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
+import eu.europeana.indexing.mongo.property.FullBeanUpdater;
+import eu.europeana.indexing.solr.SolrDocumentPopulator;
+import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.utils.ExternalRequestUtil;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
@@ -45,7 +45,7 @@ class FullBeanPublisher {
   private static final BiConsumer<FullBeanImpl, FullBeanImpl> EMPTY_PREPROCESSOR = (created, updated) -> {
   };
   private static final int PUBLISH_MAX_RETRIES = 30;
-  public static final int PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
+  private static final int PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 
@@ -103,7 +103,7 @@ class FullBeanPublisher {
    * contents</li>
    * </ul>
    */
-  public void publish(RDF rdf) throws IndexingException {
+  public void publish(RdfWrapper rdf) throws IndexingException {
 
     // Convert RDF to Full Bean.
     final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
@@ -140,7 +140,7 @@ class FullBeanPublisher {
     }
   }
 
-  private void publishToSolr(RDF rdf, FullBeanImpl fullBean) throws IndexingException {
+  private void publishToSolr(RdfWrapper rdf, FullBeanImpl fullBean) throws IndexingException {
 
     // Create Solr document.
     final SolrDocumentPopulator documentPopulator = new SolrDocumentPopulator();

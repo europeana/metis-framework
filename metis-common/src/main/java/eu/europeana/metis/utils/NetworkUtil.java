@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 
 /**
+ * Network utility class.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-02-24
  */

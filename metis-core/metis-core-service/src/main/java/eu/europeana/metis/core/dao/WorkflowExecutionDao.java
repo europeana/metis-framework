@@ -1,8 +1,10 @@
 package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
+import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -11,6 +13,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -31,6 +34,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
 /**
+ * Data Access Object for workflow executions using mongo.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-26
  */
@@ -95,7 +100,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     LOGGER.debug(
         "WorkflowExecution metisPlugins for datasetId '{}' updated in Mongo. (UpdateResults: {})",
         workflowExecution.getDatasetId(),
-        updateResults != null ? updateResults.getUpdatedCount() : 0);
+        updateResults == null ? 0 : updateResults.getUpdatedCount());
   }
 
   /**
@@ -132,13 +137,29 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         updateResults == null ? 0 : updateResults.getUpdatedCount());
   }
 
-  public void setCancellingState(WorkflowExecution workflowExecution) {
+  /**
+   * Set the cancelling field in the database.
+   * <p>Also adds information of the user identifier that cancelled the execution or if it was by a
+   * system operation, using {@link CancelledSystemId} values as identifiers. For historical
+   * executions the value of the <code>cancelledBy</code> field will remain <code>null</code></p>
+   *
+   * @param workflowExecution the workflowExecution to be cancelled
+   * @param metisUser the user that triggered the cancellation or null if it was the system
+   */
+  public void setCancellingState(WorkflowExecution workflowExecution, MetisUser metisUser) {
     UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
         .getDatastore().createUpdateOperations(WorkflowExecution.class);
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
         .filter("_id", workflowExecution.getId());
     workflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
+    String cancelledBy;
+    if (metisUser == null || metisUser.getUserId() == null) {
+      cancelledBy = CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name();
+    } else {
+      cancelledBy = metisUser.getUserId();
+    }
+    workflowExecutionUpdateOperations.set("cancelledBy", cancelledBy);
     UpdateResults updateResults = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore()
             .update(query, workflowExecutionUpdateOperations));
@@ -265,8 +286,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       }
     }
     if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer
-          .toArray(new CriteriaContainerImpl[criteriaContainer.size()]));
+      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
     }
 
     Iterator<WorkflowExecution> metisPluginsIterator = ExternalRequestUtil
@@ -402,7 +422,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * This method retrieves the workflow execution of which the task with the given ID is a subtask.
    *
    * @param externalTaskId The external task ID that is to be queried.
-   * @return The dataset ID.
+   * @return The workflow execution.
    */
   public WorkflowExecution getByExternalTaskId(long externalTaskId) {
     final Query<AbstractMetisPlugin> subQuery =
@@ -411,6 +431,36 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     final Query<WorkflowExecution> query =
         morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
     query.field(METIS_PLUGINS).elemMatch(subQuery);
+    final List<WorkflowExecution> resultList = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(() -> query.asList(new FindOptions().limit(1)));
+    return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);
+  }
+
+  /**
+   * This method retrieves the workflow execution that contains a subtask satisfying the given
+   * parameters.
+   *
+   * @param startedDate The started date of the subtask.
+   * @param pluginType The plugin type of the subtask.
+   * @param datasetId The dataset ID of the workflow execution.
+   * @return The workflow execution.
+   */
+  public WorkflowExecution getByTaskExecution(Date startedDate, PluginType pluginType,
+      String datasetId) {
+
+    // Create subquery to find the correct plugin.
+    final Query<AbstractMetisPlugin> subQuery =
+        morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
+    subQuery.field("startedDate").equal(startedDate);
+    subQuery.field("pluginType").equal(pluginType);
+
+    // Create query to find workflow execution
+    final Query<WorkflowExecution> query =
+        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+    query.field(DATASET_ID).equal(datasetId);
+    query.field(METIS_PLUGINS).elemMatch(subQuery);
+
+    // Execute query
     final List<WorkflowExecution> resultList = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(() -> query.asList(new FindOptions().limit(1)));
     return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);

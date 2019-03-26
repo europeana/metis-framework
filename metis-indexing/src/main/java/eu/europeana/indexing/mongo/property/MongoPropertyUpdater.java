@@ -34,7 +34,7 @@ import eu.europeana.corelib.storage.MongoServer;
  *
  * @param <T> The type of the object to update.
  */
-final class MongoPropertyUpdater<T> {
+class MongoPropertyUpdater<T> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoPropertyUpdater.class);
 
@@ -253,7 +253,27 @@ final class MongoPropertyUpdater<T> {
    * @param getter The getter that obtains the property value from the object.
    */
   public <P> void updateObject(String updateField, Function<T, P> getter) {
-    updateProperty(updateField, getter, Objects::equals, UnaryOperator.identity());
+    updateObject(updateField, getter, UnaryOperator.identity());
+  }
+
+  /**
+   * <p>
+   * This method updates a generic property with pre-processing.
+   * </p>
+   * <p>
+   * This method tests if there is anything to update. If there is, after this method is called,
+   * {@link #applyOperations()} will include the update.
+   * </p>
+   *
+   * @param updateField The name of the field to update. This is the name under which they will be
+   *        stored in the operations list (see {@link #applyOperations()}).
+   * @param getter The getter that obtains the property value from the object.
+   * @param preprocessing The pre-processing to be applied to the update property value before
+   *        comparing and storing.
+   */
+  public <P> void updateObject(String updateField, Function<T, P> getter,
+      UnaryOperator<P> preprocessing) {
+    updateProperty(updateField, getter, Objects::equals, preprocessing);
   }
 
   /**
@@ -272,7 +292,7 @@ final class MongoPropertyUpdater<T> {
    * @param ancestorInformation The parent entity's info to be used for updating the web resources.
    */
   public void updateWebResources(String updateField,
-      Function<T, List<? extends WebResource>> getter, RootAbout ancestorInformation) {
+      Function<T, List<? extends WebResource>> getter, RootAboutWrapper ancestorInformation) {
     final Function<T, List<WebResourceImpl>> castGetter =
         getter.andThen(MongoPropertyUpdater::castWebResourceList);
     updateReferencedEntities(updateField, castGetter, entity -> ancestorInformation,
@@ -368,16 +388,18 @@ final class MongoPropertyUpdater<T> {
     final P updatedValue = Optional.of(updated).map(getter).map(preprocessing).orElse(null);
 
     // Process changes if applicable.
-    if (!equality.test(currentValue, updatedValue)) {
+    if (equality.test(currentValue, updatedValue)) {
+      if (updatedValue != null) {
+        // If there has been no change, set only on insert (only needed if value is not null).
+        mongoOperations.setOnInsert(updateField, updatedValue);
+      }
+    } else {
       // If there has been a change, either set the value or unset it if it is null.
       if (updatedValue == null) {
         mongoOperations.unset(updateField);
       } else {
         mongoOperations.set(updateField, updatedValue);
       }
-    } else if (updatedValue != null) {
-      // If there has been no change, set only on insert (only needed if value is not null).
-      mongoOperations.setOnInsert(updateField, updatedValue);
     }
   }
 

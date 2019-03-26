@@ -20,6 +20,8 @@ import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.json.ObjectIdSerializer;
 
 /**
+ * Workflow model class.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
@@ -89,17 +91,18 @@ public class Workflow implements HasMongoObjectId {
    * <ol>
    * <li>The workflow contains at least one plugin of the given plugin type,</li>
    * <li>The workflow contains at least one plugin of one of the given possible earlier types,</li>
-   * <li>The first occurrence of the given plugin type comes <b>after</b> the earliest plugin of one
+   * <li>The first occurrence of the given plugin type comes <b>after</b> the earliest plugin of
+   * one
    * of the possible earlier type.</li>
    * </ol>
    * </p>
    * <p>
    * Note that this method does not assume that each plugin type only occurs once.
    * </p>
-   * 
+   *
    * @param pluginType The plugin type that we are testing for. Cannot be null.
    * @param possibleEarlierPluginTypes The possible plugin types that has to occur before the other
-   *        given type. Can be null (in which case the result will be false).
+   * given type. Can be null (in which case the result will be false).
    * @return Whether the workflow contains plugins of the two given types in the given order.
    */
   public boolean pluginTypeOccursOnlyAfter(PluginType pluginType,

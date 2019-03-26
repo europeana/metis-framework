@@ -1,6 +1,5 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.jibx.Type1;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,7 @@ import eu.europeana.corelib.definitions.jibx.IntegerType;
 import eu.europeana.corelib.definitions.jibx.LongType;
 import eu.europeana.corelib.definitions.jibx.NonNegativeIntegerType;
 import eu.europeana.corelib.definitions.jibx.OrientationType;
+import eu.europeana.corelib.definitions.jibx.Type1;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
@@ -195,10 +195,12 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
 
     metaInfo.setHeight(convertToInteger(source.getHeight()));
     metaInfo.setWidth(convertToInteger(source.getWidth()));
-    metaInfo.setColorSpace(Optional.ofNullable(source.getHasColorSpace())
-        .map(HasColorSpace::getHasColorSpace).map(ColorSpaceType::xmlValue)
-        .map(value -> "grayscale".equals(value) ? "Gray" : value).orElse(null));
+
     // TODO: 3-8-18 Gray is used because of backwards compatibility but the actual value defined in the xsd is grayscale
+    final Function<ColorSpaceType, String> colorSpaceToString = value ->
+        value == ColorSpaceType.GRAYSCALE ? "Gray" : value.xmlValue();
+    metaInfo.setColorSpace(Optional.ofNullable(source.getHasColorSpace())
+        .map(HasColorSpace::getHasColorSpace).map(colorSpaceToString).orElse(null));
 
     final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList())
         .map(List::stream).orElseGet(Stream::empty);

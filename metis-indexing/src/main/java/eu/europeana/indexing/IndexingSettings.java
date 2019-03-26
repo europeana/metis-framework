@@ -1,13 +1,14 @@
 package eu.europeana.indexing;
 
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class contains all settings needed for indexing. These settings are not thread-safe.
@@ -100,9 +101,9 @@ public final class IndexingSettings {
    * @throws SetupRelatedIndexingException If the chroot does not start with a '/'.
    */
   public void setZookeeperChroot(String chroot) throws SetupRelatedIndexingException {
-    if (chroot == null || chroot.trim().isEmpty()) {
+    if (StringUtils.isBlank(chroot)) {
       this.zookeeperChroot = null;
-    } else if (chroot.startsWith("/")) {
+    } else if (chroot.charAt(0) == '/') {
       this.zookeeperChroot = chroot;
     } else {
       throw new SetupRelatedIndexingException("A chroot, if provided, must start with '/'.");

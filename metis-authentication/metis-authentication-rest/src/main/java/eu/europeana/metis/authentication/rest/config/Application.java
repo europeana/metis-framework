@@ -29,6 +29,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
+ * Entry class with configuration fields and beans initialization for the application.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
  */
@@ -73,6 +75,13 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         .allowedOrigins(allowedCorsHosts);
   }
 
+  /**
+   * Get the Service for authentication.
+   *
+   * @param zohoAccessClientDao the dao instance to access Zoho
+   * @param psqlMetisUserDao the dao instance to access user information from the internal database
+   * @return the authentication service instance
+   */
   @Bean
   public AuthenticationService getAuthenticationService(ZohoAccessClientDao zohoAccessClientDao,
       PsqlMetisUserDao psqlMetisUserDao) {
@@ -97,6 +106,12 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     return sessionFactory;
   }
 
+  /**
+   * Get the DAO for metis users.
+   *
+   * @param sessionFactory the session factory required to initialize the DAO
+   * @return the DAO instance for accessing user information
+   */
   @Bean
   public PsqlMetisUserDao getPsqlMetisUserDao(SessionFactory sessionFactory) {
     PsqlMetisUserDao psqlMetisUserDao = new PsqlMetisUserDao(sessionFactory);
@@ -112,6 +127,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     authenticationService.expireAccessTokens();
   }
 
+  /**
+   * Closes connections to databases when the application stops.
+   */
   @PreDestroy
   public void close() {
     if (sessionFactory != null && !sessionFactory.isClosed()) {

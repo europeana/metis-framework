@@ -2,6 +2,7 @@ package eu.europeana.metis.core.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,7 +12,9 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -34,7 +37,9 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.rest.VersionEvolution;
+import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
+import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -48,12 +53,14 @@ import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
+import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.DateUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,10 +69,12 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -103,8 +112,7 @@ class TestOrchestratorService {
     redissonClient = mock(RedissonClient.class);
     authorizer = mock(Authorizer.class);
 
-    orchestratorHelper = new OrchestratorHelper(workflowExecutionDao,
-        datasetXsltDao);
+    orchestratorHelper = spy(new OrchestratorHelper(workflowExecutionDao, datasetXsltDao));
     orchestratorHelper.setMetisCoreUrl("https://some.url.com");
     orchestratorHelper.setValidationExternalProperties(
         new ValidationProperties("url-ext", "schema-ext", "schematron-ext"));
@@ -124,6 +132,7 @@ class TestOrchestratorService {
     Mockito.reset(workflowExecutorManager);
     Mockito.reset(redissonClient);
     Mockito.reset(authorizer);
+    Mockito.reset(orchestratorHelper);
   }
 
   @Test
@@ -583,7 +592,7 @@ class TestOrchestratorService {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID)).thenReturn(workflowExecution);
-    doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution);
+    doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution, null);
     orchestratorService.cancelWorkflowExecution(metisUser, TestObjectFactory.EXECUTIONID);
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, workflowExecution.getDatasetId());
@@ -763,6 +772,15 @@ class TestOrchestratorService {
         .setFinishedDate(DateUtils
             .modifyDateByTimeUnitAmount(new Date(), -SOLR_COMMIT_PERIOD_IN_MINS, TimeUnit.MINUTES));
     lastPublishPlugin.setExecutionProgress(executionProgress);
+    final WorkflowExecution workflowExecutionObject = TestObjectFactory
+        .createWorkflowExecutionObject();
+    workflowExecutionObject.setWorkflowStatus(WorkflowStatus.RUNNING);
+    final List<AbstractMetisPlugin> metisPlugins = workflowExecutionObject.getMetisPlugins();
+    final AbstractMetisPlugin cleaningPublishPlugin = PluginType.PUBLISH
+        .getNewPlugin(new IndexToPublishPluginMetadata());
+    cleaningPublishPlugin.setPluginStatus(PluginStatus.CLEANING);
+    metisPlugins.add(cleaningPublishPlugin);
+    workflowExecutionObject.setMetisPlugins(metisPlugins);
 
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
@@ -775,10 +793,12 @@ class TestOrchestratorService {
             datasetId, EnumSet.of(PluginType.PUBLISH))).thenReturn(firstPublishPlugin);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(PluginType.PUBLISH))).thenReturn(lastPublishPlugin);
+            EnumSet.of(PluginType.PREVIEW))).thenReturn(lastPreviewPlugin);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(PluginType.PREVIEW))).thenReturn(lastPreviewPlugin);
+            EnumSet.of(PluginType.PUBLISH))).thenReturn(lastPublishPlugin);
+    when(workflowExecutionDao.getRunningOrInQueueExecution(datasetId))
+        .thenReturn(workflowExecutionObject);
 
     DatasetExecutionInformation datasetExecutionInformation = orchestratorService
         .getDatasetExecutionInformation(metisUser, datasetId);
@@ -803,5 +823,109 @@ class TestOrchestratorService {
         datasetExecutionInformation.getLastPublishedRecords());
     assertTrue(datasetExecutionInformation.isLastPreviewRecordsReadyForViewing());
     assertFalse(datasetExecutionInformation.isLastPublishedRecordsReadyForViewing());
+  }
+
+  @Test
+  void testGetRecordEvolutionForVersionExceptions()
+      throws NoDatasetFoundException, UserUnauthorizedException {
+
+    // Create some objects
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final String workflowExecutionId = "workflow execution ID";
+    final PluginType pluginType = PluginType.MEDIA_PROCESS;
+    final WorkflowExecution workflowExecution = mock(WorkflowExecution.class);
+    final String datasetId = "dataset ID";
+    when(workflowExecution.getDatasetId()).thenReturn(datasetId);
+    when(authorizer.authorizeReadExistingDatasetById(metisUser, datasetId)).thenReturn(null);
+
+    // Test when the workflow execution does not exist
+    when(workflowExecutionDao.getById(eq(workflowExecutionId))).thenReturn(null);
+    assertThrows(NoWorkflowExecutionFoundException.class, () -> orchestratorService
+        .getRecordEvolutionForVersion(metisUser, workflowExecutionId, pluginType));
+    when(workflowExecutionDao.getById(eq(workflowExecutionId))).thenReturn(workflowExecution);
+
+    // Test when the user is not allowed
+    when(authorizer.authorizeReadExistingDatasetById(metisUser, datasetId))
+        .thenThrow(new UserUnauthorizedException(""));
+    assertThrows(UserUnauthorizedException.class, () -> orchestratorService
+        .getRecordEvolutionForVersion(metisUser, workflowExecutionId, pluginType));
+    doReturn(null).when(authorizer).authorizeReadExistingDatasetById(metisUser, datasetId);
+
+    // Test when the workflow execution does not have a plugin of the right type
+    when(workflowExecution.getMetisPluginWithType(pluginType)).thenReturn(Optional.empty());
+    assertThrows(NoWorkflowExecutionFoundException.class, () -> orchestratorService
+        .getRecordEvolutionForVersion(metisUser, workflowExecutionId, pluginType));
+  }
+
+  @Test
+  void testGetRecordEvolutionForVersionHappyFlow() throws GenericMetisException {
+
+    // Create some basic objects
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final String datasetId = "dataset ID";
+    when(authorizer.authorizeReadExistingDatasetById(metisUser, datasetId)).thenReturn(null);
+
+    // Create two workflow executions with three plugins and link them together
+    final AbstractMetisPlugin plugin1 = createMetisPlugin(PluginType.OAIPMH_HARVEST, new Date(1));
+    final AbstractMetisPlugin plugin2 = createMetisPlugin(PluginType.TRANSFORMATION, new Date(2));
+    final AbstractMetisPlugin plugin3 = createMetisPlugin(PluginType.MEDIA_PROCESS, new Date(3));
+    final WorkflowExecution execution1 = createWorkflowExecution(datasetId, plugin1);
+    final WorkflowExecution execution2 = createWorkflowExecution(datasetId, plugin2,
+        plugin3);
+    doReturn(null).when(orchestratorHelper).getPreviousExecutionAndPlugin(plugin1, datasetId);
+    doReturn(new ImmutablePair<>(execution1, plugin1)).when(orchestratorHelper)
+        .getPreviousExecutionAndPlugin(plugin2, datasetId);
+    doReturn(new ImmutablePair<>(execution2, plugin2)).when(orchestratorHelper)
+        .getPreviousExecutionAndPlugin(plugin3, datasetId);
+
+    // Execute the call to examine all three
+    final VersionEvolution resultForThree = orchestratorService.getRecordEvolutionForVersion(
+        metisUser, execution2.getId().toString(), plugin3.getPluginType());
+    assertNotNull(resultForThree);
+    assertNotNull(resultForThree.getEvolutionSteps());
+    assertEquals(2, resultForThree.getEvolutionSteps().size());
+    assertEvolutionStepEquals(resultForThree.getEvolutionSteps().get(0), execution1, plugin1);
+    assertEvolutionStepEquals(resultForThree.getEvolutionSteps().get(1), execution2, plugin2);
+
+    // Execute the call to examine just two
+    final VersionEvolution resultForTwo = orchestratorService.getRecordEvolutionForVersion(
+        metisUser, execution2.getId().toString(), plugin2.getPluginType());
+    assertNotNull(resultForTwo);
+    assertNotNull(resultForTwo.getEvolutionSteps());
+    assertEquals(1, resultForTwo.getEvolutionSteps().size());
+    assertEvolutionStepEquals(resultForTwo.getEvolutionSteps().get(0), execution1, plugin1);
+
+    // Execute the call to examine just one
+    final VersionEvolution resultForOne = orchestratorService.getRecordEvolutionForVersion(
+        metisUser, execution1.getId().toString(), plugin1.getPluginType());
+    assertNotNull(resultForOne);
+    assertNotNull(resultForOne.getEvolutionSteps());
+    assertTrue(resultForOne.getEvolutionSteps().isEmpty());
+  }
+
+  private void assertEvolutionStepEquals(VersionEvolutionStep evolutionStep,
+      WorkflowExecution execution, AbstractMetisPlugin plugin) {
+    assertNotNull(evolutionStep);
+    assertEquals(plugin.getFinishedDate(), evolutionStep.getFinishedTime());
+    assertEquals(plugin.getPluginType(), evolutionStep.getPluginType());
+    assertEquals(execution.getId().toString(), evolutionStep.getWorkflowExecutionId());
+  }
+
+  private WorkflowExecution createWorkflowExecution(String datasetId,
+      AbstractMetisPlugin... plugins) {
+    final WorkflowExecution result = new WorkflowExecution();
+    result.setId(new ObjectId());
+    result.setDatasetId(datasetId);
+    result.setMetisPlugins(Arrays.asList(plugins));
+    when(workflowExecutionDao.getById(eq(result.getId().toString()))).thenReturn(result);
+
+    return result;
+  }
+
+  private AbstractMetisPlugin createMetisPlugin(PluginType type, Date date) {
+    AbstractMetisPlugin result = mock(AbstractMetisPlugin.class);
+    when(result.getPluginType()).thenReturn(type);
+    when(result.getFinishedDate()).thenReturn(date);
+    return result;
   }
 }

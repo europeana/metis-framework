@@ -6,11 +6,13 @@ import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
@@ -39,6 +41,8 @@ public class WorkflowExecution implements HasMongoObjectId {
   private WorkflowStatus workflowStatus;
   @Indexed
   private String ecloudDatasetId;
+  @Indexed
+  private String cancelledBy;
   private int workflowPriority;
   private boolean cancelling;
 
@@ -79,25 +83,19 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   /**
    * Sets all plugins inside the execution, that have status {@link PluginStatus#INQUEUE} or {@link
-   * PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
+   * PluginStatus#RUNNING} or {@link PluginStatus#CLEANING} or {@link PluginStatus#PENDING}, to
+   * {@link PluginStatus#CANCELLED}
    */
-  public void setAllRunningAndInqueuePluginsToCancelled() {
+  public void setWorkflowAndAllQualifiedPluginsToCancelled() {
     this.setWorkflowStatus(WorkflowStatus.CANCELLED);
-    for (AbstractMetisPlugin metisPlugin :
-        this.getMetisPlugins()) {
-      if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
-          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
-          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
-        metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
-      }
-    }
+    setAllQualifiedPluginsToCancelled();
     this.setCancelling(false);
   }
 
   /**
    * Checks if one of the plugins has {@link PluginStatus#FAILED} and if yes sets all other plugins
-   * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING}, to {@link
-   * PluginStatus#CANCELLED}
+   * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING} or {@link
+   * PluginStatus#CLEANING} or {@link PluginStatus#PENDING}, to {@link PluginStatus#CANCELLED}
    */
   public void checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed() {
     boolean hasAPluginFailed = false;
@@ -109,14 +107,30 @@ public class WorkflowExecution implements HasMongoObjectId {
     }
     if (hasAPluginFailed) {
       this.setWorkflowStatus(WorkflowStatus.FAILED);
-      for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
-        if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
-            || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
-            || metisPlugin.getPluginStatus() == PluginStatus.CLEANING) {
-          metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
-        }
+      setAllQualifiedPluginsToCancelled();
+    }
+  }
+
+  private void setAllQualifiedPluginsToCancelled() {
+    for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
+      if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
+          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING
+          || metisPlugin.getPluginStatus() == PluginStatus.CLEANING
+          || metisPlugin.getPluginStatus() == PluginStatus.PENDING) {
+        metisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.CANCELLED);
       }
     }
+  }
+
+  /**
+   * Returns an {@link Optional} for the plugin with the given plugin type.
+   *
+   * @param pluginType The type of the plugin we are looking for.
+   * @return The plugin.
+   */
+  public Optional<AbstractMetisPlugin> getMetisPluginWithType(PluginType pluginType) {
+    return getMetisPlugins().stream().filter(plugin -> plugin.getPluginType() == pluginType)
+        .findFirst();
   }
 
   @Override
@@ -151,6 +165,14 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
+  }
+
+  public String getCancelledBy() {
+    return cancelledBy;
+  }
+
+  public void setCancelledBy(String cancelledBy) {
+    this.cancelledBy = cancelledBy;
   }
 
   public String getEcloudDatasetId() {
@@ -227,5 +249,3 @@ public class WorkflowExecution implements HasMongoObjectId {
     return Objects.equals(id, that.getId()) && Objects.equals(datasetId, that.datasetId);
   }
 }
-
-

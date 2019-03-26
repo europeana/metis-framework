@@ -50,4 +50,19 @@ public class TextResourceMetadata extends AbstractResourceMetadata {
     resource.setContainsText(containsText);
     resource.setResolution(resolution);
   }
+
+  /**
+   * @return Whether or not this resource contains text.
+   */
+  public boolean containsText() {
+    return containsText;
+  }
+
+  /**
+   * @return The (graphic) resolution of this text resource, or null if this resource doesn't
+   * contain graphics.
+   */
+  public Integer getResolution() {
+    return resolution;
+  }
 }

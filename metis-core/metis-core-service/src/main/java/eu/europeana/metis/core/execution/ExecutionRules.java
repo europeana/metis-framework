@@ -2,24 +2,30 @@ package eu.europeana.metis.core.execution;
 
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * This class is a utility class that can answer questions about which workflow steps (plugins) can
+ * occur before/after which.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-29
  */
 public final class ExecutionRules {
 
-  private static final Set<PluginType> HARVEST_PLUGIN_GROUP = EnumSet
-      .of(PluginType.OAIPMH_HARVEST, PluginType.HTTP_HARVEST);
-  private static final Set<PluginType> PROCESS_PLUGIN_GROUP = EnumSet
+  private static final Set<PluginType> HARVEST_PLUGIN_GROUP = Collections.unmodifiableSet(EnumSet
+      .of(PluginType.OAIPMH_HARVEST, PluginType.HTTP_HARVEST));
+  private static final Set<PluginType> PROCESS_PLUGIN_GROUP = Collections.unmodifiableSet(EnumSet
       .of(PluginType.VALIDATION_EXTERNAL, PluginType.TRANSFORMATION,
           PluginType.VALIDATION_INTERNAL, PluginType.NORMALIZATION, PluginType.ENRICHMENT,
-          PluginType.MEDIA_PROCESS, PluginType.LINK_CHECKING);
-  private static final Set<PluginType> INDEX_PLUGIN_GROUP =
-      EnumSet.of(PluginType.PREVIEW, PluginType.PUBLISH);
+          PluginType.MEDIA_PROCESS, PluginType.LINK_CHECKING));
+  private static final Set<PluginType> INDEX_PLUGIN_GROUP = Collections.unmodifiableSet(
+      EnumSet.of(PluginType.PREVIEW, PluginType.PUBLISH));
 
   private ExecutionRules() {
     //Private constructor
@@ -55,6 +61,20 @@ public final class ExecutionRules {
       // Get latest FINISHED plugin for datasetId
       abstractMetisPlugin = getLatestFinishedPluginAllowedForExecution(pluginType, datasetId,
           workflowExecutionDao);
+      // TODO: 12-3-19 The following code should be removed after DPS technical gap applied. At about September 2019
+      // If pluginType is MEDIA_PROCESS and there is no latest plugin allowed, therefore abstractMetisPlugin == null,
+      // check latest successful OAIPMH_HARVEST and if that was based on the europeana endpoint during migration, then
+      // we return that instead.
+      if (pluginType.equals(PluginType.MEDIA_PROCESS) && abstractMetisPlugin == null) {
+        final AbstractMetisPlugin latestOaiPlugin = workflowExecutionDao
+            .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
+                EnumSet.of(PluginType.OAIPMH_HARVEST));
+        if (latestOaiPlugin != null && "https://oai-pmh.eanadev.org/oai"
+            .equalsIgnoreCase(((OaipmhHarvestPluginMetadata) latestOaiPlugin
+                .getPluginMetadata()).getUrl().trim())) {
+          return latestOaiPlugin;
+        }
+      }
     }
     return abstractMetisPlugin;
   }
@@ -64,7 +84,8 @@ public final class ExecutionRules {
 
     AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = null;
 
-    Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = getPluginTypesSetThatPluginTypeCanBeBasedOn(pluginType);
+    Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = getPluginTypesSetThatPluginTypeCanBeBasedOn(
+        pluginType);
     if (pluginTypesSetThatPluginTypeCanBeBasedOn != null) {
       latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
           .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
@@ -76,10 +97,10 @@ public final class ExecutionRules {
   /**
    * This method determines what plugin types a plugin of the given type can be based on. This means
    * that the given type can only occur after one of the returned base types.
-   * 
+   *
    * @param pluginType The plugin type for which to return the base types.
    * @return The base types of the given plugin type: those plugin types that a plugin of the given
-   *         type can be based on.
+   * type can be based on.
    */
   public static Set<PluginType> getPluginTypesSetThatPluginTypeCanBeBasedOn(PluginType pluginType) {
     Set<PluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = null;
@@ -109,9 +130,8 @@ public final class ExecutionRules {
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(PluginType.PREVIEW);
         break;
       case LINK_CHECKING:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(PluginType.VALIDATION_INTERNAL,
-            PluginType.NORMALIZATION, PluginType.ENRICHMENT, PluginType.MEDIA_PROCESS,
-            PluginType.PREVIEW, PluginType.PUBLISH);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(PROCESS_PLUGIN_GROUP);
+        pluginTypesSetThatPluginTypeCanBeBasedOn.addAll(INDEX_PLUGIN_GROUP);
         break;
       default:
         break;
@@ -121,23 +141,23 @@ public final class ExecutionRules {
 
   /**
    * @return The plugin types that are of the 'harvesting' kind: they can occur at the beginning of
-   *         workflows and don't need another plugin type as base.
+   * workflows and don't need another plugin type as base.
    */
   public static Set<PluginType> getHarvestPluginGroup() {
-    return EnumSet.copyOf(HARVEST_PLUGIN_GROUP);
+    return HARVEST_PLUGIN_GROUP;
   }
 
   /**
    * @return The plugin types that are of the 'processing' kind.
    */
   public static Set<PluginType> getProcessPluginGroup() {
-    return EnumSet.copyOf(PROCESS_PLUGIN_GROUP);
+    return PROCESS_PLUGIN_GROUP;
   }
 
   /**
    * @return The plugin types that are of the 'indexing' kind.
    */
   public static Set<PluginType> getIndexPluginGroup() {
-    return EnumSet.copyOf(INDEX_PLUGIN_GROUP);
+    return INDEX_PLUGIN_GROUP;
   }
 }

@@ -28,6 +28,7 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import redis.clients.jedis.Jedis;
@@ -35,94 +36,98 @@ import redis.clients.jedis.Jedis;
 /**
  * Created by ymamakis on 12-2-16.
  */
+// TODO: 6-3-19 This test is actually requesting external resource. It should be mocked instead, disabling for now.
+@Disabled
 class MongoDereferenceServiceTest {
-    private MongoDereferenceService service;
-    private VocabularyDao vocabularyDao;
-    private EntityDao entityDao;
-    private RedisProvider redisProvider;
-    private Jedis jedis;
-    private CacheDao cacheDao;
-    private EnrichmentClient enrichmentClient;
-    private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
-    @BeforeEach
-    void prepare() {
-        embeddedLocalhostMongo.start();
-        String mongoHost = embeddedLocalhostMongo.getMongoHost();
-        int mongoPort = embeddedLocalhostMongo.getMongoPort();
+  private MongoDereferenceService service;
+  private VocabularyDao vocabularyDao;
+  private EntityDao entityDao;
+  private RedisProvider redisProvider;
+  private Jedis jedis;
+  private CacheDao cacheDao;
+  private EnrichmentClient enrichmentClient;
+  private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
-        vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest");
-        entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
-        redisProvider = Mockito.mock(RedisProvider.class);
-        jedis = Mockito.mock(Jedis.class);
-        cacheDao = new CacheDao(redisProvider);
+  @BeforeEach
+  void prepare() {
+    embeddedLocalhostMongo.start();
+    String mongoHost = embeddedLocalhostMongo.getMongoHost();
+    int mongoPort = embeddedLocalhostMongo.getMongoPort();
 
-        RdfRetriever retriever = new RdfRetriever(entityDao);
+    vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest");
+    entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
+    redisProvider = Mockito.mock(RedisProvider.class);
+    jedis = Mockito.mock(Jedis.class);
+    cacheDao = new CacheDao(redisProvider);
 
-        enrichmentClient = Mockito.mock(EnrichmentClient.class);
-        service = new MongoDereferenceService(retriever, cacheDao, vocabularyDao, enrichmentClient);
-    }
+    RdfRetriever retriever = new RdfRetriever(entityDao);
 
-    @AfterEach
-    void destroy() {
-        embeddedLocalhostMongo.stop();
-    }
+    enrichmentClient = Mockito.mock(EnrichmentClient.class);
+    service = new MongoDereferenceService(retriever, cacheDao, vocabularyDao, enrichmentClient);
+  }
 
-    @Test
-    void testDereference() throws TransformerException, JAXBException, IOException, URISyntaxException {
+  @AfterEach
+  void destroy() {
+    embeddedLocalhostMongo.stop();
+  }
 
-        Mockito.when(redisProvider.getJedis()).thenReturn(jedis);
-        final String entityId = "http://sws.geonames.org/3020251/";
+  @Test
+  void testDereference()
+      throws TransformerException, JAXBException, IOException, URISyntaxException {
 
-        Vocabulary geonames = new Vocabulary();
-        geonames.setUri("http://sws.geonames.org/");
-        geonames.setXslt(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")));
-        geonames.setName("Geonames");
-        geonames.setIterations(1);
-        String geonamesId = vocabularyDao.save(geonames);
+    Mockito.when(redisProvider.getJedis()).thenReturn(jedis);
+    final String entityId = "http://sws.geonames.org/3020251/";
 
-        EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
+    Vocabulary geonames = new Vocabulary();
+    geonames.setUri("http://sws.geonames.org/");
+    geonames.setXslt(
+        IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")));
+    geonames.setName("Geonames");
+    geonames.setIterations(1);
+    String geonamesId = vocabularyDao.save(geonames);
 
-        Place place = new Place();
+    EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
 
-        place.setAbout("http://sws.geonames.org/my");
+    Place place = new Place();
 
-        Mockito.when(enrichmentClient.getByUri(Mockito.anyString())).thenReturn(null);
-        Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
+    place.setAbout("http://sws.geonames.org/my");
 
-        EnrichmentResultList result = service.dereference(entityId);
+    Mockito.when(enrichmentClient.getByUri(Mockito.anyString())).thenReturn(null);
+    Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
 
-        assertNotNull(result);
+    EnrichmentResultList result = service.dereference(entityId);
 
-        OriginalEntity entity = entityDao.get(entityId);
+    assertNotNull(result);
 
-        assertNotNull(entity);
-        assertNotNull(entity.getXml());
-        assertNotNull(entity.getURI());
+    OriginalEntity entity = entityDao.get(entityId);
 
-        ProcessedEntity entity2 = new ProcessedEntity();
-        entity2.setResourceId(entityId);
-        entity2.setXml(serialize(place));
-        entity2.setVocabularyId(geonamesId);
+    assertNotNull(entity);
+    assertNotNull(entity.getXml());
+    assertNotNull(entity.getURI());
 
+    ProcessedEntity entity2 = new ProcessedEntity();
+    entity2.setResourceId(entityId);
+    entity2.setXml(serialize(place));
+    entity2.setVocabularyId(geonamesId);
 
-        Mockito.when(jedis.get(entityId)).thenReturn(new ObjectMapper().writeValueAsString(entity2));
+    Mockito.when(jedis.get(entityId)).thenReturn(new ObjectMapper().writeValueAsString(entity2));
 
-        ProcessedEntity entity1 = cacheDao.get(entityId);
-        assertNotNull(entity1);
-        assertNotNull(entity1.getResourceId());
-        assertNotNull(entity1.getXml());
-        assertNotNull(entity1.getVocabularyId());
-    }
+    ProcessedEntity entity1 = cacheDao.get(entityId);
+    assertNotNull(entity1);
+    assertNotNull(entity1.getResourceId());
+    assertNotNull(entity1.getXml());
+    assertNotNull(entity1.getVocabularyId());
+  }
 
-    private String serialize(EnrichmentBase base) throws JAXBException, IOException {
-        JAXBContext contextA = JAXBContext.newInstance(EnrichmentBase.class);
+  private String serialize(EnrichmentBase base) throws JAXBException, IOException {
+    JAXBContext contextA = JAXBContext.newInstance(EnrichmentBase.class);
 
-        StringWriter writer = new StringWriter();
-        Marshaller marshaller = contextA.createMarshaller();
-        marshaller.marshal(base, writer);
-        String ret = writer.toString();
-        writer.close();
-        return ret;
-    }
+    StringWriter writer = new StringWriter();
+    Marshaller marshaller = contextA.createMarshaller();
+    marshaller.marshal(base, writer);
+    String ret = writer.toString();
+    writer.close();
+    return ret;
+  }
 }

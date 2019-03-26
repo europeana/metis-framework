@@ -9,7 +9,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;

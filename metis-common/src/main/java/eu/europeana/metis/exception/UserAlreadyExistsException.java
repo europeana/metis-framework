@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
+ * Exception when a user already exists on the underlying database.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-30
  */
@@ -15,7 +17,8 @@ public class UserAlreadyExistsException extends GenericMetisException {
   /**
    * Constructs a new exception with the specified detail message.
    *
-   * @param message the detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
+   * @param message the detail message. The detail message is saved for later retrieval by the
+   * {@link #getMessage()} method.
    */
   public UserAlreadyExistsException(String message) {
     super(message);

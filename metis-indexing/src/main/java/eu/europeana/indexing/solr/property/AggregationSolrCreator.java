@@ -1,7 +1,7 @@
 package eu.europeana.indexing.solr.property;
 
 import eu.europeana.corelib.definitions.edm.entity.Aggregation;
-import eu.europeana.corelib.solr.entity.LicenseImpl;
+import eu.europeana.corelib.definitions.edm.entity.License;
 import eu.europeana.indexing.solr.EdmLabel;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +14,14 @@ import org.apache.solr.common.SolrInputDocument;
  */
 public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> {
 
-  private final List<LicenseImpl> licenses;
+  private final List<? extends License> licenses;
 
   /**
    * Constructor.
    *
    * @param licenses the list of licenses for the record.
    */
-  public AggregationSolrCreator(List<LicenseImpl> licenses) {
+  public AggregationSolrCreator(List<? extends License> licenses) {
     this.licenses = new ArrayList<>(licenses);
   }
 

@@ -41,6 +41,7 @@ import eu.europeana.corelib.definitions.jibx._Long;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
@@ -49,6 +50,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Class that contains logic for converting class entity types and/or merging entities to {@link
+ * RDF}
+ */
 public class EntityMergeEngine {
 
   private static PlaceType convertAndAddPlace(Place place, List<PlaceType> destination) {
@@ -328,8 +333,8 @@ public class EntityMergeEngine {
     return timeSpanType;
   }
 
-  private static void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
-      String fieldName) {
+  private static void convertAndAddEntity(RDF rdf, EnrichmentBaseWrapper enrichmentBaseWrapper) {
+    final EnrichmentBase enrichmentBase = enrichmentBaseWrapper.getEnrichmentBase();
 
     // Convert the entity.
     final AboutType entity;
@@ -345,37 +350,32 @@ public class EntityMergeEngine {
       throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
     }
 
-    // Append it to the proxy if needed.
-    if (entity != null && StringUtils.isNotEmpty(fieldName)) {
-      RdfProxyUtils.appendToProxy(rdf, entity, fieldName);
+    final String originalField = enrichmentBaseWrapper.getOriginalField();
+    // Append it to the europeana proxy if needed.
+    if (entity != null && StringUtils.isNotBlank(originalField)) {
+      RdfProxyUtils.appendToEuropeanaProxy(rdf, entity, originalField);
     }
   }
 
   /**
-   * Merge entities in a record. Wrapper for {@link #mergeEntities(RDF, List, String)} without a
-   * field name.
+   * Merge entities in a record.
    *
    * @param rdf The RDF to enrich
-   * @param enrichmentBaseList The information to append
+   * @param enrichmentBaseWrapperList The information to append
    */
-  public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList) {
-    mergeEntities(rdf, enrichmentBaseList, null);
+  public void mergeEntities(RDF rdf, List<EnrichmentBaseWrapper> enrichmentBaseWrapperList) {
+    for (EnrichmentBaseWrapper enrichmentBaseWrapper : enrichmentBaseWrapperList) {
+      mergeEntity(rdf, enrichmentBaseWrapper);
+    }
   }
 
   /**
-   * TODO JV This method is NEVER called with non-null (nonempty) field name? I would expect that
-   * particularly during enrichment (given the history of this method) there may be a need to
-   * provide this parameter.
-   *
-   * Merge entities in a record
+   * Merge entity in a record
    *
    * @param rdf The RDF to enrich
-   * @param enrichmentBaseList The information to append
-   * @param fieldName The name of the field so that it can be connected to Europeana Proxy
+   * @param enrichmentBaseWrapper The information to append
    */
-  private void mergeEntities(final RDF rdf, List<EnrichmentBase> enrichmentBaseList,
-      String fieldName) {
-
+  private void mergeEntity(final RDF rdf, EnrichmentBaseWrapper enrichmentBaseWrapper) {
     // Ensure that there are lists for all four types.
     if (rdf.getAgentList() == null) {
       rdf.setAgentList(new ArrayList<>());
@@ -389,10 +389,6 @@ public class EntityMergeEngine {
     if (rdf.getTimeSpanList() == null) {
       rdf.setTimeSpanList(new ArrayList<>());
     }
-
-    // Go by all input data.
-    for (EnrichmentBase enrichmentBase : enrichmentBaseList) {
-      convertAndAddEntity(rdf, enrichmentBase, fieldName);
-    }
+    convertAndAddEntity(rdf, enrichmentBaseWrapper);
   }
 }

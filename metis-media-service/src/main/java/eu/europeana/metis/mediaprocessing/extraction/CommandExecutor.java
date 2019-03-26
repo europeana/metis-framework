@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -18,9 +19,11 @@ import org.slf4j.LoggerFactory;
  * This class executes commands (like you would in a terminal). It imposes a maximum number of
  * processes that can perform command-line IO at any given time.
  */
-class CommandExecutor {
+class CommandExecutor implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
+
+  private final ProcessFactory processFactory;
 
   private final ExecutorService commandThreadPool;
 
@@ -31,7 +34,21 @@ class CommandExecutor {
    * at any given time.
    */
   CommandExecutor(int commandThreadPoolSize) {
-    this.commandThreadPool = Executors.newFixedThreadPool(commandThreadPoolSize);
+    this(Executors.newFixedThreadPool(commandThreadPoolSize),
+        (command, redirectErrorStream) -> new ProcessBuilder(command)
+            .redirectErrorStream(redirectErrorStream).start());
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param commandThreadPool The {@link ExecutorService} functioning as command thread pool.
+   * @param processFactory A function that, given a command and whether to redirect the error
+   * stream, creates a {@link Process} for executing that command.
+   */
+  CommandExecutor(ExecutorService commandThreadPool, ProcessFactory processFactory) {
+    this.commandThreadPool = commandThreadPool;
+    this.processFactory = processFactory;
   }
 
   /**
@@ -57,22 +74,21 @@ class CommandExecutor {
     }
   }
 
-  private List<String> executeInternal(List<String> command, boolean redirectErrorStream)
+  List<String> executeInternal(List<String> command, boolean redirectErrorStream)
       throws IOException {
 
     // Create process and start it.
-    final Process process = new ProcessBuilder(command).redirectErrorStream(redirectErrorStream)
-        .start();
+    final Process process = processFactory.createProcess(command, redirectErrorStream);
 
     // Open error stream and read it.
     final String error;
-    if (!redirectErrorStream) {
+    if (redirectErrorStream) {
+      error = null;
+    } else {
       try (InputStream errorStream = process.getErrorStream()) {
         final String errorStreamContents = IOUtils.toString(errorStream, Charset.defaultCharset());
         error = StringUtils.isBlank(errorStreamContents) ? null : errorStreamContents;
       }
-    } else {
-      error = null;
     }
 
     // Read process output into lines.
@@ -100,7 +116,25 @@ class CommandExecutor {
    * Shuts down this command executor. Current tasks will be finished, but no new tasks will be
    * accepted.
    */
-  void shutdown() {
+  @Override
+  public void close() {
     commandThreadPool.shutdown();
+  }
+
+  /**
+   * Implementations of this class can create {@link Process} instances.
+   */
+  public interface ProcessFactory {
+
+    /**
+     * Create a {@link Process} instance.
+     *
+     * @param command The command to execute.
+     * @param redirectErrorStream Whether to return the contents of the error stream as part of the
+     * command's output.
+     * @return The process.
+     * @throws IOException In case a problem occurs creating the process.
+     */
+    Process createProcess(List<String> command, boolean redirectErrorStream) throws IOException;
   }
 }

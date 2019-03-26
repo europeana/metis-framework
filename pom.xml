@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -25,7 +25,7 @@
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v1.1.0</tag>
+    <tag>v1.2.0</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -44,7 +44,7 @@
 
   <properties>
     <jacocoArgLine /> <!-- Leave as is, it's required from jacoco plugin integration -->
-    <version.ecloud>1.2.0</version.ecloud>
+    <version.ecloud>1.3.0</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
     <version.redisson>3.5.7</version.redisson>
     <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
@@ -91,7 +91,7 @@
     <version.jackson.xc>1.9.13</version.jackson.xc>
     <version.powermock>1.7.1</version.powermock>
     <version.mockito.core>2.22.0</version.mockito.core>
-    <version.corelib>2.8.3</version.corelib>
+    <version.corelib>2.8.6</version.corelib>
     <version.servlet.api>3.1.0</version.servlet.api>
     <version.commons-fileupload>1.3</version.commons-fileupload>
     <version.morphia>1.3.2</version.morphia>
@@ -122,11 +122,6 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>${version.commons.lang3}</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>${version.commons.io}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>

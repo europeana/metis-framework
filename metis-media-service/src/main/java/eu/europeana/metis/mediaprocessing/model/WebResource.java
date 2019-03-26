@@ -3,6 +3,7 @@ package eu.europeana.metis.mediaprocessing.model;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import eu.europeana.corelib.definitions.jibx.AudioChannelNumber;
@@ -32,24 +33,13 @@ import eu.europeana.corelib.definitions.jibx.Width;
  */
 class WebResource {
 
+  protected static final String FULL_TEXT_RESOURCE = "http://www.europeana.eu/schemas/edm/FullTextResource";
+
   /**
    * Enum for the permissible values of image orientation.
    */
   public enum Orientation {
     PORTRAIT, LANDSCAPE
-  }
-
-  /**
-   * Enum for the supported values of image color space.
-   */
-  public enum ColorSpace {
-    S_RGB(ColorSpaceType.S_RGB), GRAYSCALE(ColorSpaceType.GRAYSCALE);
-
-    private final ColorSpaceType mappedColorSpace;
-
-    ColorSpace(ColorSpaceType mappedColorSpace) {
-      this.mappedColorSpace = mappedColorSpace;
-    }
   }
 
   private final WebResourceType resource;
@@ -64,11 +54,11 @@ class WebResource {
   }
 
   void setWidth(int width) {
-    resource.setWidth(intVal(new Width(), width));
+    resource.setWidth(intVal(Width::new, width));
   }
 
   void setHeight(int height) {
-    resource.setHeight(intVal(new Height(), height));
+    resource.setHeight(intVal(Height::new, height));
   }
 
   void setMimeType(String mimeType) {
@@ -81,15 +71,15 @@ class WebResource {
     resource.setFileByteSize(longVal(fileSize));
   }
 
-  void setColorspace(ColorSpace colorspace) {
+  void setColorspace(ColorSpaceType colorSpace) {
     HasColorSpace hasColorSpace = new HasColorSpace();
-    hasColorSpace.setHasColorSpace(colorspace.mappedColorSpace);
+    hasColorSpace.setHasColorSpace(colorSpace);
     resource.setHasColorSpace(hasColorSpace);
   }
 
   void setOrientation(Orientation orientation) {
     resource.setOrientation(
-        stringVal(new OrientationType(), orientation.name().toLowerCase(Locale.ENGLISH)));
+        stringVal(OrientationType::new, orientation.name().toLowerCase(Locale.ENGLISH)));
   }
 
   void setDominantColors(List<String> dominantColors) {
@@ -109,7 +99,7 @@ class WebResource {
   }
 
   void setBitrate(int bitrate) {
-    resource.setBitRate(uintVal(new BitRate(), bitrate));
+    resource.setBitRate(uintVal(BitRate::new, bitrate));
   }
 
   void setFrameRete(double frameRate) {
@@ -123,21 +113,21 @@ class WebResource {
   }
 
   void setChannels(int channels) {
-    resource.setAudioChannelNumber(uintVal(new AudioChannelNumber(), channels));
+    resource.setAudioChannelNumber(uintVal(AudioChannelNumber::new, channels));
   }
 
   void setSampleRate(int sampleRate) {
-    resource.setSampleRate(intVal(new SampleRate(), sampleRate));
+    resource.setSampleRate(intVal(SampleRate::new, sampleRate));
   }
 
   void setSampleSize(int sampleSize) {
-    resource.setSampleSize(intVal(new SampleSize(), sampleSize));
+    resource.setSampleSize(intVal(SampleSize::new, sampleSize));
   }
 
   void setContainsText(boolean containsText) {
     if (containsText) {
       Type1 type = new Type1();
-      type.setResource("http://www.europeana.eu/schemas/edm/FullTextResource");
+      type.setResource(FULL_TEXT_RESOURCE);
       resource.setType(type);
     } else {
       resource.setType(null);
@@ -146,16 +136,18 @@ class WebResource {
 
   void setResolution(Integer resolution) {
     resource.setSpatialResolution(
-        resolution == null ? null : uintVal(new SpatialResolution(), resolution));
+        resolution == null ? null : uintVal(SpatialResolution::new, resolution));
   }
 
-  private static <T extends IntegerType> T intVal(T element, int value) {
+  private static <T extends IntegerType> T intVal(Supplier<T> constructor, int value) {
+    final T element = constructor.get();
     element.setLong(value);
     element.setDatatype("http://www.w3.org/2001/XMLSchema#integer");
     return element;
   }
 
-  private static <T extends NonNegativeIntegerType> T uintVal(T element, int value) {
+  private static <T extends NonNegativeIntegerType> T uintVal(Supplier<T> constructor, int value) {
+    final T element = constructor.get();
     element.setInteger(BigInteger.valueOf(value));
     element.setDatatype("http://www.w3.org/2001/XMLSchema#nonNegativeInteger");
     return element;
@@ -175,7 +167,8 @@ class WebResource {
     return element;
   }
 
-  private static <T extends StringType> T stringVal(T element, String value) {
+  private static <T extends StringType> T stringVal(Supplier<T> constructor, String value) {
+    final T element = constructor.get();
     element.setString(value);
     element.setDatatype("http://www.w3.org/2001/XMLSchema#string");
     return element;
