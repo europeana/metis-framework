@@ -1,6 +1,5 @@
 package eu.europeana.normalization.settings;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,8 +19,6 @@ class NormalizerSettingsTest {
         settings.getCleanMarkupTagsMode());
     assertEquals(NormalizerSettings.DEFAULT_LANGUAGE_AMBIGUITY_HANDLING,
         settings.getLanguageAmbiguityHandling());
-    assertArrayEquals(NormalizerSettings.DEFAULT_LANGUAGE_ELEMENTS,
-        settings.getLanguageElementsToNormalize());
     assertEquals(NormalizerSettings.DEFAULT_MIN_LANGUAGE_LABEL_LENGTH,
         settings.getMinLanguageLabelLength());
     assertEquals(NormalizerSettings.DEFAULT_MINIMUM_CONFIDENCE, settings.getMinimumConfidence(),
@@ -35,9 +32,6 @@ class NormalizerSettingsTest {
     newSettings = settings.setLanguageAmbiguityHandling(AmbiguityHandling.CHOOSE_FIRST);
     assertEquals(AmbiguityHandling.CHOOSE_FIRST, settings.getLanguageAmbiguityHandling());
     assertSame(settings, newSettings);
-    newSettings = settings.setLanguageElementsToNormalize(LanguageElement.XML_LANG);
-    assertArrayEquals(new LanguageElement[]{LanguageElement.XML_LANG},
-        settings.getLanguageElementsToNormalize());
     assertSame(settings, newSettings);
     newSettings = settings.setMinLanguageLabelLength(6);
     assertEquals(6, settings.getMinLanguageLabelLength());
@@ -64,12 +58,6 @@ class NormalizerSettingsTest {
   void testSetMinimumConfidenceToLargeValue() {
     assertThrows(NormalizationConfigurationException.class,
         () -> new NormalizerSettings().setMinimumConfidence(2.0F));
-  }
-
-  @Test
-  void testSetLanguageElementsToNormalizeToNull() {
-    assertThrows(NormalizationConfigurationException.class,
-        () -> new NormalizerSettings().setLanguageElementsToNormalize((LanguageElement[]) null));
   }
 
   @Test

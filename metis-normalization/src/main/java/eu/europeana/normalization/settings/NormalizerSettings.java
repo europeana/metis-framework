@@ -14,8 +14,6 @@ public class NormalizerSettings {
 
   protected static final float DEFAULT_MINIMUM_CONFIDENCE = 0.95F;
   protected static final LanguagesVocabulary DEFAULT_VOCABULARY = LanguagesVocabulary.ISO_639_3;
-  protected static final LanguageElement[] DEFAULT_LANGUAGE_ELEMENTS =
-      {LanguageElement.DC_LANGUAGE};
   protected static final int DEFAULT_MIN_LANGUAGE_LABEL_LENGTH = 4;
   protected static final AmbiguityHandling DEFAULT_LANGUAGE_AMBIGUITY_HANDLING =
       AmbiguityHandling.NO_MATCH;
@@ -24,7 +22,6 @@ public class NormalizerSettings {
 
   private float minimumConfidence = DEFAULT_MINIMUM_CONFIDENCE;
   private LanguagesVocabulary targetLanguageVocabulary = DEFAULT_VOCABULARY;
-  private LanguageElement[] elementsToNormalize = DEFAULT_LANGUAGE_ELEMENTS;
   private int minLanguageLabelLength = DEFAULT_MIN_LANGUAGE_LABEL_LENGTH;
   private AmbiguityHandling languageAmbiguityHandling = DEFAULT_LANGUAGE_AMBIGUITY_HANDLING;
   private CleanMarkupTagsMode cleanMarkupTagsMode = DEFAULT_CLEAN_MARKUP_TAGS_MODE;
@@ -53,31 +50,6 @@ public class NormalizerSettings {
    */
   public float getMinimumConfidence() {
     return minimumConfidence;
-  }
-
-  /**
-   * Sets elements to normalizer during language normalization.
-   * 
-   * @param elementsToNormalize The supported elements for language normalization.
-   * @return This instance, so that the setter methods can be concatenated easily.
-   * @throws NormalizationConfigurationException If the provided value is null.
-   */
-  public NormalizerSettings setLanguageElementsToNormalize(LanguageElement... elementsToNormalize)
-      throws NormalizationConfigurationException {
-    if (elementsToNormalize == null) {
-      throw new NormalizationConfigurationException("Provided setting is null", null);
-    }
-    this.elementsToNormalize = Arrays.copyOf(elementsToNormalize, elementsToNormalize.length);
-    return this;
-  }
-
-  /**
-   * 
-   * @return The elements to normalizer during language normalization. The default is
-   *         {@value #DEFAULT_LANGUAGE_ELEMENTS}.
-   */
-  public LanguageElement[] getLanguageElementsToNormalize() {
-    return Arrays.copyOf(elementsToNormalize, elementsToNormalize.length);
   }
 
   /**

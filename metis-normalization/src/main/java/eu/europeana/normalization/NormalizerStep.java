@@ -3,7 +3,7 @@ package eu.europeana.normalization;
 import eu.europeana.normalization.languages.LanguageMatcher;
 import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer;
 import eu.europeana.normalization.normalizers.CleanSpaceCharactersNormalizer;
-import eu.europeana.normalization.normalizers.LanguageReferenceNormalizer;
+import eu.europeana.normalization.normalizers.ProviderProxyLanguageNormalizer;
 import eu.europeana.normalization.normalizers.NormalizeAction;
 import eu.europeana.normalization.normalizers.RemoveDuplicateStatementNormalizer;
 import eu.europeana.normalization.settings.NormalizerSettings;
@@ -25,13 +25,12 @@ public enum NormalizerStep {
   /** Remove duplicate statements. See {@link RemoveDuplicateStatementNormalizer}. **/
   REMOVE_DUPLICATE_STATEMENTS(settings -> new RemoveDuplicateStatementNormalizer()),
 
-  /** Normalize language references. See {@link LanguageReferenceNormalizer}. **/
+  /** Normalize language references. See {@link ProviderProxyLanguageNormalizer}. **/
   NORMALIZE_LANGUAGE_REFERENCES(settings -> {
     final LanguageMatcher languageMatcher =
         new LanguageMatcher(settings.getMinLanguageLabelLength(),
             settings.getLanguageAmbiguityHandling(), settings.getTargetLanguageVocabulary());
-    return new LanguageReferenceNormalizer(languageMatcher, settings.getMinimumConfidence(),
-        settings.getLanguageElementsToNormalize());
+    return new ProviderProxyLanguageNormalizer(languageMatcher, settings.getMinimumConfidence());
   });
 
   private final ActionCreator actionCreator;

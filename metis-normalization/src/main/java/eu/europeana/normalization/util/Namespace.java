@@ -81,6 +81,10 @@ public enum Namespace {
       return namespace;
     }
 
+    public String getElementName() {
+      return elementName;
+    }
+
     @Override
     public void formatTo(Formatter formatter, int flags, int width, int precision) {
       formatter.format("%s:%s", this.namespace.tagPrefix, this.elementName);
