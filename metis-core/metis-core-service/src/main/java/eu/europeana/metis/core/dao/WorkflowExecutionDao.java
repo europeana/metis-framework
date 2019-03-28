@@ -50,6 +50,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   private static final String DATASET_ID = "datasetId";
   private static final String METIS_PLUGINS = "metisPlugins";
 
+  private static final String MONGO_COND_OPERATOR = "$cond";
+
   private static final int INQUEUE_POSITION_IN_OVERVIEW = 1;
   private static final int RUNNING_POSITION_IN_OVERVIEW = 2;
   private static final int DEFAULT_POSITION_IN_OVERVIEW = 3;
@@ -384,27 +386,27 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       pipeline.match(query);
     }
 
-    // Step 2: Add difference integers on whether the status is INQUEUE or RUNNING.
+    // Step 2: Add specific positions when the status is INQUEUE or RUNNING.
     final String statusInQueueField = "statusInQueue";
     final String statusRunningField = "statusRunning";
-    final int inqueueDifferennce = DEFAULT_POSITION_IN_OVERVIEW - INQUEUE_POSITION_IN_OVERVIEW;
-    final int runningDifferennce = DEFAULT_POSITION_IN_OVERVIEW - RUNNING_POSITION_IN_OVERVIEW;
     pipeline.project(
-        Projection.projection(statusInQueueField, Projection.expression("$cond",
-            Projection.expression(FilterOperator.EQUAL.val(), "INQUEUE", "$" + WORKFLOW_STATUS),
-            inqueueDifferennce, 0)),
-        Projection.projection(statusRunningField, Projection.expression("$cond",
-            Projection.expression(FilterOperator.EQUAL.val(), "RUNNING", "$" + WORKFLOW_STATUS),
-            runningDifferennce, 0)),
+        Projection.projection(statusInQueueField, Projection.expression(MONGO_COND_OPERATOR,
+            Projection.expression(FilterOperator.EQUAL.val(), WorkflowStatus.INQUEUE.name(),
+                "$" + WORKFLOW_STATUS), INQUEUE_POSITION_IN_OVERVIEW, 0)),
+        Projection.projection(statusRunningField, Projection.expression(MONGO_COND_OPERATOR,
+            Projection.expression(FilterOperator.EQUAL.val(), WorkflowStatus.RUNNING.name(),
+                "$" + WORKFLOW_STATUS), RUNNING_POSITION_IN_OVERVIEW, 0)),
         Projection.projection(OrderField.CREATED_DATE.getOrderFieldName()),
         Projection.projection(DATASET_ID)
     );
 
-    // Step 3: Subtract these integers from the default value to obtain the right ordering.
+    // Step 3: Copy specific positions to final variable: use default position if no position is set.
     final String statusIndexField = "statusIndex";
+    final Projection sumExpression = Projection.add("$" + statusInQueueField, "$" + statusRunningField);
     pipeline.project(
-        Projection.projection(statusIndexField, Projection.subtract(DEFAULT_POSITION_IN_OVERVIEW,
-            Projection.add("$" + statusInQueueField, "$" + statusRunningField))),
+        Projection.projection(statusIndexField, Projection.expression(MONGO_COND_OPERATOR,
+            Projection.expression(FilterOperator.EQUAL.val(), sumExpression, 0),
+            DEFAULT_POSITION_IN_OVERVIEW, sumExpression)),
         Projection.projection(OrderField.CREATED_DATE.getOrderFieldName()),
         Projection.projection(DATASET_ID)
     );
@@ -456,6 +458,12 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     public ExecutionDatasetPair() {
     }
 
+    /**
+     * Constructor.
+     *
+     * @param dataset The dataset.
+     * @param execution The execution.
+     */
     public ExecutionDatasetPair(Dataset dataset, WorkflowExecution execution) {
       this.dataset = dataset;
       this.execution = execution;

@@ -13,7 +13,7 @@ import org.bson.types.ObjectId;
  * This class represents the vital information on a workflow execution needed for the execution
  * overview.
  */
-public class ExecutionSummary {
+public class WorkflowExecutionSummary {
 
   private ObjectId id;
   private WorkflowStatus workflowStatus;
@@ -26,10 +26,10 @@ public class ExecutionSummary {
 
   private List<PluginSummary> plugins;
 
-  ExecutionSummary() {
+  WorkflowExecutionSummary() {
   }
 
-  ExecutionSummary(WorkflowExecution execution) {
+  WorkflowExecutionSummary(WorkflowExecution execution) {
     this.id = execution.getId();
     this.workflowStatus = execution.getWorkflowStatus();
     this.cancelling = execution.isCancelling();

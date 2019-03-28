@@ -11,14 +11,14 @@ import org.bson.types.ObjectId;
  * {@link Dataset}. It implements {@link HasMongoObjectId} so that it can be a type for {@link
  * ResponseListWrapper}.
  */
-public class ExecutionOverview implements HasMongoObjectId {
+public class WorkflowExecutionOverview implements HasMongoObjectId {
 
 
-  private ExecutionSummary execution;
+  private WorkflowExecutionSummary execution;
   private DatasetSummary dataset;
-  private ExecutionProgress executionProgress;
+  private WorkflowExecutionProgress executionProgress;
 
-  ExecutionOverview() {
+  WorkflowExecutionOverview() {
   }
 
   /**
@@ -28,13 +28,13 @@ public class ExecutionOverview implements HasMongoObjectId {
    * @param dataset The dataset that matches the execution (i.e. {@link Dataset#getId()} matches
    * {@link WorkflowExecution#getDatasetId()}).
    */
-  public ExecutionOverview(WorkflowExecution execution, Dataset dataset) {
-    this.execution = new ExecutionSummary(execution);
+  public WorkflowExecutionOverview(WorkflowExecution execution, Dataset dataset) {
+    this.execution = new WorkflowExecutionSummary(execution);
     this.dataset = new DatasetSummary(dataset);
-    this.executionProgress = new ExecutionProgress(execution);
+    this.executionProgress = new WorkflowExecutionProgress(execution);
   }
 
-  public ExecutionSummary getExecution() {
+  public WorkflowExecutionSummary getExecution() {
     return execution;
   }
 
@@ -42,7 +42,7 @@ public class ExecutionOverview implements HasMongoObjectId {
     return dataset;
   }
 
-  public ExecutionProgress getExecutionProgress() {
+  public WorkflowExecutionProgress getExecutionProgress() {
     return executionProgress;
   }
 

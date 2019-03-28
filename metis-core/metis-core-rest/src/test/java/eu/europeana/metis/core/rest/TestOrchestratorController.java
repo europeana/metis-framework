@@ -35,7 +35,7 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
-import eu.europeana.metis.core.rest.execution.overview.ExecutionOverview;
+import eu.europeana.metis.core.rest.execution.overview.WorkflowExecutionOverview;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.utils.TestUtils;
@@ -673,12 +673,12 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     final int listSize = 2;
     final int nextPage = 5;
-    final List<ExecutionOverview> listOfExecutionOverviews = TestObjectFactory
+    final List<WorkflowExecutionOverview> listOfWorkflowExecutionOverviews = TestObjectFactory
         .createListOfExecutionOverviews(listSize);
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getWorkflowExecutionsOverview(eq(metisUser), eq(nextPage)))
-        .thenReturn(listOfExecutionOverviews);
+        .thenReturn(listOfWorkflowExecutionOverviews);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)

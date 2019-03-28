@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * This object contains all information regarding the workflow execution's progress.
  */
-public class ExecutionProgress {
+public class WorkflowExecutionProgress {
 
   private static final Set<PluginStatus> EXECUTING_STATUS_SET = Stream
       .of(PluginStatus.RUNNING, PluginStatus.CLEANING, PluginStatus.PENDING)
@@ -23,10 +23,10 @@ public class ExecutionProgress {
   private int stepsTotal;
   private PluginProgress currentPluginProgress;
 
-  ExecutionProgress() {
+  WorkflowExecutionProgress() {
   }
 
-  ExecutionProgress(WorkflowExecution execution) {
+  WorkflowExecutionProgress(WorkflowExecution execution) {
     this.stepsDone = (int) execution.getMetisPlugins().stream()
         .map(AbstractMetisPlugin::getPluginStatus).filter(FINISHED_STATUS_SET::contains).count();
     final AbstractMetisPlugin currentPlugin = execution.getMetisPlugins().stream()

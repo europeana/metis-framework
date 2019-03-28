@@ -16,7 +16,7 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
-import eu.europeana.metis.core.rest.execution.overview.ExecutionOverview;
+import eu.europeana.metis.core.rest.execution.overview.WorkflowExecutionOverview;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.workflow.OrderField;
@@ -535,12 +535,12 @@ public class OrchestratorService {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  public List<ExecutionOverview> getWorkflowExecutionsOverview(MetisUser metisUser, int nextPage)
-      throws GenericMetisException {
+  public List<WorkflowExecutionOverview> getWorkflowExecutionsOverview(MetisUser metisUser,
+      int nextPage) throws GenericMetisException {
     authorizer.authorizeReadAllDatasets(metisUser);
     final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
     return workflowExecutionDao.getWorkflowExecutionsOverview(datasetIds, nextPage).stream()
-        .map(result -> new ExecutionOverview(result.getExecution(), result.getDataset()))
+        .map(result -> new WorkflowExecutionOverview(result.getExecution(), result.getDataset()))
         .collect(Collectors.toList());
   }
 
