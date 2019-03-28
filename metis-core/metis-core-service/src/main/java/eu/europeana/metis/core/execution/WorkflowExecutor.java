@@ -10,6 +10,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin.MonitorResul
 import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.net.UnknownHostException;
@@ -189,7 +190,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
    */
   private void runMetisPlugin(AbstractMetisPlugin previousAbstractMetisPlugin,
       AbstractMetisPlugin abstractMetisPlugin, Date startDateToUse) {
-
     // Set previous plugin revision information
     if (previousAbstractMetisPlugin != null) {
       abstractMetisPlugin.getPluginMetadata()
@@ -202,10 +202,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
           abstractMetisPlugin.setStartedDate(startDateToUse);
         }
-        final String previousExternalTaskId = previousAbstractMetisPlugin == null ? null
-            : previousAbstractMetisPlugin.getExternalTaskId();
-        final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(ecloudBaseUrl,
-            ecloudProvider, workflowExecution.getEcloudDatasetId(), previousExternalTaskId);
+
+        final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
+            ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
+            resolvePreviousExternalTaskId(previousAbstractMetisPlugin, abstractMetisPlugin));
         abstractMetisPlugin.execute(dpsClient, ecloudBasePluginParameters);
       } catch (ExternalTaskException | RuntimeException e) {
         LOGGER.warn("Execution of external task failed", e);
@@ -225,6 +225,30 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     } else {
       periodicCheckingLoop(sleepTime, abstractMetisPlugin);
     }
+  }
+
+  private String resolvePreviousExternalTaskId(AbstractMetisPlugin previousAbstractMetisPlugin,
+      AbstractMetisPlugin abstractMetisPlugin) {
+    String previousExternalTaskId = null;
+    if (previousAbstractMetisPlugin == null && !ExecutionRules.getHarvestPluginGroup()
+        .contains(abstractMetisPlugin.getPluginType())) {
+      final PluginType previousPluginType = PluginType
+          .getPluginTypeFromEnumName(abstractMetisPlugin.getPluginMetadata()
+              .getRevisionNamePreviousPlugin());
+      final Date previousPluginStartDate = abstractMetisPlugin.getPluginMetadata()
+          .getRevisionTimestampPreviousPlugin();
+      final WorkflowExecution previousExecution = workflowExecutionDao
+          .getByTaskExecution(previousPluginStartDate, previousPluginType,
+              workflowExecution.getDatasetId());
+      final AbstractMetisPlugin previousPlugin = previousExecution == null ? null
+          : previousExecution.getMetisPluginWithType(previousPluginType).orElse(null);
+      if (previousPlugin != null) {
+        previousExternalTaskId = previousPlugin.getExternalTaskId();
+      }
+    } else if (previousAbstractMetisPlugin != null) {
+      previousExternalTaskId = previousAbstractMetisPlugin.getExternalTaskId();
+    }
+    return previousExternalTaskId;
   }
 
   private void periodicCheckingLoop(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
