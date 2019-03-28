@@ -28,12 +28,10 @@ public class ProviderProxyLanguageNormalizer implements ValueNormalizeAction {
   private static final Element ORE_PROXY = Namespace.ORE.getElement("Proxy");
   private static final Element EDM_EUROPEANA_PROXY = Namespace.EDM.getElement("europeanaProxy");
 
-  private static final XpathQuery PROVIDER_PROXY_LANGUAGES = XpathQuery
-      .create("/%s/%s[not(%s='true')]/%s", XpathQuery.RDF_TAG, ORE_PROXY, EDM_EUROPEANA_PROXY,
-          DC_LANGUAGE);
-  private static final XpathQuery EUROPEANA_PROXY = XpathQuery
-      .create("/%s/%s[%s='true']", XpathQuery.RDF_TAG, ORE_PROXY, EDM_EUROPEANA_PROXY);
-
+  private static final XpathQuery PROVIDER_PROXY_LANGUAGES = new XpathQuery(
+      "/%s/%s[not(%s='true')]/%s", XpathQuery.RDF_TAG, ORE_PROXY, EDM_EUROPEANA_PROXY, DC_LANGUAGE);
+  private static final XpathQuery EUROPEANA_PROXY = new XpathQuery("/%s/%s[%s='true']",
+      XpathQuery.RDF_TAG, ORE_PROXY, EDM_EUROPEANA_PROXY);
   private final float minimumConfidence;
   private final LanguageMatcher matcher;
 

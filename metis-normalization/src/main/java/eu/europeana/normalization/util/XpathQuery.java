@@ -1,10 +1,12 @@
 package eu.europeana.normalization.util;
 
+import eu.europeana.normalization.util.Namespace.Element;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
@@ -15,13 +17,12 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import eu.europeana.normalization.util.Namespace.Element;
 
 /**
  * This object represents an XPath query, containing an expression and the namespaces that occur in
  * it. This query can be executed on a DOM tree. Internally it uses the
  * {@link javax.xml.xpath.XPath} API.
- * 
+ *
  * @author jochen
  *
  */
@@ -32,36 +33,52 @@ public final class XpathQuery {
 
   private static final XPathFactory XPATH_FACTORY = XPathFactory.newInstance();
 
-  private final Map<String, String> namespaceMap;
+  private final Map<String, String> namespaceMap = new HashMap<>();
+  private final String expressionFormat;
   private final String expression;
-
-  private XpathQuery(Map<String, String> namespaceMap, String expression) {
-    this.namespaceMap = namespaceMap;
-    this.expression = expression;
-  }
+  private final List<Element> elements;
 
   /**
-   * This is a convenience method for creating an XPath query. It uses
-   * {@link String#format(String, Object...)} to format the given input format to put in the
-   * elements.
-   * 
-   * @param expressionFormat A format string with '%s' placeholders (see
-   *        {@link java.util.Formatter}).
+   * Constructor. It uses {@link String#format(String, Object...)} to format the given input format
+   * to put in the elements.
+   *
+   * @param expressionFormat A format string with '%s' placeholders (see {@link
+   * java.util.Formatter}).
    * @param elements The elements corresponding to the placeholders in the expression format.
-   * @return An XPath query.
    */
-  public static XpathQuery create(String expressionFormat, Element... elements) {
-    final String expression = String.format(expressionFormat, (Object[]) elements).trim();
-    final Map<String, String> namespaces = Arrays.stream(elements).map(Element::getNamespace)
-        .distinct().collect(Collectors.toMap(Namespace::getTagPrefix, Namespace::getUri));
-    return new XpathQuery(namespaces, expression);
+  public XpathQuery(String expressionFormat, Element... elements) {
+
+    // Save the properties
+    this.expressionFormat = expressionFormat;
+    this.elements = Arrays.asList(elements);
+
+    // Compute the namespace map
+    final Set<String> namespaces = Arrays.stream(elements).map(Element::getNamespace)
+        .map(Namespace::getUri).collect(Collectors.toSet());
+    final Map<String, String> reverseNamespaceMap = new HashMap<>();
+    int counter = 0;
+    for (String namespace : namespaces) {
+      counter++;
+      final String prefix = "ns" + counter;
+      this.namespaceMap.put(prefix, namespace);
+      reverseNamespaceMap.put(namespace, prefix);
+    }
+
+    // Compute the expression
+    final Object[] parameters = this.elements.stream().map(element -> elementToString(element,
+        reverseNamespaceMap.get(element.getNamespace().getUri()))).toArray(Object[]::new);
+    this.expression = String.format(expressionFormat, parameters).trim();
+  }
+
+  private static String elementToString(Element element, String prefix) {
+    return XmlUtil.addPrefixToNodeName(element.getElementName(), prefix);
   }
 
   /**
    * This is a convenience method for combining XPath queries into one. That means it will match on
    * the union of the two previous queries. It does so by concatenating the expressions using the
    * '|' deliminators and merging the namespace maps.
-   * 
+   *
    * @param queries The queries to combine.
    * @return A query representing the combination of the input queries.
    * @throws IllegalArgumentException In case the queries could not be combined because the
@@ -69,25 +86,11 @@ public final class XpathQuery {
    *         URI).
    */
   public static XpathQuery combine(XpathQuery... queries) {
-    final String expression =
-        Arrays.stream(queries).map(query -> query.expression).collect(Collectors.joining(" | "));
-    final Map<String, String> namespaces = new HashMap<>();
-    for (XpathQuery query : queries) {
-      for (Entry<String, String> namespace : query.namespaceMap.entrySet()) {
-        addNamespace(namespaces, namespace);
-      }
-    }
-    return new XpathQuery(namespaces, expression);
-  }
-
-  private static void addNamespace(Map<String, String> namespaces,
-      Entry<String, String> namespace) {
-    final String currentUri = namespaces.get(namespace.getKey());
-    if (currentUri != null && !currentUri.equals(namespace.getValue())) {
-      throw new IllegalArgumentException(
-          "The same prefix " + namespace.getKey() + " is used for two different namespaces.", null);
-    }
-    namespaces.put(namespace.getKey(), namespace.getValue());
+    final String expressionFormat = Arrays.stream(queries).map(query -> query.expressionFormat)
+        .collect(Collectors.joining(" | "));
+    final Element[] elements = Arrays.stream(queries).map(query -> query.elements)
+        .flatMap(List::stream).toArray(Element[]::new);
+    return new XpathQuery(expressionFormat, elements);
   }
 
   private XPathExpression toXPath() throws XPathExpressionException {
@@ -98,7 +101,7 @@ public final class XpathQuery {
 
   /**
    * This method executes the query on a DOM tree.
-   * 
+   *
    * @param dom The DOM tree on which to execute the query.
    * @return The list of nodes that satisfy the query. Is not null, but could of course be empty.
    * @throws XPathExpressionException In case the expression couldn't be evaluated.
@@ -136,6 +139,8 @@ public final class XpathQuery {
           result = XMLConstants.NULL_NS_URI;
           break;
       }
+
+      // Done.
       return result;
     }
 

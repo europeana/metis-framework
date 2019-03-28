@@ -21,7 +21,7 @@ public abstract class EdmValueNormalizer implements ValueNormalizeAction {
           .toArray(XpathQuery[]::new));
 
   private static XpathQuery getRdfSubtagQuery(Element subtag) {
-    return XpathQuery.create("/%s/%s/*", XpathQuery.RDF_TAG, subtag);
+    return new XpathQuery("/%s/%s/*", XpathQuery.RDF_TAG, subtag);
   }
 
   @Override

@@ -49,6 +49,17 @@ public final class XmlUtil {
   private XmlUtil() {}
 
   /**
+   * Add the prefix to the node name and returns the result.
+   *
+   * @param nodeName The name of the node.
+   * @param prefix The prefix.
+   * @return The name with the prefix.
+   */
+  public static String addPrefixToNodeName(String nodeName, String prefix) {
+    return prefix == null ? nodeName : String.format("%s:%s", prefix, nodeName);
+  }
+
+  /**
    * Returns a list for all the Element childs of a node
    *
    * @param n the node get the children from

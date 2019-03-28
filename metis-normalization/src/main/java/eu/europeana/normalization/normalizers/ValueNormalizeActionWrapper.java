@@ -81,8 +81,7 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
   }
 
   private void normalizeElement(Element copyTarget, Set<String> valuesAlreadyPresent,
-      Element element,
-      InternalNormalizationReport report) {
+      Element element, InternalNormalizationReport report) {
     final String originalValue = XmlUtil.getElementText(element);
     final List<NormalizedValueWithConfidence> normalizedValues = normalization
         .normalizeValue(originalValue);
@@ -108,9 +107,13 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
       NormalizedValueWithConfidence value, InternalNormalizationReport report) {
     final boolean valueAdded = valuesAlreadyPresent.add(value.getNormalizedValue());
     if (valueAdded) {
+      final String prefix = copyTarget
+          .lookupPrefix(copySettings.getDestinationElement().getNamespace().getUri());
+      final String newElementName = XmlUtil
+          .addPrefixToNodeName(copySettings.getDestinationElement().getElementName(), prefix);
       final Element newElement = copyTarget.getOwnerDocument()
           .createElementNS(copySettings.getDestinationElement().getNamespace().getUri(),
-              copySettings.getDestinationElement().toString());
+              newElementName);
       addTextToElement(newElement, value, report);
       copyTarget.appendChild(newElement);
     }
@@ -178,8 +181,8 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
       final NodeList childNodes = copyTarget
           .getElementsByTagNameNS(copySettings.getDestinationElement().getNamespace().getUri(),
               copySettings.getDestinationElement().getElementName());
-      IntStream.range(0, childNodes.getLength()).mapToObj(childNodes::item)
-          .map(Node::getTextContent).forEach(valuesAlreadyPresent::add);
+      XmlUtil.getAsElementList(childNodes).stream().map(XmlUtil::getElementText)
+          .forEach(valuesAlreadyPresent::add);
     }
 
     // Normalize all required elements.
