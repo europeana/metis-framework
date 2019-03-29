@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.rest;
 
-import eu.europeana.metis.core.rest.execution.overview.ExecutionOverview;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -444,7 +444,7 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<ExecutionOverview> getWorkflowExecutionsOverview(
+  public ResponseListWrapper<ExecutionAndDatasetView> getWorkflowExecutionsOverview(
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
@@ -452,7 +452,7 @@ public class OrchestratorController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    final ResponseListWrapper<ExecutionOverview> responseListWrapper = new ResponseListWrapper<>();
+    final ResponseListWrapper<ExecutionAndDatasetView> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(
         orchestratorService.getWorkflowExecutionsOverview(metisUser, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);

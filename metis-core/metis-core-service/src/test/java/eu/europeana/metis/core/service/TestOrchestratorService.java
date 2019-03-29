@@ -41,7 +41,7 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.execution.overview.DatasetSummaryView;
-import eu.europeana.metis.core.rest.execution.overview.ExecutionOverview;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionSummaryView;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.OrderField;
@@ -767,7 +767,7 @@ class TestOrchestratorService {
         .thenReturn(datasets);
     when(workflowExecutionDao.getWorkflowExecutionsOverview(eq(datasetIds), eq(nextPage)))
         .thenReturn(data);
-    final List<ExecutionOverview> result = orchestratorService
+    final List<ExecutionAndDatasetView> result = orchestratorService
         .getWorkflowExecutionsOverview(metisUser, nextPage);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
@@ -777,11 +777,11 @@ class TestOrchestratorService {
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
             .collect(Collectors.toList()),
-        result.stream().map(ExecutionOverview::getDataset).map(DatasetSummaryView::getDatasetId)
+        result.stream().map(ExecutionAndDatasetView::getDataset).map(DatasetSummaryView::getDatasetId)
             .collect(Collectors.toList()));
     assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
             .collect(Collectors.toList()),
-        result.stream().map(ExecutionOverview::getExecution)
+        result.stream().map(ExecutionAndDatasetView::getExecution)
             .map(ExecutionSummaryView::getId).collect(Collectors.toList()));
   }
 
@@ -798,7 +798,7 @@ class TestOrchestratorService {
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     when(workflowExecutionDao.getWorkflowExecutionsOverview(isNull(), eq(nextPage)))
         .thenReturn(data);
-    final List<ExecutionOverview> result = orchestratorService
+    final List<ExecutionAndDatasetView> result = orchestratorService
         .getWorkflowExecutionsOverview(metisUser, nextPage);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
@@ -808,11 +808,11 @@ class TestOrchestratorService {
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
             .collect(Collectors.toList()),
-        result.stream().map(ExecutionOverview::getDataset).map(DatasetSummaryView::getDatasetId)
+        result.stream().map(ExecutionAndDatasetView::getDataset).map(DatasetSummaryView::getDatasetId)
             .collect(Collectors.toList()));
     assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
             .collect(Collectors.toList()),
-        result.stream().map(ExecutionOverview::getExecution)
+        result.stream().map(ExecutionAndDatasetView::getExecution)
             .map(ExecutionSummaryView::getId).collect(Collectors.toList()));
   }
 
