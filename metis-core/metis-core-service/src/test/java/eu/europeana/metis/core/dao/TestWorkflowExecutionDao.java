@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.utils.TestObjectFactory;
@@ -19,10 +20,13 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -393,5 +397,102 @@ class TestWorkflowExecutionDao {
     workflowExecutionDao.create(workflowExecution);
     assertTrue(
         workflowExecutionDao.deleteAllByDatasetId(workflowExecution.getDatasetId()));
+  }
+
+  @Test
+  void getWorkflowExecutionOverview(){
+
+    final WorkflowExecution finishedOld = TestObjectFactory.createWorkflowExecutionObject();
+    finishedOld.setWorkflowStatus(WorkflowStatus.FINISHED);
+    finishedOld.setCreatedDate(new Date(2));
+    final String finishedOldId = workflowExecutionDao.create(finishedOld);
+
+    final WorkflowExecution cancelledOld = TestObjectFactory.createWorkflowExecutionObject();
+    cancelledOld.setWorkflowStatus(WorkflowStatus.CANCELLED);
+    cancelledOld.setCreatedDate(new Date(1));
+    final String cancelledOldId = workflowExecutionDao.create(cancelledOld);
+
+    final WorkflowExecution failedOld = TestObjectFactory.createWorkflowExecutionObject();
+    failedOld.setWorkflowStatus(WorkflowStatus.FAILED);
+    failedOld.setCreatedDate(new Date(0));
+    final String failedOldId = workflowExecutionDao.create(failedOld);
+
+    final WorkflowExecution finishedNew= TestObjectFactory.createWorkflowExecutionObject();
+    finishedNew.setWorkflowStatus(WorkflowStatus.FINISHED);
+    finishedNew.setCreatedDate(new Date(1000));
+    final String finishedNewId = workflowExecutionDao.create(finishedNew);
+
+    final WorkflowExecution runningOld= TestObjectFactory.createWorkflowExecutionObject();
+    runningOld.setWorkflowStatus(WorkflowStatus.RUNNING);
+    runningOld.setCreatedDate(new Date(0));
+    final String runningOldId = workflowExecutionDao.create(runningOld);
+
+    final WorkflowExecution runningNew= TestObjectFactory.createWorkflowExecutionObject();
+    runningNew.setWorkflowStatus(WorkflowStatus.RUNNING);
+    runningNew.setCreatedDate(new Date(1000));
+    final String runningNewId = workflowExecutionDao.create(runningNew);
+
+    final WorkflowExecution queuedOld= TestObjectFactory.createWorkflowExecutionObject();
+    queuedOld.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    queuedOld.setCreatedDate(new Date(0));
+    final String queuedOldId = workflowExecutionDao.create(queuedOld);
+
+    final WorkflowExecution queuedNew= TestObjectFactory.createWorkflowExecutionObject();
+    queuedNew.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    queuedNew.setCreatedDate(new Date(1000));
+    final String queuedNewId = workflowExecutionDao.create(queuedNew);
+
+    // Expected order
+    final List<String> expectedOrder = Arrays
+        .asList(queuedNewId, queuedOldId, runningNewId, runningOldId, finishedNewId, finishedOldId,
+            cancelledOldId, failedOldId);
+
+    // Try without filtering on dataset.
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
+    final List<ExecutionDatasetPair> resultWithoutFilter = workflowExecutionDao
+        .getWorkflowExecutionsOverview(null, 0);
+    assertNotNull(resultWithoutFilter);
+    final List<String> actualOrderWithoutFilter = resultWithoutFilter.stream()
+        .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
+        .map(ObjectId::toString).collect(Collectors.toList());
+    assertEquals(expectedOrder, actualOrderWithoutFilter);
+
+    // Try with filtering on dataset.
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
+    final List<ExecutionDatasetPair> resultWithFilter = workflowExecutionDao
+        .getWorkflowExecutionsOverview(Collections.singleton("" + TestObjectFactory.DATASETID), 0);
+    assertNotNull(resultWithFilter);
+    final List<String> actualOrderWithFilter = resultWithFilter.stream()
+        .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
+        .map(ObjectId::toString).collect(Collectors.toList());
+    assertEquals(expectedOrder, actualOrderWithFilter);
+
+    // Try with filter on non-existing dataset.
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
+    final List<ExecutionDatasetPair> resultWithInvalidFilter = workflowExecutionDao
+        .getWorkflowExecutionsOverview(
+            Collections.singleton("" + (TestObjectFactory.DATASETID + 1)), 0);
+    assertNotNull(resultWithInvalidFilter);
+    assertTrue(resultWithInvalidFilter.isEmpty());
+
+    // Try with empty filter.
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
+    final List<ExecutionDatasetPair> resultWithEmptyFilter = workflowExecutionDao
+        .getWorkflowExecutionsOverview(Collections.emptySet(), 0);
+    assertNotNull(resultWithEmptyFilter);
+    assertTrue(resultWithEmptyFilter.isEmpty());
+
+    // Try pagination
+    final int pageSize = 3;
+    final int pageNumber = 1;
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(pageSize);
+    final List<ExecutionDatasetPair> resultWithPaging = workflowExecutionDao
+        .getWorkflowExecutionsOverview(null, pageNumber);
+    assertNotNull(resultWithPaging);
+    final List<String> actualOrderWithPaging = resultWithPaging.stream()
+        .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
+        .map(ObjectId::toString).collect(Collectors.toList());
+    assertEquals(expectedOrder.subList(pageSize * pageNumber, pageSize * (pageNumber + 1)),
+        actualOrderWithPaging);
   }
 }
