@@ -13,7 +13,7 @@ import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.rest.Record;
-import eu.europeana.metis.core.rest.execution.overview.WorkflowExecutionOverview;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionOverview;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -142,9 +142,9 @@ public class TestObjectFactory {
    * @param size the number of dummy execution overviews to create
    * @return the created list
    */
-  public static List<WorkflowExecutionOverview> createListOfExecutionOverviews(int size) {
+  public static List<ExecutionOverview> createListOfExecutionOverviews(int size) {
     return createExecutionsWithDatasets(size).stream()
-        .map(pair -> new WorkflowExecutionOverview(pair.getExecution(), pair.getDataset()))
+        .map(pair -> new ExecutionOverview(pair.getExecution(), pair.getDataset()))
         .collect(Collectors.toList());
   }
 

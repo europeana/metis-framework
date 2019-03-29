@@ -5,17 +5,17 @@ import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 /**
  * This class contains executionProgress information on a plugin's execution.
  */
-public class PluginProgress {
+public class PluginProgressView {
 
   private int expectedRecords;
   private int processedRecords;
   private int errors;
   private int progressPercentage;
 
-  PluginProgress() {
+  PluginProgressView() {
   }
 
-  PluginProgress(ExecutionProgress progress) {
+  PluginProgressView(ExecutionProgress progress) {
     if (progress != null) {
       this.expectedRecords = progress.getExpectedRecords();
       this.processedRecords = progress.getProcessedRecords();

@@ -13,7 +13,7 @@ import org.bson.types.ObjectId;
  * This class represents the vital information on a workflow execution needed for the execution
  * overview.
  */
-public class WorkflowExecutionSummary {
+public class ExecutionSummaryView {
 
   private ObjectId id;
   private WorkflowStatus workflowStatus;
@@ -24,12 +24,12 @@ public class WorkflowExecutionSummary {
   private Date updatedDate;
   private Date finishedDate;
 
-  private List<PluginSummary> plugins;
+  private List<PluginSummaryView> plugins;
 
-  WorkflowExecutionSummary() {
+  ExecutionSummaryView() {
   }
 
-  WorkflowExecutionSummary(WorkflowExecution execution) {
+  ExecutionSummaryView(WorkflowExecution execution) {
     this.id = execution.getId();
     this.workflowStatus = execution.getWorkflowStatus();
     this.cancelling = execution.isCancelling();
@@ -37,7 +37,7 @@ public class WorkflowExecutionSummary {
     this.startedDate = execution.getStartedDate();
     this.updatedDate = execution.getUpdatedDate();
     this.finishedDate = execution.getFinishedDate();
-    this.plugins = execution.getMetisPlugins().stream().map(PluginSummary::new).collect(
+    this.plugins = execution.getMetisPlugins().stream().map(PluginSummaryView::new).collect(
         Collectors.toList());
   }
 
@@ -73,7 +73,7 @@ public class WorkflowExecutionSummary {
     return Optional.ofNullable(finishedDate).map(Date::getTime).map(Date::new).orElse(null);
   }
 
-  public List<PluginSummary> getPlugins() {
+  public List<PluginSummaryView> getPlugins() {
     return Collections.unmodifiableList(plugins);
   }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
  * This class represents the vital information on a plugin execution needed for the execution
  * overview.
  */
-public class PluginSummary {
+public class PluginSummaryView {
 
   private PluginType pluginType;
   private PluginStatus pluginStatus;
@@ -18,19 +18,19 @@ public class PluginSummary {
   private Date startedDate;
   private Date updatedDate;
   private Date finishedDate;
-  private PluginProgress progress;
+  private PluginProgressView progress;
 
-  PluginSummary() {
+  PluginSummaryView() {
   }
 
-  PluginSummary(AbstractMetisPlugin plugin) {
+  PluginSummaryView(AbstractMetisPlugin plugin) {
     this.pluginType = plugin.getPluginType();
     this.pluginStatus = plugin.getPluginStatus();
     this.failMessage = plugin.getFailMessage();
     this.startedDate = plugin.getStartedDate();
     this.updatedDate = plugin.getUpdatedDate();
     this.finishedDate = plugin.getFinishedDate();
-    this.progress = new PluginProgress(plugin.getExecutionProgress());
+    this.progress = new PluginProgressView(plugin.getExecutionProgress());
   }
 
   public PluginType getPluginType() {
@@ -57,7 +57,7 @@ public class PluginSummary {
     return Optional.ofNullable(finishedDate).map(Date::getTime).map(Date::new).orElse(null);
   }
 
-  public PluginProgress getProgress() {
+  public PluginProgressView getProgress() {
     return progress;
   }
 }

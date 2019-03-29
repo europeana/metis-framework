@@ -11,14 +11,14 @@ import org.bson.types.ObjectId;
  * {@link Dataset}. It implements {@link HasMongoObjectId} so that it can be a type for {@link
  * ResponseListWrapper}.
  */
-public class WorkflowExecutionOverview implements HasMongoObjectId {
+public class ExecutionOverview implements HasMongoObjectId {
 
 
-  private WorkflowExecutionSummary execution;
-  private DatasetSummary dataset;
-  private WorkflowExecutionProgress executionProgress;
+  private ExecutionSummaryView execution;
+  private DatasetSummaryView dataset;
+  private ExecutionProgressView executionProgress;
 
-  WorkflowExecutionOverview() {
+  ExecutionOverview() {
   }
 
   /**
@@ -28,21 +28,21 @@ public class WorkflowExecutionOverview implements HasMongoObjectId {
    * @param dataset The dataset that matches the execution (i.e. {@link Dataset#getId()} matches
    * {@link WorkflowExecution#getDatasetId()}).
    */
-  public WorkflowExecutionOverview(WorkflowExecution execution, Dataset dataset) {
-    this.execution = new WorkflowExecutionSummary(execution);
-    this.dataset = new DatasetSummary(dataset);
-    this.executionProgress = new WorkflowExecutionProgress(execution);
+  public ExecutionOverview(WorkflowExecution execution, Dataset dataset) {
+    this.execution = new ExecutionSummaryView(execution);
+    this.dataset = new DatasetSummaryView(dataset);
+    this.executionProgress = new ExecutionProgressView(execution);
   }
 
-  public WorkflowExecutionSummary getExecution() {
+  public ExecutionSummaryView getExecution() {
     return execution;
   }
 
-  public DatasetSummary getDataset() {
+  public DatasetSummaryView getDataset() {
     return dataset;
   }
 
-  public WorkflowExecutionProgress getExecutionProgress() {
+  public ExecutionProgressView getExecutionProgress() {
     return executionProgress;
   }
 

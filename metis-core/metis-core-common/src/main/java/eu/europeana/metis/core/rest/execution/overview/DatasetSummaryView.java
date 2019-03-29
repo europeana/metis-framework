@@ -6,16 +6,16 @@ import org.bson.types.ObjectId;
 /**
  * This class represents the vital information on a dataset needed for the execution overview.
  */
-public class DatasetSummary {
+public class DatasetSummaryView {
 
   private ObjectId id;
   private String datasetId;
   private String datasetName;
 
-  DatasetSummary() {
+  DatasetSummaryView() {
   }
 
-  DatasetSummary(Dataset dataset) {
+  DatasetSummaryView(Dataset dataset) {
     this.id = dataset.getId();
     this.datasetId = dataset.getDatasetId();
     this.datasetName = dataset.getDatasetName();
