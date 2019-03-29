@@ -57,6 +57,7 @@
     <dc:identifier>ivrla:3827</dc:identifier>
     <dc:identifier>http://digital.ucd.ie/view/ivrla:3827</dc:identifier>
     <dc:language>en</dc:language>
+    <dc:language></dc:language>
     <dc:rights xml:lang="en">© University College Dublin, National University of Ireland, Dublin.
       Copyright and reproduction rights for this digital resource are held by University College
       Dublin and administered by UCD Archives, UCD James Joyce Library, Belfield, Dublin 4, Ireland.
@@ -104,6 +105,9 @@
     <dc:contributor rdf:resource="http://viaf.org/viaf/17227308" rdfs:label="Author"/>
     <dc:contributor rdf:resource="http://viaf.org/viaf/22950329" rdfs:label="Author"/>
     <edm:type>TEXT</edm:type>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="ivrla:3827_EuropeanaProxy">
+    <edm:europeanaProxy>true</edm:europeanaProxy>
   </ore:Proxy>
   <edm:EuropeanaAggregation rdf:about="ivrla:3827_EuropeanaAggregation">
     <edm:aggregatedCHO rdf:resource="ivrla:3827"/>

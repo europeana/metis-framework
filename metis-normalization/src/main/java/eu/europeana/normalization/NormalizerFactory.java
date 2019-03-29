@@ -21,9 +21,18 @@ public class NormalizerFactory {
 
   private final NormalizerSettings settings;
 
-  private static final NormalizerStep[] DEFAULT_NORMALIZER_STEPS =
-      {NormalizerStep.CLEAN_SPACE_CHARACTERS, NormalizerStep.CLEAN_MARKUP_TAGS,
-          NormalizerStep.NORMALIZE_LANGUAGE_REFERENCES, NormalizerStep.REMOVE_DUPLICATE_STATEMENTS};
+  private static final NormalizerStep[] DEFAULT_NORMALIZER_STEPS = {
+
+      // First: clean space characters and markup tags, thus normalizing text.
+      NormalizerStep.CLEAN_SPACE_CHARACTERS,
+      NormalizerStep.CLEAN_MARKUP_TAGS,
+
+      // Second: normalize language tags.
+      NormalizerStep.NORMALIZE_LANGUAGE_REFERENCES,
+
+      // Last: remove duplicate statements (which may be caused by the operations above).
+      NormalizerStep.REMOVE_DUPLICATE_STATEMENTS
+  };
 
   /**
    * Constructor for default settings.
