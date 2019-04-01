@@ -73,10 +73,18 @@ public class WikidataAccessService {
     return uri;
   }
 
+  /**
+   * Dereferences a wikidate uri and converts the response to an {@link Organization}
+   *
+   * @param wikidataUri the wikidata uri
+   * @return the dereferenced/converted organization
+   * @throws WikidataAccessException if an exception occurred during dereferencing of the wikidata
+   * uri
+   */
   public Organization dereference(String wikidataUri) throws WikidataAccessException {
 
     StringBuilder wikidataXml = null;
-    WikidataOrganization wikidataOrganization = null;
+    WikidataOrganization wikidataOrganization;
 
     try {
       wikidataXml = getWikidataAccessDao().getEntity(wikidataUri);
@@ -101,9 +109,9 @@ public class WikidataAccessService {
    *
    * @param inputFile The file containing the wikidata
    * @return WikidataOrganization object
+   * @throws JAXBException if an exception occurred during jaxb binding
    */
-  public WikidataOrganization parseWikidataOrganization(File inputFile)
-      throws IOException, JAXBException {
+  public WikidataOrganization parseWikidataOrganization(File inputFile) throws JAXBException {
 
     return wikidataAccessDao.parseWikidataOrganization(inputFile);
   }
@@ -112,6 +120,7 @@ public class WikidataAccessService {
    * This method converts Wikidata organization in OrganizationImpl.
    *
    * @param wikidataOrganization the wikidata organization object to extract values from
+   * @return the converted organization
    */
   public Organization toOrganizationImpl(WikidataOrganization wikidataOrganization) {
 

@@ -15,8 +15,6 @@ import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Test utils class for entity converter.
@@ -26,60 +24,58 @@ import org.slf4j.LoggerFactory;
  */
 public class EntityConverterUtilsTest { 
 
-  final String WIKIDATA_TEST_OUTPUT_FILE = "test.out";
-  final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
-  final String TEST_WIKIDATA_URL = "http://www.wikidata.org/entity/Q" + TEST_WIKIDATA_ORGANIZATION_ID;
-  final String TEST_ACRONYM = "BNF";
-  final String TEST_COUNTRY = "FR";  
-  final String TEST_LABEL_FR = "BnF";  
-  final String TEST_LABEL_FR2 = "BnF2";  
-  final String TEST_LABEL_EN = "British library";
-  final String TEST_LABEL_IT = "Bologna library";
+  private final String WIKIDATA_TEST_OUTPUT_FILE = "test.out";
+  private final String TEST_WIKIDATA_ORGANIZATION_ID = "193563";
+  private final String TEST_WIKIDATA_URL = "http://www.wikidata.org/entity/Q" + TEST_WIKIDATA_ORGANIZATION_ID;
+  private final String TEST_ACRONYM = "BNF";
+  private final String TEST_COUNTRY = "FR";
+  private final String TEST_LABEL_FR = "BnF";
+  private final String TEST_LABEL_FR2 = "BnF2";
+  private final String TEST_LABEL_EN = "British library";
+  private final String TEST_LABEL_IT = "Bologna library";
+
+  private Map<String, List<String>> prefLabel = null;
+  private Map<String, List<String>> addPrefLabel = null;
+  private Map<String, List<String>> altLabel = null;
   
-  Map<String, List<String>> prefLabel = null;
-  Map<String, List<String>> addPrefLabel = null;
-  Map<String, List<String>> altLabel = null;
+  private EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
   
-  EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
-  
-  public EntityConverterUtils getEntityConverterUtils() {
+  private EntityConverterUtils getEntityConverterUtils() {
     return entityConverterUtils;
   }
 
-  final Logger LOGGER = LoggerFactory.getLogger(getClass());
-
   @BeforeEach
-  public void setUp() {
+  void setUp() {
   }
 
   @AfterEach
-  public void tearDown() {}
+  void tearDown() {}
 
   private void init() {
-    prefLabel = new HashMap<String, List<String>>();
-    List<String> prefLabelValues = new ArrayList<String>();
+    prefLabel = new HashMap<>();
+    List<String> prefLabelValues = new ArrayList<>();
     prefLabelValues.add(TEST_LABEL_FR);
     prefLabel.put(Locale.FRENCH.getLanguage(), prefLabelValues);
 
-    addPrefLabel = new HashMap<String, List<String>>();
-    List<String> addPrefLabelValues = new ArrayList<String>();
+    addPrefLabel = new HashMap<>();
+    List<String> addPrefLabelValues = new ArrayList<>();
     addPrefLabelValues.add(TEST_LABEL_EN);
     addPrefLabel.put(Locale.ENGLISH.getLanguage(), addPrefLabelValues);
-    List<String> addPrefLabelValues2 = new ArrayList<String>();
+    List<String> addPrefLabelValues2 = new ArrayList<>();
     addPrefLabelValues2.add(TEST_LABEL_FR2);
     addPrefLabel.put(Locale.FRENCH.getLanguage(), addPrefLabelValues2);
-    
-    altLabel = new HashMap<String, List<String>>();
-    List<String> addAltLabelValues = new ArrayList<String>();
+
+    altLabel = new HashMap<>();
+    List<String> addAltLabelValues = new ArrayList<>();
     addAltLabelValues.add(TEST_LABEL_FR);
     altLabel.put(Locale.FRENCH.getLanguage(), addAltLabelValues);
-    List<String> addAltLabelValues2 = new ArrayList<String>();
+    List<String> addAltLabelValues2 = new ArrayList<>();
     addAltLabelValues2.add(TEST_LABEL_IT);
-    altLabel.put(Locale.ITALIAN.getLanguage(), addAltLabelValues2);    
+    altLabel.put(Locale.ITALIAN.getLanguage(), addAltLabelValues2);
   }
   
   @Test
-  public void mergeTest() {
+  void mergeTest() {
 
     init();
 

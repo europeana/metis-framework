@@ -11,10 +11,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zoho.crm.library.crud.ZCRMRecord;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
-import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
+import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
@@ -23,16 +22,11 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,38 +40,36 @@ import org.mockito.Mockito;
  */
 class AuthenticationServiceTest {
 
-  private static final String DATA_JSON_NODE_ZOHO_USER_EXAMPLE = "data/jsonNodeZohoUserExample";
-  private static final String DATA_JSON_NODE_ZOHO_USER_WRONG_CREATED_DATE_FORMAT_EXAMPLE = "data/jsonNodeZohoUserWrongCreatedDateFormatExample";
-  private static final String DATA_JSON_NODE_ZOHO_USER_NO_ORGANIZATION_NAME_EXAMPLE = "data/jsonNodeZohoUserNoOrganizationNameExample";
-  private static final String ORGANIZATION_ID = "1482250000000451555";
   private static final String EXAMPLE_EMAIL = "example@example.com";
   private static final String EXAMPLE_PASSWORD = "123qwe456";
   private static final String EXAMPLE_ACCESS_TOKEN = "1234567890qwertyuiopasdfghjklQWE";
-  private static ZohoAccessClientDao zohoAccessClientDao;
   private static PsqlMetisUserDao psqlMetisUserDao;
+  private static ZohoAccessClient zohoAccessClient;
   private static AuthenticationService authenticationService;
 
   @BeforeAll
   static void setUp() {
-    zohoAccessClientDao = Mockito.mock(ZohoAccessClientDao.class);
     psqlMetisUserDao = Mockito.mock(PsqlMetisUserDao.class);
-    authenticationService = new AuthenticationService(zohoAccessClientDao, psqlMetisUserDao);
+    zohoAccessClient = Mockito.mock(ZohoAccessClient.class);
+    authenticationService = new AuthenticationService(psqlMetisUserDao, zohoAccessClient);
   }
 
   @AfterEach
   void cleanUp() {
-    Mockito.reset(zohoAccessClientDao);
     Mockito.reset(psqlMetisUserDao);
+    Mockito.reset(zohoAccessClient);
   }
 
   @Test
   void registerUser() throws Exception {
-
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClientDao.getUserByEmail(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
-        .thenReturn(ORGANIZATION_ID);
+
+    final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
+    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
+        .thenReturn(zcrmRecordContactWithAccountInTheFields);
+    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
+        .thenReturn(
+            (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name"));
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
     verify(psqlMetisUserDao).createMetisUser(any(MetisUser.class));
   }
@@ -94,7 +86,7 @@ class AuthenticationServiceTest {
   @Test
   void registerUserFailsOnZohoUserRetrieval() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClientDao.getUserByEmail(anyString()))
+    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
         .thenThrow(new BadContentException("Exception"));
     assertThrows(BadContentException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
@@ -103,25 +95,22 @@ class AuthenticationServiceTest {
   @Test
   void registerUserDoesNotExistInZoho() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClientDao.getUserByEmail(anyString())).thenReturn(null);
+    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString())).thenReturn(null);
     assertThrows(NoUserFoundException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
-  @Test
-  void registerUserParsingUserFromZohoFailDateFormat() throws Exception {
-    when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClientDao.getUserByEmail(anyString())).thenReturn(
-        getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_WRONG_CREATED_DATE_FORMAT_EXAMPLE));
-    assertThrows(BadContentException.class,
-        () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
-  }
 
   @Test
   void registerUserParsingUserFromZohoNoOrganizationNameProvided() throws Exception {
+    final ZCRMRecord zcrmRecordContactWithAccountInTheFieldsNoOrganizationName = getZCRMRecordContactWithAccountInTheFieldsNoOrganizationName();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClientDao.getUserByEmail(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_NO_ORGANIZATION_NAME_EXAMPLE));
+    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
+        .thenReturn(zcrmRecordContactWithAccountInTheFieldsNoOrganizationName);
+    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
+        .thenReturn(
+            (ZCRMRecord) zcrmRecordContactWithAccountInTheFieldsNoOrganizationName
+                .getFieldValue("Account_Name"));
     assertThrows(BadContentException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
 
@@ -130,50 +119,49 @@ class AuthenticationServiceTest {
   @Test
   void registerUserFailsOnZohoOrganizationRetrieval() throws Exception {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClientDao.getUserByEmail(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
-        .thenThrow(new BadContentException("Exception"));
+    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
+        .thenReturn(getZCRMRecordContactWithAccountInTheFields());
+    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString())).thenReturn(null);
     assertThrows(BadContentException.class,
         () -> authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
   }
 
   @Test
   void updateUserFromZoho() throws Exception {
+    final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
+
     MetisUser metisUser = new MetisUser();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-    when(zohoAccessClientDao.getUserByEmail(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
-        .thenReturn(ORGANIZATION_ID);
+    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
+        .thenReturn(zcrmRecordContactWithAccountInTheFields);
+    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
+        .thenReturn(
+            (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name"));
     authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
     verify(psqlMetisUserDao).updateMetisUser(any(MetisUser.class));
   }
 
   @Test
   void updateUserFromZohoAnAdminStaysAdmin() throws Exception {
+    final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
+
     MetisUser metisUser = new MetisUser();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
-    when(zohoAccessClientDao.getUserByEmail(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
-        .thenReturn(ORGANIZATION_ID);
+    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
+        .thenReturn(zcrmRecordContactWithAccountInTheFields);
+    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
+        .thenReturn(
+            (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name"));
     ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUser.class);
-
     authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
-
     verify(psqlMetisUserDao).updateMetisUser(metisUserArgumentCaptor.capture());
     assertEquals(AccountRole.METIS_ADMIN, metisUserArgumentCaptor.getValue().getAccountRole());
   }
 
   @Test
-  void updateUserFromZohoNoUserFound() throws Exception {
+  void updateUserFromZohoNoUserFound() {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClientDao.getUserByEmail(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
-        .thenReturn(ORGANIZATION_ID);
     assertThrows(NoUserFoundException.class,
         () -> authenticationService.updateUserFromZoho(EXAMPLE_EMAIL));
     verify(psqlMetisUserDao, times(0)).updateMetisUser(any(MetisUser.class));
@@ -484,29 +472,56 @@ class AuthenticationServiceTest {
     }
   }
 
-  private JsonNode getZohoJsonNodeExample(String filePath) throws IOException, URISyntaxException {
-    URL resource = getClass().getClassLoader().getResource(filePath);
-    if (resource != null) {
-      File jsonNodeZohoUserExampleFile = new File(resource.toURI());
-      ObjectMapper mapper = new ObjectMapper();
-      JsonNode jsonNodeZohoUserExample = mapper
-          .readTree(FileUtils.readFileToString(jsonNodeZohoUserExampleFile));
-
-      return jsonNodeZohoUserExample.get("FL");
-    }
-    throw new FileNotFoundException();
-  }
-
   private MetisUser registerAndCaptureMetisUser() throws Exception {
+    final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
+
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
-    when(zohoAccessClientDao.getUserByEmail(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
-        .thenReturn(ORGANIZATION_ID);
+    when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
+        .thenReturn(zcrmRecordContactWithAccountInTheFields);
+    when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
+        .thenReturn(
+            (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name"));
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
     ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUser.class);
     verify(psqlMetisUserDao).createMetisUser(metisUserArgumentCaptor.capture());
     return metisUserArgumentCaptor.getValue();
   }
 
+  private static ZCRMRecord getZCRMRecordContactWithAccountInTheFieldsNoOrganizationName() {
+    final ZCRMRecord zcrmRecordContact = getZCRMRecordContact();
+    zcrmRecordContact.setFieldValue("Account_Name", getZCRMRecordAccountNoOrganizationName());
+    return zcrmRecordContact;
+  }
+
+  private static ZCRMRecord getZCRMRecordContactWithAccountInTheFields() {
+    final ZCRMRecord zcrmRecordContact = getZCRMRecordContact();
+    zcrmRecordContact.setFieldValue("Account_Name", getZCRMRecordAccount());
+    return zcrmRecordContact;
+  }
+
+  private static ZCRMRecord getZCRMRecordContact() {
+    final ZCRMRecord zcrmRecordContact = new ZCRMRecord("Contacts");
+    zcrmRecordContact.setEntityId(1482250000004168044L);
+    zcrmRecordContact.setFieldValue("Pick_List_3", "EUROPEANA_DATA_OFFICER");
+    zcrmRecordContact.setFieldValue("Metis_user", true);
+
+    return zcrmRecordContact;
+  }
+
+
+  private static ZCRMRecord getZCRMRecordAccount() {
+    final ZCRMRecord zcrmRecordAccount = new ZCRMRecord("Accounts");
+    zcrmRecordAccount.setEntityId(1482250000004168050L);
+    zcrmRecordAccount.setLookupLabel("Europeana Foundation");
+    zcrmRecordAccount.setFieldValue("Organisation_Role2", Collections.singletonList("Aggregator"));
+
+    return zcrmRecordAccount;
+  }
+
+  private static ZCRMRecord getZCRMRecordAccountNoOrganizationName() {
+    final ZCRMRecord zcrmRecordAccount = getZCRMRecordAccount();
+    zcrmRecordAccount.setLookupLabel(null);
+
+    return zcrmRecordAccount;
+  }
 }

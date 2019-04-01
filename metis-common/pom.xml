@@ -39,6 +39,11 @@
       <version>${version.jedis}</version>
     </dependency>
     <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${version.hibernate.core}</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>${version.spring.context}</version>
@@ -47,6 +52,11 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
       <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.zoho.crm</groupId>
+      <artifactId>java-sdk</artifactId>
+      <version>${version.com.zoho.crm.java-sdk}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>

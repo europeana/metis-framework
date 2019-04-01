@@ -103,6 +103,7 @@
     <version.spring.beans>5.1.2.RELEASE</version.spring.beans>
     <version.spring.test>5.1.2.RELEASE</version.spring.test>
     <version.saxon.he>9.8.0-11</version.saxon.he>
+    <version.com.zoho.crm.java-sdk>1.0.3</version.com.zoho.crm.java-sdk>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -326,6 +327,12 @@
       <id>maven2-repository.dev.java.net</id>
       <name>Java.net Maven 2 Repository (mirror)</name>
       <url>http://artifactory.eanadev.org/artifactory/java.net.m2</url>
+    </repository>
+
+    <!--ZohoCRM libraries-->
+    <repository>
+      <id>maven.zohodl.com</id>
+      <url>https://maven.zohodl.com</url>
     </repository>
   </repositories>
   <build>

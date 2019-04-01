@@ -1,7 +1,10 @@
 package eu.europeana.metis.authentication.rest.config;
 
+import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
-import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
+import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
+import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
+import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
@@ -47,12 +50,10 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${truststore.password}")
   private String truststorePassword;
 
-  @Value("${zoho.base.url}")
-  private String zohoBaseUrl;
-  @Value("${zoho.authentication.token}")
-  private String zohoAuthenticationToken;
-  @Value("${access.token.expire.time.in.mins}")
-  private int accessTokenExpireTimeInMins;
+  @Value("${zoho.initial.grant.token}")
+  private String zohoInitialGrantToken;
+  @Value("${metis.access.token.expire.time.in.mins}")
+  private int metisAccessTokenExpireTimeInMins;
   @Value("${allowed.cors.hosts}")
   private String[] allowedCorsHosts;
 
@@ -78,20 +79,20 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   /**
    * Get the Service for authentication.
    *
-   * @param zohoAccessClientDao the dao instance to access Zoho
    * @param psqlMetisUserDao the dao instance to access user information from the internal database
+   * @param zohoAccessClient the zoho client
    * @return the authentication service instance
    */
   @Bean
-  public AuthenticationService getAuthenticationService(ZohoAccessClientDao zohoAccessClientDao,
-      PsqlMetisUserDao psqlMetisUserDao) {
-    authenticationService = new AuthenticationService(zohoAccessClientDao, psqlMetisUserDao);
+  public AuthenticationService getAuthenticationService(PsqlMetisUserDao psqlMetisUserDao,
+      ZohoAccessClient zohoAccessClient) {
+    authenticationService = new AuthenticationService(psqlMetisUserDao, zohoAccessClient);
     return authenticationService;
   }
 
   @Bean
-  public ZohoAccessClientDao getZohoAccessClientDao() {
-    return new ZohoAccessClientDao(zohoBaseUrl, zohoAuthenticationToken);
+  public ZohoAccessClient getZohoAccessClient() throws ZohoOAuthException {
+    return new ZohoAccessClient(zohoInitialGrantToken);
   }
 
   @Bean
@@ -99,6 +100,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
     configuration.addAnnotatedClass(MetisUser.class);
     configuration.addAnnotatedClass(MetisUserAccessToken.class);
+    configuration.addAnnotatedClass(MetisZohoOAuthToken.class);
     configuration.configure();
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
         configuration.getProperties()).build();
@@ -115,7 +117,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Bean
   public PsqlMetisUserDao getPsqlMetisUserDao(SessionFactory sessionFactory) {
     PsqlMetisUserDao psqlMetisUserDao = new PsqlMetisUserDao(sessionFactory);
-    psqlMetisUserDao.setAccessTokenExpireTimeInMins(accessTokenExpireTimeInMins);
+    psqlMetisUserDao.setAccessTokenExpireTimeInMins(metisAccessTokenExpireTimeInMins);
     return psqlMetisUserDao;
   }
 
@@ -135,6 +137,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     if (sessionFactory != null && !sessionFactory.isClosed()) {
       sessionFactory.close();
     }
+    //Close static session factory
+    MetisZohoOAuthPSQLHandler.close();
   }
 
   @Override

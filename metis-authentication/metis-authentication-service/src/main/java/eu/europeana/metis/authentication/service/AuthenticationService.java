@@ -1,23 +1,26 @@
 package eu.europeana.metis.authentication.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.zoho.crm.library.crud.ZCRMRecord;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
-import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.authentication.utils.ZohoMetisUserUtils;
+import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.zoho.ZohoAccessClient;
+import eu.europeana.metis.zoho.ZohoConstants;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
-import java.text.ParseException;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -25,11 +28,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
- * Service class that controls communication between the postgresql database and Zoho external
- * service.
+ * Service that handles all related operations to authentication including  communication between a
+ * psql database and Zoho.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-10-27
+ * @since 2018-12-05
  */
 @Service
 public class AuthenticationService {
@@ -38,21 +41,20 @@ public class AuthenticationService {
   private static final int CREDENTIAL_FIELDS_NUMBER = 2;
   private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   private static final int ACCESS_TOKEN_LENGTH = 32;
-  private final ZohoAccessClientDao zohoAccessClientDao;
   private final PsqlMetisUserDao psqlMetisUserDao;
+  private final ZohoAccessClient zohoAccessClient;
 
   /**
    * Constructor of class with required parameters
    *
-   * @param zohoAccessClientDao {@link ZohoAccessClientDao}
-   * @param psqlMetisUserDao {@link PsqlMetisUserDao}
+   * @param psqlMetisUserDao the psql object to access postgres database
+   * @param zohoAccessClient the object to communicate with Zoho
    */
   @Autowired
-  public AuthenticationService(
-      ZohoAccessClientDao zohoAccessClientDao,
-      PsqlMetisUserDao psqlMetisUserDao) {
-    this.zohoAccessClientDao = zohoAccessClientDao;
+  public AuthenticationService(PsqlMetisUserDao psqlMetisUserDao,
+      ZohoAccessClient zohoAccessClient) {
     this.psqlMetisUserDao = psqlMetisUserDao;
+    this.zohoAccessClient = zohoAccessClient;
   }
 
   /**
@@ -69,8 +71,7 @@ public class AuthenticationService {
    * system.</li>
    * </ul>
    */
-  public void registerUser(String email, String password)
-      throws GenericMetisException {
+  public void registerUser(String email, String password) throws GenericMetisException {
 
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser != null) {
@@ -120,19 +121,14 @@ public class AuthenticationService {
   private MetisUser constructMetisUserFromZoho(String email)
       throws GenericMetisException {
     //Get user from zoho
-    JsonNode userByEmailJsonNode;
-    userByEmailJsonNode = zohoAccessClientDao.getUserByEmail(email);
-    if (userByEmailJsonNode == null) {
+    final ZCRMRecord zcrmRecordContact = zohoAccessClient.getZcrmRecordContactByEmail(email);
+    if (zcrmRecordContact == null) {
       throw new NoUserFoundException("User was not found in Zoho");
     }
 
     //Construct User
-    MetisUser metisUser;
-    try {
-      metisUser = new MetisUser(userByEmailJsonNode);
-    } catch (ParseException e) {
-      throw new BadContentException("Bad content while constructing metisUser", e);
-    }
+    MetisUser metisUser = ZohoMetisUserUtils.checkZohoFieldsAndPopulateMetisUser(zcrmRecordContact);
+
     if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {
       throw new BadContentException(
@@ -140,12 +136,32 @@ public class AuthenticationService {
               + "required fields defined properly in Zoho(Organization Name, Metis user, Account Role)");
     }
 
-    //Get Organization Id related to user
-    String organizationId;
-    organizationId = zohoAccessClientDao
-        .getOrganizationIdByOrganizationName(metisUser.getOrganizationName());
-    metisUser.setOrganizationId(organizationId);
+    //Check if organization role is valid
+    checkMetisUserOrganizationRole(metisUser);
+
     return metisUser;
+  }
+
+  private void checkMetisUserOrganizationRole(MetisUser metisUser) throws BadContentException {
+    final ZCRMRecord zcrmRecordOrganization = zohoAccessClient
+        .getZcrmRecordOrganizationByName(metisUser.getOrganizationName());
+    if (zcrmRecordOrganization == null) {
+      throw new BadContentException("Organization Role from Zoho is empty");
+    }
+    final HashMap<String, Object> propertiesMap = zcrmRecordOrganization.getData();
+    final List<String> organizationRoleStringList = (List<String>) propertiesMap
+        .get(ZohoConstants.ORGANIZATION_ROLE_FIELD);
+
+    OrganizationRole organizationRole = null;
+    for (String organizationRoleString : organizationRoleStringList) {
+      organizationRole = OrganizationRole.getRoleFromName(organizationRoleString);
+      if (organizationRole != null) {
+        break;
+      }
+    }
+    if (organizationRole == null) {
+      throw new BadContentException("Organization Role from Zoho is empty");
+    }
   }
 
   private String generatePasswordHashing(String password) {
@@ -455,3 +471,4 @@ public class AuthenticationService {
     return allMetisUsers;
   }
 }
+
