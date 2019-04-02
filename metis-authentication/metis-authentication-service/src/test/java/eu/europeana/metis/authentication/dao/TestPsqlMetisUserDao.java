@@ -14,12 +14,13 @@ import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.TransactionException;
+import org.hibernate.query.Query;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +38,7 @@ class TestPsqlMetisUserDao {
   private static SessionFactory sessionFactory;
   private static Session session;
   private static Transaction transaction;
-  private static Query query;
+  private static org.hibernate.query.Query query;
   private static PsqlMetisUserDao psqlMetisUserDao;
 
   @BeforeAll
@@ -71,7 +72,6 @@ class TestPsqlMetisUserDao {
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).persist(any(Object.class));
     inOrder.verify(transaction, times(1)).commit();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
   }
@@ -87,7 +87,6 @@ class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).persist(any(Object.class));
     inOrder.verify(transaction, times(1)).commit();
     inOrder.verify(transaction, times(1)).rollback();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
   }
@@ -100,7 +99,6 @@ class TestPsqlMetisUserDao {
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).update(any(Object.class));
     inOrder.verify(transaction, times(1)).commit();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
   }
@@ -115,7 +113,6 @@ class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).update(any(Object.class));
     inOrder.verify(transaction, times(1)).commit();
     inOrder.verify(transaction, times(1)).rollback();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
   }
@@ -132,7 +129,6 @@ class TestPsqlMetisUserDao {
     ArgumentCaptor<String> hqlArgumentCaptor = ArgumentCaptor.forClass(String.class);
     InOrder inOrder = Mockito.inOrder(session);
     inOrder.verify(session, times(1)).createQuery(hqlArgumentCaptor.capture());
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
@@ -157,7 +153,6 @@ class TestPsqlMetisUserDao {
     ArgumentCaptor<String> hqlArgumentCaptor = ArgumentCaptor.forClass(String.class);
     InOrder inOrder = Mockito.inOrder(session);
     inOrder.verify(session, times(2)).createQuery(hqlArgumentCaptor.capture());
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
@@ -176,7 +171,6 @@ class TestPsqlMetisUserDao {
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).persist(any(Object.class));
     inOrder.verify(transaction, times(1)).commit();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
   }
@@ -191,16 +185,17 @@ class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).persist(any(Object.class));
     inOrder.verify(transaction, times(1)).commit();
     inOrder.verify(transaction, times(1)).rollback();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
   }
 
   @Test
   void expireAccessTokens() {
-    Criteria criteria = Mockito.mock(Criteria.class);
+    final CriteriaBuilder builder = Mockito.mock(CriteriaBuilder.class);
+    final CriteriaQuery<MetisUserAccessToken> criteriaQuery = Mockito.mock(CriteriaQuery.class);
+    final Query<MetisUserAccessToken> query = Mockito.mock(Query.class);
+
     when(session.beginTransaction()).thenReturn(transaction);
-    when(session.createCriteria(MetisUserAccessToken.class)).thenReturn(criteria);
     ArrayList<MetisUserAccessToken> metisUserAccessTokens = new ArrayList<>(1);
     MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
     metisUserAccessToken.setEmail("email@email.com");
@@ -209,9 +204,12 @@ class TestPsqlMetisUserDao {
     metisUserAccessToken.setTimestamp(new Date(
         now.getTime() - ((psqlMetisUserDao.getAccessTokenExpireTimeInMins() + 1) * 60000)));
     metisUserAccessTokens.add(metisUserAccessToken);
-    when(criteria.list()).thenReturn(metisUserAccessTokens).thenReturn(new ArrayList<>());
-    when(criteria.setFirstResult(anyInt())).thenReturn(criteria);
-    when(criteria.setMaxResults(anyInt())).thenReturn(criteria);
+    when(session.getCriteriaBuilder()).thenReturn(builder);
+    when(builder.createQuery(MetisUserAccessToken.class)).thenReturn(criteriaQuery);
+    when(session.createQuery(criteriaQuery)).thenReturn(query);
+    when(query.getResultList()).thenReturn(metisUserAccessTokens).thenReturn(new ArrayList<>());
+    when(query.setFirstResult(anyInt())).thenReturn(query);
+    when(query.setMaxResults(anyInt())).thenReturn(query);
     when(session.createQuery(any(String.class))).thenReturn(query);
     when(query.executeUpdate()).thenReturn(1);
 
@@ -222,7 +220,6 @@ class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).createQuery(hqlArgumentCaptor.capture());
     inOrder.verify(query, times(1)).executeUpdate();
     inOrder.verify(transaction, times(1)).commit();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
@@ -240,7 +237,6 @@ class TestPsqlMetisUserDao {
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(transaction, times(1)).commit();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
@@ -269,7 +265,6 @@ class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).createQuery(hqlArgumentCaptor.capture());
     inOrder.verify(query, times(1)).executeUpdate();
     inOrder.verify(transaction, times(1)).commit();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
@@ -291,7 +286,6 @@ class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).createQuery(hqlArgumentCaptor.capture());
     inOrder.verify(query, times(1)).executeUpdate();
     inOrder.verify(transaction, times(1)).commit();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
@@ -313,7 +307,6 @@ class TestPsqlMetisUserDao {
     inOrder.verify(session, times(1)).createQuery(hqlArgumentCaptor.capture());
     inOrder.verify(query, times(1)).executeUpdate();
     inOrder.verify(transaction, times(1)).commit();
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
 
@@ -324,17 +317,20 @@ class TestPsqlMetisUserDao {
 
   @Test
   void getAllMetisUsers() {
-    Criteria criteria = Mockito.mock(Criteria.class);
+    final CriteriaBuilder builder = Mockito.mock(CriteriaBuilder.class);
+    final CriteriaQuery<MetisUser> criteriaQuery = Mockito.mock(CriteriaQuery.class);
+    final Query<MetisUser> query = Mockito.mock(Query.class);
     ArrayList<MetisUser> metisUsers = new ArrayList<>(1);
     metisUsers.add(new MetisUser());
 
-    when(session.createCriteria(MetisUser.class)).thenReturn(criteria);
-    when(criteria.list()).thenReturn(metisUsers);
+    when(session.getCriteriaBuilder()).thenReturn(builder);
+    when(builder.createQuery(MetisUser.class)).thenReturn(criteriaQuery);
+    when(session.createQuery(criteriaQuery)).thenReturn(query);
+    when(query.getResultList()).thenReturn(metisUsers);
 
     psqlMetisUserDao.getAllMetisUsers();
 
     InOrder inOrder = Mockito.inOrder(session);
-    inOrder.verify(session, times(1)).flush();
     inOrder.verify(session, times(1)).close();
     inOrder.verifyNoMoreInteractions();
   }

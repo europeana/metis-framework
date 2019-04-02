@@ -225,7 +225,7 @@ class AuthenticationServiceTest {
   @Test
   void validateAuthorizationHeaderWithAccessTokenAuthorizationHeaderNotValidCharacters() {
     String accessToken = authenticationService.generateAccessToken();
-    String invalidAccessToken = "ξξ" + accessToken.substring(2, accessToken.length());
+    String invalidAccessToken = "ξξ" + accessToken.substring(2);
     assertThrows(UserUnauthorizedException.class, () -> authenticationService
         .validateAuthorizationHeaderWithAccessToken("Bearer " + invalidAccessToken));
   }

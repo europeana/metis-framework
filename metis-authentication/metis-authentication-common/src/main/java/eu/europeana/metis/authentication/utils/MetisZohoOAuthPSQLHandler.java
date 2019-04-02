@@ -4,7 +4,7 @@ import com.zoho.oauth.client.ZohoPersistenceHandler;
 import com.zoho.oauth.common.ZohoOAuthException;
 import com.zoho.oauth.contract.ZohoOAuthTokens;
 import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -70,7 +70,7 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
           .createQuery(String
               .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
                   USER_IDENTIFIER_STRING));
-      query.setString(USER_IDENTIFIER_STRING, userIdentifier);
+      query.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
       if (!query.list().isEmpty()) {
         metisZohoOAuthToken = (MetisZohoOAuthToken) query.list().get(0);
       } else {
@@ -95,7 +95,7 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
       Query deleteQuery = session.createQuery(
           String.format("DELETE FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
               USER_IDENTIFIER_STRING));
-      deleteQuery.setString(USER_IDENTIFIER_STRING, userIdentifier);
+      deleteQuery.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
       int i = deleteQuery.executeUpdate();
       LOGGER.info("Removed {} Metis Zoho OAuth tokens with user identifier: {}", i, userIdentifier);
 
