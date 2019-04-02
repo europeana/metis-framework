@@ -43,8 +43,8 @@
           <groupId>org.apache.httpcomponents</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>org.apache.logging.log4j</artifactId>
-          <groupId>log4j-1.2-api</groupId>
+          <artifactId>log4j-1.2-api</artifactId>
+          <groupId>org.apache.logging.log4j</groupId>
         </exclusion>
         <exclusion>
           <artifactId>junit</artifactId>
@@ -168,6 +168,12 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-common-storage</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>log4j-1.2-api</artifactId>
+          <groupId>org.apache.logging.log4j</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
   <build>
