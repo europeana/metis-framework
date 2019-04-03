@@ -528,6 +528,7 @@ public class OrchestratorService {
    *
    * @param metisUser the user wishing to perform this operation
    * @param nextPage the nextPage token, the end of the list is marked with -1 on the response
+   * @param pageCount the number of pages that are requested
    * @return a list of all the WorkflowExecutions together with the datasets that they belong to.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -536,10 +537,11 @@ public class OrchestratorService {
    * </ul>
    */
   public List<ExecutionAndDatasetView> getWorkflowExecutionsOverview(MetisUser metisUser,
-      int nextPage) throws GenericMetisException {
+      int nextPage, int pageCount) throws GenericMetisException {
     authorizer.authorizeReadAllDatasets(metisUser);
     final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
-    return workflowExecutionDao.getWorkflowExecutionsOverview(datasetIds, nextPage).stream()
+    return workflowExecutionDao.getWorkflowExecutionsOverview(datasetIds, nextPage, pageCount)
+        .stream()
         .map(result -> new ExecutionAndDatasetView(result.getExecution(), result.getDataset()))
         .collect(Collectors.toList());
   }

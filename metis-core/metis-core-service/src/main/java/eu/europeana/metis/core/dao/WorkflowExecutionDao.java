@@ -369,10 +369,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    *
    * @param datasetIds a set of dataset identifiers to filter, can be empty or null to get all
    * @param nextPage the nextPage token
+   * @param pageCount the number of pages that are requested
    * @return a list of all the WorkflowExecutions found
    */
   public List<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
-      int nextPage) {
+      int nextPage, int pageCount) {
 
     // Create the aggregate pipeline
     final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
@@ -417,7 +418,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Step 5: Apply pagination
     pipeline.skip(nextPage * getWorkflowExecutionsPerRequest())
-        .limit(getWorkflowExecutionsPerRequest());
+        .limit(getWorkflowExecutionsPerRequest() * pageCount);
 
     // Step 6: Join with the dataset and the execution
     final String datasetCollectionName = morphiaDatastoreProvider.getDatastore()
