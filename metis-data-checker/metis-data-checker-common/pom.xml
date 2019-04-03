@@ -28,7 +28,7 @@
     <dependency>
       <groupId>org.apache.solr</groupId>
       <artifactId>solr-solrj</artifactId>
-      <version>6.6.2</version>
+      <version>${version.solr.solrj}</version>
       <exclusions>
         <exclusion>
           <artifactId>jcl-over-slf4j</artifactId>

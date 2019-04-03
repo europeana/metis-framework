@@ -35,10 +35,6 @@
       <version>${version.corelib}</version>
       <exclusions>
         <exclusion>
-          <artifactId>solr-solrj</artifactId>
-          <groupId>org.apache.solr</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>httpclient</artifactId>
           <groupId>org.apache.httpcomponents</groupId>
         </exclusion>
