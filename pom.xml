@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>eu.europeana.metis</groupId>
@@ -43,7 +45,7 @@
   </distributionManagement>
 
   <properties>
-    <jacocoArgLine /> <!-- Leave as is, it's required from jacoco plugin integration -->
+    <jacocoArgLine/> <!-- Leave as is, it's required from jacoco plugin integration -->
     <version.ecloud>1.4.0-SNAPSHOT</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
     <version.redisson>3.5.7</version.redisson>
@@ -130,6 +132,26 @@
         <version>${version.corelib}</version>
         <exclusions>
           <exclusion>
+            <artifactId>object-storage</artifactId>
+            <groupId>eu.europeana</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
           </exclusion>
@@ -141,12 +163,114 @@
             <artifactId>jcl-over-slf4j</artifactId>
             <groupId>org.slf4j</groupId>
           </exclusion>
+          <exclusion>
+            <artifactId>harvester-client</artifactId>
+            <groupId>eu.europeana</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jetty-jndi</artifactId>
+            <groupId>org.eclipse.jetty</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jersey-core</artifactId>
+            <groupId>com.sun.jersey</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jersey-client</artifactId>
+            <groupId>com.sun.jersey</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jersey-multipart</artifactId>
+            <groupId>com.sun.jersey.contribs</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jersey-server</artifactId>
+            <groupId>com.sun.jersey</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>neo4j-community</artifactId>
+            <groupId>org.neo4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>neo4j-cypher</artifactId>
+            <groupId>org.neo4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>neo4j-kernel</artifactId>
+            <groupId>org.neo4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>neo4j-rest-graphdb</artifactId>
+            <groupId>org.neo4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jsr311-api</artifactId>
+            <groupId>javax.ws.rs</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jackson-annotations</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-xc</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-cbor</artifactId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jackson-annotations</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jackson-databind</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jackson-core</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
         <artifactId>corelib-common-storage</artifactId>
         <version>${version.corelib}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>log4j-1.2-api</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
@@ -398,7 +522,7 @@
           <instrumentation>
             <ignoreTrivial>true</ignoreTrivial>
           </instrumentation>
-          <check />
+          <check/>
         </configuration>
       </plugin>
       <plugin>

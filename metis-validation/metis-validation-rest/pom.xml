@@ -168,12 +168,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-common-storage</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>log4j-1.2-api</artifactId>
-          <groupId>org.apache.logging.log4j</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
   <build>

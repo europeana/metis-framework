@@ -21,32 +21,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>de.flapdoodle.embed</groupId>
-          <artifactId>de.flapdoodle.embed.mongo</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.mongodb</groupId>
-          <artifactId>mongo-java-driver</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.solr</groupId>
-          <artifactId>solr-solrj</artifactId>
-        </exclusion>
-        <exclusion>
-          <artifactId>object-storage</artifactId>
-          <groupId>eu.europeana</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>harvester-client</artifactId>
-          <groupId>eu.europeana</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>mockito-all</artifactId>
-          <groupId>org.mockito</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
