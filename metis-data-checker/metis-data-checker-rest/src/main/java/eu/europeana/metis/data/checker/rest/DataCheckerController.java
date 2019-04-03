@@ -30,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * Data checker service REST controller Created by ymamakis on 9/2/16.
  */
-@Controller(value = "/")
+@Controller
 @Api(value = "/")
 public class DataCheckerController {
 
