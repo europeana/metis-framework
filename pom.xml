@@ -137,6 +137,10 @@
             <artifactId>log4j-1.2-api</artifactId>
             <groupId>org.apache.logging.log4j</groupId>
           </exclusion>
+          <exclusion>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <groupId>org.slf4j</groupId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
