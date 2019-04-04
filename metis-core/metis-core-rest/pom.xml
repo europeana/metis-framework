@@ -88,6 +88,13 @@
       <version>${version.jackson}</version>
     </dependency>
 
+    <!--Is used to remove the deployment exception in tomcat about class not found SLF4JBridgeHandler-->
+    <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>jul-to-slf4j</artifactId>
+    <version>${version.jul.to.slf4j}</version>
+    </dependency>
+
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
