@@ -38,6 +38,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -192,6 +193,11 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addRedirectViewController("/", "swagger-ui.html");
+  }
+
+  @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
   }
@@ -263,8 +269,15 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   private ApiInfo apiInfo() {
-    return new ApiInfo("Data Checker REST API", "Data Checker REST API for Europeana", "v1",
-        "API TOS", new Contact("development", "europeana.eu", "development@europeana.eu"),
-        "EUPL Licence v1.1", "");
+    Contact contact = new Contact("development", "europeana.eu", "development@europeana.eu");
+
+    return new ApiInfo(
+        "Data Checker REST API",
+        "Data Checker REST API for Europeana",
+        "v1",
+        "API TOS",
+        contact,
+        "EUPL Licence v1.1",
+        "");
   }
 }

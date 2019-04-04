@@ -71,18 +71,6 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.tomcat.maven</groupId>
-        <artifactId>tomcat7-maven-plugin</artifactId>
-        <version>2.2</version>
-        <configuration>
-          <url>http://metis-storage.eanadev.org:8080/manager/text</url>
-          <server>TomcatServer</server>
-          <path>/metis-enrichment-proxy-rest-test</path>
-          <username>tomcat</username>
-          <password>admin12</password>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 </project>

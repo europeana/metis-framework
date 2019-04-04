@@ -25,10 +25,6 @@
       <version>${version.corelib}</version>
       <exclusions>
         <exclusion>
-          <artifactId>solr-solrj</artifactId>
-          <groupId>org.apache.solr</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>wstx-asl</artifactId>
           <groupId>org.codehaus.woodstox</groupId>
         </exclusion>
@@ -65,11 +61,6 @@
           <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <version>${version.slf4j}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
