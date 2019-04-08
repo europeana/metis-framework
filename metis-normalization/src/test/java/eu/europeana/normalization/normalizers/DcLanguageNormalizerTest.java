@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
-class ProviderProxyLanguageNormalizerTest {
+class DcLanguageNormalizerTest {
 
   @Test
   void testNormalizeValue() {
@@ -37,8 +37,8 @@ class ProviderProxyLanguageNormalizerTest {
 
     // Create normalizer
     final float minimumConfidence = 0.5f;
-    final ProviderProxyLanguageNormalizer normalizer =
-        spy(new ProviderProxyLanguageNormalizer(matcher, minimumConfidence));
+    final DcLanguageNormalizer normalizer =
+        spy(new DcLanguageNormalizer(matcher, minimumConfidence));
 
     // Check with valid confidence
     final float validConfidence = minimumConfidence + 0.1F;
@@ -71,22 +71,22 @@ class ProviderProxyLanguageNormalizerTest {
     final LanguageMatch noMatch = new LanguageMatch("input4", null, Type.NO_MATCH);
 
     // Create normalizer
-    final ProviderProxyLanguageNormalizer normalizer = new ProviderProxyLanguageNormalizer(null, 1.0f);
+    final DcLanguageNormalizer normalizer = new DcLanguageNormalizer(null, 1.0f);
 
     // Test single codes or labels
-    assertEquals(Float.valueOf(ProviderProxyLanguageNormalizer.CONFIDENCE_SINGLE_CODE_EQUALS),
+    assertEquals(Float.valueOf(DcLanguageNormalizer.CONFIDENCE_SINGLE_CODE_EQUALS),
         normalizer.determineConfidence(Collections.singletonList(exactMatch)));
-    assertEquals(Float.valueOf(ProviderProxyLanguageNormalizer.CONFIDENCE_SINGLE_CODE_KNOWN),
+    assertEquals(Float.valueOf(DcLanguageNormalizer.CONFIDENCE_SINGLE_CODE_KNOWN),
         normalizer.determineConfidence(Collections.singletonList(codeMatch)));
-    assertEquals(Float.valueOf(ProviderProxyLanguageNormalizer.CONFIDENCE_LABELS_OR_CODES_MATCHES),
+    assertEquals(Float.valueOf(DcLanguageNormalizer.CONFIDENCE_LABELS_OR_CODES_MATCHES),
         normalizer.determineConfidence(Collections.singletonList(labelMatch)));
 
     // Test multiple codes and labels
-    assertEquals(Float.valueOf(ProviderProxyLanguageNormalizer.CONFIDENCE_LABELS_OR_CODES_MATCHES),
+    assertEquals(Float.valueOf(DcLanguageNormalizer.CONFIDENCE_LABELS_OR_CODES_MATCHES),
         normalizer.determineConfidence(Arrays.asList(labelMatch, labelMatch)));
-    assertEquals(Float.valueOf(ProviderProxyLanguageNormalizer.CONFIDENCE_LABELS_OR_CODES_MATCHES),
+    assertEquals(Float.valueOf(DcLanguageNormalizer.CONFIDENCE_LABELS_OR_CODES_MATCHES),
         normalizer.determineConfidence(Arrays.asList(exactMatch, codeMatch)));
-    assertEquals(Float.valueOf(ProviderProxyLanguageNormalizer.CONFIDENCE_LABELS_AND_CODES_MATCHES),
+    assertEquals(Float.valueOf(DcLanguageNormalizer.CONFIDENCE_LABELS_AND_CODES_MATCHES),
         normalizer.determineConfidence(Arrays.asList(exactMatch, labelMatch)));
 
     // Test no match

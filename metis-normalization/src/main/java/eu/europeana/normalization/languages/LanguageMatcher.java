@@ -1,19 +1,20 @@
 package eu.europeana.normalization.languages;
 
+import eu.europeana.normalization.languages.LanguageMatch.Type;
+import eu.europeana.normalization.settings.AmbiguityHandling;
+import eu.europeana.normalization.util.NormalizationConfigurationException;
+import eu.europeana.normalization.util.StringNormalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import eu.europeana.normalization.languages.LanguageMatch.Type;
-import eu.europeana.normalization.settings.AmbiguityHandling;
-import eu.europeana.normalization.util.NormalizationConfigurationException;
-import eu.europeana.normalization.util.StringNormalizer;
 
 /**
  * Provides the matching algorithms for matching dc:language values with codes and labels in the
@@ -30,7 +31,7 @@ public class LanguageMatcher {
 
   private final int minimumLabelLength;
   private final AmbiguityHandling ambiguityHandling;
-  private final LanguagesVocabulary targetVocabulary;
+  private final List<LanguagesVocabulary> targetVocabularies;
   private final Function<String, String> stringNormalizer;
 
   private final Map<String, String> isoCodes = new HashMap<>();
@@ -39,34 +40,39 @@ public class LanguageMatcher {
 
   /**
    * Constructor.
-   * 
+   *
    * @param minimumLabelLength The minimum label length for indexing.
    * @param ambiguityHandling The minimum ambiguity handling for matching.
-   * @param targetVocabulary The target vocabulary in which to return the match results.
+   * @param targetVocabularies The target vocabularies in which to return the match results. The
+   * language code for a matching language will be decided by the first vocabulary in this list that
+   * contains a code for that language. The list must contain at least one vocabulary.
    * @throws NormalizationConfigurationException In case the list of languages could not be
-   *         configured properly.
+   * configured properly.
    */
   public LanguageMatcher(int minimumLabelLength, AmbiguityHandling ambiguityHandling,
-      LanguagesVocabulary targetVocabulary) throws NormalizationConfigurationException {
-    this(minimumLabelLength, ambiguityHandling, targetVocabulary, Languages.getLanguages(),
+      List<LanguagesVocabulary> targetVocabularies)
+      throws NormalizationConfigurationException {
+    this(minimumLabelLength, ambiguityHandling, targetVocabularies, Languages.getLanguages(),
         StringNormalizer::normalize);
   }
 
   /**
    * Constructor for Mocking.
-   * 
+   *
    * @param minimumLabelLength The minimum label length for indexing.
    * @param ambiguityHandling The minimum ambiguity handling for matching.
-   * @param targetVocabulary The target vocabulary in which to return the match results.
+   * @param targetVocabularies The target vocabularies in which to return the match results. The
+   * language code for a matching language will be decided by the first vocabulary in this list that
+   * contains a code for that language. The list must contain at least one vocabulary.
    * @param languages The language vocabulary.
    * @param stringNormalizer The function that normalizes a string, used for indexing.
    */
   LanguageMatcher(int minimumLabelLength, AmbiguityHandling ambiguityHandling,
-      LanguagesVocabulary targetVocabulary, Languages languages,
+      List<LanguagesVocabulary> targetVocabularies, Languages languages,
       Function<String, String> stringNormalizer) {
     this.minimumLabelLength = minimumLabelLength;
     this.ambiguityHandling = ambiguityHandling;
-    this.targetVocabulary = targetVocabulary;
+    this.targetVocabularies = new ArrayList<>(targetVocabularies);
     this.stringNormalizer = stringNormalizer;
     for (Language l : languages.getActiveLanguages()) {
       index(l);
@@ -76,7 +82,8 @@ public class LanguageMatcher {
   private void index(Language language) {
 
     // Get the normalized language ID.
-    final String languageId = language.getNormalizedLanguageId(targetVocabulary);
+    final String languageId = targetVocabularies.stream().map(language::getNormalizedLanguageId)
+        .filter(Objects::nonNull).findFirst().orElse(null);
     if (languageId == null) {
       return;
     }

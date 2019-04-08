@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.settings.AmbiguityHandling;
-import eu.europeana.normalization.util.NormalizationConfigurationException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import org.junit.jupiter.api.BeforeAll;
@@ -50,36 +50,36 @@ class LanguageMatcherTest {
     language1.setIso6392t(LANGUAGE_1_CODE_2T);
     language1.setIso6393(LANGUAGE_1_CODE_3);
     language1.setAuthorityCode(LANGUAGE_1_CODE_NAL);
-    language1.addOriginalNames(
-        Arrays.asList(new LanguageLabel(LANGUAGE_1_LABEL_1, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
-    language1.addLabels(
-        Arrays.asList(new LanguageLabel(LANGUAGE_1_LABEL_2, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
-    language1.addLabels(
-        Arrays.asList(new LanguageLabel(LANGUAGE_1_LABEL_3, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
-    language1.addLabels(
-        Arrays.asList(new LanguageLabel(LANGUAGE_1_LABEL_3, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
-    language1.addLabels(
-        Arrays.asList(new LanguageLabel(AMBIGUOUS_LABEL, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
-    language1
-        .addLabels(Arrays.asList(new LanguageLabel(SHORT_LABEL, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
+    language1.addOriginalNames(Collections
+        .singletonList(new LanguageLabel(LANGUAGE_1_LABEL_1, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
+    language1.addLabels(Collections
+        .singletonList(new LanguageLabel(LANGUAGE_1_LABEL_2, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
+    language1.addLabels(Collections
+        .singletonList(new LanguageLabel(LANGUAGE_1_LABEL_3, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
+    language1.addLabels(Collections
+        .singletonList(new LanguageLabel(LANGUAGE_1_LABEL_3, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
+    language1.addLabels(Collections
+        .singletonList(new LanguageLabel(AMBIGUOUS_LABEL, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
+    language1.addLabels(Collections
+        .singletonList(new LanguageLabel(SHORT_LABEL, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
 
     final Language language2 = new Language();
     language2.setIso6393(LANGUAGE_2_CODE_3);
-    language2.addOriginalNames(
-        Arrays.asList(new LanguageLabel(LANGUAGE_2_LABEL_1, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
-    language2.addLabels(
-        Arrays.asList(new LanguageLabel(LANGUAGE_2_LABEL_2, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
-    language2.addLabels(
-        Arrays.asList(new LanguageLabel(LANGUAGE_2_LABEL_3, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
-    language2.addLabels(
-        Arrays.asList(new LanguageLabel(LANGUAGE_2_LABEL_3, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
-    language2.addLabels(
-        Arrays.asList(new LanguageLabel(AMBIGUOUS_LABEL, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
+    language2.addOriginalNames(Collections
+        .singletonList(new LanguageLabel(LANGUAGE_2_LABEL_1, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
+    language2.addLabels(Collections
+        .singletonList(new LanguageLabel(LANGUAGE_2_LABEL_2, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
+    language2.addLabels(Collections
+        .singletonList(new LanguageLabel(LANGUAGE_2_LABEL_3, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
+    language2.addLabels(Collections
+        .singletonList(new LanguageLabel(LANGUAGE_2_LABEL_3, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
+    language2.addLabels(Collections
+        .singletonList(new LanguageLabel(AMBIGUOUS_LABEL, LABEL_LANGUAGE_1, LABEL_SCRIPT)));
 
     final Language language3 = new Language();
     language3.setIso6393(LANGUAGE_3_CODE_3);
-    language3.addLabels(
-        Arrays.asList(new LanguageLabel(AMBIGUOUS_LABEL, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
+    language3.addLabels(Collections
+        .singletonList(new LanguageLabel(AMBIGUOUS_LABEL, LABEL_LANGUAGE_2, LABEL_SCRIPT)));
 
     languages = createLanguages(language1, language2, language3);
   }
@@ -97,7 +97,7 @@ class LanguageMatcherTest {
 
     // Create matcher
     final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
-        LanguagesVocabulary.ISO_639_3, languages, Function.identity());
+        Collections.singletonList(LanguagesVocabulary.ISO_639_3), languages, Function.identity());
 
     // Match single existing codes
     assertSingleMatch(matcher, LANGUAGE_1_CODE_1, LANGUAGE_1_CODE_3, Type.CODE_MATCH);
@@ -125,7 +125,7 @@ class LanguageMatcherTest {
 
     // Create matcher
     final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
-        LanguagesVocabulary.ISO_639_3, languages, Function.identity());
+        Collections.singletonList(LanguagesVocabulary.ISO_639_3), languages, Function.identity());
 
     // Match multiple existing codes
     final List<LanguageMatch> matchCodes =
@@ -156,13 +156,13 @@ class LanguageMatcherTest {
 
     // Test ambiguity handling NO_MATCH.
     final LanguageMatcher matcherChooseNone = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
-        LanguagesVocabulary.ISO_639_3, languages, Function.identity());
+        Collections.singletonList(LanguagesVocabulary.ISO_639_3), languages, Function.identity());
     assertSingleMatch(matcherChooseNone, AMBIGUOUS_LABEL, null, Type.NO_MATCH);
 
     // Test ambiguity handling FIRST_MATCH.
-    final LanguageMatcher matcherChooseFirst =
-        new LanguageMatcher(4, AmbiguityHandling.CHOOSE_FIRST, LanguagesVocabulary.ISO_639_3,
-            languages, Function.identity());
+    final LanguageMatcher matcherChooseFirst = new LanguageMatcher(4,
+        AmbiguityHandling.CHOOSE_FIRST, Collections.singletonList(LanguagesVocabulary.ISO_639_3),
+        languages, Function.identity());
     assertSingleMatch(matcherChooseFirst, AMBIGUOUS_LABEL, LANGUAGE_1_CODE_3, Type.LABEL_MATCH);
   }
 
@@ -172,7 +172,7 @@ class LanguageMatcherTest {
 
     // Test what happens when a nonexisting code is matched.
     final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
-        LanguagesVocabulary.ISO_639_3, languages, Function.identity());
+        Collections.singletonList(LanguagesVocabulary.ISO_639_3), languages, Function.identity());
     assertSingleMatch(matcher, NONEXISTING_CODE, null, Type.NO_MATCH);
     assertSingleMatch(matcher, NONEXISTING_LABEL, null, Type.NO_MATCH);
   }
@@ -182,7 +182,7 @@ class LanguageMatcherTest {
 
     // Test what happens when a language doesn't have a code in the target vocabulary
     final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
-        LanguagesVocabulary.ISO_639_1, languages, Function.identity());
+        Collections.singletonList(LanguagesVocabulary.ISO_639_1), languages, Function.identity());
     assertSingleMatch(matcher, LANGUAGE_1_CODE_1, LANGUAGE_1_CODE_1, Type.CODE_MATCH);
     assertSingleMatch(matcher, LANGUAGE_1_CODE_3, LANGUAGE_1_CODE_1, Type.CODE_MATCH);
     assertSingleMatch(matcher, LANGUAGE_1_LABEL_1, LANGUAGE_1_CODE_1, Type.LABEL_MATCH);
@@ -194,19 +194,18 @@ class LanguageMatcherTest {
   void testLanguageCodeWithBadCharacters() {
     final Language language = new Language();
     language.setIso6391("A1a");
-    assertThrows(RuntimeException.class,
-        () -> new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_1,
-            createLanguages(language), Function.identity()));
+    assertThrows(RuntimeException.class, () -> new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
+        Collections.singletonList(LanguagesVocabulary.ISO_639_1), createLanguages(language),
+        Function.identity()));
   }
 
   @Test
   void testLanguageCodeOfWrongLength() {
     final Language language = new Language();
     language.setIso6391("aaaa");
-    assertThrows(RuntimeException.class,
-        () -> new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_1,
-            createLanguages(language), Function.identity()));
-
+    assertThrows(RuntimeException.class, () -> new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
+        Collections.singletonList(LanguagesVocabulary.ISO_639_1), createLanguages(language),
+        Function.identity()));
   }
 
   @Test
@@ -217,19 +216,50 @@ class LanguageMatcherTest {
     final Language language2 = new Language();
     language2.setIso6391("aaa");
     language2.setIso6393("aab");
-    assertThrows(RuntimeException.class,
-        () -> new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_3,
-            createLanguages(language1, language2), Function.identity()));
+    assertThrows(RuntimeException.class, () -> new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
+        Collections.singletonList(LanguagesVocabulary.ISO_639_3),
+        createLanguages(language1, language2), Function.identity()));
   }
 
   @Test
   void testShortLanguageLabels() {
     final LanguageMatcher matcherShort = new LanguageMatcher(SHORT_LABEL.length(),
-        AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_3, languages, Function.identity());
+        AmbiguityHandling.NO_MATCH, Collections.singletonList(LanguagesVocabulary.ISO_639_3),
+        languages, Function.identity());
     assertSingleMatch(matcherShort, SHORT_LABEL, LANGUAGE_1_CODE_3, Type.LABEL_MATCH);
     final LanguageMatcher matcherLong = new LanguageMatcher(SHORT_LABEL.length() + 1,
-        AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_3, languages, Function.identity());
+        AmbiguityHandling.NO_MATCH, Collections.singletonList(LanguagesVocabulary.ISO_639_3),
+        languages, Function.identity());
     assertSingleMatch(matcherLong, SHORT_LABEL, null, Type.NO_MATCH);
+  }
+
+  @Test
+  void testMultipleVocabularies() {
+
+    // Create matcher
+    final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
+        Arrays.asList(LanguagesVocabulary.ISO_639_1, LanguagesVocabulary.ISO_639_3),
+        languages, Function.identity());
+
+    // Match language 1: should come from first vocabulary.
+    assertSingleMatch(matcher, LANGUAGE_1_CODE_1, LANGUAGE_1_CODE_1, Type.CODE_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_CODE_2B, LANGUAGE_1_CODE_1, Type.CODE_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_CODE_2T, LANGUAGE_1_CODE_1, Type.CODE_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_CODE_3, LANGUAGE_1_CODE_1, Type.CODE_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_CODE_NAL, LANGUAGE_1_CODE_1, Type.CODE_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_LABEL_1, LANGUAGE_1_CODE_1, Type.LABEL_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_LABEL_2, LANGUAGE_1_CODE_1, Type.LABEL_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_LABEL_3, LANGUAGE_1_CODE_1, Type.LABEL_MATCH);
+
+    // Match language 2: should come from second vocabulary.
+    assertSingleMatch(matcher, LANGUAGE_2_CODE_3, LANGUAGE_2_CODE_3, Type.CODE_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_2_LABEL_1, LANGUAGE_2_CODE_3, Type.LABEL_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_2_LABEL_2, LANGUAGE_2_CODE_3, Type.LABEL_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_2_LABEL_3, LANGUAGE_2_CODE_3, Type.LABEL_MATCH);
+
+    // Match nonexisting codes and labels.
+    assertSingleMatch(matcher, NONEXISTING_CODE, null, Type.NO_MATCH);
+    assertSingleMatch(matcher, NONEXISTING_LABEL, null, Type.NO_MATCH);
   }
 
   private void assertSingleMatch(final LanguageMatcher matcher, String input, String expectedResult,

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * in {@link LanguageMatcher}. It doesn't overwrite the values, but instead copies them to the
  * Europeana proxy.
  */
-public class ProviderProxyLanguageNormalizer implements ValueNormalizeAction {
+public class DcLanguageNormalizer implements ValueNormalizeAction {
 
   protected static final float CONFIDENCE_SINGLE_CODE_EQUALS = 1.0F;
   protected static final float CONFIDENCE_SINGLE_CODE_KNOWN = 0.98F;
@@ -41,7 +41,7 @@ public class ProviderProxyLanguageNormalizer implements ValueNormalizeAction {
    * @param languageMatcher A language matcher.
    * @param minimumConfidence The minimum confidence to apply to normalizations.
    */
-  public ProviderProxyLanguageNormalizer(LanguageMatcher languageMatcher, float minimumConfidence) {
+  public DcLanguageNormalizer(LanguageMatcher languageMatcher, float minimumConfidence) {
     this.matcher = languageMatcher;
     this.minimumConfidence = minimumConfidence;
   }
