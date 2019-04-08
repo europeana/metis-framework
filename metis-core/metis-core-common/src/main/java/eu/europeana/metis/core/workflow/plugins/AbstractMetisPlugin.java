@@ -365,18 +365,16 @@ public abstract class AbstractMetisPlugin {
    */
   public void execute(DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
       throws ExternalTaskException {
-    if (!getPluginMetadata().isMocked()) {
-      String pluginTypeName = getPluginType().name();
-      LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
-          ecloudBasePluginParameters.getEcloudDatasetId());
-      try {
-        DpsTask dpsTask = prepareDpsTask(ecloudBasePluginParameters);
-        setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
-      } catch (DpsException | RuntimeException e) {
-        throw new ExternalTaskException("Submitting task failed", e);
-      }
-      LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
+    String pluginTypeName = getPluginType().name();
+    LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
+        ecloudBasePluginParameters.getEcloudDatasetId());
+    try {
+      DpsTask dpsTask = prepareDpsTask(ecloudBasePluginParameters);
+      setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
+    } catch (DpsException | RuntimeException e) {
+      throw new ExternalTaskException("Submitting task failed", e);
     }
+    LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
   }
 
   /**

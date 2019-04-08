@@ -163,21 +163,18 @@ class TestQueueConsumer {
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin1 = Mockito.spy(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata1 = new OaipmhHarvestPluginMetadata();
-    oaipmhHarvestPluginMetadata1.setMocked(false);
     oaipmhHarvestPlugin1.setPluginMetadata(oaipmhHarvestPluginMetadata1);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins1 = new ArrayList<>();
     abstractMetisPlugins1.add(oaipmhHarvestPlugin1);
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin2 = Mockito.spy(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata2 = new OaipmhHarvestPluginMetadata();
-    oaipmhHarvestPluginMetadata2.setMocked(false);
     oaipmhHarvestPlugin2.setPluginMetadata(oaipmhHarvestPluginMetadata2);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins2 = new ArrayList<>();
     abstractMetisPlugins2.add(oaipmhHarvestPlugin2);
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin3 = Mockito.spy(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata3 = new OaipmhHarvestPluginMetadata();
-    oaipmhHarvestPluginMetadata3.setMocked(false);
     oaipmhHarvestPlugin3.setPluginMetadata(oaipmhHarvestPluginMetadata3);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins3 = new ArrayList<>();
     abstractMetisPlugins3.add(oaipmhHarvestPlugin3);
@@ -256,14 +253,12 @@ class TestQueueConsumer {
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin1 = Mockito.spy(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata1 = new OaipmhHarvestPluginMetadata();
-    oaipmhHarvestPluginMetadata1.setMocked(false);
     oaipmhHarvestPlugin1.setPluginMetadata(oaipmhHarvestPluginMetadata1);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins1 = new ArrayList<>();
     abstractMetisPlugins1.add(oaipmhHarvestPlugin1);
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin2 = Mockito.spy(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata2 = new OaipmhHarvestPluginMetadata();
-    oaipmhHarvestPluginMetadata2.setMocked(false);
     oaipmhHarvestPlugin2.setPluginMetadata(oaipmhHarvestPluginMetadata2);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins2 = new ArrayList<>();
     abstractMetisPlugins2.add(oaipmhHarvestPlugin2);
@@ -341,14 +336,12 @@ class TestQueueConsumer {
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin1 = Mockito.spy(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata1 = new OaipmhHarvestPluginMetadata();
-    oaipmhHarvestPluginMetadata1.setMocked(false);
     oaipmhHarvestPlugin1.setPluginMetadata(oaipmhHarvestPluginMetadata1);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins1 = new ArrayList<>();
     abstractMetisPlugins1.add(oaipmhHarvestPlugin1);
 
     OaipmhHarvestPlugin oaipmhHarvestPlugin2 = Mockito.spy(OaipmhHarvestPlugin.class);
     OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata2 = new OaipmhHarvestPluginMetadata();
-    oaipmhHarvestPluginMetadata2.setMocked(false);
     oaipmhHarvestPlugin2.setPluginMetadata(oaipmhHarvestPluginMetadata2);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins2 = new ArrayList<>();
     abstractMetisPlugins2.add(oaipmhHarvestPlugin2);
