@@ -671,41 +671,50 @@ class TestOrchestratorController {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    final int listSize = 2;
+    final int pageSize = 2;
     final int nextPage = 5;
+    final int pageCount = 3;
     final List<ExecutionAndDatasetView> listOfWorkflowExecutionAndDatasetViews = TestObjectFactory
-        .createListOfExecutionOverviews(listSize);
+        .createListOfExecutionOverviews(pageSize * pageCount);
 
-    when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getWorkflowExecutionsOverview(eq(metisUser), eq(nextPage)))
+    when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(pageSize);
+    when(orchestratorService.getWorkflowExecutionsOverview(eq(metisUser), eq(nextPage), eq(pageCount)))
         .thenReturn(listOfWorkflowExecutionAndDatasetViews);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("nextPage", "" + nextPage)
+            .param("pageCount", "" + pageCount)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
-        .andExpect(jsonPath("$.results", hasSize(listSize)))
+        .andExpect(jsonPath("$.results", hasSize(pageSize * pageCount)))
         .andExpect(
             jsonPath("$.results[0].dataset.datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
         .andExpect(jsonPath("$.results[0].execution.workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.results[1].dataset.datasetId",
             is(Integer.toString(TestObjectFactory.DATASETID + 1))))
         .andExpect(jsonPath("$.results[1].execution.workflowStatus", is(WorkflowStatus.INQUEUE.name())))
-        .andExpect(jsonPath("$.nextPage", is(nextPage + 1)))
-        .andExpect(jsonPath("$.listSize", is(listSize)));
+        .andExpect(jsonPath("$.nextPage", is(nextPage + pageCount)))
+        .andExpect(jsonPath("$.listSize", is(pageSize * pageCount)));
   }
 
   @Test
-  void getWorkflowExecutionsOverviewNegativeNextPage() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+  void getWorkflowExecutionsOverviewBadPaginationArguments() throws Exception {
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("nextPage", "-1")
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
+        .andExpect(status().is(406));
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .param("pageCount", "0")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(406));

@@ -752,6 +752,7 @@ class TestOrchestratorService {
 
     // Define some constants
     final int nextPage = 1;
+    final int pageCount = 2;
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final Set<String> datasetIds = new HashSet<>(Arrays.asList("A", "B", "C"));
     final List<Dataset> datasets = datasetIds.stream().map(id -> {
@@ -765,14 +766,14 @@ class TestOrchestratorService {
     // organization has rights.
     when(datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()))
         .thenReturn(datasets);
-    when(workflowExecutionDao.getWorkflowExecutionsOverview(eq(datasetIds), eq(nextPage)))
+    when(workflowExecutionDao.getWorkflowExecutionsOverview(eq(datasetIds), eq(nextPage), eq(pageCount)))
         .thenReturn(data);
     final List<ExecutionAndDatasetView> result = orchestratorService
-        .getWorkflowExecutionsOverview(metisUser, nextPage);
+        .getWorkflowExecutionsOverview(metisUser, nextPage, pageCount);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1))
-        .getWorkflowExecutionsOverview(eq(datasetIds), eq(nextPage));
+        .getWorkflowExecutionsOverview(eq(datasetIds), eq(nextPage), eq(pageCount));
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
@@ -790,20 +791,20 @@ class TestOrchestratorService {
 
     // Define some constants
     final int nextPage = 1;
+    final int pageCount = 2;
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
     final List<ExecutionDatasetPair> data = TestObjectFactory.createExecutionsWithDatasets(4);
 
     // Check for all datasets and for admin user: should query all datasets.
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
-    when(workflowExecutionDao.getWorkflowExecutionsOverview(isNull(), eq(nextPage)))
+    when(workflowExecutionDao.getWorkflowExecutionsOverview(isNull(), eq(nextPage), eq(pageCount)))
         .thenReturn(data);
     final List<ExecutionAndDatasetView> result = orchestratorService
-        .getWorkflowExecutionsOverview(metisUser, nextPage);
+        .getWorkflowExecutionsOverview(metisUser, nextPage, pageCount);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1))
-        .getWorkflowExecutionsOverview(isNull(), eq(nextPage));
+        .getWorkflowExecutionsOverview(isNull(), eq(nextPage), eq(pageCount));
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)

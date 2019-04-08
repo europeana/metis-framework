@@ -432,6 +432,7 @@ public class OrchestratorController {
    *
    * @param authorization the authorization header with the access token
    * @param nextPage the nextPage token, the end of the list is marked with -1 on the response
+   * @param pageCount the number of pages that is requested
    * @return a list of all the WorkflowExecutions together with the datasets that they belong to.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -446,16 +447,20 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<ExecutionAndDatasetView> getWorkflowExecutionsOverview(
       @RequestHeader("Authorization") String authorization,
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage,
+      @RequestParam(value = "pageCount", required = false, defaultValue = "1") int pageCount)
       throws GenericMetisException {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
+    if (pageCount < 1) {
+      throw new BadContentException(CommonStringValues.PAGE_COUNT_CANNOT_BE_ZERO_OR_NEGATIVE);
+    }
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final ResponseListWrapper<ExecutionAndDatasetView> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(
-        orchestratorService.getWorkflowExecutionsOverview(metisUser, nextPage),
-        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
+        orchestratorService.getWorkflowExecutionsOverview(metisUser, nextPage, pageCount),
+        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage, pageCount);
     logPaging(responseListWrapper, nextPage);
     return responseListWrapper;
   }
