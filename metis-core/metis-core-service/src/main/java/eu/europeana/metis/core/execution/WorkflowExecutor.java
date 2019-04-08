@@ -220,11 +220,11 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-    if (abstractMetisPlugin.getPluginMetadata().isMocked()) {
-      periodicCheckingLoopMocked(sleepTime, abstractMetisPlugin);
-    } else {
+//    if (abstractMetisPlugin.getPluginMetadata().isMocked()) {
+//      periodicCheckingLoopMocked(sleepTime, abstractMetisPlugin);
+//    } else {
       periodicCheckingLoop(sleepTime, abstractMetisPlugin);
-    }
+//    }
   }
 
   private String resolvePreviousExternalTaskId(AbstractMetisPlugin previousAbstractMetisPlugin,
@@ -365,30 +365,30 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
   }
 
-  private void periodicCheckingLoopMocked(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
-    for (int i = 1; i <= MONITOR_ITERATIONS_TO_FAKE; i++) {
-      try {
-        if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
-          // Update workflowExecution first, to retrieve cancelling information from db
-          workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
-          return;
-        }
-        Thread.sleep(sleepTime);
-        fakeMonitorUpdateProcessedRecords(abstractMetisPlugin, i);
-        Date updatedDate = new Date();
-        abstractMetisPlugin.setUpdatedDate(updatedDate);
-        workflowExecution.setUpdatedDate(updatedDate);
-        workflowExecutionDao.updateMonitorInformation(workflowExecution);
-      } catch (InterruptedException e) {
-        LOGGER.warn("Thread was interrupted", e);
-        Thread.currentThread().interrupt();
-        return;
-      }
-    }
-    abstractMetisPlugin.setFinishedDate(new Date());
-    abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
-    workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
-  }
+//  private void periodicCheckingLoopMocked(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
+//    for (int i = 1; i <= MONITOR_ITERATIONS_TO_FAKE; i++) {
+//      try {
+//        if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+//          // Update workflowExecution first, to retrieve cancelling information from db
+//          workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
+//          return;
+//        }
+//        Thread.sleep(sleepTime);
+//        fakeMonitorUpdateProcessedRecords(abstractMetisPlugin, i);
+//        Date updatedDate = new Date();
+//        abstractMetisPlugin.setUpdatedDate(updatedDate);
+//        workflowExecution.setUpdatedDate(updatedDate);
+//        workflowExecutionDao.updateMonitorInformation(workflowExecution);
+//      } catch (InterruptedException e) {
+//        LOGGER.warn("Thread was interrupted", e);
+//        Thread.currentThread().interrupt();
+//        return;
+//      }
+//    }
+//    abstractMetisPlugin.setFinishedDate(new Date());
+//    abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
+//    workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
+//  }
 
   private void fakeMonitorUpdateProcessedRecords(AbstractMetisPlugin abstractMetisPlugin,
       int iteration) {

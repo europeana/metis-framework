@@ -23,7 +23,7 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
    * plugin.
    */
-  OaipmhHarvestPlugin() {
+  public OaipmhHarvestPlugin() {
     //Required for json serialization
     super(PluginType.OAIPMH_HARVEST);
   }

@@ -2,12 +2,12 @@ package eu.europeana.metis.core.execution;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
@@ -36,7 +36,6 @@ import java.util.Date;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
@@ -64,6 +63,7 @@ class TestWorkflowExecutor {
     persistenceProvider =
         new PersistenceProvider(null, null, workflowExecutionDao, null, dpsClient);
     workflowExecutionSettings = Mockito.mock(WorkflowExecutionSettings.class);
+    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
   }
 
   @AfterEach
@@ -71,35 +71,13 @@ class TestWorkflowExecutor {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(workflowExecutionMonitor);
     Mockito.reset(dpsClient);
-    Mockito.reset(workflowExecutionSettings);
+//    Mockito.reset(workflowExecutionSettings);
   }
 
-  @BeforeEach
-  void setConstants() {
-    when(workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs()).thenReturn(0);
-  }
-
-  @Test
-  void call() {
-    WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
-    workflowExecution.setId(new ObjectId());
-
-    when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
-        .thenReturn(workflowExecution);
-    doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
-    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
-    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
-    when(workflowExecutionDao.update(workflowExecution))
-        .thenReturn(workflowExecution.getId().toString());
-
-    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
-        persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
-    workflowExecutor.call();
-
-    assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
-    assertNotNull(workflowExecution.getUpdatedDate());
-    assertNotNull(workflowExecution.getFinishedDate());
-  }
+//  @BeforeEach
+//  void setConstants() {
+//    when(workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs()).thenReturn(10);
+//  }
 
   @Test
   void callNonMockedFieldValue() throws Exception {
@@ -120,7 +98,7 @@ class TestWorkflowExecutor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
-    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
+//    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient))
         .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -214,7 +192,7 @@ class TestWorkflowExecutor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
-    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
+//    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient))
         .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -266,7 +244,7 @@ class TestWorkflowExecutor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
-    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
+//    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient)).thenThrow(new ExternalTaskException("Some error"))
         .thenThrow(new ExternalTaskException("Some error"));
@@ -313,7 +291,7 @@ class TestWorkflowExecutor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
-    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
+//    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient))
         .thenThrow(new ExternalTaskException("Some error", new HttpServerErrorException(
@@ -409,18 +387,39 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callExecutionInRUNNINGState() {
+  void callExecutionInRUNNINGState() throws ExternalTaskException {
+    ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
+    currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
+    ExecutionProgress processedExecutionProgress = new ExecutionProgress();
+    processedExecutionProgress.setStatus(TaskState.PROCESSED);
+
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.spy(OaipmhHarvestPlugin.class);
+    oaipmhHarvestPlugin.setPluginStatus(PluginStatus.FINISHED);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setMocked(false);
+    oaipmhHarvestPlugin.setPluginMetadata(oaipmhHarvestPluginMetadata);
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    abstractMetisPlugins.add(oaipmhHarvestPlugin);
+
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
+    workflowExecution.setMetisPlugins(abstractMetisPlugins);
     workflowExecution.setStartedDate(new Date());
-    AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(0);
-    metisPlugin.setPluginStatus(PluginStatus.FINISHED);
+
+    when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
+    doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
+        .when(oaipmhHarvestPlugin).monitor(dpsClient);
+    when(oaipmhHarvestPlugin.getExecutionProgress())
+        .thenReturn(currentlyProcessingExecutionProgress);
 
     when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
     doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
+    when(oaipmhHarvestPlugin.monitor(dpsClient))
+        .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
+        .thenReturn(new MonitorResult(processedExecutionProgress.getStatus(), null));
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
@@ -433,7 +432,7 @@ class TestWorkflowExecutor {
     assertNotNull(workflowExecution.getStartedDate());
     assertNotNull(workflowExecution.getUpdatedDate());
     assertNotNull(workflowExecution.getFinishedDate());
-    assertNull(workflowExecution.getMetisPlugins().get(0).getFinishedDate());
+    assertNotNull(workflowExecution.getMetisPlugins().get(0).getFinishedDate());
   }
 
   @Test
@@ -449,23 +448,31 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateINQUEUE() {
+  void callCancellingStateINQUEUE() throws ExternalTaskException {
+    ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
+    currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
+
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.spy(new OaipmhHarvestPlugin());
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setMocked(false);
+    oaipmhHarvestPlugin.setPluginMetadata(oaipmhHarvestPluginMetadata);
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    abstractMetisPlugins.add(oaipmhHarvestPlugin);
     final ObjectId objectId = new ObjectId();
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(objectId);
-
-    WorkflowExecution cancelledWorkflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    cancelledWorkflowExecution.setId(objectId);
-    cancelledWorkflowExecution.setWorkflowStatus(WorkflowStatus.CANCELLED);
-    cancelledWorkflowExecution.setCancelledBy(CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+    workflowExecution.setMetisPlugins(abstractMetisPlugins);
+    workflowExecution.setCancelledBy(CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
 
     when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
-    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false)
-        .thenReturn(true);
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(true);
+    doNothing().when(oaipmhHarvestPlugin)
+        .cancel(dpsClient, CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+    doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
+        .when(oaipmhHarvestPlugin).monitor(dpsClient);
     when(workflowExecutionDao.getById(workflowExecution.getId().toString()))
-        .thenReturn(cancelledWorkflowExecution);
+        .thenReturn(workflowExecution);
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
@@ -481,25 +488,33 @@ class TestWorkflowExecutor {
   }
 
   @Test
-  void callCancellingStateRUNNING() {
+  void callCancellingStateRUNNING() throws ExternalTaskException {
+    ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
+    currentlyProcessingExecutionProgress.setStatus(TaskState.DROPPED);
+
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.spy(new OaipmhHarvestPlugin());
+    oaipmhHarvestPlugin.setPluginStatus(PluginStatus.RUNNING);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setMocked(false);
+    oaipmhHarvestPlugin.setPluginMetadata(oaipmhHarvestPluginMetadata);
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    abstractMetisPlugins.add(oaipmhHarvestPlugin);
     final ObjectId objectId = new ObjectId();
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(objectId);
+    workflowExecution.setMetisPlugins(abstractMetisPlugins);
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    workflowExecution.setStartedDate(new Date());
-
-    WorkflowExecution cancelledWorkflowExecution = TestObjectFactory
-        .createWorkflowExecutionObject();
-    cancelledWorkflowExecution.setId(objectId);
-    cancelledWorkflowExecution.setWorkflowStatus(WorkflowStatus.CANCELLED);
-    cancelledWorkflowExecution.setCancelledBy(CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+    workflowExecution.setCancelledBy(CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
 
     when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
-    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false)
-        .thenReturn(true);
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(true);
+    doNothing().when(oaipmhHarvestPlugin)
+        .cancel(dpsClient, CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+    doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
+        .when(oaipmhHarvestPlugin).monitor(dpsClient);
     when(workflowExecutionDao.getById(workflowExecution.getId().toString()))
-        .thenReturn(cancelledWorkflowExecution);
+        .thenReturn(workflowExecution);
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
