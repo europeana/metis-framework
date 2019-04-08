@@ -8,7 +8,6 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
-import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
@@ -220,11 +219,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-//    if (abstractMetisPlugin.getPluginMetadata().isMocked()) {
-//      periodicCheckingLoopMocked(sleepTime, abstractMetisPlugin);
-//    } else {
-      periodicCheckingLoop(sleepTime, abstractMetisPlugin);
-//    }
+    periodicCheckingLoop(sleepTime, abstractMetisPlugin);
   }
 
   private String resolvePreviousExternalTaskId(AbstractMetisPlugin previousAbstractMetisPlugin,
@@ -363,38 +358,5 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       abstractMetisPlugin.setFailMessage(EXECUTION_ERROR_PREFIX + failMessage);
     }
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
-  }
-
-//  private void periodicCheckingLoopMocked(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
-//    for (int i = 1; i <= MONITOR_ITERATIONS_TO_FAKE; i++) {
-//      try {
-//        if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
-//          // Update workflowExecution first, to retrieve cancelling information from db
-//          workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
-//          return;
-//        }
-//        Thread.sleep(sleepTime);
-//        fakeMonitorUpdateProcessedRecords(abstractMetisPlugin, i);
-//        Date updatedDate = new Date();
-//        abstractMetisPlugin.setUpdatedDate(updatedDate);
-//        workflowExecution.setUpdatedDate(updatedDate);
-//        workflowExecutionDao.updateMonitorInformation(workflowExecution);
-//      } catch (InterruptedException e) {
-//        LOGGER.warn("Thread was interrupted", e);
-//        Thread.currentThread().interrupt();
-//        return;
-//      }
-//    }
-//    abstractMetisPlugin.setFinishedDate(new Date());
-//    abstractMetisPlugin.setPluginStatusAndResetFailMessage(PluginStatus.FINISHED);
-//    workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
-//  }
-
-  private void fakeMonitorUpdateProcessedRecords(AbstractMetisPlugin abstractMetisPlugin,
-      int iteration) {
-    ExecutionProgress executionProgress = abstractMetisPlugin.getExecutionProgress();
-    executionProgress.setExpectedRecords(MONITOR_ITERATIONS_TO_FAKE * FAKE_RECORDS_PER_ITERATION);
-    executionProgress.setProcessedRecords(iteration * FAKE_RECORDS_PER_ITERATION);
-    abstractMetisPlugin.setExecutionProgress(executionProgress);
   }
 }

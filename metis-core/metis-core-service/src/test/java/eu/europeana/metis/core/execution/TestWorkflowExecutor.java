@@ -71,13 +71,7 @@ class TestWorkflowExecutor {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(workflowExecutionMonitor);
     Mockito.reset(dpsClient);
-//    Mockito.reset(workflowExecutionSettings);
   }
-
-//  @BeforeEach
-//  void setConstants() {
-//    when(workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs()).thenReturn(10);
-//  }
 
   @Test
   void callNonMockedFieldValue() throws Exception {
@@ -97,7 +91,6 @@ class TestWorkflowExecutor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
-//    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient))
         .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -189,7 +182,6 @@ class TestWorkflowExecutor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
-//    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient))
         .thenReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
@@ -240,7 +232,6 @@ class TestWorkflowExecutor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
-//    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient)).thenThrow(new ExternalTaskException("Some error"))
         .thenThrow(new ExternalTaskException("Some error"));
@@ -286,7 +277,6 @@ class TestWorkflowExecutor {
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
 
-//    when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
     when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
     when(oaipmhHarvestPlugin.monitor(dpsClient))
         .thenThrow(new ExternalTaskException("Some error", new HttpServerErrorException(
