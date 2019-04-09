@@ -30,7 +30,6 @@ import org.mongodb.morphia.annotations.Embedded;
 @Embedded
 public abstract class AbstractMetisPluginMetadata {
 
-  private boolean mocked = true;
   private boolean enabled;
   private String revisionNamePreviousPlugin;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
@@ -40,14 +39,6 @@ public abstract class AbstractMetisPluginMetadata {
   }
 
   public abstract PluginType getPluginType();
-
-  public boolean isMocked() {
-    return mocked;
-  }
-
-  public void setMocked(boolean mocked) {
-    this.mocked = mocked;
-  }
 
   public boolean isEnabled() {
     return enabled;
