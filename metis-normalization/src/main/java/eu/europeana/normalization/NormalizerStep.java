@@ -6,6 +6,7 @@ import eu.europeana.normalization.normalizers.CleanSpaceCharactersNormalizer;
 import eu.europeana.normalization.normalizers.DcLanguageNormalizer;
 import eu.europeana.normalization.normalizers.NormalizeAction;
 import eu.europeana.normalization.normalizers.RemoveDuplicateStatementNormalizer;
+import eu.europeana.normalization.normalizers.XmlLangNormalizer;
 import eu.europeana.normalization.settings.NormalizerSettings;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
 
@@ -34,11 +35,21 @@ public enum NormalizerStep {
   /**
    * Normalize language references. See {@link DcLanguageNormalizer}.
    **/
-  NORMALIZE_LANGUAGE_REFERENCES(settings -> {
+  NORMALIZE_DC_LANGUAGE_REFERENCES(settings -> {
     final LanguageMatcher languageMatcher = new LanguageMatcher(
         settings.getMinLanguageLabelLength(), settings.getLanguageAmbiguityHandling(),
         settings.getTargetDcLanguageVocabularies());
     return new DcLanguageNormalizer(languageMatcher, settings.getMinimumConfidence());
+  }),
+
+  /**
+   * Normalize language references. See {@link XmlLangNormalizer}.
+   **/
+  NORMALIZE_XML_LANG_REFERENCES(settings -> {
+    final LanguageMatcher languageMatcher = new LanguageMatcher(
+        settings.getMinLanguageLabelLength(), settings.getLanguageAmbiguityHandling(),
+        settings.getTargetXmlLangVocabularies());
+    return new XmlLangNormalizer(languageMatcher, settings.getMinimumConfidence());
   });
 
   private final ActionCreator actionCreator;

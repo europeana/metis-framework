@@ -3,6 +3,7 @@ package eu.europeana.normalization.settings;
 import eu.europeana.normalization.languages.LanguagesVocabulary;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +18,8 @@ public class NormalizerSettings {
   protected static final float DEFAULT_MINIMUM_CONFIDENCE = 0.95F;
   protected static final List<LanguagesVocabulary> DEFAULT_DC_LANGUAGE_TARGET_VOCABULARIES = Collections
       .singletonList(LanguagesVocabulary.ISO_639_3);
+  protected static final List<LanguagesVocabulary> DEFAULT_XML_LANG_TARGET_VOCABULARIES = Arrays
+      .asList(LanguagesVocabulary.ISO_639_1, LanguagesVocabulary.ISO_639_3);
   protected static final int DEFAULT_MIN_LANGUAGE_LABEL_LENGTH = 4;
   protected static final AmbiguityHandling DEFAULT_LANGUAGE_AMBIGUITY_HANDLING =
       AmbiguityHandling.NO_MATCH;
@@ -25,6 +28,7 @@ public class NormalizerSettings {
 
   private float minimumConfidence = DEFAULT_MINIMUM_CONFIDENCE;
   private List<LanguagesVocabulary> targetDcLanguageVocabularies = DEFAULT_DC_LANGUAGE_TARGET_VOCABULARIES;
+  private List<LanguagesVocabulary> targetXmlLangVocabularies = DEFAULT_XML_LANG_TARGET_VOCABULARIES;
   private int minLanguageLabelLength = DEFAULT_MIN_LANGUAGE_LABEL_LENGTH;
   private AmbiguityHandling languageAmbiguityHandling = DEFAULT_LANGUAGE_AMBIGUITY_HANDLING;
   private CleanMarkupTagsMode cleanMarkupTagsMode = DEFAULT_CLEAN_MARKUP_TAGS_MODE;
@@ -80,6 +84,34 @@ public class NormalizerSettings {
    */
   public List<LanguagesVocabulary> getTargetDcLanguageVocabularies() {
     return Collections.unmodifiableList(targetDcLanguageVocabularies);
+  }
+
+  /**
+   * Sets the target vocabularies for xml:lang normalization.
+   *
+   * @param targetXmlLangVocabularies The target language vocabularies. Cannot be null, empty or
+   * have null values.
+   * @return This instance, so that the setter methods can be concatenated easily.
+   * @throws NormalizationConfigurationException If the provided value is null.
+   */
+  public NormalizerSettings setTargetXmlLangVocabularies(
+      List<LanguagesVocabulary> targetXmlLangVocabularies)
+      throws NormalizationConfigurationException {
+    if (targetXmlLangVocabularies == null || targetXmlLangVocabularies.isEmpty()
+        || targetXmlLangVocabularies.stream().anyMatch(Objects::isNull)) {
+      throw new NormalizationConfigurationException(
+          "Provided vocabulary list is null, empty or has null entries", null);
+    }
+    this.targetXmlLangVocabularies = new ArrayList<>(targetXmlLangVocabularies);
+    return this;
+  }
+
+  /**
+   * @return The target vocabularies for xml:lang normalization. The default is {@link
+   * #DEFAULT_XML_LANG_TARGET_VOCABULARIES}.
+   */
+  public List<LanguagesVocabulary> getTargetXmlLangVocabularies() {
+    return Collections.unmodifiableList(targetXmlLangVocabularies);
   }
 
   /**
