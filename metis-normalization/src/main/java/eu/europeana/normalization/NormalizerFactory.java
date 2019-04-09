@@ -12,7 +12,8 @@ import eu.europeana.normalization.util.NormalizationConfigurationException;
  * <ol>
  * <li>{@link NormalizerStep#CLEAN_SPACE_CHARACTERS}</li>
  * <li>{@link NormalizerStep#CLEAN_MARKUP_TAGS}</li>
- * <li>{@link NormalizerStep#NORMALIZE_LANGUAGE_REFERENCES}</li>
+ * <li>{@link NormalizerStep#NORMALIZE_DC_LANGUAGE_REFERENCES}</li>
+ * <li>{@link NormalizerStep#NORMALIZE_XML_LANG_REFERENCES}</li>
  * <li>{@link NormalizerStep#REMOVE_DUPLICATE_STATEMENTS}</li>
  * </ol>
  * But an alternative order may be provided, and steps may be omitted or performed more than once.
@@ -28,7 +29,8 @@ public class NormalizerFactory {
       NormalizerStep.CLEAN_MARKUP_TAGS,
 
       // Second: normalize language tags.
-      NormalizerStep.NORMALIZE_LANGUAGE_REFERENCES,
+      NormalizerStep.NORMALIZE_DC_LANGUAGE_REFERENCES,
+      NormalizerStep.NORMALIZE_XML_LANG_REFERENCES,
 
       // Last: remove duplicate statements (which may be caused by the operations above).
       NormalizerStep.REMOVE_DUPLICATE_STATEMENTS
