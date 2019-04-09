@@ -43,8 +43,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final String MONITOR_ERROR_PREFIX = "An error occurred while monitoring the external task. ";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
-  private static final int MONITOR_ITERATIONS_TO_FAKE = 2;
-  private static final int FAKE_RECORDS_PER_ITERATION = 100;
   private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 3;
 
   private final String workflowExecutionId;

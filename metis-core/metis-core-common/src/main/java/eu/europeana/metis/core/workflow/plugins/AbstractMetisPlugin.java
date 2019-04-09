@@ -366,7 +366,7 @@ public abstract class AbstractMetisPlugin {
   public void execute(DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
       throws ExternalTaskException {
     String pluginTypeName = getPluginType().name();
-    LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
+    LOGGER.info("Starting execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
         ecloudBasePluginParameters.getEcloudDatasetId());
     try {
       DpsTask dpsTask = prepareDpsTask(ecloudBasePluginParameters);
