@@ -57,7 +57,7 @@ class ImageProcessor implements MediaProcessor {
 
     // Create the thumbnails for this image.
     final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata =
-        thumbnailGenerator.generateThumbnails(resource.getResourceUrl(), ResourceType.IMAGE,
+        thumbnailGenerator.generateThumbnails(resource.getResourceUrl(), detectedMimeType,
             resource.getContentFile());
 
     // Set the metadata in the web resource.
