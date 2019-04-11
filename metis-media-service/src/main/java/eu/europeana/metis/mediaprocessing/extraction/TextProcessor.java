@@ -68,7 +68,7 @@ class TextProcessor implements MediaProcessor {
     final List<Thumbnail> thumbnails;
     if (PDF_MIME_TYPE.equals(detectedMimeType)) {
       thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
-          ResourceType.TEXT, resource.getContentFile()).getRight();
+          detectedMimeType, resource.getContentFile()).getRight();
     } else {
       thumbnails = null;
     }
