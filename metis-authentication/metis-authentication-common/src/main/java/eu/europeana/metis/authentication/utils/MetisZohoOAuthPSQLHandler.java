@@ -4,11 +4,12 @@ import com.zoho.oauth.client.ZohoPersistenceHandler;
 import com.zoho.oauth.common.ZohoOAuthException;
 import com.zoho.oauth.contract.ZohoOAuthTokens;
 import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
-import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.TransactionException;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +45,6 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
     final MetisZohoOAuthToken metisZohoOAuthToken = new MetisZohoOAuthToken(
         zohoOAuthTokens.getUserMailId(), zohoOAuthTokens.getAccessToken(),
         zohoOAuthTokens.getRefreshToken(), zohoOAuthTokens.getExpiryTime());
-
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
 
@@ -56,14 +56,14 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
       LOGGER.error("Could not persist object, rolling back..");
       throw new ZohoOAuthException(e);
     } finally {
-      session.flush();
-      session.close();
+      finalizeTransaction(session, tx);
     }
   }
 
   @Override
   public ZohoOAuthTokens getOAuthTokens(String userIdentifier) throws Exception {
     Session session = sessionFactory.openSession();
+    Transaction tx = session.beginTransaction();
     MetisZohoOAuthToken metisZohoOAuthToken;
     try {
       Query query = session
@@ -80,8 +80,7 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
       LOGGER.error("Exception while retrieving zoho oauth user tokens");
       throw new ZohoOAuthException(e);
     } finally {
-      session.flush();
-      session.close();
+      finalizeTransaction(session, tx);
     }
 
     return metisZohoOAuthToken == null ? null : metisZohoOAuthToken.convertToZohoOAuthTokens();
@@ -104,7 +103,25 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
       LOGGER.error("Exception while deleting zoho oauth user tokens");
       throw new ZohoOAuthException(e);
     } finally {
-      session.flush();
+      finalizeTransaction(session, tx);
+    }
+  }
+
+  /**
+   * It will try to commit the transaction and close the session. If the transaction fails, it will
+   * rollback to previous state.
+   *
+   * @param session the current session
+   * @param tx the transaction to commit
+   */
+  private void finalizeTransaction(Session session, Transaction tx) {
+    try {
+      tx.commit();
+    } catch (RuntimeException e) {
+      tx.rollback();
+      LOGGER.error("Could not persist object, rolling back..");
+      throw new TransactionException("Could not persist object in database", e);
+    } finally {
       session.close();
     }
   }

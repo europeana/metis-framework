@@ -21,6 +21,11 @@
       <version>${version.spring}</version>
     </dependency>
     <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${version.postgresql}</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
       <version>${version.spring}</version>
