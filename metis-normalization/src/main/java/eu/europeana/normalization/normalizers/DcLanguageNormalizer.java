@@ -12,6 +12,7 @@ import eu.europeana.normalization.util.XpathQuery;
  */
 public class DcLanguageNormalizer extends AbstractLanguageNormalizer {
 
+  private static final Element DC_IDENTIFIER = Namespace.DC.getElement("identifier");
   private static final Element DC_LANGUAGE = Namespace.DC.getElement("language");
   private static final Element ORE_PROXY = Namespace.ORE.getElement("Proxy");
   private static final Element EDM_EUROPEANA_PROXY = Namespace.EDM.getElement("europeanaProxy");
@@ -33,7 +34,7 @@ public class DcLanguageNormalizer extends AbstractLanguageNormalizer {
 
   @Override
   public RecordNormalizeAction getAsRecordNormalizer() {
-    final CopySettings copySettings = new CopySettings(EUROPEANA_PROXY, DC_LANGUAGE);
+    final CopySettings copySettings = new CopySettings(EUROPEANA_PROXY, DC_LANGUAGE, DC_IDENTIFIER);
     return new ValueNormalizeActionWrapper(this, copySettings, PROVIDER_PROXY_LANGUAGES);
   }
 }

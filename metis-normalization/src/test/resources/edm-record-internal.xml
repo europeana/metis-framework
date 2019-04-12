@@ -107,6 +107,7 @@
     <edm:type>TEXT</edm:type>
   </ore:Proxy>
   <ore:Proxy rdf:about="ivrla:3827_EuropeanaProxy">
+    <dc:identifier>OB_1000000_SC</dc:identifier>
     <edm:europeanaProxy>true</edm:europeanaProxy>
   </ore:Proxy>
   <edm:EuropeanaAggregation rdf:about="ivrla:3827_EuropeanaAggregation">

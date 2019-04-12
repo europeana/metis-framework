@@ -19,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 /**
  * This class represents a wrapper around a value normalize action (instance of {@link
@@ -115,7 +116,26 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
           .createElementNS(copySettings.getDestinationElement().getNamespace().getUri(),
               newElementName);
       addTextToElement(newElement, value, report);
-      copyTarget.appendChild(newElement);
+
+      // Find last element of after element
+      Element afterElemement = null;
+      if (copySettings.getAfterElement() != null) {
+        final String afterElementName = XmlUtil
+            .addPrefixToNodeName(copySettings.getAfterElement().getElementName(),
+                copyTarget.lookupPrefix(copySettings.getAfterElement().getNamespace().getUri()));
+        afterElemement = XmlUtil
+            .getLastElementByTagName(copyTarget, afterElementName);
+      }
+
+      if (afterElemement == null) {
+        copyTarget.appendChild(newElement);
+      } else {
+        final Text textNode = copyTarget.getOwnerDocument()
+            .createTextNode(afterElemement.getNextSibling().getTextContent());
+        copyTarget.replaceChild(newElement, afterElemement);
+        copyTarget.insertBefore(textNode, newElement);
+        copyTarget.insertBefore(afterElemement, textNode);
+      }
     }
   }
 
@@ -237,18 +257,24 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
 
     private final XpathQuery destinationParent;
     private final Namespace.Element destinationElement;
+    private final Namespace.Element afterElement;
 
     CopySettings(XpathQuery destinationParent,
-        Namespace.Element destinationElement) {
+        Namespace.Element destinationElement, Namespace.Element afterElement) {
       if (destinationElement == null || destinationParent == null) {
         throw new IllegalArgumentException();
       }
       this.destinationParent = destinationParent;
       this.destinationElement = destinationElement;
+      this.afterElement = afterElement;
     }
 
     Namespace.Element getDestinationElement() {
       return destinationElement;
+    }
+
+    Namespace.Element getAfterElement() {
+      return afterElement;
     }
 
     XpathQuery getDestinationParent() {

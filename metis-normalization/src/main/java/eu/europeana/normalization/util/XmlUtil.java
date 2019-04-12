@@ -46,7 +46,8 @@ public final class XmlUtil {
     }
   }
 
-  private XmlUtil() {}
+  private XmlUtil() {
+  }
 
   /**
    * Add the prefix to the node name and returns the result.
@@ -81,9 +82,9 @@ public final class XmlUtil {
   }
 
   /**
-   * Convert the given instance of {@link NodeList} to an instance of {@link List} with
-   * {@link Element} objects. Entries in the original list that are not instances of {@link Element}
-   * will be ignored.
+   * Convert the given instance of {@link NodeList} to an instance of {@link List} with {@link
+   * Element} objects. Entries in the original list that are not instances of {@link Element} will
+   * be ignored.
    *
    * @param nodeList The list of nodes to convert.
    * @return The converted list.
@@ -103,6 +104,12 @@ public final class XmlUtil {
    */
   public static Element getElementByTagName(Element n, String elementName) {
     return (Element) n.getElementsByTagName(elementName).item(0);
+  }
+
+  public static Element getLastElementByTagName(Element n, String elementName) {
+    final NodeList elementsByTagName = n.getElementsByTagName(elementName);
+    return elementsByTagName.getLength() == 0 ? null
+        : (Element) elementsByTagName.item(elementsByTagName.getLength() - 1);
   }
 
   /**
