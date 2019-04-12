@@ -48,16 +48,9 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
 
-    try {
-      session.saveOrUpdate(metisZohoOAuthToken);
-      tx.commit();
-    } catch (RuntimeException e) {
-      tx.rollback();
-      LOGGER.error("Could not persist object, rolling back..");
-      throw new ZohoOAuthException(e);
-    } finally {
-      finalizeTransaction(session, tx);
-    }
+    session.saveOrUpdate(metisZohoOAuthToken);
+    String potentialErrorMessage = "Exception while saving zoho oauth user tokens";
+    finalizeTransaction(session, tx, potentialErrorMessage);
   }
 
   @Override
@@ -65,46 +58,35 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
     MetisZohoOAuthToken metisZohoOAuthToken;
-    try {
-      Query query = session
-          .createQuery(String
-              .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
-                  USER_IDENTIFIER_STRING));
-      query.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
-      if (!query.list().isEmpty()) {
-        metisZohoOAuthToken = (MetisZohoOAuthToken) query.list().get(0);
-      } else {
-        throw new ZohoOAuthException("Given User not found in persistence.");
-      }
-    } catch (RuntimeException e) {
-      LOGGER.error("Exception while retrieving zoho oauth user tokens");
-      throw new ZohoOAuthException(e);
-    } finally {
-      finalizeTransaction(session, tx);
+
+    Query query = session
+        .createQuery(String
+            .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
+                USER_IDENTIFIER_STRING));
+    query.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
+    if (!query.list().isEmpty()) {
+      metisZohoOAuthToken = (MetisZohoOAuthToken) query.list().get(0);
+    } else {
+      throw new ZohoOAuthException("Given User not found in persistence.");
     }
+    String potentialErrorMessage = "Exception while retrieving zoho oauth user tokens";
+    finalizeTransaction(session, tx, potentialErrorMessage);
 
     return metisZohoOAuthToken == null ? null : metisZohoOAuthToken.convertToZohoOAuthTokens();
   }
 
   @Override
-  public void deleteOAuthTokens(String userIdentifier) throws Exception {
+  public void deleteOAuthTokens(String userIdentifier) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
-    try {
-      Query deleteQuery = session.createQuery(
-          String.format("DELETE FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
-              USER_IDENTIFIER_STRING));
-      deleteQuery.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
-      int i = deleteQuery.executeUpdate();
-      LOGGER.info("Removed {} Metis Zoho OAuth tokens with user identifier: {}", i, userIdentifier);
-
-      tx.commit();
-    } catch (RuntimeException e) {
-      LOGGER.error("Exception while deleting zoho oauth user tokens");
-      throw new ZohoOAuthException(e);
-    } finally {
-      finalizeTransaction(session, tx);
-    }
+    Query deleteQuery = session.createQuery(
+        String.format("DELETE FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
+            USER_IDENTIFIER_STRING));
+    deleteQuery.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
+    int i = deleteQuery.executeUpdate();
+    String potentialErrorMessage = "Exception while deleting zoho oauth user tokens";
+    finalizeTransaction(session, tx, potentialErrorMessage);
+    LOGGER.info("Removed {} Metis Zoho OAuth tokens with user identifier: {}", i, userIdentifier);
   }
 
   /**
@@ -114,13 +96,15 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
    * @param session the current session
    * @param tx the transaction to commit
    */
-  private void finalizeTransaction(Session session, Transaction tx) {
+  private void finalizeTransaction(Session session, Transaction tx, String potentialErrorMessage) {
     try {
       tx.commit();
     } catch (RuntimeException e) {
       tx.rollback();
-      LOGGER.error("Could not persist object, rolling back..");
-      throw new TransactionException("Could not persist object in database", e);
+      LOGGER.error("Transaction commit failed with message '{}', rolling back..",
+          potentialErrorMessage);
+      throw new TransactionException(
+          String.format("Transaction commit failed with message '%s'", potentialErrorMessage), e);
     } finally {
       session.close();
     }
