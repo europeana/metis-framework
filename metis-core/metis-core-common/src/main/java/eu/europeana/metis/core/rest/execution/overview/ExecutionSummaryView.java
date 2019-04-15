@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.bson.types.ObjectId;
 
 /**
  * This class represents the vital information on a workflow execution needed for the execution
@@ -41,12 +40,12 @@ public class ExecutionSummaryView {
         Collectors.toList());
   }
 
-  public ObjectId getId() {
-    return new ObjectId(id);
+  public String getId() {
+    return id;
   }
 
-  public void setId(ObjectId id) {
-    this.id = id.toString();
+  public void setId(String id) {
+    this.id = id;
   }
 
   public WorkflowStatus getWorkflowStatus() {

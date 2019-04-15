@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.rest.execution.overview;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
@@ -12,7 +13,6 @@ import org.bson.types.ObjectId;
  * ResponseListWrapper}.
  */
 public class ExecutionAndDatasetView implements HasMongoObjectId {
-
 
   private ExecutionSummaryView execution;
   private DatasetSummaryView dataset;
@@ -47,13 +47,14 @@ public class ExecutionAndDatasetView implements HasMongoObjectId {
   }
 
   @Override
+  @JsonIgnore
   public ObjectId getId() {
-    return execution.getId();
+    return new ObjectId(execution.getId());
   }
 
   @Override
+  @JsonIgnore
   public void setId(ObjectId id) {
-    execution.setId(id);
+    execution.setId(id.toString());
   }
-
 }

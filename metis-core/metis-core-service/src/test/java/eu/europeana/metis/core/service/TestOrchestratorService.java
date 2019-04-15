@@ -781,7 +781,7 @@ class TestOrchestratorService {
         result.stream().map(ExecutionAndDatasetView::getDataset).map(DatasetSummaryView::getDatasetId)
             .collect(Collectors.toList()));
     assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-            .collect(Collectors.toList()),
+            .map(ObjectId::toString).collect(Collectors.toList()),
         result.stream().map(ExecutionAndDatasetView::getExecution)
             .map(ExecutionSummaryView::getId).collect(Collectors.toList()));
   }
@@ -812,7 +812,7 @@ class TestOrchestratorService {
         result.stream().map(ExecutionAndDatasetView::getDataset).map(DatasetSummaryView::getDatasetId)
             .collect(Collectors.toList()));
     assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
-            .collect(Collectors.toList()),
+            .map(ObjectId::toString).collect(Collectors.toList()),
         result.stream().map(ExecutionAndDatasetView::getExecution)
             .map(ExecutionSummaryView::getId).collect(Collectors.toList()));
   }
