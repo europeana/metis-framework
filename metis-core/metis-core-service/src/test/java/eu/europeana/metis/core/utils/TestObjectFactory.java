@@ -148,6 +148,7 @@ public class TestObjectFactory {
     final List<ExecutionDatasetPair> result = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
+      dataset.setId(new ObjectId(new Date(i)));
       dataset.setDatasetId(Integer.toString(DATASETID + i));
       WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset);
       workflowExecution.setId(new ObjectId());

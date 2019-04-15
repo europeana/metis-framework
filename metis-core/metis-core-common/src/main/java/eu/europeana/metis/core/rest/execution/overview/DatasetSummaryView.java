@@ -1,14 +1,13 @@
 package eu.europeana.metis.core.rest.execution.overview;
 
 import eu.europeana.metis.core.dataset.Dataset;
-import org.bson.types.ObjectId;
 
 /**
  * This class represents the vital information on a dataset needed for the execution overview.
  */
 public class DatasetSummaryView {
 
-  private ObjectId id;
+  private String id;
   private String datasetId;
   private String datasetName;
 
@@ -16,12 +15,12 @@ public class DatasetSummaryView {
   }
 
   DatasetSummaryView(Dataset dataset) {
-    this.id = dataset.getId();
+    this.id = dataset.getId().toString();
     this.datasetId = dataset.getDatasetId();
     this.datasetName = dataset.getDatasetName();
   }
 
-  public ObjectId getId() {
+  public String getId() {
     return id;
   }
 

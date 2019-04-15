@@ -15,7 +15,7 @@ import org.bson.types.ObjectId;
  */
 public class ExecutionSummaryView {
 
-  private ObjectId id;
+  private String id;
   private WorkflowStatus workflowStatus;
   private boolean cancelling;
 
@@ -30,7 +30,7 @@ public class ExecutionSummaryView {
   }
 
   ExecutionSummaryView(WorkflowExecution execution) {
-    this.id = execution.getId();
+    this.id = execution.getId().toString();
     this.workflowStatus = execution.getWorkflowStatus();
     this.cancelling = execution.isCancelling();
     this.createdDate = execution.getCreatedDate();
@@ -42,11 +42,11 @@ public class ExecutionSummaryView {
   }
 
   public ObjectId getId() {
-    return id;
+    return new ObjectId(id);
   }
 
   public void setId(ObjectId id) {
-    this.id = id;
+    this.id = id.toString();
   }
 
   public WorkflowStatus getWorkflowStatus() {
