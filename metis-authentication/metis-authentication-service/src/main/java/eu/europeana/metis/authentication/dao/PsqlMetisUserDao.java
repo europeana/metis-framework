@@ -65,10 +65,11 @@ public class PsqlMetisUserDao {
    * @param metisUser the {@link MetisUser} to update
    */
   public void updateMetisUser(MetisUser metisUser) {
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
-    session.update(metisUser);
-    finalizeTransaction(session, tx);
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
+      session.update(metisUser);
+      commitTransaction(tx, "Could not update user");
+    }
   }
 
   /**
@@ -92,16 +93,17 @@ public class PsqlMetisUserDao {
   }
 
   private MetisUser getMetisUserByField(String fieldName, String fieldValue) {
-    Session session = sessionFactory.openSession();
+    MetisUser metisUser;
+    try (Session session = sessionFactory.openSession()) {
 
-    Query query = session
-        .createQuery(String.format("FROM MetisUser WHERE %s = :%s", fieldName, fieldName));
-    query.setParameter(fieldName, fieldValue);
-    MetisUser metisUser = null;
-    if (!query.list().isEmpty()) {
-      metisUser = (MetisUser) query.list().get(0);
+      Query query = session
+          .createQuery(String.format("FROM MetisUser WHERE %s = :%s", fieldName, fieldName));
+      query.setParameter(fieldName, fieldValue);
+      metisUser = null;
+      if (!query.list().isEmpty()) {
+        metisUser = (MetisUser) query.list().get(0);
+      }
     }
-    session.close();
     return metisUser;
   }
 
@@ -112,26 +114,27 @@ public class PsqlMetisUserDao {
    * @return {@link MetisUser}
    */
   public MetisUser getMetisUserByAccessToken(String accessToken) {
-    Session session = sessionFactory.openSession();
-
-    Query query = session
-        .createQuery(String
-            .format("FROM MetisUserAccessToken WHERE access_token = :%s", ACCESS_TOKEN_STRING));
-    query.setParameter(ACCESS_TOKEN_STRING, accessToken);
-    MetisUserAccessToken metisUserAccessToken = null;
-    if (!query.list().isEmpty()) {
-      metisUserAccessToken = (MetisUserAccessToken) query.list().get(0);
-    }
-    MetisUser metisUser = null;
-    if (metisUserAccessToken != null) {
-      query = session.createQuery(String.format("FROM MetisUser WHERE email = :%s", EMAIL_STRING));
-      query.setParameter(EMAIL_STRING, metisUserAccessToken.getEmail());
-
+    MetisUser metisUser;
+    try (Session session = sessionFactory.openSession()) {
+      Query query = session
+          .createQuery(String
+              .format("FROM MetisUserAccessToken WHERE access_token = :%s", ACCESS_TOKEN_STRING));
+      query.setParameter(ACCESS_TOKEN_STRING, accessToken);
+      MetisUserAccessToken metisUserAccessToken = null;
       if (!query.list().isEmpty()) {
-        metisUser = (MetisUser) query.list().get(0);
+        metisUserAccessToken = (MetisUserAccessToken) query.list().get(0);
+      }
+      metisUser = null;
+      if (metisUserAccessToken != null) {
+        query = session
+            .createQuery(String.format("FROM MetisUser WHERE email = :%s", EMAIL_STRING));
+        query.setParameter(EMAIL_STRING, metisUserAccessToken.getEmail());
+
+        if (!query.list().isEmpty()) {
+          metisUser = (MetisUser) query.list().get(0);
+        }
       }
     }
-    session.close();
     return metisUser;
   }
 
@@ -150,10 +153,11 @@ public class PsqlMetisUserDao {
    * @param o {@link Object}
    */
   private void createObjectInDB(Object o) {
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
-    session.persist(o);
-    finalizeTransaction(session, tx);
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
+      session.persist(o);
+      commitTransaction(tx, "Could not create Object in database.");
+    }
   }
 
   /**
@@ -165,42 +169,43 @@ public class PsqlMetisUserDao {
    * @param date the {@link Date} to compare the stored timestamp with
    */
   public void expireAccessTokens(Date date) {
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
 
-    int offset = 0;
-    int pageSize = DEFAULT_PAGE_SIZE_FOR_ACCESS_TOKENS;
-    List<?> metisUserAccessTokens;
-    do {
-      CriteriaBuilder builder = session.getCriteriaBuilder();
-      CriteriaQuery<MetisUserAccessToken> criteriaQuery = builder
-          .createQuery(MetisUserAccessToken.class);
-      criteriaQuery.from(MetisUserAccessToken.class);
-      Query<MetisUserAccessToken> query = session.createQuery(criteriaQuery);
-      query.setFirstResult(offset).setMaxResults(pageSize);
-      metisUserAccessTokens = query.getResultList();
-      if (!metisUserAccessTokens.isEmpty()) {
-        for (Object object : metisUserAccessTokens) {
-          MetisUserAccessToken metisUserAccessToken = (MetisUserAccessToken) object;
-          long accessTokenInMillis = metisUserAccessToken.getTimestamp().getTime();
-          Date afterAddingTenMins = new Date(
-              accessTokenInMillis + (getAccessTokenExpireTimeInMins() * ONE_MINUTE_IN_MILLIS));
-          if (afterAddingTenMins.compareTo(date) <= 0) {
-            //Remove access token
-            Query deleteQuery = session
-                .createQuery(String
-                    .format("DELETE FROM MetisUserAccessToken WHERE access_token=:%s",
-                        ACCESS_TOKEN_STRING));
-            deleteQuery.setParameter(ACCESS_TOKEN_STRING, metisUserAccessToken.getAccessToken());
-            int i = deleteQuery.executeUpdate();
-            LOGGER.info("Removed {} Access Token: {}", i, metisUserAccessToken.getAccessToken());
+      int offset = 0;
+      int pageSize = DEFAULT_PAGE_SIZE_FOR_ACCESS_TOKENS;
+      List<?> metisUserAccessTokens;
+      do {
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<MetisUserAccessToken> criteriaQuery = builder
+            .createQuery(MetisUserAccessToken.class);
+        criteriaQuery.from(MetisUserAccessToken.class);
+        Query<MetisUserAccessToken> query = session.createQuery(criteriaQuery);
+        query.setFirstResult(offset).setMaxResults(pageSize);
+        metisUserAccessTokens = query.getResultList();
+        if (!metisUserAccessTokens.isEmpty()) {
+          for (Object object : metisUserAccessTokens) {
+            MetisUserAccessToken metisUserAccessToken = (MetisUserAccessToken) object;
+            long accessTokenInMillis = metisUserAccessToken.getTimestamp().getTime();
+            Date afterAddingTenMins = new Date(
+                accessTokenInMillis + (getAccessTokenExpireTimeInMins() * ONE_MINUTE_IN_MILLIS));
+            if (afterAddingTenMins.compareTo(date) <= 0) {
+              //Remove access token
+              Query deleteQuery = session
+                  .createQuery(String
+                      .format("DELETE FROM MetisUserAccessToken WHERE access_token=:%s",
+                          ACCESS_TOKEN_STRING));
+              deleteQuery.setParameter(ACCESS_TOKEN_STRING, metisUserAccessToken.getAccessToken());
+              int i = deleteQuery.executeUpdate();
+              LOGGER.info("Removed {} Access Token: {}", i, metisUserAccessToken.getAccessToken());
+            }
           }
         }
-      }
-      offset += pageSize;
-    } while (!metisUserAccessTokens.isEmpty());
-
-    finalizeTransaction(session, tx);
+        offset += pageSize;
+      } while (!metisUserAccessTokens.isEmpty());
+      commitTransaction(tx,
+          "Something when wrong when trying to expire metis authentication tokens");
+    }
   }
 
   public void setAccessTokenExpireTimeInMins(int accessTokenExpireTimeInMins) {
@@ -221,22 +226,23 @@ public class PsqlMetisUserDao {
    * @param email to find the {@link MetisUser}
    */
   public void deleteMetisUser(String email) {
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
-    //Remove tokens
-    Query deleteQuery = session.createQuery(
-        String.format("DELETE FROM MetisUserAccessToken WHERE email=:%s", EMAIL_STRING));
-    deleteQuery.setParameter(EMAIL_STRING, email);
-    int i = deleteQuery.executeUpdate();
-    LOGGER.info("Removed {} Access Token with email: {}", i, email);
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
+      //Remove tokens
+      Query deleteQuery = session.createQuery(
+          String.format("DELETE FROM MetisUserAccessToken WHERE email=:%s", EMAIL_STRING));
+      deleteQuery.setParameter(EMAIL_STRING, email);
+      int i = deleteQuery.executeUpdate();
+      LOGGER.info("Removed {} Access Token with email: {}", i, email);
 
-    deleteQuery = session
-        .createQuery(String.format("DELETE FROM MetisUser WHERE email=:%s", EMAIL_STRING));
-    deleteQuery.setParameter(EMAIL_STRING, email);
-    i = deleteQuery.executeUpdate();
-    LOGGER.info("Removed {} User with email: {}", i, email);
+      deleteQuery = session
+          .createQuery(String.format("DELETE FROM MetisUser WHERE email=:%s", EMAIL_STRING));
+      deleteQuery.setParameter(EMAIL_STRING, email);
+      i = deleteQuery.executeUpdate();
+      LOGGER.info("Removed {} User with email: {}", i, email);
 
-    finalizeTransaction(session, tx);
+      commitTransaction(tx, "Could not delete user.");
+    }
   }
 
   /**
@@ -245,17 +251,18 @@ public class PsqlMetisUserDao {
    * @param email to find the stored {@link MetisUserAccessToken}
    */
   public void updateAccessTokenTimestamp(String email) {
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
-    Query updateQuery = session
-        .createQuery(String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE email=:%s",
-            TIMESTAMP_STRING, EMAIL_STRING));
-    updateQuery.setParameter(TIMESTAMP_STRING, new Date());
-    updateQuery.setParameter(EMAIL_STRING, email);
-    int i = updateQuery.executeUpdate();
-    LOGGER.info("Updated {} Access Token with email: {}", i, email);
-
-    finalizeTransaction(session, tx);
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
+      Query updateQuery = session
+          .createQuery(
+              String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE email=:%s",
+                  TIMESTAMP_STRING, EMAIL_STRING));
+      updateQuery.setParameter(TIMESTAMP_STRING, new Date());
+      updateQuery.setParameter(EMAIL_STRING, email);
+      int i = updateQuery.executeUpdate();
+      LOGGER.info("Updated {} Access Token with email: {}", i, email);
+      commitTransaction(tx, "Could not update authentication access token timestamp.");
+    }
   }
 
   /**
@@ -264,16 +271,17 @@ public class PsqlMetisUserDao {
    * @param accessToken to find the stored {@link MetisUserAccessToken}
    */
   public void updateAccessTokenTimestampByAccessToken(String accessToken) {
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
-    Query updateQuery = session.createQuery(
-        String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE access_token=:%s",
-            TIMESTAMP_STRING, ACCESS_TOKEN_STRING));
-    updateQuery.setParameter(TIMESTAMP_STRING, new Date());
-    updateQuery.setParameter(ACCESS_TOKEN_STRING, accessToken);
-    int i = updateQuery.executeUpdate();
-    LOGGER.info("Updated {} Access Token timestamp: {}", i, accessToken);
-    finalizeTransaction(session, tx);
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
+      Query updateQuery = session.createQuery(
+          String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE access_token=:%s",
+              TIMESTAMP_STRING, ACCESS_TOKEN_STRING));
+      updateQuery.setParameter(TIMESTAMP_STRING, new Date());
+      updateQuery.setParameter(ACCESS_TOKEN_STRING, accessToken);
+      int i = updateQuery.executeUpdate();
+      LOGGER.info("Updated {} Access Token timestamp: {}", i, accessToken);
+      commitTransaction(tx, "Could not update authentication access token timestamp.");
+    }
   }
 
   /**
@@ -282,34 +290,34 @@ public class PsqlMetisUserDao {
    * @param userEmailToMakeAdmin the email to change it's {@link AccountRole}
    */
   public void updateMetisUserToMakeAdmin(String userEmailToMakeAdmin) {
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
-    Query updateQuery = session.createQuery(String
-        .format("UPDATE MetisUser SET account_role=:%s WHERE email=:%s", ACCESS_ROLE_STRING,
-            EMAIL_STRING));
-    updateQuery.setParameter(ACCESS_ROLE_STRING, AccountRole.METIS_ADMIN.name());
-    updateQuery.setParameter(EMAIL_STRING, userEmailToMakeAdmin);
-    int i = updateQuery.executeUpdate();
-    LOGGER.info("Updated {} MetisUser with email: {}, made METIS_ADMIN", i, userEmailToMakeAdmin);
-    finalizeTransaction(session, tx);
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
+      Query updateQuery = session.createQuery(String
+          .format("UPDATE MetisUser SET account_role=:%s WHERE email=:%s", ACCESS_ROLE_STRING,
+              EMAIL_STRING));
+      updateQuery.setParameter(ACCESS_ROLE_STRING, AccountRole.METIS_ADMIN.name());
+      updateQuery.setParameter(EMAIL_STRING, userEmailToMakeAdmin);
+      int i = updateQuery.executeUpdate();
+      LOGGER.info("Updated {} MetisUser with email: {}, made METIS_ADMIN", i, userEmailToMakeAdmin);
+      commitTransaction(tx, "Could not upgrade role of user.");
+    }
   }
 
   /**
-   * It will try to commit the transaction and close the session. If the transaction fails, it will
-   * rollback to previous state.
+   * It will try to commit the transaction. If the transaction fails, it will rollback to previous
+   * state.
    *
-   * @param session the current session
    * @param tx the transaction to commit
    */
-  private void finalizeTransaction(Session session, Transaction tx) {
+  private void commitTransaction(Transaction tx, String potentialErrorMessage) {
     try {
       tx.commit();
     } catch (RuntimeException e) {
       tx.rollback();
-      LOGGER.error("Could not persist object, rolling back..");
-      throw new TransactionException("Could not persist object in database", e);
-    } finally {
-      session.close();
+      LOGGER.error("Transaction commit failed with message '{}', rolling back..",
+          potentialErrorMessage);
+      throw new TransactionException(
+          String.format("Transaction commit failed with message '%s'", potentialErrorMessage), e);
     }
   }
 
@@ -319,17 +327,18 @@ public class PsqlMetisUserDao {
    * @return list of all {@link MetisUser}s
    */
   public List<MetisUser> getAllMetisUsers() {
-    Session session = sessionFactory.openSession();
-    CriteriaBuilder builder = session.getCriteriaBuilder();
-    CriteriaQuery<MetisUser> criteriaQuery = builder.createQuery(MetisUser.class);
-    criteriaQuery.from(MetisUser.class);
-    Query<MetisUser> query = session.createQuery(criteriaQuery);
-    List<MetisUser> metisUsersObjects = query.getResultList();
-    List<MetisUser> metisUsers = new ArrayList<>(metisUsersObjects.size());
-    for (Object object : metisUsersObjects) {
-      metisUsers.add((MetisUser) object);
+    List<MetisUser> metisUsers;
+    try (Session session = sessionFactory.openSession()) {
+      CriteriaBuilder builder = session.getCriteriaBuilder();
+      CriteriaQuery<MetisUser> criteriaQuery = builder.createQuery(MetisUser.class);
+      criteriaQuery.from(MetisUser.class);
+      Query<MetisUser> query = session.createQuery(criteriaQuery);
+      List<MetisUser> metisUsersObjects = query.getResultList();
+      metisUsers = new ArrayList<>(metisUsersObjects.size());
+      for (Object object : metisUsersObjects) {
+        metisUsers.add((MetisUser) object);
+      }
     }
-    session.close();
     return metisUsers;
   }
 }

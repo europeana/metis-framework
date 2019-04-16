@@ -45,58 +45,61 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
     final MetisZohoOAuthToken metisZohoOAuthToken = new MetisZohoOAuthToken(
         zohoOAuthTokens.getUserMailId(), zohoOAuthTokens.getAccessToken(),
         zohoOAuthTokens.getRefreshToken(), zohoOAuthTokens.getExpiryTime());
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
 
-    session.saveOrUpdate(metisZohoOAuthToken);
-    String potentialErrorMessage = "Exception while saving zoho oauth user tokens";
-    finalizeTransaction(session, tx, potentialErrorMessage);
+      session.saveOrUpdate(metisZohoOAuthToken);
+      String potentialErrorMessage = "Exception while saving zoho oauth user tokens";
+      commitTransaction(tx, potentialErrorMessage);
+    }
   }
 
   @Override
   public ZohoOAuthTokens getOAuthTokens(String userIdentifier) throws Exception {
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
     MetisZohoOAuthToken metisZohoOAuthToken;
+    Transaction tx;
+    try (Session session = sessionFactory.openSession()) {
+      tx = session.beginTransaction();
 
-    Query query = session
-        .createQuery(String
-            .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
-                USER_IDENTIFIER_STRING));
-    query.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
-    if (!query.list().isEmpty()) {
-      metisZohoOAuthToken = (MetisZohoOAuthToken) query.list().get(0);
-    } else {
-      throw new ZohoOAuthException("Given User not found in persistence.");
+      Query query = session
+          .createQuery(String
+              .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
+                  USER_IDENTIFIER_STRING));
+      query.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
+      if (!query.list().isEmpty()) {
+        metisZohoOAuthToken = (MetisZohoOAuthToken) query.list().get(0);
+      } else {
+        throw new ZohoOAuthException("Given User not found in persistence.");
+      }
+      String potentialErrorMessage = "Exception while retrieving zoho oauth user tokens";
+      commitTransaction(tx, potentialErrorMessage);
     }
-    String potentialErrorMessage = "Exception while retrieving zoho oauth user tokens";
-    finalizeTransaction(session, tx, potentialErrorMessage);
 
     return metisZohoOAuthToken == null ? null : metisZohoOAuthToken.convertToZohoOAuthTokens();
   }
 
   @Override
   public void deleteOAuthTokens(String userIdentifier) {
-    Session session = sessionFactory.openSession();
-    Transaction tx = session.beginTransaction();
-    Query deleteQuery = session.createQuery(
-        String.format("DELETE FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
-            USER_IDENTIFIER_STRING));
-    deleteQuery.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
-    int i = deleteQuery.executeUpdate();
-    String potentialErrorMessage = "Exception while deleting zoho oauth user tokens";
-    finalizeTransaction(session, tx, potentialErrorMessage);
-    LOGGER.info("Removed {} Metis Zoho OAuth tokens with user identifier: {}", i, userIdentifier);
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
+      Query deleteQuery = session.createQuery(
+          String.format("DELETE FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
+              USER_IDENTIFIER_STRING));
+      deleteQuery.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
+      int i = deleteQuery.executeUpdate();
+      String potentialErrorMessage = "Exception while deleting zoho oauth user tokens";
+      commitTransaction(tx, potentialErrorMessage);
+      LOGGER.info("Removed {} Metis Zoho OAuth tokens with user identifier: {}", i, userIdentifier);
+    }
   }
 
   /**
-   * It will try to commit the transaction and close the session. If the transaction fails, it will
+   * It will try to commit the transaction. If the transaction fails, it will
    * rollback to previous state.
    *
-   * @param session the current session
    * @param tx the transaction to commit
    */
-  private void finalizeTransaction(Session session, Transaction tx, String potentialErrorMessage) {
+  private void commitTransaction(Transaction tx, String potentialErrorMessage) {
     try {
       tx.commit();
     } catch (RuntimeException e) {
@@ -105,8 +108,6 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
           potentialErrorMessage);
       throw new TransactionException(
           String.format("Transaction commit failed with message '%s'", potentialErrorMessage), e);
-    } finally {
-      session.close();
     }
   }
 
