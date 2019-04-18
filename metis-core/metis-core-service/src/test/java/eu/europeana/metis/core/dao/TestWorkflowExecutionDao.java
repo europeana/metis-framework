@@ -400,7 +400,7 @@ class TestWorkflowExecutionDao {
   }
 
   @Test
-  void getWorkflowExecutionOverview(){
+  void getWorkflowExecutionOverview() {
 
     final WorkflowExecution finishedOld = TestObjectFactory.createWorkflowExecutionObject();
     finishedOld.setWorkflowStatus(WorkflowStatus.FINISHED);
@@ -417,27 +417,27 @@ class TestWorkflowExecutionDao {
     failedOld.setCreatedDate(new Date(0));
     final String failedOldId = workflowExecutionDao.create(failedOld);
 
-    final WorkflowExecution finishedNew= TestObjectFactory.createWorkflowExecutionObject();
+    final WorkflowExecution finishedNew = TestObjectFactory.createWorkflowExecutionObject();
     finishedNew.setWorkflowStatus(WorkflowStatus.FINISHED);
     finishedNew.setCreatedDate(new Date(1000));
     final String finishedNewId = workflowExecutionDao.create(finishedNew);
 
-    final WorkflowExecution runningOld= TestObjectFactory.createWorkflowExecutionObject();
+    final WorkflowExecution runningOld = TestObjectFactory.createWorkflowExecutionObject();
     runningOld.setWorkflowStatus(WorkflowStatus.RUNNING);
     runningOld.setCreatedDate(new Date(0));
     final String runningOldId = workflowExecutionDao.create(runningOld);
 
-    final WorkflowExecution runningNew= TestObjectFactory.createWorkflowExecutionObject();
+    final WorkflowExecution runningNew = TestObjectFactory.createWorkflowExecutionObject();
     runningNew.setWorkflowStatus(WorkflowStatus.RUNNING);
     runningNew.setCreatedDate(new Date(1000));
     final String runningNewId = workflowExecutionDao.create(runningNew);
 
-    final WorkflowExecution queuedOld= TestObjectFactory.createWorkflowExecutionObject();
+    final WorkflowExecution queuedOld = TestObjectFactory.createWorkflowExecutionObject();
     queuedOld.setWorkflowStatus(WorkflowStatus.INQUEUE);
     queuedOld.setCreatedDate(new Date(0));
     final String queuedOldId = workflowExecutionDao.create(queuedOld);
 
-    final WorkflowExecution queuedNew= TestObjectFactory.createWorkflowExecutionObject();
+    final WorkflowExecution queuedNew = TestObjectFactory.createWorkflowExecutionObject();
     queuedNew.setWorkflowStatus(WorkflowStatus.INQUEUE);
     queuedNew.setCreatedDate(new Date(1000));
     final String queuedNewId = workflowExecutionDao.create(queuedNew);
@@ -450,7 +450,7 @@ class TestWorkflowExecutionDao {
     // Try without filtering on dataset.
     workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
     final List<ExecutionDatasetPair> resultWithoutFilter = workflowExecutionDao
-        .getWorkflowExecutionsOverview(null, 0, 1);
+        .getWorkflowExecutionsOverview(null, null, null, null, null, 0, 1);
     assertNotNull(resultWithoutFilter);
     final List<String> actualOrderWithoutFilter = resultWithoutFilter.stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
@@ -460,7 +460,9 @@ class TestWorkflowExecutionDao {
     // Try with filtering on dataset.
     workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
     final List<ExecutionDatasetPair> resultWithFilter = workflowExecutionDao
-        .getWorkflowExecutionsOverview(Collections.singleton("" + TestObjectFactory.DATASETID), 0, 1);
+        .getWorkflowExecutionsOverview(Collections.singleton("" + TestObjectFactory.DATASETID),
+            null, null, null, null, 0,
+            1);
     assertNotNull(resultWithFilter);
     final List<String> actualOrderWithFilter = resultWithFilter.stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
@@ -471,14 +473,15 @@ class TestWorkflowExecutionDao {
     workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
     final List<ExecutionDatasetPair> resultWithInvalidFilter = workflowExecutionDao
         .getWorkflowExecutionsOverview(
-            Collections.singleton("" + (TestObjectFactory.DATASETID + 1)), 0, 1);
+            Collections.singleton("" + (TestObjectFactory.DATASETID + 1)), null, null, null, null,
+            0, 1);
     assertNotNull(resultWithInvalidFilter);
     assertTrue(resultWithInvalidFilter.isEmpty());
 
     // Try with empty filter.
     workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
     final List<ExecutionDatasetPair> resultWithEmptyFilter = workflowExecutionDao
-        .getWorkflowExecutionsOverview(Collections.emptySet(), 0, 1);
+        .getWorkflowExecutionsOverview(Collections.emptySet(), null, null, null, null, 0, 1);
     assertNotNull(resultWithEmptyFilter);
     assertTrue(resultWithEmptyFilter.isEmpty());
 
@@ -488,7 +491,7 @@ class TestWorkflowExecutionDao {
     final int pageCount = 2;
     workflowExecutionDao.setWorkflowExecutionsPerRequest(pageSize);
     final List<ExecutionDatasetPair> resultWithPaging = workflowExecutionDao
-        .getWorkflowExecutionsOverview(null, pageNumber, pageCount);
+        .getWorkflowExecutionsOverview(null, null, null, null, null, pageNumber, pageCount);
     assertNotNull(resultWithPaging);
     final List<String> actualOrderWithPaging = resultWithPaging.stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)

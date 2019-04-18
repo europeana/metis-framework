@@ -527,6 +527,10 @@ public class OrchestratorService {
    * They will be sorted by creation date. This method does support pagination.
    *
    * @param metisUser the user wishing to perform this operation
+   * @param pluginStatuses the plugin statuses to filter. Can be null.
+   * @param pluginTypes the plugin types to filter. Can be null.
+   * @param fromDate the date from where the results should start. Can be null.
+   * @param toDate the date to where the results should end. Can be null.
    * @param nextPage the nextPage token, the end of the list is marked with -1 on the response
    * @param pageCount the number of pages that are requested
    * @return a list of all the WorkflowExecutions together with the datasets that they belong to.
@@ -537,10 +541,13 @@ public class OrchestratorService {
    * </ul>
    */
   public List<ExecutionAndDatasetView> getWorkflowExecutionsOverview(MetisUser metisUser,
-      int nextPage, int pageCount) throws GenericMetisException {
+      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate,
+      Date toDate, int nextPage, int pageCount) throws GenericMetisException {
     authorizer.authorizeReadAllDatasets(metisUser);
     final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
-    return workflowExecutionDao.getWorkflowExecutionsOverview(datasetIds, nextPage, pageCount)
+    return workflowExecutionDao
+        .getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes, fromDate, toDate,
+            nextPage, pageCount)
         .stream()
         .map(result -> new ExecutionAndDatasetView(result.getExecution(), result.getDataset()))
         .collect(Collectors.toList());
