@@ -335,9 +335,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (datasetIds != null && !datasetIds.isEmpty()) {
       query.field(DATASET_ID).in(datasetIds);
     }
-    final List<Query> internalQueries = generateQueriesForValuesInSet(AbstractMetisPlugin.class,
-        workflowStatuses, WORKFLOW_STATUS);
-    addElemMatchQueriesToRootQuery(query, internalQueries, METIS_PLUGINS);
+    extendQueryWithORForValuesInSet(query, workflowStatuses, WORKFLOW_STATUS);
 
     if (orderField != null) {
       if (ascending) {
@@ -484,6 +482,21 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       }
     }
     return queries;
+  }
+
+  private <T, K> void extendQueryWithORForValuesInSet(Query<T> query,
+      final Set<K> setValues, final String matchingField) {
+
+    List<CriteriaContainer> criteriaContainer = new ArrayList<>();
+    for (K value : setValues) {
+      if (value != null) {
+        criteriaContainer.add(query.criteria(matchingField).equal(value));
+      }
+    }
+    if (!criteriaContainer.isEmpty()) {
+      query.or((CriteriaContainerImpl[]) criteriaContainer
+          .toArray(new CriteriaContainerImpl[0]));
+    }
   }
 
   private <T, K, Z> List<Query> addQueriesOfAFieldWithAllFieldsFromSet(Class<T> classForQuery,
