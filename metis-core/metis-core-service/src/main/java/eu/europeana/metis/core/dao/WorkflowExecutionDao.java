@@ -334,7 +334,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (datasetIds != null && !datasetIds.isEmpty()) {
       query.field(DATASET_ID).in(datasetIds);
     }
-    addOperationORForSetValues(query, workflowStatuses, WORKFLOW_STATUS);
+    final List<Query> internalQueries = addOperationORForSetValues(AbstractMetisPlugin.class,
+        workflowStatuses, WORKFLOW_STATUS);
+    addElemMatchQueriesToRootQuery(query, internalQueries, METIS_PLUGINS);
 
     if (orderField != null) {
       if (ascending) {
@@ -382,19 +384,12 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (datasetIds != null) {
       query.field(DATASET_ID).in(datasetIds);
     }
-    if (fromDate != null) {
-      query.field(OrderField.CREATED_DATE.getOrderFieldName()).greaterThanOrEq(fromDate);
-    }
-    if (toDate != null) {
-      query.field(OrderField.CREATED_DATE.getOrderFieldName()).lessThan(toDate);
-    }
-    if (pluginStatuses != null && pluginTypes != null) {
-      addOperationORForCombinedSetValues(query, pluginStatuses, pluginTypes, PLUGIN_STATUS,
-          PLUGIN_TYPE);
-    } else {
-      addOperationORForSetValues(query, pluginStatuses, METIS_PLUGINS + "." + PLUGIN_STATUS);
-      addOperationORForSetValues(query, pluginTypes, METIS_PLUGINS + "." + PLUGIN_TYPE);
-    }
+    final List<Query> internalQueries = generateQueriesForParentField(
+        AbstractMetisPlugin.class, pluginStatuses, pluginTypes, PLUGIN_STATUS, PLUGIN_TYPE);
+    extendQueriesWithDateCheck(internalQueries, OrderField.STARTED_DATE.getOrderFieldName(),
+        fromDate, toDate);
+    addElemMatchQueriesToRootQuery(query, internalQueries, METIS_PLUGINS);
+
     pipeline.match(query);
 
     // Step 2: Add specific positions when the status is INQUEUE or RUNNING.
@@ -458,45 +453,70 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return result;
   }
 
-  private <T, K> void addOperationORForSetValues(final Query<T> query, final Set<K> setValues,
-      final String matchingField) {
-    List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
-    if (setValues != null) {
-      for (K value : setValues) {
-        if (value != null) {
-          criteriaContainer.add(query.criteria(matchingField).equal(value));
-        }
+  private <T, K> List<Query> addOperationORForSetValues(Class<T> classForQuery,
+      final Set<K> setValues, final String matchingField) {
+    List<Query> queries = new ArrayList<>();
+
+    for (K value : setValues) {
+      if (value != null) {
+        final Query<T> metisPluginQuery = morphiaDatastoreProvider
+            .getDatastore().createQuery(classForQuery);
+        metisPluginQuery.criteria(matchingField).equal(value);
+        queries.add(metisPluginQuery);
       }
     }
-    if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer
-          .toArray(new CriteriaContainerImpl[0]));
-    }
+    return queries;
   }
 
-  private <T, K, Z> void addOperationORForCombinedSetValues(final Query<T> query,
+  private <T, K, Z> List<Query> generateQueriesForParentField(Class<T> classForQuery,
       final Set<K> firstSet, final Set<Z> secondSet, final String firstMatchingField,
-      final String secondMatchinField) {
-    List<CriteriaContainer> criteriaContainer = new ArrayList<>();
+      final String secondMatchingField) {
+    List<Query> queries = new ArrayList<>();
+
     if (!CollectionUtils.isEmpty(firstSet) && !CollectionUtils.isEmpty(secondSet)) {
       for (K valueFirstSet : firstSet) {
         if (valueFirstSet != null) {
-          for (Z valueSecondSet :
-              secondSet) {
-            final Query<AbstractMetisPlugin> metisPluginQuery = morphiaDatastoreProvider
-                .getDatastore().createQuery(AbstractMetisPlugin.class);
-            metisPluginQuery.criteria(firstMatchingField).equal(valueFirstSet)
-                .and(metisPluginQuery.criteria(secondMatchinField).equal(valueSecondSet));
-            criteriaContainer.add(query.criteria(METIS_PLUGINS).elemMatch(metisPluginQuery));
+          for (Z valueSecondSet : secondSet) {
+            if (valueSecondSet != null) {
+              final Query<T> metisPluginQuery = morphiaDatastoreProvider.getDatastore()
+                  .createQuery(classForQuery);
+              metisPluginQuery.criteria(firstMatchingField).equal(valueFirstSet)
+                  .and(metisPluginQuery.criteria(secondMatchingField).equal(valueSecondSet));
+              queries.add(metisPluginQuery);
+            }
           }
         }
       }
+    } else if (!CollectionUtils.isEmpty(firstSet)) {
+      queries = addOperationORForSetValues(classForQuery, firstSet, firstMatchingField);
+    } else if (!CollectionUtils.isEmpty(secondSet)) {
+      queries = addOperationORForSetValues(classForQuery, secondSet, secondMatchingField);
+    }
+    return queries;
+  }
+
+  private void extendQueriesWithDateCheck(List<Query> queries, String dateField, Date fromDate,
+      Date toDate) {
+    for (Query query : queries) {
+      if (fromDate != null) {
+        query.field(dateField).greaterThanOrEq(fromDate);
+      }
+      if (toDate != null) {
+        query.field(dateField).lessThan(toDate);
+      }
+    }
+  }
+
+  private <T> void addElemMatchQueriesToRootQuery(Query<T> query,
+      List<Query> internalQueries, String fieldMatch) {
+    List<CriteriaContainer> criteriaContainer = new ArrayList<>();
+    for (Query internalQuery : internalQueries) {
+      criteriaContainer.add(query.criteria(fieldMatch).elemMatch(internalQuery));
     }
     if (!criteriaContainer.isEmpty()) {
       query.or((CriteriaContainerImpl[]) criteriaContainer
           .toArray(new CriteriaContainerImpl[0]));
     }
-    System.out.println();
   }
 
   /**
