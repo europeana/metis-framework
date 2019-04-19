@@ -410,6 +410,12 @@ class TestWorkflowExecutionDao {
     final WorkflowExecution cancelledOld = TestObjectFactory.createWorkflowExecutionObject();
     cancelledOld.setWorkflowStatus(WorkflowStatus.CANCELLED);
     cancelledOld.setCreatedDate(new Date(1));
+    final Date startedDateOfCancelledPlugin = new Date(10);
+    final List<AbstractMetisPlugin> metisPlugins = cancelledOld.getMetisPlugins();
+    metisPlugins.forEach(metisPlugin -> {
+      metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
+      metisPlugin.setStartedDate(startedDateOfCancelledPlugin);
+    });
     final String cancelledOldId = workflowExecutionDao.create(cancelledOld);
 
     final WorkflowExecution failedOld = TestObjectFactory.createWorkflowExecutionObject();
@@ -468,6 +474,31 @@ class TestWorkflowExecutionDao {
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
         .map(ObjectId::toString).collect(Collectors.toList());
     assertEquals(expectedOrder, actualOrderWithFilter);
+
+    // Try with filtering on pluginStatuses and pluginTypes.
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
+    final List<ExecutionDatasetPair> resultWithFilterPlugin = workflowExecutionDao
+        .getWorkflowExecutionsOverview(null,
+            EnumSet.of(PluginStatus.CANCELLED), EnumSet.of(PluginType.OAIPMH_HARVEST),
+            startedDateOfCancelledPlugin, null, 0, 1);
+    assertNotNull(resultWithFilterPlugin);
+    final List<String> actualOrderWithFilterPlugin = resultWithFilterPlugin.stream()
+        .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
+        .map(ObjectId::toString).collect(Collectors.toList());
+    assertEquals(Collections.singletonList(cancelledOldId), actualOrderWithFilterPlugin);
+    assertEquals(2, resultWithFilterPlugin.get(0).getExecution().getMetisPlugins().size());
+
+    // Try with filtering on pluginStatuses and pluginTypes that do not exist.
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
+    final List<ExecutionDatasetPair> resultWithFilterPluginNoItems = workflowExecutionDao
+        .getWorkflowExecutionsOverview(null,
+            EnumSet.of(PluginStatus.FINISHED), EnumSet.of(PluginType.OAIPMH_HARVEST),
+            null, null, 0, 1);
+    assertNotNull(resultWithFilterPluginNoItems);
+    final List<String> actualOrderWithFilterPluginNoItems = resultWithFilterPluginNoItems.stream()
+        .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
+        .map(ObjectId::toString).collect(Collectors.toList());
+    assertEquals(0, actualOrderWithFilterPluginNoItems.size());
 
     // Try with filter on non-existing dataset.
     workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());

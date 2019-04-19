@@ -29,7 +29,7 @@ public class ScheduledWorkflow implements HasMongoObjectId {
   private ObjectId id;
   private String datasetId;
   @Indexed
-  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT_WITHOUT_MILLIS)
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT_FOR_SCHEDULING)
   private Date pointerDate;
   private ScheduleFrequence scheduleFrequence;
   private int workflowPriority;

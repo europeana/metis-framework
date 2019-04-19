@@ -491,8 +491,8 @@ public class OrchestratorController {
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "pluginStatus", required = false) Set<PluginStatus> pluginStatuses,
       @RequestParam(value = "pluginType", required = false) Set<PluginType> pluginTypes,
-      @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = CommonStringValues.DATE_FORMAT_WITHOUT_MILLIS) Date fromDate,
-      @RequestParam(value = "toDate", required = false) @DateTimeFormat(pattern = CommonStringValues.DATE_FORMAT_WITHOUT_MILLIS) Date toDate,
+      @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = CommonStringValues.DATE_FORMAT_FOR_REQUEST_PARAM) Date fromDate,
+      @RequestParam(value = "toDate", required = false) @DateTimeFormat(pattern = CommonStringValues.DATE_FORMAT_FOR_REQUEST_PARAM) Date toDate,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage,
       @RequestParam(value = "pageCount", required = false, defaultValue = "1") int pageCount)
       throws GenericMetisException {

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
@@ -334,7 +335,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (datasetIds != null && !datasetIds.isEmpty()) {
       query.field(DATASET_ID).in(datasetIds);
     }
-    final List<Query> internalQueries = addOperationORForSetValues(AbstractMetisPlugin.class,
+    final List<Query> internalQueries = generateQueriesForValuesInSet(AbstractMetisPlugin.class,
         workflowStatuses, WORKFLOW_STATUS);
     addElemMatchQueriesToRootQuery(query, internalQueries, METIS_PLUGINS);
 
@@ -453,7 +454,24 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return result;
   }
 
-  private <T, K> List<Query> addOperationORForSetValues(Class<T> classForQuery,
+  private <T, K, Z> List<Query> generateQueriesForParentField(Class<T> classForQuery,
+      final Set<K> firstSet, final Set<Z> secondSet, final String firstMatchingField,
+      final String secondMatchingField) {
+    List<Query> queries = new ArrayList<>();
+
+    if (!CollectionUtils.isEmpty(firstSet) && !CollectionUtils.isEmpty(secondSet)) {
+      firstSet.stream().filter(Objects::nonNull).map(value ->
+          addQueriesOfAFieldWithAllFieldsFromSet(classForQuery, value, firstMatchingField,
+              secondSet, secondMatchingField)).forEach(queries::addAll);
+    } else if (!CollectionUtils.isEmpty(firstSet)) {
+      queries = generateQueriesForValuesInSet(classForQuery, firstSet, firstMatchingField);
+    } else if (!CollectionUtils.isEmpty(secondSet)) {
+      queries = generateQueriesForValuesInSet(classForQuery, secondSet, secondMatchingField);
+    }
+    return queries;
+  }
+
+  private <T, K> List<Query> generateQueriesForValuesInSet(Class<T> classForQuery,
       final Set<K> setValues, final String matchingField) {
     List<Query> queries = new ArrayList<>();
 
@@ -468,29 +486,18 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return queries;
   }
 
-  private <T, K, Z> List<Query> generateQueriesForParentField(Class<T> classForQuery,
-      final Set<K> firstSet, final Set<Z> secondSet, final String firstMatchingField,
-      final String secondMatchingField) {
+  private <T, K, Z> List<Query> addQueriesOfAFieldWithAllFieldsFromSet(Class<T> classForQuery,
+      K valueFirstSet, String firstMatchingField,
+      Set<Z> secondSet, String secondMatchingField) {
     List<Query> queries = new ArrayList<>();
-
-    if (!CollectionUtils.isEmpty(firstSet) && !CollectionUtils.isEmpty(secondSet)) {
-      for (K valueFirstSet : firstSet) {
-        if (valueFirstSet != null) {
-          for (Z valueSecondSet : secondSet) {
-            if (valueSecondSet != null) {
-              final Query<T> metisPluginQuery = morphiaDatastoreProvider.getDatastore()
-                  .createQuery(classForQuery);
-              metisPluginQuery.criteria(firstMatchingField).equal(valueFirstSet)
-                  .and(metisPluginQuery.criteria(secondMatchingField).equal(valueSecondSet));
-              queries.add(metisPluginQuery);
-            }
-          }
-        }
+    for (Z valueSecondSet : secondSet) {
+      if (valueSecondSet != null) {
+        final Query<T> metisPluginQuery = morphiaDatastoreProvider.getDatastore()
+            .createQuery(classForQuery);
+        metisPluginQuery.criteria(firstMatchingField).equal(valueFirstSet)
+            .and(metisPluginQuery.criteria(secondMatchingField).equal(valueSecondSet));
+        queries.add(metisPluginQuery);
       }
-    } else if (!CollectionUtils.isEmpty(firstSet)) {
-      queries = addOperationORForSetValues(classForQuery, firstSet, firstMatchingField);
-    } else if (!CollectionUtils.isEmpty(secondSet)) {
-      queries = addOperationORForSetValues(classForQuery, secondSet, secondMatchingField);
     }
     return queries;
   }
