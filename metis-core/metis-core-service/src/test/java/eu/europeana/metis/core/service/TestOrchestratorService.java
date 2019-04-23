@@ -766,19 +766,23 @@ class TestOrchestratorService {
     // organization has rights.
     when(datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()))
         .thenReturn(datasets);
-    when(workflowExecutionDao.getWorkflowExecutionsOverview(eq(datasetIds), eq(nextPage), eq(pageCount)))
+    when(workflowExecutionDao
+        .getWorkflowExecutionsOverview(eq(datasetIds), isNull(), isNull(), isNull(), isNull(),
+            eq(nextPage), eq(pageCount)))
         .thenReturn(data);
     final List<ExecutionAndDatasetView> result = orchestratorService
-        .getWorkflowExecutionsOverview(metisUser, nextPage, pageCount);
+        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1))
-        .getWorkflowExecutionsOverview(eq(datasetIds), eq(nextPage), eq(pageCount));
+        .getWorkflowExecutionsOverview(eq(datasetIds), isNull(), isNull(), isNull(), isNull(),
+            eq(nextPage), eq(pageCount));
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
             .collect(Collectors.toList()),
-        result.stream().map(ExecutionAndDatasetView::getDataset).map(DatasetSummaryView::getDatasetId)
+        result.stream().map(ExecutionAndDatasetView::getDataset)
+            .map(DatasetSummaryView::getDatasetId)
             .collect(Collectors.toList()));
     assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
             .map(ObjectId::toString).collect(Collectors.toList()),
@@ -797,19 +801,23 @@ class TestOrchestratorService {
 
     // Check for all datasets and for admin user: should query all datasets.
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
-    when(workflowExecutionDao.getWorkflowExecutionsOverview(isNull(), eq(nextPage), eq(pageCount)))
+    when(workflowExecutionDao
+        .getWorkflowExecutionsOverview(isNull(), isNull(), isNull(), isNull(), isNull(),
+            eq(nextPage), eq(pageCount)))
         .thenReturn(data);
     final List<ExecutionAndDatasetView> result = orchestratorService
-        .getWorkflowExecutionsOverview(metisUser, nextPage, pageCount);
+        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1))
-        .getWorkflowExecutionsOverview(isNull(), eq(nextPage), eq(pageCount));
+        .getWorkflowExecutionsOverview(isNull(), isNull(), isNull(), isNull(), isNull(),
+            eq(nextPage), eq(pageCount));
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
             .collect(Collectors.toList()),
-        result.stream().map(ExecutionAndDatasetView::getDataset).map(DatasetSummaryView::getDatasetId)
+        result.stream().map(ExecutionAndDatasetView::getDataset)
+            .map(DatasetSummaryView::getDatasetId)
             .collect(Collectors.toList()));
     assertEquals(data.stream().map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
             .map(ObjectId::toString).collect(Collectors.toList()),

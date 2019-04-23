@@ -47,6 +47,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutionDao.class);
   private static final String WORKFLOW_STATUS = "workflowStatus";
+  private static final String PLUGIN_STATUS = "pluginStatus";
+  private static final String PLUGIN_TYPE = "pluginType";
   private static final String DATASET_ID = "datasetId";
   private static final String METIS_PLUGINS = "metisPlugins";
 
@@ -331,17 +333,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (datasetIds != null && !datasetIds.isEmpty()) {
       query.field(DATASET_ID).in(datasetIds);
     }
-
-    List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
-    if (workflowStatuses != null) {
-      for (WorkflowStatus workflowStatus : workflowStatuses) {
-        if (workflowStatus != null) {
-          criteriaContainer.add(query.criteria(WORKFLOW_STATUS).equal(workflowStatus));
-        }
-      }
-    }
-    if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+    if (!CollectionUtils.isEmpty(workflowStatuses)) {
+      query.field(WORKFLOW_STATUS).in(workflowStatuses);
     }
 
     if (orderField != null) {
@@ -368,26 +361,75 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * temporary fields.
    *
    * @param datasetIds a set of dataset identifiers to filter, can be empty or null to get all
+   * @param pluginStatuses the plugin statuses to filter. Can be null.
+   * @param pluginTypes the plugin types to filter. Can be null.
+   * @param fromDate the date from where the results should start. Can be null.
+   * @param toDate the date to where the results should end. Can be null.
    * @param nextPage the nextPage token
    * @param pageCount the number of pages that are requested
    * @return a list of all the WorkflowExecutions found
    */
   public List<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
-      int nextPage, int pageCount) {
+      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate,
+      Date toDate, int nextPage, int pageCount) {
 
     // Create the aggregate pipeline
     final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
         .createAggregation(WorkflowExecution.class);
 
-    // Step 1: match the datasets that are in the list.
+    // Step 1: create query filters
+    final Query<WorkflowExecution> query = createQueryFilters(datasetIds, pluginStatuses,
+        pluginTypes, fromDate, toDate);
+    pipeline.match(query);
+
+    // Step 2: determine status index field
+    final String statusIndexField = determineOrderingStatusIndex(pipeline);
+
+    // Step 3: Sort - first on the status index, then on the createdDate.
+    pipeline.sort(Sort.ascending(statusIndexField),
+        Sort.descending(OrderField.CREATED_DATE.getOrderFieldName()));
+
+    // Step 4: Apply pagination
+    pipeline.skip(nextPage * getWorkflowExecutionsPerRequest())
+        .limit(getWorkflowExecutionsPerRequest() * pageCount);
+    // Step 5: Create join of dataset and execution to combine the data information
+    joinDatasetAndWorkflowExecution(pipeline);
+
+    // Done: execute and return result.
+    final List<ExecutionDatasetPair> result = new ArrayList<>();
+    pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
+    return result;
+  }
+
+  private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,
+      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate) {
+    final Query<WorkflowExecution> query =
+        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
     if (datasetIds != null) {
-      final Query<WorkflowExecution> query =
-          morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
       query.field(DATASET_ID).in(datasetIds);
-      pipeline.match(query);
     }
 
-    // Step 2: Add specific positions when the status is INQUEUE or RUNNING.
+    Query<AbstractMetisPlugin> metisPluginsSubQuery = morphiaDatastoreProvider.getDatastore()
+        .createQuery(AbstractMetisPlugin.class);
+    if (!CollectionUtils.isEmpty(pluginTypes)) {
+      metisPluginsSubQuery.field(PLUGIN_TYPE).in(pluginTypes);
+    }
+    if (!CollectionUtils.isEmpty(pluginStatuses)) {
+      metisPluginsSubQuery.field(PLUGIN_STATUS).in(pluginStatuses);
+    }
+    if (fromDate != null) {
+      metisPluginsSubQuery.field(OrderField.STARTED_DATE.getOrderFieldName())
+          .greaterThanOrEq(fromDate);
+    }
+    if (toDate != null) {
+      metisPluginsSubQuery.field(OrderField.STARTED_DATE.getOrderFieldName()).lessThan(toDate);
+    }
+    query.field(METIS_PLUGINS).elemMatch(metisPluginsSubQuery);
+    return query;
+  }
+
+  private String determineOrderingStatusIndex(AggregationPipeline pipeline) {
+    // Step 1: Add specific positions when the status is INQUEUE or RUNNING.
     final String statusInQueueField = "statusInQueue";
     final String statusRunningField = "statusRunning";
     pipeline.project(
@@ -401,9 +443,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         Projection.projection(DATASET_ID)
     );
 
-    // Step 3: Copy specific positions to final variable: use default position if no position is set.
+    // Step 2: Copy specific positions to final variable: use default position if no position is set.
     final String statusIndexField = "statusIndex";
-    final Projection sumExpression = Projection.add("$" + statusInQueueField, "$" + statusRunningField);
+    final Projection sumExpression = Projection
+        .add("$" + statusInQueueField, "$" + statusRunningField);
     pipeline.project(
         Projection.projection(statusIndexField, Projection.expression(MONGO_COND_OPERATOR,
             Projection.expression(FilterOperator.EQUAL.val(), sumExpression, 0),
@@ -411,16 +454,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         Projection.projection(OrderField.CREATED_DATE.getOrderFieldName()),
         Projection.projection(DATASET_ID)
     );
+    return statusIndexField;
+  }
 
-    // Step 4: Sort - first on the status index, then on the createdDate.
-    pipeline.sort(Sort.ascending(statusIndexField),
-        Sort.descending(OrderField.CREATED_DATE.getOrderFieldName()));
-
-    // Step 5: Apply pagination
-    pipeline.skip(nextPage * getWorkflowExecutionsPerRequest())
-        .limit(getWorkflowExecutionsPerRequest() * pageCount);
-
-    // Step 6: Join with the dataset and the execution
+  private void joinDatasetAndWorkflowExecution(AggregationPipeline pipeline) {
+    // Step 1: Join with the dataset and the execution
     final String datasetCollectionName = morphiaDatastoreProvider.getDatastore()
         .getCollection(Dataset.class).getName();
     final String executionCollectionName = morphiaDatastoreProvider.getDatastore()
@@ -430,7 +468,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     pipeline.lookup(datasetCollectionName, DATASET_ID, DatasetDao.DATASET_ID, datasetListField);
     pipeline.lookup(executionCollectionName, "_id", "_id", executionListField);
 
-    // Step 7: Keep only the first entry in the dataset and execution lists.
+    // Step 2: Keep only the first entry in the dataset and execution lists.
     final String datasetField = "dataset";
     final String executionField = "execution";
     pipeline.project(
@@ -440,11 +478,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
             Projection.expression("$arrayElemAt", "$" + executionListField, 0)),
         Projection.projection("_id").suppress()
     );
-
-    // Done: execute and return result.
-    final List<ExecutionDatasetPair> result = new ArrayList<>();
-    pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
-    return result;
   }
 
   /**
@@ -584,8 +617,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Create subquery to find the correct plugin.
     final Query<AbstractMetisPlugin> subQuery =
         morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
-    subQuery.field("startedDate").equal(startedDate);
-    subQuery.field("pluginType").equal(pluginType);
+    subQuery.field(OrderField.STARTED_DATE.getOrderFieldName()).equal(startedDate);
+    subQuery.field(PLUGIN_TYPE).equal(pluginType);
 
     // Create query to find workflow execution
     final Query<WorkflowExecution> query =

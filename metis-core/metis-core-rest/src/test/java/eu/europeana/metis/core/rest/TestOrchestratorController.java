@@ -678,7 +678,9 @@ class TestOrchestratorController {
         .createListOfExecutionOverviews(pageSize * pageCount);
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(pageSize);
-    when(orchestratorService.getWorkflowExecutionsOverview(eq(metisUser), eq(nextPage), eq(pageCount)))
+    when(orchestratorService
+        .getWorkflowExecutionsOverview(eq(metisUser), isNull(), isNull(), isNull(), isNull(),
+            eq(nextPage), eq(pageCount)))
         .thenReturn(listOfWorkflowExecutionAndDatasetViews);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
@@ -690,11 +692,14 @@ class TestOrchestratorController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(pageSize * pageCount)))
         .andExpect(
-            jsonPath("$.results[0].dataset.datasetId", is(Integer.toString(TestObjectFactory.DATASETID))))
-        .andExpect(jsonPath("$.results[0].execution.workflowStatus", is(WorkflowStatus.INQUEUE.name())))
+            jsonPath("$.results[0].dataset.datasetId",
+                is(Integer.toString(TestObjectFactory.DATASETID))))
+        .andExpect(
+            jsonPath("$.results[0].execution.workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.results[1].dataset.datasetId",
             is(Integer.toString(TestObjectFactory.DATASETID + 1))))
-        .andExpect(jsonPath("$.results[1].execution.workflowStatus", is(WorkflowStatus.INQUEUE.name())))
+        .andExpect(
+            jsonPath("$.results[1].execution.workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.nextPage", is(nextPage + pageCount)))
         .andExpect(jsonPath("$.listSize", is(pageSize * pageCount)));
   }
@@ -746,17 +751,21 @@ class TestOrchestratorController {
         .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType))
         .thenReturn(resultNonEmpty);
     orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID,
+            pluginType)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.evolutionSteps", hasSize(2)))
         .andExpect(
             jsonPath("$.evolutionSteps[0].workflowExecutionId", is(step1.getWorkflowExecutionId())))
         .andExpect(jsonPath("$.evolutionSteps[0].pluginType", is(step1.getPluginType().name())))
-        .andExpect(jsonPath("$.evolutionSteps[0].finishedTime", is((int) step1.getFinishedTime().getTime())))
-        .andExpect(jsonPath("$.evolutionSteps[1].workflowExecutionId", is(step2.getWorkflowExecutionId())))
+        .andExpect(jsonPath("$.evolutionSteps[0].finishedTime",
+            is((int) step1.getFinishedTime().getTime())))
+        .andExpect(
+            jsonPath("$.evolutionSteps[1].workflowExecutionId", is(step2.getWorkflowExecutionId())))
         .andExpect(jsonPath("$.evolutionSteps[1].pluginType", is(step2.getPluginType().name())))
-        .andExpect(jsonPath("$.evolutionSteps[1].finishedTime", is((int) step2.getFinishedTime().getTime())));
+        .andExpect(jsonPath("$.evolutionSteps[1].finishedTime",
+            is((int) step2.getFinishedTime().getTime())));
 
     // Test happy flow with empty evolution
     final VersionEvolution resultEmpty = new VersionEvolution();
@@ -765,7 +774,8 @@ class TestOrchestratorController {
         .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType))
         .thenReturn(resultEmpty);
     orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID,
+            pluginType)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.evolutionSteps", hasSize(0)));
@@ -775,7 +785,8 @@ class TestOrchestratorController {
         .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType))
         .thenThrow(new NoWorkflowExecutionFoundException(""));
     orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID,
+            pluginType)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(404));
 
@@ -783,7 +794,8 @@ class TestOrchestratorController {
     doThrow(new UserUnauthorizedException("")).when(orchestratorService)
         .getRecordEvolutionForVersion(metisUser, TestObjectFactory.EXECUTIONID, pluginType);
     orchestratorControllerMock
-        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID, pluginType)
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, TestObjectFactory.EXECUTIONID,
+            pluginType)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
         .andExpect(status().is(401));
   }
