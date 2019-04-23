@@ -17,14 +17,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.aggregation.AggregationPipeline;
 import org.mongodb.morphia.aggregation.Projection;
 import org.mongodb.morphia.query.Criteria;
-import org.mongodb.morphia.query.CriteriaContainer;
 import org.mongodb.morphia.query.CriteriaContainerImpl;
 import org.mongodb.morphia.query.FilterOperator;
 import org.mongodb.morphia.query.FindOptions;
@@ -335,7 +333,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (datasetIds != null && !datasetIds.isEmpty()) {
       query.field(DATASET_ID).in(datasetIds);
     }
-    extendQueryWithORForValuesInSet(query, workflowStatuses, WORKFLOW_STATUS);
+    if (!CollectionUtils.isEmpty(workflowStatuses)) {
+      query.field(WORKFLOW_STATUS).in(workflowStatuses);
+    }
 
     if (orderField != null) {
       if (ascending) {
@@ -377,21 +377,59 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
         .createAggregation(WorkflowExecution.class);
 
-    // Step 1: match the datasets that are in the list.
+    // Step 1: create query filters
+    final Query<WorkflowExecution> query = createQueryFilters(datasetIds, pluginStatuses,
+        pluginTypes, fromDate, toDate);
+    pipeline.match(query);
+
+    // Step 2: determine status index field
+    final String statusIndexField = determineOrderingStatusIndex(pipeline);
+
+    // Step 3: Sort - first on the status index, then on the createdDate.
+    pipeline.sort(Sort.ascending(statusIndexField),
+        Sort.descending(OrderField.CREATED_DATE.getOrderFieldName()));
+
+    // Step 4: Apply pagination
+    pipeline.skip(nextPage * getWorkflowExecutionsPerRequest())
+        .limit(getWorkflowExecutionsPerRequest() * pageCount);
+    // Step 5: Create join of dataset and execution to combine the data information
+    joinDatasetAndWorkflowExecution(pipeline);
+
+    // Done: execute and return result.
+    final List<ExecutionDatasetPair> result = new ArrayList<>();
+    pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
+    return result;
+  }
+
+  private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,
+      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate) {
     final Query<WorkflowExecution> query =
         morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
     if (datasetIds != null) {
       query.field(DATASET_ID).in(datasetIds);
     }
-    final List<Query> internalQueries = generateQueriesForParentField(
-        AbstractMetisPlugin.class, pluginStatuses, pluginTypes, PLUGIN_STATUS, PLUGIN_TYPE);
-    extendQueriesWithDateCheck(internalQueries, OrderField.STARTED_DATE.getOrderFieldName(),
-        fromDate, toDate);
-    addElemMatchQueriesToRootQuery(query, internalQueries, METIS_PLUGINS);
 
-    pipeline.match(query);
+    Query<AbstractMetisPlugin> metisPluginsSubQuery = morphiaDatastoreProvider.getDatastore()
+        .createQuery(AbstractMetisPlugin.class);
+    if (!CollectionUtils.isEmpty(pluginTypes)) {
+      metisPluginsSubQuery.field(PLUGIN_TYPE).in(pluginTypes);
+    }
+    if (!CollectionUtils.isEmpty(pluginStatuses)) {
+      metisPluginsSubQuery.field(PLUGIN_STATUS).in(pluginStatuses);
+    }
+    if (fromDate != null) {
+      metisPluginsSubQuery.field(OrderField.STARTED_DATE.getOrderFieldName())
+          .greaterThanOrEq(fromDate);
+    }
+    if (toDate != null) {
+      metisPluginsSubQuery.field(OrderField.STARTED_DATE.getOrderFieldName()).lessThan(toDate);
+    }
+    query.field(METIS_PLUGINS).elemMatch(metisPluginsSubQuery);
+    return query;
+  }
 
-    // Step 2: Add specific positions when the status is INQUEUE or RUNNING.
+  private String determineOrderingStatusIndex(AggregationPipeline pipeline) {
+    // Step 1: Add specific positions when the status is INQUEUE or RUNNING.
     final String statusInQueueField = "statusInQueue";
     final String statusRunningField = "statusRunning";
     pipeline.project(
@@ -405,7 +443,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         Projection.projection(DATASET_ID)
     );
 
-    // Step 3: Copy specific positions to final variable: use default position if no position is set.
+    // Step 2: Copy specific positions to final variable: use default position if no position is set.
     final String statusIndexField = "statusIndex";
     final Projection sumExpression = Projection
         .add("$" + statusInQueueField, "$" + statusRunningField);
@@ -416,16 +454,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         Projection.projection(OrderField.CREATED_DATE.getOrderFieldName()),
         Projection.projection(DATASET_ID)
     );
+    return statusIndexField;
+  }
 
-    // Step 4: Sort - first on the status index, then on the createdDate.
-    pipeline.sort(Sort.ascending(statusIndexField),
-        Sort.descending(OrderField.CREATED_DATE.getOrderFieldName()));
-
-    // Step 5: Apply pagination
-    pipeline.skip(nextPage * getWorkflowExecutionsPerRequest())
-        .limit(getWorkflowExecutionsPerRequest() * pageCount);
-
-    // Step 6: Join with the dataset and the execution
+  private void joinDatasetAndWorkflowExecution(AggregationPipeline pipeline) {
+    // Step 1: Join with the dataset and the execution
     final String datasetCollectionName = morphiaDatastoreProvider.getDatastore()
         .getCollection(Dataset.class).getName();
     final String executionCollectionName = morphiaDatastoreProvider.getDatastore()
@@ -435,7 +468,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     pipeline.lookup(datasetCollectionName, DATASET_ID, DatasetDao.DATASET_ID, datasetListField);
     pipeline.lookup(executionCollectionName, "_id", "_id", executionListField);
 
-    // Step 7: Keep only the first entry in the dataset and execution lists.
+    // Step 2: Keep only the first entry in the dataset and execution lists.
     final String datasetField = "dataset";
     final String executionField = "execution";
     pipeline.project(
@@ -445,98 +478,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
             Projection.expression("$arrayElemAt", "$" + executionListField, 0)),
         Projection.projection("_id").suppress()
     );
-
-    // Done: execute and return result.
-    final List<ExecutionDatasetPair> result = new ArrayList<>();
-    pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
-    return result;
-  }
-
-  private <T, K, Z> List<Query> generateQueriesForParentField(Class<T> classForQuery,
-      final Set<K> firstSet, final Set<Z> secondSet, final String firstMatchingField,
-      final String secondMatchingField) {
-    List<Query> queries = new ArrayList<>();
-
-    if (!CollectionUtils.isEmpty(firstSet) && !CollectionUtils.isEmpty(secondSet)) {
-      firstSet.stream().filter(Objects::nonNull).map(value ->
-          addQueriesOfAFieldWithAllFieldsFromSet(classForQuery, value, firstMatchingField,
-              secondSet, secondMatchingField)).forEach(queries::addAll);
-    } else if (!CollectionUtils.isEmpty(firstSet)) {
-      queries = generateQueriesForValuesInSet(classForQuery, firstSet, firstMatchingField);
-    } else if (!CollectionUtils.isEmpty(secondSet)) {
-      queries = generateQueriesForValuesInSet(classForQuery, secondSet, secondMatchingField);
-    }
-    return queries;
-  }
-
-  private <T, K> List<Query> generateQueriesForValuesInSet(Class<T> classForQuery,
-      final Set<K> setValues, final String matchingField) {
-    List<Query> queries = new ArrayList<>();
-
-    for (K value : setValues) {
-      if (value != null) {
-        final Query<T> metisPluginQuery = morphiaDatastoreProvider
-            .getDatastore().createQuery(classForQuery);
-        metisPluginQuery.criteria(matchingField).equal(value);
-        queries.add(metisPluginQuery);
-      }
-    }
-    return queries;
-  }
-
-  private <T, K> void extendQueryWithORForValuesInSet(Query<T> query,
-      final Set<K> setValues, final String matchingField) {
-
-    List<CriteriaContainer> criteriaContainer = new ArrayList<>();
-    for (K value : setValues) {
-      if (value != null) {
-        criteriaContainer.add(query.criteria(matchingField).equal(value));
-      }
-    }
-    if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer
-          .toArray(new CriteriaContainerImpl[0]));
-    }
-  }
-
-  private <T, K, Z> List<Query> addQueriesOfAFieldWithAllFieldsFromSet(Class<T> classForQuery,
-      K valueFirstSet, String firstMatchingField,
-      Set<Z> secondSet, String secondMatchingField) {
-    List<Query> queries = new ArrayList<>();
-    for (Z valueSecondSet : secondSet) {
-      if (valueSecondSet != null) {
-        final Query<T> metisPluginQuery = morphiaDatastoreProvider.getDatastore()
-            .createQuery(classForQuery);
-        metisPluginQuery.criteria(firstMatchingField).equal(valueFirstSet)
-            .and(metisPluginQuery.criteria(secondMatchingField).equal(valueSecondSet));
-        queries.add(metisPluginQuery);
-      }
-    }
-    return queries;
-  }
-
-  private void extendQueriesWithDateCheck(List<Query> queries, String dateField, Date fromDate,
-      Date toDate) {
-    for (Query query : queries) {
-      if (fromDate != null) {
-        query.field(dateField).greaterThanOrEq(fromDate);
-      }
-      if (toDate != null) {
-        query.field(dateField).lessThan(toDate);
-      }
-    }
-  }
-
-  private <T> void addElemMatchQueriesToRootQuery(Query<T> query,
-      List<Query> internalQueries, String fieldMatch) {
-    List<CriteriaContainer> criteriaContainer = new ArrayList<>();
-    for (Query internalQuery : internalQueries) {
-      criteriaContainer.add(query.criteria(fieldMatch).elemMatch(internalQuery));
-    }
-    if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer
-          .toArray(new CriteriaContainerImpl[0]));
-    }
   }
 
   /**
