@@ -12,11 +12,20 @@ public class CommandExecutionException extends Exception {
 
   /**
    * Constructor.
-   * 
+   *
    * @param message The exception message.
    * @param cause The cause.
    */
   public CommandExecutionException(String message, Throwable cause) {
     super(message, cause);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param message The exception message.
+   */
+  public CommandExecutionException(String message) {
+    super(message);
   }
 }
