@@ -7,7 +7,8 @@ import java.io.OutputStream;
 /**
  * Implementations of this interface provide a variety of serialization options for RDF files. This
  * object can be reused multiple times, as the construction of it incurs overhead. Please note that
- * this object is not guaranteed to be thread-safe.
+ * this object is not guaranteed to be thread-safe. Access to this object should be from one thread
+ * only, or synchronized/locked.
  */
 public interface RdfSerializer {
 
