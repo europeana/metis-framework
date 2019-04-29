@@ -218,6 +218,7 @@ public class TestObjectFactory {
     ds.setCountry(Country.GREECE);
     ds.setLanguage(Language.AR);
     ds.setDescription("description");
+    ds.setUnfitForPublication(false);
     ds.setNotes("Notes");
     return ds;
   }
