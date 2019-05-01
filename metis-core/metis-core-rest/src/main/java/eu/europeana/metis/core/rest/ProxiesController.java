@@ -9,6 +9,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.rest.stats.NodePathStatistics;
 import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.service.ProxiesService;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.util.Collections;
@@ -270,7 +271,7 @@ public class ProxiesController {
   public RecordsResponse getListOfFileContentsFromPluginExecution(
       @RequestHeader("Authorization") String authorization,
       @RequestParam("workflowExecutionId") String workflowExecutionId,
-      @RequestParam("pluginType") PluginType pluginType,
+      @RequestParam("pluginType") ExecutablePluginType pluginType,
       @RequestParam(value = "nextPage", required = false) String nextPage
   ) throws GenericMetisException {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -285,7 +286,7 @@ public class ProxiesController {
    *
    * @param authorization the authorization header with the access token
    * @param workflowExecutionId the execution identifier of the workflow
-   * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
    * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
@@ -306,7 +307,7 @@ public class ProxiesController {
   public RecordsResponse getListOfFileContentsFromPluginExecution(
       @RequestHeader("Authorization") String authorization,
       @RequestParam("workflowExecutionId") String workflowExecutionId,
-      @RequestParam("pluginType") PluginType pluginType,
+      @RequestParam("pluginType") ExecutablePluginType pluginType,
       @RequestBody ListOfIds ecloudIds
   ) throws GenericMetisException {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);

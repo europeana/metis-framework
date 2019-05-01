@@ -16,7 +16,9 @@ import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
@@ -121,7 +123,10 @@ class TestWorkflowExecutionDao {
     workflowExecution.setUpdatedDate(startedDate);
     workflowExecution.getMetisPlugins().get(0).setPluginStatus(PluginStatus.RUNNING);
     Date pluginUpdatedDate = new Date();
-    workflowExecution.getMetisPlugins().get(0).setUpdatedDate(pluginUpdatedDate);
+    if (workflowExecution.getMetisPlugins().get(0) instanceof AbstractExecutablePlugin) {
+      ((AbstractExecutablePlugin) workflowExecution.getMetisPlugins().get(0))
+          .setUpdatedDate(pluginUpdatedDate);
+    }
     workflowExecutionDao.updateMonitorInformation(workflowExecution);
     WorkflowExecution updatedWorkflowExecution = workflowExecutionDao.getById(objectId);
     assertEquals(WorkflowStatus.RUNNING, updatedWorkflowExecution.getWorkflowStatus());
@@ -130,8 +135,11 @@ class TestWorkflowExecutionDao {
     assertEquals(0, startedDate.compareTo(updatedWorkflowExecution.getUpdatedDate()));
     assertEquals(PluginStatus.RUNNING,
         updatedWorkflowExecution.getMetisPlugins().get(0).getPluginStatus());
-    assertEquals(0, pluginUpdatedDate
-        .compareTo(updatedWorkflowExecution.getMetisPlugins().get(0).getUpdatedDate()));
+    if (workflowExecution.getMetisPlugins().get(0) instanceof AbstractExecutablePlugin) {
+      assertEquals(0, pluginUpdatedDate.compareTo(
+          ((AbstractExecutablePlugin) updatedWorkflowExecution.getMetisPlugins().get(0))
+              .getUpdatedDate()));
+    }
   }
 
   @Test
@@ -237,7 +245,7 @@ class TestWorkflowExecutionDao {
     AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
             Integer.toString(TestObjectFactory.DATASETID),
-            EnumSet.of(PluginType.OAIPMH_HARVEST));
+            EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST));
 
     assertEquals(latestFinishedWorkflowExecutionByDatasetIdAndPluginType.getFinishedDate(),
         workflowExecutionSecond.getMetisPlugins().get(0).getFinishedDate());
@@ -248,7 +256,7 @@ class TestWorkflowExecutionDao {
     AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
             Integer.toString(TestObjectFactory.DATASETID),
-            EnumSet.of(PluginType.OAIPMH_HARVEST));
+            EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST));
 
     assertNull(latestFinishedWorkflowExecutionByDatasetIdAndPluginType);
   }
@@ -280,7 +288,7 @@ class TestWorkflowExecutionDao {
     AbstractMetisPlugin firstFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
         .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
             Integer.toString(TestObjectFactory.DATASETID),
-            EnumSet.of(PluginType.OAIPMH_HARVEST));
+            EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST));
 
     assertEquals(firstFinishedWorkflowExecutionByDatasetIdAndPluginType.getFinishedDate(),
         workflowExecutionFirst.getMetisPlugins().get(0).getFinishedDate());
@@ -291,7 +299,7 @@ class TestWorkflowExecutionDao {
     AbstractMetisPlugin firstFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
         .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
             Integer.toString(TestObjectFactory.DATASETID),
-            EnumSet.of(PluginType.OAIPMH_HARVEST));
+            EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST));
 
     assertNull(firstFinishedWorkflowExecutionByDatasetIdAndPluginType);
   }

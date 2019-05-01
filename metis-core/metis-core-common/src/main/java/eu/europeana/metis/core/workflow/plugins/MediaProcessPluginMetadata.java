@@ -9,9 +9,9 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-20
  */
-public class MediaProcessPluginMetadata extends AbstractMetisPluginMetadata {
+public class MediaProcessPluginMetadata extends AbstractExecutablePluginMetadata {
 
-  private static final PluginType pluginType = PluginType.MEDIA_PROCESS;
+  private static final ExecutablePluginType pluginType = ExecutablePluginType.MEDIA_PROCESS;
   private Map<String, Integer> connectionLimitToDomains = new HashMap<>();
 
   public MediaProcessPluginMetadata() {
@@ -19,7 +19,7 @@ public class MediaProcessPluginMetadata extends AbstractMetisPluginMetadata {
   }
 
   @Override
-  public PluginType getPluginType() {
+  public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
   }
 

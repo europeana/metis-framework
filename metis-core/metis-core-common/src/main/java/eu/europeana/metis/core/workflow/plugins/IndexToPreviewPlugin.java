@@ -8,7 +8,7 @@ import eu.europeana.cloud.service.dps.DpsTask;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-03
  */
-public class IndexToPreviewPlugin extends AbstractMetisPlugin {
+public class IndexToPreviewPlugin extends AbstractExecutablePlugin<IndexToPreviewPluginMetadata> {
 
   private final String topologyName = Topology.INDEX.getTopologyName();
 
@@ -25,9 +25,9 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
    * Constructor to initialize the plugin with pluginMetadata.
    * <p>Initializes the {@link #pluginType} as well.</p>
    *
-   * @param pluginMetadata should be {@link IndexToPreviewPluginMetadata}
+   * @param pluginMetadata The plugin metadata.
    */
-  IndexToPreviewPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  IndexToPreviewPlugin(IndexToPreviewPluginMetadata pluginMetadata) {
     super(PluginType.PREVIEW, pluginMetadata);
   }
 
@@ -44,11 +44,10 @@ public class IndexToPreviewPlugin extends AbstractMetisPlugin {
   @Override
   public DpsTask prepareDpsTask(
       EcloudBasePluginParameters ecloudBasePluginParameters) {
-    String datasetId = ((IndexToPreviewPluginMetadata) getPluginMetadata()).getDatasetId();
-    boolean useAlternativeIndexingEnvironment = ((IndexToPreviewPluginMetadata) getPluginMetadata())
+    String datasetId = getPluginMetadata().getDatasetId();
+    boolean useAlternativeIndexingEnvironment = getPluginMetadata()
         .getUseAlternativeIndexingEnvironment();
-    boolean preserveTimestamps = ((IndexToPreviewPluginMetadata) getPluginMetadata())
-        .isPreserveTimestamps();
+    boolean preserveTimestamps = getPluginMetadata().isPreserveTimestamps();
     return createDpsTaskForIndexPlugin(ecloudBasePluginParameters, datasetId,
         useAlternativeIndexingEnvironment, preserveTimestamps, "PREVIEW");
   }

@@ -10,6 +10,7 @@ import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.util.List;
@@ -79,8 +80,9 @@ class TestWorkflowDao {
     Workflow retrievedWorkflow = workflowDao.getById(objectId);
     assertEquals(workflow.getDatasetId(), retrievedWorkflow.getDatasetId());
 
-    List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
-    List<AbstractMetisPluginMetadata> retrievedUserWorkflowMetisPluginsMetadata = retrievedWorkflow
+    List<AbstractExecutablePluginMetadata> metisPluginsMetadata = workflow
+        .getMetisPluginsMetadata();
+    List<AbstractExecutablePluginMetadata> retrievedUserWorkflowMetisPluginsMetadata = retrievedWorkflow
         .getMetisPluginsMetadata();
     assertEquals(metisPluginsMetadata.size(),
         retrievedUserWorkflowMetisPluginsMetadata.size());

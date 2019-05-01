@@ -9,7 +9,9 @@ import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
@@ -256,8 +258,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param pluginTypes the set of plugin types to check for
    * @return the first plugin found
    */
-  public AbstractMetisPlugin getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<PluginType> pluginTypes) {
+  public AbstractExecutablePlugin getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      String datasetId, Set<ExecutablePluginType> pluginTypes) {
     return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
         pluginTypes, true);
   }
@@ -270,14 +272,14 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param pluginTypes the set of plugin types to check for
    * @return the last plugin found
    */
-  public AbstractMetisPlugin getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<PluginType> pluginTypes) {
+  public AbstractExecutablePlugin getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      String datasetId, Set<ExecutablePluginType> pluginTypes) {
     return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
         pluginTypes, false);
   }
 
-  private AbstractMetisPlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<PluginType> pluginTypes, boolean firstFinished) {
+  private AbstractExecutablePlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean firstFinished) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
 
@@ -291,9 +293,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
     if (pluginTypes != null) {
-      for (PluginType pluginType : pluginTypes) {
+      for (ExecutablePluginType pluginType : pluginTypes) {
         if (pluginType != null) {
-          criteriaContainer.add(query.criteria("metisPlugins.pluginType").equal(pluginType));
+          criteriaContainer.add(query.criteria("metisPlugins.pluginType").equal(pluginType.toPluginType()));
         }
       }
     }
@@ -309,7 +311,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
                 .aggregate(WorkflowExecution.class));
 
     if (metisPluginsIterator != null && metisPluginsIterator.hasNext()) {
-      return metisPluginsIterator.next().getMetisPlugins().get(0);
+      final AbstractMetisPlugin result = metisPluginsIterator.next().getMetisPlugins().get(0);
+      if (result instanceof AbstractExecutablePlugin) {
+        return (AbstractExecutablePlugin) result;
+      } else {
+        LOGGER.warn("Found plugin {} for executable plugin type {} that is not itself executable.",
+            result.getId(), result.getPluginType());
+      }
     }
     return null;
   }
@@ -392,6 +400,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Step 4: Apply pagination
     pipeline.skip(nextPage * getWorkflowExecutionsPerRequest())
         .limit(getWorkflowExecutionsPerRequest() * pageCount);
+
     // Step 5: Create join of dataset and execution to combine the data information
     joinDatasetAndWorkflowExecution(pipeline);
 
@@ -594,11 +603,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @return The workflow execution.
    */
   public WorkflowExecution getByExternalTaskId(long externalTaskId) {
-    final Query<AbstractMetisPlugin> subQuery =
-        morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
+    final Query<AbstractExecutablePlugin> subQuery =
+        morphiaDatastoreProvider.getDatastore().createQuery(AbstractExecutablePlugin.class);
     subQuery.field("externalTaskId").equal(Long.toString(externalTaskId));
-    final Query<WorkflowExecution> query =
-        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+    final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(WorkflowExecution.class).disableValidation();
     query.field(METIS_PLUGINS).elemMatch(subQuery);
     final List<WorkflowExecution> resultList = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(() -> query.asList(new FindOptions().limit(1)));

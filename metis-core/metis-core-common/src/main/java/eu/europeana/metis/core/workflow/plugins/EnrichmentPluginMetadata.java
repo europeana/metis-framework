@@ -6,16 +6,16 @@ package eu.europeana.metis.core.workflow.plugins;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class EnrichmentPluginMetadata extends AbstractMetisPluginMetadata {
+public class EnrichmentPluginMetadata extends AbstractExecutablePluginMetadata {
 
-  private static final PluginType pluginType = PluginType.ENRICHMENT;
+  private static final ExecutablePluginType pluginType = ExecutablePluginType.ENRICHMENT;
 
   public EnrichmentPluginMetadata() {
     //Required for json serialization
   }
 
   @Override
-  public PluginType getPluginType() {
+  public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
   }
 }

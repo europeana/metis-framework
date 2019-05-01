@@ -8,7 +8,7 @@ import eu.europeana.cloud.service.dps.DpsTask;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-26
  */
-public class NormalizationPlugin extends AbstractMetisPlugin {
+public class NormalizationPlugin extends AbstractExecutablePlugin<NormalizationPluginMetadata> {
 
   private final String topologyName = Topology.NORMALIZATION.getTopologyName();
 
@@ -25,9 +25,9 @@ public class NormalizationPlugin extends AbstractMetisPlugin {
    * Constructor to initialize the plugin with pluginMetadata.
    * <p>Initializes the {@link #pluginType} as well.</p>
    *
-   * @param pluginMetadata should be {@link NormalizationPluginMetadata}
+   * @param pluginMetadata The plugin metadata.
    */
-  NormalizationPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  NormalizationPlugin(NormalizationPluginMetadata pluginMetadata) {
     super(PluginType.NORMALIZATION, pluginMetadata);
   }
 

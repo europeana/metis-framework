@@ -9,9 +9,9 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-05-16
  */
-public class LinkCheckingPluginMetadata extends AbstractMetisPluginMetadata {
+public class LinkCheckingPluginMetadata extends AbstractExecutablePluginMetadata {
 
-  private static final PluginType pluginType = PluginType.LINK_CHECKING;
+  private static final ExecutablePluginType pluginType = ExecutablePluginType.LINK_CHECKING;
   private Map<String, Integer> connectionLimitToDomains = new HashMap<>();
 
   private Boolean performSampling;
@@ -22,7 +22,7 @@ public class LinkCheckingPluginMetadata extends AbstractMetisPluginMetadata {
   }
 
   @Override
-  public PluginType getPluginType() {
+  public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
   }
 

@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.rest.execution.overview;
 
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -28,9 +29,12 @@ public class PluginSummaryView {
     this.pluginStatus = plugin.getPluginStatus();
     this.failMessage = plugin.getFailMessage();
     this.startedDate = plugin.getStartedDate();
-    this.updatedDate = plugin.getUpdatedDate();
     this.finishedDate = plugin.getFinishedDate();
-    this.progress = new PluginProgressView(plugin.getExecutionProgress());
+    if (plugin instanceof AbstractExecutablePlugin) {
+      this.updatedDate = ((AbstractExecutablePlugin) plugin).getUpdatedDate();
+      this.progress = new PluginProgressView(
+          ((AbstractExecutablePlugin) plugin).getExecutionProgress());
+    }
   }
 
   public PluginType getPluginType() {
