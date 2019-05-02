@@ -403,8 +403,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,
       Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate) {
-    final Query<WorkflowExecution> query =
-        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+    // TODO JV Validation is disabled because otherwise it complains that the subquery is looking in a
+    // list of AbstractMetisPlugin objects where startedDate may not be queriable. Why this is a
+	// problem, is not exactly clear.
+    final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(WorkflowExecution.class).disableValidation();
     if (datasetIds != null) {
       query.field(DATASET_ID).in(datasetIds);
     }
