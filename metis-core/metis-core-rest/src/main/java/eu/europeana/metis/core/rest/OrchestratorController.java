@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -491,8 +492,8 @@ public class OrchestratorController {
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "pluginStatus", required = false) Set<PluginStatus> pluginStatuses,
       @RequestParam(value = "pluginType", required = false) Set<PluginType> pluginTypes,
-      @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = CommonStringValues.DATE_FORMAT_FOR_REQUEST_PARAM) Date fromDate,
-      @RequestParam(value = "toDate", required = false) @DateTimeFormat(pattern = CommonStringValues.DATE_FORMAT_FOR_REQUEST_PARAM) Date toDate,
+      @RequestParam(value = "dateFrom", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) Date fromDate,
+      @RequestParam(value = "dateTo", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) Date toDate,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage,
       @RequestParam(value = "pageCount", required = false, defaultValue = "1") int pageCount)
       throws GenericMetisException {
