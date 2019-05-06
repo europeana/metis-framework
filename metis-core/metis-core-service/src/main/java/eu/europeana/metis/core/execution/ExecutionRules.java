@@ -55,7 +55,7 @@ public final class ExecutionRules {
     if (enforcedPluginType != null) {
       plugin = workflowExecutionDao
           .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-              EnumSet.of(enforcedPluginType));
+              EnumSet.of(enforcedPluginType), true);
     } else if (PROCESS_PLUGIN_GROUP.contains(pluginType) || INDEX_PLUGIN_GROUP
         .contains(pluginType)) {
       // Get latest FINISHED plugin for datasetId
@@ -68,7 +68,7 @@ public final class ExecutionRules {
       if (pluginType.equals(ExecutablePluginType.MEDIA_PROCESS) && plugin == null) {
         final AbstractExecutablePlugin latestOaiPlugin = workflowExecutionDao
             .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-                EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST));
+                EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true);
         if (latestOaiPlugin != null && "https://oai-pmh.eanadev.org/oai"
             .equalsIgnoreCase(((OaipmhHarvestPluginMetadata) latestOaiPlugin
                 .getPluginMetadata()).getUrl().trim())) {
@@ -89,7 +89,7 @@ public final class ExecutionRules {
     if (!pluginTypesSetThatPluginTypeCanBeBasedOn.isEmpty()) {
       latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
           .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-              pluginTypesSetThatPluginTypeCanBeBasedOn);
+              pluginTypesSetThatPluginTypeCanBeBasedOn, true);
     }
     return latestFinishedWorkflowExecutionByDatasetIdAndPluginType;
   }

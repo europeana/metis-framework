@@ -11,6 +11,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
@@ -261,7 +263,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   public AbstractExecutablePlugin getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
       String datasetId, Set<ExecutablePluginType> pluginTypes) {
     return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-        pluginTypes, true);
+        pluginTypes, false, true);
   }
 
   /**
@@ -270,16 +272,19 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    *
    * @param datasetId the dataset identifier
    * @param pluginTypes the set of plugin types to check for
+   * @param limitToValidData Only return the result if it has valid data (see {@link DataStatus}).
    * @return the last plugin found
    */
   public AbstractExecutablePlugin getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<ExecutablePluginType> pluginTypes) {
+      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
     return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-        pluginTypes, false);
+        pluginTypes, limitToValidData, false);
   }
 
-  private AbstractExecutablePlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean firstFinished) {
+  AbstractExecutablePlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean limitToValidData,
+      boolean firstFinished) {
+
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
 
@@ -288,14 +293,15 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     Criteria[] criteria = {
         query.criteria(DATASET_ID).equal(datasetId),
-        query.criteria("metisPlugins.pluginStatus").equal(PluginStatus.FINISHED)};
+        query.criteria(METIS_PLUGINS + "." + PLUGIN_STATUS).equal(PluginStatus.FINISHED)};
     query.and(criteria);
 
     List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
     if (pluginTypes != null) {
       for (ExecutablePluginType pluginType : pluginTypes) {
         if (pluginType != null) {
-          criteriaContainer.add(query.criteria("metisPlugins.pluginType").equal(pluginType.toPluginType()));
+          criteriaContainer.add(
+              query.criteria(METIS_PLUGINS + "." + PLUGIN_TYPE).equal(pluginType.toPluginType()));
         }
       }
     }
@@ -303,23 +309,43 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
     }
 
+    // Query: unwind and match again so that we know that all conditions apply to the same plugin.
+    final String orderField = METIS_PLUGINS + "." + OrderField.FINISHED_DATE.getOrderFieldName();
     Iterator<WorkflowExecution> metisPluginsIterator = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
-            () -> aggregation.match(query).unwind(METIS_PLUGINS)
-                .match(query).sort(firstFinished ? Sort.ascending("metisPlugins.finishedDate")
-                    : Sort.descending("metisPlugins.finishedDate"))
+            () -> aggregation
+                .match(query)
+                .unwind(METIS_PLUGINS)
+                .match(query)
+                .sort(firstFinished ? Sort.ascending(orderField) : Sort.descending(orderField))
+                .limit(1)
                 .aggregate(WorkflowExecution.class));
 
-    if (metisPluginsIterator != null && metisPluginsIterator.hasNext()) {
-      final AbstractMetisPlugin result = metisPluginsIterator.next().getMetisPlugins().get(0);
-      if (result instanceof AbstractExecutablePlugin) {
-        return (AbstractExecutablePlugin) result;
-      } else {
-        LOGGER.warn("Found plugin {} for executable plugin type {} that is not itself executable.",
-            result.getId(), result.getPluginType());
-      }
+    // Because of the unwind, we know that the plugin we need is always the first one.
+    final AbstractMetisPlugin uncastResult = Optional.ofNullable(metisPluginsIterator)
+        .filter(Iterator::hasNext).map(Iterator::next).map(WorkflowExecution::getMetisPlugins)
+        .filter(plugins -> !plugins.isEmpty()).map(plugins -> plugins.get(0)).orElse(null);
+    if (uncastResult == null) {
+      return null;
     }
-    return null;
+
+    // Check for the result type: it should be executable.
+    if (!(uncastResult instanceof AbstractExecutablePlugin)) {
+      LOGGER.warn("Found plugin {} for executable plugin type {} that is not itself executable.",
+          uncastResult.getId(), uncastResult.getPluginType());
+      return null;
+    }
+    final AbstractExecutablePlugin castResult = (AbstractExecutablePlugin) uncastResult;
+
+    // if necessary, check for the data validity (note that no data status also means it's valid).
+    final AbstractExecutablePlugin result;
+    if (limitToValidData && castResult.getDataStatus() != null
+        && castResult.getDataStatus() != DataStatus.VALID) {
+      result = null;
+    } else {
+      result = castResult;
+    }
+    return result;
   }
 
   /**
@@ -606,6 +632,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     final Query<AbstractExecutablePlugin> subQuery =
         morphiaDatastoreProvider.getDatastore().createQuery(AbstractExecutablePlugin.class);
     subQuery.field("externalTaskId").equal(Long.toString(externalTaskId));
+    // TODO JV Validation is disabled because otherwise it complains that the subquery is looking in a
+    // list of AbstractMetisPlugin objects that don't have the "externalTaskId" property being queried.
     final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class).disableValidation();
     query.field(METIS_PLUGINS).elemMatch(subQuery);

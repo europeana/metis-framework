@@ -33,7 +33,6 @@ import org.mongodb.morphia.annotations.Indexed;
 @Embedded
 public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata> {
 
-  // TODO JV We should remove the pluginType. The pluginMetadata already has this information.
   protected final PluginType pluginType;
   private static final String REPRESENTATION_NAME = "metadataRecord";
 
@@ -55,7 +54,7 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
    *
    * @param pluginType {@link PluginType}
    */
-  AbstractMetisPlugin(PluginType pluginType) {
+  protected AbstractMetisPlugin(PluginType pluginType) {
     this.pluginType = pluginType;
   }
 

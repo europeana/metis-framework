@@ -14,6 +14,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
@@ -112,16 +113,15 @@ public class OrchestratorHelper {
         .getPluginMetadata(ExecutablePluginType.HTTP_HARVEST);
     final AbstractExecutablePlugin plugin;
     if (oaipmhMetadata != null && oaipmhMetadata.isEnabled()) {
-      plugin = oaipmhMetadata.getExecutablePluginType().getNewPlugin(oaipmhMetadata);
+      plugin = createPlugin(oaipmhMetadata);
       oaipmhMetadata.setDatasetId(dataset.getDatasetId());
     } else if (httpMetadata != null && httpMetadata.isEnabled()) {
-      plugin = httpMetadata.getExecutablePluginType().getNewPlugin(httpMetadata);
+      plugin = createPlugin(httpMetadata);
       httpMetadata.setDatasetId(dataset.getDatasetId());
     } else {
       plugin = null;
     }
     if (plugin != null) {
-      plugin.setId(new ObjectId().toString() + "-" + plugin.getPluginType().name());
       metisPlugins.add(plugin);
       return true;
     }
@@ -200,12 +200,20 @@ public class OrchestratorHelper {
       }
 
       // Create plugin
-      AbstractExecutablePlugin plugin = pluginType.getNewPlugin(pluginMetadata);
-      plugin.setId(new ObjectId().toString() + "-" + plugin.getPluginType().name());
+      final AbstractExecutablePlugin plugin = createPlugin(pluginMetadata);
       metisPlugins.add(plugin);
       firstPluginDefined = true;
     }
     return firstPluginDefined;
+  }
+
+  private static AbstractExecutablePlugin createPlugin(
+      AbstractExecutablePluginMetadata metadata) {
+    final AbstractExecutablePlugin plugin = metadata.getExecutablePluginType()
+        .getNewPlugin(metadata);
+    plugin.setId(new ObjectId().toString() + "-" + plugin.getPluginType().name());
+    plugin.setDataStatus(DataStatus.NOT_YET_GENERATED);
+    return plugin;
   }
 
   private void setupValidationForPluginMetadata(AbstractExecutablePluginMetadata metadata,

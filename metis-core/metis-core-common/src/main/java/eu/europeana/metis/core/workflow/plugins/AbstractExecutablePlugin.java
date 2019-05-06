@@ -40,6 +40,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   private Date updatedDate;
   private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
+  private DataStatus dataStatus;
 
   /**
    * Constructor with provided pluginType
@@ -102,6 +103,14 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
    */
   public void setExecutionProgress(ExecutionProgress executionProgress) {
     this.executionProgress = executionProgress;
+  }
+
+  public DataStatus getDataStatus() {
+    return dataStatus;
+  }
+
+  public void setDataStatus(DataStatus dataStatus) {
+    this.dataStatus = dataStatus;
   }
 
   /**
@@ -240,6 +249,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     try {
       DpsTask dpsTask = prepareDpsTask(ecloudBasePluginParameters);
       setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
+      setDataStatus(DataStatus.VALID);
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Submitting task failed", e);
     }

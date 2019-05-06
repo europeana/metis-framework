@@ -436,7 +436,7 @@ class TestOrchestratorService {
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(dataset.getDatasetId(),
-            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
+            ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(oaipmhHarvestPlugin);
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
     doNothing().when(rlock).lock();
@@ -470,7 +470,7 @@ class TestOrchestratorService {
     oaipmhHarvestPlugin.setStartedDate(new Date());
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(dataset.getDatasetId(),
-            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
+            ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(oaipmhHarvestPlugin);
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
   }
@@ -655,7 +655,7 @@ class TestOrchestratorService {
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
+            ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(oaipmhHarvestPlugin);
     assertEquals(PluginType.OAIPMH_HARVEST, orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
             datasetId, ExecutablePluginType.VALIDATION_EXTERNAL, null).getPluginType());
@@ -669,7 +669,7 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            ExecutionRules.getHarvestPluginGroup())).thenReturn(null);
+            ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(null);
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
             datasetId, ExecutablePluginType.VALIDATION_EXTERNAL, null));
@@ -681,7 +681,7 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            ExecutionRules.getHarvestPluginGroup()))
+            ExecutionRules.getHarvestPluginGroup(), true))
         .thenReturn(ExecutablePluginType.OAIPMH_HARVEST.getNewPlugin(null));
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
@@ -875,17 +875,17 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.HTTP_HARVEST, ExecutablePluginType.OAIPMH_HARVEST)))
-        .thenReturn(oaipmhHarvestPlugin);
+            EnumSet.of(ExecutablePluginType.HTTP_HARVEST, ExecutablePluginType.OAIPMH_HARVEST),
+            false)).thenReturn(oaipmhHarvestPlugin);
     when(workflowExecutionDao
         .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
             datasetId, EnumSet.of(ExecutablePluginType.PUBLISH))).thenReturn(firstPublishPlugin);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.PREVIEW))).thenReturn(lastPreviewPlugin);
+            EnumSet.of(ExecutablePluginType.PREVIEW), false)).thenReturn(lastPreviewPlugin);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.PUBLISH))).thenReturn(lastPublishPlugin);
+            EnumSet.of(ExecutablePluginType.PUBLISH), false)).thenReturn(lastPublishPlugin);
     when(workflowExecutionDao.getRunningOrInQueueExecution(datasetId))
         .thenReturn(workflowExecutionObject);
 

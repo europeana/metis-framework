@@ -31,7 +31,11 @@ public enum PluginType {
 
   PREVIEW,
 
-  PUBLISH;
+  PUBLISH,
+
+  REINDEX_TO_PREVIEW,
+
+  REINDEX_TO_PUBLISH;
 
   /**
    * Lookup of a {@link PluginType} enum from a provided enum String representation of the enum
