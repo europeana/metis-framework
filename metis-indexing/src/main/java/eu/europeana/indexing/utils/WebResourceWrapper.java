@@ -1,21 +1,22 @@
-package eu.europeana.indexing.solr.crf;
+package eu.europeana.indexing.utils;
 
-import eu.europeana.indexing.utils.MediaType;
-import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.corelib.definitions.jibx.Duration;
+import eu.europeana.corelib.definitions.jibx.HasColorSpace;
+import eu.europeana.corelib.definitions.jibx.HasMimeType;
+import eu.europeana.corelib.definitions.jibx.HexBinaryType;
+import eu.europeana.corelib.definitions.jibx.OrientationType;
+import eu.europeana.corelib.definitions.jibx.SpatialResolution;
+import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.indexing.solr.crf.EncodedMediaType;
+import java.math.BigInteger;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import eu.europeana.corelib.definitions.jibx.Duration;
-import eu.europeana.corelib.definitions.jibx.HasColorSpace;
-import eu.europeana.corelib.definitions.jibx.HasMimeType;
-import eu.europeana.corelib.definitions.jibx.HexBinaryType;
-import eu.europeana.corelib.definitions.jibx.OrientationType;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
 
 /**
  * This class is a wrapper around instances of type {@link WebResourceType}. Its responsibility is
@@ -28,6 +29,7 @@ import eu.europeana.corelib.definitions.jibx.WebResourceType;
 public class WebResourceWrapper {
 
   private final WebResourceType webResource;
+  private final Set<WebResourceLinkType> linkTypes;
 
   /**
    * Enum containing the possible values for the color space.
@@ -51,25 +53,32 @@ public class WebResourceWrapper {
    * Constructor.
    * 
    * @param webResource The web resource to wrap.
+   * @param  linkTypes The link types with which the web resource is linked from the entity that contains it.
    */
-  WebResourceWrapper(WebResourceType webResource) {
+  WebResourceWrapper(WebResourceType webResource, Set<WebResourceLinkType> linkTypes) {
     this.webResource = webResource;
+    this.linkTypes = linkTypes == null ? Collections.emptySet() : new HashSet<>(linkTypes);
   }
 
   /**
-   * This method extracts web resources from an instance of {@link RdfWrapper}.
-   *
-   * @param rdf The RDF from which to extract web resources.
-   * @return The instances of this class representing the web resources.
+   * @return The link types with which the web resource is linked from the entity that contains it.
    */
-  public static List<WebResourceWrapper> extractWebResources(RdfWrapper rdf) {
-    return rdf.getWebResources(WebResourceWrapper::new);
+  public Set<WebResourceLinkType> getLinkTypes() {
+    return Collections.unmodifiableSet(linkTypes);
   }
 
   /**
    * @return The 'ebucore:hasMimeType' value of the web resource as String, or null if none is set.
    */
   public String getMimeType() {
+    return getMimeType(webResource);
+  }
+
+  /**
+   * @param webResource The web resource for which to get the mime type.
+   * @return The 'ebucore:hasMimeType' value of the web resource as String, or null if none is set.
+   */
+  static String getMimeType(WebResourceType webResource) {
     return Optional.ofNullable(webResource.getHasMimeType()).map(HasMimeType::getHasMimeType)
         .filter(StringUtils::isNotBlank).map(WebResourceWrapper::getBaseType).orElse(null);
   }
@@ -138,6 +147,21 @@ public class WebResourceWrapper {
    */
   public long getHeight() {
     return webResource.getHeight() == null ? 0L : webResource.getHeight().getLong();
+  }
+
+  /**
+   * @return The size of the image, defined as {@link #getWidth()} times {@link #getHeight()}.
+   */
+  public long getSize() {
+    return getWidth() * getHeight();
+  }
+
+  /**
+   * @return The 'edm:spatialResolution' value of the web resource as long, or 0 if none is set.
+   */
+  public long getSpatialResolution() {
+    return Optional.of(webResource).map(WebResourceType::getSpatialResolution).map(
+        SpatialResolution::getInteger).map(BigInteger::longValue).orElse(0L);
   }
 
   /**
@@ -237,5 +261,13 @@ public class WebResourceWrapper {
     } catch (NumberFormatException e) {
       return 0L;
     }
+  }
+
+  /**
+   * @return The license of this entity.
+   */
+  public LicenseType getLicenseType() {
+    return Optional.of(webResource).map(WebResourceType::getRights).map(LicenseType::getLicenseType)
+        .orElse(null);
   }
 }

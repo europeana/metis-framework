@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class RdfWrapperTest {
@@ -105,11 +106,12 @@ class RdfWrapperTest {
     final RDF rdf = mock(RDF.class);
     when(rdf.getWebResourceList()).thenReturn(Arrays.asList(entity0, entity1, entity2));
     assertEquals(Collections.singletonList(entity1.getAbout()),
-        new RdfWrapper(rdf).getWebResources(WebResourceType::getAbout));
+        new RdfWrapper(rdf).getWebResources().stream().map(WebResourceType::getAbout)
+            .collect(Collectors.toList()));
 
     // Test rdf that returns null
     when(rdf.getWebResourceList()).thenReturn(null);
-    assertTrue(new RdfWrapper(rdf).getWebResources(WebResourceType::getAbout).isEmpty());
+    assertTrue(new RdfWrapper(rdf).getWebResources().isEmpty());
   }
 
   @Test

@@ -1,9 +1,5 @@
 package eu.europeana.indexing.solr;
 
-import eu.europeana.corelib.definitions.jibx.Aggregation;
-import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.IsShownAt;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
@@ -21,15 +17,14 @@ import eu.europeana.indexing.solr.property.ServiceSolrCreator;
 import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.indexing.solr.crf.WebResourceWrapper;
+import eu.europeana.indexing.utils.WebResourceLinkType;
+import eu.europeana.indexing.utils.WebResourceWrapper;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 
 /**
@@ -95,37 +90,24 @@ public class SolrDocumentPopulator {
    */
   public void populateWithCrfFields(SolrInputDocument document, RdfWrapper rdf) {
 
-    // Check Europeana aggregation list.
-    final EuropeanaAggregationType aggregation = rdf.getEuropeanaAggregation().orElse(null);
-
     // Get the web resources.
-    final List<WebResourceWrapper> webResources = WebResourceWrapper.extractWebResources(rdf);
+    final List<WebResourceWrapper> webResources = rdf.getWebResourceWrappers();
 
     // has_thumbnails is true if and only if edm:EuropeanaAggregation/edm:preview is filled and the
     // associated edm:webResource exists with technical metadata (i.e. ebucore:hasMimetype is set).
-    final String previewUri =
-        Optional.ofNullable(aggregation).map(EuropeanaAggregationType::getPreview)
-            .map(ResourceType::getResource).filter(StringUtils::isNotBlank).orElse(null);
-    final boolean hasThumbnails = previewUri != null
-        && webResources.stream().filter(resource -> previewUri.equals(resource.getAbout()))
-        .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
-    document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), hasThumbnails);
-
-    // Compose the set of isShownAt urls.
-    final Set<String> isShownAtUrls = rdf.getAggregations().stream().map(Aggregation::getIsShownAt)
-        .filter(Objects::nonNull).map(IsShownAt::getResource).collect(Collectors.toSet());
+    document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), rdf.hasThumbnails());
 
     // has_media is true if and only if there is at least one web resource, not of type
     // 'is_shown_at', representing technical metadata of a known type.
-    final boolean hasMedia =
-        webResources.stream().filter(resource -> !isShownAtUrls.contains(resource.getAbout()))
-            .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != EncodedMediaType.OTHER);
+    final boolean hasMedia = webResources.stream()
+        .filter(resource -> !resource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_AT))
+        .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != EncodedMediaType.OTHER);
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
     // has_landingPage is true if and only if there is at least one web resource of type
     // 'is_shown_at', representing technical metadata of some (non-null) mime type.
     final boolean hasLandingPage = webResources.stream()
-        .filter(resource -> isShownAtUrls.contains(resource.getAbout()))
+        .filter(resource -> resource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_AT))
         .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
     document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), hasLandingPage);
 
