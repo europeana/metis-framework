@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.annotations.Indexed;
 import org.slf4j.Logger;
@@ -105,8 +106,22 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     this.executionProgress = executionProgress;
   }
 
+  /**
+   * @return The data status of this plugin. If null, this should be interpreted as being equal to
+   * {@link DataStatus#VALID} (due to backwards-compatibility).
+   */
   public DataStatus getDataStatus() {
     return dataStatus;
+  }
+
+  /**
+   * Returns the data state for the plugin taking into account the default value.
+   *
+   * @param plugin The plugin.
+   * @return The data status of the given plugin. Is not null.
+   */
+  public static DataStatus getDataStatus(AbstractExecutablePlugin plugin) {
+    return Optional.ofNullable(plugin.getDataStatus()).orElse(DataStatus.VALID);
   }
 
   public void setDataStatus(DataStatus dataStatus) {

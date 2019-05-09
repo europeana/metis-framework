@@ -337,10 +337,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     }
     final AbstractExecutablePlugin castResult = (AbstractExecutablePlugin) uncastResult;
 
-    // if necessary, check for the data validity (note that no data status also means it's valid).
+    // if necessary, check for the data validity.
     final AbstractExecutablePlugin result;
-    if (limitToValidData && castResult.getDataStatus() != null
-        && castResult.getDataStatus() != DataStatus.VALID) {
+    if (limitToValidData
+        && AbstractExecutablePlugin.getDataStatus(castResult) != DataStatus.VALID) {
       result = null;
     } else {
       result = castResult;
@@ -440,7 +440,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate) {
     // TODO JV Validation is disabled because otherwise it complains that the subquery is looking in a
     // list of AbstractMetisPlugin objects where startedDate may not be queriable. Why this is a
-	// problem, is not exactly clear.
+    // problem, is not exactly clear.
     final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class).disableValidation();
     if (datasetIds != null) {

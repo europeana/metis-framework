@@ -26,6 +26,7 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -612,29 +613,32 @@ public class OrchestratorService {
     }
     datasetExecutionInformation.setFirstPublishedDate(firstPublishPlugin == null ? null :
         firstPublishPlugin.getFinishedDate());
-    Date currentDate = new Date();
+    final Date now = new Date();
     if (lastPreviewPlugin != null) {
       datasetExecutionInformation.setLastPreviewDate(lastPreviewPlugin.getFinishedDate());
       datasetExecutionInformation.setLastPreviewRecords(
           lastPreviewPlugin.getExecutionProgress().getProcessedRecords() - lastPreviewPlugin
               .getExecutionProgress().getErrors());
-      datasetExecutionInformation
-          .setLastPreviewRecordsReadyForViewing(!isPreviewCleaningOrRunning &&
-              DateUtils.calculateDateDifference(lastPreviewPlugin.getFinishedDate(), currentDate,
-                  TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
+      datasetExecutionInformation.setLastPreviewRecordsReadyForViewing(
+          !isPreviewCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPreviewPlugin, now));
     }
     if (lastPublishPlugin != null) {
       datasetExecutionInformation.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       datasetExecutionInformation.setLastPublishedRecords(
           lastPublishPlugin.getExecutionProgress().getProcessedRecords() - lastPublishPlugin
               .getExecutionProgress().getErrors());
-      datasetExecutionInformation
-          .setLastPublishedRecordsReadyForViewing(!isPublishCleaningOrRunning &&
-              DateUtils.calculateDateDifference(lastPublishPlugin.getFinishedDate(), currentDate,
-                  TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
+      datasetExecutionInformation.setLastPublishedRecordsReadyForViewing(
+          !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin, now));
     }
 
     return datasetExecutionInformation;
+  }
+
+  private boolean isPreviewOrPublishReadyForViewing(AbstractExecutablePlugin plugin, Date now) {
+    final boolean dataIsValid = AbstractExecutablePlugin.getDataStatus(plugin) == DataStatus.VALID;
+    final boolean enoughTimeHasPassed = getSolrCommitPeriodInMins() <
+        DateUtils.calculateDateDifference(plugin.getFinishedDate(), now, TimeUnit.MINUTES);
+    return dataIsValid && enoughTimeHasPassed;
   }
 
   private boolean isPluginInWorkflowCleaningOrRunning(WorkflowExecution runningOrInQueueExecution,
