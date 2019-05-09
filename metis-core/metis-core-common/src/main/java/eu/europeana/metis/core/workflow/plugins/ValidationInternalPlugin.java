@@ -9,7 +9,8 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-29
  */
-public class ValidationInternalPlugin extends AbstractMetisPlugin {
+public class ValidationInternalPlugin extends
+    AbstractExecutablePlugin<ValidationInternalPluginMetadata> {
 
   private final String topologyName = Topology.VALIDATION.getTopologyName();
 
@@ -26,9 +27,9 @@ public class ValidationInternalPlugin extends AbstractMetisPlugin {
    * Constructor to initialize the plugin with pluginMetadata.
    * <p>Initializes the {@link #pluginType} as well.</p>
    *
-   * @param pluginMetadata should be {@link ValidationInternalPluginMetadata}
+   * @param pluginMetadata The plugin metadata.
    */
-  ValidationInternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  ValidationInternalPlugin(ValidationInternalPluginMetadata pluginMetadata) {
     super(PluginType.VALIDATION_INTERNAL, pluginMetadata);
   }
 
@@ -44,12 +45,9 @@ public class ValidationInternalPlugin extends AbstractMetisPlugin {
 
   @Override
   DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
-    String urlOfSchemasZip = ((ValidationInternalPluginMetadata) getPluginMetadata())
-        .getUrlOfSchemasZip();
-    String schemaRootPath = ((ValidationInternalPluginMetadata) getPluginMetadata())
-        .getSchemaRootPath();
-    String schematronRootPath = ((ValidationInternalPluginMetadata) getPluginMetadata())
-        .getSchematronRootPath();
+    String urlOfSchemasZip = getPluginMetadata().getUrlOfSchemasZip();
+    String schemaRootPath = getPluginMetadata().getSchemaRootPath();
+    String schematronRootPath = getPluginMetadata().getSchematronRootPath();
     Map<String, String> extraParameters = createParametersForValidation(urlOfSchemasZip,
         schemaRootPath, schematronRootPath);
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);

@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.rest;
 
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import java.lang.reflect.Executable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,7 +30,7 @@ public class VersionEvolution {
   public static class VersionEvolutionStep {
 
     private String workflowExecutionId;
-    private PluginType pluginType;
+    private ExecutablePluginType pluginType;
     private Date finishedTime;
 
     public String getWorkflowExecutionId() {
@@ -39,11 +41,11 @@ public class VersionEvolution {
       this.workflowExecutionId = workflowExecutionId;
     }
 
-    public PluginType getPluginType() {
+    public ExecutablePluginType getPluginType() {
       return pluginType;
     }
 
-    public void setPluginType(PluginType pluginType) {
+    public void setPluginType(ExecutablePluginType pluginType) {
       this.pluginType = pluginType;
     }
 

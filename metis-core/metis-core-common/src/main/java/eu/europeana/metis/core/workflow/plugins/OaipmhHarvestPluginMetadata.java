@@ -10,9 +10,9 @@ import java.util.Date;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
+public class OaipmhHarvestPluginMetadata extends AbstractExecutablePluginMetadata {
 
-  private static final PluginType PLUGIN_TYPE = PluginType.OAIPMH_HARVEST;
+  private static final ExecutablePluginType PLUGIN_TYPE = ExecutablePluginType.OAIPMH_HARVEST;
   private String url;
   private String metadataFormat;
   private String setSpec;
@@ -95,7 +95,7 @@ public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   }
 
   @Override
-  public PluginType getPluginType() {
+  public ExecutablePluginType getExecutablePluginType() {
     return PLUGIN_TYPE;
   }
 

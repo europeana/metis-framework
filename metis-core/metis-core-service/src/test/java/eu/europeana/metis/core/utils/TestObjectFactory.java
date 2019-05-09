@@ -21,9 +21,11 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
@@ -82,7 +84,7 @@ public class TestObjectFactory {
     EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
     enrichmentPluginMetadata.setEnabled(true);
 
-    List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
+    List<AbstractExecutablePluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
     abstractMetisPluginMetadata.add(oaipmhHarvestPluginMetadata);
     abstractMetisPluginMetadata.add(validationExternalPluginMetadata);
     abstractMetisPluginMetadata.add(transformationPluginMetadata);
@@ -103,11 +105,11 @@ public class TestObjectFactory {
   public static WorkflowExecution createWorkflowExecutionObject() {
     Dataset dataset = createDataset(DATASETNAME);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
-    AbstractMetisPlugin oaipmhHarvestPlugin =
-        PluginType.OAIPMH_HARVEST.getNewPlugin(new OaipmhHarvestPluginMetadata());
+    AbstractMetisPlugin oaipmhHarvestPlugin = ExecutablePluginType.OAIPMH_HARVEST
+        .getNewPlugin(new OaipmhHarvestPluginMetadata());
     abstractMetisPlugins.add(oaipmhHarvestPlugin);
-    AbstractMetisPlugin validationExternalPlugin =
-        PluginType.VALIDATION_EXTERNAL.getNewPlugin(new ValidationExternalPluginMetadata());
+    AbstractMetisPlugin validationExternalPlugin = ExecutablePluginType.VALIDATION_EXTERNAL
+        .getNewPlugin(new ValidationExternalPluginMetadata());
     abstractMetisPlugins.add(validationExternalPlugin);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, abstractMetisPlugins, 0);

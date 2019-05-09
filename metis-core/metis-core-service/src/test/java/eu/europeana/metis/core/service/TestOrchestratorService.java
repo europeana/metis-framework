@@ -49,13 +49,16 @@ import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -162,8 +165,8 @@ class TestOrchestratorService {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
 
-    List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
-    List<AbstractMetisPluginMetadata> wrongOrderMetisPluginsMetadata = new ArrayList<>(
+    List<AbstractExecutablePluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
+    List<AbstractExecutablePluginMetadata> wrongOrderMetisPluginsMetadata = new ArrayList<>(
         metisPluginsMetadata);
     Collections.copy(wrongOrderMetisPluginsMetadata, metisPluginsMetadata);
     wrongOrderMetisPluginsMetadata.remove(2);
@@ -344,7 +347,7 @@ class TestOrchestratorService {
     // Verify the validation parameters
     final ValidationInternalPluginMetadata metadataInternal =
         (ValidationInternalPluginMetadata) workflow
-            .getPluginMetadata(PluginType.VALIDATION_INTERNAL);
+            .getPluginMetadata(ExecutablePluginType.VALIDATION_INTERNAL);
     assertEquals(orchestratorHelper.getValidationInternalProperties().getUrlOfSchemasZip(),
         metadataInternal.getUrlOfSchemasZip());
     assertEquals(orchestratorHelper.getValidationInternalProperties().getSchemaRootPath(),
@@ -353,7 +356,7 @@ class TestOrchestratorService {
         metadataInternal.getSchematronRootPath());
     final ValidationExternalPluginMetadata metadataExternal =
         (ValidationExternalPluginMetadata) workflow
-            .getPluginMetadata(PluginType.VALIDATION_EXTERNAL);
+            .getPluginMetadata(ExecutablePluginType.VALIDATION_EXTERNAL);
     assertEquals(orchestratorHelper.getValidationExternalProperties().getUrlOfSchemasZip(),
         metadataExternal.getUrlOfSchemasZip());
     assertEquals(orchestratorHelper.getValidationExternalProperties().getSchemaRootPath(),
@@ -424,14 +427,16 @@ class TestOrchestratorService {
     when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
         .thenReturn(dataset);
     when(workflowDao.getWorkflow(workflow.getDatasetId())).thenReturn(workflow);
-    AbstractMetisPlugin oaipmhHarvestPlugin = PluginType.OAIPMH_HARVEST.getNewPlugin(null);
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = (OaipmhHarvestPlugin) ExecutablePluginType.OAIPMH_HARVEST
+        .getNewPlugin(null);
+    oaipmhHarvestPlugin.setPluginMetadata(new OaipmhHarvestPluginMetadata());
     oaipmhHarvestPlugin.setStartedDate(new Date());
     ExecutionProgress executionProgress = new ExecutionProgress();
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(dataset.getDatasetId(),
-            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
+            ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(oaipmhHarvestPlugin);
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
     doNothing().when(rlock).lock();
@@ -450,7 +455,7 @@ class TestOrchestratorService {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-    List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
+    List<AbstractExecutablePluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
     EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
     enrichmentPluginMetadata.setEnabled(true);
     abstractMetisPluginMetadata.add(enrichmentPluginMetadata);
@@ -460,11 +465,12 @@ class TestOrchestratorService {
         .thenReturn(dataset);
     when(workflowDao.getWorkflow(workflow.getDatasetId())).thenReturn(workflow);
     when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
-    AbstractMetisPlugin oaipmhHarvestPlugin = PluginType.OAIPMH_HARVEST.getNewPlugin(null);
+    AbstractExecutablePlugin oaipmhHarvestPlugin = ExecutablePluginType.OAIPMH_HARVEST
+        .getNewPlugin(null);
     oaipmhHarvestPlugin.setStartedDate(new Date());
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(dataset.getDatasetId(),
-            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
+            ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(oaipmhHarvestPlugin);
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
   }
@@ -632,7 +638,7 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     assertNull(orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
-            datasetId, PluginType.OAIPMH_HARVEST, null));
+            datasetId, ExecutablePluginType.OAIPMH_HARVEST, null));
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
     verifyNoMoreInteractions(authorizer);
   }
@@ -642,16 +648,17 @@ class TestOrchestratorService {
       throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    AbstractMetisPlugin oaipmhHarvestPlugin = PluginType.OAIPMH_HARVEST.getNewPlugin(null);
+    AbstractExecutablePlugin oaipmhHarvestPlugin = ExecutablePluginType.OAIPMH_HARVEST
+        .getNewPlugin(null);
     ExecutionProgress executionProgress = new ExecutionProgress();
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
+            ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(oaipmhHarvestPlugin);
     assertEquals(PluginType.OAIPMH_HARVEST, orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
-            datasetId, PluginType.VALIDATION_EXTERNAL, null).getPluginType());
+            datasetId, ExecutablePluginType.VALIDATION_EXTERNAL, null).getPluginType());
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
     verifyNoMoreInteractions(authorizer);
   }
@@ -662,10 +669,10 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            ExecutionRules.getHarvestPluginGroup())).thenReturn(null);
+            ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(null);
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
-            datasetId, PluginType.VALIDATION_EXTERNAL, null));
+            datasetId, ExecutablePluginType.VALIDATION_EXTERNAL, null));
   }
 
   @Test
@@ -674,11 +681,11 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            ExecutionRules.getHarvestPluginGroup()))
-        .thenReturn(PluginType.OAIPMH_HARVEST.getNewPlugin(null));
+            ExecutionRules.getHarvestPluginGroup(), true))
+        .thenReturn(ExecutablePluginType.OAIPMH_HARVEST.getNewPlugin(null));
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
-            datasetId, PluginType.VALIDATION_EXTERNAL, null));
+            datasetId, ExecutablePluginType.VALIDATION_EXTERNAL, null));
   }
 
   @Test
@@ -830,26 +837,26 @@ class TestOrchestratorService {
     ExecutionProgress executionProgress = new ExecutionProgress();
     executionProgress.setProcessedRecords(100);
     executionProgress.setErrors(20);
-    AbstractMetisPlugin oaipmhHarvestPlugin =
-        PluginType.OAIPMH_HARVEST.getNewPlugin(new OaipmhHarvestPluginMetadata());
+    AbstractExecutablePlugin oaipmhHarvestPlugin =
+        ExecutablePluginType.OAIPMH_HARVEST.getNewPlugin(new OaipmhHarvestPluginMetadata());
     oaipmhHarvestPlugin.setFinishedDate(
         DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 3),
             TimeUnit.MINUTES));
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
-    AbstractMetisPlugin firstPublishPlugin =
-        PluginType.PUBLISH.getNewPlugin(new IndexToPublishPluginMetadata());
+    AbstractExecutablePlugin firstPublishPlugin =
+        ExecutablePluginType.PUBLISH.getNewPlugin(new IndexToPublishPluginMetadata());
     firstPublishPlugin.setFinishedDate(
         DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 2),
             TimeUnit.MINUTES));
     firstPublishPlugin.setExecutionProgress(executionProgress);
-    AbstractMetisPlugin lastPreviewPlugin =
-        PluginType.PREVIEW.getNewPlugin(new IndexToPreviewPluginMetadata());
+    AbstractExecutablePlugin lastPreviewPlugin =
+        ExecutablePluginType.PREVIEW.getNewPlugin(new IndexToPreviewPluginMetadata());
     lastPreviewPlugin.setFinishedDate(
         DateUtils.modifyDateByTimeUnitAmount(new Date(), -(SOLR_COMMIT_PERIOD_IN_MINS + 1),
             TimeUnit.MINUTES));
     lastPreviewPlugin.setExecutionProgress(executionProgress);
-    AbstractMetisPlugin lastPublishPlugin =
-        PluginType.PUBLISH.getNewPlugin(new IndexToPublishPluginMetadata());
+    AbstractExecutablePlugin lastPublishPlugin =
+        ExecutablePluginType.PUBLISH.getNewPlugin(new IndexToPublishPluginMetadata());
     lastPublishPlugin
         .setFinishedDate(DateUtils
             .modifyDateByTimeUnitAmount(new Date(), -SOLR_COMMIT_PERIOD_IN_MINS, TimeUnit.MINUTES));
@@ -858,7 +865,7 @@ class TestOrchestratorService {
         .createWorkflowExecutionObject();
     workflowExecutionObject.setWorkflowStatus(WorkflowStatus.RUNNING);
     final List<AbstractMetisPlugin> metisPlugins = workflowExecutionObject.getMetisPlugins();
-    final AbstractMetisPlugin cleaningPublishPlugin = PluginType.PUBLISH
+    final AbstractExecutablePlugin cleaningPublishPlugin = ExecutablePluginType.PUBLISH
         .getNewPlugin(new IndexToPublishPluginMetadata());
     cleaningPublishPlugin.setPluginStatus(PluginStatus.CLEANING);
     metisPlugins.add(cleaningPublishPlugin);
@@ -868,17 +875,17 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(PluginType.HTTP_HARVEST, PluginType.OAIPMH_HARVEST)))
-        .thenReturn(oaipmhHarvestPlugin);
+            EnumSet.of(ExecutablePluginType.HTTP_HARVEST, ExecutablePluginType.OAIPMH_HARVEST),
+            false)).thenReturn(oaipmhHarvestPlugin);
     when(workflowExecutionDao
         .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-            datasetId, EnumSet.of(PluginType.PUBLISH))).thenReturn(firstPublishPlugin);
+            datasetId, EnumSet.of(ExecutablePluginType.PUBLISH))).thenReturn(firstPublishPlugin);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(PluginType.PREVIEW))).thenReturn(lastPreviewPlugin);
+            EnumSet.of(ExecutablePluginType.PREVIEW), false)).thenReturn(lastPreviewPlugin);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(PluginType.PUBLISH))).thenReturn(lastPublishPlugin);
+            EnumSet.of(ExecutablePluginType.PUBLISH), false)).thenReturn(lastPublishPlugin);
     when(workflowExecutionDao.getRunningOrInQueueExecution(datasetId))
         .thenReturn(workflowExecutionObject);
 
@@ -948,9 +955,12 @@ class TestOrchestratorService {
     when(authorizer.authorizeReadExistingDatasetById(metisUser, datasetId)).thenReturn(null);
 
     // Create two workflow executions with three plugins and link them together
-    final AbstractMetisPlugin plugin1 = createMetisPlugin(PluginType.OAIPMH_HARVEST, new Date(1));
-    final AbstractMetisPlugin plugin2 = createMetisPlugin(PluginType.TRANSFORMATION, new Date(2));
-    final AbstractMetisPlugin plugin3 = createMetisPlugin(PluginType.MEDIA_PROCESS, new Date(3));
+    final AbstractExecutablePlugin plugin1 = createMetisPlugin(ExecutablePluginType.OAIPMH_HARVEST,
+        new Date(1));
+    final AbstractExecutablePlugin plugin2 = createMetisPlugin(ExecutablePluginType.TRANSFORMATION,
+        new Date(2));
+    final AbstractExecutablePlugin plugin3 = createMetisPlugin(ExecutablePluginType.MEDIA_PROCESS,
+        new Date(3));
     final WorkflowExecution execution1 = createWorkflowExecution(datasetId, plugin1);
     final WorkflowExecution execution2 = createWorkflowExecution(datasetId, plugin2,
         plugin3);
@@ -986,15 +996,16 @@ class TestOrchestratorService {
   }
 
   private void assertEvolutionStepEquals(VersionEvolutionStep evolutionStep,
-      WorkflowExecution execution, AbstractMetisPlugin plugin) {
+      WorkflowExecution execution, AbstractExecutablePlugin<?> plugin) {
     assertNotNull(evolutionStep);
     assertEquals(plugin.getFinishedDate(), evolutionStep.getFinishedTime());
-    assertEquals(plugin.getPluginType(), evolutionStep.getPluginType());
+    assertEquals(plugin.getPluginMetadata().getExecutablePluginType(),
+        evolutionStep.getPluginType());
     assertEquals(execution.getId().toString(), evolutionStep.getWorkflowExecutionId());
   }
 
   private WorkflowExecution createWorkflowExecution(String datasetId,
-      AbstractMetisPlugin... plugins) {
+      AbstractExecutablePlugin... plugins) {
     final WorkflowExecution result = new WorkflowExecution();
     result.setId(new ObjectId());
     result.setDatasetId(datasetId);
@@ -1004,9 +1015,13 @@ class TestOrchestratorService {
     return result;
   }
 
-  private AbstractMetisPlugin createMetisPlugin(PluginType type, Date date) {
-    AbstractMetisPlugin result = mock(AbstractMetisPlugin.class);
-    when(result.getPluginType()).thenReturn(type);
+  private AbstractExecutablePlugin createMetisPlugin(ExecutablePluginType type, Date date) {
+    AbstractExecutablePlugin<AbstractExecutablePluginMetadata> result = mock(
+        AbstractExecutablePlugin.class);
+    AbstractExecutablePluginMetadata metadata = mock(AbstractExecutablePluginMetadata.class);
+    when(metadata.getExecutablePluginType()).thenReturn(type);
+    when(result.getPluginType()).thenReturn(type.toPluginType());
+    when(result.getPluginMetadata()).thenReturn(metadata);
     when(result.getFinishedDate()).thenReturn(date);
     return result;
   }

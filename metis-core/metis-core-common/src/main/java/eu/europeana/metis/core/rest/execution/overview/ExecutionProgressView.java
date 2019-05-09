@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.rest.execution.overview;
 
 import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import java.util.Set;
@@ -33,8 +34,9 @@ public class ExecutionProgressView {
         .filter(plugin -> EXECUTING_STATUS_SET.contains(plugin.getPluginStatus())).findFirst()
         .orElse(null);
     this.stepsTotal = execution.getMetisPlugins().size();
-    if (currentPlugin != null) {
-      this.currentPluginProgress = new PluginProgressView(currentPlugin.getExecutionProgress());
+    if (currentPlugin instanceof AbstractExecutablePlugin) {
+      this.currentPluginProgress = new PluginProgressView(
+          ((AbstractExecutablePlugin) currentPlugin).getExecutionProgress());
     }
   }
 

@@ -9,7 +9,7 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-20
  */
-public class MediaProcessPlugin extends AbstractMetisPlugin {
+public class MediaProcessPlugin extends AbstractExecutablePlugin<MediaProcessPluginMetadata> {
 
   private final String topologyName = Topology.MEDIA_PROCESS.getTopologyName();
 
@@ -26,9 +26,9 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
    * Constructor to initialize the plugin with pluginMetadata.
    * <p>Initializes the {@link #pluginType} as well.</p>
    *
-   * @param pluginMetadata should be {@link MediaProcessPluginMetadata}
+   * @param pluginMetadata The plugin metadata.
    */
-  MediaProcessPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  MediaProcessPlugin(MediaProcessPluginMetadata pluginMetadata) {
     super(PluginType.MEDIA_PROCESS, pluginMetadata);
   }
 
@@ -40,7 +40,7 @@ public class MediaProcessPlugin extends AbstractMetisPlugin {
   @Override
   DpsTask prepareDpsTask(
       EcloudBasePluginParameters ecloudBasePluginParameters) {
-    Map<String, Integer> connectionLimitToDomains = ((MediaProcessPluginMetadata) getPluginMetadata())
+    Map<String, Integer> connectionLimitToDomains = getPluginMetadata()
         .getConnectionLimitToDomains();
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters,
         createParametersForHostConnectionLimits(connectionLimitToDomains));

@@ -3,12 +3,15 @@ package eu.europeana.metis.core.execution;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,56 +41,57 @@ class TestExecutionRules {
   @Test
   void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_HarvestPlugin() {
     assertNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
-        PluginType.OAIPMH_HARVEST, null, Integer.toString(TestObjectFactory.DATASETID),
+        ExecutablePluginType.OAIPMH_HARVEST, null, Integer.toString(TestObjectFactory.DATASETID),
         workflowExecutionDao));
     assertNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
-        PluginType.HTTP_HARVEST, null, Integer.toString(TestObjectFactory.DATASETID),
+        ExecutablePluginType.HTTP_HARVEST, null, Integer.toString(TestObjectFactory.DATASETID),
         workflowExecutionDao));
     Mockito.verify(workflowExecutionDao, Mockito.never())
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(Mockito.anyString(),
-            Mockito.any());
+        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(anyString(), any(),
+            anyBoolean());
   }
 
   @Test
   void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_EnforcedPluginType() {
     when(workflowExecutionDao.getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-        Integer.toString(TestObjectFactory.DATASETID), EnumSet.of(PluginType.OAIPMH_HARVEST)))
-            .thenReturn(PluginType.OAIPMH_HARVEST.getNewPlugin(null));
+        Integer.toString(TestObjectFactory.DATASETID),
+        EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true))
+        .thenReturn(ExecutablePluginType.OAIPMH_HARVEST.getNewPlugin(null));
     assertNotNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
-        PluginType.TRANSFORMATION, PluginType.OAIPMH_HARVEST,
+        ExecutablePluginType.TRANSFORMATION, ExecutablePluginType.OAIPMH_HARVEST,
         Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
   }
 
   @Test
   void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution() {
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.VALIDATION_EXTERNAL,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.VALIDATION_EXTERNAL,
         ExecutionRules.getHarvestPluginGroup());
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.TRANSFORMATION,
-        EnumSet.of(PluginType.VALIDATION_EXTERNAL));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.VALIDATION_INTERNAL,
-        EnumSet.of(PluginType.TRANSFORMATION));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.NORMALIZATION,
-        EnumSet.of(PluginType.VALIDATION_INTERNAL));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.ENRICHMENT,
-        EnumSet.of(PluginType.NORMALIZATION));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.MEDIA_PROCESS,
-        EnumSet.of(PluginType.ENRICHMENT));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.PREVIEW,
-        EnumSet.of(PluginType.MEDIA_PROCESS));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.PUBLISH,
-        EnumSet.of(PluginType.PREVIEW));
-    final Set<PluginType> allowedSetForLinkChecking = new HashSet<>(
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.TRANSFORMATION,
+        EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL));
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.VALIDATION_INTERNAL,
+        EnumSet.of(ExecutablePluginType.TRANSFORMATION));
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.NORMALIZATION,
+        EnumSet.of(ExecutablePluginType.VALIDATION_INTERNAL));
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.ENRICHMENT,
+        EnumSet.of(ExecutablePluginType.NORMALIZATION));
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.MEDIA_PROCESS,
+        EnumSet.of(ExecutablePluginType.ENRICHMENT));
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.PREVIEW,
+        EnumSet.of(ExecutablePluginType.MEDIA_PROCESS));
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.PUBLISH,
+        EnumSet.of(ExecutablePluginType.PREVIEW));
+    final Set<ExecutablePluginType> allowedSetForLinkChecking = new HashSet<>(
         ExecutionRules.getProcessPluginGroup());
     allowedSetForLinkChecking.addAll(ExecutionRules.getIndexPluginGroup());
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.LINK_CHECKING,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.LINK_CHECKING,
         allowedSetForLinkChecking);
   }
 
   private void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(
-      PluginType requestedPlugin, Set<PluginType> finishedPlugins) {
-    final AbstractMetisPlugin plugin = requestedPlugin.getNewPlugin(null);
+      ExecutablePluginType requestedPlugin, Set<ExecutablePluginType> finishedPlugins) {
+    final AbstractExecutablePlugin plugin = requestedPlugin.getNewPlugin(null);
     when(workflowExecutionDao.getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-        Integer.toString(TestObjectFactory.DATASETID), finishedPlugins)).thenReturn(plugin);
+        Integer.toString(TestObjectFactory.DATASETID), finishedPlugins, true)).thenReturn(plugin);
     assertSame(plugin,
         ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(requestedPlugin,
             null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));

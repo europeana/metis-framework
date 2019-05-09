@@ -13,6 +13,7 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
@@ -226,7 +227,7 @@ public class OrchestratorController {
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPluginType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -331,8 +332,8 @@ public class OrchestratorController {
   public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam("pluginType") PluginType pluginType,
-      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType)
+      @RequestParam("pluginType") ExecutablePluginType pluginType,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPluginType)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
