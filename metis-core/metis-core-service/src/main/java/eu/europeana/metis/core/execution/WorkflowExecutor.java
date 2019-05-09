@@ -42,6 +42,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   private static final String EXECUTION_ERROR_PREFIX = "Execution of external task presented with an error. ";
   private static final String MONITOR_ERROR_PREFIX = "An error occurred while monitoring the external task. ";
+  private static final String TRIGGER_ERROR_PREFIX = "An error occurred while triggering the external task. ";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
   private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 3;
@@ -188,10 +189,18 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
    */
   private void runMetisPlugin(AbstractMetisPlugin previousPluginUnchecked,
       AbstractMetisPlugin pluginUnchecked, Date startDateToUse) {
+
+    // Sanity check
+    if (pluginUnchecked == null) {
+      throw new IllegalStateException("Plugin cannot be null.");
+    }
+
+    // Trigger the plugin (if it has not already started)
+    final AbstractExecutablePlugin<?> plugin;
     try {
 
-      // Check the current and previous plugin: they have to be executable.
-      final AbstractExecutablePlugin<?> plugin = expectExecutablePlugin(pluginUnchecked);
+      // Check the current and previous plugin: they have to be executable
+      plugin = expectExecutablePlugin(pluginUnchecked);
       final AbstractExecutablePlugin previousPlugin = expectExecutablePlugin(
           previousPluginUnchecked);
 
@@ -210,18 +219,19 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
             resolvePreviousExternalTaskId(previousPlugin, plugin));
         plugin.execute(dpsClient, ecloudBasePluginParameters);
       }
-
-      // Start periodical check and wait for plugin to be done
-      long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-      periodicCheckingLoop(sleepTime, plugin);
     } catch (ExternalTaskException | RuntimeException e) {
       LOGGER.warn("Execution of external task failed", e);
       pluginUnchecked.setFinishedDate(null);
       pluginUnchecked.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-      pluginUnchecked.setFailMessage(MONITOR_ERROR_PREFIX + e.getMessage());
+      pluginUnchecked.setFailMessage(TRIGGER_ERROR_PREFIX + e.getMessage());
+      return;
     } finally {
       workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     }
+
+    // Start periodical check and wait for plugin to be done
+    long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
+    periodicCheckingLoop(sleepTime, plugin);
   }
 
   private String resolvePreviousExternalTaskId(AbstractExecutablePlugin providedPreviousPlugin,
