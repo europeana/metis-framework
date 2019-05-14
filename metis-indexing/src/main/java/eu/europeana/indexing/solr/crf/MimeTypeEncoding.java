@@ -785,8 +785,6 @@ public enum MimeTypeEncoding {
   TYPE_774("audio/mpeg3", 774),
   TYPE_775("image/x-ms-bmp", 775);
 
-  private static final Integer VALUE_UNKNOWN = 0;
-
   private static BiMap<String, Integer> mimeTypeMap;
 
   private final String mimeType;
@@ -830,9 +828,7 @@ public enum MimeTypeEncoding {
    * @return The integer representation of the mimetype, or 0 if the mime type could not be found.
    */
   static Integer getMimeTypeCode(final String type) {
-    final Integer result =
-        StringUtils.isNotBlank(type) ? getMimeTypeMap().get(type.trim().toLowerCase(Locale.ENGLISH))
-            : null;
-    return result == null ? VALUE_UNKNOWN : result;
+    return StringUtils.isNotBlank(type) ? getMimeTypeMap()
+        .get(type.trim().toLowerCase(Locale.ENGLISH)) : null;
   }
 }

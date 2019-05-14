@@ -2,6 +2,7 @@ package eu.europeana.indexing.solr.crf;
 
 import java.util.Collections;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,11 +17,8 @@ import eu.europeana.indexing.solr.crf.WebResourceWrapper.Orientation;
  * @author jochen
  *
  */
-public final class FacetCodeUtils {
+final class FacetCodeUtils {
 
-  private static final Integer UNKNOWN = 0;
-
-  private static final Integer IMAGE_TINY = 0;
   private static final Integer IMAGE_SMALL = 1;
   private static final Integer IMAGE_MEDIUM = 2;
   private static final Integer IMAGE_LARGE = 3;
@@ -33,7 +31,6 @@ public final class FacetCodeUtils {
   private static final Integer IMAGE_PORTRAIT = 1;
   private static final Integer IMAGE_LANDSCAPE = 2;
 
-  private static final Integer VIDEO_AUDIO_HIGH_QUALITY_FALSE = 0;
   private static final Integer VIDEO_AUDIO_HIGH_QUALITY_TRUE = 1;
 
   private static final Integer VIDEO_SHORT = 1;
@@ -89,16 +86,20 @@ public final class FacetCodeUtils {
 
   private FacetCodeUtils() {}
 
+  private static Set<Integer> toSet(Integer value) {
+    return Optional.ofNullable(value).map(Collections::singleton).orElseGet(Collections::emptySet);
+  }
+
   /**
    * Codify the mime type of the given web resource.
    * 
    * @param webResource The web resource.
    * @return The (non-shifted) code.
    */
-  public static Set<Integer> getMimeTypeCode(final WebResourceWrapper webResource) {
+  static Set<Integer> getMimeTypeCode(final WebResourceWrapper webResource) {
     final String mimeType =
         Optional.ofNullable(webResource.getMimeType()).orElse(DEFAULT_MIME_TYPE);
-    return Collections.singleton(MimeTypeEncoding.getMimeTypeCode(mimeType));
+    return toSet(MimeTypeEncoding.getMimeTypeCode(mimeType));
   }
 
   /**
@@ -107,13 +108,11 @@ public final class FacetCodeUtils {
    * @param webResource The web resource.
    * @return The (non-shifted) code.
    */
-  public static Set<Integer> getImageSizeCode(final WebResourceWrapper webResource) {
+  static Set<Integer> getImageSizeCode(final WebResourceWrapper webResource) {
     final long size = webResource.getWidth() * webResource.getHeight();
     final Integer result;
-    if (size == 0) {
-      result = UNKNOWN;
-    } else if (size < IMAGE_SMALL_AREA) {
-      result = IMAGE_TINY;
+    if (size < IMAGE_SMALL_AREA) {
+      result = null;
     } else if (size < IMAGE_MEDIUM_AREA) {
       result = IMAGE_SMALL;
     } else if (size < IMAGE_LARGE_AREA) {
@@ -123,7 +122,7 @@ public final class FacetCodeUtils {
     } else {
       result = IMAGE_HUGE;
     }
-    return Collections.singleton(result);
+    return toSet(result);
   }
 
   /**
@@ -132,7 +131,7 @@ public final class FacetCodeUtils {
    * @param webResource The web resource.
    * @return The (non-shifted) code.
    */
-  public static Set<Integer> getImageColorSpaceCode(final WebResourceWrapper webResource) {
+  static Set<Integer> getImageColorSpaceCode(final WebResourceWrapper webResource) {
     final ColorSpace colorSpace = webResource.getColorSpace();
     final Integer result;
     if (ColorSpace.COLOR == colorSpace) {
@@ -142,9 +141,9 @@ public final class FacetCodeUtils {
     } else if (ColorSpace.OTHER == colorSpace) {
       result = IMAGE_OTHER_SCHEME;
     } else {
-      result = UNKNOWN;
+      result = null;
     }
-    return Collections.singleton(result);
+    return toSet(result);
   }
 
   /**
@@ -153,7 +152,7 @@ public final class FacetCodeUtils {
    * @param webResource The web resource.
    * @return The (non-shifted) code.
    */
-  public static Set<Integer> getImageAspectRatioCode(final WebResourceWrapper webResource) {
+  static Set<Integer> getImageAspectRatioCode(final WebResourceWrapper webResource) {
     final Orientation orientation = webResource.getOrientation();
     final Integer result;
     if (Orientation.PORTRAIT == orientation) {
@@ -161,9 +160,9 @@ public final class FacetCodeUtils {
     } else if (Orientation.LANDSCAPE == orientation) {
       result = IMAGE_LANDSCAPE;
     } else {
-      result = UNKNOWN;
+      result = null;
     }
-    return Collections.singleton(result);
+    return toSet(result);
   }
 
   /**
@@ -172,13 +171,9 @@ public final class FacetCodeUtils {
    * @param webResource The web resource.
    * @return The (non-shifted) code.
    */
-  public static Set<Integer> getImageColorPalette(final WebResourceWrapper webResource) {
-    final Set<String> colorCodes = webResource.getColorHexCodes();
-    if (colorCodes.isEmpty()) {
-      return Collections.singleton(UNKNOWN);
-    }
+  static Set<Integer> getImageColorPalette(final WebResourceWrapper webResource) {
     return webResource.getColorHexCodes().stream().map(ColorEncoding::getColorCode)
-        .collect(Collectors.toSet());
+        .filter(Objects::nonNull).collect(Collectors.toSet());
   }
 
   /**
@@ -187,14 +182,14 @@ public final class FacetCodeUtils {
    * @param webResource The web resource.
    * @return The (non-shifted) code.
    */
-  public static Set<Integer> getVideoQualityCode(final WebResourceWrapper webResource) {
+  static Set<Integer> getVideoQualityCode(final WebResourceWrapper webResource) {
     final Integer result;
     if (webResource.getHeight() <= VIDEO_HIGH_QUALITY_HEIGHT) {
-      result = VIDEO_AUDIO_HIGH_QUALITY_FALSE;
+      result = null;
     } else {
       result = VIDEO_AUDIO_HIGH_QUALITY_TRUE;
     }
-    return Collections.singleton(result);
+    return toSet(result);
   }
 
   /**
@@ -203,7 +198,7 @@ public final class FacetCodeUtils {
    * @param webResource The web resource.
    * @return The (non-shifted) code.
    */
-  public static Set<Integer> getAudioQualityCode(final WebResourceWrapper webResource) {
+  static Set<Integer> getAudioQualityCode(final WebResourceWrapper webResource) {
 
     // Determine whether the format is high-definition sampling or lossless.
     final long sampleSize = webResource.getSampleSize();
@@ -219,9 +214,9 @@ public final class FacetCodeUtils {
     if (highDefSampling || losslessFile) {
       result = VIDEO_AUDIO_HIGH_QUALITY_TRUE;
     } else {
-      result = VIDEO_AUDIO_HIGH_QUALITY_FALSE;
+      result = null;
     }
-    return Collections.singleton(result);
+    return toSet(result);
   }
 
   /**
@@ -230,11 +225,11 @@ public final class FacetCodeUtils {
    * @param webResource The web resource.
    * @return The (non-shifted) code.
    */
-  public static Set<Integer> getVideoDurationCode(final WebResourceWrapper webResource) {
+  static Set<Integer> getVideoDurationCode(final WebResourceWrapper webResource) {
     final long duration = webResource.getDuration();
     final Integer result;
     if (duration == 0L) {
-      result = UNKNOWN;
+      result = null;
     } else if (duration <= VIDEO_MEDIUM_DURATION) {
       result = VIDEO_SHORT;
     } else if (duration <= VIDEO_LONG_DURATION) {
@@ -242,7 +237,7 @@ public final class FacetCodeUtils {
     } else {
       result = VIDEO_LONG;
     }
-    return Collections.singleton(result);
+    return toSet(result);
   }
 
   /**
@@ -251,11 +246,11 @@ public final class FacetCodeUtils {
    * @param webResource The web resource.
    * @return The (non-shifted) code.
    */
-  public static Set<Integer> getAudioDurationCode(final WebResourceWrapper webResource) {
+  static Set<Integer> getAudioDurationCode(final WebResourceWrapper webResource) {
     final long duration = webResource.getDuration();
     final Integer result;
     if (duration == 0L) {
-      result = UNKNOWN;
+      result = null;
     } else if (duration <= AUDIO_SHORT_DURATION) {
       result = AUDIO_TINY;
     } else if (duration <= AUDIO_MEDIUM_DURATION) {
@@ -265,6 +260,6 @@ public final class FacetCodeUtils {
     } else {
       result = AUDIO_LONG;
     }
-    return Collections.singleton(result);
+    return toSet(result);
   }
 }

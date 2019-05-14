@@ -2,16 +2,17 @@ package eu.europeana.indexing.solr.crf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-public class TestMimeTypeEncoding {
+class TestMimeTypeEncoding {
 
   @Test
-  public void testGetMimeTypeCode() {
+  void testGetMimeTypeCode() {
 
     // Keep track of the found codes and mimetypes.
     final Set<Integer> foundCodes = new HashSet<>();
@@ -42,9 +43,8 @@ public class TestMimeTypeEncoding {
     }
 
     // Test non-existing code and empty/null codes.
-    assertEquals(Integer.valueOf(0),
-        MimeTypeEncoding.getMimeTypeCode("MY AWESOME MADE-UP MIME TYPE"));
-    assertEquals(Integer.valueOf(0), MimeTypeEncoding.getMimeTypeCode("  "));
-    assertEquals(Integer.valueOf(0), MimeTypeEncoding.getMimeTypeCode(null));
+    assertNull(MimeTypeEncoding.getMimeTypeCode("MY AWESOME MADE-UP MIME TYPE"));
+    assertNull(MimeTypeEncoding.getMimeTypeCode("  "));
+    assertNull(MimeTypeEncoding.getMimeTypeCode(null));
   }
 }
