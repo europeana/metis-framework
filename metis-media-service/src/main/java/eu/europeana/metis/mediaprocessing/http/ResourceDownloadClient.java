@@ -55,6 +55,8 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
         downloadResource(resourceEntry.getResourceUrl(), resource, contentRetriever);
         LOGGER.debug("Finished download of resource: {}", resourceEntry.getResourceUrl());
       } else {
+        LOGGER.debug("Media type {} not supported - choosing not to download resource: {}",
+            mimeType, resourceEntry.getResourceUrl());
         resource.markAsNoContent();
       }
     } catch (IOException | RuntimeException e) {
