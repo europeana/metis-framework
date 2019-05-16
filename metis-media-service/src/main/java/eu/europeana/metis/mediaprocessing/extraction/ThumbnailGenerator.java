@@ -198,6 +198,13 @@ class ThumbnailGenerator {
       throw new MediaExtractionException("File content is null");
     }
 
+    // TODO JV We should change this into a whitelist of supported formats.
+    // Exception for DjVu files
+    if (detectedMimeType.startsWith("image/vnd.djvu") || detectedMimeType
+        .startsWith("image/x-djvu")) {
+      throw new MediaExtractionException("Cannot generate thumbnails for DjVu file.");
+    }
+
     // Obtain the thumbnail files (they are still empty) - create temporary files for them.
     final List<ThumbnailWithSize> thumbnails = prepareThumbnailFiles(url);
 
