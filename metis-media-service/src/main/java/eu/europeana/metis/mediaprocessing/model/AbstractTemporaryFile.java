@@ -7,9 +7,9 @@ import java.nio.file.Path;
 
 /**
  * This class represents a file in the temporary folder that's associated with a resource. Please
- * see {@link ResourceFile} for more information.
+ * see {@link ResourceRelatedFile} for more information.
  */
-abstract class AbstractTemporaryFile implements ResourceFile {
+abstract class AbstractTemporaryFile implements ResourceRelatedFile {
 
   /**
    * The resource URL of the resource with which this file is associated.

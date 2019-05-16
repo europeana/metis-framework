@@ -6,10 +6,10 @@ import java.nio.file.Path;
 import java.util.Set;
 
 /**
- * This interface represents the binary content of a resource. Please see {@link ResourceFile} for
+ * This interface represents the binary content of a resource. Please see {@link ResourceRelatedFile} for
  * more information.
  */
-public interface Resource extends ResourceFile {
+public interface Resource extends ResourceRelatedFile {
 
   /**
    * @return The resource URL types with which this resource is referenced.
