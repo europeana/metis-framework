@@ -74,9 +74,7 @@ public class LanguageMatcher {
     this.ambiguityHandling = ambiguityHandling;
     this.targetVocabularies = new ArrayList<>(targetVocabularies);
     this.stringNormalizer = stringNormalizer;
-    for (Language l : languages.getActiveLanguages()) {
-      index(l);
-    }
+    languages.getActiveLanguages().forEach(this::index);
   }
 
   private void index(Language language) {
@@ -170,10 +168,13 @@ public class LanguageMatcher {
     // The result.
     LanguageMatch result = null;
 
-    // First try to match the code.
-    final String codeMatch = isoCodes.get(word);
+    // First try to match the code. Preserve the subtag if there is one.
+    final int subtagStart = word.indexOf('-');
+    final String tag = subtagStart < 0 ? word : word.substring(0, subtagStart);
+    final String subTag = subtagStart < 0 ? "" : word.substring(subtagStart);
+    final String codeMatch = isoCodes.get(tag);
     if (codeMatch != null) {
-      result = new LanguageMatch(word, codeMatch, Type.CODE_MATCH);
+      result = new LanguageMatch(word, codeMatch + subTag, Type.CODE_MATCH);
     }
 
     // If that doesn't work, we try to match an unambiguous label.

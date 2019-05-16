@@ -152,6 +152,26 @@ class LanguageMatcherTest {
   }
 
   @Test
+  void testCodesWithSubtags() {
+
+    // Create matcher
+    final LanguageMatcher matcher = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH,
+        Collections.singletonList(LanguagesVocabulary.ISO_639_3), languages, Function.identity());
+
+    // Match single existing codes
+    final String subtag1 = "-sub";
+    final String subtag2 = "-";
+    assertSingleMatch(matcher, LANGUAGE_1_CODE_1 + subtag1, LANGUAGE_1_CODE_3 + subtag1,
+        Type.CODE_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_CODE_1 + subtag2, LANGUAGE_1_CODE_3 + subtag2,
+        Type.CODE_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_CODE_3 + subtag1, LANGUAGE_1_CODE_3 + subtag1,
+        Type.CODE_MATCH);
+    assertSingleMatch(matcher, LANGUAGE_1_CODE_3 + subtag2, LANGUAGE_1_CODE_3 + subtag2,
+        Type.CODE_MATCH);
+  }
+
+  @Test
   void testAmbiguousLabels() {
 
     // Test ambiguity handling NO_MATCH.
