@@ -21,7 +21,7 @@ public class MediaProcessorFactory {
    * allowed to take before it is forcibly destroyed (i.e. cancelled). It's currently set to {@value
    * MediaProcessorFactory#DEFAULT_THUMBNAIL_GENERATE_TIMEOUT} seconds.
    */
-  public static final int DEFAULT_THUMBNAIL_GENERATE_TIMEOUT = 30;
+  public static final int DEFAULT_THUMBNAIL_GENERATE_TIMEOUT = 20;
 
   /**
    * The default value of the maximum amount of time, in seconds, a audio/video probe command is
