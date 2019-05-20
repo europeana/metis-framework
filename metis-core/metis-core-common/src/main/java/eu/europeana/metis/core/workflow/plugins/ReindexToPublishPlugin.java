@@ -9,7 +9,7 @@ public class ReindexToPublishPlugin extends AbstractMetisPlugin<ReindexToPublish
     this(null);
   }
 
-  ReindexToPublishPlugin(ReindexToPublishPluginMetadata pluginMetadata) {
+  public ReindexToPublishPlugin(ReindexToPublishPluginMetadata pluginMetadata) {
     super(PluginType.REINDEX_TO_PUBLISH, pluginMetadata);
   }
 }

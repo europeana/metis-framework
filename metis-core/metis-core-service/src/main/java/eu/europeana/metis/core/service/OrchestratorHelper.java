@@ -257,7 +257,7 @@ public class OrchestratorHelper {
         workflow.getMetisPluginsMetadata().stream()).collect(Collectors.toList()));
   }
 
-  AbstractExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+  public AbstractExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
       String datasetId, ExecutablePluginType pluginType, ExecutablePluginType enforcedPluginType)
       throws PluginExecutionNotAllowed {
     AbstractExecutablePlugin latestFinishedPluginIfRequestedPluginAllowedForExecution =

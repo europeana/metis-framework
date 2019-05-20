@@ -18,28 +18,28 @@ public class ResourceMetadata implements IResourceMetadata {
   private TextResourceMetadata textResourceMetadata;
   private VideoResourceMetadata videoResourceMetadata;
 
-  ResourceMetadata(AudioResourceMetadata audioResourceMetadata) {
+  public ResourceMetadata(AudioResourceMetadata audioResourceMetadata) {
     if (audioResourceMetadata == null) {
       throw new IllegalArgumentException();
     }
     this.audioResourceMetadata = audioResourceMetadata;
   }
 
-  ResourceMetadata(ImageResourceMetadata imageResourceMetadata) {
+  public ResourceMetadata(ImageResourceMetadata imageResourceMetadata) {
     if (imageResourceMetadata == null) {
       throw new IllegalArgumentException();
     }
     this.imageResourceMetadata = imageResourceMetadata;
   }
 
-  ResourceMetadata(TextResourceMetadata textResourceMetadata) {
+  public ResourceMetadata(TextResourceMetadata textResourceMetadata) {
     if (textResourceMetadata == null) {
       throw new IllegalArgumentException();
     }
     this.textResourceMetadata = textResourceMetadata;
   }
 
-  ResourceMetadata(VideoResourceMetadata videoResourceMetadata) {
+  public ResourceMetadata(VideoResourceMetadata videoResourceMetadata) {
     if (videoResourceMetadata == null) {
       throw new IllegalArgumentException();
     }
