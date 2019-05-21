@@ -43,7 +43,7 @@ public abstract class AbstractMetisPluginMetadata {
     return revisionNamePreviousPlugin;
   }
 
-  void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
+  public void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
     this.revisionNamePreviousPlugin = revisionNamePreviousPlugin;
   }
 
@@ -52,7 +52,7 @@ public abstract class AbstractMetisPluginMetadata {
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
-  void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
+  public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
     this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null ? null
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
