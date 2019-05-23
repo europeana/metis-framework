@@ -8,6 +8,7 @@ import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.DatasetName;
 import eu.europeana.corelib.definitions.jibx.EdmType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
+import eu.europeana.corelib.definitions.jibx.EuropeanaProxy;
 import eu.europeana.corelib.definitions.jibx.License;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
@@ -94,11 +95,26 @@ public class RdfWrapper {
 
   /**
    * This method extracts all proxy objects from the RDF object.
-   * 
+   *
    * @return The list of proxies. Is not null, but could be empty.
    */
   public List<ProxyType> getProxies() {
     return getPropertyList(record.getProxyList());
+  }
+
+  /**
+   * This method extracts all provider proxy objects from the RDF object.
+   *
+   * @return The list of proxies. Is not null, but could be empty.
+   */
+  public List<ProxyType> getProviderProxies() {
+    return getProxies().stream().filter(proxy -> !isEuropeanaProxy(proxy))
+        .collect(Collectors.toList());
+  }
+
+  private static boolean isEuropeanaProxy(ProxyType proxy) {
+    return Optional.of(proxy).map(ProxyType::getEuropeanaProxy)
+        .map(EuropeanaProxy::isEuropeanaProxy).orElse(false);
   }
 
   /**
@@ -150,19 +166,19 @@ public class RdfWrapper {
    * least one of the given types. Cannot be null.
    * @return The list of processed web resources. Is not null, but could be empty.
    */
-  public List<WebResourceWrapper> getWebResourcesOfTypes(Set<WebResourceLinkType> types) {
+  public List<WebResourceWrapper> getWebResourceWrappers(Set<WebResourceLinkType> types) {
     final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = WebResourceLinkType
         .getAllLinksForTypes(this, types);
     return getFilteredPropertyStream(record.getWebResourceList())
         .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout()))
         .map(webResource -> new WebResourceWrapper(webResource,
             webResourceUrlsWithTypes.get(webResource.getAbout()))).collect(Collectors.toList());
-   }
+  }
 
   /**
    * This method extracts all web resources from the RDF object. This will filter the objects: it
    * only returns those that need to be indexed. But contrary to {@link
-   * #getWebResourcesOfTypes(Set)} it also returns all web resources that have none of the supported
+   * #getWebResourceWrappers(Set)} it also returns all web resources that have none of the supported
    * types.
    *
    * @return The list of processed web resources. Is not null, but could be empty.
@@ -184,6 +200,22 @@ public class RdfWrapper {
    */
   public List<WebResourceType> getWebResources() {
     return getFilteredPropertyList(record.getWebResourceList());
+  }
+
+  /**
+   * This method extracts all web resources from the RDF object. This will filter the objects: it
+   * only returns those that need to be indexed and that have at least one of the given types.
+   *
+   * @param types The types to which we limit our search. We only return web resources that have at
+   * least one of the given types. Cannot be null.
+   * @return The list of processed web resources. Is not null, but could be empty.
+   */
+  public List<WebResourceType> getWebResources(Set<WebResourceLinkType> types) {
+    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = WebResourceLinkType
+        .getAllLinksForTypes(this, types);
+    return getFilteredPropertyStream(record.getWebResourceList())
+        .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout()))
+        .collect(Collectors.toList());
   }
 
   /**

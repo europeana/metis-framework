@@ -25,7 +25,7 @@ class VideoClassifier extends AbstractMediaClassifier {
 
     // Check presence of image as edm:Object with sufficient resolution. If not available, tier 0.
     final boolean hasLargeImageAsObject = entity
-        .getWebResourcesOfTypes(EnumSet.of(WebResourceLinkType.OBJECT)).stream()
+        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.OBJECT)).stream()
         .filter(ImageClassifier::hasImageMimeType).mapToLong(WebResourceWrapper::getSize)
         .anyMatch(size -> size >= MIN_IMAGE_RESOLUTION);
     if (!hasLargeImageAsObject) {
