@@ -1,15 +1,11 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,35 +15,35 @@ import org.slf4j.LoggerFactory;
  * This class executes commands (like you would in a terminal). It imposes a maximum number of
  * processes that can perform command-line IO at any given time.
  */
-class CommandExecutor implements Closeable {
+class CommandExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
 
   private final ProcessFactory processFactory;
 
-  private final ExecutorService commandThreadPool;
+  private final int commandTimeout;
 
   /**
    * Constructor.
    *
-   * @param commandThreadPoolSize The maximum number of processes that can perform command-line IO
-   * at any given time.
+   * @param commandTimeout The maximum amount of time, in seconds, a command is allowed to take
+   * before it is forcibly destroyed (i.e. cancelled).
    */
-  CommandExecutor(int commandThreadPoolSize) {
-    this(Executors.newFixedThreadPool(commandThreadPoolSize),
-        (command, redirectErrorStream) -> new ProcessBuilder(command)
-            .redirectErrorStream(redirectErrorStream).start());
+  CommandExecutor(int commandTimeout) {
+    this(commandTimeout, (command, redirectErrorStream) -> new ProcessBuilder(command)
+        .redirectErrorStream(redirectErrorStream).start());
   }
 
   /**
    * Constructor.
    *
-   * @param commandThreadPool The {@link ExecutorService} functioning as command thread pool.
+   * @param commandTimeout The maximum amount of time, in seconds, a command is allowed to take
+   * before it is forcibly destroyed (i.e. cancelled).
    * @param processFactory A function that, given a command and whether to redirect the error
    * stream, creates a {@link Process} for executing that command.
    */
-  CommandExecutor(ExecutorService commandThreadPool, ProcessFactory processFactory) {
-    this.commandThreadPool = commandThreadPool;
+  CommandExecutor(int commandTimeout, ProcessFactory processFactory) {
+    this.commandTimeout = commandTimeout;
     this.processFactory = processFactory;
   }
 
@@ -63,22 +59,31 @@ class CommandExecutor implements Closeable {
    */
   List<String> execute(List<String> command, boolean redirectErrorStream)
       throws CommandExecutionException {
-    final Callable<List<String>> task = () -> executeInternal(command, redirectErrorStream);
     try {
-      return commandThreadPool.submit(task).get();
-    } catch (ExecutionException e) {
+      return executeInternal(command, redirectErrorStream);
+    } catch (IOException | RuntimeException e) {
       throw new CommandExecutionException("Problem while executing command.", e);
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-      throw new CommandExecutionException("Process was interrupted.", e);
     }
   }
 
   List<String> executeInternal(List<String> command, boolean redirectErrorStream)
-      throws IOException {
+      throws IOException, CommandExecutionException {
 
     // Create process and start it.
     final Process process = processFactory.createProcess(command, redirectErrorStream);
+
+    // Wait for the process to finish (or the time-out to elapse).
+    try {
+      if (!process.waitFor(commandTimeout, TimeUnit.SECONDS)) {
+        process.destroyForcibly();
+        throw new CommandExecutionException("The process did not terminate within the timeout of " +
+            commandTimeout + " seconds. It was forcibly destroyed.");
+      }
+    } catch (InterruptedException e) {
+      process.destroyForcibly();
+      Thread.currentThread().interrupt();
+      throw new CommandExecutionException("Process was interrupted.", e);
+    }
 
     // Open error stream and read it.
     final String error;
@@ -110,15 +115,6 @@ class CommandExecutor implements Closeable {
 
     // Else return the result.
     return result;
-  }
-
-  /**
-   * Shuts down this command executor. Current tasks will be finished, but no new tasks will be
-   * accepted.
-   */
-  @Override
-  public void close() {
-    commandThreadPool.shutdown();
   }
 
   /**

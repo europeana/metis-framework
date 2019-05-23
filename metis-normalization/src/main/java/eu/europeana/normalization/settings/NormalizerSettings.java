@@ -1,21 +1,25 @@
 package eu.europeana.normalization.settings;
 
-import java.util.Arrays;
 import eu.europeana.normalization.languages.LanguagesVocabulary;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * This object contains all the settings that are needed to set up normalization.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public class NormalizerSettings {
 
   protected static final float DEFAULT_MINIMUM_CONFIDENCE = 0.95F;
-  protected static final LanguagesVocabulary DEFAULT_VOCABULARY = LanguagesVocabulary.ISO_639_3;
-  protected static final LanguageElement[] DEFAULT_LANGUAGE_ELEMENTS =
-      {LanguageElement.DC_LANGUAGE};
+  protected static final List<LanguagesVocabulary> DEFAULT_DC_LANGUAGE_TARGET_VOCABULARIES = Collections
+      .singletonList(LanguagesVocabulary.ISO_639_3);
+  protected static final List<LanguagesVocabulary> DEFAULT_XML_LANG_TARGET_VOCABULARIES = Arrays
+      .asList(LanguagesVocabulary.ISO_639_1, LanguagesVocabulary.ISO_639_3);
   protected static final int DEFAULT_MIN_LANGUAGE_LABEL_LENGTH = 4;
   protected static final AmbiguityHandling DEFAULT_LANGUAGE_AMBIGUITY_HANDLING =
       AmbiguityHandling.NO_MATCH;
@@ -23,15 +27,15 @@ public class NormalizerSettings {
       CleanMarkupTagsMode.HTML_ONLY;
 
   private float minimumConfidence = DEFAULT_MINIMUM_CONFIDENCE;
-  private LanguagesVocabulary targetLanguageVocabulary = DEFAULT_VOCABULARY;
-  private LanguageElement[] elementsToNormalize = DEFAULT_LANGUAGE_ELEMENTS;
+  private List<LanguagesVocabulary> targetDcLanguageVocabularies = DEFAULT_DC_LANGUAGE_TARGET_VOCABULARIES;
+  private List<LanguagesVocabulary> targetXmlLangVocabularies = DEFAULT_XML_LANG_TARGET_VOCABULARIES;
   private int minLanguageLabelLength = DEFAULT_MIN_LANGUAGE_LABEL_LENGTH;
   private AmbiguityHandling languageAmbiguityHandling = DEFAULT_LANGUAGE_AMBIGUITY_HANDLING;
   private CleanMarkupTagsMode cleanMarkupTagsMode = DEFAULT_CLEAN_MARKUP_TAGS_MODE;
 
   /**
    * Sets the minimal confidence that is required for changes to be made.
-   * 
+   *
    * @param minimumConfidence The minimal confidence. Must be a value between 0 and 1 (inclusive).
    * @return This instance, so that the setter methods can be concatenated easily.
    * @throws NormalizationConfigurationException In case the value is outside the accepted range.
@@ -47,69 +51,74 @@ public class NormalizerSettings {
   }
 
   /**
-   * 
-   * @return The minimal confidence that is required for changes to be made. The default is
-   *         {@value #DEFAULT_MINIMUM_CONFIDENCE}.
+   * @return The minimal confidence that is required for changes to be made. The default is {@value
+   * #DEFAULT_MINIMUM_CONFIDENCE}.
    */
   public float getMinimumConfidence() {
     return minimumConfidence;
   }
 
   /**
-   * Sets elements to normalizer during language normalization.
-   * 
-   * @param elementsToNormalize The supported elements for language normalization.
+   * Sets the target vocabularies for dc:language normalization.
+   *
+   * @param targetDcLanguageVocabularies The target language vocabularies. Cannot be null, empty or
+   * have null values.
    * @return This instance, so that the setter methods can be concatenated easily.
    * @throws NormalizationConfigurationException If the provided value is null.
    */
-  public NormalizerSettings setLanguageElementsToNormalize(LanguageElement... elementsToNormalize)
+  public NormalizerSettings setTargetDcLanguageVocabularies(
+      List<LanguagesVocabulary> targetDcLanguageVocabularies)
       throws NormalizationConfigurationException {
-    if (elementsToNormalize == null) {
-      throw new NormalizationConfigurationException("Provided setting is null", null);
+    if (targetDcLanguageVocabularies == null || targetDcLanguageVocabularies.isEmpty()
+        || targetDcLanguageVocabularies.stream().anyMatch(Objects::isNull)) {
+      throw new NormalizationConfigurationException(
+          "Provided vocabulary list is null, empty or has null entries", null);
     }
-    this.elementsToNormalize = Arrays.copyOf(elementsToNormalize, elementsToNormalize.length);
+    this.targetDcLanguageVocabularies = new ArrayList<>(targetDcLanguageVocabularies);
     return this;
   }
 
   /**
-   * 
-   * @return The elements to normalizer during language normalization. The default is
-   *         {@value #DEFAULT_LANGUAGE_ELEMENTS}.
+   * @return The target vocabularies for dc:language normalization. The default is {@link
+   * #DEFAULT_DC_LANGUAGE_TARGET_VOCABULARIES}.
    */
-  public LanguageElement[] getLanguageElementsToNormalize() {
-    return Arrays.copyOf(elementsToNormalize, elementsToNormalize.length);
+  public List<LanguagesVocabulary> getTargetDcLanguageVocabularies() {
+    return Collections.unmodifiableList(targetDcLanguageVocabularies);
   }
 
   /**
-   * Sets the target vocabulary for language normalization.
-   * 
-   * @param targetLanguageVocabulary The target language vocabulary. Cannot be null.
+   * Sets the target vocabularies for xml:lang normalization.
+   *
+   * @param targetXmlLangVocabularies The target language vocabularies. Cannot be null, empty or
+   * have null values.
    * @return This instance, so that the setter methods can be concatenated easily.
    * @throws NormalizationConfigurationException If the provided value is null.
    */
-  public NormalizerSettings setTargetLanguageVocabulary(
-      LanguagesVocabulary targetLanguageVocabulary) throws NormalizationConfigurationException {
-    if (targetLanguageVocabulary == null) {
-      throw new NormalizationConfigurationException("Provided vocabulary is null", null);
+  public NormalizerSettings setTargetXmlLangVocabularies(
+      List<LanguagesVocabulary> targetXmlLangVocabularies)
+      throws NormalizationConfigurationException {
+    if (targetXmlLangVocabularies == null || targetXmlLangVocabularies.isEmpty()
+        || targetXmlLangVocabularies.stream().anyMatch(Objects::isNull)) {
+      throw new NormalizationConfigurationException(
+          "Provided vocabulary list is null, empty or has null entries", null);
     }
-    this.targetLanguageVocabulary = targetLanguageVocabulary;
+    this.targetXmlLangVocabularies = new ArrayList<>(targetXmlLangVocabularies);
     return this;
   }
 
   /**
-   * 
-   * @return The target vocabulary for language normalization. The default is
-   *         {@value #DEFAULT_VOCABULARY}.
+   * @return The target vocabularies for xml:lang normalization. The default is {@link
+   * #DEFAULT_XML_LANG_TARGET_VOCABULARIES}.
    */
-  public LanguagesVocabulary getTargetLanguageVocabulary() {
-    return targetLanguageVocabulary;
+  public List<LanguagesVocabulary> getTargetXmlLangVocabularies() {
+    return Collections.unmodifiableList(targetXmlLangVocabularies);
   }
 
   /**
    * Sets the minimum label length for text to be considered a language name (i.e. label).
-   * 
+   *
    * @param minLanguageLabelLength The minimum language label length. If negative, a value of zero
-   *        will be applied.
+   * will be applied.
    * @return This instance, so that the setter methods can be concatenated easily.
    */
   public NormalizerSettings setMinLanguageLabelLength(int minLanguageLabelLength) {
@@ -118,9 +127,8 @@ public class NormalizerSettings {
   }
 
   /**
-   * 
    * @return The minimum label length for text to be considered a language name (i.e. label). The
-   *         default is {@value #DEFAULT_MIN_LANGUAGE_LABEL_LENGTH}.
+   * default is {@value #DEFAULT_MIN_LANGUAGE_LABEL_LENGTH}.
    */
   public int getMinLanguageLabelLength() {
     return minLanguageLabelLength;
@@ -128,7 +136,7 @@ public class NormalizerSettings {
 
   /**
    * Sets the ambiguity handling strategy for language matching.
-   * 
+   *
    * @param languageAmbiguityHandling The ambiguity handling strategy. Cannot be null.
    * @return This instance, so that the setter methods can be concatenated easily.
    * @throws NormalizationConfigurationException If the provided value is null.
@@ -143,9 +151,8 @@ public class NormalizerSettings {
   }
 
   /**
-   * 
-   * @return The ambiguity handling strategy for language matching. The default is
-   *         {@value #DEFAULT_LANGUAGE_AMBIGUITY_HANDLING}.
+   * @return The ambiguity handling strategy for language matching. The default is {@link
+   * #DEFAULT_LANGUAGE_AMBIGUITY_HANDLING}.
    */
   public AmbiguityHandling getLanguageAmbiguityHandling() {
     return languageAmbiguityHandling;
@@ -153,7 +160,7 @@ public class NormalizerSettings {
 
   /**
    * Sets the mode for mark-up tag cleaning.
-   * 
+   *
    * @param cleanMarkupTagsMode The mark-up cleaning mode.
    * @return This instance, so that the setter methods can be concatenated easily.
    * @throws NormalizationConfigurationException If the provided value is null.
@@ -168,9 +175,7 @@ public class NormalizerSettings {
   }
 
   /**
-   * 
-   * @return The mode for mark-up tag cleaning. The default is
-   *         {@value #DEFAULT_CLEAN_MARKUP_TAGS_MODE}.
+   * @return The mode for mark-up tag cleaning. The default is {@link #DEFAULT_CLEAN_MARKUP_TAGS_MODE}.
    */
   public CleanMarkupTagsMode getCleanMarkupTagsMode() {
     return cleanMarkupTagsMode;

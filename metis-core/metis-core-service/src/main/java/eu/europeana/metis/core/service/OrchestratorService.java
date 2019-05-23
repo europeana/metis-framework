@@ -18,12 +18,16 @@ import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.DataStatus;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
@@ -261,7 +265,8 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(
-      String datasetId, PluginType enforcedPluginType, int priority) throws GenericMetisException {
+      String datasetId, ExecutablePluginType enforcedPluginType, int priority)
+      throws GenericMetisException {
     final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (dataset == null) {
       throw new NoDatasetFoundException(
@@ -300,16 +305,16 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUser metisUser,
-      String datasetId, PluginType enforcedPluginType, int priority) throws GenericMetisException {
+      String datasetId, ExecutablePluginType enforcedPluginType, int priority) throws GenericMetisException {
     final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
     return addWorkflowInQueueOfWorkflowExecutions(dataset, enforcedPluginType, priority);
   }
 
   private WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(Dataset dataset,
-      PluginType enforcedPluginType, int priority) throws GenericMetisException {
+      ExecutablePluginType enforcedPluginType, int priority) throws GenericMetisException {
     Workflow workflow = checkWorkflowExistence(dataset.getDatasetId());
 
-    List<AbstractMetisPlugin> metisPlugins = createMetisPluginsList(dataset, workflow,
+    List<AbstractExecutablePlugin> metisPlugins = createMetisPluginsList(dataset, workflow,
         enforcedPluginType);
     //metisPlugins will be empty if the workflow was empty or all the plugins inside the workflow were disabled.
     if (metisPlugins.isEmpty()) {
@@ -338,9 +343,9 @@ public class OrchestratorService {
     return workflowExecutionDao.getById(objectId);
   }
 
-  private List<AbstractMetisPlugin> createMetisPluginsList(Dataset dataset, Workflow workflow,
-      PluginType enforcedPluginType) throws PluginExecutionNotAllowed {
-    List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
+  private List<AbstractExecutablePlugin> createMetisPluginsList(Dataset dataset, Workflow workflow,
+      ExecutablePluginType enforcedPluginType) throws PluginExecutionNotAllowed {
+    List<AbstractExecutablePlugin> metisPlugins = new ArrayList<>();
 
     boolean firstPluginDefined = orchestratorHelper
         .addHarvestingPlugin(dataset, workflow, metisPlugins);
@@ -415,10 +420,10 @@ public class OrchestratorService {
     // Sanity check, for the first plugin, that will throw exception if there is NO pluginType to be
     // based on in the database.
     orchestratorHelper.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId,
-        workflow.getMetisPluginsMetadata().get(0).getPluginType(), null);
+        workflow.getMetisPluginsMetadata().get(0).getExecutablePluginType(), null);
     // If ok then check the order of all subsequent plugins. Start from index 1.
     final boolean valid = workflow.getMetisPluginsMetadata().stream().skip(1)
-        .map(AbstractMetisPluginMetadata::getPluginType)
+        .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
         .filter(pluginType -> !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
         .allMatch(
             pluginType -> orchestratorHelper.checkWorkflowForPluginType(workflow, pluginType));
@@ -470,9 +475,9 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public AbstractMetisPlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-      MetisUser metisUser, String datasetId, PluginType pluginType, PluginType enforcedPluginType)
-      throws GenericMetisException {
+  public AbstractExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+      MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
+      ExecutablePluginType enforcedPluginType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
     return orchestratorHelper
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType,
@@ -510,12 +515,7 @@ public class OrchestratorService {
     // Determine the dataset IDs to filter on.
     final Set<String> datasetIds;
     if (datasetId == null) {
-      if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
-        datasetIds = null;
-      } else {
-        datasetIds = datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()).stream()
-            .map(Dataset::getDatasetId).collect(Collectors.toSet());
-      }
+      datasetIds = getDatasetIdsToFilterOn(metisUser);
     } else {
       datasetIds = Collections.singleton(datasetId);
     }
@@ -523,6 +523,49 @@ public class OrchestratorService {
     // Find the executions.
     return workflowExecutionDao.getAllWorkflowExecutions(datasetIds, workflowStatuses, orderField,
         ascending, nextPage);
+  }
+
+  /**
+   * Get the overview of WorkflowExecutions. This returns a list of executions ordered to display an
+   * overview. First the ones in queue, then those in progress and then those that are finalized.
+   * They will be sorted by creation date. This method does support pagination.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param pluginStatuses the plugin statuses to filter. Can be null.
+   * @param pluginTypes the plugin types to filter. Can be null.
+   * @param fromDate the date from where the results should start. Can be null.
+   * @param toDate the date to where the results should end. Can be null.
+   * @param nextPage the nextPage token, the end of the list is marked with -1 on the response
+   * @param pageCount the number of pages that are requested
+   * @return a list of all the WorkflowExecutions together with the datasets that they belong to.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  public List<ExecutionAndDatasetView> getWorkflowExecutionsOverview(MetisUser metisUser,
+      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate,
+      Date toDate, int nextPage, int pageCount) throws GenericMetisException {
+    authorizer.authorizeReadAllDatasets(metisUser);
+    final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
+    return workflowExecutionDao
+        .getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes, fromDate, toDate,
+            nextPage, pageCount)
+        .stream()
+        .map(result -> new ExecutionAndDatasetView(result.getExecution(), result.getDataset()))
+        .collect(Collectors.toList());
+  }
+
+  private Set<String> getDatasetIdsToFilterOn(MetisUser metisUser) {
+    final Set<String> datasetIds;
+    if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
+      datasetIds = null;
+    } else {
+      datasetIds = datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()).stream()
+          .map(Dataset::getDatasetId).collect(Collectors.toSet());
+    }
+    return datasetIds;
   }
 
   /**
@@ -541,18 +584,18 @@ public class OrchestratorService {
       String datasetId) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
-    AbstractMetisPlugin lastHarvestPlugin = workflowExecutionDao
+    AbstractExecutablePlugin lastHarvestPlugin = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(PluginType.HTTP_HARVEST, PluginType.OAIPMH_HARVEST));
-    AbstractMetisPlugin firstPublishPlugin = workflowExecutionDao
+            .of(ExecutablePluginType.HTTP_HARVEST, ExecutablePluginType.OAIPMH_HARVEST), false);
+    AbstractExecutablePlugin firstPublishPlugin = workflowExecutionDao
         .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(PluginType.PUBLISH));
-    AbstractMetisPlugin lastPreviewPlugin = workflowExecutionDao
+            .of(ExecutablePluginType.PUBLISH));
+    AbstractExecutablePlugin lastPreviewPlugin = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(PluginType.PREVIEW));
-    AbstractMetisPlugin lastPublishPlugin = workflowExecutionDao
+            .of(ExecutablePluginType.PREVIEW), false);
+    AbstractExecutablePlugin lastPublishPlugin = workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(PluginType.PUBLISH));
+            .of(ExecutablePluginType.PUBLISH), false);
 
     final WorkflowExecution runningOrInQueueExecution = workflowExecutionDao
         .getRunningOrInQueueExecution(datasetId);
@@ -570,29 +613,32 @@ public class OrchestratorService {
     }
     datasetExecutionInformation.setFirstPublishedDate(firstPublishPlugin == null ? null :
         firstPublishPlugin.getFinishedDate());
-    Date currentDate = new Date();
+    final Date now = new Date();
     if (lastPreviewPlugin != null) {
       datasetExecutionInformation.setLastPreviewDate(lastPreviewPlugin.getFinishedDate());
       datasetExecutionInformation.setLastPreviewRecords(
           lastPreviewPlugin.getExecutionProgress().getProcessedRecords() - lastPreviewPlugin
               .getExecutionProgress().getErrors());
-      datasetExecutionInformation
-          .setLastPreviewRecordsReadyForViewing(!isPreviewCleaningOrRunning &&
-              DateUtils.calculateDateDifference(lastPreviewPlugin.getFinishedDate(), currentDate,
-                  TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
+      datasetExecutionInformation.setLastPreviewRecordsReadyForViewing(
+          !isPreviewCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPreviewPlugin, now));
     }
     if (lastPublishPlugin != null) {
       datasetExecutionInformation.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       datasetExecutionInformation.setLastPublishedRecords(
           lastPublishPlugin.getExecutionProgress().getProcessedRecords() - lastPublishPlugin
               .getExecutionProgress().getErrors());
-      datasetExecutionInformation
-          .setLastPublishedRecordsReadyForViewing(!isPublishCleaningOrRunning &&
-              DateUtils.calculateDateDifference(lastPublishPlugin.getFinishedDate(), currentDate,
-                  TimeUnit.MINUTES) > getSolrCommitPeriodInMins());
+      datasetExecutionInformation.setLastPublishedRecordsReadyForViewing(
+          !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin, now));
     }
 
     return datasetExecutionInformation;
+  }
+
+  private boolean isPreviewOrPublishReadyForViewing(AbstractExecutablePlugin plugin, Date now) {
+    final boolean dataIsValid = AbstractExecutablePlugin.getDataStatus(plugin) == DataStatus.VALID;
+    final boolean enoughTimeHasPassed = getSolrCommitPeriodInMins() <
+        DateUtils.calculateDateDifference(plugin.getFinishedDate(), now, TimeUnit.MINUTES);
+    return dataIsValid && enoughTimeHasPassed;
   }
 
   private boolean isPluginInWorkflowCleaningOrRunning(WorkflowExecution runningOrInQueueExecution,
@@ -656,18 +702,21 @@ public class OrchestratorService {
     final ArrayDeque<VersionEvolutionStep> evolutionSteps = new ArrayDeque<>();
     while (true) {
 
-      // Move to the previous execution
+      // Move to the previous execution: stop when we have none or it is not executable.
       currentExecutionAndPlugin = orchestratorHelper.getPreviousExecutionAndPlugin(
           currentExecutionAndPlugin.getRight(), currentExecutionAndPlugin.getLeft().getDatasetId());
-      if (currentExecutionAndPlugin == null) {
+      if (currentExecutionAndPlugin == null || !(currentExecutionAndPlugin
+          .getRight() instanceof AbstractExecutablePlugin)) {
         break;
       }
 
       // Add step to the beginning of the list.
+      final AbstractExecutablePlugin<?> executablePlugin = (AbstractExecutablePlugin<?>) currentExecutionAndPlugin
+          .getRight();
       final VersionEvolutionStep evolutionStep = new VersionEvolutionStep();
       evolutionStep.setWorkflowExecutionId(currentExecutionAndPlugin.getLeft().getId().toString());
-      evolutionStep.setPluginType(currentExecutionAndPlugin.getRight().getPluginType());
-      evolutionStep.setFinishedTime(currentExecutionAndPlugin.getRight().getFinishedDate());
+      evolutionStep.setPluginType(executablePlugin.getPluginMetadata().getExecutablePluginType());
+      evolutionStep.setFinishedTime(executablePlugin.getFinishedDate());
       evolutionSteps.addFirst(evolutionStep);
     }
 

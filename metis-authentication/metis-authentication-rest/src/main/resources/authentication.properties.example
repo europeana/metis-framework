@@ -2,8 +2,8 @@
 truststore.path=
 truststore.password=
 
-zoho.base.url=
-zoho.base.authentication.token=
-access.token.expire.time.in.mins=
+#It's retrieved when registering the application on Zoho. It's one use only and every subsequent use shouldn't impact the application
+zoho.initial.grant.token=
+metis.access.token.expire.time.in.mins=
 #Comma separated value, or '*'
 allowed.cors.hosts=

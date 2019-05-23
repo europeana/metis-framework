@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>1.2.0</version>
+  <version>1.3.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -25,7 +25,7 @@
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v1.2.0</tag>
+    <tag>v1.3.0</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -44,7 +44,7 @@
 
   <properties>
     <jacocoArgLine /> <!-- Leave as is, it's required from jacoco plugin integration -->
-    <version.ecloud>1.3.0</version.ecloud>
+    <version.ecloud>1.4.0</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
     <version.redisson>3.5.7</version.redisson>
     <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
@@ -61,6 +61,7 @@
 
     <!-- These two versions are interdependent. -->
     <version.slf4j>1.7.25</version.slf4j>
+    <version.jul.to.slf4j>1.7.26</version.jul.to.slf4j>
     <version.log4j>2.9.1</version.log4j>
 
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
@@ -80,7 +81,7 @@
     <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
-    <version.hibernate.core>4.3.11.Final</version.hibernate.core>
+    <version.hibernate.core>5.4.2.Final</version.hibernate.core>
     <version.postgresql>42.1.4</version.postgresql>
     <version.guava>16.0</version.guava>
     <version.gson>2.8.0</version.gson>
@@ -91,7 +92,7 @@
     <version.jackson.xc>1.9.13</version.jackson.xc>
     <version.powermock>1.7.1</version.powermock>
     <version.mockito.core>2.22.0</version.mockito.core>
-    <version.corelib>2.8.6</version.corelib>
+    <version.corelib>2.8.7</version.corelib>
     <version.servlet.api>3.1.0</version.servlet.api>
     <version.commons-fileupload>1.3</version.commons-fileupload>
     <version.morphia>1.3.2</version.morphia>
@@ -103,6 +104,8 @@
     <version.spring.beans>5.1.2.RELEASE</version.spring.beans>
     <version.spring.test>5.1.2.RELEASE</version.spring.test>
     <version.saxon.he>9.8.0-11</version.saxon.he>
+    <version.com.zoho.crm.java-sdk>1.0.3</version.com.zoho.crm.java-sdk>
+    <version.solr.solrj>6.6.2</version.solr.solrj>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -129,8 +132,128 @@
         <version>${version.corelib}</version>
         <exclusions>
           <exclusion>
+            <artifactId>object-storage</artifactId>
+            <groupId>eu.europeana</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-core</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+          </exclusion>
+          <exclusion>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
+          </exclusion>
+          <exclusion>
+            <artifactId>log4j-1.2-api</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <groupId>org.slf4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>harvester-client</artifactId>
+            <groupId>eu.europeana</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jetty-jndi</artifactId>
+            <groupId>org.eclipse.jetty</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jersey-core</artifactId>
+            <groupId>com.sun.jersey</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jersey-client</artifactId>
+            <groupId>com.sun.jersey</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jersey-multipart</artifactId>
+            <groupId>com.sun.jersey.contribs</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jersey-server</artifactId>
+            <groupId>com.sun.jersey</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>neo4j-community</artifactId>
+            <groupId>org.neo4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>neo4j-cypher</artifactId>
+            <groupId>org.neo4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>neo4j-kernel</artifactId>
+            <groupId>org.neo4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>neo4j-rest-graphdb</artifactId>
+            <groupId>org.neo4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jsr311-api</artifactId>
+            <groupId>javax.ws.rs</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jackson-annotations</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-xc</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-cbor</artifactId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jackson-annotations</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jackson-databind</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jackson-core</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -138,6 +261,12 @@
         <groupId>eu.europeana.corelib</groupId>
         <artifactId>corelib-common-storage</artifactId>
         <version>${version.corelib}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>log4j-1.2-api</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
@@ -148,6 +277,10 @@
             <artifactId>junit</artifactId>
             <groupId>junit</groupId>
           </exclusion>
+          <exclusion>
+            <artifactId>log4j-1.2-api</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -156,6 +289,10 @@
         <version>${version.corelib}</version>
         <exclusions>
           <exclusion>
+            <artifactId>object-storage</artifactId>
+            <groupId>eu.europeana</groupId>
+          </exclusion>
+          <exclusion>
             <artifactId>junit</artifactId>
             <groupId>junit</groupId>
           </exclusion>
@@ -163,12 +300,22 @@
             <artifactId>solr-solrj</artifactId>
             <groupId>org.apache.solr</groupId>
           </exclusion>
+          <exclusion>
+            <artifactId>log4j-1.2-api</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
         <artifactId>corelib-edm-definitions</artifactId>
         <version>${version.corelib}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>log4j-1.2-api</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>eu.europeana.corelib</groupId>
@@ -326,6 +473,12 @@
       <id>maven2-repository.dev.java.net</id>
       <name>Java.net Maven 2 Repository (mirror)</name>
       <url>http://artifactory.eanadev.org/artifactory/java.net.m2</url>
+    </repository>
+
+    <!--ZohoCRM libraries-->
+    <repository>
+      <id>maven.zohodl.com</id>
+      <url>https://maven.zohodl.com</url>
     </repository>
   </repositories>
   <build>

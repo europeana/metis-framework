@@ -8,7 +8,7 @@ import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 
 /**
- * Interface that gathers required methods for a class that contains plugin metadata
+ * Abstract super class for all plugin metadata
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
@@ -30,8 +30,6 @@ import org.mongodb.morphia.annotations.Embedded;
 @Embedded
 public abstract class AbstractMetisPluginMetadata {
 
-  private boolean mocked = true;
-  private boolean enabled;
   private String revisionNamePreviousPlugin;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date revisionTimestampPreviousPlugin;
@@ -41,27 +39,11 @@ public abstract class AbstractMetisPluginMetadata {
 
   public abstract PluginType getPluginType();
 
-  public boolean isMocked() {
-    return mocked;
-  }
-
-  public void setMocked(boolean mocked) {
-    this.mocked = mocked;
-  }
-
-  public boolean isEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(boolean enabled) {
-    this.enabled = enabled;
-  }
-
   public String getRevisionNamePreviousPlugin() {
     return revisionNamePreviousPlugin;
   }
 
-  private void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
+  public void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
     this.revisionNamePreviousPlugin = revisionNamePreviousPlugin;
   }
 
@@ -70,31 +52,8 @@ public abstract class AbstractMetisPluginMetadata {
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
-  private void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
+  public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
     this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null ? null
         : new Date(revisionTimestampPreviousPlugin.getTime());
-  }
-
-  /**
-   * For the current plugin, setup the source/previous revision information.
-   * <p>
-   * The source revision information that this plugin will be based on, is coming from the {@code previousAbstractMetisPlugin} plugin metadata.
-   * The {@code previousAbstractMetisPlugin} can be a RevisionLess plugin, in which case the revision information for the current plugin
-   * will take the source revision information that the {@code previousAbstractMetisPlugin} was based on.
-   * </p>
-   *
-   * @param previousAbstractMetisPlugin the source/previous plugin that is used to base the current plugin on
-   */
-  public void setPreviousRevisionInformation(AbstractMetisPlugin previousAbstractMetisPlugin) {
-    if (previousAbstractMetisPlugin.getPluginType()
-        .isRevisionLess()) { //If previous plugin is revisionLess use the previous plugin of that instead
-      this.setRevisionNamePreviousPlugin(
-          previousAbstractMetisPlugin.getPluginMetadata().getRevisionNamePreviousPlugin());
-      this.setRevisionTimestampPreviousPlugin(
-          previousAbstractMetisPlugin.getPluginMetadata().getRevisionTimestampPreviousPlugin());
-    } else {
-      this.setRevisionNamePreviousPlugin(previousAbstractMetisPlugin.getPluginType().name());
-      this.setRevisionTimestampPreviousPlugin(previousAbstractMetisPlugin.getStartedDate());
-    }
   }
 }

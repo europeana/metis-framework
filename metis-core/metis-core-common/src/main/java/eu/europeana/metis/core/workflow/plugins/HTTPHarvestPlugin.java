@@ -10,7 +10,7 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-24
  */
-public class HTTPHarvestPlugin extends AbstractMetisPlugin {
+public class HTTPHarvestPlugin extends AbstractExecutablePlugin<HTTPHarvestPluginMetadata> {
 
   private final String topologyName = Topology.HTTP_HARVEST.getTopologyName();
 
@@ -29,9 +29,9 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
    * Initializes the {@link #pluginType} as well.
    * </p>
    *
-   * @param pluginMetadata should be {@link HTTPHarvestPluginMetadata}
+   * @param pluginMetadata The plugin metadata.
    */
-  HTTPHarvestPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  HTTPHarvestPlugin(HTTPHarvestPluginMetadata pluginMetadata) {
     super(PluginType.HTTP_HARVEST, pluginMetadata);
   }
 
@@ -42,10 +42,9 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
 
   @Override
   DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
-    String targetUrl = ((HTTPHarvestPluginMetadata) getPluginMetadata()).getUrl();
-    String datasetId = ((HTTPHarvestPluginMetadata) getPluginMetadata()).getDatasetId();
-    boolean useDefaultIdentifiers = ((HTTPHarvestPluginMetadata) getPluginMetadata())
-        .isUseDefaultIdentifiers();
+    String targetUrl = getPluginMetadata().getUrl();
+    String datasetId = getPluginMetadata().getDatasetId();
+    boolean useDefaultIdentifiers = getPluginMetadata().isUseDefaultIdentifiers();
     Map<String, String> parameters = new HashMap<>();
     parameters.put("METIS_DATASET_ID", datasetId);
     parameters.put("USE_DEFAULT_IDENTIFIERS", String.valueOf(useDefaultIdentifiers));

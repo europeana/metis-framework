@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
   </parent>
   <artifactId>metis-common</artifactId>
 
@@ -47,6 +47,11 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
       <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.zoho.crm</groupId>
+      <artifactId>java-sdk</artifactId>
+      <version>${version.com.zoho.crm.java-sdk}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>

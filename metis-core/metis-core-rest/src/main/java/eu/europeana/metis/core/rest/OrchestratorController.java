@@ -1,9 +1,30 @@
 package eu.europeana.metis.core.rest;
 
+import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
+import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
+import eu.europeana.metis.core.execution.ExecutionRules;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
+import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.workflow.OrderField;
+import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
+import java.util.Date;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -15,25 +36,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
-import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
-import eu.europeana.metis.core.execution.ExecutionRules;
-import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.core.workflow.OrderField;
-import eu.europeana.metis.core.workflow.Workflow;
-import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.WorkflowStatus;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.GenericMetisException;
 
 /**
  * Contains all the calls that are related to Orchestration.
- * <p>The {@link OrchestratorService} has control on how to orchestrate different components of the system</p>
+ * <p>The {@link OrchestratorService} has control on how to orchestrate different components of the
+ * system</p>
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-28
@@ -59,17 +66,20 @@ public class OrchestratorController {
   }
 
   /**
-   * Create a workflow using a datasetId and the {@link Workflow} that contains the requested plugins.
-   * When creating a new workflow all the plugins specified will be automatically enabled.
+   * Create a workflow using a datasetId and the {@link Workflow} that contains the requested
+   * plugins. When creating a new workflow all the plugins specified will be automatically enabled.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier to relate the workflow to
    * @param workflow the Workflow will all it's requested plugins
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException} if a workflow for the dataset identifier provided already exists</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException} if a workflow
+   * for the dataset identifier provided already exists</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   //WORKFLOWS
@@ -88,18 +98,22 @@ public class OrchestratorController {
   }
 
   /**
-   * Update an already existent workflow using a datasetId and the {@link Workflow} that contains the requested plugins.
-   * When updating an existent workflow all specified plugins will be enabled and all plugins that were existent in the system
-   * beforehand will be kept with their configuration but will be disabled.
+   * Update an already existent workflow using a datasetId and the {@link Workflow} that contains
+   * the requested plugins. When updating an existent workflow all specified plugins will be enabled
+   * and all plugins that were existent in the system beforehand will be kept with their
+   * configuration but will be disabled.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the identifier of the dataset for which the workflow should be updated
    * @param workflow the workflow with the plugins requested
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowFoundException} if a workflow for the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowFoundException} if a workflow for the
+   * dataset identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, method = RequestMethod.PUT, produces = {
@@ -121,8 +135,10 @@ public class OrchestratorController {
    * @param datasetId the dataset identifier that corresponds to the workflow to be deleted
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
@@ -148,8 +164,10 @@ public class OrchestratorController {
    * @return the Workflow object
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, method = RequestMethod.GET, produces = {
@@ -171,26 +189,35 @@ public class OrchestratorController {
   //WORKFLOW EXECUTIONS
 
   /**
-   * Does checking, prepares and adds a WorkflowExecution in the queue.
-   * That means it updates the status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database
-   * and also it's identifier goes into the distributed queue of WorkflowExecutions.
-   * The source data for the first plugin in the workflow can be controlled, if required, from the {@code enforcedPluginType},
-   * which means that the last valid plugin that is provided with that parameter, will be used as the source data.
+   * Does checking, prepares and adds a WorkflowExecution in the queue. That means it updates the
+   * status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database and
+   * also it's identifier goes into the distributed queue of WorkflowExecutions. The source data for
+   * the first plugin in the workflow can be controlled, if required, from the {@code
+   * enforcedPluginType}, which means that the last valid plugin that is provided with that
+   * parameter, will be used as the source data.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier for which the execution will take place
    * @param enforcedPluginType optional, the plugin type to be used as source data
-   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10 highest
+   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
+   * highest
    * @return the WorkflowExecution object that was generated
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowFoundException} if a workflow for the dataset identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowFoundException} if a workflow for the
+   * dataset identifier provided does not exist</li>
    * <li>{@link BadContentException} if the workflow is empty or no plugin enabled</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
-   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if there was an exception when contacting the external resource(ECloud)</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed} if the execution of the first plugin was not allowed, because a valid source plugin could not be found</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException} if a workflow execution for the generated execution identifier already exists, almost impossible to happen since ids are UUIDs</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if there was an exception when
+   * contacting the external resource(ECloud)</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed} if the execution of
+   * the first plugin was not allowed, because a valid source plugin could not be found</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException} if a
+   * workflow execution for the generated execution identifier already exists, almost impossible to
+   * happen since ids are UUIDs</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE, method = RequestMethod.POST, produces = {
@@ -200,7 +227,7 @@ public class OrchestratorController {
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPluginType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -214,16 +241,19 @@ public class OrchestratorController {
   }
 
   /**
-   * Request to cancel a workflow execution.
-   * The execution will go into a cancelling state until it's properly {@link WorkflowStatus#CANCELLED} from the system
+   * Request to cancel a workflow execution. The execution will go into a cancelling state until
+   * it's properly {@link WorkflowStatus#CANCELLED} from the system
    *
    * @param authorization the authorization header with the access token
    * @param executionId the execution identifier of the execution to cancel
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no worklfowExecution could be found</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier of the workflow does not exist</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no
+   * worklfowExecution could be found</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier of the workflow does not exist</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, method = RequestMethod.DELETE, produces = {
@@ -250,8 +280,10 @@ public class OrchestratorController {
    * @return the WorkflowExecution object
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, method = RequestMethod.GET, produces = {
@@ -272,20 +304,25 @@ public class OrchestratorController {
   }
 
   /**
-   * Check if a specified {@code pluginType} is allowed for execution.
-   * This is checked based on, if there was a previous successful finished plugin that follows a specific order unless the {@code enforcedPluginType} is used.
+   * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
+   * there was a previous successful finished plugin that follows a specific order unless the {@code
+   * enforcedPluginType} is used.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier of which the executions are based on
    * @param pluginType the pluginType to be checked for allowance of execution
    * @param enforcedPluginType optional, the plugin type to be used as source data
-   * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can be null if the
-   * {@code pluginType} is the first one in the total order of executions e.g. One of the harvesting plugins.
+   * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can
+   * be null if the {@code pluginType} is the first one in the total order of executions e.g. One of
+   * the harvesting plugins.
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed} if the no plugin was found so the {@code pluginType} will be based upon.</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed} if the no plugin was
+   * found so the {@code pluginType} will be based upon.</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN, method = RequestMethod.GET, produces = {
@@ -295,8 +332,8 @@ public class OrchestratorController {
   public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam("pluginType") PluginType pluginType,
-      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType)
+      @RequestParam("pluginType") ExecutablePluginType pluginType,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPluginType)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
@@ -321,8 +358,10 @@ public class OrchestratorController {
    * @return the structured class containing all the execution information
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION, method = RequestMethod.GET, produces = {
@@ -353,8 +392,10 @@ public class OrchestratorController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link BadContentException} if paging is not correctly provided</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID, method = RequestMethod.GET, produces = {
@@ -378,14 +419,14 @@ public class OrchestratorController {
         orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
             orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
-    LOGGER.debug("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
-        responseListWrapper.getListSize(), nextPage);
+    logPaging(responseListWrapper, nextPage);
     return responseListWrapper;
   }
 
   /**
-   * Get all WorkflowExecutions paged.
-   * Not filtered by datasetId.
+   * Get all WorkflowExecutions paged. Not filtered by datasetId.
+   *
+   * TODO JV This endpoint is no longer in use. Consider removing it.
    *
    * @param authorization the authorization header with the access token
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
@@ -396,7 +437,8 @@ public class OrchestratorController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link BadContentException} if paging is not correctly provided</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS, method = RequestMethod.GET, produces = {
@@ -419,9 +461,63 @@ public class OrchestratorController {
         orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses, orderField,
             ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
+    logPaging(responseListWrapper, nextPage);
+    return responseListWrapper;
+  }
+
+  /**
+   * Get the overview of WorkflowExecutions. This returns a list of executions ordered to display an
+   * overview. First the ones in queue, then those in progress and then those that are finalized.
+   * They will be sorted by creation date. This method does support pagination.
+   *
+   * @param authorization the authorization header with the access token
+   * @param pluginStatuses the plugin statuses to filter. Can be null.
+   * @param pluginTypes the plugin types to filter. Can be null.
+   * @param fromDate the date from where the results should start. Can be null.
+   * @param toDate the date to where the results should end. Can be null.
+   * @param nextPage the nextPage token, the end of the list is marked with -1 on the response
+   * @param pageCount the number of pages that is requested
+   * @return a list of all the WorkflowExecutions together with the datasets that they belong to.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link BadContentException} if paging is not correctly provided</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public ResponseListWrapper<ExecutionAndDatasetView> getWorkflowExecutionsOverview(
+      @RequestHeader("Authorization") String authorization,
+      @RequestParam(value = "pluginStatus", required = false) Set<PluginStatus> pluginStatuses,
+      @RequestParam(value = "pluginType", required = false) Set<PluginType> pluginTypes,
+      @RequestParam(value = "fromDate", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) Date fromDate,
+      @RequestParam(value = "toDate", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) Date toDate,
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage,
+      @RequestParam(value = "pageCount", required = false, defaultValue = "1") int pageCount)
+      throws GenericMetisException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
+    if (pageCount < 1) {
+      throw new BadContentException(CommonStringValues.PAGE_COUNT_CANNOT_BE_ZERO_OR_NEGATIVE);
+    }
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final ResponseListWrapper<ExecutionAndDatasetView> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper.setResultsAndLastPage(
+        orchestratorService
+            .getWorkflowExecutionsOverview(metisUser, pluginStatuses, pluginTypes, fromDate,
+                toDate, nextPage, pageCount),
+        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage, pageCount);
+    logPaging(responseListWrapper, nextPage);
+    return responseListWrapper;
+  }
+
+  private static void logPaging(ResponseListWrapper<?> responseListWrapper, int nextPage) {
     LOGGER.debug("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
-    return responseListWrapper;
   }
 
   /**

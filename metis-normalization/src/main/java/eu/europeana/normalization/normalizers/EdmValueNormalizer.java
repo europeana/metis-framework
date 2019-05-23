@@ -6,7 +6,7 @@ import eu.europeana.normalization.util.Namespace.Element;
 import eu.europeana.normalization.util.XpathQuery;
 
 /**
- * This class represents a normalizer that normalizes values in EDM tags an EDM DOM tree.
+ * This class represents a normalizer that normalizes values in EDM tags in an EDM DOM tree.
  */
 public abstract class EdmValueNormalizer implements ValueNormalizeAction {
 
@@ -20,8 +20,8 @@ public abstract class EdmValueNormalizer implements ValueNormalizeAction {
       XpathQuery.combine(Arrays.stream(ELEMENTS_TO_QUERY).map(EdmValueNormalizer::getRdfSubtagQuery)
           .toArray(XpathQuery[]::new));
 
-  private static final XpathQuery getRdfSubtagQuery(Element subtag) {
-    return XpathQuery.create("/%s/%s/*", XpathQuery.RDF_TAG, subtag);
+  private static XpathQuery getRdfSubtagQuery(Element subtag) {
+    return new XpathQuery("/%s/%s/*", XpathQuery.RDF_TAG, subtag);
   }
 
   @Override

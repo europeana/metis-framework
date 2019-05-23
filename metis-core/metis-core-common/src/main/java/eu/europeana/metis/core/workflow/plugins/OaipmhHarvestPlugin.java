@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-24
  */
-public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
+public class OaipmhHarvestPlugin extends AbstractExecutablePlugin<OaipmhHarvestPluginMetadata> {
 
   private final String topologyName = Topology.OAIPMH_HARVEST.getTopologyName();
 
@@ -23,7 +23,7 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
    * Zero argument constructor that initializes the {@link #pluginType} corresponding to the
    * plugin.
    */
-  OaipmhHarvestPlugin() {
+  public OaipmhHarvestPlugin() {
     //Required for json serialization
     super(PluginType.OAIPMH_HARVEST);
   }
@@ -32,9 +32,9 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
    * Constructor to initialize the plugin with pluginMetadata.
    * <p>Initializes the {@link #pluginType} as well.</p>
    *
-   * @param pluginMetadata should be {@link OaipmhHarvestPluginMetadata}
+   * @param pluginMetadata The plugin metadata.
    */
-  OaipmhHarvestPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  OaipmhHarvestPlugin(OaipmhHarvestPluginMetadata pluginMetadata) {
     super(PluginType.OAIPMH_HARVEST, pluginMetadata);
   }
 
@@ -50,12 +50,10 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
 
   @Override
   DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
-    String targetUrl = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getUrl();
-    String datasetId = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getDatasetId();
-    boolean useDefaultIdentifiers = ((OaipmhHarvestPluginMetadata) getPluginMetadata())
-        .isUseDefaultIdentifiers();
-    String identifierPrefixRemoval = ((OaipmhHarvestPluginMetadata) getPluginMetadata())
-        .getIdentifierPrefixRemoval();
+    String targetUrl = getPluginMetadata().getUrl();
+    String datasetId = getPluginMetadata().getDatasetId();
+    boolean useDefaultIdentifiers = getPluginMetadata().isUseDefaultIdentifiers();
+    String identifierPrefixRemoval = getPluginMetadata().getIdentifierPrefixRemoval();
     Map<String, String> parameters = new HashMap<>();
     parameters.put("METIS_DATASET_ID", datasetId);
     parameters.put("USE_DEFAULT_IDENTIFIERS", String.valueOf(useDefaultIdentifiers));
@@ -64,10 +62,10 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
     }
     DpsTask dpsTask = createDpsTaskForHarvestPlugin(ecloudBasePluginParameters, parameters, targetUrl);
 
-    String setSpec = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getSetSpec();
-    String metadataFormat = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getMetadataFormat();
-    Date fromDate = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getFromDate();
-    Date untilDate = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getUntilDate();
+    String setSpec = getPluginMetadata().getSetSpec();
+    String metadataFormat = getPluginMetadata().getMetadataFormat();
+    Date fromDate = getPluginMetadata().getFromDate();
+    Date untilDate = getPluginMetadata().getUntilDate();
 
     OAIPMHHarvestingDetails oaipmhHarvestingDetails = new OAIPMHHarvestingDetails();
     if (StringUtils.isNotEmpty(metadataFormat)) {

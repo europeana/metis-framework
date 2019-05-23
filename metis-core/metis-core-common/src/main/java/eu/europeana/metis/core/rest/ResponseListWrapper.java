@@ -23,21 +23,32 @@ public class ResponseListWrapper<T extends HasMongoObjectId> {
 
   /**
    * Accepts a list of results objects, and based on the resultsPerRequestLimit it will determine if
-   * there would be another nextPage.
+   * there would be another nextPage. This method assumes a page count of 1.
    * @param results the {@link List} of objects
    * @param resultsPerRequestLimit the result limit per request
    * @param nextPage the positive next page number or -1 if there shouldn't be another page
    */
-  public void setResultsAndLastPage(
-      List<T> results,
-      int resultsPerRequestLimit, int nextPage) {
+  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage) {
+    setResultsAndLastPage(results, resultsPerRequestLimit, nextPage, 1);
+  }
+
+  /**
+   * Accepts a list of results objects, and based on the resultsPerRequestLimit it will determine if
+   * there would be another nextPage.
+   * @param results the {@link List} of objects
+   * @param resultsPerRequestLimit the result limit per request
+   * @param nextPage the positive next page number or -1 if there shouldn't be another page
+   * @param pageCount the number of pages that were requested.
+   */
+  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage,
+      int pageCount) {
     if (results == null || results.isEmpty()) {
       this.nextPage = -1;
     } else {
-      if (results.size() < resultsPerRequestLimit) {
+      if (results.size() < resultsPerRequestLimit * pageCount) {
         this.nextPage = -1;
       } else {
-        this.nextPage = nextPage + 1;
+        this.nextPage = nextPage + pageCount;
       }
       listSize = results.size();
     }

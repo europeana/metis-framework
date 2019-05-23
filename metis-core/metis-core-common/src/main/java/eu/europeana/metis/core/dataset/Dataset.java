@@ -70,6 +70,8 @@ public class Dataset implements HasMongoObjectId {
 
   private String description;
 
+  private Boolean unfitForPublication;
+
   private String notes;
 
   @JsonSerialize(using = ObjectIdSerializer.class)
@@ -211,6 +213,14 @@ public class Dataset implements HasMongoObjectId {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public Boolean getUnfitForPublication() {
+    return unfitForPublication;
+  }
+
+  public void setUnfitForPublication(Boolean unfitForPublication) {
+    this.unfitForPublication = unfitForPublication;
   }
 
   public String getNotes() {

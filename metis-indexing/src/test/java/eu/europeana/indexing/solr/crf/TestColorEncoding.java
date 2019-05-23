@@ -2,6 +2,7 @@ package eu.europeana.indexing.solr.crf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
@@ -9,10 +10,10 @@ import java.util.Locale;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-public class TestColorEncoding {
+class TestColorEncoding {
 
   @Test
-  public void testGetColorCode() {
+  void testGetColorCode() {
 
     // Keep track of the found codes and colors.
     final Set<Integer> foundCodes = new HashSet<>();
@@ -44,9 +45,8 @@ public class TestColorEncoding {
     }
 
     // Test non-existing code and empty/null codes.
-    assertEquals(Integer.valueOf(0),
-        ColorEncoding.getColorCode("MY AWESOME MADE-UP COLOR"));
-    assertEquals(Integer.valueOf(0), ColorEncoding.getColorCode("  "));
-    assertEquals(Integer.valueOf(0), ColorEncoding.getColorCode(null));
+    assertNull(ColorEncoding.getColorCode("MY AWESOME MADE-UP COLOR"));
+    assertNull(ColorEncoding.getColorCode("  "));
+    assertNull(ColorEncoding.getColorCode(null));
   }
 }

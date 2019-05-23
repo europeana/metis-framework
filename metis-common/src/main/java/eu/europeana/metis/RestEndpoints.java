@@ -50,6 +50,7 @@ public final class RestEndpoints {
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION =
       "/orchestrator/workflows/executions/dataset/{datasetId}/information";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS = "/orchestrator/workflows/executions";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW = "/orchestrator/workflows/executions/overview";
   public static final String ORCHESTRATOR_WORKFLOWS_EVOLUTION = "/orchestrator/workflows/evolution/{workflowExecutionId}/{pluginType}";
   public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_LOGS = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/logs";
   public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/report";

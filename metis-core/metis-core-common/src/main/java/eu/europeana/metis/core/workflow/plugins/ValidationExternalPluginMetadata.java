@@ -6,9 +6,9 @@ package eu.europeana.metis.core.workflow.plugins;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class ValidationExternalPluginMetadata extends AbstractMetisPluginMetadata {
+public class ValidationExternalPluginMetadata extends AbstractExecutablePluginMetadata {
 
-  private static final PluginType pluginType = PluginType.VALIDATION_EXTERNAL;
+  private static final ExecutablePluginType pluginType = ExecutablePluginType.VALIDATION_EXTERNAL;
   private String urlOfSchemasZip;
   private String schemaRootPath;
   private String schematronRootPath;
@@ -18,7 +18,7 @@ public class ValidationExternalPluginMetadata extends AbstractMetisPluginMetadat
   }
 
   @Override
-  public PluginType getPluginType() {
+  public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
   }
 

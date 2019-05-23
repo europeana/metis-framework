@@ -27,10 +27,10 @@
     <skos:prefLabel xml:lang="en">Newspapers Sections, columns, etc Reviews</skos:prefLabel>
   </skos:Concept>
   <skos:Concept rdf:about="http://id.loc.gov/authorities/subjects/sh85033035#concept">
-    <skos:prefLabel xml:lang="en">Correspondence</skos:prefLabel>
+    <skos:prefLabel xml:lang="eng">Correspondence</skos:prefLabel>
   </skos:Concept>
   <skos:Concept rdf:about="http://id.loc.gov/authorities/subjects/sh85033035#concept">
-    <skos:prefLabel xml:lang="en">Correspondence</skos:prefLabel>
+    <skos:prefLabel xml:lang="eng">Correspondence</skos:prefLabel>
   </skos:Concept>
   <ore:Aggregation rdf:about="ivrla:3827_Aggregation">
     <edm:aggregatedCHO rdf:resource="ivrla:3827"/>
@@ -49,7 +49,7 @@
     <dc:description xml:lang="en">Physical location: UCD Library, UCD Library Special Collections,
       UCD Letters, UCD L 1
     </dc:description>
-    <dc:format xml:lang="en">1 letter 21.5 x 33.5</dc:format>
+    <dc:format xml:lang="eng">1 letter 21.5 x 33.5</dc:format>
     <dc:format>image/jpeg</dc:format>
     <dc:identifier>OB_1000000_SC</dc:identifier>
     <dc:identifier>OB_1000000_SC</dc:identifier>
@@ -57,6 +57,7 @@
     <dc:identifier>ivrla:3827</dc:identifier>
     <dc:identifier>http://digital.ucd.ie/view/ivrla:3827</dc:identifier>
     <dc:language>en</dc:language>
+    <dc:language></dc:language>
     <dc:rights xml:lang="en">© University College Dublin, National University of Ireland, Dublin.
       Copyright and reproduction rights for this digital resource are held by University College
       Dublin and administered by UCD Archives, UCD James Joyce Library, Belfield, Dublin 4, Ireland.
@@ -104,6 +105,10 @@
     <dc:contributor rdf:resource="http://viaf.org/viaf/17227308" rdfs:label="Author"/>
     <dc:contributor rdf:resource="http://viaf.org/viaf/22950329" rdfs:label="Author"/>
     <edm:type>TEXT</edm:type>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="ivrla:3827_EuropeanaProxy">
+    <dc:identifier>OB_1000000_SC</dc:identifier>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
   </ore:Proxy>
   <edm:EuropeanaAggregation rdf:about="ivrla:3827_EuropeanaAggregation">
     <edm:aggregatedCHO rdf:resource="ivrla:3827"/>

@@ -6,9 +6,9 @@ package eu.europeana.metis.core.workflow.plugins;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class HTTPHarvestPluginMetadata extends AbstractMetisPluginMetadata {
+public class HTTPHarvestPluginMetadata extends AbstractExecutablePluginMetadata {
 
-  private static final PluginType pluginType = PluginType.HTTP_HARVEST;
+  private static final ExecutablePluginType pluginType = ExecutablePluginType.HTTP_HARVEST;
   private String url;
   private String user;
   private String password;
@@ -61,7 +61,7 @@ public class HTTPHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   }
 
   @Override
-  public PluginType getPluginType() {
+  public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
   }
 

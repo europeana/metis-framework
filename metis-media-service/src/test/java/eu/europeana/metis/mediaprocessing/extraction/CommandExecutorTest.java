@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.doAnswer;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -23,16 +23,11 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
 
 class CommandExecutorTest {
 
@@ -45,8 +40,8 @@ class CommandExecutorTest {
       ERROR_OUTPUT.getBytes(Charset.defaultCharset()));
   private static final Supplier<InputStream> EMPTY_STREAM = () -> new ByteArrayInputStream(
       new byte[0]);
+  private static final int TIMEOUT = 60;
 
-  private static ExecutorService commandThreadPool;
   private static ProcessFactory processFactory;
   private static Process process;
   private static CommandExecutor commandExecutor;
@@ -55,18 +50,18 @@ class CommandExecutorTest {
   static void createMocks() {
     process = mock(Process.class);
     processFactory = mock(ProcessFactory.class);
-    commandThreadPool = mock(ExecutorService.class);
-    commandExecutor = spy(new CommandExecutor(commandThreadPool, processFactory));
+    commandExecutor = spy(new CommandExecutor(TIMEOUT, processFactory));
   }
 
   @BeforeEach
-  void resetMocks() throws IOException {
-    reset(process, processFactory, commandThreadPool, commandExecutor);
+  void resetMocks() throws IOException, InterruptedException {
+    reset(process, processFactory, commandExecutor);
     doReturn(process).when(processFactory).createProcess(anyList(), anyBoolean());
+    doReturn(true).when(process).waitFor(eq((long) TIMEOUT), eq(TimeUnit.SECONDS));
   }
 
   @Test
-  void testRegularCommand() throws IOException {
+  void testRegularCommand() throws IOException, CommandExecutionException {
 
     // Set up regular command
     doReturn(COMMAND_OUTPUT_STREAM.get()).when(process).getInputStream();
@@ -82,7 +77,7 @@ class CommandExecutorTest {
   }
 
   @Test
-  void testRedirectedCommand() throws IOException {
+  void testRedirectedCommand() throws IOException, CommandExecutionException {
 
     // Set up regular command
     doReturn(COMMAND_OUTPUT_STREAM.get()).when(process).getInputStream();
@@ -98,7 +93,7 @@ class CommandExecutorTest {
   }
 
   @Test
-  void testCommandWithOutputAndError() throws IOException {
+  void testCommandWithOutputAndError() throws IOException, CommandExecutionException {
 
     // Set up regular command
     doReturn(COMMAND_OUTPUT_STREAM.get()).when(process).getInputStream();
@@ -125,19 +120,41 @@ class CommandExecutorTest {
   }
 
   @Test
+  void testCommandWithTimeout() throws InterruptedException {
+
+    // Set up timeout
+    doReturn(false).when(process).waitFor(eq((long) TIMEOUT), eq(TimeUnit.SECONDS));
+
+    // Perform call
+    assertThrows(CommandExecutionException.class,
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, true));
+
+    // Verify
+    verify(process, times(1)).destroyForcibly();
+  }
+
+  @Test
+  void testCommandWithInteruption() throws InterruptedException {
+
+    // Set up timeout
+    doThrow(new InterruptedException()).when(process)
+        .waitFor(eq((long) TIMEOUT), eq(TimeUnit.SECONDS));
+
+    // Perform call
+    assertThrows(CommandExecutionException.class,
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, true));
+
+    // Verify
+    verify(process, times(1)).destroyForcibly();
+  }
+
+  @Test
   void testExecuteMethodHappyFlow() throws IOException, CommandExecutionException {
 
     // Set up the input and the output.
     final List<String> command = Collections.singletonList("command");
     final List<String> result = Collections.singletonList("result");
-    doReturn(null).when(commandExecutor).executeInternal(any(), anyBoolean());
-
-    // Stub the thread pool such that it executes the callable, but gives a certain result.
-    doAnswer(invocation -> {
-      Callable<?> callable = invocation.getArgument(0);
-      callable.call();
-      return CompletableFuture.completedFuture(result);
-    }).when(commandThreadPool).submit(ArgumentMatchers.<Callable<?>>any());
+    doReturn(result).when(commandExecutor).executeInternal(any(), anyBoolean());
 
     // Run with redirect and verify that the internal call was made.
     assertEquals(result, commandExecutor.execute(command, true));
@@ -151,25 +168,22 @@ class CommandExecutorTest {
   }
 
   @Test
-  void testExecuteMethodWithExceptions() throws ExecutionException, InterruptedException {
+  void testExecuteMethodWithExceptions() throws IOException, CommandExecutionException {
 
-    // Set up mocks
+    // Define command
     final List<String> command = Collections.singletonList("command");
-    final Future<Object> future = mock(Future.class);
-    doReturn(future).when(commandThreadPool).submit(ArgumentMatchers.<Callable<?>>any());
 
-    // Test execution exception
-    doThrow(ExecutionException.class).when(future).get();
+    // Test CommandExecutionException
+    doThrow(CommandExecutionException.class).when(commandExecutor)
+        .executeInternal(eq(command), eq(true));
     assertThrows(CommandExecutionException.class, () -> commandExecutor.execute(command, true));
 
-    // Test thread interruption
-    doThrow(InterruptedException.class).when(future).get();
+    // Test IOException
+    doThrow(IOException.class).when(commandExecutor).executeInternal(eq(command), eq(true));
     assertThrows(CommandExecutionException.class, () -> commandExecutor.execute(command, true));
-  }
 
-  @Test
-  void testClose() {
-    commandExecutor.close();
-    verify(commandThreadPool).shutdown();
+    // Test RuntimeException
+    doThrow(RuntimeException.class).when(commandExecutor).executeInternal(eq(command), eq(true));
+    assertThrows(CommandExecutionException.class, () -> commandExecutor.execute(command, true));
   }
 }

@@ -59,8 +59,8 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction
       new XpathQuery[][] {{PROXY_QUERY_TITLE, PROXY_QUERY_ALTERNATIVE}, {PROXY_QUERY_SUBJECT},
           {PROXY_QUERY_IDENTIFIER}, {PROXY_QUERY_TYPE}};
 
-  private static final XpathQuery getProxySubtagQuery(Namespace.Element subtag) {
-    return XpathQuery.create("/%s/%s/%s", XpathQuery.RDF_TAG, Namespace.ORE.getElement("Proxy"),
+  private static XpathQuery getProxySubtagQuery(Namespace.Element subtag) {
+    return new XpathQuery("/%s/%s/%s", XpathQuery.RDF_TAG, Namespace.ORE.getElement("Proxy"),
         subtag);
   }
 

@@ -10,16 +10,20 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
@@ -31,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 
 /**
@@ -77,7 +82,7 @@ public class TestObjectFactory {
     EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
     enrichmentPluginMetadata.setEnabled(true);
 
-    List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
+    List<AbstractExecutablePluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
     abstractMetisPluginMetadata.add(oaipmhHarvestPluginMetadata);
     abstractMetisPluginMetadata.add(validationExternalPluginMetadata);
     abstractMetisPluginMetadata.add(transformationPluginMetadata);
@@ -99,10 +104,10 @@ public class TestObjectFactory {
     Dataset dataset = createDataset(DATASETNAME);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
     AbstractMetisPlugin oaipmhHarvestPlugin =
-        PluginType.OAIPMH_HARVEST.getNewPlugin(new OaipmhHarvestPluginMetadata());
+        ExecutablePluginType.OAIPMH_HARVEST.getNewPlugin(new OaipmhHarvestPluginMetadata());
     abstractMetisPlugins.add(oaipmhHarvestPlugin);
     AbstractMetisPlugin validationExternalPlugin =
-        PluginType.VALIDATION_EXTERNAL.getNewPlugin(new ValidationExternalPluginMetadata());
+        ExecutablePluginType.VALIDATION_EXTERNAL.getNewPlugin(new ValidationExternalPluginMetadata());
     abstractMetisPlugins.add(validationExternalPlugin);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, abstractMetisPlugins, 0);
@@ -128,15 +133,34 @@ public class TestObjectFactory {
    * @return the created list
    */
   public static List<WorkflowExecution> createListOfWorkflowExecutions(int size) {
-    List<WorkflowExecution> workflowExecutions = new ArrayList<>(size);
+    return createExecutionsWithDatasets(size).stream().map(ExecutionDatasetPair::getExecution)
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Create a list of dummy execution overviews. The dataset name will have a suffix number for each
+   * dataset.
+   *
+   * @param size the number of dummy execution overviews to create
+   * @return the created list
+   */
+  public static List<ExecutionAndDatasetView> createListOfExecutionOverviews(int size) {
+    return createExecutionsWithDatasets(size).stream()
+        .map(pair -> new ExecutionAndDatasetView(pair.getExecution(), pair.getDataset()))
+        .collect(Collectors.toList());
+  }
+
+  private static List<ExecutionDatasetPair> createExecutionsWithDatasets(int size) {
+    final List<ExecutionDatasetPair> result = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
+      dataset.setId(new ObjectId(new Date(i)));
       dataset.setDatasetId(Integer.toString(DATASETID + i));
       WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset);
       workflowExecution.setId(new ObjectId());
-      workflowExecutions.add(workflowExecution);
+      result.add(new ExecutionDatasetPair(dataset, workflowExecution));
     }
-    return workflowExecutions;
+    return result;
   }
 
   /**
@@ -196,6 +220,7 @@ public class TestObjectFactory {
     ds.setCountry(Country.GREECE);
     ds.setLanguage(Language.AR);
     ds.setDescription("description");
+    ds.setUnfitForPublication(false);
     ds.setNotes("Notes");
     return ds;
   }

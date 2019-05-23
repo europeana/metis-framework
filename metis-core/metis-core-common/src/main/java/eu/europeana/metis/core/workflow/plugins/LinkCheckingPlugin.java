@@ -9,7 +9,7 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-05-16
  */
-public class LinkCheckingPlugin extends AbstractMetisPlugin {
+public class LinkCheckingPlugin extends AbstractExecutablePlugin<LinkCheckingPluginMetadata> {
 
   private final String topologyName = Topology.LINK_CHECKING.getTopologyName();
 
@@ -26,9 +26,9 @@ public class LinkCheckingPlugin extends AbstractMetisPlugin {
    * Constructor to initialize the plugin with pluginMetadata.
    * <p>Initializes the {@link #pluginType} as well.</p>
    *
-   * @param pluginMetadata should be {@link LinkCheckingPluginMetadata}
+   * @param pluginMetadata The plugin metadata.
    */
-  LinkCheckingPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  LinkCheckingPlugin(LinkCheckingPluginMetadata pluginMetadata) {
     super(PluginType.LINK_CHECKING, pluginMetadata);
   }
 
@@ -39,11 +39,11 @@ public class LinkCheckingPlugin extends AbstractMetisPlugin {
 
   @Override
   DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
-    final LinkCheckingPluginMetadata metadata = (LinkCheckingPluginMetadata) getPluginMetadata();
     final Map<String, String> extraParameters = createParametersForHostConnectionLimits(
-        metadata.getConnectionLimitToDomains());
-    if (Boolean.TRUE.equals(metadata.getPerformSampling()) && metadata.getSampleSize() != null) {
-      extraParameters.put("SAMPLE_SIZE", metadata.getSampleSize().toString());
+        getPluginMetadata().getConnectionLimitToDomains());
+    if (Boolean.TRUE.equals(getPluginMetadata().getPerformSampling())
+        && getPluginMetadata().getSampleSize() != null) {
+      extraParameters.put("SAMPLE_SIZE", getPluginMetadata().getSampleSize().toString());
     }
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }

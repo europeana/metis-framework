@@ -6,9 +6,9 @@ package eu.europeana.metis.core.workflow.plugins;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-29
  */
-public class TransformationPluginMetadata extends AbstractMetisPluginMetadata {
+public class TransformationPluginMetadata extends AbstractExecutablePluginMetadata {
 
-  private static final PluginType pluginType = PluginType.TRANSFORMATION;
+  private static final ExecutablePluginType pluginType = ExecutablePluginType.TRANSFORMATION;
   private String xsltUrl;
   private boolean customXslt;
   private String datasetId;
@@ -21,7 +21,7 @@ public class TransformationPluginMetadata extends AbstractMetisPluginMetadata {
   }
 
   @Override
-  public PluginType getPluginType() {
+  public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
   }
 

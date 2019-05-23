@@ -1,6 +1,5 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import java.util.function.Function;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,55 +11,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public enum PluginType {
 
-  HTTP_HARVEST(HTTPHarvestPlugin::new, false),
+  HTTP_HARVEST,
 
-  OAIPMH_HARVEST(OaipmhHarvestPlugin::new, false),
+  OAIPMH_HARVEST,
 
-  ENRICHMENT(EnrichmentPlugin::new, false),
+  ENRICHMENT,
 
-  MEDIA_PROCESS(MediaProcessPlugin::new, false),
+  MEDIA_PROCESS,
 
-  LINK_CHECKING(LinkCheckingPlugin::new, true),
+  LINK_CHECKING,
 
-  VALIDATION_EXTERNAL(ValidationExternalPlugin::new, false),
+  VALIDATION_EXTERNAL,
 
-  TRANSFORMATION(TransformationPlugin::new, false),
+  TRANSFORMATION,
 
-  VALIDATION_INTERNAL(ValidationInternalPlugin::new, false),
+  VALIDATION_INTERNAL,
 
-  NORMALIZATION(NormalizationPlugin::new, false),
+  NORMALIZATION,
 
-  PREVIEW(IndexToPreviewPlugin::new, false),
+  PREVIEW,
 
-  PUBLISH(IndexToPublishPlugin::new, false);
+  PUBLISH,
 
-  private final Function<AbstractMetisPluginMetadata, AbstractMetisPlugin> pluginCreator;
-  private final boolean revisionLess;
+  REINDEX_TO_PREVIEW,
 
-  PluginType(Function<AbstractMetisPluginMetadata, AbstractMetisPlugin> pluginCreator,
-      boolean revisionLess) {
-    this.pluginCreator = pluginCreator;
-    this.revisionLess = revisionLess;
-  }
-
-  /**
-   * This method creates a new plugin of this type.
-   *
-   * @param metaData The metadata for this plugin type.
-   * @return A new pluing instance.
-   */
-  public AbstractMetisPlugin getNewPlugin(AbstractMetisPluginMetadata metaData) {
-    return pluginCreator.apply(metaData);
-  }
-
-  /**
-   * Describes if a PluginType has executions that contain revision information.
-   *
-   * @return true if there are not revision related with the particular PluginType
-   */
-  public boolean isRevisionLess() {
-    return revisionLess;
-  }
+  REINDEX_TO_PUBLISH;
 
   /**
    * Lookup of a {@link PluginType} enum from a provided enum String representation of the enum

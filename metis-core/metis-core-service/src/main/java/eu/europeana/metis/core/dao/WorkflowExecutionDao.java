@@ -2,13 +2,17 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.DataStatus;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
@@ -16,12 +20,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.aggregation.AggregationPipeline;
+import org.mongodb.morphia.aggregation.Projection;
 import org.mongodb.morphia.query.Criteria;
 import org.mongodb.morphia.query.CriteriaContainerImpl;
+import org.mongodb.morphia.query.FilterOperator;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.Sort;
@@ -44,8 +51,17 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutionDao.class);
   private static final String WORKFLOW_STATUS = "workflowStatus";
+  private static final String PLUGIN_STATUS = "pluginStatus";
+  private static final String PLUGIN_TYPE = "pluginType";
   private static final String DATASET_ID = "datasetId";
   private static final String METIS_PLUGINS = "metisPlugins";
+
+  private static final String MONGO_COND_OPERATOR = "$cond";
+
+  private static final int INQUEUE_POSITION_IN_OVERVIEW = 1;
+  private static final int RUNNING_POSITION_IN_OVERVIEW = 2;
+  private static final int DEFAULT_POSITION_IN_OVERVIEW = 3;
+
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
   private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST
       .getLimit();
@@ -244,10 +260,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param pluginTypes the set of plugin types to check for
    * @return the first plugin found
    */
-  public AbstractMetisPlugin getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<PluginType> pluginTypes) {
+  public AbstractExecutablePlugin getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      String datasetId, Set<ExecutablePluginType> pluginTypes) {
     return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-        pluginTypes, true);
+        pluginTypes, false, true);
   }
 
   /**
@@ -256,16 +272,19 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    *
    * @param datasetId the dataset identifier
    * @param pluginTypes the set of plugin types to check for
+   * @param limitToValidData Only return the result if it has valid data (see {@link DataStatus}).
    * @return the last plugin found
    */
-  public AbstractMetisPlugin getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<PluginType> pluginTypes) {
+  public AbstractExecutablePlugin getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
     return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-        pluginTypes, false);
+        pluginTypes, limitToValidData, false);
   }
 
-  private AbstractMetisPlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<PluginType> pluginTypes, boolean firstFinished) {
+  AbstractExecutablePlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
+      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean limitToValidData,
+      boolean firstFinished) {
+
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
 
@@ -274,14 +293,15 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     Criteria[] criteria = {
         query.criteria(DATASET_ID).equal(datasetId),
-        query.criteria("metisPlugins.pluginStatus").equal(PluginStatus.FINISHED)};
+        query.criteria(METIS_PLUGINS + "." + PLUGIN_STATUS).equal(PluginStatus.FINISHED)};
     query.and(criteria);
 
     List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
     if (pluginTypes != null) {
-      for (PluginType pluginType : pluginTypes) {
+      for (ExecutablePluginType pluginType : pluginTypes) {
         if (pluginType != null) {
-          criteriaContainer.add(query.criteria("metisPlugins.pluginType").equal(pluginType));
+          criteriaContainer.add(
+              query.criteria(METIS_PLUGINS + "." + PLUGIN_TYPE).equal(pluginType.toPluginType()));
         }
       }
     }
@@ -289,17 +309,43 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
     }
 
+    // Query: unwind and match again so that we know that all conditions apply to the same plugin.
+    final String orderField = METIS_PLUGINS + "." + OrderField.FINISHED_DATE.getOrderFieldName();
     Iterator<WorkflowExecution> metisPluginsIterator = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
-            () -> aggregation.match(query).unwind(METIS_PLUGINS)
-                .match(query).sort(firstFinished ? Sort.ascending("metisPlugins.finishedDate")
-                    : Sort.descending("metisPlugins.finishedDate"))
+            () -> aggregation
+                .match(query)
+                .unwind(METIS_PLUGINS)
+                .match(query)
+                .sort(firstFinished ? Sort.ascending(orderField) : Sort.descending(orderField))
+                .limit(1)
                 .aggregate(WorkflowExecution.class));
 
-    if (metisPluginsIterator != null && metisPluginsIterator.hasNext()) {
-      return metisPluginsIterator.next().getMetisPlugins().get(0);
+    // Because of the unwind, we know that the plugin we need is always the first one.
+    final AbstractMetisPlugin uncastResult = Optional.ofNullable(metisPluginsIterator)
+        .filter(Iterator::hasNext).map(Iterator::next).map(WorkflowExecution::getMetisPlugins)
+        .filter(plugins -> !plugins.isEmpty()).map(plugins -> plugins.get(0)).orElse(null);
+    if (uncastResult == null) {
+      return null;
     }
-    return null;
+
+    // Check for the result type: it should be executable.
+    if (!(uncastResult instanceof AbstractExecutablePlugin)) {
+      LOGGER.warn("Found plugin {} for executable plugin type {} that is not itself executable.",
+          uncastResult.getId(), uncastResult.getPluginType());
+      return null;
+    }
+    final AbstractExecutablePlugin castResult = (AbstractExecutablePlugin) uncastResult;
+
+    // if necessary, check for the data validity.
+    final AbstractExecutablePlugin result;
+    if (limitToValidData
+        && AbstractExecutablePlugin.getDataStatus(castResult) != DataStatus.VALID) {
+      result = null;
+    } else {
+      result = castResult;
+    }
+    return result;
   }
 
   /**
@@ -321,17 +367,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (datasetIds != null && !datasetIds.isEmpty()) {
       query.field(DATASET_ID).in(datasetIds);
     }
-
-    List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
-    if (workflowStatuses != null) {
-      for (WorkflowStatus workflowStatus : workflowStatuses) {
-        if (workflowStatus != null) {
-          criteriaContainer.add(query.criteria(WORKFLOW_STATUS).equal(workflowStatus));
-        }
-      }
-    }
-    if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+    if (!CollectionUtils.isEmpty(workflowStatuses)) {
+      query.field(WORKFLOW_STATUS).in(workflowStatuses);
     }
 
     if (orderField != null) {
@@ -344,6 +381,173 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> query.asList(new FindOptions().skip(nextPage * getWorkflowExecutionsPerRequest())
             .limit(getWorkflowExecutionsPerRequest())));
+  }
+
+  /**
+   * Get an overview of all WorkflowExecutions. This returns a list of executions ordered to display
+   * an overview. First the ones in queue, then those in progress and then those that are finalized.
+   * They will be sorted by creation date. This method does support pagination.
+   *
+   * TODO when we migrate to mongo 3.4 or later, we can do this easier with new aggregation pipeline
+   * stages and operators. The main improvements are 1) to try to map the root to the 'execution'
+   * variable so that we don't have to look it up afterwards, and 2) to use $addFields with $switch
+   * to add the statusIndex instead of having to go through creating and subtracting the two
+   * temporary fields.
+   *
+   * @param datasetIds a set of dataset identifiers to filter, can be empty or null to get all
+   * @param pluginStatuses the plugin statuses to filter. Can be null.
+   * @param pluginTypes the plugin types to filter. Can be null.
+   * @param fromDate the date from where the results should start. Can be null.
+   * @param toDate the date to where the results should end. Can be null.
+   * @param nextPage the nextPage token
+   * @param pageCount the number of pages that are requested
+   * @return a list of all the WorkflowExecutions found
+   */
+  public List<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
+      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate,
+      Date toDate, int nextPage, int pageCount) {
+
+    // Create the aggregate pipeline
+    final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
+        .createAggregation(WorkflowExecution.class);
+
+    // Step 1: create query filters
+    final Query<WorkflowExecution> query = createQueryFilters(datasetIds, pluginStatuses,
+        pluginTypes, fromDate, toDate);
+    pipeline.match(query);
+
+    // Step 2: determine status index field
+    final String statusIndexField = determineOrderingStatusIndex(pipeline);
+
+    // Step 3: Sort - first on the status index, then on the createdDate.
+    pipeline.sort(Sort.ascending(statusIndexField),
+        Sort.descending(OrderField.CREATED_DATE.getOrderFieldName()));
+
+    // Step 4: Apply pagination
+    pipeline.skip(nextPage * getWorkflowExecutionsPerRequest())
+        .limit(getWorkflowExecutionsPerRequest() * pageCount);
+
+    // Step 5: Create join of dataset and execution to combine the data information
+    joinDatasetAndWorkflowExecution(pipeline);
+
+    // Done: execute and return result.
+    final List<ExecutionDatasetPair> result = new ArrayList<>();
+    pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
+    return result;
+  }
+
+  private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,
+      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate) {
+    // TODO JV Validation is disabled because otherwise it complains that the subquery is looking in a
+    // list of AbstractMetisPlugin objects where startedDate may not be queriable. Why this is a
+    // problem, is not exactly clear.
+    final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(WorkflowExecution.class).disableValidation();
+    if (datasetIds != null) {
+      query.field(DATASET_ID).in(datasetIds);
+    }
+
+    Query<AbstractMetisPlugin> metisPluginsSubQuery = morphiaDatastoreProvider.getDatastore()
+        .createQuery(AbstractMetisPlugin.class);
+    if (!CollectionUtils.isEmpty(pluginTypes)) {
+      metisPluginsSubQuery.field(PLUGIN_TYPE).in(pluginTypes);
+    }
+    if (!CollectionUtils.isEmpty(pluginStatuses)) {
+      metisPluginsSubQuery.field(PLUGIN_STATUS).in(pluginStatuses);
+    }
+    if (fromDate != null) {
+      metisPluginsSubQuery.field(OrderField.STARTED_DATE.getOrderFieldName())
+          .greaterThanOrEq(fromDate);
+    }
+    if (toDate != null) {
+      metisPluginsSubQuery.field(OrderField.STARTED_DATE.getOrderFieldName()).lessThan(toDate);
+    }
+    query.field(METIS_PLUGINS).elemMatch(metisPluginsSubQuery);
+    return query;
+  }
+
+  private String determineOrderingStatusIndex(AggregationPipeline pipeline) {
+    // Step 1: Add specific positions when the status is INQUEUE or RUNNING.
+    final String statusInQueueField = "statusInQueue";
+    final String statusRunningField = "statusRunning";
+    pipeline.project(
+        Projection.projection(statusInQueueField, Projection.expression(MONGO_COND_OPERATOR,
+            Projection.expression(FilterOperator.EQUAL.val(), WorkflowStatus.INQUEUE.name(),
+                "$" + WORKFLOW_STATUS), INQUEUE_POSITION_IN_OVERVIEW, 0)),
+        Projection.projection(statusRunningField, Projection.expression(MONGO_COND_OPERATOR,
+            Projection.expression(FilterOperator.EQUAL.val(), WorkflowStatus.RUNNING.name(),
+                "$" + WORKFLOW_STATUS), RUNNING_POSITION_IN_OVERVIEW, 0)),
+        Projection.projection(OrderField.CREATED_DATE.getOrderFieldName()),
+        Projection.projection(DATASET_ID)
+    );
+
+    // Step 2: Copy specific positions to final variable: use default position if no position is set.
+    final String statusIndexField = "statusIndex";
+    final Projection sumExpression = Projection
+        .add("$" + statusInQueueField, "$" + statusRunningField);
+    pipeline.project(
+        Projection.projection(statusIndexField, Projection.expression(MONGO_COND_OPERATOR,
+            Projection.expression(FilterOperator.EQUAL.val(), sumExpression, 0),
+            DEFAULT_POSITION_IN_OVERVIEW, sumExpression)),
+        Projection.projection(OrderField.CREATED_DATE.getOrderFieldName()),
+        Projection.projection(DATASET_ID)
+    );
+    return statusIndexField;
+  }
+
+  private void joinDatasetAndWorkflowExecution(AggregationPipeline pipeline) {
+    // Step 1: Join with the dataset and the execution
+    final String datasetCollectionName = morphiaDatastoreProvider.getDatastore()
+        .getCollection(Dataset.class).getName();
+    final String executionCollectionName = morphiaDatastoreProvider.getDatastore()
+        .getCollection(WorkflowExecution.class).getName();
+    final String datasetListField = "datasetList";
+    final String executionListField = "executionList";
+    pipeline.lookup(datasetCollectionName, DATASET_ID, DatasetDao.DATASET_ID, datasetListField);
+    pipeline.lookup(executionCollectionName, "_id", "_id", executionListField);
+
+    // Step 2: Keep only the first entry in the dataset and execution lists.
+    final String datasetField = "dataset";
+    final String executionField = "execution";
+    pipeline.project(
+        Projection.projection(datasetField,
+            Projection.expression("$arrayElemAt", "$" + datasetListField, 0)),
+        Projection.projection(executionField,
+            Projection.expression("$arrayElemAt", "$" + executionListField, 0)),
+        Projection.projection("_id").suppress()
+    );
+  }
+
+  /**
+   * This object contains a pair consisting of a dataset and an execution. It is meant to be a
+   * result of aggregate queries, so the field names cannot easily be changed.
+   */
+  public static class ExecutionDatasetPair {
+
+    private Dataset dataset;
+    private WorkflowExecution execution;
+
+    public ExecutionDatasetPair() {
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param dataset The dataset.
+     * @param execution The execution.
+     */
+    public ExecutionDatasetPair(Dataset dataset, WorkflowExecution execution) {
+      this.dataset = dataset;
+      this.execution = execution;
+    }
+
+    public Dataset getDataset() {
+      return dataset;
+    }
+
+    public WorkflowExecution getExecution() {
+      return execution;
+    }
   }
 
   /**
@@ -425,11 +629,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @return The workflow execution.
    */
   public WorkflowExecution getByExternalTaskId(long externalTaskId) {
-    final Query<AbstractMetisPlugin> subQuery =
-        morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
+    final Query<AbstractExecutablePlugin> subQuery =
+        morphiaDatastoreProvider.getDatastore().createQuery(AbstractExecutablePlugin.class);
     subQuery.field("externalTaskId").equal(Long.toString(externalTaskId));
-    final Query<WorkflowExecution> query =
-        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+    // TODO JV Validation is disabled because otherwise it complains that the subquery is looking in a
+    // list of AbstractMetisPlugin objects that don't have the "externalTaskId" property being queried.
+    final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(WorkflowExecution.class).disableValidation();
     query.field(METIS_PLUGINS).elemMatch(subQuery);
     final List<WorkflowExecution> resultList = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(() -> query.asList(new FindOptions().limit(1)));
@@ -451,8 +657,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Create subquery to find the correct plugin.
     final Query<AbstractMetisPlugin> subQuery =
         morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
-    subQuery.field("startedDate").equal(startedDate);
-    subQuery.field("pluginType").equal(pluginType);
+    subQuery.field(OrderField.STARTED_DATE.getOrderFieldName()).equal(startedDate);
+    subQuery.field(PLUGIN_TYPE).equal(pluginType);
 
     // Create query to find workflow execution
     final Query<WorkflowExecution> query =

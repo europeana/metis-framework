@@ -6,9 +6,9 @@ package eu.europeana.metis.core.workflow.plugins;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-03
  */
-public class IndexToPublishPluginMetadata extends AbstractMetisPluginMetadata {
+public class IndexToPublishPluginMetadata extends AbstractExecutablePluginMetadata {
 
-  private static final PluginType pluginType = PluginType.PUBLISH;
+  private static final ExecutablePluginType pluginType = ExecutablePluginType.PUBLISH;
   private String datasetId;
   private boolean useAlternativeIndexingEnvironment;
   private boolean preserveTimestamps;
@@ -18,7 +18,7 @@ public class IndexToPublishPluginMetadata extends AbstractMetisPluginMetadata {
   }
 
   @Override
-  public PluginType getPluginType() {
+  public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
   }
 

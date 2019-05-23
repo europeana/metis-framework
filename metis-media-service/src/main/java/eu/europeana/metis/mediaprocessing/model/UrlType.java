@@ -28,9 +28,12 @@ public enum UrlType {
   /**
    * The resource URL types that are subject to metadata extraction (as opposed to thumbnail
    * extraction).
+   *
+   * TODO JV Currently we want technical metadata to be generated for all types. We may choose to
+   * remove this functionality, if nobody changes their minds on this.
    **/
   public static final Set<UrlType> URL_TYPES_FOR_METADATA_EXTRACTION = Collections
-      .unmodifiableSet(EnumSet.of(HAS_VIEW, IS_SHOWN_BY, IS_SHOWN_AT));
+      .unmodifiableSet(EnumSet.allOf(UrlType.class));
 
   /**
    * Convenience method that checks whether any of the given types would make a resource eligible

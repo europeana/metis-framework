@@ -1,2 +1,5 @@
 /src/main/resources/authentication.properties
 /src/main/resources/hibernate.cfg.xml
+/src/main/resources/zcrm_configuration.properties
+/src/main/resources/oauth_configuration.properties
+/src/main/resources/oauthtokens.properties

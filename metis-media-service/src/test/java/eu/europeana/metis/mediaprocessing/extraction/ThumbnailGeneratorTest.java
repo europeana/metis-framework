@@ -47,6 +47,10 @@ class ThumbnailGeneratorTest {
   private static final String IMAGE_MAGICK = "Image Magick";
   private static final String COLOR_MAP_FILE = "color map file";
 
+  private static final String PDF_MIME_TYPE = "application/pdf";
+  private static final String PNG_MIME_TYPE = "image/png";
+  private static final String JPG_MIME_TYPE = "image/jpeg";
+
   private static CommandExecutor commandExecutor;
   private static ThumbnailGenerator thumbnailGenerator;
 
@@ -160,7 +164,7 @@ class ThumbnailGeneratorTest {
 
     // Call the method and verify the result.
     final Pair<ImageMetadata, List<Thumbnail>> result = thumbnailGenerator
-        .generateThumbnails(url, ResourceType.IMAGE, content);
+        .generateThumbnails(url, JPG_MIME_TYPE, content);
     assertSame(imageMetadata, result.getLeft());
     assertEquals(Arrays.asList(thumbnail1, thumbnail2), result.getRight());
     verify(thumbnail1, never()).close();
@@ -171,18 +175,18 @@ class ThumbnailGeneratorTest {
     verify(thumbnailGenerator).copyFile(content, thumbnail2.getContentPath());
 
     // Check that the copy method is not called again for text.
-    thumbnailGenerator.generateThumbnails(url, ResourceType.TEXT, content);
+    thumbnailGenerator.generateThumbnails(url, PDF_MIME_TYPE, content);
     verify(thumbnailGenerator, times(1)).copyFile(any(), any());
 
     // Check null content
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, ResourceType.TEXT, null));
+        () -> thumbnailGenerator.generateThumbnails(url, PDF_MIME_TYPE, null));
 
     // Check exception during command execution - thumbnails should be closed.
     doThrow(new CommandExecutionException("TEST", null)).when(commandExecutor)
         .execute(command, false);
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, ResourceType.IMAGE, content));
+        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
     doReturn(commandResponse).when(commandExecutor).execute(command, false);
     verify(thumbnail1, times(1)).close();
     verify(thumbnail2, times(1)).close();
@@ -190,19 +194,19 @@ class ThumbnailGeneratorTest {
     // Check empty thumbnail - thumbnails should be closed.
     doReturn(0L).when(thumbnailGenerator).getFileSize(any());
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, ResourceType.IMAGE, content));
+        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
     doThrow(new IOException()).when(thumbnailGenerator).getFileSize(any());
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, ResourceType.IMAGE, content));
+        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
     doThrow(new RuntimeException()).when(thumbnailGenerator).getFileSize(any());
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, ResourceType.IMAGE, content));
+        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
     verify(thumbnail1, times(4)).close();
     verify(thumbnail2, times(4)).close();
 
     // Check that all is well again.
-    thumbnailGenerator.generateThumbnails(url, ResourceType.IMAGE, content);
+    thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content);
   }
 
   @Test
@@ -279,29 +283,42 @@ class ThumbnailGeneratorTest {
         .asList(new ThumbnailWithSize(thumbnail1, size1), new ThumbnailWithSize(thumbnail2, size2));
     final File file = new File("content file");
 
-    // Make call for image
+    // Make call for JPEG
     final List<String> commandImage = thumbnailGenerator
-        .createThumbnailGenerationCommand(input, ResourceType.IMAGE, file);
+        .createThumbnailGenerationCommand(input, JPG_MIME_TYPE, file);
 
     // Verify image
     final List<String> expectedImage = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
         "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:", "(", "+clone",
-        "-thumbnail", size1 + "x", "-write", thumbnail1.getContentPath().toString(), "+delete", ")",
-        "-thumbnail", size2 + "x", "-write", thumbnail2.getContentPath().toString(),
+        "-thumbnail", size1 + "x", "-write", "jpeg:" + thumbnail1.getContentPath().toString(), "+delete", ")",
+        "-thumbnail", size2 + "x", "-write", "jpeg:" + thumbnail2.getContentPath().toString(),
         "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
         "-format", "\n%c", "histogram:info:");
     assertEquals(expectedImage, commandImage);
 
-    // Make call for text
+    // Make call for PNG
+    final List<String> commandPng = thumbnailGenerator
+        .createThumbnailGenerationCommand(input, PNG_MIME_TYPE, file);
+
+    // Verify image
+    final List<String> expectedPng = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
+        "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:", "(", "+clone",
+        "-thumbnail", size1 + "x", "-write", "png:" + thumbnail1.getContentPath().toString(), "+delete", ")",
+        "-thumbnail", size2 + "x", "-write", "png:" + thumbnail2.getContentPath().toString(),
+        "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
+        "-format", "\n%c", "histogram:info:");
+    assertEquals(expectedPng, commandPng);
+
+    // Make call for PDF
     final List<String> commandText = thumbnailGenerator
-        .createThumbnailGenerationCommand(input, ResourceType.TEXT, file);
+        .createThumbnailGenerationCommand(input, PDF_MIME_TYPE, file);
 
     // Verify text
     final List<String> expectedText = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
         "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
         "-background", "white", "-alpha", "remove", "(", "+clone",
-        "-thumbnail", size1 + "x", "-write", thumbnail1.getContentPath().toString(), "+delete", ")",
-        "-thumbnail", size2 + "x", "-write", thumbnail2.getContentPath().toString(),
+        "-thumbnail", size1 + "x", "-write", "png:" + thumbnail1.getContentPath().toString(), "+delete", ")",
+        "-thumbnail", size2 + "x", "-write", "png:" + thumbnail2.getContentPath().toString(),
         "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
         "-format", "\n%c", "histogram:info:");
     assertEquals(expectedText, commandText);

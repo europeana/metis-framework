@@ -5,8 +5,8 @@ import eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl;
 import eu.europeana.metis.mediaprocessing.linkchecking.LinkCheckerImpl;
 
 /**
- * This factory creates objects for media extraction and link checking.
- * <p>Used by external like scripts or ECloud.</p>
+ * This factory creates objects for media extraction and link checking. This object is thread-safe.
+ * <p>Used by external code such as scripts or ECloud.</p>
  */
 public class MediaProcessorFactory {
 
@@ -17,15 +17,22 @@ public class MediaProcessorFactory {
   public static final int DEFAULT_MAX_REDIRECT_COUNT = 3;
 
   /**
-   * The default value of the maximum number of processes that can do command-line IO at any given
-   * time. This maximum will hold for individual processors created using this class, not in total.
-   * It's currently set to {@value MediaProcessorFactory#DEFAULT_COMMAND_THREAD_POOL_SIZE}.
+   * The default value of the maximum amount of time, in seconds, a thumbnail generate command is
+   * allowed to take before it is forcibly destroyed (i.e. cancelled). It's currently set to {@value
+   * MediaProcessorFactory#DEFAULT_THUMBNAIL_GENERATE_TIMEOUT} seconds.
    */
-  public static final int DEFAULT_COMMAND_THREAD_POOL_SIZE = 2;
+  public static final int DEFAULT_THUMBNAIL_GENERATE_TIMEOUT = 30;
+
+  /**
+   * The default value of the maximum amount of time, in seconds, a audio/video probe command is
+   * allowed to take before it is forcibly destroyed (i.e. cancelled). It's currently set to {@value
+   * MediaProcessorFactory#DEFAULT_AUDIO_VIDEO_PROBE_TIMEOUT} seconds.
+   */
+  public static final int DEFAULT_AUDIO_VIDEO_PROBE_TIMEOUT = 60;
 
   private int maxRedirectCount = DEFAULT_MAX_REDIRECT_COUNT;
-
-  private int commandThreadPoolSize = DEFAULT_COMMAND_THREAD_POOL_SIZE;
+  private int thumbnailGenerateTimeout = DEFAULT_THUMBNAIL_GENERATE_TIMEOUT;
+  private int audioVideoProbeTimeout = DEFAULT_AUDIO_VIDEO_PROBE_TIMEOUT;
 
   /**
    * Set the maximum number of times we will follow a redirect. The default (when not calling this
@@ -38,15 +45,30 @@ public class MediaProcessorFactory {
   }
 
   /**
-   * Set the maximum number of processes that can do command-line IO at any given time (per
-   * processor created using this factory). The default (when not calling this method or calling it
-   * with a negative number) is {@link MediaProcessorFactory#DEFAULT_COMMAND_THREAD_POOL_SIZE}.
+   * Set the timeout for performing command-line IO for thumbnail generation. The default (when not
+   * calling this method or calling it with zero or a negative number) is {@link
+   * MediaProcessorFactory#DEFAULT_THUMBNAIL_GENERATE_TIMEOUT} seconds.
    *
-   * @param commandThreadPoolSize The maximum number of processes that can do command-line IO.
+   * @param thumbnailGenerateTimeout The maximum amount of time, in seconds, a thumbnail generation
+   * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
    */
-  public void setCommandIOThreadPoolSize(int commandThreadPoolSize) {
-    this.commandThreadPoolSize =
-        commandThreadPoolSize < 1 ? DEFAULT_COMMAND_THREAD_POOL_SIZE : commandThreadPoolSize;
+  public void setThumbnailGenerateTimeout(int thumbnailGenerateTimeout) {
+    this.thumbnailGenerateTimeout =
+        thumbnailGenerateTimeout < 1 ? DEFAULT_THUMBNAIL_GENERATE_TIMEOUT
+            : thumbnailGenerateTimeout;
+  }
+
+  /**
+   * Set the timeout for performing command-line IO for audio/video probing. The default (when not
+   * calling this method or calling it with zero or a negative number) is {@link
+   * MediaProcessorFactory#DEFAULT_AUDIO_VIDEO_PROBE_TIMEOUT} seconds.
+   *
+   * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe
+   * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
+   */
+  public void setAudioVideoProbeTimeout(int audioVideoProbeTimeout) {
+    this.audioVideoProbeTimeout =
+        audioVideoProbeTimeout < 1 ? DEFAULT_AUDIO_VIDEO_PROBE_TIMEOUT : audioVideoProbeTimeout;
   }
 
   /**
@@ -56,7 +78,8 @@ public class MediaProcessorFactory {
    * @throws MediaProcessorException In case there was a problem creating the media extractor.
    */
   public MediaExtractor createMediaExtractor() throws MediaProcessorException {
-    return MediaExtractorImpl.newInstance(maxRedirectCount, commandThreadPoolSize);
+    return MediaExtractorImpl
+        .newInstance(maxRedirectCount, thumbnailGenerateTimeout, audioVideoProbeTimeout);
   }
 
   /**

@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import eu.europeana.metis.core.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -246,7 +247,7 @@ class TestProxiesController {
     PaginatedRecordsResponse recordsResponse = new PaginatedRecordsResponse(records, null);
 
     when(proxiesService.getListOfFileContentsFromPluginExecution(metisUser,
-        TestObjectFactory.EXECUTIONID, PluginType.TRANSFORMATION, null, 5))
+        TestObjectFactory.EXECUTIONID, ExecutablePluginType.TRANSFORMATION, null, 5))
         .thenReturn(recordsResponse);
 
     proxiesControllerMock.perform(
@@ -279,7 +280,7 @@ class TestProxiesController {
         .collect(Collectors.toList());
 
     // Test happy flow with non-empty ID list
-    final PluginType pluginType = PluginType.MEDIA_PROCESS;
+    final ExecutablePluginType pluginType = ExecutablePluginType.MEDIA_PROCESS;
     doAnswer(invocation -> {
       final ListOfIds input = invocation.getArgument(3);
       assertEquals(expectedInput, input.getIds());

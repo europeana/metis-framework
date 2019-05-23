@@ -23,7 +23,9 @@ import eu.europeana.metis.core.rest.RecordsResponse;
 import eu.europeana.metis.core.rest.stats.NodePathStatistics;
 import eu.europeana.metis.core.rest.stats.RecordStatistics;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -282,7 +284,7 @@ public class ProxiesService {
    *
    * @param metisUser the user wishing to perform this operation
    * @param workflowExecutionId the execution identifier of the workflow
-   * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
    * @param nextPage the string representation of the next page which is provided from the response
    * and can be used to get the next page of results
    * @param numberOfRecords the number of records per response
@@ -298,11 +300,11 @@ public class ProxiesService {
    * </ul>
    */
   public PaginatedRecordsResponse getListOfFileContentsFromPluginExecution(MetisUser metisUser,
-      String workflowExecutionId, PluginType pluginType, String nextPage, int numberOfRecords)
-      throws GenericMetisException {
+      String workflowExecutionId, ExecutablePluginType pluginType, String nextPage,
+      int numberOfRecords) throws GenericMetisException {
 
     // Get the right workflow execution and plugin type.
-    final Pair<WorkflowExecution, AbstractMetisPlugin> executionAndPlugin = getExecutionAndPlugin(
+    final Pair<WorkflowExecution, AbstractExecutablePlugin> executionAndPlugin = getExecutionAndPlugin(
         metisUser, workflowExecutionId, pluginType);
     if (executionAndPlugin == null) {
       return new PaginatedRecordsResponse(Collections.emptyList(), null);
@@ -343,7 +345,7 @@ public class ProxiesService {
    *
    * @param metisUser the user wishing to perform this operation
    * @param workflowExecutionId the execution identifier of the workflow
-   * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @param pluginType the {@link ExecutablePluginType} that is to be located inside the workflow
    * @param ecloudIds the list of ecloud IDs of the records we wish to obtain
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
@@ -354,16 +356,16 @@ public class ProxiesService {
    * </ul>
    */
   public RecordsResponse getListOfFileContentsFromPluginExecution(MetisUser metisUser,
-      String workflowExecutionId, PluginType pluginType, ListOfIds ecloudIds)
+      String workflowExecutionId, ExecutablePluginType pluginType, ListOfIds ecloudIds)
       throws GenericMetisException {
 
     // Get the right workflow execution and plugin type.
-    final Pair<WorkflowExecution, AbstractMetisPlugin> executionAndPlugin = getExecutionAndPlugin(
+    final Pair<WorkflowExecution, AbstractExecutablePlugin> executionAndPlugin = getExecutionAndPlugin(
         metisUser, workflowExecutionId, pluginType);
     if (executionAndPlugin == null) {
       throw new NoWorkflowExecutionFoundException(String
-          .format("No plugin of type %s found for workflowExecution with id: %s", pluginType.name(),
-              workflowExecutionId));
+          .format("No executable plugin of type %s found for workflowExecution with id: %s",
+              pluginType.name(), workflowExecutionId));
     }
 
     // Get the records.
@@ -376,8 +378,8 @@ public class ProxiesService {
     return new RecordsResponse(records);
   }
 
-  Pair<WorkflowExecution, AbstractMetisPlugin> getExecutionAndPlugin(MetisUser metisUser,
-      String workflowExecutionId, PluginType pluginType ) throws GenericMetisException {
+  Pair<WorkflowExecution, AbstractExecutablePlugin> getExecutionAndPlugin(MetisUser metisUser,
+      String workflowExecutionId, ExecutablePluginType pluginType) throws GenericMetisException {
 
     // Get the workflow execution - check that the user has rights to access this.
     final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
@@ -389,11 +391,15 @@ public class ProxiesService {
     authorizer.authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
 
     // Get the plugin for which to get the records and return.
-    return workflowExecution.getMetisPluginWithType(pluginType)
-        .map(plugin -> new ImmutablePair<>(workflowExecution, plugin)).orElse(null);
+    final AbstractMetisPlugin plugin = workflowExecution
+        .getMetisPluginWithType(pluginType.toPluginType()).orElse(null);
+    if (plugin instanceof AbstractExecutablePlugin) {
+      return new ImmutablePair<>(workflowExecution, (AbstractExecutablePlugin) plugin);
+    }
+    return null;
   }
 
-  Record getRecord(AbstractMetisPlugin plugin, String ecloudId) throws ExternalTaskException {
+  Record getRecord(AbstractExecutablePlugin plugin, String ecloudId) throws ExternalTaskException {
     try {
       final Representation representation = recordServiceClient
           .getRepresentationByRevision(ecloudId, AbstractMetisPlugin.getRepresentationName(),

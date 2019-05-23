@@ -1,13 +1,7 @@
 package eu.europeana.metis.authentication.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.JsonNode;
-import eu.europeana.metis.exception.BadContentException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -68,72 +62,6 @@ public class MetisUser {
 
   public MetisUser() {
     //Required for json serialization
-  }
-
-  /**
-   * MetisUser for the Metis project.
-   *
-   * @param jsonNode the {@link JsonNode} to construct the MetisUser
-   * @throws ParseException if the content is unparsable
-   * @throws BadContentException if the content of the JsonNode is unacceptable because of rules
-   * that should be followed
-   */
-  public MetisUser(JsonNode jsonNode) throws ParseException, BadContentException {
-    parseJsonNodeZohoUserToMetisUser(jsonNode);
-  }
-
-  private void parseJsonNodeZohoUserToMetisUser(JsonNode jsonNode)
-      throws BadContentException, ParseException {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-    Iterator<JsonNode> elements = jsonNode.elements();
-    while (elements.hasNext()) {
-      JsonNode next = elements.next();
-      JsonNode val = next.get("val");
-      JsonNode content = next.get("content");
-      switch (val.textValue()) {
-        case "CONTACTID":
-          userId = content.textValue();
-          break;
-        case "First Name":
-          firstName = content.textValue();
-          break;
-        case "Last Name":
-          lastName = content.textValue();
-          break;
-        case "Email":
-          email = content.textValue();
-          break;
-        case "Created Time":
-          createdDate = dateFormat.parse(content.textValue());
-          break;
-        case "Modified Time":
-          updatedDate = dateFormat.parse(content.textValue());
-          break;
-        case "Country":
-          country = content.textValue();
-          break;
-        case "Participation level":
-          if (content.textValue().contains("Network Association Member")) {
-            networkMember = true;
-          }
-          break;
-        case "Metis user":
-          metisUserFlag = Boolean.parseBoolean(content.textValue());
-          break;
-        case "Account Role":
-          accountRole = AccountRole.getAccountRoleFromEnumName(content.textValue());
-          if (accountRole == AccountRole.METIS_ADMIN) {
-            throw new BadContentException("Account Role in Zoho is not valid");
-          }
-          break;
-        case "Account Name": //This is actually the organization Name in Zoho
-          organizationName = content.textValue();
-          break;
-        default:
-          break;
-
-      }
-    }
   }
 
   public String getUserId() {

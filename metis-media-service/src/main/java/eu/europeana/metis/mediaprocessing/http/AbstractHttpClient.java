@@ -1,13 +1,17 @@
 package eu.europeana.metis.mediaprocessing.http;
 
+import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -102,13 +106,17 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       }
 
       // Obtain header information.
-      final String mimeType = response.getEntity().getContentType().getValue();
+      final HttpEntity responseEntity = response.getEntity();
+      final String mimeType = Optional.ofNullable(responseEntity).map(HttpEntity::getContentType)
+          .map(Header::getValue).orElse("application/octet-stream");
       final List<URI> redirectUris = context.getRedirectLocations();
       final URI actualUri =
           redirectUris == null ? httpGet.getURI() : redirectUris.get(redirectUris.size() - 1);
 
       // Process the result.
-      return createResult(resourceEntry, actualUri, mimeType, response.getEntity()::getContent);
+      final ContentRetriever content = responseEntity == null ?
+          ContentRetriever.forEmptyContent() : responseEntity::getContent;
+      return createResult(resourceEntry, actualUri, mimeType, content);
     }
   }
 
@@ -131,7 +139,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @param resourceEntry The resource for which the request was sent.
    * @param actualUri The actual URI where the resource was found (could be different from the
    * resource link after redirections).
-   * @param mimeType The type of the resulting object, as returned by the response.
+   * @param mimeType The type of the resulting object, as returned by the response. Is not null.
    * @param contentRetriever Object that allows access to the resulting data. Note that if this
    * object is not used, the data is not transferred (or the transfer is cancelled). Note that this
    * stream cannot be used after this method returns, as the connection will be closed immediately.
@@ -160,5 +168,12 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
      * @throws IOException In case a connection or other IO problem occurred.
      */
     InputStream getContent() throws IOException;
+
+    /**
+     * @return A content retriever for empty content.
+     */
+    static ContentRetriever forEmptyContent() {
+      return () -> new ByteArrayInputStream(new byte[0]);
+    }
   }
 }

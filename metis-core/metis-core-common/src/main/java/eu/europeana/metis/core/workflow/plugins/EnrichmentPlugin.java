@@ -8,7 +8,7 @@ import eu.europeana.cloud.service.dps.DpsTask;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-26
  */
-public class EnrichmentPlugin extends AbstractMetisPlugin {
+public class EnrichmentPlugin extends AbstractExecutablePlugin<EnrichmentPluginMetadata> {
 
   private final String topologyName = Topology.ENRICHMENT.getTopologyName();
 
@@ -25,9 +25,9 @@ public class EnrichmentPlugin extends AbstractMetisPlugin {
    * Constructor to initialize the plugin with pluginMetadata.
    * <p>Initializes the {@link #pluginType} as well.</p>
    *
-   * @param pluginMetadata should be {@link EnrichmentPluginMetadata}
+   * @param pluginMetadata The plugin metadata.
    */
-  EnrichmentPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  EnrichmentPlugin(EnrichmentPluginMetadata pluginMetadata) {
     super(PluginType.ENRICHMENT, pluginMetadata);
   }
 

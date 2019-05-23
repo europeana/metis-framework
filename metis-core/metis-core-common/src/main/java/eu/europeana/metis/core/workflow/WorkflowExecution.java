@@ -73,12 +73,12 @@ public class WorkflowExecution implements HasMongoObjectId {
    * execution
    * @param workflowPriority the positive number of the priority of the execution
    */
-  public WorkflowExecution(Dataset dataset, List<AbstractMetisPlugin> metisPlugins,
+  public WorkflowExecution(Dataset dataset, List<? extends AbstractMetisPlugin> metisPlugins,
       int workflowPriority) {
     this.datasetId = dataset.getDatasetId();
     this.ecloudDatasetId = dataset.getEcloudDatasetId();
     this.workflowPriority = workflowPriority;
-    this.metisPlugins = metisPlugins;
+    this.metisPlugins = new ArrayList<>(metisPlugins);
   }
 
   /**
@@ -227,8 +227,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     return metisPlugins;
   }
 
-  public void setMetisPlugins(
-      List<AbstractMetisPlugin> metisPlugins) {
+  public void setMetisPlugins(List<AbstractMetisPlugin> metisPlugins) {
     this.metisPlugins = metisPlugins;
   }
 

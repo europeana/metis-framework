@@ -1,19 +1,18 @@
 package eu.europeana.normalization.languages;
 
+import eu.europeana.normalization.languages.LanguageMatch.Type;
+import eu.europeana.normalization.settings.AmbiguityHandling;
+import eu.europeana.normalization.util.LanguageTag;
+import eu.europeana.normalization.util.LanguageTagValueNormalizer;
+import eu.europeana.normalization.util.NormalizationConfigurationException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import eu.europeana.normalization.languages.LanguageMatch.Type;
-import eu.europeana.normalization.settings.AmbiguityHandling;
-import eu.europeana.normalization.util.NormalizationConfigurationException;
-import eu.europeana.normalization.util.StringNormalizer;
 
 /**
  * Provides the matching algorithms for matching dc:language values with codes and labels in the
@@ -23,15 +22,12 @@ import eu.europeana.normalization.util.StringNormalizer;
  */
 public class LanguageMatcher {
 
-  private static final Pattern LOCALE_CODE_PATTERN =
-      Pattern.compile("\\A(\\p{Alpha}\\p{Alpha})-\\p{Alpha}\\p{Alpha}\\Z");
-
   private static final Pattern LANGUAGE_CODE_MATCHER = Pattern.compile("\\A\\p{Alpha}{2,3}\\Z");
 
   private final int minimumLabelLength;
   private final AmbiguityHandling ambiguityHandling;
-  private final LanguagesVocabulary targetVocabulary;
-  private final Function<String, String> stringNormalizer;
+  private final List<LanguagesVocabulary> targetVocabularies;
+  private final Function<String, List<LanguageTag>> languageTagValueNormalizer;
 
   private final Map<String, String> isoCodes = new HashMap<>();
   private final Map<String, String> unambiguousLabels = new HashMap<>();
@@ -39,44 +35,48 @@ public class LanguageMatcher {
 
   /**
    * Constructor.
-   * 
+   *
    * @param minimumLabelLength The minimum label length for indexing.
    * @param ambiguityHandling The minimum ambiguity handling for matching.
-   * @param targetVocabulary The target vocabulary in which to return the match results.
+   * @param targetVocabularies The target vocabularies in which to return the match results. The
+   * language code for a matching language will be decided by the first vocabulary in this list that
+   * contains a code for that language. The list must contain at least one vocabulary.
    * @throws NormalizationConfigurationException In case the list of languages could not be
-   *         configured properly.
+   * configured properly.
    */
   public LanguageMatcher(int minimumLabelLength, AmbiguityHandling ambiguityHandling,
-      LanguagesVocabulary targetVocabulary) throws NormalizationConfigurationException {
-    this(minimumLabelLength, ambiguityHandling, targetVocabulary, Languages.getLanguages(),
-        StringNormalizer::normalize);
+      List<LanguagesVocabulary> targetVocabularies)
+      throws NormalizationConfigurationException {
+    this(minimumLabelLength, ambiguityHandling, targetVocabularies, Languages.getLanguages(),
+        LanguageTagValueNormalizer::normalize);
   }
 
   /**
    * Constructor for Mocking.
-   * 
+   *
    * @param minimumLabelLength The minimum label length for indexing.
    * @param ambiguityHandling The minimum ambiguity handling for matching.
-   * @param targetVocabulary The target vocabulary in which to return the match results.
+   * @param targetVocabularies The target vocabularies in which to return the match results. The
+   * language code for a matching language will be decided by the first vocabulary in this list that
+   * contains a code for that language. The list must contain at least one vocabulary.
    * @param languages The language vocabulary.
-   * @param stringNormalizer The function that normalizes a string, used for indexing.
+   * @param languageTagValueNormalizer The function that normalizes a language tag value.
    */
   LanguageMatcher(int minimumLabelLength, AmbiguityHandling ambiguityHandling,
-      LanguagesVocabulary targetVocabulary, Languages languages,
-      Function<String, String> stringNormalizer) {
+      List<LanguagesVocabulary> targetVocabularies, Languages languages,
+      Function<String, List<LanguageTag>> languageTagValueNormalizer) {
     this.minimumLabelLength = minimumLabelLength;
     this.ambiguityHandling = ambiguityHandling;
-    this.targetVocabulary = targetVocabulary;
-    this.stringNormalizer = stringNormalizer;
-    for (Language l : languages.getActiveLanguages()) {
-      index(l);
-    }
+    this.targetVocabularies = new ArrayList<>(targetVocabularies);
+    this.languageTagValueNormalizer = languageTagValueNormalizer;
+    languages.getActiveLanguages().forEach(this::index);
   }
 
   private void index(Language language) {
 
     // Get the normalized language ID.
-    final String languageId = language.getNormalizedLanguageId(targetVocabulary);
+    final String languageId = targetVocabularies.stream().map(language::getNormalizedLanguageId)
+        .filter(Objects::nonNull).findFirst().orElse(null);
     if (languageId == null) {
       return;
     }
@@ -97,7 +97,15 @@ public class LanguageMatcher {
   }
 
   private void addLabelToIndex(String label, String languageId) {
-    final String normalizedLabel = stringNormalizer.apply(label);
+
+    // Normalize the label. If it is split, we don't add it to the index: it can never be matched anyway.
+    final List<LanguageTag> normalizationResult = languageTagValueNormalizer.apply(label);
+    if (normalizationResult.size() != 1) {
+      return;
+    }
+
+    // Add the label to the index.
+    final String normalizedLabel = normalizationResult.get(0).getNormalizedInput();
     if (ambiguousLabels.containsKey(normalizedLabel)) {
       final List<String> alternatives = ambiguousLabels.get(normalizedLabel);
       if (!alternatives.contains(languageId)) {
@@ -128,8 +136,15 @@ public class LanguageMatcher {
       throw new IllegalArgumentException("Provided code does not qualify as a code: " + code);
     }
 
+    // Normalize the code.
+    final List<LanguageTag> normalization = languageTagValueNormalizer.apply(code);
+    if (normalization.size() != 1 || normalization.get(0).getSubTag() != null) {
+      throw new IllegalStateException(
+          "Empty ISO code, ISO code with spaces or ISO code with subtag detected: " + code);
+    }
+
     // Add the code to the code index.
-    final String normalizedCode = stringNormalizer.apply(code);
+    final String normalizedCode = normalization.get(0).getLanguageCode();
     if (isoCodes.containsKey(normalizedCode) && !isoCodes.get(normalizedCode).equals(languageId)) {
       throw new IllegalStateException("Ambiguous iso code detected: " + normalizedCode);
     }
@@ -144,60 +159,44 @@ public class LanguageMatcher {
    * @return The matches. Does not return null.
    */
   public List<LanguageMatch> match(String input) {
-
-    // First check the locale matcher.
-    final String localeMatch = findLocaleMatch(input);
-    if (localeMatch != null) {
-      return Collections.singletonList(new LanguageMatch(input, localeMatch, Type.CODE_MATCH));
-    }
-
-    // Normalize and then split by spaces. We should have non-empty words.
-    final String[] words = stringNormalizer.apply(input).split("\\s+");
-
-    // Match words and return the result.
-    return Arrays.stream(words).map(this::matchNormalizedWord).collect(Collectors.toList());
+    return languageTagValueNormalizer.apply(input).stream().map(this::matchNormalizedWord)
+        .collect(Collectors.toList());
   }
 
-  private LanguageMatch matchNormalizedWord(String word) {
+  private LanguageMatch matchNormalizedWord(LanguageTag languageTag) {
 
     // The result.
     LanguageMatch result = null;
 
-    // First try to match the code.
-    final String codeMatch = isoCodes.get(word);
+    // First try to match the code. Preserve the subtag if there is one.
+    final String codeMatch = isoCodes.get(languageTag.getLanguageCode());
     if (codeMatch != null) {
-      result = new LanguageMatch(word, codeMatch, Type.CODE_MATCH);
+      result = new LanguageMatch(languageTag.getNormalizedInput(),
+          codeMatch + (languageTag.getSubTag() == null ? "" : languageTag.getSubTag()),
+          Type.CODE_MATCH);
     }
 
     // If that doesn't work, we try to match an unambiguous label.
     if (result == null) {
-      final String unambiguousMatch = unambiguousLabels.get(word);
+      final String unambiguousMatch = unambiguousLabels.get(languageTag.getNormalizedInput());
       if (unambiguousMatch != null) {
-        result = new LanguageMatch(word, unambiguousMatch, Type.LABEL_MATCH);
+        result = new LanguageMatch(languageTag.getNormalizedInput(), unambiguousMatch, Type.LABEL_MATCH);
       }
     }
 
     // Finally, we try to match an ambiguous label.
     if (result == null) {
-      final List<String> ambiguousMatch = ambiguousLabels.get(word);
+      final List<String> ambiguousMatch = ambiguousLabels.get(languageTag.getNormalizedInput());
       if (ambiguousMatch != null) {
         final String match = ambiguityHandling.resolveAmbiguousMatch(ambiguousMatch);
-        result = new LanguageMatch(word, match, match == null ? Type.NO_MATCH : Type.LABEL_MATCH);
+        result = new LanguageMatch(languageTag.getNormalizedInput(), match, match == null ? Type.NO_MATCH : Type.LABEL_MATCH);
       }
     }
 
     // If nothing worked, we return an empty result.
     if (result == null) {
-      result = new LanguageMatch(word, null, Type.NO_MATCH);
+      result = new LanguageMatch(languageTag.getNormalizedInput(), null, Type.NO_MATCH);
     }
     return result;
-  }
-
-  private String findLocaleMatch(String rawValue) {
-    final Matcher matcher = LOCALE_CODE_PATTERN.matcher(rawValue.trim());
-    if (matcher.matches()) {
-      return isoCodes.get(stringNormalizer.apply(matcher.group(1)));
-    }
-    return null;
   }
 }

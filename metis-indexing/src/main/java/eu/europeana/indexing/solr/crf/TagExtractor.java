@@ -55,7 +55,8 @@ public class TagExtractor {
 
     // Get all the individual codes from all the facets.
     final List<Set<Integer>> codes = mediaType.getFacets().stream()
-        .map(facet -> facet.evaluateAndShift(webResource)).collect(Collectors.toList());
+        .map(facet -> facet.evaluateAndShift(webResource)).filter(set -> !set.isEmpty())
+        .collect(Collectors.toList());
 
     // Find all the combinations.
     final int shiftedMediaTypeCode = getShiftedMediaTypeCode(mediaType);
@@ -100,10 +101,8 @@ public class TagExtractor {
     // Get all the individual codes from all the facets and make sure there is always the media type
     // code 'or'-ed into them.
     final int shiftedMediaTypeCode = getShiftedMediaTypeCode(mediaType);
-    return mediaType.getFacets().stream()
-        .flatMap(facet -> facet.evaluateAndShift(webResource).stream())
-        .map(code -> shiftedMediaTypeCode | code).collect(Collectors.toSet());
-
+    return mediaType.getFacets().stream().map(facet -> facet.evaluateAndShift(webResource))
+        .flatMap(Set::stream).map(code -> shiftedMediaTypeCode | code).collect(Collectors.toSet());
   }
 
   private static int getShiftedMediaTypeCode(EncodedMediaType mediaType) {

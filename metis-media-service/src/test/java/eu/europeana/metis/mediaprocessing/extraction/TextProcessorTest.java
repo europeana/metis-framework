@@ -149,7 +149,7 @@ class TextProcessorTest {
     final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata = new ImmutablePair<>(
         imageMetadata, Arrays.asList(thumbnail1, thumbnail2));
     doReturn(thumbnailsAndMetadata).when(thumbnailGenerator)
-        .generateThumbnails(url, ResourceType.TEXT, content);
+        .generateThumbnails(url, "application/pdf", content);
 
     // define PDF analysis results and mock the method performing it.
     final PdfCharacteristics pdfCharacteristics = new PdfCharacteristics(true, 1);

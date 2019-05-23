@@ -50,8 +50,7 @@ class MediaExtractorImplTest {
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
     mediaExtractor = spy(
-        new MediaExtractorImpl(resourceDownloadClient, commandExecutor, tika, imageProcessor,
-            audioVideoProcessor, textProcessor));
+        new MediaExtractorImpl(resourceDownloadClient, tika, imageProcessor, audioVideoProcessor, textProcessor));
   }
 
   @BeforeEach
@@ -177,7 +176,6 @@ class MediaExtractorImplTest {
   @Test
   void testClose() throws IOException {
     mediaExtractor.close();
-    verify(commandExecutor).close();
     verify(resourceDownloadClient).close();
   }
 }

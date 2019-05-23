@@ -20,7 +20,6 @@ public class MediaExtractorImpl implements MediaExtractor {
   private static final Logger LOGGER = LoggerFactory.getLogger(MediaExtractorImpl.class);
 
   private final ResourceDownloadClient resourceDownloadClient;
-  private final CommandExecutor commandExecutor;
   private final Tika tika;
 
   private final ImageProcessor imageProcessor;
@@ -31,17 +30,15 @@ public class MediaExtractorImpl implements MediaExtractor {
    * Constructor meant for testing purposes.
    *
    * @param resourceDownloadClient The download client for resources.
-   * @param commandExecutor A command executor.
    * @param tika A tika instance.
    * @param imageProcessor An image processor.
    * @param audioVideoProcessor An audio/video processor.
    * @param textProcessor A text processor.
    */
-  MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient, CommandExecutor commandExecutor,
+  MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
       Tika tika, ImageProcessor imageProcessor, AudioVideoProcessor audioVideoProcessor,
       TextProcessor textProcessor) {
     this.resourceDownloadClient = resourceDownloadClient;
-    this.commandExecutor = commandExecutor;
     this.tika = tika;
     this.imageProcessor = imageProcessor;
     this.audioVideoProcessor = audioVideoProcessor;
@@ -52,18 +49,22 @@ public class MediaExtractorImpl implements MediaExtractor {
    * Factory method for non-testing purposes.
    *
    * @param redirectCount The maximum number of times we will follow a redirect.
-   * @param commandThreadPoolSize The maximum number of processes that can do command-line IO.
+   * @param thumbnailGenerateTimeout The maximum amount of time, in seconds, a thumbnail generation
+   * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
+   * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe
+   * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
    * @return A new instance of this class.
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
-  public static MediaExtractorImpl newInstance(int redirectCount, int commandThreadPoolSize)
-      throws MediaProcessorException {
-    final CommandExecutor commandExecutor = new CommandExecutor(commandThreadPoolSize);
-    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(commandExecutor);
+  public static MediaExtractorImpl newInstance(int redirectCount, int thumbnailGenerateTimeout,
+      int audioVideoProbeTimeout) throws MediaProcessorException {
+    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
+        new CommandExecutor(thumbnailGenerateTimeout));
     final ResourceDownloadClient downloadClient = new ResourceDownloadClient(redirectCount,
         ResourceType::shouldDownloadMimetype);
-    return new MediaExtractorImpl(downloadClient, commandExecutor, new Tika(),
-        new ImageProcessor(thumbnailGenerator), new AudioVideoProcessor(commandExecutor),
+    return new MediaExtractorImpl(downloadClient, new Tika(),
+        new ImageProcessor(thumbnailGenerator),
+        new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout)),
         new TextProcessor(thumbnailGenerator));
   }
 
@@ -149,10 +150,6 @@ public class MediaExtractorImpl implements MediaExtractor {
 
   @Override
   public void close() throws IOException {
-    try {
-      commandExecutor.close();
-    } finally {
-      resourceDownloadClient.close();
-    }
+    resourceDownloadClient.close();
   }
 }
