@@ -6,12 +6,13 @@ import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.indexing.utils.RdfWrapper;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
+
 import org.apache.commons.lang3.StringUtils;
 
 class LanguageTagStatistics {
@@ -54,16 +55,20 @@ class LanguageTagStatistics {
         .forEach(contextualClassesWithValidLanguages::add);
   }
 
+  private static <T> Stream<T> getStream(List<T> list) {
+    return Optional.ofNullable(list).map(List::stream).orElse(Stream.empty());
+  }
+  
   private boolean hasValidLanguage(PlaceType place) {
-    return place.getPrefLabelList().stream().anyMatch(this::hasValidLanguage);
+    return getStream(place.getPrefLabelList()).anyMatch(this::hasValidLanguage);
   }
 
   private boolean hasValidLanguage(TimeSpanType timespan) {
-    return timespan.getPrefLabelList().stream().anyMatch(this::hasValidLanguage);
+    return getStream(timespan.getPrefLabelList()).anyMatch(this::hasValidLanguage);
   }
 
   private boolean hasValidLanguage(Concept concept) {
-    return concept.getChoiceList().stream().filter(Concept.Choice::ifPrefLabel)
+    return getStream(concept.getChoiceList()).filter(Concept.Choice::ifPrefLabel)
         .map(Concept.Choice::getPrefLabel).anyMatch(this::hasValidLanguage);
   }
 
@@ -83,6 +88,10 @@ class LanguageTagStatistics {
   }
 
   void addToStatistics(ResourceOrLiteralType property, PropertyType type) {
+    if (property == null) {
+      // sanity check.
+      return;
+    }
     if (StringUtils.isNotBlank(property.getString())) {
       // If the literal has a value, check whether the language is not empty.
       propertiesInEntity.add(type);
@@ -99,8 +108,7 @@ class LanguageTagStatistics {
   }
 
   void addToStatistics(List<? extends ResourceOrLiteralType> properties, PropertyType type) {
-    Optional.ofNullable(properties).orElse(Collections.emptyList())
-        .forEach(property -> addToStatistics(property, type));
+    getStream(properties).forEach(property -> addToStatistics(property, type));
   }
 
   double getPropertyWithLanguageRatio() {

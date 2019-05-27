@@ -30,7 +30,7 @@ public final class ClassifierFactory {
   /**
    * @return A classifier for the media tier.
    */
-  public static TierClassifier<MediaTier> getMediaTierClassifier() {
+  public static TierClassifier<MediaTier> getMediaClassifier() {
     return new MediaClassifier();
   }
 }

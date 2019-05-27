@@ -21,7 +21,7 @@ public class MediaClassifier implements TierClassifier<MediaTier> {
     // Get the type, and do sanity check.
     final EdmType edmType = entity.getEdmType();
     if (edmType == null) {
-      return MediaTier.MIN;
+      return MediaTier.T0;
     }
 
     // Get the right classifier.
