@@ -19,9 +19,6 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceDownloadClient.class);
 
-  private static final int CONNECT_TIMEOUT = 10_000;
-  private static final int SOCKET_TIMEOUT = 20_000;
-
   private final Predicate<String> shouldDownloadMimetype;
 
   /**
@@ -30,9 +27,12 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    * @param shouldDownloadMimetype A predicate that, based on the mime type, can decide whether or
    * not to proceed with the download.
+   * @param connectTimeout The connection timeout in milliseconds.
+   * @param socketTimeout The socket timeout in milliseconds.
    */
-  public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype) {
-    super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT);
+  public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype,
+      int connectTimeout, int socketTimeout) {
+    super(maxRedirectCount, connectTimeout, socketTimeout);
     this.shouldDownloadMimetype = shouldDownloadMimetype;
   }
 

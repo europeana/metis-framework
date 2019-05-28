@@ -53,15 +53,18 @@ public class MediaExtractorImpl implements MediaExtractor {
    * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
    * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe
    * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
+   * @param connectTimeout The connection timeout in milliseconds for downloading resources.
+   * @param socketTimeout The socket timeout in milliseconds for downloading resources.
    * @return A new instance of this class.
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
   public static MediaExtractorImpl newInstance(int redirectCount, int thumbnailGenerateTimeout,
-      int audioVideoProbeTimeout) throws MediaProcessorException {
+      int audioVideoProbeTimeout, int connectTimeout, int socketTimeout)
+      throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
     final ResourceDownloadClient downloadClient = new ResourceDownloadClient(redirectCount,
-        ResourceType::shouldDownloadMimetype);
+        ResourceType::shouldDownloadMimetype, connectTimeout, socketTimeout);
     return new MediaExtractorImpl(downloadClient, new Tika(),
         new ImageProcessor(thumbnailGenerator),
         new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout)),
