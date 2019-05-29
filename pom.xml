@@ -71,8 +71,8 @@
     <version.jacoco>0.8.0</version.jacoco>
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>2.0.0</version.embedded.mongo>
-    <version.mongo.java.driver>3.6.2</version.mongo.java.driver>
-    <version.mongojack>2.3.0</version.mongojack>
+    <version.mongo.java.driver>3.9.1</version.mongo.java.driver>
+    <version.mongojack>2.10.0</version.mongojack>
     <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.commons.io>2.6</version.commons.io>
     <version.commons.codec>1.11</version.commons.codec>
