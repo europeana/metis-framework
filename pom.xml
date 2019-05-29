@@ -46,7 +46,7 @@
     <jacocoArgLine /> <!-- Leave as is, it's required from jacoco plugin integration -->
     <version.ecloud>1.5.0-SNAPSHOT</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
-    <version.redisson>3.5.7</version.redisson>
+    <version.redisson>3.11.0</version.redisson>
     <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
