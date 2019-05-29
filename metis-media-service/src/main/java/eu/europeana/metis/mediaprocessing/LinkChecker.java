@@ -1,7 +1,6 @@
 package eu.europeana.metis.mediaprocessing;
 
 import eu.europeana.metis.mediaprocessing.exception.LinkCheckingException;
-import java.io.Closeable;
 
 /**
  * Implementations of this interface provide the link checking functionality. This object can be
@@ -9,7 +8,7 @@ import java.io.Closeable;
  * not guaranteed to be thread-safe. Access to this object should be from one thread only, or
  * synchronized/locked.
  */
-public interface LinkChecker extends Closeable {
+public interface LinkChecker extends PoolableProcessor<String, Void, LinkCheckingException> {
 
   /**
    * Perform link checking on the given resource link.
@@ -19,4 +18,9 @@ public interface LinkChecker extends Closeable {
    */
   void performLinkChecking(String resourceEntry) throws LinkCheckingException;
 
+  @Override
+  default Void processTask(String input) throws LinkCheckingException {
+    performLinkChecking(input);
+    return null;
+  }
 }

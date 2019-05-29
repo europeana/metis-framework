@@ -16,4 +16,14 @@ public class LinkCheckingException extends Exception {
   public LinkCheckingException(Throwable cause) {
     super(cause);
   }
+
+  /**
+   * Constructor.
+   *
+   * @param message The exception message.
+   * @param cause The cause.
+   */
+  public LinkCheckingException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

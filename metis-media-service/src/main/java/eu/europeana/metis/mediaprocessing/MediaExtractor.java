@@ -3,7 +3,6 @@ package eu.europeana.metis.mediaprocessing;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import java.io.Closeable;
 
 /**
  * Implementations of this interface provide the media extraction functionality. This object can be
@@ -11,7 +10,8 @@ import java.io.Closeable;
  * not guaranteed to be thread-safe. Access to this object should be from one thread only, or
  * synchronized/locked.
  */
-public interface MediaExtractor extends Closeable {
+public interface MediaExtractor extends
+    PoolableProcessor<RdfResourceEntry, ResourceExtractionResult, MediaExtractionException> {
 
   /**
    * Perform media extraction on the given resource link.
@@ -24,4 +24,9 @@ public interface MediaExtractor extends Closeable {
   ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry)
       throws MediaExtractionException;
 
+  @Override
+  default ResourceExtractionResult processTask(RdfResourceEntry input)
+      throws MediaExtractionException {
+    return performMediaExtraction(input);
+  }
 }
