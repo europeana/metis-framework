@@ -200,8 +200,8 @@ class ThumbnailGenerator {
 
     // TODO JV We should change this into a whitelist of supported formats.
     // Exception for DjVu files
-    if (detectedMimeType.startsWith("image/vnd.djvu") || detectedMimeType
-        .startsWith("image/x-djvu")) {
+    if (detectedMimeType.startsWith("image/vnd.djvu") || detectedMimeType.startsWith("image/x-djvu")
+        || detectedMimeType.startsWith("image/x.djvu")) {
       throw new MediaExtractionException("Cannot generate thumbnails for DjVu file.");
     }
 
