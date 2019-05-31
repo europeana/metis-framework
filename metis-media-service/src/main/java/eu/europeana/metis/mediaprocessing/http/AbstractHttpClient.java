@@ -40,6 +40,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   private static final long CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS = 60L;
   private static final long MAX_TASK_IDLE_TIME_IN_SECONDS = 300L;
 
+  private final PoolingHttpClientConnectionManager connectionManager;
   private final CloseableHttpClient client;
   private final ScheduledExecutorService connectionCleaningSchedule = Executors
       .newScheduledThreadPool(1);
@@ -58,7 +59,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
         .setConnectTimeout(connectTimeout).setSocketTimeout(socketTimeout).build();
 
     // Create a connection manager tuned to one thread use.
-    final PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+    connectionManager = new PoolingHttpClientConnectionManager();
     connectionManager.setDefaultMaxPerRoute(1);
 
     // Build the client.
@@ -152,6 +153,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   @Override
   public void close() throws IOException {
     connectionCleaningSchedule.shutdown();
+    connectionManager.close();
     client.close();
   }
 

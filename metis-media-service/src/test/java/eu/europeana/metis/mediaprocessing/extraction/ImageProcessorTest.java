@@ -68,10 +68,8 @@ class ImageProcessorTest {
 
     // Define thumbnails
     final ThumbnailImpl thumbnail1 = mock(ThumbnailImpl.class);
-    doReturn(Paths.get("File 1")).when(thumbnail1).getContentPath();
     doReturn("thumbnail 1").when(thumbnail1).getTargetName();
     final ThumbnailImpl thumbnail2 = mock(ThumbnailImpl.class);
-    doReturn(Paths.get("File 2")).when(thumbnail2).getContentPath();
     doReturn("thumbnail 2").when(thumbnail1).getTargetName();
 
     // Define output and mock thumbnail generator - resource type for which metadata is generated.

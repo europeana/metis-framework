@@ -28,6 +28,7 @@ import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
@@ -134,18 +135,19 @@ class ThumbnailGeneratorTest {
       throws MediaExtractionException, CommandExecutionException, IOException {
 
     // Define first thumbnail
-    final ThumbnailImpl thumbnail1 = mock(ThumbnailImpl.class);
-    doReturn(Paths.get("File 1")).when(thumbnail1).getContentPath();
     final int size1 = 123;
+    final ThumbnailWithSize thumbnail1 = spy(new ThumbnailWithSize(mock(ThumbnailImpl.class), size1,
+        Paths.get("File 1")));
+    doNothing().when(thumbnail1).deleteTempFileSilently();
 
     // Define second thumbnail
-    final ThumbnailImpl thumbnail2 = mock(ThumbnailImpl.class);
-    doReturn(Paths.get("File 2")).when(thumbnail2).getContentPath();
     final int size2 = 321;
+    final ThumbnailWithSize thumbnail2 = spy(new ThumbnailWithSize(mock(ThumbnailImpl.class), size2,
+        Paths.get("File 2")));
+    doNothing().when(thumbnail2).deleteTempFileSilently();
 
     // Define other method input
-    final List<ThumbnailWithSize> thumbnails = Arrays
-        .asList(new ThumbnailWithSize(thumbnail1, size1), new ThumbnailWithSize(thumbnail2, size2));
+    final List<ThumbnailWithSize> thumbnails = Arrays.asList(thumbnail1, thumbnail2);
     final String url = "testUrl";
     final File content = new File("content file");
     final List<String> command = Arrays.asList("command1", "command2");
@@ -160,23 +162,33 @@ class ThumbnailGeneratorTest {
     doReturn(commandResponse).when(commandExecutor).execute(command, false);
     doReturn(imageMetadata).when(thumbnailGenerator).parseCommandResponse(commandResponse);
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
-    doNothing().when(thumbnailGenerator).copyFile(any(), any());
+    doNothing().when(thumbnailGenerator).copyFile(any(Path.class), any());
+    doNothing().when(thumbnailGenerator).copyFile(any(File.class), any());
 
     // Call the method and verify the result.
     final Pair<ImageMetadata, List<Thumbnail>> result = thumbnailGenerator
         .generateThumbnails(url, JPG_MIME_TYPE, content);
     assertSame(imageMetadata, result.getLeft());
-    assertEquals(Arrays.asList(thumbnail1, thumbnail2), result.getRight());
-    verify(thumbnail1, never()).close();
-    verify(thumbnail2, never()).close();
+    assertEquals(Arrays.asList(thumbnail1.getThumbnail(), thumbnail2.getThumbnail()),
+        result.getRight());
+    verify(thumbnail1.getThumbnail(), never()).close();
+    verify(thumbnail2.getThumbnail(), never()).close();
+    verify(thumbnail1, times(1)).deleteTempFileSilently();
+    verify(thumbnail2, times(1)).deleteTempFileSilently();
 
-    // Check that the copy method was called: the source was too small for the large thumbnail.
-    verify(thumbnailGenerator, times(1)).copyFile(any(), any());
-    verify(thumbnailGenerator).copyFile(content, thumbnail2.getContentPath());
 
-    // Check that the copy method is not called again for text.
+    // Check that the generated thumbnail was used for thumbnail 1.
+    verify(thumbnailGenerator, times(1)).copyFile(any(Path.class), any());
+    verify(thumbnailGenerator, times(1)).copyFile(thumbnail1.getTempFileForThumbnail(), thumbnail1);
+
+    // Check that the content was used for thumbnail 2.
+    verify(thumbnailGenerator, times(1)).copyFile(any(File.class), any());
+    verify(thumbnailGenerator, times(1)).copyFile(content, thumbnail2);
+
+    // Check that the copy method was called twice more for text content.
     thumbnailGenerator.generateThumbnails(url, PDF_MIME_TYPE, content);
-    verify(thumbnailGenerator, times(1)).copyFile(any(), any());
+    verify(thumbnailGenerator, times(1)).copyFile(any(File.class), any());
+    verify(thumbnailGenerator, times(3)).copyFile(any(Path.class), any());
 
     // Check null content
     assertThrows(MediaExtractionException.class,
@@ -188,8 +200,8 @@ class ThumbnailGeneratorTest {
     assertThrows(MediaExtractionException.class,
         () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
     doReturn(commandResponse).when(commandExecutor).execute(command, false);
-    verify(thumbnail1, times(1)).close();
-    verify(thumbnail2, times(1)).close();
+    verify(thumbnail1.getThumbnail(), times(1)).close();
+    verify(thumbnail2.getThumbnail(), times(1)).close();
 
     // Check empty thumbnail - thumbnails should be closed.
     doReturn(0L).when(thumbnailGenerator).getFileSize(any());
@@ -202,8 +214,8 @@ class ThumbnailGeneratorTest {
     assertThrows(MediaExtractionException.class,
         () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
-    verify(thumbnail1, times(4)).close();
-    verify(thumbnail2, times(4)).close();
+    verify(thumbnail1.getThumbnail(), times(4)).close();
+    verify(thumbnail2.getThumbnail(), times(4)).close();
 
     // Check that all is well again.
     thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content);
@@ -269,18 +281,17 @@ class ThumbnailGeneratorTest {
   void testCreateThumbnailGenerationCommand() {
 
     // Define first thumbnail
-    final ThumbnailImpl thumbnail1 = mock(ThumbnailImpl.class);
-    doReturn(Paths.get("File 1")).when(thumbnail1).getContentPath();
     final int size1 = 123;
+    final ThumbnailWithSize thumbnail1 = new ThumbnailWithSize(mock(ThumbnailImpl.class), size1,
+        Paths.get("File 1"));
 
     // Define second thumbnail
-    final ThumbnailImpl thumbnail2 = mock(ThumbnailImpl.class);
-    doReturn(Paths.get("File 2")).when(thumbnail2).getContentPath();
     final int size2 = 321;
+    final ThumbnailWithSize thumbnail2 = new ThumbnailWithSize(mock(ThumbnailImpl.class), size2,
+        Paths.get("File 2"));
 
     // Define other method input
-    final List<ThumbnailWithSize> input = Arrays
-        .asList(new ThumbnailWithSize(thumbnail1, size1), new ThumbnailWithSize(thumbnail2, size2));
+    final List<ThumbnailWithSize> input = Arrays.asList(thumbnail1, thumbnail2);
     final File file = new File("content file");
 
     // Make call for JPEG
@@ -290,8 +301,8 @@ class ThumbnailGeneratorTest {
     // Verify image
     final List<String> expectedImage = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
         "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:", "(", "+clone",
-        "-thumbnail", size1 + "x", "-write", "jpeg:" + thumbnail1.getContentPath().toString(), "+delete", ")",
-        "-thumbnail", size2 + "x", "-write", "jpeg:" + thumbnail2.getContentPath().toString(),
+        "-thumbnail", size1 + "x", "-write", "jpeg:" + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
+        "-thumbnail", size2 + "x", "-write", "jpeg:" + thumbnail2.getTempFileForThumbnail().toString(),
         "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
         "-format", "\n%c", "histogram:info:");
     assertEquals(expectedImage, commandImage);
@@ -303,8 +314,8 @@ class ThumbnailGeneratorTest {
     // Verify image
     final List<String> expectedPng = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
         "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:", "(", "+clone",
-        "-thumbnail", size1 + "x", "-write", "png:" + thumbnail1.getContentPath().toString(), "+delete", ")",
-        "-thumbnail", size2 + "x", "-write", "png:" + thumbnail2.getContentPath().toString(),
+        "-thumbnail", size1 + "x", "-write", "png:" + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
+        "-thumbnail", size2 + "x", "-write", "png:" + thumbnail2.getTempFileForThumbnail().toString(),
         "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
         "-format", "\n%c", "histogram:info:");
     assertEquals(expectedPng, commandPng);
@@ -317,15 +328,15 @@ class ThumbnailGeneratorTest {
     final List<String> expectedText = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
         "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
         "-background", "white", "-alpha", "remove", "(", "+clone",
-        "-thumbnail", size1 + "x", "-write", "png:" + thumbnail1.getContentPath().toString(), "+delete", ")",
-        "-thumbnail", size2 + "x", "-write", "png:" + thumbnail2.getContentPath().toString(),
+        "-thumbnail", size1 + "x", "-write", "png:" + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
+        "-thumbnail", size2 + "x", "-write", "png:" + thumbnail2.getTempFileForThumbnail().toString(),
         "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
         "-format", "\n%c", "histogram:info:");
     assertEquals(expectedText, commandText);
   }
 
   @Test
-  void testPrepareThumbnailFiles() throws MediaExtractionException, IOException {
+  void testPrepareThumbnailFiles() throws MediaExtractionException {
 
     // Make the call
     final String url = "http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg";

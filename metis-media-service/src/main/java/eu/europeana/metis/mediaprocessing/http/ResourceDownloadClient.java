@@ -6,8 +6,6 @@ import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,7 +70,7 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
   private static void downloadResource(String resourceUrl, ResourceImpl resource,
       ContentRetriever contentRetriever) throws IOException {
     try (final InputStream inputStream = contentRetriever.getContent()) {
-      Files.copy(inputStream, resource.getContentPath(), StandardCopyOption.REPLACE_EXISTING);
+      resource.setContent(inputStream);
     }
     if (resource.getContentSize() == 0) {
       throw new IOException("Download failed of resource " + resourceUrl + ": no content found.");

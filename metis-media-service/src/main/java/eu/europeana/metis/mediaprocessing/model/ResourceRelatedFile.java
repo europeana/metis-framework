@@ -11,10 +11,10 @@ import java.io.InputStream;
  * </p>
  * <p>
  * Please note that this extends the {@link Closeable} interface, meaning that a resource file's
- * {@link ResourceFile#close()} method needs to be called when the caller has finished with it.
+ * {@link ResourceRelatedFile#close()} method needs to be called when the caller has finished with it.
  * </p>
  */
-interface ResourceFile extends Closeable {
+interface ResourceRelatedFile extends Closeable {
 
   /**
    * @return The resource URL of the resource with which this file is associated.
