@@ -90,28 +90,34 @@ public class QueueConsumer extends DefaultConsumer {
       super.getChannel().basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
       LOGGER.debug("NACK sent for {} with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
     } else {
-      WorkflowExecution workflowExecution =
-          persistenceProvider.getWorkflowExecutionDao().getById(objectId);
-      if (workflowExecution == null) {
-        // This execution no longer exists (why???) and we need to ignore it.
-        LOGGER.warn("Workflow execution with id: {} is in queue but no longer exists.", objectId.toString());
-      } else if (workflowExecution.isCancelling()) {
-        // Has been cancelled, do not execute
-        workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
-        persistenceProvider.getWorkflowExecutionDao().update(workflowExecution);
-        LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
-            workflowExecution.getId());
-      } else {
-        // Submit for execution
-        WorkflowExecutor workflowExecutor = new WorkflowExecutor(objectId, persistenceProvider,
-            workflowExecutionSettings, workflowExecutionMonitor);
-        completionService.submit(workflowExecutor);
-        threadsCounter++;
+      try {
+        WorkflowExecution workflowExecution =
+            persistenceProvider.getWorkflowExecutionDao().getById(objectId);
+        if (workflowExecution == null) {
+          // This execution no longer exists and we need to ignore it.
+          LOGGER.warn("Workflow execution with id: {} is in queue but no longer exists.", objectId);
+        } else if (workflowExecution.isCancelling()) {
+          // Has been cancelled, do not execute
+          workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
+          persistenceProvider.getWorkflowExecutionDao().update(workflowExecution);
+          LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
+              workflowExecution.getId());
+        } else {
+          // Submit for execution
+          WorkflowExecutor workflowExecutor = new WorkflowExecutor(objectId, persistenceProvider,
+              workflowExecutionSettings, workflowExecutionMonitor);
+          completionService.submit(workflowExecutor);
+          threadsCounter++;
+        }
+      } catch (Throwable e) {
+        LOGGER.error(
+            "Exception occurred during submitting message from queue to a workflowExecution for id {}",
+            objectId);
+      } finally {
+        // Send ACK back to remove from queue asap.
+        super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
+        LOGGER.debug("ACK sent for {} with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
       }
-      // Send ACK back to remove from queue asap.
-      super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
-      LOGGER.debug("ACK sent for {} with tag {}", workflowExecution.getId(),
-          rabbitmqEnvelope.getDeliveryTag());
     }
   }
 
