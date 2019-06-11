@@ -1,5 +1,6 @@
 package eu.europeana.indexing.solr.crf;
 
+import eu.europeana.indexing.utils.WebResourceWrapper;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
