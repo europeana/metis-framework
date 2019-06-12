@@ -79,7 +79,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     resource.setHeight(height);
     resource.setOrientation(width > height ? Orientation.LANDSCAPE : Orientation.PORTRAIT);
     resource.setColorspace(colorSpace);
-    resource.setDominantColors(Collections.unmodifiableList(dominantColors));
+    resource.setDominantColors(getDominantColors());
   }
 
   public int getWidth() {
@@ -95,6 +95,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
   }
 
   public List<String> getDominantColors() {
-    return Collections.unmodifiableList(dominantColors);
+    return dominantColors == null ? Collections.emptyList()
+        : Collections.unmodifiableList(dominantColors);
   }
 }
