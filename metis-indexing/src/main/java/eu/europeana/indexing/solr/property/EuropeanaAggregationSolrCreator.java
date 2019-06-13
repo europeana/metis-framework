@@ -29,6 +29,9 @@ public class EuropeanaAggregationSolrCreator implements PropertySolrCreator<Euro
         europeanaAggregation.getEdmCountry());
     SolrPropertyUtils.addValues(doc, EdmLabel.EUROPEANA_AGGREGATION_EDM_LANGUAGE,
         europeanaAggregation.getEdmLanguage());
-    new WebResourceSolrCreator(licenses).addAllToDocument(doc, europeanaAggregation.getWebResources());
+    SolrPropertyUtils.addValue(doc, EdmLabel.EUROPEANA_AGGREGATION_EDM_PREVIEW,
+        europeanaAggregation.getEdmPreview());
+    new WebResourceSolrCreator(licenses)
+        .addAllToDocument(doc, europeanaAggregation.getWebResources());
   }
 }

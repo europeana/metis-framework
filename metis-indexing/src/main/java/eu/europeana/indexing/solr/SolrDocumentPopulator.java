@@ -13,6 +13,7 @@ import eu.europeana.indexing.solr.property.LicenseSolrCreator;
 import eu.europeana.indexing.solr.property.PlaceSolrCreator;
 import eu.europeana.indexing.solr.property.ProvidedChoSolrCreator;
 import eu.europeana.indexing.solr.property.ProxySolrCreator;
+import eu.europeana.indexing.solr.property.QualityAnnotationSolrCreator;
 import eu.europeana.indexing.solr.property.ServiceSolrCreator;
 import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
@@ -66,6 +67,7 @@ public class SolrDocumentPopulator {
     new AgentSolrCreator().addAllToDocument(document, fullBean.getAgents());
     new PlaceSolrCreator().addAllToDocument(document, fullBean.getPlaces());
     new ServiceSolrCreator().addAllToDocument(document, fullBean.getServices());
+    new QualityAnnotationSolrCreator().addAllToDocument(document, fullBean.getQualityAnnotations());
 
     final Set<String> defRights = fullBean.getAggregations().stream()
         .map(AggregationImpl::getEdmRights).filter(Objects::nonNull)
