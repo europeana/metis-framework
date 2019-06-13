@@ -82,8 +82,8 @@ public enum WebResourceLinkType {
 
     // The result map with empty type lists. Only contains the urls with one of the required types.
     final Map<String, Set<WebResourceLinkType>> result = types.stream().map(urlsByType::get)
-        .flatMap(Set::stream)
-        .collect(Collectors.toMap(Function.identity(), url -> new HashSet<>()));
+        .flatMap(Set::stream).collect(
+            Collectors.toMap(Function.identity(), url -> new HashSet<>(), (url1, url2) -> url1));
 
     // Add the right types to the urls.
     for (Entry<WebResourceLinkType, Set<String>> typeWithUrls : urlsByType.entrySet()) {
