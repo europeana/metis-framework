@@ -10,9 +10,8 @@ import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 
 /**
- * Converts a {@link EuropeanaAggregationType} from an
- * {@link eu.europeana.corelib.definitions.jibx.RDF} to a {@link EuropeanaAggregationImpl} for a
- * {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link EuropeanaAggregationType} from an {@link eu.europeana.corelib.definitions.jibx.RDF}
+ * to a {@link EuropeanaAggregationImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class EuropeanaAggregationFieldInput
     implements Function<EuropeanaAggregationType, EuropeanaAggregationImpl> {
@@ -54,6 +53,9 @@ final class EuropeanaAggregationFieldInput
     String edmPreview = Optional.ofNullable(aggregation.getPreview())
         .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setEdmPreview(edmPreview);
+    mongoAggregation.setDqvHasQualityAnnotation(
+        FieldInputUtils.resourceListToArray(aggregation.getHasQualityAnnotationList()));
+
     return mongoAggregation;
   }
 }
