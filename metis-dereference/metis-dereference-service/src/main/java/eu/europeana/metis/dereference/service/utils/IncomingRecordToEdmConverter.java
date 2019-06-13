@@ -59,14 +59,7 @@ public class IncomingRecordToEdmConverter {
       final Transformer transformer = template.newTransformer();
       transformer.setParameter(TARGET_ID_PARAMETER_NAME, recordId);
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-      // Workaround for some special characters (html codes) that are not handled well. This works
-      // because we are transforming to a Java string, not writing to an actual file (which will be
-      // done later): these can have a different encoding.
-      // This issue came to light when we received Gothic script as &#...; html codes.
-      stringWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
-      transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_16.name());
-      transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+      transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_8.name());
 
       // Perform the transformation.
       transformer.transform(source, new StreamResult(stringWriter));
