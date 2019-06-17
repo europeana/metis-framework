@@ -33,7 +33,7 @@ public class LinkCheckerImpl implements LinkChecker {
     try {
       linkCheckClient.download(resourceEntry);
     } catch (IOException | RuntimeException e) {
-      throw new LinkCheckingException(e);
+      throw new LinkCheckingException("Problem while processing " + resourceEntry, e);
     }
   }
 
