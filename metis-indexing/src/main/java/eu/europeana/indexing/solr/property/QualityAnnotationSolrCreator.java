@@ -20,7 +20,7 @@ public class QualityAnnotationSolrCreator implements PropertySolrCreator<Quality
     }
 
     if (tierTypeLabel != null) {
-      SolrPropertyUtils.addValues(doc, tierTypeLabel, qualityAnnotation.getOaHasBody());
+      SolrPropertyUtils.addValue(doc, tierTypeLabel, qualityAnnotation.getOaHasBody());
     }
   }
 

@@ -18,12 +18,9 @@ public class QualityAnnotationFieldInput implements
   public QualityAnnotationImpl apply(QualityAnnotation qualityAnnotation) {
     QualityAnnotationImpl qualityAnnotationImpl = new QualityAnnotationImpl();
     qualityAnnotationImpl.setAbout(qualityAnnotation.getAbout());
-    qualityAnnotationImpl.setDcTermsCreated(
-        FieldInputUtils.resourceOrLiteralListToArray(qualityAnnotation.getCreatedList()));
-    qualityAnnotationImpl.setOaHasTarget(
-        FieldInputUtils.resourceListToArray(qualityAnnotation.getHasTargetList()));
-    qualityAnnotationImpl.setOaHasBody(
-        FieldInputUtils.resourceListToArray(qualityAnnotation.getHasBodyList()));
+    qualityAnnotationImpl.setDcTermsCreated(qualityAnnotation.getCreated().getString());
+    qualityAnnotationImpl.setOaHasTarget(qualityAnnotation.getHasTarget().getResource());
+    qualityAnnotationImpl.setOaHasBody(qualityAnnotation.getHasBody().getResource());
     return qualityAnnotationImpl;
   }
 }
