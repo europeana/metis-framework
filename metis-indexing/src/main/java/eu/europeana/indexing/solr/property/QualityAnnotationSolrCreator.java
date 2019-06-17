@@ -12,13 +12,16 @@ public class QualityAnnotationSolrCreator implements PropertySolrCreator<Quality
 
   @Override
   public void addToDocument(SolrInputDocument doc, QualityAnnotation qualityAnnotation) {
-    final EdmLabel tierTypeLabel;
-    if (qualityAnnotation.getAbout().contains("metadataTier")) {
+    EdmLabel tierTypeLabel = null;
+    if (qualityAnnotation.getAbout().endsWith("#metadataTier")) {
       tierTypeLabel = EdmLabel.METADATA_TIER;
-    } else {
+    } else if (qualityAnnotation.getAbout().endsWith("#contentTier")) {
       tierTypeLabel = EdmLabel.CONTENT_TIER;
     }
-    SolrPropertyUtils.addValues(doc, tierTypeLabel, qualityAnnotation.getOaHasBody());
+
+    if (tierTypeLabel != null) {
+      SolrPropertyUtils.addValues(doc, tierTypeLabel, qualityAnnotation.getOaHasBody());
+    }
   }
 
 }
