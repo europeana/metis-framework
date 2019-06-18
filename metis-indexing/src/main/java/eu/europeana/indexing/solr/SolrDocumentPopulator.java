@@ -1,5 +1,6 @@
 package eu.europeana.indexing.solr;
 
+import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
@@ -13,7 +14,6 @@ import eu.europeana.indexing.solr.property.LicenseSolrCreator;
 import eu.europeana.indexing.solr.property.PlaceSolrCreator;
 import eu.europeana.indexing.solr.property.ProvidedChoSolrCreator;
 import eu.europeana.indexing.solr.property.ProxySolrCreator;
-import eu.europeana.indexing.solr.property.QualityAnnotationSolrCreator;
 import eu.europeana.indexing.solr.property.ServiceSolrCreator;
 import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
@@ -23,9 +23,14 @@ import eu.europeana.indexing.utils.WebResourceWrapper;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 
 /**
@@ -48,6 +53,7 @@ public class SolrDocumentPopulator {
    */
   public void populateWithProperties(SolrInputDocument document, FullBeanImpl fullBean) {
 
+    // Gather the licenses.
     final List<LicenseImpl> licenses;
     if (fullBean.getLicenses() == null) {
       licenses = Collections.emptyList();
@@ -56,25 +62,38 @@ public class SolrDocumentPopulator {
           .collect(Collectors.toList());
     }
 
+    // Gather the quality annotations.
+    final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations())
+        .map(List::stream).orElse(Stream.empty()).filter(Objects::nonNull)
+        .map(AggregationImpl::getAbout).filter(Objects::nonNull).collect(Collectors.toSet());
+    final Map<String, QualityAnnotation> qualityAnnotations = Optional
+        .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElse(Stream.empty())
+        .filter(Objects::nonNull)
+        .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
+        .filter(annotation -> acceptableTargets.contains(annotation.getOaHasTarget()))
+        .collect(Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
+
+    // Add the containing objects.
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
     new AggregationSolrCreator(licenses).addToDocument(document,
         fullBean.getAggregations().get(0));
-    new EuropeanaAggregationSolrCreator(licenses).addToDocument(document,
-        fullBean.getEuropeanaAggregation());
+    new EuropeanaAggregationSolrCreator(licenses, qualityAnnotations::get)
+        .addToDocument(document, fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
     new ConceptSolrCreator().addAllToDocument(document, fullBean.getConcepts());
     new TimespanSolrCreator().addAllToDocument(document, fullBean.getTimespans());
     new AgentSolrCreator().addAllToDocument(document, fullBean.getAgents());
     new PlaceSolrCreator().addAllToDocument(document, fullBean.getPlaces());
     new ServiceSolrCreator().addAllToDocument(document, fullBean.getServices());
-    new QualityAnnotationSolrCreator().addAllToDocument(document, fullBean.getQualityAnnotations());
 
+    // Add the licenses.
     final Set<String> defRights = fullBean.getAggregations().stream()
         .map(AggregationImpl::getEdmRights).filter(Objects::nonNull)
         .flatMap(SolrPropertyUtils::getRightsFromMap).collect(Collectors.toSet());
     new LicenseSolrCreator(license -> defRights.contains(license.getAbout()))
         .addAllToDocument(document, fullBean.getLicenses());
 
+    // Add the top-level properties.
     document.addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(),
         fullBean.getEuropeanaCompleteness());
     document.addField(EdmLabel.EUROPEANA_COLLECTIONNAME.toString(),
