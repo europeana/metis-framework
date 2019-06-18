@@ -7,7 +7,7 @@ import eu.europeana.corelib.definitions.jibx.HexBinaryType;
 import eu.europeana.corelib.definitions.jibx.OrientationType;
 import eu.europeana.corelib.definitions.jibx.SpatialResolution;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.indexing.solr.crf.EncodedMediaType;
+import eu.europeana.indexing.solr.facet.EncodedMediaType;
 import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashSet;
