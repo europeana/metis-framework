@@ -41,6 +41,7 @@ public enum EdmLabel {
   // EUROPEANA AGGREGATION
   EUROPEANA_AGGREGATION_EDM_COUNTRY("europeana_aggregation_edm_country"), 
   EUROPEANA_AGGREGATION_EDM_LANGUAGE("europeana_aggregation_edm_language"),
+  EUROPEANA_AGGREGATION_EDM_PREVIEW("europeana_aggregation_edm_preview"),
   
   // WEB RESOURCE FIELDS
   EDM_WEB_RESOURCE("edm_webResource"), 
@@ -56,6 +57,10 @@ public enum EdmLabel {
   //SERVICE
   SV_SERVICE("svcs_service"),
   SV_DCTERMS_CONFORMS_TO("sv_dcterms_conformsTo"),
+
+  //QUALITY ANNOTATION
+  CONTENT_TIER("contentTier"),
+  METADATA_TIER("metadataTier"),
 
   // PROVIDER PROXY
   PROXY_DC_COVERAGE("proxy_dc_coverage"), 

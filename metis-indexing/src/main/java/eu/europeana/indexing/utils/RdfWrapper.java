@@ -13,6 +13,7 @@ import eu.europeana.corelib.definitions.jibx.License;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
+import eu.europeana.corelib.definitions.jibx.QualityAnnotation;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.Service;
@@ -292,6 +293,10 @@ public class RdfWrapper {
    */
   public List<Service> getServices() {
     return getFilteredPropertyList(record.getServiceList());
+  }
+
+  public List<QualityAnnotation> getQualityAnnotations() {
+    return getFilteredPropertyList(record.getQualityAnnotationList());
   }
 
   private static <T extends AboutType> List<T> getFilteredPropertyList(List<T> propertyList) {
