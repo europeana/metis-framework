@@ -3,6 +3,7 @@ package eu.europeana.indexing.solr.property;
 import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.utils.RdfTier;
+import eu.europeana.indexing.utils.RdfTierUtils;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -61,7 +62,7 @@ public class QualityAnnotationSolrCreator implements PropertySolrCreator<Quality
 
   @Override
   public void addToDocument(SolrInputDocument doc, QualityAnnotation qualityAnnotation) {
-    Optional.of(qualityAnnotation).map(RdfTier::getTier).map(tiers::get).ifPresent(
+    Optional.of(qualityAnnotation).map(RdfTierUtils::getTier).map(tiers::get).ifPresent(
         tier -> SolrPropertyUtils.addValue(doc, tier.getTierLabel(), tier.getTierValue())
     );
   }
