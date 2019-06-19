@@ -54,7 +54,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
    * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
   public FullBeanImpl convertStringToFullBean(String record) throws IndexingException {
-    return convertRdfToFullBean(convertStringToRdf(record));
+    return convertRdfToFullBean(new RdfWrapper(convertStringToRdf(record)));
   }
 
   /**
@@ -64,7 +64,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
    * @return The RDF instance.
    * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
-  public RdfWrapper convertStringToRdf(String record) throws IndexingException {
+  public RDF convertStringToRdf(String record) throws IndexingException {
 
     // Convert string to RDF
     final RDF rdf;
@@ -84,7 +84,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
     }
 
     // Done.
-    return new RdfWrapper(rdf);
+    return rdf;
   }
 
   private static IBindingFactory getRdfBindingFactory()
