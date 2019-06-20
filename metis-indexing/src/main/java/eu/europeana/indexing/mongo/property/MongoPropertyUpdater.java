@@ -2,7 +2,6 @@ package eu.europeana.indexing.mongo.property;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -146,8 +145,8 @@ class MongoPropertyUpdater<T> {
     // Sort and compare
     final List<I> sortedListA = new ArrayList<>(listA);
     final List<I> sortedListB = new ArrayList<>(listB);
-    Collections.sort(sortedListA, comparator);
-    Collections.sort(sortedListB, comparator);
+    sortedListA.sort(comparator);
+    sortedListB.sort(comparator);
     return sortedListA.equals(sortedListB);
   }
 
@@ -205,8 +204,9 @@ class MongoPropertyUpdater<T> {
 
   /**
    * <p>
-   * This method updates an array property. Before doing so, it will remove null or empty values
-   * from the array.
+   * This method updates a string array property. Before doing so, it will remove null or empty
+   * values from the array. It will not however remove an empty array or set an empty array to
+   * null.
    * </p>
    * <p>
    * This method tests if there is anything to update. If there is, after this method is called,
@@ -214,12 +214,52 @@ class MongoPropertyUpdater<T> {
    * </p>
    *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    */
   public void updateArray(String updateField, Function<T, String[]> getter) {
+    updateArray(updateField, getter, false);
+  }
+
+  /**
+   * <p>
+   * This method updates a string array property. Before doing so, it will remove null or empty
+   * values from the array.
+   * </p>
+   * <p>
+   * This method tests if there is anything to update. If there is, after this method is called,
+   * {@link #applyOperations()} will include the update.
+   * </p>
+   *
+   * @param updateField The name of the field to update. This is the name under which they will be
+   * stored in the operations list (see {@link #applyOperations()}).
+   * @param getter The getter that obtains the property value from the object.
+   * @param makeEmptyArrayNull Whether to remove an empty array (i.e. set an empty array to null).
+   */
+  public void updateArray(String updateField, Function<T, String[]> getter,
+      boolean makeEmptyArrayNull) {
+    final UnaryOperator<String[]> nullChecker = array -> (makeEmptyArrayNull && array.length == 0)
+        ? null : array;
     updateProperty(updateField, getter, MongoPropertyUpdater::arrayEquals,
-        STRING_ARRAY_PREPROCESSING);
+        STRING_ARRAY_PREPROCESSING.andThen(nullChecker)::apply);
+  }
+
+  /**
+   * <p>
+   * This method updates an object list property.
+   * </p>
+   * <p>
+   * This method tests if there is anything to update. If there is, after this method is called,
+   * {@link #applyOperations()} will include the update.
+   * </p>
+   *
+   * @param updateField The name of the field to update. This is the name under which they will be
+   * stored in the operations list (see {@link #applyOperations()}).
+   * @param getter The getter that obtains the property value from the object.
+   */
+  public <P> void updateObjectList(String updateField, Function<T, List<P>> getter) {
+    updateProperty(updateField, getter, (input1, input2) -> false,
+        list -> list.isEmpty() ? null : list);
   }
 
   /**
@@ -424,7 +464,7 @@ class MongoPropertyUpdater<T> {
     // Get the current (saved) value (or null if there is no current object).
     final P currentValue = Optional.ofNullable(current).map(getter).orElse(null);
 
-    // Get the new value and apply preprocessing.
+    // Get the new value.
     final P updatedValue = Optional.of(updated).map(getter).orElse(null);
 
     // If we need to remove it, do so.

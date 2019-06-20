@@ -1,6 +1,10 @@
 package eu.europeana.indexing.mongo.property;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.corelib.definitions.edm.entity.Agent;
@@ -25,8 +29,12 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.function.Function;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 class FullBeanUpdaterTest extends MongoEntityUpdaterTest<FullBeanImpl> {
 
@@ -83,6 +91,14 @@ class FullBeanUpdaterTest extends MongoEntityUpdaterTest<FullBeanImpl> {
         FullBeanImpl::setServices, null, ServiceImpl::new);
     this.<License, Void>testReferencedEntitiesPropertyUpdate(propertyUpdater, "licenses",
         FullBeanImpl::setLicenses, null, LicenseImpl::new);
+
+    final FullBeanImpl fullBean = new FullBeanImpl();
+    fullBean.setQualityAnnotations(new ArrayList<>());
+    @SuppressWarnings("unchecked") final ArgumentCaptor<Function<FullBeanImpl, List<Object>>> getterCaptor = ArgumentCaptor
+        .forClass(Function.class);
+    verify(propertyUpdater, times(1))
+        .updateObjectList(eq("qualityAnnotations"), getterCaptor.capture());
+    assertSame(fullBean.getQualityAnnotations(), getterCaptor.getValue().apply(fullBean));
 
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
