@@ -27,5 +27,7 @@ public class EuropeanaAggregationUpdater
     propertyUpdater.updateArray("aggregates", EuropeanaAggregation::getAggregates);
     propertyUpdater.updateWebResources("webResources", EuropeanaAggregation::getWebResources,
         ancestorInformation);
+    propertyUpdater.updateArray("dqvHasQualityAnnotation",
+        EuropeanaAggregation::getDqvHasQualityAnnotation, true);
   }
 }

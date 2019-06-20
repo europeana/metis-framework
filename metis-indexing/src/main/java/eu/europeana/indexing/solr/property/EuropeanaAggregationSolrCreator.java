@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 
@@ -46,10 +48,10 @@ public class EuropeanaAggregationSolrCreator implements PropertySolrCreator<Euro
         europeanaAggregation.getEdmPreview());
     new WebResourceSolrCreator(licenses)
         .addAllToDocument(doc, europeanaAggregation.getWebResources());
-    final List<QualityAnnotation> annotationsToAdd = Arrays
-        .stream(europeanaAggregation.getDqvHasQualityAnnotation()).filter(StringUtils::isNotBlank)
-        .distinct().map(qualityAnnotationGetter).filter(Objects::nonNull)
-        .collect(Collectors.toList());
+    final List<QualityAnnotation> annotationsToAdd = Optional
+        .ofNullable(europeanaAggregation.getDqvHasQualityAnnotation()).map(Arrays::stream)
+        .orElse(Stream.empty()).filter(StringUtils::isNotBlank).distinct()
+        .map(qualityAnnotationGetter).filter(Objects::nonNull).collect(Collectors.toList());
     new QualityAnnotationSolrCreator().addAllToDocument(doc, annotationsToAdd);
   }
 }
