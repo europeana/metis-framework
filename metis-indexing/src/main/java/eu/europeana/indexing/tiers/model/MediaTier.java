@@ -14,11 +14,6 @@ public enum MediaTier implements Tier {
   }
 
   @Override
-  public String getLabel() {
-    return Integer.toString(level);
-  }
-
-  @Override
   public int getLevel() {
     return level;
   }

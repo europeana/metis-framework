@@ -11,11 +11,6 @@ import java.util.Comparator;
 public interface Tier {
 
   /**
-   * @return The label of this tier, which is human readable.
-   */
-  String getLabel();
-
-  /**
    * @return The level of this tier, where a high level denotes higher quality.
    */
   int getLevel();
