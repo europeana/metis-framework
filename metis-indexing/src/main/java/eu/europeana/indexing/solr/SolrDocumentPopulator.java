@@ -20,6 +20,7 @@ import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -70,7 +71,7 @@ public class SolrDocumentPopulator {
         .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElse(Stream.empty())
         .filter(Objects::nonNull)
         .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
-        .filter(annotation -> acceptableTargets.contains(annotation.getOaHasTarget()))
+        .filter(annotation -> Arrays.stream(annotation.getTarget()).anyMatch(acceptableTargets::contains))
         .collect(Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
 
     // Add the containing objects.

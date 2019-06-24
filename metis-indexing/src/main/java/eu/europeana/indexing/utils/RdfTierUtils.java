@@ -15,6 +15,7 @@ import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ public final class RdfTierUtils {
   public static RdfTier getTier(
       eu.europeana.corelib.definitions.edm.entity.QualityAnnotation annotation) {
     return Optional.ofNullable(annotation)
-        .map(eu.europeana.corelib.definitions.edm.entity.QualityAnnotation::getOaHasBody)
+        .map(eu.europeana.corelib.definitions.edm.entity.QualityAnnotation::getBody)
         .map(tiersByUri::get).orElse(null);
   }
 
@@ -104,7 +105,9 @@ public final class RdfTierUtils {
     annotation.setCreated(created);
     final HasTarget hasTarget = new HasTarget();
     hasTarget.setResource(aggregationAbout);
-    annotation.setHasTarget(hasTarget);
+    final ArrayList<HasTarget> hasTargets = new ArrayList<>();
+    hasTargets.add(hasTarget);
+    annotation.setHasTargetList(hasTargets);
     final HasBody hasBody = new HasBody();
     hasBody.setResource(tier.getUri());
     annotation.setHasBody(hasBody);

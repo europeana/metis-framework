@@ -21,13 +21,13 @@ public class QualityAnnotationFieldInput implements
   public QualityAnnotationImpl apply(QualityAnnotation qualityAnnotation) {
     QualityAnnotationImpl qualityAnnotationImpl = new QualityAnnotationImpl();
     qualityAnnotationImpl.setAbout(qualityAnnotation.getAbout());
-    qualityAnnotationImpl.setDcTermsCreated(
+    qualityAnnotationImpl.setCreated(
         Optional.ofNullable(qualityAnnotation.getCreated()).map(ResourceOrLiteralType::getString)
             .orElse(null));
-    qualityAnnotationImpl.setOaHasTarget(Optional.ofNullable(qualityAnnotation.getHasTarget()).map(
-        ResourceType::getResource)
-        .orElse(null));
-    qualityAnnotationImpl.setOaHasBody(
+    qualityAnnotationImpl.setTarget(Optional.ofNullable(qualityAnnotation.getHasTargetList()).map(
+        FieldInputUtils::resourceListToArray)
+        .orElse(new String[0]));
+    qualityAnnotationImpl.setBody(
         Optional.ofNullable(qualityAnnotation.getHasBody()).map(ResourceType::getResource)
             .orElse(null));
     return qualityAnnotationImpl;
