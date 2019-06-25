@@ -1,5 +1,6 @@
 package eu.europeana.indexing.utils;
 
+import eu.europeana.corelib.definitions.jibx.AggregatedCHO;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
 import eu.europeana.corelib.definitions.jibx.Created;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
@@ -15,7 +16,6 @@ import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -88,15 +88,17 @@ public final class RdfTierUtils {
 
     // Determine if there is something to reference and somewhere to add the reference.
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-    final String aggregationAbout = rdfWrapper.getAggregations().stream()
-        .filter(Objects::nonNull).map(Aggregation::getAbout).filter(StringUtils::isNotBlank)
-        .findAny().orElse(null);
-    if (aggregationAbout == null) {
-      throw new RecordRelatedIndexingException("Cannot find provider aggregation in record.");
-    }
+    final String aggregationAbout = rdfWrapper.getAggregations().stream().filter(Objects::nonNull)
+        .map(Aggregation::getAbout).filter(StringUtils::isNotBlank).findAny()
+        .orElseThrow(() -> new RecordRelatedIndexingException(
+            "Cannot find provider aggregation in record."));
     final EuropeanaAggregationType europeanaAggregation = rdfWrapper.getEuropeanaAggregation()
         .orElseThrow(() -> new RecordRelatedIndexingException(
-            "Cannot find europeana aggregation in record."));
+            "Cannot find Europeana aggregation in record."));
+    final String choAbout = Optional.ofNullable(europeanaAggregation.getAggregatedCHO()).map(
+        AggregatedCHO::getResource).orElseThrow(() -> new RecordRelatedIndexingException(
+        "Cannot find aggregated CHO in Europeana aggregation."));
+    final String annotationAboutBase = "/item" + choAbout;
 
     // Create the annotation
     final QualityAnnotation annotation = new QualityAnnotation();
@@ -105,13 +107,11 @@ public final class RdfTierUtils {
     annotation.setCreated(created);
     final HasTarget hasTarget = new HasTarget();
     hasTarget.setResource(aggregationAbout);
-    final ArrayList<HasTarget> hasTargets = new ArrayList<>();
-    hasTargets.add(hasTarget);
-    annotation.setHasTargetList(hasTargets);
+    annotation.setHasTargetList(Collections.singletonList(hasTarget));
     final HasBody hasBody = new HasBody();
     hasBody.setResource(tier.getUri());
     annotation.setHasBody(hasBody);
-    annotation.setAbout(aggregationAbout + tier.getAboutSuffix());
+    annotation.setAbout(annotationAboutBase + tier.getAboutSuffix());
 
     // Add the annotation (remove all annotations with the same about)
     final Stream<QualityAnnotation> existingAnnotations = rdfWrapper.getQualityAnnotations()

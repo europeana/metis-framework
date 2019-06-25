@@ -24,9 +24,8 @@ public class QualityAnnotationFieldInput implements
     qualityAnnotationImpl.setCreated(
         Optional.ofNullable(qualityAnnotation.getCreated()).map(ResourceOrLiteralType::getString)
             .orElse(null));
-    qualityAnnotationImpl.setTarget(Optional.ofNullable(qualityAnnotation.getHasTargetList()).map(
-        FieldInputUtils::resourceListToArray)
-        .orElse(new String[0]));
+    qualityAnnotationImpl
+        .setTarget(FieldInputUtils.resourceListToArray(qualityAnnotation.getHasTargetList()));
     qualityAnnotationImpl.setBody(
         Optional.ofNullable(qualityAnnotation.getHasBody()).map(ResourceType::getResource)
             .orElse(null));

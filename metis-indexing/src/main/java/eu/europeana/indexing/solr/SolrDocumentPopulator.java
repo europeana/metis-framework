@@ -29,6 +29,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
@@ -67,11 +68,14 @@ public class SolrDocumentPopulator {
     final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations())
         .map(List::stream).orElse(Stream.empty()).filter(Objects::nonNull)
         .map(AggregationImpl::getAbout).filter(Objects::nonNull).collect(Collectors.toSet());
+    final Predicate<QualityAnnotation> hasAcceptableTarget = annotation -> Optional
+        .ofNullable(annotation.getTarget()).map(Arrays::stream).orElse(Stream.empty())
+        .anyMatch(acceptableTargets::contains);
     final Map<String, QualityAnnotation> qualityAnnotations = Optional
         .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElse(Stream.empty())
         .filter(Objects::nonNull)
         .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
-        .filter(annotation -> Arrays.stream(annotation.getTarget()).anyMatch(acceptableTargets::contains))
+        .filter(hasAcceptableTarget)
         .collect(Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
 
     // Add the containing objects.
