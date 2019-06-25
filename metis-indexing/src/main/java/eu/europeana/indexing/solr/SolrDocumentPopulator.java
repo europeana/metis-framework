@@ -22,6 +22,7 @@ import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -116,38 +117,36 @@ public class SolrDocumentPopulator {
    */
   public void populateWithCrfFields(SolrInputDocument document, RdfWrapper rdf) {
 
-    // Get the web resources.
-    final List<WebResourceWrapper> webResources = rdf.getWebResourceWrappers();
-
     // has_thumbnails is true if and only if edm:EuropeanaAggregation/edm:preview is filled and the
     // associated edm:webResource exists with technical metadata (i.e. ebucore:hasMimetype is set).
     document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), rdf.hasThumbnails());
 
-    // has_media is true if and only if there is at least one web resource, not of type
-    // 'is_shown_at', representing technical metadata of a known type.
-    final boolean hasMedia = webResources.stream()
-        .filter(resource -> !resource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_AT))
-        .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != EncodedMediaType.OTHER);
+    // has_media is true if and only if there is at least one web resource of type 'isShownBy'
+    // or 'hasView' representing technical metadata of a known type.
+    final List<WebResourceWrapper> webResourcesWithMedia = rdf.getWebResourceWrappers(
+        EnumSet.of(WebResourceLinkType.IS_SHOWN_BY, WebResourceLinkType.HAS_VIEW));
+    final boolean hasMedia = webResourcesWithMedia.stream().map(WebResourceWrapper::getMediaType)
+        .anyMatch(type -> type != EncodedMediaType.OTHER);
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
     // has_landingPage is true if and only if there is at least one web resource of type
-    // 'is_shown_at', representing technical metadata of some (non-null) mime type.
-    final boolean hasLandingPage = webResources.stream()
-        .filter(resource -> resource.getLinkTypes().contains(WebResourceLinkType.IS_SHOWN_AT))
+    // 'isShownAt', representing technical metadata of some (non-null) mime type.
+    final boolean hasLandingPage = rdf
+        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT)).stream()
         .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
     document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), hasLandingPage);
 
-    // is_fulltext is true if and only if there is at least one web resource with 'rdf:type' equal
-    // to 'edm:FullTextResource'.
-    final boolean isFullText = webResources.stream().map(WebResourceWrapper::getType)
+    // is_fulltext is true if and only if there is at least one web resource of type 'isShownBy'
+    // or 'hasView' with 'rdf:type' equal to 'edm:FullTextResource'.
+    final boolean isFullText = webResourcesWithMedia.stream().map(WebResourceWrapper::getType)
         .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
     document.addField(EdmLabel.CRF_IS_FULL_TEXT.toString(), isFullText);
 
-    // Compose the filter and facet tags.
+    // Compose the filter and facet tags. Only use the web resources of type 'isShownBy' or 'hasView'.
     final Set<Integer> filterTags = new HashSet<>();
     final Set<Integer> facetTags = new HashSet<>();
     final TagExtractor tagExtractor = new TagExtractor();
-    for (WebResourceWrapper webResource : webResources) {
+    for (WebResourceWrapper webResource : webResourcesWithMedia) {
       filterTags.addAll(tagExtractor.getFilterTags(webResource));
       facetTags.addAll(tagExtractor.getFacetTags(webResource));
     }
