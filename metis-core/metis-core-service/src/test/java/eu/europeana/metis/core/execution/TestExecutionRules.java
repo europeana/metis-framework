@@ -82,7 +82,7 @@ class TestExecutionRules {
         EnumSet.of(ExecutablePluginType.PREVIEW));
     final Set<ExecutablePluginType> allowedSetForLinkChecking = new HashSet<>(
         ExecutionRules.getProcessPluginGroup());
-    allowedSetForLinkChecking.addAll(ExecutionRules.getIndexPluginGroup());
+    allowedSetForLinkChecking.addAll(EnumSet.allOf(ExecutablePluginType.class));
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.LINK_CHECKING,
         allowedSetForLinkChecking);
   }

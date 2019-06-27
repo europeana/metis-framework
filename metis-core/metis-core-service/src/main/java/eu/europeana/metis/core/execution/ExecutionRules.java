@@ -6,7 +6,6 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -131,8 +130,7 @@ public final class ExecutionRules {
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.PREVIEW);
         break;
       case LINK_CHECKING:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(PROCESS_PLUGIN_GROUP);
-        pluginTypesSetThatPluginTypeCanBeBasedOn.addAll(INDEX_PLUGIN_GROUP);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.allOf(ExecutablePluginType.class);
         break;
       default:
         pluginTypesSetThatPluginTypeCanBeBasedOn = Collections.emptySet();
