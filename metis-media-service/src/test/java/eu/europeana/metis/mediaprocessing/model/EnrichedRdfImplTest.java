@@ -18,11 +18,13 @@ import static org.mockito.Mockito.verify;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -72,7 +74,10 @@ class EnrichedRdfImplTest {
     assertEquals(1, rdf.getWebResourceList().size());
     assertEquals(url1, rdf.getWebResourceList().get(0).getAbout());
     assertEquals(1, enrichedRdf.getResourceUrls().size());
-    assertEquals(names1, enrichedRdf.getThumbnailTargetNames(url1));
+    final Entry<String, Set<String>> thumbnailTargetNames = enrichedRdf
+        .getThumbnailTargetNames(url1);
+    assertEquals(url1, thumbnailTargetNames.getKey());
+    assertEquals(names1, thumbnailTargetNames.getValue());
     verify(resource1.getMetaData(), times(1)).updateResource(any());
 
     // Add the second resource: need to create new resource in RDF.
@@ -86,7 +91,10 @@ class EnrichedRdfImplTest {
     verify(rdf, never()).setWebResourceList(notNull());
     assertEquals(2, rdf.getWebResourceList().size());
     assertEquals(url2, rdf.getWebResourceList().get(1).getAbout());
-    assertEquals(names2, enrichedRdf.getThumbnailTargetNames(url2));
+    final Entry<String, Set<String>> thumbnailTargetNames2 = enrichedRdf
+        .getThumbnailTargetNames(url2);
+    assertEquals(url2, thumbnailTargetNames2.getKey());
+    assertEquals(names2, thumbnailTargetNames2.getValue());
     verify(resource2.getMetaData(), times(1)).updateResource(any());
 
     // Add the third resource: make sure it already exists in RDF first.
@@ -103,7 +111,10 @@ class EnrichedRdfImplTest {
     verify(rdf, never()).setWebResourceList(notNull());
     assertEquals(3, rdf.getWebResourceList().size());
     assertEquals(url3, rdf.getWebResourceList().get(2).getAbout());
-    assertEquals(names3, enrichedRdf.getThumbnailTargetNames(url3));
+    final Entry<String, Set<String>> thumbnailTargetNames3 = enrichedRdf
+        .getThumbnailTargetNames(url3);
+    assertEquals(url3, thumbnailTargetNames3.getKey());
+    assertEquals(names3, thumbnailTargetNames3.getValue());
     verify(resource3.getMetaData(), times(1)).updateResource(any());
   }
 
@@ -131,10 +142,13 @@ class EnrichedRdfImplTest {
         .when(enrichedRdf).getResourceUrls(eq(EnumSet.of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW)));
     doReturn(Stream.of(url1, url2, url3).collect(Collectors.toSet())).when(enrichedRdf)
         .getResourceUrls();
-    doReturn(Collections.singleton(thumbnail1)).when(enrichedRdf).getThumbnailTargetNames(url1);
-    doReturn(Stream.of(thumbnail2Medium, thumbnail2Large).collect(Collectors.toSet()))
-        .when(enrichedRdf).getThumbnailTargetNames(url2);
-    assertEquals(thumbnail2Large, enrichedRdf.getEdmPreviewUrl());
+    final SimpleEntry<String, Set<String>> stringSetSimpleEntry = new SimpleEntry<>(url1,
+        new HashSet<>(Collections.singletonList(thumbnail1)));
+    doReturn(stringSetSimpleEntry).when(enrichedRdf).getThumbnailTargetNames(url1);
+    final SimpleEntry<String, Set<String>> stringSetSimpleEntry2 = new SimpleEntry<>(url2,
+        new HashSet<>(Arrays.asList(thumbnail2Medium, thumbnail2Large)));
+    doReturn(stringSetSimpleEntry2).when(enrichedRdf).getThumbnailTargetNames(url2);
+    assertEquals(url2, enrichedRdf.getEdmPreviewUrl());
 
   }
 

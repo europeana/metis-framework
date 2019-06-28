@@ -8,8 +8,8 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -76,8 +76,10 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
         .map(this::getEligiblePreviewThumbnail).filter(Objects::nonNull).findFirst().orElse(null);
   }
 
-  private String getEligiblePreviewThumbnail(Set<String> targetNames) {
-    return targetNames.stream().filter(name -> name.contains("-LARGE")).findAny().orElse(null);
+  private String getEligiblePreviewThumbnail(Entry<String, Set<String>> targetNames) {
+    final boolean containsEligibleThumbnail = targetNames.getValue().stream()
+        .anyMatch(name -> name.contains("-LARGE"));
+    return containsEligibleThumbnail ? targetNames.getKey() : null;
   }
 
   void updateEdmPreview(String url) {
@@ -93,8 +95,9 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
     return Collections.unmodifiableSet(thumbnailTargetNames.keySet());
   }
 
-  Set<String> getThumbnailTargetNames(String resourceUrl) {
-    return Optional.ofNullable(thumbnailTargetNames.get(resourceUrl))
-        .map(Collections::unmodifiableSet).orElse(null);
+  Entry<String, Set<String>> getThumbnailTargetNames(String resourceUrl) {
+
+    return thumbnailTargetNames.entrySet().stream()
+        .filter(entry -> entry.getKey().equals(resourceUrl)).findAny().orElse(null);
   }
 }
