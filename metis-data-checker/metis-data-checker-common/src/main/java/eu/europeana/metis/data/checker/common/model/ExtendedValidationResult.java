@@ -48,10 +48,10 @@ public class ExtendedValidationResult extends ValidationResultList {
 
   @XmlElement
   public List<String> getRecords() {
-    return new ArrayList<>(records);
+    return records == null ? null : new ArrayList<>(records);
   }
 
   public void setRecords(List<String> records) {
-    this.records = new ArrayList<>(records);
+    this.records = records == null ? null : new ArrayList<>(records);
   }
 }

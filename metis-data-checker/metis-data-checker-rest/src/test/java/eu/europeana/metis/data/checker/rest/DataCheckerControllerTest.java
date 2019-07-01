@@ -130,8 +130,8 @@ class DataCheckerControllerTest {
     result.setPortalUrl("myUri");
     result.setDate(date);
     List<String> records = new ArrayList<>();
-    result.setRecords(records);
     records.add("myRecord");
+    result.setRecords(records);
     return result;
   }
 }
