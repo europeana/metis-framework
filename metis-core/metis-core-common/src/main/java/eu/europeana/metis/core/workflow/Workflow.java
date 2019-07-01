@@ -1,7 +1,13 @@
 package eu.europeana.metis.core.workflow;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -13,12 +19,6 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexes;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.json.ObjectIdSerializer;
 
 /**
  * Workflow model class.
@@ -80,6 +80,18 @@ public class Workflow implements HasMongoObjectId {
       if (metisPluginMetadata.getExecutablePluginType() == pluginType) {
         return metisPluginMetadata;
       }
+    }
+    return null;
+  }
+
+  public ExecutablePluginType getFirstEnabledPluginBeforeLink() {
+    ExecutablePluginType previousExecutablePluginType = null;
+    for (AbstractExecutablePluginMetadata metisPluginMetadata : metisPluginsMetadata) {
+      if (metisPluginMetadata.isEnabled()
+          && metisPluginMetadata.getExecutablePluginType() == ExecutablePluginType.LINK_CHECKING) {
+        return previousExecutablePluginType;
+      }
+      previousExecutablePluginType = metisPluginMetadata.getExecutablePluginType();
     }
     return null;
   }

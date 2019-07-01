@@ -132,29 +132,37 @@ public class OrchestratorHelper {
       ExecutablePluginType enforcedPluginType, List<AbstractExecutablePlugin> metisPlugins,
       boolean firstPluginDefined) throws PluginExecutionNotAllowed {
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.VALIDATION_EXTERNAL);
+        firstPluginDefined, ExecutablePluginType.VALIDATION_EXTERNAL, null);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.TRANSFORMATION);
+        firstPluginDefined, ExecutablePluginType.TRANSFORMATION, null);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.VALIDATION_INTERNAL);
+        firstPluginDefined, ExecutablePluginType.VALIDATION_INTERNAL, null);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.NORMALIZATION);
+        firstPluginDefined, ExecutablePluginType.NORMALIZATION, null);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.ENRICHMENT);
+        firstPluginDefined, ExecutablePluginType.ENRICHMENT, null);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.MEDIA_PROCESS);
+        firstPluginDefined, ExecutablePluginType.MEDIA_PROCESS, null);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.LINK_CHECKING);
+        firstPluginDefined, ExecutablePluginType.PREVIEW, null);
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.PREVIEW);
+        firstPluginDefined, ExecutablePluginType.PUBLISH, null);
+
+    //Link Checking can be applied in any place after importing
+    final ExecutablePluginType firstEnabledPluginBeforeLinkChecking = workflow
+        .getFirstEnabledPluginBeforeLink();
     firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.PUBLISH);
+        firstPluginDefined, ExecutablePluginType.LINK_CHECKING,
+        firstEnabledPluginBeforeLinkChecking);
+
     return firstPluginDefined;
   }
 
   private boolean addNonHarvestPlugin(Dataset dataset, Workflow workflow,
       ExecutablePluginType enforcedPluginType, List<AbstractExecutablePlugin> metisPlugins,
-      boolean firstPluginDefined, ExecutablePluginType pluginType) throws PluginExecutionNotAllowed {
+      boolean firstPluginDefined, ExecutablePluginType pluginType,
+      ExecutablePluginType firstEnabledPluginBeforeLinkChecking)
+      throws PluginExecutionNotAllowed {
     AbstractExecutablePluginMetadata pluginMetadata = workflow.getPluginMetadata(pluginType);
     if (pluginMetadata != null && pluginMetadata.isEnabled()) {
       if (!firstPluginDefined) {
@@ -201,7 +209,19 @@ public class OrchestratorHelper {
 
       // Create plugin
       final AbstractExecutablePlugin plugin = createPlugin(pluginMetadata);
-      metisPlugins.add(plugin);
+      if (firstEnabledPluginBeforeLinkChecking != null) {
+        int addAtIndex = 0;
+        for (int i = 0; i < metisPlugins.size(); i++) {
+          if (((AbstractExecutablePluginMetadata) metisPlugins.get(i).getPluginMetadata())
+              .getExecutablePluginType().equals(firstEnabledPluginBeforeLinkChecking)) {
+            addAtIndex = i + 1;
+            break;
+          }
+        }
+        metisPlugins.add(addAtIndex, plugin);
+      } else {
+        metisPlugins.add(plugin);
+      }
       firstPluginDefined = true;
     }
     return firstPluginDefined;
