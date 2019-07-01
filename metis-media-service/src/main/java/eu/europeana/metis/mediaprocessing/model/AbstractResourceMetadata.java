@@ -76,7 +76,8 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
    */
   @Override
   public Set<String> getThumbnailTargetNames() {
-    return Optional.ofNullable(thumbnailTargetNames).map(Collections::unmodifiableSet).orElse(Collections.emptySet());
+    return Optional.ofNullable(thumbnailTargetNames).map(Collections::unmodifiableSet)
+        .orElseGet(Collections::emptySet);
   }
 
   public long getContentSize() {
@@ -94,7 +95,7 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
   }
 
   /**
-   * @return A serializable (and deserializable) wrapper containing this resource metadata. 
+   * @return A serializable (and deserializable) wrapper containing this resource metadata.
    */
   protected abstract ResourceMetadata prepareForSerialization();
 }

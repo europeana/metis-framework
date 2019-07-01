@@ -64,7 +64,7 @@ public final class ExecutionRules {
       // If pluginType is MEDIA_PROCESS and there is no latest plugin allowed, therefore abstractMetisPlugin == null,
       // check latest successful OAIPMH_HARVEST and if that was based on the europeana endpoint during migration, then
       // we return that instead.
-      if (pluginType.equals(ExecutablePluginType.MEDIA_PROCESS) && plugin == null) {
+      if (pluginType == ExecutablePluginType.MEDIA_PROCESS && plugin == null) {
         final AbstractExecutablePlugin latestOaiPlugin = workflowExecutionDao
             .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
                 EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true);

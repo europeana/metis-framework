@@ -111,7 +111,7 @@ public enum EnablingElement {
       // Multiple candidate groups: for each link and each candidate group determine whether the map
       // of contextual objects contain the url with a class associated with the given group.
       final BiPredicate<String, EnablingElementGroup> contextualObjectChecker = (url, group) -> Optional
-          .of(contextualObjects).map(map -> map.get(url)).map(Set::stream).orElse(Stream.empty())
+          .of(contextualObjects).map(map -> map.get(url)).map(Set::stream).orElseGet(Stream::empty)
           .anyMatch(group.contextualClass::isAssignableFrom);
       result = proxies.stream().flatMap(proxy -> property.getLinkAndValueGetter().getLinks(proxy))
           .flatMap(url -> candidateGroups.stream()

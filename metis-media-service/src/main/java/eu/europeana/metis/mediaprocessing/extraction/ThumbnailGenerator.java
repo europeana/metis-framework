@@ -94,33 +94,35 @@ class ThumbnailGenerator {
     this.colormapFile = colorMapFile;
   }
 
-  private static synchronized Path initColorMap() throws MediaProcessorException {
+  private static Path initColorMap() throws MediaProcessorException {
+    synchronized (ThumbnailGenerator.class) {
 
-    // If we already found the color map, we don't need to do this
-    if (globalColormapFile != null) {
+      // If we already found the color map, we don't need to do this
+      if (globalColormapFile != null) {
+        return globalColormapFile;
+      }
+
+      // Copy the color map file to the temp directory for use during this session.
+      final Path colormapTempFile;
+      try (InputStream colorMapInputStream =
+          Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
+        colormapTempFile = Files.createTempFile("colormap", ".png");
+        Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
+      } catch (IOException e) {
+        LOGGER.warn("Could not load color map file: {}.", "colormap.png", e);
+        throw new MediaProcessorException("Could not load color map file.", e);
+      }
+
+      // Make sure that the temporary file is removed when we're done with it.
+      colormapTempFile.toFile().deleteOnExit();
+
+      // So everything went well. We set this as the new color map file.
+      globalColormapFile = colormapTempFile;
       return globalColormapFile;
     }
-
-    // Copy the color map file to the temp directory for use during this session.
-    final Path colormapTempFile;
-    try (InputStream colorMapInputStream =
-        Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
-      colormapTempFile = Files.createTempFile("colormap", ".png");
-      Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
-    } catch (IOException e) {
-      LOGGER.warn("Could not load color map file: {}.", "colormap.png", e);
-      throw new MediaProcessorException("Could not load color map file.", e);
-    }
-
-    // Make sure that the temporary file is removed when we're done with it.
-    colormapTempFile.toFile().deleteOnExit();
-
-    // So everything went well. We set this as the new color map file.
-    globalColormapFile = colormapTempFile;
-    return globalColormapFile;
   }
 
-  private static synchronized String getGlobalImageMagickCommand(CommandExecutor commandExecutor)
+  private static String getGlobalImageMagickCommand(CommandExecutor commandExecutor)
       throws MediaProcessorException {
     synchronized (ThumbnailGenerator.class) {
       if (globalMagickCommand == null) {
@@ -408,7 +410,7 @@ class ThumbnailGenerator {
       try {
         Files.delete(getTempFileForThumbnail());
       } catch (IOException e) {
-        LOGGER.warn("Could not close thumbnail: {}", getTempFileForThumbnail().toString(), e);
+        LOGGER.warn("Could not close thumbnail: {}", getTempFileForThumbnail(), e);
       }
     }
   }

@@ -215,7 +215,7 @@ public class ZohoAccessClient {
     try {
       if (searchCriteria == null || searchCriteria.isEmpty()) {//No searchCriteria available
         bulkAPIResponse = zcrmModuleAccounts
-            .getRecords(null, null, null, start, rows, modifiedDateString, null, false);
+            .getRecords(null, null, null, start, rows, modifiedDateString, null, Boolean.FALSE);
       } else {
         bulkAPIResponse = zcrmModuleAccounts
             .searchByCriteria(createZohoCriteriaString(searchCriteria, modifiedDateString), start,

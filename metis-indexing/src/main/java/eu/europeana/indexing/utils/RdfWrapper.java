@@ -73,7 +73,7 @@ public class RdfWrapper {
     final Optional<String> collectionName =
         aggregation.map(EuropeanaAggregationType::getCollectionName).map(CollectionName::getString)
             .filter(StringUtils::isNotBlank);
-    return datasetName.orElse(collectionName.orElse(""));
+    return datasetName.orElseGet(() -> collectionName.orElse(StringUtils.EMPTY));
   }
 
   /**
@@ -115,7 +115,7 @@ public class RdfWrapper {
 
   private static boolean isEuropeanaProxy(ProxyType proxy) {
     return Optional.of(proxy).map(ProxyType::getEuropeanaProxy)
-        .map(EuropeanaProxy::isEuropeanaProxy).orElse(false);
+        .map(EuropeanaProxy::isEuropeanaProxy).orElse(Boolean.FALSE);
   }
 
   /**
@@ -142,7 +142,7 @@ public class RdfWrapper {
     final Set<EdmType> types = getProxies().stream().map(ProxyType::getType)
         .filter(Objects::nonNull).map(Type2::getType).filter(Objects::nonNull)
         .collect(Collectors.toSet());
-    return (types.size() != 1) ? null : types.iterator().next();
+    return (types.size() == 1) ? types.iterator().next() : null;
   }
 
   /**

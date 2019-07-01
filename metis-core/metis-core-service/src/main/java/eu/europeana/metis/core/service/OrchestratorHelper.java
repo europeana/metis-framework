@@ -192,12 +192,12 @@ public class OrchestratorHelper {
         case PREVIEW:
           ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
           ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
-              getMetisUseAlternativeIndexingEnvironment());
+              isMetisUseAlternativeIndexingEnvironment());
           break;
         case PUBLISH:
           ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
           ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
-              getMetisUseAlternativeIndexingEnvironment());
+              isMetisUseAlternativeIndexingEnvironment());
           break;
         case LINK_CHECKING:
           ((LinkCheckingPluginMetadata) pluginMetadata)
@@ -209,18 +209,18 @@ public class OrchestratorHelper {
 
       // Create plugin
       final AbstractExecutablePlugin plugin = createPlugin(pluginMetadata);
-      if (firstEnabledPluginBeforeLinkChecking != null) {
+      if (firstEnabledPluginBeforeLinkChecking == null) {
+        metisPlugins.add(plugin);
+      } else {
         int addAtIndex = 0;
         for (int i = 0; i < metisPlugins.size(); i++) {
           if (((AbstractExecutablePluginMetadata) metisPlugins.get(i).getPluginMetadata())
-              .getExecutablePluginType().equals(firstEnabledPluginBeforeLinkChecking)) {
+              .getExecutablePluginType() == firstEnabledPluginBeforeLinkChecking) {
             addAtIndex = i + 1;
             break;
           }
         }
         metisPlugins.add(addAtIndex, plugin);
-      } else {
-        metisPlugins.add(plugin);
       }
       firstPluginDefined = true;
     }
@@ -377,7 +377,7 @@ public class OrchestratorHelper {
     }
   }
 
-  private boolean getMetisUseAlternativeIndexingEnvironment() {
+  private boolean isMetisUseAlternativeIndexingEnvironment() {
     synchronized (this) {
       return metisUseAlternativeIndexingEnvironment;
     }

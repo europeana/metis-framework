@@ -50,10 +50,9 @@ public class LanguageClassifier implements TierClassifier<MetadataTier> {
   }
 
   private void analyzeProxy(ProxyType proxy, LanguageTagStatistics statistics) {
-    Optional.of(proxy).map(ProxyType::getChoiceList).orElse(Collections.emptyList())
+    Optional.of(proxy).map(ProxyType::getChoiceList).orElseGet(Collections::emptyList)
         .forEach(choice -> analyzeProxyChoice(choice, statistics));
-    statistics
-        .addToStatistics(proxy.getCurrentLocation(), PropertyType.EDM_CURRENT_LOCATION);
+    statistics.addToStatistics(proxy.getCurrentLocation(), PropertyType.EDM_CURRENT_LOCATION);
     statistics.addToStatistics(proxy.getHasTypeList(), PropertyType.EDM_HAS_TYPE);
     statistics.addToStatistics(proxy.getIsRelatedToList(), PropertyType.EDM_IS_RELATED_TO);
   }
@@ -108,6 +107,7 @@ public class LanguageClassifier implements TierClassifier<MetadataTier> {
 
       /**
        * Adds the value to the statistics.
+       *
        * @param stats The statistics to which to add the value.
        * @param value The value to add.
        * @param type The type of the value to add.

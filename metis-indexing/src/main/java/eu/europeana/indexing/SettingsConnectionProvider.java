@@ -34,7 +34,7 @@ import eu.europeana.indexing.exception.SetupRelatedIndexingException;
  * @author jochen
  *
  */
-public final class SettingsConnectionProvider extends AbstractConnectionProvider {
+public final class SettingsConnectionProvider implements AbstractConnectionProvider {
 
   private static final String MONGO_SERVER_SETUP_ERROR = "Could not set up connection to Mongo server.";
 

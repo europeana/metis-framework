@@ -67,13 +67,13 @@ public class SolrDocumentPopulator {
 
     // Gather the quality annotations.
     final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations())
-        .map(List::stream).orElse(Stream.empty()).filter(Objects::nonNull)
+        .map(List::stream).orElseGet(Stream::empty).filter(Objects::nonNull)
         .map(AggregationImpl::getAbout).filter(Objects::nonNull).collect(Collectors.toSet());
     final Predicate<QualityAnnotation> hasAcceptableTarget = annotation -> Optional
-        .ofNullable(annotation.getTarget()).map(Arrays::stream).orElse(Stream.empty())
+        .ofNullable(annotation.getTarget()).map(Arrays::stream).orElseGet(Stream::empty)
         .anyMatch(acceptableTargets::contains);
     final Map<String, QualityAnnotation> qualityAnnotations = Optional
-        .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElse(Stream.empty())
+        .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElseGet(Stream::empty)
         .filter(Objects::nonNull)
         .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
         .filter(hasAcceptableTarget)

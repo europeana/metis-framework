@@ -89,7 +89,7 @@ public enum ResourceLinkFromProxy {
   private static LinkAndValueGetter createResourceLinksGetter(
       Function<ProxyType, List<? extends ResourceType>> linksExtractor) {
     final Function<ProxyType, Stream<String>> getLinks = proxy -> Optional.of(proxy)
-        .map(linksExtractor).orElse(Collections.emptyList()).stream().filter(Objects::nonNull)
+        .map(linksExtractor).orElseGet(Collections::emptyList).stream().filter(Objects::nonNull)
         .map(ResourceType::getResource).filter(StringUtils::isNotBlank);
     return new LinkAndValueGetter(getLinks, proxy -> Stream.empty());
   }
@@ -109,7 +109,7 @@ public enum ResourceLinkFromProxy {
   private static LinkAndValueGetter createResourceOrLiteralLinksGetter(
       Function<ProxyType, List<? extends ResourceOrLiteralType>> linksExtractor) {
     final Function<ProxyType, Stream<? extends ResourceOrLiteralType>> getObjects = proxy -> Optional
-        .of(proxy).map(linksExtractor).orElse(Collections.emptyList()).stream()
+        .of(proxy).map(linksExtractor).orElseGet(Collections::emptyList).stream()
         .filter(Objects::nonNull);
     final Function<Stream<? extends ResourceOrLiteralType>, Stream<String>> getLinks = stream -> stream
         .map(ResourceOrLiteralType::getResource).filter(Objects::nonNull).map(Resource::getResource)
@@ -122,7 +122,7 @@ public enum ResourceLinkFromProxy {
   private static <T> Function<ProxyType, List<? extends T>> getPredicatesFromChoice(
       Predicate<Choice> isRightChoice, Function<Choice, T> getPredicateFromChoice) {
     return proxy -> Optional.of(proxy).map(ProxyType::getChoiceList).map(List::stream)
-        .orElse(Stream.empty()).filter(isRightChoice).map(getPredicateFromChoice)
+        .orElseGet(Stream::empty).filter(isRightChoice).map(getPredicateFromChoice)
         .collect(Collectors.toList());
   }
 

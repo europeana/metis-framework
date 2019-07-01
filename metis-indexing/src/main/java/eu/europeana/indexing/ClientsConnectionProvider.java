@@ -11,7 +11,7 @@ import eu.europeana.indexing.exception.SetupRelatedIndexingException;
  * @author jochen
  *
  */
-final class ClientsConnectionProvider extends AbstractConnectionProvider {
+final class ClientsConnectionProvider implements AbstractConnectionProvider {
 
   private final EdmMongoServer mongoClient;
   private final SolrClient solrClient;

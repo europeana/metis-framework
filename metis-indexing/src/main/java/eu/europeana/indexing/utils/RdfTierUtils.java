@@ -125,7 +125,7 @@ public final class RdfTierUtils {
     link.setResource(annotation.getAbout());
     final Stream<HasQualityAnnotation> existingLinks = Optional
         .ofNullable(europeanaAggregation.getHasQualityAnnotationList()).map(List::stream)
-        .orElse(Stream.empty())
+        .orElseGet(Stream::empty)
         .filter(existingLink -> !link.getResource().equals(existingLink.getResource()));
     europeanaAggregation.setHasQualityAnnotationList(
         Stream.concat(existingLinks, Stream.of(link)).collect(Collectors.toList()));

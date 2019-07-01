@@ -56,9 +56,9 @@ class LanguageTagStatistics {
   }
 
   private static <T> Stream<T> getStream(List<T> list) {
-    return Optional.ofNullable(list).map(List::stream).orElse(Stream.empty());
+    return Optional.ofNullable(list).map(List::stream).orElseGet(Stream::empty);
   }
-  
+
   private boolean hasValidLanguage(PlaceType place) {
     return getStream(place.getPrefLabelList()).anyMatch(this::hasValidLanguage);
   }

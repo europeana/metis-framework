@@ -50,7 +50,7 @@ public class EuropeanaAggregationSolrCreator implements PropertySolrCreator<Euro
         .addAllToDocument(doc, europeanaAggregation.getWebResources());
     final List<QualityAnnotation> annotationsToAdd = Optional
         .ofNullable(europeanaAggregation.getDqvHasQualityAnnotation()).map(Arrays::stream)
-        .orElse(Stream.empty()).filter(StringUtils::isNotBlank).distinct()
+        .orElseGet(Stream::empty).filter(StringUtils::isNotBlank).distinct()
         .map(qualityAnnotationGetter).filter(Objects::nonNull).collect(Collectors.toList());
     new QualityAnnotationSolrCreator().addAllToDocument(doc, annotationsToAdd);
   }

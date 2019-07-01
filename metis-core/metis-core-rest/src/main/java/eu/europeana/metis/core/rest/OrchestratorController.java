@@ -506,10 +506,9 @@ public class OrchestratorController {
     }
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final ResponseListWrapper<ExecutionAndDatasetView> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResultsAndLastPage(
-        orchestratorService
-            .getWorkflowExecutionsOverview(metisUser, pluginStatuses, pluginTypes, fromDate,
-                toDate, nextPage, pageCount),
+    responseListWrapper.setResultsAndLastPage(orchestratorService
+            .getWorkflowExecutionsOverview(metisUser, pluginStatuses, pluginTypes, fromDate, toDate,
+                nextPage, pageCount),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage, pageCount);
     logPaging(responseListWrapper, nextPage);
     return responseListWrapper;

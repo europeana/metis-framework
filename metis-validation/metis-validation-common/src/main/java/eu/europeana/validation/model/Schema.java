@@ -72,11 +72,11 @@ public class Schema {
 
 
     public byte[] getZip() {
-        return zip;
+        return zip.clone();
     }
 
     public void setZip(byte[] zip) {
-        this.zip = zip;
+        this.zip = zip.clone();
     }
     @XmlElement
     public String getVersion() {

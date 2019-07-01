@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -35,7 +36,7 @@ public final class ZohoMetisUserUtils {
    */
   public static MetisUser checkZohoFieldsAndPopulateMetisUser(ZCRMRecord zcrmRecord)
       throws BadContentException {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
     HashMap<String, Object> zohoFields = zcrmRecord.getData();
 
     final MetisUser metisUser = new MetisUser();
@@ -50,7 +51,7 @@ public final class ZohoMetisUserUtils {
       metisUser.setUpdatedDate(zcrmRecord.getModifiedTime() == null ? null
           : dateFormat.parse(zcrmRecord.getModifiedTime()));
     } catch (ParseException ex) {
-      throw new BadContentException("Created or updated date could not be parsed.");
+      throw new BadContentException("Created or updated date could not be parsed.", ex);
     }
     metisUser.setCountry(stringFieldSupplier(zohoFields.get(ZohoConstants.USER_COUNTRY_FIELD)));
     final List<String> participationLevel = (List<String>) (zohoFields

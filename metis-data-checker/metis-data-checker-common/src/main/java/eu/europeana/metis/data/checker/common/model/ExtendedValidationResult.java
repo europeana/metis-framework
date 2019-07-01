@@ -1,6 +1,7 @@
 package eu.europeana.metis.data.checker.common.model;
 
 import eu.europeana.validation.model.ValidationResultList;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -47,10 +48,10 @@ public class ExtendedValidationResult extends ValidationResultList {
 
   @XmlElement
   public List<String> getRecords() {
-    return records;
+    return new ArrayList<>(records);
   }
 
   public void setRecords(List<String> records) {
-    this.records = records;
+    this.records = new ArrayList<>(records);
   }
 }
