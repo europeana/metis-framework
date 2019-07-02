@@ -88,7 +88,7 @@
     <version.openstack>1.9.0</version.openstack>
     <version.swagger>2.6.1</version.swagger>
     <version.swagger.annotations>1.5.10</version.swagger.annotations>
-    <version.jackson>2.9.7</version.jackson>
+    <version.jackson>2.9.9</version.jackson>
     <version.jackson.xc>1.9.13</version.jackson.xc>
     <version.powermock>1.7.1</version.powermock>
     <version.mockito.core>2.22.0</version.mockito.core>
