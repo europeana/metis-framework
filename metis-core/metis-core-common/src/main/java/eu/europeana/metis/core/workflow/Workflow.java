@@ -84,18 +84,6 @@ public class Workflow implements HasMongoObjectId {
     return null;
   }
 
-  public ExecutablePluginType getFirstEnabledPluginBeforeLink() {
-    ExecutablePluginType previousExecutablePluginType = null;
-    for (AbstractExecutablePluginMetadata metisPluginMetadata : metisPluginsMetadata) {
-      if (metisPluginMetadata.isEnabled()
-          && metisPluginMetadata.getExecutablePluginType() == ExecutablePluginType.LINK_CHECKING) {
-        return previousExecutablePluginType;
-      }
-      previousExecutablePluginType = metisPluginMetadata.getExecutablePluginType();
-    }
-    return null;
-  }
-
   /**
    * <p>
    * This method tests whether in this workflow all plugins of the given type occur after at least

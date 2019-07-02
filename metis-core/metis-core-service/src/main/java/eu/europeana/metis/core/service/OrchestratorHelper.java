@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -131,99 +132,76 @@ public class OrchestratorHelper {
   boolean addNonHarvestPlugins(Dataset dataset, Workflow workflow,
       ExecutablePluginType enforcedPluginType, List<AbstractExecutablePlugin> metisPlugins,
       boolean firstPluginDefined) throws PluginExecutionNotAllowed {
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.VALIDATION_EXTERNAL, null);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.TRANSFORMATION, null);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.VALIDATION_INTERNAL, null);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.NORMALIZATION, null);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.ENRICHMENT, null);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.MEDIA_PROCESS, null);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.PREVIEW, null);
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.PUBLISH, null);
 
-    //Link Checking can be applied in any place after importing
-    final ExecutablePluginType firstEnabledPluginBeforeLinkChecking = workflow
-        .getFirstEnabledPluginBeforeLink();
-    firstPluginDefined = addNonHarvestPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
-        firstPluginDefined, ExecutablePluginType.LINK_CHECKING,
-        firstEnabledPluginBeforeLinkChecking);
+    final List<AbstractExecutablePluginMetadata> enabledValidNonHarvestPluginMetadata = workflow
+        .getMetisPluginsMetadata().stream().filter(Objects::nonNull)
+        .filter(AbstractExecutablePluginMetadata::isEnabled).filter(
+            metadata -> !ExecutionRules.getHarvestPluginGroup()
+                .contains(metadata.getExecutablePluginType())).collect(Collectors.toList());
 
+    for (AbstractExecutablePluginMetadata abstractExecutablePluginMetadata : enabledValidNonHarvestPluginMetadata) {
+      if (abstractExecutablePluginMetadata != null && abstractExecutablePluginMetadata
+          .isEnabled()) {
+        firstPluginDefined = addNonHarvestPlugin(dataset, abstractExecutablePluginMetadata,
+            enforcedPluginType, metisPlugins, firstPluginDefined);
+      }
+    }
     return firstPluginDefined;
   }
 
-  private boolean addNonHarvestPlugin(Dataset dataset, Workflow workflow,
+  private boolean addNonHarvestPlugin(Dataset dataset,
+      AbstractExecutablePluginMetadata pluginMetadata,
       ExecutablePluginType enforcedPluginType, List<AbstractExecutablePlugin> metisPlugins,
-      boolean firstPluginDefined, ExecutablePluginType pluginType,
-      ExecutablePluginType firstEnabledPluginBeforeLinkChecking)
+      boolean firstPluginDefined)
       throws PluginExecutionNotAllowed {
-    AbstractExecutablePluginMetadata pluginMetadata = workflow.getPluginMetadata(pluginType);
-    if (pluginMetadata != null && pluginMetadata.isEnabled()) {
-      if (!firstPluginDefined) {
-        AbstractExecutablePlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            dataset.getDatasetId(), pluginMetadata.getExecutablePluginType(), enforcedPluginType);
-        // Set all previous revision information
-        pluginMetadata.setPreviousRevisionInformation(previousPlugin);
-      }
-
-      // Sanity check
-      if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
-        //This is practically impossible to happen since the pluginMetadata has to be valid in the Workflow using a pluginType, before reaching this state.
-        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-      }
-
-      // Add some extra configuration to the plugin metadata
-      switch (pluginType) {
-        case TRANSFORMATION:
-          setupXsltUrlForPluginMetadata(dataset, ((TransformationPluginMetadata) pluginMetadata));
-          break;
-        case VALIDATION_EXTERNAL:
-          this.setupValidationForPluginMetadata(pluginMetadata, getValidationExternalProperties());
-          break;
-        case VALIDATION_INTERNAL:
-          this.setupValidationForPluginMetadata(pluginMetadata, getValidationInternalProperties());
-          break;
-        case PREVIEW:
-          ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
-          ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
-              isMetisUseAlternativeIndexingEnvironment());
-          break;
-        case PUBLISH:
-          ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
-          ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
-              isMetisUseAlternativeIndexingEnvironment());
-          break;
-        case LINK_CHECKING:
-          ((LinkCheckingPluginMetadata) pluginMetadata)
-              .setSampleSize(getDefaultSamplingSizeForLinkChecking());
-          break;
-        default:
-          break;
-      }
-
-      // Create plugin
-      final AbstractExecutablePlugin plugin = createPlugin(pluginMetadata);
-      if (firstEnabledPluginBeforeLinkChecking == null) {
-        metisPlugins.add(plugin);
-      } else {
-        int addAtIndex = 0;
-        for (int i = 0; i < metisPlugins.size(); i++) {
-          if (((AbstractExecutablePluginMetadata) metisPlugins.get(i).getPluginMetadata())
-              .getExecutablePluginType() == firstEnabledPluginBeforeLinkChecking) {
-            addAtIndex = i + 1;
-            break;
-          }
-        }
-        metisPlugins.add(addAtIndex, plugin);
-      }
-      firstPluginDefined = true;
+    ExecutablePluginType pluginType = pluginMetadata.getExecutablePluginType();
+    if (!firstPluginDefined) {
+      AbstractExecutablePlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+          dataset.getDatasetId(), pluginMetadata.getExecutablePluginType(), enforcedPluginType);
+      // Set all previous revision information
+      pluginMetadata.setPreviousRevisionInformation(previousPlugin);
     }
+
+    // Sanity check
+    if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
+      //This is practically impossible to happen since the pluginMetadata has to be valid in the Workflow using a pluginType, before reaching this state.
+      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+    }
+
+    // Add some extra configuration to the plugin metadata
+    switch (pluginType) {
+      case TRANSFORMATION:
+        setupXsltUrlForPluginMetadata(dataset, ((TransformationPluginMetadata) pluginMetadata));
+        break;
+      case VALIDATION_EXTERNAL:
+        this.setupValidationForPluginMetadata(pluginMetadata, getValidationExternalProperties());
+        break;
+      case VALIDATION_INTERNAL:
+        this.setupValidationForPluginMetadata(pluginMetadata, getValidationInternalProperties());
+        break;
+      case PREVIEW:
+        ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
+        ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
+            isMetisUseAlternativeIndexingEnvironment());
+        break;
+      case PUBLISH:
+        ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
+        ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
+            isMetisUseAlternativeIndexingEnvironment());
+        break;
+      case LINK_CHECKING:
+        ((LinkCheckingPluginMetadata) pluginMetadata)
+            .setSampleSize(getDefaultSamplingSizeForLinkChecking());
+        break;
+      default:
+        break;
+    }
+
+    // Create plugin
+    final AbstractExecutablePlugin plugin = createPlugin(pluginMetadata);
+    metisPlugins.add(plugin);
+    firstPluginDefined = true;
+
     return firstPluginDefined;
   }
 
@@ -277,6 +255,18 @@ public class OrchestratorHelper {
         workflow.getMetisPluginsMetadata().stream()).collect(Collectors.toList()));
   }
 
+  /**
+   * Finds the latest finished plugin that is not of any {@link ExecutionRules#getHarvestPluginGroup()}
+   * and does not contain all records as failed. If none found with the above requirements, an
+   * exception will be thrown of type {@link PluginExecutionNotAllowed}
+   *
+   * @param datasetId the dataset id of which the plugin is to be found
+   * @param pluginType the plugin type of which a previous of that plugin is to be searched for
+   * @param enforcedPluginType the plugin type that bypasses the check of the {@code pluginType}
+   * value for the previous plugin search
+   * @return the latest valid finished plugin
+   * @throws PluginExecutionNotAllowed if no plugin was found with meeting the requirements
+   */
   public AbstractExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
       String datasetId, ExecutablePluginType pluginType, ExecutablePluginType enforcedPluginType)
       throws PluginExecutionNotAllowed {

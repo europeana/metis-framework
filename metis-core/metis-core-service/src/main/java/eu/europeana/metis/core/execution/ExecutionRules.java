@@ -6,6 +6,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -79,7 +80,8 @@ public final class ExecutionRules {
   }
 
   private static AbstractExecutablePlugin getLatestFinishedPluginAllowedForExecution(
-      ExecutablePluginType pluginType, String datasetId, WorkflowExecutionDao workflowExecutionDao) {
+      ExecutablePluginType pluginType, String datasetId,
+      WorkflowExecutionDao workflowExecutionDao) {
 
     AbstractExecutablePlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = null;
 
@@ -106,16 +108,18 @@ public final class ExecutionRules {
     final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn;
     switch (pluginType) {
       case VALIDATION_EXTERNAL:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = HARVEST_PLUGIN_GROUP;
+        pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(HARVEST_PLUGIN_GROUP);
         break;
       case TRANSFORMATION:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet
+            .of(ExecutablePluginType.VALIDATION_EXTERNAL);
         break;
       case VALIDATION_INTERNAL:
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.TRANSFORMATION);
         break;
       case NORMALIZATION:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.VALIDATION_INTERNAL);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet
+            .of(ExecutablePluginType.VALIDATION_INTERNAL);
         break;
       case ENRICHMENT:
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.NORMALIZATION);
@@ -135,6 +139,9 @@ public final class ExecutionRules {
       default:
         pluginTypesSetThatPluginTypeCanBeBasedOn = Collections.emptySet();
         break;
+    }
+    if (!pluginTypesSetThatPluginTypeCanBeBasedOn.isEmpty()) {
+      pluginTypesSetThatPluginTypeCanBeBasedOn.add(ExecutablePluginType.LINK_CHECKING);
     }
     return pluginTypesSetThatPluginTypeCanBeBasedOn;
   }
