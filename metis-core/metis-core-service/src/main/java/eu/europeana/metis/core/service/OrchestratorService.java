@@ -54,6 +54,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Service class that controls the communication between the different DAOs of the system.
@@ -413,8 +414,9 @@ public class OrchestratorService {
 
   private void workflowOrderValidator(String datasetId, Workflow workflow)
       throws PluginExecutionNotAllowed {
-    //Workflow should not have duplicated plugins.
-    if (orchestratorHelper.listContainsDuplicates(workflow.getMetisPluginsMetadata())) {
+    //Workflow should not have duplicated plugins or be empty.
+    if (orchestratorHelper.listContainsDuplicates(workflow.getMetisPluginsMetadata())
+        || CollectionUtils.isEmpty(workflow.getMetisPluginsMetadata())) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
     // Sanity check, for the first plugin, that will throw exception if there is NO pluginType to be
@@ -422,20 +424,22 @@ public class OrchestratorService {
     orchestratorHelper.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId,
         workflow.getMetisPluginsMetadata().get(0).getExecutablePluginType(), null);
 
-    // If ok then check the order of all subsequent plugins.
-    final boolean valid = workflow.getMetisPluginsMetadata().stream()
-        .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
-        .allMatch(
-            pluginType -> {
-              try {
-                return orchestratorHelper.checkWorkflowForPluginType(workflow, pluginType);
-              } catch (PluginExecutionNotAllowed e) {
-                LOGGER.warn("Failed validation of plugins order in workflow", e);
-                return false;
-              }
-            });
-    if (!valid) {
-      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+    if (workflow.getMetisPluginsMetadata().size() > 1) {
+      // If ok then check the order of all subsequent plugins.
+      final boolean valid = workflow.getMetisPluginsMetadata().stream()
+          .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
+          .allMatch(
+              pluginType -> {
+                try {
+                  return orchestratorHelper.checkWorkflowForPluginType(workflow, pluginType);
+                } catch (PluginExecutionNotAllowed e) {
+                  LOGGER.warn("Failed validation of plugins order in workflow", e);
+                  return false;
+                }
+              });
+      if (!valid) {
+        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+      }
     }
   }
 
