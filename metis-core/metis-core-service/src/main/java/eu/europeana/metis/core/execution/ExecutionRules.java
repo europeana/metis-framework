@@ -27,6 +27,16 @@ public final class ExecutionRules {
           ExecutablePluginType.LINK_CHECKING));
   private static final Set<ExecutablePluginType> INDEX_PLUGIN_GROUP = Collections
       .unmodifiableSet(EnumSet.of(ExecutablePluginType.PREVIEW, ExecutablePluginType.PUBLISH));
+  private static final Set<ExecutablePluginType> ALL_EXCEPT_LINK_GROUP;
+
+  static {
+    Set<ExecutablePluginType> mergedSet = new HashSet<>();
+    mergedSet.addAll(HARVEST_PLUGIN_GROUP);
+    mergedSet.addAll(PROCESS_PLUGIN_GROUP);
+    mergedSet.addAll(INDEX_PLUGIN_GROUP);
+    mergedSet.remove(ExecutablePluginType.LINK_CHECKING);
+    ALL_EXCEPT_LINK_GROUP = Collections.unmodifiableSet(mergedSet);
+  }
 
   private ExecutionRules() {
     //Private constructor
@@ -108,7 +118,7 @@ public final class ExecutionRules {
     final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn;
     switch (pluginType) {
       case VALIDATION_EXTERNAL:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(HARVEST_PLUGIN_GROUP);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = HARVEST_PLUGIN_GROUP;
         break;
       case TRANSFORMATION:
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet
@@ -134,15 +144,15 @@ public final class ExecutionRules {
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.PREVIEW);
         break;
       case LINK_CHECKING:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.allOf(ExecutablePluginType.class);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = ALL_EXCEPT_LINK_GROUP;
         break;
       default:
         pluginTypesSetThatPluginTypeCanBeBasedOn = Collections.emptySet();
         break;
     }
-    if (!pluginTypesSetThatPluginTypeCanBeBasedOn.isEmpty()) {
-      pluginTypesSetThatPluginTypeCanBeBasedOn.add(ExecutablePluginType.LINK_CHECKING);
-    }
+//    if (!pluginTypesSetThatPluginTypeCanBeBasedOn.isEmpty()) {
+//      pluginTypesSetThatPluginTypeCanBeBasedOn.add(ExecutablePluginType.LINK_CHECKING);
+//    }
     return pluginTypesSetThatPluginTypeCanBeBasedOn;
   }
 
@@ -166,5 +176,12 @@ public final class ExecutionRules {
    */
   public static Set<ExecutablePluginType> getIndexPluginGroup() {
     return INDEX_PLUGIN_GROUP;
+  }
+
+  /**
+   * @return The plugin types that are of the 'link checking' kind.
+   */
+  public static Set<ExecutablePluginType> getAllExceptLinkGroup() {
+    return ALL_EXCEPT_LINK_GROUP;
   }
 }

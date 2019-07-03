@@ -14,7 +14,6 @@ import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
-import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
@@ -305,7 +304,8 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUser metisUser,
-      String datasetId, ExecutablePluginType enforcedPluginType, int priority) throws GenericMetisException {
+      String datasetId, ExecutablePluginType enforcedPluginType, int priority)
+      throws GenericMetisException {
     final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
     return addWorkflowInQueueOfWorkflowExecutions(dataset, enforcedPluginType, priority);
   }
@@ -421,12 +421,19 @@ public class OrchestratorService {
     // based on in the database.
     orchestratorHelper.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId,
         workflow.getMetisPluginsMetadata().get(0).getExecutablePluginType(), null);
-    // If ok then check the order of all subsequent plugins. Start from index 1.
-    final boolean valid = workflow.getMetisPluginsMetadata().stream().skip(1)
+
+    // If ok then check the order of all subsequent plugins.
+    final boolean valid = workflow.getMetisPluginsMetadata().stream()
         .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
-        .filter(pluginType -> !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
         .allMatch(
-            pluginType -> orchestratorHelper.checkWorkflowForPluginType(workflow, pluginType));
+            pluginType -> {
+              try {
+                return orchestratorHelper.checkWorkflowForPluginType(workflow, pluginType);
+              } catch (PluginExecutionNotAllowed e) {
+                LOGGER.warn("Failed validation of plugins order in workflow", e);
+                return false;
+              }
+            });
     if (!valid) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }

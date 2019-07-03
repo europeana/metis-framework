@@ -31,7 +31,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -235,10 +234,82 @@ public class OrchestratorHelper {
     }
   }
 
-  boolean checkWorkflowForPluginType(Workflow workflow, ExecutablePluginType pluginType) {
+  boolean checkWorkflowForPluginType(Workflow workflow, ExecutablePluginType pluginType)
+      throws PluginExecutionNotAllowed {
     final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn =
         ExecutionRules.getPluginTypesSetThatPluginTypeCanBeBasedOn(pluginType);
-    return workflow.pluginTypeOccursOnlyAfter(pluginType, pluginTypesSetThatPluginTypeCanBeBasedOn);
+    return pluginTypeOccursOnlyAfter(workflow, pluginType,
+        pluginTypesSetThatPluginTypeCanBeBasedOn);
+  }
+
+  /**
+   * <p>
+   * This method tests whether in this workflow all plugins of the given type occur after at least
+   * one plugin of one of the given earlier types. So, more formally, it returns true if any of the
+   * following occurs:
+   * <ol>
+   * <li>The given plugin type is part of the {@link ExecutionRules#getHarvestPluginGroup}</li>
+   * <li>The workflow contains at least one plugin of the given plugin type and it's predecessor is
+   * an acceptable earlier type. For a link checking plugins, it's predecessor is checked instead of
+   * it's own.</li>
+   * </ol>
+   * </p>
+   * <p>
+   * Note that this method does not assume that each plugin type only occurs once.
+   * </p>
+   *
+   * @param workflow the workflow to be checked
+   * @param pluginType the plugin type that we are testing for. Cannot be null.
+   * @param possibleEarlierPluginTypes the possible plugin types that has to occur before the other
+   * given type. Can be null or empty (in which case the result will be false, unless it's a
+   * harvesting plugin).
+   * @return whether the workflow contains plugins of the two given types in the given order.
+   * @throws PluginExecutionNotAllowed if the first plugin base cannot be resolved
+   */
+  public boolean pluginTypeOccursOnlyAfter(Workflow workflow,
+      ExecutablePluginType pluginType, Set<ExecutablePluginType> possibleEarlierPluginTypes)
+      throws PluginExecutionNotAllowed {
+    if (pluginType == null) {
+      throw new IllegalArgumentException();
+    }
+    if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
+      return true;
+    } else if ((possibleEarlierPluginTypes == null || possibleEarlierPluginTypes.isEmpty())) {
+      return false;
+    }
+    boolean earlierPluginTypeFound = false;
+
+    final List<AbstractExecutablePluginMetadata> metisPluginsMetadata = workflow
+        .getMetisPluginsMetadata();
+    for (int i = 0; i < metisPluginsMetadata.size(); i++) {
+      final AbstractExecutablePluginMetadata plugin = metisPluginsMetadata.get(i);
+      ExecutablePluginType pluginTypeInWorkflow = plugin.getExecutablePluginType();
+
+      if (pluginTypeInWorkflow == pluginType
+          && pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING && i == 0) {
+        earlierPluginTypeFound = true;
+        break;
+      } else if (pluginTypeInWorkflow == pluginType) {
+        break;
+      }
+      //Resolve source of link checking
+      if (pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING && i != 0) {
+        pluginTypeInWorkflow = ExecutablePluginType
+            .getPluginTypeFromEnumName(
+                metisPluginsMetadata.get(i - 1).getPluginType().name());
+      } else if (pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING) {
+        final AbstractExecutablePlugin linkCheckingBasePlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+            workflow.getDatasetId(),
+            workflow.getMetisPluginsMetadata().get(0).getExecutablePluginType(), null);
+        pluginTypeInWorkflow = ExecutablePluginType
+            .getPluginTypeFromEnumName(linkCheckingBasePlugin.getPluginType().name());
+      }
+      if (metisPluginsMetadata.get(i + 1).getExecutablePluginType() == pluginType) {
+        earlierPluginTypeFound = earlierPluginTypeFound || possibleEarlierPluginTypes
+            .contains(pluginTypeInWorkflow);
+      }
+    }
+    return earlierPluginTypeFound;
   }
 
   void overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(Workflow workflow,
@@ -327,8 +398,10 @@ public class OrchestratorHelper {
     return new ImmutablePair<>(previousExecution, previousPlugin);
   }
 
-  <T> boolean listContainsDuplicates(List<T> list) {
-    return !list.stream().allMatch(new HashSet<>()::add);
+  boolean listContainsDuplicates(List<AbstractExecutablePluginMetadata> list) {
+    final Set<PluginType> collect = list.stream()
+        .map(AbstractExecutablePluginMetadata::getPluginType).collect(Collectors.toSet());
+    return collect.size() != list.size();
   }
 
   public ValidationProperties getValidationExternalProperties() {

@@ -435,7 +435,6 @@ class TestOrchestratorService {
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(ExecutionRules.getHarvestPluginGroup());
-    pluginTypesSetThatPluginTypeCanBeBasedOn.add(ExecutablePluginType.LINK_CHECKING);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(dataset.getDatasetId(),
             pluginTypesSetThatPluginTypeCanBeBasedOn, true)).thenReturn(oaipmhHarvestPlugin);
@@ -656,7 +655,6 @@ class TestOrchestratorService {
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
     final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(ExecutionRules.getHarvestPluginGroup());
-    pluginTypesSetThatPluginTypeCanBeBasedOn.add(ExecutablePluginType.LINK_CHECKING);
     when(workflowExecutionDao
         .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
             pluginTypesSetThatPluginTypeCanBeBasedOn, true)).thenReturn(oaipmhHarvestPlugin);
