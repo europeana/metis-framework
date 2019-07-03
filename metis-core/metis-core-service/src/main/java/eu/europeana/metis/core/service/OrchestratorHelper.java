@@ -285,8 +285,7 @@ public class OrchestratorHelper {
       final AbstractExecutablePluginMetadata plugin = metisPluginsMetadata.get(i);
       ExecutablePluginType pluginTypeInWorkflow = plugin.getExecutablePluginType();
 
-      if (pluginTypeInWorkflow == pluginType
-          && pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING && i == 0) {
+      if (pluginTypeInWorkflow == pluginType && i == 0) {
         earlierPluginTypeFound = true;
         break;
       } else if (pluginTypeInWorkflow == pluginType) {
@@ -295,8 +294,7 @@ public class OrchestratorHelper {
       //Resolve source of link checking
       if (pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING && i != 0) {
         pluginTypeInWorkflow = ExecutablePluginType
-            .getPluginTypeFromEnumName(
-                metisPluginsMetadata.get(i - 1).getPluginType().name());
+            .getPluginTypeFromEnumName(metisPluginsMetadata.get(i - 1).getPluginType().name());
       } else if (pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING) {
         final AbstractExecutablePlugin linkCheckingBasePlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
             workflow.getDatasetId(),
