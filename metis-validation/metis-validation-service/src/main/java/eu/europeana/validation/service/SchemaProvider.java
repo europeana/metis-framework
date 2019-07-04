@@ -24,6 +24,10 @@ import org.slf4j.LoggerFactory;
  * schemas will be stored. This is done so, to avoid file system collisions of processes that run
  * the exact same code and are independent from each other.
  * <p>
+ * The {@link #TMP_DIR} field is set through a system variable named "java.io.tmpdir". This value
+ * should be sanitized and controlled otherwise this class can become unsecure.
+ * </p>
+ * <p>
  * Created by pwozniak on 12/20/17
  * <p>
  */

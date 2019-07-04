@@ -30,7 +30,8 @@ final class EDMParser {
   static {
     try {
       PARSE_FACTORY.setNamespaceAware(true);
-      PARSE_FACTORY.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
+      PARSE_FACTORY
+          .setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
       PARSE_FACTORY.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
       PARSE_FACTORY.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       PARSE_FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -59,7 +60,8 @@ final class EDMParser {
   /**
    * Get a JAXP schema validator (singleton)
    *
-   * @param path The path location of the schema
+   * @param path The path location of the schema. This has to be a sanitized input otherwise the
+   * method could become unsecure.
    * @param resolver the resolver used for the schema
    * @return JAXP schema validator.
    */
