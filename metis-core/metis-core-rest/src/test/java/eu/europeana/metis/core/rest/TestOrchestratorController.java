@@ -27,6 +27,7 @@ import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
@@ -38,7 +39,6 @@ import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -584,7 +584,7 @@ class TestOrchestratorController {
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), anyString(),
-        ArgumentMatchers.anySet(), any(OrderField.class), anyBoolean(), anyInt()))
+        ArgumentMatchers.anySet(), any(DaoFieldNames.class), anyBoolean(), anyInt()))
         .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
@@ -632,7 +632,7 @@ class TestOrchestratorController {
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), isNull(),
-        ArgumentMatchers.anySet(), any(OrderField.class), anyBoolean(), anyInt()))
+        ArgumentMatchers.anySet(), any(DaoFieldNames.class), anyBoolean(), anyInt()))
         .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)

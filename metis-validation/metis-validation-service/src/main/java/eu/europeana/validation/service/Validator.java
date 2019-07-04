@@ -31,8 +31,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * EDM Validator class
- * Created by gmamakis on 18-12-15.
+ * EDM Validator class Created by gmamakis on 18-12-15.
  */
 public class Validator implements Callable<ValidationResult> {
 
@@ -59,7 +58,8 @@ public class Validator implements Callable<ValidationResult> {
    * @param rootFileLocation location of the schema root file
    * @param schematronFileLocation location of the schematron file
    * @param document document that will be validated
-   * @param schemaProvider the class that provides the schemas
+   * @param schemaProvider the class that provides the schemas. Make sure it is initialized with
+   * safe schema location paths.
    * @param resolver the resolver used for parsing split xsds
    */
   public Validator(String schema, String rootFileLocation, String schematronFileLocation,
@@ -86,11 +86,13 @@ public class Validator implements Callable<ValidationResult> {
       if (rootFileLocation == null) {
         throw new SchemaProviderException("Missing root file location for custom schema");
       } else {
-        schemaObject = schemaProvider.getSchema(schemaName, rootFileLocation, schematronFileLocation);
+        schemaObject = schemaProvider
+            .getSchema(schemaName, rootFileLocation, schematronFileLocation);
       }
     }
-    if (schemaObject == null)
+    if (schemaObject == null) {
       throw new SchemaProviderException("Could not find specified schema does not exist");
+    }
     return schemaObject;
   }
 

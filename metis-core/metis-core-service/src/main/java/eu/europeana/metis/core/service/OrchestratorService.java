@@ -3,6 +3,7 @@ package eu.europeana.metis.core.service;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -18,7 +19,6 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
-import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -513,7 +513,7 @@ public class OrchestratorService {
    * </ul>
    */
   public List<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser, String datasetId,
-      Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, int nextPage)
+      Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField, boolean ascending, int nextPage)
       throws GenericMetisException {
 
     // Authorize

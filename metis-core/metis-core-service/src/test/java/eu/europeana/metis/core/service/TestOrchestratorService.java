@@ -22,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -44,7 +45,6 @@ import eu.europeana.metis.core.rest.execution.overview.DatasetSummaryView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionSummaryView;
 import eu.europeana.metis.core.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -701,11 +701,11 @@ class TestOrchestratorService {
 
     // Check with specific dataset ID: should query only that dataset.
     orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
-        OrderField.ID, false, nextPage);
+        DaoFieldNames.ID, false, nextPage);
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(
-        eq(Collections.singleton(datasetId)), eq(workflowStatuses), eq(OrderField.ID), eq(false),
+        eq(Collections.singleton(datasetId)), eq(workflowStatuses), eq(DaoFieldNames.ID), eq(false),
         eq(nextPage));
     verifyNoMoreInteractions(workflowExecutionDao);
   }
@@ -729,11 +729,11 @@ class TestOrchestratorService {
     when(datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()))
         .thenReturn(datasets);
     orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses,
-        OrderField.CREATED_DATE, false, nextPage);
+        DaoFieldNames.CREATED_DATE, false, nextPage);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(eq(datasetIds),
-        eq(workflowStatuses), eq(OrderField.CREATED_DATE), eq(false), eq(nextPage));
+        eq(workflowStatuses), eq(DaoFieldNames.CREATED_DATE), eq(false), eq(nextPage));
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
@@ -748,11 +748,11 @@ class TestOrchestratorService {
     // Check for all datasets and for admin user: should query all datasets.
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses,
-        OrderField.CREATED_DATE, true, nextPage);
+        DaoFieldNames.CREATED_DATE, true, nextPage);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(), eq(workflowStatuses),
-        eq(OrderField.CREATED_DATE), eq(true), eq(nextPage));
+        eq(DaoFieldNames.CREATED_DATE), eq(true), eq(nextPage));
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
