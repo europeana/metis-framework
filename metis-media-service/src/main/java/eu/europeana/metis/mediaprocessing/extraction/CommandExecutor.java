@@ -35,7 +35,7 @@ class CommandExecutor {
    */
   CommandExecutor(int commandTimeout) {
     this(commandTimeout, (command, redirectErrorStream) -> {
-      sanitizeCommand(command);
+//      sanitizeCommand(command);
       return new ProcessBuilder(command)
           .redirectErrorStream(redirectErrorStream).start();
     });
