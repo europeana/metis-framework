@@ -14,10 +14,17 @@ class TextClassifier extends AbstractMediaClassifier {
   private static final int RESOLUTION_LARGE = 950_000;
 
   @Override
-  MediaTier classifyEntity(RdfWrapper entity) {
+  MediaTier preClassifyEntity(RdfWrapper entity) {
 
     // We always have to look at the web resources.
     return null;
+  }
+
+  @Override
+  MediaTier classifyEntityWithoutWebResources(RdfWrapper entity, boolean hasLandingPage) {
+
+    // If there is a landing page, even an entity without suitable web resources has tier 1.
+    return hasLandingPage ? MediaTier.T1 : MediaTier.T0;
   }
 
   @Override

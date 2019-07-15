@@ -11,10 +11,17 @@ import org.apache.commons.lang3.StringUtils;
 class ThreeDClassifier extends AbstractMediaClassifier {
 
   @Override
-  MediaTier classifyEntity(RdfWrapper entity) {
+  MediaTier preClassifyEntity(RdfWrapper entity) {
 
     // We always have to look at the web resources.
     return null;
+  }
+
+  @Override
+  MediaTier classifyEntityWithoutWebResources(RdfWrapper entity, boolean hasLandingPage) {
+
+    // A record without suitable web resources has tier 0.
+    return MediaTier.T0;
   }
 
   @Override

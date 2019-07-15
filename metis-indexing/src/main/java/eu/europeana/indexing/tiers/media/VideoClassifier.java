@@ -16,7 +16,7 @@ class VideoClassifier extends AbstractMediaClassifier {
   private static final int LARGE_VERTICAL_SIZE = 480;
 
   @Override
-  MediaTier classifyEntity(RdfWrapper entity) {
+  MediaTier preClassifyEntity(RdfWrapper entity) {
 
     // Check presence of thumbnail. If not available, tier 0.
     if (!entity.hasThumbnails()) {
@@ -32,8 +32,15 @@ class VideoClassifier extends AbstractMediaClassifier {
       return MediaTier.T0;
     }
 
-    // In any other case, it depends completely on the web resource.
+    // In any other case, it depends completely on the web resources.
     return null;
+  }
+
+  @Override
+  MediaTier classifyEntityWithoutWebResources(RdfWrapper entity, boolean hasLandingPage) {
+
+    // If there is a landing page, even an entity without suitable web resources has tier 1.
+    return hasLandingPage ? MediaTier.T1 : MediaTier.T0;
   }
 
   @Override
