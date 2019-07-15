@@ -222,7 +222,7 @@ public class RdfWrapper {
   /**
    * An entity is considered to have thumbnails if if and only if edm:EuropeanaAggregation/edm:preview
    * is filled and the associated edm:webResource exists with technical metadata (i.e.
-   * ebucore:hasMimetype is set)
+   * ebucore:hasMimetype is set to a non-empty value)
    *
    * @return Whether the entity has thumbnails.
    */
@@ -231,7 +231,7 @@ public class RdfWrapper {
         .map(ResourceType::getResource).filter(StringUtils::isNotBlank).orElse(null);
     return previewUri != null && getFilteredPropertyStream(record.getWebResourceList())
         .filter(resource -> previewUri.equals(resource.getAbout()))
-        .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
+        .map(WebResourceWrapper::getMimeType).anyMatch(StringUtils::isNotBlank);
   }
 
 
