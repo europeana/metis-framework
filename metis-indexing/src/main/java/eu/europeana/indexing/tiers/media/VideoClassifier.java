@@ -46,7 +46,7 @@ class VideoClassifier extends AbstractMediaClassifier {
 
     // Check the conditions - the conditions for T2-T4 take precedence over those of T1.
     final MediaTier result;
-    if ((hasVideoMimeType && webResource.getHeight() > LARGE_VERTICAL_SIZE) || hasEmbeddableMedia) {
+    if ((hasVideoMimeType && webResource.getHeight() >= LARGE_VERTICAL_SIZE) || hasEmbeddableMedia) {
       result = MediaTier.T4;
     } else if (hasVideoMimeType || hasLandingPage) {
       result = MediaTier.T1;
