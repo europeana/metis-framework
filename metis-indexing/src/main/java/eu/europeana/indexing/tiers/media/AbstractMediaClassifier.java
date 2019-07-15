@@ -34,8 +34,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
 
     // Go by all web resources.
     final List<WebResourceWrapper> webResources = entity.getWebResourceWrappers(EnumSet.of(
-        WebResourceLinkType.HAS_VIEW, WebResourceLinkType.IS_SHOWN_AT,
-        WebResourceLinkType.IS_SHOWN_BY));
+        WebResourceLinkType.HAS_VIEW, WebResourceLinkType.IS_SHOWN_BY));
     return webResources.stream()
         .map(resource -> classifyWebResource(resource, entityLicense, hasLandingPage,
             hasEmbeddableMedia))
