@@ -43,7 +43,7 @@ class TextClassifier extends AbstractMediaClassifier {
     final MediaTier result;
     if (hasPdfMimeType || resolution >= RESOLUTION_LARGE) {
       result = MediaTier.T4;
-    } else if (hasPdfMimeType || resolution >= RESOLUTION_MEDIUM) {
+    } else if (resolution >= RESOLUTION_MEDIUM) {
       result = MediaTier.T2;
     } else if (hasLandingPage || resolution >= RESOLUTION_SMALL) {
       result = MediaTier.T1;
