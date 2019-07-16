@@ -15,6 +15,8 @@ import org.mongodb.morphia.annotations.Id;
 @Entity
 public class DatasetXslt {
 
+  public static final String DEFAULT_DATASET_ID = "-1";
+
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
@@ -29,8 +31,9 @@ public class DatasetXslt {
   }
 
   /**
-   * Constructor with required parameters.
-   * When created it assigns the current date to it.
+   * Constructor with required parameters for a dataset-specific XSLT. When created it assigns the
+   * current date to it.
+   *
    * @param datasetId the datasetId that this class is related to
    * @param xslt the raw xslt
    */
@@ -38,6 +41,16 @@ public class DatasetXslt {
     this.datasetId = datasetId;
     this.xslt = xslt;
     this.createdDate = new Date();
+  }
+
+  /**
+   * Constructor with required parameters for a default XSLT. When created it assigns the current
+   * date to it.
+   *
+   * @param xslt the raw xslt
+   */
+  public DatasetXslt(String xslt) {
+    this(DEFAULT_DATASET_ID, xslt);
   }
 
   public ObjectId getId() {

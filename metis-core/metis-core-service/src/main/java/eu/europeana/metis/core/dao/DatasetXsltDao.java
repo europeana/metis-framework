@@ -24,7 +24,6 @@ import org.springframework.stereotype.Repository;
 public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetXsltDao.class);
-  public static final String DEFAULT_DATASET_ID = "-1";
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
@@ -94,15 +93,22 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
 
   /**
    * Fet latest stored xslt using a dataset identifier.
-   * <p>Use -1 to get the default xslt that is not related to a dataset</p>
    *
    * @param datasetId the dataset identifier
    * @return the {@link DatasetXslt} object
    */
-  public DatasetXslt getLatestXsltForDatasetId(String datasetId) {
-    return ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
-                .filter(DATASET_ID.getFieldName(), datasetId).order(Sort.descending("createdDate")).get());
+  DatasetXslt getLatestXsltForDatasetId(String datasetId) {
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+        () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
+            .filter(DATASET_ID.getFieldName(), datasetId).order(Sort.descending("createdDate")).get());
+  }
+
+  /**
+   * Fet latest stored default xslt.
+   *
+   * @return the {@link DatasetXslt} object
+   */
+  public DatasetXslt getLatestDefaultXslt() {
+    return getLatestXsltForDatasetId(DatasetXslt.DEFAULT_DATASET_ID);
   }
 }

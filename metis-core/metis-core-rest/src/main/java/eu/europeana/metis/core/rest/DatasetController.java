@@ -6,7 +6,6 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
-import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
@@ -15,7 +14,7 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
 import eu.europeana.metis.core.exceptions.XsltSetupException;
 import eu.europeana.metis.core.service.DatasetService;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -292,8 +291,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String getLatestDefaultXslt() throws GenericMetisException {
-    DatasetXslt datasetXslt = datasetService
-        .getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID);
+    DatasetXslt datasetXslt = datasetService.getLatestDefaultXslt();
     LOGGER.info("Default XSLT with xsltId '{}' found", datasetXslt.getId());
     return datasetXslt.getXslt();
   }
@@ -301,7 +299,7 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, PluginType, String)}
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, ExecutablePluginType, String)}
    * to try a transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *
@@ -334,7 +332,7 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, PluginType, String)}
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, ExecutablePluginType, String)}
    * to try a transformation on a list of xmls just after validation external to preview an example result.
    * </p>
    *

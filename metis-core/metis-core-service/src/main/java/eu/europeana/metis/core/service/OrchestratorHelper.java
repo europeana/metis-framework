@@ -357,7 +357,7 @@ public class OrchestratorHelper {
     if (pluginMetadata.isCustomXslt()) {
       xsltObject = datasetXsltDao.getById(dataset.getXsltId().toString());
     } else {
-      xsltObject = datasetXsltDao.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID);
+      xsltObject = datasetXsltDao.getLatestDefaultXslt();
     }
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
       pluginMetadata.setXsltUrl(getMetisCoreUrl() + RestEndpoints

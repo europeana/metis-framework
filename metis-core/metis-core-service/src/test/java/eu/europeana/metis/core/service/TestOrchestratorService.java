@@ -327,7 +327,7 @@ class TestOrchestratorService {
     String objectId = new ObjectId().toString();
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
     datasetXslt.setId(new ObjectId(TestObjectFactory.XSLTID));
-    when(datasetXsltDao.getLatestXsltForDatasetId("-1")).thenReturn(datasetXslt);
+    when(datasetXsltDao.getLatestDefaultXslt()).thenReturn(datasetXslt);
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
