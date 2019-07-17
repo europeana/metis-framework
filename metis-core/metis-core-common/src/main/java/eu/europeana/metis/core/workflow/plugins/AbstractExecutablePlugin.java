@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
@@ -20,19 +19,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.annotations.Indexed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This abstract class represents plugins that are executable by Metis.
+ * This abstract class is the base implementation of {@link ExecutablePlugin} and all executable
+ * plugins should inherit from it.
  *
  * @param <M> The type of the plugin metadata that this plugin represents.
  */
 public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePluginMetadata> extends
-    AbstractMetisPlugin<M> {
+    AbstractMetisPlugin<M> implements ExecutablePlugin<M> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractExecutablePlugin.class);
 
@@ -62,77 +61,47 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     super(pluginType, pluginMetadata);
   }
 
-  /**
-   * @return updated {@link Date} of the execution of the plugin
-   */
+  @Override
   public Date getUpdatedDate() {
     return updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
-  /**
-   * @param updatedDate {@link Date}
-   */
+  @Override
   public void setUpdatedDate(Date updatedDate) {
     this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
-  /**
-   * @return String representation of the external task identifier of the execution
-   */
+  @Override
   public String getExternalTaskId() {
     return this.externalTaskId;
   }
 
-  /**
-   * @param externalTaskId String representation of the external task identifier of the execution
-   */
+  @Override
   public void setExternalTaskId(String externalTaskId) {
     this.externalTaskId = externalTaskId;
   }
 
-  /**
-   * Progress information of the execution of the plugin
-   *
-   * @return {@link ExecutionProgress}
-   */
+  @Override
   public ExecutionProgress getExecutionProgress() {
     return this.executionProgress;
   }
 
-  /**
-   * @param executionProgress {@link ExecutionProgress} of the external execution
-   */
+  @Override
   public void setExecutionProgress(ExecutionProgress executionProgress) {
     this.executionProgress = executionProgress;
   }
 
-  /**
-   * @return The data status of this plugin. If null, this should be interpreted as being equal to
-   * {@link DataStatus#VALID} (due to backwards-compatibility).
-   */
+  @Override
   public DataStatus getDataStatus() {
     return dataStatus;
   }
 
-  /**
-   * Returns the data state for the plugin taking into account the default value.
-   *
-   * @param plugin The plugin.
-   * @return The data status of the given plugin. Is not null.
-   */
-  public static DataStatus getDataStatus(AbstractExecutablePlugin plugin) {
-    return Optional.ofNullable(plugin.getDataStatus()).orElse(DataStatus.VALID);
-  }
-
+  @Override
   public void setDataStatus(DataStatus dataStatus) {
     this.dataStatus = dataStatus;
   }
 
-  /**
-   * It is required as an abstract method to have proper serialization on the api level.
-   *
-   * @return the topologyName string coming from {@link Topology}
-   */
+  @Override
   public abstract String getTopologyName();
 
   private Revision createOutputRevisionForExecution(String ecloudProvider, boolean published) {
@@ -176,7 +145,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
             ecloudBasePluginParameters.getEcloudBaseUrl(),
             ecloudBasePluginParameters.getEcloudProvider(),
             ecloudBasePluginParameters.getEcloudDatasetId()));
-    parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
+    parameters.put("NEW_REPRESENTATION_NAME", MetisPlugin.getRepresentationName());
     dpsTask.setParameters(parameters);
 
     dpsTask.setOutputRevision(
@@ -190,14 +159,14 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     if (extraParameters != null) {
       parameters.putAll(extraParameters);
     }
-    parameters.put("REPRESENTATION_NAME", getRepresentationName());
+    parameters.put("REPRESENTATION_NAME", MetisPlugin.getRepresentationName());
     parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
     parameters.put("REVISION_PROVIDER", ecloudBasePluginParameters.getEcloudProvider());
     DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
     parameters.put("REVISION_TIMESTAMP",
         dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
     parameters.put("PREVIOUS_TASK_ID", ecloudBasePluginParameters.getPreviousExternalTaskId());
-    parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
+    parameters.put("NEW_REPRESENTATION_NAME", MetisPlugin.getRepresentationName());
     parameters.put("OUTPUT_DATA_SETS",
         String.format(CommonStringValues.S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE,
             ecloudBasePluginParameters.getEcloudBaseUrl(),
@@ -247,15 +216,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
    */
   abstract DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters);
 
-  /**
-   * Starts the execution of the plugin at the external location.
-   * <p>It is non blocking method and the {@link #monitor(DpsClient)} should be used to monitor the
-   * external execution</p>
-   *
-   * @param dpsClient {@link DpsClient} used to submit the external execution
-   * @param ecloudBasePluginParameters the basic parameter required for each execution
-   * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
-   */
+  @Override
   public void execute(DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
       throws ExternalTaskException {
     String pluginTypeName = getPluginType().name();
@@ -271,14 +232,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
   }
 
-  /**
-   * Request a monitor call to the external execution. This method also updates the execution
-   * progress statistics.
-   *
-   * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
-   * @return {@link MonitorResult} object containing the current state of the task.
-   * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
-   */
+  @Override
   public MonitorResult monitor(DpsClient dpsClient) throws ExternalTaskException {
     LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
     TaskInfo taskInfo;
@@ -292,14 +246,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     return new MonitorResult(taskInfo.getState(), taskInfo.getInfo());
   }
 
-  /**
-   * Request a cancel call to the external execution.
-   *
-   * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
-   * @param cancelledById the reason a task is being cancelled, is it a user identifier of a system
-   * identifier
-   * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
-   */
+  @Override
   public void cancel(DpsClient dpsClient, String cancelledById) throws ExternalTaskException {
     LOGGER.info("Cancel execution for externalTaskId: {}", getExternalTaskId());
     try {
@@ -308,35 +255,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
               ? "Cancelled By System" : "Cancelled By User");
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task cancellation failed", e);
-    }
-  }
-
-  /**
-   * This object represents the result of a monitor call. It contains the information that
-   * monitoring processes need.
-   */
-  public static class MonitorResult {
-
-    private final TaskState taskState;
-    private final String taskInfo;
-
-    /**
-     * Constructor.
-     *
-     * @param taskState The current state of the task.
-     * @param taskInfo The info message. Can be null or empty.
-     */
-    public MonitorResult(TaskState taskState, String taskInfo) {
-      this.taskState = taskState;
-      this.taskInfo = taskInfo;
-    }
-
-    public TaskState getTaskState() {
-      return taskState;
-    }
-
-    public String getTaskInfo() {
-      return taskInfo;
     }
   }
 }

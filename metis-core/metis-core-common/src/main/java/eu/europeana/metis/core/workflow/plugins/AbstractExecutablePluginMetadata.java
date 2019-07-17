@@ -1,9 +1,11 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 /**
- * Abstract super class for all plugin metadata that can be executed by Metis.
+ * This abstract class is the base implementation of {@link ExecutablePluginMetadata} and all
+ * executable plugins should inherit from it.
  */
-public abstract class AbstractExecutablePluginMetadata extends AbstractMetisPluginMetadata {
+public abstract class AbstractExecutablePluginMetadata extends AbstractMetisPluginMetadata
+    implements ExecutablePluginMetadata {
 
   private boolean enabled;
 
@@ -15,28 +17,21 @@ public abstract class AbstractExecutablePluginMetadata extends AbstractMetisPlug
     return getExecutablePluginType().toPluginType();
   }
 
+  @Override
   public abstract ExecutablePluginType getExecutablePluginType();
 
+  @Override
   public boolean isEnabled() {
     return enabled;
   }
 
+  @Override
   public void setEnabled(boolean enabled) {
     this.enabled = enabled;
   }
 
-  /**
-   * For the current plugin, setup the source/previous revision information.
-   * <p>
-   * The source revision information that this plugin will be based on, is coming from the {@code
-   * previousPlugin} plugin metadata. The {@code previousPlugin} can be a RevisionLess plugin, in
-   * which case the revision information for the current plugin will take the source revision
-   * information that the {@code previousPlugin} was based on.
-   * </p>
-   *
-   * @param previousPlugin the source/previous plugin that is used to base the current plugin on
-   */
-  public void setPreviousRevisionInformation(AbstractExecutablePlugin<?> previousPlugin) {
+  @Override
+  public void setPreviousRevisionInformation(ExecutablePlugin<?> previousPlugin) {
     if (previousPlugin.getPluginMetadata().getExecutablePluginType().isRevisionLess()) {
       //If previous plugin is revisionLess use the previous plugin of that instead
       // TODO JV this will work only if there are not two revisionless plugins in a row.

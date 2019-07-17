@@ -26,6 +26,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -646,7 +647,7 @@ public class OrchestratorService {
   }
 
   private boolean isPreviewOrPublishReadyForViewing(AbstractExecutablePlugin plugin, Date now) {
-    final boolean dataIsValid = AbstractExecutablePlugin.getDataStatus(plugin) == DataStatus.VALID;
+    final boolean dataIsValid = ExecutablePlugin.getDataStatus(plugin) == DataStatus.VALID;
     final boolean enoughTimeHasPassed = getSolrCommitPeriodInMins() <
         DateUtils.calculateDateDifference(plugin.getFinishedDate(), now, TimeUnit.MINUTES);
     return dataIsValid && enoughTimeHasPassed;

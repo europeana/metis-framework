@@ -21,6 +21,7 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -345,8 +346,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // if necessary, check for the data validity.
     final AbstractExecutablePlugin result;
-    if (limitToValidData
-        && AbstractExecutablePlugin.getDataStatus(castResult) != DataStatus.VALID) {
+    if (limitToValidData && ExecutablePlugin.getDataStatus(castResult) != DataStatus.VALID) {
       result = null;
     } else {
       result = castResult;
