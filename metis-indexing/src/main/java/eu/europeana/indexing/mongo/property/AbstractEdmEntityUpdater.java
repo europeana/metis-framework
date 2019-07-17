@@ -16,8 +16,8 @@ public abstract class AbstractEdmEntityUpdater<R extends AbstractEdmEntity, A>
   @Override
   protected final MongoPropertyUpdater<R> createPropertyUpdater(R newEntity, A ancestorInformation,
       MongoServer mongoServer) {
-    return MongoPropertyUpdater.createForObjectWithAbout(newEntity, mongoServer, getObjectClass(),
-        AbstractEdmEntity::getAbout, null);
+    return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
+        getObjectClass(), AbstractEdmEntity::getAbout, null);
   }
 
   /**

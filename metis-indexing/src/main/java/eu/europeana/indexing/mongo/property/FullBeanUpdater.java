@@ -44,8 +44,8 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
   @Override
   protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
       Void ancestorInformation, MongoServer mongoServer) {
-    return MongoPropertyUpdater.createForObjectWithAbout(newEntity, mongoServer, FullBeanImpl.class,
-        FullBeanImpl::getAbout, fullBeanPreprocessor);
+    return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
+        FullBeanImpl.class, FullBeanImpl::getAbout, fullBeanPreprocessor);
   }
 
   @Override

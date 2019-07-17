@@ -3,6 +3,7 @@ package eu.europeana.indexing.mongo.property;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -77,7 +78,7 @@ class WebResourceUpdaterTest extends MongoEntityUpdaterTest<WebResourceImpl> {
     @SuppressWarnings("unchecked") final ArgumentCaptor<Function<WebResourceImpl, WebResourceInformation>> ancestorInfoGetterCaptor = ArgumentCaptor
         .forClass(Function.class);
     verify(propertyUpdater, times(1))
-        .updateWebResourceMetaInfo(getterCaptor.capture(), ancestorInfoGetterCaptor.capture());
+        .updateWebResourceMetaInfo(getterCaptor.capture(), ancestorInfoGetterCaptor.capture(), any());
     assertSame(webResourceMetaInfo, getterCaptor.getValue().apply(testEntity));
     final WebResourceInformation info = ancestorInfoGetterCaptor.getValue().apply(testEntity);
     assertNotNull(info);

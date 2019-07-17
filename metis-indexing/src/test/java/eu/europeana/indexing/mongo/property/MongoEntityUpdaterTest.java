@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.times;
@@ -121,7 +122,7 @@ abstract class MongoEntityUpdaterTest<T> {
     @SuppressWarnings("unchecked") final ArgumentCaptor<Function<T, List<? extends WebResource>>> getterCaptor = ArgumentCaptor
         .forClass(Function.class);
     verify(propertyUpdater, times(1))
-        .updateWebResources(eq(fieldName), getterCaptor.capture(), same(rootAbout));
+        .updateWebResources(eq(fieldName), getterCaptor.capture(), same(rootAbout), any());
     assertEquals(Collections.singletonList(aboutValue),
         getterCaptor.getValue().apply(testEntity).stream().map(WebResource::getAbout)
             .collect(Collectors.toList()));

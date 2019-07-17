@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
-import java.util.function.BiConsumer;
 import org.junit.jupiter.api.Test;
 
 class ProvidedChoUpdaterTest extends MongoEntityUpdaterTest<ProvidedCHOImpl> {

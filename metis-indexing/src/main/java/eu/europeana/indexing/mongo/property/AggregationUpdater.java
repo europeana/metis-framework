@@ -31,6 +31,6 @@ public class AggregationUpdater extends AbstractEdmEntityUpdater<AggregationImpl
     propertyUpdater.updateObject("edmPreviewNoDistribute",
         AggregationImpl::getEdmPreviewNoDistribute);
     propertyUpdater.updateWebResources("webResources", AggregationImpl::getWebResources,
-        ancestorInformation);
+        ancestorInformation, new WebResourceUpdater());
   }
 }

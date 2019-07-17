@@ -37,7 +37,8 @@ public class WebResourceUpdater extends AbstractEdmEntityUpdater<WebResourceImpl
     propertyUpdater.updateArray("dctermsIsReferencedBy", WebResource::getDctermsIsReferencedBy);
 
     propertyUpdater.updateWebResourceMetaInfo(WebResourceImpl::getWebResourceMetaInfo,
-        webResource -> createWebResourceInfo(webResource, ancestorInformation));
+        webResource -> createWebResourceInfo(webResource, ancestorInformation),
+        WebResourceMetaInfoUpdater::new);
   }
 
   private static WebResourceInformation createWebResourceInfo(WebResourceImpl webResource,

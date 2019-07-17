@@ -26,7 +26,7 @@ public class EuropeanaAggregationUpdater
     propertyUpdater.updateString("edmPreview", EuropeanaAggregation::getEdmPreview);
     propertyUpdater.updateArray("aggregates", EuropeanaAggregation::getAggregates);
     propertyUpdater.updateWebResources("webResources", EuropeanaAggregation::getWebResources,
-        ancestorInformation);
+        ancestorInformation, new WebResourceUpdater());
     propertyUpdater.updateArray("dqvHasQualityAnnotation",
         EuropeanaAggregation::getDqvHasQualityAnnotation, true);
   }

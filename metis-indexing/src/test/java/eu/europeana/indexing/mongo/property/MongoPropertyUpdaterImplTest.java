@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
-class FieldUpdateUtilsTest {
+class MongoPropertyUpdaterImplTest {
 	
 	@Test
 	void testMapEquals() {
@@ -39,10 +39,10 @@ class FieldUpdateUtilsTest {
 		mapD.put("1",listA);
 		mapE.put("1", listA);
 		mapE.put("3", listB);
-		assertTrue(MongoPropertyUpdater.mapEquals(mapA, mapB));
-		assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapC));
-		assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapD));
-		assertFalse(MongoPropertyUpdater.mapEquals(mapA, mapE));
+		assertTrue(MongoPropertyUpdaterImpl.mapEquals(mapA, mapB));
+		assertFalse(MongoPropertyUpdaterImpl.mapEquals(mapA, mapC));
+		assertFalse(MongoPropertyUpdaterImpl.mapEquals(mapA, mapD));
+		assertFalse(MongoPropertyUpdaterImpl.mapEquals(mapA, mapE));
 	}
 
 	@Test
@@ -51,8 +51,8 @@ class FieldUpdateUtilsTest {
 		String[] arrB = new String[]{"1","3","2"};
 		String[] arrC = new String[]{"1","2"};
 		String[] arrD = new String[]{"1","2","4"};
-		assertTrue(MongoPropertyUpdater.arrayEquals(arrA, arrB));
-		assertFalse(MongoPropertyUpdater.arrayEquals(arrA, arrC));
-		assertFalse(MongoPropertyUpdater.arrayEquals(arrA, arrD));
+		assertTrue(MongoPropertyUpdaterImpl.arrayEquals(arrA, arrB));
+		assertFalse(MongoPropertyUpdaterImpl.arrayEquals(arrA, arrC));
+		assertFalse(MongoPropertyUpdaterImpl.arrayEquals(arrA, arrD));
 	}
 }
