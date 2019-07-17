@@ -86,7 +86,7 @@ public class MorphiaDatastoreProvider {
     if (datasetXsltDao.getLatestDefaultXslt() == null) {
       try (final InputStream inputStream = defaultTransformationSupplier.get()) {
         final String defaultTransformationAsString = IOUtils
-            .toString(inputStream, StandardCharsets.UTF_8);
+            .toString(inputStream, StandardCharsets.UTF_8.name());
         final DatasetXslt defaultTransformation = new DatasetXslt(DatasetXslt.DEFAULT_DATASET_ID,
             defaultTransformationAsString);
         datasetXsltDao.create(defaultTransformation);
