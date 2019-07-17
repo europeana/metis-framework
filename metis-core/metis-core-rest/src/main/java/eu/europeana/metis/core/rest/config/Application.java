@@ -1,12 +1,7 @@
 package eu.europeana.metis.core.rest.config;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientOptions.Builder;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
@@ -18,18 +13,18 @@ import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.Authorizer;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.json.CustomObjectMapper;
-import eu.europeana.metis.utils.CustomTruststoreAppender;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
-import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.core.net.ssl.TrustStoreConfigurationException;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -51,7 +46,10 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 public class Application implements WebMvcConfigurer {
 
   private final ConfigurationPropertiesHolder propertiesHolder;
-  private MongoClient mongoClient;
+  private final MongoClient mongoClient;
+
+  @Value(value = "classpath:default_transformation.xslt")
+  private Resource defaultTransformation;
 
   /**
    * Autowired constructor for Spring Configuration class.
@@ -63,7 +61,7 @@ public class Application implements WebMvcConfigurer {
   public Application(ConfigurationPropertiesHolder propertiesHolder)
       throws TrustStoreConfigurationException {
     this.propertiesHolder = propertiesHolder;
-    preConfigurationInitialization();
+    this.mongoClient = ApplicationInitUtils.initializeApplication(propertiesHolder);
   }
 
   @Override
@@ -72,62 +70,15 @@ public class Application implements WebMvcConfigurer {
         .allowedOrigins(propertiesHolder.getAllowedCorsHosts());
   }
 
-  private void preConfigurationInitialization() throws TrustStoreConfigurationException {
-    if (StringUtils.isNotEmpty(propertiesHolder.getTruststorePath()) && StringUtils
-        .isNotEmpty(propertiesHolder.getTruststorePassword())) {
-      CustomTruststoreAppender
-          .appendCustomTrustoreToDefault(propertiesHolder.getTruststorePath(),
-              propertiesHolder.getTruststorePassword());
-    }
-    if (propertiesHolder.isSocksProxyEnabled()) {
-      new SocksProxy(propertiesHolder.getSocksProxyHost(), propertiesHolder.getSocksProxyPort(),
-          propertiesHolder
-              .getSocksProxyUsername(),
-          propertiesHolder.getSocksProxyPassword()).init();
-    }
-
-    if (propertiesHolder.getMongoHosts().length != propertiesHolder.getMongoPorts().length
-        && propertiesHolder.getMongoPorts().length != 1) {
-      throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
-    }
-
-    List<ServerAddress> serverAddresses = new ArrayList<>(propertiesHolder.getMongoHosts().length);
-    for (int i = 0; i < propertiesHolder.getMongoHosts().length; i++) {
-      ServerAddress address;
-      if (propertiesHolder.getMongoHosts().length == propertiesHolder.getMongoPorts().length) {
-        address = new ServerAddress(propertiesHolder.getMongoHosts()[i],
-            propertiesHolder.getMongoPorts()[i]);
-      } else { // Same port for all
-        address = new ServerAddress(propertiesHolder.getMongoHosts()[i],
-            propertiesHolder.getMongoPorts()[0]);
-      }
-      serverAddresses.add(address);
-    }
-
-    MongoClientOptions.Builder optionsBuilder = new Builder();
-    optionsBuilder.sslEnabled(propertiesHolder.isMongoEnableSSL());
-    if (StringUtils.isEmpty(propertiesHolder.getMongoDb()) || StringUtils
-        .isEmpty(propertiesHolder.getMongoUsername())
-        || StringUtils
-        .isEmpty(propertiesHolder.getMongoPassword())) {
-      mongoClient = new MongoClient(serverAddresses, optionsBuilder.build());
-    } else {
-      MongoCredential mongoCredential = MongoCredential
-          .createCredential(propertiesHolder.getMongoUsername(),
-              propertiesHolder.getMongoAuthenticationDb(),
-              propertiesHolder.getMongoPassword().toCharArray());
-      mongoClient = new MongoClient(serverAddresses, mongoCredential, optionsBuilder.build());
-    }
-  }
-
   @Bean
   AuthenticationClient getAuthenticationClient() {
     return new AuthenticationClient(propertiesHolder.getAuthenticationBaseUrl());
   }
 
   @Bean
-  MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
-    return new MorphiaDatastoreProvider(mongoClient, propertiesHolder.getMongoDb());
+  MorphiaDatastoreProvider getMorphiaDatastoreProvider() throws IOException {
+    return new MorphiaDatastoreProvider(mongoClient, propertiesHolder.getMongoDb(),
+        defaultTransformation::getInputStream);
   }
 
   @Bean

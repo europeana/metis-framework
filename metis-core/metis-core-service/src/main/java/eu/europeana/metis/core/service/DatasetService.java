@@ -15,7 +15,7 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
 import eu.europeana.metis.core.exceptions.XsltSetupException;
 import eu.europeana.metis.core.rest.Record;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -332,29 +332,27 @@ public class DatasetService {
     authorizer.authorizeWriteDefaultXslt(metisUser);
     DatasetXslt datasetXslt = null;
     if (xsltString != null) {
-      datasetXslt = datasetXsltDao.getById(
-          datasetXsltDao.create(new DatasetXslt(DatasetXsltDao.DEFAULT_DATASET_ID, xsltString)));
+      datasetXslt = datasetXsltDao.getById(datasetXsltDao.create(new DatasetXslt(xsltString)));
     }
     return datasetXslt;
   }
 
   /**
-   * Get the latest xslt for a datasetId. Use -1 to get the default xslt.
+   * Get the latest default xslt.
    * <p>
    * It is an method that does not require authentication and it is meant to be used from
    * external service to download the corresponding xslt. At the point of writing, ECloud
    * transformation topology is using it. {@link TransformationPlugin}
    * </p>
    *
-   * @param datasetId the dataset identifier defined to which dataset an xslt belongs
    * @return the text representation of the String xslt non escaped
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
    * </ul>
    */
-  public DatasetXslt getLatestXsltForDatasetId(String datasetId) throws GenericMetisException {
-    DatasetXslt datasetXslt = datasetXsltDao.getLatestXsltForDatasetId(datasetId);
+  public DatasetXslt getLatestDefaultXslt() throws GenericMetisException {
+    DatasetXslt datasetXslt = datasetXsltDao.getLatestDefaultXslt();
     if (datasetXslt == null) {
       throw new NoXsltFoundException("No default datasetXslt found");
     }
@@ -365,7 +363,7 @@ public class DatasetService {
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
    * This method can be used, for example, after a response from
-   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String, PluginType, String, int)}
+   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String, ExecutablePluginType, String, int)}
    * to try a transformation on a list of xmls just after validation external to preview an example
    * result.
    * </p>
@@ -392,8 +390,7 @@ public class DatasetService {
     Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
 
     //Using default dataset identifier
-    DatasetXslt datasetXslt = datasetXsltDao
-        .getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID);
+    DatasetXslt datasetXslt = datasetXsltDao.getLatestDefaultXslt();
     if (datasetXslt == null) {
       throw new NoXsltFoundException("Could not find default xslt");
     }
@@ -412,7 +409,7 @@ public class DatasetService {
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
    * This method can be used, for example, after a response from
-   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String, PluginType, String, int)}
+   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String, ExecutablePluginType, String, int)}
    * to try a transformation on a list of xmls just after validation external to preview an example
    * result.
    * </p>
