@@ -20,7 +20,7 @@ abstract class AbstractTemporaryFile implements ResourceRelatedFile {
   /**
    * Path pointing to the temporary file.
    */
-  private Path contentPath = null;
+  private Path contentPath;
 
   /**
    * Action that creates the content file.
