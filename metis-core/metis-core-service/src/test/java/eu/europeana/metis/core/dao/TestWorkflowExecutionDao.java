@@ -19,7 +19,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.CancelledSystemId;
@@ -60,7 +60,7 @@ class TestWorkflowExecutionDao {
 
   private static WorkflowExecutionDao workflowExecutionDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
-  private static MorphiaDatastoreProvider provider;
+  private static MorphiaDatastoreProviderImpl provider;
 
   @BeforeAll
   static void prepare() {
@@ -70,7 +70,7 @@ class TestWorkflowExecutionDao {
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
-    provider = new MorphiaDatastoreProvider(mongoClient, "test");
+    provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
 
     workflowExecutionDao = spy(new WorkflowExecutionDao(provider));
     workflowExecutionDao.setWorkflowExecutionsPerRequest(5);

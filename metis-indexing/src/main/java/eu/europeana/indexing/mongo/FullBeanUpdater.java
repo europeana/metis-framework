@@ -33,8 +33,7 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
   }
 
   /**
-   * Update the full bean. Convenience method for {@link AbstractMongoObjectUpdater#update(Object,
-   * Object, MongoServer)}.
+   * Update the full bean. Convenience method for {@link #update(Object, Object, MongoServer)}.
    *
    * @param newEntity The new entity (to take the new values from).
    * @param mongoServer The mongo server.
