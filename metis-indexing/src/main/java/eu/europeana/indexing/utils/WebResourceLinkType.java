@@ -13,18 +13,30 @@ import java.util.function.Function;
  */
 public enum WebResourceLinkType {
 
-  HAS_VIEW(aggregation -> new ArrayList<>(aggregation.getHasViewList())),
+  HAS_VIEW(createResourceListExtractor(Aggregation::getHasViewList)),
 
-  IS_SHOWN_AT(aggregation -> Collections.singletonList(aggregation.getIsShownAt())),
+  IS_SHOWN_AT(createSingletonResourceExtractor(Aggregation::getIsShownAt)),
 
-  IS_SHOWN_BY(aggregation -> Collections.singletonList(aggregation.getIsShownBy())),
+  IS_SHOWN_BY(createSingletonResourceExtractor(Aggregation::getIsShownBy)),
 
-  OBJECT(aggregation -> Collections.singletonList(aggregation.getObject()));
+  OBJECT(createSingletonResourceExtractor(Aggregation::getObject));
 
   private final Function<Aggregation, List<ResourceType>> resourceExtractor;
 
   WebResourceLinkType(Function<Aggregation, List<ResourceType>> resourceExtractor) {
     this.resourceExtractor = resourceExtractor;
+  }
+
+  private static Function<Aggregation, List<ResourceType>> createSingletonResourceExtractor(
+      Function<Aggregation, ? extends ResourceType> propertyGetter) {
+    return propertyGetter
+        .andThen(property -> property == null ? null : Collections.singletonList(property));
+  }
+
+  private static Function<Aggregation, List<ResourceType>> createResourceListExtractor(
+      Function<Aggregation, List<? extends ResourceType>> propertyGetter) {
+    return propertyGetter
+        .andThen(properties -> properties == null ? null : new ArrayList<>(properties));
   }
 
   final List<ResourceType> getResourcesOfType(Aggregation aggregation) {
