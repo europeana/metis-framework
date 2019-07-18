@@ -2,6 +2,8 @@ package eu.europeana.metis.mediaprocessing.extraction;
 
 /**
  * Instances of this enum represent resource classes.
+ *
+ * TODO is a duplicate of MediaType in the indexing library.
  */
 public enum ResourceType {
 
