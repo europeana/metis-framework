@@ -1,6 +1,7 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
+import eu.europeana.indexing.mongo.property.RootAboutWrapper;
 
 /**
  * Ancestor information for {@link WebResourceMetaInfoImpl}, that contains the about values of the

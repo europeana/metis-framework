@@ -1,10 +1,11 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.corelib.solr.entity.PlaceImpl;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import java.util.function.BiConsumer;
 import org.junit.jupiter.api.Test;
 

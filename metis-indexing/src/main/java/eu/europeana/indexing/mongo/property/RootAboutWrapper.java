@@ -3,7 +3,7 @@ package eu.europeana.indexing.mongo.property;
 /**
  * Ancestor information consisting of the about value of the root (i.e. the full bean).
  */
-class RootAboutWrapper {
+public class RootAboutWrapper {
 
   private final String rootAbout;
 
@@ -12,11 +12,11 @@ class RootAboutWrapper {
    * 
    * @param rootAbout The about of the full bean.
    */
-  RootAboutWrapper(String rootAbout) {
+  public RootAboutWrapper(String rootAbout) {
     this.rootAbout = rootAbout;
   }
 
-  String getRootAbout() {
+  public String getRootAbout() {
     return rootAbout;
   }
 }

@@ -5,6 +5,10 @@ import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
+import eu.europeana.indexing.mongo.AbstractEdmEntityUpdater;
+import eu.europeana.indexing.mongo.WebResourceInformation;
+import eu.europeana.indexing.mongo.WebResourceMetaInfoUpdater;
+import eu.europeana.indexing.mongo.WebResourceUpdater;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -170,7 +174,7 @@ public interface MongoPropertyUpdater<T> {
    */
   <P extends AbstractEdmEntity, A> void updateReferencedEntity(String updateField,
       Function<T, P> getter, Function<T, A> ancestorInfoGetter,
-      AbstractMongoObjectUpdater<P, A> objectUpdater);
+      MongoObjectUpdater<P, A> objectUpdater);
 
   /**
    * <p>
@@ -191,7 +195,7 @@ public interface MongoPropertyUpdater<T> {
    */
   <P extends AbstractEdmEntity, A> void updateReferencedEntities(String updateField,
       Function<T, List<P>> getter, Function<T, A> ancestorInfoGetter,
-      AbstractMongoObjectUpdater<P, A> objectUpdater);
+      MongoObjectUpdater<P, A> objectUpdater);
 
   /**
    * <p>
@@ -224,7 +228,7 @@ public interface MongoPropertyUpdater<T> {
    */
   void updateWebResourceMetaInfo(Function<T, WebResourceMetaInfo> getter,
       Function<T, WebResourceInformation> ancestorInfoGetter,
-      Supplier<AbstractMongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation>> updaterSupplier);
+      Supplier<MongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation>> updaterSupplier);
 
   /**
    * <p>

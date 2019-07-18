@@ -1,6 +1,7 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.solr.entity.LicenseImpl;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.function.UnaryOperator;

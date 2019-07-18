@@ -25,7 +25,7 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
-import eu.europeana.indexing.mongo.property.FullBeanUpdater;
+import eu.europeana.indexing.mongo.FullBeanUpdater;
 import eu.europeana.indexing.solr.SolrDocumentPopulator;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.utils.ExternalRequestUtil;

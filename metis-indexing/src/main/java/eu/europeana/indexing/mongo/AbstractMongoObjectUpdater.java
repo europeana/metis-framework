@@ -1,6 +1,8 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.storage.MongoServer;
+import eu.europeana.indexing.mongo.property.MongoObjectUpdater;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 
 /**
  * Updater of mongo objects.
@@ -8,16 +10,9 @@ import eu.europeana.corelib.storage.MongoServer;
  * @param <R> The type of the record to update.
  * @param <A> The type of the ancestor information (information from parents).
  */
-public abstract class AbstractMongoObjectUpdater<R, A> {
+public abstract class AbstractMongoObjectUpdater<R, A> implements MongoObjectUpdater<R, A> {
 
-  /**
-   * Update a property.
-   * 
-   * @param newEntity The new entity (to take the new values from).
-   * @param ancestorInformation The ancestor information for this entity.
-   * @param mongoServer The mongo server.
-   * @return The updated entity.
-   */
+  @Override
   public final R update(R newEntity, A ancestorInformation, MongoServer mongoServer) {
     preprocessEntity(newEntity, ancestorInformation);
     final MongoPropertyUpdater<R> propertyUpdater =

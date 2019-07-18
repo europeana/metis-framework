@@ -1,4 +1,4 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.ArgumentMatchers.eq;
@@ -29,6 +29,8 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
+import eu.europeana.indexing.mongo.property.RootAboutWrapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

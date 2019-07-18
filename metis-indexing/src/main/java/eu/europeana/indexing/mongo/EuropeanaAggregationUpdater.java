@@ -1,7 +1,9 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
+import eu.europeana.indexing.mongo.property.RootAboutWrapper;
 
 /**
  * Field updater for instances of {@link EuropeanaAggregation}.

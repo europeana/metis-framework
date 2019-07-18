@@ -1,6 +1,9 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
+import eu.europeana.indexing.mongo.property.RootAboutWrapper;
 import java.util.ArrayList;
 import java.util.function.BiConsumer;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;

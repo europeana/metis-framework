@@ -1,8 +1,10 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.storage.MongoServer;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
 
 /**
  * Updater of EDM entities (properties of {@link FullBean}).

@@ -1,6 +1,7 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 
 /**
  * Field updater for instances of {@link ProvidedCHOImpl}.

@@ -1,10 +1,11 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import org.junit.jupiter.api.Test;
 
 class ProvidedChoUpdaterTest extends MongoEntityUpdaterTest<ProvidedCHOImpl> {

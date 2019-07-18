@@ -1,4 +1,4 @@
-package eu.europeana.indexing.mongo.property;
+package eu.europeana.indexing.mongo;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,6 +13,8 @@ import static org.mockito.Mockito.verify;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
+import eu.europeana.indexing.mongo.property.RootAboutWrapper;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
