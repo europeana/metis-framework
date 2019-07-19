@@ -158,6 +158,7 @@ public class OrchestratorHelper {
       AbstractExecutablePlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
           dataset.getDatasetId(), pluginMetadata.getExecutablePluginType(), enforcedPluginType);
       // Set all previous revision information
+      // TODO JV do this for all plugins, not just the first one. It's currently done in the WorkflowExecutor.
       pluginMetadata.setPreviousRevisionInformation(previousPlugin);
     }
 
@@ -293,14 +294,12 @@ public class OrchestratorHelper {
       }
       //Resolve source of link checking
       if (pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING && i != 0) {
-        pluginTypeInWorkflow = ExecutablePluginType
-            .getPluginTypeFromEnumName(metisPluginsMetadata.get(i - 1).getPluginType().name());
+        pluginTypeInWorkflow = metisPluginsMetadata.get(i - 1).getExecutablePluginType();
       } else if (pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING) {
-        final AbstractExecutablePlugin linkCheckingBasePlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+        final AbstractExecutablePlugin<?> linkCheckingBasePlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
             workflow.getDatasetId(),
             workflow.getMetisPluginsMetadata().get(0).getExecutablePluginType(), null);
-        pluginTypeInWorkflow = ExecutablePluginType
-            .getPluginTypeFromEnumName(linkCheckingBasePlugin.getPluginType().name());
+        pluginTypeInWorkflow = linkCheckingBasePlugin.getPluginMetadata().getExecutablePluginType();
       }
       if (metisPluginsMetadata.get(i + 1).getExecutablePluginType() == pluginType) {
         earlierPluginTypeFound = earlierPluginTypeFound || possibleEarlierPluginTypes

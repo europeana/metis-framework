@@ -6,8 +6,9 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin.MonitorResult;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -17,6 +18,7 @@ import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -204,7 +206,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       final AbstractExecutablePlugin previousPlugin = expectExecutablePlugin(
           previousPluginUnchecked);
 
-      // Set previous plugin revision information
+      // Compute previous plugin revision information.
+      // TODO JV do this when we are creating the workflow, not only when sending it to ecloud.
+      // (but if we change this, be backwards compatible and also do it here for now!)
       if (previousPlugin != null) {
         plugin.getPluginMetadata().setPreviousRevisionInformation(previousPlugin);
       }
@@ -216,7 +220,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         }
         final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
             ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
-            resolvePreviousExternalTaskId(previousPlugin, plugin));
+            getExternalTaskIdOfPreviousPlugin(plugin.getPluginMetadata()));
         plugin.execute(dpsClient, ecloudBasePluginParameters);
       }
     } catch (ExternalTaskException | RuntimeException e) {
@@ -234,28 +238,24 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     periodicCheckingLoop(sleepTime, plugin);
   }
 
-  private String resolvePreviousExternalTaskId(AbstractExecutablePlugin providedPreviousPlugin,
-      AbstractExecutablePlugin<?> plugin) {
-    String previousExternalTaskId = null;
-    if (providedPreviousPlugin == null && !ExecutionRules.getHarvestPluginGroup()
-        .contains(plugin.getPluginMetadata().getExecutablePluginType())) {
-      final PluginType previousPluginType = PluginType
-          .getPluginTypeFromEnumName(plugin.getPluginMetadata().getRevisionNamePreviousPlugin());
-      final Date previousPluginStartDate = plugin.getPluginMetadata()
-          .getRevisionTimestampPreviousPlugin();
-      final WorkflowExecution previousExecution = workflowExecutionDao
-          .getByTaskExecution(previousPluginStartDate, previousPluginType,
-              workflowExecution.getDatasetId());
-      final AbstractExecutablePlugin computedPreviousPlugin = previousExecution == null ? null
-          : previousExecution.getMetisPluginWithType(previousPluginType)
-              .map(WorkflowExecutor::expectExecutablePlugin).orElse(null);
-      if (computedPreviousPlugin != null) {
-        previousExternalTaskId = computedPreviousPlugin.getExternalTaskId();
-      }
-    } else if (providedPreviousPlugin != null) {
-      previousExternalTaskId = providedPreviousPlugin.getExternalTaskId();
+  private String getExternalTaskIdOfPreviousPlugin(AbstractExecutablePluginMetadata pluginMetadata) {
+
+    // Get the previous plugin parameters from the plugin - if there is none, we are done.
+    final PluginType previousPluginType = PluginType
+        .getPluginTypeFromEnumName(pluginMetadata.getRevisionNamePreviousPlugin());
+    final Date previousPluginStartDate = pluginMetadata.getRevisionTimestampPreviousPlugin();
+    if (previousPluginType == null || previousPluginStartDate == null) {
+      return null;
     }
-    return previousExternalTaskId;
+
+    // Get the previous plugin based on the parameters.
+    final WorkflowExecution previousExecution = workflowExecutionDao
+        .getByTaskExecution(previousPluginStartDate, previousPluginType,
+            workflowExecution.getDatasetId());
+    return Optional.ofNullable(previousExecution)
+        .flatMap(execution -> execution.getMetisPluginWithType(previousPluginType))
+        .map(WorkflowExecutor::expectExecutablePlugin)
+        .map(AbstractExecutablePlugin::getExternalTaskId).orElse(null);
   }
 
   private static AbstractExecutablePlugin expectExecutablePlugin(AbstractMetisPlugin plugin) {
