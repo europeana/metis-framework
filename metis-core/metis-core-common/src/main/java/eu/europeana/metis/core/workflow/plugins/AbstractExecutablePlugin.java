@@ -101,9 +101,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     this.dataStatus = dataStatus;
   }
 
-  @Override
-  public abstract String getTopologyName();
-
   private Revision createOutputRevisionForExecution(String ecloudProvider, boolean published) {
     return new Revision(getPluginType().name(), ecloudProvider, getStartedDate(), false, published,
         false);

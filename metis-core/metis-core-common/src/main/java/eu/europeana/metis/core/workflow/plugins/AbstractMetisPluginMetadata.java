@@ -39,9 +39,6 @@ public abstract class AbstractMetisPluginMetadata implements MetisPluginMetadata
   }
 
   @Override
-  public abstract PluginType getPluginType();
-
-  @Override
   public String getRevisionNamePreviousPlugin() {
     return revisionNamePreviousPlugin;
   }

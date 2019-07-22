@@ -18,9 +18,6 @@ public abstract class AbstractExecutablePluginMetadata extends AbstractMetisPlug
   }
 
   @Override
-  public abstract ExecutablePluginType getExecutablePluginType();
-
-  @Override
   public boolean isEnabled() {
     return enabled;
   }

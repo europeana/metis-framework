@@ -43,8 +43,10 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.TestUtils;
 import java.nio.charset.StandardCharsets;
@@ -497,7 +499,8 @@ class TestOrchestratorController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    AbstractExecutablePlugin plugin = ExecutablePluginType.VALIDATION_EXTERNAL.getNewPlugin(null);
+    AbstractExecutablePlugin plugin = ExecutablePluginFactory
+        .createPlugin(new ValidationExternalPluginMetadata());
     plugin.setId("validation_external_id");
     when(orchestratorService.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
         metisUser, Integer.toString(TestObjectFactory.DATASETID), ExecutablePluginType.VALIDATION_EXTERNAL,

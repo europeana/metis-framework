@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  */
 class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MongoPropertyUpdater.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MongoPropertyUpdaterImpl.class);
 
   private static final UnaryOperator<String[]> STRING_ARRAY_PREPROCESSING = array -> Stream
       .of(array).filter(StringUtils::isNotBlank).map(String::trim).toArray(String[]::new);
