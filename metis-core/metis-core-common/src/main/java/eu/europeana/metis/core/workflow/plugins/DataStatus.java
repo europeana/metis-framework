@@ -24,8 +24,12 @@ public enum DataStatus {
    * no longer be used for further processing (e.g. superseded by a non-executable plugin or an
    * indexing removed from mongo/solr).
    */
-  DEPRECATED
+  DEPRECATED,
 
-  // TODO Add 'DELETED': the result data is no longer available.
+  /**
+   * The result data of this executable plugin is no longer available. It has been processed but the
+   * data has subsequently been removed and is not available for further processing.
+   */
+  DELETED
 
 }
