@@ -42,9 +42,8 @@ public class IndexToPreviewPlugin extends AbstractExecutablePlugin<IndexToPrevie
   }
 
   @Override
-  public DpsTask prepareDpsTask(
+  public DpsTask prepareDpsTask(String datasetId,
       EcloudBasePluginParameters ecloudBasePluginParameters) {
-    String datasetId = getPluginMetadata().getDatasetId();
     boolean useAlternativeIndexingEnvironment = getPluginMetadata()
         .getUseAlternativeIndexingEnvironment();
     boolean preserveTimestamps = getPluginMetadata().isPreserveTimestamps();

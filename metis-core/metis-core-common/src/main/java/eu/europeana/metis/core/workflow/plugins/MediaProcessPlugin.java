@@ -38,7 +38,7 @@ public class MediaProcessPlugin extends AbstractExecutablePlugin<MediaProcessPlu
   }
 
   @Override
-  DpsTask prepareDpsTask(
+  DpsTask prepareDpsTask(String datasetId,
       EcloudBasePluginParameters ecloudBasePluginParameters) {
     Map<String, Integer> connectionLimitToDomains = getPluginMetadata()
         .getConnectionLimitToDomains();

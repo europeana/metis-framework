@@ -38,7 +38,7 @@ public class LinkCheckingPlugin extends AbstractExecutablePlugin<LinkCheckingPlu
   }
 
   @Override
-  DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
+  DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
     final Map<String, String> extraParameters = createParametersForHostConnectionLimits(
         getPluginMetadata().getConnectionLimitToDomains());
     if (Boolean.TRUE.equals(getPluginMetadata().getPerformSampling())

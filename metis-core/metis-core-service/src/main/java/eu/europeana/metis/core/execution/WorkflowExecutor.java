@@ -221,7 +221,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
             ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
             getExternalTaskIdOfPreviousPlugin(plugin.getPluginMetadata()));
-        plugin.execute(dpsClient, ecloudBasePluginParameters);
+        plugin.execute(workflowExecution.getDatasetId(), dpsClient, ecloudBasePluginParameters);
       }
     } catch (ExternalTaskException | RuntimeException e) {
       LOGGER.warn("Execution of external task failed", e);
@@ -238,7 +238,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     periodicCheckingLoop(sleepTime, plugin);
   }
 
-  private String getExternalTaskIdOfPreviousPlugin(AbstractExecutablePluginMetadata pluginMetadata) {
+  private String getExternalTaskIdOfPreviousPlugin(
+      AbstractExecutablePluginMetadata pluginMetadata) {
 
     // Get the previous plugin parameters from the plugin - if there is none, we are done.
     final PluginType previousPluginType = PluginType

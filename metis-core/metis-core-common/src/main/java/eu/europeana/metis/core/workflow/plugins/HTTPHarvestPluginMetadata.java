@@ -12,6 +12,7 @@ public class HTTPHarvestPluginMetadata extends AbstractExecutablePluginMetadata 
   private String url;
   private String user;
   private String password;
+  // TODO: 22-7-19 Once 1.5.0 version is released, datasetId field can be removed
   private String datasetId;
   //Default false. If false, it indicates that the ProvidedCHO rdf:about should be used to set the identifier for ECloud
   private boolean useDefaultIdentifiers;
@@ -44,10 +45,12 @@ public class HTTPHarvestPluginMetadata extends AbstractExecutablePluginMetadata 
     this.password = password;
   }
 
+  @Deprecated
   public String getDatasetId() {
     return datasetId;
   }
 
+  @Deprecated
   public void setDatasetId(String datasetId) {
     this.datasetId = datasetId;
   }

@@ -114,10 +114,8 @@ public class OrchestratorHelper {
     final AbstractExecutablePlugin plugin;
     if (oaipmhMetadata != null && oaipmhMetadata.isEnabled()) {
       plugin = createPlugin(oaipmhMetadata);
-      oaipmhMetadata.setDatasetId(dataset.getDatasetId());
     } else if (httpMetadata != null && httpMetadata.isEnabled()) {
       plugin = createPlugin(httpMetadata);
-      httpMetadata.setDatasetId(dataset.getDatasetId());
     } else {
       plugin = null;
     }
@@ -180,12 +178,10 @@ public class OrchestratorHelper {
         this.setupValidationForPluginMetadata(pluginMetadata, getValidationInternalProperties());
         break;
       case PREVIEW:
-        ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
         ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
             isMetisUseAlternativeIndexingEnvironment());
         break;
       case PUBLISH:
-        ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetId(dataset.getDatasetId());
         ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
             isMetisUseAlternativeIndexingEnvironment());
         break;
@@ -363,7 +359,6 @@ public class OrchestratorHelper {
           .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
               Collections.singletonList(xsltObject.getId().toString())));
     }
-    pluginMetadata.setDatasetId(dataset.getDatasetId());
     //DatasetName in Transformation should be a concatenation datasetId_datasetName
     pluginMetadata.setDatasetName(dataset.getDatasetId() + "_" + dataset.getDatasetName());
     pluginMetadata.setCountry(dataset.getCountry().getName());
