@@ -9,8 +9,6 @@ package eu.europeana.metis.core.workflow.plugins;
 public class IndexToPreviewPluginMetadata extends AbstractExecutablePluginMetadata {
 
   private static final ExecutablePluginType pluginType = ExecutablePluginType.PREVIEW;
-  // TODO: 22-7-19 Once 1.5.0 version is released, datasetId field can be removed
-  private String datasetId;
   private boolean useAlternativeIndexingEnvironment;
   private boolean preserveTimestamps;
 
@@ -21,16 +19,6 @@ public class IndexToPreviewPluginMetadata extends AbstractExecutablePluginMetada
   @Override
   public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
-  }
-
-  @Deprecated
-  public String getDatasetId() {
-    return datasetId;
-  }
-
-  @Deprecated
-  public void setDatasetId(String datasetId) {
-    this.datasetId = datasetId;
   }
 
   public boolean getUseAlternativeIndexingEnvironment() {
