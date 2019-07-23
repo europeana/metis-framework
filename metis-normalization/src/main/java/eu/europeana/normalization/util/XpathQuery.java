@@ -55,7 +55,7 @@ public final class XpathQuery {
     // Compute the namespace map
     final Set<String> namespaces = Arrays.stream(elements).map(Element::getNamespace)
         .map(Namespace::getUri).collect(Collectors.toSet());
-    final Map<String, String> reverseNamespaceMap = new HashMap<>();
+    final Map<String, String> reverseNamespaceMap = new HashMap<>(namespaces.size());
     int counter = 0;
     for (String namespace : namespaces) {
       counter++;

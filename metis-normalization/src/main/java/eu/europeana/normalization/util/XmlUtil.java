@@ -37,9 +37,7 @@ public final class XmlUtil {
   static {
     try {
       FACTORY.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-      // TODO: 12-10-18 Consider setting the following commented feature,
-      // todo that is to avoid XEE attacks reported by Sonar on DocumentBuilder.parse method further down the code.
-//      FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       FACTORY.setNamespaceAware(true);
     } catch (ParserConfigurationException e) {
       LOGGER.error("Could not initialize static block XmlUtil", e);

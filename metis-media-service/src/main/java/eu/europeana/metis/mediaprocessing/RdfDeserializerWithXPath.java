@@ -65,6 +65,8 @@ class RdfDeserializerWithXPath extends RdfDeserializerImpl {
     final Document document;
     try {
       final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       factory.setNamespaceAware(true);
       document = factory.newDocumentBuilder().parse(inputStream);
     } catch (SAXException | IOException | ParserConfigurationException e) {

@@ -94,33 +94,35 @@ class ThumbnailGenerator {
     this.colormapFile = colorMapFile;
   }
 
-  private static synchronized Path initColorMap() throws MediaProcessorException {
+  private static Path initColorMap() throws MediaProcessorException {
+    synchronized (ThumbnailGenerator.class) {
 
-    // If we already found the color map, we don't need to do this
-    if (globalColormapFile != null) {
+      // If we already found the color map, we don't need to do this
+      if (globalColormapFile != null) {
+        return globalColormapFile;
+      }
+
+      // Copy the color map file to the temp directory for use during this session.
+      final Path colormapTempFile;
+      try (InputStream colorMapInputStream =
+          Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
+        colormapTempFile = Files.createTempFile("colormap", ".png");
+        Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
+      } catch (IOException e) {
+        LOGGER.warn("Could not load color map file: {}.", "colormap.png", e);
+        throw new MediaProcessorException("Could not load color map file.", e);
+      }
+
+      // Make sure that the temporary file is removed when we're done with it.
+      colormapTempFile.toFile().deleteOnExit();
+
+      // So everything went well. We set this as the new color map file.
+      globalColormapFile = colormapTempFile;
       return globalColormapFile;
     }
-
-    // Copy the color map file to the temp directory for use during this session.
-    final Path colormapTempFile;
-    try (InputStream colorMapInputStream =
-        Thread.currentThread().getContextClassLoader().getResourceAsStream("colormap.png")) {
-      colormapTempFile = Files.createTempFile("colormap", ".png");
-      Files.copy(colorMapInputStream, colormapTempFile, StandardCopyOption.REPLACE_EXISTING);
-    } catch (IOException e) {
-      LOGGER.warn("Could not load color map file: {}.", "colormap.png", e);
-      throw new MediaProcessorException("Could not load color map file.", e);
-    }
-
-    // Make sure that the temporary file is removed when we're done with it.
-    colormapTempFile.toFile().deleteOnExit();
-
-    // So everything went well. We set this as the new color map file.
-    globalColormapFile = colormapTempFile;
-    return globalColormapFile;
   }
 
-  private static synchronized String getGlobalImageMagickCommand(CommandExecutor commandExecutor)
+  private static String getGlobalImageMagickCommand(CommandExecutor commandExecutor)
       throws MediaProcessorException {
     synchronized (ThumbnailGenerator.class) {
       if (globalMagickCommand == null) {
@@ -198,10 +200,17 @@ class ThumbnailGenerator {
       throw new MediaExtractionException("File content is null");
     }
 
-    // Obtain the thumbnail files (they are still empty)
+    // TODO JV We should change this into a whitelist of supported formats.
+    // Exception for DjVu files
+    if (detectedMimeType.startsWith("image/vnd.djvu") || detectedMimeType.startsWith("image/x-djvu")
+        || detectedMimeType.startsWith("image/x.djvu")) {
+      throw new MediaExtractionException("Cannot generate thumbnails for DjVu file.");
+    }
+
+    // Obtain the thumbnail files (they are still empty) - create temporary files for them.
     final List<ThumbnailWithSize> thumbnails = prepareThumbnailFiles(url);
 
-    // Load the thumbnail files: in case of problems, make sure to delete them.
+    // Load the thumbnails: delete the temporary files, and the thumbnails in case of exceptions.
     final ImageMetadata image;
     try {
       image = generateThumbnailsInternal(thumbnails, detectedMimeType, content);
@@ -211,6 +220,8 @@ class ThumbnailGenerator {
     } catch (MediaExtractionException e) {
       closeAllThumbnailsSilently(thumbnails);
       throw e;
+    } finally {
+      thumbnails.forEach(ThumbnailWithSize::deleteTempFileSilently);
     }
 
     // Done.
@@ -221,11 +232,7 @@ class ThumbnailGenerator {
 
   private static void closeAllThumbnailsSilently(List<ThumbnailWithSize> thumbnails) {
     for (ThumbnailWithSize thumbnail : thumbnails) {
-      try {
-        thumbnail.getThumbnail().close();
-      } catch (IOException e) {
-        LOGGER.warn("Could not close thumbnail: {}", thumbnail.getThumbnail().getResourceUrl(), e);
-      }
+      thumbnail.getThumbnail().close();
     }
   }
 
@@ -256,7 +263,7 @@ class ThumbnailGenerator {
       }
       ThumbnailWithSize thumbnail = thumbnails.get(i);
       command.addAll(Arrays.asList("-thumbnail", thumbnail.getImageSize() + "x", "-write",
-          fileTypePrefix + thumbnail.getThumbnail().getContentPath().toString()));
+          fileTypePrefix + thumbnail.getTempFileForThumbnail().toString()));
       if (i != thumbnailCounter - 1) {
         command.add("+delete");
         command.add(")");
@@ -285,18 +292,21 @@ class ThumbnailGenerator {
       try {
 
         // Check that the thumbnails are not empty.
-        final Path thumb = thumbnail.getThumbnail().getContentPath();
-        if (getFileSize(thumb) == 0) {
-          throw new MediaExtractionException("Thumbnail file empty: " + thumb);
+        final Path tempFileForThumbnail = thumbnail.getTempFileForThumbnail();
+        if (getFileSize(tempFileForThumbnail) == 0) {
+          throw new MediaExtractionException("Thumbnail file empty: " + tempFileForThumbnail);
         }
 
-        // In case of actual images: don't make a thumbnail larger than the original.
+        // Copy the thumbnail. In case of images: don't make a thumbnail larger than the original.
         final boolean isImage =
             ResourceType.getResourceType(detectedMimeType) == ResourceType.IMAGE;
-        if (isImage && result.getWidth() < thumbnail.getImageSize()) {
-          // Replace thumbnail by copy of original.
-          copyFile(content, thumb);
+        final boolean shouldUseOriginal = isImage && result.getWidth() < thumbnail.getImageSize();
+        if (shouldUseOriginal) {
+          copyFile(content, thumbnail);
+        } else {
+          copyFile(thumbnail.getTempFileForThumbnail(), thumbnail);
         }
+
       } catch (IOException e) {
         throw new MediaExtractionException("Could not access thumbnail file", e);
       }
@@ -310,8 +320,14 @@ class ThumbnailGenerator {
     return Files.size(file);
   }
 
-  void copyFile(File source, Path destination) throws IOException {
-    Files.copy(source.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+  void copyFile(Path source, ThumbnailWithSize destination) throws IOException {
+    try (final InputStream thumbnailStream = Files.newInputStream(source)) {
+      destination.getThumbnail().setContent(thumbnailStream);
+    }
+  }
+
+  void copyFile(File source, ThumbnailWithSize destination) throws IOException {
+    copyFile(source.toPath(), destination);
   }
 
   List<ThumbnailWithSize> prepareThumbnailFiles(String url) throws MediaExtractionException {
@@ -323,7 +339,7 @@ class ThumbnailGenerator {
         result.add(new ThumbnailWithSize(thumbnail, entry.getKey()));
       }
     } catch (IOException e) {
-      throw new MediaExtractionException("Could not create thumbnail files.", e);
+      throw new MediaExtractionException("Could not create temporary thumbnail files.", e);
     }
     return result;
   }
@@ -366,10 +382,16 @@ class ThumbnailGenerator {
 
     private final ThumbnailImpl thumbnail;
     private final int imageSize;
+    private final Path tempFileForThumbnail;
 
-    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize) {
+    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize, Path tempFileForThumbnail) {
       this.thumbnail = thumbnail;
       this.imageSize = imageSize;
+      this.tempFileForThumbnail = tempFileForThumbnail;
+    }
+
+    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize) throws IOException {
+      this(thumbnail, imageSize, Files.createTempFile("thumbnail_", null));
     }
 
     ThumbnailImpl getThumbnail() {
@@ -378,6 +400,18 @@ class ThumbnailGenerator {
 
     int getImageSize() {
       return imageSize;
+    }
+
+    Path getTempFileForThumbnail() {
+      return tempFileForThumbnail;
+    }
+
+    void deleteTempFileSilently() {
+      try {
+        Files.delete(getTempFileForThumbnail());
+      } catch (IOException e) {
+        LOGGER.warn("Could not close thumbnail: {}", getTempFileForThumbnail(), e);
+      }
     }
   }
 }

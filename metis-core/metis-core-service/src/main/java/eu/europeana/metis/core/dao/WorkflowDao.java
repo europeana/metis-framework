@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.dao;
 
+import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
+import static eu.europeana.metis.core.common.DaoFieldNames.ID;
+
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
@@ -20,7 +23,6 @@ import org.springframework.stereotype.Repository;
 public class WorkflowDao implements MetisDao<Workflow, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowDao.class);
-  private static final String DATASET_ID = "datasetId";
   private int workflowsPerRequest = RequestLimits.WORKFLOWS_PER_REQUEST.getLimit();
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
@@ -56,7 +58,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   public Workflow getById(String id) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
         .find(Workflow.class)
-        .field("_id").equal(new ObjectId(id));
+        .field(ID.getFieldName()).equal(new ObjectId(id));
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::get);
   }
 
@@ -73,7 +75,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
    */
   public boolean deleteWorkflow(String datasetId) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore().createQuery(Workflow.class);
-    query.field(DATASET_ID).equal(datasetId);
+    query.field(DATASET_ID.getFieldName()).equal(datasetId);
     WriteResult delete = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().delete(query));
@@ -92,8 +94,8 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     Workflow storedWorkflow = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-                .field(DATASET_ID).equal(workflow.getDatasetId())
-                .project("_id", true).get());
+                .field(DATASET_ID.getFieldName()).equal(workflow.getDatasetId())
+                .project(ID.getFieldName(), true).get());
     return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }
 
@@ -107,7 +109,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     return ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-                .field(DATASET_ID).equal(datasetId).get());
+                .field(DATASET_ID.getFieldName()).equal(datasetId).get());
   }
 
   public int getWorkflowsPerRequest() {

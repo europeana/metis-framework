@@ -64,8 +64,10 @@ class TestExecutionRules {
 
   @Test
   void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution() {
+    final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn;
+    pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(ExecutionRules.getHarvestPluginGroup());
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.VALIDATION_EXTERNAL,
-        ExecutionRules.getHarvestPluginGroup());
+        pluginTypesSetThatPluginTypeCanBeBasedOn);
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.TRANSFORMATION,
         EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL));
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.VALIDATION_INTERNAL,
@@ -80,11 +82,8 @@ class TestExecutionRules {
         EnumSet.of(ExecutablePluginType.MEDIA_PROCESS));
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.PUBLISH,
         EnumSet.of(ExecutablePluginType.PREVIEW));
-    final Set<ExecutablePluginType> allowedSetForLinkChecking = new HashSet<>(
-        ExecutionRules.getProcessPluginGroup());
-    allowedSetForLinkChecking.addAll(ExecutionRules.getIndexPluginGroup());
     testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.LINK_CHECKING,
-        allowedSetForLinkChecking);
+        ExecutionRules.getAllExceptLinkGroup());
   }
 
   private void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class ConfidenceLevelTest {
 
   @Test
-  public void testGetForConfidence() {
+  void testGetForConfidence() {
     assertEquals(ConfidenceLevel.CERTAIN, ConfidenceLevel.getForConfidence(1.0F));
     assertEquals(ConfidenceLevel.VERY_HIGH, ConfidenceLevel.getForConfidence(0.99999F));
     assertEquals(ConfidenceLevel.HIGH,
@@ -17,11 +17,13 @@ public class ConfidenceLevelTest {
     assertEquals(ConfidenceLevel.GUESS, ConfidenceLevel.getForConfidence(-0.0F));
   }
 
-  public void testGetForNegativeConfidence() {
+  @Test
+  void testGetForNegativeConfidence() {
     assertThrows(IllegalArgumentException.class, () -> ConfidenceLevel.getForConfidence(-0.00001F));
   }
 
-  public void testGetForConfidenceAboveOne() {
+  @Test
+  void testGetForConfidenceAboveOne() {
     assertThrows(IllegalArgumentException.class, () -> ConfidenceLevel.getForConfidence(1.00001F));
   }
 }

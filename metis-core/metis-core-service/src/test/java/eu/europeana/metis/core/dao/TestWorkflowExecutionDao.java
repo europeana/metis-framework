@@ -17,12 +17,12 @@ import static org.mockito.Mockito.verify;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.CancelledSystemId;
-import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
@@ -466,7 +466,7 @@ class TestWorkflowExecutionDao {
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(
           workflowExecutionDao.getAllWorkflowExecutions(
               Collections.singleton(Integer.toString(TestObjectFactory.DATASETID)),
-              workflowStatuses, OrderField.ID, false, nextPage),
+              workflowStatuses, DaoFieldNames.ID, false, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
@@ -494,7 +494,7 @@ class TestWorkflowExecutionDao {
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(
           workflowExecutionDao.getAllWorkflowExecutions(
               Collections.singleton(Integer.toString(TestObjectFactory.DATASETID)),
-              workflowStatuses, OrderField.CREATED_DATE, true, nextPage),
+              workflowStatuses, DaoFieldNames.CREATED_DATE, true, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       WorkflowExecution beforeWorkflowExecution = userWorkflowExecutionResponseListWrapper
           .getResults().get(0);

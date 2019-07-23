@@ -142,7 +142,8 @@ class AudioVideoProcessor implements MediaProcessor {
       // Analyze command result
       final JSONObject result = readCommandResponseToJson(response);
       if (!resourceHasContent(resource) && result.length() == 0) {
-        throw new MediaExtractionException("Probably download failed");
+        throw new MediaExtractionException(
+            "Analysis of this media file revealed no metadata. Probably it could not be downloaded.");
       }
       final JSONObject format = result.getJSONObject("format");
       final JSONObject videoStream = findStream(result, "video");

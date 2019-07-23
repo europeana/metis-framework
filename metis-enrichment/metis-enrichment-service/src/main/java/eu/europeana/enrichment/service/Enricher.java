@@ -54,7 +54,7 @@ public class Enricher {
     try {
       return redisEnricher.getByUri(uri);
     } catch (RuntimeException | IOException e) {
-      LOGGER.warn("Unable to rerieve entity form uri {}", e);
+      LOGGER.warn("Unable to retrieve entity form uri", e);
     }
     return null;
   }

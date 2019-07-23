@@ -1,8 +1,11 @@
 package eu.europeana.metis.dereference.service.utils;
 
+import eu.europeana.metis.dereference.Vocabulary;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -12,7 +15,6 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.metis.dereference.Vocabulary;
 
 /**
  * Convert an incoming record to EDM.
@@ -51,11 +53,15 @@ public class IncomingRecordToEdmConverter {
   public String convert(String record, String recordId) {
     try {
 
-      // Perform the transformation.
+      // Set up the transformer
       final Source source = new StreamSource(new StringReader(record));
       final StringWriter stringWriter = new StringWriter();
       final Transformer transformer = template.newTransformer();
       transformer.setParameter(TARGET_ID_PARAMETER_NAME, recordId);
+      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+      transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_8.name());
+
+      // Perform the transformation.
       transformer.transform(source, new StreamResult(stringWriter));
       final String result = stringWriter.toString();
 

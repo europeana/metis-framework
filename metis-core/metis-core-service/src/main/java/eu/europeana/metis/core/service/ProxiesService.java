@@ -37,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -49,7 +50,8 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class ProxiesService {
 
-  protected final DateFormat pluginDateFormatForEcloud = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+  protected final DateFormat pluginDateFormatForEcloud = new SimpleDateFormat(
+      "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.US);
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final DataSetServiceClient ecloudDataSetServiceClient;
@@ -147,7 +149,8 @@ public class ProxiesService {
    * workflow execution exists for the provided external task identifier</li>
    * </ul>
    */
-  public boolean existsExternalTaskReport(MetisUser metisUser, String topologyName, long externalTaskId)
+  public boolean existsExternalTaskReport(MetisUser metisUser, String topologyName,
+      long externalTaskId)
       throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser,
         getDatasetIdFromExternalTaskId(externalTaskId));
@@ -330,7 +333,7 @@ public class ProxiesService {
     }
 
     // Get the records themselves.
-    final List<Record> records = new ArrayList<>();
+    final List<Record> records = new ArrayList<>(resultSlice.getResults().size());
     for (CloudTagsResponse cloudTagsResponse : resultSlice.getResults()) {
       records.add(getRecord(executionAndPlugin.getRight(), cloudTagsResponse.getCloudId()));
     }
@@ -350,9 +353,12 @@ public class ProxiesService {
    * @return the list of records from the external resource
    * @throws GenericMetisException can be one of:
    * <ul>
-   * <li>{@link MCSException} if an error occurred while retrieving the records from the external resource</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow execution exists for the provided identifier</li>
+   * <li>{@link MCSException} if an error occurred while retrieving the records from the external
+   * resource</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authorized to perform this task</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if no workflow
+   * execution exists for the provided identifier</li>
    * </ul>
    */
   public RecordsResponse getListOfFileContentsFromPluginExecution(MetisUser metisUser,
@@ -369,7 +375,7 @@ public class ProxiesService {
     }
 
     // Get the records.
-    final List<Record> records = new ArrayList<>();
+    final List<Record> records = new ArrayList<>(ecloudIds.getIds().size());
     for (String cloudId : ecloudIds.getIds()) {
       records.add(getRecord(executionAndPlugin.getRight(), cloudId));
     }

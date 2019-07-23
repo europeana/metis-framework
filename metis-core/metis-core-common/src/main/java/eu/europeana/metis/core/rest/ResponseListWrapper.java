@@ -3,14 +3,17 @@ package eu.europeana.metis.core.rest;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
+import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * Class used to wrap a list of result object to be given back as a response on a REST API endpoint.
+ * Class used to wrap a list of result object to be given back as a response on a REST API
+ * endpoint.
+ *
+ * @param <T> should extend {@link HasMongoObjectId}
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
- * @param <T> should extend {@link HasMongoObjectId}
  */
 
 public class ResponseListWrapper<T extends HasMongoObjectId> {
@@ -24,6 +27,7 @@ public class ResponseListWrapper<T extends HasMongoObjectId> {
   /**
    * Accepts a list of results objects, and based on the resultsPerRequestLimit it will determine if
    * there would be another nextPage. This method assumes a page count of 1.
+   *
    * @param results the {@link List} of objects
    * @param resultsPerRequestLimit the result limit per request
    * @param nextPage the positive next page number or -1 if there shouldn't be another page
@@ -35,6 +39,7 @@ public class ResponseListWrapper<T extends HasMongoObjectId> {
   /**
    * Accepts a list of results objects, and based on the resultsPerRequestLimit it will determine if
    * there would be another nextPage.
+   *
    * @param results the {@link List} of objects
    * @param resultsPerRequestLimit the result limit per request
    * @param nextPage the positive next page number or -1 if there shouldn't be another page
@@ -52,12 +57,12 @@ public class ResponseListWrapper<T extends HasMongoObjectId> {
       }
       listSize = results.size();
     }
-    this.results = results;
+    this.results = results == null ? null : new ArrayList<>(results);
   }
 
   /**
-   * Clear the internal data.
-   * Used to not recreate the same structure all the time if it's used in a loop.
+   * Clear the internal data. Used to not recreate the same structure all the time if it's used in a
+   * loop.
    */
   public void clear() {
     if (results != null) {
@@ -68,11 +73,11 @@ public class ResponseListWrapper<T extends HasMongoObjectId> {
   }
 
   public List<T> getResults() {
-    return results;
+    return results == null ? null : new ArrayList<>(results);
   }
 
   public void setResults(List<T> results) {
-    this.results = results;
+    this.results = results == null ? null : new ArrayList<>(results);
   }
 
   public int getNextPage() {

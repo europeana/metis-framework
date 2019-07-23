@@ -43,6 +43,11 @@ abstract class MongoEntityUpdaterTest<T> {
 
   void testArrayPropertyUpdate(MongoPropertyUpdater<T> propertyUpdater, String fieldName,
       BiConsumer<T, String[]> setter) {
+    testArrayPropertyUpdate(propertyUpdater, fieldName, setter, false);
+  }
+
+  void testArrayPropertyUpdate(MongoPropertyUpdater<T> propertyUpdater, String fieldName,
+      BiConsumer<T, String[]> setter, boolean makeEmptyArrayNull) {
 
     // Create a test object with the right value
     final T testEntity = createEmptyMongoEntity();
@@ -52,7 +57,13 @@ abstract class MongoEntityUpdaterTest<T> {
     // Check that the updater was called with the field and a getter that returns the correct value.
     @SuppressWarnings("unchecked") final ArgumentCaptor<Function<T, String[]>> getterCaptor = ArgumentCaptor
         .forClass(Function.class);
-    verify(propertyUpdater, times(1)).updateArray(eq(fieldName), getterCaptor.capture());
+    if (makeEmptyArrayNull) {
+      verify(propertyUpdater, times(1))
+          .updateArray(eq(fieldName), getterCaptor.capture(), eq(true));
+    } else {
+      verify(propertyUpdater, times(1))
+          .updateArray(eq(fieldName), getterCaptor.capture());
+    }
     assertArrayEquals(value, getterCaptor.getValue().apply(testEntity));
   }
 

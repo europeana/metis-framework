@@ -67,7 +67,7 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
         .normalizeValue(originalValue);
     if (normalizedValue.size() != 1) {
       if (copyTarget == null) {
-        attribute.getParentNode().getAttributes().removeNamedItemNS(attribute.getNamespaceURI(),
+        attribute.getOwnerElement().getAttributes().removeNamedItemNS(attribute.getNamespaceURI(),
             attribute.getLocalName());
         report.increment(normalization.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
       }

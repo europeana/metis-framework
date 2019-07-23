@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>1.3.0</version>
+  <version>1.4.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -25,7 +25,7 @@
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v1.3.0</tag>
+    <tag>v1.4.0</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -44,9 +44,9 @@
 
   <properties>
     <jacocoArgLine /> <!-- Leave as is, it's required from jacoco plugin integration -->
-    <version.ecloud>1.4.0</version.ecloud>
+    <version.ecloud>1.5.0</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
-    <version.redisson>3.5.7</version.redisson>
+    <version.redisson>3.11.0</version.redisson>
     <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
@@ -56,7 +56,7 @@
     <version.json.path>2.2.0</version.json.path>
     <version.hamcrest>1.3</version.hamcrest>
     <version.com.github.tomakehurst.wiremock>2.19.0</version.com.github.tomakehurst.wiremock>
-    <version.rabbitmq>4.2.0</version.rabbitmq>
+    <version.rabbitmq>5.7.1</version.rabbitmq>
     <version.saxon>9.7.0-3</version.saxon>
 
     <!-- These two versions are interdependent. -->
@@ -71,8 +71,8 @@
     <version.jacoco>0.8.0</version.jacoco>
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>2.0.0</version.embedded.mongo>
-    <version.mongo.java.driver>3.6.2</version.mongo.java.driver>
-    <version.mongojack>2.3.0</version.mongojack>
+    <version.mongo.java.driver>3.9.1</version.mongo.java.driver>
+    <version.mongojack>2.10.0</version.mongojack>
     <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.commons.io>2.6</version.commons.io>
     <version.commons.codec>1.11</version.commons.codec>
@@ -81,18 +81,18 @@
     <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
-    <version.hibernate.core>5.4.2.Final</version.hibernate.core>
-    <version.postgresql>42.1.4</version.postgresql>
+    <version.hibernate.core>5.4.3.Final</version.hibernate.core>
+    <version.postgresql>42.2.4</version.postgresql>
     <version.guava>16.0</version.guava>
     <version.gson>2.8.0</version.gson>
     <version.openstack>1.9.0</version.openstack>
     <version.swagger>2.6.1</version.swagger>
     <version.swagger.annotations>1.5.10</version.swagger.annotations>
-    <version.jackson>2.9.7</version.jackson>
+    <version.jackson>2.9.9</version.jackson>
     <version.jackson.xc>1.9.13</version.jackson.xc>
     <version.powermock>1.7.1</version.powermock>
     <version.mockito.core>2.22.0</version.mockito.core>
-    <version.corelib>2.8.7</version.corelib>
+    <version.corelib>2.9.0</version.corelib>
     <version.servlet.api>3.1.0</version.servlet.api>
     <version.commons-fileupload>1.3</version.commons-fileupload>
     <version.morphia>1.3.2</version.morphia>

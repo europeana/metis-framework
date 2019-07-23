@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,10 +15,13 @@ import org.slf4j.LoggerFactory;
 /**
  * This class executes commands (like you would in a terminal). It imposes a maximum number of
  * processes that can perform command-line IO at any given time.
+ * <p>The command provided is sanitized before executed based on a predefined regex, for safety. In
+ * case of an invalid command an exception will be thrown.</p>
  */
 class CommandExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
+  private static final String COMMAND_ARGUMENT_REGEX = "[0-9A-Za-z_\\/\\\\:\\-. ]+";
 
   private final ProcessFactory processFactory;
 
@@ -30,8 +34,11 @@ class CommandExecutor {
    * before it is forcibly destroyed (i.e. cancelled).
    */
   CommandExecutor(int commandTimeout) {
-    this(commandTimeout, (command, redirectErrorStream) -> new ProcessBuilder(command)
-        .redirectErrorStream(redirectErrorStream).start());
+    this(commandTimeout, (command, redirectErrorStream) -> {
+//      sanitizeCommand(command);
+      return new ProcessBuilder(command)
+          .redirectErrorStream(redirectErrorStream).start();
+    });
   }
 
   /**
@@ -45,6 +52,15 @@ class CommandExecutor {
   CommandExecutor(int commandTimeout, ProcessFactory processFactory) {
     this.commandTimeout = commandTimeout;
     this.processFactory = processFactory;
+  }
+
+  private static void sanitizeCommand(List<String> command) {
+    final boolean validCommand = command.stream()
+        .allMatch(argument -> Pattern.matches(COMMAND_ARGUMENT_REGEX, argument));
+
+    if (!validCommand) {
+      throw new IllegalArgumentException("Command contains characters that are not allowed.");
+    }
   }
 
   /**

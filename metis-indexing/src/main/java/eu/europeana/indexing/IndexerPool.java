@@ -17,7 +17,7 @@ import eu.europeana.indexing.exception.SetupRelatedIndexingException;
  * <p>
  * This class is a utilities object providing the functionality of a pool of indexer objects, all
  * created from the same factory/settings. This class is designed to save the time otherwise spent
- * on repeatedly creating and destroying * indexers.
+ * on repeatedly creating and destroying indexers.
  * </p>
  * <p>
  * This pool can have an unlimited number of indexers, that will be created automatically whenever

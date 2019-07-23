@@ -16,7 +16,8 @@ import org.w3c.dom.ls.LSResourceResolver;
 
 /**
  * Class enabling classpath XSD reading for split XSDs. This is because of an issue with JAXP XSD
- * loading Created by ymamakis on 12/21/15.
+ * loading. When initializing the {@link #setPrefix(String)} the value should be sanitized otherwise
+ * the use of this class can became unsecure.
  */
 public class ClasspathResourceResolver implements LSResourceResolver {
 

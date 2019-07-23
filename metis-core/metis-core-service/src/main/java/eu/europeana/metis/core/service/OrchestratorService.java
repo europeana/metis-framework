@@ -3,6 +3,7 @@ package eu.europeana.metis.core.service;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -14,12 +15,10 @@ import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
-import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
-import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -55,6 +54,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Service class that controls the communication between the different DAOs of the system.
@@ -305,7 +305,8 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUser metisUser,
-      String datasetId, ExecutablePluginType enforcedPluginType, int priority) throws GenericMetisException {
+      String datasetId, ExecutablePluginType enforcedPluginType, int priority)
+      throws GenericMetisException {
     final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
     return addWorkflowInQueueOfWorkflowExecutions(dataset, enforcedPluginType, priority);
   }
@@ -413,22 +414,32 @@ public class OrchestratorService {
 
   private void workflowOrderValidator(String datasetId, Workflow workflow)
       throws PluginExecutionNotAllowed {
-    //Workflow should not have duplicated plugins.
-    if (orchestratorHelper.listContainsDuplicates(workflow.getMetisPluginsMetadata())) {
+    //Workflow should not have duplicated plugins or be empty.
+    if (orchestratorHelper.listContainsDuplicates(workflow.getMetisPluginsMetadata())
+        || CollectionUtils.isEmpty(workflow.getMetisPluginsMetadata())) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
     // Sanity check, for the first plugin, that will throw exception if there is NO pluginType to be
     // based on in the database.
     orchestratorHelper.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId,
         workflow.getMetisPluginsMetadata().get(0).getExecutablePluginType(), null);
-    // If ok then check the order of all subsequent plugins. Start from index 1.
-    final boolean valid = workflow.getMetisPluginsMetadata().stream().skip(1)
-        .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
-        .filter(pluginType -> !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
-        .allMatch(
-            pluginType -> orchestratorHelper.checkWorkflowForPluginType(workflow, pluginType));
-    if (!valid) {
-      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+
+    if (workflow.getMetisPluginsMetadata().size() > 1) {
+      // If ok then check the order of all subsequent plugins.
+      final boolean valid = workflow.getMetisPluginsMetadata().stream()
+          .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
+          .allMatch(
+              pluginType -> {
+                try {
+                  return orchestratorHelper.checkWorkflowForPluginType(workflow, pluginType);
+                } catch (PluginExecutionNotAllowed e) {
+                  LOGGER.warn("Failed validation of plugins order in workflow", e);
+                  return false;
+                }
+              });
+      if (!valid) {
+        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+      }
     }
   }
 
@@ -502,7 +513,7 @@ public class OrchestratorService {
    * </ul>
    */
   public List<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser, String datasetId,
-      Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, int nextPage)
+      Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField, boolean ascending, int nextPage)
       throws GenericMetisException {
 
     // Authorize

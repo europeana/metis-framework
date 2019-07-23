@@ -20,7 +20,7 @@ import eu.europeana.corelib.mongo.server.EdmMongoServer;
  * @author jochen
  *
  */
-public abstract class AbstractConnectionProvider implements Closeable {
+public interface AbstractConnectionProvider extends Closeable {
 
   /**
    * Provides a Publisher object for publishing Full Beans so that they may be found by users.
@@ -29,7 +29,7 @@ public abstract class AbstractConnectionProvider implements Closeable {
    *        the updated and created times from the incoming RDFs, or whether it computes its own.
    * @return A publisher.
    */
-  final FullBeanPublisher getFullBeanPublisher(boolean preserveUpdateAndCreateTimesFromRdf) {
+  default FullBeanPublisher getFullBeanPublisher(boolean preserveUpdateAndCreateTimesFromRdf) {
     return new FullBeanPublisher(getMongoClient(), getSolrClient(), preserveUpdateAndCreateTimesFromRdf);
   }
 
@@ -45,7 +45,7 @@ public abstract class AbstractConnectionProvider implements Closeable {
    * @throws IOException If there is a low-level I/O error.
    * @throws SolrServerException If there is an error on the server.
    */
-  public final void triggerFlushOfPendingChanges(boolean blockUntilComplete)
+  default void triggerFlushOfPendingChanges(boolean blockUntilComplete)
       throws SolrServerException, IOException {
     getSolrClient().commit(blockUntilComplete, blockUntilComplete);
   }
@@ -55,7 +55,7 @@ public abstract class AbstractConnectionProvider implements Closeable {
    * 
    * @return A dataset remover.
    */
-  final IndexedRecordRemover getIndexedRecordRemover() {
+  default IndexedRecordRemover getIndexedRecordRemover() {
     return new IndexedRecordRemover(getMongoClient(), getSolrClient());
   }
 
@@ -64,13 +64,13 @@ public abstract class AbstractConnectionProvider implements Closeable {
    * 
    * @return A Solr client.
    */
-  public abstract SolrClient getSolrClient();
+  SolrClient getSolrClient();
 
   /**
    * Provides a Mongo client object for connecting with the Mongo database.
    * 
    * @return A Mongo client.
    */
-  public abstract EdmMongoServer getMongoClient();
+  EdmMongoServer getMongoClient();
 
 }

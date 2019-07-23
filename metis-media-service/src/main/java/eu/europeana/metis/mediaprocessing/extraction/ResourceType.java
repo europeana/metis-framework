@@ -2,8 +2,10 @@ package eu.europeana.metis.mediaprocessing.extraction;
 
 /**
  * Instances of this enum represent resource classes.
+ *
+ * TODO is a duplicate of MediaType in the indexing library.
  */
-enum ResourceType {
+public enum ResourceType {
 
   /** Audio resources **/
   AUDIO,
@@ -26,7 +28,7 @@ enum ResourceType {
    * @param mimeType The mime type.
    * @return The resource type to which the mime type belongs.
    */
-  static ResourceType getResourceType(String mimeType) {
+  public static ResourceType getResourceType(String mimeType) {
     if (mimeType == null) {
       return ResourceType.UNKNOWN;
     }

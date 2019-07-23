@@ -504,23 +504,20 @@ class TestDatasetService {
   }
 
   @Test
-  void getLatestXsltForDatasetId() throws Exception {
+  void getLatestDefaultXslt() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
-    when(datasetXsltDao.getLatestXsltForDatasetId(Integer.toString(TestObjectFactory.DATASETID)))
-        .thenReturn(datasetXslt);
+    when(datasetXsltDao.getLatestDefaultXslt()).thenReturn(datasetXslt);
 
-    DatasetXslt datasetXsltByDatasetId = datasetService
-        .getLatestXsltForDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    DatasetXslt datasetXsltByDatasetId = datasetService.getLatestDefaultXslt();
     assertEquals(datasetXslt.getXslt(), datasetXsltByDatasetId.getXslt());
     assertEquals(datasetXslt.getDatasetId(), datasetXsltByDatasetId.getDatasetId());
   }
 
   @Test
-  void getLatestXsltForDatasetIdNoXsltFoundException() {
+  void getLatestDefaultXsltNoXsltFoundException() {
     when(datasetXsltDao.getById(TestObjectFactory.XSLTID)).thenReturn(null);
-    assertThrows(NoXsltFoundException.class, () -> datasetService
-        .getLatestXsltForDatasetId(Integer.toString(TestObjectFactory.DATASETID)));
+    assertThrows(NoXsltFoundException.class, () -> datasetService.getLatestDefaultXslt());
   }
 
   @Test
@@ -531,8 +528,7 @@ class TestDatasetService {
     when(authorizer.authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId()))
         .thenReturn(dataset);
     DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
-    when(datasetXsltDao.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID))
-        .thenReturn(datasetXslt);
+    when(datasetXsltDao.getLatestDefaultXslt()).thenReturn(datasetXslt);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
     listOfRecords.get(0).setXmlRecord("invalid xml");
 
@@ -569,8 +565,7 @@ class TestDatasetService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setOrganizationId(metisUser.getOrganizationId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(datasetXsltDao.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID))
-        .thenReturn(null);
+    when(datasetXsltDao.getLatestDefaultXslt()).thenReturn(null);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(1);
     assertThrows(NoXsltFoundException.class, () -> datasetService
         .transformRecordsUsingLatestDefaultXslt(metisUser, dataset.getDatasetId(), listOfRecords));

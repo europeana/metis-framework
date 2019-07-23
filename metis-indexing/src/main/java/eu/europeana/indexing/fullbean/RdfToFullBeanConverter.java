@@ -52,10 +52,13 @@ public class RdfToFullBeanConverter {
     fullBean.setAgents(convertList(record.getAgents(), new AgentFieldInput(), true));
     fullBean.setLicenses(convertList(record.getLicenses(), new LicenseFieldInput(), true));
     fullBean.setServices(convertList(record.getServices(), new ServiceFieldInput(), false));
+    fullBean.setQualityAnnotations(
+        convertList(record.getQualityAnnotations(), new QualityAnnotationFieldInput(), false));
 
     // Set properties related to the Europeana aggregation
-    fullBean.setEuropeanaCollectionName(new String[] {record.getDatasetName()});
-    final Optional<EuropeanaAggregationType> europeanaAggregation = record.getEuropeanaAggregation();
+    fullBean.setEuropeanaCollectionName(new String[]{record.getDatasetName()});
+    final Optional<EuropeanaAggregationType> europeanaAggregation = record
+        .getEuropeanaAggregation();
     fullBean.setEuropeanaAggregation(
         europeanaAggregation.map(new EuropeanaAggregationFieldInput()).orElse(null));
     europeanaAggregation.map(EuropeanaAggregationType::getCompleteness).map(LiteralType::getString)

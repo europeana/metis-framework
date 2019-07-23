@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 /**
  * This class represents a file in the temporary folder that's associated with a resource. Please
- * see {@link ResourceFile} for more information.
+ * see {@link ResourceRelatedFile} for more information.
  */
-abstract class AbstractTemporaryFile implements ResourceFile {
+abstract class AbstractTemporaryFile implements ResourceRelatedFile {
 
   /**
    * The resource URL of the resource with which this file is associated.
@@ -19,7 +20,12 @@ abstract class AbstractTemporaryFile implements ResourceFile {
   /**
    * Path pointing to the temporary file.
    */
-  private Path contentPath;
+  private Path contentPath = null;
+
+  /**
+   * Action that creates the content file.
+   */
+  private final ContentFileCreator contentFileCreator;
 
   /**
    * Constructor.
@@ -27,11 +33,10 @@ abstract class AbstractTemporaryFile implements ResourceFile {
    * @param resourceUrl The URL of the resource with which this file is associated.
    * @param prefix The prefix used for generating the file.
    * @param suffix The suffix used for generating the file.
-   * @throws IOException In case there was a problem creating the file.
    */
-  protected AbstractTemporaryFile(String resourceUrl, String prefix, String suffix) throws IOException {
-    this.contentPath = Files.createTempFile(prefix, suffix);
+  AbstractTemporaryFile(String resourceUrl, String prefix, String suffix) {
     this.resourceUrl = resourceUrl;
+    this.contentFileCreator = () -> Files.createTempFile(prefix, suffix);
   }
 
   @Override
@@ -39,8 +44,21 @@ abstract class AbstractTemporaryFile implements ResourceFile {
     return resourceUrl;
   }
 
-  public Path getContentPath() {
+  Path getContentPath() {
     return this.contentPath;
+  }
+
+  /**
+   * Sets the content of this file. This does not close the input stream.
+   *
+   * @param newContent The stream containing the new content. Is not null.
+   * @throws IOException In case something went wrong reading the input stream.
+   */
+  public void setContent(InputStream newContent) throws IOException {
+    if (contentPath == null) {
+      this.contentPath = contentFileCreator.createFile();
+    }
+    Files.copy(newContent, this.contentPath, StandardCopyOption.REPLACE_EXISTING);
   }
 
   private Long computeContentSizeInternal() throws IOException {
@@ -81,7 +99,8 @@ abstract class AbstractTemporaryFile implements ResourceFile {
   @Override
   public void markAsNoContent() throws IOException {
     try {
-      if (hasContent()) {
+      // Note: should use Files.exists instead when migrating away from Java 8.
+      if (this.contentPath != null && this.contentPath.toFile().exists()) {
         Files.delete(this.contentPath);
       }
     } finally {
@@ -92,5 +111,11 @@ abstract class AbstractTemporaryFile implements ResourceFile {
   @Override
   public void close() throws IOException {
     this.markAsNoContent();
+  }
+
+  @FunctionalInterface
+  private interface ContentFileCreator {
+
+    Path createFile() throws IOException;
   }
 }

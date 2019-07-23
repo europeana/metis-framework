@@ -1,19 +1,20 @@
 package eu.europeana.indexing;
 
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
+import eu.europeana.indexing.tiers.ClassifierFactory;
+import eu.europeana.indexing.utils.RdfTierUtils;
+import eu.europeana.indexing.utils.RdfWrapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
-import eu.europeana.indexing.utils.RdfWrapper;
 
 /**
  * Implementation of {@link Indexer}.
@@ -52,13 +53,15 @@ class IndexerImpl implements Indexer {
     this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
   }
 
-  private void indexRecords(List<RdfWrapper> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+  private void indexRecords(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf)
+      throws IndexingException {
     LOGGER.info("Processing {} records...", records.size());
     try {
       final FullBeanPublisher publisher =
           connectionProvider.getFullBeanPublisher(preserveUpdateAndCreateTimesFromRdf);
-      for (RdfWrapper record : records) {
-        publisher.publish(record);
+      for (RDF record : records) {
+        preprocessRecord(record);
+        publisher.publish(new RdfWrapper(record));
       }
       LOGGER.info("Successfully processed {} records.", records.size());
     } catch (IndexingException e) {
@@ -67,10 +70,18 @@ class IndexerImpl implements Indexer {
     }
   }
 
+  private static void preprocessRecord(RDF rdf) throws IndexingException {
+
+    // Perform the tier classification
+    final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
+    RdfTierUtils.setTier(rdf, ClassifierFactory.getMediaClassifier().classify(rdfWrapper));
+    RdfTierUtils.setTier(rdf, ClassifierFactory.getMetadataClassifier().classify(rdfWrapper));
+
+  }
+
   @Override
   public void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
-    final List<RdfWrapper> wrappedRecords = records.stream().map(RdfWrapper::new).collect(Collectors.toList());
-    indexRecords(wrappedRecords, preserveUpdateAndCreateTimesFromRdf);
+    indexRecords(records, preserveUpdateAndCreateTimesFromRdf);
   }
 
   @Override
@@ -82,7 +93,7 @@ class IndexerImpl implements Indexer {
   public void index(List<String> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
     LOGGER.info("Parsing {} records...", records.size());
     final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
-    final List<RdfWrapper> wrappedRecords = new ArrayList<>(records.size());
+    final List<RDF> wrappedRecords = new ArrayList<>(records.size());
     for (String record : records) {
       wrappedRecords.add(stringToRdfConverter.convertStringToRdf(record));
     }

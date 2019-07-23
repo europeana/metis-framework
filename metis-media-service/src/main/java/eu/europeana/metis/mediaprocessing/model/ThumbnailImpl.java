@@ -1,11 +1,9 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import java.io.IOException;
-
 /**
  * This class implements {@link Thumbnail}.
  */
-public class ThumbnailImpl extends AbstractTemporaryFile implements Thumbnail {
+public class ThumbnailImpl extends AbstractInMemoryFile implements Thumbnail {
 
   private final String targetName;
 
@@ -14,10 +12,9 @@ public class ThumbnailImpl extends AbstractTemporaryFile implements Thumbnail {
    *
    * @param resourceUrl The URL of the resource for which this thumbnail is generated.
    * @param targetName The unique (target) name by which this thumbnail is known.
-   * @throws IOException In case the thumbnail could not be created.
    */
-  public ThumbnailImpl(String resourceUrl, String targetName) throws IOException {
-    super(resourceUrl, "media_thumbnail_", ".tmp");
+  public ThumbnailImpl(String resourceUrl, String targetName) {
+    super(resourceUrl);
     this.targetName = targetName;
   }
 

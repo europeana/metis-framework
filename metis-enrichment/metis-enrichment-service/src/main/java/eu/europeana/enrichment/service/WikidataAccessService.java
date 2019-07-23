@@ -189,8 +189,8 @@ public class WikidataAccessService {
         getEntityConverterUtils().createMapWithListsFromTextPropertyListMerging(altLabel));
 
     if (edmOrganization.getHasAddress() != null
-        && edmOrganization.getHasAddress().getVcardAddresses() != null) {
-      VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddresses().get(0);
+        && edmOrganization.getHasAddress().getVcardAddressesList() != null) {
+      VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddressesList().get(0);
       Address address = new AddressImpl();
       address.setAbout(org.getAbout() + "#address");
       address.setVcardCountryName(vcardAddress.getCountryName());

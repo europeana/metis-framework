@@ -1,4 +1,4 @@
-package eu.europeana.indexing.solr.crf;
+package eu.europeana.indexing.solr.facet;
 
 import java.util.Collections;
 import java.util.Set;

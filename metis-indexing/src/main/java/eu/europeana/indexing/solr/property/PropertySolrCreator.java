@@ -21,8 +21,7 @@ public interface PropertySolrCreator<T extends AbstractEdmEntity> {
    * @param document The Solr document to which to add the data.
    * @param properties The EDM properties from which to extract the data.
    */
-  default void addAllToDocument(SolrInputDocument document,
-      Collection<? extends T> properties) {
+  default void addAllToDocument(SolrInputDocument document, Collection<? extends T> properties) {
     if (properties != null) {
       for (T property : properties) {
         addToDocument(document, property);

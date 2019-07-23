@@ -136,31 +136,22 @@ public final class DereferenceUtils {
 
   private static void dereferenceTimespan(TimeSpanType timespan, final Set<String> result) {
     result.add(timespan.getAbout());
-    convertValues(timespan.getHasPartList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
     convertValues(timespan.getIsPartOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
-    convertValues(timespan.getSameAList(), RESOURCE_EXTRACTOR, result);
   }
 
   private static void dereferenceAgent(AgentType agent, final Set<String> result) {
     result.add(agent.getAbout());
-    convertValues(agent.getHasMetList(), RESOURCE_EXTRACTOR, result);
-    convertValues(agent.getIsRelatedToList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
+    convertValues(agent.getProfessionOrOccupationList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
+    convertValues(agent.getIsPartOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
   }
 
   private static void dereferenceConceptChoice(Concept.Choice choice, final Set<String> result) {
-    convertValue(choice.ifBroadMatch(), choice.getBroadMatch(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.ifCloseMatch(), choice.getCloseMatch(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.ifExactMatch(), choice.getExactMatch(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.ifNarrowMatch(), choice.getNarrowMatch(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.ifRelated(), choice.getRelated(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.ifRelatedMatch(), choice.getRelatedMatch(), RESOURCE_EXTRACTOR, result);
+    convertValue(choice.ifBroader(), choice.getBroader(), RESOURCE_EXTRACTOR, result);
   }
 
   private static void dereferencePlace(PlaceType place, Set<String> result) {
     result.add(place.getAbout());
     convertValues(place.getIsPartOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
-    convertValues(place.getSameAList(), RESOURCE_EXTRACTOR, result);
-    convertValues(place.getHasPartList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
   }
 
   private static void dereferenceWebResource(WebResourceType wr, final Set<String> result) {

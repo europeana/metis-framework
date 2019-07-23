@@ -2,6 +2,8 @@ package eu.europeana.indexing.utils;
 
 /**
  * This class lists the supported media types.
+ *
+ * TODO is a duplicate of ResourceType in the media processing library.
  * 
  * @author jochen
  *
@@ -25,10 +27,7 @@ public enum MediaType {
 
   /**
    * Matches the MIME type to one of the supported media types.
-   * 
-   * TODO JV There are methods that do the same in the media services class MediaProcessor. Can we
-   * somehow merge these?
-   * 
+   *
    * @param mimeType The mime type as a string.
    * @return The media type corresponding to the mime type. Does not return null, but may return
    *         {@link MediaType#OTHER}.
@@ -57,6 +56,7 @@ public enum MediaType {
       case "application/rtf":
       case "application/epub":
       case "application/pdf":
+      case "application/xhtml+xml":
         return true;
       default:
         return mimeType.startsWith("text/");

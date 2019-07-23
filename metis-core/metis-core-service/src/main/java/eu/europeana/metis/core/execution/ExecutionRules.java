@@ -27,6 +27,16 @@ public final class ExecutionRules {
           ExecutablePluginType.LINK_CHECKING));
   private static final Set<ExecutablePluginType> INDEX_PLUGIN_GROUP = Collections
       .unmodifiableSet(EnumSet.of(ExecutablePluginType.PREVIEW, ExecutablePluginType.PUBLISH));
+  private static final Set<ExecutablePluginType> ALL_EXCEPT_LINK_GROUP;
+
+  static {
+    Set<ExecutablePluginType> mergedSet = new HashSet<>();
+    mergedSet.addAll(HARVEST_PLUGIN_GROUP);
+    mergedSet.addAll(PROCESS_PLUGIN_GROUP);
+    mergedSet.addAll(INDEX_PLUGIN_GROUP);
+    mergedSet.remove(ExecutablePluginType.LINK_CHECKING);
+    ALL_EXCEPT_LINK_GROUP = Collections.unmodifiableSet(mergedSet);
+  }
 
   private ExecutionRules() {
     //Private constructor
@@ -65,7 +75,7 @@ public final class ExecutionRules {
       // If pluginType is MEDIA_PROCESS and there is no latest plugin allowed, therefore abstractMetisPlugin == null,
       // check latest successful OAIPMH_HARVEST and if that was based on the europeana endpoint during migration, then
       // we return that instead.
-      if (pluginType.equals(ExecutablePluginType.MEDIA_PROCESS) && plugin == null) {
+      if (pluginType == ExecutablePluginType.MEDIA_PROCESS && plugin == null) {
         final AbstractExecutablePlugin latestOaiPlugin = workflowExecutionDao
             .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
                 EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true);
@@ -80,7 +90,8 @@ public final class ExecutionRules {
   }
 
   private static AbstractExecutablePlugin getLatestFinishedPluginAllowedForExecution(
-      ExecutablePluginType pluginType, String datasetId, WorkflowExecutionDao workflowExecutionDao) {
+      ExecutablePluginType pluginType, String datasetId,
+      WorkflowExecutionDao workflowExecutionDao) {
 
     AbstractExecutablePlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = null;
 
@@ -110,13 +121,15 @@ public final class ExecutionRules {
         pluginTypesSetThatPluginTypeCanBeBasedOn = HARVEST_PLUGIN_GROUP;
         break;
       case TRANSFORMATION:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet
+            .of(ExecutablePluginType.VALIDATION_EXTERNAL);
         break;
       case VALIDATION_INTERNAL:
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.TRANSFORMATION);
         break;
       case NORMALIZATION:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.VALIDATION_INTERNAL);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet
+            .of(ExecutablePluginType.VALIDATION_INTERNAL);
         break;
       case ENRICHMENT:
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.NORMALIZATION);
@@ -131,13 +144,15 @@ public final class ExecutionRules {
         pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.PREVIEW);
         break;
       case LINK_CHECKING:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(PROCESS_PLUGIN_GROUP);
-        pluginTypesSetThatPluginTypeCanBeBasedOn.addAll(INDEX_PLUGIN_GROUP);
+        pluginTypesSetThatPluginTypeCanBeBasedOn = ALL_EXCEPT_LINK_GROUP;
         break;
       default:
         pluginTypesSetThatPluginTypeCanBeBasedOn = Collections.emptySet();
         break;
     }
+//    if (!pluginTypesSetThatPluginTypeCanBeBasedOn.isEmpty()) {
+//      pluginTypesSetThatPluginTypeCanBeBasedOn.add(ExecutablePluginType.LINK_CHECKING);
+//    }
     return pluginTypesSetThatPluginTypeCanBeBasedOn;
   }
 
@@ -161,5 +176,12 @@ public final class ExecutionRules {
    */
   public static Set<ExecutablePluginType> getIndexPluginGroup() {
     return INDEX_PLUGIN_GROUP;
+  }
+
+  /**
+   * @return The plugin types that are of the 'link checking' kind.
+   */
+  public static Set<ExecutablePluginType> getAllExceptLinkGroup() {
+    return ALL_EXCEPT_LINK_GROUP;
   }
 }

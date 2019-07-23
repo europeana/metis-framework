@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.dao;
 
+import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
+import static eu.europeana.metis.core.common.DaoFieldNames.ID;
+
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -21,9 +24,6 @@ import org.springframework.stereotype.Repository;
 public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetXsltDao.class);
-  private static final String ID = "_id";
-  private static final String DATASET_ID = "datasetId";
-  public static final String DEFAULT_DATASET_ID = "-1";
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
@@ -59,14 +59,14 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   public DatasetXslt getById(String id) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
-            .filter(ID, new ObjectId(id)).get());
+            .filter(ID.getFieldName(), new ObjectId(id)).get());
   }
 
   @Override
   public boolean delete(DatasetXslt datasetXslt) {
     ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().delete(
-            morphiaDatastoreProvider.getDatastore().createQuery(DatasetXslt.class).field(ID)
+            morphiaDatastoreProvider.getDatastore().createQuery(DatasetXslt.class).field(ID.getFieldName())
                 .equal(datasetXslt.getId())));
     LOGGER.debug("DatasetXslt with objectId: '{}', datasetId: '{}'deleted in Mongo",
         datasetXslt.getId(),
@@ -83,7 +83,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   public boolean deleteAllByDatasetId(String datasetId) {
     Query<DatasetXslt> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(DatasetXslt.class);
-    query.field(DATASET_ID).equal(datasetId);
+    query.field(DATASET_ID.getFieldName()).equal(datasetId);
     WriteResult delete = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().delete(query));
@@ -93,15 +93,22 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
 
   /**
    * Fet latest stored xslt using a dataset identifier.
-   * <p>Use -1 to get the default xslt that is not related to a dataset</p>
    *
    * @param datasetId the dataset identifier
    * @return the {@link DatasetXslt} object
    */
-  public DatasetXslt getLatestXsltForDatasetId(String datasetId) {
-    return ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
-                .filter(DATASET_ID, datasetId).order(Sort.descending("createdDate")).get());
+  DatasetXslt getLatestXsltForDatasetId(String datasetId) {
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+        () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
+            .filter(DATASET_ID.getFieldName(), datasetId).order(Sort.descending("createdDate")).get());
+  }
+
+  /**
+   * Fet latest stored default xslt.
+   *
+   * @return the {@link DatasetXslt} object
+   */
+  public DatasetXslt getLatestDefaultXslt() {
+    return getLatestXsltForDatasetId(DatasetXslt.DEFAULT_DATASET_ID);
   }
 }

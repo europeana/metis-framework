@@ -54,8 +54,6 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
     mongoProxy.setYear(FieldInputUtils.createLiteralMapFromList(proxy.getYearList()));
     mongoProxy
         .setEdmHasType(FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getHasTypeList()));
-    mongoProxy
-        .setEdmHasType(FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getHasTypeList()));
     mongoProxy.setEdmIncorporates(FieldInputUtils.resourceListToArray(proxy.getIncorporateList()));
     mongoProxy
         .setEdmIsDerivativeOf(FieldInputUtils.resourceListToArray(proxy.getIsDerivativeOfList()));

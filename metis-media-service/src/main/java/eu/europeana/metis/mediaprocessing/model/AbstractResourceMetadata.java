@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaprocessing.model;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -75,7 +76,8 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
    */
   @Override
   public Set<String> getThumbnailTargetNames() {
-    return Collections.unmodifiableSet(thumbnailTargetNames);
+    return Optional.ofNullable(thumbnailTargetNames).map(Collections::unmodifiableSet)
+        .orElseGet(Collections::emptySet);
   }
 
   public long getContentSize() {
@@ -93,7 +95,7 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
   }
 
   /**
-   * @return A serializable (and deserializable) wrapper containing this resource metadata. 
+   * @return A serializable (and deserializable) wrapper containing this resource metadata.
    */
   protected abstract ResourceMetadata prepareForSerialization();
 }

@@ -1,4 +1,4 @@
-package eu.europeana.indexing.solr.crf;
+package eu.europeana.indexing.solr.facet;
 
 import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;

@@ -1,5 +1,6 @@
-package eu.europeana.indexing.solr.crf;
+package eu.europeana.indexing.solr.facet;
 
+import eu.europeana.indexing.utils.WebResourceWrapper;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Objects;
@@ -7,8 +8,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import eu.europeana.indexing.solr.crf.WebResourceWrapper.ColorSpace;
-import eu.europeana.indexing.solr.crf.WebResourceWrapper.Orientation;
+import eu.europeana.indexing.utils.WebResourceWrapper.ColorSpace;
+import eu.europeana.indexing.utils.WebResourceWrapper.Orientation;
 
 /**
  * This class contains methods to convert web resource properties to codes that may be used as
@@ -109,7 +110,7 @@ final class FacetCodeUtils {
    * @return The (non-shifted) code.
    */
   static Set<Integer> getImageSizeCode(final WebResourceWrapper webResource) {
-    final long size = webResource.getWidth() * webResource.getHeight();
+    final long size = webResource.getSize();
     final Integer result;
     if (size < IMAGE_SMALL_AREA) {
       result = null;

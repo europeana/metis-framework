@@ -6,8 +6,6 @@ import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +17,6 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceDownloadClient.class);
 
-  private static final int CONNECT_TIMEOUT = 10_000;
-  private static final int SOCKET_TIMEOUT = 20_000;
-
   private final Predicate<String> shouldDownloadMimetype;
 
   /**
@@ -30,9 +25,12 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    * @param shouldDownloadMimetype A predicate that, based on the mime type, can decide whether or
    * not to proceed with the download.
+   * @param connectTimeout The connection timeout in milliseconds.
+   * @param socketTimeout The socket timeout in milliseconds.
    */
-  public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype) {
-    super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT);
+  public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype,
+      int connectTimeout, int socketTimeout) {
+    super(maxRedirectCount, connectTimeout, socketTimeout);
     this.shouldDownloadMimetype = shouldDownloadMimetype;
   }
 
@@ -72,7 +70,7 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
   private static void downloadResource(String resourceUrl, ResourceImpl resource,
       ContentRetriever contentRetriever) throws IOException {
     try (final InputStream inputStream = contentRetriever.getContent()) {
-      Files.copy(inputStream, resource.getContentPath(), StandardCopyOption.REPLACE_EXISTING);
+      resource.setContent(inputStream);
     }
     if (resource.getContentSize() == 0) {
       throw new IOException("Download failed of resource " + resourceUrl + ": no content found.");

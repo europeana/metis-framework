@@ -1,5 +1,10 @@
 package eu.europeana.metis.core.execution;
 
+import eu.europeana.metis.core.common.DaoFieldNames;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -15,11 +20,6 @@ import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.rest.ResponseListWrapper;
-import eu.europeana.metis.core.workflow.OrderField;
-import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.WorkflowStatus;
 
 /**
  * This class monitors workflow executions. It provides functionality that determines whether a
@@ -144,7 +144,7 @@ public class WorkflowExecutionMonitor {
       userWorkflowExecutionResponseListWrapper.clear();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(
           workflowExecutionDao.getAllWorkflowExecutions(null, EnumSet.of(workflowStatus),
-              OrderField.ID, true, nextPage),
+              DaoFieldNames.ID, true, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       workflowExecutions.addAll(userWorkflowExecutionResponseListWrapper.getResults());
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();

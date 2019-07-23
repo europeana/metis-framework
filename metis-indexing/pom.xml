@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
   </parent>
   <artifactId>metis-indexing</artifactId>
   <dependencies>
@@ -24,7 +24,7 @@
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongo-java-driver</artifactId>
-      <version>3.6.3</version>
+      <version>${version.mongo.java.driver}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.solr</groupId>

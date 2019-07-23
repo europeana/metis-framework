@@ -4,11 +4,11 @@ import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -406,7 +406,7 @@ public class OrchestratorController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
-      @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
+      @RequestParam(value = "orderField", required = false, defaultValue = "ID") DaoFieldNames orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
@@ -448,7 +448,7 @@ public class OrchestratorController {
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
-      @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
+      @RequestParam(value = "orderField", required = false, defaultValue = "ID") DaoFieldNames orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
@@ -506,10 +506,9 @@ public class OrchestratorController {
     }
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final ResponseListWrapper<ExecutionAndDatasetView> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResultsAndLastPage(
-        orchestratorService
-            .getWorkflowExecutionsOverview(metisUser, pluginStatuses, pluginTypes, fromDate,
-                toDate, nextPage, pageCount),
+    responseListWrapper.setResultsAndLastPage(orchestratorService
+            .getWorkflowExecutionsOverview(metisUser, pluginStatuses, pluginTypes, fromDate, toDate,
+                nextPage, pageCount),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage, pageCount);
     logPaging(responseListWrapper, nextPage);
     return responseListWrapper;

@@ -1,5 +1,9 @@
 package eu.europeana.metis.core.dao;
 
+import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
+import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_NAME;
+import static eu.europeana.metis.core.common.DaoFieldNames.ID;
+
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -7,7 +11,6 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.List;
@@ -32,8 +35,6 @@ import org.springframework.stereotype.Repository;
 public class DatasetDao implements MetisDao<Dataset, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
-  private static final String DATASET_NAME = "datasetName";
-  static final String DATASET_ID = "datasetId";
   private int datasetsPerRequest = RequestLimits.DATASETS_PER_REQUEST.getLimit();
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
@@ -114,7 +115,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().delete(
-                morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class).field(DATASET_ID)
+                morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class)
+                    .field(DATASET_ID.getFieldName())
                     .equal(dataset.getDatasetId())));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' deleted in Mongo",
@@ -142,7 +144,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   public Dataset getDatasetByDatasetName(String datasetName) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME)
+        () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+            .field(DATASET_NAME.getFieldName())
             .equal(datasetName).get());
   }
 
@@ -156,7 +159,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
-                .filter(DATASET_ID, datasetId).get());
+                .filter(DATASET_ID.getFieldName(), datasetId).get());
   }
 
   /**
@@ -170,7 +173,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       String datasetName) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class).field("organizationId")
-            .equal(organizationId).field(DATASET_NAME).equal(datasetName).get());
+            .equal(organizationId).field(DATASET_NAME.getFieldName()).equal(datasetName).get());
   }
 
   /**
@@ -181,7 +184,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   boolean existsDatasetByDatasetName(String datasetName) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME)
+        () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+            .field(DATASET_NAME.getFieldName())
             .equal(datasetName).project("_id", true).get()) != null;
   }
 
@@ -195,7 +199,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> getAllDatasetsByProvider(String provider, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("provider").equal(provider);
-    query.order(OrderField.ID.getOrderFieldName());
+    query.order(ID.getFieldName());
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> query.asList(
         new FindOptions().skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest())));
   }
@@ -211,7 +215,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("intermediateProvider").equal(intermediateProvider);
-    query.order(OrderField.ID.getOrderFieldName());
+    query.order(ID.getFieldName());
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> query.asList(
         new FindOptions().skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest())));
   }
@@ -226,7 +230,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("dataProvider").equal(dataProvider);
-    query.order(OrderField.ID.getOrderFieldName());
+    query.order(ID.getFieldName());
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> query.asList(
         new FindOptions().skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest())));
   }
@@ -257,7 +261,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       UnaryOperator<FindOptions> options) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationId").equal(organizationId);
-    query.order(OrderField.ID.getOrderFieldName());
+    query.order(ID.getFieldName());
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> query.asList(options.apply(new FindOptions())));
   }
@@ -272,7 +276,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> getAllDatasetsByOrganizationName(String organizationName, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationName").equal(organizationName);
-    query.order(OrderField.ID.getOrderFieldName());
+    query.order(ID.getFieldName());
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> query.asList(
         new FindOptions().skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest())));
   }

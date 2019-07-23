@@ -1,14 +1,11 @@
 package eu.europeana.indexing.solr;
 
-import eu.europeana.corelib.definitions.jibx.Aggregation;
-import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.IsShownAt;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.indexing.solr.crf.EncodedMediaType;
-import eu.europeana.indexing.solr.crf.TagExtractor;
+import eu.europeana.indexing.solr.facet.EncodedMediaType;
+import eu.europeana.indexing.solr.facet.TagExtractor;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
 import eu.europeana.indexing.solr.property.AggregationSolrCreator;
 import eu.europeana.indexing.solr.property.ConceptSolrCreator;
@@ -21,14 +18,21 @@ import eu.europeana.indexing.solr.property.ServiceSolrCreator;
 import eu.europeana.indexing.solr.property.SolrPropertyUtils;
 import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.indexing.solr.crf.WebResourceWrapper;
+import eu.europeana.indexing.utils.WebResourceLinkType;
+import eu.europeana.indexing.utils.WebResourceWrapper;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.common.SolrInputDocument;
 
@@ -52,6 +56,7 @@ public class SolrDocumentPopulator {
    */
   public void populateWithProperties(SolrInputDocument document, FullBeanImpl fullBean) {
 
+    // Gather the licenses.
     final List<LicenseImpl> licenses;
     if (fullBean.getLicenses() == null) {
       licenses = Collections.emptyList();
@@ -60,11 +65,26 @@ public class SolrDocumentPopulator {
           .collect(Collectors.toList());
     }
 
+    // Gather the quality annotations.
+    final Set<String> acceptableTargets = Optional.ofNullable(fullBean.getAggregations())
+        .map(List::stream).orElseGet(Stream::empty).filter(Objects::nonNull)
+        .map(AggregationImpl::getAbout).filter(Objects::nonNull).collect(Collectors.toSet());
+    final Predicate<QualityAnnotation> hasAcceptableTarget = annotation -> Optional
+        .ofNullable(annotation.getTarget()).map(Arrays::stream).orElseGet(Stream::empty)
+        .anyMatch(acceptableTargets::contains);
+    final Map<String, QualityAnnotation> qualityAnnotations = Optional
+        .ofNullable(fullBean.getQualityAnnotations()).map(List::stream).orElseGet(Stream::empty)
+        .filter(Objects::nonNull)
+        .filter(annotation -> StringUtils.isNotBlank(annotation.getAbout()))
+        .filter(hasAcceptableTarget)
+        .collect(Collectors.toMap(QualityAnnotation::getAbout, Function.identity(), (v1, v2) -> v1));
+
+    // Add the containing objects.
     new ProvidedChoSolrCreator().addToDocument(document, fullBean.getProvidedCHOs().get(0));
     new AggregationSolrCreator(licenses).addToDocument(document,
         fullBean.getAggregations().get(0));
-    new EuropeanaAggregationSolrCreator(licenses).addToDocument(document,
-        fullBean.getEuropeanaAggregation());
+    new EuropeanaAggregationSolrCreator(licenses, qualityAnnotations::get)
+        .addToDocument(document, fullBean.getEuropeanaAggregation());
     new ProxySolrCreator().addAllToDocument(document, fullBean.getProxies());
     new ConceptSolrCreator().addAllToDocument(document, fullBean.getConcepts());
     new TimespanSolrCreator().addAllToDocument(document, fullBean.getTimespans());
@@ -72,12 +92,14 @@ public class SolrDocumentPopulator {
     new PlaceSolrCreator().addAllToDocument(document, fullBean.getPlaces());
     new ServiceSolrCreator().addAllToDocument(document, fullBean.getServices());
 
+    // Add the licenses.
     final Set<String> defRights = fullBean.getAggregations().stream()
         .map(AggregationImpl::getEdmRights).filter(Objects::nonNull)
         .flatMap(SolrPropertyUtils::getRightsFromMap).collect(Collectors.toSet());
     new LicenseSolrCreator(license -> defRights.contains(license.getAbout()))
         .addAllToDocument(document, fullBean.getLicenses());
 
+    // Add the top-level properties.
     document.addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(),
         fullBean.getEuropeanaCompleteness());
     document.addField(EdmLabel.EUROPEANA_COLLECTIONNAME.toString(),
@@ -95,51 +117,36 @@ public class SolrDocumentPopulator {
    */
   public void populateWithCrfFields(SolrInputDocument document, RdfWrapper rdf) {
 
-    // Check Europeana aggregation list.
-    final EuropeanaAggregationType aggregation = rdf.getEuropeanaAggregation().orElse(null);
-
-    // Get the web resources.
-    final List<WebResourceWrapper> webResources = WebResourceWrapper.extractWebResources(rdf);
-
     // has_thumbnails is true if and only if edm:EuropeanaAggregation/edm:preview is filled and the
     // associated edm:webResource exists with technical metadata (i.e. ebucore:hasMimetype is set).
-    final String previewUri =
-        Optional.ofNullable(aggregation).map(EuropeanaAggregationType::getPreview)
-            .map(ResourceType::getResource).filter(StringUtils::isNotBlank).orElse(null);
-    final boolean hasThumbnails = previewUri != null
-        && webResources.stream().filter(resource -> previewUri.equals(resource.getAbout()))
-        .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
-    document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), hasThumbnails);
+    document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), rdf.hasThumbnails());
 
-    // Compose the set of isShownAt urls.
-    final Set<String> isShownAtUrls = rdf.getAggregations().stream().map(Aggregation::getIsShownAt)
-        .filter(Objects::nonNull).map(IsShownAt::getResource).collect(Collectors.toSet());
-
-    // has_media is true if and only if there is at least one web resource, not of type
-    // 'is_shown_at', representing technical metadata of a known type.
-    final boolean hasMedia =
-        webResources.stream().filter(resource -> !isShownAtUrls.contains(resource.getAbout()))
-            .map(WebResourceWrapper::getMediaType).anyMatch(type -> type != EncodedMediaType.OTHER);
+    // has_media is true if and only if there is at least one web resource of type 'isShownBy'
+    // or 'hasView' representing technical metadata of a known type.
+    final List<WebResourceWrapper> webResourcesWithMedia = rdf.getWebResourceWrappers(
+        EnumSet.of(WebResourceLinkType.IS_SHOWN_BY, WebResourceLinkType.HAS_VIEW));
+    final boolean hasMedia = webResourcesWithMedia.stream().map(WebResourceWrapper::getMediaType)
+        .anyMatch(type -> type != EncodedMediaType.OTHER);
     document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
 
     // has_landingPage is true if and only if there is at least one web resource of type
-    // 'is_shown_at', representing technical metadata of some (non-null) mime type.
-    final boolean hasLandingPage = webResources.stream()
-        .filter(resource -> isShownAtUrls.contains(resource.getAbout()))
+    // 'isShownAt', representing technical metadata of some (non-null) mime type.
+    final boolean hasLandingPage = rdf
+        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT)).stream()
         .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
     document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), hasLandingPage);
 
-    // is_fulltext is true if and only if there is at least one web resource with 'rdf:type' equal
-    // to 'edm:FullTextResource'.
-    final boolean isFullText = webResources.stream().map(WebResourceWrapper::getType)
+    // is_fulltext is true if and only if there is at least one web resource of type 'isShownBy'
+    // or 'hasView' with 'rdf:type' equal to 'edm:FullTextResource'.
+    final boolean isFullText = webResourcesWithMedia.stream().map(WebResourceWrapper::getType)
         .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
     document.addField(EdmLabel.CRF_IS_FULL_TEXT.toString(), isFullText);
 
-    // Compose the filter and facet tags.
+    // Compose the filter and facet tags. Only use the web resources of type 'isShownBy' or 'hasView'.
     final Set<Integer> filterTags = new HashSet<>();
     final Set<Integer> facetTags = new HashSet<>();
     final TagExtractor tagExtractor = new TagExtractor();
-    for (WebResourceWrapper webResource : webResources) {
+    for (WebResourceWrapper webResource : webResourcesWithMedia) {
       filterTags.addAll(tagExtractor.getFilterTags(webResource));
       facetTags.addAll(tagExtractor.getFacetTags(webResource));
     }
