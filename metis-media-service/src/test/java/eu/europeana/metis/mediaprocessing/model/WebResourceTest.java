@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.metis.mediaprocessing.model.WebResource.Orientation;
+import eu.europeana.metis.utils.Orientation;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;

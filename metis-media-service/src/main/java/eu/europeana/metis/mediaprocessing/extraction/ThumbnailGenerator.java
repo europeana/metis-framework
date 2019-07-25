@@ -5,6 +5,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
+import eu.europeana.metis.utils.MediaType;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -299,8 +300,7 @@ class ThumbnailGenerator {
         }
 
         // Copy the thumbnail. In case of images: don't make a thumbnail larger than the original.
-        final boolean isImage =
-            ResourceType.getResourceType(detectedMimeType) == ResourceType.IMAGE;
+        final boolean isImage = MediaType.getMediaType(detectedMimeType) == MediaType.IMAGE;
         final boolean shouldUseOriginal = isImage && result.getWidth() < thumbnail.getImageSize();
         if (shouldUseOriginal) {
           copyFile(content, thumbnail);

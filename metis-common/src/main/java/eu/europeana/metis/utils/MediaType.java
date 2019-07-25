@@ -1,36 +1,42 @@
-package eu.europeana.indexing.utils;
+package eu.europeana.metis.utils;
 
 /**
  * This class lists the supported media types.
  *
- * TODO is a duplicate of ResourceType in the media processing library.
- * 
  * @author jochen
- *
  */
 public enum MediaType {
 
-  /** Audio (sound only) **/
+  /**
+   * Audio
+   **/
   AUDIO,
 
-  /** Video **/
+  /**
+   * Video
+   **/
   VIDEO,
 
-  /** Images **/
-  IMAGE,
-
-  /** Text **/
+  /**
+   * Text (including PDFs)
+   **/
   TEXT,
 
-  /** Unknown type: not supported **/
+  /**
+   * Graphical
+   **/
+  IMAGE,
+
+  /**
+   * Media that is not of any of the other kinds.
+   **/
   OTHER;
 
   /**
-   * Matches the MIME type to one of the supported media types.
+   * Obtains the media type of a given mime type.
    *
-   * @param mimeType The mime type as a string.
-   * @return The media type corresponding to the mime type. Does not return null, but may return
-   *         {@link MediaType#OTHER}.
+   * @param mimeType The mime type.
+   * @return The media type to which the mime type belongs.
    */
   public static MediaType getMediaType(String mimeType) {
     final MediaType result;

@@ -1,14 +1,5 @@
 package eu.europeana.indexing.fullbean;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageOrientation;
 import eu.europeana.corelib.definitions.jibx.CodecName;
 import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
@@ -29,18 +20,23 @@ import eu.europeana.corelib.edm.model.metainfo.TextMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.VideoMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.indexing.utils.MediaType;
+import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.utils.Orientation;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Converts a {@link WebResourceType} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
  * {@link WebResourceImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl> {
-
-  // TODO These values come from eu.europeana.metis.mediaservice.WebResource.Orientation.
-  // We should reuse these values from there.
-  private static final String ORIENTATION_LANDSCAPE = "LANDSCAPE";
-  private static final String ORIENTATION_PORTRAIT = "PORTRAIT";
 
   @Override
   public WebResourceImpl apply(WebResourceType wResourceType) {
@@ -208,12 +204,12 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
         .map(HexBinaryType::getString).filter(StringUtils::isNotBlank).toArray(String[]::new);
     metaInfo.setColorPalette(targetColors.length == 0 ? null : targetColors);
 
-    final String sourceOrientation =
-        Optional.ofNullable(source.getOrientation()).map(OrientationType::getString).orElse(null);
+    final Orientation sourceOrientation = Optional.ofNullable(source.getOrientation())
+        .map(OrientationType::getString).map(Orientation::getFromNameCaseInsensitive).orElse(null);
     final ImageOrientation targetOrientation;
-    if (ORIENTATION_LANDSCAPE.equalsIgnoreCase(sourceOrientation)) {
+    if (sourceOrientation == Orientation.LANDSCAPE) {
       targetOrientation = ImageOrientation.LANDSCAPE;
-    } else if (ORIENTATION_PORTRAIT.equalsIgnoreCase(sourceOrientation)) {
+    } else if (sourceOrientation == Orientation.PORTRAIT) {
       targetOrientation = ImageOrientation.PORTRAIT;
     } else {
       targetOrientation = null;

@@ -1,9 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import java.io.IOException;
-import org.apache.tika.Tika;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
@@ -11,6 +7,11 @@ import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.utils.MediaType;
+import java.io.IOException;
+import org.apache.tika.Tika;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Extracts technical metadata and generates thumbnails for web resources.
@@ -64,7 +65,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
     final ResourceDownloadClient downloadClient = new ResourceDownloadClient(redirectCount,
-        ResourceType::shouldDownloadMimetype, connectTimeout, socketTimeout);
+        MediaExtractorImpl::shouldDownloadMimetype, connectTimeout, socketTimeout);
     return new MediaExtractorImpl(downloadClient, new Tika(),
         new ImageProcessor(thumbnailGenerator),
         new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout)),
@@ -109,9 +110,9 @@ public class MediaExtractorImpl implements MediaExtractor {
     return detectedMimeType;
   }
 
-  MediaProcessor chooseMediaProcessor(ResourceType resourceType){
+  MediaProcessor chooseMediaProcessor(MediaType mediaType){
     final MediaProcessor processor;
-    switch (resourceType) {
+    switch (mediaType) {
       case TEXT:
         processor = textProcessor;
         break;
@@ -136,7 +137,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Verify that we have content when we need to.
     try {
-      if (!resource.hasContent() && ResourceType.shouldDownloadMimetype(detectedMimeType)) {
+      if (!resource.hasContent() && shouldDownloadMimetype(detectedMimeType)) {
         throw new MediaExtractionException(
             "File content is not downloaded and mimeType does not support processing without a downloaded file.");
       }
@@ -145,7 +146,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Choose the right media processor.
-    final MediaProcessor processor = chooseMediaProcessor(ResourceType.getResourceType(detectedMimeType));
+    final MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
 
     // Process the resource.
     return processor == null ? null : processor.process(resource, detectedMimeType);
@@ -154,5 +155,14 @@ public class MediaExtractorImpl implements MediaExtractor {
   @Override
   public void close() throws IOException {
     resourceDownloadClient.close();
+  }
+
+  /**
+   * @return true if and only if resources of the given type need to be downloaded before
+   * processing.
+   */
+  static boolean shouldDownloadMimetype(String mimeType) {
+    final MediaType mediaType = MediaType.getMediaType(mimeType);
+    return MediaType.IMAGE == mediaType || MediaType.TEXT == mediaType;
   }
 }

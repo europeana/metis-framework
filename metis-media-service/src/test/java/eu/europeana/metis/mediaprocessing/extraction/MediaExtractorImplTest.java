@@ -18,6 +18,7 @@ import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.utils.MediaType;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -90,11 +91,11 @@ class MediaExtractorImplTest {
 
   @Test
   void testChooseMediaProcessor() {
-    assertSame(imageProcessor, mediaExtractor.chooseMediaProcessor(ResourceType.IMAGE));
-    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(ResourceType.AUDIO));
-    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(ResourceType.VIDEO));
-    assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(ResourceType.TEXT));
-    assertNull(mediaExtractor.chooseMediaProcessor(ResourceType.UNKNOWN));
+    assertSame(imageProcessor, mediaExtractor.chooseMediaProcessor(MediaType.IMAGE));
+    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO));
+    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO));
+    assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
+    assertNull(mediaExtractor.chooseMediaProcessor(MediaType.OTHER));
   }
 
   @Test
@@ -106,12 +107,12 @@ class MediaExtractorImplTest {
 
     // Use media type that should not be downloaded.
     final String detectedMimeType = "video/unknown_type";
-    assertFalse(ResourceType.shouldDownloadMimetype(detectedMimeType));
+    assertFalse(MediaExtractorImpl.shouldDownloadMimetype(detectedMimeType));
     doReturn(detectedMimeType).when(mediaExtractor).verifyMimeType(resource);
 
     // Set processor.
     doReturn(audioVideoProcessor)
-        .when(mediaExtractor).chooseMediaProcessor(ResourceType.getResourceType(detectedMimeType));
+        .when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
     final ResourceExtractionResult result = new ResourceExtractionResult(null, null);
     doReturn(result).when(audioVideoProcessor).process(resource, detectedMimeType);
 
@@ -132,12 +133,12 @@ class MediaExtractorImplTest {
 
     // Use media type that should be downloaded.
     final String detectedMimeType = "image/unknown_type";
-    assertTrue(ResourceType.shouldDownloadMimetype(detectedMimeType));
+    assertTrue(MediaExtractorImpl.shouldDownloadMimetype(detectedMimeType));
     doReturn(detectedMimeType).when(mediaExtractor).verifyMimeType(resource);
 
     // Set processor.
     doReturn(imageProcessor)
-        .when(mediaExtractor).chooseMediaProcessor(ResourceType.getResourceType(detectedMimeType));
+        .when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
     final ResourceExtractionResult result = new ResourceExtractionResult(null, null);
     doReturn(result).when(imageProcessor).process(resource, detectedMimeType);
 
@@ -177,5 +178,14 @@ class MediaExtractorImplTest {
   void testClose() throws IOException {
     mediaExtractor.close();
     verify(resourceDownloadClient).close();
+  }
+
+  @Test
+  void testShouldDownloadMimetype() {
+    assertTrue(MediaExtractorImpl.shouldDownloadMimetype("image/unknown_type"));
+    assertTrue(MediaExtractorImpl.shouldDownloadMimetype("text/unknown_type"));
+    assertFalse(MediaExtractorImpl.shouldDownloadMimetype("audio/unknown_type"));
+    assertFalse(MediaExtractorImpl.shouldDownloadMimetype("video/unknown_type"));
+    assertFalse(MediaExtractorImpl.shouldDownloadMimetype("unknown_type"));
   }
 }
