@@ -16,7 +16,10 @@ class MediaTypeTest {
     assertEquals(MediaType.TEXT, MediaType.getMediaType("application/rtf"));
     assertEquals(MediaType.TEXT, MediaType.getMediaType("application/epub"));
     assertEquals(MediaType.TEXT, MediaType.getMediaType("application/pdf"));
+    assertEquals(MediaType.TEXT, MediaType.getMediaType("application/pdf+xml"));
+    assertEquals(MediaType.TEXT, MediaType.getMediaType("application/pdf+xml; key=value"));
     assertEquals(MediaType.TEXT, MediaType.getMediaType("application/xhtml+xml"));
+    assertEquals(MediaType.OTHER, MediaType.getMediaType("application/xhtml"));
     assertEquals(MediaType.OTHER, MediaType.getMediaType("unknown_type"));
     assertEquals(MediaType.OTHER, MediaType.getMediaType(null));
   }
