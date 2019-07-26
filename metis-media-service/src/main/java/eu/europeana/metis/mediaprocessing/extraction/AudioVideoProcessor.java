@@ -6,7 +6,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import java.io.IOException;
 import java.util.Arrays;
@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 /**
  * <p>
  * Implementation of {@link MediaProcessor} that is designed to handle resources of types {@link
- * ResourceType#AUDIO} and {@link ResourceType#VIDEO}.
+ * eu.europeana.metis.utils.MediaType#AUDIO} and {@link eu.europeana.metis.utils.MediaType#VIDEO}.
  * </p>
  * <p>
  * Note: No thumbnails are created for audio or video files.
@@ -107,13 +107,13 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult process(Resource resource, String detectedMimeType)
-      throws MediaExtractionException {
+  public boolean downloadResourceForFullProcessing() {
+    return false;
+  }
 
-    // Sanity check
-    if (!shouldExtractMetadata(resource)) {
-      return null;
-    }
+  @Override
+  public ResourceExtractionResultImpl process(Resource resource, String detectedMimeType)
+      throws MediaExtractionException {
 
     // Execute command
     final List<String> response;
@@ -126,7 +126,7 @@ class AudioVideoProcessor implements MediaProcessor {
     // Parse command result.
     final AbstractResourceMetadata metadata = parseCommandResponse(resource, detectedMimeType,
         response);
-    return new ResourceExtractionResult(metadata, null);
+    return new ResourceExtractionResultImpl(metadata, null);
   }
 
   JSONObject readCommandResponseToJson(List<String> response) {

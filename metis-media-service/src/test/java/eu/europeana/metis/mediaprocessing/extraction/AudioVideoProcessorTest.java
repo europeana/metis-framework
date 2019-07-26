@@ -11,7 +11,6 @@ import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -25,7 +24,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -57,7 +56,6 @@ class AudioVideoProcessorTest {
   @BeforeEach
   void resetMocks() {
     reset(commandExecutor);
-    doReturn(true).when(audioVideoProcessor).shouldExtractMetadata(notNull());
   }
 
   @Test
@@ -386,7 +384,6 @@ class AudioVideoProcessorTest {
     final String detectedMimeType = "detected mime type";
 
     // Prepare processor
-    doReturn(true).when(audioVideoProcessor).shouldExtractMetadata(resource);
     final List<String> command = Collections.emptyList();
     doReturn(command).when(audioVideoProcessor).createAudioVideoAnalysisCommand(resource);
     final List<String> response = Collections.emptyList();
@@ -396,14 +393,9 @@ class AudioVideoProcessorTest {
         .parseCommandResponse(resource, detectedMimeType, response);
 
     // Check that all is well
-    final ResourceExtractionResult result = audioVideoProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = audioVideoProcessor.process(resource, detectedMimeType);
     assertEquals(metadata, result.getOriginalMetadata());
     assertNull(result.getThumbnails());
-
-    // In case we should not extract metadata at all
-    doReturn(false).when(audioVideoProcessor).shouldExtractMetadata(resource);
-    assertNull(audioVideoProcessor.process(resource, detectedMimeType));
-    doReturn(true).when(audioVideoProcessor).shouldExtractMetadata(resource);
 
     // In case there was a command execution issue
     doThrow(new CommandExecutionException("", null)).when(commandExecutor).execute(command, false);

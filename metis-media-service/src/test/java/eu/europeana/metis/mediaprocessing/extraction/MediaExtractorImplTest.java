@@ -17,7 +17,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.utils.MediaType;
 import java.io.IOException;
 import java.net.URI;
@@ -61,7 +61,7 @@ class MediaExtractorImplTest {
   }
 
   @Test
-  void testVerifyMimeType() throws IOException, MediaExtractionException, URISyntaxException {
+  void testDetectAndVerifyMimeType() throws IOException, MediaExtractionException, URISyntaxException {
 
     // Create resource
     final URI actualLocation = new URI("http://resource.actual.location.test.com");
@@ -72,21 +72,36 @@ class MediaExtractorImplTest {
     doReturn("mime type").when(resource).getProvidedMimeType();
     doReturn(contentPath).when(resource).getContentPath();
 
-    // Test case where there is no content
+    // Register mime types
     final String detectedMimeTypeNoContent = "detected mime type no content";
+    doReturn(false).when(mediaExtractor).shouldDownloadForFullProcessing(detectedMimeTypeNoContent);
+    final String detectedMimeTypeWithContent = "detected mime type with content";
+    doReturn(true).when(mediaExtractor).shouldDownloadForFullProcessing(detectedMimeTypeWithContent);
+
+    // Test case where there is no content
     doReturn(false).when(resource).hasContent();
     doReturn(detectedMimeTypeNoContent).when(tika).detect(actualLocation.toURL());
-    assertEquals(detectedMimeTypeNoContent, mediaExtractor.verifyMimeType(resource));
+    assertEquals(detectedMimeTypeNoContent, mediaExtractor.detectAndVerifyMimeType(resource));
 
     // Test case where there is content
-    final String detectedMimeTypeWithContent = "detected mime type with content";
     doReturn(true).when(resource).hasContent();
     doReturn(detectedMimeTypeWithContent).when(tika).detect(contentPath);
-    assertEquals(detectedMimeTypeWithContent, mediaExtractor.verifyMimeType(resource));
+    assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource));
+
+    // Test case where there is no content, but there should be.
+    doReturn(false).when(resource).hasContent();
+    doReturn(detectedMimeTypeWithContent).when(tika).detect(actualLocation.toURL());
+    assertThrows(MediaExtractionException.class, () -> mediaExtractor.detectAndVerifyMimeType(resource));
 
     // Test when tika throws exception
     doThrow(IOException.class).when(tika).detect(contentPath);
-    assertThrows(MediaExtractionException.class, () -> mediaExtractor.verifyMimeType(resource));
+    assertThrows(MediaExtractionException.class, () -> mediaExtractor.detectAndVerifyMimeType(resource));
+    doReturn(detectedMimeTypeWithContent).when(tika).detect(contentPath);
+
+    // Check what happens if resource.hasContent() throws an exception.
+    doThrow(IOException.class).when(resource).hasContent();
+    assertThrows(MediaExtractionException.class, () -> mediaExtractor.performFullProcessing(resource));
+    doReturn(true).when(resource).hasContent();
   }
 
   @Test
@@ -99,55 +114,23 @@ class MediaExtractorImplTest {
   }
 
   @Test
-  void testProcessResourceNotDownloaded() throws IOException, MediaExtractionException {
+  void testProcessResource() throws MediaExtractionException {
 
     // Create resource
     final Resource resource = mock(Resource.class);
-    doReturn(false).when(resource).hasContent();
 
-    // Use media type that should not be downloaded.
-    final String detectedMimeType = "video/unknown_type";
-    assertFalse(MediaExtractorImpl.shouldDownloadMimetype(detectedMimeType));
-    doReturn(detectedMimeType).when(mediaExtractor).verifyMimeType(resource);
+    // Set detected mime type
+    final String detectedMimeType = "detected mime type";
+    doReturn(detectedMimeType).when(mediaExtractor).detectAndVerifyMimeType(resource);
 
     // Set processor.
     doReturn(audioVideoProcessor)
         .when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
-    final ResourceExtractionResult result = new ResourceExtractionResult(null, null);
+    final ResourceExtractionResultImpl result = new ResourceExtractionResultImpl(null, null);
     doReturn(result).when(audioVideoProcessor).process(resource, detectedMimeType);
 
     // Make the call.
-    assertSame(result, mediaExtractor.processResource(resource));
-
-    // Check what happens if resource.hasContent() throws an exception.
-    doThrow(IOException.class).when(resource).hasContent();
-    assertThrows(MediaExtractionException.class, () -> mediaExtractor.processResource(resource));
-  }
-
-  @Test
-  void testProcessResourceDownloaded() throws IOException, MediaExtractionException {
-
-    // Create resource
-    final Resource resource = mock(Resource.class);
-    doReturn(true).when(resource).hasContent();
-
-    // Use media type that should be downloaded.
-    final String detectedMimeType = "image/unknown_type";
-    assertTrue(MediaExtractorImpl.shouldDownloadMimetype(detectedMimeType));
-    doReturn(detectedMimeType).when(mediaExtractor).verifyMimeType(resource);
-
-    // Set processor.
-    doReturn(imageProcessor)
-        .when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
-    final ResourceExtractionResult result = new ResourceExtractionResult(null, null);
-    doReturn(result).when(imageProcessor).process(resource, detectedMimeType);
-
-    // Make the call.
-    assertSame(result, mediaExtractor.processResource(resource));
-
-    // Check what happens if the resource was not downloaded even though it should have been
-    doReturn(false).when(resource).hasContent();
-    assertThrows(MediaExtractionException.class, () -> mediaExtractor.processResource(resource));
+    assertSame(result, mediaExtractor.performFullProcessing(resource));
   }
 
   @Test
@@ -157,8 +140,8 @@ class MediaExtractorImplTest {
     final RdfResourceEntry entry = new RdfResourceEntry("resource url", Collections.emptyList());
     final Resource resource = mock(Resource.class);
     doReturn(resource).when(resourceDownloadClient).download(entry);
-    final ResourceExtractionResult result = new ResourceExtractionResult(null, null);
-    doReturn(result).when(mediaExtractor).processResource(resource);
+    final ResourceExtractionResultImpl result = new ResourceExtractionResultImpl(null, null);
+    doReturn(result).when(mediaExtractor).performFullProcessing(resource);
 
     // Make the call and verify that the resource is closed.
     assertEquals(result, mediaExtractor.performMediaExtraction(entry));
@@ -181,11 +164,14 @@ class MediaExtractorImplTest {
   }
 
   @Test
-  void testShouldDownloadMimetype() {
-    assertTrue(MediaExtractorImpl.shouldDownloadMimetype("image/unknown_type"));
-    assertTrue(MediaExtractorImpl.shouldDownloadMimetype("text/unknown_type"));
-    assertFalse(MediaExtractorImpl.shouldDownloadMimetype("audio/unknown_type"));
-    assertFalse(MediaExtractorImpl.shouldDownloadMimetype("video/unknown_type"));
-    assertFalse(MediaExtractorImpl.shouldDownloadMimetype("unknown_type"));
+  void testShouldDownloadForFullProcessing() {
+    doReturn(true).when(imageProcessor).downloadResourceForFullProcessing();
+    doReturn(true).when(textProcessor).downloadResourceForFullProcessing();
+    doReturn(false).when(audioVideoProcessor).downloadResourceForFullProcessing();
+    assertTrue(mediaExtractor.shouldDownloadForFullProcessing("image/unknown_type"));
+    assertTrue(mediaExtractor.shouldDownloadForFullProcessing("text/unknown_type"));
+    assertFalse(mediaExtractor.shouldDownloadForFullProcessing("audio/unknown_type"));
+    assertFalse(mediaExtractor.shouldDownloadForFullProcessing("video/unknown_type"));
+    assertFalse(mediaExtractor.shouldDownloadForFullProcessing("unknown_type"));
   }
 }

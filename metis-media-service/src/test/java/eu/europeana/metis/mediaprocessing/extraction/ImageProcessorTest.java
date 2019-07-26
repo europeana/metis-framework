@@ -2,10 +2,8 @@ package eu.europeana.metis.mediaprocessing.extraction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -15,7 +13,7 @@ import static org.mockito.Mockito.spy;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
@@ -47,7 +45,6 @@ class ImageProcessorTest {
   @BeforeEach
   void resetMocks() {
     reset(thumbnailGenerator);
-    doReturn(true).when(imageProcessor).shouldExtractMetadata(notNull());
   }
 
   @Test
@@ -80,7 +77,7 @@ class ImageProcessorTest {
         .generateThumbnails(url, detectedMimeType, content);
 
     // Call method
-    final ResourceExtractionResult result = imageProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = imageProcessor.process(resource, detectedMimeType);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof ImageResourceMetadata);
@@ -101,14 +98,6 @@ class ImageProcessorTest {
 
     // Verify result thumbnails
     assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());
-
-    // Check for resource link type for which no metadata is created
-    doReturn(false).when(imageProcessor).shouldExtractMetadata(notNull());
-    final ResourceExtractionResult resultWithoutMetadata = imageProcessor
-        .process(resource, detectedMimeType);
-    assertNull(resultWithoutMetadata.getMetadata());
-    assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());
-    doReturn(true).when(imageProcessor).shouldExtractMetadata(notNull());
 
     // Check for resource with no content
     doReturn(false).when(resource).hasContent();

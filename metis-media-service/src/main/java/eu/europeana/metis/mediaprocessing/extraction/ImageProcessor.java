@@ -4,7 +4,7 @@ import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * <p>Implementation of {@link MediaProcessor} that is designed to handle resources of type
- * {@link ResourceType#IMAGE}.
+ * {@link eu.europeana.metis.utils.MediaType#IMAGE}.
  * </p>
  * <p>
  * Note: if we don't have metadata, we still return the thumbnails. This is according to the specs:
@@ -34,10 +34,15 @@ class ImageProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult process(Resource resource, String detectedMimeType)
+  public boolean downloadResourceForFullProcessing() {
+    return true;
+  }
+
+  @Override
+  public ResourceExtractionResultImpl process(Resource resource, String detectedMimeType)
       throws MediaExtractionException {
 
-    // Sanity checks
+    // Sanity check
     try {
       if (!resource.hasContent()) {
         throw new MediaExtractionException("File does not exist or does not have content.");
@@ -62,19 +67,15 @@ class ImageProcessor implements MediaProcessor {
 
     // Set the metadata in the web resource.
     final ImageResourceMetadata resourceMetadata;
-    if (shouldExtractMetadata(resource)) {
-      final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
-      final ColorSpaceType colorSpace = ColorSpaceMapping
-          .getColorSpaceType(imageMetadata.getColorSpace());
-      resourceMetadata =
-          new ImageResourceMetadata(detectedMimeType, resource.getResourceUrl(), contentSize,
-              imageMetadata.getWidth(), imageMetadata.getHeight(), colorSpace,
-              imageMetadata.getDominantColors(), thumbnailsAndMetadata.getRight());
-    } else {
-      resourceMetadata = null;
-    }
+    final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
+    final ColorSpaceType colorSpace = ColorSpaceMapping
+        .getColorSpaceType(imageMetadata.getColorSpace());
+    resourceMetadata =
+        new ImageResourceMetadata(detectedMimeType, resource.getResourceUrl(), contentSize,
+            imageMetadata.getWidth(), imageMetadata.getHeight(), colorSpace,
+            imageMetadata.getDominantColors(), thumbnailsAndMetadata.getRight());
 
     // Done.
-    return new ResourceExtractionResult(resourceMetadata, thumbnailsAndMetadata.getRight());
+    return new ResourceExtractionResultImpl(resourceMetadata, thumbnailsAndMetadata.getRight());
   }
 }

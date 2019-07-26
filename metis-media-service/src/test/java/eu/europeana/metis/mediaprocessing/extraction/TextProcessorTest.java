@@ -28,7 +28,7 @@ import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.OpenPdfFile;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfCharacteristics;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfListener;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
@@ -61,7 +61,6 @@ class TextProcessorTest {
   @BeforeEach
   void resetMocks() {
     reset(thumbnailGenerator, textProcessor);
-    doReturn(true).when(textProcessor).shouldExtractMetadata(notNull());
   }
 
   @Test
@@ -77,7 +76,7 @@ class TextProcessorTest {
     doReturn(1234L).when(resource).getContentSize();
 
     // Call method
-    final ResourceExtractionResult result = textProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = textProcessor.process(resource, detectedMimeType);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
@@ -93,11 +92,6 @@ class TextProcessorTest {
 
     // Verify result thumbnails
     assertNull(result.getThumbnails());
-
-    // Check for resource link type for which we should not extract metadata at all
-    doReturn(false).when(textProcessor).shouldExtractMetadata(notNull());
-    assertNull(textProcessor.process(resource, detectedMimeType));
-    doReturn(true).when(textProcessor).shouldExtractMetadata(notNull());
 
     // Check for resource with no content
     doReturn(false).when(resource).hasContent();
@@ -153,7 +147,7 @@ class TextProcessorTest {
     doReturn(pdfCharacteristics).when(textProcessor).findPdfCharacteristics(content);
 
     // Call method
-    final ResourceExtractionResult result = textProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = textProcessor.process(resource, detectedMimeType);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);

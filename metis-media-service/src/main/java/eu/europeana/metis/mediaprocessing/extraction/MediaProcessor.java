@@ -3,7 +3,6 @@ package eu.europeana.metis.mediaprocessing.extraction;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
 
 /**
  * Implementations of this interface are capable of processing a particular {@link
@@ -15,7 +14,7 @@ interface MediaProcessor {
    * Process a resource.
    *
    * @param resource The resource to process. Note that the resource may not have content (see
-   * {@link MediaExtractorImpl#shouldDownloadMimetype(String)}).
+   * {@link MediaExtractorImpl#shouldDownloadForFullProcessing(String)}).
    * @param detectedMimeType The mime type that was detected for this resource (may deviate from the
    * mime type that was provided by the server and which is stored in {@link
    * Resource#getProvidedMimeType()}).
@@ -26,12 +25,7 @@ interface MediaProcessor {
       throws MediaExtractionException;
 
   /**
-   * Returns whether metadata is to be extracted for this resource.
-   *
-   * @param resource The resource for which to extract metadata.
-   * @return Whether metadata is to be extracted for this resource.
+   * @return Whether the processor needs the downloaded resource for full processing.
    */
-  default boolean shouldExtractMetadata(Resource resource) {
-    return UrlType.shouldExtractMetadata(resource.getUrlTypes());
-  }
+  boolean downloadResourceForFullProcessing();
 }
