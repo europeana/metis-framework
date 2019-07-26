@@ -3,9 +3,9 @@ package eu.europeana.metis.mediaprocessing.http;
 import java.net.URI;
 
 /**
- * An {@link AbstractHttpClient} that checks whether a given resource link actually points to content. It
- * doesn't download the content, but just checks whether the link resolves. It expects the URL
- * itself as resource entry input.
+ * An {@link AbstractHttpClient} that checks whether a given resource link actually points to
+ * content. It doesn't download the content, but just checks whether the link resolves. It expects
+ * the URL itself as resource entry input.
  */
 public class LinkCheckClient extends AbstractHttpClient<String, Void> {
 
@@ -27,7 +27,7 @@ public class LinkCheckClient extends AbstractHttpClient<String, Void> {
   }
 
   @Override
-  protected Void createResult(String resourceEntry, URI actualUri, String mimeType,
+  protected Void createResult(String resourceEntry, URI actualUri, String mimeType, Long fileSize,
       ContentRetriever contentRetriever) {
     return null;
   }

@@ -69,7 +69,7 @@ class MediaExtractorImplTest {
     final Resource resource = mock(Resource.class);
     doReturn("resource url").when(resource).getResourceUrl();
     doReturn(actualLocation).when(resource).getActualLocation();
-    doReturn("mime type").when(resource).getMimeType();
+    doReturn("mime type").when(resource).getProvidedMimeType();
     doReturn(contentPath).when(resource).getContentPath();
 
     // Test case where there is no content

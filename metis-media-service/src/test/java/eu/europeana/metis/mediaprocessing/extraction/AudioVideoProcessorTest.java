@@ -234,7 +234,7 @@ class AudioVideoProcessorTest {
     // Create resource
     final Resource resource = mock(Resource.class);
     doReturn("resource url").when(resource).getResourceUrl();
-    doReturn("mime type").when(resource).getMimeType();
+    doReturn("mime type").when(resource).getProvidedMimeType();
     doReturn(true).when(resource).hasContent();
     final String detectedMimeType = "detected mime type";
 
@@ -279,7 +279,7 @@ class AudioVideoProcessorTest {
     // Create resource
     final Resource resource = mock(Resource.class);
     doReturn("resource url").when(resource).getResourceUrl();
-    doReturn("mime type").when(resource).getMimeType();
+    doReturn("mime type").when(resource).getProvidedMimeType();
     doReturn(true).when(resource).hasContent();
     final String detectedMimeType = "detected mime type";
 

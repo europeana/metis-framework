@@ -41,10 +41,10 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
 
   @Override
   protected Resource createResult(RdfResourceEntry resourceEntry, URI actualUri, String mimeType,
-      ContentRetriever contentRetriever) throws IOException {
+      Long fileSize, ContentRetriever contentRetriever) throws IOException {
 
     // Create resource
-    final ResourceImpl resource = new ResourceImpl(resourceEntry, mimeType, actualUri);
+    final ResourceImpl resource = new ResourceImpl(resourceEntry, mimeType, fileSize, actualUri);
 
     // In case we are expecting a file, we download it.
     try {

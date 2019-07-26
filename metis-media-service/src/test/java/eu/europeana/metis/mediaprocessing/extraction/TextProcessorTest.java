@@ -38,7 +38,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -71,8 +70,8 @@ class TextProcessorTest {
     // Define input
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
         Collections.singletonList(UrlType.IS_SHOWN_BY));
-    final ResourceImpl resource = spy(new ResourceImpl(rdfResourceEntry, "mime type",
-        URI.create("http://www.test.com")));
+    final ResourceImpl resource = spy(
+        new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "detected mime type";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();
@@ -128,8 +127,8 @@ class TextProcessorTest {
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
         Collections.singletonList(UrlType.IS_SHOWN_BY));
-    final ResourceImpl resource = spy(new ResourceImpl(rdfResourceEntry, "mime type",
-        URI.create("http://www.test.com")));
+    final ResourceImpl resource = spy(
+        new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "application/pdf";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();

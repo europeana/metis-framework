@@ -13,7 +13,10 @@ import java.util.Set;
  */
 public class ResourceImpl extends AbstractTemporaryFile implements Resource {
 
-  private final String mimeType;
+  private static final String DEFAULT_MIME_TYPE = "application/octet-stream";
+
+  private final String providedMimeType;
+  private final long providedFileSize;
   private final Set<UrlType> urlTypes;
   private final URI actualLocation;
 
@@ -21,13 +24,18 @@ public class ResourceImpl extends AbstractTemporaryFile implements Resource {
    * Constructor.
    *
    * @param rdfResourceEntry The resource entry for which this file contains the content.
-   * @param mimeType The mime type of this content.
+   * @param providedMimeType The mime type of this content, as provided by the source. Can be null
+   * if the source didn't specify a mime type.
+   * @param providedFileSize The file size of this content, as provided by the source. Can be null
+   * if the source didn't specify a file size.
    * @param actualLocation The actual location where the resource was obtained (as opposed from the
-   *        resource URL given by {@link ResourceImpl#getResourceUrl()}).
+   * resource URL given by {@link ResourceImpl#getResourceUrl()}).
    */
-  public ResourceImpl(RdfResourceEntry rdfResourceEntry, String mimeType, URI actualLocation) {
+  public ResourceImpl(RdfResourceEntry rdfResourceEntry, String providedMimeType,
+      Long providedFileSize, URI actualLocation) {
     super(rdfResourceEntry.getResourceUrl(), "media_resource_", null);
-    this.mimeType = mimeType;
+    this.providedMimeType = Optional.ofNullable(providedMimeType).orElse(DEFAULT_MIME_TYPE);
+    this.providedFileSize = Optional.ofNullable(providedFileSize).orElse(0L);
     this.urlTypes = new HashSet<>(rdfResourceEntry.getUrlTypes());
     this.actualLocation = actualLocation;
   }
@@ -43,8 +51,13 @@ public class ResourceImpl extends AbstractTemporaryFile implements Resource {
   }
 
   @Override
-  public String getMimeType() {
-    return mimeType;
+  public String getProvidedMimeType() {
+    return providedMimeType;
+  }
+
+  @Override
+  public long getProvidedFileSize() {
+    return providedFileSize;
   }
 
   @Override

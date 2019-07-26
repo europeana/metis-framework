@@ -18,7 +18,7 @@ interface MediaProcessor {
    * {@link MediaExtractorImpl#shouldDownloadMimetype(String)}).
    * @param detectedMimeType The mime type that was detected for this resource (may deviate from the
    * mime type that was provided by the server and which is stored in {@link
-   * Resource#getMimeType()}).
+   * Resource#getProvidedMimeType()}).
    * @return The result of the extraction.
    * @throws MediaExtractionException In case something went wrong during the extraction.
    */

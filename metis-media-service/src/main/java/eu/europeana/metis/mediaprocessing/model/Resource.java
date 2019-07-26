@@ -17,9 +17,16 @@ public interface Resource extends ResourceRelatedFile {
   Set<UrlType> getUrlTypes();
 
   /**
-   * @return The mime type that has been detected for this resource.
+   * @return The mime type that has been provided for this resource by the source server. If none is
+   * provided, a default (non-null and non-blank) value is returned.
    */
-  String getMimeType();
+  String getProvidedMimeType();
+
+  /**
+   * @return The file size that has been provided for this resource by the source server. If none is
+   * provided, the value 0 is returned.
+   */
+  long getProvidedFileSize();
 
   /**
    * @return The actual location where this resource has been found.
