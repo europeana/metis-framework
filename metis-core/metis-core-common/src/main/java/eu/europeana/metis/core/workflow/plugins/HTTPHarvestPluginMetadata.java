@@ -12,7 +12,6 @@ public class HTTPHarvestPluginMetadata extends AbstractExecutablePluginMetadata 
   private String url;
   private String user;
   private String password;
-  private String datasetId;
   //Default false. If false, it indicates that the ProvidedCHO rdf:about should be used to set the identifier for ECloud
   private boolean useDefaultIdentifiers;
 
@@ -42,14 +41,6 @@ public class HTTPHarvestPluginMetadata extends AbstractExecutablePluginMetadata 
 
   public void setPassword(String password) {
     this.password = password;
-  }
-
-  public String getDatasetId() {
-    return datasetId;
-  }
-
-  public void setDatasetId(String datasetId) {
-    this.datasetId = datasetId;
   }
 
   public boolean isUseDefaultIdentifiers() {

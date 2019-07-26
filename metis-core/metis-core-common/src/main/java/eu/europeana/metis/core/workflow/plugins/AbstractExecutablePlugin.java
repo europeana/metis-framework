@@ -245,7 +245,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
    * @param ecloudBasePluginParameters the basic parameter required for each execution
    * @return the {@link DpsTask} prepared with all the required parameters
    */
-  abstract DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters);
+  abstract DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters);
 
   /**
    * Starts the execution of the plugin at the external location.
@@ -256,13 +256,13 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
    * @param ecloudBasePluginParameters the basic parameter required for each execution
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public void execute(DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
+  public void execute(String datasetId, DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
       throws ExternalTaskException {
     String pluginTypeName = getPluginType().name();
     LOGGER.info("Starting execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
         ecloudBasePluginParameters.getEcloudDatasetId());
     try {
-      DpsTask dpsTask = prepareDpsTask(ecloudBasePluginParameters);
+      DpsTask dpsTask = prepareDpsTask(datasetId, ecloudBasePluginParameters);
       setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
       setDataStatus(DataStatus.VALID);
     } catch (DpsException | RuntimeException e) {
