@@ -11,7 +11,19 @@ import static org.mockito.Mockito.when;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,7 +68,7 @@ class TestExecutionRules {
     when(workflowExecutionDao.getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
         Integer.toString(TestObjectFactory.DATASETID),
         EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true))
-        .thenReturn(ExecutablePluginType.OAIPMH_HARVEST.getNewPlugin(null));
+        .thenReturn(ExecutablePluginFactory.createPlugin(new OaipmhHarvestPluginMetadata()));
     assertNotNull(ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
         ExecutablePluginType.TRANSFORMATION, ExecutablePluginType.OAIPMH_HARVEST,
         Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
@@ -66,33 +78,33 @@ class TestExecutionRules {
   void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution() {
     final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn;
     pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(ExecutionRules.getHarvestPluginGroup());
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.VALIDATION_EXTERNAL,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(new ValidationExternalPluginMetadata(),
         pluginTypesSetThatPluginTypeCanBeBasedOn);
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.TRANSFORMATION,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(new TransformationPluginMetadata(),
         EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.VALIDATION_INTERNAL,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(new ValidationInternalPluginMetadata(),
         EnumSet.of(ExecutablePluginType.TRANSFORMATION));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.NORMALIZATION,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(new NormalizationPluginMetadata(),
         EnumSet.of(ExecutablePluginType.VALIDATION_INTERNAL));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.ENRICHMENT,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(new EnrichmentPluginMetadata(),
         EnumSet.of(ExecutablePluginType.NORMALIZATION));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.MEDIA_PROCESS,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(new MediaProcessPluginMetadata(),
         EnumSet.of(ExecutablePluginType.ENRICHMENT));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.PREVIEW,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(new IndexToPreviewPluginMetadata(),
         EnumSet.of(ExecutablePluginType.MEDIA_PROCESS));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.PUBLISH,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(new IndexToPublishPluginMetadata(),
         EnumSet.of(ExecutablePluginType.PREVIEW));
-    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(ExecutablePluginType.LINK_CHECKING,
+    testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(new LinkCheckingPluginMetadata(),
         ExecutionRules.getAllExceptLinkGroup());
   }
 
   private void testGetLatestFinishedPluginIfRequestedPluginAllowedForExecution(
-      ExecutablePluginType requestedPlugin, Set<ExecutablePluginType> finishedPlugins) {
-    final AbstractExecutablePlugin plugin = requestedPlugin.getNewPlugin(null);
+      ExecutablePluginMetadata metadata, Set<ExecutablePluginType> finishedPlugins) {
+    final AbstractExecutablePlugin plugin = ExecutablePluginFactory.createPlugin(metadata);
     when(workflowExecutionDao.getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
         Integer.toString(TestObjectFactory.DATASETID), finishedPlugins, true)).thenReturn(plugin);
-    assertSame(plugin,
-        ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(requestedPlugin,
-            null, Integer.toString(TestObjectFactory.DATASETID), workflowExecutionDao));
+    assertSame(plugin, ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
+        metadata.getExecutablePluginType(), null, Integer.toString(TestObjectFactory.DATASETID),
+        workflowExecutionDao));
   }
 }

@@ -45,10 +45,10 @@ public class RedisProvider {
     this.host = host;
     this.port = port;
     this.password = password;
-    this.pool = getPool(host, port, password);
+    initPool(host, port, password);
   }
 
-  private JedisPool getPool(String host, int port, String password) {
+  private void initPool(String host, int port, String password) {
     synchronized (this) {
       if (pool == null || pool.isClosed()) {
         LOGGER.info("Get new pool from Redis Host: {}, port: {}{}", host, port,
@@ -89,8 +89,6 @@ public class RedisProvider {
       } catch (JedisConnectionException e) {
         LOGGER.error("Cannot get resource from pool..", e);
       }
-
-      return pool;
     }
   }
 
@@ -107,7 +105,7 @@ public class RedisProvider {
       } catch (RuntimeException e) {
         LOGGER.error("Cannot get resource from pool..", e);
         close();
-        pool = getPool(host, port, password);
+        initPool(host, port, password);
         return pool.getResource();
       }
     }

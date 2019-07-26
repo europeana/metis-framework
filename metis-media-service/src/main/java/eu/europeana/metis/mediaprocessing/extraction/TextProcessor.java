@@ -178,8 +178,8 @@ class TextProcessor implements MediaProcessor {
    */
   static class PdfListener implements RenderListener {
 
-    private Integer dpi = null;
-    private boolean hasText = false;
+    private Integer dpi; // initially null.
+    private boolean hasText; // initially false.
 
     Integer getDpi() {
       return dpi;

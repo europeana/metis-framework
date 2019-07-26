@@ -19,7 +19,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.CancelledSystemId;
@@ -30,7 +30,9 @@ import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -60,7 +62,7 @@ class TestWorkflowExecutionDao {
 
   private static WorkflowExecutionDao workflowExecutionDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
-  private static MorphiaDatastoreProvider provider;
+  private static MorphiaDatastoreProviderImpl provider;
 
   @BeforeAll
   static void prepare() {
@@ -70,7 +72,7 @@ class TestWorkflowExecutionDao {
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
-    provider = new MorphiaDatastoreProvider(mongoClient, "test");
+    provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
 
     workflowExecutionDao = spy(new WorkflowExecutionDao(provider));
     workflowExecutionDao.setWorkflowExecutionsPerRequest(5);
@@ -318,31 +320,32 @@ class TestWorkflowExecutionDao {
 
     // Create harvesting plugin with default status
     final String defaultPluginId = new ObjectId().toString();
-    final AbstractExecutablePlugin defaultPlugin = ExecutablePluginType.OAIPMH_HARVEST
-        .getNewPlugin(new OaipmhHarvestPluginMetadata());
+    final AbstractExecutablePlugin defaultPlugin = ExecutablePluginFactory
+        .createPlugin(new OaipmhHarvestPluginMetadata());
     defaultPlugin.setId(defaultPluginId);
+    defaultPlugin.setDataStatus(null);
     plugins.add(defaultPlugin);
 
     // Create transformation plugin with valid status
     final String validPluginId = new ObjectId().toString();
-    final AbstractExecutablePlugin validPlugin = ExecutablePluginType.TRANSFORMATION
-        .getNewPlugin(new TransformationPluginMetadata());
+    final AbstractExecutablePlugin validPlugin = ExecutablePluginFactory
+        .createPlugin(new TransformationPluginMetadata());
     validPlugin.setDataStatus(DataStatus.VALID);
     validPlugin.setId(validPluginId);
     plugins.add(validPlugin);
 
     // Create unreachable enrichment plugin with valid status
     final String unreachablePluginId = new ObjectId().toString();
-    final AbstractExecutablePlugin unreachablePlugin = ExecutablePluginType.ENRICHMENT
-        .getNewPlugin(new EnrichmentPluginMetadata());
+    final AbstractExecutablePlugin unreachablePlugin = ExecutablePluginFactory
+        .createPlugin(new EnrichmentPluginMetadata());
     unreachablePlugin.setDataStatus(DataStatus.VALID);
     unreachablePlugin.setId(unreachablePluginId);
     plugins.add(unreachablePlugin);
 
     // Create enrichment plugin with deprecated status
     final String deprecatedPluginId = new ObjectId().toString();
-    final AbstractExecutablePlugin deprecatedPlugin = ExecutablePluginType.ENRICHMENT
-        .getNewPlugin(new EnrichmentPluginMetadata());
+    final AbstractExecutablePlugin deprecatedPlugin = ExecutablePluginFactory
+        .createPlugin(new EnrichmentPluginMetadata());
     deprecatedPlugin.setDataStatus(DataStatus.DEPRECATED);
     deprecatedPlugin.setId(deprecatedPluginId);
     plugins.add(deprecatedPlugin);
@@ -394,7 +397,8 @@ class TestWorkflowExecutionDao {
   void getFirstFinishedWorkflowExecutionByDatasetIdAndPluginType() {
 
     // Set up the mock
-    final AbstractExecutablePlugin plugin = ExecutablePluginType.MEDIA_PROCESS.getNewPlugin(null);
+    final AbstractExecutablePlugin plugin = ExecutablePluginFactory
+        .createPlugin(new MediaProcessPluginMetadata());
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<ExecutablePluginType> pluginTypes = EnumSet
         .of(ExecutablePluginType.ENRICHMENT, ExecutablePluginType.MEDIA_PROCESS);
@@ -417,7 +421,8 @@ class TestWorkflowExecutionDao {
   void getLastFinishedWorkflowExecutionByDatasetIdAndPluginType() {
 
     // Set up the mock
-    final AbstractExecutablePlugin plugin = ExecutablePluginType.MEDIA_PROCESS.getNewPlugin(null);
+    final AbstractExecutablePlugin plugin = ExecutablePluginFactory
+        .createPlugin(new MediaProcessPluginMetadata());
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<ExecutablePluginType> pluginTypes = EnumSet
         .of(ExecutablePluginType.ENRICHMENT, ExecutablePluginType.MEDIA_PROCESS);

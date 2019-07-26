@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.rest;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
@@ -21,6 +22,7 @@ import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -602,10 +604,10 @@ public class DatasetController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<Country> getDatasetsCountries(@RequestHeader("Authorization") String authorization)
-      throws GenericMetisException {
+  public List<CountryModel> getDatasetsCountries(
+      @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return Arrays.asList(Country.values());
+    return Arrays.stream(Country.values()).map(CountryModel::new).collect(Collectors.toList());
   }
 
   /**
@@ -624,9 +626,39 @@ public class DatasetController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<Language> getDatasetsLanguages(@RequestHeader("Authorization") String authorization)
-      throws GenericMetisException {
+  public List<LanguageModel> getDatasetsLanguages(
+      @RequestHeader("Authorization") String authorization) throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return Language.getLanguageListSortedByName();
+    return Language.getLanguageListSortedByName().stream().map(LanguageModel::new)
+        .collect(Collectors.toList());
+  }
+
+  private static class CountryModel {
+
+    @JsonProperty("enum")
+    private final String enumName;
+    @JsonProperty
+    private final String name;
+    @JsonProperty
+    private final String isoCode;
+
+    CountryModel(Country country) {
+      this.enumName = country.name();
+      this.name = country.getName();
+      this.isoCode = country.getIsoCode();
+    }
+  }
+
+  private static class LanguageModel {
+
+    @JsonProperty("enum")
+    private final String enumName;
+    @JsonProperty
+    private final String name;
+
+    LanguageModel(Language language) {
+      this.enumName = language.name();
+      this.name = language.getName();
+    }
   }
 }

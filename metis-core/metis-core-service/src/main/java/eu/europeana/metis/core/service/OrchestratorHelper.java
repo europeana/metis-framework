@@ -14,7 +14,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.DataStatus;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
@@ -40,7 +40,6 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.bson.types.ObjectId;
 
 /**
  * Class that contains various functionality for "helping" the {@link OrchestratorService}.
@@ -113,9 +112,9 @@ public class OrchestratorHelper {
         .getPluginMetadata(ExecutablePluginType.HTTP_HARVEST);
     final AbstractExecutablePlugin plugin;
     if (oaipmhMetadata != null && oaipmhMetadata.isEnabled()) {
-      plugin = createPlugin(oaipmhMetadata);
+      plugin = ExecutablePluginFactory.createPlugin(oaipmhMetadata);
     } else if (httpMetadata != null && httpMetadata.isEnabled()) {
-      plugin = createPlugin(httpMetadata);
+      plugin = ExecutablePluginFactory.createPlugin(httpMetadata);
     } else {
       plugin = null;
     }
@@ -194,20 +193,11 @@ public class OrchestratorHelper {
     }
 
     // Create plugin
-    final AbstractExecutablePlugin plugin = createPlugin(pluginMetadata);
+    final AbstractExecutablePlugin plugin = ExecutablePluginFactory.createPlugin(pluginMetadata);
     metisPlugins.add(plugin);
     firstPluginDefined = true;
 
     return firstPluginDefined;
-  }
-
-  private static AbstractExecutablePlugin createPlugin(
-      AbstractExecutablePluginMetadata metadata) {
-    final AbstractExecutablePlugin plugin = metadata.getExecutablePluginType()
-        .getNewPlugin(metadata);
-    plugin.setId(new ObjectId().toString() + "-" + plugin.getPluginType().name());
-    plugin.setDataStatus(DataStatus.NOT_YET_GENERATED);
-    return plugin;
   }
 
   private void setupValidationForPluginMetadata(AbstractExecutablePluginMetadata metadata,

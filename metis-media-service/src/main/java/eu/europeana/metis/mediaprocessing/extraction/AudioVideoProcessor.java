@@ -136,7 +136,6 @@ class AudioVideoProcessor implements MediaProcessor {
 
   AbstractResourceMetadata parseCommandResponse(Resource resource, String detectedMimeType,
       List<String> response) throws MediaExtractionException {
-    final AbstractResourceMetadata metadata;
     try {
 
       // Analyze command result
@@ -148,10 +147,13 @@ class AudioVideoProcessor implements MediaProcessor {
       final JSONObject format = result.getJSONObject("format");
       final JSONObject videoStream = findStream(result, "video");
       final JSONObject audioStream = findStream(result, "audio");
+      final boolean isAudio = audioStream != null;
+      final boolean isVideo = videoStream != null;
 
-      // Process the video or audio stream
+      // Process the video or audio stream and create metadata
+      final AbstractResourceMetadata metadata;
       final long fileSize = format.getLong("size");
-      if (videoStream != null) {
+      if (isVideo) {
         // We have a video file
         final JSONObject[] candidates = new JSONObject[]{videoStream, format};
         final double duration = findDouble("duration", candidates);
@@ -164,7 +166,7 @@ class AudioVideoProcessor implements MediaProcessor {
             Double.parseDouble(frameRateParts[0]) / Double.parseDouble(frameRateParts[1]);
         metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
             fileSize, duration, bitRate, width, height, codecName, frameRate);
-      } else if (audioStream != null) {
+      } else if (isAudio) {
         // We have an audio file
         final JSONObject[] candidates = new JSONObject[]{audioStream, format};
         final double duration = findDouble("duration", candidates);
@@ -177,13 +179,14 @@ class AudioVideoProcessor implements MediaProcessor {
       } else {
         throw new MediaExtractionException("No media streams");
       }
+
+      // Done
+      return metadata;
+
     } catch (RuntimeException e) {
       LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(response, "\n"), e);
       throw new MediaExtractionException("File seems to be corrupted", e);
     }
-
-    // Done
-    return metadata;
   }
 
   int findInt(String key, JSONObject[] candidates) {

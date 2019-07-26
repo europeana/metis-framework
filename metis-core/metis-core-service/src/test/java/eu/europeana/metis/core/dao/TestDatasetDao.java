@@ -15,7 +15,7 @@ import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.exception.ExternalTaskException;
@@ -33,7 +33,7 @@ class TestDatasetDao {
   private static DatasetDao datasetDao;
   private static Dataset dataset;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
-  private static MorphiaDatastoreProvider provider;
+  private static MorphiaDatastoreProviderImpl provider;
   private static DataSetServiceClient ecloudDataSetServiceClient;
 
   @BeforeAll
@@ -44,7 +44,7 @@ class TestDatasetDao {
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
-    provider = new MorphiaDatastoreProvider(mongoClient, "test");
+    provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
 
     datasetDao = new DatasetDao(provider, ecloudDataSetServiceClient);

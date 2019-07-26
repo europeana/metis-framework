@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
@@ -31,7 +31,7 @@ class TestScheduledWorkflowDao {
 
   private static ScheduledWorkflowDao scheduledWorkflowDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
-  private static MorphiaDatastoreProvider provider;
+  private static MorphiaDatastoreProviderImpl provider;
 
   @BeforeAll
   static void prepare() {
@@ -41,7 +41,7 @@ class TestScheduledWorkflowDao {
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
-    provider = new MorphiaDatastoreProvider(mongoClient, "test");
+    provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
 
     scheduledWorkflowDao = new ScheduledWorkflowDao(provider);
     scheduledWorkflowDao.setScheduledWorkflowPerRequest(5);

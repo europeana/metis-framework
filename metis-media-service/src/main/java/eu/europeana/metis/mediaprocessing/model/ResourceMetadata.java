@@ -18,6 +18,11 @@ public class ResourceMetadata implements IResourceMetadata {
   private TextResourceMetadata textResourceMetadata;
   private VideoResourceMetadata videoResourceMetadata;
 
+  /**
+   * Constructor for audio resources.
+   *
+   * @param audioResourceMetadata The resource metadata.
+   */
   public ResourceMetadata(AudioResourceMetadata audioResourceMetadata) {
     if (audioResourceMetadata == null) {
       throw new IllegalArgumentException();
@@ -25,6 +30,11 @@ public class ResourceMetadata implements IResourceMetadata {
     this.audioResourceMetadata = audioResourceMetadata;
   }
 
+  /**
+   * Constructor for image resources.
+   *
+   * @param imageResourceMetadata The resource metadata.
+   */
   public ResourceMetadata(ImageResourceMetadata imageResourceMetadata) {
     if (imageResourceMetadata == null) {
       throw new IllegalArgumentException();
@@ -32,6 +42,11 @@ public class ResourceMetadata implements IResourceMetadata {
     this.imageResourceMetadata = imageResourceMetadata;
   }
 
+  /**
+   * Constructor for text resources.
+   *
+   * @param textResourceMetadata The resource metadata.
+   */
   public ResourceMetadata(TextResourceMetadata textResourceMetadata) {
     if (textResourceMetadata == null) {
       throw new IllegalArgumentException();
@@ -39,6 +54,11 @@ public class ResourceMetadata implements IResourceMetadata {
     this.textResourceMetadata = textResourceMetadata;
   }
 
+  /**
+   * Constructor for video resources.
+   *
+   * @param videoResourceMetadata The resource metadata.
+   */
   public ResourceMetadata(VideoResourceMetadata videoResourceMetadata) {
     if (videoResourceMetadata == null) {
       throw new IllegalArgumentException();

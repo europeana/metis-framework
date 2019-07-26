@@ -26,6 +26,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -315,7 +316,7 @@ public class ProxiesService {
 
     // Get the list of records.
     final String datasetId = executionAndPlugin.getLeft().getEcloudDatasetId();
-    final String representationName = AbstractMetisPlugin.getRepresentationName();
+    final String representationName = MetisPlugin.getRepresentationName();
     final String revisionName = executionAndPlugin.getRight().getPluginType().name();
     final String revisionTimestamp = pluginDateFormatForEcloud
         .format(executionAndPlugin.getRight().getStartedDate());
@@ -408,7 +409,7 @@ public class ProxiesService {
   Record getRecord(AbstractExecutablePlugin plugin, String ecloudId) throws ExternalTaskException {
     try {
       final Representation representation = recordServiceClient
-          .getRepresentationByRevision(ecloudId, AbstractMetisPlugin.getRepresentationName(),
+          .getRepresentationByRevision(ecloudId, MetisPlugin.getRepresentationName(),
               plugin.getPluginType().name(), ecloudProvider,
               pluginDateFormatForEcloud.format(plugin.getStartedDate()));
       InputStream inputStream = fileServiceClient
