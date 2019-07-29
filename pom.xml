@@ -52,7 +52,6 @@
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
     <version.maven.deploy.plugin>2.8.2</version.maven.deploy.plugin>
     <version.coveralls>4.0.0</version.coveralls>
-    <version.cobertura>2.7</version.cobertura>
     <version.json.path>2.2.0</version.json.path>
     <version.hamcrest>1.3</version.hamcrest>
     <version.com.github.tomakehurst.wiremock>2.19.0</version.com.github.tomakehurst.wiremock>
@@ -68,7 +67,7 @@
     <version.junit>5.1.0</version.junit>
     <version.junit.test>5.1.2.RELEASE</version.junit.test>
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
-    <version.jacoco>0.8.0</version.jacoco>
+    <version.jacoco>0.8.4</version.jacoco>
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>2.0.0</version.embedded.mongo>
     <version.mongo.java.driver>3.9.1</version.mongo.java.driver>
@@ -494,6 +493,32 @@
         <configuration>
           <propertyName>jacocoArgLine</propertyName>
         </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>prepare-integration-test-agent</id>
+            <goals>
+              <goal>prepare-agent-integration</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generate-integration-test-report</id>
+            <goals>
+              <goal>report-integration</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -502,23 +527,6 @@
         <configuration>
           <!-- Travis build workaround -->
           <argLine>@{jacocoArgLine} -Xms1024m -Xmx2048m</argLine>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>${version.cobertura}</version>
-        <configuration>
-          <formats>
-            <format>xml</format>
-          </formats>
-          <maxmem>256m</maxmem>
-          <!-- aggregated reports for multi-module projects -->
-          <aggregate>true</aggregate>
-          <instrumentation>
-            <ignoreTrivial>true</ignoreTrivial>
-          </instrumentation>
-          <check />
         </configuration>
       </plugin>
       <plugin>

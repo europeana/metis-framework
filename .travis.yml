@@ -11,4 +11,4 @@ cache:
     - $HOME/.m2
 install: true
 script:
-  - mvn clean install -DskipITs -Dmaven.javadoc.skip=true cobertura:cobertura coveralls:report -B -V
+  - mvn clean install -DskipITs -Dmaven.javadoc.skip=true jacoco:report coveralls:report -B -V
