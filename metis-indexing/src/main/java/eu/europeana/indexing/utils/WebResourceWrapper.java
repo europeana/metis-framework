@@ -8,6 +8,7 @@ import eu.europeana.corelib.definitions.jibx.OrientationType;
 import eu.europeana.corelib.definitions.jibx.SpatialResolution;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.indexing.solr.facet.EncodedMediaType;
+import eu.europeana.metis.utils.MediaType;
 import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashSet;

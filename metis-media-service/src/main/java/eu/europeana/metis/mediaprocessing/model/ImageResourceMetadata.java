@@ -2,7 +2,7 @@ package eu.europeana.metis.mediaprocessing.model;
 
 import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.model.WebResource.Orientation;
+import eu.europeana.metis.utils.Orientation;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -77,7 +77,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     super.updateResource(resource);
     resource.setWidth(width);
     resource.setHeight(height);
-    resource.setOrientation(width > height ? Orientation.LANDSCAPE : Orientation.PORTRAIT);
+    resource.setOrientation(Orientation.calculate(width, height));
     resource.setColorspace(colorSpace);
     resource.setDominantColors(getDominantColors());
   }

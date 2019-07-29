@@ -1,11 +1,5 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Locale;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-
 import eu.europeana.corelib.definitions.jibx.AudioChannelNumber;
 import eu.europeana.corelib.definitions.jibx.BitRate;
 import eu.europeana.corelib.definitions.jibx.CodecName;
@@ -27,6 +21,11 @@ import eu.europeana.corelib.definitions.jibx.StringType;
 import eu.europeana.corelib.definitions.jibx.Type1;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.corelib.definitions.jibx.Width;
+import eu.europeana.metis.utils.Orientation;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Helper class for manipulating {@link WebResourceType} in RDF files.
@@ -34,13 +33,6 @@ import eu.europeana.corelib.definitions.jibx.Width;
 class WebResource {
 
   protected static final String FULL_TEXT_RESOURCE = "http://www.europeana.eu/schemas/edm/FullTextResource";
-
-  /**
-   * Enum for the permissible values of image orientation.
-   */
-  public enum Orientation {
-    PORTRAIT, LANDSCAPE
-  }
 
   private final WebResourceType resource;
 
@@ -78,8 +70,7 @@ class WebResource {
   }
 
   void setOrientation(Orientation orientation) {
-    resource.setOrientation(
-        stringVal(OrientationType::new, orientation.name().toLowerCase(Locale.ENGLISH)));
+    resource.setOrientation(stringVal(OrientationType::new, orientation.getNameLowercase()));
   }
 
   void setDominantColors(List<String> dominantColors) {

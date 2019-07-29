@@ -71,7 +71,6 @@
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common</artifactId>
       <version>${project.version}</version>
-      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>
