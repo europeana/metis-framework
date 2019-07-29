@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.parser.RenderListener;
 import com.itextpdf.text.pdf.parser.TextRenderInfo;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
@@ -54,7 +55,13 @@ class TextProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResultImpl process(Resource resource, String detectedMimeType)
+  public ResourceExtractionResult copyMetadata(Resource resource, String detectedMimeType) {
+    return new ResourceExtractionResultImpl(new TextResourceMetadata(detectedMimeType,
+        resource.getResourceUrl(), resource.getProvidedFileSize()));
+  }
+
+  @Override
+  public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType)
       throws MediaExtractionException {
 
     // Sanity check

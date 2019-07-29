@@ -76,7 +76,7 @@ class TextProcessorTest {
     doReturn(1234L).when(resource).getContentSize();
 
     // Call method
-    final ResourceExtractionResultImpl result = textProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
@@ -96,21 +96,21 @@ class TextProcessorTest {
     // Check for resource with no content
     doReturn(false).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> textProcessor.process(resource, detectedMimeType));
+        () -> textProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(true).when(resource).hasContent();
 
     // Check for resource with IO exception
     doThrow(new IOException()).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> textProcessor.process(resource, detectedMimeType));
+        () -> textProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(true).when(resource).hasContent();
     doThrow(new IOException()).when(resource).getContentSize();
     assertThrows(MediaExtractionException.class,
-        () -> textProcessor.process(resource, detectedMimeType));
+        () -> textProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(1234L).when(resource).getContentSize();
 
     // Check that all is well again.
-    assertNotNull(textProcessor.process(resource, detectedMimeType));
+    assertNotNull(textProcessor.extractMetadata(resource, detectedMimeType));
   }
 
   @Test
@@ -147,7 +147,7 @@ class TextProcessorTest {
     doReturn(pdfCharacteristics).when(textProcessor).findPdfCharacteristics(content);
 
     // Call method
-    final ResourceExtractionResultImpl result = textProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);

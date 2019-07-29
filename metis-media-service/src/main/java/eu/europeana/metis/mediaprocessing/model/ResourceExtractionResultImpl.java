@@ -20,6 +20,16 @@ public class ResourceExtractionResultImpl implements ResourceExtractionResult {
   private final List<Thumbnail> thumbnails;
 
   /**
+   * Constructor for the case that there are no thumbnails.
+   *
+   * @param metadata The metadata extracted for this resource. Can be null.
+   * Thumbnail#hasContent()}).
+   */
+  public ResourceExtractionResultImpl(AbstractResourceMetadata metadata) {
+    this(metadata, null);
+  }
+
+  /**
    * Constructor.
    *
    * @param metadata The metadata extracted for this resource. Can be null.

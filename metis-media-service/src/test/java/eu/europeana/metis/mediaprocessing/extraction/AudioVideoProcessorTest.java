@@ -248,12 +248,18 @@ class AudioVideoProcessorTest {
     final JSONObject[] candidates = new JSONObject[]{audioStream, format};
 
     // Set properties
-    doReturn(7205015L).when(format).getLong("size");
-    doReturn(44100).when(audioVideoProcessor).findInt(eq("sample_rate"), eq(candidates));
-    doReturn(2).when(audioVideoProcessor).findInt(eq("channels"), eq(candidates));
-    doReturn(8).when(audioVideoProcessor).findInt(eq("bits_per_sample"), eq(candidates));
-    doReturn(180.062050).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
-    doReturn(320000).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
+    final long size = 7205015;
+    final Integer sampleRate = 44100;
+    final Integer channels = 2;
+    final Integer bitsPerSample = 8;
+    final Double duration = 180.062050;
+    final Integer bitRate = 320000;
+    doReturn(size).when(format).getLong("size");
+    doReturn(sampleRate).when(audioVideoProcessor).findInt(eq("sample_rate"), eq(candidates));
+    doReturn(channels).when(audioVideoProcessor).findInt(eq("channels"), eq(candidates));
+    doReturn(bitsPerSample).when(audioVideoProcessor).findInt(eq("bits_per_sample"), eq(candidates));
+    doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
+    doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
 
     // Run and verify
     final AbstractResourceMetadata abstractMetadata = audioVideoProcessor
@@ -263,12 +269,12 @@ class AudioVideoProcessorTest {
     assertEquals(metadata.getMimeType(), detectedMimeType);
     assertEquals(metadata.getResourceUrl(), resource.getResourceUrl());
     assertTrue(metadata.getThumbnailTargetNames().isEmpty());
-    assertEquals(7205015L, metadata.getContentSize());
-    assertEquals(320000, metadata.getBitRate());
-    assertEquals(2, metadata.getChannels());
-    assertEquals(180.062050, metadata.getDuration());
-    assertEquals(44100, metadata.getSampleRate());
-    assertEquals(8, metadata.getSampleSize());
+    assertEquals(size, metadata.getContentSize());
+    assertEquals(bitRate, metadata.getBitRate());
+    assertEquals(channels, metadata.getChannels());
+    assertEquals(duration, metadata.getDuration());
+    assertEquals(sampleRate, metadata.getSampleRate());
+    assertEquals(bitsPerSample, metadata.getSampleSize());
   }
 
   @Test
@@ -294,13 +300,20 @@ class AudioVideoProcessorTest {
     final JSONObject[] candidates = new JSONObject[]{videoStream, format};
 
     // Set properties
-    doReturn(92224193L).when(format).getLong("size");
-    doReturn(640).when(audioVideoProcessor).findInt(eq("width"), eq(candidates));
-    doReturn(480).when(audioVideoProcessor).findInt(eq("height"), eq(candidates));
+    final long size = 92224193;
+    final Integer width = 640;
+    final Integer height = 480;
+    final Double duration = 1007.240000;
+    final Integer bitRate = 595283;
+    final int frameRateNumerator = 629150;
+    final int frameRateDenominator = 25181;
+    doReturn(size).when(format).getLong("size");
+    doReturn(width).when(audioVideoProcessor).findInt(eq("width"), eq(candidates));
+    doReturn(height).when(audioVideoProcessor).findInt(eq("height"), eq(candidates));
     doReturn("h264").when(audioVideoProcessor).findString(eq("codec_name"), eq(candidates));
-    doReturn(1007.240000).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
-    doReturn(595283).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
-    doReturn("629150/25181").when(audioVideoProcessor)
+    doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
+    doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
+    doReturn(frameRateNumerator + "/" + frameRateDenominator).when(audioVideoProcessor)
         .findString(eq("avg_frame_rate"), eq(candidates));
 
     // Run and verify
@@ -311,13 +324,14 @@ class AudioVideoProcessorTest {
     assertEquals(metadata.getMimeType(), detectedMimeType);
     assertEquals(metadata.getResourceUrl(), resource.getResourceUrl());
     assertTrue(metadata.getThumbnailTargetNames().isEmpty());
-    assertEquals(92224193L, metadata.getContentSize());
-    assertEquals(595283, metadata.getBitRate());
+    assertEquals(size, metadata.getContentSize());
+    assertEquals(bitRate, metadata.getBitRate());
     assertEquals("h264", metadata.getCodecName());
-    assertEquals(1007.240000, metadata.getDuration());
-    assertEquals(629150.0 / 25181.0, metadata.getFrameRate());
-    assertEquals(480, metadata.getHeight());
-    assertEquals(640, metadata.getWidth());
+    assertEquals(duration, metadata.getDuration());
+    final Double frameRate = ((double) frameRateNumerator) / frameRateDenominator;
+    assertEquals(frameRate, metadata.getFrameRate());
+    assertEquals(height, metadata.getHeight());
+    assertEquals(width, metadata.getWidth());
   }
 
   @Test
@@ -393,17 +407,17 @@ class AudioVideoProcessorTest {
         .parseCommandResponse(resource, detectedMimeType, response);
 
     // Check that all is well
-    final ResourceExtractionResultImpl result = audioVideoProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = audioVideoProcessor.extractMetadata(resource, detectedMimeType);
     assertEquals(metadata, result.getOriginalMetadata());
     assertNull(result.getThumbnails());
 
     // In case there was a command execution issue
     doThrow(new CommandExecutionException("", null)).when(commandExecutor).execute(command, false);
     assertThrows(MediaExtractionException.class,
-        () -> audioVideoProcessor.process(resource, detectedMimeType));
+        () -> audioVideoProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(response).when(commandExecutor).execute(command, false);
 
     // Check that all is well again
-    assertNotNull(audioVideoProcessor.process(resource, detectedMimeType));
+    assertNotNull(audioVideoProcessor.extractMetadata(resource, detectedMimeType));
   }
 }
