@@ -102,7 +102,7 @@ public class Validator implements Callable<ValidationResult> {
    * @return The outcome of the Validation
    */
   private ValidationResult validate() {
-    LOGGER.info("Validation started");
+    LOGGER.debug("Validation started");
     InputSource source = new InputSource();
     source.setByteStream(new ByteArrayInputStream(document.getBytes(StandardCharsets.UTF_8)));
     try {
@@ -132,7 +132,7 @@ public class Validator implements Callable<ValidationResult> {
     } catch (IOException | SchemaProviderException | SAXException | TransformerException e) {
       return constructValidationError(document, e);
     }
-    LOGGER.info("Validation ended");
+    LOGGER.debug("Validation ended");
     return constructOk();
   }
 
