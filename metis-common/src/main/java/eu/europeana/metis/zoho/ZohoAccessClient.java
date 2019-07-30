@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -184,27 +183,32 @@ public class ZohoAccessClient {
    */
   public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows, Date modifiedDate)
       throws BadContentException {
-    return getZcrmRecordOrganizations(start, rows, modifiedDate, null);
+    return getZcrmRecordOrganizations(start, rows, modifiedDate, null, null);
   }
 
   /**
    * Get organization items paged, filtering by modifiedDate date and searchCriteria.
    *
-   * @param start first index starts with 1
-   * @param rows the number of entries to be returned, Zoho will have an upper limit
+   * @param page first index starts with 1
+   * @param pageSize the number of entries to be returned, Zoho will have an upper limit.
    * @param modifiedDate the date of last modification to check
    * @param searchCriteria the searchCriteria to apply during the Zoho search
+   * @param criteriaOperator the criteriaOperator used for each parameter, can be one of {@link
+   * ZohoConstants#EQUALS_OPERATION},{@link ZohoConstants#STARTS_WITH_OPERATION}. If not provided or
+   * wrong value, it will default to {@link ZohoConstants#EQUALS_OPERATION}.
    * @return the list of Zoho Organizations
    * @throws BadContentException if an error occurred during accessing Zoho
    */
-  public List<ZCRMRecord> getZcrmRecordOrganizations(int start, int rows, Date modifiedDate,
-      Map<String, String> searchCriteria) throws BadContentException {
+  public List<ZCRMRecord> getZcrmRecordOrganizations(int page, int pageSize, Date modifiedDate,
+      Map<String, String> searchCriteria, String criteriaOperator) throws BadContentException {
 
-    if (start < 1) {
+    if (page < 1 || pageSize < 1) {
       throw new BadContentException(
-          "Invalid start index. Index must be >= 1",
-          new IllegalArgumentException("start: " + start));
+          "Invalid page or pageSize index. Index must be >= 1",
+          new IllegalArgumentException(
+              String.format("Provided page: %s, and pageSize: %s", page, pageSize)));
     }
+    int start = ((page - 1) * pageSize) + 1;
 
     String modifiedDateString = null;
     if (modifiedDate != null) {
@@ -215,15 +219,15 @@ public class ZohoAccessClient {
     try {
       if (searchCriteria == null || searchCriteria.isEmpty()) {//No searchCriteria available
         bulkAPIResponse = zcrmModuleAccounts
-            .getRecords(null, null, null, start, rows, modifiedDateString, null, Boolean.FALSE);
+            .getRecords(null, null, null, start, pageSize, modifiedDateString, null, Boolean.FALSE);
       } else {
         bulkAPIResponse = zcrmModuleAccounts
-            .searchByCriteria(createZohoCriteriaString(searchCriteria, modifiedDateString), start,
-                rows);
+            .searchByCriteria(createZohoCriteriaString(searchCriteria, criteriaOperator), start,
+                pageSize);
       }
     } catch (ZCRMException e) {
       throw new BadContentException(
-          "Cannot get organization list from: " + start + " rows :" + rows, e);
+          "Cannot get organization list from: " + start + " rows :" + pageSize, e);
     }
 
     return (List<ZCRMRecord>) bulkAPIResponse.getData();
@@ -235,23 +239,28 @@ public class ZohoAccessClient {
    * "(field1:equals:valueA)OR(field1:equals:valueB)OR(field2:equals:valueC)" or "".
    *
    * @param searchCriteria the search criteria map provided, values can be comma separated per key
-   * @param modifiedDateString the modified date that should be checked if any
+   * @param criteriaOperator the criteriaOperator used for each parameter, can be one of {@link
+   * ZohoConstants#EQUALS_OPERATION},{@link ZohoConstants#STARTS_WITH_OPERATION}. If not provided or
+   * wrong value, it will default to {@link ZohoConstants#EQUALS_OPERATION}.
    * @return the created criteria in the format Zoho accepts
    */
   private String createZohoCriteriaString(Map<String, String> searchCriteria,
-      String modifiedDateString) {
+      String criteriaOperator) {
     if (searchCriteria == null || searchCriteria.isEmpty()) {
       searchCriteria = new HashMap<>();
     }
-    if (StringUtils.isNotBlank(modifiedDateString)) {
-      searchCriteria.put(ZohoConstants.LAST_ACTIVITY_TIME_FIELD, modifiedDateString);
+
+    if (criteriaOperator == null || (!criteriaOperator.equals(ZohoConstants.EQUALS_OPERATION)
+        && !criteriaOperator.equals(ZohoConstants.STARTS_WITH_OPERATION))) {
+      criteriaOperator = ZohoConstants.EQUALS_OPERATION;
     }
 
+    String finalCriteriaOperator = criteriaOperator;
     return searchCriteria.entrySet().stream().map(entry ->
         Arrays.stream(entry.getValue().split(ZohoConstants.DELIMITER_COMMA))
             .map(value -> String
                 .format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING, entry.getKey(),
-                    ZohoConstants.EQUALS_OPERATION, value.trim())).collect(
+                    finalCriteriaOperator, value.trim())).collect(
             Collectors.joining(ZohoConstants.OR))).collect(Collectors.joining(ZohoConstants.OR));
   }
 }
