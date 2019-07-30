@@ -6,7 +6,6 @@ import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import eu.europeana.metis.utils.MediaType;
@@ -114,7 +113,7 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult copyMetadata(Resource resource, String detectedMimeType) {
+  public ResourceExtractionResultImpl copyMetadata(Resource resource, String detectedMimeType) {
     final AbstractResourceMetadata metadata;
     switch (MediaType.getMediaType(detectedMimeType)) {
       case AUDIO:

@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaprocessing.extraction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
@@ -13,6 +14,7 @@ import static org.mockito.Mockito.spy;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
@@ -48,7 +50,41 @@ class ImageProcessorTest {
   }
 
   @Test
-  void testProcessing() throws MediaExtractionException, IOException {
+  void testDownloadResourceForFullProcessing() {
+    assertTrue(imageProcessor.downloadResourceForFullProcessing());
+  }
+
+  @Test
+  void testCopy() throws MediaExtractionException {
+
+    // Create resource
+    final Resource resource = mock(Resource.class);
+    final long fileSize = 12345;
+    final String url = "test url";
+    doReturn(fileSize).when(resource).getProvidedFileSize();
+    doReturn(url).when(resource).getResourceUrl();
+
+    // Make call
+    final String mediaType = "image type";
+    final ResourceExtractionResultImpl result = imageProcessor.copyMetadata(resource, mediaType);
+
+    // Verify
+    assertNotNull(result);
+    assertNotNull(result.getOriginalMetadata());
+    assertTrue(result.getOriginalMetadata() instanceof ImageResourceMetadata);
+    assertEquals(mediaType, result.getOriginalMetadata().getMimeType());
+    assertEquals(fileSize, result.getOriginalMetadata().getContentSize());
+    assertEquals(url, result.getOriginalMetadata().getResourceUrl());
+    assertNull(result.getThumbnails());
+    assertTrue(result.getOriginalMetadata().getThumbnailTargetNames().isEmpty());
+    assertTrue(((ImageResourceMetadata)result.getOriginalMetadata()).getDominantColors().isEmpty());
+    assertNull(((ImageResourceMetadata)result.getOriginalMetadata()).getColorSpace());
+    assertNull(((ImageResourceMetadata)result.getOriginalMetadata()).getHeight());
+    assertNull(((ImageResourceMetadata)result.getOriginalMetadata()).getWidth());
+  }
+
+  @Test
+  void testExtract() throws MediaExtractionException, IOException {
 
     // Define input
     final String url = "testUrl";

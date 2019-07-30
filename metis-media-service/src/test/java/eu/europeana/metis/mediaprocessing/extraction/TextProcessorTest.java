@@ -28,6 +28,7 @@ import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.OpenPdfFile;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfCharacteristics;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfListener;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
@@ -64,7 +65,39 @@ class TextProcessorTest {
   }
 
   @Test
-  void testProcessForRegularText() throws IOException, MediaExtractionException {
+  void testDownloadResourceForFullProcessing() {
+    assertTrue(textProcessor.downloadResourceForFullProcessing());
+  }
+
+  @Test
+  void testCopy() {
+
+    // Create resource
+    final Resource resource = mock(Resource.class);
+    final long fileSize = 12345;
+    final String url = "test url";
+    doReturn(fileSize).when(resource).getProvidedFileSize();
+    doReturn(url).when(resource).getResourceUrl();
+
+    // Make call
+    final String mediaType = "text type";
+    final ResourceExtractionResultImpl result = textProcessor.copyMetadata(resource, mediaType);
+
+    // Verify
+    assertNotNull(result);
+    assertNotNull(result.getOriginalMetadata());
+    assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
+    assertEquals(mediaType, result.getOriginalMetadata().getMimeType());
+    assertEquals(fileSize, result.getOriginalMetadata().getContentSize());
+    assertEquals(url, result.getOriginalMetadata().getResourceUrl());
+    assertNull(result.getThumbnails());
+    assertTrue(result.getOriginalMetadata().getThumbnailTargetNames().isEmpty());
+    assertNull(((TextResourceMetadata)result.getOriginalMetadata()).getResolution());
+    assertFalse(((TextResourceMetadata)result.getOriginalMetadata()).containsText());
+  }
+
+  @Test
+  void testExtractForRegularText() throws IOException, MediaExtractionException {
 
     // Define input
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
@@ -114,7 +147,7 @@ class TextProcessorTest {
   }
 
   @Test
-  void testProcessForPdf() throws IOException, MediaExtractionException {
+  void testExtractForPdf() throws IOException, MediaExtractionException {
 
     // Define input
     final String url = "testUrl";

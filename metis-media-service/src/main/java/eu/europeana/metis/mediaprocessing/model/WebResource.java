@@ -102,7 +102,7 @@ class WebResource {
     resource.setBitRate(uintVal(BitRate::new, bitrate));
   }
 
-  void setFrameRete(double frameRate) {
+  void setFrameRate(Double frameRate) {
     resource.setFrameRate(doubleVal(frameRate));
   }
 

@@ -77,7 +77,7 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
     resource.setWidth(width);
     resource.setHeight(height);
     resource.setCodecName(codecName);
-    resource.setFrameRete(frameRate);
+    resource.setFrameRate(frameRate);
   }
 
   public Double getDuration() {

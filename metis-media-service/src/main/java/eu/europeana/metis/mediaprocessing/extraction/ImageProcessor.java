@@ -4,7 +4,6 @@ import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.io.IOException;
@@ -40,7 +39,7 @@ class ImageProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult copyMetadata(Resource resource, String detectedMimeType)
+  public ResourceExtractionResultImpl copyMetadata(Resource resource, String detectedMimeType)
       throws MediaExtractionException {
     return new ResourceExtractionResultImpl(new ImageResourceMetadata(detectedMimeType,
         resource.getResourceUrl(), resource.getProvidedFileSize()));
