@@ -3,6 +3,7 @@ package eu.europeana.metis.core.workflow.plugins;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import eu.europeana.metis.CommonStringValues;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
@@ -16,7 +17,7 @@ import org.mongodb.morphia.annotations.Indexed;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "pluginType")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = As.EXISTING_PROPERTY, property = "pluginType")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = OaipmhHarvestPlugin.class, name = "OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value = HTTPHarvestPlugin.class, name = "HTTP_HARVEST"),
