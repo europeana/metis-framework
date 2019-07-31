@@ -109,7 +109,9 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       // Obtain header information.
       final HttpEntity responseEntity = response.getEntity();
       final String mimeType = Optional.ofNullable(responseEntity).map(HttpEntity::getContentType)
-          .map(Header::getValue).orElse("application/octet-stream");
+          .map(Header::getValue).orElse(null);
+      final Long fileSize = Optional.ofNullable(responseEntity).map(HttpEntity::getContentLength)
+          .orElse(null);
       final List<URI> redirectUris = context.getRedirectLocations();
       final URI actualUri =
           redirectUris == null ? httpGet.getURI() : redirectUris.get(redirectUris.size() - 1);
@@ -117,7 +119,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       // Process the result.
       final ContentRetriever content = responseEntity == null ?
           ContentRetriever.forEmptyContent() : responseEntity::getContent;
-      return createResult(resourceEntry, actualUri, mimeType, content);
+      return createResult(resourceEntry, actualUri, mimeType, fileSize, content);
     }
   }
 
@@ -140,14 +142,17 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @param resourceEntry The resource for which the request was sent.
    * @param actualUri The actual URI where the resource was found (could be different from the
    * resource link after redirections).
-   * @param mimeType The type of the resulting object, as returned by the response. Is not null.
+   * @param mimeType The type of the resulting object, as returned by the response. Is null if no
+   * mime type was provided.
+   * @param fileSize The file size of the resulting object, as returned by the response. Is null if
+   * no file size was provided.
    * @param contentRetriever Object that allows access to the resulting data. Note that if this
    * object is not used, the data is not transferred (or the transfer is cancelled). Note that this
    * stream cannot be used after this method returns, as the connection will be closed immediately.
    * @return The resulting object.
    * @throws IOException In case a connection or other IO problem occurred.
    */
-  protected abstract R createResult(I resourceEntry, URI actualUri, String mimeType,
+  protected abstract R createResult(I resourceEntry, URI actualUri, String mimeType, Long fileSize,
       ContentRetriever contentRetriever) throws IOException;
 
   @Override

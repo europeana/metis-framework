@@ -118,7 +118,7 @@ public class MediaProcessorFactory {
    * @throws MediaProcessorException In case there was a problem creating the media extractor.
    */
   public MediaExtractor createMediaExtractor() throws MediaProcessorException {
-    return MediaExtractorImpl.newInstance(maxRedirectCount, thumbnailGenerateTimeout,
+    return new MediaExtractorImpl(maxRedirectCount, thumbnailGenerateTimeout,
         audioVideoProbeTimeout, resourceConnectTimeout, resourceSocketTimeout);
   }
 

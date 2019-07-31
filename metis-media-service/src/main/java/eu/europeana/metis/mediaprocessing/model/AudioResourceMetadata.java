@@ -10,15 +10,26 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
    */
   private static final long serialVersionUID = 7680381750866877618L;
 
-  private double duration;
+  private Double duration;
 
-  private int bitRate;
+  private Integer bitRate;
 
-  private int channels;
+  private Integer channels;
 
-  private int sampleRate;
+  private Integer sampleRate;
 
-  private int sampleSize;
+  private Integer sampleSize;
+
+  /**
+   * Constructor for the case no metadata or thumbnails is available.
+   *
+   * @param mimeType The resource mime type.
+   * @param resourceUrl The resource URL.
+   * @param contentSize The file content size.
+   */
+  public AudioResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
+    this(mimeType, resourceUrl, contentSize, null, null, null, null, null);
+  }
 
   /**
    * Constructor.
@@ -33,7 +44,7 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
    * @param sampleSize The audio clip sample size.
    */
   public AudioResourceMetadata(String mimeType, String resourceUrl, long contentSize,
-      double duration, int bitRate, int channels, int sampleRate, int sampleSize) {
+      Double duration, Integer bitRate, Integer channels, Integer sampleRate, Integer sampleSize) {
     super(mimeType, resourceUrl, contentSize);
     this.duration = duration;
     this.bitRate = bitRate;
@@ -63,23 +74,23 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
     resource.setSampleSize(sampleSize);
   }
 
-  public double getDuration() {
+  public Double getDuration() {
     return duration;
   }
 
-  public int getBitRate() {
+  public Integer getBitRate() {
     return bitRate;
   }
 
-  public int getChannels() {
+  public Integer getChannels() {
     return channels;
   }
 
-  public int getSampleRate() {
+  public Integer getSampleRate() {
     return sampleRate;
   }
 
-  public int getSampleSize() {
+  public Integer getSampleSize() {
     return sampleSize;
   }
 }

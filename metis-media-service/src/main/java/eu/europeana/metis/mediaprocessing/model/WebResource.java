@@ -45,11 +45,11 @@ class WebResource {
     this.resource = resource;
   }
 
-  void setWidth(int width) {
+  void setWidth(Integer width) {
     resource.setWidth(intVal(Width::new, width));
   }
 
-  void setHeight(int height) {
+  void setHeight(Integer height) {
     resource.setHeight(intVal(Height::new, height));
   }
 
@@ -64,13 +64,18 @@ class WebResource {
   }
 
   void setColorspace(ColorSpaceType colorSpace) {
-    HasColorSpace hasColorSpace = new HasColorSpace();
-    hasColorSpace.setHasColorSpace(colorSpace);
-    resource.setHasColorSpace(hasColorSpace);
+    if (colorSpace == null) {
+      resource.setHasColorSpace(null);
+    } else {
+      HasColorSpace hasColorSpace = new HasColorSpace();
+      hasColorSpace.setHasColorSpace(colorSpace);
+      resource.setHasColorSpace(hasColorSpace);
+    }
   }
 
   void setOrientation(Orientation orientation) {
-    resource.setOrientation(stringVal(OrientationType::new, orientation.getNameLowercase()));
+    resource.setOrientation(orientation == null ? null
+        : stringVal(OrientationType::new, orientation.getNameLowercase()));
   }
 
   void setDominantColors(List<String> dominantColors) {
@@ -82,36 +87,44 @@ class WebResource {
     }).collect(Collectors.toList()));
   }
 
-  void setDuration(double seconds) {
-    final int millisInSecond = 1000;
-    Duration duration2 = new Duration();
-    duration2.setDuration(Integer.toString((int) Math.round(seconds * millisInSecond)));
-    resource.setDuration(duration2);
+  void setDuration(Double seconds) {
+    if (seconds == null) {
+      resource.setDuration(null);
+    } else {
+      final int millisInSecond = 1000;
+      Duration duration2 = new Duration();
+      duration2.setDuration(Integer.toString((int) Math.round(seconds * millisInSecond)));
+      resource.setDuration(duration2);
+    }
   }
 
-  void setBitrate(int bitrate) {
+  void setBitrate(Integer bitrate) {
     resource.setBitRate(uintVal(BitRate::new, bitrate));
   }
 
-  void setFrameRete(double frameRate) {
+  void setFrameRate(Double frameRate) {
     resource.setFrameRate(doubleVal(frameRate));
   }
 
   void setCodecName(String codecName) {
-    CodecName codecName2 = new CodecName();
-    codecName2.setCodecName(codecName);
-    resource.setCodecName(codecName2);
+    if (codecName == null) {
+      resource.setCodecName(null);
+    } else {
+      CodecName codecName2 = new CodecName();
+      codecName2.setCodecName(codecName);
+      resource.setCodecName(codecName2);
+    }
   }
 
-  void setChannels(int channels) {
+  void setChannels(Integer channels) {
     resource.setAudioChannelNumber(uintVal(AudioChannelNumber::new, channels));
   }
 
-  void setSampleRate(int sampleRate) {
+  void setSampleRate(Integer sampleRate) {
     resource.setSampleRate(intVal(SampleRate::new, sampleRate));
   }
 
-  void setSampleSize(int sampleSize) {
+  void setSampleSize(Integer sampleSize) {
     resource.setSampleSize(intVal(SampleSize::new, sampleSize));
   }
 
@@ -126,18 +139,24 @@ class WebResource {
   }
 
   void setResolution(Integer resolution) {
-    resource.setSpatialResolution(
-        resolution == null ? null : uintVal(SpatialResolution::new, resolution));
+    resource.setSpatialResolution(uintVal(SpatialResolution::new, resolution));
   }
 
-  private static <T extends IntegerType> T intVal(Supplier<T> constructor, int value) {
+  private static <T extends IntegerType> T intVal(Supplier<T> constructor, Integer value) {
+    if (value == null) {
+      return null;
+    }
     final T element = constructor.get();
     element.setLong(value);
     element.setDatatype("http://www.w3.org/2001/XMLSchema#integer");
     return element;
   }
 
-  private static <T extends NonNegativeIntegerType> T uintVal(Supplier<T> constructor, int value) {
+  private static <T extends NonNegativeIntegerType> T uintVal(Supplier<T> constructor,
+      Integer value) {
+    if (value == null) {
+      return null;
+    }
     final T element = constructor.get();
     element.setInteger(BigInteger.valueOf(value));
     element.setDatatype("http://www.w3.org/2001/XMLSchema#nonNegativeInteger");
@@ -151,7 +170,10 @@ class WebResource {
     return element;
   }
 
-  private static DoubleType doubleVal(double value) {
+  private static DoubleType doubleVal(Double value) {
+    if (value == null) {
+      return null;
+    }
     DoubleType element = new DoubleType();
     element.setDouble(value);
     element.setDatatype("http://www.w3.org/2001/XMLSchema#double");
