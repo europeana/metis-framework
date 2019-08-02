@@ -229,6 +229,6 @@ public class MediaExtractorImpl implements MediaExtractor {
    */
   boolean shouldDownloadForFullProcessing(String mimeType) {
     return Optional.of(MediaType.getMediaType(mimeType)).map(this::chooseMediaProcessor)
-        .map(MediaProcessor::downloadResourceForFullProcessing).orElse(false);
+        .map(MediaProcessor::downloadResourceForFullProcessing).orElse(Boolean.FALSE);
   }
 }

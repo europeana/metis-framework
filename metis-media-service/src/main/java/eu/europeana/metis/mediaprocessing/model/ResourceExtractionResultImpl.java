@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ResourceExtractionResultImpl implements ResourceExtractionResult {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ResourceExtractionResult.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ResourceExtractionResultImpl.class);
 
   private final AbstractResourceMetadata metadata;
 

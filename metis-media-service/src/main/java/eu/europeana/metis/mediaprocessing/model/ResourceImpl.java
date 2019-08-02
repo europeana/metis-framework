@@ -14,6 +14,7 @@ import java.util.Set;
 public class ResourceImpl extends AbstractTemporaryFile implements Resource {
 
   private static final String DEFAULT_MIME_TYPE = "application/octet-stream";
+  private static final long DEFAULT_FILE_SIZE = 0L;
 
   private final String providedMimeType;
   private final long providedFileSize;
@@ -35,7 +36,7 @@ public class ResourceImpl extends AbstractTemporaryFile implements Resource {
       Long providedFileSize, URI actualLocation) {
     super(rdfResourceEntry.getResourceUrl(), "media_resource_", null);
     this.providedMimeType = Optional.ofNullable(providedMimeType).orElse(DEFAULT_MIME_TYPE);
-    this.providedFileSize = Optional.ofNullable(providedFileSize).orElse(0L);
+    this.providedFileSize = Optional.ofNullable(providedFileSize).orElse(DEFAULT_FILE_SIZE);
     this.urlTypes = new HashSet<>(rdfResourceEntry.getUrlTypes());
     this.actualLocation = actualLocation;
   }

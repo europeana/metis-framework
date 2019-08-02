@@ -101,7 +101,7 @@ class AudioVideoProcessorTest {
 
     // Create resource
     final Resource resource = mock(Resource.class);
-    doReturn("resource url").when(resource).getResourceUrl();
+    doReturn("http://valid.url.nl/test").when(resource).getResourceUrl();
     doReturn(Paths.get("content path")).when(resource).getContentPath();
 
     // test resource with content
@@ -122,7 +122,19 @@ class AudioVideoProcessorTest {
             "-show_streams", "-hide_banner", resource.getResourceUrl());
     assertEquals(expectedWithoutContent, resultWithoutContent);
 
-    // test with exception
+    // test if resource does not have a valid URL.
+    doReturn("not valid").when(resource).getResourceUrl();
+    assertThrows(MediaExtractionException.class,
+        () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
+    doReturn("valid.without.prefix.nl/").when(resource).getResourceUrl();
+    assertThrows(MediaExtractionException.class,
+        () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
+    doReturn("http://invalid.characters.nl/!@#$%^&*()_").when(resource).getResourceUrl();
+    assertThrows(MediaExtractionException.class,
+        () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
+    doReturn("http://valid.url.nl/test").when(resource).getResourceUrl();
+    
+    // test if hasContent fails.
     doThrow(new IOException()).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
         () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));

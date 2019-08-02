@@ -10,6 +10,9 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import eu.europeana.metis.utils.MediaType;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -100,9 +103,17 @@ class AudioVideoProcessor implements MediaProcessor {
     }
   }
 
+  private static String validateUrl(String url) throws MediaExtractionException {
+    try {
+      return new URI(url).toURL().toString();
+    } catch (RuntimeException | URISyntaxException | MalformedURLException e) {
+      throw new MediaExtractionException("Could not validate URL: " + url, e);
+    }
+  }
+  
   List<String> createAudioVideoAnalysisCommand(Resource resource) throws MediaExtractionException {
     final String resourceLocation = resourceHasContent(resource) ?
-        resource.getContentPath().toString() : resource.getResourceUrl();
+        resource.getContentPath().toString() : validateUrl(resource.getResourceUrl());
     return Arrays.asList(ffprobeCommand, "-v", "quiet", "-print_format",
         "json", "-show_format", "-show_streams", "-hide_banner", resourceLocation);
   }
