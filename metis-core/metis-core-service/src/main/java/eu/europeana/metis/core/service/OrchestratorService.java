@@ -349,8 +349,7 @@ public class OrchestratorService {
       ExecutablePluginType enforcedPluginType) throws PluginExecutionNotAllowed {
     List<AbstractExecutablePlugin> metisPlugins = new ArrayList<>();
 
-    boolean firstPluginDefined = orchestratorHelper
-        .addHarvestingPlugin(dataset, workflow, metisPlugins);
+    boolean firstPluginDefined = orchestratorHelper.addHarvestingPlugin(workflow, metisPlugins);
     orchestratorHelper.addNonHarvestPlugins(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined);
     return metisPlugins;

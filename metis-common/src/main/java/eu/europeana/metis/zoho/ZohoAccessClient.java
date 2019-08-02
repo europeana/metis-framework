@@ -250,8 +250,8 @@ public class ZohoAccessClient {
       searchCriteria = new HashMap<>();
     }
 
-    if (criteriaOperator == null || (!criteriaOperator.equals(ZohoConstants.EQUALS_OPERATION)
-        && !criteriaOperator.equals(ZohoConstants.STARTS_WITH_OPERATION))) {
+    if (criteriaOperator == null || (!ZohoConstants.EQUALS_OPERATION.equals(criteriaOperator)
+        && !ZohoConstants.STARTS_WITH_OPERATION.equals(criteriaOperator))) {
       criteriaOperator = ZohoConstants.EQUALS_OPERATION;
     }
 

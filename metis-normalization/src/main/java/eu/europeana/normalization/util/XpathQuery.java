@@ -53,8 +53,11 @@ public final class XpathQuery {
 
     // Compute the namespace map - compute unique prefix for all namespaces.
     final int[] counter = {0};
-    this.namespaceByPrefixMap = Arrays.stream(elements).map(Element::getNamespace).map(Namespace::getUri)
-        .distinct().collect(Collectors.toMap(namespace -> "ns" + ++counter[0], Function.identity()));
+    this.namespaceByPrefixMap = Arrays.stream(elements).map(Element::getNamespace)
+        .map(Namespace::getUri).distinct().collect(Collectors.toMap(namespace -> {
+          counter[0]++;
+          return "ns" + counter[0];
+        }, Function.identity()));
 
     // Compute the reverse namespace map.
     final Map<String, String> prefixByNamespaceMap = namespaceByPrefixMap.entrySet().stream()

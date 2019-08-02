@@ -104,8 +104,7 @@ public class OrchestratorHelper {
         .getExecutionProgress().getErrors();
   }
 
-  boolean addHarvestingPlugin(Dataset dataset, Workflow workflow,
-      List<AbstractExecutablePlugin> metisPlugins) {
+  boolean addHarvestingPlugin(Workflow workflow, List<AbstractExecutablePlugin> metisPlugins) {
     OaipmhHarvestPluginMetadata oaipmhMetadata = (OaipmhHarvestPluginMetadata) workflow
         .getPluginMetadata(ExecutablePluginType.OAIPMH_HARVEST);
     HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) workflow

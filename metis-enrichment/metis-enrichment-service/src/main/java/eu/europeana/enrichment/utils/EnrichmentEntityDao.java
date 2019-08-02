@@ -65,16 +65,16 @@ public class EnrichmentEntityDao implements Closeable {
 
   private static class DbAccess {
 
-    final JacksonDBCollection<ConceptTermList, String> cColl;
-    final JacksonDBCollection<PlaceTermList, String> pColl;
-    final JacksonDBCollection<TimespanTermList, String> tColl;
-    final JacksonDBCollection<AgentTermList, String> aColl;
-    final JacksonDBCollection<OrganizationTermList, String> oColl;
+    protected final JacksonDBCollection<ConceptTermList, String> cColl;
+    protected final JacksonDBCollection<PlaceTermList, String> pColl;
+    protected final JacksonDBCollection<TimespanTermList, String> tColl;
+    protected final JacksonDBCollection<AgentTermList, String> aColl;
+    protected final JacksonDBCollection<OrganizationTermList, String> oColl;
 
     // TODO the DB class is (effectively) deprecated (see MongoClient.getDB), but
     // this object is still needed for MongoJack. Upgrade MongoJack and migrate this
     // object to MongoDatabase.
-    final DB db;
+    protected final DB db;
 
     public DbAccess(JacksonDBCollection<ConceptTermList, String> cColl,
         JacksonDBCollection<PlaceTermList, String> pColl,
@@ -175,7 +175,8 @@ public class EnrichmentEntityDao implements Closeable {
             new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
       }
       
-      return new DbAccess(cColl, pColl, tColl, aColl, oColl, db);
+      this.dbAccess = new DbAccess(cColl, pColl, tColl, aColl, oColl, db);
+      return this.dbAccess;
           
     } catch (MongoException e) {
       LOGGER.error("Error accessing mongo", e);
@@ -190,15 +191,15 @@ public class EnrichmentEntityDao implements Closeable {
    * @return deleted uris
    */
   public List<String> delete(List<String> uris) {
-    final DbAccess dbAccess = initDbIfNeeded();
+    final DbAccess currentDbAccess = initDbIfNeeded();
     List<String> retUris = new ArrayList<>();
     for (String uri : uris) {
       retUris.add(uri);
-      retUris.addAll(deletePlaces(dbAccess, uri));
-      retUris.addAll(deleteConcepts(dbAccess, uri));
-      retUris.addAll(deleteAgents(dbAccess, uri));
-      retUris.addAll(deleteTimespan(dbAccess, uri));
-      retUris.addAll(deleteOrganizations(dbAccess, uri));
+      retUris.addAll(deletePlaces(currentDbAccess, uri));
+      retUris.addAll(deleteConcepts(currentDbAccess, uri));
+      retUris.addAll(deleteAgents(currentDbAccess, uri));
+      retUris.addAll(deleteTimespan(currentDbAccess, uri));
+      retUris.addAll(deleteOrganizations(currentDbAccess, uri));
     }
     return retUris;
   }
@@ -247,7 +248,8 @@ public class EnrichmentEntityDao implements Closeable {
   }
 
   public void deleteOrganizations(String uri) {
-    deleteOrganizations(initDbIfNeeded(), uri);
+    final DbAccess currentDbAccess = initDbIfNeeded();
+    deleteOrganizations(currentDbAccess, uri);
   }
   
   // TODO: rename to deleteOrganization
@@ -274,7 +276,8 @@ public class EnrichmentEntityDao implements Closeable {
   }
 
   public void deleteOrganizationTerms(String uri) {
-    deleteOrganizationTerms(initDbIfNeeded(), uri);
+    final DbAccess currentDbAccess = initDbIfNeeded();
+    deleteOrganizationTerms(currentDbAccess, uri);
   }
   
   private static JacksonDBCollection<MongoTerm, String> deleteOrganizationTerms(DbAccess dbAccess, String uri) {
@@ -334,23 +337,23 @@ public class EnrichmentEntityDao implements Closeable {
    * @return the term list.
    */
   public MongoTermList<ContextualClassImpl> findByCode(String codeUri, EntityClass entityClass) {
-    final DbAccess dbAccess = initDbIfNeeded();
+    final DbAccess currentDbAccess = initDbIfNeeded();
     final MongoTermList<? extends ContextualClassImpl> result;
     switch (entityClass) {
       case CONCEPT:
-        result = findConceptByCode(dbAccess, codeUri);
+        result = findConceptByCode(currentDbAccess, codeUri);
         break;
       case PLACE:
-        result = findPlaceByCode(dbAccess, codeUri);
+        result = findPlaceByCode(currentDbAccess, codeUri);
         break;
       case AGENT:
-        result = findAgentByCode(dbAccess, codeUri);
+        result = findAgentByCode(currentDbAccess, codeUri);
         break;
       case TIMESPAN:
-        result = findTimespanByCode(dbAccess, codeUri);
+        result = findTimespanByCode(currentDbAccess, codeUri);
         break;
       case ORGANIZATION:
-        result = findOrganizationByCode(dbAccess, codeUri);
+        result = findOrganizationByCode(currentDbAccess, codeUri);
         break;
       default:
         result = null;
@@ -439,9 +442,9 @@ public class EnrichmentEntityDao implements Closeable {
   }
 
   public List<MongoTerm> getAllMongoTerms(EntityClass entityClass) {
-    final DbAccess dbAccess = initDbIfNeeded();
+    final DbAccess currentDbAccess = initDbIfNeeded();
     JacksonDBCollection<MongoTerm, String> collection = JacksonDBCollection
-        .wrap(dbAccess.db.getCollection(getTableName(entityClass)), MongoTerm.class, String.class);
+        .wrap(currentDbAccess.db.getCollection(getTableName(entityClass)), MongoTerm.class, String.class);
     DBCursor<MongoTerm> curs = collection.find();
     return StreamSupport.stream(curs.spliterator(), false).collect(Collectors.toList());
   }
@@ -452,11 +455,11 @@ public class EnrichmentEntityDao implements Closeable {
    */
   public OrganizationTermList storeMongoTermList(
       MongoTermList<? extends ContextualClassImpl> termList) {
-    final DbAccess dbAccess = initDbIfNeeded();
+    final DbAccess currentDbAccess = initDbIfNeeded();
     String type = termList.getEntityType();
     // TODO add support for other entity types
     if (ORGANIZATION_TYPE.equals(type)) {
-      return saveOrganization(dbAccess, (OrganizationTermList) termList);
+      return saveOrganization(currentDbAccess, (OrganizationTermList) termList);
     } else {
       throw new IllegalArgumentException(
           "insertion of MongoTermList of type: " + type + " not supported yet!");
@@ -468,11 +471,11 @@ public class EnrichmentEntityDao implements Closeable {
   }
 
   public int storeEntityLabels(ContextualClassImpl entity, EntityClass entityClass) {
-    final DbAccess dbAccess = initDbIfNeeded();
+    final DbAccess currentDbAccess = initDbIfNeeded();
     // select collection
     String collection = getTableName(entityClass);
     JacksonDBCollection<MongoTerm, String> termColl =
-        JacksonDBCollection.wrap(dbAccess.db.getCollection(collection), MongoTerm.class, String.class);
+        JacksonDBCollection.wrap(currentDbAccess.db.getCollection(collection), MongoTerm.class, String.class);
 
     // store terms
     List<MongoTerm> terms = createListOfMongoTerms(entity);
@@ -508,9 +511,9 @@ public class EnrichmentEntityDao implements Closeable {
    * @return the last modified date for passed entity class
    */
   public Date getLastModifiedDate(EntityClass entityClass) {
-    final DbAccess dbAccess = initDbIfNeeded();
+    final DbAccess currentDbAccess = initDbIfNeeded();
     DBCursor<OrganizationTermList> cursor =
-        dbAccess.oColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, getTypeName(entityClass)))
+        currentDbAccess.oColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, getTypeName(entityClass)))
             .sort(DBSort.desc(TERM_MODIFIED)).limit(1);
     // empty results
     if (cursor.size() == 0) {
