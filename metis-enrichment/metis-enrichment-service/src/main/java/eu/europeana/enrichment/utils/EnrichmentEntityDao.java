@@ -175,12 +175,11 @@ public class EnrichmentEntityDao implements Closeable {
             new BasicDBObject(UNIQUE_PROPERTY, Boolean.FALSE));
       }
       
-      dbAccess = new DbAccess(cColl, pColl, tColl, aColl, oColl, db);
-      return dbAccess;
+      return new DbAccess(cColl, pColl, tColl, aColl, oColl, db);
           
     } catch (MongoException e) {
       LOGGER.error("Error accessing mongo", e);
-      return null;
+      throw e;
     }
   }
 

@@ -1,12 +1,10 @@
 package eu.europeana.normalization.util;
 
-import eu.europeana.normalization.util.Namespace.Element;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
@@ -17,6 +15,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import eu.europeana.normalization.util.Namespace.Element;
 
 /**
  * This object represents an XPath query, containing an expression and the namespaces that occur in
@@ -33,7 +32,7 @@ public final class XpathQuery {
 
   private static final XPathFactory XPATH_FACTORY = XPathFactory.newInstance();
 
-  private final Map<String, String> namespaceMap = new HashMap<>();
+  private final Map<String, String> namespaceByPrefixMap;
   private final String expressionFormat;
   private final String expression;
   private final List<Element> elements;
@@ -52,21 +51,18 @@ public final class XpathQuery {
     this.expressionFormat = expressionFormat;
     this.elements = Arrays.asList(elements);
 
-    // Compute the namespace map
-    final Set<String> namespaces = Arrays.stream(elements).map(Element::getNamespace)
-        .map(Namespace::getUri).collect(Collectors.toSet());
-    final Map<String, String> reverseNamespaceMap = new HashMap<>((int) (namespaces.size() / 0.75));
-    int counter = 0;
-    for (String namespace : namespaces) {
-      counter++;
-      final String prefix = "ns" + counter;
-      this.namespaceMap.put(prefix, namespace);
-      reverseNamespaceMap.put(namespace, prefix);
-    }
+    // Compute the namespace map - compute unique prefix for all namespaces.
+    final int[] counter = {0};
+    this.namespaceByPrefixMap = Arrays.stream(elements).map(Element::getNamespace).map(Namespace::getUri)
+        .distinct().collect(Collectors.toMap(namespace -> "ns" + ++counter[0], Function.identity()));
+
+    // Compute the reverse namespace map.
+    final Map<String, String> prefixByNamespaceMap = namespaceByPrefixMap.entrySet().stream()
+        .collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
 
     // Compute the expression
     final Object[] parameters = this.elements.stream().map(element -> elementToString(element,
-        reverseNamespaceMap.get(element.getNamespace().getUri()))).toArray(Object[]::new);
+        prefixByNamespaceMap.get(element.getNamespace().getUri()))).toArray(Object[]::new);
     this.expression = String.format(expressionFormat, parameters).trim();
   }
 
@@ -121,7 +117,7 @@ public final class XpathQuery {
       }
 
       // In case prefix is in map.
-      final String resultFromMap = namespaceMap.get(prefix);
+      final String resultFromMap = namespaceByPrefixMap.get(prefix);
       if (resultFromMap != null) {
         return resultFromMap;
       }
