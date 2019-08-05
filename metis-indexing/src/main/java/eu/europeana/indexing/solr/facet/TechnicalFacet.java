@@ -75,7 +75,7 @@ public enum TechnicalFacet {
    * @param webResource The web resource to evaluate this facet on.
    * @return The codes. Is not null, but may be empty.
    */
-  public Set<Integer> evaluateAndShift(WebResourceWrapper webResource) {
+  Set<Integer> evaluateAndShift(WebResourceWrapper webResource) {
     return facetExtractor.apply(webResource).stream().map(this::shift).collect(Collectors.toSet());
   }
 }

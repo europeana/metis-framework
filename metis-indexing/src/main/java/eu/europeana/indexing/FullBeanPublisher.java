@@ -146,7 +146,7 @@ class FullBeanPublisher {
     final SolrDocumentPopulator documentPopulator = new SolrDocumentPopulator();
     final SolrInputDocument document = new SolrInputDocument();
     documentPopulator.populateWithProperties(document, fullBean);
-    documentPopulator.populateWithCrfFields(document, rdf);
+    documentPopulator.populateWithFacets(document, rdf);
 
     // Save Solr document.
     try {
