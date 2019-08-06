@@ -7,7 +7,6 @@ import eu.europeana.corelib.definitions.jibx.HexBinaryType;
 import eu.europeana.corelib.definitions.jibx.OrientationType;
 import eu.europeana.corelib.definitions.jibx.SpatialResolution;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.indexing.solr.facet.EncodedMediaType;
 import eu.europeana.metis.utils.MediaType;
 import java.math.BigInteger;
 import java.util.Collections;
@@ -98,28 +97,10 @@ public class WebResourceWrapper {
    * Determines the media type of the web resource (based on the MIME type).
    * 
    * @return The media type corresponding to the mime type. Does not return null, but may return
-   *         {@link EncodedMediaType#OTHER}.
+   *         {@link MediaType#OTHER}.
    */
-  public EncodedMediaType getMediaType() {
-    final EncodedMediaType result;
-    switch (MediaType.getMediaType(getMimeType())) {
-      case AUDIO:
-        result = EncodedMediaType.AUDIO;
-        break;
-      case IMAGE:
-        result = EncodedMediaType.IMAGE;
-        break;
-      case TEXT:
-        result = EncodedMediaType.TEXT;
-        break;
-      case VIDEO:
-        result = EncodedMediaType.VIDEO;
-        break;
-      default:
-        result = EncodedMediaType.OTHER;
-        break;
-    }
-    return result;
+  public MediaType getMediaType() {
+    return MediaType.getMediaType(getMimeType());
   }
 
   /**

@@ -4,7 +4,6 @@ import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.indexing.solr.facet.EncodedMediaType;
 import eu.europeana.indexing.solr.facet.FacetCodeExtractor;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
 import eu.europeana.indexing.solr.property.AggregationSolrCreator;
@@ -20,6 +19,7 @@ import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.metis.utils.MediaType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -126,7 +126,7 @@ public class SolrDocumentPopulator {
     final List<WebResourceWrapper> webResourcesWithMedia = rdf.getWebResourceWrappers(
         EnumSet.of(WebResourceLinkType.IS_SHOWN_BY, WebResourceLinkType.HAS_VIEW));
     final boolean hasMedia = webResourcesWithMedia.stream().map(WebResourceWrapper::getMediaType)
-        .anyMatch(type -> type != EncodedMediaType.OTHER);
+        .anyMatch(type -> type != MediaType.OTHER);
     document.addField(EdmLabel.FACET_HAS_MEDIA.toString(), hasMedia);
 
     // has_landingPage is true if and only if there is at least one web resource of type
