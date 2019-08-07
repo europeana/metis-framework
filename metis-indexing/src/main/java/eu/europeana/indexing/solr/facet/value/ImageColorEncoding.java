@@ -1,14 +1,19 @@
-package eu.europeana.indexing.solr.facet;
+package eu.europeana.indexing.solr.facet.value;
 
+import eu.europeana.indexing.utils.WebResourceWrapper;
+import java.util.Arrays;
 import java.util.Locale;
-import org.apache.commons.lang3.StringUtils;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
- * This enum contains all supported colors along with the code that they are assigned.
+ * This enum contains all supported colors along with the value that they are assigned.
  */
-public enum ColorEncoding {
+public enum ImageColorEncoding implements FacetValue {
 
   COLOR_1("F0F8FF", 1),
   COLOR_2("FAEBD7", 2),
@@ -148,60 +153,66 @@ public enum ColorEncoding {
   COLOR_136("F5F5F5", 136),
   COLOR_137("FFFF00", 137),
   COLOR_138("9ACD32", 138);
-  
-  private static BiMap<String, Integer> colorMap;
+
+  private static final Map<String, ImageColorEncoding> COLOR_BY_HEX_STRING_WITHOUT_HASH = Arrays
+      .stream(ImageColorEncoding.values())
+      .collect(Collectors.toMap(ImageColorEncoding::getHexString, Function.identity()));
+  private static final Map<String, ImageColorEncoding> COLOR_BY_HEX_STRING_WITH_HASH = Arrays
+      .stream(ImageColorEncoding.values())
+      .collect(Collectors.toMap(ImageColorEncoding::getHexStringWithHash, Function.identity()));
 
   private final String hexString;
+  private final String hexStringWithHash;
   private final int code;
 
-  ColorEncoding(String hexString, int code) {
+  ImageColorEncoding(String hexString, int code) {
     this.hexString = hexString;
+    this.hexStringWithHash = "#" + hexString;
     this.code = code;
   }
 
-  private static BiMap<String, Integer> getColorMap() {
-    synchronized (ColorEncoding.class) {
-      if (colorMap == null) {
-        colorMap = HashBiMap.create(ColorEncoding.values().length);
-        for (ColorEncoding encoding : ColorEncoding.values()) {
-          colorMap.put(encoding.hexString, encoding.code);
-        }
-      }
-      return colorMap;
-    }
-  }
-
   /**
-   * 
    * @return The hexadecimal string representing this color.
    */
-  String getHexString() {
+  public String getHexString() {
     return hexString;
   }
 
   /**
-   * 
-   * @return The code (unshifted) that is assigned to this color.
+   * @return The hexadecimal string representing this color, preceded by a hash.
    */
-  int getCode() {
+  public String getHexStringWithHash() {
+    return hexStringWithHash;
+  }
+
+  @Override
+  public int getCode() {
     return code;
   }
 
   /**
-   * Codifies the given color (but doesn't shift the code).
-   * 
+   * Categorizes the given color.
+   *
    * @param hexString The hexadecimal string representation of the color
-   * @return The integer represantation of the color, or 0 if the color could not be found.
+   * @return The category, or null if none of the categories apply.
    */
-  static Integer getColorCode(final String hexString) {
-    final String hexStringWithoutHash;
-    if (StringUtils.isBlank(hexString)) {
-      hexStringWithoutHash = "";
-    } else if (hexString.charAt(0) == '#') {
-      hexStringWithoutHash = hexString.substring(1);
-    } else {
-      hexStringWithoutHash = hexString;
+  public static ImageColorEncoding categorizeImageColor(final String hexString) {
+    if (hexString == null) {
+      return null;
     }
-    return getColorMap().get(hexStringWithoutHash.trim().toUpperCase(Locale.ENGLISH));
+    final String lookupString = hexString.trim().toUpperCase(Locale.ENGLISH);
+    return Optional.ofNullable(COLOR_BY_HEX_STRING_WITHOUT_HASH.get(lookupString))
+        .orElse(COLOR_BY_HEX_STRING_WITH_HASH.get(lookupString));
+  }
+
+  /**
+   * Categorize the color palette of the given image.
+   *
+   * @param webResource The web resource.
+   * @return The categories, or the empty set if none of the categories apply.
+   */
+  public static Set<ImageColorEncoding> categorizeImageColors(final WebResourceWrapper webResource) {
+    return webResource.getColorHexCodes().stream().map(ImageColorEncoding::categorizeImageColor)
+        .filter(Objects::nonNull).collect(Collectors.toSet());
   }
 }

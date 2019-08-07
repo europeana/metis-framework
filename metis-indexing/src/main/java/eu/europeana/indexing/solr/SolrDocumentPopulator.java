@@ -4,8 +4,7 @@ import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.indexing.solr.facet.EncodedMediaType;
-import eu.europeana.indexing.solr.facet.TagExtractor;
+import eu.europeana.indexing.solr.facet.FacetEncoder;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
 import eu.europeana.indexing.solr.property.AggregationSolrCreator;
 import eu.europeana.indexing.solr.property.ConceptSolrCreator;
@@ -20,6 +19,7 @@ import eu.europeana.indexing.solr.property.TimespanSolrCreator;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.metis.utils.MediaType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -40,7 +40,7 @@ import org.apache.solr.common.SolrInputDocument;
  * This class provides functionality to populate Solr documents. Both methods in this class should
  * be called to fill the Solr document. The method {@link #populateWithProperties(SolrInputDocument,
  * FullBeanImpl)} copies properties from the source to the Solr document. The method {@link
- * #populateWithCrfFields(SolrInputDocument, RdfWrapper)} on the other hand performs some analysis
+ * #populateWithFacets(SolrInputDocument, RdfWrapper)} on the other hand performs some analysis
  * and sets technical metadata.
  *
  * @author jochen
@@ -115,48 +115,48 @@ public class SolrDocumentPopulator {
    * @param document The document to populate.
    * @param rdf The RDF to populate from.
    */
-  public void populateWithCrfFields(SolrInputDocument document, RdfWrapper rdf) {
+  public void populateWithFacets(SolrInputDocument document, RdfWrapper rdf) {
 
     // has_thumbnails is true if and only if edm:EuropeanaAggregation/edm:preview is filled and the
     // associated edm:webResource exists with technical metadata (i.e. ebucore:hasMimetype is set).
-    document.addField(EdmLabel.CRF_HAS_THUMBNAILS.toString(), rdf.hasThumbnails());
+    document.addField(EdmLabel.FACET_HAS_THUMBNAILS.toString(), rdf.hasThumbnails());
 
     // has_media is true if and only if there is at least one web resource of type 'isShownBy'
     // or 'hasView' representing technical metadata of a known type.
     final List<WebResourceWrapper> webResourcesWithMedia = rdf.getWebResourceWrappers(
         EnumSet.of(WebResourceLinkType.IS_SHOWN_BY, WebResourceLinkType.HAS_VIEW));
     final boolean hasMedia = webResourcesWithMedia.stream().map(WebResourceWrapper::getMediaType)
-        .anyMatch(type -> type != EncodedMediaType.OTHER);
-    document.addField(EdmLabel.CRF_HAS_MEDIA.toString(), hasMedia);
+        .anyMatch(type -> type != MediaType.OTHER);
+    document.addField(EdmLabel.FACET_HAS_MEDIA.toString(), hasMedia);
 
     // has_landingPage is true if and only if there is at least one web resource of type
     // 'isShownAt', representing technical metadata of some (non-null) mime type.
     final boolean hasLandingPage = rdf
         .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT)).stream()
         .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
-    document.addField(EdmLabel.CRF_HAS_LANDING_PAGE.toString(), hasLandingPage);
+    document.addField(EdmLabel.FACET_HAS_LANDING_PAGE.toString(), hasLandingPage);
 
     // is_fulltext is true if and only if there is at least one web resource of type 'isShownBy'
     // or 'hasView' with 'rdf:type' equal to 'edm:FullTextResource'.
     final boolean isFullText = webResourcesWithMedia.stream().map(WebResourceWrapper::getType)
         .anyMatch("http://www.europeana.eu/schemas/edm/FullTextResource"::equals);
-    document.addField(EdmLabel.CRF_IS_FULL_TEXT.toString(), isFullText);
+    document.addField(EdmLabel.FACET_IS_FULL_TEXT.toString(), isFullText);
 
     // Compose the filter and facet tags. Only use the web resources of type 'isShownBy' or 'hasView'.
-    final Set<Integer> filterTags = new HashSet<>();
-    final Set<Integer> facetTags = new HashSet<>();
-    final TagExtractor tagExtractor = new TagExtractor();
+    final Set<Integer> filterCodes = new HashSet<>();
+    final Set<Integer> valueCodes = new HashSet<>();
+    final FacetEncoder encoder = new FacetEncoder();
     for (WebResourceWrapper webResource : webResourcesWithMedia) {
-      filterTags.addAll(tagExtractor.getFilterTags(webResource));
-      facetTags.addAll(tagExtractor.getFacetTags(webResource));
+      filterCodes.addAll(encoder.getFacetFilterCodes(webResource));
+      valueCodes.addAll(encoder.getFacetValueCodes(webResource));
     }
 
     // Add the filter and facet tags to the Solr document.
-    for (Integer tag : filterTags) {
-      document.addField(EdmLabel.CRF_FILTER_TAGS.toString(), tag);
+    for (Integer code : filterCodes) {
+      document.addField(EdmLabel.FACET_FILTER_CODES.toString(), code);
     }
-    for (Integer tag : facetTags) {
-      document.addField(EdmLabel.CRF_FACET_TAGS.toString(), tag);
+    for (Integer code : valueCodes) {
+      document.addField(EdmLabel.FACET_VALUE_CODES.toString(), code);
     }
   }
 }

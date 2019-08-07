@@ -1,14 +1,18 @@
-package eu.europeana.indexing.solr.facet;
+package eu.europeana.indexing.solr.facet.value;
 
+import eu.europeana.indexing.utils.WebResourceWrapper;
+import java.util.Arrays;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 
 /**
- * This enum contains all supported mime types along with the code that they are assigned.
+ * This enum contains all supported mime types along with the value that they are assigned.
  */
-public enum MimeTypeEncoding {
+public enum MimeTypeEncoding implements FacetValue {
 
   TYPE_1("application/andrew-inset", 1),
   TYPE_2("application/applixware", 2),
@@ -785,50 +789,53 @@ public enum MimeTypeEncoding {
   TYPE_774("audio/mpeg3", 774),
   TYPE_775("image/x-ms-bmp", 775);
 
-  private static BiMap<String, Integer> mimeTypeMap;
+  static final MimeTypeEncoding DEFAULT_MIME_TYPE = TYPE_52;
 
-  private final String mimeType;
+  private static final Map<String, MimeTypeEncoding> MIME_TYPE_BY_VALUE = Arrays
+      .stream(MimeTypeEncoding.values())
+      .collect(Collectors.toMap(MimeTypeEncoding::getValue, Function.identity()));
+
+  private final String value;
   private final int code;
 
-  MimeTypeEncoding(String mimeType, int code) {
-    this.mimeType = mimeType;
+  MimeTypeEncoding(String value, int code) {
+    this.value = value;
     this.code = code;
-  }
-
-  private static BiMap<String, Integer> getMimeTypeMap() {
-    synchronized (MimeTypeEncoding.class) {
-      if (mimeTypeMap == null) {
-        mimeTypeMap = HashBiMap.create(MimeTypeEncoding.values().length);
-        for (MimeTypeEncoding encoding : MimeTypeEncoding.values()) {
-          mimeTypeMap.put(encoding.mimeType, encoding.code);
-        }
-      }
-      return mimeTypeMap;
-    }
   }
 
   /**
    * @return The mime type represented by this encoding.
    */
-  String getMimeType() {
-    return mimeType;
+  public String getValue() {
+    return value;
   }
 
-  /**
-   * @return The code (unshifted) that is assigned to this mime type.
-   */
-  int getCode() {
+  @Override
+  public int getCode() {
     return code;
   }
 
   /**
-   * Codifies the given mimetype (but doesn't shift the code).
+   * Categorize the mime type.
    *
-   * @param type The mimetype of the resource
-   * @return The integer representation of the mimetype, or 0 if the mime type could not be found.
+   * @param mimeType The mime type.
+   * @return The category, or null if none of the categories apply.
    */
-  static Integer getMimeTypeCode(final String type) {
-    return StringUtils.isNotBlank(type) ? getMimeTypeMap()
-        .get(type.trim().toLowerCase(Locale.ENGLISH)) : null;
+  public static MimeTypeEncoding categorizeMimeType(String mimeType) {
+    return Optional.ofNullable(mimeType).filter(StringUtils::isNotBlank).map(String::trim)
+        .map(value -> value.toLowerCase(Locale.ENGLISH)).map(MIME_TYPE_BY_VALUE::get).orElse(null);
+  }
+
+  /**
+   * Categorize the mime type of the given web resource. If no mime type is present, it is assumed
+   * to be {@link #DEFAULT_MIME_TYPE}.
+   *
+   * @param webResource The web resource.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static MimeTypeEncoding categorizeMimeType(final WebResourceWrapper webResource) {
+    final String mimeType = Optional.ofNullable(webResource.getMimeType())
+        .filter(StringUtils::isNotBlank).orElse(DEFAULT_MIME_TYPE.getValue());
+    return categorizeMimeType(mimeType);
   }
 }
