@@ -66,7 +66,30 @@ public final class EncodedFacet<T extends Enum<T> & FacetValue> {
     this.numberOfBits = numberOfBits;
     this.resourceCategorizer = resourceCategorizer;
     this.codeToValueMap = EnumSet.allOf(valueType).stream()
-        .collect(Collectors.toMap(T::getCode, Function.identity()));
+        .collect(Collectors.toMap(this::getCodeFromValue, Function.identity()));
+  }
+
+  /**
+   * This method gets the code from the value. It can be used as an object reference. Note that we
+   * should not replace this by the method reference <code>T::getCode</code> because of a bug in
+   * Java version 8 and 9:
+   * <ul>
+   * <li> <a>https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8141508</a> </li>
+   * <li> <a>https://bugs.java.com/bugdatabase/view_bug.do?bug_id=8142476</a> </li>
+   * </ul>
+   * And the equivalent bugs in openJDK:
+   * <ul>
+   * <li> <a>https://bugs.openjdk.java.net/browse/JDK-8141508</a> </li>
+   * <li> <a>https://bugs.openjdk.java.net/browse/JDK-8142476</a> </li>
+   * </ul>
+   * We can get rid of this workaround when we upgrade to java 9 (after a certain version) or
+   * higher. TODO JV once we upgrade to a higher java version, remove this workaround.
+   *
+   * @param value The value to get the code from.
+   * @return The code.
+   */
+  private int getCodeFromValue(T value) {
+    return value.getCode();
   }
 
   private EncodedFacet(final int bitPosition, final int numberOfBits,
