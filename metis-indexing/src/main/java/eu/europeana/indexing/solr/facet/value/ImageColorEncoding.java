@@ -202,7 +202,7 @@ public enum ImageColorEncoding implements FacetValue {
     }
     final String lookupString = hexString.trim().toUpperCase(Locale.ENGLISH);
     return Optional.ofNullable(COLOR_BY_HEX_STRING_WITHOUT_HASH.get(lookupString))
-        .orElse(COLOR_BY_HEX_STRING_WITH_HASH.get(lookupString));
+        .orElseGet(() -> COLOR_BY_HEX_STRING_WITH_HASH.get(lookupString));
   }
 
   /**

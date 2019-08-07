@@ -789,7 +789,7 @@ public enum MimeTypeEncoding implements FacetValue {
   TYPE_774("audio/mpeg3", 774),
   TYPE_775("image/x-ms-bmp", 775);
 
-  static final MimeTypeEncoding DEFAULT_MIME_TYPE = TYPE_52;
+  protected static final MimeTypeEncoding DEFAULT_MIME_TYPE = TYPE_52;
 
   private static final Map<String, MimeTypeEncoding> MIME_TYPE_BY_VALUE = Arrays
       .stream(MimeTypeEncoding.values())
@@ -835,7 +835,7 @@ public enum MimeTypeEncoding implements FacetValue {
    */
   public static MimeTypeEncoding categorizeMimeType(final WebResourceWrapper webResource) {
     final String mimeType = Optional.ofNullable(webResource.getMimeType())
-        .filter(StringUtils::isNotBlank).orElse(DEFAULT_MIME_TYPE.getValue());
+        .filter(StringUtils::isNotBlank).orElseGet(DEFAULT_MIME_TYPE::getValue);
     return categorizeMimeType(mimeType);
   }
 }

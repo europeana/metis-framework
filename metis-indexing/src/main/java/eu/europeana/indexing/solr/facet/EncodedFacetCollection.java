@@ -75,6 +75,8 @@ enum EncodedFacetCollection {
   }
 
   /**
+   * Get the facets for the given web resource.
+   *
    * @param webResource The resource of which to encode the facet values
    * @return The collection of applicable facets, or null if no collection is applicable.
    */
@@ -83,6 +85,8 @@ enum EncodedFacetCollection {
   }
 
   /**
+   * Get the facets for the given media type.
+   *
    * @param mediaType The media type for which to encode the facet values
    * @return The collection of applicable facets, or null if no collection is applicable.
    */

@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 /**
  * This class contains all supported facets, including the functionality to evaluate them and shift
  * them into their assigned position.
+ *
+ * @param <T> The type of the facet value that this encoded facet represents.
  */
 public final class EncodedFacet<T extends Enum<T> & FacetValue> {
 
@@ -69,6 +71,12 @@ public final class EncodedFacet<T extends Enum<T> & FacetValue> {
         .collect(Collectors.toMap(this::getCodeFromValue, Function.identity()));
   }
 
+  private EncodedFacet(final int bitPosition, final int numberOfBits,
+      Function<WebResourceWrapper, T> resourceCategorizer, Class<T> valueType) {
+    this(bitPosition, numberOfBits, valueType,
+        resourceCategorizer.andThen(value -> toSet(value, valueType)));
+  }
+
   /**
    * This method gets the code from the value. It can be used as an object reference. Note that we
    * should not replace this by the method reference <code>T::getCode</code> because of a bug in
@@ -83,19 +91,15 @@ public final class EncodedFacet<T extends Enum<T> & FacetValue> {
    * <li> <a>https://bugs.openjdk.java.net/browse/JDK-8142476</a> </li>
    * </ul>
    * We can get rid of this workaround when we upgrade to java 9 (after a certain version) or
-   * higher. TODO JV once we upgrade to a higher java version, remove this workaround.
+   * higher.
+   *
+   * TODO JV once we upgrade to a higher java version, remove this workaround.
    *
    * @param value The value to get the code from.
    * @return The code.
    */
   private int getCodeFromValue(T value) {
     return value.getCode();
-  }
-
-  private EncodedFacet(final int bitPosition, final int numberOfBits,
-      Function<WebResourceWrapper, T> resourceCategorizer, Class<T> valueType) {
-    this(bitPosition, numberOfBits, valueType,
-        resourceCategorizer.andThen(value -> toSet(value, valueType)));
   }
 
   private static <T extends Enum<T> & FacetValue> Set<T> toSet(T value, Class<T> valueType) {
