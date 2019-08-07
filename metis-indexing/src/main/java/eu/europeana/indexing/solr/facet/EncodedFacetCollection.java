@@ -79,6 +79,14 @@ enum EncodedFacetCollection {
    * @return The collection of applicable facets, or null if no collection is applicable.
    */
   static EncodedFacetCollection get(WebResourceWrapper webResource) {
-    return ENCODERS_BY_MEDIA_TYPE.get(MediaTypeEncoding.categorizeMediaType(webResource));
+    return get(MediaTypeEncoding.categorizeMediaType(webResource));
+  }
+
+  /**
+   * @param mediaType The media type for which to encode the facet values
+   * @return The collection of applicable facets, or null if no collection is applicable.
+   */
+  public static EncodedFacetCollection get(MediaTypeEncoding mediaType) {
+    return ENCODERS_BY_MEDIA_TYPE.get(mediaType);
   }
 }

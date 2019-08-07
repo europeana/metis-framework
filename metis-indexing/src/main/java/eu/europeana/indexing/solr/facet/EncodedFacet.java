@@ -13,6 +13,7 @@ import eu.europeana.indexing.solr.facet.value.VideoDuration;
 import eu.europeana.indexing.solr.facet.value.VideoQuality;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import java.util.EnumSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -22,56 +23,69 @@ import java.util.stream.Collectors;
  * This class contains all supported facets, including the functionality to evaluate them and shift
  * them into their assigned position.
  */
-final class EncodedFacet <T extends Enum<T> & FacetValue> {
+public final class EncodedFacet<T extends Enum<T> & FacetValue> {
 
-  static final EncodedFacet<MediaTypeEncoding> MEDIA_TYPE = new EncodedFacet<>(25, 3,
+  public static final EncodedFacet<MediaTypeEncoding> MEDIA_TYPE = new EncodedFacet<>(25, 3,
       MediaTypeEncoding::categorizeMediaType, MediaTypeEncoding.class);
 
-  static final EncodedFacet<MimeTypeEncoding> MIME_TYPE = new EncodedFacet<>(15, 10,
+  public static final EncodedFacet<MimeTypeEncoding> MIME_TYPE = new EncodedFacet<>(15, 10,
       MimeTypeEncoding::categorizeMimeType, MimeTypeEncoding.class);
 
-  static final EncodedFacet<ImageSize> IMAGE_SIZE = new EncodedFacet<>(12, 3,
+  public static final EncodedFacet<ImageSize> IMAGE_SIZE = new EncodedFacet<>(12, 3,
       ImageSize::categorizeImageSize, ImageSize.class);
 
-  static final EncodedFacet<ImageColorSpace> IMAGE_COLOR_SPACE = new EncodedFacet<>(10, 2,
+  public static final EncodedFacet<ImageColorSpace> IMAGE_COLOR_SPACE = new EncodedFacet<>(10, 2,
       ImageColorSpace::categorizeImageColorSpace, ImageColorSpace.class);
 
-  static final EncodedFacet<ImageAspectRatio> IMAGE_ASPECT_RATIO = new EncodedFacet<>(8, 2,
+  public static final EncodedFacet<ImageAspectRatio> IMAGE_ASPECT_RATIO = new EncodedFacet<>(8, 2,
       ImageAspectRatio::categorizeImageAspectRatio, ImageAspectRatio.class);
 
-  static final EncodedFacet<ImageColorEncoding> IMAGE_COLOR_ENCODING = new EncodedFacet<>(0, 8,
-      ImageColorEncoding::categorizeImageColors);
+  public static final EncodedFacet<ImageColorEncoding> IMAGE_COLOR_ENCODING = new EncodedFacet<>(0,
+      8, ImageColorEncoding.class, ImageColorEncoding::categorizeImageColors);
 
-  static final EncodedFacet<AudioQuality> AUDIO_QUALITY = new EncodedFacet<>(13, 2,
+  public static final EncodedFacet<AudioQuality> AUDIO_QUALITY = new EncodedFacet<>(13, 2,
       AudioQuality::categorizeAudioQuality, AudioQuality.class);
 
-  static final EncodedFacet<AudioDuration> AUDIO_DURATION = new EncodedFacet<>(10, 3,
+  public static final EncodedFacet<AudioDuration> AUDIO_DURATION = new EncodedFacet<>(10, 3,
       AudioDuration::categorizeAudioDuration, AudioDuration.class);
 
-  static final EncodedFacet<VideoQuality> VIDEO_QUALITY = new EncodedFacet<>(13, 2,
+  public static final EncodedFacet<VideoQuality> VIDEO_QUALITY = new EncodedFacet<>(13, 2,
       VideoQuality::categorizeVideoQuality, VideoQuality.class);
 
-  static final EncodedFacet<VideoDuration> VIDEO_DURATION = new EncodedFacet<>(10, 3,
+  public static final EncodedFacet<VideoDuration> VIDEO_DURATION = new EncodedFacet<>(10, 3,
       VideoDuration::categorizeVideoDuration, VideoDuration.class);
 
   private final int bitPosition;
   private final int numberOfBits;
   private final Function<WebResourceWrapper, Set<T>> resourceCategorizer;
+  private final Map<Integer, T> codeToValueMap;
 
-  private EncodedFacet(final int bitPosition, final int numberOfBits,
+  private EncodedFacet(final int bitPosition, final int numberOfBits, Class<T> valueType,
       Function<WebResourceWrapper, Set<T>> resourceCategorizer) {
     this.bitPosition = bitPosition;
     this.numberOfBits = numberOfBits;
     this.resourceCategorizer = resourceCategorizer;
+    this.codeToValueMap = EnumSet.allOf(valueType).stream()
+        .collect(Collectors.toMap(T::getCode, Function.identity()));
   }
 
   private EncodedFacet(final int bitPosition, final int numberOfBits,
       Function<WebResourceWrapper, T> resourceCategorizer, Class<T> valueType) {
-    this(bitPosition, numberOfBits, resourceCategorizer.andThen(value -> toSet(value, valueType)));
+    this(bitPosition, numberOfBits, valueType,
+        resourceCategorizer.andThen(value -> toSet(value, valueType)));
   }
 
   private static <T extends Enum<T> & FacetValue> Set<T> toSet(T value, Class<T> valueType) {
     return Optional.ofNullable(value).map(EnumSet::of).orElseGet(() -> EnumSet.noneOf(valueType));
+  }
+
+  /**
+   * Determines the facet's maximum permitted value based on the allowed number of bits.
+   *
+   * @return The maximum value for this facet.
+   */
+  int getMaxValue() {
+    return (1 << numberOfBits) - 1;
   }
 
   /**
@@ -82,7 +96,7 @@ final class EncodedFacet <T extends Enum<T> & FacetValue> {
    * @throws IllegalArgumentException if the value's code falls outside the permitted interval for
    * this facet.
    */
-  int encodeAndShift(T value) {
+  int encodeValue(T value) {
     final int code = value.getCode();
     if (code < 0 || code > getMaxValue()) {
       throw new IllegalArgumentException("The input does not fit in this facet's interval. ");
@@ -91,23 +105,46 @@ final class EncodedFacet <T extends Enum<T> & FacetValue> {
   }
 
   /**
-   * Determines the facet's maximum permitted value based on the allowed number of bits.
-   * 
-   * @return The maximum value for this facet.
-   */
-  int getMaxValue() {
-    return (1 << numberOfBits) - 1;
-  }
-
-  /**
    * Evaluate the facet for the given web resource and return the result. The result consists of a
    * number of codes that are all shifted according to this facet's rules.
-   * 
+   *
    * @param webResource The web resource to evaluate this facet on.
    * @return The codes. Is not null, but may be empty.
    */
-  Set<Integer> evaluateAndShift(WebResourceWrapper webResource) {
-    return resourceCategorizer.apply(webResource).stream().map(this::encodeAndShift)
+  Set<Integer> encodeValues(WebResourceWrapper webResource) {
+    return resourceCategorizer.apply(webResource).stream().map(this::encodeValue)
         .collect(Collectors.toSet());
+  }
+
+  /**
+   * Determines the facet's bit mask based on the rules of this facet.
+   *
+   * @return The maximum value for this facet.
+   */
+  int getBitMask() {
+    return ((1 << numberOfBits) - 1) << bitPosition;
+  }
+
+  /**
+   * Extract the value code from an encoded integer (that could also contain other values). This
+   * method isolates and shifts the component for this facet according to this facet's rules.
+   *
+   * @param code The encoded integer.
+   * @return The value code (equivalent to {@link FacetValue#getCode()}).
+   */
+  int extractValueCode(int code) {
+    return (code & getBitMask()) >> bitPosition;
+  }
+
+  /**
+   * Extract the value from an encoded integer (that could also contain other values). This method
+   * isolates and shifts the component for this facet according to this facet's rules and matches it
+   * with the facet value.
+   *
+   * @param code The encoded integer.
+   * @return The value.
+   */
+  public T decodeValue(int code) {
+    return this.codeToValueMap.get(extractValueCode(code));
   }
 }

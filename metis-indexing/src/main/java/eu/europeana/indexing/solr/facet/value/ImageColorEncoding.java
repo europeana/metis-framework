@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * This enum contains all supported colors along with the value that they are assigned.
@@ -154,15 +154,20 @@ public enum ImageColorEncoding implements FacetValue {
   COLOR_137("FFFF00", 137),
   COLOR_138("9ACD32", 138);
 
-  private static final Map<String, ImageColorEncoding> COLOR_BY_HEX_STRING = Arrays
+  private static final Map<String, ImageColorEncoding> COLOR_BY_HEX_STRING_WITHOUT_HASH = Arrays
       .stream(ImageColorEncoding.values())
       .collect(Collectors.toMap(ImageColorEncoding::getHexString, Function.identity()));
+  private static final Map<String, ImageColorEncoding> COLOR_BY_HEX_STRING_WITH_HASH = Arrays
+      .stream(ImageColorEncoding.values())
+      .collect(Collectors.toMap(ImageColorEncoding::getHexStringWithHash, Function.identity()));
 
   private final String hexString;
+  private final String hexStringWithHash;
   private final int code;
 
   ImageColorEncoding(String hexString, int code) {
     this.hexString = hexString;
+    this.hexStringWithHash = "#" + hexString;
     this.code = code;
   }
 
@@ -171,6 +176,13 @@ public enum ImageColorEncoding implements FacetValue {
    */
   public String getHexString() {
     return hexString;
+  }
+
+  /**
+   * @return The hexadecimal string representing this color, preceded by a hash.
+   */
+  public String getHexStringWithHash() {
+    return hexStringWithHash;
   }
 
   @Override
@@ -184,16 +196,13 @@ public enum ImageColorEncoding implements FacetValue {
    * @param hexString The hexadecimal string representation of the color
    * @return The category, or null if none of the categories apply.
    */
-  static ImageColorEncoding categorizeImageColor(final String hexString) {
-    final String hexStringWithoutHash;
-    if (StringUtils.isBlank(hexString)) {
-      hexStringWithoutHash = "";
-    } else if (hexString.charAt(0) == '#') {
-      hexStringWithoutHash = hexString.substring(1);
-    } else {
-      hexStringWithoutHash = hexString;
+  public static ImageColorEncoding categorizeImageColor(final String hexString) {
+    if (hexString == null) {
+      return null;
     }
-    return COLOR_BY_HEX_STRING.get(hexStringWithoutHash.trim().toUpperCase(Locale.ENGLISH));
+    final String lookupString = hexString.trim().toUpperCase(Locale.ENGLISH);
+    return Optional.ofNullable(COLOR_BY_HEX_STRING_WITHOUT_HASH.get(lookupString))
+        .orElse(COLOR_BY_HEX_STRING_WITH_HASH.get(lookupString));
   }
 
   /**

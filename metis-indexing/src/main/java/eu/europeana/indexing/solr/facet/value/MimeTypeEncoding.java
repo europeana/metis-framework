@@ -789,7 +789,7 @@ public enum MimeTypeEncoding implements FacetValue {
   TYPE_774("audio/mpeg3", 774),
   TYPE_775("image/x-ms-bmp", 775);
 
-  private static final MimeTypeEncoding DEFAULT_MIME_TYPE = TYPE_52;
+  static final MimeTypeEncoding DEFAULT_MIME_TYPE = TYPE_52;
 
   private static final Map<String, MimeTypeEncoding> MIME_TYPE_BY_VALUE = Arrays
       .stream(MimeTypeEncoding.values())
@@ -816,6 +816,17 @@ public enum MimeTypeEncoding implements FacetValue {
   }
 
   /**
+   * Categorize the mime type.
+   *
+   * @param mimeType The mime type.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static MimeTypeEncoding categorizeMimeType(String mimeType) {
+    return Optional.ofNullable(mimeType).filter(StringUtils::isNotBlank).map(String::trim)
+        .map(value -> value.toLowerCase(Locale.ENGLISH)).map(MIME_TYPE_BY_VALUE::get).orElse(null);
+  }
+
+  /**
    * Categorize the mime type of the given web resource. If no mime type is present, it is assumed
    * to be {@link #DEFAULT_MIME_TYPE}.
    *
@@ -824,11 +835,7 @@ public enum MimeTypeEncoding implements FacetValue {
    */
   public static MimeTypeEncoding categorizeMimeType(final WebResourceWrapper webResource) {
     final String mimeType = Optional.ofNullable(webResource.getMimeType())
-        .filter(StringUtils::isNotBlank).map(String::trim)
-        .map(value -> value.toLowerCase(Locale.ENGLISH)).orElse(null);
-    if (mimeType == null) {
-      return DEFAULT_MIME_TYPE;
-    }
-    return MIME_TYPE_BY_VALUE.get(mimeType);
+        .filter(StringUtils::isNotBlank).orElse(DEFAULT_MIME_TYPE.getValue());
+    return categorizeMimeType(mimeType);
   }
 }

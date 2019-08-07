@@ -49,8 +49,10 @@ class TestMimeTypeEncoding {
     doReturn("MY AWESOME MADE-UP MIME TYPE").when(webResource).getMimeType();
     assertNull(MimeTypeEncoding.categorizeMimeType(webResource));
     doReturn("  ").when(webResource).getMimeType();
-    assertNull(MimeTypeEncoding.categorizeMimeType(webResource));
+    assertEquals(MimeTypeEncoding.DEFAULT_MIME_TYPE,
+        MimeTypeEncoding.categorizeMimeType(webResource));
     doReturn(null).when(webResource).getMimeType();
-    assertNull(MimeTypeEncoding.categorizeMimeType(webResource));
+    assertEquals(MimeTypeEncoding.DEFAULT_MIME_TYPE,
+        MimeTypeEncoding.categorizeMimeType(webResource));
   }
 }

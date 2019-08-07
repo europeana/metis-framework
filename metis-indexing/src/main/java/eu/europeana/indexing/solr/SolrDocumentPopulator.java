@@ -4,7 +4,7 @@ import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
-import eu.europeana.indexing.solr.facet.FacetCodeExtractor;
+import eu.europeana.indexing.solr.facet.FacetEncoder;
 import eu.europeana.indexing.solr.property.AgentSolrCreator;
 import eu.europeana.indexing.solr.property.AggregationSolrCreator;
 import eu.europeana.indexing.solr.property.ConceptSolrCreator;
@@ -145,10 +145,10 @@ public class SolrDocumentPopulator {
     // Compose the filter and facet tags. Only use the web resources of type 'isShownBy' or 'hasView'.
     final Set<Integer> filterCodes = new HashSet<>();
     final Set<Integer> valueCodes = new HashSet<>();
-    final FacetCodeExtractor codeExtractor = new FacetCodeExtractor();
+    final FacetEncoder encoder = new FacetEncoder();
     for (WebResourceWrapper webResource : webResourcesWithMedia) {
-      filterCodes.addAll(codeExtractor.getFacetFilterCodes(webResource));
-      valueCodes.addAll(codeExtractor.getFacetValueCodes(webResource));
+      filterCodes.addAll(encoder.getFacetFilterCodes(webResource));
+      valueCodes.addAll(encoder.getFacetValueCodes(webResource));
     }
 
     // Add the filter and facet tags to the Solr document.

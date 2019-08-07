@@ -26,12 +26,13 @@ public final class SetUtils {
    * types and the concatenator, not all of these may be unique and the result set may contain fewer
    * items.
    * </p>
-   * 
-   * @param input The input sets. They will be processed in the order given here.
+   *
+   * @param input The input sets. They will be processed in the order given here. Input sets can be
+   * empty, but not null.
    * @param emptyCombination The empty combination (used as a seed for the algorithm).
    * @param concatenator The function that appends/concatenates an element to a combination. This
-   *        function <b>must</b> generate a new instance of the combination (rather than return the
-   *        same instance).
+   * function <b>must</b> generate a new instance of the combination (rather than return the same
+   * instance).
    * @param <E> The type of the individual elements (input).
    * @param <C> The type of the combinations (output).
    * @return The set of all possible combinations.
