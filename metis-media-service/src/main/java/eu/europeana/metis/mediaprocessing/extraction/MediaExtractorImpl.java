@@ -73,17 +73,18 @@ public class MediaExtractorImpl implements MediaExtractor {
    * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
    * @param connectTimeout The connection timeout in milliseconds for downloading resources.
    * @param socketTimeout The socket timeout in milliseconds for downloading resources.
+   * @param downloadTimeout The download timeout in milliseconds for downloading resources.
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
   public MediaExtractorImpl(int redirectCount, int thumbnailGenerateTimeout,
-      int audioVideoProbeTimeout, int connectTimeout, int socketTimeout)
+      int audioVideoProbeTimeout, int connectTimeout, int socketTimeout, int downloadTimeout)
       throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
     this.fullProcessingDownloadClient = new ResourceDownloadClient(redirectCount,
-        this::shouldDownloadForFullProcessing, connectTimeout, socketTimeout);
+        this::shouldDownloadForFullProcessing, connectTimeout, socketTimeout, downloadTimeout);
     this.reducedProcessingDownloadClient = new ResourceDownloadClient(redirectCount,
-        mimeType -> false, connectTimeout, socketTimeout);
+        mimeType -> false, connectTimeout, socketTimeout, downloadTimeout);
     this.tika = new Tika();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));

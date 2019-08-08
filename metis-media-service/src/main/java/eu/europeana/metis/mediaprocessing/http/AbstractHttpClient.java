@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -45,18 +47,24 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   private final ScheduledExecutorService connectionCleaningSchedule = Executors
       .newScheduledThreadPool(1);
 
+  private final int requestTimeout;
+
   /**
    * Constructor.
    *
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    * @param connectTimeout The connection timeout in milliseconds.
    * @param socketTimeout The socket timeout in milliseconds.
+   * @param requestTimeout The time after which the request will be aborted (if it hasn't finished
+   * by then). In milliseconds.
    */
-  AbstractHttpClient(int maxRedirectCount, int connectTimeout, int socketTimeout) {
+  AbstractHttpClient(int maxRedirectCount, int connectTimeout, int socketTimeout,
+      int requestTimeout) {
 
     // Set the request config settings
     final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount)
         .setConnectTimeout(connectTimeout).setSocketTimeout(socketTimeout).build();
+    this.requestTimeout = requestTimeout;
 
     // Create a connection manager tuned to one thread use.
     connectionManager = new PoolingHttpClientConnectionManager();
@@ -97,6 +105,19 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final String resourceUlr = getResourceUrl(resourceEntry);
     final HttpGet httpGet = new HttpGet(resourceUlr);
     final HttpClientContext context = HttpClientContext.create();
+
+    // Set up the abort trigger
+    final TimerTask abortTask = new TimerTask() {
+      @Override
+      public void run() {
+        LOGGER.info("Aborting request due to time limit: {}.", resourceUlr);
+        httpGet.abort();
+      }
+    };
+    final Timer timer = new Timer(true);
+    timer.schedule(abortTask, requestTimeout);
+
+    // Execute the request.
     try (final CloseableHttpResponse response = client.execute(httpGet, context)) {
 
       // Check response code.
@@ -120,6 +141,20 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       final ContentRetriever content = responseEntity == null ?
           ContentRetriever.forEmptyContent() : responseEntity::getContent;
       return createResult(resourceEntry, actualUri, mimeType, fileSize, content);
+
+    } catch (IOException e) {
+
+      // If aborted, provide a nicer message. Otherwise, just rethrow.
+      if (httpGet.isAborted()) {
+        throw new IOException("The request was aborted: it exceeded the time limit.", e);
+      }
+      throw e;
+
+    } finally {
+
+      // Cancel abort trigger
+      timer.cancel();
+      abortTask.cancel();
     }
   }
 

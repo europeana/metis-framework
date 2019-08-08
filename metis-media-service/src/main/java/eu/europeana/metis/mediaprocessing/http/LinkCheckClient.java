@@ -11,6 +11,7 @@ public class LinkCheckClient extends AbstractHttpClient<String, Void> {
 
   private static final int CONNECT_TIMEOUT = 2_000;
   private static final int SOCKET_TIMEOUT = 5_000;
+  private static final int REQUEST_TIMEOUT = 20_000;
 
   /**
    * Constructor.
@@ -18,7 +19,7 @@ public class LinkCheckClient extends AbstractHttpClient<String, Void> {
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    */
   public LinkCheckClient(int maxRedirectCount) {
-    super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT);
+    super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT, REQUEST_TIMEOUT);
   }
 
   @Override

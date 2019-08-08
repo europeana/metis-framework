@@ -44,11 +44,19 @@ public class MediaProcessorFactory {
    */
   public static final int DEFAULT_RESOURCE_SOCKET_TIMEOUT = 20_000;
 
+  /**
+   * The default value of the maximum amount of time, in milliseconds, we allow the download to take
+   * before timing out. It's currently set to {@value MediaProcessorFactory#DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT}
+   * milliseconds.
+   */
+  public static final int DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT = 600_000;
+
   private int maxRedirectCount = DEFAULT_MAX_REDIRECT_COUNT;
   private int thumbnailGenerateTimeout = DEFAULT_THUMBNAIL_GENERATE_TIMEOUT;
   private int audioVideoProbeTimeout = DEFAULT_AUDIO_VIDEO_PROBE_TIMEOUT;
   private int resourceConnectTimeout = DEFAULT_RESOURCE_CONNECT_TIMEOUT;
   private int resourceSocketTimeout = DEFAULT_RESOURCE_SOCKET_TIMEOUT;
+  private int resourceDownloadTimeout = DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT;
 
   /**
    * Set the maximum number of times we will follow a redirect. The default (when not calling this
@@ -93,22 +101,37 @@ public class MediaProcessorFactory {
    * number) is {@value MediaProcessorFactory#DEFAULT_RESOURCE_CONNECT_TIMEOUT} milliseconds.
    *
    * @param resourceConnectTimeout The maximum amount of time, in milliseconds, we wait for a
-   * connection to a  resource before timing out.
+   * connection to a resource before timing out.
    */
   public void setResourceConnectTimeout(int resourceConnectTimeout) {
-    this.resourceConnectTimeout = resourceConnectTimeout;
+    this.resourceConnectTimeout =
+        resourceConnectTimeout < 1 ? DEFAULT_RESOURCE_CONNECT_TIMEOUT : resourceConnectTimeout;
   }
 
   /**
    * Set the maximum amount of time, in milliseconds, we allow the socket to be inactive before
    * timing out. The default (when not calling this method or calling it with zero or a negative
-   * number) is {@value MediaProcessorFactory#DEFAULT_RESOURCE_CONNECT_TIMEOUT} milliseconds.
+   * number) is {@value MediaProcessorFactory#DEFAULT_RESOURCE_SOCKET_TIMEOUT} milliseconds.
    *
    * @param resourceSocketTimeout The maximum amount of time, in milliseconds, we allow the socket
    * to be inactive before timing out.
    */
   public void setResourceSocketTimeout(int resourceSocketTimeout) {
-    this.resourceSocketTimeout = resourceSocketTimeout;
+    this.resourceSocketTimeout =
+        resourceSocketTimeout < 1 ? DEFAULT_RESOURCE_SOCKET_TIMEOUT : resourceSocketTimeout;
+  }
+
+  /**
+   * Set the maximum amount of time, in milliseconds, we allow the download to take before timing
+   * out. The default (when not calling this method or calling it with zero or a negative number) is
+   * {@value MediaProcessorFactory#DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT} milliseconds.
+   *
+   * @param resourceDownloadTimeout The maximum amount of time, in milliseconds, we allow the
+   * download to take before timing out.
+   */
+  public void setResourceDownloadTimeout(int resourceDownloadTimeout) {
+    this.resourceDownloadTimeout =
+        resourceDownloadTimeout < 1 ? DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT : resourceDownloadTimeout;
   }
 
   /**
@@ -119,7 +142,8 @@ public class MediaProcessorFactory {
    */
   public MediaExtractor createMediaExtractor() throws MediaProcessorException {
     return new MediaExtractorImpl(maxRedirectCount, thumbnailGenerateTimeout,
-        audioVideoProbeTimeout, resourceConnectTimeout, resourceSocketTimeout);
+        audioVideoProbeTimeout, resourceConnectTimeout, resourceSocketTimeout,
+        resourceDownloadTimeout);
   }
 
   /**
