@@ -98,12 +98,6 @@ public class OrchestratorHelper {
     }
   }
 
-  private boolean doesPluginHaveAllErrorRecords(AbstractExecutablePlugin plugin) {
-    return plugin != null && plugin.getExecutionProgress() != null
-        && plugin.getExecutionProgress().getProcessedRecords() == plugin
-        .getExecutionProgress().getErrors();
-  }
-
   boolean addHarvestingPlugin(Workflow workflow, List<AbstractExecutablePlugin> metisPlugins) {
     OaipmhHarvestPluginMetadata oaipmhMetadata = (OaipmhHarvestPluginMetadata) workflow
         .getPluginMetadata(ExecutablePluginType.OAIPMH_HARVEST);
@@ -223,7 +217,7 @@ public class OrchestratorHelper {
   boolean checkWorkflowForPluginType(Workflow workflow, ExecutablePluginType pluginType)
       throws PluginExecutionNotAllowed {
     final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn =
-        ExecutionRules.getPluginTypesSetThatPluginTypeCanBeBasedOn(pluginType);
+        ExecutionRules.getPredecessorTypes(pluginType);
     return pluginTypeOccursOnlyAfter(workflow, pluginType,
         pluginTypesSetThatPluginTypeCanBeBasedOn);
   }
@@ -323,16 +317,8 @@ public class OrchestratorHelper {
   public AbstractExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
       String datasetId, ExecutablePluginType pluginType, ExecutablePluginType enforcedPluginType)
       throws PluginExecutionNotAllowed {
-    AbstractExecutablePlugin latestFinishedPluginIfRequestedPluginAllowedForExecution =
-        ExecutionRules.getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType,
-            enforcedPluginType, datasetId, workflowExecutionDao);
-    if ((latestFinishedPluginIfRequestedPluginAllowedForExecution == null
-        && !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
-        || this.doesPluginHaveAllErrorRecords(
-        latestFinishedPluginIfRequestedPluginAllowedForExecution)) {
-      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-    }
-    return latestFinishedPluginIfRequestedPluginAllowedForExecution;
+    return ExecutionRules
+        .getPredecessorPlugin(pluginType, enforcedPluginType, datasetId, workflowExecutionDao);
   }
 
   private void setupXsltUrlForPluginMetadata(Dataset dataset,

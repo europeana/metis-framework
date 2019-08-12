@@ -1,12 +1,14 @@
 package eu.europeana.metis.core.execution;
 
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -27,82 +29,55 @@ public final class ExecutionRules {
           ExecutablePluginType.LINK_CHECKING));
   private static final Set<ExecutablePluginType> INDEX_PLUGIN_GROUP = Collections
       .unmodifiableSet(EnumSet.of(ExecutablePluginType.PREVIEW, ExecutablePluginType.PUBLISH));
-  private static final Set<ExecutablePluginType> ALL_EXCEPT_LINK_GROUP;
-
-  static {
-    Set<ExecutablePluginType> mergedSet = new HashSet<>();
-    mergedSet.addAll(HARVEST_PLUGIN_GROUP);
-    mergedSet.addAll(PROCESS_PLUGIN_GROUP);
-    mergedSet.addAll(INDEX_PLUGIN_GROUP);
-    mergedSet.remove(ExecutablePluginType.LINK_CHECKING);
-    ALL_EXCEPT_LINK_GROUP = Collections.unmodifiableSet(mergedSet);
-  }
+  private static final Set<ExecutablePluginType> ALL_EXCEPT_LINK_GROUP = Collections
+      .unmodifiableSet(EnumSet.complementOf(EnumSet.of(ExecutablePluginType.LINK_CHECKING)));
 
   private ExecutionRules() {
-    //Private constructor
+    // Private constructor
   }
 
   /**
-   * Get the latest plugin that is allowed to be run for a plugin that is requested for execution.
-   * <p>A pluginType execution must have a source pluginType, except if it's a harvesting plugin.
-   * The ordering of the pluginTypes are predefined in code, but an enforcedPluginType can overwrite
-   * that, and will try to use the enforcedPluginType as a source, if an execution that has properly
-   * finished exists. Executions that are reported as FINISHED but have all records have errors, is
-   * not a valid execution as a source.</p>
+   * Retrieve the predecessor plugin for a new plugin of the given plugin type. This method computes
+   * the type(s) this predecessor can have according to the execution rules, based on the target
+   * plugin type (using {@link #getPredecessorTypes(ExecutablePluginType)}), and then returns the
+   * last successful plugin that has one of these types. The enforced predecessor type provides a
+   * way to override the computed predecessor type: if provided, any predecessor will be of this
+   * type.
    *
-   * @param pluginType the {@link ExecutablePluginType} that is to be executed
-   * @param enforcedPluginType the {@link ExecutablePluginType} used to enforce the source
-   * pluginType of the execution
-   * @param datasetId the dataset identifier to check for
-   * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the corresponding database
-   * @return the {@link AbstractExecutablePlugin} that the pluginType execution will use as a source
-   * or null
+   * @param pluginType the type of the new {@link ExecutablePluginType} that is to be executed.
+   * @param enforcedPredecessorType the plugin type of the predecessor. Can be null in order to
+   * determine the predecessor type according to the execution rules.
+   * @param datasetId the dataset ID of the new plugin's dataset.
+   * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the corresponding database.
+   * @return the {@link AbstractExecutablePlugin} that the pluginType execution will use as a
+   * source. Can be null in case the given type does not require a predecessor.
+   * @throws PluginExecutionNotAllowed In case a valid predecessor is required, but not found.
    */
-  public static AbstractExecutablePlugin getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
-      ExecutablePluginType pluginType, ExecutablePluginType enforcedPluginType, String datasetId,
-      WorkflowExecutionDao workflowExecutionDao) {
-    AbstractExecutablePlugin plugin = null;
-    if (enforcedPluginType != null) {
-      plugin = workflowExecutionDao
-          .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-              EnumSet.of(enforcedPluginType), true);
-    } else if (PROCESS_PLUGIN_GROUP.contains(pluginType) || INDEX_PLUGIN_GROUP
-        .contains(pluginType)) {
-      // Get latest FINISHED plugin for datasetId
-      plugin = getLatestFinishedPluginAllowedForExecution(pluginType, datasetId,
-          workflowExecutionDao);
-      // TODO: 12-3-19 The following code should be removed after DPS technical gap applied. At about September 2019
-      // If pluginType is MEDIA_PROCESS and there is no latest plugin allowed, therefore abstractMetisPlugin == null,
-      // check latest successful OAIPMH_HARVEST and if that was based on the europeana endpoint during migration, then
-      // we return that instead.
-      if (pluginType == ExecutablePluginType.MEDIA_PROCESS && plugin == null) {
-        final AbstractExecutablePlugin latestOaiPlugin = workflowExecutionDao
-            .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-                EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true);
-        if (latestOaiPlugin != null && "https://oai-pmh.eanadev.org/oai"
-            .equalsIgnoreCase(((OaipmhHarvestPluginMetadata) latestOaiPlugin
-                .getPluginMetadata()).getUrl().trim())) {
-          plugin = latestOaiPlugin;
-        }
-      }
+  public static AbstractExecutablePlugin getPredecessorPlugin(ExecutablePluginType pluginType,
+      ExecutablePluginType enforcedPredecessorType, String datasetId,
+      WorkflowExecutionDao workflowExecutionDao) throws PluginExecutionNotAllowed {
+
+    // Determine which predecessor plugin types are permissible.
+    final Set<ExecutablePluginType> predecessorTypes = Optional.ofNullable(enforcedPredecessorType)
+        .<Set<ExecutablePluginType>>map(EnumSet::of)
+        .orElseGet(() -> getPredecessorTypes(pluginType));
+
+    // If no predecessor is required, we are done.
+    if (predecessorTypes.isEmpty()) {
+      return null;
     }
-    return plugin;
+
+    // Find the latest successful plugin of this type. If none found, throw exception.
+    final AbstractExecutablePlugin predecessor = workflowExecutionDao
+        .getLatestSuccessfulPlugin(datasetId, predecessorTypes, true);
+    return Optional.ofNullable(predecessor).filter(ExecutionRules::pluginHasSuccessfulRecords)
+        .orElseThrow(
+            () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
   }
 
-  private static AbstractExecutablePlugin getLatestFinishedPluginAllowedForExecution(
-      ExecutablePluginType pluginType, String datasetId,
-      WorkflowExecutionDao workflowExecutionDao) {
-
-    AbstractExecutablePlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = null;
-
-    Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = getPluginTypesSetThatPluginTypeCanBeBasedOn(
-        pluginType);
-    if (!pluginTypesSetThatPluginTypeCanBeBasedOn.isEmpty()) {
-      latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-          .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-              pluginTypesSetThatPluginTypeCanBeBasedOn, true);
-    }
-    return latestFinishedWorkflowExecutionByDatasetIdAndPluginType;
+  private static boolean pluginHasSuccessfulRecords(AbstractExecutablePlugin plugin) {
+    final ExecutionProgress progress = plugin.getExecutionProgress();
+    return progress != null && progress.getProcessedRecords() > progress.getErrors();
   }
 
   /**
@@ -111,49 +86,47 @@ public final class ExecutionRules {
    *
    * @param pluginType The plugin type for which to return the base types.
    * @return The base types of the given plugin type: those plugin types that a plugin of the given
-   * type can be based on. Cannot be null, but can be the empty set.
+   * type can be based on. Cannot be null, but can be the empty set in case the plugin type has no
+   * predecessors.
    */
-  public static Set<ExecutablePluginType> getPluginTypesSetThatPluginTypeCanBeBasedOn(
-      ExecutablePluginType pluginType) {
-    final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn;
+  public static Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
+    final Set<ExecutablePluginType> predecessorTypes;
     switch (pluginType) {
       case VALIDATION_EXTERNAL:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = HARVEST_PLUGIN_GROUP;
+        predecessorTypes = HARVEST_PLUGIN_GROUP;
         break;
       case TRANSFORMATION:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet
-            .of(ExecutablePluginType.VALIDATION_EXTERNAL);
+        predecessorTypes = EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL);
         break;
       case VALIDATION_INTERNAL:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.TRANSFORMATION);
+        predecessorTypes = EnumSet.of(ExecutablePluginType.TRANSFORMATION);
         break;
       case NORMALIZATION:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet
-            .of(ExecutablePluginType.VALIDATION_INTERNAL);
+        predecessorTypes = EnumSet.of(ExecutablePluginType.VALIDATION_INTERNAL);
         break;
       case ENRICHMENT:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.NORMALIZATION);
+        predecessorTypes = EnumSet.of(ExecutablePluginType.NORMALIZATION);
         break;
       case MEDIA_PROCESS:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.ENRICHMENT);
+        predecessorTypes = EnumSet.of(ExecutablePluginType.ENRICHMENT);
         break;
       case PREVIEW:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.MEDIA_PROCESS);
+        predecessorTypes = EnumSet.of(ExecutablePluginType.MEDIA_PROCESS);
         break;
       case PUBLISH:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = EnumSet.of(ExecutablePluginType.PREVIEW);
+        predecessorTypes = EnumSet.of(ExecutablePluginType.PREVIEW);
         break;
       case LINK_CHECKING:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = ALL_EXCEPT_LINK_GROUP;
+        predecessorTypes = ALL_EXCEPT_LINK_GROUP;
+        break;
+      case HTTP_HARVEST:
+      case OAIPMH_HARVEST:
+        predecessorTypes = Collections.emptySet();
         break;
       default:
-        pluginTypesSetThatPluginTypeCanBeBasedOn = Collections.emptySet();
-        break;
+        throw new IllegalArgumentException("Unrecognized type: " + pluginType);
     }
-//    if (!pluginTypesSetThatPluginTypeCanBeBasedOn.isEmpty()) {
-//      pluginTypesSetThatPluginTypeCanBeBasedOn.add(ExecutablePluginType.LINK_CHECKING);
-//    }
-    return pluginTypesSetThatPluginTypeCanBeBasedOn;
+    return predecessorTypes;
   }
 
   /**

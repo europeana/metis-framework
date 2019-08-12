@@ -238,7 +238,7 @@ class TestWorkflowExecutionDao {
   }
 
   @Test
-  void getFirstOrLastFinishedWorkflowExecutionByDatasetIdAndPluginType_CheckFirstAndLast() {
+  void getFirstOrLastFinishedPlugin_CheckFirstAndLast() {
 
     WorkflowExecution workflowExecutionFirst = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecutionFirst.setWorkflowStatus(WorkflowStatus.FINISHED);
@@ -259,18 +259,16 @@ class TestWorkflowExecutionDao {
     workflowExecutionDao.create(workflowExecutionFirst);
     workflowExecutionDao.create(workflowExecutionSecond);
 
-    AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-            Integer.toString(TestObjectFactory.DATASETID),
+    AbstractMetisPlugin latestFinishedWorkflowExecution = workflowExecutionDao
+        .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), false, false);
-    assertEquals(latestFinishedWorkflowExecutionByDatasetIdAndPluginType.getFinishedDate(),
+    assertEquals(latestFinishedWorkflowExecution.getFinishedDate(),
         workflowExecutionSecond.getMetisPlugins().get(0).getFinishedDate());
 
-    AbstractMetisPlugin firstFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-            Integer.toString(TestObjectFactory.DATASETID),
+    AbstractMetisPlugin firstFinishedWorkflowExecution = workflowExecutionDao
+        .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), false, true);
-    assertEquals(firstFinishedWorkflowExecutionByDatasetIdAndPluginType.getFinishedDate(),
+    assertEquals(firstFinishedWorkflowExecution.getFinishedDate(),
         workflowExecutionFirst.getMetisPlugins().get(0).getFinishedDate());
   }
 
@@ -281,7 +279,7 @@ class TestWorkflowExecutionDao {
   }
 
   @Test
-  void getFirstOrLastFinishedWorkflowExecutionByDatasetIdAndPluginType_CheckExecutable() {
+  void getFirstOrLastFinishedPlugin_CheckExecutable() {
 
     // Create workflow execution with non-executable version
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
@@ -297,19 +295,17 @@ class TestWorkflowExecutionDao {
     workflowExecutionDao.create(workflowExecution);
 
     // Check that the enrichment IS NOT returned by the method.
-    assertNull(workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.ENRICHMENT), false, false));
+    assertNull(workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId,
+        EnumSet.of(ExecutablePluginType.ENRICHMENT), false, false));
 
     // Check that the harvesting IS returned by the method.
-    assertEquals(plugins.get(0).getId(), workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(((AbstractExecutablePluginMetadata) plugins.get(0).getPluginMetadata())
+    assertEquals(plugins.get(0).getId(), workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId,
+        EnumSet.of(((AbstractExecutablePluginMetadata) plugins.get(0).getPluginMetadata())
                 .getExecutablePluginType()), false, false).getId());
   }
 
   @Test
-  void getFirstOrLastFinishedWorkflowExecutionByDatasetIdAndPluginType_CheckDataStatuses() {
+  void getFirstOrLastFinishedPlugin_CheckDataStatuses() {
 
     // Create workflow
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
@@ -358,43 +354,34 @@ class TestWorkflowExecutionDao {
     workflowExecutionDao.create(workflowExecution);
 
     // Try to find the default plugin
-    assertEquals(defaultPluginId, workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), false, true).getId());
-    assertEquals(defaultPluginId, workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true, true)
-        .getId());
+    assertEquals(defaultPluginId, workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId,
+        EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), false, true).getId());
+    assertEquals(defaultPluginId, workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId,
+        EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true, true).getId());
 
     // Try to find the valid plugin
-    assertEquals(validPluginId, workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.TRANSFORMATION), false, true).getId());
-    assertEquals(validPluginId, workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.TRANSFORMATION), true, true)
-        .getId());
+    assertEquals(validPluginId, workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId,
+        EnumSet.of(ExecutablePluginType.TRANSFORMATION), false, true).getId());
+    assertEquals(validPluginId, workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId,
+        EnumSet.of(ExecutablePluginType.TRANSFORMATION), true, true).getId());
 
     // Try to find the deprecated plugin
-    assertEquals(deprecatedPluginId, workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.ENRICHMENT), false, false).getId());
-    assertNull(workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            EnumSet.of(ExecutablePluginType.ENRICHMENT), true, false));
+    assertEquals(deprecatedPluginId, workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId,
+        EnumSet.of(ExecutablePluginType.ENRICHMENT), false, false).getId());
+    assertNull(workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId,
+        EnumSet.of(ExecutablePluginType.ENRICHMENT), true, false));
   }
 
   @Test
-  void getFirstOrLastFinishedWorkflowExecutionByDatasetIdAndPluginType_isNull() {
-    AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-            Integer.toString(TestObjectFactory.DATASETID),
+  void getFirstOrLastFinishedPlugin_isNull() {
+    AbstractMetisPlugin latestFinishedWorkflowExecution = workflowExecutionDao
+        .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), false, false);
-    assertNull(latestFinishedWorkflowExecutionByDatasetIdAndPluginType);
+    assertNull(latestFinishedWorkflowExecution);
   }
 
   @Test
-  void getFirstFinishedWorkflowExecutionByDatasetIdAndPluginType() {
+  void getFirstSuccessfulPlugin() {
 
     // Set up the mock
     final AbstractExecutablePlugin plugin = ExecutablePluginFactory
@@ -403,22 +390,18 @@ class TestWorkflowExecutionDao {
     final Set<ExecutablePluginType> pluginTypes = EnumSet
         .of(ExecutablePluginType.ENRICHMENT, ExecutablePluginType.MEDIA_PROCESS);
     doReturn(plugin).when(workflowExecutionDao)
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            pluginTypes, false, true);
+        .getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false, true);
 
     // Check the call
-    assertSame(plugin, workflowExecutionDao
-        .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, pluginTypes));
+    assertSame(plugin, workflowExecutionDao.getFirstSuccessfulPlugin(datasetId, pluginTypes));
     verify(workflowExecutionDao, times(1))
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            pluginTypes, false, true);
+        .getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false, true);
     verify(workflowExecutionDao, times(1))
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(anyString(),
-            any(), anyBoolean(), anyBoolean());
+        .getFirstOrLastFinishedPlugin(anyString(), any(), anyBoolean(), anyBoolean());
   }
 
   @Test
-  void getLastFinishedWorkflowExecutionByDatasetIdAndPluginType() {
+  void getLatestSuccessfulPlugin() {
 
     // Set up the mock
     final AbstractExecutablePlugin plugin = ExecutablePluginFactory
@@ -427,19 +410,15 @@ class TestWorkflowExecutionDao {
     final Set<ExecutablePluginType> pluginTypes = EnumSet
         .of(ExecutablePluginType.ENRICHMENT, ExecutablePluginType.MEDIA_PROCESS);
     doReturn(plugin).when(workflowExecutionDao)
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            pluginTypes, true, false);
+        .getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true, false);
 
     // Check the call
-    assertSame(plugin, workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, pluginTypes,
-            true));
+    assertSame(plugin,
+        workflowExecutionDao.getLatestSuccessfulPlugin(datasetId, pluginTypes, true));
     verify(workflowExecutionDao, times(1))
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-            pluginTypes, true, false);
+        .getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true, false);
     verify(workflowExecutionDao, times(1))
-        .getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(anyString(), any(),
-            anyBoolean(), anyBoolean());
+        .getFirstOrLastFinishedPlugin(anyString(), any(), anyBoolean(), anyBoolean());
   }
 
   @Test

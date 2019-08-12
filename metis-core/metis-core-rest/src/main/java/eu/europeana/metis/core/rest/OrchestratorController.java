@@ -6,7 +6,6 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
-import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -340,9 +339,7 @@ public class OrchestratorController {
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, datasetId,
             pluginType, enforcedPluginType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId == null) {
-      if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
-        LOGGER.info("PluginType allowed by default");
-      }
+      LOGGER.info("PluginType allowed by default");
     } else {
       LOGGER.info("Latest Plugin WorkflowExecution with id '{}' found",
           latestFinishedPluginWorkflowExecutionByDatasetId.getId());

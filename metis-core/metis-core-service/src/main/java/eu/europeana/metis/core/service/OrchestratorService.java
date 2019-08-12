@@ -596,17 +596,14 @@ public class OrchestratorService {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
     AbstractExecutablePlugin lastHarvestPlugin = workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(ExecutablePluginType.HTTP_HARVEST, ExecutablePluginType.OAIPMH_HARVEST), false);
+        .getLatestSuccessfulPlugin(datasetId, EnumSet.of(ExecutablePluginType.HTTP_HARVEST,
+            ExecutablePluginType.OAIPMH_HARVEST), false);
     AbstractExecutablePlugin firstPublishPlugin = workflowExecutionDao
-        .getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(ExecutablePluginType.PUBLISH));
+        .getFirstSuccessfulPlugin(datasetId, EnumSet.of(ExecutablePluginType.PUBLISH));
     AbstractExecutablePlugin lastPreviewPlugin = workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(ExecutablePluginType.PREVIEW), false);
+        .getLatestSuccessfulPlugin(datasetId, EnumSet.of(ExecutablePluginType.PREVIEW), false);
     AbstractExecutablePlugin lastPublishPlugin = workflowExecutionDao
-        .getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId, EnumSet
-            .of(ExecutablePluginType.PUBLISH), false);
+        .getLatestSuccessfulPlugin(datasetId, EnumSet.of(ExecutablePluginType.PUBLISH), false);
 
     final WorkflowExecution runningOrInQueueExecution = workflowExecutionDao
         .getRunningOrInQueueExecution(datasetId);
