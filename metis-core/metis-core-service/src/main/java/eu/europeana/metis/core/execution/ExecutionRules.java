@@ -3,11 +3,18 @@ package eu.europeana.metis.core.execution;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
+import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -37,6 +44,71 @@ public final class ExecutionRules {
   }
 
   /**
+   * This method validates the workflow plugin sequence. In particular, it checks:
+   * <ol>
+   * <li>That the workflow is not empty and contains plugins with valid types,</li>
+   * <li>That the first plugin is not link checking (except when it is the only plugin),</li>
+   * <li>That no two plugins of the same type occur in the workflow,</li>
+   * <li>That all subsequent plugins have a valid predecessor within the workflow (as defined by
+   * {@link #getPredecessorTypes(ExecutablePluginType)}).</li>
+   * </ol>
+   * Note that this does not check that the first plugin has a valid predecessor. This is something
+   * that we can overwrite when we schedule it for execution: it does not need to be checked here.
+   *
+   * @param workflow The workflow to validate.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link BadContentException} In case the workflow is empty, or contains plugins with
+   * invalid types.</li>
+   * <li>{@link PluginExecutionNotAllowed} in case the plugin sequence as provided is not
+   * allowed.</li>
+   * </ul>
+   */
+  public static void validateWorkflowPlugins(Workflow workflow) throws GenericMetisException {
+
+    // Sanity checks: workflow should not be empty and all should have a type.
+    final List<AbstractExecutablePluginMetadata> plugins = workflow.getMetisPluginsMetadata();
+    if (plugins == null || plugins.isEmpty()) {
+      throw new BadContentException("Workflow should not be empty.");
+    }
+    if (plugins.stream().map(AbstractExecutablePluginMetadata::getExecutablePluginType)
+        .anyMatch(Objects::isNull)) {
+      throw new BadContentException("There are plugins of which the type could not be determined.");
+    }
+
+    // Check that first plugin is not link checking (except if it is the only plugin)
+    if (plugins.size() > 1 && plugins.get(0).getPluginType() == PluginType.LINK_CHECKING) {
+      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+    }
+
+    // Make sure that all plugins (except the first) have a predecessor within the workflow.
+    final EnumSet<ExecutablePluginType> previousTypes = EnumSet
+        .of(plugins.get(0).getExecutablePluginType());
+    for (int i = 1; i < plugins.size(); i++) {
+
+      // Find the permissible predecessors
+      final AbstractExecutablePluginMetadata plugin = plugins.get(i);
+      final Set<ExecutablePluginType> permissiblePredecessors = getPredecessorTypes(
+          plugin.getExecutablePluginType());
+
+      // Check if we have the right predecessor plugin types in the workflow
+      final boolean hasNoPredecessor = !permissiblePredecessors.isEmpty() &&
+          permissiblePredecessors.stream().noneMatch(previousTypes::contains);
+      if (hasNoPredecessor) {
+        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+      }
+
+      // Add the plugin type to those we have seen
+      previousTypes.add(plugin.getExecutablePluginType());
+    }
+
+    // We should now have seen all types. Make sure that there are no duplicates
+    if (previousTypes.size() != plugins.size()) {
+      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+    }
+  }
+
+  /**
    * Retrieve the predecessor plugin for a new plugin of the given plugin type. This method computes
    * the type(s) this predecessor can have according to the execution rules, based on the target
    * plugin type (using {@link #getPredecessorTypes(ExecutablePluginType)}), and then returns the
@@ -48,7 +120,7 @@ public final class ExecutionRules {
    * @param enforcedPredecessorType the plugin type of the predecessor. Can be null in order to
    * determine the predecessor type according to the execution rules.
    * @param datasetId the dataset ID of the new plugin's dataset.
-   * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the corresponding database.
+   * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the database.
    * @return the {@link AbstractExecutablePlugin} that the pluginType execution will use as a
    * source. Can be null in case the given type does not require a predecessor.
    * @throws PluginExecutionNotAllowed In case a valid predecessor is required, but not found.
@@ -86,8 +158,8 @@ public final class ExecutionRules {
    *
    * @param pluginType The plugin type for which to return the base types.
    * @return The base types of the given plugin type: those plugin types that a plugin of the given
-   * type can be based on. Cannot be null, but can be the empty set in case the plugin type has no
-   * predecessors.
+   * type can be based on. Cannot be null, but can be the empty set in case the plugin type requires
+   * no predecessor.
    */
   public static Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
     final Set<ExecutablePluginType> predecessorTypes;

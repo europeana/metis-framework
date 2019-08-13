@@ -13,6 +13,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -156,7 +157,7 @@ class TestOrchestratorService {
         .authorizeWriteExistingDatasetById(metisUser, workflow.getDatasetId());
     verifyNoMoreInteractions(authorizer);
     InOrder inOrder = Mockito.inOrder(workflowDao);
-    inOrder.verify(workflowDao, times(1)).exists(workflow);
+    inOrder.verify(workflowDao, times(1)).workflowExistsForDataset(workflow.getDatasetId());
     inOrder.verify(workflowDao, times(1)).create(workflow);
     inOrder.verifyNoMoreInteractions();
   }
@@ -165,23 +166,17 @@ class TestOrchestratorService {
   void createWorkflowOrderOfPluginsNotAllowed() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
-
-    List<AbstractExecutablePluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
-    List<AbstractExecutablePluginMetadata> wrongOrderMetisPluginsMetadata = new ArrayList<>(
-        metisPluginsMetadata);
-    Collections.copy(wrongOrderMetisPluginsMetadata, metisPluginsMetadata);
-    wrongOrderMetisPluginsMetadata.remove(2);
-    workflow.setMetisPluginsMetadata(wrongOrderMetisPluginsMetadata);
     Dataset dataset = TestObjectFactory.createDataset("datasetName");
     workflow.setDatasetId(dataset.getDatasetId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    doThrow(PluginExecutionNotAllowed.class).when(orchestratorHelper).validateWorkflow(workflow);
     assertThrows(PluginExecutionNotAllowed.class,
         () -> orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow));
 
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, workflow.getDatasetId());
     verifyNoMoreInteractions(authorizer);
-    verify(workflowDao, times(1)).exists(workflow);
+    verify(workflowDao, times(1)).workflowExistsForDataset(workflow.getDatasetId());
     verifyNoMoreInteractions(workflowDao);
   }
 
@@ -192,25 +187,14 @@ class TestOrchestratorService {
     Dataset dataset = TestObjectFactory.createDataset("datasetName");
     workflow.setDatasetId(dataset.getDatasetId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(workflowDao.exists(workflow)).thenReturn(new ObjectId().toString());
+    when(workflowDao.workflowExistsForDataset(workflow.getDatasetId())).thenReturn(true);
 
     assertThrows(WorkflowAlreadyExistsException.class,
         () -> orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow));
 
     InOrder inOrder = Mockito.inOrder(workflowDao);
-    inOrder.verify(workflowDao, times(1)).exists(workflow);
+    inOrder.verify(workflowDao, times(1)).workflowExistsForDataset(workflow.getDatasetId());
     inOrder.verifyNoMoreInteractions();
-  }
-
-  @Test
-  void createWorkflow_NoDatasetFoundException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    Dataset dataset = TestObjectFactory.createDataset("datasetName");
-    workflow.setDatasetId(dataset.getDatasetId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(null);
-    assertThrows(NoDatasetFoundException.class,
-        () -> orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow));
   }
 
   @Test
@@ -229,17 +213,6 @@ class TestOrchestratorService {
     inOrder.verify(workflowDao, times(1)).getWorkflow(dataset.getDatasetId());
     inOrder.verify(workflowDao, times(1)).update(workflow);
     inOrder.verifyNoMoreInteractions();
-  }
-
-  @Test
-  void updateWorkflow_NoDatasetFoundException() {
-    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    Dataset dataset = TestObjectFactory.createDataset("datasetName");
-    workflow.setDatasetId(dataset.getDatasetId());
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(null);
-    assertThrows(NoDatasetFoundException.class,
-        () -> orchestratorService.updateWorkflow(metisUser, workflow.getDatasetId(), workflow));
   }
 
   @Test

@@ -1,6 +1,5 @@
 package eu.europeana.metis.core.service;
 
-import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
@@ -15,6 +14,7 @@ import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
@@ -23,7 +23,6 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
@@ -35,8 +34,6 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.DateUtils;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,7 +43,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.RLock;
@@ -55,7 +51,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 /**
  * Service class that controls the communication between the different DAOs of the system.
@@ -118,22 +113,26 @@ public class OrchestratorService {
    * already exists</li>
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   * <li>{@link BadContentException} if the workflow parameters have unexpected values</li>
    * </ul>
    */
   public void createWorkflow(MetisUser metisUser, String datasetId, Workflow workflow)
       throws GenericMetisException {
+
+    // Authorize (check dataset existence) and set dataset ID to avoid discrepancy.
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
-    try {
-      orchestratorHelper.validateAndTrimHarvestParameters(workflow);
-    } catch (MalformedURLException | URISyntaxException e) {
-      throw new BadContentException("Harvesting parameters are invalid", e);
-    }
-    if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
-      throw new NoDatasetFoundException(
-          String.format("Dataset with datasetId: %s does NOT exist", datasetId));
-    }
     workflow.setDatasetId(datasetId);
-    checkRestrictionsOnWorkflowCreate(datasetId, workflow);
+
+    // Check that the workflow does not yet exist.
+    if (workflowDao.workflowExistsForDataset(workflow.getDatasetId())) {
+      throw new WorkflowAlreadyExistsException(
+          String.format("Workflow with datasetId: %s, already exists", workflow.getDatasetId()));
+    }
+
+    // Validate the new workflow.
+    orchestratorHelper.validateWorkflow(workflow);
+
+    // Save the workflow.
     workflow.getMetisPluginsMetadata()
         .forEach(abstractMetisPluginMetadata -> abstractMetisPluginMetadata.setEnabled(true));
     workflowDao.create(workflow);
@@ -154,27 +153,30 @@ public class OrchestratorService {
    * not exist</li>
    * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   * <li>{@link BadContentException} if the workflow parameters have unexpected values</li>
    * </ul>
    */
   public void updateWorkflow(MetisUser metisUser, String datasetId, Workflow workflow)
       throws GenericMetisException {
-    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
-    try {
-      orchestratorHelper.validateAndTrimHarvestParameters(workflow);
-    } catch (MalformedURLException | URISyntaxException e) {
-      throw new BadContentException("Harvesting parameters are invalid", e);
-    }
-    if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
-      throw new NoDatasetFoundException(
-          String.format("Dataset with datasetId: %s does NOT exist", datasetId));
-    }
-    workflow.setDatasetId(datasetId);
-    Workflow storedWorkflow = checkRestrictionsOnWorkflowUpdate(datasetId, workflow);
-    workflow.setId(storedWorkflow.getId());
-    orchestratorHelper
-        .overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(workflow,
-            storedWorkflow);
 
+    // Authorize (check dataset existence) and set dataset ID to avoid discrepancy.
+    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    workflow.setDatasetId(datasetId);
+
+    // Get the current workflow in the database. If it doesn't exist, throw exception.
+    final Workflow storedWorkflow = workflowDao.getWorkflow(workflow.getDatasetId());
+    if (storedWorkflow == null) {
+      throw new NoWorkflowFoundException(String.format(
+          "Workflow with datasetId: %s, not found", workflow.getDatasetId()));
+    }
+
+    // Validate the new workflow.
+    orchestratorHelper.validateWorkflow(workflow);
+
+    // Overwrite the workflow.
+    workflow.setId(storedWorkflow.getId());
+    orchestratorHelper.overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(workflow,
+        storedWorkflow);
     workflowDao.update(workflow);
   }
 
@@ -208,10 +210,6 @@ public class OrchestratorService {
    */
   public Workflow getWorkflow(MetisUser metisUser, String datasetId) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    return getWorkflow(datasetId);
-  }
-
-  private Workflow getWorkflow(String datasetId) {
     return workflowDao.getWorkflow(datasetId);
   }
 
@@ -389,64 +387,6 @@ public class OrchestratorService {
     }
   }
 
-  private void checkRestrictionsOnWorkflowCreate(String datasetId, Workflow workflow)
-      throws WorkflowAlreadyExistsException, PluginExecutionNotAllowed {
-
-    if (StringUtils.isNotEmpty(workflowExists(workflow))) {
-      throw new WorkflowAlreadyExistsException(
-          String.format("Workflow with datasetId: %s, already exists", workflow.getDatasetId()));
-    }
-    workflowOrderValidator(datasetId, workflow);
-  }
-
-  private Workflow checkRestrictionsOnWorkflowUpdate(String datasetId, Workflow workflow)
-      throws NoWorkflowFoundException, PluginExecutionNotAllowed {
-
-    Workflow storedWorkflow = getWorkflow(workflow.getDatasetId());
-    if (storedWorkflow == null) {
-      throw new NoWorkflowFoundException(String.format(
-          "Workflow with datasetId: %s, not found", workflow.getDatasetId()));
-    }
-    workflowOrderValidator(datasetId, workflow);
-
-    return storedWorkflow;
-  }
-
-  private void workflowOrderValidator(String datasetId, Workflow workflow)
-      throws PluginExecutionNotAllowed {
-    //Workflow should not have duplicated plugins or be empty.
-    if (orchestratorHelper.listContainsDuplicates(workflow.getMetisPluginsMetadata())
-        || CollectionUtils.isEmpty(workflow.getMetisPluginsMetadata())) {
-      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-    }
-    // Sanity check, for the first plugin, that will throw exception if there is NO pluginType to be
-    // based on in the database.
-    orchestratorHelper.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId,
-        workflow.getMetisPluginsMetadata().get(0).getExecutablePluginType(), null);
-
-    if (workflow.getMetisPluginsMetadata().size() > 1) {
-      // If ok then check the order of all subsequent plugins.
-      final boolean valid = workflow.getMetisPluginsMetadata().stream()
-          .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
-          .allMatch(
-              pluginType -> {
-                try {
-                  return orchestratorHelper.checkWorkflowForPluginType(workflow, pluginType);
-                } catch (PluginExecutionNotAllowed e) {
-                  LOGGER.warn("Failed validation of plugins order in workflow", e);
-                  return false;
-                }
-              });
-      if (!valid) {
-        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-      }
-    }
-  }
-
-  private String workflowExists(Workflow workflow) {
-    return workflowDao.exists(workflow);
-  }
-
   /**
    * The number of WorkflowExecutions that would be returned if a get all request would be
    * performed.
@@ -490,9 +430,8 @@ public class OrchestratorService {
       MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
       ExecutablePluginType enforcedPluginType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    return orchestratorHelper
-        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType,
-            enforcedPluginType);
+    return ExecutionRules
+        .getPredecessorPlugin(pluginType, enforcedPluginType, datasetId, workflowExecutionDao);
   }
 
   /**

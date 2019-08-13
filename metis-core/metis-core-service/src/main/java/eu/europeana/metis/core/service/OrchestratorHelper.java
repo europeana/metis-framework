@@ -25,6 +25,8 @@ import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,7 +36,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
@@ -70,31 +71,37 @@ public class OrchestratorHelper {
     this.datasetXsltDao = datasetXsltDao;
   }
 
-  void validateAndTrimHarvestParameters(Workflow workflow)
-      throws MalformedURLException, URISyntaxException {
-    OaipmhHarvestPluginMetadata oaipmhPluginMetadata = (OaipmhHarvestPluginMetadata) workflow
-        .getPluginMetadata(ExecutablePluginType.OAIPMH_HARVEST);
-    if (oaipmhPluginMetadata != null) {
-      URL url = new URL(oaipmhPluginMetadata.getUrl().trim()); // this would check for the protocol
-      URI validatedUri = url.toURI();// does the extra checking required for validation of URI
+  private void validateAndTrimHarvestParameters(Workflow workflow) throws BadContentException {
+    try {
+      OaipmhHarvestPluginMetadata oaipmhPluginMetadata = (OaipmhHarvestPluginMetadata) workflow
+          .getPluginMetadata(ExecutablePluginType.OAIPMH_HARVEST);
+      if (oaipmhPluginMetadata != null) {
+        // this would check for the protocol
+        URL url = new URL(oaipmhPluginMetadata.getUrl().trim());
+        // does the extra checking required for validation of URI
+        URI validatedUri = url.toURI();
 
-      //Remove all the query parameters
-      String urlWithoutQueryParameters = new URI(validatedUri.getScheme(),
-          validatedUri.getAuthority(), validatedUri.getPath(), null, null).toString();
-      oaipmhPluginMetadata.setUrl(urlWithoutQueryParameters);
-      oaipmhPluginMetadata.setMetadataFormat(oaipmhPluginMetadata.getMetadataFormat() == null ? null
-          : oaipmhPluginMetadata.getMetadataFormat().trim());
-      oaipmhPluginMetadata.setSetSpec(oaipmhPluginMetadata.getSetSpec() == null ? null
-          : oaipmhPluginMetadata.getSetSpec().trim());
-    }
+        //Remove all the query parameters
+        String urlWithoutQueryParameters = new URI(validatedUri.getScheme(),
+            validatedUri.getAuthority(), validatedUri.getPath(), null, null).toString();
+        oaipmhPluginMetadata.setUrl(urlWithoutQueryParameters);
+        oaipmhPluginMetadata.setMetadataFormat(oaipmhPluginMetadata.getMetadataFormat() == null ?
+            null : oaipmhPluginMetadata.getMetadataFormat().trim());
+        oaipmhPluginMetadata.setSetSpec(oaipmhPluginMetadata.getSetSpec() == null ? null
+            : oaipmhPluginMetadata.getSetSpec().trim());
+      }
 
-    HTTPHarvestPluginMetadata httpHarvestPluginMetadata = (HTTPHarvestPluginMetadata) workflow
-        .getPluginMetadata(ExecutablePluginType.HTTP_HARVEST);
-    if (httpHarvestPluginMetadata != null) {
-      URL u = new URL(
-          httpHarvestPluginMetadata.getUrl().trim()); // this would check for the protocol
-      u.toURI(); // does the extra checking required for validation of URI
-      httpHarvestPluginMetadata.setUrl(httpHarvestPluginMetadata.getUrl().trim());
+      HTTPHarvestPluginMetadata httpHarvestPluginMetadata = (HTTPHarvestPluginMetadata) workflow
+          .getPluginMetadata(ExecutablePluginType.HTTP_HARVEST);
+      if (httpHarvestPluginMetadata != null) {
+        // this would check for the protocol
+        URL u = new URL(httpHarvestPluginMetadata.getUrl().trim());
+        // does the extra checking required for validation of URI
+        u.toURI();
+        httpHarvestPluginMetadata.setUrl(httpHarvestPluginMetadata.getUrl().trim());
+      }
+    } catch (MalformedURLException | URISyntaxException e) {
+      throw new BadContentException("Harvesting parameters are invalid", e);
     }
   }
 
@@ -145,8 +152,9 @@ public class OrchestratorHelper {
       throws PluginExecutionNotAllowed {
     ExecutablePluginType pluginType = pluginMetadata.getExecutablePluginType();
     if (!firstPluginDefined) {
-      AbstractExecutablePlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-          dataset.getDatasetId(), pluginMetadata.getExecutablePluginType(), enforcedPluginType);
+      AbstractExecutablePlugin previousPlugin = ExecutionRules
+          .getPredecessorPlugin(pluginMetadata.getExecutablePluginType(), enforcedPluginType,
+              dataset.getDatasetId(), this.workflowExecutionDao);
       // Set all previous revision information
       // TODO JV do this for all plugins, not just the first one. It's currently done in the WorkflowExecutor.
       pluginMetadata.setPreviousRevisionInformation(previousPlugin);
@@ -214,78 +222,9 @@ public class OrchestratorHelper {
     }
   }
 
-  boolean checkWorkflowForPluginType(Workflow workflow, ExecutablePluginType pluginType)
-      throws PluginExecutionNotAllowed {
-    final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn =
-        ExecutionRules.getPredecessorTypes(pluginType);
-    return pluginTypeOccursOnlyAfter(workflow, pluginType,
-        pluginTypesSetThatPluginTypeCanBeBasedOn);
-  }
-
-  /**
-   * <p>
-   * This method tests whether in this workflow all plugins of the given type occur after at least
-   * one plugin of one of the given earlier types. So, more formally, it returns true if any of the
-   * following occurs:
-   * <ol>
-   * <li>The given plugin type is part of the {@link ExecutionRules#getHarvestPluginGroup}</li>
-   * <li>The workflow contains at least one plugin of the given plugin type and it's predecessor is
-   * an acceptable earlier type. For a link checking plugins, it's predecessor is checked instead of
-   * it's own.</li>
-   * </ol>
-   * </p>
-   * <p>
-   * Note that this method does not assume that each plugin type only occurs once.
-   * </p>
-   *
-   * @param workflow the workflow to be checked
-   * @param pluginType the plugin type that we are testing for. Cannot be null.
-   * @param possibleEarlierPluginTypes the possible plugin types that has to occur before the other
-   * given type. Can be null or empty (in which case the result will be false, unless it's a
-   * harvesting plugin).
-   * @return whether the workflow contains plugins of the two given types in the given order.
-   * @throws PluginExecutionNotAllowed if the first plugin base cannot be resolved
-   */
-  public boolean pluginTypeOccursOnlyAfter(Workflow workflow,
-      ExecutablePluginType pluginType, Set<ExecutablePluginType> possibleEarlierPluginTypes)
-      throws PluginExecutionNotAllowed {
-    if (pluginType == null) {
-      throw new IllegalArgumentException();
-    }
-    if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
-      return true;
-    } else if ((possibleEarlierPluginTypes == null || possibleEarlierPluginTypes.isEmpty())) {
-      return false;
-    }
-    boolean earlierPluginTypeFound = false;
-
-    final List<AbstractExecutablePluginMetadata> metisPluginsMetadata = workflow
-        .getMetisPluginsMetadata();
-    for (int i = 0; i < metisPluginsMetadata.size(); i++) {
-      final AbstractExecutablePluginMetadata plugin = metisPluginsMetadata.get(i);
-      ExecutablePluginType pluginTypeInWorkflow = plugin.getExecutablePluginType();
-
-      if (pluginTypeInWorkflow == pluginType && i == 0) {
-        earlierPluginTypeFound = true;
-        break;
-      } else if (pluginTypeInWorkflow == pluginType) {
-        break;
-      }
-      //Resolve source of link checking
-      if (pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING && i != 0) {
-        pluginTypeInWorkflow = metisPluginsMetadata.get(i - 1).getExecutablePluginType();
-      } else if (pluginTypeInWorkflow == ExecutablePluginType.LINK_CHECKING) {
-        final AbstractExecutablePlugin<?> linkCheckingBasePlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            workflow.getDatasetId(),
-            workflow.getMetisPluginsMetadata().get(0).getExecutablePluginType(), null);
-        pluginTypeInWorkflow = linkCheckingBasePlugin.getPluginMetadata().getExecutablePluginType();
-      }
-      if (metisPluginsMetadata.get(i + 1).getExecutablePluginType() == pluginType) {
-        earlierPluginTypeFound = earlierPluginTypeFound || possibleEarlierPluginTypes
-            .contains(pluginTypeInWorkflow);
-      }
-    }
-    return earlierPluginTypeFound;
+  void validateWorkflow(Workflow workflow) throws GenericMetisException {
+    validateAndTrimHarvestParameters(workflow);
+    ExecutionRules.validateWorkflowPlugins(workflow);
   }
 
   void overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(Workflow workflow,
@@ -300,25 +239,6 @@ public class OrchestratorHelper {
         .collect(Collectors.toList());
     workflow.setMetisPluginsMetadata(Stream.concat(storedPluginsExcludingNewPlugins.stream(),
         workflow.getMetisPluginsMetadata().stream()).collect(Collectors.toList()));
-  }
-
-  /**
-   * Finds the latest finished plugin that is not of any {@link ExecutionRules#getHarvestPluginGroup()}
-   * and does not contain all records as failed. If none found with the above requirements, an
-   * exception will be thrown of type {@link PluginExecutionNotAllowed}
-   *
-   * @param datasetId the dataset id of which the plugin is to be found
-   * @param pluginType the plugin type of which a previous of that plugin is to be searched for
-   * @param enforcedPluginType the plugin type that bypasses the check of the {@code pluginType}
-   * value for the previous plugin search
-   * @return the latest valid finished plugin
-   * @throws PluginExecutionNotAllowed if no plugin was found with meeting the requirements
-   */
-  public AbstractExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-      String datasetId, ExecutablePluginType pluginType, ExecutablePluginType enforcedPluginType)
-      throws PluginExecutionNotAllowed {
-    return ExecutionRules
-        .getPredecessorPlugin(pluginType, enforcedPluginType, datasetId, workflowExecutionDao);
   }
 
   private void setupXsltUrlForPluginMetadata(Dataset dataset,
@@ -363,12 +283,6 @@ public class OrchestratorHelper {
 
     // Done
     return new ImmutablePair<>(previousExecution, previousPlugin);
-  }
-
-  boolean listContainsDuplicates(List<AbstractExecutablePluginMetadata> list) {
-    final Set<PluginType> collect = list.stream()
-        .map(AbstractExecutablePluginMetadata::getPluginType).collect(Collectors.toSet());
-    return collect.size() != list.size();
   }
 
   public ValidationProperties getValidationExternalProperties() {
