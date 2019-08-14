@@ -70,6 +70,7 @@ public class OrchestratorController {
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier to relate the workflow to
+   * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param workflow the Workflow will all it's requested plugins
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -90,10 +91,11 @@ public class OrchestratorController {
   public void createWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType,
       @RequestBody Workflow workflow)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    orchestratorService.createWorkflow(metisUser, datasetId, workflow);
+    orchestratorService.createWorkflow(metisUser, datasetId, workflow, enforcedPredecessorType);
   }
 
   /**
@@ -104,6 +106,7 @@ public class OrchestratorController {
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the identifier of the dataset for which the workflow should be updated
+   * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param workflow the workflow with the plugins requested
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -122,9 +125,10 @@ public class OrchestratorController {
   public void updateWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType,
       @RequestBody Workflow workflow) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    orchestratorService.updateWorkflow(metisUser, datasetId, workflow);
+    orchestratorService.updateWorkflow(metisUser, datasetId, workflow, enforcedPredecessorType);
   }
 
   /**
@@ -192,12 +196,12 @@ public class OrchestratorController {
    * status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database and
    * also it's identifier goes into the distributed queue of WorkflowExecutions. The source data for
    * the first plugin in the workflow can be controlled, if required, from the {@code
-   * enforcedPluginType}, which means that the last valid plugin that is provided with that
+   * enforcedPredecessorType}, which means that the last valid plugin that is provided with that
    * parameter, will be used as the source data.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier for which the execution will take place
-   * @param enforcedPluginType optional, the plugin type to be used as source data
+   * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
    * highest
    * @return the WorkflowExecution object that was generated
@@ -226,12 +230,12 @@ public class OrchestratorController {
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPluginType,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     WorkflowExecution workflowExecution = orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, enforcedPluginType, priority);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, enforcedPredecessorType, priority);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("WorkflowExecution for datasetId '{}' added to queue",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -305,12 +309,12 @@ public class OrchestratorController {
   /**
    * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
    * there was a previous successful finished plugin that follows a specific order unless the {@code
-   * enforcedPluginType} is used.
+   * enforcedPredecessorType} is used.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier of which the executions are based on
    * @param pluginType the pluginType to be checked for allowance of execution
-   * @param enforcedPluginType optional, the plugin type to be used as source data
+   * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can
    * be null if the {@code pluginType} is the first one in the total order of executions e.g. One of
    * the harvesting plugins.
@@ -332,12 +336,12 @@ public class OrchestratorController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam("pluginType") ExecutablePluginType pluginType,
-      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPluginType)
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, datasetId,
-            pluginType, enforcedPluginType);
+            pluginType, enforcedPredecessorType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId == null) {
       LOGGER.info("PluginType allowed by default");
     } else {

@@ -38,7 +38,7 @@ import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
-import eu.europeana.metis.core.execution.ExecutionRules;
+import eu.europeana.metis.core.execution.WorkflowParser;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
@@ -151,7 +151,7 @@ class TestOrchestratorService {
     Dataset dataset = TestObjectFactory.createDataset("datasetName");
     workflow.setDatasetId(dataset.getDatasetId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow);
+    orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow, null);
 
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, workflow.getDatasetId());
@@ -169,9 +169,9 @@ class TestOrchestratorService {
     Dataset dataset = TestObjectFactory.createDataset("datasetName");
     workflow.setDatasetId(dataset.getDatasetId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    doThrow(PluginExecutionNotAllowed.class).when(orchestratorHelper).validateWorkflow(workflow);
+    doThrow(PluginExecutionNotAllowed.class).when(orchestratorHelper).validateWorkflow(workflow, null);
     assertThrows(PluginExecutionNotAllowed.class,
-        () -> orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow));
+        () -> orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow, null));
 
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, workflow.getDatasetId());
@@ -190,7 +190,7 @@ class TestOrchestratorService {
     when(workflowDao.workflowExistsForDataset(workflow.getDatasetId())).thenReturn(true);
 
     assertThrows(WorkflowAlreadyExistsException.class,
-        () -> orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow));
+        () -> orchestratorService.createWorkflow(metisUser, workflow.getDatasetId(), workflow, null));
 
     InOrder inOrder = Mockito.inOrder(workflowDao);
     inOrder.verify(workflowDao, times(1)).workflowExistsForDataset(workflow.getDatasetId());
@@ -205,7 +205,7 @@ class TestOrchestratorService {
     workflow.setDatasetId(dataset.getDatasetId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao.getWorkflow(dataset.getDatasetId())).thenReturn(workflow);
-    orchestratorService.updateWorkflow(metisUser, workflow.getDatasetId(), workflow);
+    orchestratorService.updateWorkflow(metisUser, workflow.getDatasetId(), workflow, null);
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, workflow.getDatasetId());
     verifyNoMoreInteractions(authorizer);
@@ -223,7 +223,7 @@ class TestOrchestratorService {
     workflow.setDatasetId(dataset.getDatasetId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     assertThrows(NoWorkflowFoundException.class,
-        () -> orchestratorService.updateWorkflow(metisUser, workflow.getDatasetId(), workflow));
+        () -> orchestratorService.updateWorkflow(metisUser, workflow.getDatasetId(), workflow, null));
     InOrder inOrder = Mockito.inOrder(workflowDao);
     inOrder.verify(workflowDao, times(1)).getWorkflow(anyString());
     inOrder.verifyNoMoreInteractions();
@@ -408,7 +408,8 @@ class TestOrchestratorService {
     ExecutionProgress executionProgress = new ExecutionProgress();
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
-    final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(ExecutionRules.getHarvestPluginGroup());
+    final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(
+        WorkflowParser.getHarvestPluginGroup());
     when(workflowExecutionDao.getLatestSuccessfulPlugin(dataset.getDatasetId(),
         pluginTypesSetThatPluginTypeCanBeBasedOn, true)).thenReturn(oaipmhHarvestPlugin);
     RLock rlock = mock(RLock.class);
@@ -443,7 +444,7 @@ class TestOrchestratorService {
         .createPlugin(new OaipmhHarvestPluginMetadata());
     oaipmhHarvestPlugin.setStartedDate(new Date());
     when(workflowExecutionDao.getLatestSuccessfulPlugin(dataset.getDatasetId(),
-        ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(oaipmhHarvestPlugin);
+        WorkflowParser.getHarvestPluginGroup(), true)).thenReturn(oaipmhHarvestPlugin);
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
   }
@@ -626,7 +627,8 @@ class TestOrchestratorService {
     ExecutionProgress executionProgress = new ExecutionProgress();
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
-    final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(ExecutionRules.getHarvestPluginGroup());
+    final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(
+        WorkflowParser.getHarvestPluginGroup());
     when(workflowExecutionDao.getLatestSuccessfulPlugin(datasetId,
         pluginTypesSetThatPluginTypeCanBeBasedOn, true)).thenReturn(oaipmhHarvestPlugin);
     assertEquals(PluginType.OAIPMH_HARVEST, orchestratorService
@@ -641,7 +643,7 @@ class TestOrchestratorService {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(workflowExecutionDao.getLatestSuccessfulPlugin(datasetId,
-        ExecutionRules.getHarvestPluginGroup(), true)).thenReturn(null);
+        WorkflowParser.getHarvestPluginGroup(), true)).thenReturn(null);
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,
             datasetId, ExecutablePluginType.VALIDATION_EXTERNAL, null));
@@ -652,7 +654,7 @@ class TestOrchestratorService {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(workflowExecutionDao.getLatestSuccessfulPlugin(datasetId,
-        ExecutionRules.getHarvestPluginGroup(), true))
+        WorkflowParser.getHarvestPluginGroup(), true))
         .thenReturn(ExecutablePluginFactory.createPlugin(new OaipmhHarvestPluginMetadata()));
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser,

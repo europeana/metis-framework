@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * This class is a utility class that can answer questions about which workflow steps (plugins) can
@@ -25,7 +26,7 @@ import java.util.Set;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-29
  */
-public final class ExecutionRules {
+public class WorkflowParser {
 
   private static final Set<ExecutablePluginType> HARVEST_PLUGIN_GROUP = Collections.unmodifiableSet(
       EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST, ExecutablePluginType.HTTP_HARVEST));
@@ -39,8 +40,14 @@ public final class ExecutionRules {
   private static final Set<ExecutablePluginType> ALL_EXCEPT_LINK_GROUP = Collections
       .unmodifiableSet(EnumSet.complementOf(EnumSet.of(ExecutablePluginType.LINK_CHECKING)));
 
-  private ExecutionRules() {
-    // Private constructor
+  private final WorkflowExecutionDao workflowExecutionDao;
+
+  /**
+   * Constructor.
+   * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the database.
+   */
+  public WorkflowParser(WorkflowExecutionDao workflowExecutionDao) {
+    this.workflowExecutionDao = workflowExecutionDao;
   }
 
   /**
@@ -49,13 +56,16 @@ public final class ExecutionRules {
    * <li>That the workflow is not empty and contains plugins with valid types,</li>
    * <li>That the first plugin is not link checking (except when it is the only plugin),</li>
    * <li>That no two plugins of the same type occur in the workflow,</li>
+   * <li>That the first plugin has a valid predecessor plugin in the dataset's history (as defined by
+   * {@link #getPredecessorTypes(ExecutablePluginType)}), the type of which can be overridden by the 
+   * enforced predecessor type,</li>
    * <li>That all subsequent plugins have a valid predecessor within the workflow (as defined by
    * {@link #getPredecessorTypes(ExecutablePluginType)}).</li>
    * </ol>
-   * Note that this does not check that the first plugin has a valid predecessor. This is something
-   * that we can overwrite when we schedule it for execution: it does not need to be checked here.
    *
    * @param workflow The workflow to validate.
+   * @param enforcedPredecessorType If not null, overrides the predecessor type of the first plugin.
+   * @return The predecessor of the first plugin. Or null if no predecessor is required.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link BadContentException} In case the workflow is empty, or contains plugins with
@@ -64,11 +74,20 @@ public final class ExecutionRules {
    * allowed.</li>
    * </ul>
    */
-  public static void validateWorkflowPlugins(Workflow workflow) throws GenericMetisException {
+  public AbstractExecutablePlugin validateWorkflowPlugins(Workflow workflow,
+      ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
+    // Sanity checks: workflow should have a plugin list.
+    if (workflow.getMetisPluginsMetadata() == null) {
+      throw new BadContentException("Workflow should not be empty.");
+    }
+    
+    // Compile the list of enabled plugins.
+    final List<AbstractExecutablePluginMetadata> plugins = workflow.getMetisPluginsMetadata()
+        .stream().filter(AbstractExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
+    
     // Sanity checks: workflow should not be empty and all should have a type.
-    final List<AbstractExecutablePluginMetadata> plugins = workflow.getMetisPluginsMetadata();
-    if (plugins == null || plugins.isEmpty()) {
+    if (plugins.isEmpty()) {
       throw new BadContentException("Workflow should not be empty.");
     }
     if (plugins.stream().map(AbstractExecutablePluginMetadata::getExecutablePluginType)
@@ -106,6 +125,10 @@ public final class ExecutionRules {
     if (previousTypes.size() != plugins.size()) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
+    
+    // Check the presence of the predecessor and return it.
+    return getPredecessorPlugin(plugins.get(0).getExecutablePluginType(), enforcedPredecessorType,
+        workflow.getDatasetId());
   }
 
   /**
@@ -117,32 +140,30 @@ public final class ExecutionRules {
    * type.
    *
    * @param pluginType the type of the new {@link ExecutablePluginType} that is to be executed.
-   * @param enforcedPredecessorType the plugin type of the predecessor. Can be null in order to
-   * determine the predecessor type according to the execution rules.
+   * @param enforcedPredecessorType If not null, overrides the predecessor type of the plugin.
    * @param datasetId the dataset ID of the new plugin's dataset.
-   * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the database.
    * @return the {@link AbstractExecutablePlugin} that the pluginType execution will use as a
    * source. Can be null in case the given type does not require a predecessor.
    * @throws PluginExecutionNotAllowed In case a valid predecessor is required, but not found.
    */
-  public static AbstractExecutablePlugin getPredecessorPlugin(ExecutablePluginType pluginType,
-      ExecutablePluginType enforcedPredecessorType, String datasetId,
-      WorkflowExecutionDao workflowExecutionDao) throws PluginExecutionNotAllowed {
-
-    // Determine which predecessor plugin types are permissible.
-    final Set<ExecutablePluginType> predecessorTypes = Optional.ofNullable(enforcedPredecessorType)
-        .<Set<ExecutablePluginType>>map(EnumSet::of)
-        .orElseGet(() -> getPredecessorTypes(pluginType));
-
-    // If no predecessor is required, we are done.
-    if (predecessorTypes.isEmpty()) {
+  public AbstractExecutablePlugin getPredecessorPlugin(ExecutablePluginType pluginType,
+      ExecutablePluginType enforcedPredecessorType, String datasetId)
+      throws PluginExecutionNotAllowed {
+    
+    // If the plugin type does not need a predecessor (even the enforced one) we are done.
+    final Set<ExecutablePluginType> defaultPredecessorTypes = getPredecessorTypes(pluginType);
+    if (defaultPredecessorTypes.isEmpty()) {
       return null;
     }
+
+    // Determine which predecessor plugin types are permissible (list is never empty).
+    final Set<ExecutablePluginType> predecessorTypes = Optional.ofNullable(enforcedPredecessorType)
+        .<Set<ExecutablePluginType>>map(EnumSet::of).orElse(defaultPredecessorTypes);
 
     // Find the latest successful plugin of this type. If none found, throw exception.
     final AbstractExecutablePlugin predecessor = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, predecessorTypes, true);
-    return Optional.ofNullable(predecessor).filter(ExecutionRules::pluginHasSuccessfulRecords)
+    return Optional.ofNullable(predecessor).filter(WorkflowParser::pluginHasSuccessfulRecords)
         .orElseThrow(
             () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
   }
@@ -161,7 +182,7 @@ public final class ExecutionRules {
    * type can be based on. Cannot be null, but can be the empty set in case the plugin type requires
    * no predecessor.
    */
-  public static Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
+  public Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
     final Set<ExecutablePluginType> predecessorTypes;
     switch (pluginType) {
       case VALIDATION_EXTERNAL:

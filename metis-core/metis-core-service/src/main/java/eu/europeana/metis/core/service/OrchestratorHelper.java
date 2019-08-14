@@ -7,7 +7,7 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
-import eu.europeana.metis.core.execution.ExecutionRules;
+import eu.europeana.metis.core.execution.WorkflowParser;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -126,42 +126,38 @@ public class OrchestratorHelper {
   }
 
   boolean addNonHarvestPlugins(Dataset dataset, Workflow workflow,
-      ExecutablePluginType enforcedPluginType, List<AbstractExecutablePlugin> metisPlugins,
+      AbstractExecutablePlugin predecessor, List<AbstractExecutablePlugin> metisPlugins,
       boolean firstPluginDefined) throws PluginExecutionNotAllowed {
 
     final List<AbstractExecutablePluginMetadata> enabledValidNonHarvestPluginMetadata = workflow
         .getMetisPluginsMetadata().stream().filter(Objects::nonNull)
         .filter(AbstractExecutablePluginMetadata::isEnabled).filter(
-            metadata -> !ExecutionRules.getHarvestPluginGroup()
+            metadata -> !WorkflowParser.getHarvestPluginGroup()
                 .contains(metadata.getExecutablePluginType())).collect(Collectors.toList());
 
     for (AbstractExecutablePluginMetadata abstractExecutablePluginMetadata : enabledValidNonHarvestPluginMetadata) {
       if (abstractExecutablePluginMetadata != null && abstractExecutablePluginMetadata
           .isEnabled()) {
         firstPluginDefined = addNonHarvestPlugin(dataset, abstractExecutablePluginMetadata,
-            enforcedPluginType, metisPlugins, firstPluginDefined);
+            predecessor, metisPlugins, firstPluginDefined);
       }
     }
     return firstPluginDefined;
   }
 
   private boolean addNonHarvestPlugin(Dataset dataset,
-      AbstractExecutablePluginMetadata pluginMetadata,
-      ExecutablePluginType enforcedPluginType, List<AbstractExecutablePlugin> metisPlugins,
-      boolean firstPluginDefined)
+      AbstractExecutablePluginMetadata pluginMetadata, AbstractExecutablePlugin predecessor,
+      List<AbstractExecutablePlugin> metisPlugins, boolean firstPluginDefined)
       throws PluginExecutionNotAllowed {
     ExecutablePluginType pluginType = pluginMetadata.getExecutablePluginType();
     if (!firstPluginDefined) {
-      AbstractExecutablePlugin previousPlugin = ExecutionRules
-          .getPredecessorPlugin(pluginMetadata.getExecutablePluginType(), enforcedPluginType,
-              dataset.getDatasetId(), this.workflowExecutionDao);
       // Set all previous revision information
       // TODO JV do this for all plugins, not just the first one. It's currently done in the WorkflowExecutor.
-      pluginMetadata.setPreviousRevisionInformation(previousPlugin);
+      pluginMetadata.setPreviousRevisionInformation(predecessor);
     }
 
     // Sanity check
-    if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
+    if (WorkflowParser.getHarvestPluginGroup().contains(pluginType)) {
       //This is practically impossible to happen since the pluginMetadata has to be valid in the Workflow using a pluginType, before reaching this state.
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
@@ -222,9 +218,10 @@ public class OrchestratorHelper {
     }
   }
 
-  void validateWorkflow(Workflow workflow) throws GenericMetisException {
+  void validateWorkflow(Workflow workflow, ExecutablePluginType enforcedPredecessorType)
+      throws GenericMetisException {
     validateAndTrimHarvestParameters(workflow);
-    ExecutionRules.validateWorkflowPlugins(workflow);
+    new WorkflowParser(workflowExecutionDao).validateWorkflowPlugins(workflow, enforcedPredecessorType);
   }
 
   void overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(Workflow workflow,
