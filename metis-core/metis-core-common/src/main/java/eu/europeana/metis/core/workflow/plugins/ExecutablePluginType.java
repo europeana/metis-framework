@@ -52,6 +52,7 @@ public enum ExecutablePluginType {
    * @return true if there are not revision related with the particular ExecutablePluginType
    */
   public boolean isRevisionLess() {
+    // TODO JOCHEN no longer needed?
     return revisionLess;
   }
 

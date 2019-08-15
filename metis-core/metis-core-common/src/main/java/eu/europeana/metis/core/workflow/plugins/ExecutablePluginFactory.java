@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.function.Function;
 import org.bson.types.ObjectId;
 
+// TODO JOCHEN should we merge this with WorkflowExecutionFactory?
 /**
  * This class implements the functionality of creating executable plugins, given a plugin metadata
  * object.
@@ -47,7 +48,7 @@ public final class ExecutablePluginFactory {
 
   /**
    * This method creates a new plugin for the provided plugin metadata. This method also sets the
-   * new plugins's id and data status.
+   * new plugins's id and data status. It doesn't, however, apply any plugin-specific setup.
    *
    * @param metadata The metadata for which to create a plugin. Cannot be null.
    * @return A new pluing instance.

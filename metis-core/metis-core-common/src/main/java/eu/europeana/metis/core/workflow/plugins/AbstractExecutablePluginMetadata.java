@@ -28,6 +28,7 @@ public abstract class AbstractExecutablePluginMetadata extends AbstractMetisPlug
   }
 
   @Override
+  // TODO JOCHEN no longer needed?
   public void setPreviousRevisionInformation(ExecutablePlugin<?> previousPlugin) {
     if (previousPlugin.getPluginMetadata().getExecutablePluginType().isRevisionLess()) {
       //If previous plugin is revisionLess use the previous plugin of that instead

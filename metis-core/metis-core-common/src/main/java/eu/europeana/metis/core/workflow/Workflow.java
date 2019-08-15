@@ -74,6 +74,7 @@ public class Workflow implements HasMongoObjectId {
    * @param pluginType the {@link PluginType} to search for
    * @return {@link AbstractExecutablePluginMetadata} corresponding to the concrete class
    */
+  // TODO JOCHEN no longer needed.
   public AbstractExecutablePluginMetadata getPluginMetadata(ExecutablePluginType pluginType) {
     for (AbstractExecutablePluginMetadata metisPluginMetadata : metisPluginsMetadata) {
       if (metisPluginMetadata.getExecutablePluginType() == pluginType) {

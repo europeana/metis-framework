@@ -8,9 +8,15 @@ import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
+import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
@@ -18,15 +24,13 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.http.client.utils.URIBuilder;
 
 /**
- * This class is a utility class that can answer questions about which workflow steps (plugins) can
- * occur before/after which.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-01-29
+ * This class is a utility class that creates workflow executions from workflows. It can also answer
+ * questions related to the validation of workflows.
  */
-public class WorkflowParser {
+public class WorkflowUtils {
 
   private static final Set<ExecutablePluginType> HARVEST_PLUGIN_GROUP = Collections.unmodifiableSet(
       EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST, ExecutablePluginType.HTTP_HARVEST));
@@ -46,7 +50,7 @@ public class WorkflowParser {
    * Constructor.
    * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the database.
    */
-  public WorkflowParser(WorkflowExecutionDao workflowExecutionDao) {
+  public WorkflowUtils(WorkflowExecutionDao workflowExecutionDao) {
     this.workflowExecutionDao = workflowExecutionDao;
   }
 
@@ -81,7 +85,7 @@ public class WorkflowParser {
     if (workflow.getMetisPluginsMetadata() == null) {
       throw new BadContentException("Workflow should not be empty.");
     }
-    
+
     // Compile the list of enabled plugins.
     final List<AbstractExecutablePluginMetadata> plugins = workflow.getMetisPluginsMetadata()
         .stream().filter(AbstractExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
@@ -94,6 +98,9 @@ public class WorkflowParser {
         .anyMatch(Objects::isNull)) {
       throw new BadContentException("There are plugins of which the type could not be determined.");
     }
+
+    // Validate and normalize the harvest parameters of harvest plugins (even if not enabled)
+    validateAndTrimHarvestParameters(plugins);
 
     // Check that first plugin is not link checking (except if it is the only plugin)
     if (plugins.size() > 1 && plugins.get(0).getPluginType() == PluginType.LINK_CHECKING) {
@@ -131,6 +138,37 @@ public class WorkflowParser {
         workflow.getDatasetId());
   }
 
+  private static void validateAndTrimHarvestParameters(List<AbstractExecutablePluginMetadata> plugins)
+      throws BadContentException {
+    for (AbstractExecutablePluginMetadata pluginMetadata : plugins) {
+      if (pluginMetadata instanceof OaipmhHarvestPluginMetadata) {
+        final OaipmhHarvestPluginMetadata oaipmhMetadata = (OaipmhHarvestPluginMetadata) pluginMetadata;
+        final URI validatedUri = validateUrl(oaipmhMetadata.getUrl());
+        oaipmhMetadata
+            .setUrl(new URIBuilder(validatedUri).removeQuery().setFragment(null).toString());
+        oaipmhMetadata.setMetadataFormat(oaipmhMetadata.getMetadataFormat() == null ? null
+            : oaipmhMetadata.getMetadataFormat().trim());
+        oaipmhMetadata.setSetSpec(
+            oaipmhMetadata.getSetSpec() == null ? null : oaipmhMetadata.getSetSpec().trim());
+      }
+      if (pluginMetadata instanceof HTTPHarvestPluginMetadata) {
+        final HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) pluginMetadata;
+        httpMetadata.setUrl(validateUrl(httpMetadata.getUrl()).toString());
+      }
+    }
+  }
+
+  private static URI validateUrl(String urlString) throws BadContentException {
+    if (urlString == null) {
+      throw new BadContentException("Harvesting parameters are missing");
+    }
+    try {
+      return new URL(urlString.trim()).toURI();
+    } catch (MalformedURLException | URISyntaxException e) {
+      throw new BadContentException("Harvesting parameters are invalid", e);
+    }
+  }
+
   /**
    * Retrieve the predecessor plugin for a new plugin of the given plugin type. This method computes
    * the type(s) this predecessor can have according to the execution rules, based on the target
@@ -163,8 +201,8 @@ public class WorkflowParser {
     // Find the latest successful plugin of this type. If none found, throw exception.
     final AbstractExecutablePlugin predecessor = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, predecessorTypes, true);
-    return Optional.ofNullable(predecessor).filter(WorkflowParser::pluginHasSuccessfulRecords)
-        .orElseThrow(
+    return Optional.ofNullable(predecessor)
+        .filter(WorkflowUtils::pluginHasSuccessfulRecords).orElseThrow(
             () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
   }
 
@@ -182,7 +220,7 @@ public class WorkflowParser {
    * type can be based on. Cannot be null, but can be the empty set in case the plugin type requires
    * no predecessor.
    */
-  public Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
+  private Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
     final Set<ExecutablePluginType> predecessorTypes;
     switch (pluginType) {
       case VALIDATION_EXTERNAL:
