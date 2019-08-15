@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,22 +63,5 @@ public class Workflow implements HasMongoObjectId {
   public void setMetisPluginsMetadata(
       List<AbstractExecutablePluginMetadata> metisPluginsMetadata) {
     this.metisPluginsMetadata = metisPluginsMetadata;
-  }
-
-  /**
-   * Get the {@link AbstractExecutablePluginMetadata} class based on the {@link PluginType} if that
-   * exists in the {@link Workflow#metisPluginsMetadata}.
-   *
-   * @param pluginType the {@link PluginType} to search for
-   * @return {@link AbstractExecutablePluginMetadata} corresponding to the concrete class
-   */
-  // TODO JOCHEN no longer needed.
-  public AbstractExecutablePluginMetadata getPluginMetadata(ExecutablePluginType pluginType) {
-    for (AbstractExecutablePluginMetadata metisPluginMetadata : metisPluginsMetadata) {
-      if (metisPluginMetadata.getExecutablePluginType() == pluginType) {
-        return metisPluginMetadata;
-      }
-    }
-    return null;
   }
 }

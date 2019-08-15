@@ -27,19 +27,4 @@ public abstract class AbstractExecutablePluginMetadata extends AbstractMetisPlug
     this.enabled = enabled;
   }
 
-  @Override
-  // TODO JOCHEN no longer needed?
-  public void setPreviousRevisionInformation(ExecutablePlugin<?> previousPlugin) {
-    if (previousPlugin.getPluginMetadata().getExecutablePluginType().isRevisionLess()) {
-      //If previous plugin is revisionLess use the previous plugin of that instead
-      // TODO JV this will work only if there are not two revisionless plugins in a row.
-      this.setRevisionNamePreviousPlugin(
-          previousPlugin.getPluginMetadata().getRevisionNamePreviousPlugin());
-      this.setRevisionTimestampPreviousPlugin(
-          previousPlugin.getPluginMetadata().getRevisionTimestampPreviousPlugin());
-    } else {
-      this.setRevisionNamePreviousPlugin(previousPlugin.getPluginType().name());
-      this.setRevisionTimestampPreviousPlugin(previousPlugin.getStartedDate());
-    }
-  }
 }

@@ -194,12 +194,18 @@ public class OrchestratorService {
     workflow.getMetisPluginsMetadata().forEach(pluginMetadata -> pluginMetadata.setEnabled(true));
     List<AbstractExecutablePluginMetadata> storedPluginsExcludingNewPlugins = storedWorkflow
         .getMetisPluginsMetadata()
-        .stream().filter(pluginMetadata ->
-            workflow.getPluginMetadata(pluginMetadata.getExecutablePluginType()) == null)
+        .stream().filter(
+            pluginMetadata -> hasNoPluginOfType(workflow, pluginMetadata.getExecutablePluginType()))
         .peek(pluginMetadata -> pluginMetadata.setEnabled(false))
         .collect(Collectors.toList());
     workflow.setMetisPluginsMetadata(Stream.concat(storedPluginsExcludingNewPlugins.stream(),
         workflow.getMetisPluginsMetadata().stream()).collect(Collectors.toList()));
+  }
+
+  private static boolean hasNoPluginOfType(Workflow workflow, ExecutablePluginType pluginType) {
+    return workflow.getMetisPluginsMetadata().stream()
+        .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
+        .noneMatch(pluginType::equals);
   }
 
   /**

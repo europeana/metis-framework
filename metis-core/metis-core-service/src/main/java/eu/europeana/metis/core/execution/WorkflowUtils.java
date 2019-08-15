@@ -4,12 +4,15 @@ import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -27,8 +30,7 @@ import java.util.stream.Collectors;
 import org.apache.http.client.utils.URIBuilder;
 
 /**
- * This class is a utility class that creates workflow executions from workflows. It can also answer
- * questions related to the validation of workflows.
+ * This class is a utility class that can answer questions related to the validation of workflows.
  */
 public class WorkflowUtils {
 
@@ -64,7 +66,8 @@ public class WorkflowUtils {
    * {@link #getPredecessorTypes(ExecutablePluginType)}), the type of which can be overridden by the 
    * enforced predecessor type,</li>
    * <li>That all subsequent plugins have a valid predecessor within the workflow (as defined by
-   * {@link #getPredecessorTypes(ExecutablePluginType)}).</li>
+   * {@link #getPredecessorTypes(ExecutablePluginType)}),</li>
+   * <li>That harvesting plugins have valid URL settings.</li>
    * </ol>
    *
    * @param workflow The workflow to validate.
@@ -170,12 +173,51 @@ public class WorkflowUtils {
   }
 
   /**
+   * Retrieve the predecessor plugin for a plugin of the given plugin type. This method computes the
+   * type(s) this predecessor can have according to the execution rules, based on the target plugin
+   * type (using {@link #getPredecessorTypes(ExecutablePluginType)}), and then returns the last
+   * successful plugin <b>within the given workflow execution</b> that has one of these types. Note
+   * that in this context, a plugin that executed with only errors is <b>still</b> counted as
+   * successful.
+   *
+   * @param pluginType the type of the new {@link ExecutablePluginType} that is to be executed.
+   * @param workflowExecution The workflow execution in which to look.
+   * @return the {@link AbstractExecutablePlugin} that the pluginType execution can use as a source.
+   * Can be null in case the given type does not require a predecessor.
+   */
+  static AbstractExecutablePlugin getPredecessorPlugin(ExecutablePluginType pluginType,
+      WorkflowExecution workflowExecution) {
+
+    // If the plugin type does not need a predecessor we are done.
+    final Set<ExecutablePluginType> predecessorTypes = getPredecessorTypes(pluginType);
+    if (predecessorTypes.isEmpty()) {
+      return null;
+    }
+
+    // Find the latest successful plugin of one of these types. If none found, throw exception.
+    final List<AbstractExecutablePlugin> candidates = workflowExecution.getMetisPlugins().stream()
+        .filter(plugin -> plugin instanceof AbstractExecutablePlugin)
+        .map(plugin -> (AbstractExecutablePlugin<?>) plugin)
+        .filter(plugin -> predecessorTypes
+            .contains(plugin.getPluginMetadata().getExecutablePluginType()))
+        .filter(plugin -> plugin.getPluginStatus() == PluginStatus.FINISHED)
+        .collect(Collectors.toList());
+    if (!candidates.isEmpty()) {
+      return candidates.get(candidates.size() - 1);
+    }
+
+    // If no successful plugin found, throw exception.
+    throw new IllegalArgumentException();
+  }
+
+  /**
    * Retrieve the predecessor plugin for a new plugin of the given plugin type. This method computes
    * the type(s) this predecessor can have according to the execution rules, based on the target
    * plugin type (using {@link #getPredecessorTypes(ExecutablePluginType)}), and then returns the
-   * last successful plugin that has one of these types. The enforced predecessor type provides a
-   * way to override the computed predecessor type: if provided, any predecessor will be of this
-   * type.
+   * last successful plugin <b>in the database</b> that has one of these types. The enforced
+   * predecessor type provides a way to override the computed predecessor type: if provided, any
+   * predecessor will be of this type. Note that in this context, a plugin that executed with only
+   * errors is <b>not</b> counted as successful.
    *
    * @param pluginType the type of the new {@link ExecutablePluginType} that is to be executed.
    * @param enforcedPredecessorType If not null, overrides the predecessor type of the plugin.
@@ -198,7 +240,7 @@ public class WorkflowUtils {
     final Set<ExecutablePluginType> predecessorTypes = Optional.ofNullable(enforcedPredecessorType)
         .<Set<ExecutablePluginType>>map(EnumSet::of).orElse(defaultPredecessorTypes);
 
-    // Find the latest successful plugin of this type. If none found, throw exception.
+    // Find the latest successful plugin of one of these types. If none found, throw exception.
     final AbstractExecutablePlugin predecessor = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, predecessorTypes, true);
     return Optional.ofNullable(predecessor)
@@ -206,7 +248,7 @@ public class WorkflowUtils {
             () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
   }
 
-  private static boolean pluginHasSuccessfulRecords(AbstractExecutablePlugin plugin) {
+  private static boolean pluginHasSuccessfulRecords(ExecutablePlugin plugin) {
     final ExecutionProgress progress = plugin.getExecutionProgress();
     return progress != null && progress.getProcessedRecords() > progress.getErrors();
   }
@@ -220,7 +262,7 @@ public class WorkflowUtils {
    * type can be based on. Cannot be null, but can be the empty set in case the plugin type requires
    * no predecessor.
    */
-  private Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
+  private static Set<ExecutablePluginType> getPredecessorTypes(ExecutablePluginType pluginType) {
     final Set<ExecutablePluginType> predecessorTypes;
     switch (pluginType) {
       case VALIDATION_EXTERNAL:

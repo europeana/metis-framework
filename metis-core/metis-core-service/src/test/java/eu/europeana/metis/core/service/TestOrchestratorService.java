@@ -79,10 +79,12 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -326,9 +328,12 @@ class TestOrchestratorService {
     verifyNoMoreInteractions(authorizer);
 
     // Verify the validation parameters
+    final Map<ExecutablePluginType, AbstractExecutablePluginMetadata> pluginsByType = workflow
+        .getMetisPluginsMetadata().stream().collect(Collectors
+            .toMap(AbstractExecutablePluginMetadata::getExecutablePluginType, Function.identity(),
+                (m1, m2) -> m1));
     final ValidationInternalPluginMetadata metadataInternal =
-        (ValidationInternalPluginMetadata) workflow
-            .getPluginMetadata(ExecutablePluginType.VALIDATION_INTERNAL);
+        (ValidationInternalPluginMetadata) pluginsByType.get(ExecutablePluginType.VALIDATION_INTERNAL);
     assertEquals(workflowExecutionFactory.getValidationInternalProperties().getUrlOfSchemasZip(),
         metadataInternal.getUrlOfSchemasZip());
     assertEquals(workflowExecutionFactory.getValidationInternalProperties().getSchemaRootPath(),
@@ -336,8 +341,7 @@ class TestOrchestratorService {
     assertEquals(workflowExecutionFactory.getValidationInternalProperties().getSchematronRootPath(),
         metadataInternal.getSchematronRootPath());
     final ValidationExternalPluginMetadata metadataExternal =
-        (ValidationExternalPluginMetadata) workflow
-            .getPluginMetadata(ExecutablePluginType.VALIDATION_EXTERNAL);
+        (ValidationExternalPluginMetadata) pluginsByType.get(ExecutablePluginType.VALIDATION_EXTERNAL);
     assertEquals(workflowExecutionFactory.getValidationExternalProperties().getUrlOfSchemasZip(),
         metadataExternal.getUrlOfSchemasZip());
     assertEquals(workflowExecutionFactory.getValidationExternalProperties().getSchemaRootPath(),

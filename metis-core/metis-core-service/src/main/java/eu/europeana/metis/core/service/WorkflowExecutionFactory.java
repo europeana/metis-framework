@@ -11,7 +11,6 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
@@ -72,9 +71,7 @@ public class WorkflowExecutionFactory {
 
     // Set the predecessor
     if (predecessor != null) {
-      final AbstractMetisPluginMetadata firstMetadata = workflowPlugins.get(0).getPluginMetadata();
-      firstMetadata.setRevisionNamePreviousPlugin(predecessor.getPluginType().name());
-      firstMetadata.setRevisionTimestampPreviousPlugin(predecessor.getStartedDate());
+      workflowPlugins.get(0).getPluginMetadata().setPreviousRevisionInformation(predecessor);
     }
 
     // Done: create workflow with all the information.

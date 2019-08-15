@@ -60,4 +60,10 @@ public abstract class AbstractMetisPluginMetadata implements MetisPluginMetadata
     this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null ? null
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
+
+  @Override
+  public void setPreviousRevisionInformation(ExecutablePlugin<?> predecessor) {
+    this.setRevisionNamePreviousPlugin(predecessor.getPluginType().name());
+    this.setRevisionTimestampPreviousPlugin(predecessor.getStartedDate());
+  }
 }

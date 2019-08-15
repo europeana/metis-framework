@@ -9,33 +9,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public enum ExecutablePluginType {
 
-  HTTP_HARVEST(false, PluginType.HTTP_HARVEST),
+  HTTP_HARVEST(PluginType.HTTP_HARVEST),
 
-  OAIPMH_HARVEST(false, PluginType.OAIPMH_HARVEST),
+  OAIPMH_HARVEST(PluginType.OAIPMH_HARVEST),
 
-  ENRICHMENT(false, PluginType.ENRICHMENT),
+  ENRICHMENT(PluginType.ENRICHMENT),
 
-  MEDIA_PROCESS(false, PluginType.MEDIA_PROCESS),
+  MEDIA_PROCESS(PluginType.MEDIA_PROCESS),
 
-  LINK_CHECKING(true, PluginType.LINK_CHECKING),
+  LINK_CHECKING(PluginType.LINK_CHECKING),
 
-  VALIDATION_EXTERNAL(false, PluginType.VALIDATION_EXTERNAL),
+  VALIDATION_EXTERNAL(PluginType.VALIDATION_EXTERNAL),
 
-  TRANSFORMATION(false, PluginType.TRANSFORMATION),
+  TRANSFORMATION(PluginType.TRANSFORMATION),
 
-  VALIDATION_INTERNAL(false, PluginType.VALIDATION_INTERNAL),
+  VALIDATION_INTERNAL(PluginType.VALIDATION_INTERNAL),
 
-  NORMALIZATION(false, PluginType.NORMALIZATION),
+  NORMALIZATION(PluginType.NORMALIZATION),
 
-  PREVIEW(false, PluginType.PREVIEW),
+  PREVIEW(PluginType.PREVIEW),
 
-  PUBLISH(false, PluginType.PUBLISH);
+  PUBLISH(PluginType.PUBLISH);
 
-  private final boolean revisionLess;
   private final PluginType pluginType;
 
-  ExecutablePluginType(boolean revisionLess, PluginType pluginType) {
-    this.revisionLess = revisionLess;
+  ExecutablePluginType(PluginType pluginType) {
     this.pluginType = pluginType;
   }
 
@@ -44,16 +42,6 @@ public enum ExecutablePluginType {
    */
   public PluginType toPluginType() {
     return pluginType;
-  }
-
-  /**
-   * Describes if a ExecutablePluginType has executions that contain revision information.
-   *
-   * @return true if there are not revision related with the particular ExecutablePluginType
-   */
-  public boolean isRevisionLess() {
-    // TODO JOCHEN no longer needed?
-    return revisionLess;
   }
 
   /**
