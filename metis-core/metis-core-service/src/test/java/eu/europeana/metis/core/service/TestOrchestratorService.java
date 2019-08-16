@@ -403,8 +403,7 @@ class TestOrchestratorService {
   }
 
   @Test
-  void addWorkflowInQueueOfWorkflowExecutions_NoHarvestPlugin()
-      throws Exception {
+  void addWorkflowInQueueOfWorkflowExecutions_NoHarvestPlugin() throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createWorkflowObject();

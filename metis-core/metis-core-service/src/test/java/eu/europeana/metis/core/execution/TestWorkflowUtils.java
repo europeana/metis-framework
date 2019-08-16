@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.execution;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,8 +19,10 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginMetadata;
@@ -31,16 +34,22 @@ import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.ReindexToPreviewPlugin;
+import eu.europeana.metis.core.workflow.plugins.ReindexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterEach;
@@ -103,6 +112,11 @@ class TestWorkflowUtils {
     plugin.getExecutionProgress().setErrors(1);
     assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.getPredecessorPlugin(
         ExecutablePluginType.TRANSFORMATION, ExecutablePluginType.OAIPMH_HARVEST, DATASET_ID));
+    
+    // Test without progress information
+    plugin.setExecutionProgress(null);
+    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.getPredecessorPlugin(
+        ExecutablePluginType.TRANSFORMATION, ExecutablePluginType.OAIPMH_HARVEST, DATASET_ID));
   }
 
   @Test
@@ -151,6 +165,11 @@ class TestWorkflowUtils {
       plugin.getExecutionProgress().setErrors(1);
       assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.getPredecessorPlugin(
           metadata.getExecutablePluginType(), null, DATASET_ID));
+      
+      // Test without progress information
+      plugin.setExecutionProgress(null);
+      assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.getPredecessorPlugin(
+          metadata.getExecutablePluginType(), null, DATASET_ID));
     } else {
       assertNull(workflowUtils.getPredecessorPlugin(metadata.getExecutablePluginType(), null,
           DATASET_ID));
@@ -158,7 +177,53 @@ class TestWorkflowUtils {
   }
 
   @Test
-  void testValidateWorkflowPlugins() throws GenericMetisException {
+  void testGetPredecessorPluginForWorkflowExecution() throws PluginExecutionNotAllowed {
+    
+    // Add non executable plugin.
+    final List<AbstractMetisPlugin> plugins = new ArrayList<>();
+    plugins.add(new ReindexToPreviewPlugin(new ReindexToPreviewPluginMetadata()));
+    
+    // Add finished plugin of the wrong type.
+    final AbstractMetisPlugin pluginOfWrongType =
+        ExecutablePluginFactory.createPlugin(new TransformationPluginMetadata());
+    pluginOfWrongType.setPluginStatus(PluginStatus.FINISHED);
+    plugins.add(pluginOfWrongType);
+
+    // Add two finished plugins of the right type.
+    final AbstractMetisPlugin firstCandidate =
+        ExecutablePluginFactory.createPlugin(new EnrichmentPluginMetadata());
+    firstCandidate.setPluginStatus(PluginStatus.FINISHED);
+    plugins.add(firstCandidate);
+    final AbstractMetisPlugin lastCandidate =
+        ExecutablePluginFactory.createPlugin(new EnrichmentPluginMetadata());
+    lastCandidate.setPluginStatus(PluginStatus.FINISHED);
+    plugins.add(lastCandidate);
+
+    // Add non-finished plugin of the right type.
+    final AbstractMetisPlugin pluginOfWrongStatus =
+        ExecutablePluginFactory.createPlugin(new EnrichmentPluginMetadata());
+    pluginOfWrongStatus.setPluginStatus(PluginStatus.CANCELLED);
+    plugins.add(pluginOfWrongStatus);
+  
+    // Add all this to a workflow execution.
+    final WorkflowExecution workflowExecution = new WorkflowExecution();
+    workflowExecution.setMetisPlugins(plugins);
+  
+    // Execute the call expecting a successful result.
+    assertSame(lastCandidate,
+        WorkflowUtils.getPredecessorPlugin(ExecutablePluginType.MEDIA_PROCESS, workflowExecution));
+
+    // Execute the call for plugin type not requiring predecessor
+    assertNull(
+        WorkflowUtils.getPredecessorPlugin(ExecutablePluginType.HTTP_HARVEST, workflowExecution));
+
+    // Execute the call for failed result
+    assertThrows(IllegalArgumentException.class,
+        () -> WorkflowUtils.getPredecessorPlugin(ExecutablePluginType.PUBLISH, workflowExecution));
+  }
+  
+  @Test
+  void testValidateWorkflowPlugins_testWorkflowComposition() throws GenericMetisException {
     
     // Create successful predecessor
     final ExecutablePluginType predecessorType = ExecutablePluginType.OAIPMH_HARVEST;
@@ -241,5 +306,64 @@ class TestWorkflowUtils {
       return plugin;
     }).collect(Collectors.toList()));
     return workflow;
+  }
+  
+  @Test
+  void testValidateWorkflowPlugins_testHarvestingParameters() throws GenericMetisException {
+    
+    // Prepare correct url variables
+    final String simpleUrl = "http://test.com/path";
+    final String urlWithFragmentAndQuery = simpleUrl + "#fragment?query=1";
+    final String metadataFormat = "metadataFormatParameter";
+    final String setSpec = "setSpecParameter";
+
+    // Create oai harvesting with all parameters
+    final OaipmhHarvestPluginMetadata oai = new OaipmhHarvestPluginMetadata();
+    oai.setEnabled(true);
+    oai.setUrl(" " + urlWithFragmentAndQuery + " ");
+    oai.setMetadataFormat(" " + metadataFormat + " ");
+    oai.setSetSpec(" " + setSpec + " ");
+
+    // Create http harvesting
+    final HTTPHarvestPluginMetadata http = new HTTPHarvestPluginMetadata();
+    http.setEnabled(true);
+    http.setUrl(" " + urlWithFragmentAndQuery + " ");
+
+    // Create the workflow and execute the method
+    final Workflow workflow = new Workflow();
+    workflow.setMetisPluginsMetadata(Arrays.asList(oai, http));
+    workflowUtils.validateWorkflowPlugins(workflow, null);
+    
+    // Test output
+    assertEquals(simpleUrl, oai.getUrl());
+    assertEquals(metadataFormat, oai.getMetadataFormat());
+    assertEquals(setSpec, oai.getSetSpec());
+    assertEquals(urlWithFragmentAndQuery, http.getUrl());
+    
+    // Create oai harvesting with only url
+    oai.setUrl(urlWithFragmentAndQuery);
+    oai.setMetadataFormat(null);
+    oai.setSetSpec(null);
+    
+    // Create the workflow and execute the method
+    workflow.setMetisPluginsMetadata(Arrays.asList(oai));
+    workflowUtils.validateWorkflowPlugins(workflow, null);
+    
+    // Test output   
+    assertEquals(simpleUrl, oai.getUrl());
+    assertNull(oai.getMetadataFormat());
+    assertNull(oai.getSetSpec());
+    
+    // Test OAI with invalid URL
+    oai.setUrl("invalid URL");
+    workflow.setMetisPluginsMetadata(Arrays.asList(oai));
+    assertThrows(BadContentException.class,
+        () -> workflowUtils.validateWorkflowPlugins(workflow, null));
+   
+    // Test HTTP with missing URL
+    http.setUrl(null);
+    workflow.setMetisPluginsMetadata(Arrays.asList(http));
+    assertThrows(BadContentException.class,
+        () -> workflowUtils.validateWorkflowPlugins(workflow, null));
   }
 }
