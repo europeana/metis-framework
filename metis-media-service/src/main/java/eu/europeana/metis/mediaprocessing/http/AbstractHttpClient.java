@@ -132,7 +132,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       final String mimeType = Optional.ofNullable(responseEntity).map(HttpEntity::getContentType)
           .map(Header::getValue).orElse(null);
       final Long fileSize = Optional.ofNullable(responseEntity).map(HttpEntity::getContentLength)
-          .orElse(null);
+          .filter(size -> size >= 0).orElse(null);
       final List<URI> redirectUris = context.getRedirectLocations();
       final URI actualUri =
           redirectUris == null ? httpGet.getURI() : redirectUris.get(redirectUris.size() - 1);
