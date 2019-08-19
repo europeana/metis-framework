@@ -137,12 +137,16 @@ public class OrchestratorService {
           String.format("Workflow with datasetId: %s, already exists", workflow.getDatasetId()));
     }
 
+    // Set all received plugins to enabled.
+    // TODO JV should be changed for ticket MET-2153?
+    if (workflow.getMetisPluginsMetadata() != null) {
+      workflow.getMetisPluginsMetadata().forEach(metadata -> metadata.setEnabled(true));
+    }
+
     // Validate the new workflow.
     validateWorkflow(workflow, enforcedPredecessorType);
 
     // Save the workflow.
-    workflow.getMetisPluginsMetadata()
-        .forEach(abstractMetisPluginMetadata -> abstractMetisPluginMetadata.setEnabled(true));
     workflowDao.create(workflow);
   }
 
@@ -179,6 +183,12 @@ public class OrchestratorService {
           "Workflow with datasetId: %s, not found", workflow.getDatasetId()));
     }
 
+    // Set all received plugins to enabled.
+    // TODO JV should be changed for ticket MET-2153?
+    if (workflow.getMetisPluginsMetadata() != null) {
+      workflow.getMetisPluginsMetadata().forEach(metadata -> metadata.setEnabled(true));
+    }
+
     // Validate the new workflow.
     validateWorkflow(workflow, enforcedPredecessorType);
 
@@ -190,8 +200,8 @@ public class OrchestratorService {
 
   private void overwriteNewPluginMetadataOnWorkflowAndDisableOtherPluginMetadata(Workflow workflow,
       Workflow storedWorkflow) {
+    // TODO JV should be changed for ticket MET-2153?
     //Overwrite only ones provided and disable the rest, already stored, plugins
-    workflow.getMetisPluginsMetadata().forEach(pluginMetadata -> pluginMetadata.setEnabled(true));
     List<AbstractExecutablePluginMetadata> storedPluginsExcludingNewPlugins = storedWorkflow
         .getMetisPluginsMetadata()
         .stream().filter(
