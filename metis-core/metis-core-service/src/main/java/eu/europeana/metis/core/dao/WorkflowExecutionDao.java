@@ -264,10 +264,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param pluginTypes the set of plugin types to check for
    * @return the first plugin found
    */
-  public AbstractExecutablePlugin getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<ExecutablePluginType> pluginTypes) {
-    return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-        pluginTypes, false, true);
+  public AbstractExecutablePlugin getFirstSuccessfulPlugin(String datasetId,
+      Set<ExecutablePluginType> pluginTypes) {
+    return getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false, true);
   }
 
   /**
@@ -279,15 +278,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param limitToValidData Only return the result if it has valid data (see {@link DataStatus}).
    * @return the last plugin found
    */
-  public AbstractExecutablePlugin getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
-    return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-        pluginTypes, limitToValidData, false);
+  public AbstractExecutablePlugin getLatestSuccessfulPlugin(String datasetId,
+      Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
+    return getFirstOrLastFinishedPlugin(datasetId, pluginTypes, limitToValidData, false);
   }
 
-  AbstractExecutablePlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean limitToValidData,
-      boolean firstFinished) {
+  AbstractExecutablePlugin getFirstOrLastFinishedPlugin(String datasetId,
+      Set<ExecutablePluginType> pluginTypes, boolean limitToValidData, boolean firstFinished) {
 
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);

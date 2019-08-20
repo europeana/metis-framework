@@ -84,17 +84,20 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   }
 
   /**
-   * Check existence of a workflow using a {@link Workflow} class.
-   * <p>It will check based on the {@link Workflow#getDatasetId()} ()}</p>
+   * Check existence of a workflow for the given Dataset ID.
    *
-   * @param workflow the {@link Workflow}
-   * @return null or the {@link ObjectId} of the object
+   * @param datasetId The dataset ID.
+   * @return whether a workflow exists for this dataset.
    */
-  public String exists(Workflow workflow) {
+  public boolean workflowExistsForDataset(String datasetId) {
+    return null != getWorkflowId(datasetId);
+  }
+
+  String getWorkflowId(String datasetId) {
     Workflow storedWorkflow = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-                .field(DATASET_ID.getFieldName()).equal(workflow.getDatasetId())
+                .field(DATASET_ID.getFieldName()).equal(datasetId)
                 .project(ID.getFieldName(), true).get());
     return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }

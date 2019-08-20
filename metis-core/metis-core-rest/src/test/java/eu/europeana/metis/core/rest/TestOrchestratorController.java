@@ -113,7 +113,7 @@ class TestOrchestratorController {
         .andExpect(content().string(""));
 
     verify(orchestratorService, times(1))
-        .createWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+        .createWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
   }
 
   @Test
@@ -129,7 +129,7 @@ class TestOrchestratorController {
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
-    verify(orchestratorService, never()).createWorkflow(any(), anyString(), any(Workflow.class));
+    verify(orchestratorService, never()).createWorkflow(any(), anyString(), any(Workflow.class), any());
   }
 
   @Test
@@ -139,7 +139,7 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
-        .when(orchestratorService).createWorkflow(eq(metisUser), any(), any());
+        .when(orchestratorService).createWorkflow(eq(metisUser), any(), any(), isNull());
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -156,7 +156,7 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
-        .createWorkflow(any(MetisUser.class), anyString(), any(Workflow.class));
+        .createWorkflow(any(MetisUser.class), anyString(), any(Workflow.class), any());
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -166,7 +166,7 @@ class TestOrchestratorController {
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
 
     verify(orchestratorService, times(1))
-        .createWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+        .createWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
   }
 
   @Test
@@ -184,7 +184,7 @@ class TestOrchestratorController {
         .andExpect(content().string(""));
 
     verify(orchestratorService, times(1))
-        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
   }
 
   @Test
@@ -200,7 +200,7 @@ class TestOrchestratorController {
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
-    verify(orchestratorService, never()).updateWorkflow(any(), anyString(), any(Workflow.class));
+    verify(orchestratorService, never()).updateWorkflow(any(), anyString(), any(Workflow.class), any());
   }
 
   @Test
@@ -210,7 +210,7 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED))
-        .when(orchestratorService).updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+        .when(orchestratorService).updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -227,7 +227,7 @@ class TestOrchestratorController {
         .thenReturn(metisUser);
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
-        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -237,7 +237,7 @@ class TestOrchestratorController {
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
 
     verify(orchestratorService, times(1))
-        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class));
+        .updateWorkflow(eq(metisUser), anyString(), any(Workflow.class), isNull());
   }
 
   @Test

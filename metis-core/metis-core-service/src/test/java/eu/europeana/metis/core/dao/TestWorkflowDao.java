@@ -109,7 +109,8 @@ class TestWorkflowDao {
   void exists() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
-    assertNotNull(workflowDao.exists(workflow));
+    assertTrue(workflowDao.workflowExistsForDataset(workflow.getDatasetId()));
+    assertFalse(workflowDao.workflowExistsForDataset(workflow.getDatasetId() + "X"));
   }
 
   @Test
