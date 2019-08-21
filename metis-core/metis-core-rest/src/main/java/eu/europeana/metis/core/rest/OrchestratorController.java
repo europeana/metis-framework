@@ -66,7 +66,7 @@ public class OrchestratorController {
 
   /**
    * Create a workflow using a datasetId and the {@link Workflow} that contains the requested
-   * plugins. When creating a new workflow all the plugins specified will be automatically enabled.
+   * plugins. If plugins are disabled, they (their settings) are still saved.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier to relate the workflow to
@@ -100,9 +100,8 @@ public class OrchestratorController {
 
   /**
    * Update an already existent workflow using a datasetId and the {@link Workflow} that contains
-   * the requested plugins. When updating an existent workflow all specified plugins will be enabled
-   * and all plugins that were existent in the system beforehand will be kept with their
-   * configuration but will be disabled.
+   * the requested plugins. If plugins are disabled, they (their settings) are still saved. Any
+   * settings in plugins that are not sent in the request are removed.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the identifier of the dataset for which the workflow should be updated
