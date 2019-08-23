@@ -43,16 +43,6 @@
   </distributionManagement>
 
   <properties>
-<!--Sonar -->
-<!--            <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>-->
-<!--            <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>-->
-<!--    <sonar.binaries>target/classes</sonar.binaries>-->
-<!--    <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>-->
-<!--&lt;!&ndash;    <sonar.tests>**/target/test-classes</sonar.tests>&ndash;&gt;-->
-<!--        <sonar.coverage.jacoco.xmlReportPaths>target/jacoco.exec</sonar.coverage.jacoco.xmlReportPaths>-->
-<!--&lt;!&ndash;            <sonar.language>java</sonar.language>&ndash;&gt;-->
-
-<!--    <jacocoArgLine /> &lt;!&ndash; Leave as is, it's required from jacoco plugin integration &ndash;&gt;-->
     <version.ecloud>1.6.0-SNAPSHOT</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
     <version.redisson>3.11.0</version.redisson>
@@ -76,7 +66,6 @@
     <version.junit>5.1.0</version.junit>
     <version.junit.test>5.1.2.RELEASE</version.junit.test>
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
-<!--    <version.jacoco>0.8.4</version.jacoco>-->
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>2.0.0</version.embedded.mongo>
     <version.mongo.java.driver>3.9.1</version.mongo.java.driver>
@@ -494,36 +483,10 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
       </plugin>
-<!--      <plugin>-->
-<!--        <groupId>org.jacoco</groupId>-->
-<!--        <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--        <version>${version.jacoco}</version>-->
-<!--        <configuration>-->
-<!--          <propertyName>jacocoArgLine</propertyName>-->
-<!--        </configuration>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <goals>-->
-<!--              <goal>prepare-agent</goal>-->
-<!--            </goals>-->
-<!--          </execution>-->
-<!--          <execution>-->
-<!--            <id>report</id>-->
-<!--            <phase>prepare-package</phase>-->
-<!--            <goals>-->
-<!--              <goal>report</goal>-->
-<!--            </goals>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${version.surefire.plugin}</version>
-<!--        <configuration>-->
-<!--          &lt;!&ndash; Travis build workaround &ndash;&gt;-->
-<!--          <argLine>@{jacocoArgLine} -Xms1024m -Xmx2048m</argLine>-->
-<!--        </configuration>-->
       </plugin>
       <plugin>
         <groupId>org.eluder.coveralls</groupId>
