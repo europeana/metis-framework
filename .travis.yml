@@ -12,4 +12,4 @@ cache:
     - $HOME/.m2
 install: true
 script:
-  - mvn clean install -DskipITs -Dmaven.javadoc.skip=true jacoco:report coveralls:report -B -V
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -DskipITs -Dmaven.javadoc.skip=true jacoco:report coveralls:report -B -V
