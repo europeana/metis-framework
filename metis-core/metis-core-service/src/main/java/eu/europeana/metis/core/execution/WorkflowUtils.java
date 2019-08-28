@@ -242,7 +242,7 @@ public class WorkflowUtils {
 
     // Find the latest successful plugin of one of these types. If none found, throw exception.
     final AbstractExecutablePlugin predecessor = workflowExecutionDao
-        .getLatestSuccessfulPlugin(datasetId, predecessorTypes, true);
+        .getLatestSuccessfulExecutablePlugin(datasetId, predecessorTypes, true);
     return Optional.ofNullable(predecessor)
         .filter(WorkflowUtils::pluginHasSuccessfulRecords).orElseThrow(
             () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
