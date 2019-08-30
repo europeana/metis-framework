@@ -45,8 +45,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
       final LicenseType entityLicense = entity.getLicenseType();
       result = webResources.stream()
           .map(resource -> classifyWebResource(resource, entityLicense, hasLandingPage,
-              hasEmbeddableMedia))
-          .max(Tier.getComparator()).orElse(MediaTier.T0);
+              hasEmbeddableMedia)).reduce(MediaTier.T0, Tier::max);
     }
 
     // Done
