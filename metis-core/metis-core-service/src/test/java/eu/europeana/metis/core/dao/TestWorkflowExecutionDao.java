@@ -26,7 +26,6 @@ import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
@@ -38,7 +37,6 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -47,7 +45,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -288,7 +285,7 @@ class TestWorkflowExecutionDao {
   }
 
   @Test
-  void getLastFinishedExecutablePlugin_CheckExecutable() {
+  void getLatestSuccessfulExecutablePlugin_CheckExecutable() {
 
     // Create executable harvest and non-executable enrichment plugin
     final AbstractMetisPlugin nonExecutableEnrichment = new NonExecutableEnrichmentPlugin();
@@ -305,41 +302,37 @@ class TestWorkflowExecutionDao {
         .getFirstOrLastFinishedPlugin(datasetId, EnumSet.of(PluginType.NORMALIZATION), false);
 
     // Check that the enrichment IS NOT returned by the method.
-    assertNull(workflowExecutionDao.getLastFinishedExecutablePlugin(datasetId,
+    assertNull(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.ENRICHMENT),false));
 
     // Check that the harvesting IS returned by the method.
-    assertSame(executableHarvest, workflowExecutionDao.getLastFinishedExecutablePlugin(datasetId,
+    assertSame(executableHarvest, workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), false));
 
     // Check that the normalization IS NOT returned by the method.
-    assertNull(workflowExecutionDao.getLastFinishedExecutablePlugin(datasetId,
+    assertNull(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.NORMALIZATION),false));
   }
 
   @Test
-  void getLastFinishedExecutablePlugin_CheckDataStatuses() {
+  void getLatestSuccessfulExecutablePlugin_CheckDataStatuses() {
 
     // Create harvesting plugin with default status
-    final String defaultPluginId = new ObjectId().toString();
     final AbstractExecutablePlugin defaultPlugin = ExecutablePluginFactory
         .createPlugin(new OaipmhHarvestPluginMetadata());
     defaultPlugin.setDataStatus(null);
 
     // Create transformation plugin with valid status
-    final String validPluginId = new ObjectId().toString();
     final AbstractExecutablePlugin validPlugin = ExecutablePluginFactory
         .createPlugin(new TransformationPluginMetadata());
     validPlugin.setDataStatus(DataStatus.VALID);
 
     // Create unreachable enrichment plugin with valid status
-    final String unreachablePluginId = new ObjectId().toString();
     final AbstractExecutablePlugin unreachablePlugin = ExecutablePluginFactory
         .createPlugin(new EnrichmentPluginMetadata());
     unreachablePlugin.setDataStatus(DataStatus.VALID);
 
     // Create enrichment plugin with deprecated status
-    final String deprecatedPluginId = new ObjectId().toString();
     final AbstractExecutablePlugin deprecatedPlugin = ExecutablePluginFactory
         .createPlugin(new EnrichmentPluginMetadata());
     deprecatedPlugin.setDataStatus(DataStatus.DEPRECATED);
@@ -354,21 +347,21 @@ class TestWorkflowExecutionDao {
         .getFirstOrLastFinishedPlugin(datasetId, EnumSet.of(PluginType.ENRICHMENT), false);
 
     // Try to find the default plugin
-    assertSame(defaultPlugin, workflowExecutionDao.getLastFinishedExecutablePlugin(datasetId,
+    assertSame(defaultPlugin, workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), false));
-    assertSame(defaultPlugin, workflowExecutionDao.getLastFinishedExecutablePlugin(datasetId,
+    assertSame(defaultPlugin, workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true));
 
     // Try to find the valid plugin
-    assertSame(validPlugin, workflowExecutionDao.getLastFinishedExecutablePlugin(datasetId,
+    assertSame(validPlugin, workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.TRANSFORMATION), false));
-    assertSame(validPlugin, workflowExecutionDao.getLastFinishedExecutablePlugin(datasetId,
+    assertSame(validPlugin, workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.TRANSFORMATION), true));
 
     // Try to find the deprecated plugin
-    assertSame(deprecatedPlugin, workflowExecutionDao.getLastFinishedExecutablePlugin(datasetId,
+    assertSame(deprecatedPlugin, workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.ENRICHMENT), false));
-    assertNull(workflowExecutionDao.getLastFinishedExecutablePlugin(datasetId,
+    assertNull(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.ENRICHMENT), true));
   }
 
@@ -408,27 +401,6 @@ class TestWorkflowExecutionDao {
         .getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false);
     verify(workflowExecutionDao, times(1))
         .getFirstOrLastFinishedPlugin(anyString(), any(), anyBoolean());
-  }
-
-  @Test
-  void getLatestSuccessfulExecutablePlugin() {
-
-    // Set up the mock
-    final AbstractExecutablePlugin plugin = ExecutablePluginFactory
-        .createPlugin(new MediaProcessPluginMetadata());
-    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    final Set<ExecutablePluginType> pluginTypes = EnumSet
-        .of(ExecutablePluginType.ENRICHMENT, ExecutablePluginType.MEDIA_PROCESS);
-    doReturn(plugin).when(workflowExecutionDao)
-        .getLastFinishedExecutablePlugin(datasetId, pluginTypes, true);
-
-    // Check the call
-    assertSame(plugin,
-        workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, pluginTypes, true));
-    verify(workflowExecutionDao, times(1))
-        .getLastFinishedExecutablePlugin(datasetId, pluginTypes, true);
-    verify(workflowExecutionDao, times(1))
-        .getLastFinishedExecutablePlugin(anyString(), any(), anyBoolean());
   }
 
   @Test

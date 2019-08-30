@@ -276,12 +276,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    *
    * @param datasetId the dataset identifier
    * @param pluginTypes the set of plugin types to check for. Cannot be null or contain null values.
-   * @param limitToValidData Only return the result if it has valid data (see {@link DataStatus}).
    * @return the last plugin found
    */
-  public AbstractExecutablePlugin getLatestSuccessfulExecutablePlugin(String datasetId,
-      Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
-    return getLastFinishedExecutablePlugin(datasetId, pluginTypes, limitToValidData);
+  public AbstractMetisPlugin getLatestSuccessfulPlugin(String datasetId,
+      Set<PluginType> pluginTypes) {
+    return getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false);
   }
 
   /**
@@ -290,15 +289,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    *
    * @param datasetId the dataset identifier
    * @param pluginTypes the set of plugin types to check for. Cannot be null or contain null values.
+   * @param limitToValidData Only return the result if it has valid data (see {@link DataStatus}).
    * @return the last plugin found
    */
-  public AbstractMetisPlugin getLatestSuccessfulPlugin(String datasetId,
-      Set<PluginType> pluginTypes) {
-    return getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false);
-  }
-
-  AbstractExecutablePlugin getLastFinishedExecutablePlugin(String datasetId,
-        Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
+  public AbstractExecutablePlugin getLatestSuccessfulExecutablePlugin(String datasetId,
+      Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
 
     // Perform the database query. If nothing found, we are done.
     final Set<PluginType> convertedPluginTypes = pluginTypes.stream()
