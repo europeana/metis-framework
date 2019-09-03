@@ -114,8 +114,11 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       // If the workflow was cancelled before it had the chance to finish, we cancel all remaining
       // plugins.
       workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
-      LOGGER.info("Cancelled running user workflow execution with id: {}",
-          workflowExecution.getId());
+      // Make sure the cancelledBy information is not lost
+      String cancelledBy = workflowExecutionDao.getById(workflowExecution.getId().toString())
+          .getCancelledBy();
+      workflowExecution.setCancelledBy(cancelledBy);
+      LOGGER.info("Cancelled running workflow execution with id: {}", workflowExecution.getId());
     } else if (finishDate == null) {
       // So something went wrong: one plugin must have failed.
       workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
