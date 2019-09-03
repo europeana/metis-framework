@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
@@ -23,30 +21,14 @@ public class ClasspathResourceResolver implements LSResourceResolver {
 
   private String prefix;
   private static final Logger LOGGER = LoggerFactory.getLogger(ClasspathResourceResolver.class);
-  private static Map<String, InputStream> cache = new HashMap<>();
 
   @Override
   public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId,
       String baseURI) {
     try {
       LSInput input = new ClasspathLSInput();
-      InputStream stream;
-      if (systemId.startsWith("http")) {
-        if (cache.get(systemId) == null) {
-          stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("xml.xsd");
-          cache.put(systemId, stream);
-        } else {
-          stream = cache.get(systemId);
-        }
-      } else {
-        String fullPath = new File(prefix, systemId).getAbsolutePath();
-        if (cache.get(fullPath) == null) {
-          stream = Files.newInputStream(Paths.get(fullPath));
-          cache.put(systemId, stream);
-        } else {
-          stream = cache.get(fullPath);
-        }
-      }
+      String fullPath = new File(prefix, systemId).getAbsolutePath();
+      InputStream stream = Files.newInputStream(Paths.get(fullPath));
       input.setPublicId(publicId);
       input.setSystemId(systemId);
       input.setBaseURI(baseURI);

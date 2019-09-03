@@ -85,12 +85,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   @Override
   public WorkflowExecution call() {
-    try {
-      return callInternal();
-    } catch (RuntimeException e) {
-      LOGGER.warn("Exception occurred in workflow executor", e);
-      throw e;
-    }
+    return callInternal();
   }
 
   private WorkflowExecution callInternal() {
@@ -197,7 +192,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     }
 
     // Trigger the plugin (if it has not already started)
-    final AbstractExecutablePlugin<?> plugin;
+    AbstractExecutablePlugin<?> plugin = null;
     try {
 
       // Check the plugin: it has to be executable
@@ -230,14 +225,15 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       pluginUnchecked.setFinishedDate(null);
       pluginUnchecked.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
       pluginUnchecked.setFailMessage(TRIGGER_ERROR_PREFIX + e.getMessage());
-      return;
     } finally {
       workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     }
 
-    // Start periodical check and wait for plugin to be done
-    long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-    periodicCheckingLoop(sleepTime, plugin);
+    if (plugin != null) {
+      // Start periodical check and wait for plugin to be done
+      long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
+      periodicCheckingLoop(sleepTime, plugin);
+    }
   }
 
   private String getExternalTaskIdOfPreviousPlugin(

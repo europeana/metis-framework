@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.service.dao;
 
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
+import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -29,8 +32,6 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDFS;
-import eu.europeana.enrichment.api.external.model.WikidataOrganization;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
 
 /**
@@ -104,8 +105,9 @@ public class WikidataAccessDao {
    * has to be controlled and the content should be safe for xslt transformation.
    */
   public final void init(InputStream xslTemplate) throws WikidataAccessException {
-    TransformerFactory transformerFactory = TransformerFactory.newInstance();
     try {
+      TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       Source xslt = new StreamSource(xslTemplate);
       transformer = transformerFactory.newTransformer(xslt);
       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");

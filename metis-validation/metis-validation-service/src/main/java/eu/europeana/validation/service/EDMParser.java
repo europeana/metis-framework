@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSResourceResolver;
@@ -65,10 +66,13 @@ final class EDMParser {
    * @param resolver the resolver used for the schema
    * @return JAXP schema validator.
    */
-  public javax.xml.validation.Validator getEdmValidator(String path, LSResourceResolver resolver) {
+  public Validator getEdmValidator(String path, LSResourceResolver resolver) {
     try {
       Schema schema = getSchema(path, resolver);
-      return schema.newValidator();
+      final Validator validator = schema.newValidator();
+      validator.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      validator.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+      return validator;
     } catch (SAXException | IOException e) {
       LOGGER.error("Unable to create validator", e);
     }

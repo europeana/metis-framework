@@ -68,11 +68,8 @@ public class AuthenticationClient {
                   HttpMethod.GET, request, String.class));
       return objectMapper.readValue(response == null ? null : response.getBody(), MetisUser.class);
     } catch (HttpClientErrorException e) {
-      LOGGER.error("Could not retrieve MetisUser. Exception: {}, ErrorCode: {}, {}",
-          e, e.getRawStatusCode(), e.getResponseBodyAsString());
       throw new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN, e);
     } catch (IOException e) {
-      LOGGER.error("Could not parse response to Object, {}: {}", e.getCause(), e.getMessage());
       throw new UserUnauthorizedException("Could not parse response to Object, {}", e);
     }
   }

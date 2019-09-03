@@ -5,6 +5,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
+import javax.xml.XMLConstants;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
@@ -40,7 +41,9 @@ public class IncomingRecordToEdmConverter {
    */
   public IncomingRecordToEdmConverter(Vocabulary vocabulary) throws TransformerException {
     final Source xsltSource = new StreamSource(new StringReader(vocabulary.getXslt()));
-    this.template = TransformerFactory.newInstance().newTemplates(xsltSource);
+    final TransformerFactory factory = TransformerFactory.newInstance();
+    factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+    this.template = factory.newTemplates(xsltSource);
   }
 
   /**

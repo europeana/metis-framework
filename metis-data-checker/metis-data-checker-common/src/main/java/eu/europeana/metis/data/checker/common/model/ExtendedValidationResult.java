@@ -1,6 +1,7 @@
 package eu.europeana.metis.data.checker.common.model;
 
 import eu.europeana.validation.model.ValidationResultList;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Extended class with data checker URL for data checker service Created by ymamakis on 9/2/16.
  */
 @XmlRootElement
-public class ExtendedValidationResult extends ValidationResultList {
+public class ExtendedValidationResult extends ValidationResultList implements Serializable {
+
+  private static final long serialVersionUID = 2405172041950251807L;
 
   private String portalUrl;
   private Date date;
