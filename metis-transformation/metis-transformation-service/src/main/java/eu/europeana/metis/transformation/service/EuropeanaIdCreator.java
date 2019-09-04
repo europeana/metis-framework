@@ -13,9 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -24,7 +21,7 @@ import javax.xml.xpath.XPathFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
+import org.xml.sax.InputSource;
 
 /**
  * An instance of this class can be used to create Europeana IDs for RDF records. This class is
@@ -236,15 +233,11 @@ public final class EuropeanaIdCreator {
         Thread.sleep(EVALUATE_XPATH_ATTEMPT_INTERVAL_IN_MS);
       }
 
-      // Make sure that no other thread in this JVM goes here at the same time.
+      // Make sure that no frfother thread in this JVM goes here at the same time.
       synchronized (EuropeanaIdCreator.class) {
         try {
-          DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
-          df.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-          df.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-          DocumentBuilder builder = df.newDocumentBuilder();
           // Attempt evaluation of XPath.
-          return (String) rdfAboutExtractor.evaluate(builder.parse(inputStream),
+          return (String) rdfAboutExtractor.evaluate(new InputSource(inputStream),
               XPathConstants.STRING);
         } catch (XPathExpressionException e) {
           if (isRaceCondition(e)) {
@@ -259,10 +252,6 @@ public final class EuropeanaIdCreator {
             throw new EuropeanaIdException(
                 "Something went wrong while extracting the provider ID from the source.", e);
           }
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-          // Handle unexpected exception that is not caused by a race condition: re-throw.
-          throw new EuropeanaIdException(
-              "Something went wrong while extracting the provider ID from the source.", e);
         }
       }
     }

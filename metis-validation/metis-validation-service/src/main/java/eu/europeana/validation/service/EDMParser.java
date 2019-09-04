@@ -69,10 +69,7 @@ final class EDMParser {
   public Validator getEdmValidator(String path, LSResourceResolver resolver) {
     try {
       Schema schema = getSchema(path, resolver);
-      final Validator validator = schema.newValidator();
-      validator.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-      validator.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-      return validator;
+      return schema.newValidator();
     } catch (SAXException | IOException e) {
       LOGGER.error("Unable to create validator", e);
     }
@@ -88,6 +85,9 @@ final class EDMParser {
       factory.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
           false);
       factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
+      //Protection from XXE
+      factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       Schema schema = factory.newSchema(new StreamSource(Files.newInputStream(Paths.get(path))));
       CACHE.put(path, schema);
     }
