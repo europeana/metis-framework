@@ -11,6 +11,7 @@ import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
+import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -21,13 +22,13 @@ import org.mongodb.morphia.query.Query;
  * Field updater for instances of {@link WebResourceMetaInfoImpl}.
  */
 public class WebResourceMetaInfoUpdater
-    extends AbstractMongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation> {
+    extends AbstractMongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation, Date> {
 
   private static final HashFunction HASH_FUNCTION = Hashing.md5();
 
   @Override
   protected MongoPropertyUpdater<WebResourceMetaInfoImpl> createPropertyUpdater(
-      WebResourceMetaInfoImpl newEntity, WebResourceInformation ancestorInformation,
+      WebResourceMetaInfoImpl newEntity, WebResourceInformation ancestorInformation, Date recordDate,
       MongoServer mongoServer) {
     final String hashCode = generateHashCode(ancestorInformation.getWebResourceAbout(),
         ancestorInformation.getRootAbout());

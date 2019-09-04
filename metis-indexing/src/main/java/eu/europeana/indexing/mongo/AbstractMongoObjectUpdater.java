@@ -9,14 +9,15 @@ import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
  * 
  * @param <R> The type of the record to update.
  * @param <A> The type of the ancestor information (information from parents).
+ * @param <S> The type of the date provided.
  */
-public abstract class AbstractMongoObjectUpdater<R, A> implements MongoObjectUpdater<R, A> {
+public abstract class AbstractMongoObjectUpdater<R, A, S> implements MongoObjectUpdater<R, A, S> {
 
   @Override
-  public final R update(R newEntity, A ancestorInformation, MongoServer mongoServer) {
+  public final R update(R newEntity, A ancestorInformation, S recordDate, MongoServer mongoServer) {
     preprocessEntity(newEntity, ancestorInformation);
     final MongoPropertyUpdater<R> propertyUpdater =
-        createPropertyUpdater(newEntity, ancestorInformation, mongoServer);
+        createPropertyUpdater(newEntity, ancestorInformation, recordDate, mongoServer);
     update(propertyUpdater, ancestorInformation);
     return propertyUpdater.applyOperations();
   }
@@ -30,7 +31,7 @@ public abstract class AbstractMongoObjectUpdater<R, A> implements MongoObjectUpd
    * @return The property updater for the given entity.
    */
   protected abstract MongoPropertyUpdater<R> createPropertyUpdater(R newEntity,
-      A ancestorInformation, MongoServer mongoServer);
+      A ancestorInformation, S recordDate, MongoServer mongoServer);
 
   /**
    * This method allows subclasses to perform preprocessing on the entity before saving it to the

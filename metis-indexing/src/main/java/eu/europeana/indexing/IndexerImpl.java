@@ -10,6 +10,7 @@ import eu.europeana.indexing.utils.RdfWrapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -53,7 +54,7 @@ class IndexerImpl implements Indexer {
     this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
   }
 
-  private void indexRecords(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf)
+  private void indexRecords(List<RDF> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf)
       throws IndexingException {
     LOGGER.info("Processing {} records...", records.size());
     try {
@@ -61,7 +62,7 @@ class IndexerImpl implements Indexer {
           connectionProvider.getFullBeanPublisher(preserveUpdateAndCreateTimesFromRdf);
       for (RDF record : records) {
         preprocessRecord(record);
-        publisher.publish(new RdfWrapper(record));
+        publisher.publish(new RdfWrapper(record), recordDate);
       }
       LOGGER.info("Successfully processed {} records.", records.size());
     } catch (IndexingException e) {
@@ -80,29 +81,30 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
-    indexRecords(records, preserveUpdateAndCreateTimesFromRdf);
+  public void indexRdfs(List<RDF> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+    indexRecords(records, recordDate, preserveUpdateAndCreateTimesFromRdf);
   }
 
   @Override
-  public void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
-    indexRdfs(Collections.singletonList(record), preserveUpdateAndCreateTimesFromRdf);
+  public void indexRdf(RDF record, Date recordDate,
+      boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+    indexRdfs(Collections.singletonList(record), recordDate, preserveUpdateAndCreateTimesFromRdf);
   }
 
   @Override
-  public void index(List<String> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+  public void index(List<String> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
     LOGGER.info("Parsing {} records...", records.size());
     final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
     final List<RDF> wrappedRecords = new ArrayList<>(records.size());
     for (String record : records) {
       wrappedRecords.add(stringToRdfConverter.convertStringToRdf(record));
     }
-    indexRecords(wrappedRecords, preserveUpdateAndCreateTimesFromRdf);
+    indexRecords(wrappedRecords, recordDate, preserveUpdateAndCreateTimesFromRdf);
   }
 
   @Override
-  public void index(String record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
-    index(Collections.singletonList(record), preserveUpdateAndCreateTimesFromRdf);
+  public void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+    index(Collections.singletonList(record), recordDate, preserveUpdateAndCreateTimesFromRdf);
   }
 
   @Override

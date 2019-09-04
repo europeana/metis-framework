@@ -8,6 +8,7 @@ import eu.europeana.metis.transformation.service.TransformationException;
 import eu.europeana.metis.transformation.service.XsltTransformer;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
+import java.util.Date;
 
 public class ValidationUtils {
 
@@ -34,8 +35,8 @@ public class ValidationUtils {
     return validationClient.validateRecord(schemaAfterTransformation, record);
   }
 
-  public void persist(RDF rdf) throws IndexingException {
-    recordDao.createRecord(rdf);
+  public void persist(RDF rdf, Date recordDate) throws IndexingException {
+    recordDao.createRecord(rdf, recordDate);
   }
 
   public XsltTransformer createTransformer(String datasetName, String edmCountry,

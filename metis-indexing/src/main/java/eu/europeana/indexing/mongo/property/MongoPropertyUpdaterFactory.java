@@ -1,11 +1,11 @@
 package eu.europeana.indexing.mongo.property;
 
 import eu.europeana.corelib.storage.MongoServer;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.util.TriConsumer;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 
@@ -19,9 +19,10 @@ public final class MongoPropertyUpdaterFactory {
   private MongoPropertyUpdaterFactory() {
   }
 
-  private static <T> MongoPropertyUpdater<T> create(T updated,
+  private static <T, S> MongoPropertyUpdater<T> create(T updated,
       MongoServer mongoServer, Class<T> objectClass, Supplier<Query<T>> queryCreator,
-      BiConsumer<T, T> dataPreprocessor, Consumer<UpdateOperations<T>> operationsPreprocessor) {
+      TriConsumer<T, T, S> dataPreprocessor, S recordDate,
+      Consumer<UpdateOperations<T>> operationsPreprocessor) {
 
     // Sanity checks.
     if (updated == null || mongoServer == null || objectClass == null || queryCreator == null) {
@@ -38,7 +39,7 @@ public final class MongoPropertyUpdaterFactory {
     // Obtain the current state from the database and perform preprocessing on it.
     final T current = queryCreator.get().get();
     if (dataPreprocessor != null) {
-      dataPreprocessor.accept(current, updated);
+      dataPreprocessor.accept(current, updated, recordDate);
     }
 
     // Done
@@ -57,14 +58,15 @@ public final class MongoPropertyUpdaterFactory {
    * @param queryCreator The function that creates the mongo query that can retrieve the object from
    * Mongo.
    * @param preprocessor This provides the option of performing some preprocessing on the current
-   * and/or the new object before applying the operations. Its two parameters are first the current
-   * bean (found in the database) and second the updated (as passed to this method). Can be null.
+   * and/or the new object before applying the operations. Its three parameters are first the
+   * current bean (found in the database) and second the updated (as passed to this method) and a
+   * record date. Can be null.
    * @return The property updater.
    */
-  public static <T> MongoPropertyUpdater<T> createForObjectWithoutAbout(T updated,
+  public static <T, S> MongoPropertyUpdater<T> createForObjectWithoutAbout(T updated,
       MongoServer mongoServer, Class<T> objectClass, Supplier<Query<T>> queryCreator,
-      BiConsumer<T, T> preprocessor) {
-    return create(updated, mongoServer, objectClass, queryCreator, preprocessor, null);
+      TriConsumer<T, T, S> preprocessor) {
+    return create(updated, mongoServer, objectClass, queryCreator, preprocessor, null, null);
   }
 
   /**
@@ -77,13 +79,15 @@ public final class MongoPropertyUpdaterFactory {
    * UpdateOperations}.
    * @param aboutGetter The function that obtains the about value from the object.
    * @param preprocessor This provides the option of performing some preprocessing on the current
-   * and/or the new object before applying the operations. Its two parameters are first the current
-   * bean (found in the database) and second the updated (as passed to this method). Can be null.
+   * and/or the new object before applying the operations. Its three parameters are first the
+   * current bean (found in the database) and second the updated (as passed to this method) and a
+   * record date. Can be null.
+   * @param recordDate The date that would represent the created/updated date of a record
    * @return The property updater.
    */
-  public static <T> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
+  public static <T, S> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
       MongoServer mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
-      BiConsumer<T, T> preprocessor) {
+      TriConsumer<T, T, S> preprocessor, S recordDate) {
 
     // Sanity checks.
     if (aboutGetter == null) {
@@ -102,7 +106,7 @@ public final class MongoPropertyUpdaterFactory {
         .setOnInsert(ABOUT_FIELD, aboutGetter.apply(updated));
 
     // Done
-    return create(updated, mongoServer, objectClass, queryCreator, preprocessor,
+    return create(updated, mongoServer, objectClass, queryCreator, preprocessor, recordDate,
         operationsPreprocessor);
   }
 }

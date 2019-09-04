@@ -12,6 +12,7 @@ import eu.europeana.indexing.mongo.WebResourceInformation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -171,12 +172,12 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   }
 
   @Override
-  public <P extends AbstractEdmEntity, A> void updateReferencedEntity(String updateField,
+  public <P extends AbstractEdmEntity, A, S> void updateReferencedEntity(String updateField,
       Function<T, P> getter, Function<T, A> ancestorInfoGetter,
-      MongoObjectUpdater<P, A> objectUpdater) {
+      MongoObjectUpdater<P, A, S> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<P> preprocessing =
-        entity -> objectUpdater.update(entity, ancestorInformation, mongoServer);
+        entity -> objectUpdater.update(entity, ancestorInformation, null, mongoServer);
     updateProperty(updateField, getter, MongoPropertyUpdaterImpl::equals, preprocessing);
   }
 
@@ -188,12 +189,12 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   }
 
   @Override
-  public <P extends AbstractEdmEntity, A> void updateReferencedEntities(String updateField,
+  public <P extends AbstractEdmEntity, A, S> void updateReferencedEntities(String updateField,
       Function<T, List<P>> getter, Function<T, A> ancestorInfoGetter,
-      MongoObjectUpdater<P, A> objectUpdater) {
+      MongoObjectUpdater<P, A, S> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<List<P>> preprocessing = entities -> entities.stream()
-        .map(entity -> objectUpdater.update(entity, ancestorInformation, mongoServer))
+        .map(entity -> objectUpdater.update(entity, ancestorInformation, null, mongoServer))
         .collect(Collectors.toList());
     final BiPredicate<List<P>, List<P>> equality =
         (w1, w2) -> listEquals(w1, w2, ENTITY_COMPARATOR);
@@ -258,12 +259,12 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   @Override
   public void updateWebResourceMetaInfo(Function<T, WebResourceMetaInfo> getter,
       Function<T, WebResourceInformation> ancestorInfoGetter,
-      Supplier<MongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation>> updaterSupplier) {
+      Supplier<MongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation, Date>> updaterSupplier) {
     final WebResourceMetaInfo entity = Optional.of(updated).map(getter).orElse(null);
     final WebResourceInformation ancestorInformation = ancestorInfoGetter.apply(updated);
     if (entity != null) {
       updaterSupplier.get()
-          .update((WebResourceMetaInfoImpl) entity, ancestorInformation, mongoServer);
+          .update((WebResourceMetaInfoImpl) entity, ancestorInformation, null, mongoServer);
     }
   }
 
