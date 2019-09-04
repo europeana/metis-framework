@@ -3,7 +3,6 @@ package eu.europeana.metis.authentication.dao;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -327,18 +326,12 @@ public class PsqlMetisUserDao {
    * @return list of all {@link MetisUser}s
    */
   public List<MetisUser> getAllMetisUsers() {
-    List<MetisUser> metisUsers;
     try (Session session = sessionFactory.openSession()) {
       CriteriaBuilder builder = session.getCriteriaBuilder();
       CriteriaQuery<MetisUser> criteriaQuery = builder.createQuery(MetisUser.class);
       criteriaQuery.from(MetisUser.class);
       Query<MetisUser> query = session.createQuery(criteriaQuery);
-      List<MetisUser> metisUsersObjects = query.getResultList();
-      metisUsers = new ArrayList<>(metisUsersObjects.size());
-      for (Object object : metisUsersObjects) {
-        metisUsers.add((MetisUser) object);
-      }
+      return query.getResultList();
     }
-    return metisUsers;
   }
 }

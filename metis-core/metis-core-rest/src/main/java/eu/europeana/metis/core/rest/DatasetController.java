@@ -29,11 +29,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -77,7 +79,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be authenticated or authorized or the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.POST, consumes = {
+  @PostMapping(value = RestEndpoints.DATASETS, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
@@ -112,7 +114,7 @@ public class DatasetController {
    * <li>{@link DatasetAlreadyExistsException} if a datasetName change is requested and the datasetName for that organizationId already exists.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.PUT, consumes = {
+  @PutMapping(value = RestEndpoints.DATASETS, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDataset(@RequestHeader("Authorization") String authorization,
@@ -140,7 +142,7 @@ public class DatasetController {
    * <li>{@link NoDatasetFoundException} if the dataset was not found for datasetId</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.DELETE)
+  @DeleteMapping(value = RestEndpoints.DATASETS_DATASETID)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteDataset(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId)
@@ -168,7 +170,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -200,7 +202,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -230,7 +232,7 @@ public class DatasetController {
    * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_XSLT_XSLTID, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_XSLT_XSLTID, produces = {
       MediaType.TEXT_PLAIN_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -259,7 +261,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_XSLT_DEFAULT, method = RequestMethod.POST, consumes = {
+  @PostMapping(value = RestEndpoints.DATASETS_XSLT_DEFAULT, consumes = {
       MediaType.TEXT_PLAIN_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
@@ -288,7 +290,7 @@ public class DatasetController {
    * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_XSLT_DEFAULT, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_XSLT_DEFAULT, produces = {
       MediaType.TEXT_PLAIN_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -319,7 +321,7 @@ public class DatasetController {
    * <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM, method = RequestMethod.POST, consumes = {
+  @PostMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM, consumes = {
       MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -352,7 +354,7 @@ public class DatasetController {
    * <li>{@link XsltSetupException} if the XSL transform could not be set up</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM_DEFAULT, method = RequestMethod.POST, consumes = {
+  @PostMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT_TRANSFORM_DEFAULT, consumes = {
       MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -377,7 +379,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_DATASETNAME, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -406,7 +408,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_PROVIDER, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_PROVIDER, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -445,7 +447,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_INTERMEDIATE_PROVIDER, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_INTERMEDIATE_PROVIDER, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -485,7 +487,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_DATAPROVIDER, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_DATAPROVIDER, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -524,7 +526,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_ORGANIZATION_ID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -563,7 +565,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_ORGANIZATION_NAME, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_ORGANIZATION_NAME, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -600,7 +602,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_COUNTRIES, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_COUNTRIES, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -622,7 +624,7 @@ public class DatasetController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.DATASETS_LANGUAGES, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.DATASETS_LANGUAGES, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody

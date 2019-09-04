@@ -1,5 +1,7 @@
 package eu.europeana.metis.transformation.service;
 
+import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
+import eu.europeana.corelib.definitions.jibx.RDF;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,8 +22,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
-import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
-import eu.europeana.corelib.definitions.jibx.RDF;
 
 /**
  * An instance of this class can be used to create Europeana IDs for RDF records. This class is
@@ -233,10 +233,9 @@ public final class EuropeanaIdCreator {
         Thread.sleep(EVALUATE_XPATH_ATTEMPT_INTERVAL_IN_MS);
       }
 
-      // Make sure that no other thread in this JVM goes here at the same time.
+      // Make sure that no frfother thread in this JVM goes here at the same time.
       synchronized (EuropeanaIdCreator.class) {
         try {
-
           // Attempt evaluation of XPath.
           return (String) rdfAboutExtractor.evaluate(new InputSource(inputStream),
               XPathConstants.STRING);
@@ -246,7 +245,7 @@ public final class EuropeanaIdCreator {
             // Handle exception that is caused by a race condition: remember it and try again.
             LOGGER.warn("Race condition error occurred during attempt {} of {}. Trying again...", i,
                 EVALUATE_XPATH_ATTEMPT_COUNT, e);
-            xpathException = e;
+            xpathException = (XPathExpressionException) e;
           } else {
 
             // Handle unexpected exception that is not caused by a race condition: re-throw.

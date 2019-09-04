@@ -24,9 +24,8 @@ import org.slf4j.LoggerFactory;
  * <li>-[year digits] (for BC years)</li>
  * <li>[year digits] (for AD years)</li>
  * </ul>
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public class YearParser {
 
@@ -69,8 +68,9 @@ public class YearParser {
     // Read the lines from the file.
     final List<String> readLines;
     try {
-      readLines = IOUtils.readLines(YearParser.class.getClassLoader().getResourceAsStream(filePath),
-          StandardCharsets.UTF_8.name());
+      readLines = IOUtils
+          .readLines(Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath),
+              StandardCharsets.UTF_8.name());
     } catch (IOException e) {
       LOGGER.error("Problem reading file '" + filePath + "'", e);
       return Collections.emptyList();
@@ -94,7 +94,7 @@ public class YearParser {
 
   /**
    * This method parses a list of strings to a year.
-   * 
+   *
    * @param input The list of input strings. Is not null.
    * @return A (possibly empty) set of years. The set is not null, nor does it contain null entries.
    */
@@ -104,7 +104,7 @@ public class YearParser {
 
   /**
    * This method parses a string to a year.
-   * 
+   *
    * @param input The input string. Is not null.
    * @return The year, or null if it could not parse the string.
    */

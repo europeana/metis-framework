@@ -66,10 +66,10 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
               .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
                   USER_IDENTIFIER_STRING));
       query.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
-      if (!query.list().isEmpty()) {
-        metisZohoOAuthToken = (MetisZohoOAuthToken) query.list().get(0);
-      } else {
+      if (query.list().isEmpty()) {
         throw new ZohoOAuthException("Given User not found in persistence.");
+      } else {
+        metisZohoOAuthToken = (MetisZohoOAuthToken) query.list().get(0);
       }
       String potentialErrorMessage = "Exception while retrieving zoho oauth user tokens";
       commitTransaction(tx, potentialErrorMessage);
