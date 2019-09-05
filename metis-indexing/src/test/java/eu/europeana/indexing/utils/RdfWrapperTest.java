@@ -4,11 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
-
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import org.junit.jupiter.api.Test;
 import eu.europeana.corelib.definitions.jibx.AboutType;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Aggregation;
@@ -24,13 +32,6 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.Service;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import org.junit.jupiter.api.Test;
 
 class RdfWrapperTest {
 
@@ -89,6 +90,34 @@ class RdfWrapperTest {
     // Test rdf that returns null
     when(getter.apply(rdf)).thenReturn(null);
     assertTrue(wrapperMethod.apply(new RdfWrapper(rdf)).isEmpty());
+  }
+
+  @Test
+  void testHasLandingPage() {
+
+    // Create entities
+    final WebResourceWrapper entity0 = mock(WebResourceWrapper.class);
+    doReturn(" ").when(entity0).getMimeType();
+    final WebResourceWrapper entity1 = mock(WebResourceWrapper.class);
+    doReturn("nonemptytype").when(entity1).getMimeType();
+    final WebResourceWrapper entity2 = mock(WebResourceWrapper.class);
+    doReturn(null).when(entity2).getMimeType();
+
+    // Test rdf that returns a real list with a nonempty about
+    final RdfWrapper rdf = spy(new RdfWrapper(mock(RDF.class)));
+    doReturn(Arrays.asList(entity0, entity1, entity2)).when(rdf)
+        .getWebResourceWrappers(eq(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT)));
+    assertTrue(rdf.hasLandingPage());
+
+    // Test rdf that returns a real list without a nonempty about
+    doReturn(Arrays.asList(entity0, entity2)).when(rdf)
+        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT));
+    assertFalse(rdf.hasLandingPage());
+
+    // Test rdf that returns empty list
+    doReturn(Collections.emptyList()).when(rdf)
+        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT));
+    assertFalse(rdf.hasLandingPage());
   }
 
   @Test

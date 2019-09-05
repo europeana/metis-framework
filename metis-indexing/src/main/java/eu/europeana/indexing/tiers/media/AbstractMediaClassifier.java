@@ -1,5 +1,7 @@
 package eu.europeana.indexing.tiers.media;
 
+import java.util.EnumSet;
+import java.util.List;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
@@ -7,9 +9,6 @@ import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
-import java.util.EnumSet;
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * This is the superclass of all classifiers for specific media types. Classification happens both
@@ -30,9 +29,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
     // Find candidate web resources and determine whether there is a landing page.
     final List<WebResourceWrapper> webResources = entity.getWebResourceWrappers(EnumSet.of(
         WebResourceLinkType.HAS_VIEW, WebResourceLinkType.IS_SHOWN_BY));
-    final boolean hasLandingPage = entity
-        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT)).stream()
-        .map(WebResourceWrapper::getMimeType).anyMatch(StringUtils::isNotBlank);
+    final boolean hasLandingPage = entity.hasLandingPage();
 
     // Compute the media tier based on whether it has suitable web resources.
     final MediaTier result;
@@ -52,7 +49,19 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
     return result;
   }
 
-  private MediaTier classifyWebResource(WebResourceWrapper webResource, LicenseType entityLicense,
+  /**
+   * This method is used to classify a web resource. If this method is called for an entity, the
+   * method {@link #classifyEntityWithoutWebResources(RdfWrapper, boolean)} is not called for it.
+   * Otherwise, it is, once for each suitable web resource.
+   *
+   * @param webResource The web resource.
+   * @param entityLicense The license type that holds for the entity. If the web resource also has a
+   * license, the most permissive of the two will hold for the tier calculation.
+   * @param hasEmbeddableMedia Whether the entity has embeddable media.
+   * @param hasLandingPage Whether the entity has a landing page.
+   * @return The classification.
+   */
+  MediaTier classifyWebResource(WebResourceWrapper webResource, LicenseType entityLicense,
       boolean hasLandingPage, boolean hasEmbeddableMedia) {
 
     // Perform the classification on the basis of the media.
@@ -98,9 +107,10 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
 
   /**
    * This method is used to classify a web resource. It does not need to concern itself with the
-   * license, it should be concerned with the media only. If this method is called for an entity,
-   * the method {@link #classifyEntityWithoutWebResources(RdfWrapper, boolean)} is not called for
-   * it. Otherwise, it is, once for each suitable web resource.
+   * license, it should be concerned with the media only (and returns the highest classification
+   * that the media could get under any license). If this method is called for an entity, the method
+   * {@link #classifyEntityWithoutWebResources(RdfWrapper, boolean)} is not called for it.
+   * Otherwise, it is, once for each suitable web resource.
    *
    * @param webResource The web resource.
    * @param hasEmbeddableMedia Whether the entity has embeddable media.

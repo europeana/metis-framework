@@ -21,6 +21,7 @@ import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.Type2;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -146,6 +147,18 @@ public class RdfWrapper {
         .filter(Objects::nonNull).map(Type2::getType).filter(Objects::nonNull)
         .collect(Collectors.toSet());
     return (types.size() == 1) ? types.iterator().next() : null;
+  }
+  
+  /**
+   * Determines whether this entity has a landing page. An entity has a landing page if there is at
+   * least one web resource of type 'isShownAt', representing technical metadata of some (non-empty)
+   * mime type.
+   * 
+   * @return Whether this entity has a landing page.
+   */
+  public boolean hasLandingPage() {
+    return getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT)).stream()
+        .map(WebResourceWrapper::getMimeType).anyMatch(StringUtils::isNotBlank);
   }
 
   /**

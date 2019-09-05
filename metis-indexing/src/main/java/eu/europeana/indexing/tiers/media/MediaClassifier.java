@@ -11,11 +11,39 @@ import java.util.Optional;
  */
 public class MediaClassifier implements TierClassifier<MediaTier> {
 
-  private final AudioClassifier audioClassifier = new AudioClassifier();
-  private final ImageClassifier imageClassifier = new ImageClassifier();
-  private final TextClassifier textClassifier = new TextClassifier();
-  private final VideoClassifier videoClassifier = new VideoClassifier();
-  private final ThreeDClassifier threeDClassifier = new ThreeDClassifier();
+  private final AudioClassifier audioClassifier;
+  private final ImageClassifier imageClassifier;
+  private final TextClassifier textClassifier;
+  private final VideoClassifier videoClassifier;
+  private final ThreeDClassifier threeDClassifier;
+
+  /**
+   * Constructor.
+   */
+  public MediaClassifier() {
+    this(new AudioClassifier(), new ImageClassifier(), new TextClassifier(), new VideoClassifier(),
+        new ThreeDClassifier());
+  }
+
+  /**
+   * Constructor for test purposes.
+   * 
+   * @param audioClassifier The audio classifier to use.
+   * @param imageClassifier The image classifier to use.
+   * @param textClassifier The text classifier to use.
+   * @param videoClassifier The video classifier to use.
+   * @param threeDClassifier the 3D classifier to use.
+   */
+  MediaClassifier(AudioClassifier audioClassifier, ImageClassifier imageClassifier,
+      TextClassifier textClassifier, VideoClassifier videoClassifier,
+      ThreeDClassifier threeDClassifier) {
+    super();
+    this.audioClassifier = audioClassifier;
+    this.imageClassifier = imageClassifier;
+    this.textClassifier = textClassifier;
+    this.videoClassifier = videoClassifier;
+    this.threeDClassifier = threeDClassifier;
+  }
 
   @Override
   public MediaTier classify(RdfWrapper entity) {
