@@ -34,7 +34,6 @@ import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.ReindexToPreviewPlugin;
@@ -89,7 +88,7 @@ class TestWorkflowUtils {
     assertNull(workflowUtils.getPredecessorPlugin(ExecutablePluginType.HTTP_HARVEST,
         ExecutablePluginType.TRANSFORMATION, DATASET_ID));
     Mockito.verify(workflowExecutionDao, Mockito.never())
-        .getLatestSuccessfulPlugin(anyString(), any(), anyBoolean());
+        .getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean());
   }
 
   @Test
@@ -98,7 +97,7 @@ class TestWorkflowUtils {
     // Create plugin object
     final AbstractExecutablePlugin plugin = ExecutablePluginFactory
         .createPlugin(new OaipmhHarvestPluginMetadata());
-    doReturn(plugin).when(workflowExecutionDao).getLatestSuccessfulPlugin(DATASET_ID,
+    doReturn(plugin).when(workflowExecutionDao).getLatestSuccessfulExecutablePlugin(DATASET_ID,
         EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST),true);
 
     // Test without errors
@@ -156,7 +155,8 @@ class TestWorkflowUtils {
       plugin.setExecutionProgress(new ExecutionProgress());
       plugin.getExecutionProgress().setProcessedRecords(1);
       plugin.getExecutionProgress().setErrors(0);
-      when(workflowExecutionDao.getLatestSuccessfulPlugin(DATASET_ID, finishedPlugins, true))
+      when(workflowExecutionDao
+          .getLatestSuccessfulExecutablePlugin(DATASET_ID, finishedPlugins, true))
           .thenReturn(plugin);
       assertSame(plugin, workflowUtils
           .getPredecessorPlugin(metadata.getExecutablePluginType(), null, DATASET_ID));
@@ -177,7 +177,7 @@ class TestWorkflowUtils {
   }
 
   @Test
-  void testGetPredecessorPluginForWorkflowExecution() throws PluginExecutionNotAllowed {
+  void testGetPredecessorPluginForWorkflowExecution() {
     
     // Add non executable plugin.
     final List<AbstractMetisPlugin> plugins = new ArrayList<>();
