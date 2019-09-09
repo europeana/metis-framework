@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -278,6 +279,20 @@ class TestWorkflowExecutionDao {
     assertNull(latestFinishedWorkflowExecution);
   }
 
+  @Test
+  void getFirstOrLastFinishedPlugin_invalidPluginTypes() {
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    assertThrows(IllegalArgumentException.class,
+        () -> workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId, null, true));
+    assertThrows(IllegalArgumentException.class, () -> workflowExecutionDao
+        .getFirstOrLastFinishedPlugin(datasetId, Collections.emptySet(), false));
+    final Set<PluginType> setWithNull = new HashSet<>();
+    setWithNull.add(null);
+    setWithNull.add(PluginType.OAIPMH_HARVEST);
+    assertThrows(IllegalArgumentException.class,
+        () -> workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId, setWithNull, true));
+  }
+
   private static class NonExecutableEnrichmentPlugin extends AbstractMetisPlugin<EnrichmentPluginMetadata> {
     NonExecutableEnrichmentPlugin() {
       super(PluginType.ENRICHMENT);
@@ -363,6 +378,20 @@ class TestWorkflowExecutionDao {
         EnumSet.of(ExecutablePluginType.ENRICHMENT), false));
     assertNull(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
         EnumSet.of(ExecutablePluginType.ENRICHMENT), true));
+  }
+
+  @Test
+  void getLatestSuccessfulExecutablePlugin_invalidPluginTypes() {
+    final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
+    assertThrows(IllegalArgumentException.class,
+        () -> workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, null, true));
+    assertThrows(IllegalArgumentException.class, () -> workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(datasetId, Collections.emptySet(), false));
+    final Set<ExecutablePluginType> setWithNull = new HashSet<>();
+    setWithNull.add(null);
+    setWithNull.add(ExecutablePluginType.OAIPMH_HARVEST);
+    assertThrows(IllegalArgumentException.class, () -> workflowExecutionDao
+            .getLatestSuccessfulExecutablePlugin(datasetId, setWithNull, true));
   }
 
   @Test

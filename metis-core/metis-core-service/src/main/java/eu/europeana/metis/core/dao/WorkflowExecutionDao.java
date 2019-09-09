@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -295,6 +296,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   public AbstractExecutablePlugin getLatestSuccessfulExecutablePlugin(String datasetId,
       Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
 
+    // Verify the plugin types
+    verifyEnumSetIsValidAndNotEmpty(pluginTypes);
+
     // Perform the database query. If nothing found, we are done.
     final Set<PluginType> convertedPluginTypes = pluginTypes.stream()
         .map(ExecutablePluginType::toPluginType).collect(Collectors.toSet());
@@ -324,6 +328,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   AbstractMetisPlugin getFirstOrLastFinishedPlugin(String datasetId,
       Set<PluginType> pluginTypes, boolean firstFinished) {
+
+    // Verify the plugin types
+    verifyEnumSetIsValidAndNotEmpty(pluginTypes);
 
     // Create the query to match a plugin satisfying the conditions.
     final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
@@ -361,6 +368,12 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return Optional.ofNullable(metisPluginsIterator)
         .filter(Iterator::hasNext).map(Iterator::next).map(WorkflowExecution::getMetisPlugins)
         .filter(plugins -> !plugins.isEmpty()).map(plugins -> plugins.get(0)).orElse(null);
+  }
+
+  private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum> set) {
+    if (set == null || set.isEmpty() || set.stream().anyMatch(Objects::isNull)) {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
