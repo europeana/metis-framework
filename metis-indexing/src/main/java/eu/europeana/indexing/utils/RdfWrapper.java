@@ -162,8 +162,7 @@ public class RdfWrapper {
   }
 
   /**
-   * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those that need to be indexed.
+   * This method extracts all web resources from the RDF object. This will filter the objects: it only returns those with a non-blank about value.
    *
    * @return The list of web resources. Is not null, but could be empty.
    */
@@ -186,7 +185,7 @@ public class RdfWrapper {
 
   /**
    * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those that need to be indexed and that have at least one of the given types.
+   * only returns those with a non-blank about value and that have at least one of the given types.
    *
    * @param types The types to which we limit our search. We only return web resources that have at
    * least one of the given types. Cannot be null.
@@ -202,7 +201,7 @@ public class RdfWrapper {
 
   /**
    * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those that need to be indexed. But contrary to {@link
+   * only returns those with a non-blank about value. But contrary to {@link
    * #getWebResourceWrappers(Set)} it also returns all web resources that have none of the supported
    * types.
    *
@@ -218,7 +217,7 @@ public class RdfWrapper {
 
   /**
    * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those that need to be indexed and that have at least one of the given types.
+   * only returns those with a non-blank about value and that have at least one of the given types.
    *
    * @param types The types to which we limit our search. We only return web resources that have at
    * least one of the given types. Cannot be null.
@@ -291,12 +290,11 @@ public class RdfWrapper {
         .map(WebResourceWrapper::getMimeType).anyMatch(StringUtils::isNotBlank);
   }
 
-
   /**
    * Obtains the list of agents from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The agents that need to be indexed.
+   * @return The agents. Is not null, but could be empty.
    */
   public List<AgentType> getAgents() {
     return getFilteredPropertyList(record.getAgentList());
@@ -304,9 +302,9 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of concepts from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The concepts that need to be indexed.
+   * @return The concepts. Is not null, but could be empty.
    */
   public List<Concept> getConcepts() {
     return getFilteredPropertyList(record.getConceptList());
@@ -314,9 +312,9 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of licenses from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The licenses that need to be indexed.
+   * @return The licenses. Is not null, but could be empty.
    */
   public List<License> getLicenses() {
     return getFilteredPropertyList(record.getLicenseList());
@@ -324,9 +322,9 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of places from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The places that need to be indexed.
+   * @return The places. Is not null, but could be empty.
    */
   public List<PlaceType> getPlaces() {
     return getFilteredPropertyList(record.getPlaceList());
@@ -334,9 +332,9 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of time spans from an RDF record. This will filter the objects: it only
-   * returns those that need to be indexed.
+   * returns those with a non-blank about value.
    *
-   * @return The time spans that need to be indexed.
+   * @return The time spans. Is not null, but could be empty.
    */
   public List<TimeSpanType> getTimeSpans() {
     return getFilteredPropertyList(record.getTimeSpanList());
@@ -344,14 +342,20 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of services from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The services that need to be indexed.
+   * @return The services. Is not null, but could be empty.
    */
   public List<Service> getServices() {
     return getFilteredPropertyList(record.getServiceList());
   }
 
+  /**
+   * Obtain the list of quality annotations from an RDF record. This will filter the objects: it
+   * only returns those with a non-blank about value.
+   *
+   * @return The quality annotations. Is not null, but could be empty.
+   */
   public List<QualityAnnotation> getQualityAnnotations() {
     return getFilteredPropertyList(record.getQualityAnnotationList());
   }
@@ -361,7 +365,7 @@ public class RdfWrapper {
   }
 
   private static <T extends AboutType> Stream<T> getFilteredPropertyStream(List<T> propertyList) {
-    return getPropertyStream(propertyList)
+    return getPropertyStream(propertyList).filter(Objects::nonNull)
         .filter(resource -> StringUtils.isNotBlank(resource.getAbout()));
   }
 

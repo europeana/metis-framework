@@ -60,7 +60,7 @@ class RdfWrapperTest {
 
     // Test rdf that returns a real list
     final RDF rdf = mock(RDF.class);
-    when(getter.apply(rdf)).thenReturn(Arrays.asList(entity0, entity1, entity2));
+    when(getter.apply(rdf)).thenReturn(Arrays.asList(entity0, entity1, entity2, null));
     assertEquals(Collections.singletonList(entity1), wrapperMethod.apply(new RdfWrapper(rdf)));
 
     // Test rdf that returns null
@@ -133,7 +133,7 @@ class RdfWrapperTest {
 
     // Test rdf that returns a real list
     final RDF rdf = mock(RDF.class);
-    when(rdf.getWebResourceList()).thenReturn(Arrays.asList(entity0, entity1, entity2));
+    when(rdf.getWebResourceList()).thenReturn(Arrays.asList(entity0, entity1, entity2, null));
     assertEquals(Collections.singletonList(entity1.getAbout()),
         new RdfWrapper(rdf).getWebResources().stream().map(WebResourceType::getAbout)
             .collect(Collectors.toList()));
@@ -215,7 +215,7 @@ class RdfWrapperTest {
 
     // Test rdf that returns a real list
     final RDF rdf = mock(RDF.class);
-    when(rdf.getProvidedCHOList()).thenReturn(Arrays.asList(entity0, entity1, entity2));
+    when(rdf.getProvidedCHOList()).thenReturn(Arrays.asList(entity0, entity1, entity2, null));
     assertEquals(entity1.getAbout(), new RdfWrapper(rdf).getAbout());
 
     // Test rdf that returns list without viable candidates

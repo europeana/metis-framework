@@ -32,29 +32,8 @@ public class ContextualClassClassifier implements TierClassifier<MetadataTier> {
   @Override
   public MetadataTier classify(RdfWrapper entity) {
 
-    // Get all the entity references from the provider proxies.
-    final Set<String> referencedEntities = entity.getProviderProxies().stream()
-        .map(ContextualClassClassifier::getResourceLinks).flatMap(Set::stream)
-        .collect(Collectors.toSet());
-
-    // Count the entity types that are referenced and that qualify according to the criteria.
-    int contextualClassCount = 0;
-    if (hasQualifiedEntities(entity.getAgents(), referencedEntities,
-        this::entityQualifies)) {
-      contextualClassCount++;
-    }
-    if (hasQualifiedEntities(entity.getConcepts(), referencedEntities,
-        this::entityQualifies)) {
-      contextualClassCount++;
-    }
-    if (hasQualifiedEntities(entity.getPlaces(), referencedEntities,
-        this::entityQualifies)) {
-      contextualClassCount++;
-    }
-    if (hasQualifiedEntities(entity.getTimeSpans(), referencedEntities,
-        this::entityQualifies)) {
-      contextualClassCount++;
-    }
+    // Count the contextual class type occurrences of qualifying contextual classes.
+    final int contextualClassCount = countQualifyingContextualClassTypes(entity);
 
     // perform classification
     final MetadataTier result;
@@ -70,20 +49,45 @@ public class ContextualClassClassifier implements TierClassifier<MetadataTier> {
     return result;
   }
 
+  int countQualifyingContextualClassTypes(RdfWrapper entity) {
+
+    // Get all the entity references from the provider proxies.
+    final Set<String> referencedEntities = entity.getProviderProxies().stream()
+        .map(ContextualClassClassifier::getResourceLinks).flatMap(Set::stream)
+        .collect(Collectors.toSet());
+
+    // Count the entity types that are referenced and that qualify according to the criteria.
+    int contextualClassCount = 0;
+    if (hasQualifiedEntities(entity.getAgents(), referencedEntities, this::entityQualifies)) {
+      contextualClassCount++;
+    }
+    if (hasQualifiedEntities(entity.getConcepts(), referencedEntities, this::entityQualifies)) {
+      contextualClassCount++;
+    }
+    if (hasQualifiedEntities(entity.getPlaces(), referencedEntities, this::entityQualifies)) {
+      contextualClassCount++;
+    }
+    if (hasQualifiedEntities(entity.getTimeSpans(), referencedEntities, this::entityQualifies)) {
+      contextualClassCount++;
+    }
+
+    // Done
+    return contextualClassCount;
+  }
+
   private static Set<String> getResourceLinks(ProxyType proxy) {
     return Stream.of(ResourceLinkFromProxy.values())
         .map(ResourceLinkFromProxy::getLinkAndValueGetter)
         .flatMap(link -> link.getLinks(proxy)).collect(Collectors.toSet());
   }
 
-
   private static <T extends AboutType> boolean hasQualifiedEntities(List<T> entities,
       Set<String> referencedEntities, Predicate<T> entityQualifier) {
-    return entities.stream().filter(place -> referencedEntities.contains(place.getAbout()))
+    return entities.stream().filter(entity -> referencedEntities.contains(entity.getAbout()))
         .anyMatch(entityQualifier);
   }
 
-  private boolean entityQualifies(AgentType agent) {
+  boolean entityQualifies(AgentType agent) {
     boolean hasPrefLabel = hasLiteralProperty(agent.getPrefLabelList());
     boolean hasBeginInfo = hasProperty(agent.getBegin()) || hasProperty(agent.getDateOfBirth())
         || hasResourceOrLiteralProperty(agent.getPlaceOfBirthList());
@@ -94,45 +98,45 @@ public class ContextualClassClassifier implements TierClassifier<MetadataTier> {
     return hasPrefLabel && (hasBeginInfo || hasEndInfo || hasProfessionOrOccupation);
   }
 
-  private boolean entityQualifies(Concept concept) {
-    if (concept.getChoiceList() != null) {
-      final boolean hasPrefLabel = concept.getChoiceList().stream().filter(Choice::ifPrefLabel)
-          .map(Choice::getPrefLabel).anyMatch(ContextualClassClassifier::hasProperty);
-      final boolean hasRelationOrNote = concept.getChoiceList().stream()
-          .anyMatch(ContextualClassClassifier::hasRelationOrNote);
-      return hasPrefLabel && hasRelationOrNote;
+  boolean entityQualifies(Concept concept) {
+    if (concept.getChoiceList() == null) {
+      return false;
     }
-    return false;
+    final boolean hasPrefLabel = concept.getChoiceList().stream().filter(Choice::ifPrefLabel)
+        .map(Choice::getPrefLabel).anyMatch(this::hasProperty);
+    final boolean hasRelationOrNote = concept.getChoiceList().stream()
+        .anyMatch(this::hasRelationOrNote);
+    return hasPrefLabel && hasRelationOrNote;
   }
 
-  private static boolean hasRelationOrNote(Choice choice) {
+  private boolean hasRelationOrNote(Choice choice) {
     final boolean hasNote = choice.ifNote() && hasProperty(choice.getNote());
     final boolean hasHierarchicalMatch = (choice.ifBroader() && hasProperty(choice.getBroader())) ||
         (choice.ifNarrower() && hasProperty(choice.getNarrower()));
-    final boolean hasPartiyMatch = (choice.ifExactMatch() && hasProperty(choice.getExactMatch())) ||
+    final boolean hasParityMatch = (choice.ifExactMatch() && hasProperty(choice.getExactMatch())) ||
         (choice.ifCloseMatch() && hasProperty(choice.getCloseMatch()));
     final boolean hasRelation = choice.ifRelated() && hasProperty(choice.getRelated());
-    return hasNote || hasHierarchicalMatch || hasPartiyMatch || hasRelation;
+    return hasNote || hasHierarchicalMatch || hasParityMatch || hasRelation;
   }
 
-  private boolean entityQualifies(PlaceType place) {
+  boolean entityQualifies(PlaceType place) {
     boolean hasPrefLabel = hasLiteralProperty(place.getPrefLabelList());
     boolean hasLat = Optional.ofNullable(place.getLat()).map(Lat::getLat).isPresent();
     boolean hasLong = Optional.ofNullable(place.getLong()).map(_Long::getLong).isPresent();
     return (hasPrefLabel && hasLat && hasLong);
   }
 
-  private boolean entityQualifies(TimeSpanType timeSpan) {
+  boolean entityQualifies(TimeSpanType timeSpan) {
     boolean hasBegin = hasProperty(timeSpan.getBegin());
-    boolean hasEnd = hasProperty(timeSpan.getBegin());
+    boolean hasEnd = hasProperty(timeSpan.getEnd());
     return (hasBegin && hasEnd);
   }
 
-  private static boolean hasProperty(LiteralType literal) {
+  boolean hasProperty(LiteralType literal) {
     return literal != null && StringUtils.isNotBlank(literal.getString());
   }
 
-  private static boolean hasProperty(ResourceOrLiteralType resourceOrLiteral) {
+  boolean hasProperty(ResourceOrLiteralType resourceOrLiteral) {
     final Optional<ResourceOrLiteralType> property = Optional.ofNullable(resourceOrLiteral);
     final boolean hasLiteral = property.map(ResourceOrLiteralType::getString)
         .filter(StringUtils::isNotBlank).isPresent();
@@ -141,16 +145,16 @@ public class ContextualClassClassifier implements TierClassifier<MetadataTier> {
     return hasLiteral || hasResource;
   }
 
-  private static boolean hasProperty(ResourceType resource) {
+  boolean hasProperty(ResourceType resource) {
     return resource != null && StringUtils.isNotBlank(resource.getResource());
   }
 
-  private static boolean hasLiteralProperty(List<? extends LiteralType> literals) {
-    return literals != null && literals.stream().anyMatch(ContextualClassClassifier::hasProperty);
+  boolean hasLiteralProperty(List<? extends LiteralType> literals) {
+    return literals != null && literals.stream().anyMatch(this::hasProperty);
   }
 
-  private static boolean hasResourceOrLiteralProperty(
-      List<? extends ResourceOrLiteralType> literals) {
-    return literals != null && literals.stream().anyMatch(ContextualClassClassifier::hasProperty);
+  boolean hasResourceOrLiteralProperty(
+      List<? extends ResourceOrLiteralType> objects) {
+    return objects != null && objects.stream().anyMatch(this::hasProperty);
   }
 }

@@ -12,7 +12,9 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,11 +48,9 @@ public enum EnablingElement {
 
   // General properties
   EDM_HAS_MET(ResourceLinkFromProxy.HAS_MET,
-      Stream.of(EnablingElementGroup.TEMPORAL, EnablingElementGroup.PERSONAL)
-          .collect(Collectors.toSet())),
-  DC_SUBJECT(ResourceLinkFromProxy.SUBJECT, Stream
-      .of(EnablingElementGroup.CONCEPTUAL, EnablingElementGroup.PERSONAL,
-          EnablingElementGroup.GEOGRAPHICAL).collect(Collectors.toSet()));
+      EnumSet.of(EnablingElementGroup.TEMPORAL, EnablingElementGroup.PERSONAL)),
+  DC_SUBJECT(ResourceLinkFromProxy.SUBJECT, EnumSet.of(EnablingElementGroup.CONCEPTUAL,
+      EnablingElementGroup.PERSONAL, EnablingElementGroup.GEOGRAPHICAL));
 
   /**
    * This enum contains all the groups of enabling elements, including the contextual class with
@@ -68,56 +68,80 @@ public enum EnablingElement {
     EnablingElementGroup(Class<? extends AboutType> contextualClass) {
       this.contextualClass = contextualClass;
     }
+
+    Class<? extends AboutType> getContextualClass() {
+      return contextualClass;
+    }
   }
 
-  private final ResourceLinkFromProxy property;
-  private final EnablingElementGroup fixedGroup;
-  private final Set<EnablingElementGroup> candidateGroups = EnumSet
-      .noneOf(EnablingElementGroup.class);
+  private final ElementGroupDetector elementGroupDetector;
 
-  /*  This constructor is for predicates with a given constant group. */
+  /**
+   * This constructor is for predicates with a given constant group: an occurrence of this element
+   * (either a link or a value) always triggers this group.
+   *
+   * @param property The property.
+   * @param fixedGroup The group to assign an occurrence to.
+   */
   EnablingElement(ResourceLinkFromProxy property, EnablingElementGroup fixedGroup) {
-    this.property = property;
-    this.fixedGroup = fixedGroup;
+    final Predicate<ProxyType> hasLiteralOrLink = proxy -> Stream
+        .concat(property.getLinkAndValueGetter().getValues(proxy),
+            property.getLinkAndValueGetter().getLinks(proxy)).findAny().isPresent();
+    this.elementGroupDetector = (proxies, objectTypesByUri) ->
+        proxies.stream().anyMatch(hasLiteralOrLink) ? Collections.singleton(fixedGroup)
+            : Collections.emptySet();
   }
 
-  /*  This constructor is for predicates with a resource value and a list of group candidates. */
+  /**
+   * This constructor is for predicates with a resource value and a list of group candidates: an
+   * occurrence of this element triggers one of the candidate groups only if the element links to a
+   * contextual class belonging to this candidate group.
+   *
+   * @param property The property.
+   * @param candidateGroups The candidate groups.
+   */
   EnablingElement(ResourceLinkFromProxy property, Set<EnablingElementGroup> candidateGroups) {
-    this.property = property;
-    this.fixedGroup = null;
-    this.candidateGroups.addAll(candidateGroups);
+    this.elementGroupDetector = (proxies, objectTypesByUri) -> {
+      final BiPredicate<String, EnablingElementGroup> urlHasGroup = (url, group) -> Optional
+          .ofNullable(objectTypesByUri.apply(url)).map(Set::stream).orElseGet(Stream::empty)
+          .anyMatch(group.contextualClass::isAssignableFrom);
+      return proxies.stream().flatMap(proxy -> property.getLinkAndValueGetter().getLinks(proxy))
+          .flatMap(url -> candidateGroups.stream().filter(group -> urlHasGroup.test(url, group)))
+          .collect(Collectors.toSet());
+    };
   }
 
   /**
    * This method analyzes the proxy for the presence of this enabling element.
    *
    * @param proxies The proxies to analyze.
-   * @param contextualObjects The URLs of contextual objects that are present in the record, mapped
-   * to the contextual classes they represent.
+   * @param contextualObjectTypes The URLs of contextual objects that are present in the record,
+   * mapped to the contextual classes they represent.
    * @return If this enabling element is present, the groups with which this element is present. If
    * this enabling element is not present, this method returns the empty set.
    */
   public Set<EnablingElementGroup> analyze(Collection<ProxyType> proxies,
-      Map<String, Set<Class<? extends AboutType>>> contextualObjects) {
-    final Set<EnablingElementGroup> result;
-    if (fixedGroup != null) {
-      // Fixed group: check that the property has a link or value, and award the group.
-      Predicate<ProxyType> hasLiteralOrLink = proxy -> Stream
-          .concat(property.getLinkAndValueGetter().getValues(proxy),
-              property.getLinkAndValueGetter().getLinks(proxy)).findAny().isPresent();
-      result = proxies.stream().anyMatch(hasLiteralOrLink) ? Collections.singleton(fixedGroup)
-          : Collections.emptySet();
-    } else {
-      // Multiple candidate groups: for each link and each candidate group determine whether the map
-      // of contextual objects contain the url with a class associated with the given group.
-      final BiPredicate<String, EnablingElementGroup> contextualObjectChecker = (url, group) -> Optional
-          .of(contextualObjects).map(map -> map.get(url)).map(Set::stream).orElseGet(Stream::empty)
-          .anyMatch(group.contextualClass::isAssignableFrom);
-      result = proxies.stream().flatMap(proxy -> property.getLinkAndValueGetter().getLinks(proxy))
-          .flatMap(url -> candidateGroups.stream()
-              .filter(group -> contextualObjectChecker.test(url, group)))
-          .collect(Collectors.toSet());
-    }
-    return result;
+      Map<String, Set<Class<? extends AboutType>>> contextualObjectTypes) {
+    return this.elementGroupDetector.apply(proxies, contextualObjectTypes::get);
+  }
+
+  /**
+   * This interface represents the functionality of detecting an element group given a collection of
+   * proxies as well as functionality to evaluate a link to a contextual class.
+   */
+  @FunctionalInterface
+  private interface ElementGroupDetector extends
+      BiFunction<Collection<ProxyType>, Function<String, Set<Class<? extends AboutType>>>, Set<EnablingElementGroup>> {
+
+    /**
+     * Detect an element group.
+     *
+     * @param proxies The proxy objects in which to look.
+     * @param stringSetFunction A mechanism to match a resource link to a contextual resource type.
+     * @return The element groups detected in the proxy, or the empty set if none are found.
+     */
+    @Override
+    Set<EnablingElementGroup> apply(Collection<ProxyType> proxies,
+        Function<String, Set<Class<? extends AboutType>>> stringSetFunction);
   }
 }
