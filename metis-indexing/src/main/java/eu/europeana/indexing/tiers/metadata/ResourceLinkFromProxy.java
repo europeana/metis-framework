@@ -122,8 +122,8 @@ public enum ResourceLinkFromProxy {
   private static <T> Function<ProxyType, List<? extends T>> getPredicatesFromChoice(
       Predicate<Choice> isRightChoice, Function<Choice, T> getPredicateFromChoice) {
     return proxy -> Optional.of(proxy).map(ProxyType::getChoiceList).map(List::stream)
-        .orElseGet(Stream::empty).filter(isRightChoice).map(getPredicateFromChoice)
-        .collect(Collectors.toList());
+        .orElseGet(Stream::empty).filter(Objects::nonNull).filter(isRightChoice)
+        .map(getPredicateFromChoice).filter(Objects::nonNull).collect(Collectors.toList());
   }
 
   LinkAndValueGetter getLinkAndValueGetter() {

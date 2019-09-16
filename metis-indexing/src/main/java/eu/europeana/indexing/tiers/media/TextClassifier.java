@@ -3,6 +3,7 @@ package eu.europeana.indexing.tiers.media;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.metis.utils.MediaType;
 
 /**
  * Classifier for text.
@@ -34,7 +35,7 @@ class TextClassifier extends AbstractMediaClassifier {
     // Check mime type.
     final String mimeType = webResource.getMimeType();
     final boolean hasPdfMimeType = mimeType != null && mimeType.startsWith("application/pdf");
-    final boolean hasImageMimeType = ImageClassifier.hasImageMimeType(webResource);
+    final boolean hasImageMimeType = webResource.getMediaType() == MediaType.IMAGE;
 
     // Find resolution. If not 0, means that resource is an image.
     final long resolution = hasImageMimeType ? webResource.getSize() : 0;

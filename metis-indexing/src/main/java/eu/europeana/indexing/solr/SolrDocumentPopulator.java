@@ -130,11 +130,8 @@ public class SolrDocumentPopulator {
     document.addField(EdmLabel.FACET_HAS_MEDIA.toString(), hasMedia);
 
     // has_landingPage is true if and only if there is at least one web resource of type
-    // 'isShownAt', representing technical metadata of some (non-null) mime type.
-    final boolean hasLandingPage = rdf
-        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT)).stream()
-        .map(WebResourceWrapper::getMimeType).anyMatch(Objects::nonNull);
-    document.addField(EdmLabel.FACET_HAS_LANDING_PAGE.toString(), hasLandingPage);
+    // 'isShownAt', representing technical metadata of some (non-empty) mime type.
+    document.addField(EdmLabel.FACET_HAS_LANDING_PAGE.toString(), rdf.hasLandingPage());
 
     // is_fulltext is true if and only if there is at least one web resource of type 'isShownBy'
     // or 'hasView' with 'rdf:type' equal to 'edm:FullTextResource'.
