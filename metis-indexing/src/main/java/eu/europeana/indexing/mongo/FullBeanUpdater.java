@@ -16,7 +16,7 @@ import org.apache.logging.log4j.util.TriConsumer;
 /**
  * Field updater for instances of {@link FullBeanImpl}.
  */
-public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Void, Date> {
+public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Void> {
 
   private final TriConsumer<FullBeanImpl, FullBeanImpl, Date> fullBeanPreprocessor;
 

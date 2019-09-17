@@ -14,7 +14,7 @@ import java.util.Date;
  * @param <A> The type of the ancestor information (information from parents).
  */
 public abstract class AbstractEdmEntityUpdater<R extends AbstractEdmEntity, A>
-    extends AbstractMongoObjectUpdater<R, A, Date> {
+    extends AbstractMongoObjectUpdater<R, A> {
 
   @Override
   protected final MongoPropertyUpdater<R> createPropertyUpdater(R newEntity, A ancestorInformation,

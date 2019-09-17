@@ -22,7 +22,7 @@ import org.mongodb.morphia.query.Query;
  * Field updater for instances of {@link WebResourceMetaInfoImpl}.
  */
 public class WebResourceMetaInfoUpdater
-    extends AbstractMongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation, Date> {
+    extends AbstractMongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation> {
 
   private static final HashFunction HASH_FUNCTION = Hashing.md5();
 
