@@ -13,15 +13,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * An instance of this class can be used to create Europeana IDs for RDF records. This class is
@@ -55,6 +57,7 @@ public final class EuropeanaIdCreator {
       () -> new EuropeanaIdException("Could not find provider ID in source.");
 
   private final XPathExpression rdfAboutExtractor;
+  private DocumentBuilder builder;
 
   /**
    * Constructor.
@@ -62,6 +65,16 @@ public final class EuropeanaIdCreator {
    * @throws EuropeanaIdException In case of problems setting the RDF about extractor.
    */
   public EuropeanaIdCreator() throws EuropeanaIdException {
+    try {
+      DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
+      df.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      df.setNamespaceAware(true);
+      builder = df.newDocumentBuilder();
+    } catch (ParserConfigurationException e) {
+      throw new EuropeanaIdException("Something went wrong while setting up the document builder.",
+          e);
+    }
+
     final XPath xpath = XPathFactory.newInstance().newXPath();
     xpath.setNamespaceContext(new RdfNamespaceResolver());
     try {
@@ -223,7 +236,7 @@ public final class EuropeanaIdCreator {
       throws EuropeanaIdException, InterruptedException {
 
     // Keep track of the latest exception received.
-    XPathExpressionException xpathException = null;
+    Exception xpathException = null;
 
     // Try a number of times.
     for (int i = 0; i < EVALUATE_XPATH_ATTEMPT_COUNT; i++) {
@@ -237,15 +250,14 @@ public final class EuropeanaIdCreator {
       synchronized (EuropeanaIdCreator.class) {
         try {
           // Attempt evaluation of XPath.
-          return (String) rdfAboutExtractor.evaluate(new InputSource(inputStream),
-              XPathConstants.STRING);
-        } catch (XPathExpressionException e) {
+          return rdfAboutExtractor.evaluate(builder.parse(inputStream));
+        } catch (XPathExpressionException | SAXException | IOException e) {
           if (isRaceCondition(e)) {
 
             // Handle exception that is caused by a race condition: remember it and try again.
             LOGGER.warn("Race condition error occurred during attempt {} of {}. Trying again...", i,
                 EVALUATE_XPATH_ATTEMPT_COUNT, e);
-            xpathException = (XPathExpressionException) e;
+            xpathException = e;
           } else {
 
             // Handle unexpected exception that is not caused by a race condition: re-throw.
