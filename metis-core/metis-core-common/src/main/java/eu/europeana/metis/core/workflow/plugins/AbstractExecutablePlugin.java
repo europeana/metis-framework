@@ -180,6 +180,8 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     extraParameters.put("METIS_DATASET_ID", datasetId);
     extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
     extraParameters.put("USE_ALT_INDEXING_ENV", String.valueOf(useAlternativeIndexingEnvironment));
+    DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
+    extraParameters.put("RECORD_DATE", dateFormat.format(getStartedDate()));
     extraParameters.put("PRESERVE_TIMESTAMPS", String.valueOf(preserveTimestamps));
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }

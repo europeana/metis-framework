@@ -1,6 +1,7 @@
 package eu.europeana.metis.data.checker.service.persistence;
 
 import java.io.IOException;
+import java.util.Date;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -60,10 +61,11 @@ public class RecordDao {
    * Persist a record in mongo and solr
    *
    * @param rdf The record
+   * @param recordDate
    * @throws IndexingException In case indexing failed.
    */
-  public void createRecord(RDF rdf) throws IndexingException {
-    indexer.indexRdf(rdf, false);
+  public void createRecord(RDF rdf, Date recordDate) throws IndexingException {
+    indexer.indexRdf(rdf, recordDate, false);
   }
 
   /**

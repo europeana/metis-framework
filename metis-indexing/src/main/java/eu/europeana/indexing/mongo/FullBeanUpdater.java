@@ -1,53 +1,55 @@
 package eu.europeana.indexing.mongo;
 
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
-import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
-import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
-import eu.europeana.indexing.mongo.property.RootAboutWrapper;
-import java.util.ArrayList;
-import java.util.function.BiConsumer;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.storage.MongoServer;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
+import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
+import eu.europeana.indexing.mongo.property.RootAboutWrapper;
+import java.util.ArrayList;
+import java.util.Date;
+import org.apache.logging.log4j.util.TriConsumer;
 
 /**
  * Field updater for instances of {@link FullBeanImpl}.
  */
-public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Void> {
+public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Void, Date> {
 
-  private final BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor;
+  private final TriConsumer<FullBeanImpl, FullBeanImpl, Date> fullBeanPreprocessor;
 
   /**
    * Constructor.
-   * 
+   *
    * @param fullBeanPreprocessor This is functionality that will be executed as soon as we have
    *        retrieved the current version of the full bean from the database. It will be called
    *        once. It's first parameter is the current full bean (as retrieved from the database) and
    *        its second parameter is the updated full bean (as passed to
-   *        {@link #createPropertyUpdater(FullBeanImpl, Void, MongoServer)}).
+   *        {@link #createPropertyUpdater(FullBeanImpl, Void, Date, MongoServer)}).
    */
-  public FullBeanUpdater(BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor) {
+  public FullBeanUpdater(TriConsumer<FullBeanImpl, FullBeanImpl, Date> fullBeanPreprocessor) {
     this.fullBeanPreprocessor = fullBeanPreprocessor;
   }
 
   /**
-   * Update the full bean. Convenience method for {@link #update(Object, Object, MongoServer)}.
+   * Update the full bean. Convenience method for .
    *
    * @param newEntity The new entity (to take the new values from).
+   * @param recordDate The date that would represent the created/updated date of a record
    * @param mongoServer The mongo server.
    * @return The updated entity.
    */
-  public final FullBeanImpl update(FullBeanImpl newEntity, MongoServer mongoServer) {
-    return update(newEntity, null, mongoServer);
+  public final FullBeanImpl update(FullBeanImpl newEntity, Date recordDate, MongoServer mongoServer) {
+    return update(newEntity,null, recordDate, mongoServer);
   }
 
   @Override
   protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
-      Void ancestorInformation, MongoServer mongoServer) {
+      Void ancestorInformation, Date recordDate, MongoServer mongoServer) {
     return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
-        FullBeanImpl.class, FullBeanImpl::getAbout, fullBeanPreprocessor);
+        FullBeanImpl.class, FullBeanImpl::getAbout, fullBeanPreprocessor, recordDate);
   }
 
   @Override

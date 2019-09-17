@@ -2,13 +2,14 @@ package eu.europeana.indexing;
 
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.corelib.solr.entity.AggregationImpl;
-import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
-import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
-import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.solr.EdmLabel;
+import eu.europeana.metis.CommonStringValues;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.util.ClientUtils;
@@ -94,15 +95,17 @@ public class IndexedRecordRemover {
    * taken out of the equation.
    *
    * @param datasetId The ID of the dataset to clear. Is not null.
+   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
+   * would be removed. If null is provided then all records from that dataset will be removed.
    * @return The number of records that were removed.
    * @throws IndexerRelatedIndexingException In case something went wrong.
    */
-  public int removeDataset(String datasetId) throws IndexerRelatedIndexingException {
+  public int removeDataset(String datasetId, Date maxRecordDate)
+      throws IndexerRelatedIndexingException {
     final int mongoCount;
     try {
-      mongoCount = removeDatasetFromMongo(datasetId);
-      final String queryValue = ClientUtils.escapeQueryChars(datasetId + "_") + "*";
-      solrServer.deleteByQuery(EdmLabel.EUROPEANA_COLLECTIONNAME.toString() + ":" + queryValue);
+      mongoCount = removeDatasetFromMongo(datasetId, maxRecordDate);
+      removeDatasetFromSolr(datasetId, maxRecordDate);
     } catch (SolrServerException | IOException | RuntimeException e) {
       throw new IndexerRelatedIndexingException(
           "Could not remove dataset with ID '" + datasetId + "'.", e);
@@ -110,26 +113,33 @@ public class IndexedRecordRemover {
     return mongoCount;
   }
 
-  private int removeDatasetFromMongo(String datasetId) {
+  private void removeDatasetFromSolr(String datasetId, Date maxRecordDate)
+      throws SolrServerException, IOException {
+    final StringBuilder solrQuery = new StringBuilder();
 
-    // First remove the records
-    final int result = removeDocumentsFromMongo(FullBeanImpl.class, "/" + datasetId + "/");
+    final String datasetIdRegexEscaped = ClientUtils.escapeQueryChars(datasetId + "_") + "*";
+    solrQuery.append(EdmLabel.EUROPEANA_COLLECTIONNAME.toString()).append(":")
+        .append(datasetIdRegexEscaped);
 
-    // Then remove the private properties
-    removeDocumentsFromMongo(AggregationImpl.class, "/aggregation/provider/" + datasetId + "/");
-    removeDocumentsFromMongo(EuropeanaAggregationImpl.class,
-        "/aggregation/europeana/" + datasetId + "/");
-    removeDocumentsFromMongo(ProvidedCHOImpl.class, "/" + datasetId + "/");
-    removeDocumentsFromMongo(ProxyImpl.class, "/proxy/provider/" + datasetId + "/");
-    removeDocumentsFromMongo(ProxyImpl.class, "/proxy/europeana/" + datasetId + "/");
-
-    // Done
-    return result;
+    if (maxRecordDate != null) {
+      DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
+      solrQuery.append(" AND ").append(EdmLabel.TIMESTAMP_UPDATED.toString()).append(":")
+          .append("[* TO ").append(dateFormat.format(maxRecordDate)).append("}");
+    }
+    solrServer.deleteByQuery(solrQuery.toString());
   }
 
-  private int removeDocumentsFromMongo(Class<?> documentType, String aboutPrefix) {
-    final Query<?> query =
-        mongoServer.getDatastore().find(documentType).field("about").startsWith(aboutPrefix);
+  private int removeDatasetFromMongo(String datasetId, Date maxRecordDate) {
+    return removeDocumentsFromMongo(FullBeanImpl.class, "/" + datasetId + "/",
+        maxRecordDate);
+  }
+
+  private int removeDocumentsFromMongo(Class<?> documentType, String aboutPrefix, Date maxRecordDate) {
+    final Query<?> query = mongoServer.getDatastore().createQuery(documentType);
+    query.field("about").startsWith(aboutPrefix);
+    if (maxRecordDate != null) {
+      query.field("timestampUpdated").lessThan(maxRecordDate);
+    }
     return mongoServer.getDatastore().delete(query).getN();
   }
 }

@@ -176,7 +176,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<P> preprocessing =
-        entity -> objectUpdater.update(entity, ancestorInformation, mongoServer);
+        entity -> objectUpdater.update(entity, ancestorInformation, null, mongoServer);
     updateProperty(updateField, getter, MongoPropertyUpdaterImpl::equals, preprocessing);
   }
 
@@ -193,7 +193,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<List<P>> preprocessing = entities -> entities.stream()
-        .map(entity -> objectUpdater.update(entity, ancestorInformation, mongoServer))
+        .map(entity -> objectUpdater.update(entity, ancestorInformation, null, mongoServer))
         .collect(Collectors.toList());
     final BiPredicate<List<P>, List<P>> equality =
         (w1, w2) -> listEquals(w1, w2, ENTITY_COMPARATOR);
@@ -263,7 +263,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     final WebResourceInformation ancestorInformation = ancestorInfoGetter.apply(updated);
     if (entity != null) {
       updaterSupplier.get()
-          .update((WebResourceMetaInfoImpl) entity, ancestorInformation, mongoServer);
+          .update((WebResourceMetaInfoImpl) entity, ancestorInformation, null, mongoServer);
     }
   }
 

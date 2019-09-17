@@ -2,6 +2,7 @@ package eu.europeana.indexing;
 
 import java.io.Closeable;
 import java.time.Duration;
+import java.util.Date;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
@@ -85,13 +86,14 @@ public class IndexerPool implements Closeable {
    * </p>
    *
    * @param record The record to index (can be parsed to RDF).
+   * @param recordDate The date that would represent the created/updated date of a record
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
-  public void index(String record, boolean preserveUpdateAndCreateTimesFromRdf)
+  public void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf)
       throws IndexingException {
-    indexRecord(indexer -> indexer.index(record, preserveUpdateAndCreateTimesFromRdf));
+    indexRecord(indexer -> indexer.index(record, recordDate, preserveUpdateAndCreateTimesFromRdf));
   }
 
   /**
@@ -100,13 +102,14 @@ public class IndexerPool implements Closeable {
    * </p>
    *
    * @param record The record to index.
+   * @param recordDate The date that would represent the created/updated date of a record
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
-  public void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf)
+  public void indexRdf(RDF record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf)
       throws IndexingException {
-    indexRecord(indexer -> indexer.indexRdf(record, preserveUpdateAndCreateTimesFromRdf));
+    indexRecord(indexer -> indexer.indexRdf(record, recordDate, preserveUpdateAndCreateTimesFromRdf));
   }
 
   private void indexRecord(IndexTask indexTask) throws IndexingException {

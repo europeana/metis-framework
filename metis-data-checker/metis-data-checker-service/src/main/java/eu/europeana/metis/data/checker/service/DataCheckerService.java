@@ -77,9 +77,10 @@ public class DataCheckerService {
       final DatasetProperties datasetProperties, boolean applyTransformation,
       boolean individualRecords) throws DataCheckerServiceException {
 
+    Date recordDate = new Date();
     // Create the tasks
     final Function<String, ValidationTask> validationTaskCreator =
-        record -> factory.createValidationTask(applyTransformation, record, datasetProperties);
+        record -> factory.createValidationTask(applyTransformation, record, recordDate, datasetProperties);
     final List<ValidationTask> tasks = records.stream().map(validationTaskCreator)
         .collect(Collectors.toList());
 

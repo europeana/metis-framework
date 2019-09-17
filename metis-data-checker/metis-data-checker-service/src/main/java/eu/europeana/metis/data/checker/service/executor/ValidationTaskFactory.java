@@ -1,5 +1,6 @@
 package eu.europeana.metis.data.checker.service.executor;
 
+import java.util.Date;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.JiBXException;
@@ -39,8 +40,8 @@ public class ValidationTaskFactory {
   }
 
   public ValidationTask createValidationTask(boolean applyTransformation, String record,
-      DatasetProperties datasetProperties) {
-    return new ValidationTask(validationUtils, applyTransformation, BINDING_FACTORY, record,
+      Date recordDate, DatasetProperties datasetProperties) {
+    return new ValidationTask(validationUtils, applyTransformation, BINDING_FACTORY, record, recordDate,
         datasetProperties);
   }
 }
