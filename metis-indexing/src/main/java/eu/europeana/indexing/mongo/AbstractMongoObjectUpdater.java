@@ -3,6 +3,7 @@ package eu.europeana.indexing.mongo;
 import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.mongo.property.MongoObjectUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
+import java.util.Date;
 
 /**
  * Updater of mongo objects.
@@ -11,10 +12,10 @@ import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
  * @param <A> The type of the ancestor information (information from parents).
  * @param <S> The type of the date provided.
  */
-public abstract class AbstractMongoObjectUpdater<R, A, S> implements MongoObjectUpdater<R, A, S> {
+public abstract class AbstractMongoObjectUpdater<R, A, S> implements MongoObjectUpdater<R, A> {
 
   @Override
-  public final R update(R newEntity, A ancestorInformation, S recordDate, MongoServer mongoServer) {
+  public final R update(R newEntity, A ancestorInformation, Date recordDate, MongoServer mongoServer) {
     preprocessEntity(newEntity, ancestorInformation);
     final MongoPropertyUpdater<R> propertyUpdater =
         createPropertyUpdater(newEntity, ancestorInformation, recordDate, mongoServer);
@@ -31,7 +32,7 @@ public abstract class AbstractMongoObjectUpdater<R, A, S> implements MongoObject
    * @return The property updater for the given entity.
    */
   protected abstract MongoPropertyUpdater<R> createPropertyUpdater(R newEntity,
-      A ancestorInformation, S recordDate, MongoServer mongoServer);
+      A ancestorInformation, Date recordDate, MongoServer mongoServer);
 
   /**
    * This method allows subclasses to perform preprocessing on the entity before saving it to the

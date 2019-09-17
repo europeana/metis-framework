@@ -132,9 +132,10 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public int removeAll(String datasetId, Date recordDate) throws IndexerRelatedIndexingException {
+  public int removeAll(String datasetId, Date maxRecordDate) throws IndexerRelatedIndexingException {
     try {
-      return this.connectionProvider.getIndexedRecordRemover().removeDataset(datasetId, recordDate);
+      return this.connectionProvider.getIndexedRecordRemover().removeDataset(datasetId,
+          maxRecordDate);
     } catch (IndexerRelatedIndexingException e) {
       LOGGER.warn("Error while removing a dataset.", e);
       throw e;

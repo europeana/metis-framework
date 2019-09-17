@@ -95,17 +95,17 @@ public class IndexedRecordRemover {
    * taken out of the equation.
    *
    * @param datasetId The ID of the dataset to clear. Is not null.
-   * @param recordDate The date that all records that have lower timestampUpdated than that date
-   * would be removed
+   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
+   * would be removed. If null is provided then all records from that dataset will be removed.
    * @return The number of records that were removed.
    * @throws IndexerRelatedIndexingException In case something went wrong.
    */
-  public int removeDataset(String datasetId, Date recordDate)
+  public int removeDataset(String datasetId, Date maxRecordDate)
       throws IndexerRelatedIndexingException {
     final int mongoCount;
     try {
-      mongoCount = removeDatasetFromMongo(datasetId, recordDate);
-      removeDatasetFromSolr(datasetId, recordDate);
+      mongoCount = removeDatasetFromMongo(datasetId, maxRecordDate);
+      removeDatasetFromSolr(datasetId, maxRecordDate);
     } catch (SolrServerException | IOException | RuntimeException e) {
       throw new IndexerRelatedIndexingException(
           "Could not remove dataset with ID '" + datasetId + "'.", e);

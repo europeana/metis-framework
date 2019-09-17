@@ -160,10 +160,10 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param datasetId The ID of the dataset to clear. Is not null.
-   * @param recordDate The date that all records that have lower timestampUpdated than that date
-   * would be removed
+   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
+   * would be removed. If null is provided then all records from that dataset will be removed.
    * @return The number of records that were removed.
    * @throws IndexingException In case something went wrong.
    */
-  int removeAll(String datasetId, Date recordDate) throws IndexingException;
+  int removeAll(String datasetId, Date maxRecordDate) throws IndexingException;
 }

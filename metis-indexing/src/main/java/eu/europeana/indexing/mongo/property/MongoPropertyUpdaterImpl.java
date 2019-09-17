@@ -12,7 +12,6 @@ import eu.europeana.indexing.mongo.WebResourceInformation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -172,9 +171,9 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   }
 
   @Override
-  public <P extends AbstractEdmEntity, A, S> void updateReferencedEntity(String updateField,
+  public <P extends AbstractEdmEntity, A> void updateReferencedEntity(String updateField,
       Function<T, P> getter, Function<T, A> ancestorInfoGetter,
-      MongoObjectUpdater<P, A, S> objectUpdater) {
+      MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<P> preprocessing =
         entity -> objectUpdater.update(entity, ancestorInformation, null, mongoServer);
@@ -189,9 +188,9 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   }
 
   @Override
-  public <P extends AbstractEdmEntity, A, S> void updateReferencedEntities(String updateField,
+  public <P extends AbstractEdmEntity, A> void updateReferencedEntities(String updateField,
       Function<T, List<P>> getter, Function<T, A> ancestorInfoGetter,
-      MongoObjectUpdater<P, A, S> objectUpdater) {
+      MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<List<P>> preprocessing = entities -> entities.stream()
         .map(entity -> objectUpdater.update(entity, ancestorInformation, null, mongoServer))
@@ -259,7 +258,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   @Override
   public void updateWebResourceMetaInfo(Function<T, WebResourceMetaInfo> getter,
       Function<T, WebResourceInformation> ancestorInfoGetter,
-      Supplier<MongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation, Date>> updaterSupplier) {
+      Supplier<MongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation>> updaterSupplier) {
     final WebResourceMetaInfo entity = Optional.of(updated).map(getter).orElse(null);
     final WebResourceInformation ancestorInformation = ancestorInfoGetter.apply(updated);
     if (entity != null) {

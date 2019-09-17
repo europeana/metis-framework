@@ -27,7 +27,7 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
    *        retrieved the current version of the full bean from the database. It will be called
    *        once. It's first parameter is the current full bean (as retrieved from the database) and
    *        its second parameter is the updated full bean (as passed to
-   *        {@link #createPropertyUpdater(FullBeanImpl, Void, MongoServer)}).
+   *        {@link #createPropertyUpdater(FullBeanImpl, Void, Date, MongoServer)}).
    */
   public FullBeanUpdater(TriConsumer<FullBeanImpl, FullBeanImpl, Date> fullBeanPreprocessor) {
     this.fullBeanPreprocessor = fullBeanPreprocessor;

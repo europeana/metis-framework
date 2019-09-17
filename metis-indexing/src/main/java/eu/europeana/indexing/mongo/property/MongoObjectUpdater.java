@@ -1,6 +1,7 @@
 package eu.europeana.indexing.mongo.property;
 
 import eu.europeana.corelib.storage.MongoServer;
+import java.util.Date;
 
 /**
  * Updater of mongo objects.
@@ -9,7 +10,7 @@ import eu.europeana.corelib.storage.MongoServer;
  * @param <A> The type of the ancestor information (information from parents).
  * @param <S> The type of the date provided.
  */
-public interface MongoObjectUpdater<R, A, S> {
+public interface MongoObjectUpdater<R, A> {
 
   /**
    * Update a property.
@@ -20,5 +21,5 @@ public interface MongoObjectUpdater<R, A, S> {
    * @param mongoServer The mongo server.
    * @return The updated entity.
    */
-  R update(R newEntity, A ancestorInformation, S recordDate, MongoServer mongoServer);
+  R update(R newEntity, A ancestorInformation, Date recordDate, MongoServer mongoServer);
 }

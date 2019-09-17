@@ -9,7 +9,6 @@ import eu.europeana.indexing.mongo.AbstractEdmEntityUpdater;
 import eu.europeana.indexing.mongo.WebResourceInformation;
 import eu.europeana.indexing.mongo.WebResourceMetaInfoUpdater;
 import eu.europeana.indexing.mongo.WebResourceUpdater;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -173,9 +172,9 @@ public interface MongoPropertyUpdater<T> {
    * @param ancestorInfoGetter The parent entity's info to be used for updating the property.
    * @param objectUpdater The updater that may be used to update the referenced objects.
    */
-  <P extends AbstractEdmEntity, A, S> void updateReferencedEntity(String updateField,
+  <P extends AbstractEdmEntity, A> void updateReferencedEntity(String updateField,
       Function<T, P> getter, Function<T, A> ancestorInfoGetter,
-      MongoObjectUpdater<P, A, S> objectUpdater);
+      MongoObjectUpdater<P, A> objectUpdater);
 
   /**
    * <p>
@@ -194,9 +193,9 @@ public interface MongoPropertyUpdater<T> {
    * @param ancestorInfoGetter The parent entity's info to be used for updating the properties.
    * @param objectUpdater The updater that may be used to update the referenced objects.
    */
-  <P extends AbstractEdmEntity, A, S> void updateReferencedEntities(String updateField,
+  <P extends AbstractEdmEntity, A> void updateReferencedEntities(String updateField,
       Function<T, List<P>> getter, Function<T, A> ancestorInfoGetter,
-      MongoObjectUpdater<P, A, S> objectUpdater);
+      MongoObjectUpdater<P, A> objectUpdater);
 
   /**
    * <p>
@@ -229,7 +228,7 @@ public interface MongoPropertyUpdater<T> {
    */
   void updateWebResourceMetaInfo(Function<T, WebResourceMetaInfo> getter,
       Function<T, WebResourceInformation> ancestorInfoGetter,
-      Supplier<MongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation, Date>> updaterSupplier);
+      Supplier<MongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation>> updaterSupplier);
 
   /**
    * <p>
