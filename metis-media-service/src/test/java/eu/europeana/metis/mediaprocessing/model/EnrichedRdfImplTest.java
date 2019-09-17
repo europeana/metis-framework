@@ -118,40 +118,6 @@ class EnrichedRdfImplTest {
     verify(resource3.getMetaData(), times(1)).updateResource(any());
   }
 
-
-  @Test
-  void testGetEdmPreview() {
-
-    // Try with object link first
-    final String objectUrl = "object url";
-    doReturn(Collections.singletonMap(objectUrl, Collections.emptyList())).when(enrichedRdf)
-        .getResourceUrls(eq(Collections.singleton(UrlType.OBJECT)));
-    assertEquals(objectUrl, enrichedRdf.getEdmPreviewUrl());
-
-    // Now without an object link. Mock values
-    doReturn(Collections.emptyMap()).when(enrichedRdf)
-        .getResourceUrls(eq(Collections.singleton(UrlType.OBJECT)));
-    final String url1 = "url1";
-    final String url2 = "url2";
-    final String url3 = "url3";
-    final String thumbnail1 = "thumbnail1";
-    final String thumbnail2Medium = "thumbnail2-MEDIUM";
-    final String thumbnail2Large = "thumbnail2-LARGE";
-    doReturn(Stream.of(url1, url2)
-        .collect(Collectors.toMap(Function.identity(), url -> Collections.emptyList())))
-        .when(enrichedRdf).getResourceUrls(eq(EnumSet.of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW)));
-    doReturn(Stream.of(url1, url2, url3).collect(Collectors.toSet())).when(enrichedRdf)
-        .getResourceUrls();
-    final SimpleEntry<String, Set<String>> stringSetSimpleEntry = new SimpleEntry<>(url1,
-        new HashSet<>(Collections.singletonList(thumbnail1)));
-    doReturn(stringSetSimpleEntry).when(enrichedRdf).getThumbnailTargetNames(url1);
-    final SimpleEntry<String, Set<String>> stringSetSimpleEntry2 = new SimpleEntry<>(url2,
-        new HashSet<>(Arrays.asList(thumbnail2Medium, thumbnail2Large)));
-    doReturn(stringSetSimpleEntry2).when(enrichedRdf).getThumbnailTargetNames(url2);
-    assertEquals(url2, enrichedRdf.getEdmPreviewUrl());
-
-  }
-
   @Test
   void testUpdateEdmPreview() {
 
@@ -181,7 +147,7 @@ class EnrichedRdfImplTest {
   @Test
   void testFinalizeRdf() {
     final String url = "url value";
-    doReturn(url).when(enrichedRdf).getEdmPreviewUrl();
+    doReturn(url).when(enrichedRdf).getEdmPreviewThumbnailUrl();
     assertEquals(rdf, enrichedRdf.finalizeRdf());
     verify(enrichedRdf, times(1)).updateEdmPreview(eq(url));
     verify(enrichedRdf, times(1)).updateEdmPreview(anyString());

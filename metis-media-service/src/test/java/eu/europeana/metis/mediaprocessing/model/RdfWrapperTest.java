@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.jibx.Aggregation;
@@ -19,6 +20,12 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class RdfWrapperTest {
+
+  @Test
+  void testGetRdf() {
+    final RDF rdf = new RDF();
+    assertSame(rdf, new RdfWrapper(rdf).getRdf());
+  }
 
   @Test
   void testGetResourceUrlsWithDifferentResources() {
@@ -144,4 +151,6 @@ class RdfWrapperTest {
     rdf.setAggregationList(new ArrayList<>());
     assertTrue(new RdfWrapper(rdf).getResourceUrls(Collections.emptySet()).isEmpty());
   }
+
+
 }
