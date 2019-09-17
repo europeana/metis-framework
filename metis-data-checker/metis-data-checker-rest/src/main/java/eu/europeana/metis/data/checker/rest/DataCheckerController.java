@@ -21,8 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,7 +62,7 @@ public class DataCheckerController {
    * @throws DataCheckerValidationException Semantic errors resulting from processing the zipfile
    * content
    */
-  @RequestMapping(value = RestEndpoints.DATA_CHECKER_UPLOAD, method = RequestMethod.POST)
+  @PostMapping(value = RestEndpoints.DATA_CHECKER_UPLOAD)
   @ResponseBody
   @ApiOperation(value = "Validation Result with data checker URL", response = ExtendedValidationResult.class)
   @ApiResponses({

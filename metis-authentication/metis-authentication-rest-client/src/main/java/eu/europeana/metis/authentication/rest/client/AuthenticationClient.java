@@ -8,8 +8,6 @@ import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,7 +24,6 @@ import org.springframework.web.client.RestTemplate;
  */
 public class AuthenticationClient {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationClient.class);
   private final String baseUrl;
 
   /**

@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +41,7 @@ class ThumbnailGenerator {
   private static final String PDF_MIME_TYPE = "application/pdf";
   private static final String PNG_MIME_TYPE = "image/png";
 
-  private enum ThumbnailKind{
+  private enum ThumbnailKind {
 
     MEDIUM(200, "-MEDIUM"),
     LARGE(400, "-LARGE");
@@ -371,12 +372,18 @@ class ThumbnailGenerator {
 
   private static List<String> extractDominantColors(List<String> results, int skipLines) {
     final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
+
+    final boolean aResultDoesNotMatch = results.stream().skip(skipLines)
+        .sorted(Collections.reverseOrder()).limit(COMMAND_RESULT_MAX_COLORS).map(pattern::matcher)
+        .anyMatch(m -> !m.find());
+
+    if (aResultDoesNotMatch) {
+      throw new IllegalStateException("Invalid color line found.");
+    }
+
     return results.stream().skip(skipLines).sorted(Collections.reverseOrder())
-        .limit(COMMAND_RESULT_MAX_COLORS).map(pattern::matcher).peek(m -> {
-          if (!m.find()) {
-            throw new IllegalStateException("Invalid color line found.");
-          }
-        }).map(matcher -> matcher.group(1)).collect(Collectors.toList());
+        .limit(COMMAND_RESULT_MAX_COLORS).map(pattern::matcher).filter(Matcher::find)
+        .map(matcher -> matcher.group(1)).collect(Collectors.toList());
   }
 
   static class ThumbnailWithSize {

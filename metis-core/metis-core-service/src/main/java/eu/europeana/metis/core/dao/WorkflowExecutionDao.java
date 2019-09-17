@@ -340,13 +340,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         query.criteria(METIS_PLUGINS.getFieldName() + "." + PLUGIN_STATUS.getFieldName()).equal(
             PluginStatus.FINISHED)};
     query.and(criteria);
-    final List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
+    final List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>(pluginTypes.size());
     final String pluginTypeField = METIS_PLUGINS.getFieldName() + "." + PLUGIN_TYPE.getFieldName();
     for (PluginType pluginType : pluginTypes) {
       criteriaContainer.add(query.criteria(pluginTypeField).equal(pluginType));
     }
     if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+      query.or(criteriaContainer.toArray(new CriteriaContainerImpl[0]));
     }
 
     // Query: unwind and match again so that we know that all conditions apply to the same plugin.

@@ -68,6 +68,7 @@ public final class EuropeanaIdCreator {
     try {
       DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
       df.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      df.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       df.setNamespaceAware(true);
       builder = df.newDocumentBuilder();
     } catch (ParserConfigurationException e) {

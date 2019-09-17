@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * The token information for the Zoho service.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-03-20
  */
@@ -27,6 +29,14 @@ public class MetisZohoOAuthToken {
   public MetisZohoOAuthToken() {
   }
 
+  /**
+   * Contains all the relative token information required for Zoho.
+   *
+   * @param userIdentifier the user identifier
+   * @param accessToken the access token
+   * @param refreshToken the refresh token
+   * @param expiryTime the expiry time of the access token
+   */
   public MetisZohoOAuthToken(String userIdentifier, String accessToken, String refreshToken,
       Long expiryTime) {
     this.userIdentifier = userIdentifier;
@@ -35,6 +45,11 @@ public class MetisZohoOAuthToken {
     this.expiryTime = expiryTime;
   }
 
+  /**
+   * Converts the current Metis object to the {@link ZohoOAuthTokens} object.
+   *
+   * @return the token represented as object of the Zoho library
+   */
   public ZohoOAuthTokens convertToZohoOAuthTokens() {
     ZohoOAuthTokens zohoOAuthTokens = new ZohoOAuthTokens();
     zohoOAuthTokens.setUserMailId(this.userIdentifier);
