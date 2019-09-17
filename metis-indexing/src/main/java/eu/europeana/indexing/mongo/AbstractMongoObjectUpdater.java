@@ -10,9 +10,8 @@ import java.util.Date;
  * 
  * @param <R> The type of the record to update.
  * @param <A> The type of the ancestor information (information from parents).
- * @param <S> The type of the date provided.
  */
-public abstract class AbstractMongoObjectUpdater<R, A, S> implements MongoObjectUpdater<R, A> {
+public abstract class AbstractMongoObjectUpdater<R, A> implements MongoObjectUpdater<R, A> {
 
   @Override
   public final R update(R newEntity, A ancestorInformation, Date recordDate, MongoServer mongoServer) {

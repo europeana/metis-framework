@@ -8,7 +8,6 @@ import java.util.Date;
  *
  * @param <R> The type of the record to update.
  * @param <A> The type of the ancestor information (information from parents).
- * @param <S> The type of the date provided.
  */
 public interface MongoObjectUpdater<R, A> {
 
