@@ -175,16 +175,23 @@ public class SchemaProvider {
       Enumeration<? extends ZipEntry> entries = zip.entries();
       while (entries.hasMoreElements()) {
         ZipEntry entry = entries.nextElement();
-        if (entry.isDirectory()) {
-          new File(downloadedFile.getAbsolutePath()).mkdir();
-        } else {
-          InputStream zipStream = zip.getInputStream(entry);
-          FileUtils.copyInputStreamToFile(zipStream,
-              new File(downloadedFile.getParent(), entry.getName()));
-        }
+        handleZipEntry(downloadedFile, zip, entry);
       }
     } catch (IOException e) {
       throw new SchemaProviderException("Exception while unzipping file", e);
+    }
+  }
+
+  private void handleZipEntry(File downloadedFile, ZipFile zip, ZipEntry entry)
+      throws SchemaProviderException, IOException {
+    if (entry.isDirectory()) {
+      if (!new File(downloadedFile.getParent(), entry.getName()).mkdir()) {
+        throw new SchemaProviderException("Could not create directory");
+      }
+    } else {
+      InputStream zipStream = zip.getInputStream(entry);
+      FileUtils.copyInputStreamToFile(zipStream,
+          new File(downloadedFile.getParent(), entry.getName()));
     }
   }
 

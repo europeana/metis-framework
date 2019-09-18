@@ -17,7 +17,7 @@ public class ServerExceptionMapper {
      * Handles specified exception
      *
      * @param e exception to be handled
-     * @return
+     * @return the error message
      */
     @ExceptionHandler(ServerException.class)
     @ResponseBody

@@ -120,21 +120,29 @@ public class Validator implements Callable<ValidationResult> {
         DOMResult result = new DOMResult();
         transformer.transform(new DOMSource(doc), result);
         NodeList nresults = result.getNode().getFirstChild().getChildNodes();
-        for (int i = 0; i < nresults.getLength(); i++) {
-          Node nresult = nresults.item(i);
-          if ("failed-assert".equals(nresult.getLocalName())) {
-            String nodeId = nresult.getAttributes().getNamedItem(NODE_ID_ATTR) == null ? null
-                : nresult.getAttributes().getNamedItem(NODE_ID_ATTR).getTextContent();
-            return constructValidationError(document,
-                "Schematron error: " + nresult.getTextContent().trim(), nodeId);
-          }
-        }
+        final ValidationResult validationResult = checkNodeListForErrors(nresults);
+        if (validationResult != null)
+          return validationResult;
       }
     } catch (IOException | SchemaProviderException | SAXException | TransformerException e) {
       return constructValidationError(document, e);
     }
     LOGGER.debug("Validation ended");
     return constructOk();
+  }
+
+  private ValidationResult checkNodeListForErrors(NodeList nresults)
+  {
+    for (int i = 0; i < nresults.getLength(); i++) {
+      Node nresult = nresults.item(i);
+      if ("failed-assert".equals(nresult.getLocalName())) {
+        String nodeId = nresult.getAttributes().getNamedItem(NODE_ID_ATTR) == null ? null
+            : nresult.getAttributes().getNamedItem(NODE_ID_ATTR).getTextContent();
+        return constructValidationError(document,
+            "Schematron error: " + nresult.getTextContent().trim(), nodeId);
+      }
+    }
+    return null;
   }
 
   private Transformer getTransformer(Schema schema)

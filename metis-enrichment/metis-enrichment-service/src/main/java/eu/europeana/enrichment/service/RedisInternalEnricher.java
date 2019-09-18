@@ -64,6 +64,16 @@ public class RedisInternalEnricher {
   private final EnrichmentEntityDao entityDao;
   private final RedisProvider redisProvider;
 
+  /**
+   * Constructor with all required parameters.
+   * <p>Based on the parameter {@code populate}, the populating of redis will be enabled or not and
+   * if so it will check the {@link #CACHED_ENRICHMENT_STATUS} field value in the redis db and
+   * depending on it's status it will start populating redis with values or not.</p>
+   *
+   * @param entityDao the dao where the entity will be read from
+   * @param provider the redis connection provider
+   * @param populate the flag to enable populating or not, if applicable
+   */
   public RedisInternalEnricher(EnrichmentEntityDao entityDao, RedisProvider provider,
       boolean populate) {
     this.entityDao = entityDao;
@@ -222,13 +232,17 @@ public class RedisInternalEnricher {
               parents.toArray(new String[]{}));
         }
         if (termList.getOwlSameAs() != null) {
-          for (String sameAs : termList.getOwlSameAs()) {
-            jedis.hset(entityType.cachedEntityPrefix + CACHED_SAMEAS, sameAs, term.getCodeUri());
-          }
+          loadSameAs(entityType, term, jedis, termList.getOwlSameAs());
         }
       } catch (IOException exception) {
         LOGGER.warn("", exception);
       }
+    }
+  }
+
+  private void loadSameAs(EntityType entityType, MongoTerm term, Jedis jedis, String[] owlSameAs) {
+    for (String sameAs : owlSameAs) {
+      jedis.hset(entityType.cachedEntityPrefix + CACHED_SAMEAS, sameAs, term.getCodeUri());
     }
   }
 
@@ -337,6 +351,13 @@ public class RedisInternalEnricher {
     return entityWrapperSet;
   }
 
+  /**
+   * Get an enrichment document based on the uri provided.
+   *
+   * @param uri the provided uri
+   * @return the enrichment document corresponding to the provided uri
+   * @throws IOException if something went wrong when accessing the db
+   */
   public EntityWrapper getByUri(String uri) throws IOException {
     Jedis jedis = redisProvider.getJedis();
     EntityWrapper entityWrapper = null;
@@ -353,7 +374,8 @@ public class RedisInternalEnricher {
     return entityWrapper;
   }
 
-  private EntityWrapper getEntityWrapperFromSameAs(String uri, Jedis jedis, EntityWrapper entityWrapper,
+  private EntityWrapper getEntityWrapperFromSameAs(String uri, Jedis jedis,
+      EntityWrapper entityWrapper,
       String cachedEntity) throws IOException {
     if (jedis.hexists(cachedEntity + CACHED_SAMEAS, uri)) {
       entityWrapper = OBJECT_MAPPER.readValue(

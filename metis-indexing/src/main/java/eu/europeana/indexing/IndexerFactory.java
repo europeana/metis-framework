@@ -64,7 +64,6 @@ public class IndexerFactory {
     try {
       return new IndexerImpl(connectionProviderSupplier.get());
     } catch (SetupRelatedIndexingException | IndexerRelatedIndexingException e) {
-      LOGGER.warn("Error while setting up an indexer.", e);
       throw e;
     }
   }

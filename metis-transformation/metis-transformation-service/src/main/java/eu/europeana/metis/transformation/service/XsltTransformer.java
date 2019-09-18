@@ -58,7 +58,6 @@ public class XsltTransformer {
     try {
       this.transformer = getTemplates(xsltUrl).newTransformer();
     } catch (TransformerConfigurationException | CacheValueSupplierException e) {
-      LOGGER.error("Exception during transformation setup", e);
       throw new TransformationException(e);
     }
     if (StringUtils.isNotBlank(datasetName)) {
@@ -100,7 +99,6 @@ public class XsltTransformer {
       transformer.transform(new StreamSource(contentStream), new StreamResult(result));
       return result;
     } catch (TransformerException | IOException e) {
-      LOGGER.error("Exception during transformation", e);
       throw new TransformationException(e);
     }
   }

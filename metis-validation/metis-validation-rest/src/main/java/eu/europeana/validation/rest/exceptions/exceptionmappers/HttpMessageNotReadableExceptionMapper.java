@@ -17,7 +17,7 @@ public class HttpMessageNotReadableExceptionMapper {
      * Handles specified exception
      *
      * @param ex exception to be handled
-     * @return
+     * @return the error message
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseBody
