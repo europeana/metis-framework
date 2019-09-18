@@ -87,7 +87,7 @@ class FullBeanPublisher {
 
   private static void setUpdateAndCreateTime(IdBean current, FullBean updated, Date recordDate) {
     updated.setTimestampCreated(current == null ? recordDate : current.getTimestampCreated());
-    updated.setTimestampUpdated(recordDate);
+    updated.setTimestampUpdated(recordDate == null ? new Date() : recordDate);
   }
 
   /**
