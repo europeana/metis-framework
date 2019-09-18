@@ -89,39 +89,36 @@ public class RdfWrapper {
   }
 
   /**
-   * Get the link (URL) for the first (in case of {@link UrlType#HAS_VIEW}) or only (in case of
-   * other {@link UrlType}s) link in the document of the given type (in any aggregation).
+   * Get the link (URL) for the first link in the document of the given type. This looks in all
+   * aggregations and finds the first one with a resource link of the given type, and returns the
+   * first of these.
    *
    * @param type The type of the link we are looking for.
    * @return The link, or an empty {@link Optional} in case no such link exists.
    */
-  Optional<String> getFirstOrOnlyResourceOfType(UrlType type) {
-
-    // Find the first resource in any aggregation of the given type. Check whether it is blank.
-    return Optional.of(rdf).map(RDF::getAggregationList)
-        .map(List::stream).orElseGet(Stream::empty)
-        .map(aggregation -> getFirstOrOnlyLinkOfType(aggregation, type)).findFirst()
-        .map(ResourceType::getResource).filter(StringUtils::isNotBlank);
+  Optional<String> getFirstResourceOfType(UrlType type) {
+    return stream(rdf.getAggregationList())
+        .flatMap(aggregation -> getLinksOfType(aggregation, type)).filter(Objects::nonNull)
+        .map(ResourceType::getResource).filter(StringUtils::isNotBlank).findFirst();
   }
 
-  private static ResourceType getFirstOrOnlyLinkOfType(Aggregation aggregation, UrlType type) {
-    final ResourceType result;
+  private static Stream<ResourceType> getLinksOfType(Aggregation aggregation, UrlType type) {
+    final Stream<ResourceType> result;
     switch (type) {
       case OBJECT:
-        result = aggregation.getObject();
+        result = Stream.of(aggregation.getObject());
         break;
       case HAS_VIEW:
-        result = aggregation.getHasViewList().stream().findFirst().orElse(null);
+        result = stream(aggregation.getHasViewList());
         break;
       case IS_SHOWN_AT:
-        result = aggregation.getIsShownAt();
+        result = Stream.of(aggregation.getIsShownAt());
         break;
       case IS_SHOWN_BY:
-        result = aggregation.getIsShownBy();
+        result = Stream.of(aggregation.getIsShownBy());
         break;
       default:
-        result = null;
-        break;
+        throw new IllegalStateException();
     }
     return result;
   }
@@ -132,8 +129,12 @@ public class RdfWrapper {
    * @return The web resource, or an empty {@link Optional} if it doesn't exist.
    */
   Optional<WebResourceType> getWebResource(String resourceUrl) {
-    return Optional.of(rdf).map(RDF::getWebResourceList).map(List::stream).orElseGet(Stream::empty)
-        .filter(Objects::nonNull).filter(webResource -> resourceUrl.equals(webResource.getAbout()))
-        .findAny();
+    return stream(rdf.getWebResourceList())
+        .filter(webResource -> resourceUrl.equals(webResource.getAbout())).findAny();
+  }
+
+  private static <T> Stream<T> stream(List<? extends T> list) {
+    return Optional.ofNullable(list).map(List::stream).orElseGet(Stream::empty)
+        .filter(Objects::nonNull).map(item -> (T) item);
   }
 }

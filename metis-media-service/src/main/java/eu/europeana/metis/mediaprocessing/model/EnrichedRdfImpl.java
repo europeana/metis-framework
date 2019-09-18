@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
@@ -74,44 +73,39 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
   String getEdmPreviewThumbnailUrl() {
 
     // First try taking it from the object URL. If it exists, return it.
-    final Optional<String> objectThumbnail = getFirstOrOnlyResourceOfType(UrlType.OBJECT)
+    final Optional<String> objectThumbnail = getFirstResourceOfType(UrlType.OBJECT)
         .flatMap(this::getWebResource).map(WebResourceType::getAbout)
-        .map(this::getThumbnailTargetNames).map(this::getEligiblePreviewThumbnail);
+        .filter(this::hasEligiblePreviewThumbnail);
     if (objectThumbnail.isPresent()) {
       return objectThumbnail.get();
     }
 
     // That failed. Now we need to look at the isShownBy and the first hasView.
-    final Optional<WebResourceType> isShownBy = getFirstOrOnlyResourceOfType(UrlType.IS_SHOWN_AT)
+    final Optional<WebResourceType> isShownBy = getFirstResourceOfType(UrlType.IS_SHOWN_AT)
         .flatMap(this::getWebResource);
-    final Optional<WebResourceType> hasView = getFirstOrOnlyResourceOfType(UrlType.HAS_VIEW)
+    final Optional<WebResourceType> hasView = getFirstResourceOfType(UrlType.HAS_VIEW)
         .flatMap(this::getWebResource);
     final BigInteger isShownByResolution = isShownBy.map(WebResourceType::getSpatialResolution)
         .map(SpatialResolution::getInteger).orElse(BigInteger.ZERO);
     final BigInteger hasViewResolution = hasView.map(WebResourceType::getSpatialResolution)
         .map(SpatialResolution::getInteger).orElse(BigInteger.ZERO);
     final Optional<String> isShownByThumbnail = isShownBy.map(WebResourceType::getAbout)
-        .map(this::getThumbnailTargetNames).map(this::getEligiblePreviewThumbnail);
+        .filter(this::hasEligiblePreviewThumbnail);
     final Optional<String> hasViewThumbnail = hasView.map(WebResourceType::getAbout)
-        .map(this::getThumbnailTargetNames).map(this::getEligiblePreviewThumbnail);
+        .filter(this::hasEligiblePreviewThumbnail);
 
     // Determine the result based on which one is present.
     final Optional<String> result;
     if (isShownByThumbnail.isPresent()) {
-      if (hasViewThumbnail.isPresent()) {
-        if (isShownByResolution.compareTo(hasViewResolution) < 0) {
-          // Both are present, but the hasView has a strictly larger resolution.
-          result = hasViewThumbnail;
-        } else {
-          // Both are present, but the isShownBy has at least the resolution the hasView does.
-          result = isShownByThumbnail;
-        }
+      if (hasViewThumbnail.isPresent() && isShownByResolution.compareTo(hasViewResolution) < 0) {
+        // Both are present, and the hasView has a strictly larger resolution: use hasView.
+        result = hasViewThumbnail;
       } else {
-        // Only the isShownBy is present.
+        // hasView is not present or has a lower (or equal) resolution: use isShownBy.
         result = isShownByThumbnail;
       }
     } else {
-      // The isShownBy is not present.
+      // The isShownBy is not present: use hasView (if that's not present either, return null).
       result = hasViewThumbnail;
     }
 
@@ -119,10 +113,8 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
     return result.orElse(null);
   }
 
-  private String getEligiblePreviewThumbnail(Entry<String, Set<String>> targetNames) {
-    final boolean containsEligibleThumbnail = targetNames.getValue().stream()
-        .anyMatch(name -> name.contains("-LARGE"));
-    return containsEligibleThumbnail ? targetNames.getKey() : null;
+  private boolean hasEligiblePreviewThumbnail(String resourceUrl) {
+    return getThumbnailTargetNames(resourceUrl).stream().anyMatch(name -> name.contains("-LARGE"));
   }
 
   void updateEdmPreview(String url) {
@@ -138,8 +130,8 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
     return Collections.unmodifiableSet(thumbnailTargetNames.keySet());
   }
 
-  Entry<String, Set<String>> getThumbnailTargetNames(String resourceUrl) {
-    return thumbnailTargetNames.entrySet().stream()
-        .filter(entry -> entry.getKey().equals(resourceUrl)).findAny().orElse(null);
+  Set<String> getThumbnailTargetNames(String resourceUrl) {
+    return Optional.ofNullable(thumbnailTargetNames.get(resourceUrl))
+        .map(Collections::unmodifiableSet).orElseGet(Collections::emptySet);
   }
 }
