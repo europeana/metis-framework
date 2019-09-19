@@ -148,31 +148,31 @@ class EnrichedRdfImplTest {
     final String objectResourceUrl = "object";
     final WebResourceType objectWebResource = new WebResourceType();
     objectWebResource.setAbout(objectResourceUrl);
-    final String isShownAtResourceUrl = "isShownAt";
-    final WebResourceType isShownAtWebResource = new WebResourceType();
-    isShownAtWebResource.setAbout(isShownAtResourceUrl);
+    final String isShownByResourceUrl = "isShownBy";
+    final WebResourceType isShownByWebResource = new WebResourceType();
+    isShownByWebResource.setAbout(isShownByResourceUrl);
     final String hasViewResourceUrl = "hasView";
     final WebResourceType hasViewWebResource = new WebResourceType();
     hasViewWebResource.setAbout(hasViewResourceUrl);
 
     // Test for isolated types - this tests all possible combinations of data.
     testGetEdmPreviewThumbnailUrlForIsolatedType(objectWebResource, UrlType.OBJECT);
-    testGetEdmPreviewThumbnailUrlForIsolatedType(isShownAtWebResource, UrlType.IS_SHOWN_AT);
+    testGetEdmPreviewThumbnailUrlForIsolatedType(isShownByWebResource, UrlType.IS_SHOWN_BY);
     testGetEdmPreviewThumbnailUrlForIsolatedType(hasViewWebResource, UrlType.HAS_VIEW);
 
     // Prepare testing of combinations - prepare web resources and thumbnails, remove all links.
     doReturn(Optional.of(objectWebResource)).when(enrichedRdf).getWebResource(objectResourceUrl);
-    doReturn(Optional.of(isShownAtWebResource)).when(enrichedRdf)
-        .getWebResource(isShownAtResourceUrl);
+    doReturn(Optional.of(isShownByWebResource)).when(enrichedRdf)
+        .getWebResource(isShownByResourceUrl);
     doReturn(Optional.of(hasViewWebResource)).when(enrichedRdf).getWebResource(hasViewResourceUrl);
     doReturn(Collections.singleton(objectResourceUrl + "-LARGE")).when(enrichedRdf)
         .getThumbnailTargetNames(objectResourceUrl);
-    doReturn(Collections.singleton(isShownAtResourceUrl + "-LARGE")).when(enrichedRdf)
-        .getThumbnailTargetNames(isShownAtResourceUrl);
+    doReturn(Collections.singleton(isShownByResourceUrl + "-LARGE")).when(enrichedRdf)
+        .getThumbnailTargetNames(isShownByResourceUrl);
     doReturn(Collections.singleton(hasViewResourceUrl + "-LARGE")).when(enrichedRdf)
         .getThumbnailTargetNames(hasViewResourceUrl);
     doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.OBJECT);
-    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_AT);
+    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_BY);
     doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.HAS_VIEW);
 
     // Test no links present
@@ -180,26 +180,26 @@ class EnrichedRdfImplTest {
 
     // Test that object link always comes first (no need to test object in isolation)
     doReturn(Optional.of(objectResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.OBJECT);
-    doReturn(Optional.of(isShownAtResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_AT);
+    doReturn(Optional.of(isShownByResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_BY);
     assertEquals(objectResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
     doReturn(Optional.of(hasViewResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.HAS_VIEW);
     assertEquals(objectResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
-    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_AT);
+    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_BY);
     assertEquals(objectResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
 
-    // Test the rules for tie braking between hasView and isShownAt
+    // Test the rules for tie braking between hasView and isShownBy
     doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.OBJECT);
-    doReturn(Optional.of(isShownAtResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_AT);
+    doReturn(Optional.of(isShownByResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_BY);
     doReturn(Optional.of(hasViewResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.HAS_VIEW);
-    isShownAtWebResource.setSpatialResolution(new SpatialResolution());
-    isShownAtWebResource.getSpatialResolution().setInteger(BigInteger.ONE);
+    isShownByWebResource.setSpatialResolution(new SpatialResolution());
+    isShownByWebResource.getSpatialResolution().setInteger(BigInteger.ONE);
     hasViewWebResource.setSpatialResolution(new SpatialResolution());
     hasViewWebResource.getSpatialResolution().setInteger(BigInteger.TEN);
     assertEquals(hasViewResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
-    isShownAtWebResource.getSpatialResolution().setInteger(BigInteger.TEN);
-    assertEquals(isShownAtResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
+    isShownByWebResource.getSpatialResolution().setInteger(BigInteger.TEN);
+    assertEquals(isShownByResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
     hasViewWebResource.getSpatialResolution().setInteger(BigInteger.ONE);
-    assertEquals(isShownAtResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
+    assertEquals(isShownByResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
   }
 
   private void testGetEdmPreviewThumbnailUrlForIsolatedType(WebResourceType webResource,

@@ -81,7 +81,7 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
     }
 
     // That failed. Now we need to look at the isShownBy and the first hasView.
-    final Optional<WebResourceType> isShownBy = getFirstResourceOfType(UrlType.IS_SHOWN_AT)
+    final Optional<WebResourceType> isShownBy = getFirstResourceOfType(UrlType.IS_SHOWN_BY)
         .flatMap(this::getWebResource);
     final Optional<WebResourceType> hasView = getFirstResourceOfType(UrlType.HAS_VIEW)
         .flatMap(this::getWebResource);
