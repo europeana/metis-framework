@@ -122,7 +122,7 @@ public class IndexedRecordRemover {
         .append(datasetIdRegexEscaped);
 
     if (maxRecordDate != null) {
-      DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
+      DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_SOLR, Locale.US);
       solrQuery.append(" AND ").append(EdmLabel.TIMESTAMP_UPDATED.toString()).append(":")
           .append("[* TO ").append(dateFormat.format(maxRecordDate)).append("}");
     }
