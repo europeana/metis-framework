@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.util.ClientUtils;
@@ -122,7 +123,9 @@ public class IndexedRecordRemover {
         .append(datasetIdRegexEscaped);
 
     if (maxRecordDate != null) {
+      //Set date format properly for Solr, the timezone has to be added
       DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_SOLR, Locale.US);
+      dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
       solrQuery.append(" AND ").append(EdmLabel.TIMESTAMP_UPDATED.toString()).append(":")
           .append("[* TO ").append(dateFormat.format(maxRecordDate)).append("}");
     }
