@@ -1,6 +1,7 @@
 package eu.europeana.indexing.mongo.property;
 
 import eu.europeana.corelib.storage.MongoServer;
+import java.util.Date;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -19,9 +20,9 @@ public final class MongoPropertyUpdaterFactory {
   private MongoPropertyUpdaterFactory() {
   }
 
-  private static <T, S> MongoPropertyUpdater<T> create(T updated,
-      MongoServer mongoServer, Class<T> objectClass, Supplier<Query<T>> queryCreator,
-      TriConsumer<T, T, S> dataPreprocessor, S recordDate,
+  private static <T> MongoPropertyUpdater<T> create(T updated, MongoServer mongoServer,
+      Class<T> objectClass, Supplier<Query<T>> queryCreator,
+      TriConsumer<T, T, Date> dataPreprocessor, Date recordDate,
       Consumer<UpdateOperations<T>> operationsPreprocessor) {
 
     // Sanity checks.
@@ -63,9 +64,9 @@ public final class MongoPropertyUpdaterFactory {
    * record date. Can be null.
    * @return The property updater.
    */
-  public static <T, S> MongoPropertyUpdater<T> createForObjectWithoutAbout(T updated,
+  public static <T> MongoPropertyUpdater<T> createForObjectWithoutAbout(T updated,
       MongoServer mongoServer, Class<T> objectClass, Supplier<Query<T>> queryCreator,
-      TriConsumer<T, T, S> preprocessor) {
+      TriConsumer<T, T, Date> preprocessor) {
     return create(updated, mongoServer, objectClass, queryCreator, preprocessor, null, null);
   }
 
@@ -85,9 +86,9 @@ public final class MongoPropertyUpdaterFactory {
    * @param recordDate The date that would represent the created/updated date of a record
    * @return The property updater.
    */
-  public static <T, S> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
+  public static <T> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
       MongoServer mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
-      TriConsumer<T, T, S> preprocessor, S recordDate) {
+      TriConsumer<T, T, Date> preprocessor, Date recordDate) {
 
     // Sanity checks.
     if (aboutGetter == null) {
