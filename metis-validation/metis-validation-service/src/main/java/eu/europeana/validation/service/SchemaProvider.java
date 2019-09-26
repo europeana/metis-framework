@@ -145,7 +145,7 @@ public class SchemaProvider {
     }
 
     //If the zip file does not exist it means the directory would not exist either
-    if (!schemasLocation.mkdirs()) {
+    if (!schemasLocation.mkdirs() && !schemasLocation.exists()) {
       throw new SchemaProviderException("Unable to create schemaDirecory");
     }
 
