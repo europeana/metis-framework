@@ -1,14 +1,5 @@
 package eu.europeana.indexing;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.Collections;
-import java.util.Date;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrInputDocument;
 import com.mongodb.MongoClientException;
 import com.mongodb.MongoConfigurationException;
 import com.mongodb.MongoIncompatibleDriverException;
@@ -25,10 +16,19 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
-import eu.europeana.indexing.mongo.property.FullBeanUpdater;
+import eu.europeana.indexing.mongo.FullBeanUpdater;
 import eu.europeana.indexing.solr.SolrDocumentPopulator;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.function.Supplier;
+import org.apache.logging.log4j.util.TriConsumer;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrInputDocument;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
@@ -42,7 +42,7 @@ class FullBeanPublisher {
 
   private static final String SOLR_SERVER_PUBLISH_ERROR = "Could not publish to Solr server.";
 
-  private static final BiConsumer<FullBeanImpl, FullBeanImpl> EMPTY_PREPROCESSOR = (created, updated) -> {
+  private static final TriConsumer<FullBeanImpl, FullBeanImpl, Date> EMPTY_PREPROCESSOR = (created, updated, recordDate) -> {
   };
   private static final int PUBLISH_MAX_RETRIES = 30;
   private static final int PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
@@ -85,16 +85,18 @@ class FullBeanPublisher {
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
   }
 
-  private static void setUpdateAndCreateTime(IdBean current, FullBean updated) {
-    final Date currentDate = new Date();
-    updated.setTimestampCreated(current == null ? currentDate : current.getTimestampCreated());
-    updated.setTimestampUpdated(currentDate);
+  private static void setUpdateAndCreateTime(IdBean current, FullBean updated, Date recordDate) {
+    final Date updatedDate = recordDate == null ? new Date() : recordDate;
+    final Date createdDate = current == null ? updatedDate : current.getTimestampCreated();
+    updated.setTimestampCreated(createdDate);
+    updated.setTimestampUpdated(updatedDate);
   }
 
   /**
    * Publishes an RDF.
    *
    * @param rdf RDF to publish.
+   * @param recordDate The date that would represent the created/updated date of a record
    * @throws IndexingException which can be one of:
    * <ul>
    * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
@@ -103,21 +105,21 @@ class FullBeanPublisher {
    * contents</li>
    * </ul>
    */
-  public void publish(RdfWrapper rdf) throws IndexingException {
+  public void publish(RdfWrapper rdf, Date recordDate) throws IndexingException {
 
     // Convert RDF to Full Bean.
     final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
     final FullBeanImpl fullBean = fullBeanConverter.convertRdfToFullBean(rdf);
 
     // Provide the preprocessor: this will set the created and updated timestamps as needed.
-    final BiConsumer<FullBeanImpl, FullBeanImpl> fullBeanPreprocessor =
+    final TriConsumer<FullBeanImpl, FullBeanImpl, Date> fullBeanPreprocessor =
         preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
             : (FullBeanPublisher::setUpdateAndCreateTime);
 
     // Publish to Mongo
     final FullBeanImpl savedFullBean;
     try {
-      savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, mongoClient);
+      savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, recordDate, mongoClient);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
     } catch (MongoSocketException | MongoClientException | MongoInternalException | MongoInterruptedException e) {
@@ -146,7 +148,7 @@ class FullBeanPublisher {
     final SolrDocumentPopulator documentPopulator = new SolrDocumentPopulator();
     final SolrInputDocument document = new SolrInputDocument();
     documentPopulator.populateWithProperties(document, fullBean);
-    documentPopulator.populateWithCrfFields(document, rdf);
+    documentPopulator.populateWithFacets(document, rdf);
 
     // Save Solr document.
     try {

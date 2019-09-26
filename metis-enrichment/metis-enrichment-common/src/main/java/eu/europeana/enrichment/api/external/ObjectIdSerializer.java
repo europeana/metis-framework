@@ -1,10 +1,10 @@
 package eu.europeana.enrichment.api.external;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.bson.types.ObjectId;
 import java.io.IOException;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.SerializerProvider;
-import org.codehaus.jackson.map.ser.std.SerializerBase;
 
 /**
  * ObjectId mapper class for correct serialization of org.bson.types.ObjectId to
@@ -12,7 +12,9 @@ import org.codehaus.jackson.map.ser.std.SerializerBase;
  *
  * @author Yorgos.Mamakis@ europeana.eu
  */
-public class ObjectIdSerializer extends SerializerBase<ObjectId> {
+public class ObjectIdSerializer extends StdSerializer<ObjectId> {
+
+  private static final long serialVersionUID = -3701196028474165763L;
 
   /**
    * Required default constructor.

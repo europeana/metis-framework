@@ -48,6 +48,7 @@ public final class ZohoConstants {
 
   //Operations
   public static final String EQUALS_OPERATION = "equals";
+  public static final String STARTS_WITH_OPERATION = "starts_with";
 
   //General constants
   public static final String ZOHO_OPERATION_FORMAT_STRING = "(%s:%s:%s)";

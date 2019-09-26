@@ -18,6 +18,7 @@ import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
@@ -40,23 +41,26 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
   private final boolean applyTransformation;
   private final IBindingFactory bFact;
   private final String incomingRecord;
+  private final Date recordDate;
   private final DatasetProperties datasetProperties;
 
   /**
    * Default constructor of the validation service
-   *
-   * @param validationUtils Utils class for validation tasks
+   *  @param validationUtils Utils class for validation tasks
    * @param applyTransformation Whether the record needs to be transformed
    * @param bFact The JibX binding factory for the conversion of the XML to RDF class
    * @param incomingRecord The record to be validated and transformed
+   * @param recordDate
    * @param datasetProperties The dataset properties that need to be enforced.
    */
   public ValidationTask(ValidationUtils validationUtils, boolean applyTransformation,
-      IBindingFactory bFact, String incomingRecord, DatasetProperties datasetProperties) {
+      IBindingFactory bFact, String incomingRecord, Date recordDate,
+      DatasetProperties datasetProperties) {
     this.validationUtils = validationUtils;
     this.applyTransformation = applyTransformation;
     this.bFact = bFact;
     this.incomingRecord = incomingRecord;
+    this.recordDate = recordDate;
     this.datasetProperties = datasetProperties;
   }
 
@@ -100,7 +104,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     }
 
     // Publish/index the data.
-    validationUtils.persist(rdf);
+    validationUtils.persist(rdf, recordDate);
 
     // Return the result.
     final String recordId = rdf.getProvidedCHOList().get(0).getAbout();

@@ -10,17 +10,28 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
    */
   private static final long serialVersionUID = 2909859187992441100L;
 
-  private double duration;
+  private Double duration;
 
-  private int bitRate;
+  private Integer bitRate;
 
-  private int width;
+  private Integer width;
 
-  private int height;
+  private Integer height;
 
   private String codecName;
 
-  private double frameRate;
+  private Double frameRate;
+
+  /**
+   * Constructor for the case no metadata or thumbnails is available.
+   *
+   * @param mimeType The resource mime type.
+   * @param resourceUrl The resource URL.
+   * @param contentSize The file content size.
+   */
+  public VideoResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
+    this(mimeType, resourceUrl, contentSize, null, null, null, null, null, null);
+  }
 
   /**
    * Constructor.
@@ -36,7 +47,8 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
    * @param frameRate The video clip frame rate.
    */
   public VideoResourceMetadata(String mimeType, String resourceUrl, long contentSize,
-      double duration, int bitRate, int width, int height, String codecName, double frameRate) {
+      Double duration, Integer bitRate, Integer width, Integer height, String codecName,
+      Double frameRate) {
     super(mimeType, resourceUrl, contentSize);
     this.duration = duration;
     this.bitRate = bitRate;
@@ -65,22 +77,22 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
     resource.setWidth(width);
     resource.setHeight(height);
     resource.setCodecName(codecName);
-    resource.setFrameRete(frameRate);
+    resource.setFrameRate(frameRate);
   }
 
-  public double getDuration() {
+  public Double getDuration() {
     return duration;
   }
 
-  public int getBitRate() {
+  public Integer getBitRate() {
     return bitRate;
   }
 
-  public int getWidth() {
+  public Integer getWidth() {
     return width;
   }
 
-  public int getHeight() {
+  public Integer getHeight() {
     return height;
   }
 
@@ -88,7 +100,7 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
     return codecName;
   }
 
-  public double getFrameRate() {
+  public Double getFrameRate() {
     return frameRate;
   }
 }

@@ -1,15 +1,15 @@
 package eu.europeana.indexing;
 
 import java.io.Closeable;
+import java.util.Date;
 import java.util.List;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexingException;
 
 /**
  * <p>
- * This interface allows access to this library's indexing functionality. Note: the object is
- * {@link Closeable} and must be closed after use by calling {@link #close()} (or by using a try
- * block).
+ * This interface allows access to this library's indexing functionality. Note: the object is {@link
+ * Closeable} and must be closed after use by calling {@link #close()} (or by using a try block).
  * </p>
  * <p>
  * <b>NOTE:</b> Operations that are provided by this object are <b>not</b> done within a
@@ -30,11 +30,13 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param record The record to index.
+   * @param recordDate The date that would represent the created/updated date of a record
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   *        updated and created times from the incoming RDFs, or whether it computes its own.
+   * updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void indexRdf(RDF record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void indexRdf(RDF record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf)
+      throws IndexingException;
 
   /**
    * <p>
@@ -46,11 +48,13 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param records The records to index.
+   * @param recordDate The date that would represent the created/updated date of a record
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   *        updated and created times from the incoming RDFs, or whether it computes its own.
+   * updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void indexRdfs(List<RDF> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void indexRdfs(List<RDF> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf)
+      throws IndexingException;
 
   /**
    * <p>
@@ -62,11 +66,13 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param record The record to index (can be parsed to RDF).
+   * @param recordDate The date that would represent the created/updated date of a record
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   *        updated and created times from the incoming RDFs, or whether it computes its own.
+   * updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void index(String record, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf)
+      throws IndexingException;
 
   /**
    * <p>
@@ -78,11 +84,13 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param records The records to index (can be parsed to RDF).
+   * @param recordDate The date that would represent the created/updated date of a record
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
-   *        updated and created times from the incoming RDFs, or whether it computes its own.
+   * updated and created times from the incoming RDFs, or whether it computes its own.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void index(List<String> records, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException;
+  void index(List<String> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf)
+      throws IndexingException;
 
   /**
    * This method will trigger a flush operation on pending changes/updates to the persistent data,
@@ -152,8 +160,10 @@ public interface Indexer extends Closeable {
    * </p>
    *
    * @param datasetId The ID of the dataset to clear. Is not null.
+   * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
+   * would be removed. If null is provided then all records from that dataset will be removed.
    * @return The number of records that were removed.
    * @throws IndexingException In case something went wrong.
    */
-  int removeAll(String datasetId) throws IndexingException;
+  int removeAll(String datasetId, Date maxRecordDate) throws IndexingException;
 }

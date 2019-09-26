@@ -8,7 +8,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import org.junit.jupiter.api.AfterAll;
@@ -26,7 +26,7 @@ class TestDatasetXsltDao {
   private static DatasetXsltDao datasetXsltDao;
   private static DatasetXslt datasetXslt;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
-  private static MorphiaDatastoreProvider provider;
+  private static MorphiaDatastoreProviderImpl provider;
 
   @BeforeAll
   static void prepare() {
@@ -36,7 +36,7 @@ class TestDatasetXsltDao {
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
-    provider = new MorphiaDatastoreProvider(mongoClient, "test");
+    provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
 
     datasetXsltDao = new DatasetXsltDao(provider);
 

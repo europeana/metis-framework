@@ -6,7 +6,6 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
-import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -28,11 +27,13 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -67,10 +68,11 @@ public class OrchestratorController {
 
   /**
    * Create a workflow using a datasetId and the {@link Workflow} that contains the requested
-   * plugins. When creating a new workflow all the plugins specified will be automatically enabled.
+   * plugins. If plugins are disabled, they (their settings) are still saved.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier to relate the workflow to
+   * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param workflow the Workflow will all it's requested plugins
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -83,7 +85,7 @@ public class OrchestratorController {
    * </ul>
    */
   //WORKFLOWS
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, method = RequestMethod.POST, consumes = {
+  @PostMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
@@ -91,20 +93,21 @@ public class OrchestratorController {
   public void createWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType,
       @RequestBody Workflow workflow)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    orchestratorService.createWorkflow(metisUser, datasetId, workflow);
+    orchestratorService.createWorkflow(metisUser, datasetId, workflow, enforcedPredecessorType);
   }
 
   /**
    * Update an already existent workflow using a datasetId and the {@link Workflow} that contains
-   * the requested plugins. When updating an existent workflow all specified plugins will be enabled
-   * and all plugins that were existent in the system beforehand will be kept with their
-   * configuration but will be disabled.
+   * the requested plugins. If plugins are disabled, they (their settings) are still saved. Any
+   * settings in plugins that are not sent in the request are removed.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the identifier of the dataset for which the workflow should be updated
+   * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param workflow the workflow with the plugins requested
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -116,16 +119,17 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, method = RequestMethod.PUT, produces = {
+  @PutMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void updateWorkflow(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType,
       @RequestBody Workflow workflow) throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    orchestratorService.updateWorkflow(metisUser, datasetId, workflow);
+    orchestratorService.updateWorkflow(metisUser, datasetId, workflow, enforcedPredecessorType);
   }
 
   /**
@@ -141,8 +145,7 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
-      method = RequestMethod.DELETE,
+  @DeleteMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteWorkflow(
@@ -170,7 +173,7 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -193,12 +196,12 @@ public class OrchestratorController {
    * status of the WorkflowExecution to {@link WorkflowStatus#INQUEUE}, adds it to the database and
    * also it's identifier goes into the distributed queue of WorkflowExecutions. The source data for
    * the first plugin in the workflow can be controlled, if required, from the {@code
-   * enforcedPluginType}, which means that the last valid plugin that is provided with that
+   * enforcedPredecessorType}, which means that the last valid plugin that is provided with that
    * parameter, will be used as the source data.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier for which the execution will take place
-   * @param enforcedPluginType optional, the plugin type to be used as source data
+   * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
    * highest
    * @return the WorkflowExecution object that was generated
@@ -220,19 +223,20 @@ public class OrchestratorController {
    * happen since ids are UUIDs</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE, method = RequestMethod.POST, produces = {
+  @PostMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPluginType,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     WorkflowExecution workflowExecution = orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, enforcedPluginType, priority);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, enforcedPredecessorType,
+            priority);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("WorkflowExecution for datasetId '{}' added to queue",
           datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
@@ -256,7 +260,7 @@ public class OrchestratorController {
    * identifier of the workflow does not exist</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, method = RequestMethod.DELETE, produces = {
+  @DeleteMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
@@ -286,7 +290,7 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -306,12 +310,12 @@ public class OrchestratorController {
   /**
    * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
    * there was a previous successful finished plugin that follows a specific order unless the {@code
-   * enforcedPluginType} is used.
+   * enforcedPredecessorType} is used.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier of which the executions are based on
    * @param pluginType the pluginType to be checked for allowance of execution
-   * @param enforcedPluginType optional, the plugin type to be used as source data
+   * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can
    * be null if the {@code pluginType} is the first one in the total order of executions e.g. One of
    * the harvesting plugins.
@@ -325,7 +329,7 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -333,16 +337,14 @@ public class OrchestratorController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam("pluginType") ExecutablePluginType pluginType,
-      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPluginType)
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, datasetId,
-            pluginType, enforcedPluginType);
+            pluginType, enforcedPredecessorType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId == null) {
-      if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
-        LOGGER.info("PluginType allowed by default");
-      }
+      LOGGER.info("PluginType allowed by default");
     } else {
       LOGGER.info("Latest Plugin WorkflowExecution with id '{}' found",
           latestFinishedPluginWorkflowExecutionByDatasetId.getId());
@@ -364,7 +366,7 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -398,7 +400,7 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -441,7 +443,7 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -485,7 +487,7 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -535,7 +537,7 @@ public class OrchestratorController {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EVOLUTION, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody

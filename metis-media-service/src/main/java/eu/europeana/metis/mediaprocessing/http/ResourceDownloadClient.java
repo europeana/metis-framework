@@ -27,10 +27,12 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
    * not to proceed with the download.
    * @param connectTimeout The connection timeout in milliseconds.
    * @param socketTimeout The socket timeout in milliseconds.
+   * @param downloadTimeout The time after which the download will be aborted (if it hasn't finished
+   * by then). In milliseconds.
    */
   public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype,
-      int connectTimeout, int socketTimeout) {
-    super(maxRedirectCount, connectTimeout, socketTimeout);
+      int connectTimeout, int socketTimeout, int downloadTimeout) {
+    super(maxRedirectCount, connectTimeout, socketTimeout, downloadTimeout);
     this.shouldDownloadMimetype = shouldDownloadMimetype;
   }
 
@@ -41,10 +43,10 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
 
   @Override
   protected Resource createResult(RdfResourceEntry resourceEntry, URI actualUri, String mimeType,
-      ContentRetriever contentRetriever) throws IOException {
+      Long fileSize, ContentRetriever contentRetriever) throws IOException {
 
     // Create resource
-    final ResourceImpl resource = new ResourceImpl(resourceEntry, mimeType, actualUri);
+    final ResourceImpl resource = new ResourceImpl(resourceEntry, mimeType, fileSize, actualUri);
 
     // In case we are expecting a file, we download it.
     try {

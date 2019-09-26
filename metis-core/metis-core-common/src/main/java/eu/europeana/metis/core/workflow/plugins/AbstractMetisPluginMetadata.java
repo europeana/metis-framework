@@ -3,17 +3,19 @@ package eu.europeana.metis.core.workflow.plugins;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import eu.europeana.metis.CommonStringValues;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 
 /**
- * Abstract super class for all plugin metadata
+ * This abstract class is the base implementation of {@link MetisPluginMetadata} and all other
+ * plugins should inherit from it.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "pluginType")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = As.EXISTING_PROPERTY, property = "pluginType")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = OaipmhHarvestPluginMetadata.class, name = "OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value = HTTPHarvestPluginMetadata.class, name = "HTTP_HARVEST"),
@@ -28,7 +30,7 @@ import org.mongodb.morphia.annotations.Embedded;
     @JsonSubTypes.Type(value = IndexToPublishPluginMetadata.class, name = "PUBLISH")
 })
 @Embedded
-public abstract class AbstractMetisPluginMetadata {
+public abstract class AbstractMetisPluginMetadata implements MetisPluginMetadata {
 
   private String revisionNamePreviousPlugin;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
@@ -37,23 +39,31 @@ public abstract class AbstractMetisPluginMetadata {
   public AbstractMetisPluginMetadata() {
   }
 
-  public abstract PluginType getPluginType();
-
+  @Override
   public String getRevisionNamePreviousPlugin() {
     return revisionNamePreviousPlugin;
   }
 
+  @Override
   public void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
     this.revisionNamePreviousPlugin = revisionNamePreviousPlugin;
   }
 
+  @Override
   public Date getRevisionTimestampPreviousPlugin() {
     return revisionTimestampPreviousPlugin == null ? null
         : new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
+  @Override
   public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
     this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null ? null
         : new Date(revisionTimestampPreviousPlugin.getTime());
+  }
+
+  @Override
+  public void setPreviousRevisionInformation(ExecutablePlugin<?> predecessor) {
+    this.setRevisionNamePreviousPlugin(predecessor.getPluginType().name());
+    this.setRevisionTimestampPreviousPlugin(predecessor.getStartedDate());
   }
 }

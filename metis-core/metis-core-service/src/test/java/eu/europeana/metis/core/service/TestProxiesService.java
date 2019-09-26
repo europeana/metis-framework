@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -556,7 +557,7 @@ class TestProxiesService {
     final String dateString = proxiesService.pluginDateFormatForEcloud
         .format(plugin.getStartedDate());
     doReturn(representation).when(recordServiceClient).getRepresentationByRevision(
-        eq(ecloudId), eq(AbstractMetisPlugin.getRepresentationName()),
+        eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
         eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
     final String testContent = "test content";
     when(fileServiceClient.getFile(contentUri))

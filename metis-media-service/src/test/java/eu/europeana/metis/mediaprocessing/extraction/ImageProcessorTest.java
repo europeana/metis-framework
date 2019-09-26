@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -15,7 +14,8 @@ import static org.mockito.Mockito.spy;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
@@ -23,7 +23,6 @@ import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -48,19 +47,52 @@ class ImageProcessorTest {
   @BeforeEach
   void resetMocks() {
     reset(thumbnailGenerator);
-    doReturn(true).when(imageProcessor).shouldExtractMetadata(notNull());
   }
 
   @Test
-  void testProcessing() throws MediaExtractionException, IOException {
+  void testDownloadResourceForFullProcessing() {
+    assertTrue(imageProcessor.downloadResourceForFullProcessing());
+  }
+
+  @Test
+  void testCopy() throws MediaExtractionException {
+
+    // Create resource
+    final Resource resource = mock(Resource.class);
+    final long fileSize = 12345;
+    final String url = "test url";
+    doReturn(fileSize).when(resource).getProvidedFileSize();
+    doReturn(url).when(resource).getResourceUrl();
+
+    // Make call
+    final String mediaType = "image type";
+    final ResourceExtractionResultImpl result = imageProcessor.copyMetadata(resource, mediaType);
+
+    // Verify
+    assertNotNull(result);
+    assertNotNull(result.getOriginalMetadata());
+    assertTrue(result.getOriginalMetadata() instanceof ImageResourceMetadata);
+    assertEquals(mediaType, result.getOriginalMetadata().getMimeType());
+    assertEquals(fileSize, result.getOriginalMetadata().getContentSize());
+    assertEquals(url, result.getOriginalMetadata().getResourceUrl());
+    assertNull(result.getThumbnails());
+    assertTrue(result.getOriginalMetadata().getThumbnailTargetNames().isEmpty());
+    assertTrue(((ImageResourceMetadata)result.getOriginalMetadata()).getDominantColors().isEmpty());
+    assertNull(((ImageResourceMetadata)result.getOriginalMetadata()).getColorSpace());
+    assertNull(((ImageResourceMetadata)result.getOriginalMetadata()).getHeight());
+    assertNull(((ImageResourceMetadata)result.getOriginalMetadata()).getWidth());
+  }
+
+  @Test
+  void testExtract() throws MediaExtractionException, IOException {
 
     // Define input
     final String url = "testUrl";
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
         Collections.singletonList(UrlType.IS_SHOWN_BY));
-    final ResourceImpl resource = spy(new ResourceImpl(rdfResourceEntry, "mime type",
-        URI.create("http://www.test.com")));
+    final ResourceImpl resource = spy(
+        new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "detected mime type";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();
@@ -81,7 +113,7 @@ class ImageProcessorTest {
         .generateThumbnails(url, detectedMimeType, content);
 
     // Call method
-    final ResourceExtractionResult result = imageProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = imageProcessor.extractMetadata(resource, detectedMimeType);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof ImageResourceMetadata);
@@ -94,8 +126,8 @@ class ImageProcessorTest {
     assertEquals(resource.getContentSize(), metadata.getContentSize());
 
     // Verify result metadata image specific properties
-    assertEquals(imageMetadata.getWidth(), metadata.getWidth());
-    assertEquals(imageMetadata.getHeight(), metadata.getHeight());
+    assertEquals(Integer.valueOf(imageMetadata.getWidth()), metadata.getWidth());
+    assertEquals(Integer.valueOf(imageMetadata.getHeight()), metadata.getHeight());
     assertEquals(imageMetadata.getColorSpace(), metadata.getColorSpace().xmlValue());
     assertEquals(imageMetadata.getDominantColors().stream().map(color -> "#" + color)
         .collect(Collectors.toList()), metadata.getDominantColors());
@@ -103,31 +135,23 @@ class ImageProcessorTest {
     // Verify result thumbnails
     assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());
 
-    // Check for resource link type for which no metadata is created
-    doReturn(false).when(imageProcessor).shouldExtractMetadata(notNull());
-    final ResourceExtractionResult resultWithoutMetadata = imageProcessor
-        .process(resource, detectedMimeType);
-    assertNull(resultWithoutMetadata.getMetadata());
-    assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());
-    doReturn(true).when(imageProcessor).shouldExtractMetadata(notNull());
-
     // Check for resource with no content
     doReturn(false).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> imageProcessor.process(resource, detectedMimeType));
+        () -> imageProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(true).when(resource).hasContent();
 
     // Check for resource with IO exception
     doThrow(new IOException()).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> imageProcessor.process(resource, detectedMimeType));
+        () -> imageProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(true).when(resource).hasContent();
     doThrow(new IOException()).when(resource).getContentSize();
     assertThrows(MediaExtractionException.class,
-        () -> imageProcessor.process(resource, detectedMimeType));
+        () -> imageProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(1234L).when(resource).getContentSize();
 
     // Check that all is well again.
-    assertNotNull(imageProcessor.process(resource, detectedMimeType));
+    assertNotNull(imageProcessor.extractMetadata(resource, detectedMimeType));
   }
 }

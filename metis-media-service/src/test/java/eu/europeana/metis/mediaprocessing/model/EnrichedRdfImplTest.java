@@ -17,18 +17,15 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.definitions.jibx.SpatialResolution;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import java.util.AbstractMap.SimpleEntry;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,10 +71,7 @@ class EnrichedRdfImplTest {
     assertEquals(1, rdf.getWebResourceList().size());
     assertEquals(url1, rdf.getWebResourceList().get(0).getAbout());
     assertEquals(1, enrichedRdf.getResourceUrls().size());
-    final Entry<String, Set<String>> thumbnailTargetNames = enrichedRdf
-        .getThumbnailTargetNames(url1);
-    assertEquals(url1, thumbnailTargetNames.getKey());
-    assertEquals(names1, thumbnailTargetNames.getValue());
+    assertEquals(names1, enrichedRdf.getThumbnailTargetNames(url1));
     verify(resource1.getMetaData(), times(1)).updateResource(any());
 
     // Add the second resource: need to create new resource in RDF.
@@ -91,10 +85,7 @@ class EnrichedRdfImplTest {
     verify(rdf, never()).setWebResourceList(notNull());
     assertEquals(2, rdf.getWebResourceList().size());
     assertEquals(url2, rdf.getWebResourceList().get(1).getAbout());
-    final Entry<String, Set<String>> thumbnailTargetNames2 = enrichedRdf
-        .getThumbnailTargetNames(url2);
-    assertEquals(url2, thumbnailTargetNames2.getKey());
-    assertEquals(names2, thumbnailTargetNames2.getValue());
+    assertEquals(names2, enrichedRdf.getThumbnailTargetNames(url2));
     verify(resource2.getMetaData(), times(1)).updateResource(any());
 
     // Add the third resource: make sure it already exists in RDF first.
@@ -111,45 +102,8 @@ class EnrichedRdfImplTest {
     verify(rdf, never()).setWebResourceList(notNull());
     assertEquals(3, rdf.getWebResourceList().size());
     assertEquals(url3, rdf.getWebResourceList().get(2).getAbout());
-    final Entry<String, Set<String>> thumbnailTargetNames3 = enrichedRdf
-        .getThumbnailTargetNames(url3);
-    assertEquals(url3, thumbnailTargetNames3.getKey());
-    assertEquals(names3, thumbnailTargetNames3.getValue());
+    assertEquals(names3, enrichedRdf.getThumbnailTargetNames(url3));
     verify(resource3.getMetaData(), times(1)).updateResource(any());
-  }
-
-
-  @Test
-  void testGetEdmPreview() {
-
-    // Try with object link first
-    final String objectUrl = "object url";
-    doReturn(Collections.singletonMap(objectUrl, Collections.emptyList())).when(enrichedRdf)
-        .getResourceUrls(eq(Collections.singleton(UrlType.OBJECT)));
-    assertEquals(objectUrl, enrichedRdf.getEdmPreviewUrl());
-
-    // Now without an object link. Mock values
-    doReturn(Collections.emptyMap()).when(enrichedRdf)
-        .getResourceUrls(eq(Collections.singleton(UrlType.OBJECT)));
-    final String url1 = "url1";
-    final String url2 = "url2";
-    final String url3 = "url3";
-    final String thumbnail1 = "thumbnail1";
-    final String thumbnail2Medium = "thumbnail2-MEDIUM";
-    final String thumbnail2Large = "thumbnail2-LARGE";
-    doReturn(Stream.of(url1, url2)
-        .collect(Collectors.toMap(Function.identity(), url -> Collections.emptyList())))
-        .when(enrichedRdf).getResourceUrls(eq(EnumSet.of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW)));
-    doReturn(Stream.of(url1, url2, url3).collect(Collectors.toSet())).when(enrichedRdf)
-        .getResourceUrls();
-    final SimpleEntry<String, Set<String>> stringSetSimpleEntry = new SimpleEntry<>(url1,
-        new HashSet<>(Collections.singletonList(thumbnail1)));
-    doReturn(stringSetSimpleEntry).when(enrichedRdf).getThumbnailTargetNames(url1);
-    final SimpleEntry<String, Set<String>> stringSetSimpleEntry2 = new SimpleEntry<>(url2,
-        new HashSet<>(Arrays.asList(thumbnail2Medium, thumbnail2Large)));
-    doReturn(stringSetSimpleEntry2).when(enrichedRdf).getThumbnailTargetNames(url2);
-    assertEquals(url2, enrichedRdf.getEdmPreviewUrl());
-
   }
 
   @Test
@@ -181,9 +135,101 @@ class EnrichedRdfImplTest {
   @Test
   void testFinalizeRdf() {
     final String url = "url value";
-    doReturn(url).when(enrichedRdf).getEdmPreviewUrl();
+    doReturn(url).when(enrichedRdf).getEdmPreviewThumbnailUrl();
     assertEquals(rdf, enrichedRdf.finalizeRdf());
     verify(enrichedRdf, times(1)).updateEdmPreview(eq(url));
     verify(enrichedRdf, times(1)).updateEdmPreview(anyString());
+  }
+
+  @Test
+  void testGetEdmPreviewThumbnailUrl() {
+
+    // Create web resources for all types.
+    final String objectResourceUrl = "object";
+    final WebResourceType objectWebResource = new WebResourceType();
+    objectWebResource.setAbout(objectResourceUrl);
+    final String isShownByResourceUrl = "isShownBy";
+    final WebResourceType isShownByWebResource = new WebResourceType();
+    isShownByWebResource.setAbout(isShownByResourceUrl);
+    final String hasViewResourceUrl = "hasView";
+    final WebResourceType hasViewWebResource = new WebResourceType();
+    hasViewWebResource.setAbout(hasViewResourceUrl);
+
+    // Test for isolated types - this tests all possible combinations of data.
+    testGetEdmPreviewThumbnailUrlForIsolatedType(objectWebResource, UrlType.OBJECT);
+    testGetEdmPreviewThumbnailUrlForIsolatedType(isShownByWebResource, UrlType.IS_SHOWN_BY);
+    testGetEdmPreviewThumbnailUrlForIsolatedType(hasViewWebResource, UrlType.HAS_VIEW);
+
+    // Prepare testing of combinations - prepare web resources and thumbnails, remove all links.
+    doReturn(Optional.of(objectWebResource)).when(enrichedRdf).getWebResource(objectResourceUrl);
+    doReturn(Optional.of(isShownByWebResource)).when(enrichedRdf)
+        .getWebResource(isShownByResourceUrl);
+    doReturn(Optional.of(hasViewWebResource)).when(enrichedRdf).getWebResource(hasViewResourceUrl);
+    doReturn(Collections.singleton(objectResourceUrl + "-LARGE")).when(enrichedRdf)
+        .getThumbnailTargetNames(objectResourceUrl);
+    doReturn(Collections.singleton(isShownByResourceUrl + "-LARGE")).when(enrichedRdf)
+        .getThumbnailTargetNames(isShownByResourceUrl);
+    doReturn(Collections.singleton(hasViewResourceUrl + "-LARGE")).when(enrichedRdf)
+        .getThumbnailTargetNames(hasViewResourceUrl);
+    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.OBJECT);
+    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_BY);
+    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.HAS_VIEW);
+
+    // Test no links present
+    assertNull(enrichedRdf.getEdmPreviewThumbnailUrl());
+
+    // Test that object link always comes first (no need to test object in isolation)
+    doReturn(Optional.of(objectResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.OBJECT);
+    doReturn(Optional.of(isShownByResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_BY);
+    assertEquals(objectResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
+    doReturn(Optional.of(hasViewResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.HAS_VIEW);
+    assertEquals(objectResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
+    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_BY);
+    assertEquals(objectResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
+
+    // Test the rules for tie braking between hasView and isShownBy
+    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(UrlType.OBJECT);
+    doReturn(Optional.of(isShownByResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.IS_SHOWN_BY);
+    doReturn(Optional.of(hasViewResourceUrl)).when(enrichedRdf).getFirstResourceOfType(UrlType.HAS_VIEW);
+    isShownByWebResource.setSpatialResolution(new SpatialResolution());
+    isShownByWebResource.getSpatialResolution().setInteger(BigInteger.ONE);
+    hasViewWebResource.setSpatialResolution(new SpatialResolution());
+    hasViewWebResource.getSpatialResolution().setInteger(BigInteger.TEN);
+    assertEquals(hasViewResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
+    isShownByWebResource.getSpatialResolution().setInteger(BigInteger.TEN);
+    assertEquals(isShownByResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
+    hasViewWebResource.getSpatialResolution().setInteger(BigInteger.ONE);
+    assertEquals(isShownByResourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
+  }
+
+  private void testGetEdmPreviewThumbnailUrlForIsolatedType(WebResourceType webResource,
+      UrlType urlType) {
+
+    // Prepare mock.
+    final String resourceUrl = webResource.getAbout();
+    doReturn(Optional.empty()).when(enrichedRdf).getFirstResourceOfType(any());
+    doReturn(Optional.empty()).when(enrichedRdf).getWebResource(anyString());
+    doReturn(Collections.emptySet()).when(enrichedRdf).getThumbnailTargetNames(anyString());
+
+    // Test when the resource is not linked.
+    assertNull(enrichedRdf.getEdmPreviewThumbnailUrl());
+
+    // Test when the resource is linked but not present as web resource.
+    doReturn(Optional.of(resourceUrl)).when(enrichedRdf).getFirstResourceOfType(urlType);
+    assertNull(enrichedRdf.getEdmPreviewThumbnailUrl());
+
+    // Test when the resource is linked and present, but no thumbnail is known.
+    doReturn(Optional.of(webResource)).when(enrichedRdf).getWebResource(resourceUrl);
+    assertNull(enrichedRdf.getEdmPreviewThumbnailUrl());
+
+    // Test when the resource is linked and present, and no large thumbnail is created.
+    doReturn(Collections.singleton(resourceUrl + "-MEDIUM")).when(enrichedRdf)
+        .getThumbnailTargetNames(resourceUrl);
+    assertNull(enrichedRdf.getEdmPreviewThumbnailUrl());
+
+    // Test when the resource is linked and present and a large thumbnail is created.
+    doReturn(new HashSet<>(Arrays.asList(resourceUrl + "-MEDIUM", resourceUrl + "-LARGE")))
+        .when(enrichedRdf).getThumbnailTargetNames(resourceUrl);
+    assertEquals(resourceUrl, enrichedRdf.getEdmPreviewThumbnailUrl());
   }
 }

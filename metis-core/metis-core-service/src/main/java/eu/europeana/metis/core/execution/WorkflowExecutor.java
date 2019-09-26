@@ -6,7 +6,7 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin.MonitorResult;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
@@ -85,12 +85,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   @Override
   public WorkflowExecution call() {
-    try {
-      return callInternal();
-    } catch (RuntimeException e) {
-      LOGGER.warn("Exception occurred in workflow executor", e);
-      throw e;
-    }
+    return callInternal();
   }
 
   private WorkflowExecution callInternal() {
@@ -114,8 +109,11 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       // If the workflow was cancelled before it had the chance to finish, we cancel all remaining
       // plugins.
       workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
-      LOGGER.info("Cancelled running user workflow execution with id: {}",
-          workflowExecution.getId());
+      // Make sure the cancelledBy information is not lost
+      String cancelledBy = workflowExecutionDao.getById(workflowExecution.getId().toString())
+          .getCancelledBy();
+      workflowExecution.setCancelledBy(cancelledBy);
+      LOGGER.info("Cancelled running workflow execution with id: {}", workflowExecution.getId());
     } else if (finishDate == null) {
       // So something went wrong: one plugin must have failed.
       workflowExecution.checkAndSetAllRunningAndInqueuePluginsToCancelledIfOnePluginHasFailed();
@@ -155,17 +153,15 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     }
 
     // One by one start the plugins of the workflow
-    AbstractMetisPlugin previousPlugin = null;
     for (int i = firstPluginPositionToStart; i < workflowExecution.getMetisPlugins().size(); i++) {
       final AbstractMetisPlugin plugin = workflowExecution.getMetisPlugins().get(i);
       final Date startDateToUse = i == 0 ? workflowExecution.getStartedDate() : new Date();
-      runMetisPlugin(previousPlugin, plugin, startDateToUse);
+      runMetisPlugin(plugin, startDateToUse);
       if ((workflowExecutionDao.isCancelling(workflowExecution.getId())
           && plugin.getFinishedDate() == null)
           || plugin.getPluginStatus() == PluginStatus.FAILED) {
         break;
       }
-      previousPlugin = plugin;
     }
 
     // Compute the finished date
@@ -184,13 +180,11 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
    * It will prepare the plugin, request the external execution and will periodically monitor,
    * update the plugin's progress and at the end finalize the plugin's status and finished date.
    *
-   * @param previousPluginUnchecked the plugin that was ran before the current plugin if any
-   * @param pluginUnchecked the current plugin to run
+   * @param pluginUnchecked the plugin to run
    * @param startDateToUse The date that should be used as start date (if the plugin is not already
    * running).
    */
-  private void runMetisPlugin(AbstractMetisPlugin previousPluginUnchecked,
-      AbstractMetisPlugin pluginUnchecked, Date startDateToUse) {
+  private void runMetisPlugin(AbstractMetisPlugin pluginUnchecked, Date startDateToUse) {
 
     // Sanity check
     if (pluginUnchecked == null) {
@@ -201,16 +195,19 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     final AbstractExecutablePlugin<?> plugin;
     try {
 
-      // Check the current and previous plugin: they have to be executable
+      // Check the plugin: it has to be executable
       plugin = expectExecutablePlugin(pluginUnchecked);
-      final AbstractExecutablePlugin previousPlugin = expectExecutablePlugin(
-          previousPluginUnchecked);
 
-      // Compute previous plugin revision information.
-      // TODO JV do this when we are creating the workflow, not only when sending it to ecloud.
-      // (but if we change this, be backwards compatible and also do it here for now!)
-      if (previousPlugin != null) {
-        plugin.getPluginMetadata().setPreviousRevisionInformation(previousPlugin);
+      // Compute previous plugin revision information. Only need to look within the workflow: when
+      // scheduling the workflow, the previous plugin information is set for the first plugin.
+      final AbstractExecutablePluginMetadata metadata = plugin.getPluginMetadata();
+      if (metadata.getRevisionTimestampPreviousPlugin() == null
+          || metadata.getRevisionNamePreviousPlugin() == null) {
+        final AbstractExecutablePlugin predecessor = WorkflowUtils
+            .getPredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
+        if (predecessor != null) {
+          metadata.setPreviousRevisionInformation(predecessor);
+        }
       }
 
       // Start execution if it has not already started
@@ -220,8 +217,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         }
         final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
             ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
-            getExternalTaskIdOfPreviousPlugin(plugin.getPluginMetadata()));
-        plugin.execute(dpsClient, ecloudBasePluginParameters);
+            getExternalTaskIdOfPreviousPlugin(metadata));
+        plugin.execute(workflowExecution.getDatasetId(), dpsClient, ecloudBasePluginParameters);
       }
     } catch (ExternalTaskException | RuntimeException e) {
       LOGGER.warn("Execution of external task failed", e);
@@ -238,7 +235,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     periodicCheckingLoop(sleepTime, plugin);
   }
 
-  private String getExternalTaskIdOfPreviousPlugin(AbstractExecutablePluginMetadata pluginMetadata) {
+  private String getExternalTaskIdOfPreviousPlugin(
+      AbstractExecutablePluginMetadata pluginMetadata) {
 
     // Get the previous plugin parameters from the plugin - if there is none, we are done.
     final PluginType previousPluginType = PluginType

@@ -37,7 +37,7 @@ public class EnrichmentPlugin extends AbstractExecutablePlugin<EnrichmentPluginM
   }
 
   @Override
-  DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
+  DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, null);
   }
 }

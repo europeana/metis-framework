@@ -76,7 +76,7 @@ public class MongoDereferenceService implements DereferenceService {
     // First look in the Europeana entity collection. Otherwise get it from the source.
     final EnrichmentBase enrichedEntity = enrichmentClient.getByUri(resourceId);
     final Collection<EnrichmentBase> resultList;
-    if (enrichedEntity == null) {
+    if (enrichedEntity == null || !resourceId.equals(enrichedEntity.getAbout())) {
       resultList = dereferenceFromSource(resourceId);
     } else {
       resultList = Collections.singleton(enrichedEntity);
@@ -85,7 +85,7 @@ public class MongoDereferenceService implements DereferenceService {
     // Prepare the result: empty if we didn't find an entity.
     final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
         .createNullOriginalFieldEnrichmentBaseWrapperList(
-        resultList);
+            resultList);
     return new EnrichmentResultList(enrichmentBaseWrapperList);
   }
 
@@ -96,18 +96,15 @@ public class MongoDereferenceService implements DereferenceService {
    * those as well.
    * </p>
    * <p>
-   * A resource has references to its 'broader' resources (see
-   * {@link #extractBroaderResources(EnrichmentBase, Set)}). As such, the resources form a directed
-   * graph and the iteration count is the distance from the requested resource. This method performs
-   * a breadth-first search through this graph to retrieve all resources within a certain distance
+   * A resource has references to its 'broader' resources (see {@link
+   * #extractBroaderResources(EnrichmentBase, Set)}). As such, the resources form a directed graph
+   * and the iteration count is the distance from the requested resource. This method performs a
+   * breadth-first search through this graph to retrieve all resources within a certain distance
    * from the requested resource.
    * </p>
    *
    * @param resourceId The resource to dereference.
    * @return A collection of dereferenced resources.
-   * @throws JAXBException
-   * @throws TransformerException
-   * @throws URISyntaxException
    */
   private Collection<EnrichmentBase> dereferenceFromSource(String resourceId)
       throws JAXBException, TransformerException, URISyntaxException {

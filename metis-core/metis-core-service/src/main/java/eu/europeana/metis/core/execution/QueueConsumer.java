@@ -109,7 +109,7 @@ public class QueueConsumer extends DefaultConsumer {
           completionService.submit(workflowExecutor);
           threadsCounter++;
         }
-      } catch (Throwable e) {
+      } catch (RuntimeException e) {
         LOGGER.error(
             "Exception occurred during submitting message from queue to a workflowExecution for id {}",
             objectId);

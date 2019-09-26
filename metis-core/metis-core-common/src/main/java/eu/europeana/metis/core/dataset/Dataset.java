@@ -1,9 +1,14 @@
 package eu.europeana.metis.core.dataset;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.core.common.CountryDeserializer;
+import eu.europeana.metis.core.common.CountrySerializer;
 import eu.europeana.metis.core.common.Language;
+import eu.europeana.metis.core.common.LanguageDeserializer;
+import eu.europeana.metis.core.common.LanguageSerializer;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
@@ -64,8 +69,12 @@ public class Dataset implements HasMongoObjectId {
 
   private String replaces;
 
+  @JsonSerialize(using = CountrySerializer.class)
+  @JsonDeserialize(using = CountryDeserializer.class)
   private Country country;
 
+  @JsonSerialize(using = LanguageSerializer.class)
+  @JsonDeserialize(using = LanguageDeserializer.class)
   private Language language;
 
   private String description;

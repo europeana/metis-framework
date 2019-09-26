@@ -28,7 +28,8 @@ import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.OpenPdfFile;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfCharacteristics;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfListener;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
@@ -38,7 +39,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -62,23 +62,54 @@ class TextProcessorTest {
   @BeforeEach
   void resetMocks() {
     reset(thumbnailGenerator, textProcessor);
-    doReturn(true).when(textProcessor).shouldExtractMetadata(notNull());
   }
 
   @Test
-  void testProcessForRegularText() throws IOException, MediaExtractionException {
+  void testDownloadResourceForFullProcessing() {
+    assertTrue(textProcessor.downloadResourceForFullProcessing());
+  }
+
+  @Test
+  void testCopy() {
+
+    // Create resource
+    final Resource resource = mock(Resource.class);
+    final long fileSize = 12345;
+    final String url = "test url";
+    doReturn(fileSize).when(resource).getProvidedFileSize();
+    doReturn(url).when(resource).getResourceUrl();
+
+    // Make call
+    final String mediaType = "text type";
+    final ResourceExtractionResultImpl result = textProcessor.copyMetadata(resource, mediaType);
+
+    // Verify
+    assertNotNull(result);
+    assertNotNull(result.getOriginalMetadata());
+    assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
+    assertEquals(mediaType, result.getOriginalMetadata().getMimeType());
+    assertEquals(fileSize, result.getOriginalMetadata().getContentSize());
+    assertEquals(url, result.getOriginalMetadata().getResourceUrl());
+    assertNull(result.getThumbnails());
+    assertTrue(result.getOriginalMetadata().getThumbnailTargetNames().isEmpty());
+    assertNull(((TextResourceMetadata)result.getOriginalMetadata()).getResolution());
+    assertFalse(((TextResourceMetadata)result.getOriginalMetadata()).containsText());
+  }
+
+  @Test
+  void testExtractForRegularText() throws IOException, MediaExtractionException {
 
     // Define input
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
         Collections.singletonList(UrlType.IS_SHOWN_BY));
-    final ResourceImpl resource = spy(new ResourceImpl(rdfResourceEntry, "mime type",
-        URI.create("http://www.test.com")));
+    final ResourceImpl resource = spy(
+        new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "detected mime type";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();
 
     // Call method
-    final ResourceExtractionResult result = textProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
@@ -95,41 +126,36 @@ class TextProcessorTest {
     // Verify result thumbnails
     assertNull(result.getThumbnails());
 
-    // Check for resource link type for which we should not extract metadata at all
-    doReturn(false).when(textProcessor).shouldExtractMetadata(notNull());
-    assertNull(textProcessor.process(resource, detectedMimeType));
-    doReturn(true).when(textProcessor).shouldExtractMetadata(notNull());
-
     // Check for resource with no content
     doReturn(false).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> textProcessor.process(resource, detectedMimeType));
+        () -> textProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(true).when(resource).hasContent();
 
     // Check for resource with IO exception
     doThrow(new IOException()).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> textProcessor.process(resource, detectedMimeType));
+        () -> textProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(true).when(resource).hasContent();
     doThrow(new IOException()).when(resource).getContentSize();
     assertThrows(MediaExtractionException.class,
-        () -> textProcessor.process(resource, detectedMimeType));
+        () -> textProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(1234L).when(resource).getContentSize();
 
     // Check that all is well again.
-    assertNotNull(textProcessor.process(resource, detectedMimeType));
+    assertNotNull(textProcessor.extractMetadata(resource, detectedMimeType));
   }
 
   @Test
-  void testProcessForPdf() throws IOException, MediaExtractionException {
+  void testExtractForPdf() throws IOException, MediaExtractionException {
 
     // Define input
     final String url = "testUrl";
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
         Collections.singletonList(UrlType.IS_SHOWN_BY));
-    final ResourceImpl resource = spy(new ResourceImpl(rdfResourceEntry, "mime type",
-        URI.create("http://www.test.com")));
+    final ResourceImpl resource = spy(
+        new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "application/pdf";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();
@@ -154,7 +180,7 @@ class TextProcessorTest {
     doReturn(pdfCharacteristics).when(textProcessor).findPdfCharacteristics(content);
 
     // Call method
-    final ResourceExtractionResult result = textProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);

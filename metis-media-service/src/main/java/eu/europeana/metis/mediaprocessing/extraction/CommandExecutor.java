@@ -1,16 +1,15 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 
 /**
  * This class executes commands (like you would in a terminal). It imposes a maximum number of
@@ -21,7 +20,6 @@ import org.slf4j.LoggerFactory;
 class CommandExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CommandExecutor.class);
-  private static final String COMMAND_ARGUMENT_REGEX = "[0-9A-Za-z_\\/\\\\:\\-. ]+";
 
   private final ProcessFactory processFactory;
 
@@ -34,11 +32,8 @@ class CommandExecutor {
    * before it is forcibly destroyed (i.e. cancelled).
    */
   CommandExecutor(int commandTimeout) {
-    this(commandTimeout, (command, redirectErrorStream) -> {
-//      sanitizeCommand(command);
-      return new ProcessBuilder(command)
-          .redirectErrorStream(redirectErrorStream).start();
-    });
+    this(commandTimeout, (command, redirectErrorStream) -> new ProcessBuilder(command)
+        .redirectErrorStream(redirectErrorStream).start());
   }
 
   /**
@@ -53,16 +48,7 @@ class CommandExecutor {
     this.commandTimeout = commandTimeout;
     this.processFactory = processFactory;
   }
-
-  private static void sanitizeCommand(List<String> command) {
-    final boolean validCommand = command.stream()
-        .allMatch(argument -> Pattern.matches(COMMAND_ARGUMENT_REGEX, argument));
-
-    if (!validCommand) {
-      throw new IllegalArgumentException("Command contains characters that are not allowed.");
-    }
-  }
-
+  
   /**
    * Execute a command.
    *

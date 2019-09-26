@@ -9,6 +9,7 @@ import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.Authorizer;
 import eu.europeana.metis.core.service.DatasetService;
@@ -77,7 +78,7 @@ public class Application implements WebMvcConfigurer {
 
   @Bean
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() throws IOException {
-    return new MorphiaDatastoreProvider(mongoClient, propertiesHolder.getMongoDb(),
+    return new MorphiaDatastoreProviderImpl(mongoClient, propertiesHolder.getMongoDb(),
         defaultTransformation::getInputStream);
   }
 
@@ -94,7 +95,8 @@ public class Application implements WebMvcConfigurer {
    * @return {@link DatasetDao} used to access the database for datasets
    */
   @Bean
-  public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider, DataSetServiceClient ecloudDataSetServiceClient) {
+  public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
+      DataSetServiceClient ecloudDataSetServiceClient) {
     DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider, ecloudDataSetServiceClient);
     datasetDao.setDatasetsPerRequest(RequestLimits.DATASETS_PER_REQUEST.getLimit());
     datasetDao.setEcloudProvider(propertiesHolder.getEcloudProvider());

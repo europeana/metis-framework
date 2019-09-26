@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -45,18 +47,24 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   private final ScheduledExecutorService connectionCleaningSchedule = Executors
       .newScheduledThreadPool(1);
 
+  private final int requestTimeout;
+
   /**
    * Constructor.
    *
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    * @param connectTimeout The connection timeout in milliseconds.
    * @param socketTimeout The socket timeout in milliseconds.
+   * @param requestTimeout The time after which the request will be aborted (if it hasn't finished
+   * by then). In milliseconds.
    */
-  AbstractHttpClient(int maxRedirectCount, int connectTimeout, int socketTimeout) {
+  AbstractHttpClient(int maxRedirectCount, int connectTimeout, int socketTimeout,
+      int requestTimeout) {
 
     // Set the request config settings
     final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount)
         .setConnectTimeout(connectTimeout).setSocketTimeout(socketTimeout).build();
+    this.requestTimeout = requestTimeout;
 
     // Create a connection manager tuned to one thread use.
     connectionManager = new PoolingHttpClientConnectionManager();
@@ -97,6 +105,19 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final String resourceUlr = getResourceUrl(resourceEntry);
     final HttpGet httpGet = new HttpGet(resourceUlr);
     final HttpClientContext context = HttpClientContext.create();
+
+    // Set up the abort trigger
+    final TimerTask abortTask = new TimerTask() {
+      @Override
+      public void run() {
+        LOGGER.info("Aborting request due to time limit: {}.", resourceUlr);
+        httpGet.abort();
+      }
+    };
+    final Timer timer = new Timer(true);
+    timer.schedule(abortTask, requestTimeout);
+
+    // Execute the request.
     try (final CloseableHttpResponse response = client.execute(httpGet, context)) {
 
       // Check response code.
@@ -109,7 +130,9 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       // Obtain header information.
       final HttpEntity responseEntity = response.getEntity();
       final String mimeType = Optional.ofNullable(responseEntity).map(HttpEntity::getContentType)
-          .map(Header::getValue).orElse("application/octet-stream");
+          .map(Header::getValue).orElse(null);
+      final Long fileSize = Optional.ofNullable(responseEntity).map(HttpEntity::getContentLength)
+          .filter(size -> size >= 0).orElse(null);
       final List<URI> redirectUris = context.getRedirectLocations();
       final URI actualUri =
           redirectUris == null ? httpGet.getURI() : redirectUris.get(redirectUris.size() - 1);
@@ -117,7 +140,21 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       // Process the result.
       final ContentRetriever content = responseEntity == null ?
           ContentRetriever.forEmptyContent() : responseEntity::getContent;
-      return createResult(resourceEntry, actualUri, mimeType, content);
+      return createResult(resourceEntry, actualUri, mimeType, fileSize, content);
+
+    } catch (IOException e) {
+
+      // If aborted, provide a nicer message. Otherwise, just rethrow.
+      if (httpGet.isAborted()) {
+        throw new IOException("The request was aborted: it exceeded the time limit.", e);
+      }
+      throw e;
+
+    } finally {
+
+      // Cancel abort trigger
+      timer.cancel();
+      abortTask.cancel();
     }
   }
 
@@ -140,14 +177,17 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @param resourceEntry The resource for which the request was sent.
    * @param actualUri The actual URI where the resource was found (could be different from the
    * resource link after redirections).
-   * @param mimeType The type of the resulting object, as returned by the response. Is not null.
+   * @param mimeType The type of the resulting object, as returned by the response. Is null if no
+   * mime type was provided.
+   * @param fileSize The file size of the resulting object, as returned by the response. Is null if
+   * no file size was provided.
    * @param contentRetriever Object that allows access to the resulting data. Note that if this
    * object is not used, the data is not transferred (or the transfer is cancelled). Note that this
    * stream cannot be used after this method returns, as the connection will be closed immediately.
    * @return The resulting object.
    * @throws IOException In case a connection or other IO problem occurred.
    */
-  protected abstract R createResult(I resourceEntry, URI actualUri, String mimeType,
+  protected abstract R createResult(I resourceEntry, URI actualUri, String mimeType, Long fileSize,
       ContentRetriever contentRetriever) throws IOException;
 
   @Override

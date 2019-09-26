@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>1.4.0</version>
+  <version>1.5.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -25,7 +25,7 @@
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v1.4.0</tag>
+    <tag>v1.5.0</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -43,8 +43,7 @@
   </distributionManagement>
 
   <properties>
-    <jacocoArgLine /> <!-- Leave as is, it's required from jacoco plugin integration -->
-    <version.ecloud>1.5.0</version.ecloud>
+    <version.ecloud>1.6.0</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
     <version.redisson>3.11.0</version.redisson>
     <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
@@ -52,7 +51,6 @@
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
     <version.maven.deploy.plugin>2.8.2</version.maven.deploy.plugin>
     <version.coveralls>4.0.0</version.coveralls>
-    <version.cobertura>2.7</version.cobertura>
     <version.json.path>2.2.0</version.json.path>
     <version.hamcrest>1.3</version.hamcrest>
     <version.com.github.tomakehurst.wiremock>2.19.0</version.com.github.tomakehurst.wiremock>
@@ -68,7 +66,6 @@
     <version.junit>5.1.0</version.junit>
     <version.junit.test>5.1.2.RELEASE</version.junit.test>
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
-    <version.jacoco>0.8.0</version.jacoco>
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>2.0.0</version.embedded.mongo>
     <version.mongo.java.driver>3.9.1</version.mongo.java.driver>
@@ -89,10 +86,9 @@
     <version.swagger>2.6.1</version.swagger>
     <version.swagger.annotations>1.5.10</version.swagger.annotations>
     <version.jackson>2.9.8</version.jackson>
-    <version.jackson.xc>1.9.13</version.jackson.xc>
     <version.powermock>1.7.1</version.powermock>
     <version.mockito.core>2.22.0</version.mockito.core>
-    <version.corelib>2.9.0</version.corelib>
+    <version.corelib>2.9.1-SNAPSHOT</version.corelib>
     <version.servlet.api>3.1.0</version.servlet.api>
     <version.commons-fileupload>1.3</version.commons-fileupload>
     <version.morphia>1.3.2</version.morphia>
@@ -104,7 +100,7 @@
     <version.spring.beans>5.1.2.RELEASE</version.spring.beans>
     <version.spring.test>5.1.2.RELEASE</version.spring.test>
     <version.saxon.he>9.8.0-11</version.saxon.he>
-    <version.com.zoho.crm.java-sdk>1.0.3</version.com.zoho.crm.java-sdk>
+    <version.com.zoho.crm.java-sdk>1.0.6</version.com.zoho.crm.java-sdk>
     <version.solr.solrj>6.6.2</version.solr.solrj>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -488,38 +484,9 @@
         <artifactId>maven-compiler-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${version.jacoco}</version>
-        <configuration>
-          <propertyName>jacocoArgLine</propertyName>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${version.surefire.plugin}</version>
-        <configuration>
-          <!-- Travis build workaround -->
-          <argLine>@{jacocoArgLine} -Xms1024m -Xmx2048m</argLine>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>${version.cobertura}</version>
-        <configuration>
-          <formats>
-            <format>xml</format>
-          </formats>
-          <maxmem>256m</maxmem>
-          <!-- aggregated reports for multi-module projects -->
-          <aggregate>true</aggregate>
-          <instrumentation>
-            <ignoreTrivial>true</ignoreTrivial>
-          </instrumentation>
-          <check />
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.eluder.coveralls</groupId>

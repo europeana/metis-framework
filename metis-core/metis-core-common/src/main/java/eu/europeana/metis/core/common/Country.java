@@ -1,13 +1,8 @@
 package eu.europeana.metis.core.common;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 /**
  * Countries supported by METIS
  */
-@JsonSerialize(using = CountrySerializer.class)
-@JsonDeserialize(using = CountryDeserializer.class)
 public enum Country {
 
   ALBANIA("Albania", "AL"),
@@ -104,8 +99,8 @@ public enum Country {
   }
 
   /**
-   * Lookup of a {@link Country} enum from a provided enum String representation of the enum value.
-   * <p>e.g. if provided enumName is GREECE then the returned Country will be Country.GREECE</p>
+   * Lookup of a {@link Country} enum from a provided ISO code.
+   * <p>e.g. if provided code is GR then the returned Country will be Country.GREECE</p>
    *
    * @param isoCode the String representation of an isoCode
    * @return the {@link Country} that represents the provided value or null if not found

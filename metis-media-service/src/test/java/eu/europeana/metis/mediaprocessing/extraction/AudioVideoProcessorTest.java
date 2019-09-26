@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -11,7 +12,6 @@ import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -25,8 +25,9 @@ import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.AudioResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
+import eu.europeana.metis.utils.MediaType;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -57,7 +58,6 @@ class AudioVideoProcessorTest {
   @BeforeEach
   void resetMocks() {
     reset(commandExecutor);
-    doReturn(true).when(audioVideoProcessor).shouldExtractMetadata(notNull());
   }
 
   @Test
@@ -101,7 +101,7 @@ class AudioVideoProcessorTest {
 
     // Create resource
     final Resource resource = mock(Resource.class);
-    doReturn("resource url").when(resource).getResourceUrl();
+    doReturn("http://valid.url.nl/test").when(resource).getResourceUrl();
     doReturn(Paths.get("content path")).when(resource).getContentPath();
 
     // test resource with content
@@ -122,7 +122,19 @@ class AudioVideoProcessorTest {
             "-show_streams", "-hide_banner", resource.getResourceUrl());
     assertEquals(expectedWithoutContent, resultWithoutContent);
 
-    // test with exception
+    // test if resource does not have a valid URL.
+    doReturn("not valid").when(resource).getResourceUrl();
+    assertThrows(MediaExtractionException.class,
+        () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
+    doReturn("valid.without.prefix.nl/").when(resource).getResourceUrl();
+    assertThrows(MediaExtractionException.class,
+        () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
+    doReturn("http://invalid.characters.nl/!@#$%^&*()_").when(resource).getResourceUrl();
+    assertThrows(MediaExtractionException.class,
+        () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
+    doReturn("http://valid.url.nl/test").when(resource).getResourceUrl();
+    
+    // test if hasContent fails.
     doThrow(new IOException()).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
         () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
@@ -234,7 +246,7 @@ class AudioVideoProcessorTest {
     // Create resource
     final Resource resource = mock(Resource.class);
     doReturn("resource url").when(resource).getResourceUrl();
-    doReturn("mime type").when(resource).getMimeType();
+    doReturn("mime type").when(resource).getProvidedMimeType();
     doReturn(true).when(resource).hasContent();
     final String detectedMimeType = "detected mime type";
 
@@ -250,12 +262,18 @@ class AudioVideoProcessorTest {
     final JSONObject[] candidates = new JSONObject[]{audioStream, format};
 
     // Set properties
-    doReturn(7205015L).when(format).getLong("size");
-    doReturn(44100).when(audioVideoProcessor).findInt(eq("sample_rate"), eq(candidates));
-    doReturn(2).when(audioVideoProcessor).findInt(eq("channels"), eq(candidates));
-    doReturn(8).when(audioVideoProcessor).findInt(eq("bits_per_sample"), eq(candidates));
-    doReturn(180.062050).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
-    doReturn(320000).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
+    final long size = 7205015;
+    final Integer sampleRate = 44100;
+    final Integer channels = 2;
+    final Integer bitsPerSample = 8;
+    final Double duration = 180.062050;
+    final Integer bitRate = 320000;
+    doReturn(size).when(format).getLong("size");
+    doReturn(sampleRate).when(audioVideoProcessor).findInt(eq("sample_rate"), eq(candidates));
+    doReturn(channels).when(audioVideoProcessor).findInt(eq("channels"), eq(candidates));
+    doReturn(bitsPerSample).when(audioVideoProcessor).findInt(eq("bits_per_sample"), eq(candidates));
+    doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
+    doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
 
     // Run and verify
     final AbstractResourceMetadata abstractMetadata = audioVideoProcessor
@@ -265,12 +283,12 @@ class AudioVideoProcessorTest {
     assertEquals(metadata.getMimeType(), detectedMimeType);
     assertEquals(metadata.getResourceUrl(), resource.getResourceUrl());
     assertTrue(metadata.getThumbnailTargetNames().isEmpty());
-    assertEquals(7205015L, metadata.getContentSize());
-    assertEquals(320000, metadata.getBitRate());
-    assertEquals(2, metadata.getChannels());
-    assertEquals(180.062050, metadata.getDuration());
-    assertEquals(44100, metadata.getSampleRate());
-    assertEquals(8, metadata.getSampleSize());
+    assertEquals(size, metadata.getContentSize());
+    assertEquals(bitRate, metadata.getBitRate());
+    assertEquals(channels, metadata.getChannels());
+    assertEquals(duration, metadata.getDuration());
+    assertEquals(sampleRate, metadata.getSampleRate());
+    assertEquals(bitsPerSample, metadata.getSampleSize());
   }
 
   @Test
@@ -279,7 +297,7 @@ class AudioVideoProcessorTest {
     // Create resource
     final Resource resource = mock(Resource.class);
     doReturn("resource url").when(resource).getResourceUrl();
-    doReturn("mime type").when(resource).getMimeType();
+    doReturn("mime type").when(resource).getProvidedMimeType();
     doReturn(true).when(resource).hasContent();
     final String detectedMimeType = "detected mime type";
 
@@ -296,13 +314,20 @@ class AudioVideoProcessorTest {
     final JSONObject[] candidates = new JSONObject[]{videoStream, format};
 
     // Set properties
-    doReturn(92224193L).when(format).getLong("size");
-    doReturn(640).when(audioVideoProcessor).findInt(eq("width"), eq(candidates));
-    doReturn(480).when(audioVideoProcessor).findInt(eq("height"), eq(candidates));
+    final long size = 92224193;
+    final Integer width = 640;
+    final Integer height = 480;
+    final Double duration = 1007.240000;
+    final Integer bitRate = 595283;
+    final int frameRateNumerator = 629150;
+    final int frameRateDenominator = 25181;
+    doReturn(size).when(format).getLong("size");
+    doReturn(width).when(audioVideoProcessor).findInt(eq("width"), eq(candidates));
+    doReturn(height).when(audioVideoProcessor).findInt(eq("height"), eq(candidates));
     doReturn("h264").when(audioVideoProcessor).findString(eq("codec_name"), eq(candidates));
-    doReturn(1007.240000).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
-    doReturn(595283).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
-    doReturn("629150/25181").when(audioVideoProcessor)
+    doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
+    doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
+    doReturn(frameRateNumerator + "/" + frameRateDenominator).when(audioVideoProcessor)
         .findString(eq("avg_frame_rate"), eq(candidates));
 
     // Run and verify
@@ -313,13 +338,14 @@ class AudioVideoProcessorTest {
     assertEquals(metadata.getMimeType(), detectedMimeType);
     assertEquals(metadata.getResourceUrl(), resource.getResourceUrl());
     assertTrue(metadata.getThumbnailTargetNames().isEmpty());
-    assertEquals(92224193L, metadata.getContentSize());
-    assertEquals(595283, metadata.getBitRate());
+    assertEquals(size, metadata.getContentSize());
+    assertEquals(bitRate, metadata.getBitRate());
     assertEquals("h264", metadata.getCodecName());
-    assertEquals(1007.240000, metadata.getDuration());
-    assertEquals(629150.0 / 25181.0, metadata.getFrameRate());
-    assertEquals(480, metadata.getHeight());
-    assertEquals(640, metadata.getWidth());
+    assertEquals(duration, metadata.getDuration());
+    final Double frameRate = ((double) frameRateNumerator) / frameRateDenominator;
+    assertEquals(frameRate, metadata.getFrameRate());
+    assertEquals(height, metadata.getHeight());
+    assertEquals(width, metadata.getWidth());
   }
 
   @Test
@@ -378,7 +404,71 @@ class AudioVideoProcessorTest {
   }
 
   @Test
-  void testProcess() throws IOException, MediaExtractionException, CommandExecutionException {
+  void testDownloadResourceForFullProcessing() {
+    assertFalse(audioVideoProcessor.downloadResourceForFullProcessing());
+  }
+
+  @Test
+  void testCopy() {
+
+    // Create resource
+    final Resource resource = mock(Resource.class);
+    final long fileSize = 12345;
+    final String url = "test url";
+    doReturn(fileSize).when(resource).getProvidedFileSize();
+    doReturn(url).when(resource).getResourceUrl();
+
+    // Make call for audio type
+    final String detectedAudioMimeType = "audio/detected mime type";
+    assertEquals(MediaType.AUDIO, MediaType.getMediaType(detectedAudioMimeType));
+    final ResourceExtractionResultImpl audioResult = audioVideoProcessor
+        .copyMetadata(resource, detectedAudioMimeType);
+
+    // Verify
+    assertNotNull(audioResult);
+    assertNotNull(audioResult.getOriginalMetadata());
+    assertTrue(audioResult.getOriginalMetadata() instanceof AudioResourceMetadata);
+    assertEquals(detectedAudioMimeType, audioResult.getOriginalMetadata().getMimeType());
+    assertEquals(fileSize, audioResult.getOriginalMetadata().getContentSize());
+    assertEquals(url, audioResult.getOriginalMetadata().getResourceUrl());
+    assertNull(audioResult.getThumbnails());
+    assertTrue(audioResult.getOriginalMetadata().getThumbnailTargetNames().isEmpty());
+    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getSampleSize());
+    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getSampleRate());
+    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getDuration());
+    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getChannels());
+    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getBitRate());
+
+    // Mime type for video
+    final String detectedVideoMimeType = "video/detected mime type";
+    assertEquals(MediaType.VIDEO, MediaType.getMediaType(detectedVideoMimeType));
+    final ResourceExtractionResultImpl videoResult = audioVideoProcessor
+        .copyMetadata(resource, detectedVideoMimeType);
+
+    // Verify
+    assertNotNull(videoResult);
+    assertNotNull(videoResult.getOriginalMetadata());
+    assertTrue(videoResult.getOriginalMetadata() instanceof VideoResourceMetadata);
+    assertEquals(detectedVideoMimeType, videoResult.getOriginalMetadata().getMimeType());
+    assertEquals(fileSize, videoResult.getOriginalMetadata().getContentSize());
+    assertEquals(url, videoResult.getOriginalMetadata().getResourceUrl());
+    assertNull(videoResult.getThumbnails());
+    assertTrue(videoResult.getOriginalMetadata().getThumbnailTargetNames().isEmpty());
+    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getWidth());
+    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getHeight());
+    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getFrameRate());
+    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getCodecName());
+    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getBitRate());
+    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getDuration());
+
+    // Other mime type
+    final String detectedOtherMimeType = "detected other mime type";
+    assertEquals(MediaType.OTHER, MediaType.getMediaType(detectedOtherMimeType));
+    assertNull(audioVideoProcessor.copyMetadata(resource, detectedOtherMimeType));
+  }
+
+  @Test
+  void testExtract() throws IOException, MediaExtractionException, CommandExecutionException {
 
     // Create resource
     final Resource resource = mock(Resource.class);
@@ -386,7 +476,6 @@ class AudioVideoProcessorTest {
     final String detectedMimeType = "detected mime type";
 
     // Prepare processor
-    doReturn(true).when(audioVideoProcessor).shouldExtractMetadata(resource);
     final List<String> command = Collections.emptyList();
     doReturn(command).when(audioVideoProcessor).createAudioVideoAnalysisCommand(resource);
     final List<String> response = Collections.emptyList();
@@ -396,22 +485,17 @@ class AudioVideoProcessorTest {
         .parseCommandResponse(resource, detectedMimeType, response);
 
     // Check that all is well
-    final ResourceExtractionResult result = audioVideoProcessor.process(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = audioVideoProcessor.extractMetadata(resource, detectedMimeType);
     assertEquals(metadata, result.getOriginalMetadata());
     assertNull(result.getThumbnails());
-
-    // In case we should not extract metadata at all
-    doReturn(false).when(audioVideoProcessor).shouldExtractMetadata(resource);
-    assertNull(audioVideoProcessor.process(resource, detectedMimeType));
-    doReturn(true).when(audioVideoProcessor).shouldExtractMetadata(resource);
 
     // In case there was a command execution issue
     doThrow(new CommandExecutionException("", null)).when(commandExecutor).execute(command, false);
     assertThrows(MediaExtractionException.class,
-        () -> audioVideoProcessor.process(resource, detectedMimeType));
+        () -> audioVideoProcessor.extractMetadata(resource, detectedMimeType));
     doReturn(response).when(commandExecutor).execute(command, false);
 
     // Check that all is well again
-    assertNotNull(audioVideoProcessor.process(resource, detectedMimeType));
+    assertNotNull(audioVideoProcessor.extractMetadata(resource, detectedMimeType));
   }
 }

@@ -3,14 +3,15 @@ package eu.europeana.metis.mediaprocessing.http;
 import java.net.URI;
 
 /**
- * An {@link AbstractHttpClient} that checks whether a given resource link actually points to content. It
- * doesn't download the content, but just checks whether the link resolves. It expects the URL
- * itself as resource entry input.
+ * An {@link AbstractHttpClient} that checks whether a given resource link actually points to
+ * content. It doesn't download the content, but just checks whether the link resolves. It expects
+ * the URL itself as resource entry input.
  */
 public class LinkCheckClient extends AbstractHttpClient<String, Void> {
 
   private static final int CONNECT_TIMEOUT = 2_000;
   private static final int SOCKET_TIMEOUT = 5_000;
+  private static final int REQUEST_TIMEOUT = 20_000;
 
   /**
    * Constructor.
@@ -18,7 +19,7 @@ public class LinkCheckClient extends AbstractHttpClient<String, Void> {
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    */
   public LinkCheckClient(int maxRedirectCount) {
-    super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT);
+    super(maxRedirectCount, CONNECT_TIMEOUT, SOCKET_TIMEOUT, REQUEST_TIMEOUT);
   }
 
   @Override
@@ -27,7 +28,7 @@ public class LinkCheckClient extends AbstractHttpClient<String, Void> {
   }
 
   @Override
-  protected Void createResult(String resourceEntry, URI actualUri, String mimeType,
+  protected Void createResult(String resourceEntry, URI actualUri, String mimeType, Long fileSize,
       ContentRetriever contentRetriever) {
     return null;
   }

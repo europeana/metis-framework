@@ -37,7 +37,7 @@ public class NormalizationPlugin extends AbstractExecutablePlugin<NormalizationP
   }
 
   @Override
-  DpsTask prepareDpsTask(EcloudBasePluginParameters ecloudBasePluginParameters) {
+  DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, null);
   }
 

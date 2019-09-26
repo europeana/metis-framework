@@ -4,6 +4,7 @@ import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.metis.utils.MediaType;
 import java.util.EnumSet;
 
 /**
@@ -26,8 +27,8 @@ class VideoClassifier extends AbstractMediaClassifier {
     // Check presence of image as edm:Object with sufficient resolution. If not available, tier 0.
     final boolean hasLargeImageAsObject = entity
         .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.OBJECT)).stream()
-        .filter(ImageClassifier::hasImageMimeType).mapToLong(WebResourceWrapper::getSize)
-        .anyMatch(size -> size >= MIN_IMAGE_RESOLUTION);
+        .filter(resource -> resource.getMediaType() == MediaType.IMAGE)
+        .mapToLong(WebResourceWrapper::getSize).anyMatch(size -> size >= MIN_IMAGE_RESOLUTION);
     if (!hasLargeImageAsObject) {
       return MediaTier.T0;
     }
@@ -48,8 +49,7 @@ class VideoClassifier extends AbstractMediaClassifier {
       boolean hasEmbeddableMedia) {
 
     // Check mime type.
-    final String mimeType = webResource.getMimeType();
-    final boolean hasVideoMimeType = mimeType != null && mimeType.startsWith("video");
+    final boolean hasVideoMimeType = webResource.getMediaType() == MediaType.VIDEO;
 
     // Check the conditions - the conditions for T2-T4 take precedence over those of T1.
     final MediaTier result;

@@ -179,8 +179,9 @@ public final class XmlUtil {
       throws XmlException {
     try {
       StringWriter ret = new StringWriter();
-      TransformerFactory transFact = TransformerFactory.newInstance();
-      Transformer transformer = transFact.newTransformer();
+      final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      Transformer transformer = transformerFactory.newTransformer();
       if (outputProperties != null) {
         transformer.setOutputProperties(outputProperties);
       }

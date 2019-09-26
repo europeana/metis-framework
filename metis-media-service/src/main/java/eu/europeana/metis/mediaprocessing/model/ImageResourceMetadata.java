@@ -2,7 +2,7 @@ package eu.europeana.metis.mediaprocessing.model;
 
 import eu.europeana.corelib.definitions.jibx.ColorSpaceType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.model.WebResource.Orientation;
+import eu.europeana.metis.utils.Orientation;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +18,26 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
    */
   private static final long serialVersionUID = -1818426883878915580L;
 
-  private int width;
+  private Integer width;
 
-  private int height;
+  private Integer height;
 
   private ColorSpaceType colorSpace;
 
   private List<String> dominantColors;
+
+  /**
+   * Constructor for the case no metadata or thumbnails is available.
+   *
+   * @param mimeType The resource mime type.
+   * @param resourceUrl The resource URL.
+   * @param contentSize The file content size.
+   * @throws MediaExtractionException In case there was a problem with the supplied data.
+   */
+  public ImageResourceMetadata(String mimeType, String resourceUrl, long contentSize)
+      throws MediaExtractionException {
+    this(mimeType, resourceUrl, contentSize, null, null, null, null, null);
+  }
 
   /**
    * Constructor.
@@ -39,8 +52,8 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
    * @param thumbnails The thumbnails generated for this image.
    * @throws MediaExtractionException In case there was a problem with the supplied data.
    */
-  public ImageResourceMetadata(String mimeType, String resourceUrl, long contentSize, int width,
-      int height, ColorSpaceType colorSpace, List<String> dominantColors,
+  public ImageResourceMetadata(String mimeType, String resourceUrl, long contentSize, Integer width,
+      Integer height, ColorSpaceType colorSpace, List<String> dominantColors,
       List<? extends Thumbnail> thumbnails) throws MediaExtractionException {
 
     // Call super constructor.
@@ -52,13 +65,15 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     this.colorSpace = colorSpace;
 
     // Set dominant colors.
-    final Optional<String> badColor = dominantColors.stream()
-        .filter(color -> !color.matches("[0-9A-F]{6}")).findAny();
-    if (badColor.isPresent()) {
-      throw new MediaExtractionException("Unrecognized hex String: " + badColor.get());
+    if (dominantColors != null) {
+      final Optional<String> badColor = dominantColors.stream()
+          .filter(color -> !color.matches("[0-9A-F]{6}")).findAny();
+      if (badColor.isPresent()) {
+        throw new MediaExtractionException("Unrecognized hex String: " + badColor.get());
+      }
+      // TODO dominant colors start with '#' due to legacy systems
+      this.dominantColors = dominantColors.stream().map(c -> "#" + c).collect(Collectors.toList());
     }
-    // TODO dominant colors start with '#' due to legacy systems
-    this.dominantColors = dominantColors.stream().map(c -> "#" + c).collect(Collectors.toList());
   }
 
   /**
@@ -77,16 +92,18 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     super.updateResource(resource);
     resource.setWidth(width);
     resource.setHeight(height);
-    resource.setOrientation(width > height ? Orientation.LANDSCAPE : Orientation.PORTRAIT);
+    final Orientation orientation =
+        (width == null || height == null) ? null : Orientation.calculate(width, height);
+    resource.setOrientation(orientation);
     resource.setColorspace(colorSpace);
     resource.setDominantColors(getDominantColors());
   }
 
-  public int getWidth() {
+  public Integer getWidth() {
     return width;
   }
 
-  public int getHeight() {
+  public Integer getHeight() {
     return height;
   }
 

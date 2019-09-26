@@ -20,7 +20,7 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.Authorizer;
-import eu.europeana.metis.core.service.OrchestratorHelper;
+import eu.europeana.metis.core.service.WorkflowExecutionFactory;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.service.ScheduleWorkflowService;
@@ -167,30 +167,30 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao, DatasetDao datasetDao,
-      OrchestratorHelper orchestratorHelper, WorkflowExecutorManager workflowExecutorManager,
-      Authorizer authorizer) {
-    OrchestratorService orchestratorService =
-        new OrchestratorService(orchestratorHelper, workflowDao, workflowExecutionDao, datasetDao,
-            workflowExecutorManager, redissonClient, authorizer);
+      WorkflowExecutionFactory workflowExecutionFactory,
+      WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer) {
+    OrchestratorService orchestratorService = new OrchestratorService(workflowExecutionFactory,
+        workflowDao, workflowExecutionDao, datasetDao, workflowExecutorManager, redissonClient,
+        authorizer);
     orchestratorService.setSolrCommitPeriodInMins(propertiesHolder.getSolrCommitPeriodInMins());
     return orchestratorService;
   }
 
   @Bean
-  public OrchestratorHelper getOrchestratorHelper(WorkflowExecutionDao workflowExecutionDao,
-      DatasetXsltDao datasetXsltDao) {
-    OrchestratorHelper orchestratorHelper = new OrchestratorHelper(workflowExecutionDao,
-        datasetXsltDao);
-    orchestratorHelper
+  public WorkflowExecutionFactory getWorkflowExecutionFactory(
+      WorkflowExecutionDao workflowExecutionDao, DatasetXsltDao datasetXsltDao) {
+    WorkflowExecutionFactory workflowExecutionFactory = new WorkflowExecutionFactory(
+        workflowExecutionDao, datasetXsltDao);
+    workflowExecutionFactory
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
-    orchestratorHelper
+    workflowExecutionFactory
         .setValidationInternalProperties(propertiesHolder.getValidationInternalProperties());
-    orchestratorHelper.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
-    orchestratorHelper.setMetisUseAlternativeIndexingEnvironment(
+    workflowExecutionFactory.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
+    workflowExecutionFactory.setMetisUseAlternativeIndexingEnvironment(
         propertiesHolder.getMetisUseAlternativeIndexingEnvironment());
-    orchestratorHelper.setDefaultSamplingSizeForLinkChecking(
+    workflowExecutionFactory.setDefaultSamplingSizeForLinkChecking(
         propertiesHolder.getMetisLinkCheckingDefaultSamplingSize());
-    return orchestratorHelper;
+    return workflowExecutionFactory;
   }
 
   @Bean

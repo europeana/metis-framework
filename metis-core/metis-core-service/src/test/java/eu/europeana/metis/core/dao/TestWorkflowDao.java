@@ -7,11 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.util.List;
 import org.junit.jupiter.api.AfterAll;
@@ -28,7 +27,7 @@ class TestWorkflowDao {
 
   private static WorkflowDao workflowDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
-  private static MorphiaDatastoreProvider provider;
+  private static MorphiaDatastoreProviderImpl provider;
 
   @BeforeAll
   static void prepare() {
@@ -38,7 +37,7 @@ class TestWorkflowDao {
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
-    provider = new MorphiaDatastoreProvider(mongoClient, "test");
+    provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
 
     workflowDao = new WorkflowDao(provider);
     workflowDao.setWorkflowsPerRequest(5);
@@ -110,7 +109,8 @@ class TestWorkflowDao {
   void exists() {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
-    assertNotNull(workflowDao.exists(workflow));
+    assertTrue(workflowDao.workflowExistsForDataset(workflow.getDatasetId()));
+    assertFalse(workflowDao.workflowExistsForDataset(workflow.getDatasetId() + "X"));
   }
 
   @Test

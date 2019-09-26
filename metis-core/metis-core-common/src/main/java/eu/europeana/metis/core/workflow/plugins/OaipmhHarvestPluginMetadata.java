@@ -20,7 +20,6 @@ public class OaipmhHarvestPluginMetadata extends AbstractExecutablePluginMetadat
   private Date fromDate;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date untilDate;
-  private String datasetId;
   //Default false. If false, it indicates that the ProvidedCHO rdf:about should be used to set the identifier for ECloud
   private boolean useDefaultIdentifiers;
   //If useDefaultIdentifiers == true then this is the prefix to be trimmed from the OAI Header Identifier
@@ -60,14 +59,6 @@ public class OaipmhHarvestPluginMetadata extends AbstractExecutablePluginMetadat
 
   public void setFromDate(Date fromDate) {
     this.fromDate = fromDate == null ? null : new Date(fromDate.getTime());
-  }
-
-  public String getDatasetId() {
-    return datasetId;
-  }
-
-  public void setDatasetId(String datasetId) {
-    this.datasetId = datasetId;
   }
 
   public boolean isUseDefaultIdentifiers() {

@@ -8,7 +8,7 @@ import com.itextpdf.text.pdf.parser.RenderListener;
 import com.itextpdf.text.pdf.parser.TextRenderInfo;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.awt.image.BufferedImage;
@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 /**
  * <p>
  * Implementation of {@link MediaProcessor} that is designed to handle resources of type {@link
- * ResourceType#TEXT}.
+ * eu.europeana.metis.utils.MediaType#TEXT}.
  * </p>
  * <p>
  * Note: if we don't have metadata, we don't return thumbnails either.
@@ -49,13 +49,21 @@ class TextProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResult process(Resource resource, String detectedMimeType)
+  public boolean downloadResourceForFullProcessing() {
+    return true;
+  }
+
+  @Override
+  public ResourceExtractionResultImpl copyMetadata(Resource resource, String detectedMimeType) {
+    return new ResourceExtractionResultImpl(new TextResourceMetadata(detectedMimeType,
+        resource.getResourceUrl(), resource.getProvidedFileSize()));
+  }
+
+  @Override
+  public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType)
       throws MediaExtractionException {
 
-    // Sanity checks
-    if (!shouldExtractMetadata(resource)) {
-      return null;
-    }
+    // Sanity check
     try {
       if (!resource.hasContent()) {
         throw new MediaExtractionException("File does not exist or does not have content.");
@@ -96,7 +104,7 @@ class TextProcessor implements MediaProcessor {
     final TextResourceMetadata metadata = new TextResourceMetadata(detectedMimeType,
         resource.getResourceUrl(), contentSize, characteristics.containsText(),
         characteristics.getResolution(), thumbnails);
-    return new ResourceExtractionResult(metadata, thumbnails);
+    return new ResourceExtractionResultImpl(metadata, thumbnails);
   }
 
   PdfCharacteristics findPdfCharacteristics(File content) throws MediaExtractionException {
@@ -178,8 +186,8 @@ class TextProcessor implements MediaProcessor {
    */
   static class PdfListener implements RenderListener {
 
-    private Integer dpi = null;
-    private boolean hasText = false;
+    private Integer dpi; // initially null.
+    private boolean hasText; // initially false.
 
     Integer getDpi() {
       return dpi;

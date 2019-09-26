@@ -3,6 +3,7 @@ package eu.europeana.indexing.tiers.media;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.metis.utils.MediaType;
 
 /**
  * Classifier for images.
@@ -32,7 +33,7 @@ class ImageClassifier extends AbstractMediaClassifier {
       boolean hasEmbeddableMedia) {
 
     // Check mime type.
-    if (!hasImageMimeType(webResource)) {
+    if (webResource.getMediaType() != MediaType.IMAGE) {
       return MediaTier.T0;
     }
 
@@ -49,11 +50,6 @@ class ImageClassifier extends AbstractMediaClassifier {
       result = MediaTier.T0;
     }
     return result;
-  }
-
-  static boolean hasImageMimeType(WebResourceWrapper webResource) {
-    final String mimeType = webResource.getMimeType();
-    return (mimeType != null && mimeType.startsWith("image"));
   }
 }
 

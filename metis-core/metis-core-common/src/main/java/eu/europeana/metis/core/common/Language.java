@@ -1,7 +1,5 @@
 package eu.europeana.metis.core.common;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -10,9 +8,6 @@ import java.util.List;
  * The name of the dataset (enumerated)
  * Created by ymamakis on 2/17/16.
  */
-
-@JsonSerialize(using = LanguageSerializer.class)
-@JsonDeserialize(using = LanguageDeserializer.class)
 public enum Language {
 
   AR("Arabic"), AZ("Azerbaijani"), BE("Belarusian"), BG("Bulgarian"), BS("Bosnian"), CA(

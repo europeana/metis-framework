@@ -3,20 +3,21 @@ package eu.europeana.metis.core.workflow.plugins;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import eu.europeana.metis.CommonStringValues;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
- * This abstract class specifies the minimum a plugin should support so that it can be plugged in
- * the Metis workflow registry and can be accessible via the REST API of Metis.
+ * This abstract class is the base implementation of {@link MetisPlugin} and all other plugins
+ * should inherit from it.
  *
  * @param <M> The type of the plugin metadata that this plugin represents.
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "pluginType")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = As.EXISTING_PROPERTY, property = "pluginType")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = OaipmhHarvestPlugin.class, name = "OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value = HTTPHarvestPlugin.class, name = "HTTP_HARVEST"),
@@ -31,10 +32,10 @@ import org.mongodb.morphia.annotations.Indexed;
     @JsonSubTypes.Type(value = IndexToPublishPlugin.class, name = "PUBLISH")
 })
 @Embedded
-public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata> {
+public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata> implements
+    MetisPlugin<M> {
 
   protected final PluginType pluginType;
-  private static final String REPRESENTATION_NAME = "metadataRecord";
 
   @Indexed
   private String id;
@@ -69,97 +70,73 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     this.pluginMetadata = pluginMetadata;
   }
 
+  @Override
   public String getId() {
     return id;
   }
 
+  @Override
   public void setId(String id) {
     this.id = id;
   }
 
-  /**
-   * @return {@link PluginType}
-   */
+  @Override
   public PluginType getPluginType() {
     return pluginType;
   }
 
-  public static String getRepresentationName() {
-    return REPRESENTATION_NAME;
-  }
-
-  /**
-   * The metadata corresponding to this plugin.
-   *
-   * @return {@link AbstractMetisPluginMetadata}
-   */
+  @Override
   public M getPluginMetadata() {
     return pluginMetadata;
   }
 
-  /**
-   * @param pluginMetadata {@link AbstractMetisPluginMetadata} to add for the plugin
-   */
+  @Override
   public void setPluginMetadata(M pluginMetadata) {
     this.pluginMetadata = pluginMetadata;
   }
 
-  /**
-   * @return started {@link Date} of the execution of the plugin
-   */
+  @Override
   public Date getStartedDate() {
     return startedDate == null ? null : new Date(startedDate.getTime());
   }
 
-  /**
-   * @param startedDate {@link Date}
-   */
+  @Override
   public void setStartedDate(Date startedDate) {
     this.startedDate = startedDate == null ? null : new Date(startedDate.getTime());
   }
 
-  /**
-   * @return finished {@link Date} of the execution of the plugin
-   */
+  @Override
   public Date getFinishedDate() {
     return finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
-  /**
-   * @param finishedDate {@link Date}
-   */
+  @Override
   public void setFinishedDate(Date finishedDate) {
     this.finishedDate = finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
-  /**
-   * @return status {@link PluginStatus} of the execution of the plugin
-   */
+  @Override
   public PluginStatus getPluginStatus() {
     return pluginStatus;
   }
 
-  /**
-   * @param pluginStatus {@link PluginStatus}
-   */
+  @Override
   public void setPluginStatus(PluginStatus pluginStatus) {
     this.pluginStatus = pluginStatus;
   }
 
-  /**
-   * This method sets the plugin status and also clears the fail message.
-   *
-   * @param pluginStatus {@link PluginStatus}
-   */
+  @Override
   public void setPluginStatusAndResetFailMessage(PluginStatus pluginStatus) {
     setPluginStatus(pluginStatus);
     setFailMessage(null);
   }
 
+  @Override
   public String getFailMessage() {
     return failMessage;
   }
 
+  @Override
   public void setFailMessage(String failMessage) {
     this.failMessage = failMessage;
   }

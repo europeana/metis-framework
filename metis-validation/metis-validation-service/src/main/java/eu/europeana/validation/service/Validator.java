@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.xml.XMLConstants;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -102,7 +103,7 @@ public class Validator implements Callable<ValidationResult> {
    * @return The outcome of the Validation
    */
   private ValidationResult validate() {
-    LOGGER.info("Validation started");
+    LOGGER.debug("Validation started");
     InputSource source = new InputSource();
     source.setByteStream(new ByteArrayInputStream(document.getBytes(StandardCharsets.UTF_8)));
     try {
@@ -132,7 +133,7 @@ public class Validator implements Callable<ValidationResult> {
     } catch (IOException | SchemaProviderException | SAXException | TransformerException e) {
       return constructValidationError(document, e);
     }
-    LOGGER.info("Validation ended");
+    LOGGER.debug("Validation ended");
     return constructOk();
   }
 
@@ -144,6 +145,8 @@ public class Validator implements Callable<ValidationResult> {
     if (!templatesCache.containsKey(schematronPath)) {
       reader = new StringReader(
           FileUtils.readFileToString(new File(schematronPath), StandardCharsets.UTF_8.name()));
+      final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       Templates template = TransformerFactory.newInstance()
           .newTemplates(new StreamSource(reader));
       templatesCache.put(schematronPath, template);

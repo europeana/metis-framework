@@ -17,6 +17,17 @@ public class TextResourceMetadata extends AbstractResourceMetadata {
   private Integer resolution;
 
   /**
+   * Constructor for the case no metadata or thumbnails is available.
+   *
+   * @param mimeType The resource mime type.
+   * @param resourceUrl The resource URL.
+   * @param contentSize The file content size.
+   */
+  public TextResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
+    this(mimeType, resourceUrl, contentSize, false, null, null);
+  }
+
+  /**
    * Constructor.
    *
    * @param mimeType The resource mime type.

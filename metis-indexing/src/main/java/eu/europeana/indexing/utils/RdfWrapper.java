@@ -21,11 +21,15 @@ import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.Type2;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
@@ -144,6 +148,27 @@ public class RdfWrapper {
         .collect(Collectors.toSet());
     return (types.size() == 1) ? types.iterator().next() : null;
   }
+  
+  /**
+   * Determines whether this entity has a landing page. An entity has a landing page if there is at
+   * least one web resource of type 'isShownAt', representing technical metadata of some (non-empty)
+   * mime type.
+   * 
+   * @return Whether this entity has a landing page.
+   */
+  public boolean hasLandingPage() {
+    return getWebResourceWrappers(EnumSet.of(WebResourceLinkType.IS_SHOWN_AT)).stream()
+        .map(WebResourceWrapper::getMimeType).anyMatch(StringUtils::isNotBlank);
+  }
+
+  /**
+   * This method extracts all web resources from the RDF object. This will filter the objects: it only returns those with a non-blank about value.
+   *
+   * @return The list of web resources. Is not null, but could be empty.
+   */
+  public List<WebResourceType> getWebResources() {
+    return getFilteredPropertyList(record.getWebResourceList());
+  }
 
   /**
    * This method retrieves all URLs (as {@link String} objects) that the entity contains of the
@@ -155,21 +180,19 @@ public class RdfWrapper {
    * @return The URLs. They are not blank or null. The list is not null, but could be empty.
    */
   public Set<String> getUrlsOfTypes(Set<WebResourceLinkType> types) {
-    return types.stream().map(type -> type.getUrlsOfType(this)).flatMap(Set::stream).collect(
-        Collectors.toSet());
+    return types.stream().map(this::getUrlsOfType).flatMap(Set::stream).collect(Collectors.toSet());
   }
 
   /**
    * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those that need to be indexed and that have at least one of the given types.
+   * only returns those with a non-blank about value and that have at least one of the given types.
    *
    * @param types The types to which we limit our search. We only return web resources that have at
    * least one of the given types. Cannot be null.
    * @return The list of processed web resources. Is not null, but could be empty.
    */
   public List<WebResourceWrapper> getWebResourceWrappers(Set<WebResourceLinkType> types) {
-    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = WebResourceLinkType
-        .getAllLinksForTypes(this, types);
+    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(types);
     return getFilteredPropertyStream(record.getWebResourceList())
         .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout()))
         .map(webResource -> new WebResourceWrapper(webResource,
@@ -178,16 +201,15 @@ public class RdfWrapper {
 
   /**
    * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those that need to be indexed. But contrary to {@link
+   * only returns those with a non-blank about value. But contrary to {@link
    * #getWebResourceWrappers(Set)} it also returns all web resources that have none of the supported
    * types.
    *
    * @return The list of processed web resources. Is not null, but could be empty.
    */
   public List<WebResourceWrapper> getWebResourceWrappers() {
-    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = WebResourceLinkType
-        .getAllLinksForTypes(this,
-            Stream.of(WebResourceLinkType.values()).collect(Collectors.toSet()));
+    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes =
+        getAllLinksForTypes(Stream.of(WebResourceLinkType.values()).collect(Collectors.toSet()));
     return getFilteredPropertyStream(record.getWebResourceList()).map(
         webResource -> new WebResourceWrapper(webResource,
             webResourceUrlsWithTypes.get(webResource.getAbout()))).collect(Collectors.toList());
@@ -195,28 +217,62 @@ public class RdfWrapper {
 
   /**
    * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those that need to be indexed.
-   * 
-   * @return The list of web resources. Is not null, but could be empty.
-   */
-  public List<WebResourceType> getWebResources() {
-    return getFilteredPropertyList(record.getWebResourceList());
-  }
-
-  /**
-   * This method extracts all web resources from the RDF object. This will filter the objects: it
-   * only returns those that need to be indexed and that have at least one of the given types.
+   * only returns those with a non-blank about value and that have at least one of the given types.
    *
    * @param types The types to which we limit our search. We only return web resources that have at
    * least one of the given types. Cannot be null.
    * @return The list of processed web resources. Is not null, but could be empty.
    */
   public List<WebResourceType> getWebResources(Set<WebResourceLinkType> types) {
-    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = WebResourceLinkType
-        .getAllLinksForTypes(this, types);
+    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(types);
     return getFilteredPropertyStream(record.getWebResourceList())
         .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout()))
         .collect(Collectors.toList());
+  }
+
+  /**
+   * This method retrieves all URLs (as {@link String} objects) that this entity contains of the
+   * given link type.
+   *
+   * @param type The link type for which to retrieve the urls.
+   * @return The URLs. They are not blank or null. The list is not null, but could be empty.
+   */
+  private Set<String> getUrlsOfType(WebResourceLinkType type) {
+    return getAggregations().stream().map(type::getResourcesOfType).filter(Objects::nonNull)
+        .flatMap(List::stream).filter(Objects::nonNull).map(ResourceType::getResource)
+        .filter(org.apache.commons.lang.StringUtils::isNotBlank).collect(Collectors.toSet());
+  }
+
+  /**
+   * This method creates a map of all web resource URLs in this entity with the given link types.
+   *
+   * @param types The types to which we limit our search. We only return web resources that have at
+   * least one of the given types.
+   * @return The map of URLs to link types. The link types will include all types with which a given
+   * URL occurs, not just those those that we searched for.
+   */
+  private Map<String, Set<WebResourceLinkType>> getAllLinksForTypes(Set<WebResourceLinkType> types) {
+
+    // All types with the urls that have that type. This is the complete overview.
+    final Map<WebResourceLinkType, Set<String>> urlsByType = Stream.of(WebResourceLinkType.values())
+        .collect(Collectors.toMap(Function.identity(), this::getUrlsOfType));
+
+    // The result map with empty type lists. Only contains the urls with one of the required types.
+    final Map<String, Set<WebResourceLinkType>> result = types.stream().map(urlsByType::get)
+        .flatMap(Set::stream).collect(
+            Collectors.toMap(Function.identity(), url -> new HashSet<>(), (url1, url2) -> url1));
+
+    // Add the right types to the urls.
+    for (Entry<WebResourceLinkType, Set<String>> typeWithUrls : urlsByType.entrySet()) {
+      for (String url : typeWithUrls.getValue()) {
+        if (result.containsKey(url)) {
+          result.get(url).add(typeWithUrls.getKey());
+        }
+      }
+    }
+
+    // Done.
+    return result;
   }
 
   /**
@@ -234,12 +290,11 @@ public class RdfWrapper {
         .map(WebResourceWrapper::getMimeType).anyMatch(StringUtils::isNotBlank);
   }
 
-
   /**
    * Obtains the list of agents from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The agents that need to be indexed.
+   * @return The agents. Is not null, but could be empty.
    */
   public List<AgentType> getAgents() {
     return getFilteredPropertyList(record.getAgentList());
@@ -247,9 +302,9 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of concepts from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The concepts that need to be indexed.
+   * @return The concepts. Is not null, but could be empty.
    */
   public List<Concept> getConcepts() {
     return getFilteredPropertyList(record.getConceptList());
@@ -257,9 +312,9 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of licenses from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The licenses that need to be indexed.
+   * @return The licenses. Is not null, but could be empty.
    */
   public List<License> getLicenses() {
     return getFilteredPropertyList(record.getLicenseList());
@@ -267,9 +322,9 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of places from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The places that need to be indexed.
+   * @return The places. Is not null, but could be empty.
    */
   public List<PlaceType> getPlaces() {
     return getFilteredPropertyList(record.getPlaceList());
@@ -277,9 +332,9 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of time spans from an RDF record. This will filter the objects: it only
-   * returns those that need to be indexed.
+   * returns those with a non-blank about value.
    *
-   * @return The time spans that need to be indexed.
+   * @return The time spans. Is not null, but could be empty.
    */
   public List<TimeSpanType> getTimeSpans() {
     return getFilteredPropertyList(record.getTimeSpanList());
@@ -287,14 +342,20 @@ public class RdfWrapper {
 
   /**
    * Obtains the list of services from an RDF record. This will filter the objects: it only returns
-   * those that need to be indexed.
+   * those with a non-blank about value.
    *
-   * @return The services that need to be indexed.
+   * @return The services. Is not null, but could be empty.
    */
   public List<Service> getServices() {
     return getFilteredPropertyList(record.getServiceList());
   }
 
+  /**
+   * Obtain the list of quality annotations from an RDF record. This will filter the objects: it
+   * only returns those with a non-blank about value.
+   *
+   * @return The quality annotations. Is not null, but could be empty.
+   */
   public List<QualityAnnotation> getQualityAnnotations() {
     return getFilteredPropertyList(record.getQualityAnnotationList());
   }
@@ -304,7 +365,7 @@ public class RdfWrapper {
   }
 
   private static <T extends AboutType> Stream<T> getFilteredPropertyStream(List<T> propertyList) {
-    return getPropertyStream(propertyList)
+    return getPropertyStream(propertyList).filter(Objects::nonNull)
         .filter(resource -> StringUtils.isNotBlank(resource.getAbout()));
   }
 

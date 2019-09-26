@@ -21,6 +21,7 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -29,8 +30,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.aggregation.AggregationPipeline;
@@ -260,13 +263,12 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * plugin types
    *
    * @param datasetId the dataset identifier
-   * @param pluginTypes the set of plugin types to check for
+   * @param pluginTypes the set of plugin types to check for. Cannot be null or contain null values.
    * @return the first plugin found
    */
-  public AbstractExecutablePlugin getFirstFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<ExecutablePluginType> pluginTypes) {
-    return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-        pluginTypes, false, true);
+  public AbstractMetisPlugin getFirstSuccessfulPlugin(String datasetId,
+      Set<PluginType> pluginTypes) {
+    return getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true);
   }
 
   /**
@@ -274,63 +276,34 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * plugin types
    *
    * @param datasetId the dataset identifier
-   * @param pluginTypes the set of plugin types to check for
+   * @param pluginTypes the set of plugin types to check for. Cannot be null or contain null values.
+   * @return the last plugin found
+   */
+  public AbstractMetisPlugin getLatestSuccessfulPlugin(String datasetId,
+      Set<PluginType> pluginTypes) {
+    return getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false);
+  }
+
+  /**
+   * Get the last successful Plugin of a WorkflowExecution for a dataset identifier and a set of
+   * plugin types
+   *
+   * @param datasetId the dataset identifier
+   * @param pluginTypes the set of plugin types to check for. Cannot be null or contain null values.
    * @param limitToValidData Only return the result if it has valid data (see {@link DataStatus}).
    * @return the last plugin found
    */
-  public AbstractExecutablePlugin getLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
-    return getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(datasetId,
-        pluginTypes, limitToValidData, false);
-  }
+  public AbstractExecutablePlugin getLatestSuccessfulExecutablePlugin(String datasetId,
+      Set<ExecutablePluginType> pluginTypes, boolean limitToValidData) {
 
-  AbstractExecutablePlugin getFirstOrLastFinishedWorkflowExecutionPluginByDatasetIdAndPluginType(
-      String datasetId, Set<ExecutablePluginType> pluginTypes, boolean limitToValidData,
-      boolean firstFinished) {
+    // Verify the plugin types
+    verifyEnumSetIsValidAndNotEmpty(pluginTypes);
 
-    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(WorkflowExecution.class);
-
-    AggregationPipeline aggregation = morphiaDatastoreProvider.getDatastore()
-        .createAggregation(WorkflowExecution.class);
-
-    Criteria[] criteria = {
-        query.criteria(DATASET_ID.getFieldName()).equal(datasetId),
-        query.criteria(METIS_PLUGINS.getFieldName() + "." + PLUGIN_STATUS.getFieldName()).equal(
-            PluginStatus.FINISHED)};
-    query.and(criteria);
-
-    List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
-    if (pluginTypes != null) {
-      for (ExecutablePluginType pluginType : pluginTypes) {
-        if (pluginType != null) {
-          criteriaContainer.add(
-              query.criteria(METIS_PLUGINS.getFieldName() + "." + PLUGIN_TYPE.getFieldName())
-                  .equal(pluginType.toPluginType()));
-        }
-      }
-    }
-    if (!criteriaContainer.isEmpty()) {
-      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
-    }
-
-    // Query: unwind and match again so that we know that all conditions apply to the same plugin.
-    final String orderField =
-        METIS_PLUGINS.getFieldName() + "." + FINISHED_DATE.getFieldName();
-    Iterator<WorkflowExecution> metisPluginsIterator = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> aggregation
-                .match(query)
-                .unwind(METIS_PLUGINS.getFieldName())
-                .match(query)
-                .sort(firstFinished ? Sort.ascending(orderField) : Sort.descending(orderField))
-                .limit(1)
-                .aggregate(WorkflowExecution.class));
-
-    // Because of the unwind, we know that the plugin we need is always the first one.
-    final AbstractMetisPlugin uncastResult = Optional.ofNullable(metisPluginsIterator)
-        .filter(Iterator::hasNext).map(Iterator::next).map(WorkflowExecution::getMetisPlugins)
-        .filter(plugins -> !plugins.isEmpty()).map(plugins -> plugins.get(0)).orElse(null);
+    // Perform the database query. If nothing found, we are done.
+    final Set<PluginType> convertedPluginTypes = pluginTypes.stream()
+        .map(ExecutablePluginType::toPluginType).collect(Collectors.toSet());
+    final AbstractMetisPlugin uncastResult = getFirstOrLastFinishedPlugin(datasetId,
+        convertedPluginTypes, false);
     if (uncastResult == null) {
       return null;
     }
@@ -345,13 +318,62 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // if necessary, check for the data validity.
     final AbstractExecutablePlugin result;
-    if (limitToValidData
-        && AbstractExecutablePlugin.getDataStatus(castResult) != DataStatus.VALID) {
+    if (limitToValidData && ExecutablePlugin.getDataStatus(castResult) != DataStatus.VALID) {
       result = null;
     } else {
       result = castResult;
     }
     return result;
+  }
+
+  AbstractMetisPlugin getFirstOrLastFinishedPlugin(String datasetId,
+      Set<PluginType> pluginTypes, boolean firstFinished) {
+
+    // Verify the plugin types
+    verifyEnumSetIsValidAndNotEmpty(pluginTypes);
+
+    // Create the query to match a plugin satisfying the conditions.
+    final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(WorkflowExecution.class);
+    final Criteria[] criteria = {
+        query.criteria(DATASET_ID.getFieldName()).equal(datasetId),
+        query.criteria(METIS_PLUGINS.getFieldName() + "." + PLUGIN_STATUS.getFieldName()).equal(
+            PluginStatus.FINISHED)};
+    query.and(criteria);
+    final List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
+    final String pluginTypeField = METIS_PLUGINS.getFieldName() + "." + PLUGIN_TYPE.getFieldName();
+    for (PluginType pluginType : pluginTypes) {
+      criteriaContainer.add(query.criteria(pluginTypeField).equal(pluginType));
+    }
+    if (!criteriaContainer.isEmpty()) {
+      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+    }
+
+    // Query: unwind and match again so that we know that all conditions apply to the same plugin.
+    final AggregationPipeline aggregation = morphiaDatastoreProvider.getDatastore()
+        .createAggregation(WorkflowExecution.class);
+    final String orderField =
+        METIS_PLUGINS.getFieldName() + "." + FINISHED_DATE.getFieldName();
+    final Iterator<WorkflowExecution> metisPluginsIterator = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(
+            () -> aggregation
+                .match(query)
+                .unwind(METIS_PLUGINS.getFieldName())
+                .match(query)
+                .sort(firstFinished ? Sort.ascending(orderField) : Sort.descending(orderField))
+                .limit(1)
+                .aggregate(WorkflowExecution.class));
+
+    // Because of the unwind, we know that the plugin we need is always the first one.
+    return Optional.ofNullable(metisPluginsIterator)
+        .filter(Iterator::hasNext).map(Iterator::next).map(WorkflowExecution::getMetisPlugins)
+        .filter(plugins -> !plugins.isEmpty()).map(plugins -> plugins.get(0)).orElse(null);
+  }
+
+  private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum> set) {
+    if (set == null || set.isEmpty() || set.stream().anyMatch(Objects::isNull)) {
+      throw new IllegalArgumentException();
+    }
   }
 
   /**

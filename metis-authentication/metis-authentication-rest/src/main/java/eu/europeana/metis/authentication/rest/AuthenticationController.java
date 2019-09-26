@@ -22,10 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -67,7 +69,7 @@ public class AuthenticationController {
    * <li>{@link UserAlreadyExistsException} if the user already exists in the system.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_REGISTER, method = RequestMethod.POST)
+  @PostMapping(value = RestEndpoints.AUTHENTICATION_REGISTER)
   @ResponseStatus(HttpStatus.CREATED)
   public void registerUser(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
@@ -92,7 +94,7 @@ public class AuthenticationController {
    * cannot be authenticated.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_LOGIN, method = RequestMethod.POST, produces = {
+  @PostMapping(value = RestEndpoints.AUTHENTICATION_LOGIN, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   public MetisUser loginUser(@RequestHeader("Authorization") String authorization)
@@ -118,8 +120,7 @@ public class AuthenticationController {
    * cannot be authenticated.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSD, method = RequestMethod.PUT,
-      consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+  @PutMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSD, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserPassword(@RequestHeader("Authorization") String authorization,
@@ -158,8 +159,7 @@ public class AuthenticationController {
    * cannot be authenticated or the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.DELETE,
-      consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+  @DeleteMapping(value = RestEndpoints.AUTHENTICATION_DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteUser(@RequestHeader("Authorization") String authorization,
@@ -195,8 +195,7 @@ public class AuthenticationController {
    * cannot be authenticated or the user is unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.PUT,
-      consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+  @PutMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   public MetisUser updateUser(@RequestHeader("Authorization") String authorization,
@@ -232,8 +231,7 @@ public class AuthenticationController {
    * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN, method = RequestMethod.PUT,
-      consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+  @PutMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserToMakeAdmin(@RequestHeader("Authorization") String authorization,
@@ -268,7 +266,7 @@ public class AuthenticationController {
    * cannot be authenticated.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_USER_ID, method = RequestMethod.POST, produces = {
+  @PostMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_USER_ID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   public MetisUser getUserByUserId(@RequestHeader("Authorization") String authorization,
@@ -294,7 +292,7 @@ public class AuthenticationController {
    * cannot be authenticated.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_TOKEN, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_TOKEN, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   public MetisUser getUserByAccessToken(@RequestHeader("Authorization") String authorization)
@@ -320,7 +318,7 @@ public class AuthenticationController {
    * <li>{@link UserUnauthorizedException} if the user was unauthorized.</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_USERS, method = RequestMethod.GET, produces = {
+  @GetMapping(value = RestEndpoints.AUTHENTICATION_USERS, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   public List<MetisUser> getAllUsers(@RequestHeader("Authorization") String authorization)

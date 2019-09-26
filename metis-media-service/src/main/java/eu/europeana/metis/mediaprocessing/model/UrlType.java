@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
@@ -24,25 +23,4 @@ public enum UrlType {
    **/
   public static final Set<UrlType> URL_TYPES_FOR_MEDIA_EXTRACTION = Collections
       .unmodifiableSet(EnumSet.allOf(UrlType.class));
-
-  /**
-   * The resource URL types that are subject to metadata extraction (as opposed to thumbnail
-   * extraction).
-   *
-   * TODO JV Currently we want technical metadata to be generated for all types. We may choose to
-   * remove this functionality, if nobody changes their minds on this.
-   **/
-  public static final Set<UrlType> URL_TYPES_FOR_METADATA_EXTRACTION = Collections
-      .unmodifiableSet(EnumSet.allOf(UrlType.class));
-
-  /**
-   * Convenience method that checks whether any of the given types would make a resource eligible
-   * for metadata extraction.
-   *
-   * @param resourceTypes The resource URL types against which to determine eligibility
-   * @return Whether the resource is eligible for metadata extraction.
-   */
-  public static boolean shouldExtractMetadata(Collection<UrlType> resourceTypes) {
-    return resourceTypes.stream().anyMatch(URL_TYPES_FOR_METADATA_EXTRACTION::contains);
-  }
 }

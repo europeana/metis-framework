@@ -5,6 +5,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
+import eu.europeana.metis.utils.MediaType;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,11 +20,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -42,14 +40,18 @@ class ThumbnailGenerator {
   private static final String PDF_MIME_TYPE = "application/pdf";
   private static final String PNG_MIME_TYPE = "image/png";
 
-  private static final int MEDIUM_THUMBNAIL_SIZE = 200;
-  private static final int LARGE_THUMBNAIL_SIZE = 400;
+  private enum ThumbnailKind{
 
-  private static final Map<Integer, String> THUMBNAIL_SIZES_AND_SUFFIXES = new HashMap<>();
+    MEDIUM(200, "-MEDIUM"),
+    LARGE(400, "-LARGE");
 
-  static {
-    THUMBNAIL_SIZES_AND_SUFFIXES.put(MEDIUM_THUMBNAIL_SIZE, "-MEDIUM");
-    THUMBNAIL_SIZES_AND_SUFFIXES.put(LARGE_THUMBNAIL_SIZE, "-LARGE");
+    protected final int size;
+    protected final String suffix;
+
+    ThumbnailKind(int size, String suffix) {
+      this.size = size;
+      this.suffix = suffix;
+    }
   }
 
   private static final String COMMAND_RESULT_FORMAT = "%w\n%h\n%[colorspace]\n";
@@ -298,8 +300,7 @@ class ThumbnailGenerator {
         }
 
         // Copy the thumbnail. In case of images: don't make a thumbnail larger than the original.
-        final boolean isImage =
-            ResourceType.getResourceType(detectedMimeType) == ResourceType.IMAGE;
+        final boolean isImage = MediaType.getMediaType(detectedMimeType) == MediaType.IMAGE;
         final boolean shouldUseOriginal = isImage && result.getWidth() < thumbnail.getImageSize();
         if (shouldUseOriginal) {
           copyFile(content, thumbnail);
@@ -332,11 +333,11 @@ class ThumbnailGenerator {
 
   List<ThumbnailWithSize> prepareThumbnailFiles(String url) throws MediaExtractionException {
     String md5 = md5Hex(url);
-    List<ThumbnailWithSize> result = new ArrayList<>(THUMBNAIL_SIZES_AND_SUFFIXES.size());
+    List<ThumbnailWithSize> result = new ArrayList<>(ThumbnailKind.values().length);
     try {
-      for (Entry<Integer, String> entry : THUMBNAIL_SIZES_AND_SUFFIXES.entrySet()) {
-        final ThumbnailImpl thumbnail = new ThumbnailImpl(url, md5 + entry.getValue());
-        result.add(new ThumbnailWithSize(thumbnail, entry.getKey()));
+      for (ThumbnailKind thumbnailKind : ThumbnailKind.values()) {
+        final ThumbnailImpl thumbnail = new ThumbnailImpl(url, md5 + thumbnailKind.suffix);
+        result.add(new ThumbnailWithSize(thumbnail, thumbnailKind.size));
       }
     } catch (IOException e) {
       throw new MediaExtractionException("Could not create temporary thumbnail files.", e);

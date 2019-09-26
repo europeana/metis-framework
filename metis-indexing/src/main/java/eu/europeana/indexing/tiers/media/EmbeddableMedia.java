@@ -35,11 +35,15 @@ final class EmbeddableMedia {
   /**
    * Determines whether the web resource represents embeddable media.
    *
-   * @param webResource The web resource.
+   * @param entity The RDF entity.
    * @return Whether the resource represents embeddable media.
    */
-  static boolean hasEmbeddableMedia(RdfWrapper webResource) {
-    return webResource.getUrlsOfTypes(EnumSet.of(WebResourceLinkType.IS_SHOWN_BY)).stream()
-        .anyMatch(url -> PREFIXES.stream().anyMatch(url::startsWith));
+  static boolean hasEmbeddableMedia(RdfWrapper entity) {
+    return entity.getUrlsOfTypes(EnumSet.of(WebResourceLinkType.IS_SHOWN_BY)).stream()
+        .anyMatch(EmbeddableMedia::isEmbeddableMedia);
+  }
+
+  private static boolean isEmbeddableMedia(String url) {
+    return PREFIXES.stream().anyMatch(url::startsWith);
   }
 }

@@ -1,9 +1,8 @@
 package eu.europeana.indexing.tiers.model;
 
-import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import eu.europeana.indexing.utils.RdfWrapper;
 
 /**
  * This tier classifier combines various classifiers. When asked to classify a record, it calls all
@@ -21,16 +20,16 @@ public class CombinedClassifier<T extends Tier> implements TierClassifier<T> {
    * @param classifiers The classifiers that this classifier combines.
    */
   public CombinedClassifier(List<TierClassifier<T>> classifiers) {
-    this.classifiers = new ArrayList<>(classifiers);
-    if (this.classifiers.isEmpty()) {
+    if (classifiers == null || classifiers.isEmpty()) {
       throw new IllegalArgumentException("Combined classifier expects at least one algorithm.");
     }
+    this.classifiers = new ArrayList<>(classifiers);
   }
 
   @Override
   public T classify(RdfWrapper entity) {
     return classifiers.stream().map(algorithm -> algorithm.classify(entity))
-        .min(Comparator.comparing(Tier::getLevel)).orElseThrow(IllegalStateException::new);
+        .reduce(Tier::min).orElseThrow(IllegalStateException::new);
   }
 }
 
