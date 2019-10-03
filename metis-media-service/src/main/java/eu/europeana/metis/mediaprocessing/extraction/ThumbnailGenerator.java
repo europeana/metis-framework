@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -372,18 +373,13 @@ class ThumbnailGenerator {
 
   private static List<String> extractDominantColors(List<String> results, int skipLines) {
     final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
+    final Stream<Matcher> matchers =  results.stream().skip(skipLines)
+        .sorted(Collections.reverseOrder()).limit(COMMAND_RESULT_MAX_COLORS).map(pattern::matcher);
 
-    final boolean aResultDoesNotMatch = results.stream().skip(skipLines)
-        .sorted(Collections.reverseOrder()).limit(COMMAND_RESULT_MAX_COLORS).map(pattern::matcher)
-        .anyMatch(m -> !m.find());
-
-    if (aResultDoesNotMatch) {
+    if (!matchers.allMatch(Matcher::find)) {
       throw new IllegalStateException("Invalid color line found.");
     }
-
-    return results.stream().skip(skipLines).sorted(Collections.reverseOrder())
-        .limit(COMMAND_RESULT_MAX_COLORS).map(pattern::matcher).filter(Matcher::find)
-        .map(matcher -> matcher.group(1)).collect(Collectors.toList());
+    return matchers.map(matcher -> matcher.group(1)).collect(Collectors.toList());
   }
 
   static class ThumbnailWithSize {

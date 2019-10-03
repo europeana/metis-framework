@@ -120,9 +120,10 @@ public class Validator implements Callable<ValidationResult> {
         DOMResult result = new DOMResult();
         transformer.transform(new DOMSource(doc), result);
         NodeList nresults = result.getNode().getFirstChild().getChildNodes();
-        final ValidationResult validationResult = checkNodeListForErrors(nresults);
-        if (validationResult != null)
-          return validationResult;
+        final ValidationResult errorResult = checkNodeListForErrors(nresults);
+        if (errorResult != null) {
+          return errorResult;
+        }
       }
     } catch (IOException | SchemaProviderException | SAXException | TransformerException e) {
       return constructValidationError(document, e);
@@ -131,8 +132,7 @@ public class Validator implements Callable<ValidationResult> {
     return constructOk();
   }
 
-  private ValidationResult checkNodeListForErrors(NodeList nresults)
-  {
+  private ValidationResult checkNodeListForErrors(NodeList nresults) {
     for (int i = 0; i < nresults.getLength(); i++) {
       Node nresult = nresults.item(i);
       if ("failed-assert".equals(nresult.getLocalName())) {
