@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -373,13 +374,15 @@ class ThumbnailGenerator {
 
   private static List<String> extractDominantColors(List<String> results, int skipLines) {
     final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
-    final Stream<Matcher> matchers =  results.stream().skip(skipLines)
+    final Supplier<Stream<Matcher>> streamMatcherSupplier = () -> results.stream().skip(skipLines)
         .sorted(Collections.reverseOrder()).limit(COMMAND_RESULT_MAX_COLORS).map(pattern::matcher);
 
-    if (!matchers.allMatch(Matcher::find)) {
+    if (!streamMatcherSupplier.get().allMatch(Matcher::find)) {
       throw new IllegalStateException("Invalid color line found.");
     }
-    return matchers.map(matcher -> matcher.group(1)).collect(Collectors.toList());
+
+    return streamMatcherSupplier.get().filter(Matcher::find)
+        .map(matcher -> matcher.group(1)).collect(Collectors.toList());
   }
 
   static class ThumbnailWithSize {
