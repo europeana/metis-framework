@@ -2,6 +2,7 @@ package eu.europeana.normalization.settings;
 
 import java.util.Arrays;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import net.htmlparser.jericho.Source;
@@ -17,9 +18,9 @@ public enum CleanMarkupTagsMode {
   /** This cleans all mark-up. **/
   ALL_MARKUP(input -> new Source(input).getTextExtractor().toString());
 
-  private final Function<String, String> cleaner;
+  private final UnaryOperator<String> cleaner;
 
-  CleanMarkupTagsMode(Function<String, String> cleaner) {
+  CleanMarkupTagsMode(UnaryOperator<String> cleaner) {
     this.cleaner = cleaner;
   }
 
@@ -32,7 +33,7 @@ public enum CleanMarkupTagsMode {
     return cleaner;
   }
 
-  private static class HtmlMarkupCleaner implements Function<String, String> {
+  private static class HtmlMarkupCleaner implements UnaryOperator<String> {
 
     private static final String[] HTML_TAGS_TO_CLEAN =
         {"!doctype", "a", "abbr", "acronym", "address", "applet", "area", "article", "aside",

@@ -26,7 +26,7 @@ class CacheItemWithExpirationTime<V> {
   // No need to be locked: is independent of other data.
   private Instant lastAccessTime;
 
-  private ReadWriteLock lock = new ReentrantReadWriteLock();
+  private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
   /**
    * Obtains the value. This method will lock the cache for reading and, if the value is not

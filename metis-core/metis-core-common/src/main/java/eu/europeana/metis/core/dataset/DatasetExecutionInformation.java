@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
+ * Contains execution information of a dataset.
+ * <p>Such as the last preview, last publish, first publish, last harvest information.</p>
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-03
  */

@@ -3,20 +3,7 @@ package eu.europeana.validation.rest;
 import static eu.europeana.metis.RestEndpoints.SCHEMA_BATCH_VALIDATE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.utils.ZipFileReader;
 import eu.europeana.validation.model.ValidationResult;
@@ -29,6 +16,19 @@ import eu.europeana.validation.service.ValidationExecutionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * REST API Implementation of the Validation Service
@@ -63,8 +63,9 @@ public class ValidationController {
    * @param targetSchema The schema to validate against
    * @param record The record to validate
    * @return A serialized ValidationResult. The result is always an OK response unless an Exception is thrown (500)
+   * @throws ValidationException if a validation error occurs
    */
-  @RequestMapping(value = RestEndpoints.SCHEMA_VALIDATE, method = RequestMethod.POST, consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_VALUE)
+  @PostMapping(value = RestEndpoints.SCHEMA_VALIDATE, consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_VALUE)
   @ResponseBody
   @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
   public ValidationResult validate(
@@ -95,7 +96,7 @@ public class ValidationController {
    * @throws BatchValidationException if the schema does not exist or validation fails.
    */
 
-  @RequestMapping(value = SCHEMA_BATCH_VALIDATE, method = RequestMethod.POST)
+  @PostMapping(value = SCHEMA_BATCH_VALIDATE)
   @ResponseBody
   @ApiOperation(value = "Validate zip file based on schema", response = ValidationResultList.class)
   public ValidationResultList batchValidate(

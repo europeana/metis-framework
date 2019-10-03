@@ -26,6 +26,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
+ * Contains all the calls that are related to scheduling workflows.
+ * <p>The {@link ScheduleWorkflowService} has control on how to schedule workflows</p>
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-04-05
  */

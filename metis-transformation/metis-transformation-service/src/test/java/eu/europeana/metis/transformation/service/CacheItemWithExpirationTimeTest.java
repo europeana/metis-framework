@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
@@ -155,12 +154,9 @@ class CacheItemWithExpirationTimeTest {
     final CacheItemWithExpirationTime<String> cacheItem = spy(new CacheItemWithExpirationTime<>());
     when(cacheItem.isInstantInInterval(any(), any(), any())).thenReturn(false);
     cacheItem.getValue(Duration.ZERO, new SpyableCacheValueSupplier("test"), false);
-    try {
-      cacheItem.getValue(Duration.ZERO, new ValueSupplierWithException(), false);
-      fail("");
-    } catch (CacheValueSupplierException e) {
-      // Nothing to do.
-    }
+
+    assertThrows(CacheValueSupplierException.class,
+        () -> cacheItem.getValue(Duration.ZERO, new ValueSupplierWithException(), false));
   }
 
   @Test

@@ -66,7 +66,6 @@ class IndexerImpl implements Indexer {
       }
       LOGGER.info("Successfully processed {} records.", records.size());
     } catch (IndexingException e) {
-      LOGGER.warn("Error while indexing a record.", e);
       throw e;
     }
   }
@@ -126,7 +125,6 @@ class IndexerImpl implements Indexer {
     try {
       return this.connectionProvider.getIndexedRecordRemover().removeRecord(rdfAbout);
     } catch (IndexerRelatedIndexingException e) {
-      LOGGER.warn("Error while removing a record.", e);
       throw e;
     }
   }
@@ -137,7 +135,6 @@ class IndexerImpl implements Indexer {
       return this.connectionProvider.getIndexedRecordRemover().removeDataset(datasetId,
           maxRecordDate);
     } catch (IndexerRelatedIndexingException e) {
-      LOGGER.warn("Error while removing a dataset.", e);
       throw e;
     }
   }

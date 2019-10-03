@@ -40,7 +40,6 @@ public class ValidationClient {
           .getResourceAsStream("validation.properties"));
       validationEndpoint = props.getProperty("validation.endpoint");
     } catch (IOException e) {
-      LOGGER.error("Failed during initialization of configuration.", e);
       throw e;
     }
   }

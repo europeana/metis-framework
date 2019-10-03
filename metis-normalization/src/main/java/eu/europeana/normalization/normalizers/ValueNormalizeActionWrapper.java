@@ -71,13 +71,13 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
             attribute.getLocalName());
         report.increment(normalization.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
       }
-    } else if (copyTarget != null) {
-      copyValue(copyTarget, valuesAlreadyPresent, normalizedValue.get(0), report);
-    } else {
+    } else if (copyTarget == null) {
       boolean valueChanged = !normalizedValue.get(0).getNormalizedValue().equals(originalValue);
       if (valueChanged) {
         updateAttribute(attribute, normalizedValue.get(0), report);
       }
+    } else {
+      copyValue(copyTarget, valuesAlreadyPresent, normalizedValue.get(0), report);
     }
   }
 
@@ -92,15 +92,15 @@ public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
         removeElementIfEmpty(element);
         report.increment(normalization.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
       }
-    } else if (copyTarget != null) {
-      normalizedValues.forEach(
-          normalizedValue -> copyValue(copyTarget, valuesAlreadyPresent, normalizedValue, report));
-    } else {
+    } else if (copyTarget == null) {
       boolean valueChanged = normalizedValues.size() > 1
           || !normalizedValues.get(0).getNormalizedValue().equals(originalValue);
       if (valueChanged) {
         updateElements(element, normalizedValues, report);
       }
+    } else {
+      normalizedValues.forEach(
+          normalizedValue -> copyValue(copyTarget, valuesAlreadyPresent, normalizedValue, report));
     }
   }
 

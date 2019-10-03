@@ -119,15 +119,15 @@ public class IndexedRecordRemover {
     final StringBuilder solrQuery = new StringBuilder();
 
     final String datasetIdRegexEscaped = ClientUtils.escapeQueryChars(datasetId + "_") + "*";
-    solrQuery.append(EdmLabel.EUROPEANA_COLLECTIONNAME.toString()).append(":")
+    solrQuery.append(EdmLabel.EUROPEANA_COLLECTIONNAME).append(':')
         .append(datasetIdRegexEscaped);
 
     if (maxRecordDate != null) {
       //Set date format properly for Solr, the timezone has to be added
       DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_SOLR, Locale.US);
       dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-      solrQuery.append(" AND ").append(EdmLabel.TIMESTAMP_UPDATED.toString()).append(":")
-          .append("[* TO ").append(dateFormat.format(maxRecordDate)).append("}");
+      solrQuery.append(" AND ").append(EdmLabel.TIMESTAMP_UPDATED).append(":[* TO ")
+          .append(dateFormat.format(maxRecordDate)).append('}');
     }
     solrServer.deleteByQuery(solrQuery.toString());
   }
@@ -137,7 +137,8 @@ public class IndexedRecordRemover {
         maxRecordDate);
   }
 
-  private int removeDocumentsFromMongo(Class<?> documentType, String aboutPrefix, Date maxRecordDate) {
+  private int removeDocumentsFromMongo(Class<?> documentType, String aboutPrefix,
+      Date maxRecordDate) {
     final Query<?> query = mongoServer.getDatastore().createQuery(documentType);
     query.field("about").startsWith(aboutPrefix);
     if (maxRecordDate != null) {

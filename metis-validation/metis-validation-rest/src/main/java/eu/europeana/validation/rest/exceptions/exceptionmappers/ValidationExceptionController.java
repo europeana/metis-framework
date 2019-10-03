@@ -18,7 +18,7 @@ public class ValidationExceptionController {
      * Handles specified exception
      *
      * @param e exception to be handled
-     * @return
+     * @return the error information
      */
     @ExceptionHandler(ValidationException.class)
     @ResponseBody

@@ -1,8 +1,6 @@
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
-import java.lang.reflect.Executable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

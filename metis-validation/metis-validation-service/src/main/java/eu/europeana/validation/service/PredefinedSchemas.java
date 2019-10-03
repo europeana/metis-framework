@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class PredefinedSchemas {
 
-    private Map<String, PredefinedSchema> schemas = new HashMap<>();
+    private final Map<String, PredefinedSchema> schemas = new HashMap<>();
 
     /**
      * Inserts new schema to the list of all predefined schemas

@@ -21,7 +21,7 @@ public class IndexToPreviewPluginMetadata extends AbstractExecutablePluginMetada
     return pluginType;
   }
 
-  public boolean getUseAlternativeIndexingEnvironment() {
+  public boolean isUseAlternativeIndexingEnvironment() {
     return useAlternativeIndexingEnvironment;
   }
 
