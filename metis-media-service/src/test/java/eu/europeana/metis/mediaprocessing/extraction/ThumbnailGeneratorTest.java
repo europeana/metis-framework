@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.ArgumentMatchers.same;
@@ -36,6 +37,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.tuple.Pair;
@@ -137,13 +139,13 @@ class ThumbnailGeneratorTest {
     // Define first thumbnail
     final int size1 = 123;
     final ThumbnailWithSize thumbnail1 = spy(new ThumbnailWithSize(mock(ThumbnailImpl.class), size1,
-        Paths.get("File 1")));
+        Paths.get("File 1"), "prefix 1"));
     doNothing().when(thumbnail1).deleteTempFileSilently();
 
     // Define second thumbnail
     final int size2 = 321;
     final ThumbnailWithSize thumbnail2 = spy(new ThumbnailWithSize(mock(ThumbnailImpl.class), size2,
-        Paths.get("File 2")));
+        Paths.get("File 2"), "prefix 2"));
     doNothing().when(thumbnail2).deleteTempFileSilently();
 
     // Define other method input
@@ -156,7 +158,7 @@ class ThumbnailGeneratorTest {
         Arrays.asList("WHITE", "BLACK"));
 
     // Mock the thumbnail generator
-    doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnailFiles(url);
+    doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnailFiles(eq(url), anyString());
     doReturn(command).when(thumbnailGenerator)
         .createThumbnailGenerationCommand(same(thumbnails), notNull(), same(content));
     doReturn(commandResponse).when(commandExecutor).execute(command, false);
@@ -282,43 +284,32 @@ class ThumbnailGeneratorTest {
 
     // Define first thumbnail
     final int size1 = 123;
+    final String prefix1 = "prefix1";
     final ThumbnailWithSize thumbnail1 = new ThumbnailWithSize(mock(ThumbnailImpl.class), size1,
-        Paths.get("File 1"));
+        Paths.get("File 1"), prefix1);
 
     // Define second thumbnail
     final int size2 = 321;
+    final String prefix2 = "prefix2";
     final ThumbnailWithSize thumbnail2 = new ThumbnailWithSize(mock(ThumbnailImpl.class), size2,
-        Paths.get("File 2"));
+        Paths.get("File 2"), prefix2);
 
     // Define other method input
     final List<ThumbnailWithSize> input = Arrays.asList(thumbnail1, thumbnail2);
     final File file = new File("content file");
 
-    // Make call for JPEG
+    // Make call for image
     final List<String> commandImage = thumbnailGenerator
         .createThumbnailGenerationCommand(input, JPG_MIME_TYPE, file);
 
     // Verify image
     final List<String> expectedImage = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
         "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:", "(", "+clone",
-        "-thumbnail", size1 + "x", "-write", "jpeg:" + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
-        "-thumbnail", size2 + "x", "-write", "jpeg:" + thumbnail2.getTempFileForThumbnail().toString(),
+        "-thumbnail", size1 + "x", "-write", prefix1 + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
+        "-thumbnail", size2 + "x", "-write", prefix2 + thumbnail2.getTempFileForThumbnail().toString(),
         "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
         "-format", "\n%c", "histogram:info:");
     assertEquals(expectedImage, commandImage);
-
-    // Make call for PNG
-    final List<String> commandPng = thumbnailGenerator
-        .createThumbnailGenerationCommand(input, PNG_MIME_TYPE, file);
-
-    // Verify image
-    final List<String> expectedPng = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
-        "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:", "(", "+clone",
-        "-thumbnail", size1 + "x", "-write", "png:" + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
-        "-thumbnail", size2 + "x", "-write", "png:" + thumbnail2.getTempFileForThumbnail().toString(),
-        "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
-        "-format", "\n%c", "histogram:info:");
-    assertEquals(expectedPng, commandPng);
 
     // Make call for PDF
     final List<String> commandText = thumbnailGenerator
@@ -328,8 +319,8 @@ class ThumbnailGeneratorTest {
     final List<String> expectedText = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
         "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
         "-background", "white", "-alpha", "remove", "(", "+clone",
-        "-thumbnail", size1 + "x", "-write", "png:" + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
-        "-thumbnail", size2 + "x", "-write", "png:" + thumbnail2.getTempFileForThumbnail().toString(),
+        "-thumbnail", size1 + "x", "-write", prefix1 + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
+        "-thumbnail", size2 + "x", "-write", prefix2 + thumbnail2.getTempFileForThumbnail().toString(),
         "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
         "-format", "\n%c", "histogram:info:");
     assertEquals(expectedText, commandText);
@@ -337,35 +328,49 @@ class ThumbnailGeneratorTest {
 
   @Test
   void testPrepareThumbnailFiles() throws MediaExtractionException {
+    testPrepareThumbnailFiles(PNG_MIME_TYPE, PNG_MIME_TYPE, "png:");
+    testPrepareThumbnailFiles(PDF_MIME_TYPE, PNG_MIME_TYPE, "png:");
+    testPrepareThumbnailFiles(JPG_MIME_TYPE, JPG_MIME_TYPE, "jpeg:");
+    testPrepareThumbnailFiles("other", JPG_MIME_TYPE, "jpeg:");
+  }
+
+  private void testPrepareThumbnailFiles(String detectedMimeType, String expectedMimeType,
+      String expectedImageMagickPrefix) throws MediaExtractionException {
 
     // Make the call
     final String url = "http://images.is.ed.ac.uk/MediaManager/srvr?mediafile=/Size3/UoEcar-4-NA/1007/0012127c.jpg";
     final String md5 = "6d27e9f0dcdbf33afc07d952cc5c2833";
-    final List<ThumbnailWithSize> thumbnails = thumbnailGenerator.prepareThumbnailFiles(url);
+    final List<ThumbnailWithSize> thumbnails = thumbnailGenerator.prepareThumbnailFiles(url, detectedMimeType);
 
     // Parse and verify result: there are two thumbnails with unique sizes.
     assertEquals(2, thumbnails.size());
-    final Map<Integer, ThumbnailImpl> thumbnailMap = thumbnails.stream().collect(
-        Collectors.toMap(ThumbnailWithSize::getImageSize, ThumbnailWithSize::getThumbnail));
+    final Map<Integer, ThumbnailWithSize> thumbnailMap = thumbnails.stream().collect(
+        Collectors.toMap(ThumbnailWithSize::getImageSize, Function.identity()));
     assertEquals(2, thumbnailMap.size());
 
     // Inspect the thumbnails and then close them.
-    try (ThumbnailImpl thumbnail1 = thumbnailMap.get(200); ThumbnailImpl thumbnail2 = thumbnailMap
-        .get(400)) {
+    final ThumbnailWithSize thumbnailWithSize1 = thumbnailMap.get(200);
+    final ThumbnailWithSize thumbnailWithSize2 = thumbnailMap.get(400);
+    try (ThumbnailImpl thumbnail1 = thumbnailWithSize1.getThumbnail();
+        ThumbnailImpl thumbnail2 = thumbnailWithSize2.getThumbnail()) {
 
       // Check the medium thumbnail including its size and name.
+      assertEquals(expectedImageMagickPrefix, thumbnailWithSize1.getImageMagickTypePrefix());
       assertNotNull(thumbnail1);
       assertEquals(md5 + "-MEDIUM", thumbnail1.getTargetName());
       assertFalse(thumbnail1.hasContent());
       assertEquals(0, thumbnail1.getContentSize());
       assertEquals(url, thumbnail1.getResourceUrl());
+      assertEquals(expectedMimeType, thumbnail1.getMimeType());
 
       // Check the large thumbnail including its size and name.
+      assertEquals(expectedImageMagickPrefix, thumbnailWithSize2.getImageMagickTypePrefix());
       assertNotNull(thumbnail2);
       assertEquals(md5 + "-LARGE", thumbnail2.getTargetName());
       assertFalse(thumbnail1.hasContent());
       assertEquals(0, thumbnail1.getContentSize());
       assertEquals(url, thumbnail1.getResourceUrl());
+      assertEquals(expectedMimeType, thumbnail1.getMimeType());
 
     }
   }
