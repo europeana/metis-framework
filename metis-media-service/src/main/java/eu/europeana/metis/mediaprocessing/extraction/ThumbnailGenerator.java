@@ -42,6 +42,7 @@ class ThumbnailGenerator {
 
   private static final String PDF_MIME_TYPE = "application/pdf";
   private static final String PNG_MIME_TYPE = "image/png";
+  private static final String JPEG_MIME_TYPE = "image/jpeg";
 
   private enum ThumbnailKind {
 
@@ -118,7 +119,7 @@ class ThumbnailGenerator {
         throw new MediaProcessorException("Could not load color map file.", e);
       }
 
-      // Make sure that the temporary file is removed when we're done with it.
+      // Ensure that the temporary file is removed (should not be needed).
       colormapTempFile.toFile().deleteOnExit();
 
       // So everything went well. We set this as the new color map file.
@@ -213,7 +214,7 @@ class ThumbnailGenerator {
     }
 
     // Obtain the thumbnail files (they are still empty) - create temporary files for them.
-    final List<ThumbnailWithSize> thumbnails = prepareThumbnailFiles(url);
+    final List<ThumbnailWithSize> thumbnails = prepareThumbnailFiles(url, detectedMimeType);
 
     // Load the thumbnails: delete the temporary files, and the thumbnails in case of exceptions.
     final ImageMetadata image;
@@ -244,14 +245,6 @@ class ThumbnailGenerator {
   List<String> createThumbnailGenerationCommand(List<ThumbnailWithSize> thumbnails,
       String detectedMimeType, File content) {
 
-    // Get the output file type
-    final String fileTypePrefix;
-    if (PDF_MIME_TYPE.equals(detectedMimeType) || PNG_MIME_TYPE.equals(detectedMimeType)) {
-      fileTypePrefix = "png:";
-    } else {
-      fileTypePrefix = "jpeg:";
-    }
-
     // Compile the command
     final List<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
         "-format", COMMAND_RESULT_FORMAT, "-write", "info:"));
@@ -266,9 +259,9 @@ class ThumbnailGenerator {
         command.add("(");
         command.add("+clone");
       }
-      ThumbnailWithSize thumbnail = thumbnails.get(i);
+      final ThumbnailWithSize thumbnail = thumbnails.get(i);
       command.addAll(Arrays.asList("-thumbnail", thumbnail.getImageSize() + "x", "-write",
-          fileTypePrefix + thumbnail.getTempFileForThumbnail().toString()));
+          thumbnail.getImageMagickTypePrefix() + thumbnail.getTempFileForThumbnail().toString()));
       if (i != thumbnailCounter - 1) {
         command.add("+delete");
         command.add(")");
@@ -334,17 +327,34 @@ class ThumbnailGenerator {
     copyFile(source.toPath(), destination);
   }
 
-  List<ThumbnailWithSize> prepareThumbnailFiles(String url) throws MediaExtractionException {
-    String md5 = md5Hex(url);
-    List<ThumbnailWithSize> result = new ArrayList<>(ThumbnailKind.values().length);
+  List<ThumbnailWithSize> prepareThumbnailFiles(String url, String detectedMimeType) throws MediaExtractionException {
+
+    // Decide on the thumbnail file type
+    final String imageMagickThumbnailTypePrefix;
+    final String thumbnailMimeType;
+    if (PDF_MIME_TYPE.equals(detectedMimeType) || PNG_MIME_TYPE.equals(detectedMimeType)) {
+      imageMagickThumbnailTypePrefix = "png:";
+      thumbnailMimeType = PNG_MIME_TYPE;
+    } else {
+      imageMagickThumbnailTypePrefix = "jpeg:";
+      thumbnailMimeType = JPEG_MIME_TYPE;
+    }
+
+    // Create the thumbnails: one for each kind
+    final String md5 = md5Hex(url);
+    final List<ThumbnailWithSize> result = new ArrayList<>(ThumbnailKind.values().length);
     try {
       for (ThumbnailKind thumbnailKind : ThumbnailKind.values()) {
-        final ThumbnailImpl thumbnail = new ThumbnailImpl(url, md5 + thumbnailKind.suffix);
-        result.add(new ThumbnailWithSize(thumbnail, thumbnailKind.size));
+        final String targetName = md5 + thumbnailKind.suffix;
+        final ThumbnailImpl thumbnail = new ThumbnailImpl(url, thumbnailMimeType, targetName);
+        result.add(
+            new ThumbnailWithSize(thumbnail, thumbnailKind.size, imageMagickThumbnailTypePrefix));
       }
     } catch (IOException e) {
       throw new MediaExtractionException("Could not create temporary thumbnail files.", e);
     }
+
+    // Done.
     return result;
   }
 
@@ -360,11 +370,26 @@ class ThumbnailGenerator {
 
   ImageMetadata parseCommandResponse(List<String> response) throws MediaExtractionException {
     try {
+
+      // Get the dominant colors
+      final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
+      final List<String> colorStrings = response.stream()
+          .skip(COMMAND_RESULT_COLORS_LINE).sorted(Collections.reverseOrder())
+          .limit(COMMAND_RESULT_MAX_COLORS).collect(Collectors.toList());
+      final Supplier<Stream<Matcher>> streamMatcherSupplier = () -> colorStrings.stream()
+          .map(pattern::matcher);
+      if (!streamMatcherSupplier.get().allMatch(Matcher::find)) {
+        throw new IllegalStateException("Invalid color line found.");
+      }
+      final List<String> dominantColors = streamMatcherSupplier.get().filter(Matcher::find)
+          .map(matcher -> matcher.group(1)).collect(Collectors.toList());
+
+      // Get width, height and color space
       final int width = Integer.parseInt(response.get(COMMAND_RESULT_WIDTH_LINE));
       final int height = Integer.parseInt(response.get(COMMAND_RESULT_HEIGHT_LINE));
       final String colorSpace = response.get(COMMAND_RESULT_COLORSPACE_LINE);
-      final List<String> dominantColors = extractDominantColors(response,
-          COMMAND_RESULT_COLORS_LINE);
+
+      // Done.
       return new ImageMetadata(width, height, colorSpace, dominantColors);
     } catch (RuntimeException e) {
       LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(response, "\n"), e);
@@ -372,33 +397,24 @@ class ThumbnailGenerator {
     }
   }
 
-  private static List<String> extractDominantColors(List<String> results, int skipLines) {
-    final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
-    final Supplier<Stream<Matcher>> streamMatcherSupplier = () -> results.stream().skip(skipLines)
-        .sorted(Collections.reverseOrder()).limit(COMMAND_RESULT_MAX_COLORS).map(pattern::matcher);
-
-    if (!streamMatcherSupplier.get().allMatch(Matcher::find)) {
-      throw new IllegalStateException("Invalid color line found.");
-    }
-
-    return streamMatcherSupplier.get().filter(Matcher::find)
-        .map(matcher -> matcher.group(1)).collect(Collectors.toList());
-  }
-
   static class ThumbnailWithSize {
 
     private final ThumbnailImpl thumbnail;
     private final int imageSize;
     private final Path tempFileForThumbnail;
+    private final String imageMagickTypePrefix;
 
-    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize, Path tempFileForThumbnail) {
+    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize, Path tempFileForThumbnail,
+        String imageMagickTypePrefix) {
       this.thumbnail = thumbnail;
       this.imageSize = imageSize;
       this.tempFileForThumbnail = tempFileForThumbnail;
+      this.imageMagickTypePrefix = imageMagickTypePrefix;
     }
 
-    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize) throws IOException {
-      this(thumbnail, imageSize, Files.createTempFile("thumbnail_", null));
+    ThumbnailWithSize(ThumbnailImpl thumbnail, int imageSize, String imageMagickTypePrefix)
+        throws IOException {
+      this(thumbnail, imageSize, Files.createTempFile("thumbnail_", null), imageMagickTypePrefix);
     }
 
     ThumbnailImpl getThumbnail() {
@@ -411,6 +427,10 @@ class ThumbnailGenerator {
 
     Path getTempFileForThumbnail() {
       return tempFileForThumbnail;
+    }
+
+    String getImageMagickTypePrefix() {
+      return imageMagickTypePrefix;
     }
 
     void deleteTempFileSilently() {

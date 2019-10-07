@@ -6,7 +6,7 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 
 /**
- * This class represents a file in memory that's associated with a resource. Please  see {@link
+ * This class represents a file in memory that's associated with a resource. Please see {@link
  * ResourceRelatedFile} for more information.
  */
 abstract class AbstractInMemoryFile implements ResourceRelatedFile {
