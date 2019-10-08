@@ -589,7 +589,7 @@ class TestProxiesService {
     doReturn(Arrays.asList(representation, representation)).when(recordServiceClient)
         .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
             eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
-    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+    proxiesService.getRecord(plugin, ecloudId);
     when(recordServiceClient.getRepresentationsByRevision(anyString(), anyString(),
         anyString(), anyString(), anyString())).thenThrow(MCSException.class);
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
@@ -604,7 +604,7 @@ class TestProxiesService {
     when(representation.getFiles()).thenReturn(Collections.emptyList());
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
     when(representation.getFiles()).thenReturn(Arrays.asList(file, file));
-    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+    proxiesService.getRecord(plugin, ecloudId);
     when(representation.getFiles()).thenReturn(Collections.singletonList(file));
     proxiesService.getRecord(plugin, ecloudId);
   }
