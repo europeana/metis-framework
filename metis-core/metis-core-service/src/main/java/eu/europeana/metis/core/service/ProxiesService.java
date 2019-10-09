@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.common.model.File;
 import eu.europeana.cloud.common.model.Representation;
 import eu.europeana.cloud.common.model.dps.NodeReport;
 import eu.europeana.cloud.common.model.dps.StatisticsReport;
@@ -407,20 +408,46 @@ public class ProxiesService {
   }
 
   Record getRecord(AbstractExecutablePlugin plugin, String ecloudId) throws ExternalTaskException {
+
+    // Get the representation(s) for the given combination of plugin and record ID.
+    final List<Representation> representations;
     try {
-      final Representation representation = recordServiceClient
-          .getRepresentationByRevision(ecloudId, MetisPlugin.getRepresentationName(),
+      representations = recordServiceClient
+          .getRepresentationsByRevision(ecloudId, MetisPlugin.getRepresentationName(),
               plugin.getPluginType().name(), ecloudProvider,
               pluginDateFormatForEcloud.format(plugin.getStartedDate()));
-      InputStream inputStream = fileServiceClient
-          .getFile(representation.getFiles().get(0).getContentUri().toString());
+    } catch (MCSException e) {
+      throw new ExternalTaskException(String.format(
+          "Getting record list with file content failed. externalTaskId: %s, pluginType: %s, ecloudId: %s",
+          plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId), e);
+    }
+
+    // Perform checks on the representation version and file lists.
+    if (representations == null || representations.size() != 1) {
+      final int size = representations == null ? 0 : representations.size();
+      throw new ExternalTaskException(String.format(
+          "Expecting one representation, but received %s. externalTaskId: %s, pluginType: %s, ecloudId: %s",
+          size, plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId));
+    }
+    final Representation representation = representations.get(0);
+    if (representation.getFiles()==null ||representation.getFiles().size()!=1){
+      final int size = representation.getFiles() == null ? 0 : representation.getFiles().size();
+      throw new ExternalTaskException(String.format(
+          "Expecting one file in the representation, but received %s. externalTaskId: %s, pluginType: %s, ecloudId: %s",
+          size, plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId));
+    }
+    final File file = representation.getFiles().get(0);
+
+    // Obtain the file contents belonging to this representation version.
+    try {
+      final InputStream inputStream = fileServiceClient.getFile(file.getContentUri().toString());
       return new Record(ecloudId, IOUtils.toString(inputStream, StandardCharsets.UTF_8.name()));
     } catch (MCSException e) {
       throw new ExternalTaskException(String.format(
           "Getting record list with file content failed. externalTaskId: %s, pluginType: %s",
           plugin.getExternalTaskId(), plugin.getPluginType()), e);
     } catch (IOException e) {
-      throw new ExternalTaskException("Getting while reading the contents of the file.", e);
+      throw new ExternalTaskException("Problem while reading the contents of the file.", e);
     }
   }
 
