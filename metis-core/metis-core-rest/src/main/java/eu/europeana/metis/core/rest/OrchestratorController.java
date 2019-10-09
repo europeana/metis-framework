@@ -522,6 +522,35 @@ public class OrchestratorController {
   }
 
   /**
+   * Retrieve dataset level history of past executions {@link ExecutionHistory}
+   *
+   * @param authorization the authorization header with the access token
+   * @param datasetId the dataset identifier to generate the history for
+   * @return the structured class containing all the execution history, ordered by date descending.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public ExecutionHistory getDatasetExecutionHistory(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") String datasetId) throws GenericMetisException {
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.debug("Requesting dataset execution history for datasetId: {}",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return orchestratorService.getDatasetExecutionHistory(metisUser, datasetId);
+  }
+
+  /**
    * Get the evolution of the records from when they were first imported until (and excluding) the
    * specified version.
    *

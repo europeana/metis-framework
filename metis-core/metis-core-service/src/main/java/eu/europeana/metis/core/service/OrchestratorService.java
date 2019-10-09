@@ -16,6 +16,8 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.execution.WorkflowUtils;
+import eu.europeana.metis.core.rest.ExecutionHistory;
+import eu.europeana.metis.core.rest.ExecutionHistory.Execution;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
@@ -620,6 +622,39 @@ public class OrchestratorService {
         .map(AbstractMetisPlugin::getPluginStatus)
         .anyMatch(pluginStatus -> pluginStatus == PluginStatus.CLEANING
             || pluginStatus == PluginStatus.RUNNING);
+  }
+
+  /**
+   * Retrieve dataset level history of past executions {@link DatasetExecutionInformation}
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param datasetId the dataset identifier to generate the history for
+   * @return the structured class containing all the execution history, ordered by date descending.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   * </ul>
+   */
+  public ExecutionHistory getDatasetExecutionHistory(MetisUser metisUser, String datasetId)
+      throws GenericMetisException {
+
+    // Check that the user is authorized
+    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+
+    // Get the information from the database
+    final List<Execution> executions = workflowExecutionDao.getAllExecutionStartDates(datasetId)
+        .stream().map(entry -> {
+          final Execution execution = new Execution();
+          execution.setWorkflowExecutionId(entry.getExecutionIdAsString());
+          execution.setStartedDate(entry.getStartedDate());
+          return execution;
+        }).collect(Collectors.toList());
+
+    // Done
+    final ExecutionHistory result = new ExecutionHistory();
+    result.setEvolutionSteps(executions);
+    return result;
   }
 
   /**
