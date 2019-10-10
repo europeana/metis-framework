@@ -44,6 +44,8 @@ public final class RestEndpoints {
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE = "/orchestrator/workflows/schedule";
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID = "/orchestrator/workflows/schedule/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID = "/orchestrator/workflows/executions/{executionId}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY =
+      "/orchestrator/workflows/executions/{executionId}/plugins/data-availability";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID = "/orchestrator/workflows/executions/dataset/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN =
       "/orchestrator/workflows/executions/dataset/{datasetId}/allowed_plugin";

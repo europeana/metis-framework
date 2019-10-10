@@ -18,6 +18,8 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.execution.WorkflowUtils;
 import eu.europeana.metis.core.rest.ExecutionHistory;
 import eu.europeana.metis.core.rest.ExecutionHistory.Execution;
+import eu.europeana.metis.core.rest.PluginsWithDataAvailability;
+import eu.europeana.metis.core.rest.PluginsWithDataAvailability.PluginWithDataAvailability;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
@@ -29,6 +31,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
@@ -654,6 +657,56 @@ public class OrchestratorService {
     // Done
     final ExecutionHistory result = new ExecutionHistory();
     result.setEvolutionSteps(executions);
+    return result;
+  }
+
+  /**
+   * Retrieve a list of plugins with data availability {@link PluginsWithDataAvailability} for a
+   * given workflow execution.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param executionId the identifier of the execution for which to get the plugins
+   * @return the structured class containing all the execution history, ordered by date descending.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  public PluginsWithDataAvailability getExecutablePluginsWithDataAvailability(MetisUser metisUser,
+      String executionId) throws GenericMetisException {
+
+    // Get the execution and do the authorization check.
+    final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUser, executionId);
+    if (execution == null) {
+      return null;
+    }
+
+    // Compile the result.
+    final List<PluginWithDataAvailability> plugins = execution.getMetisPlugins().stream()
+        .filter(plugin -> plugin instanceof ExecutablePlugin)
+        .map(plugin -> (ExecutablePlugin) plugin).map(OrchestratorService::convert)
+        .collect(Collectors.toList());
+    final PluginsWithDataAvailability result = new PluginsWithDataAvailability();
+    result.setPlugins(plugins);
+
+    // Done.
+    return result;
+  }
+
+  private static PluginWithDataAvailability convert(ExecutablePlugin plugin) {
+
+    // Decide on whether the plugin has successful data available.
+    final ExecutionProgress progress = plugin.getExecutionProgress();
+    final boolean hasSuccessfulData =
+        progress != null && progress.getProcessedRecords() > progress.getErrors();
+
+    // Create the result
+    final PluginWithDataAvailability result = new PluginWithDataAvailability();
+    result.setHasSuccessfulData(hasSuccessfulData);
+    result.setPluginType(plugin.getPluginType());
     return result;
   }
 
