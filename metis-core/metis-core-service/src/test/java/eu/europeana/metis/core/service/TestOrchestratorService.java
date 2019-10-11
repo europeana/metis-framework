@@ -29,6 +29,7 @@ import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionIdAndStartedDatePair;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.dataset.DatasetXslt;
@@ -40,6 +41,7 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.WorkflowUtils;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.core.rest.ExecutionHistory;
 import eu.europeana.metis.core.rest.PluginsWithDataAvailability;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
@@ -941,6 +943,43 @@ class TestOrchestratorService {
 
     assertTrue(executionInfo.isLastPreviewRecordsReadyForViewing());
     assertFalse(executionInfo.isLastPublishedRecordsReadyForViewing());
+  }
+
+  @Test
+  void testGetDatasetExecutionHistory() throws GenericMetisException {
+
+    // Create some objects
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    final String datasetId = "dataset ID";
+    when(authorizer.authorizeReadExistingDatasetById(metisUser, datasetId)).thenReturn(null);
+
+    // Create the history
+    final ExecutionIdAndStartedDatePair pair1 = new ExecutionIdAndStartedDatePair(
+        new ObjectId(), new Date(1));
+    final ExecutionIdAndStartedDatePair pair2 = new ExecutionIdAndStartedDatePair(
+        new ObjectId(), new Date(2));
+    final ExecutionIdAndStartedDatePair pair3 = new ExecutionIdAndStartedDatePair(
+        new ObjectId(), new Date(3));
+    doReturn(Arrays.asList(pair1, pair2, pair3)).when(workflowExecutionDao)
+        .getAllExecutionStartDates(datasetId);
+
+    // Test the happy flow
+    final ExecutionHistory result = orchestratorService
+        .getDatasetExecutionHistory(metisUser, datasetId);
+    assertNotNull(result);
+    assertNotNull(result.getExecutions());
+    assertEquals(3, result.getExecutions().size());
+    assertEquals(pair1.getExecutionIdAsString(), result.getExecutions().get(0).getWorkflowExecutionId());
+    assertEquals(pair1.getStartedDate(), result.getExecutions().get(0).getStartedDate());
+    assertEquals(pair2.getExecutionIdAsString(), result.getExecutions().get(1).getWorkflowExecutionId());
+    assertEquals(pair2.getStartedDate(), result.getExecutions().get(1).getStartedDate());
+    assertEquals(pair3.getExecutionIdAsString(), result.getExecutions().get(2).getWorkflowExecutionId());
+    assertEquals(pair3.getStartedDate(), result.getExecutions().get(2).getStartedDate());
+
+    // Test when the user is not allowed
+    when(authorizer.authorizeReadExistingDatasetById(metisUser, datasetId)).thenThrow(new UserUnauthorizedException(""));
+    assertThrows(UserUnauthorizedException.class, () -> orchestratorService
+        .getDatasetExecutionHistory(metisUser, datasetId));
   }
 
   @Test
