@@ -656,7 +656,7 @@ public class OrchestratorService {
 
     // Done
     final ExecutionHistory result = new ExecutionHistory();
-    result.setEvolutionSteps(executions);
+    result.setExecutions(executions);
     return result;
   }
 
@@ -669,8 +669,8 @@ public class OrchestratorService {
    * @return the structured class containing all the execution history, ordered by date descending.
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
-   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
+   * non-existing execution ID or version is provided.</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
@@ -681,7 +681,8 @@ public class OrchestratorService {
     // Get the execution and do the authorization check.
     final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUser, executionId);
     if (execution == null) {
-      return null;
+      throw new NoWorkflowExecutionFoundException(
+          String.format("No workflow execution found for workflowExecutionId: %s", executionId));
     }
 
     // Compile the result.
@@ -715,40 +716,36 @@ public class OrchestratorService {
    * specified version.
    *
    * @param metisUser the user wishing to perform this operation
-   * @param workflowExecutionId The ID of the workflow exection in which the version is created.
+   * @param executionId The ID of the workflow exection in which the version is created.
    * @param pluginType The step within the workflow execution that created the version.
    * @return The record evolution.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
-   * non-existing version is provided.</li>
+   * non-existing execution ID or version is provided.</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   public VersionEvolution getRecordEvolutionForVersion(MetisUser metisUser,
-      String workflowExecutionId, PluginType pluginType) throws GenericMetisException {
+      String executionId, PluginType pluginType) throws GenericMetisException {
 
-    // Get the workflow execution in question
-    final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
-    if (workflowExecution == null) {
+    // Get the execution and do the authorization check.
+    final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUser, executionId);
+    if (execution == null) {
       throw new NoWorkflowExecutionFoundException(
-          String.format("No workflow execution found for workflowExecutionId: %s",
-              workflowExecutionId));
+          String.format("No workflow execution found for workflowExecutionId: %s", executionId));
     }
 
-    // Check that the user is authorized.
-    authorizer.authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
-
     // Find the plugin (workflow step) in question.
-    final AbstractMetisPlugin plugin = workflowExecution.getMetisPluginWithType(pluginType)
+    final AbstractMetisPlugin plugin = execution.getMetisPluginWithType(pluginType)
         .orElseThrow(() -> new NoWorkflowExecutionFoundException(
             String.format("No plugin of type %s found for workflowExecution with id: %s",
-                pluginType.name(), workflowExecutionId)));
+                pluginType.name(), execution)));
 
     // Loop backwards to find the plugin. Don't add the first plugin to the result list.
     Pair<WorkflowExecution, AbstractMetisPlugin> currentExecutionAndPlugin = new ImmutablePair<>(
-        workflowExecution, plugin);
+        execution, plugin);
     final ArrayDeque<VersionEvolutionStep> evolutionSteps = new ArrayDeque<>();
     while (true) {
 

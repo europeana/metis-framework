@@ -560,8 +560,8 @@ public class OrchestratorController {
    * @return the structured class containing all the execution history, ordered by date descending.
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
-   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
+   * non-existing execution ID or version is provided.</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
@@ -591,7 +591,7 @@ public class OrchestratorController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
-   * non-existing version is provided.</li>
+   * non-existing execution ID or version is provided.</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>

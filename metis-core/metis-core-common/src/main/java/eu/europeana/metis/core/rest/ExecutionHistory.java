@@ -17,7 +17,7 @@ public class ExecutionHistory {
     return Collections.unmodifiableList(executions);
   }
 
-  public void setEvolutionSteps(Collection<Execution> executions) {
+  public void setExecutions(Collection<Execution> executions) {
     this.executions = new ArrayList<>(executions);
   }
 
