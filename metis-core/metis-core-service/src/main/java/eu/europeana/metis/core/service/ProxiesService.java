@@ -422,19 +422,19 @@ public class ProxiesService {
           plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId), e);
     }
 
-    // Perform checks on the representation version and file lists.
-    if (representations == null || representations.size() != 1) {
-      final int size = representations == null ? 0 : representations.size();
+    // Perform checks on the representation version lists.
+    if (representations == null || representations.isEmpty()) {
       throw new ExternalTaskException(String.format(
-          "Expecting one representation, but received %s. externalTaskId: %s, pluginType: %s, ecloudId: %s",
-          size, plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId));
+          "Expecting representations, but received none. externalTaskId: %s, pluginType: %s, ecloudId: %s",
+          plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId));
     }
     final Representation representation = representations.get(0);
-    if (representation.getFiles()==null ||representation.getFiles().size()!=1){
-      final int size = representation.getFiles() == null ? 0 : representation.getFiles().size();
+
+    // Perform checks on the file lists.
+    if (representation.getFiles() == null || representation.getFiles().isEmpty()) {
       throw new ExternalTaskException(String.format(
-          "Expecting one file in the representation, but received %s. externalTaskId: %s, pluginType: %s, ecloudId: %s",
-          size, plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId));
+          "Expecting one file in the representation, but received none. externalTaskId: %s, pluginType: %s, ecloudId: %s",
+          plugin.getExternalTaskId(), plugin.getPluginType(), ecloudId));
     }
     final File file = representation.getFiles().get(0);
 
