@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.rest;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import eu.europeana.metis.CommonStringValues;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,6 +29,8 @@ public class ExecutionHistory {
   public static class Execution {
 
     private String workflowExecutionId;
+
+    @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
     private Date startedDate;
 
     public String getWorkflowExecutionId() {
