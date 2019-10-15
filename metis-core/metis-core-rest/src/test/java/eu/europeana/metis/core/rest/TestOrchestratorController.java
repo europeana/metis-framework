@@ -76,6 +76,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  */
 class TestOrchestratorController {
 
+  private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+  static {
+    simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+  }
+
   private static OrchestratorService orchestratorService;
   private static MockMvc orchestratorControllerMock;
   private static AuthenticationClient authenticationClient;
@@ -556,9 +561,6 @@ class TestOrchestratorController {
         .getDatasetExecutionInformation(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(datasetExecutionInformation);
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-    simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION,
             Integer.toString(TestObjectFactory.DATASETID))
@@ -762,11 +764,11 @@ class TestOrchestratorController {
         .andExpect(jsonPath("$.executions[0].workflowExecutionId",
             is(execution1.getWorkflowExecutionId())))
         .andExpect(jsonPath("$.executions[0].startedDate",
-            is((int) execution1.getStartedDate().getTime())))
+            is(simpleDateFormat.format(execution1.getStartedDate()))))
         .andExpect(jsonPath("$.executions[1].workflowExecutionId",
             is(execution2.getWorkflowExecutionId())))
         .andExpect(jsonPath("$.executions[1].startedDate",
-            is((int) execution2.getStartedDate().getTime())));
+            is(simpleDateFormat.format(execution2.getStartedDate()))));
 
     // Test happy flow with empty evolution
     final ExecutionHistory resultEmpty = new ExecutionHistory();
