@@ -3,6 +3,7 @@ package eu.europeana.metis.core.dao;
 import static eu.europeana.metis.core.common.DaoFieldNames.CREATED_DATE;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.FINISHED_DATE;
+import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.METIS_PLUGINS;
 import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_STATUS;
 import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_TYPE;
@@ -699,5 +700,73 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     final List<WorkflowExecution> resultList = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(() -> query.asList(new FindOptions().limit(1)));
     return CollectionUtils.isEmpty(resultList) ? null : resultList.get(0);
+  }
+
+  /**
+   * Retrieves all started workflow executions with their start dates of a given dataset.
+   *
+   * @param datasetId The dataset ID for which to do this.
+   * @return A list of pairs with an execution ID and a start date. Is not null, nor are any of the
+   * values null. The list is sorted by date: most recent execution first.
+   */
+  public List<ExecutionIdAndStartedDatePair> getAllExecutionStartDates(String datasetId) {
+
+    // Create aggregation pipeline.
+    final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
+        .createAggregation(WorkflowExecution.class);
+
+    // Query on those that match the given dataset and that have a started date.
+    final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(WorkflowExecution.class).disableValidation();
+    query.field(DATASET_ID.getFieldName()).equal(datasetId);
+    query.field(STARTED_DATE.getFieldName()).notEqual(null);
+    pipeline.match(query);
+
+    // Sort the results
+    pipeline.sort(Sort.descending(STARTED_DATE.getFieldName()));
+
+    // Filter out most of the fields: just the id and the started date remain.
+    pipeline.project(
+        Projection.projection("executionId", ID.getFieldName()),
+        Projection.projection(STARTED_DATE.getFieldName()),
+        Projection.projection(ID.getFieldName()).suppress()
+    );
+
+    // Done.
+    final List<ExecutionIdAndStartedDatePair> result = new ArrayList<>();
+    pipeline.aggregate(ExecutionIdAndStartedDatePair.class).forEachRemaining(result::add);
+    return result;
+  }
+
+  /**
+   * This object contains a pair consisting of an execution ID and a started date. It is meant to be
+   * a result of aggregate queries, so the field names cannot easily be changed.
+   */
+  public static class ExecutionIdAndStartedDatePair {
+
+    private ObjectId executionId;
+    private Date startedDate;
+
+    public ExecutionIdAndStartedDatePair() {
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param executionId The execution ID.
+     * @param startedDate The started date.
+     */
+    public ExecutionIdAndStartedDatePair(ObjectId executionId, Date startedDate) {
+      this.executionId = executionId;
+      this.startedDate = new Date(startedDate.getTime());
+    }
+
+    public String getExecutionIdAsString() {
+      return executionId.toString();
+    }
+
+    public Date getStartedDate() {
+      return new Date(startedDate.getTime());
+    }
   }
 }

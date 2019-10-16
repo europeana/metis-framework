@@ -16,6 +16,10 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.execution.WorkflowUtils;
+import eu.europeana.metis.core.rest.ExecutionHistory;
+import eu.europeana.metis.core.rest.ExecutionHistory.Execution;
+import eu.europeana.metis.core.rest.PluginsWithDataAvailability;
+import eu.europeana.metis.core.rest.PluginsWithDataAvailability.PluginWithDataAvailability;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
@@ -27,6 +31,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
@@ -623,44 +628,124 @@ public class OrchestratorService {
   }
 
   /**
+   * Retrieve dataset level history of past executions {@link DatasetExecutionInformation}
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param datasetId the dataset identifier to generate the history for
+   * @return the structured class containing all the execution history, ordered by date descending.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   * </ul>
+   */
+  public ExecutionHistory getDatasetExecutionHistory(MetisUser metisUser, String datasetId)
+      throws GenericMetisException {
+
+    // Check that the user is authorized
+    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+
+    // Get the information from the database
+    final List<Execution> executions = workflowExecutionDao.getAllExecutionStartDates(datasetId)
+        .stream().map(entry -> {
+          final Execution execution = new Execution();
+          execution.setWorkflowExecutionId(entry.getExecutionIdAsString());
+          execution.setStartedDate(entry.getStartedDate());
+          return execution;
+        }).collect(Collectors.toList());
+
+    // Done
+    final ExecutionHistory result = new ExecutionHistory();
+    result.setExecutions(executions);
+    return result;
+  }
+
+  /**
+   * Retrieve a list of plugins with data availability {@link PluginsWithDataAvailability} for a
+   * given workflow execution.
+   *
+   * @param metisUser the user wishing to perform this operation
+   * @param executionId the identifier of the execution for which to get the plugins
+   * @return the structured class containing all the execution history, ordered by date descending.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
+   * non-existing execution ID or version is provided.</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  public PluginsWithDataAvailability getExecutablePluginsWithDataAvailability(MetisUser metisUser,
+      String executionId) throws GenericMetisException {
+
+    // Get the execution and do the authorization check.
+    final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUser, executionId);
+    if (execution == null) {
+      throw new NoWorkflowExecutionFoundException(
+          String.format("No workflow execution found for workflowExecutionId: %s", executionId));
+    }
+
+    // Compile the result.
+    final List<PluginWithDataAvailability> plugins = execution.getMetisPlugins().stream()
+        .filter(plugin -> plugin instanceof ExecutablePlugin)
+        .map(plugin -> (ExecutablePlugin) plugin).map(OrchestratorService::convert)
+        .collect(Collectors.toList());
+    final PluginsWithDataAvailability result = new PluginsWithDataAvailability();
+    result.setPlugins(plugins);
+
+    // Done.
+    return result;
+  }
+
+  private static PluginWithDataAvailability convert(ExecutablePlugin plugin) {
+
+    // Decide on whether the plugin has successful data available.
+    final ExecutionProgress progress = plugin.getExecutionProgress();
+    final boolean hasSuccessfulData =
+        progress != null && progress.getProcessedRecords() > progress.getErrors();
+
+    // Create the result
+    final PluginWithDataAvailability result = new PluginWithDataAvailability();
+    result.setHasSuccessfulData(hasSuccessfulData);
+    result.setPluginType(plugin.getPluginType());
+    return result;
+  }
+
+  /**
    * Get the evolution of the records from when they were first imported until (and excluding) the
    * specified version.
    *
    * @param metisUser the user wishing to perform this operation
-   * @param workflowExecutionId The ID of the workflow exection in which the version is created.
+   * @param executionId The ID of the workflow exection in which the version is created.
    * @param pluginType The step within the workflow execution that created the version.
    * @return The record evolution.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
-   * non-existing version is provided.</li>
+   * non-existing execution ID or version is provided.</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
   public VersionEvolution getRecordEvolutionForVersion(MetisUser metisUser,
-      String workflowExecutionId, PluginType pluginType) throws GenericMetisException {
+      String executionId, PluginType pluginType) throws GenericMetisException {
 
-    // Get the workflow execution in question
-    final WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
-    if (workflowExecution == null) {
+    // Get the execution and do the authorization check.
+    final WorkflowExecution execution = getWorkflowExecutionByExecutionId(metisUser, executionId);
+    if (execution == null) {
       throw new NoWorkflowExecutionFoundException(
-          String.format("No workflow execution found for workflowExecutionId: %s",
-              workflowExecutionId));
+          String.format("No workflow execution found for workflowExecutionId: %s", executionId));
     }
 
-    // Check that the user is authorized.
-    authorizer.authorizeReadExistingDatasetById(metisUser, workflowExecution.getDatasetId());
-
     // Find the plugin (workflow step) in question.
-    final AbstractMetisPlugin plugin = workflowExecution.getMetisPluginWithType(pluginType)
+    final AbstractMetisPlugin plugin = execution.getMetisPluginWithType(pluginType)
         .orElseThrow(() -> new NoWorkflowExecutionFoundException(
             String.format("No plugin of type %s found for workflowExecution with id: %s",
-                pluginType.name(), workflowExecutionId)));
+                pluginType.name(), execution)));
 
     // Loop backwards to find the plugin. Don't add the first plugin to the result list.
     Pair<WorkflowExecution, AbstractMetisPlugin> currentExecutionAndPlugin = new ImmutablePair<>(
-        workflowExecution, plugin);
+        execution, plugin);
     final ArrayDeque<VersionEvolutionStep> evolutionSteps = new ArrayDeque<>();
     while (true) {
 
