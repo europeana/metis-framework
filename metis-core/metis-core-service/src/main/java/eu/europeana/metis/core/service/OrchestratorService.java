@@ -6,6 +6,7 @@ import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -15,7 +16,6 @@ import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
-import eu.europeana.metis.core.execution.WorkflowUtils;
 import eu.europeana.metis.core.rest.ExecutionHistory;
 import eu.europeana.metis.core.rest.ExecutionHistory.Execution;
 import eu.europeana.metis.core.rest.PluginsWithDataAvailability;
@@ -39,7 +39,7 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.utils.DateUtils;
-import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
@@ -47,7 +47,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -81,6 +80,7 @@ public class OrchestratorService {
       .of(PluginType.PUBLISH, PluginType.REINDEX_TO_PUBLISH);
 
   private final WorkflowExecutionDao workflowExecutionDao;
+  private final WorkflowUtils workflowUtils;
   private final WorkflowDao workflowDao;
   private final DatasetDao datasetDao;
   private final WorkflowExecutorManager workflowExecutorManager;
@@ -94,6 +94,7 @@ public class OrchestratorService {
    *
    * @param workflowDao the Dao instance to access the Workflow database
    * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
+   * @param workflowUtils The utilities class providing more functionality on top of DAOs.
    * @param datasetDao the Dao instance to access the Dataset database
    * @param workflowExecutionFactory the orchestratorHelper instance
    * @param workflowExecutorManager the instance that handles the production and consumption of
@@ -103,22 +104,18 @@ public class OrchestratorService {
    */
   @Autowired
   public OrchestratorService(WorkflowExecutionFactory workflowExecutionFactory,
-      WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao, DatasetDao datasetDao,
+      WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
+      WorkflowUtils workflowUtils, DatasetDao datasetDao,
       WorkflowExecutorManager workflowExecutorManager, RedissonClient redissonClient,
       Authorizer authorizer) {
     this.workflowExecutionFactory = workflowExecutionFactory;
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
+    this.workflowUtils = workflowUtils;
     this.datasetDao = datasetDao;
     this.workflowExecutorManager = workflowExecutorManager;
     this.redissonClient = redissonClient;
     this.authorizer = authorizer;
-  }
-
-  void validateWorkflow(Workflow workflow, ExecutablePluginType enforcedPredecessorType)
-      throws GenericMetisException {
-    new WorkflowUtils(workflowExecutionDao)
-        .validateWorkflowPlugins(workflow, enforcedPredecessorType);
   }
 
   /**
@@ -152,7 +149,7 @@ public class OrchestratorService {
     }
 
     // Validate the new workflow.
-    validateWorkflow(workflow, enforcedPredecessorType);
+    workflowUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Save the workflow.
     workflowDao.create(workflow);
@@ -191,7 +188,7 @@ public class OrchestratorService {
     }
 
     // Validate the new workflow.
-    validateWorkflow(workflow, enforcedPredecessorType);
+    workflowUtils.validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Overwrite the workflow.
     workflow.setId(storedWorkflow.getId());
@@ -442,8 +439,7 @@ public class OrchestratorService {
       MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    return new WorkflowUtils(workflowExecutionDao)
-        .getPredecessorPlugin(pluginType, enforcedPredecessorType, datasetId);
+    return workflowUtils.getPredecessorPlugin(pluginType, enforcedPredecessorType, datasetId);
   }
 
   /**
@@ -738,64 +734,24 @@ public class OrchestratorService {
     }
 
     // Find the plugin (workflow step) in question.
-    final AbstractMetisPlugin plugin = execution.getMetisPluginWithType(pluginType)
+    final AbstractMetisPlugin targetPlugin = execution.getMetisPluginWithType(pluginType)
         .orElseThrow(() -> new NoWorkflowExecutionFoundException(
             String.format("No plugin of type %s found for workflowExecution with id: %s",
                 pluginType.name(), execution)));
 
-    // Loop backwards to find the plugin. Don't add the first plugin to the result list.
-    Pair<WorkflowExecution, AbstractMetisPlugin> currentExecutionAndPlugin = new ImmutablePair<>(
-        execution, plugin);
-    final ArrayDeque<VersionEvolutionStep> evolutionSteps = new ArrayDeque<>();
-    while (true) {
-
-      // Move to the previous execution: stop when we have none or it is not executable.
-      currentExecutionAndPlugin = getPreviousExecutionAndPlugin(
-          currentExecutionAndPlugin.getRight(), currentExecutionAndPlugin.getLeft().getDatasetId());
-      if (currentExecutionAndPlugin == null || !(currentExecutionAndPlugin
-          .getRight() instanceof AbstractExecutablePlugin)) {
-        break;
-      }
-
-      // Add step to the beginning of the list.
-      final AbstractExecutablePlugin<?> executablePlugin = (AbstractExecutablePlugin<?>) currentExecutionAndPlugin
-          .getRight();
-      final VersionEvolutionStep evolutionStep = new VersionEvolutionStep();
-      evolutionStep.setWorkflowExecutionId(currentExecutionAndPlugin.getLeft().getId().toString());
-      evolutionStep.setPluginType(executablePlugin.getPluginMetadata().getExecutablePluginType());
-      evolutionStep.setFinishedTime(executablePlugin.getFinishedDate());
-      evolutionSteps.addFirst(evolutionStep);
-    }
-
-    // Done
+    // Compile the version evolution.
+    final Collection<Pair<AbstractExecutablePlugin, WorkflowExecution>> evolutionSteps = workflowUtils
+        .compileVersionEvolution(targetPlugin, execution);
     final VersionEvolution versionEvolution = new VersionEvolution();
-    versionEvolution.setEvolutionSteps(evolutionSteps);
+    versionEvolution.setEvolutionSteps(evolutionSteps.stream().map(step-> {
+      final VersionEvolutionStep evolutionStep = new VersionEvolutionStep();
+      final AbstractExecutablePlugin<?> plugin = step.getLeft();
+      evolutionStep.setWorkflowExecutionId(step.getRight().getId().toString());
+      evolutionStep.setPluginType(plugin.getPluginMetadata().getExecutablePluginType());
+      evolutionStep.setFinishedTime(plugin.getFinishedDate());
+      return evolutionStep;
+    }).collect(Collectors.toList()));
     return versionEvolution;
-  }
-
-  Pair<WorkflowExecution, AbstractMetisPlugin> getPreviousExecutionAndPlugin(
-      AbstractMetisPlugin plugin, String datasetId) {
-
-    // Check whether we are at the end of the chain.
-    final Date previousPluginTimestamp = plugin.getPluginMetadata()
-        .getRevisionTimestampPreviousPlugin();
-    final PluginType previousPluginType = PluginType.getPluginTypeFromEnumName(
-        plugin.getPluginMetadata().getRevisionNamePreviousPlugin());
-    if (previousPluginTimestamp == null || previousPluginType == null) {
-      return null;
-    }
-
-    // Obtain the previous execution and plugin.
-    final WorkflowExecution previousExecution = workflowExecutionDao
-        .getByTaskExecution(previousPluginTimestamp, previousPluginType, datasetId);
-    final AbstractMetisPlugin previousPlugin = previousExecution == null ? null
-        : previousExecution.getMetisPluginWithType(previousPluginType).orElse(null);
-    if (previousExecution == null || previousPlugin == null) {
-      return null;
-    }
-
-    // Done
-    return new ImmutablePair<>(previousExecution, previousPlugin);
   }
 
   public int getSolrCommitPeriodInMins() {

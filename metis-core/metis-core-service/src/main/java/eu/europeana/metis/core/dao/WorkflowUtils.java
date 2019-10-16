@@ -1,12 +1,12 @@
-package eu.europeana.metis.core.execution;
+package eu.europeana.metis.core.dao;
 
 import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
@@ -20,13 +20,18 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.client.utils.URIBuilder;
 
 /**
@@ -185,7 +190,7 @@ public class WorkflowUtils {
    * @return the {@link AbstractExecutablePlugin} that the pluginType execution can use as a source.
    * Can be null in case the given type does not require a predecessor.
    */
-  static AbstractExecutablePlugin getPredecessorPlugin(ExecutablePluginType pluginType,
+  public static AbstractExecutablePlugin getPredecessorPlugin(ExecutablePluginType pluginType,
       WorkflowExecution workflowExecution) {
 
     // If the plugin type does not need a predecessor we are done.
@@ -300,6 +305,67 @@ public class WorkflowUtils {
         throw new IllegalArgumentException("Unrecognized type: " + pluginType);
     }
     return predecessorTypes;
+  }
+
+  /**
+   * Get the evolution of the records from when they were first imported until (and excluding) the
+   * target version.
+   *
+   * @param targetPlugin The target for compiling the evolution: the result will lead to, but not
+   * inclide, this plugin.
+   * @param targetPluginExecution The execution in which this target plugin may be found.
+   * @return The evolution.
+   */
+  public List<Pair<AbstractExecutablePlugin, WorkflowExecution>> compileVersionEvolution(
+      AbstractMetisPlugin targetPlugin, WorkflowExecution targetPluginExecution) {
+
+    // Loop backwards to find the plugin. Don't add the first plugin to the result list.
+    Pair<AbstractMetisPlugin, WorkflowExecution> currentExecutionAndPlugin = new ImmutablePair<>(
+        targetPlugin, targetPluginExecution);
+    final ArrayDeque<Pair<AbstractExecutablePlugin, WorkflowExecution>> evolutionSteps = new ArrayDeque<>();
+    while (true) {
+
+      // Move to the previous execution: stop when we have none or it is not executable.
+      currentExecutionAndPlugin = getPreviousExecutionAndPlugin(
+          currentExecutionAndPlugin.getLeft(), currentExecutionAndPlugin.getRight().getDatasetId());
+      if (currentExecutionAndPlugin == null || !(currentExecutionAndPlugin
+          .getLeft() instanceof AbstractExecutablePlugin)) {
+        break;
+      }
+
+      // Add step to the beginning of the list.
+      evolutionSteps.addFirst(new ImmutablePair<>(
+          (AbstractExecutablePlugin<?>) currentExecutionAndPlugin.getLeft(),
+          currentExecutionAndPlugin.getRight()));
+    }
+
+    // Done
+    return new ArrayList<>(evolutionSteps);
+  }
+
+  Pair<AbstractMetisPlugin, WorkflowExecution> getPreviousExecutionAndPlugin(AbstractMetisPlugin plugin,
+      String datasetId) {
+
+    // Check whether we are at the end of the chain.
+    final Date previousPluginTimestamp = plugin.getPluginMetadata()
+        .getRevisionTimestampPreviousPlugin();
+    final PluginType previousPluginType = PluginType.getPluginTypeFromEnumName(
+        plugin.getPluginMetadata().getRevisionNamePreviousPlugin());
+    if (previousPluginTimestamp == null || previousPluginType == null) {
+      return null;
+    }
+
+    // Obtain the previous execution and plugin.
+    final WorkflowExecution previousExecution = workflowExecutionDao
+        .getByTaskExecution(previousPluginTimestamp, previousPluginType, datasetId);
+    final AbstractMetisPlugin previousPlugin = previousExecution == null ? null
+        : previousExecution.getMetisPluginWithType(previousPluginType).orElse(null);
+    if (previousExecution == null || previousPlugin == null) {
+      return null;
+    }
+
+    // Done
+    return new ImmutablePair<>(previousPlugin, previousExecution);
   }
 
   /**

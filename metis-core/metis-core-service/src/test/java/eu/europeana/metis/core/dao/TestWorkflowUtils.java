@@ -1,9 +1,11 @@
-package eu.europeana.metis.core.execution;
+package eu.europeana.metis.core.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -15,7 +17,6 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -23,6 +24,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginMetadata;
@@ -36,6 +38,7 @@ import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.NormalizationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ReindexToPreviewPlugin;
 import eu.europeana.metis.core.workflow.plugins.ReindexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
@@ -46,11 +49,16 @@ import eu.europeana.metis.exception.GenericMetisException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -346,7 +354,7 @@ class TestWorkflowUtils {
     oai.setSetSpec(null);
     
     // Create the workflow and execute the method
-    workflow.setMetisPluginsMetadata(Arrays.asList(oai));
+    workflow.setMetisPluginsMetadata(Collections.singletonList(oai));
     workflowUtils.validateWorkflowPlugins(workflow, null);
     
     // Test output   
@@ -356,14 +364,122 @@ class TestWorkflowUtils {
     
     // Test OAI with invalid URL
     oai.setUrl("invalid URL");
-    workflow.setMetisPluginsMetadata(Arrays.asList(oai));
+    workflow.setMetisPluginsMetadata(Collections.singletonList(oai));
     assertThrows(BadContentException.class,
         () -> workflowUtils.validateWorkflowPlugins(workflow, null));
    
     // Test HTTP with missing URL
     http.setUrl(null);
-    workflow.setMetisPluginsMetadata(Arrays.asList(http));
+    workflow.setMetisPluginsMetadata(Collections.singletonList(http));
     assertThrows(BadContentException.class,
         () -> workflowUtils.validateWorkflowPlugins(workflow, null));
+  }
+
+  @Test
+  void testGetRecordEvolutionForVersionHappyFlow() {
+
+    // Create two workflow executions with three plugins and link them together
+    final String datasetId = "dataset ID";
+    final AbstractExecutablePlugin plugin1 = mock(AbstractExecutablePlugin.class);
+    final AbstractExecutablePlugin plugin2 = mock(AbstractExecutablePlugin.class);
+    final AbstractExecutablePlugin plugin3 = mock(AbstractExecutablePlugin.class);
+    final WorkflowExecution execution1 = createWorkflowExecution(datasetId, plugin1);
+    final WorkflowExecution execution2 = createWorkflowExecution(datasetId, plugin2, plugin3);
+    doReturn(null).when(workflowUtils).getPreviousExecutionAndPlugin(plugin1, datasetId);
+    doReturn(new ImmutablePair<>(plugin1, execution1)).when(workflowUtils)
+        .getPreviousExecutionAndPlugin(plugin2, datasetId);
+    doReturn(new ImmutablePair<>(plugin2, execution2)).when(workflowUtils)
+        .getPreviousExecutionAndPlugin(plugin3, datasetId);
+
+    // Execute the call to examine all three
+    final List<Pair<AbstractExecutablePlugin, WorkflowExecution>> resultForThree = workflowUtils
+        .compileVersionEvolution(plugin3, execution2);
+    assertNotNull(resultForThree);
+    assertEquals(2, resultForThree.size());
+    assertSame(plugin1, resultForThree.get(0).getLeft());
+    assertSame(execution1, resultForThree.get(0).getRight());
+    assertSame(plugin2, resultForThree.get(1).getLeft());
+    assertSame(execution2, resultForThree.get(1).getRight());
+
+    // Execute the call to examine just two
+    final List<Pair<AbstractExecutablePlugin, WorkflowExecution>> resultForTwo = workflowUtils
+        .compileVersionEvolution(plugin2, execution2);
+    assertNotNull(resultForTwo);
+    assertEquals(1, resultForTwo.size());
+    assertSame(plugin1, resultForThree.get(0).getLeft());
+    assertSame(execution1, resultForThree.get(0).getRight());
+
+    // Execute the call to examine just one
+    final List<Pair<AbstractExecutablePlugin, WorkflowExecution>> resultForOne = workflowUtils
+        .compileVersionEvolution(plugin1, execution1);
+    assertNotNull(resultForOne);
+    assertTrue(resultForOne.isEmpty());
+  }
+
+  private WorkflowExecution createWorkflowExecution(String datasetId,
+      AbstractMetisPlugin... plugins) {
+    final WorkflowExecution result = new WorkflowExecution();
+    result.setId(new ObjectId());
+    result.setDatasetId(datasetId);
+    result.setMetisPlugins(Arrays.asList(plugins));
+    return result;
+  }
+
+  @Test
+  void testGetPreviousExecutionAndPlugin() {
+
+    // Create some entities that we will be using.
+    final String datasetId = "dataset id";
+    final PluginType pluginType = PluginType.MEDIA_PROCESS;
+    final PluginType previousPluginType = PluginType.OAIPMH_HARVEST;
+    final Date previousPluginTime = new Date();
+    final WorkflowExecution previousExecution = spy(new WorkflowExecution());
+    final AbstractMetisPlugin previousPlugin = createMetisPlugin(previousPluginType, null, null);
+    final AbstractMetisPlugin plugin = createMetisPlugin(pluginType, previousPluginType,
+        previousPluginTime);
+
+    // Test the absence of one or both of the pointers to a previous execution.
+    assertNull(workflowUtils.getPreviousExecutionAndPlugin(createMetisPlugin(
+        pluginType, null, null), datasetId));
+    assertNull(workflowUtils.getPreviousExecutionAndPlugin(createMetisPlugin(
+        pluginType, previousPluginType, null), datasetId));
+    assertNull(workflowUtils.getPreviousExecutionAndPlugin(createMetisPlugin(
+        pluginType, null, previousPluginTime), datasetId));
+
+    // Test the absence of the execution despite the presence of the pointers.
+    when(workflowExecutionDao
+        .getByTaskExecution(eq(previousPluginTime), eq(previousPluginType), eq(datasetId)))
+        .thenReturn(null);
+    assertNull(workflowUtils.getPreviousExecutionAndPlugin(plugin, datasetId));
+    when(workflowExecutionDao
+        .getByTaskExecution(eq(previousPluginTime), eq(previousPluginType), eq(datasetId)))
+        .thenReturn(previousExecution);
+
+    // Test the absence of the plugin despite the presence of the pointers.
+    when(previousExecution.getMetisPluginWithType(eq(previousPluginType))).thenReturn(
+        Optional.empty());
+    assertNull(workflowUtils.getPreviousExecutionAndPlugin(plugin, datasetId));
+    when(previousExecution.getMetisPluginWithType(eq(previousPluginType)))
+        .thenReturn(Optional.of(previousPlugin));
+
+    // Test the happy flow
+    final Pair<AbstractMetisPlugin, WorkflowExecution> result = workflowUtils
+        .getPreviousExecutionAndPlugin(plugin, datasetId);
+    assertNotNull(result);
+    assertSame(previousExecution, result.getRight());
+    assertSame(previousPlugin, result.getLeft());
+  }
+
+  private AbstractMetisPlugin createMetisPlugin(PluginType type, PluginType previousType,
+      Date previousDate) {
+    AbstractMetisPluginMetadata metadata = mock(AbstractMetisPluginMetadata.class);
+    when(metadata.getPluginType()).thenReturn(type);
+    when(metadata.getRevisionNamePreviousPlugin())
+        .thenReturn(previousType == null ? null : previousType.name());
+    when(metadata.getRevisionTimestampPreviousPlugin()).thenReturn(previousDate);
+    AbstractMetisPlugin result = mock(AbstractMetisPlugin.class);
+    when(result.getPluginType()).thenReturn(type);
+    when(result.getPluginMetadata()).thenReturn(metadata);
+    return result;
   }
 }

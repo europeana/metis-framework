@@ -5,7 +5,7 @@ import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
-import eu.europeana.metis.core.execution.WorkflowUtils;
+import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
