@@ -269,7 +269,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    */
   public AbstractMetisPlugin getFirstSuccessfulPlugin(String datasetId,
       Set<PluginType> pluginTypes) {
-    return getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true);
+    return Optional.ofNullable(getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true))
+        .map(PluginWithExecutionId::getPlugin).orElse(null);
   }
 
   /**
@@ -282,7 +283,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    */
   public AbstractMetisPlugin getLatestSuccessfulPlugin(String datasetId,
       Set<PluginType> pluginTypes) {
-    return getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false);
+    return Optional.ofNullable(getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false))
+        .map(PluginWithExecutionId::getPlugin).orElse(null);
   }
 
   /**
@@ -303,8 +305,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Perform the database query. If nothing found, we are done.
     final Set<PluginType> convertedPluginTypes = pluginTypes.stream()
         .map(ExecutablePluginType::toPluginType).collect(Collectors.toSet());
-    final AbstractMetisPlugin uncastResult = getFirstOrLastFinishedPlugin(datasetId,
-        convertedPluginTypes, false);
+    final AbstractMetisPlugin uncastResult = Optional
+        .ofNullable(getFirstOrLastFinishedPlugin(datasetId, convertedPluginTypes, false))
+        .map(PluginWithExecutionId::getPlugin).orElse(null);
     if (uncastResult == null) {
       return null;
     }
@@ -327,7 +330,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return result;
   }
 
-  AbstractMetisPlugin getFirstOrLastFinishedPlugin(String datasetId,
+  PluginWithExecutionId<AbstractMetisPlugin> getFirstOrLastFinishedPlugin(String datasetId,
       Set<PluginType> pluginTypes, boolean firstFinished) {
 
     // Verify the plugin types
@@ -366,14 +369,41 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
                 .aggregate(WorkflowExecution.class));
 
     // Because of the unwind, we know that the plugin we need is always the first one.
-    return Optional.ofNullable(metisPluginsIterator)
-        .filter(Iterator::hasNext).map(Iterator::next).map(WorkflowExecution::getMetisPlugins)
-        .filter(plugins -> !plugins.isEmpty()).map(plugins -> plugins.get(0)).orElse(null);
+    return Optional.ofNullable(metisPluginsIterator).filter(Iterator::hasNext).map(Iterator::next)
+        .filter(execution -> !execution.getMetisPlugins().isEmpty())
+        .map(execution -> new PluginWithExecutionId<AbstractMetisPlugin>(
+            execution.getId().toString(), execution.getMetisPlugins().get(0)))
+        .orElse(null);
   }
 
   private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum> set) {
     if (set == null || set.isEmpty() || set.stream().anyMatch(Objects::isNull)) {
       throw new IllegalArgumentException();
+    }
+  }
+
+  /**
+   * This object contains a pair consisting of a workflow execution ID and a plugin.
+   *
+   * @param <T> The plugin type.
+   */
+  public static class PluginWithExecutionId<T extends AbstractMetisPlugin> {
+
+    private final String executionId;
+    private final T plugin;
+
+    PluginWithExecutionId(String executionId, T plugin) {
+      super();
+      this.executionId = executionId;
+      this.plugin = plugin;
+    }
+
+    public String getExecutionId() {
+      return executionId;
+    }
+
+    public T getPlugin() {
+      return plugin;
     }
   }
 
