@@ -12,6 +12,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -288,10 +289,12 @@ public class WorkflowUtils {
     final Set<ExecutablePluginType> predecessorTypes = Optional.ofNullable(enforcedPredecessorType)
         .<Set<ExecutablePluginType>>map(EnumSet::of).orElse(defaultPredecessorTypes);
 
-    // Find the latest successful harvest to compare with.
-    final ExecutablePlugin latestHarvest =
-        Optional.ofNullable(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
-            HARVEST_PLUGIN_GROUP, true)).map(PluginWithExecutionId::getPlugin).orElse(null);
+    // Find the latest successful harvest to compare with. If none exist, throw exception.
+    final ExecutablePlugin latestHarvest = Optional
+        .ofNullable(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
+            HARVEST_PLUGIN_GROUP, true))
+        .map(PluginWithExecutionId::getPlugin).orElseThrow(
+            () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
 
     // Find the latest successful plugin of each type and filter on existence of successful records.
     final Stream<PluginWithExecutionId<ExecutablePlugin>> latestSuccessfulPlugins = predecessorTypes
@@ -306,15 +309,30 @@ public class WorkflowUtils {
                 .orElse(new Date(Long.MIN_VALUE)),
             Comparator.reverseOrder()));
         
-    // Find the first plugin. If none found, throw exception.
-    return sortedSuccessfulPlugins.map(PluginWithExecutionId::getPlugin).findFirst().orElseThrow(
-        () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
+    // Find the first plugin that satisfies the root check. If none found, throw exception.
+    return sortedSuccessfulPlugins.filter(plugin -> rootAncestorEquals(plugin, latestHarvest))
+        .map(PluginWithExecutionId::getPlugin).findFirst().orElseThrow(
+            () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
   }
 
   private static boolean pluginHasSuccessfulRecords(
       PluginWithExecutionId<ExecutablePlugin> plugin) {
     final ExecutionProgress progress = plugin.getPlugin().getExecutionProgress();
     return progress != null && progress.getProcessedRecords() > progress.getErrors();
+  }
+  
+  private boolean rootAncestorEquals(PluginWithExecutionId<ExecutablePlugin> plugin,
+      ExecutablePlugin targetRoot) {
+    
+    // Compute the root of the plugin: either the first 
+    final WorkflowExecution execution = workflowExecutionDao.getById(plugin.getExecutionId());
+    final List<Pair<ExecutablePlugin, WorkflowExecution>> evolution =
+        compileVersionEvolution(plugin.getPlugin(), execution);
+    final ExecutablePlugin foundRoot =
+        evolution.stream().map(Pair::getLeft).findFirst().orElse(plugin.getPlugin());
+
+    // Check that the roots are equal.
+    return foundRoot.getId().equals(targetRoot.getId());
   }
 
   /**
@@ -375,26 +393,26 @@ public class WorkflowUtils {
    * @param targetPluginExecution The execution in which this target plugin may be found.
    * @return The evolution.
    */
-  public List<Pair<AbstractExecutablePlugin, WorkflowExecution>> compileVersionEvolution(
-      AbstractMetisPlugin targetPlugin, WorkflowExecution targetPluginExecution) {
+  public List<Pair<ExecutablePlugin, WorkflowExecution>> compileVersionEvolution(
+      MetisPlugin targetPlugin, WorkflowExecution targetPluginExecution) {
 
     // Loop backwards to find the plugin. Don't add the first plugin to the result list.
-    Pair<AbstractMetisPlugin, WorkflowExecution> currentExecutionAndPlugin = new ImmutablePair<>(
+    Pair<MetisPlugin, WorkflowExecution> currentExecutionAndPlugin = new ImmutablePair<>(
         targetPlugin, targetPluginExecution);
-    final ArrayDeque<Pair<AbstractExecutablePlugin, WorkflowExecution>> evolutionSteps = new ArrayDeque<>();
+    final ArrayDeque<Pair<ExecutablePlugin, WorkflowExecution>> evolutionSteps = new ArrayDeque<>();
     while (true) {
 
       // Move to the previous execution: stop when we have none or it is not executable.
       currentExecutionAndPlugin = getPreviousExecutionAndPlugin(
           currentExecutionAndPlugin.getLeft(), currentExecutionAndPlugin.getRight().getDatasetId());
       if (currentExecutionAndPlugin == null || !(currentExecutionAndPlugin
-          .getLeft() instanceof AbstractExecutablePlugin)) {
+          .getLeft() instanceof ExecutablePlugin)) {
         break;
       }
 
       // Add step to the beginning of the list.
       evolutionSteps.addFirst(new ImmutablePair<>(
-          (AbstractExecutablePlugin<?>) currentExecutionAndPlugin.getLeft(),
+          (ExecutablePlugin<?>) currentExecutionAndPlugin.getLeft(),
           currentExecutionAndPlugin.getRight()));
     }
 
@@ -402,7 +420,7 @@ public class WorkflowUtils {
     return new ArrayList<>(evolutionSteps);
   }
 
-  Pair<AbstractMetisPlugin, WorkflowExecution> getPreviousExecutionAndPlugin(AbstractMetisPlugin plugin,
+  Pair<MetisPlugin, WorkflowExecution> getPreviousExecutionAndPlugin(MetisPlugin plugin,
       String datasetId) {
 
     // Check whether we are at the end of the chain.

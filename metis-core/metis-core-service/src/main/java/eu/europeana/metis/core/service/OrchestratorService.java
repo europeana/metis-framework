@@ -26,7 +26,6 @@ import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
-import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
@@ -754,12 +753,12 @@ public class OrchestratorService {
                 pluginType.name(), execution)));
 
     // Compile the version evolution.
-    final Collection<Pair<AbstractExecutablePlugin, WorkflowExecution>> evolutionSteps = workflowUtils
+    final Collection<Pair<ExecutablePlugin, WorkflowExecution>> evolutionSteps = workflowUtils
         .compileVersionEvolution(targetPlugin, execution);
     final VersionEvolution versionEvolution = new VersionEvolution();
     versionEvolution.setEvolutionSteps(evolutionSteps.stream().map(step-> {
       final VersionEvolutionStep evolutionStep = new VersionEvolutionStep();
-      final AbstractExecutablePlugin<?> plugin = step.getLeft();
+      final ExecutablePlugin<?> plugin = step.getLeft();
       evolutionStep.setWorkflowExecutionId(step.getRight().getId().toString());
       evolutionStep.setPluginType(plugin.getPluginMetadata().getExecutablePluginType());
       evolutionStep.setFinishedTime(plugin.getFinishedDate());
