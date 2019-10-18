@@ -32,6 +32,7 @@ import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
+import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
@@ -335,31 +336,44 @@ public class OrchestratorService {
           String.format("No workflow found with datasetId: %s, in METIS", dataset.getDatasetId()));
     }
 
+    // Validate the workflow and obtain the predecessor.
+    final ExecutablePlugin predecessor = workflowUtils
+        .validateWorkflowPlugins(workflow, enforcedPredecessorType);
+    
     // Make sure that eCloud knows this dataset (needs to happen before we create the workflow).
     datasetDao.checkAndCreateDatasetInEcloud(dataset);
-
+    
     // Create the workflow execution (without adding it to the database).
     final WorkflowExecution workflowExecution = workflowExecutionFactory
-        .createWorkflowExecution(workflow, dataset, enforcedPredecessorType, priority);
+        .createWorkflowExecution(workflow, dataset, predecessor, priority);
 
-    // Add the workflow execution to the queue.
-    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    // Obtain the lock.
     RLock executionDatasetIdLock = redissonClient
         .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
     executionDatasetIdLock.lock();
-    String storedWorkflowExecutionId = workflowExecutionDao
-        .existsAndNotCompleted(dataset.getDatasetId());
-    if (storedWorkflowExecutionId != null) {
+    
+    // Add the workflow execution to the database. Then release the lock.
+    final String objectId;
+    try {
+      String storedWorkflowExecutionId =
+          workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId());
+      if (storedWorkflowExecutionId != null) {
+        throw new WorkflowExecutionAlreadyExistsException(
+            String.format("Workflow execution already exists with id %s and is not completed",
+                storedWorkflowExecutionId));
+      }
+      workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+      workflowExecution.setCreatedDate(new Date());
+      objectId = workflowExecutionDao.create(workflowExecution);
+    } finally {
       executionDatasetIdLock.unlock();
-      throw new WorkflowExecutionAlreadyExistsException(
-          String.format("Workflow execution already exists with id %s and is not completed",
-              storedWorkflowExecutionId));
     }
-    workflowExecution.setCreatedDate(new Date());
-    String objectId = workflowExecutionDao.create(workflowExecution);
-    executionDatasetIdLock.unlock();
+    
+    // Add the workflow execution to the queue.
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("WorkflowExecution with id: {}, added to execution queue", objectId);
+    
+    // Done. Get a fresh copy of the workflow execution to return.
     return workflowExecutionDao.getById(objectId);
   }
 
@@ -417,8 +431,8 @@ public class OrchestratorService {
 
   /**
    * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
-   * there was a previous successful finished plugin that follows a specific order unless the {@code
-   * enforcedPredecessorType} is used.
+   * there was a previous successful finished plugin that follows a specific order (unless the {@code
+   * enforcedPredecessorType} is used) and that has the latest successful harvest plugin as an ancestor.
    *
    * @param metisUser the user wishing to perform this operation
    * @param datasetId the dataset identifier of which the executions are based on
@@ -435,11 +449,11 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public AbstractExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+  public ExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
       MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    return workflowUtils.getPredecessorPlugin(pluginType, enforcedPredecessorType, datasetId);
+    return workflowUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId);
   }
 
   /**
@@ -543,17 +557,17 @@ public class OrchestratorService {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
     // Obtain the relevant parts of the execution history
-    final AbstractExecutablePlugin lastHarvestPlugin = workflowExecutionDao
-        .getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false);
-    final AbstractMetisPlugin firstPublishPlugin = workflowExecutionDao
+    final ExecutablePlugin lastHarvestPlugin = workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false).getPlugin();
+    final MetisPlugin firstPublishPlugin = workflowExecutionDao
         .getFirstSuccessfulPlugin(datasetId, PUBLISH_TYPES);
-    final AbstractExecutablePlugin lastExecutablePreviewPlugin = workflowExecutionDao
-        .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PREVIEW_TYPES, false);
-    final AbstractExecutablePlugin lastExecutablePublishPlugin = workflowExecutionDao
-        .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PUBLISH_TYPES, false);
-    final AbstractMetisPlugin lastPreviewPlugin = workflowExecutionDao
+    final ExecutablePlugin lastExecutablePreviewPlugin = workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PREVIEW_TYPES, false).getPlugin();
+    final ExecutablePlugin lastExecutablePublishPlugin = workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PUBLISH_TYPES, false).getPlugin();
+    final MetisPlugin lastPreviewPlugin = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PREVIEW_TYPES);
-    final AbstractMetisPlugin lastPublishPlugin = workflowExecutionDao
+    final MetisPlugin lastPublishPlugin = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PUBLISH_TYPES);
 
     // Obtain the relevant current executions
@@ -606,9 +620,9 @@ public class OrchestratorService {
     return executionInfo;
   }
 
-  private boolean isPreviewOrPublishReadyForViewing(AbstractMetisPlugin plugin, Date now) {
-    final boolean dataIsValid = !(plugin instanceof AbstractExecutablePlugin)
-        || ExecutablePlugin.getDataStatus((AbstractExecutablePlugin) plugin) == DataStatus.VALID;
+  private boolean isPreviewOrPublishReadyForViewing(MetisPlugin plugin, Date now) {
+    final boolean dataIsValid = !(plugin instanceof ExecutablePlugin)
+        || ExecutablePlugin.getDataStatus((ExecutablePlugin) plugin) == DataStatus.VALID;
     final boolean enoughTimeHasPassed = getSolrCommitPeriodInMins() <
         DateUtils.calculateDateDifference(plugin.getFinishedDate(), now, TimeUnit.MINUTES);
     return dataIsValid && enoughTimeHasPassed;

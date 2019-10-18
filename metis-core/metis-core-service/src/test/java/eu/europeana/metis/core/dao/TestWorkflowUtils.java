@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
-
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -86,74 +86,75 @@ class TestWorkflowUtils {
   }
 
   @Test
-  void testGetPredecessorPlugin_HarvestPlugin() throws PluginExecutionNotAllowed {
+  void testComputePredecessorPlugin_HarvestPlugin() throws PluginExecutionNotAllowed {
     assertNull(
-        workflowUtils.getPredecessorPlugin(ExecutablePluginType.OAIPMH_HARVEST, null, DATASET_ID));
+        workflowUtils.computePredecessorPlugin(ExecutablePluginType.OAIPMH_HARVEST, null, DATASET_ID));
     assertNull(
-        workflowUtils.getPredecessorPlugin(ExecutablePluginType.HTTP_HARVEST, null, DATASET_ID));
-    assertNull(workflowUtils.getPredecessorPlugin(ExecutablePluginType.OAIPMH_HARVEST,
+        workflowUtils.computePredecessorPlugin(ExecutablePluginType.HTTP_HARVEST, null, DATASET_ID));
+    assertNull(workflowUtils.computePredecessorPlugin(ExecutablePluginType.OAIPMH_HARVEST,
         ExecutablePluginType.TRANSFORMATION, DATASET_ID));
-    assertNull(workflowUtils.getPredecessorPlugin(ExecutablePluginType.HTTP_HARVEST,
+    assertNull(workflowUtils.computePredecessorPlugin(ExecutablePluginType.HTTP_HARVEST,
         ExecutablePluginType.TRANSFORMATION, DATASET_ID));
     Mockito.verify(workflowExecutionDao, Mockito.never())
         .getLatestSuccessfulExecutablePlugin(anyString(), any(), anyBoolean());
   }
 
   @Test
-  void testGetPredecessorPlugin_EnforcedPluginType() throws PluginExecutionNotAllowed {
+  void testComputePredecessorPlugin_EnforcedPluginType() throws PluginExecutionNotAllowed {
 
     // Create plugin object
     final AbstractExecutablePlugin plugin = ExecutablePluginFactory
         .createPlugin(new OaipmhHarvestPluginMetadata());
-    doReturn(plugin).when(workflowExecutionDao).getLatestSuccessfulExecutablePlugin(DATASET_ID,
-        EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST),true);
+    doReturn(new PluginWithExecutionId<>("", plugin)).when(workflowExecutionDao)
+        .getLatestSuccessfulExecutablePlugin(DATASET_ID,
+            EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), true);
 
     // Test without errors
     plugin.setExecutionProgress(new ExecutionProgress());
     plugin.getExecutionProgress().setProcessedRecords(1);
     plugin.getExecutionProgress().setErrors(0);
-    assertSame(plugin, workflowUtils.getPredecessorPlugin(ExecutablePluginType.TRANSFORMATION,
+    assertSame(plugin, workflowUtils.computePredecessorPlugin(ExecutablePluginType.TRANSFORMATION,
         ExecutablePluginType.OAIPMH_HARVEST, DATASET_ID));
 
     // Test with errors
     plugin.getExecutionProgress().setErrors(1);
-    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.getPredecessorPlugin(
+    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.computePredecessorPlugin(
         ExecutablePluginType.TRANSFORMATION, ExecutablePluginType.OAIPMH_HARVEST, DATASET_ID));
     
     // Test without progress information
     plugin.setExecutionProgress(null);
-    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.getPredecessorPlugin(
+    assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.computePredecessorPlugin(
         ExecutablePluginType.TRANSFORMATION, ExecutablePluginType.OAIPMH_HARVEST, DATASET_ID));
   }
 
   @Test
-  void testGetPredecessorPlugin() throws PluginExecutionNotAllowed {
+  void testComputePredecessorPlugin() throws PluginExecutionNotAllowed {
     final Set<ExecutablePluginType> pluginTypesSetThatPluginTypeCanBeBasedOn;
     pluginTypesSetThatPluginTypeCanBeBasedOn = new HashSet<>(
         WorkflowUtils.getHarvestPluginGroup());
-    testGetPredecessorPlugin(new ValidationExternalPluginMetadata(),
+    testComputePredecessorPlugin(new ValidationExternalPluginMetadata(),
         pluginTypesSetThatPluginTypeCanBeBasedOn);
-    testGetPredecessorPlugin(new TransformationPluginMetadata(),
+    testComputePredecessorPlugin(new TransformationPluginMetadata(),
         EnumSet.of(ExecutablePluginType.VALIDATION_EXTERNAL));
-    testGetPredecessorPlugin(new ValidationInternalPluginMetadata(),
+    testComputePredecessorPlugin(new ValidationInternalPluginMetadata(),
         EnumSet.of(ExecutablePluginType.TRANSFORMATION));
-    testGetPredecessorPlugin(new NormalizationPluginMetadata(),
+    testComputePredecessorPlugin(new NormalizationPluginMetadata(),
         EnumSet.of(ExecutablePluginType.VALIDATION_INTERNAL));
-    testGetPredecessorPlugin(new EnrichmentPluginMetadata(),
+    testComputePredecessorPlugin(new EnrichmentPluginMetadata(),
         EnumSet.of(ExecutablePluginType.NORMALIZATION));
-    testGetPredecessorPlugin(new MediaProcessPluginMetadata(),
+    testComputePredecessorPlugin(new MediaProcessPluginMetadata(),
         EnumSet.of(ExecutablePluginType.ENRICHMENT));
-    testGetPredecessorPlugin(new IndexToPreviewPluginMetadata(),
+    testComputePredecessorPlugin(new IndexToPreviewPluginMetadata(),
         EnumSet.of(ExecutablePluginType.MEDIA_PROCESS));
-    testGetPredecessorPlugin(new IndexToPublishPluginMetadata(),
+    testComputePredecessorPlugin(new IndexToPublishPluginMetadata(),
         EnumSet.of(ExecutablePluginType.PREVIEW));
-    testGetPredecessorPlugin(new LinkCheckingPluginMetadata(),
+    testComputePredecessorPlugin(new LinkCheckingPluginMetadata(),
         WorkflowUtils.getAllExceptLinkGroup());
-    testGetPredecessorPlugin(new HTTPHarvestPluginMetadata(), Collections.emptySet());
-    testGetPredecessorPlugin(new OaipmhHarvestPluginMetadata(), Collections.emptySet());
+    testComputePredecessorPlugin(new HTTPHarvestPluginMetadata(), Collections.emptySet());
+    testComputePredecessorPlugin(new OaipmhHarvestPluginMetadata(), Collections.emptySet());
   }
 
-  private void testGetPredecessorPlugin(ExecutablePluginMetadata metadata,
+  private void testComputePredecessorPlugin(ExecutablePluginMetadata metadata,
       Set<ExecutablePluginType> finishedPlugins) throws PluginExecutionNotAllowed {
     final AbstractExecutablePlugin plugin;
     if (!finishedPlugins.isEmpty()) {
@@ -163,29 +164,31 @@ class TestWorkflowUtils {
       plugin.setExecutionProgress(new ExecutionProgress());
       plugin.getExecutionProgress().setProcessedRecords(1);
       plugin.getExecutionProgress().setErrors(0);
-      when(workflowExecutionDao
-          .getLatestSuccessfulExecutablePlugin(DATASET_ID, finishedPlugins, true))
-          .thenReturn(plugin);
+      for (ExecutablePluginType finishedPlugin:finishedPlugins) {
+        when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(DATASET_ID,
+            Collections.singleton(finishedPlugin), true))
+                .thenReturn(new PluginWithExecutionId<>("", plugin));
+      }
       assertSame(plugin, workflowUtils
-          .getPredecessorPlugin(metadata.getExecutablePluginType(), null, DATASET_ID));
+          .computePredecessorPlugin(metadata.getExecutablePluginType(), null, DATASET_ID));
 
       // Test with errors
       plugin.getExecutionProgress().setErrors(1);
-      assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.getPredecessorPlugin(
+      assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.computePredecessorPlugin(
           metadata.getExecutablePluginType(), null, DATASET_ID));
       
       // Test without progress information
       plugin.setExecutionProgress(null);
-      assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.getPredecessorPlugin(
+      assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.computePredecessorPlugin(
           metadata.getExecutablePluginType(), null, DATASET_ID));
     } else {
-      assertNull(workflowUtils.getPredecessorPlugin(metadata.getExecutablePluginType(), null,
+      assertNull(workflowUtils.computePredecessorPlugin(metadata.getExecutablePluginType(), null,
           DATASET_ID));
     }
   }
 
   @Test
-  void testGetPredecessorPluginForWorkflowExecution() {
+  void testComputePredecessorPluginForWorkflowExecution() {
     
     // Add non executable plugin.
     final List<AbstractMetisPlugin> plugins = new ArrayList<>();
@@ -219,15 +222,15 @@ class TestWorkflowUtils {
   
     // Execute the call expecting a successful result.
     assertSame(lastCandidate,
-        WorkflowUtils.getPredecessorPlugin(ExecutablePluginType.MEDIA_PROCESS, workflowExecution));
+        WorkflowUtils.computePredecessorPlugin(ExecutablePluginType.MEDIA_PROCESS, workflowExecution));
 
     // Execute the call for plugin type not requiring predecessor
     assertNull(
-        WorkflowUtils.getPredecessorPlugin(ExecutablePluginType.HTTP_HARVEST, workflowExecution));
+        WorkflowUtils.computePredecessorPlugin(ExecutablePluginType.HTTP_HARVEST, workflowExecution));
 
     // Execute the call for failed result
     assertThrows(IllegalArgumentException.class,
-        () -> WorkflowUtils.getPredecessorPlugin(ExecutablePluginType.PUBLISH, workflowExecution));
+        () -> WorkflowUtils.computePredecessorPlugin(ExecutablePluginType.PUBLISH, workflowExecution));
   }
   
   @Test
@@ -241,7 +244,7 @@ class TestWorkflowUtils {
     predecessor.getExecutionProgress().setProcessedRecords(1);
     predecessor.getExecutionProgress().setErrors(0);
     doReturn(predecessor).when(workflowUtils)
-        .getPredecessorPlugin(any(), eq(predecessorType), eq(DATASET_ID));
+        .computePredecessorPlugin(any(), eq(predecessorType), eq(DATASET_ID));
 
     // Test allowed workflow
     assertSame(predecessor, workflowUtils.validateWorkflowPlugins(createWorkflow(
@@ -298,7 +301,7 @@ class TestWorkflowUtils {
     
     // Test workflow with bad predecessor
     doThrow(PluginExecutionNotAllowed.class).when(workflowUtils)
-        .getPredecessorPlugin(any(), eq(predecessorType), eq(DATASET_ID));
+        .computePredecessorPlugin(any(), eq(predecessorType), eq(DATASET_ID));
     assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.validateWorkflowPlugins(
         createWorkflow(ExecutablePluginType.ENRICHMENT, ExecutablePluginType.OAIPMH_HARVEST),
         predecessorType));

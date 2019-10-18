@@ -205,7 +205,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       if (metadata.getRevisionTimestampPreviousPlugin() == null
           || metadata.getRevisionNamePreviousPlugin() == null) {
         final AbstractExecutablePlugin predecessor = WorkflowUtils
-            .getPredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
+            .computePredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
         if (predecessor != null) {
           metadata.setPreviousRevisionInformation(predecessor);
         }
