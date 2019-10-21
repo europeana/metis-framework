@@ -31,23 +31,32 @@ public enum VideoDuration implements FacetValue {
   }
 
   /**
+   * Categorize the video duration.
+   *
+   * @param videoDuration The video duration.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static VideoDuration categorizeVideoDuration(final Long videoDuration) {
+    final VideoDuration result;
+    if (videoDuration == null || videoDuration <= 0L) {
+      result = null;
+    } else if (videoDuration <= VIDEO_MEDIUM_DURATION) {
+      result = SHORT;
+    } else if (videoDuration <= VIDEO_LONG_DURATION) {
+      result = MEDIUM;
+    } else {
+      result = LONG;
+    }
+    return result;
+  }
+
+  /**
    * Categorize the duration of the given video.
    *
    * @param webResource The web resource.
    * @return The category, or null if none of the categories apply.
    */
   public static VideoDuration categorizeVideoDuration(final WebResourceWrapper webResource) {
-    final long duration = webResource.getDuration();
-    final VideoDuration result;
-    if (duration == 0L) {
-      result = null;
-    } else if (duration <= VIDEO_MEDIUM_DURATION) {
-      result = SHORT;
-    } else if (duration <= VIDEO_LONG_DURATION) {
-      result = MEDIUM;
-    } else {
-      result = LONG;
-    }
-    return result;
+    return categorizeVideoDuration(webResource.getDuration());
   }
 }

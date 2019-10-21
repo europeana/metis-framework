@@ -41,29 +41,40 @@ public enum AudioQuality implements FacetValue {
   }
 
   /**
+   * Categorize the quality.
+   *
+   * @param isHighQuality Whether the audio is high quality.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static AudioQuality categorizeAudioQuality(boolean isHighQuality) {
+    return isHighQuality ? HIGH : null;
+  }
+
+  /**
+   * Categorize the quality.
+   *
+   * @param sampleSize The sample size.
+   * @param sampleRate The sample rate.
+   * @param codecName The codec name.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static AudioQuality categorizeAudioQuality(long sampleSize, long sampleRate,
+      String codecName) {
+    final boolean highDefSampling = sampleSize >= AUDIO_HIGH_QUALITY_SAMPLE_SIZE
+        && sampleRate >= AUDIO_HIGH_QUALITY_SAMPLE_RATE;
+    final boolean losslessFile = codecName != null
+        && LOSSLESS_AUDIO_FILE_TYPES.contains(codecName.toLowerCase(Locale.ENGLISH).trim());
+    return categorizeAudioQuality(highDefSampling || losslessFile);
+  }
+
+  /**
    * Categorize the quality of the given audio.
    *
    * @param webResource The web resource.
    * @return The category, or null if none of the categories apply.
    */
   public static AudioQuality categorizeAudioQuality(final WebResourceWrapper webResource) {
-
-    // Determine whether the format is high-definition sampling or lossless.
-    final long sampleSize = webResource.getSampleSize();
-    final long sampleRate = webResource.getSampleRate();
-    final String codecName = webResource.getCodecName();
-    final boolean highDefSampling = sampleSize >= AUDIO_HIGH_QUALITY_SAMPLE_SIZE
-        && sampleRate >= AUDIO_HIGH_QUALITY_SAMPLE_RATE;
-    final boolean losslessFile = codecName != null
-        && LOSSLESS_AUDIO_FILE_TYPES.contains(codecName.toLowerCase(Locale.ENGLISH).trim());
-
-    // Classify.
-    final AudioQuality result;
-    if (highDefSampling || losslessFile) {
-      result = HIGH;
-    } else {
-      result = null;
-    }
-    return result;
+    return categorizeAudioQuality(webResource.getSampleSize(), webResource.getSampleRate(),
+        webResource.getCodecName());
   }
 }
