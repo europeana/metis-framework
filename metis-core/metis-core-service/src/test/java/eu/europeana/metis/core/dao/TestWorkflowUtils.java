@@ -142,7 +142,7 @@ class TestWorkflowUtils {
       // Create some objects.
       final AbstractExecutablePlugin rootPlugin = mock(AbstractExecutablePlugin.class);
       final String rootPluginId = "root plugin ID";
-      doReturn(rootPluginId).when(rootPlugin).getId();
+      when(rootPlugin.getId()).thenReturn(rootPluginId);
       final WorkflowExecution predecessorExecution = new WorkflowExecution();
       final ObjectId predecessorExecutionId = new ObjectId(new Date(1));
       predecessorExecution.setId(predecessorExecutionId);
@@ -162,6 +162,7 @@ class TestWorkflowUtils {
         recentPredecessorPlugin = predecessorPlugin;
         counter++;
       }
+      assertNotNull(recentPredecessorPlugin);
       when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(DATASET_ID,
           WorkflowUtils.getHarvestPluginGroup(), true))
               .thenReturn(new PluginWithExecutionId<>("", rootPlugin));
@@ -181,7 +182,7 @@ class TestWorkflowUtils {
       // Test when root plugin doesn't match
       final AbstractExecutablePlugin otherRootPlugin = mock(AbstractExecutablePlugin.class);
       final String otherRootPluginId = "other root plugin ID";
-      doReturn(otherRootPluginId).when(otherRootPlugin).getId();
+      when (otherRootPlugin.getId()).thenReturn(otherRootPluginId);
       when(workflowUtils.compileVersionEvolution(recentPredecessorPlugin, predecessorExecution))
           .thenReturn(Collections.singletonList(ImmutablePair.of(otherRootPlugin, null)));
       assertThrows(PluginExecutionNotAllowed.class,
@@ -202,8 +203,9 @@ class TestWorkflowUtils {
       assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.computePredecessorPlugin(
           metadata.getExecutablePluginType(), enforcedPluginType, DATASET_ID));
     } else {
-      assertNull(workflowUtils.computePredecessorPlugin(metadata.getExecutablePluginType(), null,
-          DATASET_ID));
+      assertNull(workflowUtils
+          .computePredecessorPlugin(metadata.getExecutablePluginType(), enforcedPluginType,
+              DATASET_ID));
     }
   }
 
@@ -315,7 +317,7 @@ class TestWorkflowUtils {
         ExecutablePluginType.ENRICHMENT, ExecutablePluginType.MEDIA_PROCESS);
     assertSame(predecessor, workflowUtils.validateWorkflowPlugins(workflowWithDisabledPlugins,
         predecessorType));
-    doReturn(false).when(workflowWithDisabledPlugins.getMetisPluginsMetadata().get(1)).isEnabled();
+    when(workflowWithDisabledPlugins.getMetisPluginsMetadata().get(1).isEnabled()).thenReturn(false);
     assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.validateWorkflowPlugins(
         workflowWithDisabledPlugins, predecessorType));
     
@@ -332,7 +334,7 @@ class TestWorkflowUtils {
     workflow.setDatasetId(DATASET_ID);
     workflow.setMetisPluginsMetadata(Arrays.stream(pluginTypes).map(type -> {
       final AbstractExecutablePluginMetadata plugin = mock(AbstractExecutablePluginMetadata.class);
-      doReturn(true).when(plugin).isEnabled();
+      when(plugin.isEnabled()).thenReturn(true);
       doReturn(type).when(plugin).getExecutablePluginType();
       return plugin;
     }).collect(Collectors.toList()));

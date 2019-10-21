@@ -17,7 +17,6 @@ import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
-import eu.europeana.metis.exception.GenericMetisException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -43,7 +42,6 @@ public class WorkflowExecutionFactory {
   /**
    * Constructor with parameters required to support the {@link OrchestratorService}
    *
-   * @param workflowUtils the utils instance to access workflow validation
    * @param datasetXsltDao the Dao instance to access the dataset xslts
    */
   public WorkflowExecutionFactory(DatasetXsltDao datasetXsltDao) {
@@ -53,7 +51,7 @@ public class WorkflowExecutionFactory {
   // Expect the dataset to be synced with eCloud.
   // Does not save the workflow execution.
   WorkflowExecution createWorkflowExecution(Workflow workflow, Dataset dataset,
-      ExecutablePlugin predecessor, int priority) throws GenericMetisException {
+      ExecutablePlugin predecessor, int priority) {
 
     // Create the plugins
     final List<AbstractExecutablePlugin> workflowPlugins = workflow.getMetisPluginsMetadata()
@@ -69,8 +67,8 @@ public class WorkflowExecutionFactory {
     return new WorkflowExecution(dataset, workflowPlugins, priority);
   }
 
-  AbstractExecutablePlugin createWorkflowPlugin(AbstractExecutablePluginMetadata pluginMetadata,
-      Dataset dataset) {
+  private AbstractExecutablePlugin createWorkflowPlugin(
+      AbstractExecutablePluginMetadata pluginMetadata, Dataset dataset) {
 
     // Add some extra configuration to the plugin metadata depending on the type.
     if (pluginMetadata instanceof TransformationPluginMetadata){
