@@ -22,13 +22,12 @@ public enum ImageAspectRatio implements FacetValue {
   }
 
   /**
-   * Categorize the aspect ratio of the given image.
+   * Categorize the aspect ratio.
    *
-   * @param webResource The web resource.
+   * @param orientation The orientation.
    * @return The category, or null if none of the categories apply.
    */
-  public static ImageAspectRatio categorizeImageAspectRatio(final WebResourceWrapper webResource) {
-    final Orientation orientation = webResource.getOrientation();
+  public static ImageAspectRatio categorizeImageAspectRatio(Orientation orientation) {
     final ImageAspectRatio result;
     if (Orientation.PORTRAIT == orientation) {
       result = PORTRAIT;
@@ -38,5 +37,15 @@ public enum ImageAspectRatio implements FacetValue {
       result = null;
     }
     return result;
+  }
+
+  /**
+   * Categorize the aspect ratio of the given image.
+   *
+   * @param webResource The web resource.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static ImageAspectRatio categorizeImageAspectRatio(final WebResourceWrapper webResource) {
+    return categorizeImageAspectRatio(webResource.getOrientation());
   }
 }

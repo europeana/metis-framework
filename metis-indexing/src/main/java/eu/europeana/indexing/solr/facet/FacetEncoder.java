@@ -59,19 +59,11 @@ public class FacetEncoder {
    */
   public final Set<Integer> getFacetFilterCodes(WebResourceWrapper webResource) {
 
-    // Get and check the media type.
-    final EncodedFacetCollection facets = EncodedFacetCollection.get(webResource);
-    if (facets == null) {
-      return Collections.emptySet();
-    }
-
     // Get all the individual codes from all the facets.
-    final List<Set<Integer>> codes = facets.getFacets().stream()
-        .map(facet -> ((EncodedFacet<?>) facet).encodeValues(webResource))
-        .filter(set -> !set.isEmpty()).collect(Collectors.toList());
+    final List<Set<Integer>> codes = compileIntegerSets(webResource);
 
-    // Find all the combinations.
-    return getFacetFilterCodes(getShiftedMediaTypeCode(facets), codes);
+    // Find all the combinations; make sure there is always the media type value 'or'-ed into them.
+    return getFacetFilterCodes(EncodedFacetCollection.get(webResource), codes);
   }
 
   /**
@@ -85,11 +77,9 @@ public class FacetEncoder {
    */
   public final Set<Integer> getAudioFacetFilterCodes(Set<MimeTypeEncoding> mimeTypes,
       Set<AudioQuality> audioQualities, Set<AudioDuration> audioDurations) {
-    final List<Set<Integer>> codes = Arrays.asList(
-        compileIntegerSet(EncodedFacet.MIME_TYPE, mimeTypes),
-        compileIntegerSet(EncodedFacet.AUDIO_QUALITY, audioQualities),
-        compileIntegerSet(EncodedFacet.AUDIO_DURATION, audioDurations));
-    return getFacetFilterCodes(getShiftedMediaTypeCode(EncodedFacetCollection.AUDIO), codes);
+    final List<Set<Integer>> codes = compileAudioIntegerSets(mimeTypes, audioQualities,
+        audioDurations);
+    return getFacetFilterCodes(EncodedFacetCollection.AUDIO, codes);
   }
 
   /**
@@ -103,11 +93,9 @@ public class FacetEncoder {
    */
   public final Set<Integer> getVideoFacetFilterCodes(Set<MimeTypeEncoding> mimeTypes,
       Set<VideoQuality> videoQualities, Set<VideoDuration> videoDurations) {
-    final List<Set<Integer>> codes = Arrays.asList(
-        compileIntegerSet(EncodedFacet.MIME_TYPE, mimeTypes),
-        compileIntegerSet(EncodedFacet.VIDEO_QUALITY, videoQualities),
-        compileIntegerSet(EncodedFacet.VIDEO_DURATION, videoDurations));
-    return getFacetFilterCodes(getShiftedMediaTypeCode(EncodedFacetCollection.VIDEO), codes);
+    final List<Set<Integer>> codes = compileVideoIntegerSets(mimeTypes, videoQualities,
+        videoDurations);
+    return getFacetFilterCodes(EncodedFacetCollection.VIDEO, codes);
   }
 
   /**
@@ -124,13 +112,9 @@ public class FacetEncoder {
   public final Set<Integer> getImageFacetFilterCodes(Set<MimeTypeEncoding> mimeTypes,
       Set<ImageSize> imageSizes, Set<ImageColorSpace> imageColorSpaces,
       Set<ImageAspectRatio> imageAspectRatios, Set<ImageColorEncoding> imageColorEncodings) {
-    final List<Set<Integer>> codes = Arrays.asList(
-        compileIntegerSet(EncodedFacet.MIME_TYPE, mimeTypes),
-        compileIntegerSet(EncodedFacet.IMAGE_SIZE, imageSizes),
-        compileIntegerSet(EncodedFacet.IMAGE_COLOR_SPACE, imageColorSpaces),
-        compileIntegerSet(EncodedFacet.IMAGE_ASPECT_RATIO, imageAspectRatios),
-        compileIntegerSet(EncodedFacet.IMAGE_COLOR_ENCODING, imageColorEncodings));
-    return getFacetFilterCodes(getShiftedMediaTypeCode(EncodedFacetCollection.IMAGE), codes);
+    final List<Set<Integer>> codes = compileImageIntegerSets(mimeTypes, imageSizes,
+        imageColorSpaces, imageAspectRatios, imageColorEncodings);
+    return getFacetFilterCodes(EncodedFacetCollection.IMAGE, codes);
   }
 
   /**
@@ -141,21 +125,16 @@ public class FacetEncoder {
    * @return The set of facet codes.
    */
   public final Set<Integer> getTextFacetFilterCodes(Set<MimeTypeEncoding> mimeTypes) {
-    final List<Set<Integer>> codes = Collections.singletonList(
-        compileIntegerSet(EncodedFacet.MIME_TYPE, mimeTypes));
-    return getFacetFilterCodes(getShiftedMediaTypeCode(EncodedFacetCollection.TEXT), codes);
+    final List<Set<Integer>> codes = compileTextIntegerSets(mimeTypes);
+    return getFacetFilterCodes(EncodedFacetCollection.TEXT, codes);
   }
 
-  private static <T extends Enum<T> & FacetValue> Set<Integer> compileIntegerSet(
-      EncodedFacet<T> encodedFacet, Set<T> values) {
-    if (values == null) {
+  private static Set<Integer> getFacetFilterCodes(EncodedFacetCollection mediaType,
+      List<Set<Integer>> codes) {
+    if (mediaType == null) {
       return Collections.emptySet();
     }
-    return values.stream().filter(Objects::nonNull).map(encodedFacet::encodeValue)
-        .collect(Collectors.toSet());
-  }
-
-  private Set<Integer> getFacetFilterCodes(int shiftedMediaTypeCode, List<Set<Integer>> codes) {
+    final int shiftedMediaTypeCode = getShiftedMediaTypeCode(mediaType);
     return SetUtils.generateCombinations(codes, shiftedMediaTypeCode,
         (combination, code) -> combination | code);
   }
@@ -188,18 +167,131 @@ public class FacetEncoder {
    */
   public final Set<Integer> getFacetValueCodes(WebResourceWrapper webResource) {
 
-    // Get and check the media type.
-    final EncodedFacetCollection facets = EncodedFacetCollection.get(webResource);
-    if (facets == null) {
+    // Get all the individual codes from all the facets.
+    final List<Set<Integer>> codes = compileIntegerSets(webResource);
+
+    // Combine the codes and make sure there is always the media type value 'or'-ed into them.
+    return getFacetValueCodes(EncodedFacetCollection.get(webResource), codes);
+  }
+
+  /**
+   * This method returns all facet value codes for audio content. See {@link
+   * #getFacetValueCodes(WebResourceWrapper)} for the details.
+   *
+   * @param mimeTypes The mime types of the audio content.
+   * @param audioQualities The audio quality values of the audio content.
+   * @param audioDurations The audio duration values of the audio content.
+   * @return The set of facet codes.
+   */
+  public final Set<Integer> getAudioFacetValueCodes(Set<MimeTypeEncoding> mimeTypes,
+      Set<AudioQuality> audioQualities, Set<AudioDuration> audioDurations) {
+    final List<Set<Integer>> codes = compileAudioIntegerSets(mimeTypes, audioQualities,
+        audioDurations);
+    return getFacetValueCodes(EncodedFacetCollection.AUDIO, codes);
+  }
+
+  /**
+   * This method returns all facet value codes for video content. See {@link
+   * #getFacetValueCodes(WebResourceWrapper)} for the details.
+   *
+   * @param mimeTypes The mime types of the video content.
+   * @param videoQualities The video quality values of the video content.
+   * @param videoDurations The video duration values of the video content.
+   * @return The set of facet codes.
+   */
+  public final Set<Integer> getVideoFacetValueCodes(Set<MimeTypeEncoding> mimeTypes,
+      Set<VideoQuality> videoQualities, Set<VideoDuration> videoDurations) {
+    final List<Set<Integer>> codes = compileVideoIntegerSets(mimeTypes, videoQualities,
+        videoDurations);
+    return getFacetValueCodes(EncodedFacetCollection.VIDEO, codes);
+  }
+
+  /**
+   * This method returns all facet value codes for image content. See {@link
+   * #getFacetValueCodes(WebResourceWrapper)} for the details.
+   *
+   * @param mimeTypes The mime types of the image content.
+   * @param imageSizes The image size values of the image content.
+   * @param imageColorSpaces The color space values of the image content.
+   * @param imageAspectRatios The aspect ratio values of the image content.
+   * @param imageColorEncodings The color encoding values of the image content.
+   * @return The set of facet codes.
+   */
+  public final Set<Integer> getImageFacetValueCodes(Set<MimeTypeEncoding> mimeTypes,
+      Set<ImageSize> imageSizes, Set<ImageColorSpace> imageColorSpaces,
+      Set<ImageAspectRatio> imageAspectRatios, Set<ImageColorEncoding> imageColorEncodings) {
+    final List<Set<Integer>> codes = compileImageIntegerSets(mimeTypes, imageSizes,
+        imageColorSpaces, imageAspectRatios, imageColorEncodings);
+    return getFacetValueCodes(EncodedFacetCollection.IMAGE, codes);
+  }
+
+  /**
+   * This method returns all facet value codes for text content. See {@link
+   * #getFacetValueCodes(WebResourceWrapper)} for the details.
+   *
+   * @param mimeTypes The mime types of the text content.
+   * @return The set of facet codes.
+   */
+  public final Set<Integer> getTextFacetValueCodes(Set<MimeTypeEncoding> mimeTypes) {
+    final List<Set<Integer>> codes = compileTextIntegerSets(mimeTypes);
+    return getFacetValueCodes(EncodedFacetCollection.TEXT, codes);
+  }
+
+  private static Set<Integer> getFacetValueCodes(EncodedFacetCollection mediaType,
+      List<Set<Integer>> codes) {
+    if (mediaType == null) {
       return Collections.emptySet();
     }
-
-    // Get all the individual codes from all the facets and make sure there is always the media type
-    // value 'or'-ed into them.
-    final int shiftedMediaTypeCode = getShiftedMediaTypeCode(facets);
-    return facets.getFacets().stream()
-        .map(facet -> ((EncodedFacet<?>) facet).encodeValues(webResource)).flatMap(Set::stream)
+    final int shiftedMediaTypeCode = getShiftedMediaTypeCode(mediaType);
+    return codes.stream().flatMap(Set::stream)
         .map(code -> shiftedMediaTypeCode | code).collect(Collectors.toSet());
+  }
+
+  private static List<Set<Integer>> compileIntegerSets(WebResourceWrapper webResource) {
+    final EncodedFacetCollection facets = EncodedFacetCollection.get(webResource);
+    if (facets == null) {
+      return Collections.emptyList();
+    }
+    return facets.getFacets().stream()
+        .map(facet -> ((EncodedFacet<?>) facet).encodeValues(webResource))
+        .filter(set -> !set.isEmpty()).collect(Collectors.toList());
+  }
+
+  private static List<Set<Integer>> compileAudioIntegerSets(Set<MimeTypeEncoding> mimeTypes,
+      Set<AudioQuality> audioQualities, Set<AudioDuration> audioDurations) {
+    return Arrays.asList(compileIntegerSet(EncodedFacet.MIME_TYPE, mimeTypes),
+        compileIntegerSet(EncodedFacet.AUDIO_QUALITY, audioQualities),
+        compileIntegerSet(EncodedFacet.AUDIO_DURATION, audioDurations));
+  }
+
+  private static List<Set<Integer>> compileVideoIntegerSets(Set<MimeTypeEncoding> mimeTypes,
+      Set<VideoQuality> videoQualities, Set<VideoDuration> videoDurations) {
+    return Arrays.asList(compileIntegerSet(EncodedFacet.MIME_TYPE, mimeTypes),
+        compileIntegerSet(EncodedFacet.VIDEO_QUALITY, videoQualities),
+        compileIntegerSet(EncodedFacet.VIDEO_DURATION, videoDurations));
+  }
+
+  private static List<Set<Integer>> compileImageIntegerSets(Set<MimeTypeEncoding> mimeTypes,
+      Set<ImageSize> imageSizes, Set<ImageColorSpace> imageColorSpaces,
+      Set<ImageAspectRatio> imageAspectRatios, Set<ImageColorEncoding> imageColorEncodings){
+    return Arrays.asList(compileIntegerSet(EncodedFacet.MIME_TYPE, mimeTypes),
+        compileIntegerSet(EncodedFacet.IMAGE_SIZE, imageSizes),
+        compileIntegerSet(EncodedFacet.IMAGE_COLOR_SPACE, imageColorSpaces),
+        compileIntegerSet(EncodedFacet.IMAGE_ASPECT_RATIO, imageAspectRatios),
+        compileIntegerSet(EncodedFacet.IMAGE_COLOR_ENCODING, imageColorEncodings));
+  }
+
+  private static List<Set<Integer>> compileTextIntegerSets(Set<MimeTypeEncoding> mimeTypes) {
+    return Collections.singletonList(compileIntegerSet(EncodedFacet.MIME_TYPE, mimeTypes));
+  }
+
+  private static <T extends Enum<T> & FacetValue> Set<Integer> compileIntegerSet(
+      EncodedFacet<T> encodedFacet, Set<T> values) {
+    if (values == null) {
+      return Collections.emptySet();
+    }
+    return values.stream().filter(Objects::nonNull).map(encodedFacet::encodeValue)
+        .collect(Collectors.toSet());
   }
 
   private static int getShiftedMediaTypeCode(EncodedFacetCollection encoder) {

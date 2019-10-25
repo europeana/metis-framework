@@ -1,6 +1,7 @@
 package eu.europeana.indexing.solr.facet.value;
 
 import eu.europeana.indexing.utils.WebResourceWrapper;
+import eu.europeana.metis.utils.MediaType;
 
 /**
  * This categorizes the media type.
@@ -23,28 +24,42 @@ public enum MediaTypeEncoding implements FacetValue {
   /**
    * Categorize the media type.
    *
+   * @param mediaType The media type.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static MediaTypeEncoding categorizeMediaType(final MediaType mediaType) {
+    final MediaTypeEncoding result;
+    if (mediaType == null) {
+      result = null;
+    } else {
+      switch (mediaType) {
+        case AUDIO:
+          result = MediaTypeEncoding.AUDIO;
+          break;
+        case IMAGE:
+          result = MediaTypeEncoding.IMAGE;
+          break;
+        case TEXT:
+          result = MediaTypeEncoding.TEXT;
+          break;
+        case VIDEO:
+          result = MediaTypeEncoding.VIDEO;
+          break;
+        default:
+          result = null;
+          break;
+      }
+    }
+    return result;
+  }
+
+  /**
+   * Categorize the media type.
+   *
    * @param webResource The web resource.
    * @return The category, or null if none of the categories apply.
    */
   public static MediaTypeEncoding categorizeMediaType(final WebResourceWrapper webResource) {
-    final MediaTypeEncoding result;
-    switch (webResource.getMediaType()) {
-      case AUDIO:
-        result = MediaTypeEncoding.AUDIO;
-        break;
-      case IMAGE:
-        result = MediaTypeEncoding.IMAGE;
-        break;
-      case TEXT:
-        result = MediaTypeEncoding.TEXT;
-        break;
-      case VIDEO:
-        result = MediaTypeEncoding.VIDEO;
-        break;
-      default:
-        result = null;
-        break;
-    }
-    return result;
+    return categorizeMediaType(webResource.getMediaType());
   }
 }

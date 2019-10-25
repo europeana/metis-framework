@@ -43,23 +43,32 @@ public enum ImageSize implements FacetValue {
   /**
    * Categorize the size of the given image.
    *
-   * @param webResource The web resource.
+   * @param imageSize The image size.
    * @return The category, or null if none of the categories apply.
    */
-  public static ImageSize categorizeImageSize(final WebResourceWrapper webResource) {
-    final long size = webResource.getSize();
+  public static ImageSize categorizeImageSize(final Long imageSize) {
     final ImageSize result;
-    if (size < IMAGE_SMALL_AREA) {
+    if (imageSize < IMAGE_SMALL_AREA) {
       result = null;
-    } else if (size < IMAGE_MEDIUM_AREA) {
+    } else if (imageSize < IMAGE_MEDIUM_AREA) {
       result = SMALL;
-    } else if (size < IMAGE_LARGE_AREA) {
+    } else if (imageSize < IMAGE_LARGE_AREA) {
       result = MEDIUM;
-    } else if (size < IMAGE_HUGE_AREA) {
+    } else if (imageSize < IMAGE_HUGE_AREA) {
       result = LARGE;
     } else {
       result = HUGE;
     }
     return result;
+  }
+
+  /**
+   * Categorize the size of the given image.
+   *
+   * @param webResource The web resource.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static ImageSize categorizeImageSize(final WebResourceWrapper webResource) {
+    return categorizeImageSize(webResource.getSize());
   }
 }

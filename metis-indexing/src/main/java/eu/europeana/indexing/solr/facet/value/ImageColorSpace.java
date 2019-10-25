@@ -22,13 +22,12 @@ public enum ImageColorSpace implements FacetValue {
   }
 
   /**
-   * Categorize the color space of the given image.
+   * Categorize the color space.
    *
-   * @param webResource The web resource.
+   * @param colorSpace The color space.
    * @return The category, or null if none of the categories apply.
    */
-  public static ImageColorSpace categorizeImageColorSpace(final WebResourceWrapper webResource) {
-    final ColorSpace colorSpace = webResource.getColorSpace();
+  public static ImageColorSpace categorizeImageColorSpace(final ColorSpace colorSpace) {
     final ImageColorSpace result;
     if (ColorSpace.COLOR == colorSpace) {
       result = COLOR;
@@ -40,5 +39,15 @@ public enum ImageColorSpace implements FacetValue {
       result = null;
     }
     return result;
+  }
+
+  /**
+   * Categorize the color space of the given image.
+   *
+   * @param webResource The web resource.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static ImageColorSpace categorizeImageColorSpace(final WebResourceWrapper webResource) {
+    return categorizeImageColorSpace(webResource.getColorSpace());
   }
 }
