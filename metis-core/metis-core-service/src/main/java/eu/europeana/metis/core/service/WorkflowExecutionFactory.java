@@ -2,24 +2,21 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
-import eu.europeana.metis.core.execution.WorkflowUtils;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
-import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
-import eu.europeana.metis.exception.GenericMetisException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -34,7 +31,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class WorkflowExecutionFactory {
 
-  private final WorkflowExecutionDao workflowExecutionDao;
   private final DatasetXsltDao datasetXsltDao;
 
   private ValidationProperties validationExternalProperties; // Use getter and setter!
@@ -46,23 +42,16 @@ public class WorkflowExecutionFactory {
   /**
    * Constructor with parameters required to support the {@link OrchestratorService}
    *
-   * @param workflowExecutionDao the Dao instance to access the workflowExecutions
    * @param datasetXsltDao the Dao instance to access the dataset xslts
    */
-  public WorkflowExecutionFactory(WorkflowExecutionDao workflowExecutionDao,
-      DatasetXsltDao datasetXsltDao) {
-    this.workflowExecutionDao = workflowExecutionDao;
+  public WorkflowExecutionFactory(DatasetXsltDao datasetXsltDao) {
     this.datasetXsltDao = datasetXsltDao;
   }
 
   // Expect the dataset to be synced with eCloud.
   // Does not save the workflow execution.
   WorkflowExecution createWorkflowExecution(Workflow workflow, Dataset dataset,
-      ExecutablePluginType enforcedPredecessorType, int priority) throws GenericMetisException {
-
-    // Validate the workflow and obtain the predecessor.
-    final AbstractExecutablePlugin predecessor = new WorkflowUtils(workflowExecutionDao)
-        .validateWorkflowPlugins(workflow, enforcedPredecessorType);
+      ExecutablePlugin predecessor, int priority) {
 
     // Create the plugins
     final List<AbstractExecutablePlugin> workflowPlugins = workflow.getMetisPluginsMetadata()
@@ -78,8 +67,8 @@ public class WorkflowExecutionFactory {
     return new WorkflowExecution(dataset, workflowPlugins, priority);
   }
 
-  AbstractExecutablePlugin createWorkflowPlugin(AbstractExecutablePluginMetadata pluginMetadata,
-      Dataset dataset) {
+  private AbstractExecutablePlugin createWorkflowPlugin(
+      AbstractExecutablePluginMetadata pluginMetadata, Dataset dataset) {
 
     // Add some extra configuration to the plugin metadata depending on the type.
     if (pluginMetadata instanceof TransformationPluginMetadata){

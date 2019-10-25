@@ -11,8 +11,8 @@ import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
@@ -310,8 +310,8 @@ public class OrchestratorController {
 
   /**
    * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
-   * there was a previous successful finished plugin that follows a specific order unless the {@code
-   * enforcedPredecessorType} is used.
+   * there was a previous successful finished plugin that follows a specific order (unless the {@code
+   * enforcedPredecessorType} is used) and that has the latest successful harvest plugin as an ancestor.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier of which the executions are based on
@@ -334,14 +334,14 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
+  public MetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam("pluginType") ExecutablePluginType pluginType,
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
+    MetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, datasetId,
             pluginType, enforcedPredecessorType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId == null) {

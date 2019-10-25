@@ -499,7 +499,6 @@ class TestOrchestratorController {
         .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.RUNNING.name())));
   }
 
-
   @Test
   void getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution()
       throws Exception {
