@@ -301,7 +301,7 @@ public class EnrichmentWorker {
     if (resultList != null) {
       LOGGER.debug("Following information found:");
       for (EnrichmentResultList result : resultList) {
-        count = logDereferencingOrEnrichmentResult(count, result);
+        count += logDereferencingOrEnrichmentResult(result);
       }
     }
     if (count == 0) {
@@ -309,10 +309,11 @@ public class EnrichmentWorker {
     }
   }
 
-  private int logDereferencingOrEnrichmentResult(int count, EnrichmentResultList result) {
+  private int logDereferencingOrEnrichmentResult(EnrichmentResultList result) {
     if (result == null) {
-      return count;
+      return 0;
     }
+    int count = 0;
     for (EnrichmentBaseWrapper enrichmentBaseWrapper : result.getEnrichmentBaseWrapperList()) {
       if (enrichmentBaseWrapper == null) {
         continue;

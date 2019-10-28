@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import org.jibx.runtime.IBindingFactory;
@@ -183,13 +182,12 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     if (rdf.getEuropeanaAggregationList() == null || rdf.getEuropeanaAggregationList().isEmpty()) {
       rdf.setEuropeanaAggregationList(Arrays.asList(new EuropeanaAggregationType()));
     }
-    final Supplier<Function<EuropeanaAggregationType, EuropeanaAggregationType>> aggregationDatasetNameSupplier = () -> agg -> {
-      agg.setDatasetName(new DatasetName());
-      return agg;
+    final Supplier<DatasetName> datasetNameSupplier = () -> {
+      final DatasetName datasetName = new DatasetName();
+      datasetName.setString(datasetProperties.getDatasetName());
+      return datasetName;
     };
     stream(rdf.getEuropeanaAggregationList()).filter(Objects::nonNull)
-        .map(aggregationDatasetNameSupplier.get())
-        .map(EuropeanaAggregationType::getDatasetName)
-        .forEach(name -> name.setString(datasetProperties.getDatasetName()));
+        .forEach(aggregation -> aggregation.setDatasetName(datasetNameSupplier.get()));
   }
 }
