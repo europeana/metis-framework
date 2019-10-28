@@ -59,6 +59,7 @@ public class WorkflowUtils {
 
   /**
    * Constructor.
+   *
    * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the database.
    */
   public WorkflowUtils(WorkflowExecutionDao workflowExecutionDao) {
@@ -72,7 +73,7 @@ public class WorkflowUtils {
    * <li>That the first plugin is not link checking (except when it is the only plugin),</li>
    * <li>That no two plugins of the same type occur in the workflow,</li>
    * <li>That the first plugin has a valid predecessor plugin in the dataset's history (as defined by
-   * {@link #getPredecessorTypes(ExecutablePluginType)}), the type of which can be overridden by the 
+   * {@link #getPredecessorTypes(ExecutablePluginType)}), the type of which can be overridden by the
    * enforced predecessor type, and the root plugin (i.e. harvest) of which is equal to the latest
    * successful harvest (i.e. no old data should be processed after new data has been introduced),</li>
    * <li>That all subsequent plugins have a valid predecessor within the workflow (as defined by
@@ -81,7 +82,8 @@ public class WorkflowUtils {
    * </ol>
    *
    * @param workflow The workflow to validate.
-   * @param enforcedPredecessorType If not null, overrides the predecessor type of the first plugin.
+   * @param enforcedPredecessorType If not null, overrides the predecessor type of the first
+   * plugin.
    * @return The predecessor of the first plugin. Or null if no predecessor is required.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -102,7 +104,7 @@ public class WorkflowUtils {
     // Compile the list of enabled plugins.
     final List<AbstractExecutablePluginMetadata> plugins = workflow.getMetisPluginsMetadata()
         .stream().filter(AbstractExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
-    
+
     // Sanity checks: workflow should not be empty and all should have a type.
     if (plugins.isEmpty()) {
       throw new BadContentException("Workflow should not be empty.");
@@ -144,13 +146,14 @@ public class WorkflowUtils {
     if (previousTypesInWorkflow.size() != plugins.size()) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
-    
+
     // Check the presence of the predecessor and return it.
     return computePredecessorPlugin(plugins.get(0).getExecutablePluginType(),
         enforcedPredecessorType, workflow.getDatasetId());
   }
 
-  private static void validateAndTrimHarvestParameters(List<AbstractExecutablePluginMetadata> plugins)
+  private static void validateAndTrimHarvestParameters(
+      List<AbstractExecutablePluginMetadata> plugins)
       throws BadContentException {
     for (AbstractExecutablePluginMetadata pluginMetadata : plugins) {
       if (pluginMetadata instanceof OaipmhHarvestPluginMetadata) {
@@ -185,14 +188,14 @@ public class WorkflowUtils {
    * <p>
    * Compute the predecessor plugin for a new plugin of the given plugin type.
    * </p>
-   * 
+   *
    * <p>
    * This method first computes the candidate type(s) this predecessor can have according to the
-   * execution rules, based on the given target plugin type (using
-   * {@link #getPredecessorTypes(ExecutablePluginType)}). If no predecessor is required for this
-   * type, this method returns null.
+   * execution rules, based on the given target plugin type (using {@link
+   * #getPredecessorTypes(ExecutablePluginType)}). If no predecessor is required for this type, this
+   * method returns null.
    * </p>
-   * 
+   *
    * <p>
    * Then the method returns the plugin <b>within the given workflow execution</b> that:
    * <ol>
@@ -201,7 +204,7 @@ public class WorkflowUtils {
    * <li>Was executed successfully.</li>
    * </ol>
    * </p>
-   * 
+   *
    * <p>
    * Note that in this context, as mentioned above, a plugin that executed with only errors is
    * <b>still</b> counted as successful. Also, there is <b>no</b> requirement that the latest
@@ -211,7 +214,7 @@ public class WorkflowUtils {
    * @param pluginType the type of the new {@link ExecutablePluginType} that is to be executed.
    * @param workflowExecution The workflow execution in which to look.
    * @return the {@link AbstractExecutablePlugin} that the pluginType execution can use as a source.
-   *         Can be null in case the given type does not require a predecessor.
+   * Can be null in case the given type does not require a predecessor.
    */
   public static AbstractExecutablePlugin computePredecessorPlugin(ExecutablePluginType pluginType,
       WorkflowExecution workflowExecution) {
@@ -242,16 +245,16 @@ public class WorkflowUtils {
    * <p>
    * Compute the predecessor plugin for a new plugin of the given plugin type.
    * </p>
-   * 
+   *
    * <p>
    * This method first computes the candidate type(s) this predecessor can have according to the
-   * execution rules, based on the given target plugin type (using
-   * {@link #getPredecessorTypes(ExecutablePluginType)}). If no predecessor is required for this
-   * type, this method returns null. The enforced predecessor type provides a way to override the
-   * computed candidate types (if there are any): if provided, it is the only candidate type,
-   * meaning that any resulting predecessor plugin will be of this type.
+   * execution rules, based on the given target plugin type (using {@link
+   * #getPredecessorTypes(ExecutablePluginType)}). If no predecessor is required for this type, this
+   * method returns null. The enforced predecessor type provides a way to override the computed
+   * candidate types (if there are any): if provided, it is the only candidate type, meaning that
+   * any resulting predecessor plugin will be of this type.
    * </p>
-   * 
+   *
    * <p>
    * Then the method returns the plugin <b>in the database</b> that:
    * <ol>
@@ -261,7 +264,7 @@ public class WorkflowUtils {
    * <li>Has the latest successful harvest plugin as its ancestor.</li>
    * </ol>
    * </p>
-   * 
+   *
    * <p>
    * Note that in this context, as mentioned above, a plugin that executed with only errors is
    * <b>not</b> counted as successful. Also, it is <b>required</b> that the latest successful
@@ -272,7 +275,7 @@ public class WorkflowUtils {
    * @param enforcedPredecessorType If not null, overrides the predecessor type of the plugin.
    * @param datasetId the dataset ID of the new plugin's dataset.
    * @return the {@link AbstractExecutablePlugin} that the pluginType execution will use as a
-   *         source. Can be null in case the given type does not require a predecessor.
+   * source. Can be null in case the given type does not require a predecessor.
    * @throws PluginExecutionNotAllowed In case a valid predecessor is required, but not found.
    */
   public ExecutablePlugin computePredecessorPlugin(ExecutablePluginType pluginType,
@@ -301,14 +304,14 @@ public class WorkflowUtils {
         .stream().map(Collections::singleton).map(
             type -> workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, type, true))
         .filter(Objects::nonNull).filter(WorkflowUtils::pluginHasSuccessfulRecords);
-    
+
     // Sort on finished state, so that the root check occurs as little as possible.
     final Stream<PluginWithExecutionId<ExecutablePlugin>> sortedSuccessfulPlugins =
         latestSuccessfulPlugins.sorted(Comparator.comparing(
             plugin -> Optional.ofNullable(plugin.getPlugin().getFinishedDate())
-                .orElse(new Date(Long.MIN_VALUE)),
+                .orElseGet(() -> new Date(Long.MIN_VALUE)),
             Comparator.reverseOrder()));
-        
+
     // Find the first plugin that satisfies the root check. If none found, throw exception.
     return sortedSuccessfulPlugins.filter(plugin -> rootAncestorEquals(plugin, latestHarvest))
         .map(PluginWithExecutionId::getPlugin).findFirst().orElseThrow(
@@ -320,16 +323,16 @@ public class WorkflowUtils {
     final ExecutionProgress progress = plugin.getPlugin().getExecutionProgress();
     return progress != null && progress.getProcessedRecords() > progress.getErrors();
   }
-  
+
   private boolean rootAncestorEquals(PluginWithExecutionId<ExecutablePlugin> plugin,
       ExecutablePlugin targetRoot) {
-    
+
     // Compute the root of the plugin: either the first 
     final WorkflowExecution execution = workflowExecutionDao.getById(plugin.getExecutionId());
     final List<Pair<ExecutablePlugin, WorkflowExecution>> evolution =
         compileVersionEvolution(plugin.getPlugin(), execution);
     final ExecutablePlugin foundRoot =
-        evolution.stream().map(Pair::getLeft).findFirst().orElse(plugin.getPlugin());
+        evolution.stream().map(Pair::getLeft).findFirst().orElseGet(plugin::getPlugin);
 
     // Check that the roots are equal.
     return foundRoot.getId().equals(targetRoot.getId());

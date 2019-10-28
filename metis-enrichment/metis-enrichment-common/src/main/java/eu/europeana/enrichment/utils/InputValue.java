@@ -28,6 +28,14 @@ public class InputValue {
   public InputValue() {
   }
 
+  /**
+   * Constructor with all possible fields provided for enrichment.
+   *
+   * @param originalField the origin field name
+   * @param value the value to be enriched
+   * @param language the language to use for enrichment of the value
+   * @param vocabularies the vocabularies that this value represents
+   */
   public InputValue(String originalField, String value, String language,
       EntityClass... vocabularies) {
     this.originalField = originalField;

@@ -185,7 +185,7 @@ public class EnrichmentWorker {
     LOGGER.debug("Using extracted fields to gather enrichment information...");
     EnrichmentResultList enrichmentInformation = enrichFields(fieldsForEnrichment);
     if (LOGGER.isDebugEnabled()) {
-      logDereferencingOrEnrichmentResult(Collections.singletonList(enrichmentInformation));
+      logDereferencingOrEnrichmentResults(Collections.singletonList(enrichmentInformation));
     }
 
     // [3] Merge the acquired information into the RDF
@@ -229,7 +229,7 @@ public class EnrichmentWorker {
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
     List<EnrichmentResultList> dereferenceInformation = dereferenceFields(resourceIds);
     if (LOGGER.isDebugEnabled()) {
-      logDereferencingOrEnrichmentResult(dereferenceInformation);
+      logDereferencingOrEnrichmentResults(dereferenceInformation);
     }
 
     // [3] Merge the acquired information into the RDF
@@ -296,28 +296,33 @@ public class EnrichmentWorker {
     }
   }
 
-  private void logDereferencingOrEnrichmentResult(List<EnrichmentResultList> resultList) {
+  private void logDereferencingOrEnrichmentResults(List<EnrichmentResultList> resultList) {
     int count = 0;
     if (resultList != null) {
       LOGGER.debug("Following information found:");
       for (EnrichmentResultList result : resultList) {
-        if (result == null) {
-          continue;
-        }
-        for (EnrichmentBaseWrapper enrichmentBaseWrapper : result.getEnrichmentBaseWrapperList()) {
-          if (enrichmentBaseWrapper == null) {
-            continue;
-          }
-          count++;
-          LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
-              enrichmentBaseWrapper.getEnrichmentBase().getAbout(), enrichmentBaseWrapper.getEnrichmentBase().getAltLabelList(),
-              enrichmentBaseWrapper.getEnrichmentBase().getNotes(), enrichmentBaseWrapper.getEnrichmentBase().getPrefLabelList());
-        }
+        count = logDereferencingOrEnrichmentResult(count, result);
       }
     }
     if (count == 0) {
       LOGGER.debug("No information found. Nothing to merge.");
     }
+  }
+
+  private int logDereferencingOrEnrichmentResult(int count, EnrichmentResultList result) {
+    if (result == null) {
+      return count;
+    }
+    for (EnrichmentBaseWrapper enrichmentBaseWrapper : result.getEnrichmentBaseWrapperList()) {
+      if (enrichmentBaseWrapper == null) {
+        continue;
+      }
+      count++;
+      LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
+          enrichmentBaseWrapper.getEnrichmentBase().getAbout(), enrichmentBaseWrapper.getEnrichmentBase().getAltLabelList(),
+          enrichmentBaseWrapper.getEnrichmentBase().getNotes(), enrichmentBaseWrapper.getEnrichmentBase().getPrefLabelList());
+    }
+    return count;
   }
 
   List<InputValue> extractFieldsForEnrichment(RDF rdf) {

@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
@@ -46,11 +48,12 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
 
   /**
    * Default constructor of the validation service
-   *  @param validationUtils Utils class for validation tasks
+   *
+   * @param validationUtils Utils class for validation tasks
    * @param applyTransformation Whether the record needs to be transformed
    * @param bFact The JibX binding factory for the conversion of the XML to RDF class
    * @param incomingRecord The record to be validated and transformed
-   * @param recordDate
+   * @param recordDate The record date used when persisting the record
    * @param datasetProperties The dataset properties that need to be enforced.
    */
   public ValidationTask(ValidationUtils validationUtils, boolean applyTransformation,
@@ -60,7 +63,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     this.applyTransformation = applyTransformation;
     this.bFact = bFact;
     this.incomingRecord = incomingRecord;
-    this.recordDate = recordDate;
+    this.recordDate = new Date(recordDate.getTime());
     this.datasetProperties = datasetProperties;
   }
 
@@ -180,8 +183,12 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     if (rdf.getEuropeanaAggregationList() == null || rdf.getEuropeanaAggregationList().isEmpty()) {
       rdf.setEuropeanaAggregationList(Arrays.asList(new EuropeanaAggregationType()));
     }
+    final Supplier<Function<EuropeanaAggregationType, EuropeanaAggregationType>> aggregationDatasetNameSupplier = () -> agg -> {
+      agg.setDatasetName(new DatasetName());
+      return agg;
+    };
     stream(rdf.getEuropeanaAggregationList()).filter(Objects::nonNull)
-        .peek(agg -> agg.setDatasetName(new DatasetName()))
+        .map(aggregationDatasetNameSupplier.get())
         .map(EuropeanaAggregationType::getDatasetName)
         .forEach(name -> name.setString(datasetProperties.getDatasetName()));
   }

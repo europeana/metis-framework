@@ -574,7 +574,8 @@ public class OrchestratorController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("executionId") String executionId) throws GenericMetisException {
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.debug("Requesting plugins with data availability for executionId: {}", executionId);
+      final String logSanitizedExecutionId = executionId.replaceAll("[\r\n]", "");
+      LOGGER.debug("Requesting plugins with data availability for executionId: {}", logSanitizedExecutionId);
     }
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return orchestratorService.getExecutablePluginsWithDataAvailability(metisUser, executionId);

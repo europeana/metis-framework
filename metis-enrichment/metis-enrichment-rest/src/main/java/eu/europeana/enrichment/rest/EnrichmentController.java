@@ -17,8 +17,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,7 +36,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 public class EnrichmentController {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentController.class);
   private final Converter converter;
   private final Enricher enricher;
   private final EntityRemover remover;
