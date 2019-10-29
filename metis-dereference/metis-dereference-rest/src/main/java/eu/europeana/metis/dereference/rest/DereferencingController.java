@@ -54,10 +54,11 @@ public class DereferencingController {
       MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   @ApiOperation(value = "Dereference a URI", response = EnrichmentResultList.class)
-  public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId) {
+  public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId)
+      throws URISyntaxException {
     try {
       return dereferenceService.dereference(resourceId);
-    } catch (RuntimeException | JAXBException | TransformerException | URISyntaxException e) {
+    } catch (RuntimeException | JAXBException | TransformerException e) {
       LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.",
           resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, "")), e);
       throw new DereferenceException(String
@@ -76,7 +77,8 @@ public class DereferencingController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   @ApiOperation(value = "Dereference a list URI", response = EnrichmentResultList.class)
-  public EnrichmentResultList dereference(@RequestBody List<String> resourceIds) {
+  public EnrichmentResultList dereference(@RequestBody List<String> resourceIds)
+      throws URISyntaxException {
     EnrichmentResultList dereferencedEntities = new EnrichmentResultList();
     for (String resourceId : resourceIds) {
       EnrichmentResultList result = dereference(resourceId);
