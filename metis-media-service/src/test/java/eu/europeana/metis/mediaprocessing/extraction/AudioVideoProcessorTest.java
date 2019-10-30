@@ -274,8 +274,10 @@ class AudioVideoProcessorTest {
     doReturn(bitsPerSample).when(audioVideoProcessor).findInt(eq("bits_per_sample"), eq(candidates));
     doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
     doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
+    doReturn("aac").when(audioVideoProcessor).findString(eq("codec_name"), eq(candidates));
 
-    // Run and verify
+
+      // Run and verify
     final AbstractResourceMetadata abstractMetadata = audioVideoProcessor
         .parseCommandResponse(resource, detectedMimeType, commandResponse);
     assertTrue(abstractMetadata instanceof AudioResourceMetadata);
@@ -289,6 +291,8 @@ class AudioVideoProcessorTest {
     assertEquals(duration, metadata.getDuration());
     assertEquals(sampleRate, metadata.getSampleRate());
     assertEquals(bitsPerSample, metadata.getSampleSize());
+    assertEquals("aac", metadata.getCodecName());
+
   }
 
   @Test
@@ -438,6 +442,7 @@ class AudioVideoProcessorTest {
     assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getDuration());
     assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getChannels());
     assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getBitRate());
+    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getCodecName());
 
     // Mime type for video
     final String detectedVideoMimeType = "video/detected mime type";
