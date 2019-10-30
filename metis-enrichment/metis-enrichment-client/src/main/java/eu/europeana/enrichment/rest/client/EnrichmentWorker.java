@@ -23,6 +23,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
 /**
@@ -235,7 +236,8 @@ public class EnrichmentWorker {
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
     for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
-      if (dereferenceResultList != null && dereferenceResultList.getEnrichmentBaseWrapperList() != null
+      if (dereferenceResultList != null
+          && dereferenceResultList.getEnrichmentBaseWrapperList() != null
           && !dereferenceResultList.getEnrichmentBaseWrapperList().isEmpty()) {
         entityMergeEngine.mergeEntities(rdf, dereferenceResultList.getEnrichmentBaseWrapperList());
       }
@@ -246,8 +248,8 @@ public class EnrichmentWorker {
   private List<EnrichmentResultList> dereferenceFields(Set<String> resourceIds)
       throws DereferenceOrEnrichException {
     List<EnrichmentResultList> dereferenceInformation = new ArrayList<>();
-    try {
-      for (String resourceId : resourceIds) {
+    for (String resourceId : resourceIds) {
+      try {
         if (resourceId == null) {
           continue;
         }
@@ -257,15 +259,19 @@ public class EnrichmentWorker {
                 .retryableExternalRequest(() -> dereferenceClient.dereference(resourceId),
                     mapWithRetrieableExceptions, EXTERNAL_CALL_MAX_RETRIES,
                     EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
-        if (result == null || result.getEnrichmentBaseWrapperList() == null || result.getEnrichmentBaseWrapperList().isEmpty()) {
+        if (result == null || result.getEnrichmentBaseWrapperList() == null || result
+            .getEnrichmentBaseWrapperList().isEmpty()) {
           LOGGER.debug("==== Null or empty value received for reference {}", resourceId);
         } else {
           dereferenceInformation.add(result);
         }
+      } catch (HttpClientErrorException.BadRequest e) {
+        //We are forgiving for these errors
+        LOGGER.warn("ResourceId {}, failed", resourceId, e);
+      } catch (Exception e) {
+        throw new DereferenceOrEnrichException(
+            "Exception occurred while trying to perform dereferencing.", e);
       }
-    } catch (Exception e) {
-      throw new DereferenceOrEnrichException(
-          "Exception occurred while trying to perform dereferencing.", e);
     }
     return dereferenceInformation;
   }
@@ -320,8 +326,10 @@ public class EnrichmentWorker {
       }
       count++;
       LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
-          enrichmentBaseWrapper.getEnrichmentBase().getAbout(), enrichmentBaseWrapper.getEnrichmentBase().getAltLabelList(),
-          enrichmentBaseWrapper.getEnrichmentBase().getNotes(), enrichmentBaseWrapper.getEnrichmentBase().getPrefLabelList());
+          enrichmentBaseWrapper.getEnrichmentBase().getAbout(),
+          enrichmentBaseWrapper.getEnrichmentBase().getAltLabelList(),
+          enrichmentBaseWrapper.getEnrichmentBase().getNotes(),
+          enrichmentBaseWrapper.getEnrichmentBase().getPrefLabelList());
     }
     return count;
   }
