@@ -20,6 +20,8 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
 
   private Integer sampleSize;
 
+  private String codecName;
+
   /**
    * Constructor for the case no metadata or thumbnails is available.
    *
@@ -28,7 +30,7 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
    * @param contentSize The file content size.
    */
   public AudioResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
-    this(mimeType, resourceUrl, contentSize, null, null, null, null, null);
+    this(mimeType, resourceUrl, contentSize, null, null, null, null, null, null);
   }
 
   /**
@@ -42,15 +44,17 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
    * @param channels The audio clip channel count.
    * @param sampleRate The audio clip sample rate.
    * @param sampleSize The audio clip sample size.
+   * @param codecName The audio clip codec name.
    */
   public AudioResourceMetadata(String mimeType, String resourceUrl, long contentSize,
-      Double duration, Integer bitRate, Integer channels, Integer sampleRate, Integer sampleSize) {
+      Double duration, Integer bitRate, Integer channels, Integer sampleRate, Integer sampleSize, String codecName) {
     super(mimeType, resourceUrl, contentSize);
     this.duration = duration;
     this.bitRate = bitRate;
     this.channels = channels;
     this.sampleRate = sampleRate;
     this.sampleSize = sampleSize;
+    this.codecName = codecName;
   }
 
   /**
@@ -72,6 +76,7 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
     resource.setChannels(channels);
     resource.setSampleRate(sampleRate);
     resource.setSampleSize(sampleSize);
+    resource.setCodecName(codecName);
   }
 
   public Double getDuration() {
@@ -92,5 +97,9 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
 
   public Integer getSampleSize() {
     return sampleSize;
+  }
+
+  public String getCodecName() {
+    return codecName;
   }
 }
