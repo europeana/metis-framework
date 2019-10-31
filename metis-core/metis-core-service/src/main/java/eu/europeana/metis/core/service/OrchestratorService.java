@@ -560,8 +560,9 @@ public class OrchestratorService {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
     // Obtain the relevant parts of the execution history
-    final ExecutablePlugin lastHarvestPlugin = workflowExecutionDao
-        .getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false).getPlugin();
+    final ExecutablePlugin lastHarvestPlugin = Optional.ofNullable(workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false))
+        .map(PluginWithExecutionId::getPlugin).orElse(null);
     final MetisPlugin firstPublishPlugin = workflowExecutionDao
         .getFirstSuccessfulPlugin(datasetId, PUBLISH_TYPES);
     final ExecutablePlugin lastExecutablePreviewPlugin = Optional.ofNullable(workflowExecutionDao
