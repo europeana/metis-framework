@@ -23,7 +23,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.client.HttpServerErrorException;
 
 /**
@@ -265,7 +265,7 @@ public class EnrichmentWorker {
         } else {
           dereferenceInformation.add(result);
         }
-      } catch (HttpClientErrorException.BadRequest e) {
+      } catch (BadRequest e) {
         //We are forgiving for these errors
         LOGGER.warn("ResourceId {}, failed", resourceId, e);
       } catch (Exception e) {
