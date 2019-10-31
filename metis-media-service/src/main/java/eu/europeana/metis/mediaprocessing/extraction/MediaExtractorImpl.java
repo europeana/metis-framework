@@ -3,6 +3,7 @@ package eu.europeana.metis.mediaprocessing.extraction;
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
@@ -35,6 +36,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
   private final ResourceDownloadClient fullProcessingDownloadClient;
   private final ResourceDownloadClient reducedProcessingDownloadClient;
+  private final MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private final Tika tika;
 
   private final ImageProcessor imageProcessor;
@@ -46,17 +48,19 @@ public class MediaExtractorImpl implements MediaExtractor {
    *
    * @param fullProcessingDownloadClient The download client for resources.
    * @param reducedProcessingDownloadClient The download client for resources.
+   * @param mimeTypeDetectHttpClient The mime type detector for URLs.
    * @param tika A tika instance.
    * @param imageProcessor An image processor.
    * @param audioVideoProcessor An audio/video processor.
    * @param textProcessor A text processor.
    */
   MediaExtractorImpl(ResourceDownloadClient fullProcessingDownloadClient,
-      ResourceDownloadClient reducedProcessingDownloadClient, Tika tika,
-      ImageProcessor imageProcessor, AudioVideoProcessor audioVideoProcessor,
-      TextProcessor textProcessor) {
+      ResourceDownloadClient reducedProcessingDownloadClient,
+      MimeTypeDetectHttpClient mimeTypeDetectHttpClient, Tika tika, ImageProcessor imageProcessor,
+      AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor) {
     this.fullProcessingDownloadClient = fullProcessingDownloadClient;
     this.reducedProcessingDownloadClient = reducedProcessingDownloadClient;
+    this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
     this.imageProcessor = imageProcessor;
     this.audioVideoProcessor = audioVideoProcessor;
@@ -85,6 +89,8 @@ public class MediaExtractorImpl implements MediaExtractor {
         this::shouldDownloadForFullProcessing, connectTimeout, socketTimeout, downloadTimeout);
     this.reducedProcessingDownloadClient = new ResourceDownloadClient(redirectCount,
         mimeType -> false, connectTimeout, socketTimeout, downloadTimeout);
+    this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, socketTimeout,
+        downloadTimeout);
     this.tika = new Tika();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
@@ -142,7 +148,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     try {
       hasContent = resource.hasContent();
       detectedMimeType = hasContent ? tika.detect(resource.getContentPath())
-          : tika.detect(resource.getActualLocation().toURL());
+          : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
     } catch (IOException e) {
       throw new MediaExtractionException("Mime type checking error", e);
     }
