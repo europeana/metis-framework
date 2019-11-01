@@ -17,6 +17,7 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.ProcessingMode;
+import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
@@ -41,6 +42,7 @@ class MediaExtractorImplTest {
 
   private static ResourceDownloadClient fullProcessingDownloadClient;
   private static ResourceDownloadClient reducedProcessingDownloadClient;
+  private static MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private static CommandExecutor commandExecutor;
   private static Tika tika;
 
@@ -54,19 +56,21 @@ class MediaExtractorImplTest {
   static void prepare() {
     fullProcessingDownloadClient = mock(ResourceDownloadClient.class);
     reducedProcessingDownloadClient = mock(ResourceDownloadClient.class);
+    mimeTypeDetectHttpClient = mock(MimeTypeDetectHttpClient.class);
     commandExecutor = mock(CommandExecutor.class);
     tika = mock(Tika.class);
     imageProcessor = mock(ImageProcessor.class);
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
-    mediaExtractor = spy(new MediaExtractorImpl(fullProcessingDownloadClient,
-        reducedProcessingDownloadClient, tika, imageProcessor, audioVideoProcessor, textProcessor));
+    mediaExtractor = spy(
+        new MediaExtractorImpl(fullProcessingDownloadClient, reducedProcessingDownloadClient,
+            mimeTypeDetectHttpClient, tika, imageProcessor, audioVideoProcessor, textProcessor));
   }
 
   @BeforeEach
   void resetMocks() {
-    reset(fullProcessingDownloadClient, reducedProcessingDownloadClient, commandExecutor, tika,
-        imageProcessor, audioVideoProcessor, textProcessor, mediaExtractor);
+    reset(fullProcessingDownloadClient, reducedProcessingDownloadClient, mimeTypeDetectHttpClient,
+        commandExecutor, tika, imageProcessor, audioVideoProcessor, textProcessor, mediaExtractor);
   }
 
   @Test
@@ -89,7 +93,7 @@ class MediaExtractorImplTest {
 
     // Test case where there is no content
     doReturn(false).when(resource).hasContent();
-    doReturn(detectedMimeTypeNoContent).when(tika).detect(actualLocation.toURL());
+    doReturn(detectedMimeTypeNoContent).when(mimeTypeDetectHttpClient).download(actualLocation.toURL());
     assertEquals(detectedMimeTypeNoContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.FULL));
     assertEquals(detectedMimeTypeNoContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.REDUCED));
 
@@ -101,7 +105,7 @@ class MediaExtractorImplTest {
 
     // Test case where there is no content, but there should be.
     doReturn(false).when(resource).hasContent();
-    doReturn(detectedMimeTypeWithContent).when(tika).detect(actualLocation.toURL());
+    doReturn(detectedMimeTypeWithContent).when(mimeTypeDetectHttpClient).download(actualLocation.toURL());
     assertThrows(MediaExtractionException.class, () -> mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.FULL));
     assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.REDUCED));
 
