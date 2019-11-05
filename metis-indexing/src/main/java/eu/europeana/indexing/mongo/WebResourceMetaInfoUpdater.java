@@ -61,6 +61,8 @@ public class WebResourceMetaInfoUpdater
           createGetter(WebResourceMetaInfoImpl::getAudioMetaInfo, AudioMetaInfo::getMimeType));
       propertyUpdater.updateObject("audioMetaInfo.fileSize",
           createGetter(WebResourceMetaInfoImpl::getAudioMetaInfo, AudioMetaInfo::getFileSize));
+      propertyUpdater.updateString("audioMetaInfo.codec",
+              createGetter(WebResourceMetaInfoImpl::getAudioMetaInfo, AudioMetaInfo::getCodec));
       propertyUpdater.updateObject("audioMetaInfo.duration",
           createGetter(WebResourceMetaInfoImpl::getAudioMetaInfo, AudioMetaInfo::getDuration));
       propertyUpdater.updateObject("audioMetaInfo.sampleRate",

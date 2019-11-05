@@ -173,7 +173,8 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
 
     metaInfo.setMimeType(convertToString(source.getHasMimeType()));
     metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
-
+    metaInfo.setCodec(
+            Optional.ofNullable(source.getCodecName()).map(CodecName::getCodecName).orElse(null));
     metaInfo.setDuration(convertToLong(source.getDuration()));
     metaInfo.setSampleRate(convertToInteger(source.getSampleRate()));
     metaInfo.setBitRate(convertToInteger(source.getBitRate()));
