@@ -71,7 +71,7 @@ class WebResourceMetaInfoUpdaterTest extends
     testObjectPropertyUpdate(propertyUpdater, "audioMetaInfo.fileSize",
         createSetterForAudio(AudioMetaInfoImpl::setFileSize), 10L);
     testStringPropertyUpdate(propertyUpdater,"audioMetaInfo.codec",
-            createSetterForVideo(AudioMetaInfoImpl::setCodec));
+        createSetterForAudio(AudioMetaInfoImpl::setCodec));
     testObjectPropertyUpdate(propertyUpdater, "audioMetaInfo.duration",
         createSetterForAudio(AudioMetaInfoImpl::setDuration), 11L);
     testObjectPropertyUpdate(propertyUpdater, "audioMetaInfo.sampleRate",
