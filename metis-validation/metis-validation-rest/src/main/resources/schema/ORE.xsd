@@ -141,12 +141,6 @@
 								dc:subject or dc:type or dc:coverage or dct:temporal or
 								dct:spatial.
 							</sch:assert>
-							<!--<sch:assert test="dc:title or dc:description">
-								id:
-								<sch:value-of select="@rdf:about" />
-								- A Proxy must have a dc:title or
-								dc:description.
-							</sch:assert> -->
 							<sch:assert
 								test="(dc:title and normalize-space(dc:title)!='') or (dc:description and (exists(dc:description/@rdf:resource) or normalize-space(dc:description)!=''))">A Proxy must have a non empty dc:title or a non empty
 								dc:description</sch:assert>

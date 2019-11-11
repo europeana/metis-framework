@@ -388,20 +388,17 @@ public class DatasetService {
       List<Record> records) throws GenericMetisException {
     //Used for authentication and dataset existence
     Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
-
     //Using default dataset identifier
     DatasetXslt datasetXslt = datasetXsltDao.getLatestDefaultXslt();
     if (datasetXslt == null) {
       throw new NoXsltFoundException("Could not find default xslt");
     }
-
     String xsltUrl;
     synchronized (this) {
       xsltUrl = metisCoreUrl + RestEndpoints
           .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
               Collections.singletonList(datasetXslt.getId().toString()));
     }
-
     return transformRecords(dataset, records, xsltUrl);
   }
 

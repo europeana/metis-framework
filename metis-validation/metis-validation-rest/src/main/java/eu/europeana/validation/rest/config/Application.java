@@ -100,7 +100,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
     /**
      * Creates {@link org.springframework.web.multipart.MultipartResolver} for application context
-     * @return
+     * @return commonsMultipartResolver
      */
   @Bean
   public CommonsMultipartResolver multipartResolver() {

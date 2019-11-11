@@ -71,6 +71,7 @@ public abstract class AbstractMediaProcessorPool<I, O, E extends Exception, T ex
    * @param input The input to process.
    * @return The result of processing the given input.
    * @throws E In case a problem occurred while processing the input.
+   * @throws MediaProcessorException In case a problem occurred while obtaining processor from the pool.
    */
   public O processTask(I input) throws MediaProcessorException, E {
 
