@@ -100,7 +100,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
     /**
      * Creates {@link org.springframework.web.multipart.MultipartResolver} for application context
-     * @return commonsMultipartResolver
+     * @return commonsMultipartResolver after setting the defaultEncoding and maxUploadSize to handle file upload
      */
   @Bean
   public CommonsMultipartResolver multipartResolver() {

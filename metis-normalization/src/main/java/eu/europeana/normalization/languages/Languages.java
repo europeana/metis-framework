@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
  *
  * @author Nuno Freire (nfreire@gmail.com)
  */
-public final class Languages {
+public class Languages {
 
   private static Languages instance;
 
