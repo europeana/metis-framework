@@ -8,6 +8,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetSearch;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -20,6 +21,8 @@ import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -633,6 +636,29 @@ public class DatasetController {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Language.getLanguageListSortedByName().stream().map(LanguageModel::new)
         .collect(Collectors.toList());
+  }
+
+  /**
+   * Get the list of DatasetSearch using dataset
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param dataset datasetId or datasetName used for the dataset search
+   * @return The list of datasetsearch
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
+   */
+  @GetMapping(value = RestEndpoints.DATASET_SEARCH, produces ={
+          MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<DatasetSearch> getDatasetSearch(
+      @RequestHeader("Authorization") String authorization,
+      @RequestParam(value = "dataset") String dataset) throws GenericMetisException{
+    List<DatasetSearch> datasetSearches= new ArrayList<>();
+    return datasetSearches;
   }
 
   private static class CountryModel {
