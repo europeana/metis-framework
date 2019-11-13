@@ -2,7 +2,9 @@ package eu.europeana.metis.core.dao;
 
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_NAME;
+import static eu.europeana.metis.core.common.DaoFieldNames.DATA_PROVIDER;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
+import static eu.europeana.metis.core.common.DaoFieldNames.PROVIDER;
 
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
@@ -13,12 +15,14 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.UnaryOperator;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.CriteriaContainer;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -349,6 +353,58 @@ public class DatasetDao implements MetisDao<Dataset, String> {
               dataset.getDatasetId(), dataset.getEcloudDatasetId());
     }
     return dataset.getEcloudDatasetId();
+  }
+
+  public List<Dataset> searchDatasetsBasedOnSearchString(List<String> datasetIdWords,
+      List<String> minimumLengthWords, int nextPage) {
+    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
+    final List<CriteriaContainer> criteriaContainerDatasetId = new ArrayList<>();
+    final List<CriteriaContainer> criteriaContainerDatasetName = new ArrayList<>();
+    final List<CriteriaContainer> criteriaContainerProviderId = new ArrayList<>();
+    final List<CriteriaContainer> criteriaContainerDataProviderId = new ArrayList<>();
+
+    //Search on datsetId, only words that start with a numeric character
+    for (String datasetIdWord : datasetIdWords) {
+      criteriaContainerDatasetId
+          .add(query.criteria(DATASET_ID.getFieldName()).startsWith(datasetIdWord));
+    }
+
+    //Search on provider and dataProvider
+    for (String word : minimumLengthWords) {
+      criteriaContainerDatasetName
+          .add(query.criteria(DATASET_NAME.getFieldName()).containsIgnoreCase(word));
+      criteriaContainerProviderId
+          .add(query.criteria(PROVIDER.getFieldName()).containsIgnoreCase(word));
+      criteriaContainerDataProviderId
+          .add(query.criteria(DATA_PROVIDER.getFieldName()).containsIgnoreCase(word));
+    }
+
+    final List<CriteriaContainer> criteriaContainerGroups = new ArrayList<>();
+    if (!criteriaContainerDatasetId.isEmpty()) {
+      criteriaContainerGroups
+          .add(query.or(criteriaContainerDatasetId.toArray(new CriteriaContainer[0])));
+    }
+    if (!criteriaContainerDatasetName.isEmpty()) {
+      criteriaContainerGroups
+          .add(query.and(criteriaContainerDatasetName.toArray(new CriteriaContainer[0])));
+    }
+    if (!criteriaContainerProviderId.isEmpty()) {
+      criteriaContainerGroups
+          .add(query.and(criteriaContainerProviderId.toArray(new CriteriaContainer[0])));
+    }
+    if (!criteriaContainerDataProviderId.isEmpty()) {
+      criteriaContainerGroups
+          .add(query.and(criteriaContainerDataProviderId.toArray(new CriteriaContainer[0])));
+    }
+
+    if (!criteriaContainerGroups.isEmpty()) {
+      query.or(criteriaContainerGroups.toArray(new CriteriaContainer[0]));
+    }
+    query.order(DATASET_ID.getFieldName());
+
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> query.asList(
+            new FindOptions().skip(nextPage * getDatasetsPerRequest())
+                .limit(getDatasetsPerRequest())));
   }
 
   public void setEcloudProvider(String ecloudProvider) {

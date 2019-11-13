@@ -8,6 +8,7 @@ import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -15,6 +16,7 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
 import eu.europeana.metis.core.exceptions.XsltSetupException;
 import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.exception.BadContentException;
@@ -26,11 +28,15 @@ import eu.europeana.metis.transformation.service.EuropeanaIdException;
 import eu.europeana.metis.transformation.service.TransformationException;
 import eu.europeana.metis.transformation.service.XsltTransformer;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -48,6 +54,7 @@ public class DatasetService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
   private static final String DATASET_CREATION_LOCK = "datasetCreationLock";
+  private static final int MINIMUM_WORD_LENGTH = 3;
 
   private final Authorizer authorizer;
   private final DatasetDao datasetDao;
@@ -138,7 +145,8 @@ public class DatasetService {
    * Update an already existent dataset.
    *
    * @param metisUser the {@link MetisUser} to authorize with
-   * @param dataset the provided dataset with the changes and the datasetId included in the {@link Dataset}
+   * @param dataset the provided dataset with the changes and the datasetId included in the {@link
+   * Dataset}
    * @param xsltString the text of the String representation
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -314,8 +322,8 @@ public class DatasetService {
    * <p>
    * Each dataset can have it's own custom xslt but a default xslt should always be available.
    * Creating a new default xslt will create a new {@link DatasetXslt} object and the older one will
-   * still be available. The created {@link DatasetXslt} will have
-   * {@link DatasetXslt#getDatasetId()} equal to -1 to indicate that it is not related to a specific
+   * still be available. The created {@link DatasetXslt} will have {@link
+   * DatasetXslt#getDatasetId()} equal to -1 to indicate that it is not related to a specific
    * dataset.
    * </p>
    *
@@ -340,9 +348,9 @@ public class DatasetService {
   /**
    * Get the latest default xslt.
    * <p>
-   * It is an method that does not require authentication and it is meant to be used from
-   * external service to download the corresponding xslt. At the point of writing, ECloud
-   * transformation topology is using it. {@link TransformationPlugin}
+   * It is an method that does not require authentication and it is meant to be used from external
+   * service to download the corresponding xslt. At the point of writing, ECloud transformation
+   * topology is using it. {@link TransformationPlugin}
    * </p>
    *
    * @return the text representation of the String xslt non escaped
@@ -362,10 +370,10 @@ public class DatasetService {
   /**
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
-   * This method can be used, for example, after a response from
-   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String, ExecutablePluginType, String, int)}
-   * to try a transformation on a list of xmls just after validation external to preview an example
-   * result.
+   * This method can be used, for example, after a response from {@link
+   * ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String,
+   * ExecutablePluginType, String, int)} to try a transformation on a list of xmls just after
+   * validation external to preview an example result.
    * </p>
    *
    * @param metisUser the {@link MetisUser} to authorize with
@@ -408,10 +416,10 @@ public class DatasetService {
   /**
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
-   * This method can be used, for example, after a response from
-   * {@link ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String, ExecutablePluginType, String, int)}
-   * to try a transformation on a list of xmls just after validation external to preview an example
-   * result.
+   * This method can be used, for example, after a response from {@link
+   * ProxiesService#getListOfFileContentsFromPluginExecution(MetisUser, String,
+   * ExecutablePluginType, String, int)} to try a transformation on a list of xmls just after
+   * validation external to preview an example result.
    * </p>
    *
    * @param metisUser the {@link MetisUser} to authorize with
@@ -443,7 +451,8 @@ public class DatasetService {
     String xsltUrl;
     synchronized (this) {
       xsltUrl = metisCoreUrl + RestEndpoints
-          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, Collections.singletonList(datasetXslt.getId().toString()));
+          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
+              Collections.singletonList(datasetXslt.getId().toString()));
     }
 
     return transformRecords(dataset, records, xsltUrl);
@@ -464,7 +473,8 @@ public class DatasetService {
       throw new XsltSetupException("Could not setup XSL transformation.", e);
     } catch (EuropeanaIdException e) {
       LOGGER.info(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
-      throw new XsltSetupException(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED, e);
+      throw new XsltSetupException(CommonStringValues.EUROPEANA_ID_CREATOR_INITIALIZATION_FAILED,
+          e);
     }
 
     // Transform the records.
@@ -578,6 +588,43 @@ public class DatasetService {
       throws GenericMetisException {
     authorizer.authorizeReadAllDatasets(metisUser);
     return datasetDao.getAllDatasetsByOrganizationName(organizationName, nextPage);
+  }
+
+  // TODO: 13-11-19 Replace return String with actual model class
+  public List<String> searchDatasetsBasedOnSearchString(MetisUser metisUser, String searchString,
+      int nextPage) throws GenericMetisException {
+    authorizer.authorizeReadAllDatasets(metisUser);
+    if (StringUtils.isBlank(searchString)) {
+      throw new BadContentException("Parameter searchString cannot be blank");
+    }
+    final String[] words = searchString.split("\\s+");
+    final List<String> datasetIdWords = Arrays.stream(words)
+        .filter(word -> Character.isDigit(word.charAt(0))).collect(Collectors.toList());
+
+    final List<String> minimumLengthWords = Arrays.stream(words)
+        .filter(word -> word.length() >= MINIMUM_WORD_LENGTH).collect(Collectors.toList());
+
+    List<Dataset> datasets = new ArrayList<>();
+    if (!datasetIdWords.isEmpty() || !minimumLengthWords.isEmpty()) {
+      datasets = datasetDao
+          .searchDatasetsBasedOnSearchString(datasetIdWords, minimumLengthWords, nextPage);
+    }
+
+    final List<Object> datasetSearchViewList = datasets.stream().map(dataset -> {
+          final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulExecutablePlugin = workflowExecutionDao
+              .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(),
+                  EnumSet.allOf(ExecutablePluginType.class), false);
+          // TODO: 13-11-19 create model class here
+          dataset.getDatasetId();
+          dataset.getProvider();
+          if (latestSuccessfulExecutablePlugin != null) {
+            latestSuccessfulExecutablePlugin.getPlugin().getStartedDate();
+          }
+          return null;
+        }
+    ).collect(Collectors.toList());
+
+    return null;
   }
 
   public int getDatasetsPerRequestLimit() {
