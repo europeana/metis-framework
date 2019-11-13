@@ -8,7 +8,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetSearch;
+import eu.europeana.metis.core.dataset.DatasetSearchView;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -639,22 +639,22 @@ public class DatasetController {
   }
 
   /**
-   * Get the list of DatasetSearch using dataset
+   * Get the list of of matching DatasetSearch using dataset
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param dataset datasetId or datasetName used for the dataset search
-   * @return The list of datasetsearch
+   * @return The list of datasetsearchview
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  @GetMapping(value = RestEndpoints.DATASET_SEARCH, produces ={
+  @GetMapping(value = RestEndpoints.DATASETS_SEARCH, produces ={
           MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<DatasetSearch> getDatasetSearch(
+  public List<DatasetSearchView> getDatasetSearch(
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "dataset") String dataset) throws GenericMetisException{
     return new ArrayList<>();

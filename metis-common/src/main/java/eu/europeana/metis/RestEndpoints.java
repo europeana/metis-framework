@@ -25,7 +25,7 @@ public final class RestEndpoints {
   public static final String DATASETS_ORGANIZATION_NAME = "/datasets/organization_name/{organizationName}";
   public static final String DATASETS_COUNTRIES = "/datasets/countries";
   public static final String DATASETS_LANGUAGES = "/datasets/languages";
-  public static final String DATASET_SEARCH ="/datasets/search";
+  public static final String DATASETS_SEARCH ="/datasets/search";
 
   //AUTHENTICATION
   public static final String AUTHENTICATION_REGISTER = "/authentication/register";

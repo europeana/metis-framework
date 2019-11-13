@@ -8,12 +8,16 @@ import java.util.Date;
  * @author Srishti Singh (srishti.singh@europeana.eu)
  * @since 2019-11-12
  */
-public class DatasetSearch {
+public class DatasetSearchView {
 
     private String datasetId;
     private String providerName;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date lastExecutionDate;
+
+    public DatasetSearchView() {
+        //Required for json (de)serialization
+    }
 
     public String getDatasetId() {
         return datasetId;
