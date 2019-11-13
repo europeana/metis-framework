@@ -1099,15 +1099,13 @@ class TestDatasetController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
             .thenReturn(metisUser);
 
-    MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/search")
+    datasetControllerMock.perform(get("/datasets/search")
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("dataset", "test")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
             .andExpect(status().is(200))
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
-
-    String resultListOfDatasetSearch = mvcResult.getResponse().getContentAsString();
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
   }
 
   private List<Dataset> getDatasets() {

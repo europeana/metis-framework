@@ -657,8 +657,7 @@ public class DatasetController {
   public List<DatasetSearch> getDatasetSearch(
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "dataset") String dataset) throws GenericMetisException{
-    List<DatasetSearch> datasetSearches= new ArrayList<>();
-    return datasetSearches;
+    return new ArrayList<>();
   }
 
   private static class CountryModel {

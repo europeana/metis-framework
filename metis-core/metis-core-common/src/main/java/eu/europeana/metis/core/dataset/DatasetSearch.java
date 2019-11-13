@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.dataset;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 /**
