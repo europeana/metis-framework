@@ -205,8 +205,9 @@ class AudioVideoProcessor implements MediaProcessor {
         final int channels = findInt("channels", candidates);
         final int sampleRate = findInt("sample_rate", candidates);
         final int sampleSize = findInt("bits_per_sample", candidates);
+        final String codecName = findString("codec_name", candidates);
         metadata = new AudioResourceMetadata(detectedMimeType, resource.getResourceUrl(),
-            fileSize, duration, bitRate, channels, sampleRate, sampleSize);
+            fileSize, duration, bitRate, channels, sampleRate, sampleSize,codecName);
       } else {
         throw new MediaExtractionException("No media streams");
       }

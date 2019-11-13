@@ -15,6 +15,10 @@ public class CustomObjectMapper extends ObjectMapper {
    **/
   private static final long serialVersionUID = -1337976528047131517L;
 
+  /**
+   * Default constructor that contains configuration for {@link ObjectId} class deserialization,
+   * using {@link ObjectIdSerializer}
+   */
   public CustomObjectMapper() {
     SimpleModule module = new SimpleModule("ObjectIdmodule");
     module.addSerializer(ObjectId.class, new ObjectIdSerializer());

@@ -173,7 +173,7 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
 
     metaInfo.setMimeType(convertToString(source.getHasMimeType()));
     metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
-
+    metaInfo.setCodec(convertToString(source.getCodecName()));
     metaInfo.setDuration(convertToLong(source.getDuration()));
     metaInfo.setSampleRate(convertToInteger(source.getSampleRate()));
     metaInfo.setBitRate(convertToInteger(source.getBitRate()));
@@ -192,11 +192,8 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
     metaInfo.setHeight(convertToInteger(source.getHeight()));
     metaInfo.setWidth(convertToInteger(source.getWidth()));
 
-    // TODO: 3-8-18 Gray is used because of backwards compatibility but the actual value defined in the xsd is grayscale
-    final Function<ColorSpaceType, String> colorSpaceToString = value ->
-        value == ColorSpaceType.GRAYSCALE ? "Gray" : value.xmlValue();
     metaInfo.setColorSpace(Optional.ofNullable(source.getHasColorSpace())
-        .map(HasColorSpace::getHasColorSpace).map(colorSpaceToString).orElse(null));
+        .map(HasColorSpace::getHasColorSpace).map(ColorSpaceType::xmlValue).orElse(null));
 
     final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList())
         .map(List::stream).orElseGet(Stream::empty);
@@ -235,9 +232,7 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
 
     metaInfo.setMimeType(convertToString(source.getHasMimeType()));
     metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
-
-    metaInfo.setCodec(
-        Optional.ofNullable(source.getCodecName()).map(CodecName::getCodecName).orElse(null));
+    metaInfo.setCodec(convertToString(source.getCodecName()));
     metaInfo.setWidth(convertToInteger(source.getWidth()));
     metaInfo.setHeight(convertToInteger(source.getHeight()));
     metaInfo.setBitRate(convertToInteger(source.getBitRate()));
@@ -277,5 +272,9 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
   private static Integer convertToInteger(NonNegativeIntegerType data) {
     return Optional.ofNullable(data).map(NonNegativeIntegerType::getInteger)
         .map(BigInteger::intValue).orElse(null);
+  }
+
+  private static String convertToString(CodecName data){
+    return Optional.ofNullable(data).map(CodecName::getCodecName).orElse(null);
   }
 }

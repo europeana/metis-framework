@@ -183,27 +183,32 @@ public class PsqlMetisUserDao {
         query.setFirstResult(offset).setMaxResults(pageSize);
         metisUserAccessTokens = query.getResultList();
         if (!metisUserAccessTokens.isEmpty()) {
-          for (Object object : metisUserAccessTokens) {
-            MetisUserAccessToken metisUserAccessToken = (MetisUserAccessToken) object;
-            long accessTokenInMillis = metisUserAccessToken.getTimestamp().getTime();
-            Date afterAddingTenMins = new Date(
-                accessTokenInMillis + (getAccessTokenExpireTimeInMins() * ONE_MINUTE_IN_MILLIS));
-            if (afterAddingTenMins.compareTo(date) <= 0) {
-              //Remove access token
-              Query deleteQuery = session
-                  .createQuery(String
-                      .format("DELETE FROM MetisUserAccessToken WHERE access_token=:%s",
-                          ACCESS_TOKEN_STRING));
-              deleteQuery.setParameter(ACCESS_TOKEN_STRING, metisUserAccessToken.getAccessToken());
-              int i = deleteQuery.executeUpdate();
-              LOGGER.info("Removed {} Access Token: {}", i, metisUserAccessToken.getAccessToken());
-            }
-          }
+          removeTokensBasedOnExpiryDate(date, session, metisUserAccessTokens);
         }
         offset += pageSize;
       } while (!metisUserAccessTokens.isEmpty());
       commitTransaction(tx,
           "Something when wrong when trying to expire metis authentication tokens");
+    }
+  }
+
+  private void removeTokensBasedOnExpiryDate(Date date, Session session,
+      List<?> metisUserAccessTokens) {
+    for (Object object : metisUserAccessTokens) {
+      MetisUserAccessToken metisUserAccessToken = (MetisUserAccessToken) object;
+      long accessTokenInMillis = metisUserAccessToken.getTimestamp().getTime();
+      Date afterAddingTenMins = new Date(
+          accessTokenInMillis + (getAccessTokenExpireTimeInMins() * ONE_MINUTE_IN_MILLIS));
+      if (afterAddingTenMins.compareTo(date) <= 0) {
+        //Remove access token
+        Query deleteQuery = session
+            .createQuery(String
+                .format("DELETE FROM MetisUserAccessToken WHERE access_token=:%s",
+                    ACCESS_TOKEN_STRING));
+        deleteQuery.setParameter(ACCESS_TOKEN_STRING, metisUserAccessToken.getAccessToken());
+        int i = deleteQuery.executeUpdate();
+        LOGGER.info("Removed {} Access Token: {}", i, metisUserAccessToken.getAccessToken());
+      }
     }
   }
 

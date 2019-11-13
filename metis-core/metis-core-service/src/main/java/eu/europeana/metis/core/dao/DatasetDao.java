@@ -339,10 +339,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
             "Metis generated dataset");
         update(dataset);
       } catch (DataSetAlreadyExistsException e) {
-        LOGGER.info("Dataset already exist, not recreating", e);
         throw new ExternalTaskException("Dataset already exist, not recreating", e);
       } catch (MCSException e) {
-        LOGGER.error("An error has occurred during ecloud dataset creation.", e);
         throw new ExternalTaskException("An error has occurred during ecloud dataset creation.", e);
       }
     } else {

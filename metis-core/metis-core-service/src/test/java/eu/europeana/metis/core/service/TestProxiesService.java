@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -556,9 +557,9 @@ class TestProxiesService {
     final String ecloudProvider = proxiesService.getEcloudProvider();
     final String dateString = proxiesService.pluginDateFormatForEcloud
         .format(plugin.getStartedDate());
-    doReturn(representation).when(recordServiceClient).getRepresentationByRevision(
-        eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
-        eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+    doReturn(Collections.singletonList(representation)).when(recordServiceClient)
+        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
+            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
     final String testContent = "test content";
     when(fileServiceClient.getFile(contentUri))
         .thenReturn(new ByteArrayInputStream(testContent.getBytes(StandardCharsets.UTF_8)));
@@ -574,11 +575,38 @@ class TestProxiesService {
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
     doReturn(new ByteArrayInputStream(testContent.getBytes(StandardCharsets.UTF_8)))
         .when(fileServiceClient).getFile(contentUri);
+    proxiesService.getRecord(plugin, ecloudId);
 
-    // When the record service client returns an exception
-    when(recordServiceClient.getRepresentationByRevision(anyString(), anyString(),
+    // When the record service client returns an exception or an unexpected list size.
+    doReturn(null).when(recordServiceClient)
+        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
+            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+    doReturn(Collections.emptyList()).when(recordServiceClient)
+        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
+            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+    doReturn(Arrays.asList(representation, representation)).when(recordServiceClient)
+        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
+            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+    proxiesService.getRecord(plugin, ecloudId);
+    when(recordServiceClient.getRepresentationsByRevision(anyString(), anyString(),
         anyString(), anyString(), anyString())).thenThrow(MCSException.class);
     assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+    doReturn(Collections.singletonList(representation)).when(recordServiceClient)
+        .getRepresentationsByRevision(eq(ecloudId), eq(MetisPlugin.getRepresentationName()),
+            eq(pluginType.name()), eq(ecloudProvider), eq(dateString));
+    proxiesService.getRecord(plugin, ecloudId);
+
+    // When the revision has an unexpected number of files
+    when(representation.getFiles()).thenReturn(null);
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+    when(representation.getFiles()).thenReturn(Collections.emptyList());
+    assertThrows(ExternalTaskException.class, () -> proxiesService.getRecord(plugin, ecloudId));
+    when(representation.getFiles()).thenReturn(Arrays.asList(file, file));
+    proxiesService.getRecord(plugin, ecloudId);
+    when(representation.getFiles()).thenReturn(Collections.singletonList(file));
+    proxiesService.getRecord(plugin, ecloudId);
   }
 
   private Pair<AbstractExecutablePlugin<?>, ExecutablePluginType> getUsedAndUnusedPluginType(

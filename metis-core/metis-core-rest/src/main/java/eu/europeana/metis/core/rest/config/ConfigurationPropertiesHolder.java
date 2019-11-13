@@ -238,7 +238,7 @@ public class ConfigurationPropertiesHolder {
     return metisCoreBaseUrl;
   }
 
-  public boolean getMetisUseAlternativeIndexingEnvironment() {
+  public boolean isMetisUseAlternativeIndexingEnvironment() {
     return metisUseAlternativeIndexingEnvironment;
   }
 

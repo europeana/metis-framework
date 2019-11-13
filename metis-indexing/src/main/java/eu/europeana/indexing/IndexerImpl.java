@@ -19,9 +19,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of {@link Indexer}.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 class IndexerImpl implements Indexer {
 
@@ -30,10 +29,10 @@ class IndexerImpl implements Indexer {
   private final AbstractConnectionProvider connectionProvider;
 
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
-  
+
   /**
    * Constructor.
-   * 
+   *
    * @param connectionProvider The connection provider for this indexer.
    */
   IndexerImpl(AbstractConnectionProvider connectionProvider) {
@@ -42,11 +41,10 @@ class IndexerImpl implements Indexer {
 
   /**
    * Constructor for testing purposes.
-   * 
+   *
    * @param connectionProvider The connection provider for this indexer.
    * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter}
-   *        used to parse strings to instances of {@link RDF}. Will be called once during every
-   *        index.
+   * used to parse strings to instances of {@link RDF}. Will be called once during every index.
    */
   IndexerImpl(AbstractConnectionProvider connectionProvider,
       IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier) {
@@ -54,21 +52,16 @@ class IndexerImpl implements Indexer {
     this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
   }
 
-  private void indexRecords(List<RDF> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf)
-      throws IndexingException {
+  private void indexRecords(List<RDF> records, Date recordDate,
+      boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
     LOGGER.info("Processing {} records...", records.size());
-    try {
-      final FullBeanPublisher publisher =
-          connectionProvider.getFullBeanPublisher(preserveUpdateAndCreateTimesFromRdf);
-      for (RDF record : records) {
-        preprocessRecord(record);
-        publisher.publish(new RdfWrapper(record), recordDate);
-      }
-      LOGGER.info("Successfully processed {} records.", records.size());
-    } catch (IndexingException e) {
-      LOGGER.warn("Error while indexing a record.", e);
-      throw e;
+    final FullBeanPublisher publisher =
+        connectionProvider.getFullBeanPublisher(preserveUpdateAndCreateTimesFromRdf);
+    for (RDF record : records) {
+      preprocessRecord(record);
+      publisher.publish(new RdfWrapper(record), recordDate);
     }
+    LOGGER.info("Successfully processed {} records.", records.size());
   }
 
   private static void preprocessRecord(RDF rdf) throws IndexingException {
@@ -81,7 +74,8 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void indexRdfs(List<RDF> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+  public void indexRdfs(List<RDF> records, Date recordDate,
+      boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
     indexRecords(records, recordDate, preserveUpdateAndCreateTimesFromRdf);
   }
 
@@ -92,7 +86,8 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void index(List<String> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+  public void index(List<String> records, Date recordDate,
+      boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
     LOGGER.info("Parsing {} records...", records.size());
     final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
     final List<RDF> wrappedRecords = new ArrayList<>(records.size());
@@ -103,7 +98,8 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+  public void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf)
+      throws IndexingException {
     index(Collections.singletonList(record), recordDate, preserveUpdateAndCreateTimesFromRdf);
   }
 
@@ -113,7 +109,8 @@ class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexerRelatedIndexingException {
+  public void triggerFlushOfPendingChanges(boolean blockUntilComplete)
+      throws IndexerRelatedIndexingException {
     try {
       this.connectionProvider.triggerFlushOfPendingChanges(blockUntilComplete);
     } catch (SolrServerException | IOException e) {
@@ -123,41 +120,32 @@ class IndexerImpl implements Indexer {
 
   @Override
   public boolean remove(String rdfAbout) throws IndexerRelatedIndexingException {
-    try {
-      return this.connectionProvider.getIndexedRecordRemover().removeRecord(rdfAbout);
-    } catch (IndexerRelatedIndexingException e) {
-      LOGGER.warn("Error while removing a record.", e);
-      throw e;
-    }
+    return this.connectionProvider.getIndexedRecordRemover().removeRecord(rdfAbout);
   }
 
   @Override
-  public int removeAll(String datasetId, Date maxRecordDate) throws IndexerRelatedIndexingException {
-    try {
-      return this.connectionProvider.getIndexedRecordRemover().removeDataset(datasetId,
-          maxRecordDate);
-    } catch (IndexerRelatedIndexingException e) {
-      LOGGER.warn("Error while removing a dataset.", e);
-      throw e;
-    }
+  public int removeAll(String datasetId, Date maxRecordDate)
+      throws IndexerRelatedIndexingException {
+    return this.connectionProvider.getIndexedRecordRemover()
+        .removeDataset(datasetId, maxRecordDate);
   }
 
   /**
-   * Similar to the Java interface {@link Supplier}, but one that may throw an
-   * {@link IndexerRelatedIndexingException}.
-   * 
-   * @author jochen
+   * Similar to the Java interface {@link Supplier}, but one that may throw an {@link
+   * IndexerRelatedIndexingException}.
    *
    * @param <T> The type of the object to be supplied.
+   * @author jochen
    */
   @FunctionalInterface
   interface IndexingSupplier<T> {
 
     /**
      * Gets a result.
-     * 
+     *
      * @return A result.
-     * @throws IndexerRelatedIndexingException In case something went wrong while getting the result.
+     * @throws IndexerRelatedIndexingException In case something went wrong while getting the
+     * result.
      */
     T get() throws IndexerRelatedIndexingException;
   }

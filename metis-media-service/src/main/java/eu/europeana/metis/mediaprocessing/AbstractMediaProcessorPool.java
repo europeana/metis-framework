@@ -6,14 +6,11 @@ import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import java.io.Closeable;
-import java.io.IOException;
 import java.time.Duration;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -40,8 +37,6 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractMediaProcessorPool<I, O, E extends Exception, T extends PoolableProcessor<I, O, E>> implements
     Closeable {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractMediaProcessorPool.class);
 
   private static final int MAX_IDLE_TIME_FOR_PROCESSOR_IN_SECONDS = 300;
   private static final int IDLE_TIME_CHECK_INTERVAL_IN_SECONDS = 60;

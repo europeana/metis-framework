@@ -34,6 +34,8 @@ import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.rest.ExecutionHistory.Execution;
+import eu.europeana.metis.core.rest.PluginsWithDataAvailability.PluginWithDataAvailability;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
@@ -73,6 +75,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  * @since 2017-10-06
  */
 class TestOrchestratorController {
+
+  private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+  static {
+    simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+  }
 
   private static OrchestratorService orchestratorService;
   private static MockMvc orchestratorControllerMock;
@@ -492,7 +499,6 @@ class TestOrchestratorController {
         .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.RUNNING.name())));
   }
 
-
   @Test
   void getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution()
       throws Exception {
@@ -553,9 +559,6 @@ class TestOrchestratorController {
     when(orchestratorService
         .getDatasetExecutionInformation(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(datasetExecutionInformation);
-
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-    simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION,
@@ -727,6 +730,146 @@ class TestOrchestratorController {
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(406));
+  }
+
+  @Test
+  void testGetDatasetExecutionHistory() throws Exception {
+
+    // Get the user
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
+    // Create nonempty history
+    final Execution execution1 = new Execution();
+    execution1.setWorkflowExecutionId("execution 1");
+    execution1.setStartedDate(new Date(1));
+    final Execution execution2 = new Execution();
+    execution2.setWorkflowExecutionId("execution 2");
+    execution2.setStartedDate(new Date(2));
+    final ExecutionHistory resultNonEmpty = new ExecutionHistory();
+    resultNonEmpty.setExecutions(Arrays.asList(execution1, execution2));
+
+    // Test happy flow with non-empty evolution
+    when(orchestratorService
+        .getDatasetExecutionHistory(metisUser, "" + TestObjectFactory.DATASETID))
+        .thenReturn(resultNonEmpty);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY,
+            TestObjectFactory.DATASETID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.executions", hasSize(2)))
+        .andExpect(jsonPath("$.executions[0].workflowExecutionId",
+            is(execution1.getWorkflowExecutionId())))
+        .andExpect(jsonPath("$.executions[0].startedDate",
+            is(simpleDateFormat.format(execution1.getStartedDate()))))
+        .andExpect(jsonPath("$.executions[1].workflowExecutionId",
+            is(execution2.getWorkflowExecutionId())))
+        .andExpect(jsonPath("$.executions[1].startedDate",
+            is(simpleDateFormat.format(execution2.getStartedDate()))));
+
+    // Test happy flow with empty evolution
+    final ExecutionHistory resultEmpty = new ExecutionHistory();
+    resultEmpty.setExecutions(Collections.emptyList());
+    when(orchestratorService
+        .getDatasetExecutionHistory(metisUser, "" + TestObjectFactory.DATASETID))
+        .thenReturn(resultEmpty);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY,
+            TestObjectFactory.DATASETID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.executions", hasSize(0)));
+
+    // Test for bad input
+    when(orchestratorService
+        .getDatasetExecutionHistory(metisUser, "" + TestObjectFactory.DATASETID))
+        .thenThrow(new NoDatasetFoundException(""));
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY,
+            TestObjectFactory.DATASETID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(404));
+
+    // Test for unauthorized user
+    doThrow(new UserUnauthorizedException("")).when(orchestratorService)
+        .getDatasetExecutionHistory(metisUser, "" + TestObjectFactory.DATASETID);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY,
+            TestObjectFactory.DATASETID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(401));
+  }
+
+  @Test
+  void testGetExecutablePluginsWithDataAvailability() throws Exception {
+
+    // Get the user
+    final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
+    // Create nonempty history
+    final PluginWithDataAvailability plugin1 = new PluginWithDataAvailability();
+    plugin1.setPluginType(PluginType.OAIPMH_HARVEST);
+    plugin1.setHasSuccessfulData(true);
+    final PluginWithDataAvailability plugin2 = new PluginWithDataAvailability();
+    plugin2.setPluginType(PluginType.ENRICHMENT);
+    plugin2.setHasSuccessfulData(false);
+    final PluginsWithDataAvailability resultNonEmpty = new PluginsWithDataAvailability();
+    resultNonEmpty.setPlugins(Arrays.asList(plugin1, plugin2));
+
+    // Test happy flow with non-empty evolution
+    when(orchestratorService
+        .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID))
+        .thenReturn(resultNonEmpty);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
+            TestObjectFactory.EXECUTIONID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.plugins", hasSize(2)))
+        .andExpect(jsonPath("$.plugins[0].pluginType",
+            is(plugin1.getPluginType().name())))
+        .andExpect(jsonPath("$.plugins[0].hasSuccessfulData",
+            is(plugin1.isHasSuccessfulData())))
+        .andExpect(jsonPath("$.plugins[1].pluginType",
+            is(plugin2.getPluginType().name())))
+        .andExpect(jsonPath("$.plugins[1].hasSuccessfulData",
+            is(plugin2.isHasSuccessfulData())));
+
+    // Test happy flow with empty evolution
+    final PluginsWithDataAvailability resultEmpty = new PluginsWithDataAvailability();
+    resultEmpty.setPlugins(Collections.emptyList());
+    when(orchestratorService
+        .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID))
+        .thenReturn(resultEmpty);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
+            TestObjectFactory.EXECUTIONID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.plugins", hasSize(0)));
+
+    // Test for bad input
+    when(orchestratorService
+        .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID))
+        .thenThrow(new NoWorkflowExecutionFoundException(""));
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
+            TestObjectFactory.EXECUTIONID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(404));
+
+    // Test for unauthorized user
+    doThrow(new UserUnauthorizedException("")).when(orchestratorService)
+        .getExecutablePluginsWithDataAvailability(metisUser, TestObjectFactory.EXECUTIONID);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY,
+            TestObjectFactory.EXECUTIONID)
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER))
+        .andExpect(status().is(401));
   }
 
   @Test

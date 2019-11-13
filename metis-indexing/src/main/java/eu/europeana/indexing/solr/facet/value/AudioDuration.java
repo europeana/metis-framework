@@ -36,25 +36,34 @@ public enum AudioDuration implements FacetValue {
   }
 
   /**
+   * Categorize the audio duration.
+   *
+   * @param audioDuration The audio duration.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static AudioDuration categorizeAudioDuration(final Long audioDuration) {
+    final AudioDuration result;
+    if (audioDuration == null || audioDuration <= 0L) {
+      result = null;
+    } else if (audioDuration <= AUDIO_SHORT_DURATION) {
+      result = TINY;
+    } else if (audioDuration <= AUDIO_MEDIUM_DURATION) {
+      result = SHORT;
+    } else if (audioDuration <= AUDIO_LONG_DURATION) {
+      result = MEDIUM;
+    } else {
+      result = LONG;
+    }
+    return result;
+  }
+
+  /**
    * Categorize the duration of the given audio.
    *
    * @param webResource The web resource.
    * @return The category, or null if none of the categories apply.
    */
   public static AudioDuration categorizeAudioDuration(final WebResourceWrapper webResource) {
-    final long duration = webResource.getDuration();
-    final AudioDuration result;
-    if (duration == 0L) {
-      result = null;
-    } else if (duration <= AUDIO_SHORT_DURATION) {
-      result = TINY;
-    } else if (duration <= AUDIO_MEDIUM_DURATION) {
-      result = SHORT;
-    } else if (duration <= AUDIO_LONG_DURATION) {
-      result = MEDIUM;
-    } else {
-      result = LONG;
-    }
-    return result;
+    return categorizeAudioDuration(webResource.getDuration());
   }
 }

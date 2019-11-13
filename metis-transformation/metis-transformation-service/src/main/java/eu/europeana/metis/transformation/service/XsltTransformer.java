@@ -1,5 +1,6 @@
 package eu.europeana.metis.transformation.service;
 
+import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,11 +14,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
 import net.sf.saxon.TransformerFactoryImpl;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class performs XSL transforms (XSLT). Instances of this class are <b>not thread-safe</b>.
@@ -25,8 +23,6 @@ import net.sf.saxon.TransformerFactoryImpl;
  * compilation, this operation is not very expensive.
  */
 public class XsltTransformer {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(XsltTransformer.class);
 
   private static final CacheWithExpirationTime<String, Templates> TEMPLATES_CACHE =
       new CacheWithExpirationTime<>();
@@ -58,7 +54,6 @@ public class XsltTransformer {
     try {
       this.transformer = getTemplates(xsltUrl).newTransformer();
     } catch (TransformerConfigurationException | CacheValueSupplierException e) {
-      LOGGER.error("Exception during transformation setup", e);
       throw new TransformationException(e);
     }
     if (StringUtils.isNotBlank(datasetName)) {
@@ -100,7 +95,6 @@ public class XsltTransformer {
       transformer.transform(new StreamSource(contentStream), new StreamResult(result));
       return result;
     } catch (TransformerException | IOException e) {
-      LOGGER.error("Exception during transformation", e);
       throw new TransformationException(e);
     }
   }

@@ -11,8 +11,8 @@ import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
+import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
@@ -301,16 +301,17 @@ public class OrchestratorController {
     WorkflowExecution workflowExecution = orchestratorService
         .getWorkflowExecutionByExecutionId(metisUser, executionId);
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("WorkflowExecution with executionId '{}' found",
-          executionId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+      LOGGER.info("WorkflowExecution with executionId '{}' {}found.",
+          executionId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""),
+          workflowExecution == null ? "not " : "");
     }
     return workflowExecution;
   }
 
   /**
    * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
-   * there was a previous successful finished plugin that follows a specific order unless the {@code
-   * enforcedPredecessorType} is used.
+   * there was a previous successful finished plugin that follows a specific order (unless the {@code
+   * enforcedPredecessorType} is used) and that has the latest successful harvest plugin as an ancestor.
    *
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier of which the executions are based on
@@ -333,14 +334,14 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
+  public MetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam("pluginType") ExecutablePluginType pluginType,
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") ExecutablePluginType enforcedPredecessorType)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
+    MetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, datasetId,
             pluginType, enforcedPredecessorType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId == null) {
@@ -522,6 +523,65 @@ public class OrchestratorController {
   }
 
   /**
+   * Retrieve dataset level history of past executions {@link ExecutionHistory}
+   *
+   * @param authorization the authorization header with the access token
+   * @param datasetId the dataset identifier to generate the history for
+   * @return the structured class containing all the execution history, ordered by date descending.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_HISTORY, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public ExecutionHistory getDatasetExecutionHistory(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") String datasetId) throws GenericMetisException {
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.debug("Requesting dataset execution history for datasetId: {}",
+          datasetId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""));
+    }
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return orchestratorService.getDatasetExecutionHistory(metisUser, datasetId);
+  }
+
+  /**
+   * Retrieve a list of executable plugins with data availability {@link
+   * PluginsWithDataAvailability} for a given workflow execution.
+   *
+   * @param authorization the authorization header with the access token
+   * @param executionId the identifier of the execution for which to get the plugins
+   * @return the structured class containing all the execution history, ordered by date descending.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
+   * non-existing execution ID or version is provided.</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  @GetMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID_PLUGINS_DATA_AVAILABILITY, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public PluginsWithDataAvailability getExecutablePluginsWithDataAvailability(
+      @RequestHeader("Authorization") String authorization,
+      @PathVariable("executionId") String executionId) throws GenericMetisException {
+    if (LOGGER.isInfoEnabled()) {
+      final String logSanitizedExecutionId = executionId.replaceAll("[\r\n]", "");
+      LOGGER.debug("Requesting plugins with data availability for executionId: {}", logSanitizedExecutionId);
+    }
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return orchestratorService.getExecutablePluginsWithDataAvailability(metisUser, executionId);
+  }
+
+  /**
    * Get the evolution of the records from when they were first imported until (and excluding) the
    * specified version.
    *
@@ -532,7 +592,7 @@ public class OrchestratorController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
-   * non-existing version is provided.</li>
+   * non-existing execution ID or version is provided.</li>
    * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
    * authenticated or authorized to perform this operation</li>
    * </ul>

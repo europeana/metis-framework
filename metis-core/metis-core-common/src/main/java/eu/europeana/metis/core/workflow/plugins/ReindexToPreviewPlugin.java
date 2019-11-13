@@ -9,6 +9,12 @@ public class ReindexToPreviewPlugin extends AbstractMetisPlugin<ReindexToPreview
     this(null);
   }
 
+  /**
+   * Constructor to initialize the plugin with pluginMetadata.
+   * <p>Initializes the {@link #pluginType} as well.</p>
+   *
+   * @param pluginMetadata The plugin metadata.
+   */
   public ReindexToPreviewPlugin(ReindexToPreviewPluginMetadata pluginMetadata) {
     super(PluginType.REINDEX_TO_PREVIEW, pluginMetadata);
   }

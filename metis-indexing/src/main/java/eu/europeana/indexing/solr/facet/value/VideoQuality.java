@@ -26,18 +26,32 @@ public enum VideoQuality implements FacetValue {
   }
 
   /**
+   * Categorize the quality.
+   *
+   * @param isHighQuality Whether the video is high quality.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static VideoQuality categorizeVideoQuality(boolean isHighQuality) {
+    return isHighQuality ? HIGH : null;
+  }
+
+  /**
+   * Categorize the quality.
+   *
+   * @param videoHeight The height of the video.
+   * @return The category, or null if none of the categories apply.
+   */
+  public static VideoQuality categorizeVideoQuality(long videoHeight) {
+    return categorizeVideoQuality(videoHeight > VIDEO_HIGH_QUALITY_HEIGHT);
+  }
+
+  /**
    * Categorize the quality of the given video.
    *
    * @param webResource The web resource.
    * @return The category, or null if none of the categories apply.
    */
   public static VideoQuality categorizeVideoQuality(final WebResourceWrapper webResource) {
-    final VideoQuality result;
-    if (webResource.getHeight() <= VIDEO_HIGH_QUALITY_HEIGHT) {
-      result = null;
-    } else {
-      result = HIGH;
-    }
-    return result;
+    return categorizeVideoQuality(webResource.getHeight());
   }
 }

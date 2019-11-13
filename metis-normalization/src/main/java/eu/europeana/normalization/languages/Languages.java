@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -22,8 +20,6 @@ import org.w3c.dom.Element;
  * @author Nuno Freire (nfreire@gmail.com)
  */
 public class Languages {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(Languages.class);
 
   private static Languages instance;
 
@@ -39,7 +35,6 @@ public class Languages {
     try {
       langNalDom = XmlUtil.parseDom(new InputStreamReader(nalFileIn, StandardCharsets.UTF_8));
     } catch (XmlException e) {
-      LOGGER.error("Unexpected error while setting up the language repository.", e);
       throw new NormalizationConfigurationException(
           "Unexpected error while setting up the language repository: " + e.getMessage(), e);
     }

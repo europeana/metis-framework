@@ -17,9 +17,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -50,14 +50,15 @@ public class DereferencingController {
    * @param resourceId The resource ID (URI) of the entity to dereference
    * @return The dereferenced entities
    */
-  @RequestMapping(value = RestEndpoints.DEREFERENCE, method = RequestMethod.GET,
-      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @GetMapping(value = RestEndpoints.DEREFERENCE, produces = {MediaType.APPLICATION_JSON_VALUE,
+      MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   @ApiOperation(value = "Dereference a URI", response = EnrichmentResultList.class)
-  public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId) {
+  public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId)
+      throws URISyntaxException {
     try {
       return dereferenceService.dereference(resourceId);
-    } catch (RuntimeException | JAXBException | TransformerException | URISyntaxException e) {
+    } catch (RuntimeException | JAXBException | TransformerException e) {
       LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.",
           resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, "")), e);
       throw new DereferenceException(String
@@ -72,17 +73,18 @@ public class DereferencingController {
    * @param resourceIds The resource IDs to dereference
    * @return The dereferenced entities
    */
-  @RequestMapping(value = RestEndpoints.DEREFERENCE, method = RequestMethod.POST,
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @PostMapping(value = RestEndpoints.DEREFERENCE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   @ApiOperation(value = "Dereference a list URI", response = EnrichmentResultList.class)
-  public EnrichmentResultList dereference(@RequestBody List<String> resourceIds) {
+  public EnrichmentResultList dereference(@RequestBody List<String> resourceIds)
+      throws URISyntaxException {
     EnrichmentResultList dereferencedEntities = new EnrichmentResultList();
     for (String resourceId : resourceIds) {
       EnrichmentResultList result = dereference(resourceId);
       if (result != null) {
-        dereferencedEntities.getEnrichmentBaseWrapperList().addAll(result.getEnrichmentBaseWrapperList());
+        dereferencedEntities.getEnrichmentBaseWrapperList()
+            .addAll(result.getEnrichmentBaseWrapperList());
       }
     }
     return dereferencedEntities;

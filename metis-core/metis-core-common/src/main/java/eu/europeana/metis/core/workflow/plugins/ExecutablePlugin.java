@@ -57,7 +57,7 @@ public interface ExecutablePlugin<M extends ExecutablePluginMetadata> extends Me
    * @param plugin The plugin.
    * @return The data status of the given plugin. Is not null.
    */
-  static DataStatus getDataStatus(AbstractExecutablePlugin plugin) {
+  static DataStatus getDataStatus(ExecutablePlugin plugin) {
     return Optional.ofNullable(plugin.getDataStatus()).orElse(DataStatus.VALID);
   }
 

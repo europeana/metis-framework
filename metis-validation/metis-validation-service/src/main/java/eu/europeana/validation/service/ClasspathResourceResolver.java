@@ -2,8 +2,7 @@ package eu.europeana.validation.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -26,13 +25,17 @@ public class ClasspathResourceResolver implements LSResourceResolver {
   public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId,
       String baseURI) {
     try {
-      LSInput input = new ClasspathLSInput();
+      //Read file from system
       String fullPath = new File(prefix, systemId).getAbsolutePath();
-      InputStream stream = Files.newInputStream(Paths.get(fullPath));
+      final byte[] bytes = Files.readAllBytes(Paths.get(fullPath));
+      final String fileContent = new String(bytes, StandardCharsets.UTF_8.name());
+      final StringReader stringReader = new StringReader(fileContent);
+
+      LSInput input = new ClasspathLSInput();
       input.setPublicId(publicId);
       input.setSystemId(systemId);
       input.setBaseURI(baseURI);
-      input.setCharacterStream(new InputStreamReader(stream, StandardCharsets.UTF_8.name()));
+      input.setCharacterStream(stringReader);
       return input;
     } catch (IOException e) {
       LOGGER.error("An error occurred while resolving a resource", e);

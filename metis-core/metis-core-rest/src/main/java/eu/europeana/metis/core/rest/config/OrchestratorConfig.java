@@ -13,6 +13,7 @@ import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.execution.QueueConsumer;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
@@ -166,12 +167,12 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
-      WorkflowExecutionDao workflowExecutionDao, DatasetDao datasetDao,
+      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils, DatasetDao datasetDao,
       WorkflowExecutionFactory workflowExecutionFactory,
       WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer) {
     OrchestratorService orchestratorService = new OrchestratorService(workflowExecutionFactory,
-        workflowDao, workflowExecutionDao, datasetDao, workflowExecutorManager, redissonClient,
-        authorizer);
+        workflowDao, workflowExecutionDao, workflowUtils, datasetDao, workflowExecutorManager,
+        redissonClient, authorizer);
     orchestratorService.setSolrCommitPeriodInMins(propertiesHolder.getSolrCommitPeriodInMins());
     return orchestratorService;
   }
@@ -179,15 +180,15 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public WorkflowExecutionFactory getWorkflowExecutionFactory(
       WorkflowExecutionDao workflowExecutionDao, DatasetXsltDao datasetXsltDao) {
-    WorkflowExecutionFactory workflowExecutionFactory = new WorkflowExecutionFactory(
-        workflowExecutionDao, datasetXsltDao);
+    WorkflowExecutionFactory workflowExecutionFactory =
+        new WorkflowExecutionFactory(datasetXsltDao);
     workflowExecutionFactory
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
     workflowExecutionFactory
         .setValidationInternalProperties(propertiesHolder.getValidationInternalProperties());
     workflowExecutionFactory.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     workflowExecutionFactory.setMetisUseAlternativeIndexingEnvironment(
-        propertiesHolder.getMetisUseAlternativeIndexingEnvironment());
+        propertiesHolder.isMetisUseAlternativeIndexingEnvironment());
     workflowExecutionFactory.setDefaultSamplingSizeForLinkChecking(
         propertiesHolder.getMetisLinkCheckingDefaultSamplingSize());
     return workflowExecutionFactory;
@@ -238,6 +239,11 @@ public class OrchestratorConfig implements WebMvcConfigurer {
     workflowExecutionDao.setWorkflowExecutionsPerRequest(
         RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
     return workflowExecutionDao;
+  }
+
+  @Bean
+  WorkflowUtils getWorkflowUtils(WorkflowExecutionDao workflowExecutionDao) {
+    return new WorkflowUtils(workflowExecutionDao);
   }
 
   @Bean

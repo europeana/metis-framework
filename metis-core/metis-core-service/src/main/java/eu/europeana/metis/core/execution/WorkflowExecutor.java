@@ -3,6 +3,7 @@ package eu.europeana.metis.core.execution;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
@@ -204,7 +205,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       if (metadata.getRevisionTimestampPreviousPlugin() == null
           || metadata.getRevisionNamePreviousPlugin() == null) {
         final AbstractExecutablePlugin predecessor = WorkflowUtils
-            .getPredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
+            .computePredecessorPlugin(metadata.getExecutablePluginType(), workflowExecution);
         if (predecessor != null) {
           metadata.setPreviousRevisionInformation(predecessor);
         }

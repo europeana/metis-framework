@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Properties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,8 +20,6 @@ import org.springframework.web.client.RestTemplate;
  */
 public class ValidationClient {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ValidationClient.class);
-
   private final RestTemplate template = new RestTemplate();
   private String validationEndpoint;
 
@@ -34,15 +30,10 @@ public class ValidationClient {
    */
   public ValidationClient() throws IOException {
     Properties props = new Properties();
-    try {
-      template.setErrorHandler(new ValidationResponseHandler());
-      props.load(Thread.currentThread().getContextClassLoader()
-          .getResourceAsStream("validation.properties"));
-      validationEndpoint = props.getProperty("validation.endpoint");
-    } catch (IOException e) {
-      LOGGER.error("Failed during initialization of configuration.", e);
-      throw e;
-    }
+    template.setErrorHandler(new ValidationResponseHandler());
+    props.load(Thread.currentThread().getContextClassLoader()
+        .getResourceAsStream("validation.properties"));
+    validationEndpoint = props.getProperty("validation.endpoint");
   }
 
   /**

@@ -196,7 +196,8 @@ public class WikidataAccessService {
       address.setVcardCountryName(vcardAddress.getCountryName());
       if(vcardAddress.getHasGeo() != null)
         address.setVcardHasGeo(vcardAddress.getHasGeo().getResource());
-// TODO: enable support for other address fields and locality when the issues related to the dereferencing localities, and support for multiple addresses are available 
+// TODO: enable support for other address fields and locality when the issues related to
+//  the dereferencing localities, and support for multiple addresses are available
 //      address.setVcardStreetAddress(vcardAddress.getStreetAddress());
 //      address.setVcardLocality(vcardAddress.getLocality());
 //      address.setVcardPostalCode(vcardAddress.getPostalCode());

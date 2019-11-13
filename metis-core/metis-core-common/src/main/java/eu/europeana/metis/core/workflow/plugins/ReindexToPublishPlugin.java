@@ -9,6 +9,12 @@ public class ReindexToPublishPlugin extends AbstractMetisPlugin<ReindexToPublish
     this(null);
   }
 
+  /**
+   * Constructor to initialize the plugin with pluginMetadata.
+   * <p>Initializes the {@link #pluginType} as well.</p>
+   *
+   * @param pluginMetadata The plugin metadata.
+   */
   public ReindexToPublishPlugin(ReindexToPublishPluginMetadata pluginMetadata) {
     super(PluginType.REINDEX_TO_PUBLISH, pluginMetadata);
   }

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-transformation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
   </parent>
   <artifactId>metis-transformation-service</artifactId>
   <dependencies>
@@ -22,6 +22,12 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-edm-definitions</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>net.sf.saxon</groupId>

@@ -7,6 +7,11 @@ package eu.europeana.metis.mediaprocessing.model;
 public interface Thumbnail extends ResourceRelatedFile {
 
   /**
+   * @return The mime type of the thumbnail.
+   */
+  String getMimeType();
+
+  /**
    * @return The unique (target) name of the thumbnail by which it is known.
    */
   String getTargetName();

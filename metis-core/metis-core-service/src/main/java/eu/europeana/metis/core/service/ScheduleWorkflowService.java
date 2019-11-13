@@ -34,6 +34,14 @@ public class ScheduleWorkflowService {
   private final DatasetDao datasetDao;
   private final Authorizer authorizer;
 
+  /**
+   * Constructor with required parameters.
+   *
+   * @param scheduledWorkflowDao the dao for accessing schedules
+   * @param workflowDao the dao for workflows
+   * @param datasetDao the dao for datasets
+   * @param authorizer the class used for authorizing requests
+   */
   @Autowired
   public ScheduleWorkflowService(ScheduledWorkflowDao scheduledWorkflowDao, WorkflowDao workflowDao,
       DatasetDao datasetDao, Authorizer authorizer) {
@@ -47,12 +55,35 @@ public class ScheduleWorkflowService {
     return scheduledWorkflowDao.getScheduledWorkflowPerRequest();
   }
 
+  /**
+   * Get a scheduled workflow based on datasets identifier.
+   *
+   * @param metisUser the metis user trying to access the scheduled workflow
+   * @param datasetId the dataset identifier of which a scheduled workflow is to be retrieved
+   * @return the scheduled workflow
+   * @throws UserUnauthorizedException if user is unauthorized to access the scheduled workflow
+   * @throws NoDatasetFoundException if dataset identifier does not exist
+   */
   public ScheduledWorkflow getScheduledWorkflowByDatasetId(MetisUser metisUser, String datasetId)
       throws UserUnauthorizedException, NoDatasetFoundException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
     return scheduledWorkflowDao.getScheduledWorkflowByDatasetId(datasetId);
   }
 
+  /**
+   * Schedules a provided workflow.
+   *
+   * @param metisUser the user that tries to submit a scheduled workflow
+   * @param scheduledWorkflow the scheduled workflow information
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset does not exist</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
+   * <li>{@link BadContentException} if some content send was not acceptable</li>
+   * <li>{@link NoWorkflowFoundException} if the workflow for a dataset was not found</li>
+   * <li>{@link ScheduledWorkflowAlreadyExistsException} if a scheduled workflow already exists</li>
+   * </ul>
+   */
   public void scheduleWorkflow(MetisUser metisUser, ScheduledWorkflow scheduledWorkflow)
       throws GenericMetisException {
     authorizer.authorizeWriteExistingDatasetById(metisUser, scheduledWorkflow.getDatasetId());
