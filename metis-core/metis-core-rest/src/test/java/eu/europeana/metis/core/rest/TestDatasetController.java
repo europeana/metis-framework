@@ -1093,6 +1093,21 @@ class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
   }
 
+  @Test
+  void getDatasetSearch() throws Exception{
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+            .thenReturn(metisUser);
+
+    datasetControllerMock.perform(get("/datasets/search")
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+            .param("dataset", "test")
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(""))
+            .andExpect(status().is(200))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+  }
+
   private List<Dataset> getDatasets() {
     List<Dataset> datasetList = new ArrayList<>();
     Dataset dataset1 = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
