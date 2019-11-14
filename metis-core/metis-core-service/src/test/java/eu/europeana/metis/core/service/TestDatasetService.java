@@ -30,6 +30,7 @@ import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetSearchView;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -745,6 +746,44 @@ class TestDatasetService {
     expectException(UserUnauthorizedException.class, () -> datasetService
         .getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage));
     verify(datasetDao, times(0)).getAllDatasetsByOrganizationName(organizationName, nextPage);
+  }
+
+  @Test
+  void testSearchDatasetsBasedOnSearchString() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    List<Dataset> list = new ArrayList<>();
+    String searchString = "test 0";
+    int nextPage = 1;
+    when(datasetDao.searchDatasetsBasedOnSearchString(Collections.singletonList("0"),
+        Collections.singletonList("0"), nextPage)).thenReturn(list);
+    List<DatasetSearchView> retList = datasetService
+        .searchDatasetsBasedOnSearchString(metisUser, searchString, nextPage);
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+    verifyNoMoreInteractions(authorizer);
+    assertEquals(list.size(), retList.size());
+  }
+
+  @Test
+  void testSearchDatasetsBasedOnSearchString_BadContentException() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    String searchString = "";
+    int nextPage = 1;
+    expectException(BadContentException.class,
+        () -> datasetService.searchDatasetsBasedOnSearchString(metisUser, searchString, nextPage));
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+    verifyNoMoreInteractions(authorizer);
+  }
+
+  @Test
+  void testSearchDatasetsBasedOnSearchString_Unauthorized() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    String searchString = "";
+    int nextPage = 1;
+    doThrow(UserUnauthorizedException.class).when(authorizer).authorizeReadAllDatasets(metisUser);
+    expectException(UserUnauthorizedException.class, () -> datasetService
+        .searchDatasetsBasedOnSearchString(metisUser, searchString, nextPage));
+    verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
+    verifyNoMoreInteractions(authorizer);
   }
 
   @Test
