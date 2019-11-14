@@ -10,7 +10,7 @@ import java.util.List;
  * Class used to wrap a list of result object to be given back as a response on a REST API
  * endpoint.
  *
- * @param <T>
+ * @param <T> the type of objects to be wrapped
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */

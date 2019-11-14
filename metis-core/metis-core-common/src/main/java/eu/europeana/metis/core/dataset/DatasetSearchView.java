@@ -55,7 +55,7 @@ public class DatasetSearchView {
   }
 
   public Date getLastExecutionDate() {
-    return lastExecutionDate;
+    return lastExecutionDate == null ? null : new Date(lastExecutionDate.getTime());
   }
 
   public void setLastExecutionDate(Date lastExecutionDate) {
