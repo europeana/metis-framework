@@ -83,33 +83,6 @@ public final class RestEndpoints {
   public static final String REDIRECT_SINGLE = "/redirect/single";
   public static final String REDIRECT_BATCH = "/redirect/batch";
 
-  /* METIS PANDORA Endpoint */
-  public static final String MAPPING = "/mapping";
-  public static final String MAPPING_BYID = "/mapping/{mappingId}";
-  public static final String MAPPING_DATASETNAME = "/mapping/dataset/{name}";
-  public static final String MAPPINGS_BYORGANIZATIONID = "/mappings/organization/{orgId}";
-  public static final String MAPPINGS_NAMES_BYORGANIZATIONID = "/mappings/names/organization/{orgId}";
-  public static final String MAPPING_TEMPLATES = "/mapping/templates";
-  public static final String MAPPING_STATISTICS_BYNAME = "/mapping/statistics/{name}";
-  public static final String MAPPING_SCHEMATRON = "/mapping/schematron";
-  public static final String MAPPING_NAMESPACES = "/mapping/namespaces";
-  public static final String MAPPING_STATISTICS_ELEMENT = "/mapping/statistics/{datasetId}/element";
-  public static final String MAPPING_STATISTICS_ATTRIBUTE = "/mapping/statistics/{datasetId}/attribute";
-  public static final String STATISTICS_CALCULATE = "/statistics/calculate/{datasetId}";
-  public static final String STATISTICS_APPEND = "/statistics/append/{datasetId}";
-  public static final String VALIDATE_ATTRIBUTE = "/mapping/validation/{mappingId}/attribute";
-  public static final String VALIDATE_ELEMENT = "/mapping/validation/{mappingId}/element";
-  public static final String VALIDATE_CREATE_ATTTRIBUTE_FLAG = "/mapping/validation/{mappingId}/attribute/create/{value}/{flagType}";
-  public static final String VALIDATE_CREATE_ELEMENT_FLAG = "/mapping/validation/{mappingId}/element/create/{value}/{flagType}";
-  public static final String VALIDATE_MAPPING = "/mapping/validation/validate";
-  public static final String XSD_UPLOAD = "/xsd/upload";
-  public static final String XSD_URL = "/xsd/url";
-  public static final String XSL_GENERATE = "/xsl/generate";
-  public static final String XSL_MAPPINGID = "/xsl/{mappingId}";
-  public static final String VALIDATE_DELETE_ATTRIBUTE_FLAG = "/mapping/validation/{mappingId}/attribute/{value}";
-  public static final String VALIDATE_DELETE_ELEMENT_FLAG = "/mapping/validation/{mappingId}/element/{value}";
-  public static final String NORMALIZATION = "/normalizeEdmInternal";
-
   /* METIS SCHEMA VALIDATION ENDPOINT */
   public static final String SCHEMA_VALIDATE = "/schema/validate/{schema}";
   public static final String SCHEMA_BATCH_VALIDATE = "/schema/validate/batch/{schema}";
