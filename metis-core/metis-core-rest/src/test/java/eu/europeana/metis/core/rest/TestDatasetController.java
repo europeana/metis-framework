@@ -30,6 +30,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetSearchView;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -43,6 +44,7 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.bson.types.ObjectId;
@@ -1094,18 +1096,58 @@ class TestDatasetController {
   }
 
   @Test
-  void getDatasetSearch() throws Exception{
+  void getDatasetSearch() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-            .thenReturn(metisUser);
+        .thenReturn(metisUser);
+
+    when(datasetServiceMock.searchDatasetsBasedOnSearchString(metisUser, "test", 3))
+        .thenReturn(getDatasetSearchViews());
+    when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
     datasetControllerMock.perform(get("/datasets/search")
-            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .param("dataset", "test")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(""))
-            .andExpect(status().is(200))
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("searchString", "test")
+        .param("nextPage", "3")
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.results", hasSize(2)))
+        .andExpect(jsonPath("$.results[0].datasetId",
+            is(Integer.toString(TestObjectFactory.DATASETID + 1))))
+        .andExpect(jsonPath("$.results[1].datasetId",
+            is(Integer.toString(TestObjectFactory.DATASETID + 2))));
+
+    ArgumentCaptor<String> searchString = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
+    verify(datasetServiceMock, times(1))
+        .searchDatasetsBasedOnSearchString(any(MetisUser.class), searchString.capture(), page.capture());
+
+    assertEquals("test", searchString.getValue());
+    assertEquals(3, page.getValue().intValue());
+  }
+
+  private List<DatasetSearchView> getDatasetSearchViews() {
+    List<DatasetSearchView> datasetSearchViews = new ArrayList<>(2);
+    final DatasetSearchView datasetSearchView1 = new DatasetSearchView();
+    datasetSearchView1.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 1));
+    datasetSearchView1.setDatasetName(TestObjectFactory.DATASETNAME + 1);
+    datasetSearchView1.setProvider("provider1");
+    datasetSearchView1.setDataProvider("dataProvider1");
+    datasetSearchView1.setLastExecutionDate(new Date());
+    datasetSearchViews.add(datasetSearchView1);
+
+    final DatasetSearchView datasetSearchView2 = new DatasetSearchView();
+    datasetSearchView2.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 2));
+    datasetSearchView2.setDatasetName(TestObjectFactory.DATASETNAME + 2);
+    datasetSearchView2.setProvider("provider2");
+    datasetSearchView2.setDataProvider("dataProvider2");
+    datasetSearchView2.setLastExecutionDate(new Date());
+    datasetSearchViews.add(datasetSearchView2);
+
+    return datasetSearchViews;
   }
 
   private List<Dataset> getDatasets() {

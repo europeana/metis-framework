@@ -2,7 +2,6 @@ package eu.europeana.metis.core.rest;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +10,12 @@ import java.util.List;
  * Class used to wrap a list of result object to be given back as a response on a REST API
  * endpoint.
  *
- * @param <T> should extend {@link HasMongoObjectId}
+ * @param <T>
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
 
-public class ResponseListWrapper<T extends HasMongoObjectId> {
+public class ResponseListWrapper<T> {
 
   @JacksonXmlElementWrapper(localName = "Results")
   @JacksonXmlProperty(localName = "Result")

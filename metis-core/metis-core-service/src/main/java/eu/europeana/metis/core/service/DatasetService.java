@@ -10,6 +10,7 @@ import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetSearchView;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -590,8 +591,25 @@ public class DatasetService {
     return datasetDao.getAllDatasetsByOrganizationName(organizationName, nextPage);
   }
 
-  // TODO: 13-11-19 Replace return String with actual model class
-  public List<String> searchDatasetsBasedOnSearchString(MetisUser metisUser, String searchString,
+  /**
+   * Get the list of of matching DatasetSearch using dataset
+   *
+   * @param metisUser the {@link MetisUser} to authorize with
+   * @param searchString a string that may contain multiple words separated by spaces.
+   * <p>The search will be performed on the fields datasetId, datasetName, provider, dataProvider.
+   * The words that start with a numeric character will be considered as part of the datasetId
+   * search and that field is searched as a "starts with" operation. All words that from a certain
+   * length threshold and above e.g. 3 will be used, as AND operations, for searching the fields
+   * datasetName, provider, dataProvider</p>
+   * @param nextPage the nextPage number, must be positive
+   * @return a list with the dataset search view results
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   *   <li>{@link BadContentException} if the parameters provided are invalid.</li>
+   *   <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
+   */
+  public List<DatasetSearchView> searchDatasetsBasedOnSearchString(MetisUser metisUser, String searchString,
       int nextPage) throws GenericMetisException {
     authorizer.authorizeReadAllDatasets(metisUser);
     if (StringUtils.isBlank(searchString)) {
@@ -610,21 +628,22 @@ public class DatasetService {
           .searchDatasetsBasedOnSearchString(datasetIdWords, minimumLengthWords, nextPage);
     }
 
-    final List<Object> datasetSearchViewList = datasets.stream().map(dataset -> {
+    return datasets.stream().map(dataset -> {
           final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulExecutablePlugin = workflowExecutionDao
               .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(),
                   EnumSet.allOf(ExecutablePluginType.class), false);
-          // TODO: 13-11-19 create model class here
-          dataset.getDatasetId();
-          dataset.getProvider();
+          final DatasetSearchView datasetSearchView = new DatasetSearchView();
+          datasetSearchView.setDatasetId(dataset.getDatasetId());
+          datasetSearchView.setDatasetName(dataset.getDatasetName());
+          datasetSearchView.setProvider(dataset.getProvider());
+          datasetSearchView.setDataProvider(dataset.getDataProvider());
           if (latestSuccessfulExecutablePlugin != null) {
-            latestSuccessfulExecutablePlugin.getPlugin().getStartedDate();
+            datasetSearchView
+                .setLastExecutionDate(latestSuccessfulExecutablePlugin.getPlugin().getStartedDate());
           }
-          return null;
+          return datasetSearchView;
         }
     ).collect(Collectors.toList());
-
-    return null;
   }
 
   public int getDatasetsPerRequestLimit() {

@@ -355,8 +355,18 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return dataset.getEcloudDatasetId();
   }
 
+  /**
+   * Get the list of of matching DatasetSearch using dataset
+   *
+   * @param datasetIdWords a list of words to be used for datasetId search, that field is searched
+   * as a "starts with" operation
+   * @param words a list of words to be used for datasetName, provider and dataProvider
+   * search. Those words are considered as AND operation for each individual field.
+   * @param nextPage the nextPage number, must be positive
+   * @return a list with the datasets found
+   */
   public List<Dataset> searchDatasetsBasedOnSearchString(List<String> datasetIdWords,
-      List<String> minimumLengthWords, int nextPage) {
+      List<String> words, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     final List<CriteriaContainer> criteriaContainerDatasetId = new ArrayList<>();
     final List<CriteriaContainer> criteriaContainerDatasetName = new ArrayList<>();
@@ -370,7 +380,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     }
 
     //Search on provider and dataProvider
-    for (String word : minimumLengthWords) {
+    for (String word : words) {
       criteriaContainerDatasetName
           .add(query.criteria(DATASET_NAME.getFieldName()).containsIgnoreCase(word));
       criteriaContainerProviderId
@@ -403,8 +413,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     query.order(DATASET_ID.getFieldName());
 
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> query.asList(
-            new FindOptions().skip(nextPage * getDatasetsPerRequest())
-                .limit(getDatasetsPerRequest())));
+        new FindOptions().skip(nextPage * getDatasetsPerRequest())
+            .limit(getDatasetsPerRequest())));
   }
 
   public void setEcloudProvider(String ecloudProvider) {
