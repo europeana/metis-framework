@@ -36,6 +36,7 @@ public class Dataset implements HasMongoObjectId {
   @Indexed(options = @IndexOptions(unique = true))
   private String ecloudDatasetId;
 
+  @Indexed
   private String datasetId;
 
   @Indexed
