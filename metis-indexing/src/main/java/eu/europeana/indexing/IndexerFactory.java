@@ -2,8 +2,6 @@ package eu.europeana.indexing;
 
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import org.apache.solr.client.solrj.SolrClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 
@@ -11,8 +9,6 @@ import eu.europeana.indexing.exception.SetupRelatedIndexingException;
  * This class creates instances of {@link Indexer}.
  */
 public class IndexerFactory {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(IndexerFactory.class);
 
   private final IndexerConnectionSupplier connectionProviderSupplier;
 

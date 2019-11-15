@@ -1,6 +1,5 @@
 package eu.europeana.indexing.mongo;
 
-import com.google.common.base.Charsets;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import eu.europeana.corelib.definitions.edm.model.metainfo.AudioMetaInfo;
@@ -11,6 +10,8 @@ import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
+
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
@@ -46,8 +47,8 @@ public class WebResourceMetaInfoUpdater
   // TODO This is code from corelib (eu.europeana.corelib.search.impl.WebMetaInfo). This should be
   // in a common library?
   private static String generateHashCode(String webResourceId, String recordId) {
-    return HASH_FUNCTION.newHasher().putString(webResourceId, Charsets.UTF_8)
-        .putString("-", Charsets.UTF_8).putString(recordId, Charsets.UTF_8).hash().toString();
+    return HASH_FUNCTION.newHasher().putString(webResourceId, StandardCharsets.UTF_8)
+        .putString("-", StandardCharsets.UTF_8).putString(recordId, StandardCharsets.UTF_8).hash().toString();
   }
 
   @Override

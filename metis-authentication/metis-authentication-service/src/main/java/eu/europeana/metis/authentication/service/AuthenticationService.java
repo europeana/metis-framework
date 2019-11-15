@@ -16,7 +16,7 @@ import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.zoho.ZohoAccessClient;
 import eu.europeana.metis.zoho.ZohoConstants;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Date;
@@ -234,8 +234,7 @@ public class AuthenticationService {
     if (authorization != null && authorization.startsWith("Basic")) {
       // Authorization: Basic base64credentials
       String base64Credentials = authorization.substring("Basic".length()).trim();
-      String credentialsString = new String(Base64.getDecoder().decode(base64Credentials),
-          Charset.forName("UTF-8"));
+      String credentialsString = new String(Base64.getDecoder().decode(base64Credentials), StandardCharsets.UTF_8);
       // credentials = username:password
       String[] splittedCredentials = credentialsString.split(":", CREDENTIAL_FIELDS_NUMBER);
       if (splittedCredentials.length != CREDENTIAL_FIELDS_NUMBER) {

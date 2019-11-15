@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Extended class with data checker URL for data checker service Created by ymamakis on 9/2/16.
  */
 @XmlRootElement
-public class ExtendedValidationResult extends ValidationResultList implements Serializable {
+public class ExtendedValidationResult extends ValidationResultList {
 
   private static final long serialVersionUID = 2405172041950251807L;
 
