@@ -8,6 +8,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetSearchView;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -56,7 +57,8 @@ public class DatasetController {
    * Autowired constructor with all required parameters.
    *
    * @param datasetService the datasetService
-   * @param authenticationClient the java client to communicate with the external authentication service
+   * @param authenticationClient the java client to communicate with the external authentication
+   * service
    */
   @Autowired
   public DatasetController(DatasetService datasetService,
@@ -99,9 +101,9 @@ public class DatasetController {
   /**
    * Update a provided dataset including an xslt string.
    * <p>
-   * Non allowed fields, to be manually updated, will be ignored.
-   * Updating a dataset with a new xslt will only overwrite the {@link Dataset#xsltId} and a new
-   * {@link DatasetXslt} object will be stored. The older {@link DatasetXslt} will still be accessible.
+   * Non allowed fields, to be manually updated, will be ignored. Updating a dataset with a new xslt
+   * will only overwrite the {@code Dataset#xsltId} and a new {@link DatasetXslt} object will be
+   * stored. The older {@link DatasetXslt} will still be accessible.
    * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
@@ -220,9 +222,9 @@ public class DatasetController {
   /**
    * Get the xslt string as non escaped text using an xslt identifier.
    * <p>
-   * It is a method that does not require authentication and it is meant to be used from
-   * external service to download the corresponding xslt. At the point of writing, ECloud
-   * transformation topology is using it. {@link TransformationPlugin}
+   * It is a method that does not require authentication and it is meant to be used from external
+   * service to download the corresponding xslt. At the point of writing, ECloud transformation
+   * topology is using it. {@link TransformationPlugin}
    * </p>
    *
    * @param xsltId the xslt identifier
@@ -247,9 +249,9 @@ public class DatasetController {
    * Create a new default xslt in the database.
    * <p>
    * Each dataset can have it's own custom xslt but a default xslt should always be available.
-   * Creating a new default xslt will create a new {@link DatasetXslt} object and the older one will still
-   * be available. The created {@link DatasetXslt} will have it's {@link DatasetXslt#datasetId} as -1 to indicate
-   * that it is not related to a specific dataset.
+   * Creating a new default xslt will create a new {@link DatasetXslt} object and the older one will
+   * still be available. The created {@link DatasetXslt} will have it's {@code
+   * DatasetXslt#datasetId} as -1 to indicate that it is not related to a specific dataset.
    * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
@@ -279,9 +281,9 @@ public class DatasetController {
   /**
    * Get the latest created default xslt.
    * <p>
-   * It is an method that does not require authentication and it is meant to be used from
-   * external service to download the corresponding xslt. At the point of writing, ECloud
-   * transformation topology is using it. {@link TransformationPlugin}
+   * It is an method that does not require authentication and it is meant to be used from external
+   * service to download the corresponding xslt. At the point of writing, ECloud transformation
+   * topology is using it. {@link TransformationPlugin}
    * </p>
    *
    * @return the text representation of the String xslt non escaped
@@ -303,15 +305,19 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest dataset xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, ExecutablePluginType, String)}
-   * to try a transformation on a list of xmls just after validation external to preview an example result.
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String,
+   * String, ExecutablePluginType, String)} to try a transformation on a list of xmls just after
+   * validation external to preview an example result.
    * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
-   * @param records the list of {@link Record} that contain the xml fields {@link Record#xmlRecord}.
-   * @return a list of {@link Record}s with the field {@link Record#xmlRecord} containing the transformed xml
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset
+   * fields xslt injection
+   * @param records the list of {@link Record} that contain the xml fields {@code
+   * Record#xmlRecord}.
+   * @return a list of {@link Record}s with the field {@code Record#xmlRecord} containing the
+   * transformed xml
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
@@ -336,15 +342,19 @@ public class DatasetController {
   /**
    * Transform a list of xmls using the latest default xslt stored.
    * <p>
-   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String, String, ExecutablePluginType, String)}
-   * to try a transformation on a list of xmls just after validation external to preview an example result.
+   * This method is meant to be used after a response from {@link ProxiesController#getListOfFileContentsFromPluginExecution(String,
+   * String, ExecutablePluginType, String)} to try a transformation on a list of xmls just after
+   * validation external to preview an example result.
    * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @param datasetId the dataset identifier, it is required for authentication and for the dataset fields xslt injection
-   * @param records the list of {@link Record} that contain the xml fields {@link Record#xmlRecord}.
-   * @return a list of {@link Record}s with the field {@link Record#xmlRecord} containing the transformed xml
+   * @param datasetId the dataset identifier, it is required for authentication and for the dataset
+   * fields xslt injection
+   * @param records the list of {@link Record} that contain the xml fields {@code
+   * Record#xmlRecord}.
+   * @return a list of {@link Record}s with the field {@code Record#xmlRecord} containing the
+   * transformed xml
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
@@ -616,8 +626,8 @@ public class DatasetController {
    * Get all available languages that can be used.
    * <p>The list is retrieved based on an internal enum</p>
    *
-   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
-   * should follow the rule Bearer accessTokenHere </p>
+   * @param authorization the String provided by an HTTP Authorization header
+   * <p> The expected input should follow the rule Bearer accessTokenHere </p>
    * @return The list of countries that are serialized based on {@link eu.europeana.metis.core.common.LanguageSerializer}
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -633,6 +643,49 @@ public class DatasetController {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Language.getLanguageListSortedByName().stream().map(LanguageModel::new)
         .collect(Collectors.toList());
+  }
+
+  /**
+   * Get the list of of matching DatasetSearch using dataset
+   *
+   * @param authorization the String provided by an HTTP Authorization header
+   * <p> The expected input should follow the rule Bearer accessTokenHere </p>
+   * @param searchString a string that may contain multiple words separated by spaces.
+   * <p>The search will be performed on the fields datasetId, datasetName, provider, dataProvider.
+   * The words that start with a numeric character will be considered as part of the datasetId
+   * search and that field is searched as a "starts with" operation. All words that from a certain
+   * length threshold and above e.g. 3 will be used, as AND operations, for searching the fields
+   * datasetName, provider, dataProvider</p>
+   * @param nextPage the nextPage number, must be positive
+   * @return a list with the dataset search view results
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   *   <li>{@link BadContentException} if the parameters provided are invalid.</li>
+   *   <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
+   */
+  @GetMapping(value = RestEndpoints.DATASETS_SEARCH, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public ResponseListWrapper<DatasetSearchView> getDatasetSearch(
+      @RequestHeader("Authorization") String authorization,
+      @RequestParam(value = "searchString") String searchString,
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws GenericMetisException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
+
+    final MetisUser metisUser = authenticationClient
+        .getUserByAccessTokenInHeader(authorization);
+    ResponseListWrapper<DatasetSearchView> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper.setResultsAndLastPage(
+        datasetService.searchDatasetsBasedOnSearchString(metisUser, searchString, nextPage),
+        datasetService.getDatasetsPerRequestLimit(), nextPage);
+    LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED, responseListWrapper.getListSize(),
+        nextPage);
+    return responseListWrapper;
   }
 
   private static class CountryModel {

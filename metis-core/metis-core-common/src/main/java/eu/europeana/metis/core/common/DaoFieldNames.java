@@ -10,6 +10,8 @@ public enum DaoFieldNames {
   ID("_id"),
   DATASET_ID("datasetId"),
   DATASET_NAME("datasetName"),
+  PROVIDER("provider"),
+  DATA_PROVIDER("dataProvider"),
   WORKFLOW_NAME("workflowName"),
   WORKFLOW_STATUS("workflowStatus"),
   PLUGIN_STATUS("pluginStatus"),

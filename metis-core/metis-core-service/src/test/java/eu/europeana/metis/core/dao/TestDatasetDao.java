@@ -20,6 +20,8 @@ import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -402,5 +404,57 @@ class TestDatasetDao {
 
     assertThrows(ExternalTaskException.class,
         () -> datasetDao.checkAndCreateDatasetInEcloud(dataset));
+  }
+
+  @Test
+  void testSearchDatasetsBasedOnSearchString() {
+    Dataset ds1 = TestObjectFactory.createDataset("dataset1");
+    //add some required fields (indexed)
+    ds1.setOrganizationName("organizationName1");
+    ds1.setEcloudDatasetId("id1");
+    ds1.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 1));
+    datasetDao.create(ds1);
+
+    Dataset ds2 = TestObjectFactory.createDataset("test_dataset_2");
+    //add some required fields (indexed)
+    ds2.setOrganizationName("organizationName1");
+    ds2.setEcloudDatasetId("id2");
+    ds2.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 2));
+    datasetDao.create(ds2);
+
+    Dataset ds3 = TestObjectFactory.createDataset("test_3");
+    //add some required fields (indexed)
+    ds3.setOrganizationName("organizationName2");
+    ds3.setEcloudDatasetId("id3");
+    ds3.setDatasetId(Integer.toString(TestObjectFactory.DATASETID + 3));
+    datasetDao.create(ds3);
+
+    int nextPage = 0;
+    int allDatasetsCount = 0;
+    do {
+      ResponseListWrapper<Dataset> datasetResponseListWrapper = new ResponseListWrapper<>();
+      datasetResponseListWrapper.setResultsAndLastPage(
+          datasetDao.searchDatasetsBasedOnSearchString(Collections.singletonList("0"),
+              Collections.singletonList("test"), nextPage), datasetDao
+              .getDatasetsPerRequest(), nextPage);
+      allDatasetsCount += datasetResponseListWrapper.getListSize();
+      nextPage = datasetResponseListWrapper.getNextPage();
+    } while (nextPage != -1);
+
+    assertEquals(2, allDatasetsCount);
+
+    nextPage = 0;
+    allDatasetsCount = 0;
+    do {
+      ResponseListWrapper<Dataset> datasetResponseListWrapper = new ResponseListWrapper<>();
+      datasetResponseListWrapper.setResultsAndLastPage(
+          datasetDao.searchDatasetsBasedOnSearchString(Arrays.asList("0", "1"),
+              Collections.singletonList("test"), nextPage), datasetDao
+              .getDatasetsPerRequest(), nextPage);
+      allDatasetsCount += datasetResponseListWrapper.getListSize();
+      nextPage = datasetResponseListWrapper.getNextPage();
+    } while (nextPage != -1);
+
+    assertEquals(3, allDatasetsCount);
   }
 }
