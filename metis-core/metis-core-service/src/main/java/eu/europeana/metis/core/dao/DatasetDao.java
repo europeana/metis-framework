@@ -368,10 +368,10 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> searchDatasetsBasedOnSearchString(List<String> datasetIdWords,
       List<String> words, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
-    final List<CriteriaContainer> criteriaContainerDatasetId = new ArrayList<>();
-    final List<CriteriaContainer> criteriaContainerDatasetName = new ArrayList<>();
-    final List<CriteriaContainer> criteriaContainerProviderId = new ArrayList<>();
-    final List<CriteriaContainer> criteriaContainerDataProviderId = new ArrayList<>();
+    final List<CriteriaContainer> criteriaContainerDatasetId = new ArrayList<>(datasetIdWords.size());
+    final List<CriteriaContainer> criteriaContainerDatasetName = new ArrayList<>(words.size());
+    final List<CriteriaContainer> criteriaContainerProviderId = new ArrayList<>(words.size());
+    final List<CriteriaContainer> criteriaContainerDataProviderId = new ArrayList<>(words.size());
 
     //Search on datsetId, only words that start with a numeric character
     for (String datasetIdWord : datasetIdWords) {
