@@ -11,6 +11,7 @@ import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import eu.europeana.metis.utils.MediaType;
 import io.lindstrom.mpd.MPDParser;
 import io.lindstrom.mpd.data.AdaptationSet;
+import io.lindstrom.mpd.data.FrameRate;
 import io.lindstrom.mpd.data.MPD;
 import io.lindstrom.mpd.data.Period;
 import io.lindstrom.mpd.data.Representation;
@@ -22,6 +23,7 @@ import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -181,7 +183,6 @@ class AudioVideoProcessor implements MediaProcessor {
     final AbstractResourceMetadata metadata;
     try (InputStream inputStream = resource.getActualLocation().toURL().openStream()) {
       mpd = parser.parse(inputStream);
-      final Duration mediaPresentationDuration = mpd.getMediaPresentationDuration();
       final Period period = mpd.getPeriods().stream().findFirst()
           .orElseThrow(() -> new MediaExtractionException("Cannot find period element in mpd"));
 
@@ -197,23 +198,45 @@ class AudioVideoProcessor implements MediaProcessor {
           }).findFirst().orElseThrow(() -> new MediaExtractionException(
               "Cannot find video adaptation set element in mpd"));
 
-      final Long width = videoAdaptationSet.getWidth();
-      final Long height = videoAdaptationSet.getHeight();
-      final double frameRate = videoAdaptationSet.getFrameRate().getNumerator();
-
+      //If only one available, get that one, otherwise get the first of type video
       Representation videoRepresentation = videoAdaptationSet.getRepresentations().get(0);
       if (videoAdaptationSet.getRepresentations().size() > 1) {
+        //Get the one with the highest width*height if possible
         videoRepresentation = videoAdaptationSet.getRepresentations().stream()
-            .filter(representation -> representation.getMimeType() != null && representation
-                .getMimeType().startsWith("video")).findFirst()
-            .orElseThrow(() -> new MediaExtractionException(
-                "Cannot find video representation element in mpd"));
+            .filter(representation -> representation.getWidth() != null
+                && representation.getHeight() != null).max(Comparator.comparing(
+                representation -> representation.getWidth() * representation.getHeight()))
+            .orElse(null);
+
+        //If not max resolution found then get the one that is at least of type video
+        if (videoRepresentation == null) {
+          videoRepresentation = videoAdaptationSet.getRepresentations().stream()
+              .filter(representation -> (representation.getMimeType() != null && representation
+                  .getMimeType().startsWith("video")) || representation.getWidth() != null
+                  || representation.getHeight() != null)
+              .findFirst().orElseThrow(() -> new MediaExtractionException(
+                  "Cannot find video representation element in mpd"));
+        }
       }
+
+      final Duration mediaPresentationDuration = mpd.getMediaPresentationDuration();
+      //Get value either from the adaptation set or the representation
+      final Long width = videoRepresentation.getWidth() == null ? videoAdaptationSet.getWidth()
+          : videoRepresentation.getWidth();
+      final Long height = videoRepresentation.getHeight() == null ? videoAdaptationSet.getHeight()
+          : videoRepresentation.getHeight();
+      final FrameRate frameRate =
+          videoRepresentation.getFrameRate() == null ? videoAdaptationSet.getFrameRate()
+              : videoRepresentation.getFrameRate();
+      final double frameRateValue = frameRate == null ? -1 : frameRate.getNumerator();
+      final String codecNames =
+          videoRepresentation.getCodecs() == null ? videoAdaptationSet.getCodecs()
+              : videoRepresentation.getCodecs();
       final double bitRate = videoRepresentation.getBandwidth();
-      final String codecNames = videoRepresentation.getCodecs();
+
       metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
           -1L, (double) mediaPresentationDuration.toMillis(), (int) bitRate,
-          Math.toIntExact(width), Math.toIntExact(height), codecNames, frameRate);
+          Math.toIntExact(width), Math.toIntExact(height), codecNames, frameRateValue);
     } catch (IOException e) {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
     }
