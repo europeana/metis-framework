@@ -141,21 +141,27 @@ public class MediaExtractorImpl implements MediaExtractor {
       throw new IllegalStateException();
     }
 
-    // Obtain the mime type. If no content, check against the URL. Note: we use the actual location
-    // instead of the resource URL (because Tika doesn't seem to do forwarding properly).
-    final boolean hasContent;
-    final String detectedMimeType;
-    try {
-      hasContent = resource.hasContent();
-      detectedMimeType = hasContent ? tika.detect(resource.getContentPath())
-          : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
-    } catch (IOException e) {
-      throw new MediaExtractionException("Mime type checking error", e);
+    String providedMimeType = resource.getProvidedMimeType();
+    String detectedMimeType;
+    boolean hasContent = false;
+    //Check if supplied type is a special mpd format
+    if (providedMimeType.startsWith("application/dash+xml")) {
+      detectedMimeType = providedMimeType;
+    } else {
+      // Obtain the mime type. If no content, check against the URL. Note: we use the actual location
+      // instead of the resource URL (because Tika doesn't seem to do forwarding properly).
+      try {
+        hasContent = resource.hasContent();
+        detectedMimeType = hasContent ? tika.detect(resource.getContentPath())
+            : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
+      } catch (IOException e) {
+        throw new MediaExtractionException("Mime type checking error", e);
+      }
     }
 
     // Log if the detected mime type is different from the provided one. If application/xhtml+xml is
     // detected from tika, and text/html is provided, we don't give a warning.
-    final String providedMimeType = resource.getProvidedMimeType();
+    providedMimeType = resource.getProvidedMimeType();
     if (!("application/xhtml+xml".equals(detectedMimeType) && providedMimeType
         .startsWith("text/html")) && !detectedMimeType.equals(providedMimeType)) {
       LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", detectedMimeType,

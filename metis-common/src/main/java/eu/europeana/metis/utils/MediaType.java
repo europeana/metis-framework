@@ -53,7 +53,7 @@ public enum MediaType {
       result = IMAGE;
     } else if (mediaType.startsWith("audio/")) {
       result = AUDIO;
-    } else if (mediaType.startsWith("video/")) {
+    } else if (mediaType.startsWith("video/") || mediaType.startsWith("application/dash+xml")) {
       result = VIDEO;
     } else if (mediaType.startsWith("text/") || isApplicationMediaRepresentingText(mediaType)) {
       result = TEXT;

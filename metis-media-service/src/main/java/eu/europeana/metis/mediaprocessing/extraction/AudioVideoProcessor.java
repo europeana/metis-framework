@@ -9,10 +9,18 @@ import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import eu.europeana.metis.utils.MediaType;
+import io.lindstrom.mpd.MPDParser;
+import io.lindstrom.mpd.data.AdaptationSet;
+import io.lindstrom.mpd.data.MPD;
+import io.lindstrom.mpd.data.Period;
+import io.lindstrom.mpd.data.Representation;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -110,7 +118,7 @@ class AudioVideoProcessor implements MediaProcessor {
       throw new MediaExtractionException("Could not validate URL: " + url, e);
     }
   }
-  
+
   List<String> createAudioVideoAnalysisCommand(Resource resource) throws MediaExtractionException {
     final String resourceLocation = resourceHasContent(resource) ?
         resource.getContentPath().toString() : validateUrl(resource.getResourceUrl());
@@ -146,18 +154,71 @@ class AudioVideoProcessor implements MediaProcessor {
   public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType)
       throws MediaExtractionException {
 
-    // Execute command
-    final List<String> response;
-    try {
-      response = commandExecutor.execute(createAudioVideoAnalysisCommand(resource), false);
-    } catch (CommandExecutionException e) {
+    AbstractResourceMetadata metadata;
+    //Check if it's an mpd mimetype
+    if ("application/dash+xml".equals(detectedMimeType)) {
+      metadata = parseMpdResource(resource, detectedMimeType);
+    } else {
+      // Execute command
+      final List<String> response;
+      try {
+        response = commandExecutor.execute(createAudioVideoAnalysisCommand(resource), false);
+      } catch (CommandExecutionException e) {
+        throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
+      }
+
+      // Parse command result.
+      metadata = parseCommandResponse(resource, detectedMimeType, response);
+    }
+    return new ResourceExtractionResultImpl(metadata, null);
+
+  }
+
+  private AbstractResourceMetadata parseMpdResource(Resource resource, String detectedMimeType)
+      throws MediaExtractionException {
+    MPDParser parser = new MPDParser();
+    MPD mpd;
+
+    final AbstractResourceMetadata metadata;
+    try (InputStream inputStream = resource.getActualLocation().toURL().openStream()) {
+      mpd = parser.parse(inputStream);
+      final Duration mediaPresentationDuration = mpd.getMediaPresentationDuration();
+      final Period period = mpd.getPeriods().stream().findFirst()
+          .orElseThrow(() -> new MediaExtractionException("Cannot find period element in mpd"));
+
+      final AdaptationSet videoAdaptationSet = period.getAdaptationSets().stream()
+          .filter(adaptationSet -> {
+            boolean video = false;
+            if (adaptationSet.getMimeType() != null) {
+              video = adaptationSet.getMimeType().startsWith("video");
+            } else if (adaptationSet.getContentType() != null) {
+              video = adaptationSet.getContentType().startsWith("video");
+            }
+            return video;
+          }).findFirst().orElseThrow(() -> new MediaExtractionException(
+              "Cannot find video adaptation set element in mpd"));
+
+      final Long width = videoAdaptationSet.getWidth();
+      final Long height = videoAdaptationSet.getHeight();
+      final double frameRate = videoAdaptationSet.getFrameRate().getNumerator();
+
+      Representation videoRepresentation = videoAdaptationSet.getRepresentations().get(0);
+      if (videoAdaptationSet.getRepresentations().size() > 1) {
+        videoRepresentation = videoAdaptationSet.getRepresentations().stream()
+            .filter(representation -> representation.getMimeType() != null && representation
+                .getMimeType().startsWith("video")).findFirst()
+            .orElseThrow(() -> new MediaExtractionException(
+                "Cannot find video representation element in mpd"));
+      }
+      final double bitRate = videoRepresentation.getBandwidth();
+      final String codecNames = videoRepresentation.getCodecs();
+      metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
+          -1L, (double) mediaPresentationDuration.get(ChronoUnit.MILLIS), (int) bitRate,
+          Math.toIntExact(width), Math.toIntExact(height), codecNames, frameRate);
+    } catch (IOException e) {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
     }
-
-    // Parse command result.
-    final AbstractResourceMetadata metadata = parseCommandResponse(resource, detectedMimeType,
-        response);
-    return new ResourceExtractionResultImpl(metadata, null);
+    return metadata;
   }
 
   JSONObject readCommandResponseToJson(List<String> response) {
@@ -207,7 +268,7 @@ class AudioVideoProcessor implements MediaProcessor {
         final int sampleSize = findInt("bits_per_sample", candidates);
         final String codecName = findString("codec_name", candidates);
         metadata = new AudioResourceMetadata(detectedMimeType, resource.getResourceUrl(),
-            fileSize, duration, bitRate, channels, sampleRate, sampleSize,codecName);
+            fileSize, duration, bitRate, channels, sampleRate, sampleSize, codecName);
       } else {
         throw new MediaExtractionException("No media streams");
       }
