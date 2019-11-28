@@ -20,7 +20,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -213,7 +212,7 @@ class AudioVideoProcessor implements MediaProcessor {
       final double bitRate = videoRepresentation.getBandwidth();
       final String codecNames = videoRepresentation.getCodecs();
       metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
-          -1L, (double) mediaPresentationDuration.get(ChronoUnit.MILLIS), (int) bitRate,
+          -1L, (double) mediaPresentationDuration.toMillis(), (int) bitRate,
           Math.toIntExact(width), Math.toIntExact(height), codecNames, frameRate);
     } catch (IOException e) {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);

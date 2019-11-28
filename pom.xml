@@ -102,7 +102,7 @@
     <version.saxon.he>9.8.0-11</version.saxon.he>
     <version.com.zoho.crm.java-sdk>1.0.6</version.com.zoho.crm.java-sdk>
     <version.solr.solrj>6.6.2</version.solr.solrj>
-    <version.mpd.parser>0.8</version.mpd.parser>
+    <version.mpd.parser>0.6</version.mpd.parser>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
