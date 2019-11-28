@@ -175,7 +175,7 @@ class AudioVideoProcessor implements MediaProcessor {
 
   }
 
-  private AbstractResourceMetadata parseMpdResource(Resource resource, String detectedMimeType)
+  AbstractResourceMetadata parseMpdResource(Resource resource, String detectedMimeType)
       throws MediaExtractionException {
     MPDParser parser = new MPDParser();
     MPD mpd;
