@@ -1,5 +1,10 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.containing;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -18,7 +23,9 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
 import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
@@ -28,7 +35,10 @@ import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.utils.NetworkUtil;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,10 +59,24 @@ class AudioVideoProcessorTest {
   private static CommandExecutor commandExecutor;
   private static AudioVideoProcessor audioVideoProcessor;
 
+  private static int portForWireMock = 9999;
+
+  static {
+    try {
+      portForWireMock = NetworkUtil.getAvailableLocalPort();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static WireMockServer wireMockServer;
+
   @BeforeAll
   static void createMocks() {
     commandExecutor = mock(CommandExecutor.class);
     audioVideoProcessor = spy(new AudioVideoProcessor(commandExecutor, FF_PROBE_COMMAND));
+    wireMockServer = new WireMockServer(wireMockConfig().port(portForWireMock));
+    wireMockServer.start();
   }
 
   @BeforeEach
@@ -133,7 +157,7 @@ class AudioVideoProcessorTest {
     assertThrows(MediaExtractionException.class,
         () -> audioVideoProcessor.createAudioVideoAnalysisCommand(resource));
     doReturn("http://valid.url.nl/test").when(resource).getResourceUrl();
-    
+
     // test if hasContent fails.
     doThrow(new IOException()).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
@@ -271,13 +295,13 @@ class AudioVideoProcessorTest {
     doReturn(size).when(format).getLong("size");
     doReturn(sampleRate).when(audioVideoProcessor).findInt(eq("sample_rate"), eq(candidates));
     doReturn(channels).when(audioVideoProcessor).findInt(eq("channels"), eq(candidates));
-    doReturn(bitsPerSample).when(audioVideoProcessor).findInt(eq("bits_per_sample"), eq(candidates));
+    doReturn(bitsPerSample).when(audioVideoProcessor)
+        .findInt(eq("bits_per_sample"), eq(candidates));
     doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
     doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
     doReturn("aac").when(audioVideoProcessor).findString(eq("codec_name"), eq(candidates));
 
-
-      // Run and verify
+    // Run and verify
     final AbstractResourceMetadata abstractMetadata = audioVideoProcessor
         .parseCommandResponse(resource, detectedMimeType, commandResponse);
     assertTrue(abstractMetadata instanceof AudioResourceMetadata);
@@ -408,6 +432,26 @@ class AudioVideoProcessorTest {
   }
 
   @Test
+  void testParseMpdResource() throws MediaExtractionException, URISyntaxException {
+    final Resource resource = mock(Resource.class);
+    when(resource.getActualLocation())
+        .thenReturn(new URI("http://127.0.0.1:" + portForWireMock + "/test-url.mpd"));
+
+    wireMockServer.stubFor(get(urlEqualTo("/test-url.mpd"))
+        .withHeader("Accept", containing("text"))
+        .willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "application/xml")
+            .withBodyFile("example.mpd")));
+
+    final AbstractResourceMetadata metadata = audioVideoProcessor
+        .parseMpdResource(resource, "application/xml");
+
+    assertEquals(480, ((VideoResourceMetadata)metadata).getWidth().intValue());
+    assertEquals(360, ((VideoResourceMetadata)metadata).getHeight().intValue());
+  }
+
+  @Test
   void testDownloadResourceForFullProcessing() {
     assertFalse(audioVideoProcessor.downloadResourceForFullProcessing());
   }
@@ -437,12 +481,12 @@ class AudioVideoProcessorTest {
     assertEquals(url, audioResult.getOriginalMetadata().getResourceUrl());
     assertNull(audioResult.getThumbnails());
     assertTrue(audioResult.getOriginalMetadata().getThumbnailTargetNames().isEmpty());
-    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getSampleSize());
-    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getSampleRate());
-    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getDuration());
-    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getChannels());
-    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getBitRate());
-    assertNull(((AudioResourceMetadata)audioResult.getOriginalMetadata()).getCodecName());
+    assertNull(((AudioResourceMetadata) audioResult.getOriginalMetadata()).getSampleSize());
+    assertNull(((AudioResourceMetadata) audioResult.getOriginalMetadata()).getSampleRate());
+    assertNull(((AudioResourceMetadata) audioResult.getOriginalMetadata()).getDuration());
+    assertNull(((AudioResourceMetadata) audioResult.getOriginalMetadata()).getChannels());
+    assertNull(((AudioResourceMetadata) audioResult.getOriginalMetadata()).getBitRate());
+    assertNull(((AudioResourceMetadata) audioResult.getOriginalMetadata()).getCodecName());
 
     // Mime type for video
     final String detectedVideoMimeType = "video/detected mime type";
@@ -459,12 +503,12 @@ class AudioVideoProcessorTest {
     assertEquals(url, videoResult.getOriginalMetadata().getResourceUrl());
     assertNull(videoResult.getThumbnails());
     assertTrue(videoResult.getOriginalMetadata().getThumbnailTargetNames().isEmpty());
-    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getWidth());
-    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getHeight());
-    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getFrameRate());
-    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getCodecName());
-    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getBitRate());
-    assertNull(((VideoResourceMetadata)videoResult.getOriginalMetadata()).getDuration());
+    assertNull(((VideoResourceMetadata) videoResult.getOriginalMetadata()).getWidth());
+    assertNull(((VideoResourceMetadata) videoResult.getOriginalMetadata()).getHeight());
+    assertNull(((VideoResourceMetadata) videoResult.getOriginalMetadata()).getFrameRate());
+    assertNull(((VideoResourceMetadata) videoResult.getOriginalMetadata()).getCodecName());
+    assertNull(((VideoResourceMetadata) videoResult.getOriginalMetadata()).getBitRate());
+    assertNull(((VideoResourceMetadata) videoResult.getOriginalMetadata()).getDuration());
 
     // Other mime type
     final String detectedOtherMimeType = "detected other mime type";
@@ -490,7 +534,8 @@ class AudioVideoProcessorTest {
         .parseCommandResponse(resource, detectedMimeType, response);
 
     // Check that all is well
-    final ResourceExtractionResultImpl result = audioVideoProcessor.extractMetadata(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = audioVideoProcessor
+        .extractMetadata(resource, detectedMimeType);
     assertEquals(metadata, result.getOriginalMetadata());
     assertNull(result.getThumbnails());
 
