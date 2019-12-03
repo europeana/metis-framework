@@ -787,7 +787,8 @@ public enum MimeTypeEncoding implements FacetValue {
   TYPE_772("image/jpg", 772),
   TYPE_773("audio/x-mpeg", 773),
   TYPE_774("audio/mpeg3", 774),
-  TYPE_775("image/x-ms-bmp", 775);
+  TYPE_775("image/x-ms-bmp", 775),
+  TYPE_776("application/dash+xml", 776);
 
   protected static final MimeTypeEncoding DEFAULT_MIME_TYPE = TYPE_52;
 
