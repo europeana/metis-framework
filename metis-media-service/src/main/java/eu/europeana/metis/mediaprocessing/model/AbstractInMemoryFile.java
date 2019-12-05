@@ -39,8 +39,8 @@ abstract class AbstractInMemoryFile implements ResourceRelatedFile {
   }
 
   @Override
-  public long getContentSize() {
-    return content.length;
+  public Long getContentSize() {
+    return (long) content.length;
   }
 
   @Override

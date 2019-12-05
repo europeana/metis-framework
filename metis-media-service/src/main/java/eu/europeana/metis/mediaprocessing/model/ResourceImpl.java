@@ -16,7 +16,7 @@ public class ResourceImpl extends AbstractTemporaryFile implements Resource {
   private static final String DEFAULT_MIME_TYPE = "application/octet-stream";
   private static final Long DEFAULT_FILE_SIZE = Long.valueOf(0L);
   private final String providedMimeType;
-  private final long providedFileSize;
+  private final Long providedFileSize;
   private final Set<UrlType> urlTypes;
   private final URI actualLocation;
 
@@ -56,7 +56,7 @@ public class ResourceImpl extends AbstractTemporaryFile implements Resource {
   }
 
   @Override
-  public long getProvidedFileSize() {
+  public Long getProvidedFileSize() {
     return providedFileSize;
   }
 

@@ -359,7 +359,8 @@ class ThumbnailGeneratorTest {
       assertNotNull(thumbnail1);
       assertEquals(md5 + "-MEDIUM", thumbnail1.getTargetName());
       assertFalse(thumbnail1.hasContent());
-      assertEquals(0, thumbnail1.getContentSize());
+      final Long contentSize = 0L;
+      assertEquals(contentSize, thumbnail1.getContentSize());
       assertEquals(url, thumbnail1.getResourceUrl());
       assertEquals(expectedMimeType, thumbnail1.getMimeType());
 
@@ -368,7 +369,7 @@ class ThumbnailGeneratorTest {
       assertNotNull(thumbnail2);
       assertEquals(md5 + "-LARGE", thumbnail2.getTargetName());
       assertFalse(thumbnail1.hasContent());
-      assertEquals(0, thumbnail1.getContentSize());
+      assertEquals(contentSize, thumbnail1.getContentSize());
       assertEquals(url, thumbnail1.getResourceUrl());
       assertEquals(expectedMimeType, thumbnail1.getMimeType());
 

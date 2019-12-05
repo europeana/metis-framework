@@ -59,7 +59,7 @@ class ImageProcessorTest {
 
     // Create resource
     final Resource resource = mock(Resource.class);
-    final long fileSize = 12345;
+    final Long fileSize = 12345L;
     final String url = "test url";
     doReturn(fileSize).when(resource).getProvidedFileSize();
     doReturn(url).when(resource).getResourceUrl();

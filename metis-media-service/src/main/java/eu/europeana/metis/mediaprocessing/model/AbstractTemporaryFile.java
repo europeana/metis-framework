@@ -88,7 +88,7 @@ abstract class AbstractTemporaryFile implements ResourceRelatedFile {
   }
 
   @Override
-  public long getContentSize() throws IOException {
+  public Long getContentSize() throws IOException {
     final Long result = computeContentSizeInternal();
     if (result == null) {
       throw new IOException("Cannot get the file size: file does not exist.");

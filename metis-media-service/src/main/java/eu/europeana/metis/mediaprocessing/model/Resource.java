@@ -26,7 +26,7 @@ public interface Resource extends ResourceRelatedFile {
    * @return The file size that has been provided for this resource by the source server. If none is
    * provided, the value 0 is returned.
    */
-  long getProvidedFileSize();
+  Long getProvidedFileSize();
 
   /**
    * @return The actual location where this resource has been found.

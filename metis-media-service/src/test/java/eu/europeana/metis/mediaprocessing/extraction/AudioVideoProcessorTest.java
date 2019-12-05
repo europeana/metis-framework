@@ -286,7 +286,7 @@ class AudioVideoProcessorTest {
     final JSONObject[] candidates = new JSONObject[]{audioStream, format};
 
     // Set properties
-    final long size = 7205015;
+    final Long size = 7205015L;
     final Integer sampleRate = 44100;
     final Integer channels = 2;
     final Integer bitsPerSample = 8;
@@ -342,7 +342,7 @@ class AudioVideoProcessorTest {
     final JSONObject[] candidates = new JSONObject[]{videoStream, format};
 
     // Set properties
-    final long size = 92224193;
+    final Long size = 92224193L;
     final Integer width = 640;
     final Integer height = 480;
     final Double duration = 1007.240000;
@@ -461,7 +461,7 @@ class AudioVideoProcessorTest {
 
     // Create resource
     final Resource resource = mock(Resource.class);
-    final long fileSize = 12345;
+    final Long fileSize = 12345L;
     final String url = "test url";
     doReturn(fileSize).when(resource).getProvidedFileSize();
     doReturn(url).when(resource).getResourceUrl();

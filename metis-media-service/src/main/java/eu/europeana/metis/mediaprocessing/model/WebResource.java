@@ -59,8 +59,12 @@ class WebResource {
     resource.setHasMimeType(hasMimeType);
   }
 
-  void setFileSize(long fileSize) {
-    resource.setFileByteSize(longVal(fileSize));
+  void setFileSize(Long fileSize) {
+    if (fileSize == null) {
+      resource.setFileByteSize(null);
+    } else {
+      resource.setFileByteSize(longVal(fileSize));
+    }
   }
 
   void setColorspace(ColorSpaceType colorSpace) {

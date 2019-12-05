@@ -29,7 +29,7 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
    * @param resourceUrl The resource URL.
    * @param contentSize The file content size.
    */
-  public AudioResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
+  public AudioResourceMetadata(String mimeType, String resourceUrl, Long contentSize) {
     this(mimeType, resourceUrl, contentSize, null, null, null, null, null, null);
   }
 
@@ -46,7 +46,7 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
    * @param sampleSize The audio clip sample size.
    * @param codecName The audio clip codec name.
    */
-  public AudioResourceMetadata(String mimeType, String resourceUrl, long contentSize,
+  public AudioResourceMetadata(String mimeType, String resourceUrl, Long contentSize,
       Double duration, Integer bitRate, Integer channels, Integer sampleRate, Integer sampleSize, String codecName) {
     super(mimeType, resourceUrl, contentSize);
     this.duration = duration;

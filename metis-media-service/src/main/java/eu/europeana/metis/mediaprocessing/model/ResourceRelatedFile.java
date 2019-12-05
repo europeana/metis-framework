@@ -45,7 +45,7 @@ interface ResourceRelatedFile extends Closeable {
    * @throws IOException In case there was a problem obtaining the content's length or if this
    * object's {@link #close()} or {@link #markAsNoContent()} method was called.
    */
-  long getContentSize() throws IOException;
+  Long getContentSize() throws IOException;
 
   /**
    * Remove any content and make this resource one without content. From now on, {@link

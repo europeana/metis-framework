@@ -34,7 +34,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
    * @param contentSize The file content size.
    * @throws MediaExtractionException In case there was a problem with the supplied data.
    */
-  public ImageResourceMetadata(String mimeType, String resourceUrl, long contentSize)
+  public ImageResourceMetadata(String mimeType, String resourceUrl, Long contentSize)
       throws MediaExtractionException {
     this(mimeType, resourceUrl, contentSize, null, null, null, null, null);
   }
@@ -52,7 +52,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
    * @param thumbnails The thumbnails generated for this image.
    * @throws MediaExtractionException In case there was a problem with the supplied data.
    */
-  public ImageResourceMetadata(String mimeType, String resourceUrl, long contentSize, Integer width,
+  public ImageResourceMetadata(String mimeType, String resourceUrl, Long contentSize, Integer width,
       Integer height, ColorSpaceType colorSpace, List<String> dominantColors,
       List<? extends Thumbnail> thumbnails) throws MediaExtractionException {
 

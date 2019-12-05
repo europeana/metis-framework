@@ -235,7 +235,7 @@ class AudioVideoProcessor implements MediaProcessor {
       final double bitRate = videoRepresentation.getBandwidth();
 
       metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
-          -1L, (double) mediaPresentationDuration.toMillis(), (int) bitRate,
+          null, (double) mediaPresentationDuration.getSeconds(), (int) bitRate,
           Math.toIntExact(width), Math.toIntExact(height), codecNames, frameRateValue);
     } catch (IOException e) {
       throw new MediaExtractionException("Problem while analyzing audio/video file.", e);

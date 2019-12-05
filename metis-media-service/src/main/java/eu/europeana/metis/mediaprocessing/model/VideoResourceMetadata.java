@@ -29,7 +29,7 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
    * @param resourceUrl The resource URL.
    * @param contentSize The file content size.
    */
-  public VideoResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
+  public VideoResourceMetadata(String mimeType, String resourceUrl, Long contentSize) {
     this(mimeType, resourceUrl, contentSize, null, null, null, null, null, null);
   }
 
@@ -46,7 +46,7 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
    * @param codecName The video clip codec name.
    * @param frameRate The video clip frame rate.
    */
-  public VideoResourceMetadata(String mimeType, String resourceUrl, long contentSize,
+  public VideoResourceMetadata(String mimeType, String resourceUrl, Long contentSize,
       Double duration, Integer bitRate, Integer width, Integer height, String codecName,
       Double frameRate) {
     super(mimeType, resourceUrl, contentSize);
