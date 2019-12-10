@@ -683,6 +683,7 @@ class TestOrchestratorService {
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(
         eq(Collections.singleton(datasetId)), eq(workflowStatuses), eq(DaoFieldNames.ID), eq(false),
         eq(nextPage), eq(false));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
@@ -712,6 +713,7 @@ class TestOrchestratorService {
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(eq(datasetIds),
         eq(workflowStatuses), eq(DaoFieldNames.CREATED_DATE), eq(false), eq(nextPage), eq(false));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
@@ -733,6 +735,7 @@ class TestOrchestratorService {
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(), eq(workflowStatuses),
         eq(DaoFieldNames.CREATED_DATE), eq(true), eq(nextPage), eq(false));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
@@ -760,12 +763,14 @@ class TestOrchestratorService {
             eq(nextPage), eq(pageCount)))
         .thenReturn(new ResultList<>(data, false));
     final List<ExecutionAndDatasetView> result = orchestratorService
-        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount);
+        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount)
+        .getResults();
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1))
         .getWorkflowExecutionsOverview(eq(datasetIds), isNull(), isNull(), isNull(), isNull(),
             eq(nextPage), eq(pageCount));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
@@ -795,12 +800,14 @@ class TestOrchestratorService {
             eq(nextPage), eq(pageCount)))
         .thenReturn(new ResultList<>(data, false));
     final List<ExecutionAndDatasetView> result = orchestratorService
-        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount);
+        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount)
+        .getResults();
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1))
         .getWorkflowExecutionsOverview(isNull(), isNull(), isNull(), isNull(), isNull(),
             eq(nextPage), eq(pageCount));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)

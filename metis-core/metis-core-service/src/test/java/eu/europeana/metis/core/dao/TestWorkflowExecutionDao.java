@@ -475,7 +475,8 @@ class TestWorkflowExecutionDao {
           DaoFieldNames.ID, false, nextPage, true);
       assertFalse(result.isMaxResultCountReached());
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(result.getResults(),
-          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
+          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage,
+          result.isMaxResultCountReached());
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
     } while (nextPage != -1);
@@ -503,7 +504,8 @@ class TestWorkflowExecutionDao {
           Collections.singleton(Integer.toString(TestObjectFactory.DATASETID)), workflowStatuses,
           DaoFieldNames.CREATED_DATE, true, nextPage, false);
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(result.getResults(),
-          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
+          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage,
+          result.isMaxResultCountReached());
       if (!result.getResults().isEmpty()) {
         WorkflowExecution beforeWorkflowExecution =
             userWorkflowExecutionResponseListWrapper.getResults().get(0);
