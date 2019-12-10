@@ -83,41 +83,58 @@ public class QueueConsumer extends DefaultConsumer {
       checkAndCleanCompletionService();
     }
 
-    //If the thread pool is still full, executions are still active. Send the message back to the queue.
+    boolean sendAck = true;
+    try {
+      WorkflowExecution workflowExecution =
+          persistenceProvider.getWorkflowExecutionDao().getById(objectId);
+      if (workflowExecution == null) {
+        // This execution no longer exists and we need to ignore it.
+        LOGGER.warn("Workflow execution with id: {} is in queue but no longer exists.", objectId);
+      } else if (workflowExecution.isCancelling()) {
+        // Has been cancelled, do not execute
+        workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
+        persistenceProvider.getWorkflowExecutionDao().update(workflowExecution);
+        LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
+            workflowExecution.getId());
+      } else {
+        sendAck = submitExecutionOrMarkNack(objectId);
+      }
+    } catch (RuntimeException e) {
+      LOGGER.error(
+          "Exception occurred during submitting message from queue to a workflowExecution for id {}",
+          objectId, e);
+    } finally {
+      sendAckOrNack(rabbitmqEnvelope, objectId, sendAck);
+    }
+  }
+
+  private boolean submitExecutionOrMarkNack(String objectId) {
+    boolean sendAck;
+    //If the thread pool is still full, executions are still active. Flag to send the message back to the queue.
     if (threadsCounter >= workflowExecutionSettings.getMaxConcurrentThreads()) {
+      sendAck = false;
+    } else {
+      // Submit for execution
+      WorkflowExecutor workflowExecutor = new WorkflowExecutor(objectId, persistenceProvider,
+          workflowExecutionSettings, workflowExecutionMonitor);
+      completionService.submit(workflowExecutor);
+      threadsCounter++;
+      sendAck = true;
+    }
+    return sendAck;
+  }
+
+  private void sendAckOrNack(Envelope rabbitmqEnvelope, String objectId, boolean sendAck)
+      throws IOException {
+    if (sendAck) {
+      // Send ACK back to remove from queue asap.
+      super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
+      LOGGER.debug("ACK sent for {} with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
+    } else {
       //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
       //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
       super.getChannel().basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
       LOGGER.debug("NACK sent for {} with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
-    } else {
-      try {
-        WorkflowExecution workflowExecution =
-            persistenceProvider.getWorkflowExecutionDao().getById(objectId);
-        if (workflowExecution == null) {
-          // This execution no longer exists and we need to ignore it.
-          LOGGER.warn("Workflow execution with id: {} is in queue but no longer exists.", objectId);
-        } else if (workflowExecution.isCancelling()) {
-          // Has been cancelled, do not execute
-          workflowExecution.setWorkflowAndAllQualifiedPluginsToCancelled();
-          persistenceProvider.getWorkflowExecutionDao().update(workflowExecution);
-          LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
-              workflowExecution.getId());
-        } else {
-          // Submit for execution
-          WorkflowExecutor workflowExecutor = new WorkflowExecutor(objectId, persistenceProvider,
-              workflowExecutionSettings, workflowExecutionMonitor);
-          completionService.submit(workflowExecutor);
-          threadsCounter++;
-        }
-      } catch (RuntimeException e) {
-        LOGGER.error(
-            "Exception occurred during submitting message from queue to a workflowExecution for id {}",
-            objectId);
-      } finally {
-        // Send ACK back to remove from queue asap.
-        super.getChannel().basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
-        LOGGER.debug("ACK sent for {} with tag {}", objectId, rabbitmqEnvelope.getDeliveryTag());
-      }
     }
   }
 
@@ -135,8 +152,6 @@ public class QueueConsumer extends DefaultConsumer {
       }
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
-      LOGGER.error(
-          "Interrupted while polling for taking a Future from the ExecutorCompletionService", e);
       throw new IOException(
           "Interrupted while polling for taking a Future from the ExecutorCompletionService", e);
     }
