@@ -497,7 +497,7 @@ public class OrchestratorService {
 
     // Find the executions.
     return workflowExecutionDao.getAllWorkflowExecutions(datasetIds, workflowStatuses, orderField,
-        ascending, nextPage);
+        ascending, nextPage, false).getResults();
   }
 
   /**
@@ -526,8 +526,7 @@ public class OrchestratorService {
     final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
     return workflowExecutionDao
         .getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes, fromDate, toDate,
-            nextPage, pageCount)
-        .stream()
+            nextPage, pageCount).getResults().stream()
         .map(result -> new ExecutionAndDatasetView(result.getExecution(), result.getDataset()))
         .collect(Collectors.toList());
   }
@@ -663,7 +662,7 @@ public class OrchestratorService {
 
     // Get the information from the database
     final List<Execution> executions = workflowExecutionDao.getAllExecutionStartDates(datasetId)
-        .stream().map(entry -> {
+        .getResults().stream().map(entry -> {
           final Execution execution = new Execution();
           execution.setWorkflowExecutionId(entry.getExecutionIdAsString());
           execution.setStartedDate(entry.getStartedDate());

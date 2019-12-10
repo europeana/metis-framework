@@ -144,7 +144,7 @@ public class WorkflowExecutionMonitor {
       userWorkflowExecutionResponseListWrapper.clear();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(
           workflowExecutionDao.getAllWorkflowExecutions(null, EnumSet.of(workflowStatus),
-              DaoFieldNames.ID, true, nextPage),
+              DaoFieldNames.ID, true, nextPage, true).getResults(),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       workflowExecutions.addAll(userWorkflowExecutionResponseListWrapper.getResults());
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();

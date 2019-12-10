@@ -21,6 +21,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.execution.WorkflowExecutionMonitor.WorkflowExecutionEntry;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -115,8 +116,8 @@ class TestWorkflowExecutionMonitor {
     doReturn(Arrays.asList(workflowExecution1, workflowExecution2, workflowExecution3))
         .when(monitor).updateCurrentRunningExecutions();
     when(workflowExecutionDao.getAllWorkflowExecutions(isNull(),
-        eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0)))
-            .thenReturn(Arrays.asList(workflowExecution4));
+        eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0), eq(true)))
+         .thenReturn(new ResultList<>(Arrays.asList(workflowExecution4), false));
     when(workflowExecutionDao.getWorkflowExecutionsPerRequest()).thenReturn(4);
 
     // Perform method and verify the requeued executions
@@ -135,7 +136,7 @@ class TestWorkflowExecutionMonitor {
     inOrder.verify(lock).lock();
     inOrder.verify(monitor, times(1)).updateCurrentRunningExecutions();
     inOrder.verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(),
-        eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0));
+        eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0), eq(true));
     inOrder.verify(lock).unlock();
     inOrder.verifyNoMoreInteractions();
   }
