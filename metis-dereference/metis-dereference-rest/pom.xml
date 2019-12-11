@@ -61,6 +61,12 @@
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-enrichment-common</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mongodb.morphia</groupId>
+          <artifactId>morphia</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

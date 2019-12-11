@@ -9,9 +9,9 @@
   <artifactId>metis-dereference-common</artifactId>
   <dependencies>
     <dependency>
-      <groupId>org.mongodb.morphia</groupId>
-      <artifactId>morphia</artifactId>
-      <version>${version.morphia}</version>
+      <groupId>dev.morphia.morphia</groupId>
+      <artifactId>core</artifactId>
+      <version>${version.morphia.core}</version>
     </dependency>
   </dependencies>
 </project>
