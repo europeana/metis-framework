@@ -1,10 +1,10 @@
 package eu.europeana.metis.core.dataset;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 
 /**
  * The database structure to hold the dataset identifiers sequence.

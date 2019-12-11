@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import dev.morphia.annotations.Embedded;
 import eu.europeana.metis.CommonStringValues;
 import java.util.Date;
-import org.mongodb.morphia.annotations.Embedded;
 
 /**
  * This abstract class is the base implementation of {@link MetisPluginMetadata} and all other
