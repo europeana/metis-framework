@@ -47,6 +47,9 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
   private Date startedDate;
   @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
+  private Date updatedDate;
+  @Indexed
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date finishedDate;
   private M pluginMetadata;
 
@@ -103,6 +106,16 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
   @Override
   public void setStartedDate(Date startedDate) {
     this.startedDate = startedDate == null ? null : new Date(startedDate.getTime());
+  }
+
+  @Override
+  public Date getUpdatedDate() {
+    return updatedDate == null ? null : new Date(updatedDate.getTime());
+  }
+
+  @Override
+  public void setUpdatedDate(Date updatedDate) {
+    this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   @Override

@@ -1,7 +1,5 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import dev.morphia.annotations.Indexed;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
@@ -14,7 +12,6 @@ import eu.europeana.metis.exception.ExternalTaskException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -35,9 +32,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractExecutablePlugin.class);
 
-  @Indexed
-  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
-  private Date updatedDate;
   private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
   private DataStatus dataStatus;
@@ -59,16 +53,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
    */
   AbstractExecutablePlugin(PluginType pluginType, M pluginMetadata) {
     super(pluginType, pluginMetadata);
-  }
-
-  @Override
-  public Date getUpdatedDate() {
-    return updatedDate == null ? null : new Date(updatedDate.getTime());
-  }
-
-  @Override
-  public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   @Override
