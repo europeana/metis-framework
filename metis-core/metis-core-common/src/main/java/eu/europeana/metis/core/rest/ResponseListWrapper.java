@@ -23,6 +23,7 @@ public class ResponseListWrapper<T> {
   private List<T> results;
   private int listSize;
   private int nextPage;
+  private Boolean maxResultCountReached;
 
   /**
    * Accepts a list of results objects, and based on the resultsPerRequestLimit it will determine if
@@ -88,6 +89,7 @@ public class ResponseListWrapper<T> {
       this.nextPage = nextPage + pageCount;
     }
     this.listSize = Optional.ofNullable(results).map(List::size).orElse(0);
+    this.maxResultCountReached = maxResultCountReached;
     setResults(results);
   }
 
@@ -127,4 +129,11 @@ public class ResponseListWrapper<T> {
     this.listSize = listSize;
   }
 
+  public Boolean getMaxResultCountReached() {
+    return maxResultCountReached;
+  }
+
+  public void setMaxResultCountReached(Boolean maxResultCountReached) {
+    this.maxResultCountReached = maxResultCountReached;
+  }
 }
