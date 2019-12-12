@@ -629,12 +629,6 @@ class TestOrchestratorService {
   }
 
   @Test
-  void getWorkflowsPerRequest() {
-    orchestratorService.getWorkflowsPerRequest();
-    verify(workflowDao, times(1)).getWorkflowsPerRequest();
-  }
-
-  @Test
   void getLatestSuccessfulFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution_ProcessPlugin()
       throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);

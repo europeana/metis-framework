@@ -425,15 +425,6 @@ public class OrchestratorService {
   }
 
   /**
-   * The number of Workflows that would be returned if a get all request would be performed.
-   *
-   * @return the number representing the size during a get all request
-   */
-  public int getWorkflowsPerRequest() {
-    return workflowDao.getWorkflowsPerRequest();
-  }
-
-  /**
    * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
    * there was a previous successful finished plugin that follows a specific order (unless the
    * {@code enforcedPredecessorType} is used) and that has the latest successful harvest plugin as
@@ -503,7 +494,7 @@ public class OrchestratorService {
     
     // Compile and return the result.
     final ResponseListWrapper<WorkflowExecution> result = new ResponseListWrapper<>();
-    result.setResultsAndLastPage(result.getResults(), getWorkflowExecutionsPerRequest(), nextPage,
+    result.setResultsAndLastPage(data.getResults(), getWorkflowExecutionsPerRequest(), nextPage,
         data.isMaxResultCountReached());
     return result;
   }

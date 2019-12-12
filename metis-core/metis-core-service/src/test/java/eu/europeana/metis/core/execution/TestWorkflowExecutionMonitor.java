@@ -29,6 +29,7 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import org.bson.types.ObjectId;
@@ -117,7 +118,7 @@ class TestWorkflowExecutionMonitor {
         .when(monitor).updateCurrentRunningExecutions();
     when(workflowExecutionDao.getAllWorkflowExecutions(isNull(),
         eq(EnumSet.of(WorkflowStatus.INQUEUE)), any(), anyBoolean(), eq(0), eq(true)))
-         .thenReturn(new ResultList<>(Arrays.asList(workflowExecution4), false));
+         .thenReturn(new ResultList<>(Collections.singletonList(workflowExecution4), false));
     when(workflowExecutionDao.getWorkflowExecutionsPerRequest()).thenReturn(4);
 
     // Perform method and verify the requeued executions

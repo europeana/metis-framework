@@ -40,7 +40,6 @@ class TestWorkflowDao {
     provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
 
     workflowDao = new WorkflowDao(provider);
-    workflowDao.setWorkflowsPerRequest(5);
   }
 
   @AfterAll
