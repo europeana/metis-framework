@@ -48,6 +48,16 @@ public interface MetisPlugin<M extends MetisPluginMetadata> {
   void setStartedDate(Date startedDate);
 
   /**
+   * @return updated {@link Date} of the execution of the plugin
+   */
+  Date getUpdatedDate();
+
+  /**
+   * @param updatedDate {@link Date}
+   */
+  void setUpdatedDate(Date updatedDate);
+
+  /**
    * @return finished {@link Date} of the execution of the plugin
    */
   Date getFinishedDate();

@@ -1,14 +1,14 @@
 package eu.europeana.validation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
+import dev.morphia.annotations.IndexOptions;
+import dev.morphia.annotations.Indexed;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.IndexOptions;
-import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * Created by ymamakis on 3/14/16.

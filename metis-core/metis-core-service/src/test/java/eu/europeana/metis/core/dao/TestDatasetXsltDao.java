@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import dev.morphia.Datastore;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
@@ -15,7 +16,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mongodb.morphia.Datastore;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)

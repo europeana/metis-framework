@@ -24,9 +24,9 @@
       <version>${version.ecloud}</version>
     </dependency>
     <dependency>
-      <groupId>org.mongodb.morphia</groupId>
-      <artifactId>morphia</artifactId>
-      <version>${version.morphia}</version>
+      <groupId>dev.morphia.morphia</groupId>
+      <artifactId>core</artifactId>
+      <version>${version.morphia.core}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

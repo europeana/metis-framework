@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import dev.morphia.Datastore;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -28,7 +29,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mongodb.morphia.Datastore;
 
 class TestDatasetDao {
 

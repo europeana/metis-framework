@@ -4,18 +4,18 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import dev.morphia.annotations.Embedded;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Field;
+import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Index;
+import dev.morphia.annotations.IndexOptions;
+import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Field;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Index;
-import org.mongodb.morphia.annotations.IndexOptions;
-import org.mongodb.morphia.annotations.Indexes;
 
 /**
  * Workflow model class.

@@ -2,11 +2,11 @@ package eu.europeana.metis.core.dataset;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 
 /**
  * A wrapper class with metadata about an xslt and the xslt as a string field.
