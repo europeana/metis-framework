@@ -433,8 +433,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     
     // Prepare pagination and check that there is something to query
     final Pagination pagination = createPagination(nextPage, 1, ignoreMaxServedExecutionsLimit);
-    if (pagination.limit < 1) {
-      return new ResultList<>(Collections.emptyList(), pagination.maxReached);
+    if (pagination.getLimit() < 1) {
+      return new ResultList<>(Collections.emptyList(), pagination.isMaxReached());
     }
     
     // Create query
@@ -459,10 +459,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     }
     
     // Execute query with correct pagination
-    final List<WorkflowExecution> result =
-        ExternalRequestUtil.retryableExternalRequestConnectionReset(
-            () -> query.asList(new FindOptions().skip(pagination.skip).limit(pagination.limit)));
-    return new ResultList<>(result, pagination.maxReached);
+    final FindOptions options = new FindOptions().skip(pagination.getSkip())
+            .limit(pagination.getLimit());
+    final List<WorkflowExecution> result = ExternalRequestUtil
+            .retryableExternalRequestConnectionReset(() -> query.asList(options));
+    return new ResultList<>(result, pagination.isMaxReached());
   }
 
   /**
@@ -491,8 +492,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     
     // Prepare pagination and check that there is something to query
     final Pagination pagination = createPagination(nextPage, pageCount, false);
-    if (pagination.limit < 1) {
-      return new ResultList<>(Collections.emptyList(), pagination.maxReached);
+    if (pagination.getLimit() < 1) {
+      return new ResultList<>(Collections.emptyList(), pagination.isMaxReached());
     }
 
     // Create the aggregate pipeline
@@ -512,7 +513,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         Sort.descending(CREATED_DATE.getFieldName()));
 
     // Step 4: Apply pagination
-    pipeline.skip(pagination.skip).limit(pagination.limit);
+    pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
 
     // Step 5: Create join of dataset and execution to combine the data information
     joinDatasetAndWorkflowExecution(pipeline);
@@ -520,7 +521,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Done: execute and return result.
     final List<ExecutionDatasetPair> result = new ArrayList<>();
     pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
-    return new ResultList<>(result, pagination.maxReached);
+    return new ResultList<>(result, pagination.isMaxReached());
   }
 
   private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,
@@ -793,8 +794,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Prepare pagination and check that there is something to query
     final Pagination pagination = createPagination(0, Integer.MAX_VALUE, false);
-    if (pagination.limit < 1) {
-      return new ResultList<>(Collections.emptyList(), pagination.maxReached);
+    if (pagination.getLimit() < 1) {
+      return new ResultList<>(Collections.emptyList(), pagination.isMaxReached());
     }
    
     // Create aggregation pipeline.
@@ -819,12 +820,12 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     );
     
     // Set the pagination options
-    pipeline.skip(pagination.skip).limit(pagination.limit);
+    pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
 
     // Done.
     final List<ExecutionIdAndStartedDatePair> result = new ArrayList<>();
     pipeline.aggregate(ExecutionIdAndStartedDatePair.class).forEachRemaining(result::add);
-    return new ResultList<>(result, pagination.maxReached);
+    return new ResultList<>(result, pagination.isMaxReached());
   }
   
   /**
@@ -863,29 +864,40 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       boolean ignoreMaxServedExecutionsLimit) {
 
     // Compute the total number (including skipped pages)
-    final int workflowExecutionsPerRequest = getWorkflowExecutionsPerRequest();
-    final int maxServedExecutionListLength =
+    final int pageSize = getWorkflowExecutionsPerRequest();
+    final int maxResultCount =
         ignoreMaxServedExecutionsLimit ? Integer.MAX_VALUE : getMaxServedExecutionListLength();
-    final int total = Math.min((firstPage + pageCount) * workflowExecutionsPerRequest,
-        maxServedExecutionListLength);
+    final int total = Math.min((firstPage + pageCount) * pageSize, maxResultCount);
 
     // Compute the skipped result count and the returned result count (limit).
-    final int skip = firstPage * workflowExecutionsPerRequest;
-    final boolean maxReached = total == maxServedExecutionListLength;
+    final int skip = firstPage * pageSize;
+    final boolean maxReached = total == maxResultCount;
     final int limit = Math.max(total - skip, 0);
     return new Pagination(skip, limit, maxReached);
   }
-  
-  private static class Pagination {
-    final int skip;
-    final int limit;
-    final boolean maxReached;
 
-    public Pagination(int skip, int limit, boolean maxReached) {
-      super();
+  private static class Pagination {
+
+    private final int skip;
+    private final int limit;
+    private final boolean maxReached;
+
+    Pagination(int skip, int limit, boolean maxReached) {
       this.skip = skip;
       this.limit = limit;
       this.maxReached = maxReached;
+    }
+
+    int getSkip() {
+      return skip;
+    }
+
+    int getLimit() {
+      return limit;
+    }
+
+    boolean isMaxReached() {
+      return maxReached;
     }
   }
 
