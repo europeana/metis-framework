@@ -439,7 +439,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Prepare pagination and check that there is something to query
     final Pagination pagination = createPagination(nextPage, 1, ignoreMaxServedExecutionsLimit);
     if (pagination.getLimit() < 1) {
-      return new ResultList<>(Collections.emptyList(), pagination.isMaxReached());
+      return createResultList(Collections.emptyList(), pagination);
     }
 
     // Create query
@@ -472,7 +472,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
             return cursor.toList();
           }
         });
-    return new ResultList<>(result, pagination.isMaxReached());
+    return createResultList(result, pagination);
   }
 
   /**
@@ -502,7 +502,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Prepare pagination and check that there is something to query
     final Pagination pagination = createPagination(nextPage, pageCount, false);
     if (pagination.getLimit() < 1) {
-      return new ResultList<>(Collections.emptyList(), pagination.isMaxReached());
+      return createResultList(Collections.emptyList(), pagination);
     }
 
     // Create the aggregate pipeline
@@ -530,7 +530,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Done: execute and return result.
     final List<ExecutionDatasetPair> result = new ArrayList<>();
     pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
-    return new ResultList<>(result, pagination.isMaxReached());
+    return createResultList(result, pagination);
   }
 
   private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,
@@ -799,7 +799,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Prepare pagination and check that there is something to query
     final Pagination pagination = createPagination(0, Integer.MAX_VALUE, false);
     if (pagination.getLimit() < 1) {
-      return new ResultList<>(Collections.emptyList(), pagination.isMaxReached());
+      return createResultList(Collections.emptyList(), pagination);
     }
 
     // Create aggregation pipeline.
@@ -829,7 +829,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Done.
     final List<ExecutionIdAndStartedDatePair> result = new ArrayList<>();
     pipeline.aggregate(ExecutionIdAndStartedDatePair.class).forEachRemaining(result::add);
-    return new ResultList<>(result, pagination.isMaxReached());
+    return createResultList(result, pagination);
   }
 
   /**
@@ -875,21 +875,21 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Compute the skipped result count and the returned result count (limit).
     final int skip = firstPage * pageSize;
-    final boolean maxReached = total == maxResultCount;
+    final boolean maxRequested = total == maxResultCount;
     final int limit = Math.max(total - skip, 0);
-    return new Pagination(skip, limit, maxReached);
+    return new Pagination(skip, limit, maxRequested);
   }
 
   private static class Pagination {
 
     private final int skip;
     private final int limit;
-    private final boolean maxReached;
+    private final boolean maxRequested;
 
-    Pagination(int skip, int limit, boolean maxReached) {
+    Pagination(int skip, int limit, boolean maxRequested) {
       this.skip = skip;
       this.limit = limit;
-      this.maxReached = maxReached;
+      this.maxRequested = maxRequested;
     }
 
     int getSkip() {
@@ -900,9 +900,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       return limit;
     }
 
-    boolean isMaxReached() {
-      return maxReached;
+    boolean isMaxReached(int resultSize) {
+      return maxRequested && resultSize == limit;
     }
+  }
+
+  private static <T> ResultList<T> createResultList(List<T> result, Pagination pagination) {
+    return new ResultList<>(result, pagination.isMaxReached(result.size()));
   }
 
   /**
