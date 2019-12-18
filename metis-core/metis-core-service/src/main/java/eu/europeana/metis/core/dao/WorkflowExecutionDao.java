@@ -41,6 +41,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -72,8 +73,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   private static final int DEFAULT_POSITION_IN_OVERVIEW = 3;
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
-  private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST
-      .getLimit();
+  private int workflowExecutionsPerRequest =
+      RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit();
+  private int maxServedExecutionListLength = Integer.MAX_VALUE;
 
   /**
    * Constructs the DAO
@@ -426,14 +428,25 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param orderField the field to be used to sort the results
    * @param ascending a boolean value to request the ordering to ascending or descending
    * @param nextPage the nextPage token
+   * @param ignoreMaxServedExecutionsLimit whether this method is to apply the limit on the number
+   *        of executions are served. Be carefull when setting this to true.
    * @return a list of all the WorkflowExecutions found
    */
-  public List<WorkflowExecution> getAllWorkflowExecutions(Set<String> datasetIds,
+  public ResultList<WorkflowExecution> getAllWorkflowExecutions(Set<String> datasetIds,
       Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField, boolean ascending,
-      int nextPage) {
-    Query<WorkflowExecution> query =
+      int nextPage, boolean ignoreMaxServedExecutionsLimit) {
+
+    // Prepare pagination and check that there is something to query
+    final Pagination pagination = createPagination(nextPage, 1, ignoreMaxServedExecutionsLimit);
+    if (pagination.getLimit() < 1) {
+      return new ResultList<>(Collections.emptyList(), pagination.isMaxReached());
+    }
+
+    // Create query
+    final Query<WorkflowExecution> query =
         morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
 
+    // Set dataset ID and worflow status limitations.
     if (datasetIds != null && !datasetIds.isEmpty()) {
       query.field(DATASET_ID.getFieldName()).in(datasetIds);
     }
@@ -441,6 +454,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       query.field(WORKFLOW_STATUS.getFieldName()).in(workflowStatuses);
     }
 
+    // Set ordering
     if (orderField != null) {
       if (ascending) {
         query.order(Sort.ascending(orderField.getFieldName()));
@@ -448,15 +462,17 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         query.order(Sort.descending(orderField.getFieldName()));
       }
     }
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+
+    // Execute query with correct pagination
+    final FindOptions findOptions = new FindOptions().skip(pagination.getSkip())
+        .limit(pagination.getLimit());
+    final List<WorkflowExecution> result = ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> {
-          final FindOptions findOptions = new FindOptions()
-              .skip(nextPage * getWorkflowExecutionsPerRequest())
-              .limit(getWorkflowExecutionsPerRequest());
           try (final MorphiaCursor<WorkflowExecution> cursor = query.find(findOptions)) {
             return cursor.toList();
           }
         });
+    return new ResultList<>(result, pagination.isMaxReached());
   }
 
   /**
@@ -479,9 +495,15 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param pageCount the number of pages that are requested
    * @return a list of all the WorkflowExecutions found
    */
-  public List<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
-      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate,
-      Date toDate, int nextPage, int pageCount) {
+  public ResultList<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
+      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate,
+      int nextPage, int pageCount) {
+
+    // Prepare pagination and check that there is something to query
+    final Pagination pagination = createPagination(nextPage, pageCount, false);
+    if (pagination.getLimit() < 1) {
+      return new ResultList<>(Collections.emptyList(), pagination.isMaxReached());
+    }
 
     // Create the aggregate pipeline
     final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
@@ -500,8 +522,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         Sort.descending(CREATED_DATE.getFieldName()));
 
     // Step 4: Apply pagination
-    pipeline.skip(nextPage * getWorkflowExecutionsPerRequest())
-        .limit(getWorkflowExecutionsPerRequest() * pageCount);
+    pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
 
     // Step 5: Create join of dataset and execution to combine the data information
     joinDatasetAndWorkflowExecution(pipeline);
@@ -509,7 +530,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Done: execute and return result.
     final List<ExecutionDatasetPair> result = new ArrayList<>();
     pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
-    return result;
+    return new ResultList<>(result, pagination.isMaxReached());
   }
 
   private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,
@@ -653,6 +674,28 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   }
 
   /**
+   * Get the maximum number of workflow executions that are served (regardless of pagination).
+   *
+   * @return The limit.
+   */
+  public int getMaxServedExecutionListLength() {
+    synchronized (this) {
+      return maxServedExecutionListLength;
+    }
+  }
+
+  /**
+   * Set the maximum number of workflowExecutions that are served (regardless of pagination).
+   *
+   * @param maxServedExecutionListLength The limit.
+   */
+  public void setMaxServedExecutionListLength(int maxServedExecutionListLength) {
+    synchronized (this) {
+      this.maxServedExecutionListLength = maxServedExecutionListLength;
+    }
+  }
+
+  /**
    * Check if a WorkflowExecution using an execution identifier is {@link WorkflowStatus#CANCELLED}
    *
    * @param id the execution identifier
@@ -751,7 +794,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @return A list of pairs with an execution ID and a start date. Is not null, nor are any of the
    * values null. The list is sorted by date: most recent execution first.
    */
-  public List<ExecutionIdAndStartedDatePair> getAllExecutionStartDates(String datasetId) {
+  public ResultList<ExecutionIdAndStartedDatePair> getAllExecutionStartDates(String datasetId) {
+
+    // Prepare pagination and check that there is something to query
+    final Pagination pagination = createPagination(0, Integer.MAX_VALUE, false);
+    if (pagination.getLimit() < 1) {
+      return new ResultList<>(Collections.emptyList(), pagination.isMaxReached());
+    }
 
     // Create aggregation pipeline.
     final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
@@ -774,10 +823,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         Projection.projection(ID.getFieldName()).suppress()
     );
 
+    // Set the pagination options
+    pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
+
     // Done.
     final List<ExecutionIdAndStartedDatePair> result = new ArrayList<>();
     pipeline.aggregate(ExecutionIdAndStartedDatePair.class).forEachRemaining(result::add);
-    return result;
+    return new ResultList<>(result, pagination.isMaxReached());
   }
 
   /**
@@ -809,6 +861,78 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     public Date getStartedDate() {
       return new Date(startedDate.getTime());
+    }
+  }
+
+  private Pagination createPagination(int firstPage, int pageCount,
+      boolean ignoreMaxServedExecutionsLimit) {
+
+    // Compute the total number (including skipped pages)
+    final int pageSize = getWorkflowExecutionsPerRequest();
+    final int maxResultCount =
+        ignoreMaxServedExecutionsLimit ? Integer.MAX_VALUE : getMaxServedExecutionListLength();
+    final int total = Math.min((firstPage + pageCount) * pageSize, maxResultCount);
+
+    // Compute the skipped result count and the returned result count (limit).
+    final int skip = firstPage * pageSize;
+    final boolean maxReached = total == maxResultCount;
+    final int limit = Math.max(total - skip, 0);
+    return new Pagination(skip, limit, maxReached);
+  }
+
+  private static class Pagination {
+
+    private final int skip;
+    private final int limit;
+    private final boolean maxReached;
+
+    Pagination(int skip, int limit, boolean maxReached) {
+      this.skip = skip;
+      this.limit = limit;
+      this.maxReached = maxReached;
+    }
+
+    int getSkip() {
+      return skip;
+    }
+
+    int getLimit() {
+      return limit;
+    }
+
+    boolean isMaxReached() {
+      return maxReached;
+    }
+  }
+
+  /**
+   * This object contains a result list with some pagination information.
+   *
+   * @param <T> The type of the result objects.
+   */
+  public static class ResultList<T> {
+
+    private final List<T> results;
+    private final boolean maxResultCountReached;
+
+    /**
+     * Constructor.
+     *
+     * @param results The results.
+     * @param maxResultCountReached Whether the maximum result count has been reached (indicating
+     *        whether next pages will be served).
+     */
+    public ResultList(List<T> results, boolean maxResultCountReached) {
+      this.results = new ArrayList<>(results);
+      this.maxResultCountReached = maxResultCountReached;
+    }
+
+    public List<T> getResults() {
+      return Collections.unmodifiableList(results);
+    }
+
+    public boolean isMaxResultCountReached() {
+      return maxResultCountReached;
     }
   }
 }

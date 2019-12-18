@@ -6,7 +6,9 @@ import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
@@ -20,6 +22,7 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.ExecutionHistory;
 import eu.europeana.metis.core.rest.ExecutionHistory.Execution;
 import eu.europeana.metis.core.rest.PluginsWithDataAvailability;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.PluginsWithDataAvailability.PluginWithDataAvailability;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
@@ -422,15 +425,6 @@ public class OrchestratorService {
   }
 
   /**
-   * The number of Workflows that would be returned if a get all request would be performed.
-   *
-   * @return the number representing the size during a get all request
-   */
-  public int getWorkflowsPerRequest() {
-    return workflowDao.getWorkflowsPerRequest();
-  }
-
-  /**
    * Check if a specified {@code pluginType} is allowed for execution. This is checked based on, if
    * there was a previous successful finished plugin that follows a specific order (unless the
    * {@code enforcedPredecessorType} is used) and that has the latest successful harvest plugin as
@@ -475,10 +469,9 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public List<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser, String datasetId,
-      Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField, boolean ascending,
-      int nextPage)
-      throws GenericMetisException {
+  public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser,
+      String datasetId, Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField,
+      boolean ascending, int nextPage) throws GenericMetisException {
 
     // Authorize
     if (datasetId == null) {
@@ -496,8 +489,14 @@ public class OrchestratorService {
     }
 
     // Find the executions.
-    return workflowExecutionDao.getAllWorkflowExecutions(datasetIds, workflowStatuses, orderField,
-        ascending, nextPage);
+    final ResultList<WorkflowExecution> data = workflowExecutionDao.getAllWorkflowExecutions(
+        datasetIds, workflowStatuses, orderField, ascending, nextPage, false);
+    
+    // Compile and return the result.
+    final ResponseListWrapper<WorkflowExecution> result = new ResponseListWrapper<>();
+    result.setResultsAndLastPage(data.getResults(), getWorkflowExecutionsPerRequest(), nextPage,
+        data.isMaxResultCountReached());
+    return result;
   }
 
   /**
@@ -519,17 +518,21 @@ public class OrchestratorService {
    * authenticated or authorized to perform this operation</li>
    * </ul>
    */
-  public List<ExecutionAndDatasetView> getWorkflowExecutionsOverview(MetisUser metisUser,
-      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate,
-      Date toDate, int nextPage, int pageCount) throws GenericMetisException {
+  public ResponseListWrapper<ExecutionAndDatasetView> getWorkflowExecutionsOverview(
+      MetisUser metisUser, Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes,
+      Date fromDate, Date toDate, int nextPage, int pageCount) throws GenericMetisException {
     authorizer.authorizeReadAllDatasets(metisUser);
     final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
-    return workflowExecutionDao
-        .getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes, fromDate, toDate,
-            nextPage, pageCount)
-        .stream()
+    final ResultList<ExecutionDatasetPair> data =
+        workflowExecutionDao.getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes,
+            fromDate, toDate, nextPage, pageCount);
+    final List<ExecutionAndDatasetView> views = data.getResults().stream()
         .map(result -> new ExecutionAndDatasetView(result.getExecution(), result.getDataset()))
         .collect(Collectors.toList());
+    final ResponseListWrapper<ExecutionAndDatasetView> result = new ResponseListWrapper<>();
+    result.setResultsAndLastPage(views, getWorkflowExecutionsPerRequest(), nextPage, pageCount,
+        data.isMaxResultCountReached());
+    return result;
   }
 
   private Set<String> getDatasetIdsToFilterOn(MetisUser metisUser) {
@@ -663,7 +666,7 @@ public class OrchestratorService {
 
     // Get the information from the database
     final List<Execution> executions = workflowExecutionDao.getAllExecutionStartDates(datasetId)
-        .stream().map(entry -> {
+        .getResults().stream().map(entry -> {
           final Execution execution = new Execution();
           execution.setWorkflowExecutionId(entry.getExecutionIdAsString());
           execution.setStartedDate(entry.getStartedDate());

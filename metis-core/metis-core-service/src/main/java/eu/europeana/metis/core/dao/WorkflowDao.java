@@ -7,7 +7,6 @@ import com.mongodb.WriteResult;
 import dev.morphia.Key;
 import dev.morphia.query.Query;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import org.bson.types.ObjectId;
@@ -16,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 /**
+ * DAO object for workflows.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
@@ -23,7 +24,6 @@ import org.springframework.stereotype.Repository;
 public class WorkflowDao implements MetisDao<Workflow, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowDao.class);
-  private int workflowsPerRequest = RequestLimits.WORKFLOWS_PER_REQUEST.getLimit();
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
   /**
@@ -93,7 +93,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     return null != getWorkflowId(datasetId);
   }
 
-  String getWorkflowId(String datasetId) {
+  private String getWorkflowId(String datasetId) {
     Workflow storedWorkflow = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
@@ -113,18 +113,6 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
                 .field(DATASET_ID.getFieldName()).equal(datasetId).get());
-  }
-
-  public int getWorkflowsPerRequest() {
-    synchronized (this) {
-      return workflowsPerRequest;
-    }
-  }
-
-  public void setWorkflowsPerRequest(int workflowsPerRequest) {
-    synchronized (this) {
-      this.workflowsPerRequest = workflowsPerRequest;
-    }
   }
 }
 

@@ -585,8 +585,10 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     int listSize = 2;
-    List<WorkflowExecution> listOfWorkflowExecutions = TestObjectFactory
-        .createListOfWorkflowExecutions(listSize + 1); //To get the effect of next page
+    ResponseListWrapper<WorkflowExecution>listOfWorkflowExecutions = new ResponseListWrapper<>();
+    listOfWorkflowExecutions.setResultsAndLastPage(
+        TestObjectFactory.createListOfWorkflowExecutions(listSize + 1),
+        orchestratorService.getWorkflowExecutionsPerRequest(), 0);
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), anyString(),
@@ -633,8 +635,10 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     int listSize = 2;
-    List<WorkflowExecution> listOfWorkflowExecutions = TestObjectFactory
-        .createListOfWorkflowExecutions(listSize + 1); //To get the effect of next page
+    ResponseListWrapper<WorkflowExecution>listOfWorkflowExecutions = new ResponseListWrapper<>();
+    listOfWorkflowExecutions.setResultsAndLastPage(
+        TestObjectFactory.createListOfWorkflowExecutions(listSize + 1),
+        orchestratorService.getWorkflowExecutionsPerRequest(), 0);
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllWorkflowExecutions(eq(metisUser), isNull(),
@@ -681,8 +685,11 @@ class TestOrchestratorController {
     final int pageSize = 2;
     final int nextPage = 5;
     final int pageCount = 3;
-    final List<ExecutionAndDatasetView> listOfWorkflowExecutionAndDatasetViews = TestObjectFactory
-        .createListOfExecutionOverviews(pageSize * pageCount);
+    final ResponseListWrapper<ExecutionAndDatasetView> listOfWorkflowExecutionAndDatasetViews =
+        new ResponseListWrapper<>();
+    listOfWorkflowExecutionAndDatasetViews.setResultsAndLastPage(
+        TestObjectFactory.createListOfExecutionOverviews(pageSize * pageCount),
+        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage, pageCount);
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(pageSize);
     when(orchestratorService

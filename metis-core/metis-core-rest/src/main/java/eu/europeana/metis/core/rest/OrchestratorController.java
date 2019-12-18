@@ -416,14 +416,12 @@ public class OrchestratorController {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResultsAndLastPage(
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final ResponseListWrapper<WorkflowExecution> result =
         orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
-            orderField, ascending, nextPage),
-        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
-    logPaging(responseListWrapper, nextPage);
-    return responseListWrapper;
+            orderField, ascending, nextPage);
+    logPaging(result, nextPage);
+    return result;
   }
 
   /**
@@ -458,14 +456,12 @@ public class OrchestratorController {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
-    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResultsAndLastPage(
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final ResponseListWrapper<WorkflowExecution> result =
         orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses, orderField,
-            ascending, nextPage),
-        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
-    logPaging(responseListWrapper, nextPage);
-    return responseListWrapper;
+            ascending, nextPage);
+    logPaging(result, nextPage);
+    return result;
   }
 
   /**
@@ -508,13 +504,11 @@ public class OrchestratorController {
       throw new BadContentException(CommonStringValues.PAGE_COUNT_CANNOT_BE_ZERO_OR_NEGATIVE);
     }
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    final ResponseListWrapper<ExecutionAndDatasetView> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getWorkflowExecutionsOverview(metisUser, pluginStatuses, pluginTypes, fromDate, toDate,
-                nextPage, pageCount),
-        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage, pageCount);
-    logPaging(responseListWrapper, nextPage);
-    return responseListWrapper;
+    final ResponseListWrapper<ExecutionAndDatasetView> result =
+        orchestratorService.getWorkflowExecutionsOverview(metisUser, pluginStatuses, pluginTypes,
+            fromDate, toDate, nextPage, pageCount);
+    logPaging(result, nextPage);
+    return result;
   }
 
   private static void logPaging(ResponseListWrapper<?> responseListWrapper, int nextPage) {

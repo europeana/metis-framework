@@ -4,6 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -22,6 +23,7 @@ public class ResponseListWrapper<T> {
   private List<T> results;
   private int listSize;
   private int nextPage;
+  private Boolean maxResultCountReached;
 
   /**
    * Accepts a list of results objects, and based on the resultsPerRequestLimit it will determine if
@@ -32,7 +34,23 @@ public class ResponseListWrapper<T> {
    * @param nextPage the positive next page number or -1 if there shouldn't be another page
    */
   public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage) {
-    setResultsAndLastPage(results, resultsPerRequestLimit, nextPage, 1);
+    this.setResultsAndLastPage(results, resultsPerRequestLimit, nextPage, null);
+  }
+  
+  /**
+   * Accepts a list of results objects, and based on the resultsPerRequestLimit it will determine if
+   * there would be another nextPage. This method assumes a page count of 1.
+   *
+   * @param results the {@link List} of objects
+   * @param resultsPerRequestLimit the result limit per request
+   * @param nextPage the positive next page number or -1 if there shouldn't be another page
+   * @param maxResultCountReached whether the maximum result count is reached (the number of
+   *        results, regardless of pagination, the server is willing to serve). Can be null if this
+   *        is not applicable.
+   */
+  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage,
+      Boolean maxResultCountReached) {
+    setResultsAndLastPage(results, resultsPerRequestLimit, nextPage, 1, maxResultCountReached);
   }
 
   /**
@@ -46,17 +64,33 @@ public class ResponseListWrapper<T> {
    */
   public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage,
       int pageCount) {
-    if (results == null || results.isEmpty()) {
+    this.setResultsAndLastPage(results, resultsPerRequestLimit, nextPage, pageCount, null);
+  }
+  
+  /**
+   * Accepts a list of results objects, and based on the resultsPerRequestLimit it will determine if
+   * there would be another nextPage.
+   *
+   * @param results the {@link List} of objects
+   * @param resultsPerRequestLimit the result limit per request
+   * @param nextPage the positive next page number or -1 if there shouldn't be another page
+   * @param pageCount the number of pages that were requested.
+   * @param maxResultCountReached whether the maximum result count is reached (the number of
+   *        results, regardless of pagination, the server is willing to serve). Can be null if this
+   *        is not applicable.
+   */
+  public void setResultsAndLastPage(List<T> results, int resultsPerRequestLimit, int nextPage,
+      int pageCount, Boolean maxResultCountReached) {
+    if (results == null || results.isEmpty() || Boolean.TRUE.equals(maxResultCountReached)) {
+      this.nextPage = -1;
+    } else if (results.size() < resultsPerRequestLimit * pageCount) {
       this.nextPage = -1;
     } else {
-      if (results.size() < resultsPerRequestLimit * pageCount) {
-        this.nextPage = -1;
-      } else {
-        this.nextPage = nextPage + pageCount;
-      }
-      listSize = results.size();
+      this.nextPage = nextPage + pageCount;
     }
-    this.results = results == null ? null : new ArrayList<>(results);
+    this.listSize = Optional.ofNullable(results).map(List::size).orElse(0);
+    this.maxResultCountReached = maxResultCountReached;
+    setResults(results);
   }
 
   /**
@@ -72,11 +106,11 @@ public class ResponseListWrapper<T> {
   }
 
   public List<T> getResults() {
-    return results == null ? null : new ArrayList<>(results);
+    return Optional.ofNullable(results).map(ArrayList::new).orElse(null);
   }
 
   public void setResults(List<T> results) {
-    this.results = results == null ? null : new ArrayList<>(results);
+    this.results = Optional.ofNullable(results).map(ArrayList::new).orElse(null);
   }
 
   public int getNextPage() {
@@ -95,4 +129,11 @@ public class ResponseListWrapper<T> {
     this.listSize = listSize;
   }
 
+  public Boolean getMaxResultCountReached() {
+    return maxResultCountReached;
+  }
+
+  public void setMaxResultCountReached(Boolean maxResultCountReached) {
+    this.maxResultCountReached = maxResultCountReached;
+  }
 }
