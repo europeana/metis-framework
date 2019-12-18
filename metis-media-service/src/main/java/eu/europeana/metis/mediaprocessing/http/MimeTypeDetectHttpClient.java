@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import org.apache.tika.Tika;
+import org.apache.tika.metadata.Metadata;
 
 /**
  * An {@link AbstractHttpClient} that tries to determine the mime type of a link. It does so based
@@ -39,9 +40,33 @@ public class MimeTypeDetectHttpClient extends AbstractHttpClient<URL, String> {
 
   @Override
   protected String createResult(URL resourceEntry, URI actualUri, String mimeType, Long fileSize,
-      ContentRetriever contentRetriever) throws IOException {
+          ContentRetriever contentRetriever) throws IOException {
     try (final InputStream inputStream = contentRetriever.getContent()) {
-      return tika.detect(inputStream);
+      final Metadata metadata = new Metadata();
+      final String resourceName = getResourceNameFromUrl(actualUri);
+      if (resourceName != null) {
+        metadata.set(Metadata.RESOURCE_NAME_KEY, resourceName);
+      }
+      if (mimeType != null) {
+        final int separatorIndex = mimeType.indexOf(';');
+        final String adjustedMimeType =
+                separatorIndex < 0 ? mimeType : mimeType.substring(0, separatorIndex);
+        metadata.set(Metadata.CONTENT_TYPE, adjustedMimeType);
+      }
+      if (fileSize != null) {
+        metadata.set(Metadata.CONTENT_LENGTH, fileSize.toString());
+      }
+
+      return tika.detect(inputStream, metadata);
     }
+  }
+
+  private static String getResourceNameFromUrl(URI url) {
+    final String resourcePath = url.getPath().trim();
+    if (resourcePath.isEmpty() || resourcePath.endsWith("/")) {
+      return null;
+    }
+    final int slashIndex = resourcePath.lastIndexOf('/');
+    return slashIndex < 0 ? resourcePath : resourcePath.substring(slashIndex + 1);
   }
 }

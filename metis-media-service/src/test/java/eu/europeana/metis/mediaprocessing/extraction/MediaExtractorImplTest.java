@@ -82,7 +82,8 @@ class MediaExtractorImplTest {
     final Resource resource = mock(Resource.class);
     doReturn("resource url").when(resource).getResourceUrl();
     doReturn(actualLocation).when(resource).getActualLocation();
-    doReturn("mime type").when(resource).getProvidedMimeType();
+    final String providedMimeType = "mime type";
+    doReturn(providedMimeType).when(resource).getProvidedMimeType();
     doReturn(contentPath).when(resource).getContentPath();
 
     // Register mime types
@@ -99,7 +100,7 @@ class MediaExtractorImplTest {
 
     // Test case where there is content
     doReturn(true).when(resource).hasContent();
-    doReturn(detectedMimeTypeWithContent).when(tika).detect(contentPath);
+    doReturn(detectedMimeTypeWithContent).when(mediaExtractor).detectType(contentPath, providedMimeType);
     assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.FULL));
     assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.REDUCED));
 
@@ -110,9 +111,9 @@ class MediaExtractorImplTest {
     assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.REDUCED));
 
     // Test when tika throws exception
-    doThrow(IOException.class).when(tika).detect(contentPath);
+    doThrow(IOException.class).when(mediaExtractor).detectType(contentPath, providedMimeType);
     assertThrows(MediaExtractionException.class, () -> mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.FULL));
-    doReturn(detectedMimeTypeWithContent).when(tika).detect(contentPath);
+    doReturn(detectedMimeTypeWithContent).when(mediaExtractor).detectType(contentPath, providedMimeType);
 
     // Check what happens if resource.hasContent() throws an exception.
     doThrow(IOException.class).when(resource).hasContent();
