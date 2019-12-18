@@ -1,9 +1,17 @@
 package eu.europeana.indexing;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientOptions.Builder;
 import com.mongodb.MongoConfigurationException;
+import com.mongodb.MongoCredential;
 import com.mongodb.MongoIncompatibleDriverException;
 import com.mongodb.MongoSecurityException;
+import com.mongodb.ServerAddress;
+import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -16,15 +24,6 @@ import org.apache.solr.client.solrj.impl.CloudSolrClient;
 import org.apache.solr.client.solrj.impl.LBHttpSolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientOptions.Builder;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 
 /**
  * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection
@@ -109,7 +108,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
       throws SetupRelatedIndexingException {
     try {
       return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), false);
-    } catch (MongoDBException e) {
+    } catch (RuntimeException e) {
       throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
   }
