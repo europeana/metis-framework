@@ -11,11 +11,15 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.utils.MediaType;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Set;
 import org.apache.tika.Tika;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -152,7 +156,7 @@ public class MediaExtractorImpl implements MediaExtractor {
       // instead of the resource URL (because Tika doesn't seem to do forwarding properly).
       try {
         hasContent = resource.hasContent();
-        detectedMimeType = hasContent ? tika.detect(resource.getContentPath())
+        detectedMimeType = hasContent ? detectType(resource.getContentPath(), providedMimeType)
             : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
       } catch (IOException e) {
         throw new MediaExtractionException("Mime type checking error", e);
@@ -177,6 +181,19 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Done
     return detectedMimeType;
+  }
+
+  String detectType(Path path, String providedMimeType) throws IOException {
+    final Metadata metadata = new Metadata();
+    if (providedMimeType != null) {
+      final int separatorIndex = providedMimeType.indexOf(';');
+      final String adjustedMimeType =
+              separatorIndex < 0 ? providedMimeType : providedMimeType.substring(0, separatorIndex);
+      metadata.set(Metadata.CONTENT_TYPE, adjustedMimeType);
+    }
+    try (final InputStream stream = TikaInputStream.get(path, metadata)) {
+      return tika.detect(stream, metadata);
+    }
   }
 
   MediaProcessor chooseMediaProcessor(MediaType mediaType) {
