@@ -46,7 +46,7 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
       Long fileSize, ContentRetriever contentRetriever) throws IOException {
 
     // Create resource
-    final ResourceImpl resource = new ResourceImpl(resourceEntry, mimeType, fileSize, actualUri);
+    final Resource resource = new ResourceImpl(resourceEntry, mimeType, fileSize, actualUri);
 
     // In case we are expecting a file, we download it.
     try {
@@ -69,10 +69,10 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
     return resource;
   }
 
-  private static void downloadResource(String resourceUrl, ResourceImpl resource,
+  private static void downloadResource(String resourceUrl, Resource resource,
       ContentRetriever contentRetriever) throws IOException {
     try (final InputStream inputStream = contentRetriever.getContent()) {
-      resource.setContent(inputStream);
+      resource.markAsWithContent(inputStream);
     }
     if (resource.getContentSize() == 0) {
       throw new IOException("Download failed of resource " + resourceUrl + ": no content found.");

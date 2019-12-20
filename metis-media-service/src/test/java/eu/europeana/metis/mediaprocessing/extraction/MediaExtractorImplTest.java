@@ -11,9 +11,12 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.ProcessingMode;
@@ -25,6 +28,7 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.utils.MediaType;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -37,9 +41,11 @@ import org.apache.tika.Tika;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 class MediaExtractorImplTest {
 
+  private static ResourceDownloadClient forcedDownloadClient;
   private static ResourceDownloadClient fullProcessingDownloadClient;
   private static ResourceDownloadClient reducedProcessingDownloadClient;
   private static MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
@@ -54,6 +60,7 @@ class MediaExtractorImplTest {
 
   @BeforeAll
   static void prepare() {
+    forcedDownloadClient = mock(ResourceDownloadClient.class);
     fullProcessingDownloadClient = mock(ResourceDownloadClient.class);
     reducedProcessingDownloadClient = mock(ResourceDownloadClient.class);
     mimeTypeDetectHttpClient = mock(MimeTypeDetectHttpClient.class);
@@ -62,9 +69,9 @@ class MediaExtractorImplTest {
     imageProcessor = mock(ImageProcessor.class);
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
-    mediaExtractor = spy(
-        new MediaExtractorImpl(fullProcessingDownloadClient, reducedProcessingDownloadClient,
-            mimeTypeDetectHttpClient, tika, imageProcessor, audioVideoProcessor, textProcessor));
+    mediaExtractor = spy(new MediaExtractorImpl(forcedDownloadClient, fullProcessingDownloadClient,
+        reducedProcessingDownloadClient, mimeTypeDetectHttpClient, tika, imageProcessor,
+        audioVideoProcessor, textProcessor));
   }
 
   @BeforeEach
@@ -104,12 +111,6 @@ class MediaExtractorImplTest {
     assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.FULL));
     assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.REDUCED));
 
-    // Test case where there is no content, but there should be.
-    doReturn(false).when(resource).hasContent();
-    doReturn(detectedMimeTypeWithContent).when(mimeTypeDetectHttpClient).download(actualLocation.toURL());
-    assertThrows(MediaExtractionException.class, () -> mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.FULL));
-    assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.REDUCED));
-
     // Test when tika throws exception
     doThrow(IOException.class).when(mediaExtractor).detectType(contentPath, providedMimeType);
     assertThrows(MediaExtractionException.class, () -> mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.FULL));
@@ -122,6 +123,50 @@ class MediaExtractorImplTest {
 
     // Check what happens if we are not supposed to process
     assertThrows(IllegalStateException.class, () -> mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.NONE));
+  }
+  
+  @Test 
+  void testVerifyAndCorrectContentAvailability () throws URISyntaxException, MediaExtractionException, IOException {
+
+    // Set up the resource
+    final String location = "resource url";
+    final Resource resource = mock(Resource.class);
+    doReturn(location).when(resource).getResourceUrl();
+    final Resource resourceWithContent = mock(Resource.class);
+    final InputStream content = mock(InputStream.class);
+    doReturn(content).when(resourceWithContent).getContentStream();
+
+    // Register mime types
+    final String detectedMimeTypeNoContent = "detected mime type no content";
+    doReturn(false).when(mediaExtractor).shouldDownloadForFullProcessing(detectedMimeTypeNoContent);
+    final String detectedMimeTypeWithContent = "detected mime type with content";
+    doReturn(true).when(mediaExtractor).shouldDownloadForFullProcessing(detectedMimeTypeWithContent);
+
+    // Test case where there is content regardless of whether there should be, or the processing
+    // mode doesn't require content.
+    doReturn(true).when(resource).hasContent();
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL, detectedMimeTypeWithContent);
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL, detectedMimeTypeNoContent);
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeWithContent);
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeNoContent);
+    doReturn(false).when(resource).hasContent();
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL, detectedMimeTypeNoContent);
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeWithContent);
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeNoContent);
+
+    // Test case where there is no content, but there should be.
+    verify(forcedDownloadClient, never()).download(any());
+    doReturn(false).when(resource).hasContent();
+    doReturn(resourceWithContent).when(forcedDownloadClient).download(any());
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL,
+        detectedMimeTypeWithContent);
+    final ArgumentCaptor<RdfResourceEntry> entryCaptor =
+        ArgumentCaptor.forClass(RdfResourceEntry.class);
+    verify(forcedDownloadClient, times(1)).download(entryCaptor.capture());
+    verifyNoMoreInteractions(forcedDownloadClient);
+    final RdfResourceEntry entry = entryCaptor.getValue();
+    assertEquals(location, entry.getResourceUrl());
+    verify(resource, times(1)).markAsWithContent(content);
   }
 
   @Test
@@ -153,8 +198,14 @@ class MediaExtractorImplTest {
 
     // Make the call.
     assertSame(result1, mediaExtractor.performProcessing(resource, ProcessingMode.FULL));
+    verify(mediaExtractor, times(1)).detectAndVerifyMimeType(resource, ProcessingMode.FULL);
+    verify(mediaExtractor, times(1)).verifyAndCorrectContentAvailability(resource,
+        ProcessingMode.FULL, detectedMimeType);
     assertSame(result2, mediaExtractor.performProcessing(resource, ProcessingMode.REDUCED));
-
+    verify(mediaExtractor, times(1)).detectAndVerifyMimeType(resource, ProcessingMode.REDUCED);
+    verify(mediaExtractor, times(1)).verifyAndCorrectContentAvailability(resource,
+        ProcessingMode.REDUCED, detectedMimeType);
+    
     // Check what happens if we are not supposed to process
     assertThrows(IllegalStateException.class, () -> mediaExtractor.performProcessing(resource, ProcessingMode.NONE));
 

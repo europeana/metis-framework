@@ -13,6 +13,7 @@ import eu.europeana.metis.utils.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Optional;
@@ -38,6 +39,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   private static final Set<UrlType> URL_TYPES_FOR_REDUCED_PROCESSING = Collections
       .singleton(UrlType.IS_SHOWN_AT);
 
+  private final ResourceDownloadClient forcedDownloadClient;
   private final ResourceDownloadClient fullProcessingDownloadClient;
   private final ResourceDownloadClient reducedProcessingDownloadClient;
   private final MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
@@ -50,6 +52,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   /**
    * Constructor meant for testing purposes.
    *
+   * @param forcedDownloadClient The download client for resources.
    * @param fullProcessingDownloadClient The download client for resources.
    * @param reducedProcessingDownloadClient The download client for resources.
    * @param mimeTypeDetectHttpClient The mime type detector for URLs.
@@ -58,10 +61,12 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @param audioVideoProcessor An audio/video processor.
    * @param textProcessor A text processor.
    */
-  MediaExtractorImpl(ResourceDownloadClient fullProcessingDownloadClient,
+  MediaExtractorImpl(ResourceDownloadClient forcedDownloadClient,
+      ResourceDownloadClient fullProcessingDownloadClient,
       ResourceDownloadClient reducedProcessingDownloadClient,
       MimeTypeDetectHttpClient mimeTypeDetectHttpClient, Tika tika, ImageProcessor imageProcessor,
       AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor) {
+    this.forcedDownloadClient = forcedDownloadClient;
     this.fullProcessingDownloadClient = fullProcessingDownloadClient;
     this.reducedProcessingDownloadClient = reducedProcessingDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
@@ -89,6 +94,8 @@ public class MediaExtractorImpl implements MediaExtractor {
       throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
+    this.forcedDownloadClient = new ResourceDownloadClient(redirectCount, mimeType -> true,
+        connectTimeout, socketTimeout, downloadTimeout);
     this.fullProcessingDownloadClient = new ResourceDownloadClient(redirectCount,
         this::shouldDownloadForFullProcessing, connectTimeout, socketTimeout, downloadTimeout);
     this.reducedProcessingDownloadClient = new ResourceDownloadClient(redirectCount,
@@ -145,38 +152,27 @@ public class MediaExtractorImpl implements MediaExtractor {
       throw new IllegalStateException();
     }
 
-    String providedMimeType = resource.getProvidedMimeType();
-    String detectedMimeType;
-    boolean hasContent = false;
-    //Check if supplied type is a special mpd format
-    if (providedMimeType.startsWith("application/dash+xml")) {
-      detectedMimeType = providedMimeType;
-    } else {
-      // Obtain the mime type. If no content, check against the URL. Note: we use the actual location
-      // instead of the resource URL (because Tika doesn't seem to do forwarding properly).
-      try {
-        hasContent = resource.hasContent();
-        detectedMimeType = hasContent ? detectType(resource.getContentPath(), providedMimeType)
-            : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
-      } catch (IOException e) {
-        throw new MediaExtractionException("Mime type checking error", e);
-      }
+    // Detect the mime type.
+    final String providedMimeType = resource.getProvidedMimeType();
+    final String detectedMimeType;
+    final boolean hasContent;
+    try {
+      hasContent = resource.hasContent();
+      detectedMimeType = hasContent ? detectType(resource.getContentPath(), providedMimeType)
+          : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
+    } catch (IOException e) {
+      throw new MediaExtractionException("Mime type checking error", e);
     }
 
     // Log if the detected mime type is different from the provided one. If application/xhtml+xml is
     // detected from tika, and text/html is provided, we don't give a warning.
-    providedMimeType = resource.getProvidedMimeType();
-    if (!("application/xhtml+xml".equals(detectedMimeType) && providedMimeType
-        .startsWith("text/html")) && !detectedMimeType.equals(providedMimeType)) {
-      LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", detectedMimeType,
-          providedMimeType, resource.getResourceUrl());
-    }
-
-    // Verify that we have content when we need to.
-    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
-        && !hasContent) {
-      throw new MediaExtractionException(
-          "File content is not downloaded and mimeType does not support processing without a downloaded file.");
+    if (providedMimeType != null) {
+      final boolean xhtmlHtmlEquivalenceOccurs = "application/xhtml+xml".equals(detectedMimeType)
+          && providedMimeType.startsWith("text/html");
+      if (!xhtmlHtmlEquivalenceOccurs && !detectedMimeType.equals(providedMimeType)) {
+        LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", detectedMimeType,
+            providedMimeType, resource.getResourceUrl());
+      }
     }
 
     // Done
@@ -215,6 +211,24 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
     return processor;
   }
+  
+  void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
+      String detectedMimeType) throws MediaExtractionException {
+    try {
+      if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
+          && !resource.hasContent()) {
+        final RdfResourceEntry downloadInput =  new RdfResourceEntry(
+            resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
+        try (
+            final Resource resourceWithContent = this.forcedDownloadClient.download(downloadInput);
+            final InputStream inputStream = resourceWithContent.getContentStream()) {
+          resource.markAsWithContent(inputStream);
+        }
+      }
+    } catch (IOException e) {
+      throw new MediaExtractionException("Content availability verification error.", e);
+    }
+  }
 
   ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode)
       throws MediaExtractionException {
@@ -226,6 +240,10 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Detect and verify the mime type.
     final String detectedMimeType = detectAndVerifyMimeType(resource, mode);
+    
+    // Verify that we have content when we need to. This can happen if the resource doesn't come
+    // with the correct mime type. We correct this here.
+    verifyAndCorrectContentAvailability(resource, mode, detectedMimeType);
 
     // Choose the right media processor.
     final MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));

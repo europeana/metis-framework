@@ -34,7 +34,8 @@ public class ResourceImpl extends AbstractTemporaryFile implements Resource {
   public ResourceImpl(RdfResourceEntry rdfResourceEntry, String providedMimeType,
       Long providedFileSize, URI actualLocation) {
     super(rdfResourceEntry.getResourceUrl(), "media_resource_", null);
-    this.providedMimeType = Optional.ofNullable(providedMimeType).orElse(DEFAULT_MIME_TYPE);
+    this.providedMimeType = Optional.ofNullable(providedMimeType)
+        .filter(type -> !type.startsWith(DEFAULT_MIME_TYPE)).orElse(null);
     this.providedFileSize = Optional.ofNullable(providedFileSize).orElse(DEFAULT_FILE_SIZE);
     this.urlTypes = new HashSet<>(rdfResourceEntry.getUrlTypes());
     this.actualLocation = actualLocation;

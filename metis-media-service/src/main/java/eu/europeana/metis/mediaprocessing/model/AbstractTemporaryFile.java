@@ -48,13 +48,8 @@ abstract class AbstractTemporaryFile implements ResourceRelatedFile {
     return this.contentPath;
   }
 
-  /**
-   * Sets the content of this file. This does not close the input stream.
-   *
-   * @param newContent The stream containing the new content. Is not null.
-   * @throws IOException In case something went wrong reading the input stream.
-   */
-  public void setContent(InputStream newContent) throws IOException {
+  @Override
+  public void markAsWithContent(InputStream newContent) throws IOException {
     if (contentPath == null) {
       this.contentPath = contentFileCreator.createFile();
     }
