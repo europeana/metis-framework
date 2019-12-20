@@ -429,7 +429,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param ascending a boolean value to request the ordering to ascending or descending
    * @param nextPage the nextPage token
    * @param ignoreMaxServedExecutionsLimit whether this method is to apply the limit on the number
-   *        of executions are served. Be carefull when setting this to true.
+   * of executions are served. Be carefull when setting this to true.
    * @return a list of all the WorkflowExecutions found
    */
   public ResultList<WorkflowExecution> getAllWorkflowExecutions(Set<String> datasetIds,
@@ -466,12 +466,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Execute query with correct pagination
     final FindOptions findOptions = new FindOptions().skip(pagination.getSkip())
         .limit(pagination.getLimit());
-    final List<WorkflowExecution> result = ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> {
-          try (final MorphiaCursor<WorkflowExecution> cursor = query.find(findOptions)) {
-            return cursor.toList();
-          }
-        });
+    final List<WorkflowExecution> result = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(
+            () -> {
+              try (final MorphiaCursor<WorkflowExecution> cursor = query.find(findOptions)) {
+                return cursor.toList();
+              }
+            });
     return createResultList(result, pagination);
   }
 
@@ -797,7 +798,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   public ResultList<ExecutionIdAndStartedDatePair> getAllExecutionStartDates(String datasetId) {
 
     // Prepare pagination and check that there is something to query
-    final Pagination pagination = createPagination(0, Integer.MAX_VALUE, false);
+    final Pagination pagination = createPagination(0, null, false);
     if (pagination.getLimit() < 1) {
       return createResultList(Collections.emptyList(), pagination);
     }
@@ -864,14 +865,17 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     }
   }
 
-  private Pagination createPagination(int firstPage, int pageCount,
+  private Pagination createPagination(int firstPage, Integer pageCount,
       boolean ignoreMaxServedExecutionsLimit) {
 
     // Compute the total number (including skipped pages)
     final int pageSize = getWorkflowExecutionsPerRequest();
     final int maxResultCount =
         ignoreMaxServedExecutionsLimit ? Integer.MAX_VALUE : getMaxServedExecutionListLength();
-    final int total = Math.min((firstPage + pageCount) * pageSize, maxResultCount);
+    int total = maxResultCount; //Default value if no pageCount supplied
+    if (pageCount != null) {
+      total = Math.min((firstPage + pageCount) * pageSize, maxResultCount);
+    }
 
     // Compute the skipped result count and the returned result count (limit).
     final int skip = firstPage * pageSize;
@@ -924,7 +928,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
      *
      * @param results The results.
      * @param maxResultCountReached Whether the maximum result count has been reached (indicating
-     *        whether next pages will be served).
+     * whether next pages will be served).
      */
     public ResultList(List<T> results, boolean maxResultCountReached) {
       this.results = new ArrayList<>(results);
