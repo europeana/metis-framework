@@ -69,7 +69,7 @@ public class WorkflowExecutionFactory {
 
     // Add some extra configuration to the plugin metadata depending on the type.
     if (pluginMetadata instanceof TransformationPluginMetadata){
-      setupXsltUrlForPluginMetadata(dataset, ((TransformationPluginMetadata) pluginMetadata));
+      setupXsltIdForPluginMetadata(dataset, ((TransformationPluginMetadata) pluginMetadata));
     } else if (pluginMetadata instanceof ValidationExternalPluginMetadata) {
       this.setupValidationExternalForPluginMetadata(
           (ValidationExternalPluginMetadata) pluginMetadata, getValidationExternalProperties());
@@ -105,7 +105,7 @@ public class WorkflowExecutionFactory {
     metadata.setSchematronRootPath(validationProperties.getSchematronRootPath());
   }
 
-  private void setupXsltUrlForPluginMetadata(Dataset dataset,
+  private void setupXsltIdForPluginMetadata(Dataset dataset,
       TransformationPluginMetadata pluginMetadata) {
     DatasetXslt xsltObject;
     if (pluginMetadata.isCustomXslt()) {
@@ -114,7 +114,7 @@ public class WorkflowExecutionFactory {
       xsltObject = datasetXsltDao.getLatestDefaultXslt();
     }
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
-      pluginMetadata.setXsltUrl(xsltObject.getId().toString());
+      pluginMetadata.setXsltId(xsltObject.getId().toString());
     }
     //DatasetName in Transformation should be a concatenation datasetId_datasetName
     pluginMetadata.setDatasetName(dataset.getDatasetId() + "_" + dataset.getDatasetName());

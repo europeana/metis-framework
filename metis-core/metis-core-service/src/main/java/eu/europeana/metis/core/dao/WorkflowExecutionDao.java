@@ -10,7 +10,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_STATUS;
 import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_TYPE;
 import static eu.europeana.metis.core.common.DaoFieldNames.STARTED_DATE;
 import static eu.europeana.metis.core.common.DaoFieldNames.WORKFLOW_STATUS;
-import static eu.europeana.metis.core.common.DaoFieldNames.XSLT_URL;
+import static eu.europeana.metis.core.common.DaoFieldNames.XSLT_ID;
 
 import com.mongodb.WriteResult;
 import dev.morphia.Key;
@@ -794,7 +794,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Create subquery to find the correct plugin.
     final Query<AbstractMetisPlugin> subQuery =
         morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
-    subQuery.field(PLUGIN_METADATA.getFieldName() + "." + XSLT_URL.getFieldName()).equal(xsltId);
+    subQuery.field(PLUGIN_METADATA.getFieldName() + "." + XSLT_ID.getFieldName()).equal(xsltId);
 
     // Create query to find workflow execution
     final Query<WorkflowExecution> query =

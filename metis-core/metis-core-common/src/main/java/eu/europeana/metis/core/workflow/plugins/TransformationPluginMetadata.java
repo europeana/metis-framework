@@ -9,7 +9,7 @@ package eu.europeana.metis.core.workflow.plugins;
 public class TransformationPluginMetadata extends AbstractExecutablePluginMetadata {
 
   private static final ExecutablePluginType pluginType = ExecutablePluginType.TRANSFORMATION;
-  private String xsltUrl;
+  private String xsltId;
   private boolean customXslt;
   private String datasetName;
   private String country;
@@ -32,12 +32,12 @@ public class TransformationPluginMetadata extends AbstractExecutablePluginMetada
     this.customXslt = customXslt;
   }
 
-  public String getXsltUrl() {
-    return xsltUrl;
+  public String getXsltId() {
+    return xsltId;
   }
 
-  public void setXsltUrl(String xsltUrl) {
-    this.xsltUrl = xsltUrl;
+  public void setXsltId(String xsltId) {
+    this.xsltId = xsltId;
   }
 
   public String getDatasetName() {

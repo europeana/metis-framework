@@ -51,7 +51,7 @@ public class TransformationPlugin extends AbstractExecutablePlugin<Transformatio
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("XSLT_URL", ecloudBasePluginParameters.getMetisCoreBaseUrl() + RestEndpoints
         .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
-            Collections.singletonList(getPluginMetadata().getXsltUrl())));
+            Collections.singletonList(getPluginMetadata().getXsltId())));
     extraParameters.put("METIS_DATASET_ID", datasetId);
     extraParameters.put("METIS_DATASET_NAME", getPluginMetadata().getDatasetName());
     extraParameters.put("METIS_DATASET_COUNTRY", getPluginMetadata().getCountry());
