@@ -186,7 +186,6 @@ public class OrchestratorConfig implements WebMvcConfigurer {
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
     workflowExecutionFactory
         .setValidationInternalProperties(propertiesHolder.getValidationInternalProperties());
-    workflowExecutionFactory.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     workflowExecutionFactory.setMetisUseAlternativeIndexingEnvironment(
         propertiesHolder.isMetisUseAlternativeIndexingEnvironment());
     workflowExecutionFactory.setDefaultSamplingSizeForLinkChecking(
@@ -228,6 +227,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
         propertiesHolder.getPeriodOfNoProcessedRecordsChangeInMinutes());
     workflowExecutorManager.setEcloudBaseUrl(propertiesHolder.getEcloudBaseUrl());
     workflowExecutorManager.setEcloudProvider(propertiesHolder.getEcloudProvider());
+    workflowExecutorManager.setMetisCoreBaseUrl(propertiesHolder.getMetisCoreBaseUrl());
     return workflowExecutorManager;
   }
 

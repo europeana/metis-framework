@@ -17,4 +17,6 @@ interface WorkflowExecutionSettings {
   String getEcloudBaseUrl();
 
   String getEcloudProvider();
+
+  String getMetisCoreBaseUrl();
 }

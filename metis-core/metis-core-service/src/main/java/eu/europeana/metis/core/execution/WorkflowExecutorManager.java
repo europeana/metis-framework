@@ -34,6 +34,7 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   private String rabbitmqQueueName; //Initialize with setter
   private String ecloudBaseUrl; //Initialize with setter
   private String ecloudProvider; //Initialize with setter
+  private String metisCoreBaseUrl; //Initialize with setter
 
   /**
    * Autowired constructor.
@@ -89,6 +90,10 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
     this.ecloudProvider = ecloudProvider;
   }
 
+  public void setMetisCoreBaseUrl(String metisCoreBaseUrl) {
+    this.metisCoreBaseUrl = metisCoreBaseUrl;
+  }
+
   public void setDpsMonitorCheckIntervalInSecs(int dpsMonitorCheckIntervalInSecs) {
     this.dpsMonitorCheckIntervalInSecs = dpsMonitorCheckIntervalInSecs;
   }
@@ -131,5 +136,10 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
   @Override
   public String getEcloudProvider() {
     return ecloudProvider;
+  }
+
+  @Override
+  public String getMetisCoreBaseUrl() {
+    return metisCoreBaseUrl;
   }
 }

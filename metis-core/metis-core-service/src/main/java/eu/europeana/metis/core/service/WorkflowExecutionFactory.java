@@ -1,6 +1,5 @@
 package eu.europeana.metis.core.service;
 
-import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
@@ -17,7 +16,6 @@ import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -35,7 +33,6 @@ public class WorkflowExecutionFactory {
 
   private ValidationProperties validationExternalProperties; // Use getter and setter!
   private ValidationProperties validationInternalProperties; // Use getter and setter!
-  private String metisCoreUrl; // Use getter and setter for this field!
   private boolean metisUseAlternativeIndexingEnvironment; // Use getter and setter for this field!
   private int defaultSamplingSizeForLinkChecking; // Use getter and setter for this field!
 
@@ -117,9 +114,7 @@ public class WorkflowExecutionFactory {
       xsltObject = datasetXsltDao.getLatestDefaultXslt();
     }
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
-      pluginMetadata.setXsltUrl(getMetisCoreUrl() + RestEndpoints
-          .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
-              Collections.singletonList(xsltObject.getId().toString())));
+      pluginMetadata.setXsltUrl(xsltObject.getId().toString());
     }
     //DatasetName in Transformation should be a concatenation datasetId_datasetName
     pluginMetadata.setDatasetName(dataset.getDatasetId() + "_" + dataset.getDatasetName());
@@ -148,18 +143,6 @@ public class WorkflowExecutionFactory {
   public void setValidationInternalProperties(ValidationProperties validationInternalProperties) {
     synchronized (this) {
       this.validationInternalProperties = validationInternalProperties;
-    }
-  }
-
-  public void setMetisCoreUrl(String metisCoreUrl) {
-    synchronized (this) {
-      this.metisCoreUrl = metisCoreUrl;
-    }
-  }
-
-  private String getMetisCoreUrl() {
-    synchronized (this) {
-      return this.metisCoreUrl;
     }
   }
 

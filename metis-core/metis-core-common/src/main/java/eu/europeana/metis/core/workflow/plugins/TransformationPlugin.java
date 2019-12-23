@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
+import eu.europeana.metis.RestEndpoints;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,9 +46,12 @@ public class TransformationPlugin extends AbstractExecutablePlugin<Transformatio
   }
 
   @Override
-  public DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters) {
+  public DpsTask prepareDpsTask(String datasetId,
+      EcloudBasePluginParameters ecloudBasePluginParameters) {
     Map<String, String> extraParameters = new HashMap<>();
-    extraParameters.put("XSLT_URL", getPluginMetadata().getXsltUrl());
+    extraParameters.put("XSLT_URL", ecloudBasePluginParameters.getMetisCoreBaseUrl() + RestEndpoints
+        .resolve(RestEndpoints.DATASETS_XSLT_XSLTID,
+            Collections.singletonList(getPluginMetadata().getXsltUrl())));
     extraParameters.put("METIS_DATASET_ID", datasetId);
     extraParameters.put("METIS_DATASET_NAME", getPluginMetadata().getDatasetName());
     extraParameters.put("METIS_DATASET_COUNTRY", getPluginMetadata().getCountry());
