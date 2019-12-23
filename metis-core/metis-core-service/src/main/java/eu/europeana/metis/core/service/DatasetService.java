@@ -194,7 +194,7 @@ public class DatasetService {
     if (xsltString == null) {
       dataset.setXsltId(storedDataset.getXsltId());
     } else {
-      cleanDatasetXslt(storedDataset.getXsltId().toString());
+      cleanDatasetXslt(storedDataset.getXsltId());
       dataset.setXsltId(new ObjectId(
           datasetXsltDao.create(new DatasetXslt(dataset.getDatasetId(), xsltString))));
     }
@@ -204,14 +204,14 @@ public class DatasetService {
     datasetDao.update(dataset);
   }
 
-  private void cleanDatasetXslt(String xsltId) {
+  private void cleanDatasetXslt(ObjectId xsltId) {
     if (xsltId != null) {
       //Check if it's referenced
       final WorkflowExecution workflowExecution = workflowExecutionDao
-          .getByXsltId(xsltId);
+          .getByXsltId(xsltId.toString());
       if (workflowExecution == null) {
         final DatasetXslt datasetXslt = datasetXsltDao
-            .getById(xsltId);
+            .getById(xsltId.toString());
         if (datasetXslt != null) {
           datasetXsltDao.delete(datasetXslt);
         }
@@ -360,7 +360,7 @@ public class DatasetService {
     if (xsltString != null) {
       final DatasetXslt latestDefaultXslt = datasetXsltDao.getLatestDefaultXslt();
       if (latestDefaultXslt != null) {
-        cleanDatasetXslt(latestDefaultXslt.getId().toString());
+        cleanDatasetXslt(latestDefaultXslt.getId());
       }
       datasetXslt = datasetXsltDao.getById(datasetXsltDao.create(new DatasetXslt(xsltString)));
     }
