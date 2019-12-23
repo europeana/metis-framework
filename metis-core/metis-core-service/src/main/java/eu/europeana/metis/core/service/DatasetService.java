@@ -17,6 +17,7 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
 import eu.europeana.metis.core.exceptions.XsltSetupException;
 import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
@@ -193,6 +194,7 @@ public class DatasetService {
     if (xsltString == null) {
       dataset.setXsltId(storedDataset.getXsltId());
     } else {
+      cleanDatasetXslt(storedDataset.getXsltId().toString());
       dataset.setXsltId(new ObjectId(
           datasetXsltDao.create(new DatasetXslt(dataset.getDatasetId(), xsltString))));
     }
@@ -200,6 +202,21 @@ public class DatasetService {
     // Update the dataset
     dataset.setUpdatedDate(new Date());
     datasetDao.update(dataset);
+  }
+
+  private void cleanDatasetXslt(String xsltId) {
+    if (xsltId != null) {
+      //Check if it's referenced
+      final WorkflowExecution workflowExecution = workflowExecutionDao
+          .getByXsltId(xsltId);
+      if (workflowExecution == null) {
+        final DatasetXslt datasetXslt = datasetXsltDao
+            .getById(xsltId);
+        if (datasetXslt != null) {
+          datasetXsltDao.delete(datasetXslt);
+        }
+      }
+    }
   }
 
   /**
@@ -341,6 +358,10 @@ public class DatasetService {
     authorizer.authorizeWriteDefaultXslt(metisUser);
     DatasetXslt datasetXslt = null;
     if (xsltString != null) {
+      final DatasetXslt latestDefaultXslt = datasetXsltDao.getLatestDefaultXslt();
+      if (latestDefaultXslt != null) {
+        cleanDatasetXslt(latestDefaultXslt.getId().toString());
+      }
       datasetXslt = datasetXsltDao.getById(datasetXsltDao.create(new DatasetXslt(xsltString)));
     }
     return datasetXslt;
@@ -606,7 +627,8 @@ public class DatasetService {
    *   <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
-  public List<DatasetSearchView> searchDatasetsBasedOnSearchString(MetisUser metisUser, String searchString,
+  public List<DatasetSearchView> searchDatasetsBasedOnSearchString(MetisUser metisUser,
+      String searchString,
       int nextPage) throws GenericMetisException {
     authorizer.authorizeReadAllDatasets(metisUser);
     if (StringUtils.isBlank(searchString)) {

@@ -5,10 +5,12 @@ import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.FINISHED_DATE;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.METIS_PLUGINS;
+import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_METADATA;
 import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_STATUS;
 import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_TYPE;
 import static eu.europeana.metis.core.common.DaoFieldNames.STARTED_DATE;
 import static eu.europeana.metis.core.common.DaoFieldNames.WORKFLOW_STATUS;
+import static eu.europeana.metis.core.common.DaoFieldNames.XSLT_URL;
 
 import com.mongodb.WriteResult;
 import dev.morphia.Key;
@@ -784,6 +786,19 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     final Query<WorkflowExecution> query =
         morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
     query.field(DATASET_ID.getFieldName()).equal(datasetId);
+    query.field(METIS_PLUGINS.getFieldName()).elemMatch(subQuery);
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
+  }
+
+  public WorkflowExecution getByXsltId(String xsltId) {
+    // Create subquery to find the correct plugin.
+    final Query<AbstractMetisPlugin> subQuery =
+        morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
+    subQuery.field(PLUGIN_METADATA.getFieldName() + "." + XSLT_URL.getFieldName()).equal(xsltId);
+
+    // Create query to find workflow execution
+    final Query<WorkflowExecution> query =
+        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
     query.field(METIS_PLUGINS.getFieldName()).elemMatch(subQuery);
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
