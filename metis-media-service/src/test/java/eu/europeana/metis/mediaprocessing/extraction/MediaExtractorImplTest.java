@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.tika.Tika;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -143,23 +145,46 @@ class MediaExtractorImplTest {
     doReturn(true).when(mediaExtractor).shouldDownloadForFullProcessing(detectedMimeTypeWithContent);
 
     // Test case where there is content regardless of whether there should be, or the processing
-    // mode doesn't require content.
+    // mode doesn't require content or the detected mime type doesn't require content.
     doReturn(true).when(resource).hasContent();
+    doReturn(detectedMimeTypeWithContent).when(resource).getProvidedMimeType();
     mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL, detectedMimeTypeWithContent);
     mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL, detectedMimeTypeNoContent);
     mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeWithContent);
     mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeNoContent);
     doReturn(false).when(resource).hasContent();
+    doReturn(detectedMimeTypeNoContent).when(resource).getProvidedMimeType();
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL, detectedMimeTypeNoContent);
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeWithContent);
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeNoContent);
+    doReturn(false).when(resource).hasContent();
+    doReturn(detectedMimeTypeWithContent).when(resource).getProvidedMimeType();
     mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL, detectedMimeTypeNoContent);
     mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeWithContent);
     mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.REDUCED, detectedMimeTypeNoContent);
 
-    // Test case where there is no content, but there should be.
-    verify(forcedDownloadClient, never()).download(any());
+    // Test case where there should be content but there isn't and it is flagged as an exception.
     doReturn(false).when(resource).hasContent();
+    doReturn(detectedMimeTypeWithContent).when(resource).getProvidedMimeType();
+    assertThrows(MediaExtractionException.class,
+        () -> mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL,
+            detectedMimeTypeWithContent));
+    
+    // Test case where there is no content, but there should be and a correction is attempted.
+    // Step 1: set the mocking to use a boolean that changes when content is set.
+    final AtomicBoolean hasContent = new AtomicBoolean(false);
+    doAnswer(invocation -> hasContent.get()).when(resource).hasContent();
+    doAnswer(invocation -> {
+      hasContent.set(true);
+      return null;
+    }).when(resource).markAsWithContent(any());
+    doReturn(detectedMimeTypeNoContent).when(resource).getProvidedMimeType();
     doReturn(resourceWithContent).when(forcedDownloadClient).download(any());
-    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL,
-        detectedMimeTypeWithContent);
+    doReturn(true).when(resourceWithContent).hasContent();
+    
+    // Step 2: make the call and check that the download has occurred.
+    verify(forcedDownloadClient, never()).download(any());
+    mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL, detectedMimeTypeWithContent);
     final ArgumentCaptor<RdfResourceEntry> entryCaptor =
         ArgumentCaptor.forClass(RdfResourceEntry.class);
     verify(forcedDownloadClient, times(1)).download(entryCaptor.capture());
@@ -167,6 +192,13 @@ class MediaExtractorImplTest {
     final RdfResourceEntry entry = entryCaptor.getValue();
     assertEquals(location, entry.getResourceUrl());
     verify(resource, times(1)).markAsWithContent(content);
+    
+    // Step 3: check what happens when the download does not include content either.
+    hasContent.set(false);
+    doReturn(false).when(resourceWithContent).hasContent();
+    assertThrows(MediaExtractionException.class,
+        () -> mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL,
+            detectedMimeTypeWithContent));
   }
 
   @Test
@@ -179,7 +211,7 @@ class MediaExtractorImplTest {
   }
 
   @Test
-  void testProcessResource() throws MediaExtractionException {
+  void testProcessResource() throws MediaExtractionException, IOException {
 
     // Create resource
     final Resource resource = mock(Resource.class);

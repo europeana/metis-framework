@@ -213,20 +213,27 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
   
   void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
-      String detectedMimeType) throws MediaExtractionException {
-    try {
-      if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
-          && !resource.hasContent()) {
-        final RdfResourceEntry downloadInput =  new RdfResourceEntry(
-            resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
-        try (
-            final Resource resourceWithContent = this.forcedDownloadClient.download(downloadInput);
-            final InputStream inputStream = resourceWithContent.getContentStream()) {
-          resource.markAsWithContent(inputStream);
+      String detectedMimeType) throws MediaExtractionException, IOException {
+    
+    // If the mime type changed and we need the content after all, we download it.
+    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
+        && !shouldDownloadForFullProcessing(resource.getProvidedMimeType())) {
+      final RdfResourceEntry downloadInput =
+          new RdfResourceEntry(resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
+      try (final Resource resourceWithContent = this.forcedDownloadClient.download(downloadInput)) {
+        if (resourceWithContent.hasContent()) {
+          try (final InputStream inputStream = resourceWithContent.getContentStream()) {
+            resource.markAsWithContent(inputStream);
+          }
         }
       }
-    } catch (IOException e) {
-      throw new MediaExtractionException("Content availability verification error.", e);
+    }
+    
+    // Verify that we have content when we need to.
+    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
+        && !resource.hasContent()) {
+      throw new MediaExtractionException(
+          "File content is not downloaded and mimeType does not support processing without a downloaded file.");
     }
   }
 
@@ -243,7 +250,11 @@ public class MediaExtractorImpl implements MediaExtractor {
     
     // Verify that we have content when we need to. This can happen if the resource doesn't come
     // with the correct mime type. We correct this here.
-    verifyAndCorrectContentAvailability(resource, mode, detectedMimeType);
+    try {
+      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType);
+    } catch (IOException e) {
+      throw new MediaExtractionException("Content availability verification error.", e);
+    }
 
     // Choose the right media processor.
     final MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
