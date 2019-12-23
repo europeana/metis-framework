@@ -39,9 +39,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   private static final Set<UrlType> URL_TYPES_FOR_REDUCED_PROCESSING = Collections
       .singleton(UrlType.IS_SHOWN_AT);
 
-  private final ResourceDownloadClient forcedDownloadClient;
-  private final ResourceDownloadClient fullProcessingDownloadClient;
-  private final ResourceDownloadClient reducedProcessingDownloadClient;
+  private final ResourceDownloadClient resourceDownloadClient;
   private final MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private final Tika tika;
 
@@ -52,23 +50,17 @@ public class MediaExtractorImpl implements MediaExtractor {
   /**
    * Constructor meant for testing purposes.
    *
-   * @param forcedDownloadClient The download client for resources.
-   * @param fullProcessingDownloadClient The download client for resources.
-   * @param reducedProcessingDownloadClient The download client for resources.
+   * @param resourceDownloadClient The download client for resources.
    * @param mimeTypeDetectHttpClient The mime type detector for URLs.
    * @param tika A tika instance.
    * @param imageProcessor An image processor.
    * @param audioVideoProcessor An audio/video processor.
    * @param textProcessor A text processor.
    */
-  MediaExtractorImpl(ResourceDownloadClient forcedDownloadClient,
-      ResourceDownloadClient fullProcessingDownloadClient,
-      ResourceDownloadClient reducedProcessingDownloadClient,
+  MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
       MimeTypeDetectHttpClient mimeTypeDetectHttpClient, Tika tika, ImageProcessor imageProcessor,
       AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor) {
-    this.forcedDownloadClient = forcedDownloadClient;
-    this.fullProcessingDownloadClient = fullProcessingDownloadClient;
-    this.reducedProcessingDownloadClient = reducedProcessingDownloadClient;
+    this.resourceDownloadClient = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
     this.imageProcessor = imageProcessor;
@@ -94,12 +86,8 @@ public class MediaExtractorImpl implements MediaExtractor {
       throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
-    this.forcedDownloadClient = new ResourceDownloadClient(redirectCount, mimeType -> true,
-        connectTimeout, socketTimeout, downloadTimeout);
-    this.fullProcessingDownloadClient = new ResourceDownloadClient(redirectCount,
+    this.resourceDownloadClient = new ResourceDownloadClient(redirectCount,
         this::shouldDownloadForFullProcessing, connectTimeout, socketTimeout, downloadTimeout);
-    this.reducedProcessingDownloadClient = new ResourceDownloadClient(redirectCount,
-        mimeType -> false, connectTimeout, socketTimeout, downloadTimeout);
     this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, socketTimeout,
         downloadTimeout);
     this.tika = new Tika();
@@ -118,12 +106,8 @@ public class MediaExtractorImpl implements MediaExtractor {
       return null;
     }
 
-    // Determine the http client to use (full download vs. quick ping)
-    final ResourceDownloadClient httpClient = mode == ProcessingMode.FULL ?
-        fullProcessingDownloadClient : reducedProcessingDownloadClient;
-
     // Download resource and then perform media extraction on it.
-    try (Resource resource = httpClient.download(resourceEntry)) {
+    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode)) {
       return performProcessing(resource, mode);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
@@ -131,6 +115,15 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
   }
 
+  private Resource downloadBasedOnProcessingMode(RdfResourceEntry resourceEntry,
+      ProcessingMode mode) throws IOException {
+    
+    // Determine the download method to use (full download vs. quick ping)
+    return (mode == ProcessingMode.FULL)
+        ? this.resourceDownloadClient.downloadBasedOnMimeType(resourceEntry)
+        : this.resourceDownloadClient.downloadWithoutContent(resourceEntry);
+  }
+  
   ProcessingMode getMode(RdfResourceEntry resourceEntry) {
     final ProcessingMode result;
     if (URL_TYPES_FOR_FULL_PROCESSING.stream().anyMatch(resourceEntry.getUrlTypes()::contains)) {
@@ -220,7 +213,7 @@ public class MediaExtractorImpl implements MediaExtractor {
         && !shouldDownloadForFullProcessing(resource.getProvidedMimeType())) {
       final RdfResourceEntry downloadInput =
           new RdfResourceEntry(resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
-      try (final Resource resourceWithContent = this.forcedDownloadClient.download(downloadInput)) {
+      try (final Resource resourceWithContent = this.resourceDownloadClient.downloadWithContent(downloadInput)) {
         if (resourceWithContent.hasContent()) {
           try (final InputStream inputStream = resourceWithContent.getContentStream()) {
             resource.markAsWithContent(inputStream);
@@ -275,11 +268,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
   @Override
   public void close() throws IOException {
-    try {
-      fullProcessingDownloadClient.close();
-    } finally {
-      reducedProcessingDownloadClient.close();
-    }
+    resourceDownloadClient.close();
   }
 
   /**

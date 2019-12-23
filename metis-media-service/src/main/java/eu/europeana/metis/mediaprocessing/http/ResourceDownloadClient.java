@@ -7,15 +7,39 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.function.Predicate;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * An {@link AbstractHttpClient} that obtains the actual content of a resource link.
  */
-public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry, Resource> {
+public class ResourceDownloadClient extends
+    AbstractHttpClient<Pair<RdfResourceEntry, ResourceDownloadClient.DownloadMode>, Resource> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ResourceDownloadClient.class);
+
+  /**
+   * The mode for taking the decision whether or not to download the full resource.
+   */
+  public enum DownloadMode {
+    /**
+     * Signifies that the resource is always to be downloaded.
+     */
+    ALWAYS,
+
+    /**
+     * Signifies that the resource is never to be downloaded.
+     */
+    NEVER,
+
+    /**
+     * Signifies that the decision on whether to download the resource is taken based on the
+     * detected mime type.
+     */
+    MIME_TYPE
+  }
 
   private final Predicate<String> shouldDownloadMimetype;
 
@@ -24,7 +48,7 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
    *
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    * @param shouldDownloadMimetype A predicate that, based on the mime type, can decide whether or
-   * not to proceed with the download.
+   * not to proceed with the download. This will be used for a download with {@link DownloadMode#MIME_TYPE}. 
    * @param connectTimeout The connection timeout in milliseconds.
    * @param socketTimeout The socket timeout in milliseconds.
    * @param downloadTimeout The time after which the download will be aborted (if it hasn't finished
@@ -36,27 +60,69 @@ public class ResourceDownloadClient extends AbstractHttpClient<RdfResourceEntry,
     this.shouldDownloadMimetype = shouldDownloadMimetype;
   }
 
-  @Override
-  protected String getResourceUrl(RdfResourceEntry resourceEntry) {
-    return resourceEntry.getResourceUrl();
+  /**
+   * Convenience method for triggering a download with {@link DownloadMode#ALWAYS}, forcing the
+   * download of the content as well.
+   * 
+   * @param resourceEntry The resource entry.
+   * @return The resulting/downloaded object.
+   * @throws IOException In case a connection or other IO problem occurred (including an HTTP status
+   *         other than 2xx).
+   */
+  public Resource downloadWithContent(RdfResourceEntry resourceEntry) throws IOException {
+    return download(new ImmutablePair<>(resourceEntry, DownloadMode.ALWAYS));
+  }
+
+  /**
+   * Convenience method for triggering a download with {@link DownloadMode#NEVER}, preventing the
+   * download of the content.
+   * 
+   * @param resourceEntry The resource entry.
+   * @return The resulting/downloaded object.
+   * @throws IOException In case a connection or other IO problem occurred (including an HTTP status
+   *         other than 2xx).
+   */
+  public Resource downloadWithoutContent(RdfResourceEntry resourceEntry) throws IOException {
+    return download(new ImmutablePair<>(resourceEntry, DownloadMode.NEVER));
+  }
+
+  /**
+   * Convenience method for triggering a download with {@link DownloadMode#MIME_TYPE}, taking the
+   * decision on whether to download the content as well based on the provided mime type.
+   * 
+   * @param resourceEntry The resource entry.
+   * @return The resulting/downloaded object.
+   * @throws IOException In case a connection or other IO problem occurred (including an HTTP status
+   *         other than 2xx).
+   */
+  public Resource downloadBasedOnMimeType(RdfResourceEntry resourceEntry) throws IOException {
+    return download(new ImmutablePair<>(resourceEntry, DownloadMode.MIME_TYPE));
   }
 
   @Override
-  protected Resource createResult(RdfResourceEntry resourceEntry, URI actualUri, String mimeType,
-      Long fileSize, ContentRetriever contentRetriever) throws IOException {
+  protected String getResourceUrl(Pair<RdfResourceEntry, DownloadMode> resourceEntry) {
+    return resourceEntry.getLeft().getResourceUrl();
+  }
+
+  @Override
+  protected Resource createResult(Pair<RdfResourceEntry, DownloadMode> input, URI actualUri,
+      String mimeType, Long fileSize, ContentRetriever contentRetriever) throws IOException {
 
     // Create resource
+    final RdfResourceEntry resourceEntry = input.getLeft();
     final Resource resource = new ResourceImpl(resourceEntry, mimeType, fileSize, actualUri);
 
     // In case we are expecting a file, we download it.
+    final boolean fullDownload = input.getRight() == DownloadMode.ALWAYS
+        || (input.getRight() == DownloadMode.MIME_TYPE && shouldDownloadMimetype.test(mimeType));
     try {
-      if (shouldDownloadMimetype.test(mimeType)) {
+      if (fullDownload) {
         LOGGER.debug("Starting download of resource: {}", resourceEntry.getResourceUrl());
         downloadResource(resourceEntry.getResourceUrl(), resource, contentRetriever);
         LOGGER.debug("Finished download of resource: {}", resourceEntry.getResourceUrl());
       } else {
-        LOGGER.debug("Media type {} not supported - choosing not to download resource: {}",
-            mimeType, resourceEntry.getResourceUrl());
+        LOGGER.debug("Download mode {} and media type {} - choosing not to download resource: {}",
+            input.getRight(), mimeType, resourceEntry.getResourceUrl());
         resource.markAsNoContent();
       }
     } catch (IOException | RuntimeException e) {
