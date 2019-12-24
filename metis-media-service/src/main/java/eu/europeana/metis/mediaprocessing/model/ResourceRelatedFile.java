@@ -55,6 +55,15 @@ interface ResourceRelatedFile extends Closeable {
    */
   void markAsNoContent() throws IOException;
 
+  /**
+   * Add the given content and make this resource one with content. From now on,
+   * {@link #hasContent()} will return true. Any already existing content will be overwritten.
+   * 
+   * @param content The new content. Note: the input stream is not closed.
+   * @throws IOException In case there was a problem adding the content.
+   */
+  void markAsWithContent(InputStream content) throws IOException;
+
   @Override
   void close() throws IOException;
 

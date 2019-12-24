@@ -319,7 +319,7 @@ class ThumbnailGenerator {
 
   void copyFile(Path source, ThumbnailWithSize destination) throws IOException {
     try (final InputStream thumbnailStream = Files.newInputStream(source)) {
-      destination.getThumbnail().setContent(thumbnailStream);
+      destination.getThumbnail().markAsWithContent(thumbnailStream);
     }
   }
 
