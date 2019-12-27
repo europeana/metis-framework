@@ -794,13 +794,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Create subquery to find the correct plugin.
     final Query<AbstractMetisPlugin> subQuery =
         morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
-    subQuery.field(PLUGIN_METADATA.getFieldName() + "." + XSLT_ID.getFieldName()).equal(xsltId)
-        .disableValidation();
+    subQuery.disableValidation()
+        .field(PLUGIN_METADATA.getFieldName() + "." + XSLT_ID.getFieldName()).equal(xsltId);
 
     // Create query to find workflow execution
     final Query<WorkflowExecution> query =
         morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
-    query.field(METIS_PLUGINS.getFieldName()).elemMatch(subQuery).disableValidation();
+    query.disableValidation().field(METIS_PLUGINS.getFieldName()).elemMatch(subQuery);
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 
