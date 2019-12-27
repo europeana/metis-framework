@@ -58,6 +58,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private final DpsClient dpsClient;
   private final String ecloudBaseUrl;
   private final String ecloudProvider;
+  private final String metisCoreBaseUrl;
 
   private WorkflowExecution workflowExecution;
 
@@ -81,6 +82,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         .toSeconds(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes());
     this.ecloudBaseUrl = workflowExecutionSettings.getEcloudBaseUrl();
     this.ecloudProvider = workflowExecutionSettings.getEcloudProvider();
+    this.metisCoreBaseUrl = workflowExecutionSettings.getMetisCoreBaseUrl();
     this.workflowExecutionMonitor = workflowExecutionMonitor;
   }
 
@@ -218,7 +220,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         }
         final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
             ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
-            getExternalTaskIdOfPreviousPlugin(metadata));
+            getExternalTaskIdOfPreviousPlugin(metadata), metisCoreBaseUrl);
         plugin.execute(workflowExecution.getDatasetId(), dpsClient, ecloudBasePluginParameters);
       }
     } catch (ExternalTaskException | RuntimeException e) {

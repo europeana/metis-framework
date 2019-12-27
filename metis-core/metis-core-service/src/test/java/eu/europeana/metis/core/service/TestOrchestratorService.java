@@ -135,7 +135,6 @@ class TestOrchestratorService {
     authorizer = mock(Authorizer.class);
 
     workflowExecutionFactory = spy(new WorkflowExecutionFactory(datasetXsltDao));
-    workflowExecutionFactory.setMetisCoreUrl("https://some.url.com");
     workflowExecutionFactory.setValidationExternalProperties(
         new ValidationProperties("url-ext", "schema-ext", "schematron-ext"));
     workflowExecutionFactory.setValidationInternalProperties(

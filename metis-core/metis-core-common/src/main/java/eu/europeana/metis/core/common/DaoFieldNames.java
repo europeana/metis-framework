@@ -20,7 +20,9 @@ public enum DaoFieldNames {
   CREATED_DATE("createdDate"),
   STARTED_DATE("startedDate"),
   UPDATED_DATE("updatedDate"),
-  FINISHED_DATE("finishedDate");
+  FINISHED_DATE("finishedDate"),
+  PLUGIN_METADATA("pluginMetadata"),
+  XSLT_ID("xsltId");
 
   private final String fieldName;
 

@@ -12,6 +12,7 @@ public class EcloudBasePluginParameters {
   private final String ecloudBaseUrl;
   private final String ecloudProvider;
   private final String ecloudDatasetId;
+  private final String metisCoreBaseUrl;
   private final String previousExternalTaskId;
 
   /**
@@ -23,12 +24,14 @@ public class EcloudBasePluginParameters {
    * @param previousExternalTaskId the task identifier from the previous plugin execution. It is
    * used to calculate faster the total records for the current execution on the ecloud side. Can be
    * null if there is no previous task, like for example a harvesting plugin.
+   * @param metisCoreBaseUrl the base url of metis core application
    */
   public EcloudBasePluginParameters(String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDatasetId, String previousExternalTaskId) {
+      String ecloudDatasetId, String previousExternalTaskId, String metisCoreBaseUrl) {
     this.ecloudBaseUrl = ecloudBaseUrl;
     this.ecloudProvider = ecloudProvider;
     this.ecloudDatasetId = ecloudDatasetId;
+    this.metisCoreBaseUrl = metisCoreBaseUrl;
     this.previousExternalTaskId = previousExternalTaskId;
   }
 
@@ -46,5 +49,9 @@ public class EcloudBasePluginParameters {
 
   public String getPreviousExternalTaskId() {
     return previousExternalTaskId;
+  }
+
+  public String getMetisCoreBaseUrl() {
+    return metisCoreBaseUrl;
   }
 }
