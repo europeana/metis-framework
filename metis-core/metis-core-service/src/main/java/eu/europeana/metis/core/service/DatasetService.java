@@ -208,7 +208,7 @@ public class DatasetService {
     if (xsltId != null) {
       //Check if it's referenced
       final WorkflowExecution workflowExecution = workflowExecutionDao
-          .getByXsltId(xsltId.toString());
+          .getAnyByXsltId(xsltId.toString());
       if (workflowExecution == null) {
         final DatasetXslt datasetXslt = datasetXsltDao
             .getById(xsltId.toString());

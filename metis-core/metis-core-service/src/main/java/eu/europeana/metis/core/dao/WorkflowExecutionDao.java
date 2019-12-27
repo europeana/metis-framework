@@ -790,7 +790,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 
-  public WorkflowExecution getByXsltId(String xsltId) {
+  public WorkflowExecution getAnyByXsltId(String xsltId) {
     // Create subquery to find the correct plugin.
     final Query<AbstractMetisPlugin> subQuery =
         morphiaDatastoreProvider.getDatastore().createQuery(AbstractMetisPlugin.class);
