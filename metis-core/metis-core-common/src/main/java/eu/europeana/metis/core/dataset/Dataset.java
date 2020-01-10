@@ -19,6 +19,7 @@ import eu.europeana.metis.core.common.LanguageSerializer;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
+import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
@@ -65,6 +66,8 @@ public class Dataset implements HasMongoObjectId {
 
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date updatedDate;
+
+  private List<String> oldDatasetIds;
 
   private String replacedBy;
 
@@ -183,6 +186,14 @@ public class Dataset implements HasMongoObjectId {
 
   public void setUpdatedDate(Date updatedDate) {
     this.updatedDate = updatedDate == null?null:new Date(updatedDate.getTime());
+  }
+
+  public List<String> getOldDatasetIds() {
+    return oldDatasetIds;
+  }
+
+  public void setOldDatasetIds(List<String> oldDatasetIds) {
+    this.oldDatasetIds = oldDatasetIds;
   }
 
   public String getReplacedBy() {
