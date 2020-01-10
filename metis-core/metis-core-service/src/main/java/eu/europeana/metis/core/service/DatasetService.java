@@ -129,10 +129,12 @@ public class DatasetService {
       }
 
       // Verify references to old datasetIds
-      for (String id : dataset.getOldDatasetIds()) {
-        if (datasetDao.getDatasetByDatasetId(id) == null) {
-          throw new BadContentException(
-              String.format("Old datasetId %s doesn't exist", id));
+      if (dataset.getOldDatasetIds() != null) {
+        for (String id : dataset.getOldDatasetIds()) {
+          if (datasetDao.getDatasetByDatasetId(id) == null) {
+            throw new BadContentException(
+                String.format("Old datasetId %s doesn't exist", id));
+          }
         }
       }
 
@@ -192,10 +194,12 @@ public class DatasetService {
     }
 
     // Verify references to old datasetIds
-    for (String id : dataset.getOldDatasetIds()) {
-      if (datasetDao.getDatasetByDatasetId(id) == null) {
-        throw new BadContentException(
-            String.format("Old datasetId %s doesn't exist", id));
+    if (dataset.getOldDatasetIds() != null) {
+      for (String id : dataset.getOldDatasetIds()) {
+        if (datasetDao.getDatasetByDatasetId(id) == null) {
+          throw new BadContentException(
+              String.format("Old datasetId %s doesn't exist", id));
+        }
       }
     }
 
