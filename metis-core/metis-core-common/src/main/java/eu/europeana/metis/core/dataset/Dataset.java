@@ -174,7 +174,7 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getCreatedDate() {
-    return createdDate == null?null:new Date(createdDate.getTime());
+    return createdDate == null ? null : new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
@@ -182,19 +182,19 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getUpdatedDate() {
-    return updatedDate == null?null:new Date(updatedDate.getTime());
+    return updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate == null?null:new Date(updatedDate.getTime());
+    this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   public List<String> getOldDatasetIds() {
-    return new ArrayList<>(oldDatasetIds);
+    return this.oldDatasetIds == null ? null : new ArrayList<>(oldDatasetIds);
   }
 
   public void setOldDatasetIds(List<String> oldDatasetIds) {
-    this.oldDatasetIds = new ArrayList<>(oldDatasetIds);
+    this.oldDatasetIds = oldDatasetIds == null ? null : new ArrayList<>(oldDatasetIds);
   }
 
   public String getReplacedBy() {
