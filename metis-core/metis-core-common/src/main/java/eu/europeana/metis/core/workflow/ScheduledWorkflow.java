@@ -10,6 +10,7 @@ import dev.morphia.annotations.Indexed;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.json.ObjectIdSerializer;
+import eu.europeana.metis.mongo.HasMongoObjectId;
 import java.util.Date;
 import org.bson.types.ObjectId;
 
