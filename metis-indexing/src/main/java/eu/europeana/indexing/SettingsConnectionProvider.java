@@ -1,10 +1,7 @@
 package eu.europeana.indexing;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientOptions.Builder;
 import com.mongodb.MongoConfigurationException;
-import com.mongodb.MongoCredential;
 import com.mongodb.MongoIncompatibleDriverException;
 import com.mongodb.MongoSecurityException;
 import com.mongodb.ServerAddress;
@@ -12,17 +9,13 @@ import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.RecordRedirectDao;
+import eu.europeana.metis.solr.CompoundSolrClient;
+import eu.europeana.metis.solr.SolrClientProvider;
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.URI;
-import java.time.Duration;
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.impl.CloudSolrClient;
-import org.apache.solr.client.solrj.impl.LBHttpSolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,8 +33,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SettingsConnectionProvider.class);
 
-  private final LBHttpSolrClient httpSolrClient;
-  private final CloudSolrClient cloudSolrClient;
+  private final CompoundSolrClient solrClient;
   private final MongoClient mongoClient;
   private final EdmMongoServer edmMongoClient;
   private final RecordRedirectDao recordRedirectDao;
@@ -62,12 +54,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     }
 
     // Create Solr and Zookeeper connections.
-    this.httpSolrClient = setUpHttpSolrConnection(settings);
-    if (settings.hasZookeeperConnection()) {
-      this.cloudSolrClient = setUpCloudSolrConnection(settings, this.httpSolrClient);
-    } else {
-      this.cloudSolrClient = null;
-    }
+    this.solrClient = new SolrClientProvider<>(settings.getSolrProperties()).createSolrClient();
 
     // Create mongo connection.
     try {
@@ -84,27 +71,19 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   private static MongoClient createMongoClient(IndexingSettings settings)
       throws SetupRelatedIndexingException {
 
-    // Extract data from settings
-    final List<ServerAddress> hosts = settings.getMongoHosts();
-    final MongoCredential credentials = settings.getMongoCredentials();
-    final boolean enableSsl = settings.mongoEnableSsl();
-
     // Perform logging
-    final String databaseName = settings.getMongoDatabaseName();
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info(
-          "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
-          hosts.stream().map(ServerAddress::toString).collect(Collectors.joining(", ")),
-          databaseName, credentials == null ? "out" : "", enableSsl ? "" : "out");
+              "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
+              settings.getMongoProperties().getMongoHosts().stream().map(ServerAddress::toString)
+                      .collect(Collectors.joining(", ")),
+              settings.getMongoDatabaseName(),
+              settings.getMongoProperties().getMongoCredentials() == null ? "out" : "",
+              settings.getMongoProperties().mongoEnableSsl() ? "" : "out");
     }
 
     // Create client
-    final MongoClientOptions.Builder optionsBuilder = new Builder().sslEnabled(enableSsl);
-    if (credentials == null) {
-      return new MongoClient(hosts, optionsBuilder.build());
-    } else {
-      return new MongoClient(hosts, settings.getMongoCredentials(), optionsBuilder.build());
-    }
+    return new MongoClientProvider<>(settings.getMongoProperties()).createMongoClient();
   }
 
   private static EdmMongoServer setUpEdmMongoConnection(IndexingSettings settings, MongoClient client)
@@ -117,7 +96,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   }
 
   private static RecordRedirectDao setUpRecordRedirectDaoConnection(IndexingSettings settings, MongoClient client)
-      throws SetupRelatedIndexingException {
+          throws SetupRelatedIndexingException {
     try {
       return new RecordRedirectDao(client, settings.getRecordRedirectDatabaseName(), false);
     } catch (RuntimeException e) {
@@ -125,69 +104,9 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     }
   }
 
-  private static LBHttpSolrClient setUpHttpSolrConnection(IndexingSettings settings)
-      throws SetupRelatedIndexingException {
-    final String[] solrHosts =
-        settings.getSolrHosts().stream().map(URI::toString).toArray(String[]::new);
-    if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("Connecting to Solr hosts: [{}]", String.join(", ", solrHosts));
-    }
-    return new LBHttpSolrClient.Builder().withBaseSolrUrls(solrHosts).build();
-  }
-
-  private static CloudSolrClient setUpCloudSolrConnection(IndexingSettings settings,
-      LBHttpSolrClient httpSolrClient) throws SetupRelatedIndexingException {
-
-    // Get information from settings
-    final Set<String> hosts = settings.getZookeeperHosts().stream()
-        .map(SettingsConnectionProvider::toCloudSolrClientAddressString)
-        .collect(Collectors.toSet());
-    final String chRoot = settings.getZookeeperChroot();
-    final String defaultCollection = settings.getZookeeperDefaultCollection();
-    final Integer connectionTimeoutInSecs = settings.getZookeeperTimeoutInSecs();
-
-    // Configure connection builder
-    final CloudSolrClient.Builder builder = new CloudSolrClient.Builder();
-    builder.withZkHost(hosts);
-    if (chRoot != null) {
-      builder.withZkChroot(chRoot);
-    }
-    builder.withLBHttpSolrClient(httpSolrClient);
-
-    // Set up Zookeeper connection
-    if (LOGGER.isInfoEnabled()) {
-      LOGGER.info(
-          "Connecting to Zookeeper hosts: [{}] with chRoot [{}] and default connection [{}]. Connection time-out: {}.",
-          String.join(", ", hosts), chRoot, defaultCollection,
-          connectionTimeoutInSecs == null ? "default" : (connectionTimeoutInSecs + " seconds"));
-    }
-    final CloudSolrClient cloudSolrClient = builder.build();
-    cloudSolrClient.setDefaultCollection(defaultCollection);
-    if (connectionTimeoutInSecs != null) {
-      final int timeoutInMillis = (int) Duration.ofSeconds(connectionTimeoutInSecs).toMillis();
-      cloudSolrClient.setZkConnectTimeout(timeoutInMillis);
-      cloudSolrClient.setZkClientTimeout(timeoutInMillis);
-    }
-    cloudSolrClient.connect();
-
-    // Done
-    return cloudSolrClient;
-  }
-
-  /**
-   * This utility method converts an address (host plus port) to a string that is accepted by
-   * {@link CloudSolrClient}.
-   * 
-   * @param address The address to convert.
-   * @return The compliant string.
-   */
-  static String toCloudSolrClientAddressString(InetSocketAddress address) {
-    return address.getHostString() + ":" + address.getPort();
-  }
-
   @Override
   public SolrClient getSolrClient() {
-    return cloudSolrClient == null ? httpSolrClient : cloudSolrClient;
+    return this.solrClient.getSolrClient();
   }
 
   @Override
@@ -205,9 +124,6 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     edmMongoClient.close();
     recordRedirectDao.close();
     mongoClient.close();
-    httpSolrClient.close();
-    if (cloudSolrClient != null) {
-      cloudSolrClient.close();
-    }
+    this.solrClient.close();
   }
 }
