@@ -18,6 +18,7 @@ import eu.europeana.metis.core.common.LanguageDeserializer;
 import eu.europeana.metis.core.common.LanguageSerializer;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import eu.europeana.metis.json.ObjectIdSerializer;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -189,11 +190,11 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public List<String> getOldDatasetIds() {
-    return oldDatasetIds;
+    return new ArrayList<>(oldDatasetIds);
   }
 
   public void setOldDatasetIds(List<String> oldDatasetIds) {
-    this.oldDatasetIds = oldDatasetIds;
+    this.oldDatasetIds = new ArrayList<>(oldDatasetIds);
   }
 
   public String getReplacedBy() {
