@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Index to Publish Plugin Metadata.
  *
@@ -11,6 +14,7 @@ public class IndexToPublishPluginMetadata extends AbstractExecutablePluginMetada
   private static final ExecutablePluginType pluginType = ExecutablePluginType.PUBLISH;
   private boolean useAlternativeIndexingEnvironment;
   private boolean preserveTimestamps;
+  private List<String> datasetIdsForRedirection = new ArrayList<>();
 
   public IndexToPublishPluginMetadata() {
     //Required for json serialization
@@ -35,5 +39,14 @@ public class IndexToPublishPluginMetadata extends AbstractExecutablePluginMetada
 
   public void setPreserveTimestamps(boolean preserveTimestamps) {
     this.preserveTimestamps = preserveTimestamps;
+  }
+
+  public List<String> getDatasetIdsForRedirection() {
+    return new ArrayList<>(datasetIdsForRedirection);
+  }
+
+  public void setDatasetIdsForRedirection(List<String> datasetIdsForRedirection) {
+    this.datasetIdsForRedirection =
+        datasetIdsForRedirection == null ? new ArrayList<>() : new ArrayList<>(datasetIdsForRedirection);
   }
 }
