@@ -46,8 +46,8 @@ public class RecordDao {
    */
   @Autowired
   public RecordDao(AbstractConnectionProvider connectionProvider) throws IndexingException {
-    this(connectionProvider.getSolrClient(), connectionProvider.getMongoClient(),
-        new IndexerFactory(connectionProvider.getMongoClient(), connectionProvider.getSolrClient())
+    this(connectionProvider.getSolrClient(), connectionProvider.getEdmMongoClient(),
+        new IndexerFactory(connectionProvider.getEdmMongoClient(), connectionProvider.getSolrClient())
             .getIndexer());
   }
 
@@ -65,7 +65,7 @@ public class RecordDao {
    * @throws IndexingException In case indexing failed.
    */
   public void createRecord(RDF rdf, Date recordDate) throws IndexingException {
-    indexer.indexRdf(rdf, recordDate, false);
+    indexer.indexRdf(rdf, recordDate, false, );
   }
 
   /**

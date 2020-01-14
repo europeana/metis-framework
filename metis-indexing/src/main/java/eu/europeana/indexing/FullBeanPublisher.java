@@ -17,18 +17,29 @@ import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.mongo.FullBeanUpdater;
+import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.solr.SolrDocumentPopulator;
 import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.mongo.RecordRedirect;
+import eu.europeana.metis.mongo.RecordRedirectDao;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
+import org.apache.solr.common.params.MapSolrParams;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and
@@ -41,6 +52,7 @@ class FullBeanPublisher {
   private static final String MONGO_SERVER_PUBLISH_ERROR = "Could not publish to Mongo server.";
 
   private static final String SOLR_SERVER_PUBLISH_ERROR = "Could not publish to Solr server.";
+  private static final String SOLR_SERVER_SEARCH_ERROR = "Could not search Solr server.";
 
   private static final TriConsumer<FullBeanImpl, FullBeanImpl, Date> EMPTY_PREPROCESSOR = (created, updated, recordDate) -> {
   };
@@ -49,40 +61,46 @@ class FullBeanPublisher {
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 
-  private final EdmMongoServer mongoClient;
+  private final EdmMongoServer edmMongoClient;
   private final SolrClient solrServer;
   private final boolean preserveUpdateAndCreateTimesFromRdf;
+  private final RecordRedirectDao recordRedirectDao;
 
   /**
    * Constructor.
    *
-   * @param mongoClient The Mongo persistence.
+   * @param edmMongoClient The Mongo persistence.
+   * @param recordRedirectDao The record redirect dao
    * @param solrServer The searchable persistence.
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    */
-  FullBeanPublisher(EdmMongoServer mongoClient, SolrClient solrServer,
-      boolean preserveUpdateAndCreateTimesFromRdf) {
-    this(mongoClient, solrServer, preserveUpdateAndCreateTimesFromRdf, RdfToFullBeanConverter::new);
+  FullBeanPublisher(EdmMongoServer edmMongoClient, RecordRedirectDao recordRedirectDao,
+      SolrClient solrServer, boolean preserveUpdateAndCreateTimesFromRdf) {
+    this(edmMongoClient, recordRedirectDao, solrServer, preserveUpdateAndCreateTimesFromRdf,
+        RdfToFullBeanConverter::new);
   }
 
   /**
    * Constructor for testing purposes.
    *
-   * @param mongoClient The Mongo persistence.
+   * @param edmMongoClient The Mongo persistence.
+   * @param recordRedirectDao The record redirect dao
    * @param solrServer The searchable persistence.
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
    * parse strings to instances of {@link FullBeanImpl}. Will be called once during every publish.
    */
-  FullBeanPublisher(EdmMongoServer mongoClient, SolrClient solrServer,
+  FullBeanPublisher(EdmMongoServer edmMongoClient,
+      RecordRedirectDao recordRedirectDao, SolrClient solrServer,
       boolean preserveUpdateAndCreateTimesFromRdf,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
-    this.mongoClient = mongoClient;
+    this.edmMongoClient = edmMongoClient;
     this.solrServer = solrServer;
     this.fullBeanConverterSupplier = fullBeanConverterSupplier;
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
+    this.recordRedirectDao = recordRedirectDao;
   }
 
   private static void setUpdateAndCreateTime(IdBean current, FullBean updated, Date recordDate) {
@@ -97,6 +115,7 @@ class FullBeanPublisher {
    *
    * @param rdf RDF to publish.
    * @param recordDate The date that would represent the created/updated date of a record
+   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
    * @throws IndexingException which can be one of:
    * <ul>
    * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
@@ -105,7 +124,8 @@ class FullBeanPublisher {
    * contents</li>
    * </ul>
    */
-  public void publish(RdfWrapper rdf, Date recordDate) throws IndexingException {
+  public void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsForRedirection)
+      throws IndexingException {
 
     // Convert RDF to Full Bean.
     final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
@@ -116,10 +136,20 @@ class FullBeanPublisher {
         preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
             : (FullBeanPublisher::setUpdateAndCreateTime);
 
+    //Search Solr to find matching record for redirection
+    final String recordIdForRedirection = searchMatchingRecordForRedirection(rdf.getAbout(),
+        datasetIdsForRedirection);
+
+    //Create redirection
+    if (recordIdForRedirection != null) {
+      createRedirection(rdf.getAbout(), recordIdForRedirection, recordDate);
+    }
+
     // Publish to Mongo
     final FullBeanImpl savedFullBean;
     try {
-      savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, recordDate, mongoClient);
+      savedFullBean = new FullBeanUpdater(fullBeanPreprocessor)
+          .update(fullBean, recordDate, edmMongoClient);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
     } catch (MongoSocketException | MongoClientException | MongoInternalException | MongoInterruptedException e) {
@@ -157,6 +187,70 @@ class FullBeanPublisher {
       throw new IndexerRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
     } catch (SolrServerException | RuntimeException e) {
       throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
+    }
+  }
+
+  private String searchMatchingRecordForRedirection(String recordIdIncludingDatasetId,
+      List<String> datasetIdsForRedirection)
+      throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
+    //Check if record with same record identifier exists
+    final Map<String, String> queryParamMap = new HashMap<>();
+    queryParamMap.put("q",
+        String.format("%s:%s", EdmLabel.EUROPEANA_ID.toString(), recordIdIncludingDatasetId));
+    queryParamMap.put("fl", EdmLabel.EUROPEANA_ID.toString());
+
+    SolrDocumentList documents = getSolrDocuments(queryParamMap);
+    if (!CollectionUtils.isEmpty(documents)) {
+      return null;
+    }
+
+    //Check matches with older dataset identifiers
+    if (!CollectionUtils.isEmpty(datasetIdsForRedirection)) {
+      //The incoming structure of the identifier is /datasetId/recordId
+      final String[] splitRecordIdentifier = recordIdIncludingDatasetId.split("/");
+      String datasetId = splitRecordIdentifier[1];
+      String recordId = splitRecordIdentifier[2];
+
+      final String combinedQueryForRedirectedDatasetIds = datasetIdsForRedirection.stream()
+          .map(datasetIdForRedirection -> String
+              .format("%s:/%s/%s", EdmLabel.EUROPEANA_ID.toString(), datasetIdForRedirection,
+                  recordId)).collect(Collectors.joining(" OR "));
+      queryParamMap.put("q", combinedQueryForRedirectedDatasetIds);
+    }
+
+    documents = getSolrDocuments(queryParamMap);
+    if (!CollectionUtils.isEmpty(documents)) {
+      //Get identifier of the first document found
+      return (String) documents.get(0).getFieldValue(EdmLabel.EUROPEANA_ID.toString());
+    }
+    return null;
+  }
+
+  private SolrDocumentList getSolrDocuments(Map<String, String> queryParamMap)
+      throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
+    MapSolrParams queryParams = new MapSolrParams(queryParamMap);
+    QueryResponse response;
+    try {
+      response = solrServer.query(queryParams);
+    } catch (SolrServerException e) {
+      throw new IndexerRelatedIndexingException(SOLR_SERVER_SEARCH_ERROR, e);
+    } catch (IOException e) {
+      throw new RecordRelatedIndexingException(SOLR_SERVER_SEARCH_ERROR, e);
+    }
+    return response.getResults();
+  }
+
+  private void createRedirection(String newIdentifier, String oldIdentifier,
+      Date recordRedirectDate) {
+    final RecordRedirect recordRedirect = new RecordRedirect(newIdentifier, oldIdentifier,
+        recordRedirectDate);
+    recordRedirectDao.createUpdate(recordRedirect);
+    //Update the previous redirect item in db that has newId == oldIdentifier
+    final RecordRedirect recordRedirectByNewId = recordRedirectDao
+        .getRecordRedirectByNewId(oldIdentifier);
+    if (recordRedirectByNewId != null) {
+      recordRedirectByNewId.setNewId(newIdentifier);
+      recordRedirectDao.createUpdate(recordRedirectByNewId);
     }
   }
 }

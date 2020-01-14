@@ -1,6 +1,7 @@
 package eu.europeana.indexing;
 
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.metis.mongo.RecordRedirectDao;
 import org.apache.solr.client.solrj.SolrClient;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
@@ -27,10 +28,12 @@ public class IndexerFactory {
    * #getIndexer()} method will then no longer work and no new ones can be created.
    *
    * @param mongoClient The Mongo client to use.
+   * @param recordRedirectDao The record redirect dao
    * @param solrClient The Solr client to use.
    */
-  public IndexerFactory(EdmMongoServer mongoClient, SolrClient solrClient) {
-    this(() -> new ClientsConnectionProvider(mongoClient, solrClient));
+  public IndexerFactory(EdmMongoServer mongoClient, RecordRedirectDao recordRedirectDao,
+      SolrClient solrClient) {
+    this(() -> new ClientsConnectionProvider(mongoClient, recordRedirectDao, solrClient));
   }
 
   /**

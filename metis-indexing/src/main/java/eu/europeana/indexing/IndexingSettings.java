@@ -23,6 +23,7 @@ public final class IndexingSettings {
   // Mongo settings
   private final List<ServerAddress> mongoHosts = new ArrayList<>();
   private String mongoDatabaseName;
+  private String recordRedirectDatabaseName;
   private MongoCredential mongoCredentials;
   private boolean mongoEnableSsl;
 
@@ -169,6 +170,19 @@ public final class IndexingSettings {
       throw new SetupRelatedIndexingException("Please provide a Mongo database name.");
     }
     return mongoDatabaseName;
+  }
+
+  /**
+   * This method returns the Mongo record redirect database name.
+   *
+   * @return The Mongo record redirect database name.
+   * @throws SetupRelatedIndexingException In case no Mongo record redirect database name was set.
+   */
+  public String getRecordRedirectDatabaseName() throws SetupRelatedIndexingException {
+    if (recordRedirectDatabaseName == null) {
+      throw new SetupRelatedIndexingException("Please provide a Mongo record redirect database name.");
+    }
+    return recordRedirectDatabaseName;
   }
 
   /**

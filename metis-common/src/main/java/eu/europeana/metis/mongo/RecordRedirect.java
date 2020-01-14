@@ -22,9 +22,9 @@ public class RecordRedirect implements HasMongoObjectId {
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   @Indexed
-  private String oldId;
-  @Indexed
   private String newId;
+  @Indexed
+  private String oldId;
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date timestamp;
 
@@ -34,14 +34,14 @@ public class RecordRedirect implements HasMongoObjectId {
   /**
    * Constructor with all fields provided.
    *
-   * @param oldId the old record identifier
    * @param newId the new record identifier
+   * @param oldId the old record identifier
    * @param timestamp the creation timestamp of the redirect
    */
-  public RecordRedirect(String oldId, String newId, Date timestamp) {
-    this.oldId = oldId;
+  public RecordRedirect(String newId, String oldId, Date timestamp) {
     this.newId = newId;
-    this.timestamp = timestamp;
+    this.oldId = oldId;
+    this.timestamp = new Date(timestamp.getTime());
   }
 
   @Override
@@ -54,14 +54,6 @@ public class RecordRedirect implements HasMongoObjectId {
     this.id = id;
   }
 
-  public String getOldId() {
-    return oldId;
-  }
-
-  public void setOldId(String oldId) {
-    this.oldId = oldId;
-  }
-
   public String getNewId() {
     return newId;
   }
@@ -70,11 +62,19 @@ public class RecordRedirect implements HasMongoObjectId {
     this.newId = newId;
   }
 
+  public String getOldId() {
+    return oldId;
+  }
+
+  public void setOldId(String oldId) {
+    this.oldId = oldId;
+  }
+
   public Date getTimestamp() {
-    return timestamp;
+    return timestamp == null ? null : new Date(timestamp.getTime());
   }
 
   public void setTimestamp(Date timestamp) {
-    this.timestamp = timestamp;
+    this.timestamp = new Date(timestamp.getTime());
   }
 }
