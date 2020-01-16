@@ -41,6 +41,7 @@ public class RecordDao {
   /**
    * Constructor with required fields.
    *
+   * @param connectionProvider The connection provider for this recordDao.
    * @throws IndexingException In case of problems setting up the indexer.
    */
   @Autowired
@@ -61,6 +62,7 @@ public class RecordDao {
    * Persist a record in mongo and solr
    *
    * @param rdf The record
+   * @param recordDate The date that would represent the created/updated date of a record
    * @throws IndexingException In case indexing failed.
    */
   public void createRecord(RDF rdf, Date recordDate) throws IndexingException {

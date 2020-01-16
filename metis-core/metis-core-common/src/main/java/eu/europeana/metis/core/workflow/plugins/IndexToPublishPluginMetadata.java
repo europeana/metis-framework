@@ -14,7 +14,7 @@ public class IndexToPublishPluginMetadata extends AbstractExecutablePluginMetada
   private static final ExecutablePluginType pluginType = ExecutablePluginType.PUBLISH;
   private boolean useAlternativeIndexingEnvironment;
   private boolean preserveTimestamps;
-  private List<String> datasetIdsForRedirection = new ArrayList<>();
+  private List<String> datasetIdsToRedirectFrom = new ArrayList<>();
 
   public IndexToPublishPluginMetadata() {
     //Required for json serialization
@@ -41,12 +41,13 @@ public class IndexToPublishPluginMetadata extends AbstractExecutablePluginMetada
     this.preserveTimestamps = preserveTimestamps;
   }
 
-  public List<String> getDatasetIdsForRedirection() {
-    return new ArrayList<>(datasetIdsForRedirection);
+  public List<String> getDatasetIdsToRedirectFrom() {
+    return new ArrayList<>(datasetIdsToRedirectFrom);
   }
 
-  public void setDatasetIdsForRedirection(List<String> datasetIdsForRedirection) {
-    this.datasetIdsForRedirection =
-        datasetIdsForRedirection == null ? new ArrayList<>() : new ArrayList<>(datasetIdsForRedirection);
+  public void setDatasetIdsToRedirectFrom(List<String> datasetIdsToRedirectFrom) {
+    this.datasetIdsToRedirectFrom =
+        datasetIdsToRedirectFrom == null ? new ArrayList<>() : new ArrayList<>(
+            datasetIdsToRedirectFrom);
   }
 }

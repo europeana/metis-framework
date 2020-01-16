@@ -56,6 +56,11 @@ public final class IndexingSettings {
     this.mongoDatabaseName = nonNull(mongoDatabaseName, "mongoDatabaseName");
   }
 
+  public void setRecordRedirectDatabaseName(String recordRedirectDatabaseName)
+      throws SetupRelatedIndexingException {
+    this.recordRedirectDatabaseName = nonNull(recordRedirectDatabaseName, "recordRedirectDatabaseName");
+  }
+
   /**
    * Set Mongo credentials. This method is optional: by default, there are no credentials set.
    *

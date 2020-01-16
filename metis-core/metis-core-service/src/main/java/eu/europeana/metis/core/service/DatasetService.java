@@ -129,8 +129,8 @@ public class DatasetService {
       }
 
       // Verify references to old datasetIds
-      if (dataset.getOldDatasetIds() != null) {
-        for (String id : dataset.getOldDatasetIds()) {
+      if (dataset.getDatasetIdsToRedirectFrom() != null) {
+        for (String id : dataset.getDatasetIdsToRedirectFrom()) {
           if (datasetDao.getDatasetByDatasetId(id) == null) {
             throw new BadContentException(
                 String.format("Old datasetId %s doesn't exist", id));
@@ -194,8 +194,8 @@ public class DatasetService {
     }
 
     // Verify references to old datasetIds
-    if (dataset.getOldDatasetIds() != null) {
-      for (String id : dataset.getOldDatasetIds()) {
+    if (dataset.getDatasetIdsToRedirectFrom() != null) {
+      for (String id : dataset.getDatasetIdsToRedirectFrom()) {
         if (datasetDao.getDatasetByDatasetId(id) == null) {
           throw new BadContentException(
               String.format("Old datasetId %s doesn't exist", id));

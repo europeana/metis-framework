@@ -48,8 +48,8 @@ public class IndexToPublishPlugin extends AbstractExecutablePlugin<IndexToPublis
     boolean useAlternativeIndexingEnvironment = getPluginMetadata()
         .isUseAlternativeIndexingEnvironment();
     boolean preserveTimestamps = getPluginMetadata().isPreserveTimestamps();
-    final List<String> datasetIdsForRedirection = getPluginMetadata().getDatasetIdsForRedirection();
+    final List<String> datasetIdsToRedirectFrom = getPluginMetadata().getDatasetIdsToRedirectFrom();
     return createDpsTaskForIndexPlugin(ecloudBasePluginParameters, datasetId,
-        useAlternativeIndexingEnvironment, preserveTimestamps, datasetIdsForRedirection, "PUBLISH");
+        useAlternativeIndexingEnvironment, preserveTimestamps, datasetIdsToRedirectFrom, "PUBLISH");
   }
 }

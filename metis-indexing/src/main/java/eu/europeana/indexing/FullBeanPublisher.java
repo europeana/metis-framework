@@ -137,12 +137,12 @@ class FullBeanPublisher {
             : (FullBeanPublisher::setUpdateAndCreateTime);
 
     //Search Solr to find matching record for redirection
-    final String recordIdForRedirection = searchMatchingRecordForRedirection(rdf.getAbout(),
+    final List<String> recordsForRedirection = searchMatchingRecordForRedirection(rdf.getAbout(),
         datasetIdsForRedirection);
 
     //Create redirection
-    if (recordIdForRedirection != null) {
-      createRedirection(rdf.getAbout(), recordIdForRedirection, recordDate);
+    if (recordsForRedirection != null) {
+      createRedirection(rdf.getAbout(), recordsForRedirection, recordDate);
     }
 
     // Publish to Mongo
@@ -190,15 +190,17 @@ class FullBeanPublisher {
     }
   }
 
-  private String searchMatchingRecordForRedirection(String recordIdIncludingDatasetId,
+  private List<String> searchMatchingRecordForRedirection(String recordIdIncludingDatasetId,
       List<String> datasetIdsForRedirection)
       throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
-    //Check if record with same record identifier exists
+    //Check first if record with same record identifier exists
     final Map<String, String> queryParamMap = new HashMap<>();
     queryParamMap.put("q",
         String.format("%s:%s", EdmLabel.EUROPEANA_ID.toString(), recordIdIncludingDatasetId));
     queryParamMap.put("fl", EdmLabel.EUROPEANA_ID.toString());
 
+    //If a record already exist in the database, we assume that the redirection already happened
+    //during a previous indexing operation
     SolrDocumentList documents = getSolrDocuments(queryParamMap);
     if (!CollectionUtils.isEmpty(documents)) {
       return null;
@@ -208,7 +210,6 @@ class FullBeanPublisher {
     if (!CollectionUtils.isEmpty(datasetIdsForRedirection)) {
       //The incoming structure of the identifier is /datasetId/recordId
       final String[] splitRecordIdentifier = recordIdIncludingDatasetId.split("/");
-      String datasetId = splitRecordIdentifier[1];
       String recordId = splitRecordIdentifier[2];
 
       final String combinedQueryForRedirectedDatasetIds = datasetIdsForRedirection.stream()
@@ -221,7 +222,9 @@ class FullBeanPublisher {
     documents = getSolrDocuments(queryParamMap);
     if (!CollectionUtils.isEmpty(documents)) {
       //Get identifier of the first document found
-      return (String) documents.get(0).getFieldValue(EdmLabel.EUROPEANA_ID.toString());
+      return documents.stream()
+          .map(document -> (String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))
+          .collect(Collectors.toList());
     }
     return null;
   }
@@ -240,17 +243,19 @@ class FullBeanPublisher {
     return response.getResults();
   }
 
-  private void createRedirection(String newIdentifier, String oldIdentifier,
+  private void createRedirection(String newIdentifier, List<String> recordsForRedirection,
       Date recordRedirectDate) {
-    final RecordRedirect recordRedirect = new RecordRedirect(newIdentifier, oldIdentifier,
-        recordRedirectDate);
-    recordRedirectDao.createUpdate(recordRedirect);
-    //Update the previous redirect item in db that has newId == oldIdentifier
-    final RecordRedirect recordRedirectByNewId = recordRedirectDao
-        .getRecordRedirectByNewId(oldIdentifier);
-    if (recordRedirectByNewId != null) {
-      recordRedirectByNewId.setNewId(newIdentifier);
-      recordRedirectDao.createUpdate(recordRedirectByNewId);
+    for (String recordForRedirection : recordsForRedirection) {
+      final RecordRedirect recordRedirect = new RecordRedirect(newIdentifier, recordForRedirection,
+          recordRedirectDate);
+      recordRedirectDao.createUpdate(recordRedirect);
+      //Update the previous redirect item in db that has newId == oldIdentifier
+      final RecordRedirect recordRedirectByNewId = recordRedirectDao
+          .getRecordRedirectByNewId(recordForRedirection);
+      if (recordRedirectByNewId != null) {
+        recordRedirectByNewId.setNewId(newIdentifier);
+        recordRedirectDao.createUpdate(recordRedirectByNewId);
+      }
     }
   }
 }

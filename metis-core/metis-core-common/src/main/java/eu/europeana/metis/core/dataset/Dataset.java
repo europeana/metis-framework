@@ -68,7 +68,7 @@ public class Dataset implements HasMongoObjectId {
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date updatedDate;
 
-  private List<String> oldDatasetIds = new ArrayList<>();
+  private List<String> datasetIdsToRedirectFrom = new ArrayList<>();
 
   private String replacedBy;
 
@@ -189,12 +189,13 @@ public class Dataset implements HasMongoObjectId {
     this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
-  public List<String> getOldDatasetIds() {
-    return new ArrayList<>(oldDatasetIds);
+  public List<String> getDatasetIdsToRedirectFrom() {
+    return new ArrayList<>(datasetIdsToRedirectFrom);
   }
 
-  public void setOldDatasetIds(List<String> oldDatasetIds) {
-    this.oldDatasetIds = oldDatasetIds == null ? new ArrayList<>() : new ArrayList<>(oldDatasetIds);
+  public void setDatasetIdsToRedirectFrom(List<String> datasetIdsToRedirectFrom) {
+    this.datasetIdsToRedirectFrom = datasetIdsToRedirectFrom == null ? new ArrayList<>() : new ArrayList<>(
+        datasetIdsToRedirectFrom);
   }
 
   public String getReplacedBy() {
