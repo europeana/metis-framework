@@ -102,6 +102,7 @@ public class DatasetService {
    * <ul>
    * <li>{@link DatasetAlreadyExistsException} if the dataset for the same organizationId and datasetName already exists in the system.</li>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
+   * <li>{@link BadContentException} if some contents were invalid</li>
    * </ul>
    */
   public Dataset createDataset(MetisUser metisUser, Dataset dataset)
@@ -126,6 +127,17 @@ public class DatasetService {
             .format("Dataset with organizationId: %s and datasetName: %s already exists..",
                 dataset.getOrganizationId(), dataset.getDatasetName()));
       }
+
+      // Verify references to old datasetIds
+      if (dataset.getDatasetIdsToRedirectFrom() != null) {
+        for (String id : dataset.getDatasetIdsToRedirectFrom()) {
+          if (datasetDao.getDatasetByDatasetId(id) == null) {
+            throw new BadContentException(
+                String.format("Old datasetId %s doesn't exist", id));
+          }
+        }
+      }
+
       dataset.setCreatedByUserId(metisUser.getUserId());
       dataset.setId(null);
       dataset.setUpdatedDate(null);
@@ -153,7 +165,7 @@ public class DatasetService {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
-   * <li>{@link BadContentException} if the dataset has an execution running.</li>
+   * <li>{@link BadContentException} if the dataset has an execution running, contents are invalid.</li>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * <li>{@link DatasetAlreadyExistsException} if the request contains a datasetName change and that datasetName already exists for organizationId of metisUser.</li>
    * </ul>
@@ -178,7 +190,17 @@ public class DatasetService {
     // Check that there is no workflow execution pending for the given dataset.
     if (workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()) != null) {
       throw new BadContentException(
-          String.format("Workflow execution is active for datasteId %s", dataset.getDatasetId()));
+          String.format("Workflow execution is active for datasetId %s", dataset.getDatasetId()));
+    }
+
+    // Verify references to old datasetIds
+    if (dataset.getDatasetIdsToRedirectFrom() != null) {
+      for (String id : dataset.getDatasetIdsToRedirectFrom()) {
+        if (datasetDao.getDatasetByDatasetId(id) == null) {
+          throw new BadContentException(
+              String.format("Old datasetId %s doesn't exist", id));
+        }
+      }
     }
 
     // Set/overwrite dataset properties that the user may not determine.
@@ -242,6 +264,18 @@ public class DatasetService {
       throw new BadContentException(
           String.format("Workflow execution is active for datasteId %s", datasetId));
     }
+
+    //Are there datasets that have a reference to the datasetId that is to be removed
+    final List<Dataset> datasetsThatHaveAReference = datasetDao
+        .getAllDatasetsByDatasetIdsToRedirectFrom(datasetId);
+    //Clear references of the datasetId
+    datasetsThatHaveAReference.forEach(ds -> {
+      final List<String> datasetIdsToRedirectFrom = ds.getDatasetIdsToRedirectFrom();
+      ds.setDatasetIdsToRedirectFrom(
+          datasetIdsToRedirectFrom.stream().filter(id -> !id.equals(datasetId))
+              .collect(Collectors.toList()));
+      datasetDao.update(ds);
+    });
 
     // Delete the dataset.
     datasetDao.deleteByDatasetId(datasetId);

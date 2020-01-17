@@ -157,9 +157,8 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   }
 
   DpsTask createDpsTaskForIndexPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
-      String datasetId,
-      boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
-      String targetDatabase) {
+      String datasetId, boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
+      List<String> datasetIdsForRedirection, String targetDatabase) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("METIS_DATASET_ID", datasetId);
     extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
@@ -167,6 +166,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT, Locale.US);
     extraParameters.put("RECORD_DATE", dateFormat.format(getStartedDate()));
     extraParameters.put("PRESERVE_TIMESTAMPS", String.valueOf(preserveTimestamps));
+    extraParameters.put("DATASET_IDS_FOR_REDIRECTION", String.join(",", datasetIdsForRedirection));
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 
@@ -197,10 +197,12 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
    * @param ecloudBasePluginParameters the basic parameter required for each execution
    * @return the {@link DpsTask} prepared with all the required parameters
    */
-  abstract DpsTask prepareDpsTask(String datasetId, EcloudBasePluginParameters ecloudBasePluginParameters);
+  abstract DpsTask prepareDpsTask(String datasetId,
+      EcloudBasePluginParameters ecloudBasePluginParameters);
 
   @Override
-  public void execute(String datasetId, DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
+  public void execute(String datasetId, DpsClient dpsClient,
+      EcloudBasePluginParameters ecloudBasePluginParameters)
       throws ExternalTaskException {
     String pluginTypeName = getPluginType().name();
     LOGGER.info("Starting execution of {} plugin for ecloudDatasetId {}", pluginTypeName,

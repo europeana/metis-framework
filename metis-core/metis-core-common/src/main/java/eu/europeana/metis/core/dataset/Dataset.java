@@ -16,9 +16,11 @@ import eu.europeana.metis.core.common.CountrySerializer;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.common.LanguageDeserializer;
 import eu.europeana.metis.core.common.LanguageSerializer;
-import eu.europeana.metis.core.workflow.HasMongoObjectId;
+import eu.europeana.metis.mongo.HasMongoObjectId;
 import eu.europeana.metis.json.ObjectIdSerializer;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
@@ -65,6 +67,8 @@ public class Dataset implements HasMongoObjectId {
 
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date updatedDate;
+
+  private List<String> datasetIdsToRedirectFrom = new ArrayList<>();
 
   private String replacedBy;
 
@@ -170,7 +174,7 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getCreatedDate() {
-    return createdDate == null?null:new Date(createdDate.getTime());
+    return createdDate == null ? null : new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
@@ -178,11 +182,20 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getUpdatedDate() {
-    return updatedDate == null?null:new Date(updatedDate.getTime());
+    return updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate == null?null:new Date(updatedDate.getTime());
+    this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
+  }
+
+  public List<String> getDatasetIdsToRedirectFrom() {
+    return new ArrayList<>(datasetIdsToRedirectFrom);
+  }
+
+  public void setDatasetIdsToRedirectFrom(List<String> datasetIdsToRedirectFrom) {
+    this.datasetIdsToRedirectFrom = datasetIdsToRedirectFrom == null ? new ArrayList<>() : new ArrayList<>(
+        datasetIdsToRedirectFrom);
   }
 
   public String getReplacedBy() {

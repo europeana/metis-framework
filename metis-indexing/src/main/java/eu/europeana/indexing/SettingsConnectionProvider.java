@@ -12,6 +12,7 @@ import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.metis.mongo.RecordRedirectDao;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -42,7 +43,8 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   private final LBHttpSolrClient httpSolrClient;
   private final CloudSolrClient cloudSolrClient;
   private final MongoClient mongoClient;
-  private final EdmMongoServer mongoServer;
+  private final EdmMongoServer edmMongoClient;
+  private final RecordRedirectDao recordRedirectDao;
 
   /**
    * Constructor. Sets up the required connections using the supplied settings.
@@ -70,7 +72,8 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     // Create mongo connection.
     try {
       this.mongoClient = createMongoClient(settings);
-      this.mongoServer = setUpMongoConnection(settings, this.mongoClient);
+      this.edmMongoClient = setUpEdmMongoConnection(settings, this.mongoClient);
+      this.recordRedirectDao = setUpRecordRedirectDaoConnection(settings, this.mongoClient);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
     } catch (RuntimeException e) {
@@ -104,10 +107,19 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     }
   }
 
-  private static EdmMongoServer setUpMongoConnection(IndexingSettings settings, MongoClient client)
+  private static EdmMongoServer setUpEdmMongoConnection(IndexingSettings settings, MongoClient client)
       throws SetupRelatedIndexingException {
     try {
       return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), false);
+    } catch (RuntimeException e) {
+      throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
+    }
+  }
+
+  private static RecordRedirectDao setUpRecordRedirectDaoConnection(IndexingSettings settings, MongoClient client)
+      throws SetupRelatedIndexingException {
+    try {
+      return new RecordRedirectDao(client, settings.getRecordRedirectDatabaseName(), false);
     } catch (RuntimeException e) {
       throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
@@ -179,13 +191,19 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   }
 
   @Override
-  public EdmMongoServer getMongoClient() {
-    return mongoServer;
+  public EdmMongoServer getEdmMongoClient() {
+    return edmMongoClient;
+  }
+
+  @Override
+  public RecordRedirectDao getRecordRedirectDao() {
+    return recordRedirectDao;
   }
 
   @Override
   public void close() throws IOException {
-    mongoServer.close();
+    edmMongoClient.close();
+    recordRedirectDao.close();
     mongoClient.close();
     httpSolrClient.close();
     if (cloudSolrClient != null) {

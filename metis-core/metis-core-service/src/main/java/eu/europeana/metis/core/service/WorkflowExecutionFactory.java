@@ -79,9 +79,13 @@ public class WorkflowExecutionFactory {
     } else if (pluginMetadata instanceof IndexToPreviewPluginMetadata) {
       ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
           isMetisUseAlternativeIndexingEnvironment());
+      ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetIdsToRedirectFrom(
+          dataset.getDatasetIdsToRedirectFrom());
     } else if (pluginMetadata instanceof IndexToPublishPluginMetadata) {
       ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
           isMetisUseAlternativeIndexingEnvironment());
+      ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetIdsToRedirectFrom(
+          dataset.getDatasetIdsToRedirectFrom());
     } else if (pluginMetadata instanceof LinkCheckingPluginMetadata) {
       ((LinkCheckingPluginMetadata) pluginMetadata)
           .setSampleSize(getDefaultSamplingSizeForLinkChecking());

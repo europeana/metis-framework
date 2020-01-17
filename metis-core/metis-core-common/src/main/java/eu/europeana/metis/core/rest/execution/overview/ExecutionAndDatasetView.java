@@ -3,7 +3,7 @@ package eu.europeana.metis.core.rest.execution.overview;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
-import eu.europeana.metis.core.workflow.HasMongoObjectId;
+import eu.europeana.metis.mongo.HasMongoObjectId;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import org.bson.types.ObjectId;
 

@@ -285,6 +285,14 @@ public class DatasetDao implements MetisDao<Dataset, String> {
         new FindOptions().skip(nextPage * getDatasetsPerRequest()).limit(getDatasetsPerRequest())));
   }
 
+  public List<Dataset> getAllDatasetsByDatasetIdsToRedirectFrom(String datasetIdToRedirectFrom) {
+    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
+    query.field("datasetIdsToRedirectFrom").equal(datasetIdToRedirectFrom);
+    query.order(ID.getFieldName());
+    return ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(() -> query.asList(new FindOptions()));
+  }
+
   public int getDatasetsPerRequest() {
     synchronized (this) {
       return datasetsPerRequest;
@@ -360,15 +368,16 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    *
    * @param datasetIdWords a list of words to be used for datasetId search, that field is searched
    * as a "starts with" operation
-   * @param words a list of words to be used for datasetName, provider and dataProvider
-   * search. Those words are considered as AND operation for each individual field.
+   * @param words a list of words to be used for datasetName, provider and dataProvider search.
+   * Those words are considered as AND operation for each individual field.
    * @param nextPage the nextPage number, must be positive
    * @return a list with the datasets found
    */
   public List<Dataset> searchDatasetsBasedOnSearchString(List<String> datasetIdWords,
       List<String> words, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
-    final List<CriteriaContainer> criteriaContainerDatasetId = new ArrayList<>(datasetIdWords.size());
+    final List<CriteriaContainer> criteriaContainerDatasetId = new ArrayList<>(
+        datasetIdWords.size());
     final List<CriteriaContainer> criteriaContainerDatasetName = new ArrayList<>(words.size());
     final List<CriteriaContainer> criteriaContainerProviderId = new ArrayList<>(words.size());
     final List<CriteriaContainer> criteriaContainerDataProviderId = new ArrayList<>(words.size());
