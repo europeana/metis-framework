@@ -265,6 +265,18 @@ public class DatasetService {
           String.format("Workflow execution is active for datasteId %s", datasetId));
     }
 
+    //Are there datasets that have a reference to the datasetId that is to be removed
+    final List<Dataset> datasetsThatHaveAReference = datasetDao
+        .getAllDatasetsByDatasetIdsToRedirectFrom(datasetId);
+    //Clear references of the datasetId
+    datasetsThatHaveAReference.forEach(ds -> {
+      final List<String> datasetIdsToRedirectFrom = ds.getDatasetIdsToRedirectFrom();
+      ds.setDatasetIdsToRedirectFrom(
+          datasetIdsToRedirectFrom.stream().filter(id -> !id.equals(datasetId))
+              .collect(Collectors.toList()));
+      datasetDao.update(ds);
+    });
+
     // Delete the dataset.
     datasetDao.deleteByDatasetId(datasetId);
 

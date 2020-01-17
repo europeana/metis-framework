@@ -25,6 +25,7 @@ import eu.europeana.metis.mongo.RecordRedirectDao;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -141,7 +142,7 @@ class FullBeanPublisher {
         datasetIdsForRedirection);
 
     //Create redirection
-    if (recordsForRedirection != null) {
+    if (!CollectionUtils.isEmpty(recordsForRedirection)) {
       createRedirection(rdf.getAbout(), recordsForRedirection, recordDate);
     }
 
@@ -203,7 +204,7 @@ class FullBeanPublisher {
     //during a previous indexing operation
     SolrDocumentList documents = getSolrDocuments(queryParamMap);
     if (!CollectionUtils.isEmpty(documents)) {
-      return null;
+      return new ArrayList<>();
     }
 
     //Check matches with older dataset identifiers
@@ -226,7 +227,7 @@ class FullBeanPublisher {
           .map(document -> (String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))
           .collect(Collectors.toList());
     }
-    return null;
+    return new ArrayList<>();
   }
 
   private SolrDocumentList getSolrDocuments(Map<String, String> queryParamMap)
