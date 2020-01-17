@@ -15,6 +15,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Date;
@@ -68,6 +69,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     final Map<Class<?>, String> retriableExceptionMap = new ConcurrentHashMap<>();
     retriableExceptionMap.put(UnknownHostException.class, "");
     retriableExceptionMap.put(HttpServerErrorException.class, "");
+    retriableExceptionMap.put(SocketTimeoutException.class, "");
     mapWithRetriableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
   }
 
@@ -294,6 +296,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         Thread.currentThread().interrupt();
         return;
       } catch (ExternalTaskException e) {
+        LOGGER.warn("ExternalTaskException occurred.", e);
         if (ExternalRequestUtil
             .doesExceptionCauseMatchAnyOfProvidedExceptions(mapWithRetriableExceptions, e)) {
           consecutiveCancelOrMonitorFailures++;
