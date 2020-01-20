@@ -37,7 +37,10 @@ public class RestResponseExceptionHandler {
   @ResponseBody
   public StructuredExceptionWrapper handleException(Exception exception,
       HttpServletResponse response) {
-    HttpStatus status = AnnotationUtils.findAnnotation(exception.getClass(), ResponseStatus.class).value();
+    final ResponseStatus annotationResponseStatus = AnnotationUtils
+        .findAnnotation(exception.getClass(), ResponseStatus.class);
+    HttpStatus status = annotationResponseStatus == null ? HttpStatus.INTERNAL_SERVER_ERROR
+        : annotationResponseStatus.value();
     response.setStatus(status.value());
     return new StructuredExceptionWrapper(exception.getMessage());
   }
