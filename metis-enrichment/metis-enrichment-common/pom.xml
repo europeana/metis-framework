@@ -10,6 +10,10 @@
 
   <dependencies>
     <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.mongojack</groupId>
       <artifactId>mongojack</artifactId>
       <version>${version.mongojack}</version>

@@ -1,9 +1,10 @@
 package eu.europeana.metis.core.rest.config;
 
+import eu.europeana.metis.core.workflow.ValidationProperties;
+import eu.europeana.metis.mongo.MongoProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import eu.europeana.metis.core.workflow.ValidationProperties;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -287,32 +288,16 @@ public class ConfigurationPropertiesHolder {
     return truststorePassword;
   }
 
-  public String[] getMongoHosts() {
-    return mongoHosts == null ? null : mongoHosts.clone();
-  }
-
-  public int[] getMongoPorts() {
-    return mongoPorts == null ? null : mongoPorts.clone();
-  }
-
-  public String getMongoUsername() {
-    return mongoUsername;
-  }
-
-  public String getMongoPassword() {
-    return mongoPassword;
-  }
-
-  public String getMongoAuthenticationDb() {
-    return mongoAuthenticationDb;
+  public MongoProperties<IllegalArgumentException> getMongoProperties() {
+    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
+            IllegalArgumentException::new);
+    mongoProperties.setAllProperties(mongoHosts, mongoPorts, mongoAuthenticationDb, mongoUsername,
+            mongoPassword, mongoEnableSSL);
+    return mongoProperties;
   }
 
   public String getMongoDb() {
     return mongoDb;
-  }
-
-  public boolean isMongoEnableSSL() {
-    return mongoEnableSSL;
   }
 
   public String getAuthenticationBaseUrl() {

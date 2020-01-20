@@ -1,14 +1,9 @@
 package eu.europeana.metis.core.rest.config;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientOptions.Builder;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.core.net.ssl.TrustStoreConfigurationException;
 
@@ -45,42 +40,7 @@ final class ApplicationInitUtils {
           propertiesHolder.getSocksProxyPassword()).init();
     }
 
-    // Load the mongo server addresses from the config file.
-    if (propertiesHolder.getMongoHosts().length != propertiesHolder.getMongoPorts().length
-        && propertiesHolder.getMongoPorts().length != 1) {
-      throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
-    }
-    List<ServerAddress> serverAddresses = new ArrayList<>(propertiesHolder.getMongoHosts().length);
-    for (int i = 0; i < propertiesHolder.getMongoHosts().length; i++) {
-      ServerAddress address;
-      if (propertiesHolder.getMongoHosts().length == propertiesHolder.getMongoPorts().length) {
-        address = new ServerAddress(propertiesHolder.getMongoHosts()[i],
-            propertiesHolder.getMongoPorts()[i]);
-      } else { // Same port for all
-        address = new ServerAddress(propertiesHolder.getMongoHosts()[i],
-            propertiesHolder.getMongoPorts()[0]);
-      }
-      serverAddresses.add(address);
-    }
-
-    // Set up the mongo client.
-    MongoClientOptions.Builder optionsBuilder = new Builder();
-    optionsBuilder.sslEnabled(propertiesHolder.isMongoEnableSSL());
-    final MongoClient mongoClient;
-    if (StringUtils.isEmpty(propertiesHolder.getMongoDb()) || StringUtils
-        .isEmpty(propertiesHolder.getMongoUsername())
-        || StringUtils
-        .isEmpty(propertiesHolder.getMongoPassword())) {
-      mongoClient = new MongoClient(serverAddresses, optionsBuilder.build());
-    } else {
-      MongoCredential mongoCredential = MongoCredential
-          .createCredential(propertiesHolder.getMongoUsername(),
-              propertiesHolder.getMongoAuthenticationDb(),
-              propertiesHolder.getMongoPassword().toCharArray());
-      mongoClient = new MongoClient(serverAddresses, mongoCredential, optionsBuilder.build());
-    }
-
-    // Done
-    return mongoClient;
+    // Initialize the Mongo connection
+    return new MongoClientProvider<>(propertiesHolder.getMongoProperties()).createMongoClient();
   }
 }

@@ -1,11 +1,11 @@
-package eu.europeana.indexing;
+package eu.europeana.metis.solr;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.InetSocketAddress;
 import org.junit.jupiter.api.Test;
 
-class SettingsConnectionProviderTest {
+class SolrClientProviderTest {
 
   @Test
   void testInetSocketAddressToString() {
@@ -20,12 +20,11 @@ class SettingsConnectionProviderTest {
     final InetSocketAddress domainInput = new InetSocketAddress(domainName, port1);
     final String domainOutput = domainName + ":" + port1;
     assertEquals(domainOutput,
-        SettingsConnectionProvider.toCloudSolrClientAddressString(domainInput));
+            SolrClientProvider.toCloudSolrClientAddressString(domainInput));
 
     // Test single ip address name
     final InetSocketAddress ipInput = new InetSocketAddress(ipAddress, port2);
     final String ipOutput = ipAddress + ":" + port2;
-    assertEquals(ipOutput, SettingsConnectionProvider.toCloudSolrClientAddressString(ipInput));
+    assertEquals(ipOutput, SolrClientProvider.toCloudSolrClientAddressString(ipInput));
   }
-
 }

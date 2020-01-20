@@ -11,10 +11,8 @@ import eu.europeana.metis.data.checker.service.persistence.RecordDao;
 import eu.europeana.metis.transformation.service.XsltTransformer;
 import eu.europeana.validation.client.ValidationClient;
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.net.URI;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executors;
@@ -134,17 +132,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     final IndexingSettings settings = new IndexingSettings();
 
     // Set the Mongo properties
-    for (InetSocketAddress address : getAddressesFromHostsAndPorts(mongoHosts, mongoPorts)) {
-      settings.addMongoHost(address);
-    }
+    settings.getMongoProperties().setAllProperties(mongoHosts, mongoPorts,
+            mongoAuthenticationDb, mongoUsername, mongoPassword, mongoEnableSSL);
     settings.setMongoDatabaseName(mongoDb);
-    if (mongoEnableSSL) {
-      settings.setMongoEnableSsl();
-    }
-    if (StringUtils.isNotBlank(mongoUsername) || StringUtils.isNotBlank(mongoPassword)
-        || StringUtils.isNotBlank(mongoAuthenticationDb)) {
-      settings.setMongoCredentials(mongoUsername, mongoPassword, mongoAuthenticationDb);
-    }
 
     // Set Solr properties
     for (String host : solrHosts) {
@@ -152,10 +142,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     }
 
     // Set Zookeeper properties
-    for (InetSocketAddress address : getAddressesFromHostsAndPorts(zookeeperHosts,
-        zookeeperPorts)) {
-      settings.addZookeeperHost(address);
-    }
+    settings.getSolrProperties().setZookeeperHosts(zookeeperHosts, zookeeperPorts);
     if (StringUtils.isNotBlank(zookeeperChroot)) {
       settings.setZookeeperChroot(zookeeperChroot);
     }
@@ -176,20 +163,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     scheduler.scheduleWithFixedDelay(() -> XsltTransformer.removeItemsNotAccessedSince(since),
         xsltCacheCleanupInMin, xsltCacheCleanupInMin, TimeUnit.MINUTES);
-  }
-
-  private static List<InetSocketAddress> getAddressesFromHostsAndPorts(String[] hosts,
-      int[] ports) {
-    if (hosts.length != ports.length && ports.length != 1) {
-      throw new IllegalArgumentException("Hosts and ports do not match.");
-    }
-    final List<InetSocketAddress> result = new ArrayList<>(hosts.length);
-    for (int i = 0; i < hosts.length; i++) {
-      //Get single port value if one, otherwise the correct index of the array.
-      final int port = ports.length == 1 ? ports[0] : ports[i];
-      result.add(new InetSocketAddress(hosts[i], port));
-    }
-    return result;
   }
 
   @Override
