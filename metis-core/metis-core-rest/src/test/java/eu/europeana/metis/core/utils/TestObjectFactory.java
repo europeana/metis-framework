@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.utils;
 
 import eu.europeana.cloud.common.model.dps.ErrorDetails;
-import eu.europeana.cloud.common.model.dps.States;
+import eu.europeana.cloud.common.model.dps.RecordState;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
@@ -254,10 +254,10 @@ public class TestObjectFactory {
    * @return the created sub task info
    */
   public static List<SubTaskInfo> createListOfSubTaskInfo() {
-    SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", States.SUCCESS, "",
+    SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", RecordState.SUCCESS, "",
         "Sensitive Information");
     final int resourceNum = 2;
-    SubTaskInfo subTaskInfo2 = new SubTaskInfo(resourceNum, "some_resource_id1", States.SUCCESS, "",
+    SubTaskInfo subTaskInfo2 = new SubTaskInfo(resourceNum, "some_resource_id1", RecordState.SUCCESS, "",
         "Sensitive Information");
     ArrayList<SubTaskInfo> subTaskInfos = new ArrayList<>();
     subTaskInfos.add(subTaskInfo1);
