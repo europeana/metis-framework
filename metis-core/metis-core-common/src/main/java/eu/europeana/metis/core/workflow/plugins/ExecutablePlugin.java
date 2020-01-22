@@ -3,7 +3,6 @@ package eu.europeana.metis.core.workflow.plugins;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.exception.ExternalTaskException;
-import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -12,16 +11,6 @@ import java.util.Optional;
  * @param <M> The type of the plugin metadata that this plugin represents.
  */
 public interface ExecutablePlugin<M extends ExecutablePluginMetadata> extends MetisPlugin<M> {
-
-  /**
-   * @return updated {@link Date} of the execution of the plugin
-   */
-  Date getUpdatedDate();
-
-  /**
-   * @param updatedDate {@link Date}
-   */
-  void setUpdatedDate(Date updatedDate);
 
   /**
    * @return String representation of the external task identifier of the execution

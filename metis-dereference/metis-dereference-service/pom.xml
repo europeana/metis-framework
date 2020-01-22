@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-dereference</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
   </parent>
   <artifactId>metis-dereference-service</artifactId>
   <dependencies>
@@ -29,6 +29,12 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-definitions</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mongodb.morphia</groupId>
+          <artifactId>morphia</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
@@ -44,11 +50,6 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${version.jackson}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mongodb.morphia</groupId>
-      <artifactId>morphia</artifactId>
-      <version>${version.morphia}</version>
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
@@ -92,6 +93,12 @@
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-enrichment-client</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mongodb.morphia</groupId>
+          <artifactId>morphia</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>

@@ -2,6 +2,7 @@ package eu.europeana.metis.core.execution;
 
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -142,10 +143,11 @@ public class WorkflowExecutionMonitor {
         new ResponseListWrapper<>();
     do {
       userWorkflowExecutionResponseListWrapper.clear();
-      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(
-          workflowExecutionDao.getAllWorkflowExecutions(null, EnumSet.of(workflowStatus),
-              DaoFieldNames.ID, true, nextPage),
-          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
+      final ResultList<WorkflowExecution> result = workflowExecutionDao.getAllWorkflowExecutions(
+          null, EnumSet.of(workflowStatus), DaoFieldNames.ID, true, nextPage, true);
+      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(result.getResults(),
+          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage,
+          result.isMaxResultCountReached());
       workflowExecutions.addAll(userWorkflowExecutionResponseListWrapper.getResults());
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
     } while (nextPage != -1);

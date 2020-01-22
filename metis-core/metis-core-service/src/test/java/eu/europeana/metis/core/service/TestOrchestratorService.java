@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -31,6 +33,7 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionIdAndStartedDatePair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
@@ -132,7 +135,6 @@ class TestOrchestratorService {
     authorizer = mock(Authorizer.class);
 
     workflowExecutionFactory = spy(new WorkflowExecutionFactory(datasetXsltDao));
-    workflowExecutionFactory.setMetisCoreUrl("https://some.url.com");
     workflowExecutionFactory.setValidationExternalProperties(
         new ValidationProperties("url-ext", "schema-ext", "schematron-ext"));
     workflowExecutionFactory.setValidationInternalProperties(
@@ -626,12 +628,6 @@ class TestOrchestratorService {
   }
 
   @Test
-  void getWorkflowsPerRequest() {
-    orchestratorService.getWorkflowsPerRequest();
-    verify(workflowDao, times(1)).getWorkflowsPerRequest();
-  }
-
-  @Test
   void getLatestSuccessfulFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution_ProcessPlugin()
       throws Exception {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
@@ -671,13 +667,16 @@ class TestOrchestratorService {
     final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
 
     // Check with specific dataset ID: should query only that dataset.
+    doReturn(new ResultList<>(Collections.emptyList(), false)).when(workflowExecutionDao)
+        .getAllWorkflowExecutions(any(), any(), any(), anyBoolean(), anyInt(), anyBoolean());
     orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
         DaoFieldNames.ID, false, nextPage);
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUser, datasetId);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(
         eq(Collections.singleton(datasetId)), eq(workflowStatuses), eq(DaoFieldNames.ID), eq(false),
-        eq(nextPage));
+        eq(nextPage), eq(false));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
@@ -699,12 +698,15 @@ class TestOrchestratorService {
     // organization has rights.
     when(datasetDao.getAllDatasetsByOrganizationId(metisUser.getOrganizationId()))
         .thenReturn(datasets);
+    doReturn(new ResultList<>(Collections.emptyList(), false)).when(workflowExecutionDao)
+        .getAllWorkflowExecutions(any(), any(), any(), anyBoolean(), anyInt(), anyBoolean());
     orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses,
         DaoFieldNames.CREATED_DATE, false, nextPage);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(eq(datasetIds),
-        eq(workflowStatuses), eq(DaoFieldNames.CREATED_DATE), eq(false), eq(nextPage));
+        eq(workflowStatuses), eq(DaoFieldNames.CREATED_DATE), eq(false), eq(nextPage), eq(false));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
@@ -718,12 +720,15 @@ class TestOrchestratorService {
 
     // Check for all datasets and for admin user: should query all datasets.
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    doReturn(new ResultList<>(Collections.emptyList(), false)).when(workflowExecutionDao)
+        .getAllWorkflowExecutions(any(), any(), any(), anyBoolean(), anyInt(), anyBoolean());
     orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses,
         DaoFieldNames.CREATED_DATE, true, nextPage);
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1)).getAllWorkflowExecutions(isNull(), eq(workflowStatuses),
-        eq(DaoFieldNames.CREATED_DATE), eq(true), eq(nextPage));
+        eq(DaoFieldNames.CREATED_DATE), eq(true), eq(nextPage), eq(false));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
@@ -749,14 +754,16 @@ class TestOrchestratorService {
     when(workflowExecutionDao
         .getWorkflowExecutionsOverview(eq(datasetIds), isNull(), isNull(), isNull(), isNull(),
             eq(nextPage), eq(pageCount)))
-        .thenReturn(data);
+        .thenReturn(new ResultList<>(data, false));
     final List<ExecutionAndDatasetView> result = orchestratorService
-        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount);
+        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount)
+        .getResults();
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1))
         .getWorkflowExecutionsOverview(eq(datasetIds), isNull(), isNull(), isNull(), isNull(),
             eq(nextPage), eq(pageCount));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
@@ -784,14 +791,16 @@ class TestOrchestratorService {
     when(workflowExecutionDao
         .getWorkflowExecutionsOverview(isNull(), isNull(), isNull(), isNull(), isNull(),
             eq(nextPage), eq(pageCount)))
-        .thenReturn(data);
+        .thenReturn(new ResultList<>(data, false));
     final List<ExecutionAndDatasetView> result = orchestratorService
-        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount);
+        .getWorkflowExecutionsOverview(metisUser, null, null, null, null, nextPage, pageCount)
+        .getResults();
     verify(authorizer, times(1)).authorizeReadAllDatasets(metisUser);
     verifyNoMoreInteractions(authorizer);
     verify(workflowExecutionDao, times(1))
         .getWorkflowExecutionsOverview(isNull(), isNull(), isNull(), isNull(), isNull(),
             eq(nextPage), eq(pageCount));
+    verify(workflowExecutionDao, times(1)).getWorkflowExecutionsPerRequest();
     verifyNoMoreInteractions(workflowExecutionDao);
     assertEquals(data.size(), result.size());
     assertEquals(data.stream().map(ExecutionDatasetPair::getDataset).map(Dataset::getDatasetId)
@@ -931,7 +940,7 @@ class TestOrchestratorService {
         new ObjectId(), new Date(2));
     final ExecutionIdAndStartedDatePair pair3 = new ExecutionIdAndStartedDatePair(
         new ObjectId(), new Date(3));
-    doReturn(Arrays.asList(pair1, pair2, pair3)).when(workflowExecutionDao)
+    doReturn(new ResultList<>(Arrays.asList(pair1, pair2, pair3), false)).when(workflowExecutionDao)
         .getAllExecutionStartDates(datasetId);
 
     // Test the happy flow

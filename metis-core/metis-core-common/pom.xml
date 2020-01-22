@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-core</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
   </parent>
   <artifactId>metis-core-common</artifactId>
   <dependencies>
@@ -24,9 +24,9 @@
       <version>${version.ecloud}</version>
     </dependency>
     <dependency>
-      <groupId>org.mongodb.morphia</groupId>
-      <artifactId>morphia</artifactId>
-      <version>${version.morphia}</version>
+      <groupId>dev.morphia.morphia</groupId>
+      <artifactId>core</artifactId>
+      <version>${version.morphia.core}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

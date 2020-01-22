@@ -72,5 +72,9 @@ final class ConceptFieldInput implements Function<Concept, ConceptImpl> {
       conceptMongo.setAltLabel(FieldInputUtils.mergeMaps(conceptMongo.getAltLabel(),
           FieldInputUtils.createLiteralMapFromString(choice.getAltLabel())));
     }
+    if (choice.ifInScheme()) {
+      conceptMongo.setInScheme(StringArrayUtils.addToArray(conceptMongo.getInScheme(),
+          FieldInputUtils.getResourceString(choice.getInScheme())));
+    }
   }
 }

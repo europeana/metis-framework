@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.client;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.Vocabulary;
+import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,6 +14,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -162,8 +166,19 @@ public class DereferenceClient {
     final HttpHeaders headers = new HttpHeaders();
     headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
     final HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
-    return restTemplate.exchange(dereferenceUrl, HttpMethod.GET, entity, EnrichmentResultList.class)
-        .getBody();
+
+    // TODO JV this is a temporary fix to solve a suspected dependency issue with deserialization inside Spring.
+    // Originally we passed EnrichmentResultList.class instead of byte[].class and return the result directly.
+    final byte[] result = restTemplate
+            .exchange(dereferenceUrl, HttpMethod.GET, entity, byte[].class).getBody();
+    try {
+      JAXBContext jaxbContext = JAXBContext.newInstance(EnrichmentResultList.class);
+      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+      return (EnrichmentResultList) jaxbUnmarshaller.unmarshal(new ByteArrayInputStream(result));
+    } catch (JAXBException e) {
+      LOGGER.warn("URL [{}] could not be deserialized.", dereferenceUrlString, e);
+      return null;
+    }
   }
 
   void setRestTemplate(RestTemplate restTemplate) {

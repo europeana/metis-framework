@@ -50,7 +50,7 @@ class WebResourceTest {
   @Test
   void testSetFileSize() {
     final WebResourceType resourceType = new WebResourceType();
-    new WebResource(resourceType).setFileSize(456);
+    new WebResource(resourceType).setFileSize(456L);
     assertNotNull(resourceType.getFileByteSize());
     assertEquals(456L, resourceType.getFileByteSize().getLong());
   }

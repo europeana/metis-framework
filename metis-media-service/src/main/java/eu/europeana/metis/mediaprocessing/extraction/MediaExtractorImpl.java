@@ -11,11 +11,16 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.utils.MediaType;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.Set;
 import org.apache.tika.Tika;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +39,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   private static final Set<UrlType> URL_TYPES_FOR_REDUCED_PROCESSING = Collections
       .singleton(UrlType.IS_SHOWN_AT);
 
-  private final ResourceDownloadClient fullProcessingDownloadClient;
-  private final ResourceDownloadClient reducedProcessingDownloadClient;
+  private final ResourceDownloadClient resourceDownloadClient;
   private final MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private final Tika tika;
 
@@ -46,20 +50,17 @@ public class MediaExtractorImpl implements MediaExtractor {
   /**
    * Constructor meant for testing purposes.
    *
-   * @param fullProcessingDownloadClient The download client for resources.
-   * @param reducedProcessingDownloadClient The download client for resources.
+   * @param resourceDownloadClient The download client for resources.
    * @param mimeTypeDetectHttpClient The mime type detector for URLs.
    * @param tika A tika instance.
    * @param imageProcessor An image processor.
    * @param audioVideoProcessor An audio/video processor.
    * @param textProcessor A text processor.
    */
-  MediaExtractorImpl(ResourceDownloadClient fullProcessingDownloadClient,
-      ResourceDownloadClient reducedProcessingDownloadClient,
+  MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
       MimeTypeDetectHttpClient mimeTypeDetectHttpClient, Tika tika, ImageProcessor imageProcessor,
       AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor) {
-    this.fullProcessingDownloadClient = fullProcessingDownloadClient;
-    this.reducedProcessingDownloadClient = reducedProcessingDownloadClient;
+    this.resourceDownloadClient = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
     this.imageProcessor = imageProcessor;
@@ -85,10 +86,8 @@ public class MediaExtractorImpl implements MediaExtractor {
       throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
-    this.fullProcessingDownloadClient = new ResourceDownloadClient(redirectCount,
+    this.resourceDownloadClient = new ResourceDownloadClient(redirectCount,
         this::shouldDownloadForFullProcessing, connectTimeout, socketTimeout, downloadTimeout);
-    this.reducedProcessingDownloadClient = new ResourceDownloadClient(redirectCount,
-        mimeType -> false, connectTimeout, socketTimeout, downloadTimeout);
     this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, socketTimeout,
         downloadTimeout);
     this.tika = new Tika();
@@ -107,12 +106,8 @@ public class MediaExtractorImpl implements MediaExtractor {
       return null;
     }
 
-    // Determine the http client to use (full download vs. quick ping)
-    final ResourceDownloadClient httpClient = mode == ProcessingMode.FULL ?
-        fullProcessingDownloadClient : reducedProcessingDownloadClient;
-
     // Download resource and then perform media extraction on it.
-    try (Resource resource = httpClient.download(resourceEntry)) {
+    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode)) {
       return performProcessing(resource, mode);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
@@ -120,6 +115,15 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
   }
 
+  private Resource downloadBasedOnProcessingMode(RdfResourceEntry resourceEntry,
+      ProcessingMode mode) throws IOException {
+    
+    // Determine the download method to use (full download vs. quick ping)
+    return (mode == ProcessingMode.FULL)
+        ? this.resourceDownloadClient.downloadBasedOnMimeType(resourceEntry)
+        : this.resourceDownloadClient.downloadWithoutContent(resourceEntry);
+  }
+  
   ProcessingMode getMode(RdfResourceEntry resourceEntry) {
     final ProcessingMode result;
     if (URL_TYPES_FOR_FULL_PROCESSING.stream().anyMatch(resourceEntry.getUrlTypes()::contains)) {
@@ -141,13 +145,13 @@ public class MediaExtractorImpl implements MediaExtractor {
       throw new IllegalStateException();
     }
 
-    // Obtain the mime type. If no content, check against the URL. Note: we use the actual location
-    // instead of the resource URL (because Tika doesn't seem to do forwarding properly).
-    final boolean hasContent;
+    // Detect the mime type.
+    final String providedMimeType = resource.getProvidedMimeType();
     final String detectedMimeType;
+    final boolean hasContent;
     try {
       hasContent = resource.hasContent();
-      detectedMimeType = hasContent ? tika.detect(resource.getContentPath())
+      detectedMimeType = hasContent ? detectType(resource.getContentPath(), providedMimeType)
           : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
     } catch (IOException e) {
       throw new MediaExtractionException("Mime type checking error", e);
@@ -155,22 +159,30 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Log if the detected mime type is different from the provided one. If application/xhtml+xml is
     // detected from tika, and text/html is provided, we don't give a warning.
-    final String providedMimeType = resource.getProvidedMimeType();
-    if (!("application/xhtml+xml".equals(detectedMimeType) && providedMimeType
-        .startsWith("text/html")) && !detectedMimeType.equals(providedMimeType)) {
-      LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", detectedMimeType,
-          providedMimeType, resource.getResourceUrl());
-    }
-
-    // Verify that we have content when we need to.
-    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
-        && !hasContent) {
-      throw new MediaExtractionException(
-          "File content is not downloaded and mimeType does not support processing without a downloaded file.");
+    if (providedMimeType != null) {
+      final boolean xhtmlHtmlEquivalenceOccurs = "application/xhtml+xml".equals(detectedMimeType)
+          && providedMimeType.startsWith("text/html");
+      if (!xhtmlHtmlEquivalenceOccurs && !detectedMimeType.equals(providedMimeType)) {
+        LOGGER.info("Invalid mime type provided (should be {}, was {}): {}", detectedMimeType,
+            providedMimeType, resource.getResourceUrl());
+      }
     }
 
     // Done
     return detectedMimeType;
+  }
+
+  String detectType(Path path, String providedMimeType) throws IOException {
+    final Metadata metadata = new Metadata();
+    if (providedMimeType != null) {
+      final int separatorIndex = providedMimeType.indexOf(';');
+      final String adjustedMimeType =
+              separatorIndex < 0 ? providedMimeType : providedMimeType.substring(0, separatorIndex);
+      metadata.set(Metadata.CONTENT_TYPE, adjustedMimeType);
+    }
+    try (final InputStream stream = TikaInputStream.get(path, metadata)) {
+      return tika.detect(stream, metadata);
+    }
   }
 
   MediaProcessor chooseMediaProcessor(MediaType mediaType) {
@@ -192,6 +204,31 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
     return processor;
   }
+  
+  void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
+      String detectedMimeType) throws MediaExtractionException, IOException {
+    
+    // If the mime type changed and we need the content after all, we download it.
+    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
+        && !shouldDownloadForFullProcessing(resource.getProvidedMimeType())) {
+      final RdfResourceEntry downloadInput =
+          new RdfResourceEntry(resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
+      try (final Resource resourceWithContent = this.resourceDownloadClient.downloadWithContent(downloadInput)) {
+        if (resourceWithContent.hasContent()) {
+          try (final InputStream inputStream = resourceWithContent.getContentStream()) {
+            resource.markAsWithContent(inputStream);
+          }
+        }
+      }
+    }
+    
+    // Verify that we have content when we need to.
+    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
+        && !resource.hasContent()) {
+      throw new MediaExtractionException(
+          "File content is not downloaded and mimeType does not support processing without a downloaded file.");
+    }
+  }
 
   ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode)
       throws MediaExtractionException {
@@ -203,6 +240,14 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Detect and verify the mime type.
     final String detectedMimeType = detectAndVerifyMimeType(resource, mode);
+    
+    // Verify that we have content when we need to. This can happen if the resource doesn't come
+    // with the correct mime type. We correct this here.
+    try {
+      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType);
+    } catch (IOException e) {
+      throw new MediaExtractionException("Content availability verification error.", e);
+    }
 
     // Choose the right media processor.
     final MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
@@ -223,11 +268,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
   @Override
   public void close() throws IOException {
-    try {
-      fullProcessingDownloadClient.close();
-    } finally {
-      reducedProcessingDownloadClient.close();
-    }
+    resourceDownloadClient.close();
   }
 
   /**

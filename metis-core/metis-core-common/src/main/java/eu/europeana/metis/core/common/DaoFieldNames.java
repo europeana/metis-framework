@@ -10,6 +10,8 @@ public enum DaoFieldNames {
   ID("_id"),
   DATASET_ID("datasetId"),
   DATASET_NAME("datasetName"),
+  PROVIDER("provider"),
+  DATA_PROVIDER("dataProvider"),
   WORKFLOW_NAME("workflowName"),
   WORKFLOW_STATUS("workflowStatus"),
   PLUGIN_STATUS("pluginStatus"),
@@ -18,7 +20,9 @@ public enum DaoFieldNames {
   CREATED_DATE("createdDate"),
   STARTED_DATE("startedDate"),
   UPDATED_DATE("updatedDate"),
-  FINISHED_DATE("finishedDate");
+  FINISHED_DATE("finishedDate"),
+  PLUGIN_METADATA("pluginMetadata"),
+  XSLT_ID("xsltId");
 
   private final String fieldName;
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns="urn:mpeg:dash:schema:mpd:2011"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd"
+     profiles="urn:mpeg:dash:profile:isoff-live:2011"
+     type="static"
+     publishTime="2019-11-27T10:22:48Z" 
+     mediaPresentationDuration="PT1M41.2S"
+     minBufferTime="PT1.5S">
+<ProgramInformation>
+    <Title>MpegR300/R091802.mp4</Title>
+</ProgramInformation>
+<Location>https://5ad4b00cebcc2.streamlock.net/vod/archivioluce/MpegR300/R091802.mp4/manifest_w179222700.mpd</Location>
+<Period id="0" start="PT0.0S">
+    <AdaptationSet id="0" mimeType="video/mp4" width="480" height="360" par="4:3" frameRate="25" segmentAlignment="true" startWithSAP="1" subsegmentAlignment="true" subsegmentStartsWithSAP="1">
+        <SegmentTemplate presentationTimeOffset="0" timescale="90000" media="chunk_ctvideo_cfm4s_rid$RepresentationID$_cs$Time$_w179222700_mpd.m4s" initialization="chunk_ctvideo_cfm4s_rid$RepresentationID$_cinit_w179222700_mpd.m4s">
+            <SegmentTimeline>
+                <S t="0" d="1072800"/>
+                <S d="1386000"/>
+                <S d="1008000"/>
+                <S d="900000"/>
+                <S d="1062000"/>
+                <S d="1479600"/>
+                <S d="1094400"/>
+                <S d="1083600"/>
+                <S d="21600"/>
+            </SegmentTimeline>
+        </SegmentTemplate>
+        <Representation id="p0a0r0" codecs="avc1.42c015" sar="1:1" bandwidth="652000" />
+    </AdaptationSet>
+    <AdaptationSet id="1" mimeType="audio/mp4" lang="ita" segmentAlignment="true" startWithSAP="1" subsegmentAlignment="true" subsegmentStartsWithSAP="1">
+        <Role schemeIdUri="urn:mpeg:dash:role:2011" value="main"/>
+        <SegmentTemplate presentationTimeOffset="0" timescale="44100" media="chunk_ctaudio_cfm4s_rid$RepresentationID$_cs$Time$_w179222700_mpd.m4s" initialization="chunk_ctaudio_cfm4s_rid$RepresentationID$_cinit_w179222700_mpd.m4s">
+            <SegmentTimeline>
+                <S t="0" d="525672"/>
+                <S d="679140"/>
+                <S d="493920"/>
+                <S d="441000"/>
+                <S d="520380"/>
+                <S d="725004"/>
+                <S d="536256"/>
+                <S d="530964"/>
+                <S d="10584"/>
+            </SegmentTimeline>
+        </SegmentTemplate>
+        <Representation id="p0a1r0" codecs="mp4a.40.2" audioSamplingRate="44100" bandwidth="128000">
+        <AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2"/>
+        </Representation>
+    </AdaptationSet>
+</Period>
+</MPD>

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
   </parent>
   <artifactId>metis-validation-rest</artifactId>
   <packaging>war</packaging>
@@ -32,6 +32,10 @@
       <artifactId>corelib-web</artifactId>
       <version>${version.corelib}</version>
       <exclusions>
+        <exclusion>
+          <groupId>org.mongodb.morphia</groupId>
+          <artifactId>morphia</artifactId>
+        </exclusion>
         <exclusion>
           <artifactId>httpclient</artifactId>
           <groupId>org.apache.httpcomponents</groupId>
@@ -162,6 +166,12 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-common-storage</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mongodb.morphia</groupId>
+          <artifactId>morphia</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
   <build>

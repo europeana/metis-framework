@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>1.6.0</version>
+  <version>1.7.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -25,7 +25,7 @@
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v1.6.0</tag>
+    <tag>v1.7.0</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -43,7 +43,7 @@
   </distributionManagement>
 
   <properties>
-    <version.ecloud>1.7.0</version.ecloud>
+    <version.ecloud>1.8.0</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
     <version.redisson>3.11.0</version.redisson>
     <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
@@ -91,7 +91,7 @@
     <version.corelib>2.9.3-SNAPSHOT</version.corelib>
     <version.servlet.api>3.1.0</version.servlet.api>
     <version.commons-fileupload>1.3</version.commons-fileupload>
-    <version.morphia>1.3.2</version.morphia>
+    <version.morphia.core>1.5.8</version.morphia.core>
     <version.xsom>20140925</version.xsom>
     <version.commonscompress>1.11</version.commonscompress>
     <version.spring.security>5.1.1.RELEASE</version.spring.security>
@@ -102,6 +102,7 @@
     <version.saxon.he>9.8.0-11</version.saxon.he>
     <version.com.zoho.crm.java-sdk>1.0.6</version.com.zoho.crm.java-sdk>
     <version.solr.solrj>6.6.2</version.solr.solrj>
+    <version.mpd.parser>0.6</version.mpd.parser>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 

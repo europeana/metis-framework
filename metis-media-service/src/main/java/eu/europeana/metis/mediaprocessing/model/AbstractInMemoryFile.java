@@ -39,8 +39,8 @@ abstract class AbstractInMemoryFile implements ResourceRelatedFile {
   }
 
   @Override
-  public long getContentSize() {
-    return content.length;
+  public Long getContentSize() {
+    return (long) content.length;
   }
 
   @Override
@@ -48,13 +48,8 @@ abstract class AbstractInMemoryFile implements ResourceRelatedFile {
     content = new byte[0];
   }
 
-  /**
-   * Sets the content of this file. This does not close the input stream.
-   *
-   * @param newContent The stream containing the new content. Is not null.
-   * @throws IOException In case something went wrong reading the input stream.
-   */
-  public void setContent(InputStream newContent) throws IOException {
+  @Override
+  public void markAsWithContent(InputStream newContent) throws IOException {
     content = IOUtils.toByteArray(newContent);
   }
 

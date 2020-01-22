@@ -15,6 +15,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Date;
@@ -58,6 +59,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private final DpsClient dpsClient;
   private final String ecloudBaseUrl;
   private final String ecloudProvider;
+  private final String metisCoreBaseUrl;
 
   private WorkflowExecution workflowExecution;
 
@@ -67,6 +69,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     final Map<Class<?>, String> retriableExceptionMap = new ConcurrentHashMap<>();
     retriableExceptionMap.put(UnknownHostException.class, "");
     retriableExceptionMap.put(HttpServerErrorException.class, "");
+    retriableExceptionMap.put(SocketTimeoutException.class, "");
     mapWithRetriableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
   }
 
@@ -81,6 +84,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         .toSeconds(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes());
     this.ecloudBaseUrl = workflowExecutionSettings.getEcloudBaseUrl();
     this.ecloudProvider = workflowExecutionSettings.getEcloudProvider();
+    this.metisCoreBaseUrl = workflowExecutionSettings.getMetisCoreBaseUrl();
     this.workflowExecutionMonitor = workflowExecutionMonitor;
   }
 
@@ -218,7 +222,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         }
         final EcloudBasePluginParameters ecloudBasePluginParameters = new EcloudBasePluginParameters(
             ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId(),
-            getExternalTaskIdOfPreviousPlugin(metadata));
+            getExternalTaskIdOfPreviousPlugin(metadata), metisCoreBaseUrl);
         plugin.execute(workflowExecution.getDatasetId(), dpsClient, ecloudBasePluginParameters);
       }
     } catch (ExternalTaskException | RuntimeException e) {
@@ -292,6 +296,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         Thread.currentThread().interrupt();
         return;
       } catch (ExternalTaskException e) {
+        LOGGER.warn("ExternalTaskException occurred.", e);
         if (ExternalRequestUtil
             .doesExceptionCauseMatchAnyOfProvidedExceptions(mapWithRetriableExceptions, e)) {
           consecutiveCancelOrMonitorFailures++;

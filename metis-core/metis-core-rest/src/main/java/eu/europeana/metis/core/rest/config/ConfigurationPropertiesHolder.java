@@ -65,18 +65,21 @@ public class ConfigurationPropertiesHolder {
   @Value("${rabbitmq.enableSSL}")
   private boolean rabbitmqEnableSSL;
 
+  // Metis core configuration
   @Value("${metis.core.baseUrl}")
   private String metisCoreBaseUrl;
+  @Value("${metis.core.max.served.execution.list.length}")
+  private int maxServedExecutionListLength;
 
+  // Ecloud configuration
   @Value("${metis.use.alternative.indexing.environment}")
   private boolean metisUseAlternativeIndexingEnvironment;
-
   @Value("${metis.link.checking.default.sampling.size}")
   private int metisLinkCheckingDefaultSamplingSize;
-
   @Value("${solr.commit.period.in.mins}")
   private int solrCommitPeriodInMins;
 
+  // Socks proxy
   @Value("${socks.proxy.enabled}")
   private boolean socksProxyEnabled;
   @Value("${socks.proxy.host}")
@@ -127,10 +130,12 @@ public class ConfigurationPropertiesHolder {
   //Authentication
   @Value("${authentication.baseUrl}")
   private String authenticationBaseUrl;
-
+  
+  // CORS
   @Value("${allowed.cors.hosts}")
   private String[] allowedCorsHosts;
 
+  // ECloud access
   @Value("${ecloud.baseUrl}")
   private String ecloudBaseUrl;
   @Value("${ecloud.dps.baseUrl}")
@@ -236,6 +241,10 @@ public class ConfigurationPropertiesHolder {
 
   public String getMetisCoreBaseUrl() {
     return metisCoreBaseUrl;
+  }
+
+  public int getMaxServedExecutionListLength() {
+    return maxServedExecutionListLength;
   }
 
   public boolean isMetisUseAlternativeIndexingEnvironment() {

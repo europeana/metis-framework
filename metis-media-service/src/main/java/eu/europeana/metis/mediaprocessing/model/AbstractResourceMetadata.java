@@ -21,7 +21,7 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
 
   private String resourceUrl;
 
-  private long contentSize;
+  private Long contentSize;
 
   private Set<String> thumbnailTargetNames;
 
@@ -32,7 +32,7 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
    * @param resourceUrl The resource URL.
    * @param contentSize The file content size.
    */
-  protected AbstractResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
+  protected AbstractResourceMetadata(String mimeType, String resourceUrl, Long contentSize) {
     this(mimeType, resourceUrl, contentSize, null);
   }
 
@@ -44,7 +44,7 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
    * @param contentSize The file content size.
    * @param thumbnails The thumbnails generated for this resource.
    */
-  protected AbstractResourceMetadata(String mimeType, String resourceUrl, long contentSize,
+  protected AbstractResourceMetadata(String mimeType, String resourceUrl, Long contentSize,
       Collection<? extends Thumbnail> thumbnails) {
     this.mimeType = mimeType;
     this.resourceUrl = resourceUrl;
@@ -80,7 +80,7 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
         .orElseGet(Collections::emptySet);
   }
 
-  public long getContentSize() {
+  public Long getContentSize() {
     return contentSize;
   }
 

@@ -45,7 +45,7 @@ interface ResourceRelatedFile extends Closeable {
    * @throws IOException In case there was a problem obtaining the content's length or if this
    * object's {@link #close()} or {@link #markAsNoContent()} method was called.
    */
-  long getContentSize() throws IOException;
+  Long getContentSize() throws IOException;
 
   /**
    * Remove any content and make this resource one without content. From now on, {@link
@@ -54,6 +54,15 @@ interface ResourceRelatedFile extends Closeable {
    * @throws IOException In case there was a problem removing the content.
    */
   void markAsNoContent() throws IOException;
+
+  /**
+   * Add the given content and make this resource one with content. From now on,
+   * {@link #hasContent()} will return true. Any already existing content will be overwritten.
+   * 
+   * @param content The new content. Note: the input stream is not closed.
+   * @throws IOException In case there was a problem adding the content.
+   */
+  void markAsWithContent(InputStream content) throws IOException;
 
   @Override
   void close() throws IOException;

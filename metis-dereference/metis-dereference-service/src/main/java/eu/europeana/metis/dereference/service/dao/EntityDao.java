@@ -1,11 +1,11 @@
 package eu.europeana.metis.dereference.service.dao;
 
 import com.mongodb.MongoClient;
+import dev.morphia.Datastore;
+import dev.morphia.Morphia;
+import dev.morphia.query.Query;
+import dev.morphia.query.UpdateOperations;
 import eu.europeana.metis.dereference.OriginalEntity;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
 
 /**
  * DAO for original Entities (Mongo)

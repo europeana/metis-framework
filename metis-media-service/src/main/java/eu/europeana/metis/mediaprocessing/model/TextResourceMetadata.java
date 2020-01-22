@@ -23,7 +23,7 @@ public class TextResourceMetadata extends AbstractResourceMetadata {
    * @param resourceUrl The resource URL.
    * @param contentSize The file content size.
    */
-  public TextResourceMetadata(String mimeType, String resourceUrl, long contentSize) {
+  public TextResourceMetadata(String mimeType, String resourceUrl, Long contentSize) {
     this(mimeType, resourceUrl, contentSize, false, null, null);
   }
 
@@ -37,7 +37,7 @@ public class TextResourceMetadata extends AbstractResourceMetadata {
    * @param resolution The resolution of the text resource.
    * @param thumbnails The thumbnails generated for this text resource.
    */
-  public TextResourceMetadata(String mimeType, String resourceUrl, long contentSize,
+  public TextResourceMetadata(String mimeType, String resourceUrl, Long contentSize,
       boolean containsText, Integer resolution, List<? extends Thumbnail> thumbnails) {
     super(mimeType, resourceUrl, contentSize, thumbnails);
     this.containsText = containsText;

@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.mongo;
 
 import com.mongodb.MongoClient;
+import dev.morphia.Datastore;
+import dev.morphia.Morphia;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
@@ -20,8 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 
 /**
  * Class to initialize the mongo collections and the {@link Datastore} connection. It also performs
