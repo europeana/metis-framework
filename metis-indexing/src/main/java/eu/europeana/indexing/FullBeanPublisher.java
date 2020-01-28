@@ -1,5 +1,6 @@
 package eu.europeana.indexing;
 
+import com.google.common.collect.Lists;
 import com.mongodb.MongoClientException;
 import com.mongodb.MongoConfigurationException;
 import com.mongodb.MongoIncompatibleDriverException;
@@ -9,6 +10,10 @@ import com.mongodb.MongoSecurityException;
 import com.mongodb.MongoSocketException;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.edm.beans.IdBean;
+import eu.europeana.corelib.definitions.jibx.Identifier;
+import eu.europeana.corelib.definitions.jibx.IsShownAt;
+import eu.europeana.corelib.definitions.jibx.IsShownBy;
+import eu.europeana.corelib.definitions.jibx.Title;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
@@ -26,6 +31,7 @@ import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,6 +39,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import javafx.util.Pair;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -116,7 +125,7 @@ class FullBeanPublisher {
    *
    * @param rdf RDF to publish.
    * @param recordDate The date that would represent the created/updated date of a record
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
+   * @param datasetIdsToRedirectFrom The dataset ids that their records need to be redirected
    * @throws IndexingException which can be one of:
    * <ul>
    * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
@@ -125,7 +134,7 @@ class FullBeanPublisher {
    * contents</li>
    * </ul>
    */
-  public void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsForRedirection)
+  public void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom)
       throws IndexingException {
 
     // Convert RDF to Full Bean.
@@ -138,8 +147,8 @@ class FullBeanPublisher {
             : (FullBeanPublisher::setUpdateAndCreateTime);
 
     //Search Solr to find matching record for redirection
-    final List<String> recordsForRedirection = searchMatchingRecordForRedirection(rdf.getAbout(),
-        datasetIdsForRedirection);
+    final List<String> recordsForRedirection = searchMatchingRecordForRedirection(rdf,
+        datasetIdsToRedirectFrom);
 
     //Create redirection
     if (!CollectionUtils.isEmpty(recordsForRedirection)) {
@@ -191,9 +200,10 @@ class FullBeanPublisher {
     }
   }
 
-  private List<String> searchMatchingRecordForRedirection(String recordIdIncludingDatasetId,
-      List<String> datasetIdsForRedirection)
+  private List<String> searchMatchingRecordForRedirection(RdfWrapper rdfWrapper,
+      List<String> datasetIdsToRedirectFrom)
       throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
+    final String recordIdIncludingDatasetId = rdfWrapper.getAbout();
     //Check first if record with same record identifier exists
     final Map<String, String> queryParamMap = new HashMap<>();
     queryParamMap.put("q",
@@ -207,18 +217,14 @@ class FullBeanPublisher {
       return new ArrayList<>();
     }
 
-    //Check matches with older dataset identifiers
-    if (!CollectionUtils.isEmpty(datasetIdsForRedirection)) {
-      //The incoming structure of the identifier is /datasetId/recordId
-      final String[] splitRecordIdentifier = recordIdIncludingDatasetId.split("/");
-      String recordId = splitRecordIdentifier[2];
-
-      final String combinedQueryForRedirectedDatasetIds = datasetIdsForRedirection.stream()
-          .map(datasetIdForRedirection -> String
-              .format("%s:/%s/%s", EdmLabel.EUROPEANA_ID.toString(), datasetIdForRedirection,
-                  recordId)).collect(Collectors.joining(" OR "));
-      queryParamMap.put("q", combinedQueryForRedirectedDatasetIds);
-    }
+    //Create combinations of all rules into one query
+    final String queryForDatasetIds = generateQueryForDatasetIds(datasetIdsToRedirectFrom,
+        recordIdIncludingDatasetId);
+    final String queryForMatchingFields = generateQueryForMatchingFields(rdfWrapper);
+    final String combinedQueryOr = Stream
+        .of(queryForDatasetIds, queryForMatchingFields)
+        .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
+    queryParamMap.put("q", combinedQueryOr);
 
     documents = getSolrDocuments(queryParamMap);
     if (!CollectionUtils.isEmpty(documents)) {
@@ -228,6 +234,104 @@ class FullBeanPublisher {
           .collect(Collectors.toList());
     }
     return new ArrayList<>();
+  }
+
+  private String generateQueryForMatchingFields(RdfWrapper rdfWrapper) {
+    //Collect all required information for heuristics
+    final List<String> identifiers = rdfWrapper.getProviderProxyIdentifiers().stream()
+        .map(Identifier::getString)
+        .collect(Collectors.toList());
+    final List<String> titles = rdfWrapper.getProviderProxyTitles().stream().map(Title::getString)
+        .collect(Collectors.toList());
+    final List<String> descriptions = rdfWrapper.getProviderProxyDescriptions().stream()
+        .map(description -> {
+          if (StringUtils.isNotBlank(description.getString())) {
+            return description.getString();
+          } else if (description.getResource() != null && StringUtils
+              .isNotBlank(description.getResource().getResource())) {
+            return description.getResource().getResource();
+          }
+          return null;
+        }).collect(Collectors.toList());
+    final List<String> isShownByList = rdfWrapper.getIsShownByList().stream()
+        .map(IsShownBy::getResource)
+        .collect(Collectors.toList());
+    final List<String> isShownAtList = rdfWrapper.getIsShownAtList().stream()
+        .map(IsShownAt::getResource)
+        .collect(Collectors.toList());
+
+    //Create all possible permutations
+    List<List<String>> permutations = new ArrayList<>();
+    Pair<String, String> queryFieldPair = null;
+    if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(titles)) {
+      permutations = Lists.cartesianProduct(Arrays.asList(identifiers, titles));
+      queryFieldPair = new Pair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
+          EdmLabel.PROXY_DC_TITLE.toString());
+
+    } else if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(descriptions)) {
+      permutations = Lists.cartesianProduct(Arrays.asList(identifiers, descriptions));
+      queryFieldPair = new Pair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
+          EdmLabel.PROXY_DC_DESCRIPTION.toString());
+
+    } else if (CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(isShownByList)
+        && !CollectionUtils.isEmpty(titles)) {
+      permutations = Lists.cartesianProduct(Arrays.asList(isShownByList, titles));
+      queryFieldPair = new Pair<>(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(),
+          EdmLabel.PROXY_DC_TITLE.toString());
+
+    } else if (CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(isShownByList)
+        && !CollectionUtils.isEmpty(descriptions)) {
+      permutations = Lists.cartesianProduct(Arrays.asList(isShownByList, descriptions));
+      queryFieldPair = new Pair<>(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(),
+          EdmLabel.PROXY_DC_DESCRIPTION.toString());
+
+    } else if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(isShownByList)) {
+      permutations = Lists.cartesianProduct(Arrays.asList(identifiers, isShownByList));
+      queryFieldPair = new Pair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
+          EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString());
+    }
+
+    List<List<String>> permutationsForIsShownAtAndBy = new ArrayList<>();
+    Pair<String, String> queryFieldIsShownAtAndByPair = null;
+    if (!CollectionUtils.isEmpty(isShownAtList) && !CollectionUtils.isEmpty(isShownByList)) {
+      permutationsForIsShownAtAndBy = Lists
+          .cartesianProduct(Arrays.asList(isShownAtList, isShownByList));
+      queryFieldIsShownAtAndByPair = new Pair<>(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_AT.toString(),
+          EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString());
+    }
+
+    //Combine different permutation groups into an OR joined string
+    final String permutationsCombinedOr = generatePermutationsCombinedOr(permutations,
+        queryFieldPair);
+    final String permutationsForIsShownAtAndByCombinedOr = generatePermutationsCombinedOr(
+        permutationsForIsShownAtAndBy, queryFieldIsShownAtAndByPair);
+
+    return Stream.of(permutationsCombinedOr, permutationsForIsShownAtAndByCombinedOr)
+        .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
+  }
+
+  private String generatePermutationsCombinedOr(List<List<String>> permutations,
+      Pair<String, String> queryFieldPair) {
+    return permutations.stream()
+        .map(item -> String.format("(%s:%s AND %s:%s)", queryFieldPair.getKey(), item.get(0),
+            queryFieldPair.getValue(), item.get(1))).collect(Collectors.joining(" OR "));
+  }
+
+  private String generateQueryForDatasetIds(List<String> datasetIdsToRedirectFrom,
+      String recordIdIncludingDatasetId) {
+    String combinedQueryForRedirectedDatasetIds = null;
+    //Check matches with older dataset identifiers
+    if (!CollectionUtils.isEmpty(datasetIdsToRedirectFrom)) {
+      //The incoming structure of the identifier is /datasetId/recordId
+      final String[] splitRecordIdentifier = recordIdIncludingDatasetId.split("/");
+      String recordId = splitRecordIdentifier[2];
+
+      combinedQueryForRedirectedDatasetIds = datasetIdsToRedirectFrom.stream()
+          .map(datasetIdForRedirection -> String
+              .format("%s:/%s/%s", EdmLabel.EUROPEANA_ID.toString(), datasetIdForRedirection,
+                  recordId)).collect(Collectors.joining(" OR "));
+    }
+    return combinedQueryForRedirectedDatasetIds;
   }
 
   private SolrDocumentList getSolrDocuments(Map<String, String> queryParamMap)
