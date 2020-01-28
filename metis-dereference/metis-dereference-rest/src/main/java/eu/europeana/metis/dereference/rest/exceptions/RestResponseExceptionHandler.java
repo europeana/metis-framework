@@ -23,8 +23,10 @@ public class RestResponseExceptionHandler{
   @ExceptionHandler({Exception.class})
   public ServerError handleResponse(HttpServletResponse response, HttpServletRequest req,
       Exception exception) {
-    HttpStatus status = AnnotationUtils.findAnnotation(exception.getClass(), ResponseStatus.class)
-        .value();
+    final ResponseStatus annotationResponseStatus = AnnotationUtils
+        .findAnnotation(exception.getClass(), ResponseStatus.class);
+    HttpStatus status = annotationResponseStatus == null ? HttpStatus.INTERNAL_SERVER_ERROR
+        : annotationResponseStatus.value();
     response.setStatus(status.value());
     return new ServerError(exception.getMessage());
   }
