@@ -29,8 +29,8 @@ public class WebResourceMetaInfoUpdater
 
   @Override
   protected MongoPropertyUpdater<WebResourceMetaInfoImpl> createPropertyUpdater(
-      WebResourceMetaInfoImpl newEntity, WebResourceInformation ancestorInformation, Date recordDate,
-      MongoServer mongoServer) {
+      WebResourceMetaInfoImpl newEntity, WebResourceInformation ancestorInformation,
+      Date recordDate, String recordIdToRedirectFrom, MongoServer mongoServer) {
     final String hashCode = generateHashCode(ancestorInformation.getWebResourceAbout(),
         ancestorInformation.getRootAbout());
     final Supplier<Query<WebResourceMetaInfoImpl>> querySupplier =

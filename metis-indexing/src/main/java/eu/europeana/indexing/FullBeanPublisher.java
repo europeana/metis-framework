@@ -149,9 +149,10 @@ class FullBeanPublisher {
         preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
             : (FullBeanPublisher::setUpdateAndCreateTime);
 
+    List<String> recordsForRedirection = new ArrayList<>();
     if (performRedirects) {
       //Search Solr to find matching record for redirection
-      final List<String> recordsForRedirection = searchMatchingRecordForRedirection(rdf,
+      recordsForRedirection = searchMatchingRecordForRedirection(rdf,
           datasetIdsToRedirectFrom);
 
       //Create redirection
@@ -164,7 +165,8 @@ class FullBeanPublisher {
     final FullBeanImpl savedFullBean;
     try {
       savedFullBean = new FullBeanUpdater(fullBeanPreprocessor)
-          .update(fullBean, recordDate, edmMongoClient);
+          .update(fullBean, recordDate, recordsForRedirection.stream().findFirst().orElse(null),
+              edmMongoClient);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
     } catch (MongoSocketException | MongoClientException | MongoInternalException | MongoInterruptedException e) {

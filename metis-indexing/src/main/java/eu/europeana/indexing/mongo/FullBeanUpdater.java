@@ -27,7 +27,7 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
    *        retrieved the current version of the full bean from the database. It will be called
    *        once. It's first parameter is the current full bean (as retrieved from the database) and
    *        its second parameter is the updated full bean (as passed to
-   *        {@link #createPropertyUpdater(FullBeanImpl, Void, Date, MongoServer)}).
+   *        {@link AbstractMongoObjectUpdater#createPropertyUpdater(Object, Object, Date, String, MongoServer)}).
    */
   public FullBeanUpdater(TriConsumer<FullBeanImpl, FullBeanImpl, Date> fullBeanPreprocessor) {
     this.fullBeanPreprocessor = fullBeanPreprocessor;
@@ -38,18 +38,21 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
    *
    * @param newEntity The new entity (to take the new values from).
    * @param recordDate The date that would represent the created/updated date of a record
+   * @param recordIdToRedirectFrom The record that we are redirecting from, this is used so that the created and updated timestamp can be maintained
    * @param mongoServer The mongo server.
    * @return The updated entity.
    */
-  public final FullBeanImpl update(FullBeanImpl newEntity, Date recordDate, MongoServer mongoServer) {
-    return update(newEntity,null, recordDate, mongoServer);
+  public final FullBeanImpl update(FullBeanImpl newEntity, Date recordDate, String recordIdToRedirectFrom,
+      MongoServer mongoServer) {
+    return update(newEntity,null, recordDate, recordIdToRedirectFrom, mongoServer);
   }
 
   @Override
   protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
-      Void ancestorInformation, Date recordDate, MongoServer mongoServer) {
+      Void ancestorInformation, Date recordDate, String recordIdToRedirectFrom,
+      MongoServer mongoServer) {
     return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
-        FullBeanImpl.class, FullBeanImpl::getAbout, fullBeanPreprocessor, recordDate);
+        FullBeanImpl.class, FullBeanImpl::getAbout, fullBeanPreprocessor, recordDate, recordIdToRedirectFrom);
   }
 
   @Override

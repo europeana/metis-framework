@@ -84,11 +84,13 @@ public final class MongoPropertyUpdaterFactory {
    * current bean (found in the database) and second the updated (as passed to this method) and a
    * record date. Can be null.
    * @param recordDate The date that would represent the created/updated date of a record
+   * @param recordIdToRedirectFrom The record that we are redirecting from, this is used so that the created and updated timestamp can be maintained
    * @return The property updater.
+   * @param <T>
    */
   public static <T> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
       MongoServer mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
-      TriConsumer<T, T, Date> preprocessor, Date recordDate) {
+      TriConsumer<T, T, Date> preprocessor, Date recordDate, String recordIdToRedirectFrom) {
 
     // Sanity checks.
     if (aboutGetter == null) {
@@ -98,9 +100,11 @@ public final class MongoPropertyUpdaterFactory {
       throw new IllegalArgumentException("Object does not have an 'about' value.");
     }
 
-    // Create object.
+    // Find object with the same about, it will be either the redirected one or the previous inserted.
     final Supplier<Query<T>> queryCreator = () -> mongoServer.getDatastore().find(objectClass)
-        .field(ABOUT_FIELD).equal(aboutGetter.apply(updated));
+        .field(ABOUT_FIELD).equal(
+            StringUtils.isNotBlank(recordIdToRedirectFrom) ? recordIdToRedirectFrom
+                : aboutGetter.apply(updated));
 
     // Set the about.
     final Consumer<UpdateOperations<T>> operationsPreprocessor = operations -> operations
