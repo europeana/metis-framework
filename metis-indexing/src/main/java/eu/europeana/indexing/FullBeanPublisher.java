@@ -127,6 +127,7 @@ class FullBeanPublisher {
    * @param rdf RDF to publish.
    * @param recordDate The date that would represent the created/updated date of a record
    * @param datasetIdsToRedirectFrom The dataset ids that their records need to be redirected
+   * @param performRedirects flag that indicates if redirect should be performed
    * @throws IndexingException which can be one of:
    * <ul>
    * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
@@ -135,7 +136,8 @@ class FullBeanPublisher {
    * contents</li>
    * </ul>
    */
-  public void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom)
+  public void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
+      boolean performRedirects)
       throws IndexingException {
 
     // Convert RDF to Full Bean.
@@ -147,13 +149,15 @@ class FullBeanPublisher {
         preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
             : (FullBeanPublisher::setUpdateAndCreateTime);
 
-    //Search Solr to find matching record for redirection
-    final List<String> recordsForRedirection = searchMatchingRecordForRedirection(rdf,
-        datasetIdsToRedirectFrom);
+    if (performRedirects) {
+      //Search Solr to find matching record for redirection
+      final List<String> recordsForRedirection = searchMatchingRecordForRedirection(rdf,
+          datasetIdsToRedirectFrom);
 
-    //Create redirection
-    if (!CollectionUtils.isEmpty(recordsForRedirection)) {
-      createRedirections(rdf.getAbout(), recordsForRedirection, recordDate);
+      //Create redirection
+      if (!CollectionUtils.isEmpty(recordsForRedirection)) {
+        createRedirections(rdf.getAbout(), recordsForRedirection, recordDate);
+      }
     }
 
     // Publish to Mongo

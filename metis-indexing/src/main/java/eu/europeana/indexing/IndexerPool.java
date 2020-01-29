@@ -91,13 +91,14 @@ public class IndexerPool implements Closeable {
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
+   * @param performRedirects flag that indicates if redirect should be performed
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection)
+      List<String> datasetIdsForRedirection, boolean performRedirects)
       throws IndexingException {
     indexRecord(indexer -> indexer
-        .index(record, recordDate, preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection));
+        .index(record, recordDate, preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection, performRedirects));
   }
 
   /**
@@ -110,13 +111,14 @@ public class IndexerPool implements Closeable {
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
    * updated and created times from the incoming RDFs, or whether it computes its own.
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
+   * @param performRedirects flag that indicates if redirect should be performed
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void indexRdf(RDF record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection)
+      List<String> datasetIdsForRedirection, boolean performRedirects)
       throws IndexingException {
     indexRecord(indexer -> indexer.indexRdf(record, recordDate, preserveUpdateAndCreateTimesFromRdf,
-        datasetIdsForRedirection));
+        datasetIdsForRedirection, performRedirects));
   }
 
   private void indexRecord(IndexTask indexTask) throws IndexingException {

@@ -158,7 +158,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
 
   DpsTask createDpsTaskForIndexPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
       String datasetId, boolean useAlternativeIndexingEnvironment, boolean preserveTimestamps,
-      List<String> datasetIdsToRedirectFrom, String targetDatabase) {
+      List<String> datasetIdsToRedirectFrom, boolean performRedirects, String targetDatabase) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("METIS_DATASET_ID", datasetId);
     extraParameters.put("TARGET_INDEXING_DATABASE", targetDatabase);
@@ -167,6 +167,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     extraParameters.put("RECORD_DATE", dateFormat.format(getStartedDate()));
     extraParameters.put("PRESERVE_TIMESTAMPS", String.valueOf(preserveTimestamps));
     extraParameters.put("DATASET_IDS_TO_REDIRECT_FROM", String.join(",", datasetIdsToRedirectFrom));
+    extraParameters.put("PERFORM_REDIRECTS", String.valueOf(performRedirects));
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 

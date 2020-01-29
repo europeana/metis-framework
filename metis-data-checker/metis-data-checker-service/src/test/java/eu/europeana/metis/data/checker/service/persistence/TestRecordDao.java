@@ -22,10 +22,10 @@ class TestRecordDao {
     recordDao.createRecord(rdf, recordDate);
 
     Mockito.verify(indexer, Mockito.times(1)).indexRdf(Mockito.any(), Mockito.any(Date.class),
-        Mockito.anyBoolean(), Mockito.any()
+        Mockito.anyBoolean(), Mockito.any(), Mockito.anyBoolean()
     );
     Mockito.verify(indexer, Mockito.times(1)).indexRdf(Mockito.eq(rdf), Mockito.any(Date.class),
-        Mockito.anyBoolean(), Mockito.any()
+        Mockito.anyBoolean(), Mockito.any(), Mockito.anyBoolean()
     );
 
   }

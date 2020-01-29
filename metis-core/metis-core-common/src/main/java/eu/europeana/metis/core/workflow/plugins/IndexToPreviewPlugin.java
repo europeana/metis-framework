@@ -49,7 +49,8 @@ public class IndexToPreviewPlugin extends AbstractExecutablePlugin<IndexToPrevie
         .isUseAlternativeIndexingEnvironment();
     boolean preserveTimestamps = getPluginMetadata().isPreserveTimestamps();
     final List<String> datasetIdsToRedirectFrom = getPluginMetadata().getDatasetIdsToRedirectFrom();
+    final boolean performRedirects = getPluginMetadata().isPerformRedirects();
     return createDpsTaskForIndexPlugin(ecloudBasePluginParameters, datasetId,
-        useAlternativeIndexingEnvironment, preserveTimestamps, datasetIdsToRedirectFrom, "PREVIEW");
+        useAlternativeIndexingEnvironment, preserveTimestamps, datasetIdsToRedirectFrom, performRedirects,"PREVIEW");
   }
 }
