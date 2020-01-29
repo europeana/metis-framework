@@ -127,6 +127,45 @@ class FullBeanPublisher {
    * @param rdf RDF to publish.
    * @param recordDate The date that would represent the created/updated date of a record
    * @param datasetIdsToRedirectFrom The dataset ids that their records need to be redirected
+   * @throws IndexingException which can be one of:
+   * <ul>
+   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
+   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
+   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
+   * contents</li>
+   * </ul>
+   */
+  public void publishWithRedirects(RdfWrapper rdf, Date recordDate,
+      List<String> datasetIdsToRedirectFrom)
+      throws IndexingException {
+    publish(rdf, recordDate, datasetIdsToRedirectFrom, true);
+  }
+
+  /**
+   * Publishes an RDF.
+   *
+   * @param rdf RDF to publish.
+   * @param recordDate The date that would represent the created/updated date of a record
+   * @param datasetIdsToRedirectFrom The dataset ids that their records need to be redirected
+   * @throws IndexingException which can be one of:
+   * <ul>
+   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
+   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
+   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
+   * contents</li>
+   * </ul>
+   */
+  public void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom)
+      throws IndexingException {
+    publish(rdf, recordDate, datasetIdsToRedirectFrom, false);
+  }
+
+  /**
+   * Publishes an RDF.
+   *
+   * @param rdf RDF to publish.
+   * @param recordDate The date that would represent the created/updated date of a record
+   * @param datasetIdsToRedirectFrom The dataset ids that their records need to be redirected
    * @param performRedirects flag that indicates if redirect should be performed
    * @throws IndexingException which can be one of:
    * <ul>
@@ -136,7 +175,7 @@ class FullBeanPublisher {
    * contents</li>
    * </ul>
    */
-  public void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
+  private void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
       boolean performRedirects)
       throws IndexingException {
 
