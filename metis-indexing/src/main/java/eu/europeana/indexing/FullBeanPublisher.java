@@ -188,17 +188,9 @@ class FullBeanPublisher {
         preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
             : (FullBeanPublisher::setUpdateAndCreateTime);
 
-    List<String> recordsForRedirection = new ArrayList<>();
-    if (performRedirects) {
-      //Search Solr to find matching record for redirection
-      recordsForRedirection = searchMatchingRecordForRedirection(rdf,
-          datasetIdsToRedirectFrom);
-
-      //Create redirection
-      if (!CollectionUtils.isEmpty(recordsForRedirection)) {
-        createRedirections(rdf.getAbout(), recordsForRedirection, recordDate);
-      }
-    }
+    //The list can be empty if redirects are not applied if no redirect were found
+    List<String> recordsForRedirection = checkAndApplyRedirects(rdf, recordDate,
+        datasetIdsToRedirectFrom, performRedirects);
 
     // Publish to Mongo
     final FullBeanImpl savedFullBean;
@@ -226,6 +218,23 @@ class FullBeanPublisher {
     } catch (Exception e) {
       throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
     }
+  }
+
+  private List<String> checkAndApplyRedirects(RdfWrapper rdf, Date recordDate,
+      List<String> datasetIdsToRedirectFrom, boolean performRedirects)
+      throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
+    List<String> recordsForRedirection = new ArrayList<>();
+    if (performRedirects) {
+      //Search Solr to find matching record for redirection
+      recordsForRedirection = searchMatchingRecordForRedirection(rdf,
+          datasetIdsToRedirectFrom);
+
+      //Create redirection
+      if (!CollectionUtils.isEmpty(recordsForRedirection)) {
+        createRedirections(rdf.getAbout(), recordsForRedirection, recordDate);
+      }
+    }
+    return recordsForRedirection;
   }
 
   private void publishToSolr(RdfWrapper rdf, FullBeanImpl fullBean) throws IndexingException {
