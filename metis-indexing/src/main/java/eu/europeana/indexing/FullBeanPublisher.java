@@ -254,12 +254,6 @@ class FullBeanPublisher {
     String datasetId = splitRecordIdentifier[1];
     String recordId = splitRecordIdentifier[2];
 
-    //Check first if record with same record identifier exists
-    final Map<String, String> queryParamMap = new HashMap<>();
-    queryParamMap
-        .put("q", String.format("%s:%s", EdmLabel.EUROPEANA_ID.toString(), rdfWrapper.getAbout()));
-    queryParamMap.put("fl", EdmLabel.EUROPEANA_ID.toString());
-
     //Create combinations of all rules into one query
     final String queryForDatasetIds = generateQueryForDatasetIds(datasetIdsToRedirectFrom,
         recordId);
@@ -276,10 +270,11 @@ class FullBeanPublisher {
       datasetIdsToRedirectFrom.stream().filter(StringUtils::isNotBlank).forEach(datasetIds::add);
     }
     final String datasetIdSubsets = generateQueryInDatasetSubsets(datasetIds);
-
     final String finalQuery = String.format("(%s) AND (%s)", datasetIdSubsets, combinedQueryOr);
-    queryParamMap.put("q", finalQuery);
 
+    //Apply solr query and execute
+    final Map<String, String> queryParamMap = new HashMap<>();
+    queryParamMap.put("q", finalQuery);
     SolrDocumentList documents = getSolrDocuments(queryParamMap);
     if (!CollectionUtils.isEmpty(documents)) {
       //Get all identifiers found
