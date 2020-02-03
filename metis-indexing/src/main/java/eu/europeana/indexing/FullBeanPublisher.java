@@ -40,8 +40,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javafx.util.Pair;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -323,29 +324,29 @@ class FullBeanPublisher {
     Pair<String, String> queryFieldPair = null;
     if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(titles)) {
       permutations = Lists.cartesianProduct(Arrays.asList(identifiers, titles));
-      queryFieldPair = new Pair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
+      queryFieldPair = new ImmutablePair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
           EdmLabel.PROXY_DC_TITLE.toString());
 
     } else if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(descriptions)) {
       permutations = Lists.cartesianProduct(Arrays.asList(identifiers, descriptions));
-      queryFieldPair = new Pair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
+      queryFieldPair = new ImmutablePair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
           EdmLabel.PROXY_DC_DESCRIPTION.toString());
 
     } else if (CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(isShownByList)
         && !CollectionUtils.isEmpty(titles)) {
       permutations = Lists.cartesianProduct(Arrays.asList(isShownByList, titles));
-      queryFieldPair = new Pair<>(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(),
+      queryFieldPair = new ImmutablePair<>(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(),
           EdmLabel.PROXY_DC_TITLE.toString());
 
     } else if (CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(isShownByList)
         && !CollectionUtils.isEmpty(descriptions)) {
       permutations = Lists.cartesianProduct(Arrays.asList(isShownByList, descriptions));
-      queryFieldPair = new Pair<>(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(),
+      queryFieldPair = new ImmutablePair<>(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(),
           EdmLabel.PROXY_DC_DESCRIPTION.toString());
 
     } else if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(isShownByList)) {
       permutations = Lists.cartesianProduct(Arrays.asList(identifiers, isShownByList));
-      queryFieldPair = new Pair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
+      queryFieldPair = new ImmutablePair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
           EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString());
     }
 
@@ -354,7 +355,7 @@ class FullBeanPublisher {
     if (!CollectionUtils.isEmpty(isShownAtList) && !CollectionUtils.isEmpty(isShownByList)) {
       permutationsForIsShownAtAndBy = Lists
           .cartesianProduct(Arrays.asList(isShownAtList, isShownByList));
-      queryFieldIsShownAtAndByPair = new Pair<>(
+      queryFieldIsShownAtAndByPair = new ImmutablePair<>(
           EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_AT.toString(),
           EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString());
     }
@@ -372,8 +373,8 @@ class FullBeanPublisher {
   private String generatePermutationsCombinedOr(List<List<String>> permutations,
       Pair<String, String> queryFieldPair) {
     return permutations.stream()
-        .map(item -> String.format("(%s:%s AND %s:%s)", queryFieldPair.getKey(), item.get(0),
-            queryFieldPair.getValue(), item.get(1))).collect(Collectors.joining(" OR "));
+        .map(item -> String.format("(%s:%s AND %s:%s)", queryFieldPair.getLeft(), item.get(0),
+            queryFieldPair.getRight(), item.get(1))).collect(Collectors.joining(" OR "));
   }
 
   private String generateQueryInDatasetSubsets(List<String> datasetIds) {
