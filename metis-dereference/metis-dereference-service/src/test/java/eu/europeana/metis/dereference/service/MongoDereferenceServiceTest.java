@@ -21,6 +21,7 @@ import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -82,7 +83,8 @@ class MongoDereferenceServiceTest {
     Vocabulary geonames = new Vocabulary();
     geonames.setUri("http://sws.geonames.org/");
     geonames.setXslt(
-        IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")));
+        IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl"),
+            StandardCharsets.UTF_8));
     geonames.setName("Geonames");
     geonames.setIterations(1);
     String geonamesId = vocabularyDao.save(geonames);

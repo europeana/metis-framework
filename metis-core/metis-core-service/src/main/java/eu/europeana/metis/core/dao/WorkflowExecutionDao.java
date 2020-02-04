@@ -239,7 +239,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
                 .field(DATASET_ID.getFieldName()).equal(workflowExecution.getDatasetId())
-                .project("_id", true).get()) != null;
+                .project("_id", true).first()) != null;
   }
 
   /**
@@ -709,7 +709,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .retryableExternalRequestConnectionReset(() ->
             morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id")
                 .equal(id)
-                .project(WORKFLOW_STATUS.getFieldName(), true).get());
+                .project(WORKFLOW_STATUS.getFieldName(), true).first());
     return workflowExecution != null
         && workflowExecution.getWorkflowStatus() == WorkflowStatus.CANCELLED;
   }
@@ -725,7 +725,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     WorkflowExecution workflowExecution = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id")
-                .equal(id).project("cancelling", true).get());
+                .equal(id).project("cancelling", true).first());
     return workflowExecution != null && workflowExecution.isCancelling();
   }
 

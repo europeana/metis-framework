@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -236,6 +237,7 @@ class TestValidationController {
 
 
   private String prepareXMLRequest() throws IOException {
-    return IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
+    return IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"),
+        StandardCharsets.UTF_8);
   }
 }

@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
+ * Dataset Access Object for xslts using Mongo
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-27
  */
@@ -59,14 +61,15 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   public DatasetXslt getById(String id) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
-            .filter(ID.getFieldName(), new ObjectId(id)).get());
+            .filter(ID.getFieldName(), new ObjectId(id)).first());
   }
 
   @Override
   public boolean delete(DatasetXslt datasetXslt) {
     ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().delete(
-            morphiaDatastoreProvider.getDatastore().createQuery(DatasetXslt.class).field(ID.getFieldName())
+            morphiaDatastoreProvider.getDatastore().createQuery(DatasetXslt.class)
+                .field(ID.getFieldName())
                 .equal(datasetXslt.getId())));
     LOGGER.debug("DatasetXslt with objectId: '{}', datasetId: '{}'deleted in Mongo",
         datasetXslt.getId(),
@@ -100,7 +103,8 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   DatasetXslt getLatestXsltForDatasetId(String datasetId) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
-            .filter(DATASET_ID.getFieldName(), datasetId).order(Sort.descending("createdDate")).get());
+            .filter(DATASET_ID.getFieldName(), datasetId).order(Sort.descending("createdDate"))
+            .first());
   }
 
   /**
