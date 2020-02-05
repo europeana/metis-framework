@@ -4,8 +4,8 @@ import com.mongodb.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
+import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.core.net.ssl.TrustStoreConfigurationException;
 
 /**
  * This class is responsible for performing initializing tasks for the application.
