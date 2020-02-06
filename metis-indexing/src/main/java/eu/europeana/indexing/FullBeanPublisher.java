@@ -1,6 +1,5 @@
 package eu.europeana.indexing;
 
-import com.google.common.collect.Lists;
 import com.mongodb.MongoClientException;
 import com.mongodb.MongoConfigurationException;
 import com.mongodb.MongoIncompatibleDriverException;
@@ -31,23 +30,23 @@ import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.util.ClientUtils;
+import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.MapSolrParams;
@@ -267,7 +266,9 @@ class FullBeanPublisher {
     //Create combinations of all rules into one query
     final String queryForDatasetIds = generateQueryForDatasetIds(datasetIdsToRedirectFrom,
         recordId);
-    final String queryForMatchingFields = generateQueryForMatchingFields(rdfWrapper);
+    final HashMap<String, List<String>> subQueryFields = new HashMap<>();
+    final String queryForMatchingFields = generateQueryForMatchingFields(rdfWrapper,
+        subQueryFields);
     final String combinedQueryOr = Stream
         .of(queryForDatasetIds, queryForMatchingFields)
         .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
@@ -276,7 +277,6 @@ class FullBeanPublisher {
     final List<String> datasetIds = new ArrayList<>();
     datasetIds.add(datasetId);
     if (!CollectionUtils.isEmpty(datasetIdsToRedirectFrom)) {
-      datasetIds.clear();
       datasetIdsToRedirectFrom.stream().filter(StringUtils::isNotBlank).forEach(datasetIds::add);
     }
     final String datasetIdSubsets = generateQueryInDatasetSubsets(datasetIds);
@@ -285,21 +285,37 @@ class FullBeanPublisher {
     //Apply solr query and execute
     final Map<String, String> queryParamMap = new HashMap<>();
     queryParamMap.put("q", finalQuery);
-    SolrDocumentList documents = getSolrDocuments(queryParamMap);
-    if (!CollectionUtils.isEmpty(documents)) {
-      //Get all identifiers found
-      return documents.stream()
+
+    //Prepare subquery
+    Predicate<SolrDocument> predicate = document -> {
+      boolean flag = false;
+      for (Entry<String, List<String>> entry : subQueryFields.entrySet()) {
+        flag = document.getFieldValues(entry.getKey()).stream().map(String.class::cast)
+            .anyMatch(entry.getValue()::contains);
+      }
+      return flag;
+    };
+    //Preprocess subquery and replace documents based on the result
+    SolrDocumentList solrDocuments = getSolrDocuments(queryParamMap);
+    final SolrDocumentList subQueryResults = solrDocuments.stream().filter(predicate)
+        .collect(Collectors.toCollection(SolrDocumentList::new));
+    if (!CollectionUtils.isEmpty(subQueryResults)) {
+      solrDocuments = subQueryResults;
+    }
+    //Return all identifiers found
+    if (!CollectionUtils.isEmpty(solrDocuments)) {
+      return solrDocuments.stream()
           .map(document -> (String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))
           .collect(Collectors.toList());
     }
     return new ArrayList<>();
   }
 
-  private String generateQueryForMatchingFields(RdfWrapper rdfWrapper) {
+  private String generateQueryForMatchingFields(RdfWrapper rdfWrapper,
+      Map<String, List<String>> subQueryFields) {
     //Collect all required information for heuristics
     final List<String> identifiers = rdfWrapper.getProviderProxyIdentifiers().stream()
-        .map(Identifier::getString)
-        .collect(Collectors.toList());
+        .map(Identifier::getString).collect(Collectors.toList());
     final List<String> titles = rdfWrapper.getProviderProxyTitles().stream().map(Title::getString)
         .collect(Collectors.toList());
     final List<String> descriptions = rdfWrapper.getProviderProxyDescriptions().stream()
@@ -319,62 +335,92 @@ class FullBeanPublisher {
         .map(IsShownAt::getResource)
         .collect(Collectors.toList());
 
-    //Create all possible permutations
-    List<List<String>> permutations = new ArrayList<>();
-    Pair<String, String> queryFieldPair = null;
-    if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(titles)) {
-      permutations = Lists.cartesianProduct(Arrays.asList(identifiers, titles));
-      queryFieldPair = new ImmutablePair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
-          EdmLabel.PROXY_DC_TITLE.toString());
-
-    } else if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(descriptions)) {
-      permutations = Lists.cartesianProduct(Arrays.asList(identifiers, descriptions));
-      queryFieldPair = new ImmutablePair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
-          EdmLabel.PROXY_DC_DESCRIPTION.toString());
-
-    } else if (CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(isShownByList)
-        && !CollectionUtils.isEmpty(titles)) {
-      permutations = Lists.cartesianProduct(Arrays.asList(isShownByList, titles));
-      queryFieldPair = new ImmutablePair<>(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(),
-          EdmLabel.PROXY_DC_TITLE.toString());
-
-    } else if (CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(isShownByList)
-        && !CollectionUtils.isEmpty(descriptions)) {
-      permutations = Lists.cartesianProduct(Arrays.asList(isShownByList, descriptions));
-      queryFieldPair = new ImmutablePair<>(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(),
-          EdmLabel.PROXY_DC_DESCRIPTION.toString());
-
-    } else if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(isShownByList)) {
-      permutations = Lists.cartesianProduct(Arrays.asList(identifiers, isShownByList));
-      queryFieldPair = new ImmutablePair<>(EdmLabel.PROXY_DC_IDENTIFIER.toString(),
-          EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString());
-    }
-
-    List<List<String>> permutationsForIsShownAtAndBy = new ArrayList<>();
-    Pair<String, String> queryFieldIsShownAtAndByPair = null;
-    if (!CollectionUtils.isEmpty(isShownAtList) && !CollectionUtils.isEmpty(isShownByList)) {
-      permutationsForIsShownAtAndBy = Lists
-          .cartesianProduct(Arrays.asList(isShownAtList, isShownByList));
-      queryFieldIsShownAtAndByPair = new ImmutablePair<>(
-          EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_AT.toString(),
-          EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString());
-    }
+    //Create all lists that need to be combined
+    final Map<String, List<String>> firstMapOfLists = createFirstCombinationGroup(identifiers,
+        titles, descriptions);
+    subQueryFields = firstMapOfLists;
+    final Map<String, List<String>> secondMapOfLists = createSecondCombinationGroup(isShownByList,
+        titles, descriptions);
+    final Map<String, List<String>> thirdMapOfLists = createThirdCombinationGroup(isShownByList,
+        identifiers);
+    final Map<String, List<String>> isShownAtAndByMapOfLists = createIsShowByAtCombinationGroup(
+        isShownByList, isShownAtList);
 
     //Combine different permutation groups into an OR joined string
-    final String permutationsCombinedOr = generatePermutationsCombinedOr(permutations,
-        queryFieldPair);
-    final String permutationsForIsShownAtAndByCombinedOr = generatePermutationsCombinedOr(
-        permutationsForIsShownAtAndBy, queryFieldIsShownAtAndByPair);
+    final String firstGroupOr = generateQueryForFields(firstMapOfLists);
+    final String secondGroupOr = generateQueryForFields(secondMapOfLists);
+    final String thirdGroupOr = generateQueryForFields(thirdMapOfLists);
+    final String isShownAtAndByGroupOr = generateQueryForFields(isShownAtAndByMapOfLists);
 
-    return Stream.of(permutationsCombinedOr, permutationsForIsShownAtAndByCombinedOr)
+    return Stream.of(firstGroupOr, secondGroupOr, thirdGroupOr, isShownAtAndByGroupOr)
         .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
   }
 
-  private String generatePermutationsCombinedOr(List<List<String>> permutations,
-      Pair<String, String> queryFieldPair) {
-    return permutations.stream()
-        .map(item -> String.format("(%s:%s AND %s:%s)", queryFieldPair.getLeft(), item.get(0),
-            queryFieldPair.getRight(), item.get(1))).collect(Collectors.joining(" OR "));
+  private HashMap<String, List<String>> createFirstCombinationGroup(List<String> identifiers,
+      List<String> titles, List<String> descriptions) {
+    final HashMap<String, List<String>> listsToCombineMaps = new HashMap<>();
+    if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(titles)) {
+      listsToCombineMaps.put(EdmLabel.PROXY_DC_IDENTIFIER.toString(), identifiers);
+      listsToCombineMaps.put(EdmLabel.PROXY_DC_TITLE.toString(), titles);
+    } else if (!CollectionUtils.isEmpty(identifiers) && !CollectionUtils.isEmpty(descriptions)) {
+      listsToCombineMaps.put(EdmLabel.PROXY_DC_IDENTIFIER.toString(), identifiers);
+      listsToCombineMaps.put(EdmLabel.PROXY_DC_DESCRIPTION.toString(), descriptions);
+    }
+    return listsToCombineMaps;
+  }
+
+  private HashMap<String, List<String>> createSecondCombinationGroup(List<String> isShownByList,
+      List<String> titles, List<String> descriptions) {
+    HashMap<String, List<String>> listsToCombineMaps = new HashMap<>();
+    if (!CollectionUtils.isEmpty(isShownByList)) {
+      if (!CollectionUtils.isEmpty(titles)) {
+        listsToCombineMaps
+            .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
+        listsToCombineMaps.put(EdmLabel.PROXY_DC_TITLE.toString(), titles);
+      } else if (!CollectionUtils.isEmpty(descriptions)) {
+        listsToCombineMaps
+            .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
+        listsToCombineMaps.put(EdmLabel.PROXY_DC_DESCRIPTION.toString(), descriptions);
+      }
+    }
+    return listsToCombineMaps;
+  }
+
+  private HashMap<String, List<String>> createThirdCombinationGroup(List<String> isShownByList,
+      List<String> identifiers) {
+    HashMap<String, List<String>> listsToCombineMaps = new HashMap<>();
+    if (!CollectionUtils.isEmpty(isShownByList) && !CollectionUtils.isEmpty(identifiers)) {
+      listsToCombineMaps
+          .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
+      listsToCombineMaps.put(EdmLabel.PROXY_DC_IDENTIFIER.toString(), identifiers);
+    }
+    return listsToCombineMaps;
+  }
+
+  private HashMap<String, List<String>> createIsShowByAtCombinationGroup(List<String> isShownByList,
+      List<String> isShownAtList) {
+    final HashMap<String, List<String>> listsToCombineMapsIsShownAtAndBy = new HashMap<>();
+    if (!CollectionUtils.isEmpty(isShownAtList) && !CollectionUtils.isEmpty(isShownByList)) {
+      listsToCombineMapsIsShownAtAndBy
+          .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
+      listsToCombineMapsIsShownAtAndBy
+          .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_AT.toString(), isShownAtList);
+    }
+    return listsToCombineMapsIsShownAtAndBy;
+  }
+
+  private String generateQueryForFields(Map<String, List<String>> listsToCombine) {
+    final String combinationResult = listsToCombine.entrySet().stream()
+        .map(entry -> generateOrOperationFromList(entry.getKey(), entry.getValue()))
+        .collect(Collectors.joining(" AND "));
+    return String.format("(%s)", combinationResult);
+  }
+
+  private String generateOrOperationFromList(String queryFieldName, List<String> items) {
+    final String orCombinedItems = items.stream()
+        .map(item -> String.format("%s:%s", queryFieldName, item))
+        .collect(Collectors.joining(" OR "));
+    return String.format("(%s)", orCombinedItems);
   }
 
   private String generateQueryInDatasetSubsets(List<String> datasetIds) {
