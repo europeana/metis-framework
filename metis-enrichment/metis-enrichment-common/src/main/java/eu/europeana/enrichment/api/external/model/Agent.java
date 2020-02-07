@@ -26,19 +26,19 @@ public class Agent extends EnrichmentBase {
   private List<Label> identifier = new ArrayList<>();
   @XmlElement(name = "hasMet", namespace = "http://www.europeana.eu/schemas/edm/")
   private List<Label> hasMet = new ArrayList<>();
-  @XmlElement(name = "biographicaInformation", namespace = "http://RDVocab.info/ElementsGr2/")
+  @XmlElement(name = "biographicaInformation", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<Label> biographicaInformation = new ArrayList<>();
-  @XmlElement(name = "dateOfBirth", namespace = "http://RDVocab.info/ElementsGr2/")
+  @XmlElement(name = "dateOfBirth", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<Label> dateOfBirth = new ArrayList<>();
-  @XmlElement(name = "dateOfDeath", namespace = "http://RDVocab.info/ElementsGr2/")
+  @XmlElement(name = "dateOfDeath", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<Label> dateOfDeath = new ArrayList<>();
-  @XmlElement(name = "dateOfEstablishment", namespace = "http://RDVocab.info/ElementsGr2/")
+  @XmlElement(name = "dateOfEstablishment", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<Label> dateOfEstablishment = new ArrayList<>();
-  @XmlElement(name = "dateOfTermination", namespace = "http://RDVocab.info/ElementsGr2/")
+  @XmlElement(name = "dateOfTermination", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<Label> dateOfTermination = new ArrayList<>();
-  @XmlElement(name = "gender", namespace = "http://RDVocab.info/ElementsGr2/")
+  @XmlElement(name = "gender", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<Label> gender = new ArrayList<>();
-  @XmlElement(name = "professionOrOccupation", namespace = "http://RDVocab.info/ElementsGr2/")
+  @XmlElement(name = "professionOrOccupation", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<LabelResource> professionOrOccupation = new ArrayList<>();
   @XmlElement(name = "date", namespace = "http://purl.org/dc/elements/1.1/")
   private List<LabelResource> date = new ArrayList<>();
