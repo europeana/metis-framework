@@ -171,6 +171,8 @@ public class Converter {
     output.setIdentifier(convert(agent.getDcIdentifier()));
     output.setHasMet(convert(agent.getEdmHasMet()));
     output.setBiographicaInformation(convert(agent.getRdaGr2BiographicalInformation()));
+    output.setPlaceOfBirth(convertResourceOrLiteral(agent.getRdaGr2PlaceOfBirth()));
+    output.setPlaceOfDeath(convertResourceOrLiteral(agent.getRdaGr2PlaceOfDeath()));
     output.setDateOfBirth(convert(agent.getRdaGr2DateOfBirth()));
     output.setDateOfDeath(convert(agent.getRdaGr2DateOfDeath()));
     output.setDateOfEstablishment(convert(agent.getRdaGr2DateOfEstablishment()));

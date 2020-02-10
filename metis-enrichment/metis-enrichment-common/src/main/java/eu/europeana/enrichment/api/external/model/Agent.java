@@ -28,6 +28,10 @@ public class Agent extends EnrichmentBase {
   private List<Label> hasMet = new ArrayList<>();
   @XmlElement(name = "biographicaInformation", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<Label> biographicaInformation = new ArrayList<>();
+  @XmlElement(name = "placeOfBirth", namespace = "http://rdvocab.info/ElementsGr2/")
+  private List<LabelResource> placeOfBirth = new ArrayList<>();
+  @XmlElement(name = "placeOfDeath", namespace = "http://rdvocab.info/ElementsGr2/")
+  private List<LabelResource> placeOfDeath = new ArrayList<>();
   @XmlElement(name = "dateOfBirth", namespace = "http://rdvocab.info/ElementsGr2/")
   private List<Label> dateOfBirth = new ArrayList<>();
   @XmlElement(name = "dateOfDeath", namespace = "http://rdvocab.info/ElementsGr2/")
@@ -103,6 +107,22 @@ public class Agent extends EnrichmentBase {
 
   public void setBiographicaInformation(List<Label> biographicaInformation) {
     this.biographicaInformation = cloneListAcceptingNull(biographicaInformation);
+  }
+
+  public List<LabelResource> getPlaceOfBirth() {
+    return unmodifiableListAcceptingNull(placeOfBirth);
+  }
+
+  public void setPlaceOfBirth(List<LabelResource> placeOfBirth) {
+    this.placeOfBirth = cloneListAcceptingNull(placeOfBirth);
+  }
+
+  public List<LabelResource> getPlaceOfDeath() {
+    return unmodifiableListAcceptingNull(placeOfDeath);
+  }
+
+  public void setPlaceOfDeath(List<LabelResource> placeOfDeath) {
+    this.placeOfDeath = cloneListAcceptingNull(placeOfDeath);
   }
 
   public List<Label> getDateOfBirth() {

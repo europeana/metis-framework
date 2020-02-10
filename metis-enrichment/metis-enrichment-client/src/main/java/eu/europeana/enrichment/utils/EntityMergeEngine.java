@@ -29,6 +29,8 @@ import eu.europeana.corelib.definitions.jibx.NarrowMatch;
 import eu.europeana.corelib.definitions.jibx.Narrower;
 import eu.europeana.corelib.definitions.jibx.Notation;
 import eu.europeana.corelib.definitions.jibx.Note;
+import eu.europeana.corelib.definitions.jibx.PlaceOfBirth;
+import eu.europeana.corelib.definitions.jibx.PlaceOfDeath;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.PrefLabel;
 import eu.europeana.corelib.definitions.jibx.ProfessionOrOccupation;
@@ -146,6 +148,14 @@ public class EntityMergeEngine {
     // dateList
     agentType.setDateList(ItemExtractorUtils.extractLabelResources(agent.getDate(), Date::new));
 
+    // placeOfBirth
+    agentType.setPlaceOfBirthList(
+            ItemExtractorUtils.extractLabelResources(agent.getPlaceOfBirth(), PlaceOfBirth::new));
+
+    // placeOfDeath
+    agentType.setPlaceOfDeathList(
+            ItemExtractorUtils.extractLabelResources(agent.getPlaceOfDeath(), PlaceOfDeath::new));
+
     // dateOfBirth
     agentType.setDateOfBirth(
         ItemExtractorUtils.extractFirstLabel(agent.getDateOfBirth(), DateOfBirth::new));
@@ -189,10 +199,6 @@ public class EntityMergeEngine {
 
     // noteList
     agentType.setNoteList(ItemExtractorUtils.extractLabels(agent.getNotes(), Note::new));
-
-    // placeofBirth: not available
-
-    // placeofDeath: not available
 
     // prefLabelList
     agentType.setPrefLabelList(
