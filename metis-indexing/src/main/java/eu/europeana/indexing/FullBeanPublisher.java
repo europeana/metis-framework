@@ -183,8 +183,7 @@ class FullBeanPublisher {
 
     //The list can be empty if redirects are not applied or if no redirect were found
     List<Pair<String, Date>> recordsForRedirection = RecordRedirectsUtil
-        .checkAndApplyRedirects(recordRedirectDao::createUpdate,
-            recordRedirectDao::getRecordRedirectByNewId, rdf, recordDate, datasetIdsToRedirectFrom,
+        .checkAndApplyRedirects(recordRedirectDao, rdf, recordDate, datasetIdsToRedirectFrom,
             performRedirects, this::getSolrDocuments);
 
     // Publish to Mongo
