@@ -11,6 +11,7 @@ import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
 import eu.europeana.indexing.mongo.property.RootAboutWrapper;
 import java.util.ArrayList;
 import java.util.Date;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.util.TriConsumer;
 
 /**
@@ -18,18 +19,18 @@ import org.apache.logging.log4j.util.TriConsumer;
  */
 public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Void> {
 
-  private final TriConsumer<FullBeanImpl, FullBeanImpl, Date> fullBeanPreprocessor;
+  private final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor;
 
   /**
    * Constructor.
    *
    * @param fullBeanPreprocessor This is functionality that will be executed as soon as we have
-   *        retrieved the current version of the full bean from the database. It will be called
-   *        once. It's first parameter is the current full bean (as retrieved from the database) and
-   *        its second parameter is the updated full bean (as passed to
-   *        {@link AbstractMongoObjectUpdater#createPropertyUpdater(Object, Object, Date, String, MongoServer)}).
+   * retrieved the current version of the full bean from the database. It will be called once. It's
+   * first parameter is the current full bean (as retrieved from the database) and its second
+   * parameter is the updated full bean (as passed to {@link AbstractMongoObjectUpdater#createPropertyUpdater(Object,
+   * Object, Date, Date, MongoServer)}).
    */
-  public FullBeanUpdater(TriConsumer<FullBeanImpl, FullBeanImpl, Date> fullBeanPreprocessor) {
+  public FullBeanUpdater(TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor) {
     this.fullBeanPreprocessor = fullBeanPreprocessor;
   }
 
@@ -38,21 +39,23 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
    *
    * @param newEntity The new entity (to take the new values from).
    * @param recordDate The date that would represent the created/updated date of a record
-   * @param recordIdToRedirectFrom The record that we are redirecting from, this is used so that the created and updated timestamp can be maintained
+   * @param recordCreationDate The date that would represent the created date if it already existed,
+   * e.g. from a redirected record
    * @param mongoServer The mongo server.
    * @return The updated entity.
    */
-  public final FullBeanImpl update(FullBeanImpl newEntity, Date recordDate, String recordIdToRedirectFrom,
+  public final FullBeanImpl update(FullBeanImpl newEntity, Date recordDate, Date recordCreationDate,
       MongoServer mongoServer) {
-    return update(newEntity,null, recordDate, recordIdToRedirectFrom, mongoServer);
+    return update(newEntity, null, recordDate, recordCreationDate, mongoServer);
   }
 
   @Override
   protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
-      Void ancestorInformation, Date recordDate, String recordIdToRedirectFrom,
+      Void ancestorInformation, Date recordDate, Date recordCreationDate,
       MongoServer mongoServer) {
     return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
-        FullBeanImpl.class, FullBeanImpl::getAbout, fullBeanPreprocessor, recordDate, recordIdToRedirectFrom);
+        FullBeanImpl.class, FullBeanImpl::getAbout, fullBeanPreprocessor, recordDate,
+        recordCreationDate);
   }
 
   @Override

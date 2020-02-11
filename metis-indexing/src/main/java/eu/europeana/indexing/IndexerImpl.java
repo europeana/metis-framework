@@ -60,15 +60,11 @@ class IndexerImpl implements Indexer {
     final FullBeanPublisher publisher =
         connectionProvider.getFullBeanPublisher(preserveUpdateAndCreateTimesFromRdf);
 
-    if (performRedirects) {
-      for (RDF record : records) {
-        preprocessRecord(record);
-        publisher
-            .publishWithRedirects(new RdfWrapper(record), recordDate, datasetIdsForRedirection);
-      }
-    } else {
-      for (RDF record : records) {
-        preprocessRecord(record);
+    for (RDF record : records) {
+      preprocessRecord(record);
+      if (performRedirects) {
+        publisher.publishWithRedirects(new RdfWrapper(record), recordDate, datasetIdsForRedirection);
+      } else {
         publisher.publish(new RdfWrapper(record), recordDate, datasetIdsForRedirection);
       }
     }

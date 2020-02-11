@@ -18,7 +18,7 @@ public abstract class AbstractEdmEntityUpdater<R extends AbstractEdmEntity, A>
 
   @Override
   protected final MongoPropertyUpdater<R> createPropertyUpdater(R newEntity, A ancestorInformation,
-      Date recordDate, String recordIdToRedirectFrom, MongoServer mongoServer) {
+      Date recordDate, Date recordCreationDate, MongoServer mongoServer) {
     return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
         getObjectClass(), AbstractEdmEntity::getAbout, null, null, null);
   }

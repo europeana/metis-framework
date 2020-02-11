@@ -14,10 +14,10 @@ import java.util.Date;
 public abstract class AbstractMongoObjectUpdater<R, A> implements MongoObjectUpdater<R, A> {
 
   @Override
-  public final R update(R newEntity, A ancestorInformation, Date recordDate, String recordIdToRedirectFrom, MongoServer mongoServer) {
+  public final R update(R newEntity, A ancestorInformation, Date recordDate, Date recordCreationDate, MongoServer mongoServer) {
     preprocessEntity(newEntity, ancestorInformation);
     final MongoPropertyUpdater<R> propertyUpdater =
-        createPropertyUpdater(newEntity, ancestorInformation, recordDate, recordIdToRedirectFrom, mongoServer);
+        createPropertyUpdater(newEntity, ancestorInformation, recordDate, recordCreationDate, mongoServer);
     update(propertyUpdater, ancestorInformation);
     return propertyUpdater.applyOperations();
   }
@@ -27,12 +27,12 @@ public abstract class AbstractMongoObjectUpdater<R, A> implements MongoObjectUpd
    * 
    * @param newEntity The new entity (to take the values from).
    * @param ancestorInformation The ancestor information for this entity.
-   * @param recordIdToRedirectFrom
+   * @param recordCreationDate The date that represents the creation date of the record
    * @param mongoServer The mongo server.
    * @return The property updater for the given entity.
    */
   protected abstract MongoPropertyUpdater<R> createPropertyUpdater(R newEntity,
-      A ancestorInformation, Date recordDate, String recordIdToRedirectFrom,
+      A ancestorInformation, Date recordDate, Date recordCreationDate,
       MongoServer mongoServer);
 
   /**
