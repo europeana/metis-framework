@@ -8,6 +8,7 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.mongo.RecordRedirect;
+import eu.europeana.metis.mongo.RecordRedirectDao;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,9 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
@@ -41,8 +42,7 @@ public final class RecordRedirectsUtil {
   }
 
   static List<Pair<String, Date>> checkAndApplyRedirects(
-      Consumer<RecordRedirect> recordRedirectPopulator,
-      Function<String, RecordRedirect> recordRedirectByNewIdGetter, RdfWrapper rdf, Date recordDate,
+      RecordRedirectDao recordRedirectDao, RdfWrapper rdf, Date recordDate,
       List<String> datasetIdsToRedirectFrom, boolean performRedirects,
       ThrowingFunction<Map<String, String>, SolrDocumentList, IndexingException> solrDocumentRetriever)
       throws IndexingException {
@@ -54,7 +54,8 @@ public final class RecordRedirectsUtil {
 
       //Create redirection
       if (!CollectionUtils.isEmpty(recordsForRedirection)) {
-        createRedirections(recordRedirectPopulator, recordRedirectByNewIdGetter, rdf.getAbout(), recordsForRedirection, recordDate);
+        createRedirections(recordRedirectDao, rdf.getAbout(),
+            recordsForRedirection, recordDate);
       }
     }
     return recordsForRedirection;
@@ -237,57 +238,73 @@ public final class RecordRedirectsUtil {
   }
 
   private static String generateQueryForFields(Map<String, List<String>> listsToCombine) {
-    return listsToCombine.entrySet().stream()
+    final List<String> items = listsToCombine.entrySet().stream()
         .map(entry -> generateOrOperationFromList(entry.getKey(), entry.getValue()))
-        .filter(StringUtils::isNotBlank).collect(Collectors.joining(" AND ", "(", ")"));
+        .filter(StringUtils::isNotBlank).collect(Collectors.toList());
+    return computeJoiningQuery(items, Function.identity(),
+        Collectors.joining(" AND ", "(", ")"));
   }
 
   private static String generateOrOperationFromList(String queryFieldName, List<String> items) {
-    if (CollectionUtils.isEmpty(items)) {
-      return null;
-    }
-    return items.stream().map(item -> String.format("%s", item))
-        .collect(Collectors.joining(" OR ", String.format("%s:(", queryFieldName), ")"));
+    final List<String> filteredItems = getFilteredItems(items);
+    return computeJoiningQuery(filteredItems, Function.identity(),
+        Collectors.joining(" OR ", String.format("%s:(", queryFieldName), ")"));
   }
 
   private static String generateQueryInDatasetSubsets(List<String> datasetIds) {
-    return datasetIds.stream()
-        .map(datasetId -> String.format("%s_*", ClientUtils.escapeQueryChars(datasetId)))
-        .collect(Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EDM_DATASETNAME), ")"));
+    final List<String> filteredItems = getFilteredItems(datasetIds);
+    return computeJoiningQuery(filteredItems,
+        datasetId -> String.format("%s_*", ClientUtils.escapeQueryChars(datasetId)),
+        Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EDM_DATASETNAME), ")"));
+  }
+
+  private static String computeJoiningQuery(List<String> filteredItems,
+      Function<String, String> preprocessor, Collector<CharSequence, ?, String> joining) {
+    String result = null;
+    if (!CollectionUtils.isEmpty(filteredItems)) {
+      result = filteredItems.stream().map(preprocessor).collect(joining);
+    }
+    return result;
+  }
+
+  private static List<String> getFilteredItems(List<String> datasetIds) {
+    return datasetIds.stream().filter(StringUtils::isNotBlank)
+        .collect(Collectors.toList());
   }
 
   private static Pair<String, List<String>> generateQueryForDatasetIds(
-      List<String> datasetIdsToRedirectFrom,
-      String recordId) {
+      List<String> datasetIdsToRedirectFrom, String recordId) {
     String combinedQueryForRedirectedDatasetIds = null;
     List<String> concatenatedDatasetRecordIds = new ArrayList<>();
     //Check matches with older dataset identifiers
     if (!CollectionUtils.isEmpty(datasetIdsToRedirectFrom)) {
-      concatenatedDatasetRecordIds = datasetIdsToRedirectFrom.stream().map(
+      final List<String> filteredItems = getFilteredItems(datasetIdsToRedirectFrom);
+
+      concatenatedDatasetRecordIds = filteredItems.stream().map(
           datasetIdForRedirection -> String.format("/%s/%s", datasetIdForRedirection, recordId))
           .collect(Collectors.toList());
 
-      combinedQueryForRedirectedDatasetIds = concatenatedDatasetRecordIds.stream()
-          .collect(Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EUROPEANA_ID), ")"));
+      combinedQueryForRedirectedDatasetIds = computeJoiningQuery(concatenatedDatasetRecordIds,
+          Function.identity(),
+          Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EUROPEANA_ID), ")"));
     }
     return ImmutablePair.of(combinedQueryForRedirectedDatasetIds, concatenatedDatasetRecordIds);
   }
 
-  private static void createRedirections(Consumer<RecordRedirect> recordRedirectPopulator,
-      Function<String, RecordRedirect> recordRedirectByNewIdGetter,
+  private static void createRedirections(RecordRedirectDao recordRedirectDao,
       String newIdentifier, List<Pair<String, Date>> recordsForRedirection,
       Date recordRedirectDate) {
     for (Pair<String, Date> recordForRedirection : recordsForRedirection) {
       final RecordRedirect recordRedirect = new RecordRedirect(newIdentifier,
           recordForRedirection.getKey(),
           recordRedirectDate);
-      recordRedirectPopulator.accept(recordRedirect);
+      recordRedirectDao.createUpdate(recordRedirect);
       //Update the previous redirect item in db that has newId == oldIdentifier
-      final RecordRedirect recordRedirectByNewId = recordRedirectByNewIdGetter
-          .apply(recordForRedirection.getKey());
+      final RecordRedirect recordRedirectByNewId = recordRedirectDao
+          .getRecordRedirectByNewId(recordRedirect.getOldId());
       if (recordRedirectByNewId != null) {
         recordRedirectByNewId.setNewId(newIdentifier);
-        recordRedirectPopulator.accept(recordRedirectByNewId);
+        recordRedirectDao.createUpdate(recordRedirectByNewId);
       }
     }
   }

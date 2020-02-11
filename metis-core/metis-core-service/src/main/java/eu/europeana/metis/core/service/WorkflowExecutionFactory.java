@@ -6,7 +6,6 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
-import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.workflow.ValidationProperties;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -120,23 +119,26 @@ public class WorkflowExecutionFactory {
 
   private boolean shouldRedirectsBePerformed(Dataset dataset,
       ExecutablePluginType executablePluginType) {
-    boolean performRedirects = false;
-    try {
-      workflowUtils
-          .computePredecessorPlugin(executablePluginType, null, dataset.getDatasetId());
-    } catch (PluginExecutionNotAllowed pluginExecutionNotAllowed) {
-      //It means we need to do redirects because a new harvest was performed
-      performRedirects = true;
-      LOGGER.info("Predecessor plugin computation failed, so we want to create redirects",
-          pluginExecutionNotAllowed);
-    }
-
+    final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulHarvest = workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(),
+            WorkflowUtils.getHarvestPluginGroup(), true);
     final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulExecutablePlugin = workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(), EnumSet
             .of(executablePluginType), true);
-    if (dataset.getUpdatedDate()
-        .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0
-        && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom())) {
+
+    //Since previous plugin execution, a new harvest occurred after the latest plugin supplied
+    final boolean doesNewHarvestAfterPluginExist =
+        latestSuccessfulHarvest != null && latestSuccessfulExecutablePlugin != null
+            && latestSuccessfulHarvest.getPlugin().getFinishedDate()
+            .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0;
+    //Since previous plugin execution, dataset information is updated with non empty dataset ids to redirect from
+    final boolean isDatasetInformationUpdated =
+        latestSuccessfulExecutablePlugin != null && dataset.getUpdatedDate()
+            .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0
+            && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
+
+    boolean performRedirects = false;
+    if (doesNewHarvestAfterPluginExist || isDatasetInformationUpdated) {
       performRedirects = true;
     }
     return performRedirects;
