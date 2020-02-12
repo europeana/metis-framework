@@ -128,16 +128,6 @@ public class DatasetService {
                 dataset.getOrganizationId(), dataset.getDatasetName()));
       }
 
-      // Verify references to old datasetIds
-      if (dataset.getDatasetIdsToRedirectFrom() != null) {
-        for (String id : dataset.getDatasetIdsToRedirectFrom()) {
-          if (datasetDao.getDatasetByDatasetId(id) == null) {
-            throw new BadContentException(
-                String.format("Old datasetId %s doesn't exist", id));
-          }
-        }
-      }
-
       dataset.setCreatedByUserId(metisUser.getUserId());
       dataset.setId(null);
       dataset.setUpdatedDate(null);
@@ -148,6 +138,7 @@ public class DatasetService {
 
       int nextInSequenceDatasetId = datasetDao.findNextInSequenceDatasetId();
       dataset.setDatasetId(Integer.toString(nextInSequenceDatasetId));
+      verifyReferencesToOldDatasetIds(dataset);
       datasetObjectId = datasetDao.getById(datasetDao.create(dataset));
     } finally {
       lock.unlock();
@@ -193,16 +184,6 @@ public class DatasetService {
           String.format("Workflow execution is active for datasetId %s", dataset.getDatasetId()));
     }
 
-    // Verify references to old datasetIds
-    if (dataset.getDatasetIdsToRedirectFrom() != null) {
-      for (String id : dataset.getDatasetIdsToRedirectFrom()) {
-        if (datasetDao.getDatasetByDatasetId(id) == null) {
-          throw new BadContentException(
-              String.format("Old datasetId %s doesn't exist", id));
-        }
-      }
-    }
-
     // Set/overwrite dataset properties that the user may not determine.
     dataset.setOrganizationId(metisUser.getOrganizationId());
     dataset.setOrganizationName(metisUser.getOrganizationName());
@@ -213,6 +194,9 @@ public class DatasetService {
     dataset.setOrganizationName(storedDataset.getOrganizationName());
     dataset.setCreatedByUserId(storedDataset.getCreatedByUserId());
     dataset.setId(storedDataset.getId());
+
+    verifyReferencesToOldDatasetIds(dataset);
+
     if (xsltString == null) {
       dataset.setXsltId(storedDataset.getXsltId());
     } else {
@@ -224,6 +208,21 @@ public class DatasetService {
     // Update the dataset
     dataset.setUpdatedDate(new Date());
     datasetDao.update(dataset);
+  }
+
+  private void verifyReferencesToOldDatasetIds(Dataset dataset) throws BadContentException {
+    if (dataset.getDatasetIdsToRedirectFrom() != null) {
+      for (String datasetId : dataset.getDatasetIdsToRedirectFrom()) {
+        if (datasetDao.getDatasetByDatasetId(datasetId) == null) {
+          throw new BadContentException(
+              String.format("Old datasetId for redirection %s doesn't exist", datasetId));
+        }
+        if (dataset.getDatasetId().equals(datasetId)) {
+          throw new BadContentException(
+              String.format("datasetId for redirection %s cannot be the same as the current datasetId", datasetId));
+        }
+      }
+    }
   }
 
   private void cleanDatasetXslt(ObjectId xsltId) {
