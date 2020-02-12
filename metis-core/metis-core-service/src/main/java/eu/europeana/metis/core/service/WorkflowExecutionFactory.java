@@ -133,8 +133,8 @@ public class WorkflowExecutionFactory {
             .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0;
     //Since previous plugin execution, dataset information is updated with non empty dataset ids to redirect from
     final boolean isDatasetIdsToRedirectFromUpdated = latestSuccessfulExecutablePlugin != null &&
-        dataset.getUpdatedDate()
-            .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0
+        dataset.getUpdatedDate() != null && dataset.getUpdatedDate()
+        .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0
         && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
     //If first plugin execution, we check if dataset ids to redirect from are present in the dataset information
     final boolean isDatasetIdsToRedirectFromPresent =
