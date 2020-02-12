@@ -132,16 +132,17 @@ public class WorkflowExecutionFactory {
             && latestSuccessfulHarvest.getPlugin().getFinishedDate()
             .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0;
     //Since previous plugin execution, dataset information is updated with non empty dataset ids to redirect from
-    final boolean isDatasetInformationUpdated =
-        latestSuccessfulExecutablePlugin != null && dataset.getUpdatedDate()
+    final boolean isDatasetIdsToRedirectFromUpdated = latestSuccessfulExecutablePlugin != null &&
+        dataset.getUpdatedDate()
             .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0
-            && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
+        && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
+    //If first plugin execution, we check if dataset ids to redirect from are present in the dataset information
+    final boolean isDatasetIdsToRedirectFromPresent =
+        latestSuccessfulExecutablePlugin == null && !CollectionUtils
+            .isEmpty(dataset.getDatasetIdsToRedirectFrom());
 
-    boolean performRedirects = false;
-    if (doesNewHarvestAfterPluginExist || isDatasetInformationUpdated) {
-      performRedirects = true;
-    }
-    return performRedirects;
+    return doesNewHarvestAfterPluginExist || isDatasetIdsToRedirectFromUpdated
+        || isDatasetIdsToRedirectFromPresent;
   }
 
   private void setupValidationExternalForPluginMetadata(ValidationExternalPluginMetadata metadata,
