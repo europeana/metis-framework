@@ -9,6 +9,10 @@
   <artifactId>metis-dereference-common</artifactId>
   <dependencies>
     <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+    </dependency>
+    <dependency>
       <groupId>dev.morphia.morphia</groupId>
       <artifactId>core</artifactId>
       <version>${version.morphia.core}</version>

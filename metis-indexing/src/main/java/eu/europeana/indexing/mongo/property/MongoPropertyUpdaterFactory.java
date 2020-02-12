@@ -6,6 +6,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -22,7 +24,8 @@ public final class MongoPropertyUpdaterFactory {
 
   private static <T> MongoPropertyUpdater<T> create(T updated, MongoServer mongoServer,
       Class<T> objectClass, Supplier<Query<T>> queryCreator,
-      TriConsumer<T, T, Date> dataPreprocessor, Date recordDate,
+      TriConsumer<T, T, Pair<Date, Date>> dataPreprocessor, Date recordDate,
+      Date recordCreationDate,
       Consumer<UpdateOperations<T>> operationsPreprocessor) {
 
     // Sanity checks.
@@ -40,7 +43,7 @@ public final class MongoPropertyUpdaterFactory {
     // Obtain the current state from the database and perform preprocessing on it.
     final T current = queryCreator.get().get();
     if (dataPreprocessor != null) {
-      dataPreprocessor.accept(current, updated, recordDate);
+      dataPreprocessor.accept(current, updated, ImmutablePair.of(recordDate, recordCreationDate));
     }
 
     // Done
@@ -61,13 +64,14 @@ public final class MongoPropertyUpdaterFactory {
    * @param preprocessor This provides the option of performing some preprocessing on the current
    * and/or the new object before applying the operations. Its three parameters are first the
    * current bean (found in the database) and second the updated (as passed to this method) and a
-   * record date. Can be null.
+   * pair of dates, the record date and creation date(e.g. in case of a redirection).
+   * Can be null.
    * @return The property updater.
    */
   public static <T> MongoPropertyUpdater<T> createForObjectWithoutAbout(T updated,
       MongoServer mongoServer, Class<T> objectClass, Supplier<Query<T>> queryCreator,
-      TriConsumer<T, T, Date> preprocessor) {
-    return create(updated, mongoServer, objectClass, queryCreator, preprocessor, null, null);
+      TriConsumer<T, T, Pair<Date, Date>> preprocessor) {
+    return create(updated, mongoServer, objectClass, queryCreator, preprocessor, null, null, null);
   }
 
   /**
@@ -82,13 +86,16 @@ public final class MongoPropertyUpdaterFactory {
    * @param preprocessor This provides the option of performing some preprocessing on the current
    * and/or the new object before applying the operations. Its three parameters are first the
    * current bean (found in the database) and second the updated (as passed to this method) and a
-   * record date. Can be null.
+   * pair of dates, the record date and creation date(e.g. in case of a redirection).
+   * Can be null.
    * @param recordDate The date that would represent the created/updated date of a record
+   * @param recordCreationDate The date that would represent the created date if it already existed,
+   * e.g. from a redirected record
    * @return The property updater.
    */
   public static <T> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
       MongoServer mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
-      TriConsumer<T, T, Date> preprocessor, Date recordDate) {
+      TriConsumer<T, T, Pair<Date, Date>> preprocessor, Date recordDate, Date recordCreationDate) {
 
     // Sanity checks.
     if (aboutGetter == null) {
@@ -98,7 +105,7 @@ public final class MongoPropertyUpdaterFactory {
       throw new IllegalArgumentException("Object does not have an 'about' value.");
     }
 
-    // Create object.
+    // Find object with the same about value
     final Supplier<Query<T>> queryCreator = () -> mongoServer.getDatastore().find(objectClass)
         .field(ABOUT_FIELD).equal(aboutGetter.apply(updated));
 
@@ -108,6 +115,6 @@ public final class MongoPropertyUpdaterFactory {
 
     // Done
     return create(updated, mongoServer, objectClass, queryCreator, preprocessor, recordDate,
-        operationsPreprocessor);
+        recordCreationDate, operationsPreprocessor);
   }
 }

@@ -1,5 +1,6 @@
 package eu.europeana.indexing;
 
+import eu.europeana.metis.mongo.RecordRedirectDao;
 import java.io.Closeable;
 import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;
@@ -16,21 +17,21 @@ import eu.europeana.corelib.mongo.server.EdmMongoServer;
  * <p>
  * Please note that this class is {@link Closeable} and must be closed to release it's resources.
  * </p>
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public interface AbstractConnectionProvider extends Closeable {
 
   /**
    * Provides a Publisher object for publishing Full Beans so that they may be found by users.
-   * 
+   *
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher should use
-   *        the updated and created times from the incoming RDFs, or whether it computes its own.
+   * the updated and created times from the incoming RDFs, or whether it computes its own.
    * @return A publisher.
    */
   default FullBeanPublisher getFullBeanPublisher(boolean preserveUpdateAndCreateTimesFromRdf) {
-    return new FullBeanPublisher(getMongoClient(), getSolrClient(), preserveUpdateAndCreateTimesFromRdf);
+    return new FullBeanPublisher(getEdmMongoClient(), getRecordRedirectDao(), getSolrClient(),
+        preserveUpdateAndCreateTimesFromRdf);
   }
 
   /**
@@ -39,9 +40,8 @@ public interface AbstractConnectionProvider extends Closeable {
    * not obligatory, and indexing will work without it. This just allows the caller to determine the
    * moment when changes are written to disk rather than wait for this to be triggered by the
    * infrastructure/library itself at its own discretion.
-   * 
+   *
    * @param blockUntilComplete If true, the call blocks until the flush is complete.
-   * 
    * @throws IOException If there is a low-level I/O error.
    * @throws SolrServerException If there is an error on the server.
    */
@@ -52,25 +52,32 @@ public interface AbstractConnectionProvider extends Closeable {
 
   /**
    * Provides a remover object for removing indexed records from the data store.
-   * 
+   *
    * @return A dataset remover.
    */
   default IndexedRecordRemover getIndexedRecordRemover() {
-    return new IndexedRecordRemover(getMongoClient(), getSolrClient());
+    return new IndexedRecordRemover(getEdmMongoClient(), getSolrClient());
   }
 
   /**
    * Provides a Solr client object for connecting with the Solr database.
-   * 
+   *
    * @return A Solr client.
    */
   SolrClient getSolrClient();
 
   /**
    * Provides a Mongo client object for connecting with the Mongo database.
-   * 
+   *
    * @return A Mongo client.
    */
-  EdmMongoServer getMongoClient();
+  EdmMongoServer getEdmMongoClient();
+
+  /**
+   * Provides a Mongo redirect dao.
+   *
+   * @return A Mongo record redirect dao.
+   */
+  RecordRedirectDao getRecordRedirectDao();
 
 }

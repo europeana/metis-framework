@@ -1,14 +1,12 @@
 package eu.europeana.indexing;
 
-import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.metis.mongo.MongoProperties;
+import eu.europeana.metis.solr.SolrProperties;
 import java.net.InetSocketAddress;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class contains all settings needed for indexing. These settings are not thread-safe.
@@ -17,23 +15,15 @@ import org.apache.commons.lang3.StringUtils;
  */
 public final class IndexingSettings {
 
-  // Default settings
-  private static final int DEFAULT_ZOOKEEPER_TIMEOUT_IN_SECONDS = 30;
-
   // Mongo settings
-  private final List<ServerAddress> mongoHosts = new ArrayList<>();
   private String mongoDatabaseName;
-  private MongoCredential mongoCredentials;
-  private boolean mongoEnableSsl;
+  private String recordRedirectDatabaseName;
+  private final MongoProperties<SetupRelatedIndexingException> mongoProperties = new MongoProperties<>(
+          SetupRelatedIndexingException::new);
 
   // Zookeeper settings
-  private final List<InetSocketAddress> zookeeperHosts = new ArrayList<>();
-  private String zookeeperChroot;
-  private String zookeeperDefaultCollection;
-  private Integer zookeeperTimeoutInSecs = DEFAULT_ZOOKEEPER_TIMEOUT_IN_SECONDS;
-
-  // Solr settings
-  private final List<URI> solrHosts = new ArrayList<>();
+  private final SolrProperties<SetupRelatedIndexingException> solrProperties = new SolrProperties<>(
+          SetupRelatedIndexingException::new);
 
   /**
    * Add a Mongo host. This method must be called at least once.
@@ -42,7 +32,7 @@ public final class IndexingSettings {
    * @throws SetupRelatedIndexingException In case the provided value is null.
    */
   public void addMongoHost(InetSocketAddress host) throws SetupRelatedIndexingException {
-    mongoHosts.add(new ServerAddress(nonNull(host, "host")));
+    this.mongoProperties.addMongoHost(host);
   }
 
   /**
@@ -55,6 +45,11 @@ public final class IndexingSettings {
     this.mongoDatabaseName = nonNull(mongoDatabaseName, "mongoDatabaseName");
   }
 
+  public void setRecordRedirectDatabaseName(String recordRedirectDatabaseName)
+      throws SetupRelatedIndexingException {
+    this.recordRedirectDatabaseName = nonNull(recordRedirectDatabaseName, "recordRedirectDatabaseName");
+  }
+
   /**
    * Set Mongo credentials. This method is optional: by default, there are no credentials set.
    *
@@ -65,16 +60,14 @@ public final class IndexingSettings {
    */
   public void setMongoCredentials(String username, String password, String authenticationDatabase)
       throws SetupRelatedIndexingException {
-    this.mongoCredentials = MongoCredential.createCredential(nonNull(username, "username"),
-        nonNull(authenticationDatabase, "authenticationDatabase"),
-        nonNull(password, "password").toCharArray());
+    this.mongoProperties.setMongoCredentials(username, password, authenticationDatabase);
   }
 
   /**
    * Enable SSL for the Mongo connection. This method is optional: by default this is disabled.
    */
   public void setMongoEnableSsl() {
-    this.mongoEnableSsl = true;
+    this.mongoProperties.setMongoEnableSsl();
   }
 
   /**
@@ -86,7 +79,7 @@ public final class IndexingSettings {
    * @throws SetupRelatedIndexingException In case the provided value is null.
    */
   public void addZookeeperHost(InetSocketAddress host) throws SetupRelatedIndexingException {
-    zookeeperHosts.add(nonNull(host, "host"));
+    this.solrProperties.addZookeeperHost(host);
   }
 
   /**
@@ -101,13 +94,7 @@ public final class IndexingSettings {
    * @throws SetupRelatedIndexingException If the chroot does not start with a '/'.
    */
   public void setZookeeperChroot(String chroot) throws SetupRelatedIndexingException {
-    if (StringUtils.isBlank(chroot)) {
-      this.zookeeperChroot = null;
-    } else if (chroot.charAt(0) == '/') {
-      this.zookeeperChroot = chroot;
-    } else {
-      throw new SetupRelatedIndexingException("A chroot, if provided, must start with '/'.");
-    }
+    this.solrProperties.setZookeeperChroot(chroot);
   }
 
   /**
@@ -119,8 +106,7 @@ public final class IndexingSettings {
    */
   public void setZookeeperDefaultCollection(String zookeeperDefaultCollection)
       throws SetupRelatedIndexingException {
-    this.zookeeperDefaultCollection =
-        nonNull(zookeeperDefaultCollection, "zookeeperDefaultCollection");
+    this.solrProperties.setZookeeperDefaultCollection(zookeeperDefaultCollection);
   }
 
   /**
@@ -132,7 +118,7 @@ public final class IndexingSettings {
    *        If this number is zero or negative, the default value will be applied.
    */
   public void setZookeeperTimeoutInSecs(int zookeeperTimeoutInSecs) {
-    this.zookeeperTimeoutInSecs = zookeeperTimeoutInSecs <= 0 ? null : zookeeperTimeoutInSecs;
+    this.solrProperties.setZookeeperTimeoutInSecs(zookeeperTimeoutInSecs);
   }
 
   /**
@@ -142,7 +128,7 @@ public final class IndexingSettings {
    * @throws SetupRelatedIndexingException In case the provided value is null.
    */
   public void addSolrHost(URI host) throws SetupRelatedIndexingException {
-    solrHosts.add(nonNull(host, "host"));
+    this.solrProperties.addSolrHost(host);
   }
 
   /**
@@ -150,12 +136,11 @@ public final class IndexingSettings {
    *
    * @return The Mongo hosts.
    * @throws SetupRelatedIndexingException In case no such hosts were set.
+   * @deprecated Use the equivalent method in {@link #getSolrProperties()} instead.
    */
+  @Deprecated
   public List<ServerAddress> getMongoHosts() throws SetupRelatedIndexingException {
-    if (mongoHosts.isEmpty()) {
-      throw new SetupRelatedIndexingException("Please provide at least one Mongo host.");
-    }
-    return Collections.unmodifiableList(mongoHosts);
+    return this.mongoProperties.getMongoHosts();
   }
 
   /**
@@ -172,92 +157,35 @@ public final class IndexingSettings {
   }
 
   /**
-   * This method returns the Mongo credentials.
+   * This method returns the Mongo record redirect database name.
    *
-   * @return The credentials, or null if no such credentials were set.
+   * @return The Mongo record redirect database name.
+   * @throws SetupRelatedIndexingException In case no Mongo record redirect database name was set.
    */
-  public MongoCredential getMongoCredentials() {
-    return mongoCredentials;
+  public String getRecordRedirectDatabaseName() throws SetupRelatedIndexingException {
+    if (recordRedirectDatabaseName == null) {
+      throw new SetupRelatedIndexingException("Please provide a Mongo record redirect database name.");
+    }
+    return recordRedirectDatabaseName;
   }
 
-  /**
-   * This method returns whether SSL is to be enabled for the Mongo connection.
-   *
-   * @return Whether SSL is to be enabled for the Mongo connection.
-   */
-  public boolean mongoEnableSsl() {
-    return mongoEnableSsl;
+  public MongoProperties<SetupRelatedIndexingException> getMongoProperties() {
+    return this.mongoProperties;
   }
 
   /**
    * This method returns the Zookeeper hosts.
    *
    * @return The Zookeeper hosts. Or empty, if no Zookeeper connection is to be used.
+   * @deprecated Use the equivalent method in {@link #getSolrProperties()} instead.
    */
+  @Deprecated
   public List<InetSocketAddress> getZookeeperHosts() {
-    return Collections.unmodifiableList(zookeeperHosts);
+    return this.solrProperties.getZookeeperHosts();
   }
 
-  /**
-   * This method returns the Zookeeper chroot.
-   *
-   * @return The Zookeeper chroot, or null if no Zookeeper chroot is to be applied (or if no
-   *         Zookeeper connection is to be established).
-   */
-  public String getZookeeperChroot() {
-    return hasZookeeperConnection() ? zookeeperChroot : null;
-  }
-
-  /**
-   * This method returns the Zookeeper default collection name.
-   *
-   * @return The Zookeeper default collection name, or null if no Zookeeper connection is to be
-   *         established.
-   * @throws SetupRelatedIndexingException In case a Zookeeper connection is to be established, but
-   *         no default collection name was set.
-   */
-  public String getZookeeperDefaultCollection() throws SetupRelatedIndexingException {
-    if (!hasZookeeperConnection()) {
-      return null;
-    }
-    if (zookeeperDefaultCollection == null) {
-      throw new SetupRelatedIndexingException(
-          "Please provide a Zookeeper default collection name.");
-    }
-    return zookeeperDefaultCollection;
-  }
-
-  /**
-   * This method returns the Zookeeper connection time-out in seconds.
-   *
-   * @return The Zookeeper connection time-out in seconds, or null if the default Zookeeper
-   *         connection time-out is to be applied (or if no Zookeeper connection is to be
-   *         established).
-   */
-  public Integer getZookeeperTimeoutInSecs() {
-    return hasZookeeperConnection() ? zookeeperTimeoutInSecs : null;
-  }
-
-  /**
-   * This method returns the Solr hosts.
-   *
-   * @return The solr hosts.
-   * @throws SetupRelatedIndexingException In case no such hosts were set.
-   */
-  public List<URI> getSolrHosts() throws SetupRelatedIndexingException {
-    if (solrHosts.isEmpty()) {
-      throw new SetupRelatedIndexingException("Please provide at least one Solr host.");
-    }
-    return Collections.unmodifiableList(solrHosts);
-  }
-
-  /**
-   * This method returns whether or not a Zookeeper connection is to be established.
-   *
-   * @return Whether a Zookeeper connection is to be established.
-   */
-  public boolean hasZookeeperConnection() {
-    return !zookeeperHosts.isEmpty();
+  public SolrProperties<SetupRelatedIndexingException> getSolrProperties() {
+    return this.solrProperties;
   }
 
   private static <T> T nonNull(T value, String fieldName) throws SetupRelatedIndexingException {

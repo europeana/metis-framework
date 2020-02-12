@@ -14,7 +14,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
-import org.apache.logging.log4j.core.net.ssl.TrustStoreConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -137,4 +136,15 @@ public final class CustomTruststoreAppender {
     }
   }
 
+  /**
+   * In case a problem occurs with the truststore configuration
+   */
+  public static class TrustStoreConfigurationException extends Exception {
+
+    private static final long serialVersionUID = -6498227689619898437L;
+
+    TrustStoreConfigurationException(final Exception e) {
+      super(e);
+    }
+  }
 }

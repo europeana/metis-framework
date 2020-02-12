@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.workflow;
+package eu.europeana.metis.mongo;
 
 import org.bson.types.ObjectId;
 

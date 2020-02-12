@@ -115,7 +115,8 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
 
   @Override
   public void updateMap(String updateField, Function<T, Map<String, List<String>>> getter) {
-    updateProperty(updateField, getter, MongoPropertyUpdaterImpl::mapEquals, UnaryOperator.identity());
+    updateProperty(updateField, getter, MongoPropertyUpdaterImpl::mapEquals,
+        UnaryOperator.identity());
   }
 
   @Override
@@ -176,7 +177,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<P> preprocessing =
-        entity -> objectUpdater.update(entity, ancestorInformation, null, mongoServer);
+        entity -> objectUpdater.update(entity, ancestorInformation, null, null, mongoServer);
     updateProperty(updateField, getter, MongoPropertyUpdaterImpl::equals, preprocessing);
   }
 
@@ -193,7 +194,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<List<P>> preprocessing = entities -> entities.stream()
-        .map(entity -> objectUpdater.update(entity, ancestorInformation, null, mongoServer))
+        .map(entity -> objectUpdater.update(entity, ancestorInformation, null, null, mongoServer))
         .collect(Collectors.toList());
     final BiPredicate<List<P>, List<P>> equality =
         (w1, w2) -> listEquals(w1, w2, ENTITY_COMPARATOR);
@@ -205,11 +206,11 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
    * If there is, after this method is called, {@link #applyOperations()} will include the update.
    *
    * @param updateField The name of the field to update. This is the name under which they will be
-   *        stored in the operations list (see {@link #applyOperations()}).
+   * stored in the operations list (see {@link #applyOperations()}).
    * @param getter The getter that obtains the property value from the object.
    * @param equality Predicate that checks for equality between two property values.
    * @param preprocessing The pre-processing to be applied to the update property value before
-   *        comparing and storing.
+   * comparing and storing.
    */
   private <P> void updateProperty(String updateField, Function<T, P> getter,
       BiPredicate<P, P> equality, UnaryOperator<P> preprocessing) {
@@ -263,7 +264,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     final WebResourceInformation ancestorInformation = ancestorInfoGetter.apply(updated);
     if (entity != null) {
       updaterSupplier.get()
-          .update((WebResourceMetaInfoImpl) entity, ancestorInformation, null, mongoServer);
+          .update((WebResourceMetaInfoImpl) entity, ancestorInformation, null, null, mongoServer);
     }
   }
 

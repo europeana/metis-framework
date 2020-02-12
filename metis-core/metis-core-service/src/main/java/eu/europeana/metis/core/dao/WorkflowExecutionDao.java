@@ -502,38 +502,42 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate,
       int nextPage, int pageCount) {
 
-    // Prepare pagination and check that there is something to query
-    final Pagination pagination = createPagination(nextPage, pageCount, false);
-    if (pagination.getLimit() < 1) {
-      return createResultList(Collections.emptyList(), pagination);
-    }
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
 
-    // Create the aggregate pipeline
-    final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
-        .createAggregation(WorkflowExecution.class);
+      // Prepare pagination and check that there is something to query
+      final Pagination pagination = createPagination(nextPage, pageCount, false);
+      if (pagination.getLimit() < 1) {
+        return createResultList(Collections.emptyList(), pagination);
+      }
 
-    // Step 1: create query filters
-    final Query<WorkflowExecution> query = createQueryFilters(datasetIds, pluginStatuses,
-        pluginTypes, fromDate, toDate);
-    pipeline.match(query);
+      // Create the aggregate pipeline
+      final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
+              .createAggregation(WorkflowExecution.class);
 
-    // Step 2: determine status index field
-    final String statusIndexField = determineOrderingStatusIndex(pipeline);
+      // Step 1: create query filters
+      final Query<WorkflowExecution> query = createQueryFilters(datasetIds, pluginStatuses,
+              pluginTypes, fromDate, toDate);
+      pipeline.match(query);
 
-    // Step 3: Sort - first on the status index, then on the createdDate.
-    pipeline.sort(Sort.ascending(statusIndexField),
-        Sort.descending(CREATED_DATE.getFieldName()));
+      // Step 2: determine status index field
+      final String statusIndexField = determineOrderingStatusIndex(pipeline);
 
-    // Step 4: Apply pagination
-    pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
+      // Step 3: Sort - first on the status index, then on the createdDate.
+      pipeline.sort(Sort.ascending(statusIndexField),
+              Sort.descending(CREATED_DATE.getFieldName()));
 
-    // Step 5: Create join of dataset and execution to combine the data information
-    joinDatasetAndWorkflowExecution(pipeline);
+      // Step 4: Apply pagination
+      pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
 
-    // Done: execute and return result.
-    final List<ExecutionDatasetPair> result = new ArrayList<>();
-    pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
-    return createResultList(result, pagination);
+      // Step 5: Create join of dataset and execution to combine the data information
+      joinDatasetAndWorkflowExecution(pipeline);
+
+      // Done: execute and return result.
+      final List<ExecutionDatasetPair> result = new ArrayList<>();
+      pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
+      return createResultList(result, pagination);
+
+    });
   }
 
   private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,

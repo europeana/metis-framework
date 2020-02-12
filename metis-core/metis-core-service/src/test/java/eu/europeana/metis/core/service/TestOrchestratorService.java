@@ -134,7 +134,8 @@ class TestOrchestratorService {
     redissonClient = mock(RedissonClient.class);
     authorizer = mock(Authorizer.class);
 
-    workflowExecutionFactory = spy(new WorkflowExecutionFactory(datasetXsltDao));
+    workflowExecutionFactory = spy(new WorkflowExecutionFactory(datasetXsltDao,
+        workflowExecutionDao, workflowUtils));
     workflowExecutionFactory.setValidationExternalProperties(
         new ValidationProperties("url-ext", "schema-ext", "schematron-ext"));
     workflowExecutionFactory.setValidationInternalProperties(

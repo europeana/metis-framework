@@ -1,6 +1,9 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
+import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.workflow.ValidationProperties;
@@ -10,16 +13,21 @@ import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.LinkCheckingPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Class that contains various functionality for "helping" the {@link OrchestratorService}.
@@ -29,7 +37,11 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class WorkflowExecutionFactory {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutionFactory.class);
+
   private final DatasetXsltDao datasetXsltDao;
+  private final WorkflowExecutionDao workflowExecutionDao;
+  private final WorkflowUtils workflowUtils;
 
   private ValidationProperties validationExternalProperties; // Use getter and setter!
   private ValidationProperties validationInternalProperties; // Use getter and setter!
@@ -40,9 +52,15 @@ public class WorkflowExecutionFactory {
    * Constructor with parameters required to support the {@link OrchestratorService}
    *
    * @param datasetXsltDao the Dao instance to access the dataset xslts
+   * @param workflowExecutionDao the Dao instance to access the workflow executions
+   * @param workflowUtils the utilities class for workflow operations
    */
-  public WorkflowExecutionFactory(DatasetXsltDao datasetXsltDao) {
+  public WorkflowExecutionFactory(DatasetXsltDao datasetXsltDao,
+      WorkflowExecutionDao workflowExecutionDao,
+      WorkflowUtils workflowUtils) {
     this.datasetXsltDao = datasetXsltDao;
+    this.workflowExecutionDao = workflowExecutionDao;
+    this.workflowUtils = workflowUtils;
   }
 
   // Expect the dataset to be synced with eCloud.
@@ -53,7 +71,7 @@ public class WorkflowExecutionFactory {
     // Create the plugins
     final List<AbstractExecutablePlugin> workflowPlugins = workflow.getMetisPluginsMetadata()
         .stream().filter(AbstractExecutablePluginMetadata::isEnabled)
-        .map(metadata-> createWorkflowPlugin(metadata, dataset)).collect(Collectors.toList());
+        .map(metadata -> createWorkflowPlugin(metadata, dataset)).collect(Collectors.toList());
 
     // Set the predecessor
     if (predecessor != null) {
@@ -68,7 +86,7 @@ public class WorkflowExecutionFactory {
       AbstractExecutablePluginMetadata pluginMetadata, Dataset dataset) {
 
     // Add some extra configuration to the plugin metadata depending on the type.
-    if (pluginMetadata instanceof TransformationPluginMetadata){
+    if (pluginMetadata instanceof TransformationPluginMetadata) {
       setupXsltIdForPluginMetadata(dataset, ((TransformationPluginMetadata) pluginMetadata));
     } else if (pluginMetadata instanceof ValidationExternalPluginMetadata) {
       this.setupValidationExternalForPluginMetadata(
@@ -79,9 +97,17 @@ public class WorkflowExecutionFactory {
     } else if (pluginMetadata instanceof IndexToPreviewPluginMetadata) {
       ((IndexToPreviewPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
           isMetisUseAlternativeIndexingEnvironment());
+      ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetIdsToRedirectFrom(
+          dataset.getDatasetIdsToRedirectFrom());
+      boolean performRedirects = shouldRedirectsBePerformed(dataset, ExecutablePluginType.PREVIEW);
+      ((IndexToPreviewPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof IndexToPublishPluginMetadata) {
       ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
           isMetisUseAlternativeIndexingEnvironment());
+      ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetIdsToRedirectFrom(
+          dataset.getDatasetIdsToRedirectFrom());
+      boolean performRedirects = shouldRedirectsBePerformed(dataset, ExecutablePluginType.PUBLISH);
+      ((IndexToPublishPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof LinkCheckingPluginMetadata) {
       ((LinkCheckingPluginMetadata) pluginMetadata)
           .setSampleSize(getDefaultSamplingSizeForLinkChecking());
@@ -89,6 +115,34 @@ public class WorkflowExecutionFactory {
 
     // Create the plugin
     return ExecutablePluginFactory.createPlugin(pluginMetadata);
+  }
+
+  private boolean shouldRedirectsBePerformed(Dataset dataset,
+      ExecutablePluginType executablePluginType) {
+    final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulHarvest = workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(),
+            WorkflowUtils.getHarvestPluginGroup(), true);
+    final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulExecutablePlugin = workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(), EnumSet
+            .of(executablePluginType), true);
+
+    //Since previous plugin execution, a new harvest occurred after the latest plugin supplied
+    final boolean doesNewHarvestAfterPluginExist =
+        latestSuccessfulHarvest != null && latestSuccessfulExecutablePlugin != null
+            && latestSuccessfulHarvest.getPlugin().getFinishedDate()
+            .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0;
+    //Since previous plugin execution, dataset information is updated with non empty dataset ids to redirect from
+    final boolean isDatasetIdsToRedirectFromUpdated = latestSuccessfulExecutablePlugin != null &&
+        dataset.getUpdatedDate()
+            .compareTo(latestSuccessfulExecutablePlugin.getPlugin().getFinishedDate()) >= 0
+        && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
+    //If first plugin execution, we check if dataset ids to redirect from are present in the dataset information
+    final boolean isDatasetIdsToRedirectFromPresent =
+        latestSuccessfulExecutablePlugin == null && !CollectionUtils
+            .isEmpty(dataset.getDatasetIdsToRedirectFrom());
+
+    return doesNewHarvestAfterPluginExist || isDatasetIdsToRedirectFromUpdated
+        || isDatasetIdsToRedirectFromPresent;
   }
 
   private void setupValidationExternalForPluginMetadata(ValidationExternalPluginMetadata metadata,
