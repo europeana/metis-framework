@@ -139,9 +139,10 @@ public class IndexerPool implements Closeable {
     } catch (IndexerRelatedIndexingException e) {
       invalidateAndSwallowException(indexer);
       throw e;
-    } finally {
-      pool.returnObject(indexer);
     }
+
+    // Return indexer to the pool if it has not been invalidated.
+    pool.returnObject(indexer);
   }
 
   private void invalidateAndSwallowException(Indexer indexer) {
