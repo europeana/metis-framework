@@ -1,7 +1,6 @@
 package eu.europeana.indexing;
 
 import eu.europeana.corelib.definitions.jibx.Identifier;
-import eu.europeana.corelib.definitions.jibx.IsShownAt;
 import eu.europeana.corelib.definitions.jibx.IsShownBy;
 import eu.europeana.corelib.definitions.jibx.Title;
 import eu.europeana.indexing.exception.IndexingException;
@@ -153,9 +152,6 @@ public final class RecordRedirectsUtil {
     final List<String> isShownByList = rdfWrapper.getIsShownByList().stream()
         .map(IsShownBy::getResource)
         .collect(Collectors.toList());
-    final List<String> isShownAtList = rdfWrapper.getIsShownAtList().stream()
-        .map(IsShownAt::getResource)
-        .collect(Collectors.toList());
 
     //Create all lists that need to be combined
     final Map<String, List<String>> firstMapOfLists = createFirstCombinationGroup(identifiers,
@@ -164,18 +160,14 @@ public final class RecordRedirectsUtil {
         titles, descriptions);
     final Map<String, List<String>> thirdMapOfLists = createThirdCombinationGroup(isShownByList,
         identifiers);
-    final Map<String, List<String>> fourthMapOfLists = createFourthGroup(isShownByList,
-        isShownAtList);
 
     //Combine different list of fields in groups
     final String firstQueryGroup = generateQueryForFields(firstMapOfLists);
     final String secondQueryGroup = generateQueryForFields(secondMapOfLists);
     final String thirdQueryGroup = generateQueryForFields(thirdMapOfLists);
-    final String fourthQueryGroup = generateQueryForFields(fourthMapOfLists);
 
     //Join all groups
-    final String combinedQuery = Stream
-        .of(firstQueryGroup, secondQueryGroup, thirdQueryGroup, fourthQueryGroup)
+    final String combinedQuery = Stream.of(firstQueryGroup, secondQueryGroup, thirdQueryGroup)
         .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
     return new ImmutablePair<>(combinedQuery, firstMapOfLists);
   }
@@ -223,18 +215,6 @@ public final class RecordRedirectsUtil {
       listsToCombineMaps.put(EdmLabel.PROXY_DC_IDENTIFIER.toString(), identifiers);
     }
     return listsToCombineMaps;
-  }
-
-  private static HashMap<String, List<String>> createFourthGroup(List<String> isShownByList,
-      List<String> isShownAtList) {
-    final HashMap<String, List<String>> listsToCombineMapsIsShownAtAndBy = new HashMap<>();
-    if (!CollectionUtils.isEmpty(isShownAtList) && !CollectionUtils.isEmpty(isShownByList)) {
-      listsToCombineMapsIsShownAtAndBy
-          .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
-      listsToCombineMapsIsShownAtAndBy
-          .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_AT.toString(), isShownAtList);
-    }
-    return listsToCombineMapsIsShownAtAndBy;
   }
 
   private static String generateQueryForFields(Map<String, List<String>> listsToCombine) {
