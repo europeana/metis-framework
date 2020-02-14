@@ -29,7 +29,7 @@ public class EntityDao implements AbstractDao<OriginalEntity> {
 
   @Override
   public OriginalEntity get(String resourceId) {
-    return ds.find(OriginalEntity.class).filter("URI", resourceId).get();
+    return ds.find(OriginalEntity.class).filter("URI", resourceId).first();
   }
 
   @Override

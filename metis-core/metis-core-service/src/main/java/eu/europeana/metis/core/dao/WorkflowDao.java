@@ -59,7 +59,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
         .find(Workflow.class)
         .field(ID.getFieldName()).equal(new ObjectId(id));
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::get);
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 
   @Override
@@ -98,7 +98,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
                 .field(DATASET_ID.getFieldName()).equal(datasetId)
-                .project(ID.getFieldName(), true).get());
+                .project(ID.getFieldName(), true).first());
     return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }
 
@@ -112,7 +112,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     return ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-                .field(DATASET_ID.getFieldName()).equal(datasetId).get());
+                .field(DATASET_ID.getFieldName()).equal(datasetId).first());
   }
 }
 

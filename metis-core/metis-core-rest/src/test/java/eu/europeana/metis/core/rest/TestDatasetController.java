@@ -236,7 +236,7 @@ class TestDatasetController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     datasetControllerMock.perform(
-        delete(String.format("/datasets/%s", Integer.toString(TestObjectFactory.DATASETID)))
+        delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .accept(MediaType.APPLICATION_JSON_UTF8)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -257,7 +257,7 @@ class TestDatasetController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     datasetControllerMock.perform(
-        delete(String.format("/datasets/%s", Integer.toString(TestObjectFactory.DATASETID)))
+        delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .accept(MediaType.APPLICATION_JSON_UTF8)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -277,7 +277,7 @@ class TestDatasetController {
     doThrow(new BadContentException("Bad Content")).when(datasetServiceMock)
         .deleteDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID));
     datasetControllerMock.perform(
-        delete(String.format("/datasets/%s", Integer.toString(TestObjectFactory.DATASETID)))
+        delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .accept(MediaType.APPLICATION_JSON_UTF8)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -299,7 +299,7 @@ class TestDatasetController {
         .getDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
         .thenReturn(dataset);
     datasetControllerMock
-        .perform(get(String.format("/datasets/%s", Integer.toString(TestObjectFactory.DATASETID)))
+        .perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
@@ -319,7 +319,7 @@ class TestDatasetController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     datasetControllerMock
-        .perform(get(String.format("/datasets/%s", Integer.toString(TestObjectFactory.DATASETID)))
+        .perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
@@ -341,7 +341,7 @@ class TestDatasetController {
         .getDatasetByDatasetId(metisUser, Integer.toString(TestObjectFactory.DATASETID)))
         .thenThrow(new NoDatasetFoundException("Does not exist"));
     datasetControllerMock
-        .perform(get(String.format("/datasets/%s", Integer.toString(TestObjectFactory.DATASETID)))
+        .perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
@@ -365,7 +365,7 @@ class TestDatasetController {
         .thenReturn(xsltObject);
     datasetControllerMock
         .perform(
-            get(String.format("/datasets/%s/xslt", Integer.toString(TestObjectFactory.DATASETID)))
+            get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
                 .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtils.convertObjectToJsonBytes(null)))
@@ -392,7 +392,7 @@ class TestDatasetController {
         .thenThrow(new NoDatasetFoundException("Does not exist"));
     datasetControllerMock
         .perform(
-            get(String.format("/datasets/%s/xslt", Integer.toString(TestObjectFactory.DATASETID)))
+            get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
                 .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtils.convertObjectToJsonBytes(null)))
@@ -413,7 +413,7 @@ class TestDatasetController {
         .thenThrow(new NoXsltFoundException("Does not exist"));
     datasetControllerMock
         .perform(
-            get(String.format("/datasets/%s/xslt", Integer.toString(TestObjectFactory.DATASETID)))
+            get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
                 .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtils.convertObjectToJsonBytes(null)))
@@ -437,7 +437,7 @@ class TestDatasetController {
         .thenReturn(xsltObject);
     datasetControllerMock
         .perform(
-            get(String.format("/datasets/%s/xslt", Integer.toString(TestObjectFactory.DATASETID)))
+            get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
                 .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtils.convertObjectToJsonBytes(null)))
