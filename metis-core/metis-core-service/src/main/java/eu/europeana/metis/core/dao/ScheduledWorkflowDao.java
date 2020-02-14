@@ -188,8 +188,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     final FindOptions findOptions = new FindOptions()
         .skip(nextPage * getScheduledWorkflowPerRequest())
         .limit(getScheduledWorkflowPerRequest());
-    return ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> getListOfQuery(query, findOptions));
+    return getListOfQuery(query, findOptions);
   }
 
   /**
@@ -214,15 +213,16 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     final FindOptions findOptions = new FindOptions()
         .skip(nextPage * getScheduledWorkflowPerRequest())
         .limit(getScheduledWorkflowPerRequest());
-    return ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> getListOfQuery(query, findOptions));
+    return getListOfQuery(query, findOptions);
 
   }
 
   private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
-    try (MorphiaCursor<T> cursor = query.find(findOptions)) {
-      return cursor.toList();
-    }
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
+      try (MorphiaCursor<T> cursor = query.find(findOptions)) {
+        return cursor.toList();
+      }
+    });
   }
 
   public int getScheduledWorkflowPerRequest() {
