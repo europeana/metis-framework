@@ -1,6 +1,5 @@
 package eu.europeana.metis.dereference.service;
 
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.Collection;
@@ -20,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;

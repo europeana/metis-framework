@@ -112,6 +112,14 @@ public class EntityMergeEngineTest {
     labelResource1.setResource("resource1");
     agent.setDate(Arrays.asList(labelResource1));
 
+    LabelResource labelResource5 = new LabelResource("labelResourceA5");
+    labelResource5.setResource("resource5");
+    agent.setPlaceOfBirth(Arrays.asList(labelResource5));
+
+    LabelResource labelResource6 = new LabelResource("labelResourceA6");
+    labelResource6.setResource("resource6");
+    agent.setPlaceOfDeath(Arrays.asList(labelResource6));
+
     Label label5 = new Label("LangA5", "labelA5");
     agent.setDateOfBirth(Arrays.asList(label5));
 
@@ -318,6 +326,8 @@ public class EntityMergeEngineTest {
     verifyList(original.getBiographicaInformation(), copy.getBiographicalInformationList(),
         this::verifyLabel);
     verifyList(original.getDate(), copy.getDateList(), this::verifyLabelResource);
+    verifyList(original.getPlaceOfBirth(), copy.getPlaceOfBirthList(), this::verifyLabelResource);
+    verifyList(original.getPlaceOfDeath(), copy.getPlaceOfDeathList(), this::verifyLabelResource);
     verifyFirstListItem(original.getDateOfBirth(), copy.getDateOfBirth(), this::verifyLabel);
     verifyFirstListItem(original.getDateOfDeath(), copy.getDateOfDeath(), this::verifyLabel);
     verifyFirstListItem(original.getDateOfEstablishment(), copy.getDateOfEstablishment(),
@@ -337,8 +347,6 @@ public class EntityMergeEngineTest {
     assertTrue(copy.getHasPartList().isEmpty());
     assertTrue(copy.getIsPartOfList().isEmpty());
     assertTrue(copy.getNameList().isEmpty());
-    assertTrue(copy.getPlaceOfBirthList().isEmpty());
-    assertTrue(copy.getPlaceOfDeathList().isEmpty());
   }
 
   private void verifyConcept(Concept original, eu.europeana.corelib.definitions.jibx.Concept copy) {
