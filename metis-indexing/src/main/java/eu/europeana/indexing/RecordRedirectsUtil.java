@@ -206,8 +206,7 @@ public final class RecordRedirectsUtil {
   }
 
   private static HashMap<String, List<String>> createThirdCombinationGroup(
-      List<String> isShownByList,
-      List<String> identifiers) {
+      List<String> isShownByList, List<String> identifiers) {
     HashMap<String, List<String>> listsToCombineMaps = new HashMap<>();
     if (!CollectionUtils.isEmpty(isShownByList) && !CollectionUtils.isEmpty(identifiers)) {
       listsToCombineMaps
@@ -227,7 +226,7 @@ public final class RecordRedirectsUtil {
 
   private static String generateOrOperationFromList(String queryFieldName, List<String> items) {
     final List<String> filteredItems = getFilteredItems(items);
-    return computeJoiningQuery(filteredItems, Function.identity(),
+    return computeJoiningQuery(filteredItems, ClientUtils::escapeQueryChars,
         Collectors.joining(" OR ", String.format("%s:(", queryFieldName), ")"));
   }
 
