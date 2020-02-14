@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -92,43 +92,48 @@ public final class RecordRedirectsUtil {
     final Map<String, String> queryParamMap = new HashMap<>();
     queryParamMap.put("q", finalQuery);
 
-    //Prepare sub-query
-    Predicate<SolrDocument> predicate = getSolrDocumentPredicate(
-        queryForDatasetIdsAndConcatenatedIds, queryMatchingFieldsAndFirstQueryGroup);
     //Preprocess sub-query and replace documents based on the result
     SolrDocumentList solrDocuments = solrDocumentRetriever.apply(queryParamMap);
-    final SolrDocumentList subQueryResults = solrDocuments.stream().filter(predicate)
+
+    //Check exact ids match first
+    final SolrDocumentList exactIdsMatchResults = solrDocuments.stream().filter(checkExactIdsMatch(
+        queryForDatasetIdsAndConcatenatedIds.getRight()))
         .collect(Collectors.toCollection(SolrDocumentList::new));
-    if (!subQueryResults.isEmpty()) {
-      solrDocuments = subQueryResults;
+    if (!exactIdsMatchResults.isEmpty()) {
+      solrDocuments = exactIdsMatchResults;
+    } else {
+      //Check for first group if and only if the exact ids match do not have any results
+      final SolrDocumentList firstGroupMatchResults = solrDocuments.stream()
+          .filter(checkFirstGroupMatch(queryMatchingFieldsAndFirstQueryGroup.getRight()))
+          .collect(Collectors.toCollection(SolrDocumentList::new));
+      if (!firstGroupMatchResults.isEmpty()) {
+        solrDocuments = firstGroupMatchResults;
+      }
     }
+
     //Return all identifiers found and their creationDates
-    return solrDocuments.stream()
-        .map(document -> ImmutablePair
-            .of((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()),
-                (Date) document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString())))
+    return solrDocuments.stream().map(document -> ImmutablePair
+        .of((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()),
+            (Date) document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString())))
         .collect(Collectors.toList());
   }
 
-  private static Predicate<SolrDocument> getSolrDocumentPredicate(
-      Pair<String, List<String>> queryForDatasetIdsAndConcatenatedIds,
-      Pair<String, Map<String, List<String>>> queryMatchingFieldsAndFirstQueryGroup) {
-    return document -> {
-      boolean doesDocumentMatchWithQuery;
-      //Check matching of europeana ids first
-      doesDocumentMatchWithQuery = queryForDatasetIdsAndConcatenatedIds.getRight().stream()
-          .anyMatch(((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))::equals);
+  private static Predicate<SolrDocument> checkExactIdsMatch(List<String> concatenatedIds) {
+    return document -> concatenatedIds.stream()
+        .anyMatch(((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))::equals);
+  }
 
-      //Check for first group matching if no europeana id matches found
-      if (!doesDocumentMatchWithQuery) {
-        for (Entry<String, List<String>> entry : queryMatchingFieldsAndFirstQueryGroup.getRight()
-            .entrySet()) {
-          doesDocumentMatchWithQuery = document.getFieldValues(entry.getKey()).stream()
-              .map(String.class::cast)
-              .anyMatch(entry.getValue()::contains);
+  private static Predicate<SolrDocument> checkFirstGroupMatch(
+      Map<String, List<String>> firstQueryGroup) {
+    return document -> {
+      int counter = 0;
+      for (Entry<String, List<String>> entry : firstQueryGroup.entrySet()) {
+        if (document.getFieldValues(entry.getKey()).stream().map(String.class::cast)
+            .anyMatch(entry.getValue()::contains)) {
+          counter++;
         }
       }
-      return doesDocumentMatchWithQuery;
+      return firstQueryGroup.size() == counter;
     };
   }
 
@@ -220,7 +225,7 @@ public final class RecordRedirectsUtil {
     final List<String> items = listsToCombine.entrySet().stream()
         .map(entry -> generateOrOperationFromList(entry.getKey(), entry.getValue()))
         .filter(StringUtils::isNotBlank).collect(Collectors.toList());
-    return computeJoiningQuery(items, Function.identity(),
+    return computeJoiningQuery(items, UnaryOperator.identity(),
         Collectors.joining(" AND ", "(", ")"));
   }
 
@@ -238,7 +243,7 @@ public final class RecordRedirectsUtil {
   }
 
   private static String computeJoiningQuery(List<String> filteredItems,
-      Function<String, String> preprocessor, Collector<CharSequence, ?, String> joining) {
+      UnaryOperator<String> preprocessor, Collector<CharSequence, ?, String> joining) {
     String result = null;
     if (!CollectionUtils.isEmpty(filteredItems)) {
       result = filteredItems.stream().map(preprocessor).collect(joining);
@@ -264,7 +269,7 @@ public final class RecordRedirectsUtil {
           .collect(Collectors.toList());
 
       combinedQueryForRedirectedDatasetIds = computeJoiningQuery(concatenatedDatasetRecordIds,
-          Function.identity(),
+          UnaryOperator.identity(),
           Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EUROPEANA_ID), ")"));
     }
     return ImmutablePair.of(combinedQueryForRedirectedDatasetIds, concatenatedDatasetRecordIds);
