@@ -9,6 +9,8 @@ import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.mongo.RecordRedirect;
 import eu.europeana.metis.mongo.RecordRedirectDao;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,18 +47,22 @@ public final class RecordRedirectsUtil {
       List<String> datasetIdsToRedirectFrom, boolean performRedirects,
       ThrowingFunction<Map<String, String>, SolrDocumentList, IndexingException> solrDocumentRetriever)
       throws IndexingException {
-    List<Pair<String, Date>> recordsForRedirection = new ArrayList<>();
-    if (performRedirects) {
-      //Search Solr to find matching record for redirection
-      recordsForRedirection = searchMatchingRecordForRedirection(rdf, datasetIdsToRedirectFrom,
-          solrDocumentRetriever);
 
-      //Create redirection
-      if (!CollectionUtils.isEmpty(recordsForRedirection)) {
-        createRedirections(recordRedirectDao, rdf.getAbout(),
-            recordsForRedirection, recordDate);
-      }
+    // If no redirects are to be performed, we're done.
+    if (!performRedirects) {
+      return Collections.emptyList();
     }
+
+    // Search Solr to find matching record for redirection
+    final List<Pair<String, Date>> recordsForRedirection = searchMatchingRecordForRedirection(rdf,
+            datasetIdsToRedirectFrom, solrDocumentRetriever);
+
+    // Create redirection
+    if (!CollectionUtils.isEmpty(recordsForRedirection)) {
+      createRedirections(recordRedirectDao, rdf.getAbout(), recordsForRedirection, recordDate);
+    }
+
+    // Done.
     return recordsForRedirection;
   }
 
@@ -75,9 +81,9 @@ public final class RecordRedirectsUtil {
     final Pair<String, Map<String, List<String>>> queryMatchingFieldsAndFirstQueryGroup = generateQueryForMatchingFields(
         rdfWrapper);
     final String queryForMatchingFields = queryMatchingFieldsAndFirstQueryGroup.getLeft();
-    final String combinedQueryOr = Stream
-        .of(queryForDatasetIdsAndConcatenatedIds.getLeft(), queryForMatchingFields)
-        .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR ", "(", ")"));
+    final List<String> queriesToCombine = Arrays.asList(queryForDatasetIdsAndConcatenatedIds.getLeft(), queryForMatchingFields);
+    final String combinedQueryOr = computeJoiningQuery(getFilteredItems(queriesToCombine),
+            UnaryOperator.identity(), Collectors.joining(" OR ", "(", ")"));
 
     //Create query to restrict search on specific datasetId subsets
     final List<String> datasetIds = new ArrayList<>();
@@ -86,7 +92,18 @@ public final class RecordRedirectsUtil {
       datasetIdsToRedirectFrom.stream().filter(StringUtils::isNotBlank).forEach(datasetIds::add);
     }
     final String datasetIdSubsets = generateQueryInDatasetSubsets(datasetIds);
-    final String finalQuery = String.format("%s AND %s", datasetIdSubsets, combinedQueryOr);
+
+    // Query avoiding self-redirection. Should only be needed if the list of datasets to redirect
+    // from is empty, but added always, just in case the own dataset is accidentally in that list).
+    final String queryPreventingFindingSameRecord = String
+            .format("-%s:%s", EdmLabel.EUROPEANA_ID.toString(),
+                    ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
+
+    // Assemble final query.
+    final List<String> finalQueryParts = Arrays
+            .asList(datasetIdSubsets, combinedQueryOr, queryPreventingFindingSameRecord);
+    final String finalQuery = computeJoiningQuery(getFilteredItems(finalQueryParts),
+            UnaryOperator.identity(), Collectors.joining(" AND "));
 
     //Apply solr query and execute
     final Map<String, String> queryParamMap = new HashMap<>();
@@ -251,9 +268,8 @@ public final class RecordRedirectsUtil {
     return result;
   }
 
-  private static List<String> getFilteredItems(List<String> datasetIds) {
-    return datasetIds.stream().filter(StringUtils::isNotBlank)
-        .collect(Collectors.toList());
+  private static List<String> getFilteredItems(List<String> items) {
+    return items.stream().filter(StringUtils::isNotBlank).collect(Collectors.toList());
   }
 
   private static Pair<String, List<String>> generateQueryForDatasetIds(
