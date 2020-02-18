@@ -32,7 +32,7 @@ import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionIdAndStartedDatePair;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
+import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -60,6 +60,7 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
@@ -448,7 +449,8 @@ class TestOrchestratorService {
     ExecutionProgress executionProgress = new ExecutionProgress();
     executionProgress.setProcessedRecords(5);
     oaipmhHarvestPlugin.setExecutionProgress(executionProgress);
-    when(workflowUtils.validateWorkflowPlugins(workflow, null)).thenReturn(oaipmhHarvestPlugin);
+    when(workflowUtils.validateWorkflowPlugins(workflow, null))
+            .thenReturn(new PluginWithExecutionId<>("execution id", oaipmhHarvestPlugin));
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
     doNothing().when(rlock).lock();
@@ -637,7 +639,7 @@ class TestOrchestratorService {
         .createPlugin(new OaipmhHarvestPluginMetadata());
     when(authorizer.authorizeReadExistingDatasetById(metisUser, datasetId)).thenReturn(null);
     when(workflowUtils.computePredecessorPlugin(ExecutablePluginType.VALIDATION_EXTERNAL, null,
-        datasetId)).thenReturn(oaipmhHarvestPlugin);
+        datasetId)).thenReturn(new PluginWithExecutionId<>("execution ID", oaipmhHarvestPlugin));
     assertSame(oaipmhHarvestPlugin, orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(metisUser, datasetId,
             ExecutablePluginType.VALIDATION_EXTERNAL, null));

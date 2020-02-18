@@ -379,46 +379,15 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Because of the unwind, we know that the plugin we need is always the first one.
     return Optional.ofNullable(metisPluginsIterator).filter(Iterator::hasNext).map(Iterator::next)
-        .filter(execution -> !execution.getMetisPlugins().isEmpty())
-        .map(execution -> new PluginWithExecutionId<MetisPlugin>(
-            execution.getId().toString(), execution.getMetisPlugins().get(0)))
-        .orElse(null);
+            .filter(execution -> !execution.getMetisPlugins().isEmpty())
+            .map(execution -> new PluginWithExecutionId<MetisPlugin>(execution,
+                    execution.getMetisPlugins().get(0)))
+            .orElse(null);
   }
 
   private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum> set) {
     if (set == null || set.isEmpty() || set.stream().anyMatch(Objects::isNull)) {
       throw new IllegalArgumentException();
-    }
-  }
-
-  /**
-   * This object contains a pair consisting of a workflow execution ID and a plugin.
-   *
-   * @param <T> The plugin type.
-   */
-  public static class PluginWithExecutionId<T extends MetisPlugin> {
-
-    private final String executionId;
-    private final T plugin;
-
-    /**
-     * Constructor.
-     *
-     * @param executionId The execution ID.
-     * @param plugin The plugin.
-     */
-    public PluginWithExecutionId(String executionId, T plugin) {
-      super();
-      this.executionId = executionId;
-      this.plugin = plugin;
-    }
-
-    public String getExecutionId() {
-      return executionId;
-    }
-
-    public T getPlugin() {
-      return plugin;
     }
   }
 

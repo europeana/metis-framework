@@ -7,7 +7,7 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
+import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -341,7 +341,7 @@ public class OrchestratorService {
     }
 
     // Validate the workflow and obtain the predecessor.
-    final ExecutablePlugin predecessor = workflowUtils
+    final PluginWithExecutionId<ExecutablePlugin> predecessor = workflowUtils
         .validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
     // Make sure that eCloud knows this dataset (needs to happen before we create the workflow).
@@ -449,7 +449,9 @@ public class OrchestratorService {
       MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
-    return workflowUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId);
+    return Optional.ofNullable(
+            workflowUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
+            .map(PluginWithExecutionId::getPlugin).orElse(null);
   }
 
   /**
