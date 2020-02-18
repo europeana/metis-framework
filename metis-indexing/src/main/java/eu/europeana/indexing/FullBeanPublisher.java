@@ -24,10 +24,10 @@ import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.function.Supplier;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.util.TriConsumer;
@@ -45,6 +45,8 @@ import org.apache.solr.common.params.MapSolrParams;
  * @author jochen
  */
 class FullBeanPublisher {
+
+  private static final String REDIRECT_PUBLISH_ERROR = "Could not publish the redirection changes.";
 
   private static final String MONGO_SERVER_PUBLISH_ERROR = "Could not publish to Mongo server.";
 
@@ -169,8 +171,7 @@ class FullBeanPublisher {
    * </ul>
    */
   private void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
-      boolean performRedirects)
-      throws IndexingException {
+      boolean performRedirects) throws IndexingException {
 
     // Convert RDF to Full Bean.
     final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
@@ -181,16 +182,20 @@ class FullBeanPublisher {
         preserveUpdateAndCreateTimesFromRdf ? EMPTY_PREPROCESSOR
             : (FullBeanPublisher::setUpdateAndCreateTime);
 
-    //The list can be empty if redirects are not applied or if no redirect were found
-    List<Pair<String, Date>> recordsForRedirection = RecordRedirectsUtil
-        .checkAndApplyRedirects(recordRedirectDao, rdf, recordDate, datasetIdsToRedirectFrom,
-            performRedirects, this::getSolrDocuments);
+    // Perform redirection
+    final List<Pair<String, Date>> recordsForRedirection;
+    try {
+      recordsForRedirection = RecordRedirectsUtil.checkAndApplyRedirects(recordRedirectDao, rdf,
+              recordDate, datasetIdsToRedirectFrom, performRedirects, this::getSolrDocuments);
+    } catch (RuntimeException e) {
+      throw new RecordRelatedIndexingException(REDIRECT_PUBLISH_ERROR, e);
+    }
 
     // Publish to Mongo
     final FullBeanImpl savedFullBean;
     try {
       savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, recordDate,
-          recordsForRedirection.stream().min(Entry.comparingByValue()).map(Pair::getValue)
+          recordsForRedirection.stream().map(Pair::getValue).min(Comparator.naturalOrder())
               .orElse(null), edmMongoClient);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);

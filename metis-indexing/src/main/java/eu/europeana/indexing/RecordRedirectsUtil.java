@@ -28,6 +28,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -38,6 +40,8 @@ import org.springframework.util.CollectionUtils;
  * @since 2020-02-11
  */
 public final class RecordRedirectsUtil {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(RecordRedirectsUtil.class);
 
   private RecordRedirectsUtil() {
   }
@@ -58,8 +62,9 @@ public final class RecordRedirectsUtil {
             datasetIdsToRedirectFrom, solrDocumentRetriever);
 
     // Create redirection
-    if (!CollectionUtils.isEmpty(recordsForRedirection)) {
-      createRedirections(recordRedirectDao, rdf.getAbout(), recordsForRedirection, recordDate);
+    for (Pair<String, Date> recordForRedirection : recordsForRedirection) {
+      introduceRedirection(recordRedirectDao, rdf.getAbout(), recordForRedirection.getLeft(),
+              recordDate);
     }
 
     // Done.
@@ -291,22 +296,68 @@ public final class RecordRedirectsUtil {
     return ImmutablePair.of(combinedQueryForRedirectedDatasetIds, concatenatedDatasetRecordIds);
   }
 
-  private static void createRedirections(RecordRedirectDao recordRedirectDao,
-      String newIdentifier, List<Pair<String, Date>> recordsForRedirection,
-      Date recordRedirectDate) {
-    for (Pair<String, Date> recordForRedirection : recordsForRedirection) {
-      final RecordRedirect recordRedirect = new RecordRedirect(newIdentifier,
-          recordForRedirection.getKey(),
-          recordRedirectDate);
-      recordRedirectDao.createUpdate(recordRedirect);
-      //Update the previous redirect item in db that has newId == oldIdentifier
-      final RecordRedirect recordRedirectByNewId = recordRedirectDao
-          .getRecordRedirectByNewId(recordRedirect.getOldId());
-      if (recordRedirectByNewId != null) {
-        recordRedirectByNewId.setNewId(newIdentifier);
-        recordRedirectDao.createUpdate(recordRedirectByNewId);
-      }
+  /**
+   * Introduce a new redirect X -> Y. We do the following things:
+   * <ol>
+   * <li>
+   * We delete all mappings Y -> ?. We can do this because we are indexing record Y and it does not
+   * need to be redirected to any other link.
+   * </li>
+   * <li>
+   * We delete all mappings X -> ?. We can do this because X will be redirected to record Y and it
+   * does not need to be redirected to any other link. We don't remove X -> Y.
+   * </li>
+   * <li>
+   * Introduce new redirect from X -> Y if it doesn't already exist. This new redirect will get the
+   * record redirect date (passed to this method).
+   * </li>
+   * <li>
+   * We update all existing redirects ? -> X to point to Y instead (so becoming ? -> Y).
+   * </li>
+   * </ol>
+   * Note that after this method is called, X should only occur as source of a redirect, and then
+   * only as part of redirect X -> Y, whereas Y should occur only as destination of a redirect.
+   * Neither of them can therefore be part of a redirection cycle.
+   *
+   * @param recordRedirectDao The DAO object to manage redirects.
+   * @param newIdentifier The new identifier (value Y).
+   * @param oldIdentifier The old identifier (value X).
+   * @param recordRedirectDate The date (timestamp) for any new redirects.
+   */
+  private static void introduceRedirection(RecordRedirectDao recordRedirectDao,
+          String newIdentifier, String oldIdentifier, Date recordRedirectDate) {
+
+    // Sanity check: if old and new identifier are equal, do nothing.
+    if (oldIdentifier.equals(newIdentifier)) {
+      LOGGER.info(
+              "Encountered the request to create mappping from {} to itself. This will be ignored.",
+              oldIdentifier);
+      return;
     }
+
+    // Remove any redirects Y -> ?.
+    recordRedirectDao.getRecordRedirectsByOldId(newIdentifier).forEach(recordRedirectDao::delete);
+
+    // Remove any redirects X -> ? except X -> Y.
+    final List<RecordRedirect> existingRedirectsFromOldIdentifier = recordRedirectDao
+            .getRecordRedirectsByOldId(oldIdentifier);
+    existingRedirectsFromOldIdentifier.stream()
+            .filter(redirect -> !redirect.getNewId().equals(newIdentifier))
+            .forEach(recordRedirectDao::delete);
+
+    // Create the new redirect X -> Y if one doesn't already exist.
+    final boolean mappingAlreadyExists = existingRedirectsFromOldIdentifier.stream()
+            .map(RecordRedirect::getNewId).anyMatch(newIdentifier::equals);
+    if (!mappingAlreadyExists) {
+      recordRedirectDao
+              .createUpdate(new RecordRedirect(newIdentifier, oldIdentifier, recordRedirectDate));
+    }
+
+    // Update the redirects ? -> X to point to Y instead, becoming ? -> Y.
+    recordRedirectDao.getRecordRedirectsByNewId(oldIdentifier).forEach(redirect -> {
+      redirect.setNewId(newIdentifier);
+      recordRedirectDao.createUpdate(redirect);
+    });
   }
 
   /**

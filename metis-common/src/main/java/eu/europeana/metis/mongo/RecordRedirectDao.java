@@ -5,6 +5,7 @@ import dev.morphia.Datastore;
 import dev.morphia.Key;
 import dev.morphia.Morphia;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,15 @@ public class RecordRedirectDao {
   }
 
   /**
+   * Delete a record redirect in the database.
+   *
+   * @param recordRedirect The record to delete.
+   */
+  public void delete(RecordRedirect recordRedirect) {
+    datastore.delete(recordRedirect);
+  }
+
+  /**
    * Get a record redirect by {@link ObjectId} String.
    *
    * @param id the {@link ObjectId} String to search with
@@ -73,35 +83,30 @@ public class RecordRedirectDao {
   }
 
   /**
-   * Get a record redirect using an {@link RecordRedirect#getOldId()}
+   * Get record redirects using an {@link RecordRedirect#getOldId()}
    *
    * @param oldId the oldId of a record redirect
-   * @return the record redirect object
+   * @return the record redirect objects
    */
-  public RecordRedirect getRecordRedirectByOldId(String oldId) {
-    return getRecordRedirect(OLD_ID, oldId);
+  public List<RecordRedirect> getRecordRedirectsByOldId(String oldId) {
+    return getRecordRedirects(OLD_ID, oldId);
   }
 
   /**
-   * Get a record redirect using an {@link RecordRedirect#getNewId()} ()}
+   * Get record redirects using an {@link RecordRedirect#getNewId()} ()}
    *
    * @param newId the newId of a record redirect
-   * @return the record redirect object
+   * @return the record redirect objects
    */
-  public RecordRedirect getRecordRedirectByNewId(String newId) {
-    return getRecordRedirect(NEW_ID, newId);
+  public List<RecordRedirect> getRecordRedirectsByNewId(String newId) {
+    return getRecordRedirects(NEW_ID, newId);
   }
 
-  private RecordRedirect getRecordRedirect(String fieldName, String identifier) {
-    try {
-      return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-          () -> datastore.find(RecordRedirect.class).field(fieldName).equal(identifier).first());
-    } catch (Exception e) {
-      LOGGER.error("Could not get record redirect", e);
-    }
-    return null;
+  private List<RecordRedirect> getRecordRedirects(String fieldName, String identifier) {
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+            () -> datastore.find(RecordRedirect.class).field(fieldName).equal(identifier).find()
+                    .toList());
   }
-
 
   /**
    * Close internal database connections if applicable
@@ -112,6 +117,4 @@ public class RecordRedirectDao {
       this.mongoClient.close();
     }
   }
-
-
 }
