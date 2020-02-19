@@ -122,6 +122,42 @@ public class WorkflowExecutionFactory {
     return ExecutablePluginFactory.createPlugin(pluginMetadata);
   }
 
+  /**
+   * Determines whether to apply redirection as part of the given plugin. We apply the following
+   * heuristics to determining this, based on the information available to us, and erring on the
+   * side of caution in the sense that it is better to perform it once too many than once too few:
+   * <ol>
+   * <li>
+   * If this is the first plugin of its kind for this dataset, we check for redirects if and only if
+   * the dataset properties specify any datasets to redirect from.
+   * </li>
+   * <li>
+   * If this is not the first plugin of its kind:
+   * <ol type="a">
+   * <li>
+   * If a harvesting occurred after the last plugin of the same kind we assume that the records may
+   * have changed and/or moved and we perform a redirection.
+   * </li>
+   * <li>
+   * If the dataset properties (which includes the list of datasets to redirect from) have changed
+   * since the last plugin of the same kind we assume that the list of datasets to redirect from may
+   * have changed and we perform a redirection if and only if the dataset properties specify any
+   * datasets to redirect from.
+   * </li>
+   * </ol>
+   * </li>
+   * </ol>
+   * If none of these conditions apply, we do not check for redirects.
+   *
+   * @param dataset The dataset.
+   * @param workflowPredecessor The plugin on which the new workflow is based as a predecessor. Can
+   * be null.
+   * @param executablePluginType The type of the plugin as part of which we may wish to perform
+   * redirection.
+   * @param typesInWorkflowBeforeThisPlugin The types of the plugins that come before this plugin in
+   * the new workflow.
+   * @return Whether to apply redirection as part of this plugin.
+   */
   private boolean shouldRedirectsBePerformed(Dataset dataset,
           PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
           ExecutablePluginType executablePluginType,

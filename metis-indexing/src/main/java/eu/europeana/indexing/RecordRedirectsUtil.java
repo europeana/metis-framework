@@ -98,8 +98,8 @@ public final class RecordRedirectsUtil {
     }
     final String datasetIdSubsets = generateQueryInDatasetSubsets(datasetIds);
 
-    // Query avoiding self-redirection. Should only be needed if the list of datasets to redirect
-    // from is empty, but added always, just in case the own dataset is accidentally in that list).
+    // Query avoiding self-redirection. If the dataset already exists in the Solr it is likely that
+    // our query so far would return the very record we're indexing, which should be prevented.
     final String queryPreventingFindingSameRecord = String
             .format("-%s:%s", EdmLabel.EUROPEANA_ID.toString(),
                     ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
@@ -297,15 +297,15 @@ public final class RecordRedirectsUtil {
   }
 
   /**
-   * Introduce a new redirect X -> Y. We do the following things:
+   * Introduce a new redirect X -> Y. If X equals Y we do nothing. Otherwise, we do the following:
    * <ol>
    * <li>
-   * We delete all mappings Y -> ?. We can do this because we are indexing record Y and it does not
-   * need to be redirected to any other link.
+   * We delete all mappings Y -> ?. We can do this because we are indexing record Y and it should
+   * therefore not be redirected to any other link.
    * </li>
    * <li>
-   * We delete all mappings X -> ?. We can do this because X will be redirected to record Y and it
-   * does not need to be redirected to any other link. We don't remove X -> Y.
+   * We delete all mappings X -> ? except X -> Y. We can do this because X will be redirected to
+   * record Y only, and it should therefore not be redirected to any other record.
    * </li>
    * <li>
    * Introduce new redirect from X -> Y if it doesn't already exist. This new redirect will get the
@@ -315,9 +315,9 @@ public final class RecordRedirectsUtil {
    * We update all existing redirects ? -> X to point to Y instead (so becoming ? -> Y).
    * </li>
    * </ol>
-   * Note that after this method is called, X should only occur as source of a redirect, and then
-   * only as part of redirect X -> Y, whereas Y should occur only as destination of a redirect.
-   * Neither of them can therefore be part of a redirection cycle.
+   * Note that after this method is called (and if X does not equal Y), X should only occur as
+   * source of a redirect, and then only as part of redirect X -> Y, whereas Y should occur only as
+   * destination of a redirect. Neither of them can therefore be part of a redirection cycle.
    *
    * @param recordRedirectDao The DAO object to manage redirects.
    * @param newIdentifier The new identifier (value Y).
