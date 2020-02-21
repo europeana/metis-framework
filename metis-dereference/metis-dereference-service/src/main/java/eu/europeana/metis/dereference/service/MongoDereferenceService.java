@@ -1,13 +1,18 @@
 package eu.europeana.metis.dereference.service;
 
+import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.WebResource;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -73,19 +78,19 @@ public class MongoDereferenceService implements DereferenceService {
       throw new IllegalArgumentException("Parameter resourceId cannot be null.");
     }
 
-    // First look in the Europeana entity collection. Otherwise get it from the source.
+    // First look in the Europeana entity collection. If it's there, it is a Europeana collection
+    // entity and there is no need to continue. Otherwise actually dereference it.
     final EnrichmentBase enrichedEntity = enrichmentClient.getByUri(resourceId);
     final Collection<EnrichmentBase> resultList;
     if (enrichedEntity == null || !resourceId.equals(enrichedEntity.getAbout())) {
-      resultList = dereferenceFromSource(resourceId);
+      resultList = dereferenceResource(resourceId);
     } else {
       resultList = Collections.singleton(enrichedEntity);
     }
 
     // Prepare the result: empty if we didn't find an entity.
     final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(
-            resultList);
+        .createNullOriginalFieldEnrichmentBaseWrapperList(resultList);
     return new EnrichmentResultList(enrichmentBaseWrapperList);
   }
 
@@ -106,7 +111,7 @@ public class MongoDereferenceService implements DereferenceService {
    * @param resourceId The resource to dereference.
    * @return A collection of dereferenced resources.
    */
-  private Collection<EnrichmentBase> dereferenceFromSource(String resourceId)
+  private Collection<EnrichmentBase> dereferenceResource(String resourceId)
       throws JAXBException, TransformerException, URISyntaxException {
 
     // Get the main object to dereference. If null, we are done.
@@ -129,16 +134,43 @@ public class MongoDereferenceService implements DereferenceService {
 
     // Perform the breadth-first search to search for broader terms (if needed).
     final int iterations = resource.getRight().getIterations();
-    final Collection<EnrichmentBase> result;
+    final Map<String, EnrichmentBase> result;
     if (iterations > 0) {
       result = GraphUtils.breadthFirstSearch(resourceId, resource.getLeft(),
           resource.getRight().getIterations(), valueResolver, this::extractBroaderResources);
     } else {
-      result = Collections.singleton(resource.getLeft());
+      result = Collections.singletonMap(resourceId, resource.getLeft());
     }
 
+    // Get links from dereferenced objects and try to enrich them. Get: 1) entities that have any of
+    // the dereferenced results as sameAs link, 2) entities that are mentioned as sameAs in any of
+    // the dereferenced results, and 3) entities that have a sameAs link that is in turn mentioned
+    // as sameAs link in any of the dereferenced results. So: transitivity of sameAs relations.
+    final Set<String> enrichmentLinks = new HashSet<>();
+    result.values().stream().map(EnrichmentBase::getAbout).forEach(enrichmentLinks::add);
+    result.values().stream().map(MongoDereferenceService::getSameAsLinks).flatMap(List::stream)
+            .map(WebResource::getResourceUri).forEach(enrichmentLinks::add);
+    final Map<String, EnrichmentBase> enrichmentResults = enrichmentLinks.stream()
+            .map(enrichmentClient::getByUri)
+            .collect(Collectors.toMap(EnrichmentBase::getAbout, Function.identity()));
+    result.putAll(enrichmentResults);
+
     // Done
-    return result;
+    return result.values();
+  }
+
+  private static List<? extends WebResource> getSameAsLinks(EnrichmentBase enrichmentBase) {
+    if (enrichmentBase instanceof Place) {
+      return ((Place) enrichmentBase).getSameAs();
+    } else if (enrichmentBase instanceof Agent) {
+      return ((Agent) enrichmentBase).getSameAs();
+    } else if (enrichmentBase instanceof Concept) {
+      return ((Concept) enrichmentBase).getExactMatch();
+    } else if (enrichmentBase instanceof Timespan) {
+      return ((Timespan) enrichmentBase).getSameAs();
+    } else {
+      return Collections.emptyList();
+    }
   }
 
   private void extractBroaderResources(EnrichmentBase resource, Set<String> destination) {
