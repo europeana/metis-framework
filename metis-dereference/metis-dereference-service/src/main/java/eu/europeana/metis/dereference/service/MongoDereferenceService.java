@@ -150,8 +150,8 @@ public class MongoDereferenceService implements DereferenceService {
     result.values().stream().map(EnrichmentBase::getAbout).forEach(enrichmentLinks::add);
     result.values().stream().map(MongoDereferenceService::getSameAsLinks).flatMap(List::stream)
             .map(WebResource::getResourceUri).forEach(enrichmentLinks::add);
-    final Map<String, EnrichmentBase> enrichmentResults = enrichmentLinks.stream()
-            .map(enrichmentClient::getByUri)
+    final Map<String, EnrichmentBase> enrichmentResults = enrichmentClient.getByUri(enrichmentLinks)
+            .getEnrichmentBaseWrapperList().stream().map(EnrichmentBaseWrapper::getEnrichmentBase)
             .collect(Collectors.toMap(EnrichmentBase::getAbout, Function.identity()));
     result.putAll(enrichmentResults);
 
