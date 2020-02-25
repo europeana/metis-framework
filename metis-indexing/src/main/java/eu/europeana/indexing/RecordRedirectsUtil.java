@@ -59,12 +59,12 @@ public final class RecordRedirectsUtil {
 
     // Search Solr to find matching record for redirection
     final List<Pair<String, Date>> recordsForRedirection = searchMatchingRecordForRedirection(rdf,
-            datasetIdsToRedirectFrom, solrDocumentRetriever);
+        datasetIdsToRedirectFrom, solrDocumentRetriever);
 
     // Create redirection
     for (Pair<String, Date> recordForRedirection : recordsForRedirection) {
       introduceRedirection(recordRedirectDao, rdf.getAbout(), recordForRedirection.getLeft(),
-              recordDate);
+          recordDate);
     }
 
     // Done.
@@ -86,9 +86,10 @@ public final class RecordRedirectsUtil {
     final Pair<String, Map<String, List<String>>> queryMatchingFieldsAndFirstQueryGroup = generateQueryForMatchingFields(
         rdfWrapper);
     final String queryForMatchingFields = queryMatchingFieldsAndFirstQueryGroup.getLeft();
-    final List<String> queriesToCombine = Arrays.asList(queryForDatasetIdsAndConcatenatedIds.getLeft(), queryForMatchingFields);
+    final List<String> queriesToCombine = Arrays
+        .asList(queryForDatasetIdsAndConcatenatedIds.getLeft(), queryForMatchingFields);
     final String combinedQueryOr = computeJoiningQuery(getFilteredItems(queriesToCombine),
-            UnaryOperator.identity(), Collectors.joining(" OR ", "(", ")"));
+        UnaryOperator.identity(), Collectors.joining(" OR ", "(", ")"));
 
     //Create query to restrict search on specific datasetId subsets
     final List<String> datasetIds = new ArrayList<>();
@@ -101,14 +102,14 @@ public final class RecordRedirectsUtil {
     // Query avoiding self-redirection. If the dataset already exists in the Solr it is likely that
     // our query so far would return the very record we're indexing, which should be prevented.
     final String queryPreventingFindingSameRecord = String
-            .format("-%s:%s", EdmLabel.EUROPEANA_ID.toString(),
-                    ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
+        .format("-%s:%s", EdmLabel.EUROPEANA_ID.toString(),
+            ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
 
     // Assemble final query.
     final List<String> finalQueryParts = Arrays
-            .asList(datasetIdSubsets, combinedQueryOr, queryPreventingFindingSameRecord);
+        .asList(datasetIdSubsets, combinedQueryOr, queryPreventingFindingSameRecord);
     final String finalQuery = computeJoiningQuery(getFilteredItems(finalQueryParts),
-            UnaryOperator.identity(), Collectors.joining(" AND "));
+        UnaryOperator.identity(), Collectors.joining(" AND "));
 
     //Apply solr query and execute
     final Map<String, String> queryParamMap = new HashMap<>();
@@ -163,9 +164,9 @@ public final class RecordRedirectsUtil {
       RdfWrapper rdfWrapper) {
     //Collect all required information for heuristics
     final List<String> identifiers = rdfWrapper.getProviderProxyIdentifiers().stream()
-        .map(Identifier::getString).collect(Collectors.toList());
+        .map(Identifier::getString).filter(StringUtils::isNotBlank).collect(Collectors.toList());
     final List<String> titles = rdfWrapper.getProviderProxyTitles().stream().map(Title::getString)
-        .collect(Collectors.toList());
+        .filter(StringUtils::isNotBlank).collect(Collectors.toList());
     final List<String> descriptions = rdfWrapper.getProviderProxyDescriptions().stream()
         .map(description -> {
           if (StringUtils.isNotBlank(description.getString())) {
@@ -177,7 +178,7 @@ public final class RecordRedirectsUtil {
           return null;
         }).filter(Objects::nonNull).collect(Collectors.toList());
     final List<String> isShownByList = rdfWrapper.getIsShownByList().stream()
-        .map(IsShownBy::getResource)
+        .map(IsShownBy::getResource).filter(StringUtils::isNotBlank)
         .collect(Collectors.toList());
 
     //Create all lists that need to be combined
@@ -325,13 +326,13 @@ public final class RecordRedirectsUtil {
    * @param recordRedirectDate The date (timestamp) for any new redirects.
    */
   private static void introduceRedirection(RecordRedirectDao recordRedirectDao,
-          String newIdentifier, String oldIdentifier, Date recordRedirectDate) {
+      String newIdentifier, String oldIdentifier, Date recordRedirectDate) {
 
     // Sanity check: if old and new identifier are equal, do nothing.
     if (oldIdentifier.equals(newIdentifier)) {
       LOGGER.info(
-              "Encountered the request to create mappping from {} to itself. This will be ignored.",
-              oldIdentifier);
+          "Encountered the request to create mappping from {} to itself. This will be ignored.",
+          oldIdentifier);
       return;
     }
 
@@ -340,17 +341,17 @@ public final class RecordRedirectsUtil {
 
     // Remove any redirects X -> ? except X -> Y.
     final List<RecordRedirect> existingRedirectsFromOldIdentifier = recordRedirectDao
-            .getRecordRedirectsByOldId(oldIdentifier);
+        .getRecordRedirectsByOldId(oldIdentifier);
     existingRedirectsFromOldIdentifier.stream()
-            .filter(redirect -> !redirect.getNewId().equals(newIdentifier))
-            .forEach(recordRedirectDao::delete);
+        .filter(redirect -> !redirect.getNewId().equals(newIdentifier))
+        .forEach(recordRedirectDao::delete);
 
     // Create the new redirect X -> Y if one doesn't already exist.
     final boolean mappingAlreadyExists = existingRedirectsFromOldIdentifier.stream()
-            .map(RecordRedirect::getNewId).anyMatch(newIdentifier::equals);
+        .map(RecordRedirect::getNewId).anyMatch(newIdentifier::equals);
     if (!mappingAlreadyExists) {
       recordRedirectDao
-              .createUpdate(new RecordRedirect(newIdentifier, oldIdentifier, recordRedirectDate));
+          .createUpdate(new RecordRedirect(newIdentifier, oldIdentifier, recordRedirectDate));
     }
 
     // Update the redirects ? -> X to point to Y instead, becoming ? -> Y.
