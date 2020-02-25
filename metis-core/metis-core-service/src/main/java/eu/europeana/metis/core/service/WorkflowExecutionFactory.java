@@ -165,23 +165,25 @@ public class WorkflowExecutionFactory {
       ExecutablePluginType executablePluginType,
       List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
 
+    // Get some history from the database: find the latest successful plugin of the same type.
+    final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulPlugin = workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(), EnumSet
+            .of(executablePluginType), true);
+
     // Check if we can find the answer in the workflow itself. Iterate backwards and see what we find.
     for (int i = typesInWorkflowBeforeThisPlugin.size() - 1; i >= 0; i--) {
       final ExecutablePluginType type = typesInWorkflowBeforeThisPlugin.get(i);
       if (WorkflowUtils.getHarvestPluginGroup().contains(type)) {
-        // If we find a harvest (occurring after any plugin of this type), we know we need to perform redirect only if there are datasets to redirect from.
-        return !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
+        // If we find a harvest (occurring after any plugin of this type),
+        // we know we need to perform redirects only if there is a non null latest successful plugin or there are datasets to redirect from.
+        return latestSuccessfulPlugin != null || !CollectionUtils
+            .isEmpty(dataset.getDatasetIdsToRedirectFrom());
       }
       if (type == executablePluginType) {
         // If we find another plugin of the same type (after any harvest) we know we don't need to perform redirect.
         return false;
       }
     }
-
-    // Get some history from the database: find the latest successful plugin of the same type.
-    final PluginWithExecutionId<ExecutablePlugin> latestSuccessfulPlugin = workflowExecutionDao
-        .getLatestSuccessfulExecutablePlugin(dataset.getDatasetId(), EnumSet
-            .of(executablePluginType), true);
 
     // If we have a previous execution of this plugin, we see if things have changed since then.
     final boolean performRedirect;
