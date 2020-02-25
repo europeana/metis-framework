@@ -32,10 +32,10 @@ import org.junit.jupiter.api.Test;
 class CommandExecutorTest {
 
   private static final List<String> COMMAND_INPUT = Collections.singletonList("Command input");
-  private static final List<String> COMMAND_OUTPUT = Collections.singletonList("Command output");
+  private static final String COMMAND_OUTPUT = "Command output";
   private static final String ERROR_OUTPUT = "Error output";
   private static final Supplier<InputStream> COMMAND_OUTPUT_STREAM = () -> new ByteArrayInputStream(
-      String.join("\n", COMMAND_OUTPUT).getBytes(Charset.defaultCharset()));
+      COMMAND_OUTPUT.getBytes(Charset.defaultCharset()));
   private static final Supplier<InputStream> ERROR_OUTPUT_STREAM = () -> new ByteArrayInputStream(
       ERROR_OUTPUT.getBytes(Charset.defaultCharset()));
   private static final Supplier<InputStream> EMPTY_STREAM = () -> new ByteArrayInputStream(
@@ -68,7 +68,7 @@ class CommandExecutorTest {
     doReturn(EMPTY_STREAM.get()).when(process).getErrorStream();
 
     // Perform call
-    final List<String> result = commandExecutor.executeInternal(COMMAND_INPUT, false);
+    final String result = commandExecutor.executeInternal(COMMAND_INPUT, false);
 
     // Verify
     verify(processFactory, times(1)).createProcess(COMMAND_INPUT, false);
@@ -84,7 +84,7 @@ class CommandExecutorTest {
     doReturn(EMPTY_STREAM.get()).when(process).getErrorStream();
 
     // Perform call
-    final List<String> result = commandExecutor.executeInternal(COMMAND_INPUT, true);
+    final String result = commandExecutor.executeInternal(COMMAND_INPUT, true);
 
     // Verify
     verify(processFactory, times(1)).createProcess(COMMAND_INPUT, true);
@@ -100,7 +100,7 @@ class CommandExecutorTest {
     doReturn(ERROR_OUTPUT_STREAM.get()).when(process).getErrorStream();
 
     // Perform call
-    final List<String> result = commandExecutor.executeInternal(COMMAND_INPUT, false);
+    final String result = commandExecutor.executeInternal(COMMAND_INPUT, false);
 
     // Verify
     verify(processFactory, times(1)).createProcess(COMMAND_INPUT, false);
@@ -153,7 +153,7 @@ class CommandExecutorTest {
 
     // Set up the input and the output.
     final List<String> command = Collections.singletonList("command");
-    final List<String> result = Collections.singletonList("result");
+    final String result = "result";
     doReturn(result).when(commandExecutor).executeInternal(any(), anyBoolean());
 
     // Run with redirect and verify that the internal call was made.

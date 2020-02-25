@@ -92,7 +92,7 @@ class AudioVideoProcessor implements MediaProcessor {
     // Check whether ffprobe is installed.
     final String output;
     try {
-      output = String.join("", commandExecutor.execute(Collections.singletonList("ffprobe"), true));
+      output = commandExecutor.execute(Collections.singletonList("ffprobe"), true);
     } catch (CommandExecutionException e) {
       throw new MediaProcessorException("Error while looking for ffprobe tools", e);
     }
@@ -161,7 +161,7 @@ class AudioVideoProcessor implements MediaProcessor {
       metadata = parseMpdResource(resource, detectedMimeType);
     } else {
       // Execute command
-      final List<String> response;
+      final String response;
       try {
         response = commandExecutor.execute(createAudioVideoAnalysisCommand(resource), false);
       } catch (CommandExecutionException e) {
@@ -243,13 +243,12 @@ class AudioVideoProcessor implements MediaProcessor {
     return metadata;
   }
 
-  JSONObject readCommandResponseToJson(List<String> response) {
-    final String jsonString = String.join("", response);
-    return new JSONObject(new JSONTokener(jsonString));
+  JSONObject readCommandResponseToJson(String response) {
+    return new JSONObject(new JSONTokener(response));
   }
 
   AbstractResourceMetadata parseCommandResponse(Resource resource, String detectedMimeType,
-      List<String> response) throws MediaExtractionException {
+      String response) throws MediaExtractionException {
     try {
 
       // Analyze command result

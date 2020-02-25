@@ -91,24 +91,21 @@ class AudioVideoProcessorTest {
     final String ffprobeCommand = "ffprobe";
 
     // Test ffprobe 3
-    doReturn(Collections.singletonList(
-        "ffprobe version 3.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers"))
+    doReturn("ffprobe version 3.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
         .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
     assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test ffprobe 2
-    doReturn(Collections.singletonList(
-        "ffprobe version 2.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers"))
+    doReturn("ffprobe version 2.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
         .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
     assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test other commands
-    doReturn(Collections.singletonList(
-        "ffprobe version 1.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers"))
+    doReturn("ffprobe version 1.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
         .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
-    doReturn(Collections.singletonList("Other command")).when(commandExecutor)
+    doReturn("Other command").when(commandExecutor)
         .execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
@@ -275,7 +272,7 @@ class AudioVideoProcessorTest {
     final String detectedMimeType = "detected mime type";
 
     // Create json objects
-    final List<String> commandResponse = Collections.emptyList();
+    final String commandResponse = "response";
     final JSONObject object = mock(JSONObject.class);
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
@@ -330,7 +327,7 @@ class AudioVideoProcessorTest {
     final String detectedMimeType = "detected mime type";
 
     // Create json objects
-    final List<String> commandResponse = Collections.emptyList();
+    final String commandResponse = "response";
     final JSONObject object = mock(JSONObject.class);
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
@@ -385,7 +382,7 @@ class AudioVideoProcessorTest {
     final String detectedMimeType = "detected mime type";
 
     // Create json objects
-    final List<String> commandResponse = Collections.emptyList();
+    final String commandResponse = "response";
     final JSONObject object = mock(JSONObject.class);
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
@@ -527,7 +524,7 @@ class AudioVideoProcessorTest {
     // Prepare processor
     final List<String> command = Collections.emptyList();
     doReturn(command).when(audioVideoProcessor).createAudioVideoAnalysisCommand(resource);
-    final List<String> response = Collections.emptyList();
+    final String response = "response";
     doReturn(response).when(commandExecutor).execute(command, false);
     final AbstractResourceMetadata metadata = mock(AbstractResourceMetadata.class);
     doReturn(metadata).when(audioVideoProcessor)

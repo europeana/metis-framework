@@ -56,10 +56,10 @@ class CommandExecutor {
    * @param redirectErrorStream Whether to return the contents of the error stream as part of the
    * command's output. If this is false, and there is error output but no regular output, an
    * exception will be thrown.
-   * @return The output of the command as a list of lines.
+   * @return The output of the command as a String.
    * @throws CommandExecutionException In case a problem occurs.
    */
-  List<String> execute(List<String> command, boolean redirectErrorStream)
+  String execute(List<String> command, boolean redirectErrorStream)
       throws CommandExecutionException {
     try {
       return executeInternal(command, redirectErrorStream);
@@ -68,7 +68,7 @@ class CommandExecutor {
     }
   }
 
-  List<String> executeInternal(List<String> command, boolean redirectErrorStream)
+  String executeInternal(List<String> command, boolean redirectErrorStream)
       throws IOException, CommandExecutionException {
 
     // Create process and start it.
@@ -99,9 +99,9 @@ class CommandExecutor {
     }
 
     // Read process output into lines.
-    final List<String> result;
+    final String result;
     try (InputStream in = process.getInputStream()) {
-      result = IOUtils.readLines(in, Charset.defaultCharset());
+      result = IOUtils.toString(in, Charset.defaultCharset());
     }
 
     // If there is no regular output but there is error output, throw an exception.

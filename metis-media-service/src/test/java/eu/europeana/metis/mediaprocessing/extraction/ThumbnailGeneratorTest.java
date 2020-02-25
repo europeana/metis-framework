@@ -80,28 +80,25 @@ class ThumbnailGeneratorTest {
 
     // Test I.M. 7
     final List<String> versionCommand = Arrays.asList(magick7Command, versionDirective);
-    doReturn(Collections.singletonList(
-        "Version: ImageMagick 7.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org"))
+    doReturn("Version: ImageMagick 7.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
         .when(commandExecutor).execute(eq(versionCommand), eq(true));
     assertEquals(magick7Command, ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
-    doReturn(Collections.singletonList("Command unknown")).when(commandExecutor)
-        .execute(eq(versionCommand), eq(true));
+    doReturn("Command unknown").when(commandExecutor).execute(eq(versionCommand), eq(true));
 
     // Test I.M. 6: detect three locations, the last of which is the correct one.
     final List<String> convertLocations = Arrays.asList("convert 1", "convert 2", "convert 3");
-    doReturn(convertLocations).when(commandExecutor)
+    final String convertLocationsConcat = String.join("\n", convertLocations);
+    doReturn(convertLocationsConcat).when(commandExecutor)
         .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true));
-    doReturn(convertLocations).when(commandExecutor)
+    doReturn(convertLocationsConcat).when(commandExecutor)
         .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true));
     final List<String> versionCommand0 = Arrays.asList(convertLocations.get(0), versionDirective);
-    doReturn(Collections.singletonList("Command unknown")).when(commandExecutor)
-        .execute(eq(versionCommand0), eq(true));
+    doReturn("Command unknown").when(commandExecutor).execute(eq(versionCommand0), eq(true));
     final List<String> versionCommand1 = Arrays.asList(convertLocations.get(1), versionDirective);
     doThrow(CommandExecutionException.class).when(commandExecutor)
         .execute(eq(versionCommand1), eq(true));
     final List<String> versionCommand2 = Arrays.asList(convertLocations.get(2), versionDirective);
-    doReturn(Collections.singletonList(
-        "Version: ImageMagick 6.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org"))
+    doReturn("Version: ImageMagick 6.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
         .when(commandExecutor).execute(eq(versionCommand2), eq(true));
     assertEquals(convertLocations.get(2),
         ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
@@ -121,12 +118,11 @@ class ThumbnailGeneratorTest {
         () -> ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
 
     // Test other version of I.M. (make sure that where/which works again).
-    doReturn(convertLocations).when(commandExecutor)
+    doReturn(convertLocationsConcat).when(commandExecutor)
         .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true));
-    doReturn(convertLocations).when(commandExecutor)
+    doReturn(convertLocationsConcat).when(commandExecutor)
         .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true));
-    doReturn(Collections.singletonList(
-        "Version: ImageMagick 5.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org"))
+    doReturn("Version: ImageMagick 5.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
         .when(commandExecutor).execute(eq(versionCommand2), eq(true));
     assertThrows(MediaProcessorException.class,
         () -> ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
@@ -154,6 +150,7 @@ class ThumbnailGeneratorTest {
     final File content = new File("content file");
     final List<String> command = Arrays.asList("command1", "command2");
     final List<String> commandResponse = Arrays.asList("response1", "response2");
+    final String commandResponseConcat = String.join("\n", commandResponse);
     final ImageMetadata imageMetadata = new ImageMetadata(200, 200, "sRGB",
         Arrays.asList("WHITE", "BLACK"));
 
@@ -161,7 +158,7 @@ class ThumbnailGeneratorTest {
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnailFiles(eq(url), anyString());
     doReturn(command).when(thumbnailGenerator)
         .createThumbnailGenerationCommand(same(thumbnails), notNull(), same(content));
-    doReturn(commandResponse).when(commandExecutor).execute(command, false);
+    doReturn(commandResponseConcat).when(commandExecutor).execute(command, false);
     doReturn(imageMetadata).when(thumbnailGenerator).parseCommandResponse(commandResponse);
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
     doNothing().when(thumbnailGenerator).copyFile(any(Path.class), any());
@@ -201,7 +198,7 @@ class ThumbnailGeneratorTest {
         .execute(command, false);
     assertThrows(MediaExtractionException.class,
         () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
-    doReturn(commandResponse).when(commandExecutor).execute(command, false);
+    doReturn(commandResponseConcat).when(commandExecutor).execute(command, false);
     verify(thumbnail1.getThumbnail(), times(1)).close();
     verify(thumbnail2.getThumbnail(), times(1)).close();
 

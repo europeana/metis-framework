@@ -143,9 +143,9 @@ class ThumbnailGenerator {
 
     // Try the 'magick' command for ImageMagick 7.
     try {
-      final List<String> lines =
+      final String im7Response =
           commandExecutor.execute(Arrays.asList("magick", "-version"), true);
-      if (String.join("", lines).startsWith("Version: ImageMagick 7")) {
+      if (im7Response.startsWith("Version: ImageMagick 7")) {
         final String result = "magick";
         LOGGER.info("Found ImageMagic 7. Command: {}", result);
         return result;
@@ -160,8 +160,8 @@ class ThumbnailGenerator {
         System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win");
     List<String> paths;
     try {
-      paths =
-          commandExecutor.execute(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
+      paths = splitByNewLine(
+          commandExecutor.execute(Arrays.asList(isWindows ? "where" : "which", "convert"), true));
     } catch (CommandExecutionException e) {
       LOGGER.warn("Could not find ImageMagick 6 due to following problem.", e);
       paths = Collections.emptyList();
@@ -170,9 +170,8 @@ class ThumbnailGenerator {
     // Try the 'convert' command for ImageMagick 6: try executables to find the right one.
     for (String path : paths) {
       try {
-        final List<String> lines =
-            commandExecutor.execute(Arrays.asList(path, "-version"), true);
-        if (String.join("", lines).startsWith("Version: ImageMagick 6")) {
+        final String pathResult = commandExecutor.execute(Arrays.asList(path, "-version"), true);
+        if (pathResult.startsWith("Version: ImageMagick 6")) {
           LOGGER.info("Found ImageMagic 6. Command: {}", path);
           return path;
         }
@@ -186,6 +185,11 @@ class ThumbnailGenerator {
     // So no image magick was found.
     LOGGER.error("Could not find ImageMagick 6 or 7. See previous log statements for details.");
     throw new MediaProcessorException("Could not find ImageMagick 6 or 7.");
+  }
+  
+  private static List<String> splitByNewLine(String input) {
+    return Stream.of(input.split("\\R")).filter(StringUtils::isNotBlank)
+        .collect(Collectors.toList());
   }
 
   /**
@@ -278,8 +282,8 @@ class ThumbnailGenerator {
     // Generate the thumbnails and read image properties.
     final List<String> response;
     try {
-      response = commandExecutor
-          .execute(createThumbnailGenerationCommand(thumbnails, detectedMimeType, content), false);
+      response = splitByNewLine(commandExecutor
+          .execute(createThumbnailGenerationCommand(thumbnails, detectedMimeType, content), false));
     } catch (CommandExecutionException e) {
       throw new MediaExtractionException("Could not analyze content and generate thumbnails.", e);
     }
