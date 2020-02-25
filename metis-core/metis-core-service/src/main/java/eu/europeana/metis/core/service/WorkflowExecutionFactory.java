@@ -62,21 +62,23 @@ public class WorkflowExecutionFactory {
   // Expect the dataset to be synced with eCloud.
   // Does not save the workflow execution.
   WorkflowExecution createWorkflowExecution(Workflow workflow, Dataset dataset,
-          PluginWithExecutionId<ExecutablePlugin> predecessor, int priority) {
+      PluginWithExecutionId<ExecutablePlugin> predecessor, int priority) {
 
     // Create the plugins
     final List<AbstractExecutablePlugin> workflowPlugins = new ArrayList<>();
     final List<ExecutablePluginType> typesInWorkflow = new ArrayList<>();
     for (AbstractExecutablePluginMetadata pluginMetadata : workflow.getMetisPluginsMetadata()) {
       if (pluginMetadata.isEnabled()) {
-        workflowPlugins.add(createWorkflowPlugin(dataset, predecessor, pluginMetadata, typesInWorkflow));
+        workflowPlugins
+            .add(createWorkflowPlugin(dataset, predecessor, pluginMetadata, typesInWorkflow));
         typesInWorkflow.add(pluginMetadata.getExecutablePluginType());
       }
     }
 
     // Set the predecessor
     if (predecessor != null) {
-      workflowPlugins.get(0).getPluginMetadata().setPreviousRevisionInformation(predecessor.getPlugin());
+      workflowPlugins.get(0).getPluginMetadata()
+          .setPreviousRevisionInformation(predecessor.getPlugin());
     }
 
     // Done: create workflow with all the information.
@@ -84,9 +86,9 @@ public class WorkflowExecutionFactory {
   }
 
   private AbstractExecutablePlugin createWorkflowPlugin(Dataset dataset,
-          PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
-          AbstractExecutablePluginMetadata pluginMetadata,
-          List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
+      PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
+      AbstractExecutablePluginMetadata pluginMetadata,
+      List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
 
     // Add some extra configuration to the plugin metadata depending on the type.
     if (pluginMetadata instanceof TransformationPluginMetadata) {
@@ -103,7 +105,7 @@ public class WorkflowExecutionFactory {
       ((IndexToPreviewPluginMetadata) pluginMetadata).setDatasetIdsToRedirectFrom(
           dataset.getDatasetIdsToRedirectFrom());
       boolean performRedirects = shouldRedirectsBePerformed(dataset, workflowPredecessor,
-              ExecutablePluginType.PREVIEW, typesInWorkflowBeforeThisPlugin);
+          ExecutablePluginType.PREVIEW, typesInWorkflowBeforeThisPlugin);
       ((IndexToPreviewPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof IndexToPublishPluginMetadata) {
       ((IndexToPublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
@@ -111,7 +113,7 @@ public class WorkflowExecutionFactory {
       ((IndexToPublishPluginMetadata) pluginMetadata).setDatasetIdsToRedirectFrom(
           dataset.getDatasetIdsToRedirectFrom());
       boolean performRedirects = shouldRedirectsBePerformed(dataset, workflowPredecessor,
-              ExecutablePluginType.PUBLISH, typesInWorkflowBeforeThisPlugin);
+          ExecutablePluginType.PUBLISH, typesInWorkflowBeforeThisPlugin);
       ((IndexToPublishPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof LinkCheckingPluginMetadata) {
       ((LinkCheckingPluginMetadata) pluginMetadata)
@@ -159,16 +161,16 @@ public class WorkflowExecutionFactory {
    * @return Whether to apply redirection as part of this plugin.
    */
   private boolean shouldRedirectsBePerformed(Dataset dataset,
-          PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
-          ExecutablePluginType executablePluginType,
-          List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
+      PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
+      ExecutablePluginType executablePluginType,
+      List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
 
     // Check if we can find the answer in the workflow itself. Iterate backwards and see what we find.
     for (int i = typesInWorkflowBeforeThisPlugin.size() - 1; i >= 0; i--) {
       final ExecutablePluginType type = typesInWorkflowBeforeThisPlugin.get(i);
       if (WorkflowUtils.getHarvestPluginGroup().contains(type)) {
-        // If we find a harvest (occurring after any plugin of this type), we know we need to perform redirect.
-        return true;
+        // If we find a harvest (occurring after any plugin of this type), we know we need to perform redirect only if there are datasets to redirect from.
+        return !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
       }
       if (type == executablePluginType) {
         // If we find another plugin of the same type (after any harvest) we know we don't need to perform redirect.
@@ -188,19 +190,20 @@ public class WorkflowExecutionFactory {
       // Check if since the latest plugin's execution, the dataset information is updated and (now)
       // contains dataset ids to redirect from.
       final boolean datasetUpdatedSinceLatestPlugin = dataset.getUpdatedDate() != null &&
-              dataset.getUpdatedDate()
-                      .compareTo(latestSuccessfulPlugin.getPlugin().getFinishedDate()) >= 0
-              && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
+          dataset.getUpdatedDate()
+              .compareTo(latestSuccessfulPlugin.getPlugin().getFinishedDate()) >= 0
+          && !CollectionUtils.isEmpty(dataset.getDatasetIdsToRedirectFrom());
 
       // Check if the latest plugin execution is based on a different harvest as this one will be.
       // If this plugin's harvest cannot be determined, assume it is not the same (this shouldn't
       // happen as we checked the workflow already). This is a lambda: we wish to evaluate on demand.
       final BooleanSupplier rootDiffersForLatestPlugin = () -> workflowPredecessor == null ||
-              !workflowUtils.getRootAncestor(latestSuccessfulPlugin)
-                      .equals(workflowUtils.getRootAncestor(workflowPredecessor));
+          !workflowUtils.getRootAncestor(latestSuccessfulPlugin)
+              .equals(workflowUtils.getRootAncestor(workflowPredecessor));
 
       // In either of these situations, we perform a redirect.
-      performRedirect = datasetUpdatedSinceLatestPlugin || rootDiffersForLatestPlugin.getAsBoolean();
+      performRedirect =
+          datasetUpdatedSinceLatestPlugin || rootDiffersForLatestPlugin.getAsBoolean();
     } else {
 
       // If it's the first plugin execution, just check if dataset ids to redirect from are present.
