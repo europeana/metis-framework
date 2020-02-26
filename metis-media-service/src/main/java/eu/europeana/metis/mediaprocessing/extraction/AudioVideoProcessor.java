@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
@@ -91,11 +90,9 @@ class AudioVideoProcessor implements MediaProcessor {
 
     // Check whether ffprobe is installed.
     final String output;
-    try {
-      output = commandExecutor.execute(Collections.singletonList("ffprobe"), true);
-    } catch (CommandExecutionException e) {
-      throw new MediaProcessorException("Error while looking for ffprobe tools", e);
-    }
+    output = commandExecutor.execute(Collections.singletonList("ffprobe"), true,
+        (message, cause) -> new MediaProcessorException(
+            "Error while looking for ffprobe tools: " + message, cause));
     if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
       throw new MediaProcessorException("ffprobe 2.x/3.x not found");
     }
@@ -161,12 +158,9 @@ class AudioVideoProcessor implements MediaProcessor {
       metadata = parseMpdResource(resource, detectedMimeType);
     } else {
       // Execute command
-      final String response;
-      try {
-        response = commandExecutor.execute(createAudioVideoAnalysisCommand(resource), false);
-      } catch (CommandExecutionException e) {
-        throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
-      }
+      final String response = commandExecutor.execute(createAudioVideoAnalysisCommand(resource),
+          false, (message, cause) -> new MediaExtractionException(
+              "Problem while analyzing audio/video file: " + message, cause));
 
       // Parse command result.
       metadata = parseCommandResponse(resource, detectedMimeType, response);
