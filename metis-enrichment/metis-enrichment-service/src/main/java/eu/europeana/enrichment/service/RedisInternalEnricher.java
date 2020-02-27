@@ -13,6 +13,7 @@ import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -355,44 +356,58 @@ public class RedisInternalEnricher {
   /**
    * Get an enrichment document based on the uri provided.
    *
-   * @param uri the provided uri
+   * @param requestedUri the provided uri
    * @return the enrichment document corresponding to the provided uri
    * @throws IOException if something went wrong when accessing the db
    */
-  public EntityWrapper getByUri(String uri) throws IOException {
-    Jedis jedis = redisProvider.getJedis();
-    EntityWrapper entityWrapper = null;
-    entityWrapper = getEntityWrapper(uri, jedis, entityWrapper, CACHED_AGENT);
-    entityWrapper = getEntityWrapper(uri, jedis, entityWrapper, CACHED_CONCEPT);
-    entityWrapper = getEntityWrapper(uri, jedis, entityWrapper, CACHED_TIMESPAN);
-    entityWrapper = getEntityWrapper(uri, jedis, entityWrapper, CACHED_PLACE);
+  public EntityWrapper getByUri(String requestedUri) throws IOException {
 
-    entityWrapper = getEntityWrapperFromSameAs(uri, jedis, entityWrapper, CACHED_AGENT);
-    entityWrapper = getEntityWrapperFromSameAs(uri, jedis, entityWrapper, CACHED_CONCEPT);
-    entityWrapper = getEntityWrapperFromSameAs(uri, jedis, entityWrapper, CACHED_TIMESPAN);
-    entityWrapper = getEntityWrapperFromSameAs(uri, jedis, entityWrapper, CACHED_PLACE);
-    jedis.close();
-    return entityWrapper;
+    // Get the result providers - this is constant and does not depend on the input.
+    final List<GetterByUri> getters = Arrays.asList(
+            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_AGENT),
+            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_CONCEPT),
+            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_TIMESPAN),
+            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_PLACE),
+            (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_AGENT),
+            (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_CONCEPT),
+            (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_TIMESPAN),
+            (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_PLACE)
+    );
+
+    // Get the first non-null result.
+    try (final Jedis jedis = redisProvider.getJedis()) {
+      for (GetterByUri getter : getters) {
+        final EntityWrapper result = getter.getByUri(requestedUri, jedis);
+        if (result != null) {
+          return result;
+        }
+      }
+      return null;
+    }
   }
 
-  private EntityWrapper getEntityWrapperFromSameAs(String uri, Jedis jedis,
-      EntityWrapper entityWrapper,
-      String cachedEntity) throws IOException {
+  @FunctionalInterface
+  private interface GetterByUri {
+
+    EntityWrapper getByUri(String uri, Jedis jedis) throws IOException;
+  }
+
+  private EntityWrapper getEntityWrapperFromSameAs(String uri, Jedis jedis, String cachedEntity)
+          throws IOException {
     if (jedis.hexists(cachedEntity + CACHED_SAMEAS, uri)) {
-      entityWrapper = OBJECT_MAPPER.readValue(
-          jedis.hget(cachedEntity + CACHED_URI, jedis.hget(cachedEntity + CACHED_SAMEAS, uri)),
-          EntityWrapper.class);
+      return OBJECT_MAPPER.readValue(jedis.hget(cachedEntity + CACHED_URI,
+              jedis.hget(cachedEntity + CACHED_SAMEAS, uri)), EntityWrapper.class);
     }
-    return entityWrapper;
+    return null;
   }
 
-  private EntityWrapper getEntityWrapper(String uri, Jedis jedis, EntityWrapper entityWrapper,
-      String cachedEntity) throws IOException {
+  private EntityWrapper getEntityWrapper(String uri, Jedis jedis, String cachedEntity)
+          throws IOException {
     if (jedis.hexists(cachedEntity + CACHED_URI, uri)) {
-      entityWrapper = OBJECT_MAPPER
-          .readValue(jedis.hget(cachedEntity + CACHED_URI, uri), EntityWrapper.class);
+      return OBJECT_MAPPER
+              .readValue(jedis.hget(cachedEntity + CACHED_URI, uri), EntityWrapper.class);
     }
-    return entityWrapper;
+    return null;
   }
 
   private ObjectMapper getObjectMapper() {

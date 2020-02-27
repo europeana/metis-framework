@@ -17,6 +17,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -70,7 +72,7 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch
+   * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch.
    *
    * @param uri The URI to retrieve
    * @return the structured result of the enrichment
@@ -78,11 +80,9 @@ public class EnrichmentController {
    */
   @GetMapping(value = RestEndpoints.ENRICHMENT_BYURI, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
-  @ApiOperation(value = "Retrieve an entity by URI or its sameAs", response = EnrichmentBase.class)
+  @ApiOperation(value = "Retrieve an entity by rdf:about or owl:sameAs/skos:exactMatch", response = EnrichmentBase.class)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Error processing the result")
-  })
+  @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentBase getByUri(@ApiParam("uri") @RequestParam("uri") String uri)
       throws EnrichmentException {
 
@@ -93,6 +93,28 @@ public class EnrichmentController {
 
     try {
       return converter.convert(wrapper);
+    } catch (IOException e) {
+      throw new EnrichmentException("Error converting object to EnrichmentBase", e);
+    }
+  }
+
+  /**
+   * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch.
+   *
+   * @param uriList The URI to retrieve
+   * @return the structured result of the enrichment
+   * @throws EnrichmentException if an exception occurred during enrichment
+   */
+  @PostMapping(value = RestEndpoints.ENRICHMENT_BYURI, consumes = MediaType.APPLICATION_JSON_VALUE,
+          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ApiOperation(value = "Retrieve entities by rdf:about or owl:sameAs/skos:exactMatch", response = EnrichmentResultList.class)
+  @ResponseBody
+  @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
+  public EnrichmentResultList getByUri(@RequestBody List<String>  uriList) throws EnrichmentException {
+    final List<EntityWrapper> wrapperList = uriList.stream().map(enricher::getByUri)
+            .filter(Objects::nonNull).collect(Collectors.toList());
+    try {
+      return converter.convert(wrapperList);
     } catch (IOException e) {
       throw new EnrichmentException("Error converting object to EnrichmentBase", e);
     }

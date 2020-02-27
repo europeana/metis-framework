@@ -11,6 +11,8 @@ import eu.europeana.enrichment.utils.InputValue;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -88,6 +90,21 @@ public class EnrichmentClient {
             request, EnrichmentBase.class);
 
     return response.getBody();
+  }
+
+  /**
+   * Get enrichment information based on a specified list of URIs.
+   *
+   * @param uriList the list of URIs to enrich
+   * @return the enriched information
+   */
+  public EnrichmentResultList getByUri(Collection<String> uriList) {
+    try {
+      return template.postForObject(endpoint + ENRICHMENT_BYURI, new ArrayList<>(uriList),
+              EnrichmentResultList.class);
+    } catch (RestClientException e) {
+      throw new UnknownException("Enrichment client call failed.", e);
+    }
   }
 
   void setRestTemplate(RestTemplate template) {

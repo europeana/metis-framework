@@ -2,7 +2,6 @@ package eu.europeana.metis.dereference.service.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -10,8 +9,8 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import java.util.Collection;
-import java.util.HashSet;
+
+import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -64,15 +63,15 @@ class GraphUtilsTest {
     final BiConsumer<Long, Set<Integer>> neighborExtractor = spy(new NeighborExtractor());
 
     // Perform the functionality and check result.
-    final Collection<Long> resultCollection =
+    final Map<Integer, Long> resultCollection =
         GraphUtils.breadthFirstSearch(3, 8L, 5, valueResolver, neighborExtractor);
     assertNotNull(resultCollection);
     assertEquals(9, resultCollection.size());
 
     // Check the result values
-    final Set<Long> result = new HashSet<>(resultCollection);
     for (int exponent = 0; exponent < 9; exponent++) {
-      assertTrue(result.contains(Math.round(Math.pow(2, exponent))));
+      assertNotNull(resultCollection.get(exponent));
+      assertEquals(Math.round(Math.pow(2, exponent)), resultCollection.get(exponent).longValue());
     }
 
     // Check the resolve calls: 9 resolves: the source is not resolved, but -1 is.

@@ -1,6 +1,5 @@
 package eu.europeana.metis.dereference.service.utils;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -23,21 +22,22 @@ public final class GraphUtils {
    * nodes that are within a certain distance of the source node. Each node consists of a key (that
    * can be used as a key in the {@link Map} interface) and a value. And each node contains
    * references to its neighbors (outgoing edges).
-   * 
+   *
    * @param sourceNodeKey The key of the source node.
    * @param sourceNodeValue The value of the source node.
    * @param maxDistance The maximum distance that we search. If this is less or equal to 0, only the
-   *        source node will be returned.
+   * source node will be returned.
    * @param valueResolver A function that obtains a value for a given key. The function could return
-   *        null.
+   * null.
    * @param neighborExtractor A function that accepts two parameters: a value and a set of keys. The
-   *        function extracts all neighbors (keys) from the provided value and adds them to the set
-   *        of keys.
+   * function extracts all neighbors (keys) from the provided value and adds them to the set of
+   * keys.
    * @param <K> The type of the node keys.
    * @param <V> The type of the node values.
-   * @return The values that are within the specified distance from the source node.
+   * @return The values that are within the specified distance from the source node, including the
+   * source node itself.
    */
-  public static <K, V> Collection<V> breadthFirstSearch(K sourceNodeKey, V sourceNodeValue,
+  public static <K, V> Map<K, V> breadthFirstSearch(K sourceNodeKey, V sourceNodeValue,
       int maxDistance, Function<K, V> valueResolver, BiConsumer<V, Set<K>> neighborExtractor) {
 
     // The map keeps track of all nodes that we have already seen, to avoid loops.
@@ -78,6 +78,6 @@ public final class GraphUtils {
     }
 
     // Done: the result is all discovered nodes (their values).
-    return allFoundNodes.values();
+    return allFoundNodes;
   }
 }
