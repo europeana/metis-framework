@@ -21,7 +21,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.extraction.ThumbnailGenerator.ThumbnailWithSize;
@@ -32,14 +31,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,7 +66,7 @@ class ThumbnailGeneratorTest {
   }
 
   @Test
-  void testDiscoverImageMagickCommand() throws CommandExecutionException, MediaProcessorException {
+  void testDiscoverImageMagickCommand() throws MediaProcessorException {
 
     // magick commands
     final String magick7Command = "magick";
@@ -80,61 +77,56 @@ class ThumbnailGeneratorTest {
 
     // Test I.M. 7
     final List<String> versionCommand = Arrays.asList(magick7Command, versionDirective);
-    doReturn(Collections.singletonList(
-        "Version: ImageMagick 7.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org"))
-        .when(commandExecutor).execute(eq(versionCommand), eq(true));
+    doReturn("Version: ImageMagick 7.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
+        .when(commandExecutor).execute(eq(versionCommand), eq(true), any());
     assertEquals(magick7Command, ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
-    doReturn(Collections.singletonList("Command unknown")).when(commandExecutor)
-        .execute(eq(versionCommand), eq(true));
+    doReturn("Command unknown").when(commandExecutor).execute(eq(versionCommand), eq(true), any());
 
     // Test I.M. 6: detect three locations, the last of which is the correct one.
     final List<String> convertLocations = Arrays.asList("convert 1", "convert 2", "convert 3");
-    doReturn(convertLocations).when(commandExecutor)
-        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true));
-    doReturn(convertLocations).when(commandExecutor)
-        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true));
+    final String convertLocationsConcat = String.join("\n", convertLocations);
+    doReturn(convertLocationsConcat).when(commandExecutor)
+        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true), any());
+    doReturn(convertLocationsConcat).when(commandExecutor)
+        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true), any());
     final List<String> versionCommand0 = Arrays.asList(convertLocations.get(0), versionDirective);
-    doReturn(Collections.singletonList("Command unknown")).when(commandExecutor)
-        .execute(eq(versionCommand0), eq(true));
+    doReturn("Command unknown").when(commandExecutor).execute(eq(versionCommand0), eq(true), any());
     final List<String> versionCommand1 = Arrays.asList(convertLocations.get(1), versionDirective);
-    doThrow(CommandExecutionException.class).when(commandExecutor)
-        .execute(eq(versionCommand1), eq(true));
+    doThrow(MediaProcessorException.class).when(commandExecutor)
+        .execute(eq(versionCommand1), eq(true), any());
     final List<String> versionCommand2 = Arrays.asList(convertLocations.get(2), versionDirective);
-    doReturn(Collections.singletonList(
-        "Version: ImageMagick 6.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org"))
-        .when(commandExecutor).execute(eq(versionCommand2), eq(true));
+    doReturn("Version: ImageMagick 6.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
+        .when(commandExecutor).execute(eq(versionCommand2), eq(true), any());
     assertEquals(convertLocations.get(2),
         ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
 
     // Change previous test by throwing exception for I.M 7 - should still detect I.M. 6.
-    doThrow(CommandExecutionException.class).when(commandExecutor)
-        .execute(eq(versionCommand), eq(true));
+    doThrow(MediaProcessorException.class).when(commandExecutor)
+        .execute(eq(versionCommand), eq(true), any());
     assertEquals(convertLocations.get(2),
         ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
 
     // Change previous test by throwing exception when doing where/which. Should now fail.
-    doThrow(CommandExecutionException.class).when(commandExecutor)
-        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true));
-    doThrow(CommandExecutionException.class).when(commandExecutor)
-        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true));
+    doThrow(MediaProcessorException.class).when(commandExecutor)
+        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true), any());
+    doThrow(MediaProcessorException.class).when(commandExecutor)
+        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
 
     // Test other version of I.M. (make sure that where/which works again).
-    doReturn(convertLocations).when(commandExecutor)
-        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true));
-    doReturn(convertLocations).when(commandExecutor)
-        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true));
-    doReturn(Collections.singletonList(
-        "Version: ImageMagick 5.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org"))
-        .when(commandExecutor).execute(eq(versionCommand2), eq(true));
+    doReturn(convertLocationsConcat).when(commandExecutor)
+        .execute(eq(Arrays.asList(whichCommand, magick6Command)), eq(true), any());
+    doReturn(convertLocationsConcat).when(commandExecutor)
+        .execute(eq(Arrays.asList(whereCommand, magick6Command)), eq(true), any());
+    doReturn("Version: ImageMagick 5.9.7-4 Q16 x86_64 20170114 http://www.imagemagick.org")
+        .when(commandExecutor).execute(eq(versionCommand2), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> ThumbnailGenerator.discoverImageMagickCommand(commandExecutor));
   }
 
   @Test
-  void testThumbnailGeneration()
-      throws MediaExtractionException, CommandExecutionException, IOException {
+  void testThumbnailGeneration() throws MediaExtractionException, IOException {
 
     // Define first thumbnail
     final int size1 = 123;
@@ -153,16 +145,16 @@ class ThumbnailGeneratorTest {
     final String url = "testUrl";
     final File content = new File("content file");
     final List<String> command = Arrays.asList("command1", "command2");
-    final List<String> commandResponse = Arrays.asList("response1", "response2");
+    final String commandResponse = "response1\nresponse2";
     final ImageMetadata imageMetadata = new ImageMetadata(200, 200, "sRGB",
         Arrays.asList("WHITE", "BLACK"));
 
     // Mock the thumbnail generator
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnailFiles(eq(url), anyString());
     doReturn(command).when(thumbnailGenerator)
-        .createThumbnailGenerationCommand(same(thumbnails), notNull(), same(content));
-    doReturn(commandResponse).when(commandExecutor).execute(command, false);
-    doReturn(imageMetadata).when(thumbnailGenerator).parseCommandResponse(commandResponse);
+        .createThumbnailGenerationCommand(same(thumbnails), notNull(), same(content), any());
+    doReturn(commandResponse).when(commandExecutor).execute(eq(command), eq(false), any());
+    doReturn(imageMetadata).when(thumbnailGenerator).parseCommandResponse(eq(commandResponse), any());
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
     doNothing().when(thumbnailGenerator).copyFile(any(Path.class), any());
     doNothing().when(thumbnailGenerator).copyFile(any(File.class), any());
@@ -197,11 +189,11 @@ class ThumbnailGeneratorTest {
         () -> thumbnailGenerator.generateThumbnails(url, PDF_MIME_TYPE, null));
 
     // Check exception during command execution - thumbnails should be closed.
-    doThrow(new CommandExecutionException("TEST", null)).when(commandExecutor)
-        .execute(command, false);
+    doThrow(new MediaExtractionException("TEST", null)).when(commandExecutor)
+        .execute(eq(command), eq(false), any());
     assertThrows(MediaExtractionException.class,
         () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
-    doReturn(commandResponse).when(commandExecutor).execute(command, false);
+    doReturn(commandResponse).when(commandExecutor).execute(eq(command), eq(false), any());
     verify(thumbnail1.getThumbnail(), times(1)).close();
     verify(thumbnail2.getThumbnail(), times(1)).close();
 
@@ -223,15 +215,22 @@ class ThumbnailGeneratorTest {
     thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content);
   }
 
+  private static String concat(List<String> input) {
+    return String.join("\n", input);
+  }
+
   @Test
   void testParseCommandResponse() throws MediaExtractionException {
 
     // Perform the call
+    final String contentMarker = "1234567890";
     final List<String> input = Arrays
-        .asList("589", "768", "sRGB", "      2995: ( 47, 79, 79,255) #2F4F4F DarkSlateGray",
-            "        24: ( 72, 61,139,255) #483D8B DarkSlateBlue",
-            "      6711: ( 85,107, 47,255) #556B2F DarkOliveGreen");
-    final ImageMetadata result = thumbnailGenerator.parseCommandResponse(input);
+            .asList("", contentMarker, "589", "768", "sRGB", contentMarker, "", contentMarker,
+                    "      2995: ( 47, 79, 79,255) #2F4F4F DarkSlateGray",
+                    "        24: ( 72, 61,139,255) #483D8B DarkSlateBlue",
+                    "      6711: ( 85,107, 47,255) #556B2F DarkOliveGreen", contentMarker, "");
+    assertEquals(13, input.size()); // If false, recalculate indices below.
+    final ImageMetadata result = thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check result
     assertEquals(589, result.getWidth());
@@ -247,36 +246,97 @@ class ThumbnailGeneratorTest {
     assertTrue(colorSet.contains("483D8B"));
     assertTrue(colorSet.contains("556B2F"));
 
+    // Check missing content marker at the beginning
+    input.set(1, "");
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(1, contentMarker);
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
+
+    // Check missing content marker in the middle
+    input.set(5, "");
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(5, contentMarker);
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
+
+    // Check missing content marker at the end
+    input.set(11, "");
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(11, contentMarker);
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
+
+    // Check additional content marker at the end
+    input.set(0, contentMarker);
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(0, "");
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
+
+    // Check additional content marker in the middle
+    input.set(6, contentMarker);
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(6, "");
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
+
+    // Check additional content marker at the end
+    input.set(12, contentMarker);
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(12, "");
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
+
+    // Check unexpected content at the beginning
+    input.set(0, "UNEXPECTED CONTENT");
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(0, "");
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
+
+    // Check unexpected content in the middle
+    input.set(6, "UNEXPECTED CONTENT");
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(6, "");
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
+
+    // Check unexpected content at the end
+    input.set(12, "UNEXPECTED CONTENT");
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(12, "");
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
+
     // Check unexpected input
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.parseCommandResponse(null));
-    assertThrows(MediaExtractionException.class, () -> thumbnailGenerator.parseCommandResponse(
-        Collections.emptyList()));
-    input.set(0, null);
+        () -> thumbnailGenerator.parseCommandResponse(null, contentMarker));
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.parseCommandResponse(input));
-    input.set(0, "");
+            () -> thumbnailGenerator.parseCommandResponse("", contentMarker));
+    input.set(2, null);
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.parseCommandResponse(input));
-    input.set(0, "A");
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(2, "");
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.parseCommandResponse(input));
-    input.set(0, "589");
-    thumbnailGenerator.parseCommandResponse(input);
-
-    // Check missing value
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(2, "A");
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.parseCommandResponse(input.subList(0, 1)));
-
-    // Check empty color list
-    assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.parseCommandResponse(input.subList(0, 2)));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+    input.set(2, "589");
+    thumbnailGenerator.parseCommandResponse(concat(input), contentMarker);
 
     // Check bad color value
-    final List<String> inputWithBadColor = Stream.concat(input.stream(), Stream.of("BAD COLOR"))
-        .collect(Collectors.toList());
+    input.set(8, "BAD COLOR");
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.parseCommandResponse(inputWithBadColor));
+        () -> thumbnailGenerator.parseCommandResponse(concat(input), contentMarker));
+
+    // Check empty color list
+    input.set(8, "");
+    input.set(9, "");
+    input.set(10, "");
+    assertTrue(thumbnailGenerator.parseCommandResponse(concat(input), contentMarker)
+            .getDominantColors().isEmpty());
   }
 
   @Test
@@ -297,32 +357,33 @@ class ThumbnailGeneratorTest {
     // Define other method input
     final List<ThumbnailWithSize> input = Arrays.asList(thumbnail1, thumbnail2);
     final File file = new File("content file");
+    final String contentMarker = "1234567890";
 
     // Make call for image
     final List<String> commandImage = thumbnailGenerator
-        .createThumbnailGenerationCommand(input, JPG_MIME_TYPE, file);
+        .createThumbnailGenerationCommand(input, JPG_MIME_TYPE, file, contentMarker);
 
     // Verify image
     final List<String> expectedImage = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
-        "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:", "(", "+clone",
+        "-format", contentMarker + "\n%w\n%h\n%[colorspace]\n" + contentMarker + "\n", "-write", "info:", "(", "+clone",
         "-thumbnail", size1 + "x", "-write", prefix1 + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
         "-thumbnail", size2 + "x", "-write", prefix2 + thumbnail2.getTempFileForThumbnail().toString(),
         "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
-        "-format", "\n%c", "histogram:info:");
+        "-format", "\n" + contentMarker + "\n%c\n" + contentMarker, "histogram:info:");
     assertEquals(expectedImage, commandImage);
 
     // Make call for PDF
     final List<String> commandText = thumbnailGenerator
-        .createThumbnailGenerationCommand(input, PDF_MIME_TYPE, file);
+        .createThumbnailGenerationCommand(input, PDF_MIME_TYPE, file, contentMarker);
 
     // Verify text
     final List<String> expectedText = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
-        "-format", "%w\n%h\n%[colorspace]\n", "-write", "info:",
+        "-format", contentMarker + "\n%w\n%h\n%[colorspace]\n" + contentMarker + "\n", "-write", "info:",
         "-background", "white", "-alpha", "remove", "(", "+clone",
         "-thumbnail", size1 + "x", "-write", prefix1 + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
         "-thumbnail", size2 + "x", "-write", prefix2 + thumbnail2.getTempFileForThumbnail().toString(),
         "-colorspace", "sRGB", "-dither", "Riemersma", "-remap", COLOR_MAP_FILE,
-        "-format", "\n%c", "histogram:info:");
+        "-format", "\n" + contentMarker + "\n%c\n" + contentMarker, "histogram:info:");
     assertEquals(expectedText, commandText);
   }
 

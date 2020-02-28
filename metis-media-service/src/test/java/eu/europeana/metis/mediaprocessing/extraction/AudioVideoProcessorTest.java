@@ -26,7 +26,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
@@ -85,37 +84,34 @@ class AudioVideoProcessorTest {
   }
 
   @Test
-  void testDiscoverFfprobeCommand() throws CommandExecutionException, MediaProcessorException {
+  void testDiscoverFfprobeCommand() throws MediaProcessorException {
 
     // ffprobe command
     final String ffprobeCommand = "ffprobe";
 
     // Test ffprobe 3
-    doReturn(Collections.singletonList(
-        "ffprobe version 3.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers"))
-        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    doReturn("ffprobe version 3.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
     assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test ffprobe 2
-    doReturn(Collections.singletonList(
-        "ffprobe version 2.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers"))
-        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    doReturn("ffprobe version 2.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
     assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test other commands
-    doReturn(Collections.singletonList(
-        "ffprobe version 1.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers"))
-        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    doReturn("ffprobe version 1.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
-    doReturn(Collections.singletonList("Other command")).when(commandExecutor)
-        .execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    doReturn("Other command").when(commandExecutor)
+        .execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
 
     // Test command execution exception
-    doThrow(new CommandExecutionException("", null)).when(commandExecutor)
-        .execute(eq(Collections.singletonList(ffprobeCommand)), eq(true));
+    doThrow(new MediaProcessorException("", null)).when(commandExecutor)
+        .execute(eq(Collections.singletonList(ffprobeCommand)), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
   }
@@ -275,7 +271,7 @@ class AudioVideoProcessorTest {
     final String detectedMimeType = "detected mime type";
 
     // Create json objects
-    final List<String> commandResponse = Collections.emptyList();
+    final String commandResponse = "response";
     final JSONObject object = mock(JSONObject.class);
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
@@ -330,7 +326,7 @@ class AudioVideoProcessorTest {
     final String detectedMimeType = "detected mime type";
 
     // Create json objects
-    final List<String> commandResponse = Collections.emptyList();
+    final String commandResponse = "response";
     final JSONObject object = mock(JSONObject.class);
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
@@ -385,7 +381,7 @@ class AudioVideoProcessorTest {
     final String detectedMimeType = "detected mime type";
 
     // Create json objects
-    final List<String> commandResponse = Collections.emptyList();
+    final String commandResponse = "response";
     final JSONObject object = mock(JSONObject.class);
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
@@ -517,7 +513,7 @@ class AudioVideoProcessorTest {
   }
 
   @Test
-  void testExtract() throws IOException, MediaExtractionException, CommandExecutionException {
+  void testExtract() throws IOException, MediaExtractionException {
 
     // Create resource
     final Resource resource = mock(Resource.class);
@@ -527,8 +523,8 @@ class AudioVideoProcessorTest {
     // Prepare processor
     final List<String> command = Collections.emptyList();
     doReturn(command).when(audioVideoProcessor).createAudioVideoAnalysisCommand(resource);
-    final List<String> response = Collections.emptyList();
-    doReturn(response).when(commandExecutor).execute(command, false);
+    final String response = "response";
+    doReturn(response).when(commandExecutor).execute(eq(command), eq(false), any());
     final AbstractResourceMetadata metadata = mock(AbstractResourceMetadata.class);
     doReturn(metadata).when(audioVideoProcessor)
         .parseCommandResponse(resource, detectedMimeType, response);
@@ -540,10 +536,10 @@ class AudioVideoProcessorTest {
     assertNull(result.getThumbnails());
 
     // In case there was a command execution issue
-    doThrow(new CommandExecutionException("", null)).when(commandExecutor).execute(command, false);
+    doThrow(new MediaExtractionException("", null)).when(commandExecutor).execute(eq(command), eq(false), any());
     assertThrows(MediaExtractionException.class,
         () -> audioVideoProcessor.extractMetadata(resource, detectedMimeType));
-    doReturn(response).when(commandExecutor).execute(command, false);
+    doReturn(response).when(commandExecutor).execute(eq(command), eq(false), any());
 
     // Check that all is well again
     assertNotNull(audioVideoProcessor.extractMetadata(resource, detectedMimeType));
