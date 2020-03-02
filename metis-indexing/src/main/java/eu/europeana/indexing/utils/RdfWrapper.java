@@ -13,7 +13,6 @@ import eu.europeana.corelib.definitions.jibx.EuropeanaProxy;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
 import eu.europeana.corelib.definitions.jibx.Identifier;
-import eu.europeana.corelib.definitions.jibx.IsShownAt;
 import eu.europeana.corelib.definitions.jibx.IsShownBy;
 import eu.europeana.corelib.definitions.jibx.License;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
@@ -99,33 +98,30 @@ public class RdfWrapper {
   public List<Identifier> getProviderProxyIdentifiers() {
     final List<Choice> choiceList = getProviderProxiesChoices();
     return choiceList.stream().filter(Choice::ifIdentifier).map(Choice::getIdentifier)
+        .filter(Objects::nonNull)
         .collect(Collectors.toList());
   }
 
   public List<Title> getProviderProxyTitles() {
     final List<Choice> choiceList = getProviderProxiesChoices();
     return choiceList.stream().filter(Choice::ifTitle).map(Choice::getTitle)
+        .filter(Objects::nonNull)
         .collect(Collectors.toList());
   }
 
   public List<Description> getProviderProxyDescriptions() {
     final List<Choice> choiceList = getProviderProxiesChoices();
     return choiceList.stream().filter(Choice::ifDescription).map(Choice::getDescription)
-        .collect(Collectors.toList());
+        .filter(Objects::nonNull).collect(Collectors.toList());
   }
 
   public List<Choice> getProviderProxiesChoices() {
     return getProviderProxies().stream().map(EuropeanaType::getChoiceList)
-        .flatMap(Collection::stream).collect(Collectors.toList());
+        .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
   }
 
-  public List<IsShownBy> getIsShownByList(){
-    return getAggregations().stream().map(Aggregation::getIsShownBy)
-        .collect(Collectors.toList());
-  }
-
-  public List<IsShownAt> getIsShownAtList(){
-    return getAggregations().stream().map(Aggregation::getIsShownAt)
+  public List<IsShownBy> getIsShownByList() {
+    return getAggregations().stream().map(Aggregation::getIsShownBy).filter(Objects::nonNull)
         .collect(Collectors.toList());
   }
 
