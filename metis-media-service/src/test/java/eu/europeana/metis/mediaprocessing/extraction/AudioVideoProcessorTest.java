@@ -370,6 +370,16 @@ class AudioVideoProcessorTest {
     assertEquals(frameRate, metadata.getFrameRate());
     assertEquals(height, metadata.getHeight());
     assertEquals(width, metadata.getWidth());
+    
+    // Try various options for the frame rate
+    doReturn("0/0").when(audioVideoProcessor).findString(eq("avg_frame_rate"), eq(candidates));
+    final AbstractResourceMetadata metadataWith0FrameRate = audioVideoProcessor
+        .parseCommandResponse(resource, detectedMimeType, commandResponse);
+    assertEquals(Double.valueOf(0.0), ((VideoResourceMetadata) metadataWith0FrameRate).getFrameRate());
+    doReturn("1/0").when(audioVideoProcessor).findString(eq("avg_frame_rate"), eq(candidates));
+    final AbstractResourceMetadata metadataWithInvalidFrameRate = audioVideoProcessor
+        .parseCommandResponse(resource, detectedMimeType, commandResponse);
+    assertEquals(Double.valueOf(-1.0), ((VideoResourceMetadata) metadataWithInvalidFrameRate).getFrameRate());
   }
 
   @Test

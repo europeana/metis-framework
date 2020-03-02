@@ -222,7 +222,7 @@ class AudioVideoProcessor implements MediaProcessor {
       final FrameRate frameRate =
           videoRepresentation.getFrameRate() == null ? videoAdaptationSet.getFrameRate()
               : videoRepresentation.getFrameRate();
-      final double frameRateValue = frameRate == null ? -1 : frameRate.getNumerator();
+      final double frameRateValue = frameRate == null ? -1 : frameRate.toDouble();
       final String codecNames =
           videoRepresentation.getCodecs() == null ? videoAdaptationSet.getCodecs()
               : videoRepresentation.getCodecs();
@@ -268,9 +268,7 @@ class AudioVideoProcessor implements MediaProcessor {
         final int width = findInt("width", candidates);
         final int height = findInt("height", candidates);
         final String codecName = findString("codec_name", candidates);
-        final String[] frameRateParts = findString("avg_frame_rate", candidates).split("/");
-        final double frameRate =
-            Double.parseDouble(frameRateParts[0]) / Double.parseDouble(frameRateParts[1]);
+        final double frameRate = calculateFrameRate(findString("avg_frame_rate", candidates));
         metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
             fileSize, duration, bitRate, width, height, codecName, frameRate);
       } else if (isAudio) {
@@ -295,6 +293,16 @@ class AudioVideoProcessor implements MediaProcessor {
       LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(response, "\n"), e);
       throw new MediaExtractionException("File seems to be corrupted", e);
     }
+  }
+  
+  private static double calculateFrameRate(String frameRateString) {
+    final String[] frameRateParts = frameRateString.split("/");
+    final double numerator = Double.parseDouble(frameRateParts[0]);
+    final double denominator = Double.parseDouble(frameRateParts[1]);
+    if (denominator == 0.0) {
+      return numerator == 0.0 ? 0.0 : -1.0;
+    }
+    return numerator / denominator;
   }
 
   int findInt(String key, JSONObject[] candidates) {
