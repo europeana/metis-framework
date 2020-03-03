@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -147,9 +148,11 @@ public class MongoDereferenceService implements DereferenceService {
     // the dereferenced results, and 3) entities that have a sameAs link that is in turn mentioned
     // as sameAs link in any of the dereferenced results. So: transitivity of sameAs relations.
     final Set<String> enrichmentLinks = new HashSet<>();
-    result.values().stream().map(EnrichmentBase::getAbout).forEach(enrichmentLinks::add);
+    result.values().stream().map(EnrichmentBase::getAbout).filter(Objects::nonNull)
+            .forEach(enrichmentLinks::add);
     result.values().stream().map(MongoDereferenceService::getSameAsLinks).flatMap(List::stream)
-            .map(WebResource::getResourceUri).forEach(enrichmentLinks::add);
+            .map(WebResource::getResourceUri).filter(Objects::nonNull)
+            .forEach(enrichmentLinks::add);
     final Map<String, EnrichmentBase> enrichmentResults = enrichmentClient.getByUri(enrichmentLinks)
             .getEnrichmentBaseWrapperList().stream().map(EnrichmentBaseWrapper::getEnrichmentBase)
             .collect(Collectors.toMap(EnrichmentBase::getAbout, Function.identity()));
@@ -160,17 +163,19 @@ public class MongoDereferenceService implements DereferenceService {
   }
 
   private static List<? extends WebResource> getSameAsLinks(EnrichmentBase enrichmentBase) {
+    final List<? extends WebResource> result;
     if (enrichmentBase instanceof Place) {
-      return ((Place) enrichmentBase).getSameAs();
+      result = ((Place) enrichmentBase).getSameAs();
     } else if (enrichmentBase instanceof Agent) {
-      return ((Agent) enrichmentBase).getSameAs();
+      result = ((Agent) enrichmentBase).getSameAs();
     } else if (enrichmentBase instanceof Concept) {
-      return ((Concept) enrichmentBase).getExactMatch();
+      result = ((Concept) enrichmentBase).getExactMatch();
     } else if (enrichmentBase instanceof Timespan) {
-      return ((Timespan) enrichmentBase).getSameAs();
+      result = ((Timespan) enrichmentBase).getSameAs();
     } else {
-      return Collections.emptyList();
+      result = null;
     }
+    return Optional.ofNullable(result).orElse(Collections.emptyList());
   }
 
   private void extractBroaderResources(EnrichmentBase resource, Set<String> destination) {
