@@ -38,11 +38,11 @@ public class MediaProcessorFactory {
   public static final int DEFAULT_RESOURCE_CONNECT_TIMEOUT = 10_000;
 
   /**
-   * The default value of the maximum amount of time, in milliseconds, we allow the socket to be
-   * inactive before timing out. It's currently set to {@value MediaProcessorFactory#DEFAULT_RESOURCE_SOCKET_TIMEOUT}
+   * The default value of the maximum amount of time, in milliseconds, we wait for the response
+   * before timing out. It's currently set to {@value MediaProcessorFactory#DEFAULT_RESOURCE_RESPONSE_TIMEOUT}
    * milliseconds.
    */
-  public static final int DEFAULT_RESOURCE_SOCKET_TIMEOUT = 20_000;
+  public static final int DEFAULT_RESOURCE_RESPONSE_TIMEOUT = 20_000;
 
   /**
    * The default value of the maximum amount of time, in milliseconds, we allow the download to take
@@ -55,7 +55,7 @@ public class MediaProcessorFactory {
   private int thumbnailGenerateTimeout = DEFAULT_THUMBNAIL_GENERATE_TIMEOUT;
   private int audioVideoProbeTimeout = DEFAULT_AUDIO_VIDEO_PROBE_TIMEOUT;
   private int resourceConnectTimeout = DEFAULT_RESOURCE_CONNECT_TIMEOUT;
-  private int resourceSocketTimeout = DEFAULT_RESOURCE_SOCKET_TIMEOUT;
+  private int resourceResponseTimeout = DEFAULT_RESOURCE_RESPONSE_TIMEOUT;
   private int resourceDownloadTimeout = DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT;
 
   /**
@@ -109,16 +109,28 @@ public class MediaProcessorFactory {
   }
 
   /**
-   * Set the maximum amount of time, in milliseconds, we allow the socket to be inactive before
-   * timing out. The default (when not calling this method or calling it with zero or a negative
-   * number) is {@value MediaProcessorFactory#DEFAULT_RESOURCE_SOCKET_TIMEOUT} milliseconds.
+   * Set the maximum amount of time, in milliseconds, we wait for the response. The default (when
+   * not calling this method or calling it with zero or a negative number) is {@value
+   * MediaProcessorFactory#DEFAULT_RESOURCE_RESPONSE_TIMEOUT} milliseconds.
    *
-   * @param resourceSocketTimeout The maximum amount of time, in milliseconds, we allow the socket
-   * to be inactive before timing out.
+   * @param resourceResponseTimeout The maximum amount of time, in milliseconds, we wait for the
+   * response before timing out.
    */
+  public void setResourceResponseTimeout(int resourceResponseTimeout) {
+    this.resourceResponseTimeout =
+            resourceResponseTimeout < 1 ? DEFAULT_RESOURCE_RESPONSE_TIMEOUT : resourceResponseTimeout;
+  }
+
+  /**
+   * Set the resource response timeout.
+   *
+   * @param resourceSocketTimeout the timeout.
+   * @see #setResourceResponseTimeout(int) setResourceResponseTimeout(int)
+   * @deprecated Use {@link #setResourceResponseTimeout(int)} instead.
+   */
+  @Deprecated
   public void setResourceSocketTimeout(int resourceSocketTimeout) {
-    this.resourceSocketTimeout =
-        resourceSocketTimeout < 1 ? DEFAULT_RESOURCE_SOCKET_TIMEOUT : resourceSocketTimeout;
+    this.setResourceResponseTimeout(resourceSocketTimeout);
   }
 
   /**
@@ -142,7 +154,7 @@ public class MediaProcessorFactory {
    */
   public MediaExtractor createMediaExtractor() throws MediaProcessorException {
     return new MediaExtractorImpl(maxRedirectCount, thumbnailGenerateTimeout,
-        audioVideoProbeTimeout, resourceConnectTimeout, resourceSocketTimeout,
+        audioVideoProbeTimeout, resourceConnectTimeout, resourceResponseTimeout,
         resourceDownloadTimeout);
   }
 

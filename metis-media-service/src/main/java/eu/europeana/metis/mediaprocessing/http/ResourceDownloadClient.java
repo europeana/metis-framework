@@ -50,13 +50,13 @@ public class ResourceDownloadClient extends
    * @param shouldDownloadMimetype A predicate that, based on the mime type, can decide whether or
    * not to proceed with the download. This will be used for a download with {@link DownloadMode#MIME_TYPE}. 
    * @param connectTimeout The connection timeout in milliseconds.
-   * @param socketTimeout The socket timeout in milliseconds.
+   * @param responseTimeout The response timeout in milliseconds.
    * @param downloadTimeout The time after which the download will be aborted (if it hasn't finished
    * by then). In milliseconds.
    */
   public ResourceDownloadClient(int maxRedirectCount, Predicate<String> shouldDownloadMimetype,
-      int connectTimeout, int socketTimeout, int downloadTimeout) {
-    super(maxRedirectCount, connectTimeout, socketTimeout, downloadTimeout);
+      int connectTimeout, int responseTimeout, int downloadTimeout) {
+    super(maxRedirectCount, connectTimeout, responseTimeout, downloadTimeout);
     this.shouldDownloadMimetype = shouldDownloadMimetype;
   }
 
