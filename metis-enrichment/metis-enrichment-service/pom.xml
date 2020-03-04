@@ -222,23 +222,6 @@
       </exclusions>
     </dependency>
   </dependencies>
-  <repositories>
-    <repository>
-      <id>nuxeo.org</id>
-      <name>Nuxeo Aduna</name>
-      <url>https://maven-us.nuxeo.org/nexus/content/groups/public/</url>
-    </repository>
-    <repository>
-      <id>artifactory-ext-release-local</id>
-      <name>Europeana Artifactory</name>
-      <url>http://artifactory.eanadev.org/artifactory/ext-release-local</url>
-    </repository>
-    <repository>
-      <id>maven.org</id>
-      <name>Maven Repository</name>
-      <url>http://repo1.maven.org/maven2/</url>
-    </repository>
-  </repositories>
 </project>
 
 
