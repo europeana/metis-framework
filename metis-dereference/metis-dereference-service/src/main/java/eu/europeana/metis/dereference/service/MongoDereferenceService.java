@@ -6,6 +6,7 @@ import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -140,7 +141,8 @@ public class MongoDereferenceService implements DereferenceService {
       result = GraphUtils.breadthFirstSearch(resourceId, resource.getLeft(),
           resource.getRight().getIterations(), valueResolver, this::extractBroaderResources);
     } else {
-      result = Collections.singletonMap(resourceId, resource.getLeft());
+      result = new HashMap<>();
+      result.put(resourceId, resource.getLeft());
     }
 
     // Get links from dereferenced objects and try to enrich them. Get: 1) entities that have any of
