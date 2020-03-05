@@ -80,15 +80,8 @@ public class MongoDereferenceService implements DereferenceService {
       throw new IllegalArgumentException("Parameter resourceId cannot be null.");
     }
 
-    // First look in the Europeana entity collection. If it's there, it is a Europeana collection
-    // entity and there is no need to continue. Otherwise actually dereference it.
-    final EnrichmentBase enrichedEntity = enrichmentClient.getByUri(resourceId);
-    final Collection<EnrichmentBase> resultList;
-    if (enrichedEntity == null || !resourceId.equals(enrichedEntity.getAbout())) {
-      resultList = dereferenceResource(resourceId);
-    } else {
-      resultList = Collections.singleton(enrichedEntity);
-    }
+    // Perform the actual dereferencing.
+    final Collection<EnrichmentBase> resultList = dereferenceResource(resourceId);
 
     // Prepare the result: empty if we didn't find an entity.
     final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper

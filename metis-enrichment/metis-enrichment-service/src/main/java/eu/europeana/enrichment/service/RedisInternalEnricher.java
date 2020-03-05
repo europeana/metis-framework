@@ -354,6 +354,27 @@ public class RedisInternalEnricher {
   }
 
   /**
+   * Get an enrichment document based on the id provided.
+   *
+   * @param requestedId the provided id
+   * @return the enrichment document corresponding to the provided id
+   * @throws IOException if something went wrong when accessing the db
+   */
+  public EntityWrapper getById(String requestedId) throws IOException {
+
+    // Get the result providers - this is constant and does not depend on the input.
+    final List<GetterByUri> getters = Arrays.asList(
+            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_AGENT),
+            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_CONCEPT),
+            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_TIMESPAN),
+            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_PLACE)
+    );
+
+    // Get the first non-null result.
+    return getFirstMatch(getters, requestedId);
+  }
+
+  /**
    * Get an enrichment document based on the uri provided.
    *
    * @param requestedUri the provided uri
@@ -375,6 +396,11 @@ public class RedisInternalEnricher {
     );
 
     // Get the first non-null result.
+    return getFirstMatch(getters, requestedUri);
+  }
+
+  private EntityWrapper getFirstMatch(List<GetterByUri> getters, String requestedUri)
+          throws IOException {
     try (final Jedis jedis = redisProvider.getJedis()) {
       for (GetterByUri getter : getters) {
         final EntityWrapper result = getter.getByUri(requestedUri, jedis);

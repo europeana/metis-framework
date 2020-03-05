@@ -33,20 +33,18 @@ public final class DereferenceUtils {
    * Extract values from RDF document
    *
    * @param rdf input document
-   * @return set of values for dereferencing
+   * @return non-null set of values for dereferencing, not containing null.
    */
   public static Set<String> extractValuesForDereferencing(RDF rdf) {
     final Set<String> result = new HashSet<>();
     extractValues(rdf.getAgentList(), item -> dereferenceAgent(item, result));
-    extractValues(rdf.getConceptList(), concept -> {
-      result.add(concept.getAbout());
-      extractValues(concept.getChoiceList(), item -> dereferenceConceptChoice(item, result));
-    });
+    extractValues(rdf.getConceptList(), item -> dereferenceConcept(item, result));
     extractValues(rdf.getPlaceList(), item -> dereferencePlace(item, result));
     extractValues(rdf.getTimeSpanList(), item -> dereferenceTimespan(item, result));
     extractValues(rdf.getWebResourceList(), item -> dereferenceWebResource(item, result));
     extractValues(Collections.singletonList(RdfProxyUtils.getProviderProxy(rdf)),
         item -> dereferenceProxy(item, result));
+    result.remove(null);
     return result;
   }
 
@@ -135,14 +133,16 @@ public final class DereferenceUtils {
   }
 
   private static void dereferenceTimespan(TimeSpanType timespan, final Set<String> result) {
-    result.add(timespan.getAbout());
     convertValues(timespan.getIsPartOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
   }
 
   private static void dereferenceAgent(AgentType agent, final Set<String> result) {
-    result.add(agent.getAbout());
     convertValues(agent.getProfessionOrOccupationList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
     convertValues(agent.getIsPartOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
+  }
+
+  private static void dereferenceConcept(Concept concept, final Set<String> result) {
+    extractValues(concept.getChoiceList(), item -> dereferenceConceptChoice(item, result));
   }
 
   private static void dereferenceConceptChoice(Concept.Choice choice, final Set<String> result) {
@@ -150,7 +150,6 @@ public final class DereferenceUtils {
   }
 
   private static void dereferencePlace(PlaceType place, Set<String> result) {
-    result.add(place.getAbout());
     convertValues(place.getIsPartOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
   }
 
