@@ -91,54 +91,59 @@ public final class RecordRedirectsUtil {
     final String combinedQueryOr = computeJoiningQuery(getFilteredItems(queriesToCombine),
         UnaryOperator.identity(), Collectors.joining(" OR ", "(", ")"));
 
-    //Create query to restrict search on specific datasetId subsets
-    final List<String> datasetIds = new ArrayList<>();
-    datasetIds.add(datasetId);
-    if (!CollectionUtils.isEmpty(datasetIdsToRedirectFrom)) {
-      datasetIdsToRedirectFrom.stream().filter(StringUtils::isNotBlank).forEach(datasetIds::add);
-    }
-    final String datasetIdSubsets = generateQueryInDatasetSubsets(datasetIds);
-
-    // Query avoiding self-redirection. If the dataset already exists in the Solr it is likely that
-    // our query so far would return the very record we're indexing, which should be prevented.
-    final String queryPreventingFindingSameRecord = String
-        .format("-%s:%s", EdmLabel.EUROPEANA_ID.toString(),
-            ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
-
-    // Assemble final query.
-    final List<String> finalQueryParts = Arrays
-        .asList(datasetIdSubsets, combinedQueryOr, queryPreventingFindingSameRecord);
-    final String finalQuery = computeJoiningQuery(getFilteredItems(finalQueryParts),
-        UnaryOperator.identity(), Collectors.joining(" AND "));
-
-    //Apply solr query and execute
-    final Map<String, String> queryParamMap = new HashMap<>();
-    queryParamMap.put("q", finalQuery);
-
-    //Preprocess sub-query and replace documents based on the result
-    SolrDocumentList solrDocuments = solrDocumentRetriever.apply(queryParamMap);
-
-    //Check exact ids match first
-    final SolrDocumentList exactIdsMatchResults = solrDocuments.stream().filter(checkExactIdsMatch(
-        queryForDatasetIdsAndConcatenatedIds.getRight()))
-        .collect(Collectors.toCollection(SolrDocumentList::new));
-    if (!exactIdsMatchResults.isEmpty()) {
-      solrDocuments = exactIdsMatchResults;
-    } else {
-      //Check for first group if and only if the exact ids match do not have any results
-      final SolrDocumentList firstGroupMatchResults = solrDocuments.stream()
-          .filter(checkFirstGroupMatch(queryMatchingFieldsAndFirstQueryGroup.getRight()))
-          .collect(Collectors.toCollection(SolrDocumentList::new));
-      if (!firstGroupMatchResults.isEmpty()) {
-        solrDocuments = firstGroupMatchResults;
+    //If combined query or is empty then we do not have a reason to search for a redirection match
+    if (StringUtils.isNotBlank(combinedQueryOr)) {
+      //Create query to restrict search on specific datasetId subsets
+      final List<String> datasetIds = new ArrayList<>();
+      datasetIds.add(datasetId);
+      if (!CollectionUtils.isEmpty(datasetIdsToRedirectFrom)) {
+        datasetIdsToRedirectFrom.stream().filter(StringUtils::isNotBlank).forEach(datasetIds::add);
       }
-    }
+      final String datasetIdSubsets = generateQueryInDatasetSubsets(datasetIds);
 
-    //Return all identifiers found and their creationDates
-    return solrDocuments.stream().map(document -> ImmutablePair
-        .of((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()),
-            (Date) document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString())))
-        .collect(Collectors.toList());
+      // Query avoiding self-redirection. If the dataset already exists in the Solr it is likely that
+      // our query so far would return the very record we're indexing, which should be prevented.
+      final String queryPreventingFindingSameRecord = String
+          .format("-%s:%s", EdmLabel.EUROPEANA_ID.toString(),
+              ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
+
+      // Assemble final query.
+      final List<String> finalQueryParts = Arrays
+          .asList(datasetIdSubsets, combinedQueryOr, queryPreventingFindingSameRecord);
+      final String finalQuery = computeJoiningQuery(getFilteredItems(finalQueryParts),
+          UnaryOperator.identity(), Collectors.joining(" AND "));
+
+      //Apply solr query and execute
+      final Map<String, String> queryParamMap = new HashMap<>();
+      queryParamMap.put("q", finalQuery);
+
+      //Preprocess sub-query and replace documents based on the result
+      SolrDocumentList solrDocuments = solrDocumentRetriever.apply(queryParamMap);
+
+      //Check exact ids match first
+      final SolrDocumentList exactIdsMatchResults = solrDocuments.stream()
+          .filter(checkExactIdsMatch(
+              queryForDatasetIdsAndConcatenatedIds.getRight()))
+          .collect(Collectors.toCollection(SolrDocumentList::new));
+      if (!exactIdsMatchResults.isEmpty()) {
+        solrDocuments = exactIdsMatchResults;
+      } else {
+        //Check for first group if and only if the exact ids match do not have any results
+        final SolrDocumentList firstGroupMatchResults = solrDocuments.stream()
+            .filter(checkFirstGroupMatch(queryMatchingFieldsAndFirstQueryGroup.getRight()))
+            .collect(Collectors.toCollection(SolrDocumentList::new));
+        if (!firstGroupMatchResults.isEmpty()) {
+          solrDocuments = firstGroupMatchResults;
+        }
+      }
+
+      //Return all identifiers found and their creationDates
+      return solrDocuments.stream().map(document -> ImmutablePair
+          .of((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()),
+              (Date) document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString())))
+          .collect(Collectors.toList());
+    }
+    return new ArrayList<>();
   }
 
   private static Predicate<SolrDocument> checkExactIdsMatch(List<String> concatenatedIds) {
@@ -197,7 +202,8 @@ public final class RecordRedirectsUtil {
     //Join all groups
     final String combinedQuery = Stream.of(firstQueryGroup, secondQueryGroup, thirdQueryGroup)
         .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
-    return new ImmutablePair<>(combinedQuery, firstMapOfLists);
+    return new ImmutablePair<>(StringUtils.isNotBlank(combinedQuery) ? combinedQuery : null,
+        firstMapOfLists);
   }
 
   private static HashMap<String, List<String>> createFirstCombinationGroup(List<String> identifiers,
