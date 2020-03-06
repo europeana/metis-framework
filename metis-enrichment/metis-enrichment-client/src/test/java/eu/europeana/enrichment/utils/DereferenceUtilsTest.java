@@ -108,7 +108,7 @@ class DereferenceUtilsTest {
 
     rdf.setPlaceList(placeList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(1, result.size());
@@ -167,7 +167,7 @@ class DereferenceUtilsTest {
 
     rdf.setAgentList(agentList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(2, result.size());
@@ -244,7 +244,7 @@ class DereferenceUtilsTest {
 
     rdf.setConceptList(conceptList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(1, result.size());
@@ -298,7 +298,7 @@ class DereferenceUtilsTest {
 
     rdf.setTimeSpanList(timeSpanList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(1, result.size());
@@ -375,7 +375,7 @@ class DereferenceUtilsTest {
 
     rdf.setWebResourceList(webResourceList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(5, result.size());
@@ -612,7 +612,7 @@ class DereferenceUtilsTest {
 
     rdf.setProxyList(proxyList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(25, result.size());

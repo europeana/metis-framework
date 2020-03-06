@@ -39,6 +39,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.jibx.runtime.JiBXException;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.CollectionUtils;
 
 public class EntityMergeEngineTest {
 
@@ -525,13 +526,34 @@ public class EntityMergeEngineTest {
     }
   }
 
-  private void verifyRdf(RDF rdf) {
+  private void verifyRdf(RDF rdf, int agentCount, int conceptCount, int placeCount,
+          int timeSpanCount) {
 
-    // Four main lists: may or may not be empty.
-    assertNotNull(rdf.getPlaceList());
-    assertNotNull(rdf.getAgentList());
-    assertNotNull(rdf.getConceptList());
-    assertNotNull(rdf.getTimeSpanList());
+    // Four main lists.
+    if (agentCount == 0) {
+      assertTrue(CollectionUtils.isEmpty(rdf.getAgentList()));
+    } else {
+      assertNotNull(rdf.getAgentList());
+      assertEquals(agentCount, rdf.getAgentList().size());
+    }
+    if (conceptCount == 0) {
+      assertTrue(CollectionUtils.isEmpty(rdf.getConceptList()));
+    } else {
+      assertNotNull(rdf.getConceptList());
+      assertEquals(conceptCount, rdf.getConceptList().size());
+    }
+    if (placeCount == 0) {
+      assertTrue(CollectionUtils.isEmpty(rdf.getPlaceList()));
+    } else {
+      assertNotNull(rdf.getPlaceList());
+      assertEquals(placeCount, rdf.getPlaceList().size());
+    }
+    if (timeSpanCount == 0) {
+      assertTrue(CollectionUtils.isEmpty(rdf.getTimeSpanList()));
+    } else {
+      assertNotNull(rdf.getTimeSpanList());
+      assertEquals(timeSpanCount, rdf.getTimeSpanList().size());
+    }
 
     // Other lists should be empty.
     assertNotNull(rdf.getAggregationList());
@@ -569,11 +591,7 @@ public class EntityMergeEngineTest {
     new EntityMergeEngine().mergeEntities(rdf, enrichmentBaseWrapperList);
 
     // Verify RDF
-    verifyRdf(rdf);
-    assertEquals(3, rdf.getPlaceList().size());
-    assertEquals(0, rdf.getAgentList().size());
-    assertEquals(0, rdf.getConceptList().size());
-    assertEquals(0, rdf.getTimeSpanList().size());
+    verifyRdf(rdf, 0, 0, 3, 0);
 
     // Verify content
     verifyPlace((Place) inputList.get(0), rdf.getPlaceList().get(0));
@@ -605,11 +623,7 @@ public class EntityMergeEngineTest {
     new EntityMergeEngine().mergeEntities(rdf, enrichmentBaseWrapperList);
 
     // Verify RDF
-    verifyRdf(rdf);
-    assertEquals(0, rdf.getPlaceList().size());
-    assertEquals(2, rdf.getAgentList().size());
-    assertEquals(2, rdf.getConceptList().size());
-    assertEquals(1, rdf.getTimeSpanList().size());
+    verifyRdf(rdf, 2, 2, 0, 1);
 
     // Verify content
     verifyAgent((Agent) inputList.get(0), rdf.getAgentList().get(0));

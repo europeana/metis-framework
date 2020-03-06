@@ -15,7 +15,6 @@ import static org.mockito.Mockito.verify;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
@@ -113,9 +112,11 @@ class EnrichmentWorkerTest {
     final EnrichmentWorker worker =
         spy(new EnrichmentWorker(dereferenceClient, enrichmentClient, entityMergeEngine));
     doReturn(Arrays.asList(ENRICHMENT_EXTRACT_RESULT)).when(worker)
-        .extractFieldsForEnrichment(any());
+            .extractValuesForEnrichment(any());
+    // TODO test the result of this method better
+    doReturn(Collections.emptyMap()).when(worker).extractReferencesForEnrichment(any());
     doReturn(Arrays.stream(DEREFERENCE_EXTRACT_RESULT).collect(Collectors.toSet())).when(worker)
-        .extractValuesForDereferencing(any());
+        .extractReferencesForDereferencing(any());
 
     // Execute the worker
     final RDF inputRdf = new RDF();
@@ -164,9 +165,10 @@ class EnrichmentWorkerTest {
     // Create enrichment worker and mock the enrichment and dereferencing results.
     final EnrichmentWorker worker =
         spy(new EnrichmentWorker(dereferenceClient, enrichmentClient, entityMergeEngine));
-    doReturn(Collections.emptyList()).when(worker).extractFieldsForEnrichment(any());
+    doReturn(Collections.emptyList()).when(worker).extractValuesForEnrichment(any());
+    doReturn(Collections.emptyMap()).when(worker).extractReferencesForEnrichment(any());
     doReturn(Arrays.stream(new String[0]).collect(Collectors.toSet())).when(worker)
-        .extractValuesForDereferencing(any());
+        .extractReferencesForDereferencing(any());
 
     // Execute the worker
     final RDF inputRdf = new RDF();
@@ -203,8 +205,8 @@ class EnrichmentWorkerTest {
     if (doDereferencing) {
 
       // Extracting values for dereferencing
-      verify(worker, times(1)).extractValuesForDereferencing(any());
-      verify(worker, times(1)).extractValuesForDereferencing(inputRdf);
+      verify(worker, times(1)).extractReferencesForDereferencing(any());
+      verify(worker, times(1)).extractReferencesForDereferencing(inputRdf);
 
       // Actually dereferencing.
       verify(dereferenceClient, times(DEREFERENCE_EXTRACT_RESULT.length)).dereference(anyString());
@@ -213,7 +215,7 @@ class EnrichmentWorkerTest {
       }
 
     } else {
-      verify(worker, never()).extractValuesForDereferencing(any());
+      verify(worker, never()).extractReferencesForDereferencing(any());
       verify(dereferenceClient, never()).dereference(anyString());
     }
   }
@@ -223,8 +225,8 @@ class EnrichmentWorkerTest {
     if (doDereferencing) {
 
       // Extracting values for dereferencing
-      verify(worker, times(1)).extractValuesForDereferencing(any());
-      verify(worker, times(1)).extractValuesForDereferencing(inputRdf);
+      verify(worker, times(1)).extractReferencesForDereferencing(any());
+      verify(worker, times(1)).extractReferencesForDereferencing(inputRdf);
 
       // Actually dereferencing: don't use the null values.
       final Set<String> dereferenceUrls = Arrays.stream(new String[0])
@@ -235,7 +237,7 @@ class EnrichmentWorkerTest {
       }
 
     } else {
-      verify(worker, never()).extractValuesForDereferencing(any());
+      verify(worker, never()).extractReferencesForDereferencing(any());
       verify(dereferenceClient, never()).dereference(anyString());
     }
   }
@@ -246,15 +248,15 @@ class EnrichmentWorkerTest {
     if (doEnrichment) {
 
       // Extracting values for enrichment
-      verify(worker, times(1)).extractFieldsForEnrichment(any());
-      verify(worker, times(1)).extractFieldsForEnrichment(inputRdf);
+      verify(worker, times(1)).extractValuesForEnrichment(any());
+      verify(worker, times(1)).extractValuesForEnrichment(inputRdf);
 
       // Actually enriching
       verify(enrichmentClient, times(1)).enrich(enrichmentExtractionCaptor.capture());
       assertArrayEquals(ENRICHMENT_EXTRACT_RESULT, enrichmentExtractionCaptor.getValue().toArray());
 
     } else {
-      verify(worker, never()).extractFieldsForEnrichment(any());
+      verify(worker, never()).extractValuesForEnrichment(any());
       verify(enrichmentClient, never()).enrich(any());
     }
   }
@@ -264,14 +266,14 @@ class EnrichmentWorkerTest {
     if (doEnrichment) {
 
       // Extracting values for enrichment
-      verify(worker, times(1)).extractFieldsForEnrichment(any());
-      verify(worker, times(1)).extractFieldsForEnrichment(inputRdf);
+      verify(worker, times(1)).extractValuesForEnrichment(any());
+      verify(worker, times(1)).extractValuesForEnrichment(inputRdf);
 
       // Actually enriching
       verify(enrichmentClient, times(0)).enrich(any());
 
     } else {
-      verify(worker, never()).extractFieldsForEnrichment(any());
+      verify(worker, never()).extractValuesForEnrichment(any());
       verify(enrichmentClient, never()).enrich(any());
     }
   }

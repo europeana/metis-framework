@@ -49,8 +49,13 @@ import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Class that contains logic for converting class entity types and/or merging entities to {@link
@@ -339,27 +344,38 @@ public class EntityMergeEngine {
     return timeSpanType;
   }
 
-  private static void convertAndAddEntity(RDF rdf, EnrichmentBaseWrapper enrichmentBaseWrapper) {
-    final EnrichmentBase enrichmentBase = enrichmentBaseWrapper.getEnrichmentBase();
+  private static void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
+          Set<EnrichmentFields> proxyLinkTypes) {
 
     // Convert the entity.
     final AboutType entity;
     if (enrichmentBase instanceof Place) {
+      if (rdf.getPlaceList() == null) {
+        rdf.setPlaceList(new ArrayList<>());
+      }
       entity = convertAndAddPlace((Place) enrichmentBase, rdf.getPlaceList());
     } else if (enrichmentBase instanceof Agent) {
+      if (rdf.getAgentList() == null) {
+        rdf.setAgentList(new ArrayList<>());
+      }
       entity = convertAndAddAgent((Agent) enrichmentBase, rdf.getAgentList());
     } else if (enrichmentBase instanceof Concept) {
+      if (rdf.getConceptList() == null) {
+        rdf.setConceptList(new ArrayList<>());
+      }
       entity = convertAndAddConcept((Concept) enrichmentBase, rdf.getConceptList());
     } else if (enrichmentBase instanceof Timespan) {
+      if (rdf.getTimeSpanList() == null) {
+        rdf.setTimeSpanList(new ArrayList<>());
+      }
       entity = convertAndAddTimespan((Timespan) enrichmentBase, rdf.getTimeSpanList());
     } else {
       throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
     }
 
-    final String originalField = enrichmentBaseWrapper.getOriginalField();
     // Append it to the europeana proxy if needed.
-    if (entity != null && StringUtils.isNotBlank(originalField)) {
-      RdfProxyUtils.appendToEuropeanaProxy(rdf, entity, originalField);
+    if (entity != null && !CollectionUtils.isEmpty(proxyLinkTypes)) {
+      RdfProxyUtils.appendToEuropeanaProxy(rdf, entity, proxyLinkTypes);
     }
   }
 
@@ -371,30 +387,24 @@ public class EntityMergeEngine {
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBaseWrapper> enrichmentBaseWrapperList) {
     for (EnrichmentBaseWrapper enrichmentBaseWrapper : enrichmentBaseWrapperList) {
-      mergeEntity(rdf, enrichmentBaseWrapper);
+      final Set<EnrichmentFields> proxyLinkTypes = Optional
+              .ofNullable(enrichmentBaseWrapper.getOriginalField()).filter(StringUtils::isNotBlank)
+              .map(EnrichmentFields::valueOf).map(Collections::singleton).orElse(null);
+      convertAndAddEntity(rdf, enrichmentBaseWrapper.getEnrichmentBase(), proxyLinkTypes);
     }
   }
 
   /**
-   * Merge entity in a record
+   * Merge entities in a record.
    *
-   * @param rdf The RDF to enrich
-   * @param enrichmentBaseWrapper The information to append
+   * @param rdf The RDF to enrich.
+   * @param contextualEntities The objects to append.
+   * @param proxyLinkTypes Lookup of the link types to create in the europeana proxy. The keys are
+   * the about values of the entities to add.
    */
-  private void mergeEntity(final RDF rdf, EnrichmentBaseWrapper enrichmentBaseWrapper) {
-    // Ensure that there are lists for all four types.
-    if (rdf.getAgentList() == null) {
-      rdf.setAgentList(new ArrayList<>());
-    }
-    if (rdf.getConceptList() == null) {
-      rdf.setConceptList(new ArrayList<>());
-    }
-    if (rdf.getPlaceList() == null) {
-      rdf.setPlaceList(new ArrayList<>());
-    }
-    if (rdf.getTimeSpanList() == null) {
-      rdf.setTimeSpanList(new ArrayList<>());
-    }
-    convertAndAddEntity(rdf, enrichmentBaseWrapper);
+  public void mergeEntities(RDF rdf, List<EnrichmentBase> contextualEntities,
+          Map<String, Set<EnrichmentFields>> proxyLinkTypes) {
+    contextualEntities.forEach(
+            entity -> convertAndAddEntity(rdf, entity, proxyLinkTypes.get(entity.getAbout())));
   }
 }

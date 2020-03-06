@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.utils;
 
+import eu.europeana.corelib.definitions.jibx.AboutType;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
@@ -30,12 +31,14 @@ public final class DereferenceUtils {
   }
 
   /**
-   * Extract values from RDF document
+   * Extract references from RDF document
    *
    * @param rdf input document
    * @return non-null set of values for dereferencing, not containing null.
    */
-  public static Set<String> extractValuesForDereferencing(RDF rdf) {
+  public static Set<String> extractReferencesForDereferencing(RDF rdf) {
+
+    // Get all the links we are interested in.
     final Set<String> result = new HashSet<>();
     extractValues(rdf.getAgentList(), item -> dereferenceAgent(item, result));
     extractValues(rdf.getConceptList(), item -> dereferenceConcept(item, result));
@@ -44,7 +47,15 @@ public final class DereferenceUtils {
     extractValues(rdf.getWebResourceList(), item -> dereferenceWebResource(item, result));
     extractValues(Collections.singletonList(RdfProxyUtils.getProviderProxy(rdf)),
         item -> dereferenceProxy(item, result));
+
+    // Clean up the result: no null values and no objects that we already have.
     result.remove(null);
+    rdf.getAgentList().stream().map(AboutType::getAbout).forEach(result::remove);
+    rdf.getConceptList().stream().map(AboutType::getAbout).forEach(result::remove);
+    rdf.getPlaceList().stream().map(AboutType::getAbout).forEach(result::remove);
+    rdf.getTimeSpanList().stream().map(AboutType::getAbout).forEach(result::remove);
+
+    // Done.
     return result;
   }
 

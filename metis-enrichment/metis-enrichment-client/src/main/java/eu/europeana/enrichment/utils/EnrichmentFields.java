@@ -12,17 +12,20 @@ import eu.europeana.corelib.definitions.jibx.Issued;
 import eu.europeana.corelib.definitions.jibx.Medium;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
+import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.corelib.definitions.jibx.Spatial;
 import eu.europeana.corelib.definitions.jibx.Subject;
 import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.Type;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -77,20 +80,39 @@ public enum EnrichmentFields {
 
   /**
    * Extract fields from a Proxy for enrichment
-   * 
+   *
    * @param proxy The proxy to use for enrichment
    * @return A list of values ready for enrichment
    */
   public final List<InputValue> extractFieldValuesForEnrichment(ProxyType proxy) {
-    return proxy.getChoiceList().stream()
-        .filter(choiceContentHandler.choiceChecker)
-        .map(choiceContentHandler.contentGetter)
-        .filter(Objects::nonNull)
-        .filter(content -> StringUtils.isNotEmpty(content.getString()))
-        .map(this::convert)
-        .collect(Collectors.toList());
+    return extractFields(proxy)
+            .filter(content -> StringUtils.isNotEmpty(content.getString()))
+            .map(this::convert)
+            .collect(Collectors.toList());
   }
-  
+
+  /**
+   * Extract resources from a Proxy for enrichment
+   *
+   * @param proxy The proxy to use for enrichment
+   * @return A list of values ready for enrichment
+   */
+  public final Set<String> extractFieldLinksForEnrichment(ProxyType proxy) {
+    return extractFields(proxy)
+            .map(ResourceOrLiteralType::getResource)
+            .filter(Objects::nonNull)
+            .map(Resource::getResource)
+            .filter(StringUtils::isNotBlank)
+            .collect(Collectors.toSet());
+  }
+
+  private Stream<? extends ResourceOrLiteralType> extractFields(ProxyType proxy) {
+    return proxy.getChoiceList().stream()
+            .filter(choiceContentHandler.choiceChecker)
+            .map(choiceContentHandler.contentGetter)
+            .filter(Objects::nonNull);
+  }
+
   private InputValue convert(ResourceOrLiteralType content) {
     final String language = content.getLang() == null ? null : content.getLang().getLang();
     return new InputValue(this.name(), content.getString(), language, entityClass);
