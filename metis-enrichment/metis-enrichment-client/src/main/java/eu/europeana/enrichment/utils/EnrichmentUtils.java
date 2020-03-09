@@ -77,9 +77,9 @@ public final class EnrichmentUtils {
     final ProxyType providerProxy = RdfProxyUtils.getProviderProxy(rdf);
     final Map<String, Set<EnrichmentFields>> directReferences = new HashMap<>();
     for (EnrichmentFields field : EnrichmentFields.values()) {
-      final Set<String> values = field.extractFieldLinksForEnrichment(providerProxy);
-      for (String value : values) {
-        directReferences.computeIfAbsent(value, key -> EnumSet.noneOf(EnrichmentFields.class))
+      final Set<String> directLinks = field.extractFieldLinksForEnrichment(providerProxy);
+      for (String directLink : directLinks) {
+        directReferences.computeIfAbsent(directLink, key -> EnumSet.noneOf(EnrichmentFields.class))
                 .add(field);
       }
     }
