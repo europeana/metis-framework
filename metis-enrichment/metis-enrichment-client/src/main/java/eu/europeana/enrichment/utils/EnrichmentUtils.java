@@ -31,6 +31,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -73,11 +74,14 @@ public final class EnrichmentUtils {
    */
   public static Map<String, Set<EnrichmentFields>> extractReferencesForEnrichmentFromRDF(RDF rdf) {
 
-    // Get all direct references from the provider proxy.
-    final ProxyType providerProxy = RdfProxyUtils.getProviderProxy(rdf);
+    // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
+    // use this below to follow sameAs links).
+    final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).map(List::stream)
+            .orElseGet(Stream::empty).filter(Objects::nonNull).collect(Collectors.toList());
     final Map<String, Set<EnrichmentFields>> directReferences = new HashMap<>();
     for (EnrichmentFields field : EnrichmentFields.values()) {
-      final Set<String> directLinks = field.extractFieldLinksForEnrichment(providerProxy);
+      final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
+              .flatMap(Set::stream).collect(Collectors.toSet());
       for (String directLink : directLinks) {
         directReferences.computeIfAbsent(directLink, key -> EnumSet.noneOf(EnrichmentFields.class))
                 .add(field);
@@ -96,10 +100,14 @@ public final class EnrichmentUtils {
         }
       }
     };
-    rdf.getAgentList().forEach(contextualTypeProcessor);
-    rdf.getConceptList().forEach(contextualTypeProcessor);
-    rdf.getPlaceList().forEach(contextualTypeProcessor);
-    rdf.getTimeSpanList().forEach(contextualTypeProcessor);
+    Optional.ofNullable(rdf.getAgentList()).orElseGet(Collections::emptyList)
+            .forEach(contextualTypeProcessor);
+    Optional.ofNullable(rdf.getConceptList()).orElseGet(Collections::emptyList)
+            .forEach(contextualTypeProcessor);
+    Optional.ofNullable(rdf.getPlaceList()).orElseGet(Collections::emptyList)
+            .forEach(contextualTypeProcessor);
+    Optional.ofNullable(rdf.getTimeSpanList()).orElseGet(Collections::emptyList)
+            .forEach(contextualTypeProcessor);
 
     // Merge the two maps.
     final Map<String, Set<EnrichmentFields>> result = mergeMapInto(directReferences,
@@ -107,10 +115,13 @@ public final class EnrichmentUtils {
 
     // Clean up the result: no null values and no objects that we already have.
     result.remove(null);
-    rdf.getAgentList().stream().map(AboutType::getAbout).forEach(result::remove);
-    rdf.getConceptList().stream().map(AboutType::getAbout).forEach(result::remove);
-    rdf.getPlaceList().stream().map(AboutType::getAbout).forEach(result::remove);
-    rdf.getTimeSpanList().stream().map(AboutType::getAbout).forEach(result::remove);
+    final Consumer<List<? extends AboutType>> cleaner = list -> Optional.ofNullable(list)
+            .map(List::stream).orElseGet(Stream::empty).map(AboutType::getAbout)
+            .forEach(result::remove);
+    cleaner.accept(rdf.getAgentList());
+    cleaner.accept(rdf.getConceptList());
+    cleaner.accept(rdf.getPlaceList());
+    cleaner.accept(rdf.getTimeSpanList());
 
     // Done
     return result;

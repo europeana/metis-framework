@@ -14,9 +14,11 @@ import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -50,10 +52,13 @@ public final class DereferenceUtils {
 
     // Clean up the result: no null values and no objects that we already have.
     result.remove(null);
-    rdf.getAgentList().stream().map(AboutType::getAbout).forEach(result::remove);
-    rdf.getConceptList().stream().map(AboutType::getAbout).forEach(result::remove);
-    rdf.getPlaceList().stream().map(AboutType::getAbout).forEach(result::remove);
-    rdf.getTimeSpanList().stream().map(AboutType::getAbout).forEach(result::remove);
+    final Consumer<List<? extends AboutType>> cleaner = list -> Optional.ofNullable(list)
+            .map(List::stream).orElseGet(Stream::empty).map(AboutType::getAbout)
+            .forEach(result::remove);
+    cleaner.accept(rdf.getAgentList());
+    cleaner.accept(rdf.getConceptList());
+    cleaner.accept(rdf.getPlaceList());
+    cleaner.accept(rdf.getTimeSpanList());
 
     // Done.
     return result;

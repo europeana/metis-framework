@@ -2,6 +2,7 @@ package eu.europeana.enrichment.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import eu.europeana.corelib.definitions.jibx.AboutType;
@@ -36,10 +37,15 @@ public final class RdfProxyUtils {
   private static void appendToEuropeanaProxy(ProxyType europeanaProxy,
       EnrichmentFields enrichmentField, String about) {
     //Choice might be null. That probably happens because of jibx deserialization works.
-    List<EuropeanaType.Choice> choices =
+    final List<EuropeanaType.Choice> choices =
         europeanaProxy.getChoiceList() == null ? new ArrayList<>() : europeanaProxy.getChoiceList();
-    choices.add(enrichmentField.createChoice(about));
-    europeanaProxy.setChoiceList(choices);
+    final boolean alreadyExists = choices.stream().filter(Objects::nonNull)
+            .map(enrichmentField::getResourceIfRightChoice).filter(Objects::nonNull)
+            .anyMatch(about::equals);
+    if (!alreadyExists) {
+      choices.add(enrichmentField.createChoice(about));
+      europeanaProxy.setChoiceList(choices);
+    }
   }
 
   /**

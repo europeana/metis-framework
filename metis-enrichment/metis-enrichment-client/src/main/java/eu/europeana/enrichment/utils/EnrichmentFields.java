@@ -19,6 +19,7 @@ import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.Type;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -126,6 +127,20 @@ public enum EnrichmentFields {
    */
   public final EuropeanaType.Choice createChoice(String about) {
     return choiceContentHandler.createChoice(about);
+  }
+
+  /**
+   * This method checks whether this choice is of this type and then retrieves the resource value if
+   * it is.
+   *
+   * @param choice The choice of which to retrieve the resource.
+   * @return The resource. Can be null if the choice is not of this type or if the choice does not
+   * contain a resource.
+   */
+  public final String getResourceIfRightChoice(Choice choice) {
+    return choiceContentHandler.choiceChecker.test(choice) ? Optional
+            .of(choiceContentHandler.contentGetter.apply(choice))
+            .map(ResourceOrLiteralType::getResource).map(Resource::getResource).orElse(null) : null;
   }
 
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {
