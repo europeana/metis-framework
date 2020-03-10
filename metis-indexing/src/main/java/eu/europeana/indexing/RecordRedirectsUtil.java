@@ -83,9 +83,9 @@ public final class RecordRedirectsUtil {
     //Create combinations of all rules into one query
     final Pair<String, List<String>> queryForDatasetIdsAndConcatenatedIds = generateQueryForDatasetIds(
         datasetIdsToRedirectFrom, recordId);
-    final Pair<String, Map<String, List<String>>> queryMatchingFieldsAndFirstQueryGroup = generateQueryForMatchingFields(
+    final Triplet<String, Map<String, List<String>>, Map<String, List<String>>> queryMatchingFieldsAndFirstSecondQueryGroup = generateQueryForMatchingFields(
         rdfWrapper);
-    final String queryForMatchingFields = queryMatchingFieldsAndFirstQueryGroup.getLeft();
+    final String queryForMatchingFields = queryMatchingFieldsAndFirstSecondQueryGroup.getLeft();
     final List<String> queriesToCombine = Arrays
         .asList(queryForDatasetIdsAndConcatenatedIds.getLeft(), queryForMatchingFields);
     final String combinedQueryOr = computeJoiningQuery(getFilteredItems(queriesToCombine),
@@ -116,25 +116,24 @@ public final class RecordRedirectsUtil {
       //Apply solr query and execute
       final Map<String, String> queryParamMap = new HashMap<>();
       queryParamMap.put("q", finalQuery);
+      queryParamMap.put("fl",
+          String.format("%s,%s,%s,%s,%s,%s", EdmLabel.EUROPEANA_ID, EdmLabel.TIMESTAMP_CREATED,
+              EdmLabel.PROXY_DC_IDENTIFIER, EdmLabel.PROXY_DC_TITLE, EdmLabel.PROXY_DC_DESCRIPTION,
+              EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY));
 
       //Preprocess sub-query and replace documents based on the result
       SolrDocumentList solrDocuments = solrDocumentRetriever.apply(queryParamMap);
 
       //Check exact ids match first
       final SolrDocumentList exactIdsMatchResults = solrDocuments.stream()
-          .filter(checkExactIdsMatch(
-              queryForDatasetIdsAndConcatenatedIds.getRight()))
+          .filter(checkExactIdsMatch(queryForDatasetIdsAndConcatenatedIds.getRight()))
           .collect(Collectors.toCollection(SolrDocumentList::new));
       if (!exactIdsMatchResults.isEmpty()) {
         solrDocuments = exactIdsMatchResults;
       } else {
-        //Check for first group if and only if the exact ids match do not have any results
-        final SolrDocumentList firstGroupMatchResults = solrDocuments.stream()
-            .filter(checkFirstGroupMatch(queryMatchingFieldsAndFirstQueryGroup.getRight()))
-            .collect(Collectors.toCollection(SolrDocumentList::new));
-        if (!firstGroupMatchResults.isEmpty()) {
-          solrDocuments = firstGroupMatchResults;
-        }
+        solrDocuments = checkMatchesOfTwoFirstGroups(
+            queryMatchingFieldsAndFirstSecondQueryGroup.getMiddle(),
+            queryMatchingFieldsAndFirstSecondQueryGroup.getRight(), solrDocuments);
       }
 
       //Return all identifiers found and their creationDates
@@ -146,26 +145,43 @@ public final class RecordRedirectsUtil {
     return new ArrayList<>();
   }
 
+  private static SolrDocumentList checkMatchesOfTwoFirstGroups(Map<String, List<String>> firstGroup,
+      Map<String, List<String>> secondGroup, SolrDocumentList solrDocuments) {
+    //Check for first group if and only if the exact ids match do not have any results
+    SolrDocumentList groupMatchResults = solrDocuments.stream().filter(checkGroupMatch(firstGroup))
+        .collect(Collectors.toCollection(SolrDocumentList::new));
+    if (!groupMatchResults.isEmpty()) {
+      solrDocuments = groupMatchResults;
+    } else {
+      //Check for second group if and only if the first gorup match do not have any results
+      groupMatchResults = solrDocuments.stream().filter(checkGroupMatch(secondGroup))
+          .collect(Collectors.toCollection(SolrDocumentList::new));
+      if (!groupMatchResults.isEmpty()) {
+        solrDocuments = groupMatchResults;
+      }
+    }
+    return solrDocuments;
+  }
+
   private static Predicate<SolrDocument> checkExactIdsMatch(List<String> concatenatedIds) {
     return document -> concatenatedIds.stream()
         .anyMatch(((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))::equals);
   }
 
-  private static Predicate<SolrDocument> checkFirstGroupMatch(
-      Map<String, List<String>> firstQueryGroup) {
+  private static Predicate<SolrDocument> checkGroupMatch(Map<String, List<String>> queryGroup) {
     return document -> {
       int counter = 0;
-      for (Entry<String, List<String>> entry : firstQueryGroup.entrySet()) {
+      for (Entry<String, List<String>> entry : queryGroup.entrySet()) {
         if (document.getFieldValues(entry.getKey()).stream().map(String.class::cast)
             .anyMatch(entry.getValue()::contains)) {
           counter++;
         }
       }
-      return firstQueryGroup.size() == counter;
+      return queryGroup.size() > 0 && queryGroup.size() == counter;
     };
   }
 
-  private static Pair<String, Map<String, List<String>>> generateQueryForMatchingFields(
+  private static Triplet generateQueryForMatchingFields(
       RdfWrapper rdfWrapper) {
     //Collect all required information for heuristics
     final List<String> identifiers = rdfWrapper.getProviderProxyIdentifiers().stream()
@@ -202,8 +218,8 @@ public final class RecordRedirectsUtil {
     //Join all groups
     final String combinedQuery = Stream.of(firstQueryGroup, secondQueryGroup, thirdQueryGroup)
         .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
-    return new ImmutablePair<>(StringUtils.isNotBlank(combinedQuery) ? combinedQuery : null,
-        firstMapOfLists);
+    return new Triplet(StringUtils.isNotBlank(combinedQuery) ? combinedQuery : null,
+        firstMapOfLists, secondMapOfLists);
   }
 
   private static HashMap<String, List<String>> createFirstCombinationGroup(List<String> identifiers,
@@ -261,14 +277,14 @@ public final class RecordRedirectsUtil {
   private static String generateOrOperationFromList(String queryFieldName, List<String> items) {
     final List<String> filteredItems = getFilteredItems(items);
     return computeJoiningQuery(filteredItems, ClientUtils::escapeQueryChars,
-        Collectors.joining(" OR ", String.format("%s:(", queryFieldName), ")"));
+        Collectors.joining(" OR ", String.format("%s:(\"", queryFieldName), "\")"));
   }
 
   private static String generateQueryInDatasetSubsets(List<String> datasetIds) {
     final List<String> filteredItems = getFilteredItems(datasetIds);
     return computeJoiningQuery(filteredItems,
         datasetId -> String.format("%s_*", ClientUtils.escapeQueryChars(datasetId)),
-        Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EDM_DATASETNAME), ")"));
+        Collectors.joining(" OR ", String.format("%s:(\"", EdmLabel.EDM_DATASETNAME), "\")"));
   }
 
   private static String computeJoiningQuery(List<String> filteredItems,
@@ -293,12 +309,12 @@ public final class RecordRedirectsUtil {
       final List<String> filteredItems = getFilteredItems(datasetIdsToRedirectFrom);
 
       concatenatedDatasetRecordIds = filteredItems.stream().map(
-          datasetIdForRedirection -> String.format("/%s/%s", datasetIdForRedirection, recordId))
+          datasetIdForRedirection -> String.format("\"/%s/%s\"", datasetIdForRedirection, recordId))
           .collect(Collectors.toList());
 
       combinedQueryForRedirectedDatasetIds = computeJoiningQuery(concatenatedDatasetRecordIds,
           UnaryOperator.identity(),
-          Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EUROPEANA_ID), ")"));
+          Collectors.joining(" OR ", String.format("%s:(\"", EdmLabel.EUROPEANA_ID), "\")"));
     }
     return ImmutablePair.of(combinedQueryForRedirectedDatasetIds, concatenatedDatasetRecordIds);
   }
@@ -387,4 +403,30 @@ public final class RecordRedirectsUtil {
      */
     R apply(T t) throws E;
   }
+
+  private static class Triplet<T, U, V> {
+
+    private final T left;
+    private final U middle;
+    private final V right;
+
+    public Triplet(T left, U middle, V right) {
+      this.left = left;
+      this.middle = middle;
+      this.right = right;
+    }
+
+    public T getLeft() {
+      return left;
+    }
+
+    public U getMiddle() {
+      return middle;
+    }
+
+    public V getRight() {
+      return right;
+    }
+  }
+
 }

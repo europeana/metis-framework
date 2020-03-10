@@ -108,6 +108,10 @@ public class RecordRedirectDao {
                     .toList());
   }
 
+  public Datastore getDatastore() {
+    return datastore;
+  }
+
   /**
    * Close internal database connections if applicable
    */
