@@ -298,7 +298,9 @@ public class EnrichmentWorker {
 
   private List<EnrichmentBaseWrapper> dereferenceExternalEntity(String resourceId)
           throws DereferenceOrEnrichException {
-    final EnrichmentResultList result;
+
+    // Perform the dereferencing.
+    EnrichmentResultList result;
     try {
       LOGGER.debug("== Processing {}", resourceId);
       result = ExternalRequestUtil.retryableExternalRequest(() ->
@@ -307,11 +309,13 @@ public class EnrichmentWorker {
     } catch (BadRequest e) {
       // We are forgiving for these errors
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
-      return Collections.emptyList();
+      result = null;
     } catch (Exception e) {
       throw new DereferenceOrEnrichException(
               "Exception occurred while trying to perform dereferencing.", e);
     }
+
+    // Return the result.
     return Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseWrapperList)
             .orElseGet(Collections::emptyList);
   }
