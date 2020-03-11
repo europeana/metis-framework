@@ -83,11 +83,13 @@ public final class RecordRedirectsUtil {
     //Create combinations of all rules into one query
     final Pair<String, List<String>> queryForDatasetIdsAndConcatenatedIds = generateQueryForDatasetIds(
         datasetIdsToRedirectFrom, recordId);
-    final Triplet<String, Map<String, List<String>>, Map<String, List<String>>> queryMatchingFieldsAndFirstSecondQueryGroup = generateQueryForMatchingFields(
-        rdfWrapper);
-    final String queryForMatchingFields = queryMatchingFieldsAndFirstSecondQueryGroup.getLeft();
+    final Map<String, List<String>> firstMapOfLists = new HashMap<>();
+    final Map<String, List<String>> secondMapOfLists = new HashMap<>();
+    final Map<String, List<String>> thirdMapOfLists = new HashMap<>();
+    final String queryMatchingFields = generateQueryForMatchingFields(rdfWrapper, firstMapOfLists,
+        secondMapOfLists, thirdMapOfLists);
     final List<String> queriesToCombine = Arrays
-        .asList(queryForDatasetIdsAndConcatenatedIds.getLeft(), queryForMatchingFields);
+        .asList(queryForDatasetIdsAndConcatenatedIds.getLeft(), queryMatchingFields);
     final String combinedQueryOr = computeJoiningQuery(getFilteredItems(queriesToCombine),
         UnaryOperator.identity(), Collectors.joining(" OR ", "(", ")"));
 
@@ -125,16 +127,9 @@ public final class RecordRedirectsUtil {
       SolrDocumentList solrDocuments = solrDocumentRetriever.apply(queryParamMap);
 
       //Check exact ids match first
-      final SolrDocumentList exactIdsMatchResults = solrDocuments.stream()
-          .filter(checkExactIdsMatch(queryForDatasetIdsAndConcatenatedIds.getRight()))
-          .collect(Collectors.toCollection(SolrDocumentList::new));
-      if (!exactIdsMatchResults.isEmpty()) {
-        solrDocuments = exactIdsMatchResults;
-      } else {
-        solrDocuments = checkMatchesOfTwoFirstGroups(
-            queryMatchingFieldsAndFirstSecondQueryGroup.getMiddle(),
-            queryMatchingFieldsAndFirstSecondQueryGroup.getRight(), solrDocuments);
-      }
+      modifyDocumentListIfMatchesFound(solrDocuments,
+          queryForDatasetIdsAndConcatenatedIds.getRight(), firstMapOfLists, secondMapOfLists,
+          thirdMapOfLists);
 
       //Return all identifiers found and their creationDates
       return solrDocuments.stream().map(document -> ImmutablePair
@@ -145,30 +140,38 @@ public final class RecordRedirectsUtil {
     return new ArrayList<>();
   }
 
-  private static SolrDocumentList checkMatchesOfTwoFirstGroups(Map<String, List<String>> firstGroup,
-      Map<String, List<String>> secondGroup, SolrDocumentList solrDocuments) {
-    //Check for first group if and only if the exact ids match do not have any results
-    SolrDocumentList groupMatchResults = solrDocuments.stream().filter(checkGroupMatch(firstGroup))
-        .collect(Collectors.toCollection(SolrDocumentList::new));
-    if (!groupMatchResults.isEmpty()) {
-      solrDocuments = groupMatchResults;
-    } else {
-      //Check for second group if and only if the first gorup match do not have any results
-      groupMatchResults = solrDocuments.stream().filter(checkGroupMatch(secondGroup))
-          .collect(Collectors.toCollection(SolrDocumentList::new));
-      if (!groupMatchResults.isEmpty()) {
-        solrDocuments = groupMatchResults;
-      }
+  private static void modifyDocumentListIfMatchesFound(SolrDocumentList solrDocuments,
+      List<String> concatenatedIds, Map<String, List<String>> firstMap,
+      Map<String, List<String>> secondMap, Map<String, List<String>> thirdMap) {
+    //We check in the following order only if the previous result was empty. Exact Ids, first group, second group
+    SolrDocumentList matchedResults = getMatchingSolrDocuments(solrDocuments,
+        doExactIdsMatch(concatenatedIds));
+    if (matchedResults.isEmpty()) {
+      matchedResults = getMatchingSolrDocuments(solrDocuments, doesGroupMatch(firstMap));
     }
-    return solrDocuments;
+    if (matchedResults.isEmpty()) {
+      matchedResults = getMatchingSolrDocuments(solrDocuments, doesGroupMatch(secondMap));
+    }
+    if (matchedResults.isEmpty()) {
+      matchedResults = getMatchingSolrDocuments(solrDocuments, doesGroupMatch(thirdMap));
+    }
+    //Replace with matches, if no matches then the solr documents returned were false positive because of the text tokenized fields
+    solrDocuments.clear();
+    solrDocuments.addAll(matchedResults);
   }
 
-  private static Predicate<SolrDocument> checkExactIdsMatch(List<String> concatenatedIds) {
+  private static SolrDocumentList getMatchingSolrDocuments(SolrDocumentList solrDocuments,
+      Predicate<SolrDocument> solrDocumentPredicate) {
+    return solrDocuments.stream().filter(solrDocumentPredicate)
+        .collect(Collectors.toCollection(SolrDocumentList::new));
+  }
+
+  private static Predicate<SolrDocument> doExactIdsMatch(List<String> concatenatedIds) {
     return document -> concatenatedIds.stream()
         .anyMatch(((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))::equals);
   }
 
-  private static Predicate<SolrDocument> checkGroupMatch(Map<String, List<String>> queryGroup) {
+  private static Predicate<SolrDocument> doesGroupMatch(Map<String, List<String>> queryGroup) {
     return document -> {
       int counter = 0;
       for (Entry<String, List<String>> entry : queryGroup.entrySet()) {
@@ -181,8 +184,9 @@ public final class RecordRedirectsUtil {
     };
   }
 
-  private static Triplet generateQueryForMatchingFields(
-      RdfWrapper rdfWrapper) {
+  private static String generateQueryForMatchingFields(RdfWrapper rdfWrapper,
+      Map<String, List<String>> firstMapOfLists, Map<String, List<String>> secondMapOfLists,
+      Map<String, List<String>> thirdMapOfLists) {
     //Collect all required information for heuristics
     final List<String> identifiers = rdfWrapper.getProviderProxyIdentifiers().stream()
         .map(Identifier::getString).filter(StringUtils::isNotBlank).collect(Collectors.toList());
@@ -203,12 +207,9 @@ public final class RecordRedirectsUtil {
         .collect(Collectors.toList());
 
     //Create all lists that need to be combined
-    final Map<String, List<String>> firstMapOfLists = createFirstCombinationGroup(identifiers,
-        titles, descriptions);
-    final Map<String, List<String>> secondMapOfLists = createSecondCombinationGroup(isShownByList,
-        titles, descriptions);
-    final Map<String, List<String>> thirdMapOfLists = createThirdCombinationGroup(isShownByList,
-        identifiers);
+    firstMapOfLists.putAll(createFirstCombinationGroup(identifiers, titles, descriptions));
+    secondMapOfLists.putAll(createSecondCombinationGroup(isShownByList, titles, descriptions));
+    thirdMapOfLists.putAll(createThirdCombinationGroup(isShownByList, identifiers));
 
     //Combine different list of fields in groups
     final String firstQueryGroup = generateQueryForFields(firstMapOfLists);
@@ -218,8 +219,7 @@ public final class RecordRedirectsUtil {
     //Join all groups
     final String combinedQuery = Stream.of(firstQueryGroup, secondQueryGroup, thirdQueryGroup)
         .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
-    return new Triplet(StringUtils.isNotBlank(combinedQuery) ? combinedQuery : null,
-        firstMapOfLists, secondMapOfLists);
+    return StringUtils.isNotBlank(combinedQuery) ? combinedQuery : null;
   }
 
   private static HashMap<String, List<String>> createFirstCombinationGroup(List<String> identifiers,
@@ -284,7 +284,7 @@ public final class RecordRedirectsUtil {
     final List<String> filteredItems = getFilteredItems(datasetIds);
     return computeJoiningQuery(filteredItems,
         datasetId -> String.format("%s_*", ClientUtils.escapeQueryChars(datasetId)),
-        Collectors.joining(" OR ", String.format("%s:(\"", EdmLabel.EDM_DATASETNAME), "\")"));
+        Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EDM_DATASETNAME), ")"));
   }
 
   private static String computeJoiningQuery(List<String> filteredItems,
@@ -403,30 +403,4 @@ public final class RecordRedirectsUtil {
      */
     R apply(T t) throws E;
   }
-
-  private static class Triplet<T, U, V> {
-
-    private final T left;
-    private final U middle;
-    private final V right;
-
-    public Triplet(T left, U middle, V right) {
-      this.left = left;
-      this.middle = middle;
-      this.right = right;
-    }
-
-    public T getLeft() {
-      return left;
-    }
-
-    public U getMiddle() {
-      return middle;
-    }
-
-    public V getRight() {
-      return right;
-    }
-  }
-
 }
