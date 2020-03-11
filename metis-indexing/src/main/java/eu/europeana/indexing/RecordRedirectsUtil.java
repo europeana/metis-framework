@@ -83,11 +83,13 @@ public final class RecordRedirectsUtil {
     //Create combinations of all rules into one query
     final Pair<String, List<String>> queryForDatasetIdsAndConcatenatedIds = generateQueryForDatasetIds(
         datasetIdsToRedirectFrom, recordId);
-    final Pair<String, Map<String, List<String>>> queryMatchingFieldsAndFirstQueryGroup = generateQueryForMatchingFields(
-        rdfWrapper);
-    final String queryForMatchingFields = queryMatchingFieldsAndFirstQueryGroup.getLeft();
+    final Map<String, List<String>> firstMapOfLists = new HashMap<>();
+    final Map<String, List<String>> secondMapOfLists = new HashMap<>();
+    final Map<String, List<String>> thirdMapOfLists = new HashMap<>();
+    final String queryMatchingFields = generateQueryForMatchingFields(rdfWrapper, firstMapOfLists,
+        secondMapOfLists, thirdMapOfLists);
     final List<String> queriesToCombine = Arrays
-        .asList(queryForDatasetIdsAndConcatenatedIds.getLeft(), queryForMatchingFields);
+        .asList(queryForDatasetIdsAndConcatenatedIds.getLeft(), queryMatchingFields);
     final String combinedQueryOr = computeJoiningQuery(getFilteredItems(queriesToCombine),
         UnaryOperator.identity(), Collectors.joining(" OR ", "(", ")"));
 
@@ -116,26 +118,18 @@ public final class RecordRedirectsUtil {
       //Apply solr query and execute
       final Map<String, String> queryParamMap = new HashMap<>();
       queryParamMap.put("q", finalQuery);
+      queryParamMap.put("fl",
+          String.format("%s,%s,%s,%s,%s,%s", EdmLabel.EUROPEANA_ID, EdmLabel.TIMESTAMP_CREATED,
+              EdmLabel.PROXY_DC_IDENTIFIER, EdmLabel.PROXY_DC_TITLE, EdmLabel.PROXY_DC_DESCRIPTION,
+              EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY));
 
       //Preprocess sub-query and replace documents based on the result
       SolrDocumentList solrDocuments = solrDocumentRetriever.apply(queryParamMap);
 
       //Check exact ids match first
-      final SolrDocumentList exactIdsMatchResults = solrDocuments.stream()
-          .filter(checkExactIdsMatch(
-              queryForDatasetIdsAndConcatenatedIds.getRight()))
-          .collect(Collectors.toCollection(SolrDocumentList::new));
-      if (!exactIdsMatchResults.isEmpty()) {
-        solrDocuments = exactIdsMatchResults;
-      } else {
-        //Check for first group if and only if the exact ids match do not have any results
-        final SolrDocumentList firstGroupMatchResults = solrDocuments.stream()
-            .filter(checkFirstGroupMatch(queryMatchingFieldsAndFirstQueryGroup.getRight()))
-            .collect(Collectors.toCollection(SolrDocumentList::new));
-        if (!firstGroupMatchResults.isEmpty()) {
-          solrDocuments = firstGroupMatchResults;
-        }
-      }
+      modifyDocumentListIfMatchesFound(solrDocuments,
+          queryForDatasetIdsAndConcatenatedIds.getRight(), firstMapOfLists, secondMapOfLists,
+          thirdMapOfLists);
 
       //Return all identifiers found and their creationDates
       return solrDocuments.stream().map(document -> ImmutablePair
@@ -146,27 +140,53 @@ public final class RecordRedirectsUtil {
     return new ArrayList<>();
   }
 
-  private static Predicate<SolrDocument> checkExactIdsMatch(List<String> concatenatedIds) {
+  private static void modifyDocumentListIfMatchesFound(SolrDocumentList solrDocuments,
+      List<String> concatenatedIds, Map<String, List<String>> firstMap,
+      Map<String, List<String>> secondMap, Map<String, List<String>> thirdMap) {
+    //We check in the following order only if the previous result was empty. Exact Ids, first group, second group
+    SolrDocumentList matchedResults = getMatchingSolrDocuments(solrDocuments,
+        doExactIdsMatch(concatenatedIds));
+    if (matchedResults.isEmpty()) {
+      matchedResults = getMatchingSolrDocuments(solrDocuments, doesGroupMatch(firstMap));
+    }
+    if (matchedResults.isEmpty()) {
+      matchedResults = getMatchingSolrDocuments(solrDocuments, doesGroupMatch(secondMap));
+    }
+    if (matchedResults.isEmpty()) {
+      matchedResults = getMatchingSolrDocuments(solrDocuments, doesGroupMatch(thirdMap));
+    }
+    //Replace with matches, if no matches then the solr documents returned were false positive because of the text tokenized fields
+    solrDocuments.clear();
+    solrDocuments.addAll(matchedResults);
+  }
+
+  private static SolrDocumentList getMatchingSolrDocuments(SolrDocumentList solrDocuments,
+      Predicate<SolrDocument> solrDocumentPredicate) {
+    return solrDocuments.stream().filter(solrDocumentPredicate)
+        .collect(Collectors.toCollection(SolrDocumentList::new));
+  }
+
+  private static Predicate<SolrDocument> doExactIdsMatch(List<String> concatenatedIds) {
     return document -> concatenatedIds.stream()
         .anyMatch(((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))::equals);
   }
 
-  private static Predicate<SolrDocument> checkFirstGroupMatch(
-      Map<String, List<String>> firstQueryGroup) {
+  private static Predicate<SolrDocument> doesGroupMatch(Map<String, List<String>> queryGroup) {
     return document -> {
       int counter = 0;
-      for (Entry<String, List<String>> entry : firstQueryGroup.entrySet()) {
+      for (Entry<String, List<String>> entry : queryGroup.entrySet()) {
         if (document.getFieldValues(entry.getKey()).stream().map(String.class::cast)
             .anyMatch(entry.getValue()::contains)) {
           counter++;
         }
       }
-      return firstQueryGroup.size() == counter;
+      return queryGroup.size() > 0 && queryGroup.size() == counter;
     };
   }
 
-  private static Pair<String, Map<String, List<String>>> generateQueryForMatchingFields(
-      RdfWrapper rdfWrapper) {
+  private static String generateQueryForMatchingFields(RdfWrapper rdfWrapper,
+      Map<String, List<String>> firstMapOfLists, Map<String, List<String>> secondMapOfLists,
+      Map<String, List<String>> thirdMapOfLists) {
     //Collect all required information for heuristics
     final List<String> identifiers = rdfWrapper.getProviderProxyIdentifiers().stream()
         .map(Identifier::getString).filter(StringUtils::isNotBlank).collect(Collectors.toList());
@@ -187,12 +207,9 @@ public final class RecordRedirectsUtil {
         .collect(Collectors.toList());
 
     //Create all lists that need to be combined
-    final Map<String, List<String>> firstMapOfLists = createFirstCombinationGroup(identifiers,
-        titles, descriptions);
-    final Map<String, List<String>> secondMapOfLists = createSecondCombinationGroup(isShownByList,
-        titles, descriptions);
-    final Map<String, List<String>> thirdMapOfLists = createThirdCombinationGroup(isShownByList,
-        identifiers);
+    firstMapOfLists.putAll(createFirstCombinationGroup(identifiers, titles, descriptions));
+    secondMapOfLists.putAll(createSecondCombinationGroup(isShownByList, titles, descriptions));
+    thirdMapOfLists.putAll(createThirdCombinationGroup(isShownByList, identifiers));
 
     //Combine different list of fields in groups
     final String firstQueryGroup = generateQueryForFields(firstMapOfLists);
@@ -202,8 +219,7 @@ public final class RecordRedirectsUtil {
     //Join all groups
     final String combinedQuery = Stream.of(firstQueryGroup, secondQueryGroup, thirdQueryGroup)
         .filter(StringUtils::isNotBlank).collect(Collectors.joining(" OR "));
-    return new ImmutablePair<>(StringUtils.isNotBlank(combinedQuery) ? combinedQuery : null,
-        firstMapOfLists);
+    return StringUtils.isNotBlank(combinedQuery) ? combinedQuery : null;
   }
 
   private static HashMap<String, List<String>> createFirstCombinationGroup(List<String> identifiers,
@@ -261,7 +277,7 @@ public final class RecordRedirectsUtil {
   private static String generateOrOperationFromList(String queryFieldName, List<String> items) {
     final List<String> filteredItems = getFilteredItems(items);
     return computeJoiningQuery(filteredItems, ClientUtils::escapeQueryChars,
-        Collectors.joining(" OR ", String.format("%s:(", queryFieldName), ")"));
+        Collectors.joining(" OR ", String.format("%s:(\"", queryFieldName), "\")"));
   }
 
   private static String generateQueryInDatasetSubsets(List<String> datasetIds) {
@@ -293,12 +309,12 @@ public final class RecordRedirectsUtil {
       final List<String> filteredItems = getFilteredItems(datasetIdsToRedirectFrom);
 
       concatenatedDatasetRecordIds = filteredItems.stream().map(
-          datasetIdForRedirection -> String.format("/%s/%s", datasetIdForRedirection, recordId))
+          datasetIdForRedirection -> String.format("\"/%s/%s\"", datasetIdForRedirection, recordId))
           .collect(Collectors.toList());
 
       combinedQueryForRedirectedDatasetIds = computeJoiningQuery(concatenatedDatasetRecordIds,
           UnaryOperator.identity(),
-          Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EUROPEANA_ID), ")"));
+          Collectors.joining(" OR ", String.format("%s:(\"", EdmLabel.EUROPEANA_ID), "\")"));
     }
     return ImmutablePair.of(combinedQueryForRedirectedDatasetIds, concatenatedDatasetRecordIds);
   }
