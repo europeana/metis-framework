@@ -160,12 +160,8 @@ public final class IndexingSettings {
    * This method returns the Mongo record redirect database name.
    *
    * @return The Mongo record redirect database name.
-   * @throws SetupRelatedIndexingException In case no Mongo record redirect database name was set.
    */
-  public String getRecordRedirectDatabaseName() throws SetupRelatedIndexingException {
-    if (recordRedirectDatabaseName == null) {
-      throw new SetupRelatedIndexingException("Please provide a Mongo record redirect database name.");
-    }
+  public String getRecordRedirectDatabaseName() {
     return recordRedirectDatabaseName;
   }
 

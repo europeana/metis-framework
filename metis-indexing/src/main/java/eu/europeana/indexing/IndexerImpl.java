@@ -3,6 +3,7 @@ package eu.europeana.indexing;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.tiers.ClassifierFactory;
 import eu.europeana.indexing.utils.RdfTierUtils;
@@ -54,8 +55,11 @@ class IndexerImpl implements Indexer {
 
   private void indexRecords(List<RDF> records, Date recordDate,
       boolean preserveUpdateAndCreateTimesFromRdf, List<String> datasetIdsForRedirection,
-      boolean performRedirects)
-      throws IndexingException {
+      boolean performRedirects) throws IndexingException {
+    if (performRedirects && connectionProvider.getRecordRedirectDao() == null) {
+      throw new SetupRelatedIndexingException(
+          "Record redirect dao has not been initialized and performing redirects is requested");
+    }
     LOGGER.info("Processing {} records...", records.size());
     final FullBeanPublisher publisher =
         connectionProvider.getFullBeanPublisher(preserveUpdateAndCreateTimesFromRdf);
@@ -63,7 +67,8 @@ class IndexerImpl implements Indexer {
     for (RDF record : records) {
       preprocessRecord(record);
       if (performRedirects) {
-        publisher.publishWithRedirects(new RdfWrapper(record), recordDate, datasetIdsForRedirection);
+        publisher
+            .publishWithRedirects(new RdfWrapper(record), recordDate, datasetIdsForRedirection);
       } else {
         publisher.publish(new RdfWrapper(record), recordDate, datasetIdsForRedirection);
       }
@@ -84,16 +89,14 @@ class IndexerImpl implements Indexer {
   @Override
   public void indexRdfs(List<RDF> records, Date recordDate,
       boolean preserveUpdateAndCreateTimesFromRdf, List<String> datasetIdsForRedirection,
-      boolean performRedirects)
-      throws IndexingException {
+      boolean performRedirects) throws IndexingException {
     indexRecords(records, recordDate, preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection,
         performRedirects);
   }
 
   @Override
   public void indexRdf(RDF record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection, boolean performRedirects)
-      throws IndexingException {
+      List<String> datasetIdsForRedirection, boolean performRedirects) throws IndexingException {
     indexRdfs(Collections.singletonList(record), recordDate, preserveUpdateAndCreateTimesFromRdf,
         datasetIdsForRedirection, performRedirects);
   }
@@ -101,8 +104,7 @@ class IndexerImpl implements Indexer {
   @Override
   public void index(List<String> records, Date recordDate,
       boolean preserveUpdateAndCreateTimesFromRdf, List<String> datasetIdsForRedirection,
-      boolean performRedirects)
-      throws IndexingException {
+      boolean performRedirects) throws IndexingException {
     LOGGER.info("Parsing {} records...", records.size());
     final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
     final List<RDF> wrappedRecords = new ArrayList<>(records.size());

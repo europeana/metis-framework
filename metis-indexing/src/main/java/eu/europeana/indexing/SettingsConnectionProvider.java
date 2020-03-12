@@ -15,6 +15,7 @@ import eu.europeana.metis.solr.CompoundSolrClient;
 import eu.europeana.metis.solr.SolrClientProvider;
 import java.io.IOException;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +24,8 @@ import org.slf4j.LoggerFactory;
  * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection
  * using an {@link IndexingSettings} object. Various methods are made public so that this class may
  * be constructed and used outside the scope of the indexing library.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public final class SettingsConnectionProvider implements AbstractConnectionProvider {
 
@@ -40,7 +40,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
 
   /**
    * Constructor. Sets up the required connections using the supplied settings.
-   * 
+   *
    * @param settings The indexing settings (connection settings).
    * @throws SetupRelatedIndexingException In case the connections could not be set up.
    * @throws IndexerRelatedIndexingException In case the connection could not be established.
@@ -74,19 +74,20 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     // Perform logging
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info(
-              "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
-              settings.getMongoProperties().getMongoHosts().stream().map(ServerAddress::toString)
-                      .collect(Collectors.joining(", ")),
-              settings.getMongoDatabaseName(),
-              settings.getMongoProperties().getMongoCredentials() == null ? "out" : "",
-              settings.getMongoProperties().mongoEnableSsl() ? "" : "out");
+          "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
+          settings.getMongoProperties().getMongoHosts().stream().map(ServerAddress::toString)
+              .collect(Collectors.joining(", ")),
+          settings.getMongoDatabaseName(),
+          settings.getMongoProperties().getMongoCredentials() == null ? "out" : "",
+          settings.getMongoProperties().mongoEnableSsl() ? "" : "out");
     }
 
     // Create client
     return new MongoClientProvider<>(settings.getMongoProperties()).createMongoClient();
   }
 
-  private static EdmMongoServer setUpEdmMongoConnection(IndexingSettings settings, MongoClient client)
+  private static EdmMongoServer setUpEdmMongoConnection(IndexingSettings settings,
+      MongoClient client)
       throws SetupRelatedIndexingException {
     try {
       return new EdmMongoServerImpl(client, settings.getMongoDatabaseName(), false);
@@ -95,10 +96,16 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     }
   }
 
-  private static RecordRedirectDao setUpRecordRedirectDaoConnection(IndexingSettings settings, MongoClient client)
-          throws SetupRelatedIndexingException {
+  private static RecordRedirectDao setUpRecordRedirectDaoConnection(IndexingSettings settings,
+      MongoClient client)
+      throws SetupRelatedIndexingException {
     try {
-      return new RecordRedirectDao(client, settings.getRecordRedirectDatabaseName(), false);
+      RecordRedirectDao recordRedirectDao = null;
+      if (StringUtils.isNotBlank(settings.getRecordRedirectDatabaseName())) {
+        recordRedirectDao = new RecordRedirectDao(client, settings.getRecordRedirectDatabaseName(),
+            false);
+      }
+      return recordRedirectDao;
     } catch (RuntimeException e) {
       throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
@@ -122,7 +129,8 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   @Override
   public void close() throws IOException {
     edmMongoClient.close();
-    recordRedirectDao.close();
+    if (recordRedirectDao != null)
+      recordRedirectDao.close();
     mongoClient.close();
     this.solrClient.close();
   }
