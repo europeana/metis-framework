@@ -32,9 +32,6 @@ final class ClientsConnectionProvider implements AbstractConnectionProvider {
     if (edmMongoClient == null) {
       throw new SetupRelatedIndexingException("The provided Mongo client is null.");
     }
-    if (recordRedirectDao == null) {
-      throw new SetupRelatedIndexingException("The provided Record redirect dao is null.");
-    }
     if (solrClient == null) {
       throw new SetupRelatedIndexingException("The provided Solr client is null.");
     }
