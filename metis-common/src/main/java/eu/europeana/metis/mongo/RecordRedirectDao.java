@@ -21,28 +21,40 @@ public class RecordRedirectDao {
   private static final Logger LOGGER = LoggerFactory.getLogger(RecordRedirectDao.class);
   private static final String OLD_ID = "oldId";
   private static final String NEW_ID = "newId";
-
-  protected MongoClient mongoClient;
-  protected Datastore datastore;
+  private Datastore datastore;
 
   /**
-   * Constructs the DAO
-   * <p>Initializes the datastore using the provided mongo client</p>
+   * Constructor to initialize the mongo mappings/collections and the {@link Datastore} connection.
+   * This constructor is meant to be used when the database is already available.
    *
    * @param mongoClient the mongo client connection
    * @param databaseName the database name of the record redirect database
-   * @param createIndexes flag that enables/disables the creation of the indexes in the database
+   */
+  public RecordRedirectDao(MongoClient mongoClient, String databaseName) {
+    this(mongoClient, databaseName, false);
+  }
+
+  /**
+   * Constructor to initialize the mongo mappings/collections and the {@link Datastore} connection.
+   * This constructor is meant to be used mostly for when the creation of the database is required.
+   *
+   * @param mongoClient the mongo client connection
+   * @param databaseName the database name of the record redirect database
+   * @param createIndexes flag that initiates the database/indices
    */
   public RecordRedirectDao(MongoClient mongoClient, String databaseName, boolean createIndexes) {
-    this.mongoClient = mongoClient;
+    createDatastore(mongoClient, databaseName);
+    if (createIndexes) {
+      LOGGER.info("Initializing database indices");
+      datastore.ensureIndexes();
+    }
+  }
 
+  private void createDatastore(MongoClient mongoClient, String databaseName) {
     Morphia morphia = new Morphia();
     morphia.map(RecordRedirect.class);
     datastore = morphia.createDatastore(mongoClient, databaseName);
-    if (createIndexes) {
-      datastore.ensureIndexes();
-    }
-    LOGGER.info("RecordRedirect datastore is created");
+    LOGGER.info("Datastore initialized");
   }
 
   /**
@@ -104,21 +116,11 @@ public class RecordRedirectDao {
 
   private List<RecordRedirect> getRecordRedirects(String fieldName, String identifier) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-            () -> datastore.find(RecordRedirect.class).field(fieldName).equal(identifier).find()
-                    .toList());
+        () -> datastore.find(RecordRedirect.class).field(fieldName).equal(identifier).find()
+            .toList());
   }
 
   public Datastore getDatastore() {
     return datastore;
-  }
-
-  /**
-   * Close internal database connections if applicable
-   */
-  public void close() {
-    if (this.mongoClient != null) {
-      LOGGER.info("Closing MongoClient for RecordRedirectDao");
-      this.mongoClient.close();
-    }
   }
 }

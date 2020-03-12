@@ -98,7 +98,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   private static RecordRedirectDao setUpRecordRedirectDaoConnection(IndexingSettings settings, MongoClient client)
           throws SetupRelatedIndexingException {
     try {
-      return new RecordRedirectDao(client, settings.getRecordRedirectDatabaseName(), false);
+      return new RecordRedirectDao(client, settings.getRecordRedirectDatabaseName());
     } catch (RuntimeException e) {
       throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
     }
@@ -122,7 +122,6 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   @Override
   public void close() throws IOException {
     edmMongoClient.close();
-    recordRedirectDao.close();
     mongoClient.close();
     this.solrClient.close();
   }
