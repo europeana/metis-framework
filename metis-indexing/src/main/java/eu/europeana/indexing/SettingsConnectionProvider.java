@@ -129,6 +129,8 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   @Override
   public void close() throws IOException {
     edmMongoClient.close();
+    if (recordRedirectDao != null)
+      recordRedirectDao.close();
     mongoClient.close();
     this.solrClient.close();
   }
