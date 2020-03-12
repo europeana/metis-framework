@@ -72,7 +72,7 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch.
+   * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch).
    *
    * @param uri The URI to retrieve
    * @return the structured result of the enrichment
@@ -99,7 +99,7 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch.
+   * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch).
    *
    * @param uriList The URI to retrieve
    * @return the structured result of the enrichment
@@ -112,6 +112,28 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList getByUri(@RequestBody List<String>  uriList) throws EnrichmentException {
     final List<EntityWrapper> wrapperList = uriList.stream().map(enricher::getByUri)
+            .filter(Objects::nonNull).collect(Collectors.toList());
+    try {
+      return converter.convert(wrapperList);
+    } catch (IOException e) {
+      throw new EnrichmentException("Error converting object to EnrichmentBase", e);
+    }
+  }
+
+  /**
+   * Get an enrichment by ID (rdf:about).
+   *
+   * @param idList The ID to retrieve
+   * @return the structured result of the enrichment
+   * @throws EnrichmentException if an exception occurred during enrichment
+   */
+  @PostMapping(value = RestEndpoints.ENRICHMENT_BYID, consumes = MediaType.APPLICATION_JSON_VALUE,
+          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ApiOperation(value = "Retrieve entities by rdf:about", response = EnrichmentResultList.class)
+  @ResponseBody
+  @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
+  public EnrichmentResultList getById(@RequestBody List<String>  idList) throws EnrichmentException {
+    final List<EntityWrapper> wrapperList = idList.stream().map(enricher::getById)
             .filter(Objects::nonNull).collect(Collectors.toList());
     try {
       return converter.convert(wrapperList);

@@ -33,12 +33,6 @@ public final class ItemExtractorUtils {
     destination.setAbout(source.getAbout());
   }
 
-  static <T extends AboutType> boolean isEntityAlreadyInList(EnrichmentBase enrichmentBase,
-      List<T> destination) {
-    return destination.stream().map(AboutType::getAbout)
-        .anyMatch(enrichmentBase.getAbout()::equals);
-  }
-
   static <S, T> List<T> extractItems(List<S> sourceList, Function<S, T> converter) {
     final List<T> result;
     if (sourceList == null) {

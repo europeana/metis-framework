@@ -58,4 +58,19 @@ public class Enricher {
     }
     return null;
   }
+
+  /**
+   * Enrich a Id
+   *
+   * @param id the ID to enrich
+   * @return the wrapped enriched information
+   */
+  public EntityWrapper getById(String id) {
+    try {
+      return redisEnricher.getById(id);
+    } catch (RuntimeException | IOException e) {
+      LOGGER.warn("Unable to retrieve entity form id", e);
+    }
+    return null;
+  }
 }

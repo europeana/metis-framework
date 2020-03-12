@@ -8,6 +8,7 @@ import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Alternative;
 import eu.europeana.corelib.definitions.jibx.BitRate;
 import eu.europeana.corelib.definitions.jibx.BroadMatch;
+import eu.europeana.corelib.definitions.jibx.Broader;
 import eu.europeana.corelib.definitions.jibx.CloseMatch;
 import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.Concept.Choice;
@@ -37,6 +38,7 @@ import eu.europeana.corelib.definitions.jibx.Medium;
 import eu.europeana.corelib.definitions.jibx.NarrowMatch;
 import eu.europeana.corelib.definitions.jibx.Note;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
+import eu.europeana.corelib.definitions.jibx.ProfessionOrOccupation;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.Publisher;
 import eu.europeana.corelib.definitions.jibx.RDF;
@@ -54,13 +56,14 @@ import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-public class DereferenceUtilsTest {
+class DereferenceUtilsTest {
 
   @Test
-  public void testPlaceListExtractedValues() {
+  void testPlaceListExtractedValues() {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
@@ -105,17 +108,16 @@ public class DereferenceUtilsTest {
 
     rdf.setPlaceList(placeList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
-    assertEquals(2, result.size());
+    assertEquals(1, result.size());
 
-    assertTrue(result.contains("http://dummy1.dum"));
     assertTrue(result.contains("http://dummy2.dum"));
   }
 
   @Test
-  public void testAgentListExtractedValues() {
+  void testAgentListExtractedValues() {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
@@ -140,7 +142,20 @@ public class DereferenceUtilsTest {
     isRelatedToList.add(isRelatedTo);
     agent.setIsRelatedToList(isRelatedToList);
 
-    // Should be rejected
+    IsPartOf isPartOf = new IsPartOf();
+    ResourceOrLiteralType.Resource resource4 = new ResourceOrLiteralType.Resource();
+    resource4.setResource("http://dummy4.dum");
+    isPartOf.setResource(resource4);
+    ArrayList<IsPartOf> isPartOfList = new ArrayList<>();
+    isPartOfList.add(isPartOf);
+    agent.setIsPartOfList(isPartOfList);
+
+    ProfessionOrOccupation professionOrOccupation = new ProfessionOrOccupation();
+    ResourceOrLiteralType.Resource resource5 = new ResourceOrLiteralType.Resource();
+    resource5.setResource("http://dummy5.dum");
+    professionOrOccupation.setResource(resource5);
+    agent.setProfessionOrOccupationList(Collections.singletonList(professionOrOccupation));
+
     Note note = new Note();
     note.setString("Note");
     ArrayList<Note> noteList = new ArrayList<>();
@@ -152,16 +167,17 @@ public class DereferenceUtilsTest {
 
     rdf.setAgentList(agentList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
-    assertEquals(1, result.size());
+    assertEquals(2, result.size());
 
-    assertTrue(result.contains("http://dummy1.dum"));
+    assertTrue(result.contains("http://dummy4.dum"));
+    assertTrue(result.contains("http://dummy5.dum"));
   }
 
   @Test
-  public void testConceptListExtractedValues() {
+  void testConceptListExtractedValues() {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
@@ -202,11 +218,15 @@ public class DereferenceUtilsTest {
     related.setResource("http://dummy7.dum");
     choice6.setRelated(related);
 
-    // Should be rejected
     Choice choice7 = new Choice();
+    Broader broader = new Broader();
+    broader.setResource("http://dummy8.dum");
+    choice7.setBroader(broader);
+
+    Choice choice8 = new Choice();
     Note note = new Note();
     note.setString("Note");
-    choice7.setNote(note);
+    choice8.setNote(note);
 
     ArrayList<Choice> choiceList = new ArrayList<>();
     choiceList.add(choice1);
@@ -224,16 +244,16 @@ public class DereferenceUtilsTest {
 
     rdf.setConceptList(conceptList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(1, result.size());
 
-    assertTrue(result.contains("http://dummy1.dum"));
+    assertTrue(result.contains("http://dummy8.dum"));
   }
 
   @Test
-  public void testTimeSpanListExtractedValues() {
+  void testTimeSpanListExtractedValues() {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
@@ -278,17 +298,16 @@ public class DereferenceUtilsTest {
 
     rdf.setTimeSpanList(timeSpanList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
-    assertEquals(2, result.size());
+    assertEquals(1, result.size());
 
-    assertTrue(result.contains("http://dummy1.dum"));
     assertTrue(result.contains("http://dummy4.dum"));
   }
 
   @Test
-  public void testWebResourceListExtractedValues() {
+  void testWebResourceListExtractedValues() {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
@@ -356,7 +375,7 @@ public class DereferenceUtilsTest {
 
     rdf.setWebResourceList(webResourceList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(5, result.size());
@@ -369,7 +388,7 @@ public class DereferenceUtilsTest {
   }
 
   @Test
-  public void testProxyListExtractedValues() {
+  void testProxyListExtractedValues() {
     RDF rdf = new RDF();
 
     ProxyType proxy = new ProxyType();
@@ -593,7 +612,7 @@ public class DereferenceUtilsTest {
 
     rdf.setProxyList(proxyList);
 
-    Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
+    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(25, result.size());

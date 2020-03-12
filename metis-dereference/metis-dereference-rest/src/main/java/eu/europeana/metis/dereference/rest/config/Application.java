@@ -4,7 +4,6 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
@@ -75,9 +74,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${vocabulary.db}")
   private String vocabularyDb;
 
-  @Value("${enrichment.url}")
-  private String enrichmentUrl;
-
   private MongoProviderImpl mongoProviderEntity;
   private MongoProviderImpl mongoProviderVocabulary;
   private RedisProvider redisProvider;
@@ -119,11 +115,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addRedirectViewController("/", "swagger-ui.html");
-  }
-
-  @Bean
-  EnrichmentClient getEnrichmentClient() {
-    return new EnrichmentClient(enrichmentUrl);
   }
 
   MongoClient getEntityMongoClient() {

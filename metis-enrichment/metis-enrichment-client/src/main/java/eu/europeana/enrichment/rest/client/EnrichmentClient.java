@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.rest.client;
 
+import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYID;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYURI;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
 
@@ -101,6 +102,21 @@ public class EnrichmentClient {
   public EnrichmentResultList getByUri(Collection<String> uriList) {
     try {
       return template.postForObject(endpoint + ENRICHMENT_BYURI, new ArrayList<>(uriList),
+              EnrichmentResultList.class);
+    } catch (RestClientException e) {
+      throw new UnknownException("Enrichment client call failed.", e);
+    }
+  }
+
+  /**
+   * Get enrichment information based on a specified list of IDs
+   *
+   * @param uriList the list of IDs to enrich
+   * @return the enriched information
+   */
+  public EnrichmentResultList getById(Collection<String> uriList) {
+    try {
+      return template.postForObject(endpoint + ENRICHMENT_BYID, new ArrayList<>(uriList),
               EnrichmentResultList.class);
     } catch (RestClientException e) {
       throw new UnknownException("Enrichment client call failed.", e);

@@ -49,8 +49,17 @@ import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Class that contains logic for converting class entity types and/or merging entities to {@link
@@ -58,11 +67,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EntityMergeEngine {
 
-  private static PlaceType convertAndAddPlace(Place place, List<PlaceType> destination) {
-    //Check if Entity already exists in the list
-    if (ItemExtractorUtils.isEntityAlreadyInList(place, destination)) {
-      return null;
-    }
+  private static PlaceType convertPlace(Place place) {
+
     PlaceType placeType = new PlaceType();
 
     // about
@@ -115,15 +121,10 @@ public class EntityMergeEngine {
     // isNextInSequence: not available
 
     // Done
-    destination.add(placeType);
     return placeType;
   }
 
-  private static AgentType convertAndAddAgent(Agent agent, List<AgentType> destination) {
-    //Check if Entity already exists in the list
-    if (ItemExtractorUtils.isEntityAlreadyInList(agent, destination)) {
-      return null;
-    }
+  private static AgentType convertAgent(Agent agent) {
 
     AgentType agentType = new AgentType();
 
@@ -213,16 +214,11 @@ public class EntityMergeEngine {
     agentType.setSameAList(
         ItemExtractorUtils.extractAsResources(agent.getSameAs(), SameAs::new, Part::getResource));
 
-    destination.add(agentType);
     return agentType;
   }
 
-  private static eu.europeana.corelib.definitions.jibx.Concept convertAndAddConcept(
-      Concept baseConcept, List<eu.europeana.corelib.definitions.jibx.Concept> destination) {
-    //Check if Entity already exists in the list
-    if (ItemExtractorUtils.isEntityAlreadyInList(baseConcept, destination)) {
-      return null;
-    }
+  private static eu.europeana.corelib.definitions.jibx.Concept convertConcept(Concept baseConcept) {
+
     eu.europeana.corelib.definitions.jibx.Concept concept =
         new eu.europeana.corelib.definitions.jibx.Concept();
 
@@ -285,16 +281,10 @@ public class EntityMergeEngine {
 
     concept.setChoiceList(choices);
 
-    destination.add(concept);
     return concept;
   }
 
-  private static TimeSpanType convertAndAddTimespan(Timespan timespan,
-      List<TimeSpanType> destination) {
-    //Check if Entity already exists in the list
-    if (ItemExtractorUtils.isEntityAlreadyInList(timespan, destination)) {
-      return null;
-    }
+  private static TimeSpanType convertTimeSpan(Timespan timespan) {
 
     TimeSpanType timeSpanType = new TimeSpanType();
 
@@ -335,31 +325,55 @@ public class EntityMergeEngine {
             .extractAsResources(timespan.getSameAs(), SameAs::new, Part::getResource));
 
     // done
-    destination.add(timeSpanType);
     return timeSpanType;
   }
 
-  private static void convertAndAddEntity(RDF rdf, EnrichmentBaseWrapper enrichmentBaseWrapper) {
-    final EnrichmentBase enrichmentBase = enrichmentBaseWrapper.getEnrichmentBase();
+  private static <I extends EnrichmentBase, T extends AboutType> T convertAndAddEntity(
+          I inputEntity, Function<I, T> converter, Supplier<List<T>> listGetter,
+          Consumer<List<T>> listSetter) {
 
-    // Convert the entity.
+    // Check if Entity already exists in the list. If so, return it. We don't overwrite.
+    final T existingEntity = Optional.ofNullable(listGetter.get()).map(List::stream)
+            .orElseGet(Stream::empty)
+            .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
+            .orElse(null);
+    if (existingEntity != null) {
+      return existingEntity;
+    }
+
+    // Convert and add the new entity.
+    final T convertedEntity = converter.apply(inputEntity);
+    if (listGetter.get() == null) {
+      listSetter.accept(new ArrayList<>());
+    }
+    listGetter.get().add(convertedEntity);
+    return convertedEntity;
+  }
+
+  private static void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
+          Set<EnrichmentFields> proxyLinkTypes) {
+
+    // Convert the entity and add it to the RDF.
     final AboutType entity;
     if (enrichmentBase instanceof Place) {
-      entity = convertAndAddPlace((Place) enrichmentBase, rdf.getPlaceList());
+      entity = convertAndAddEntity((Place) enrichmentBase, EntityMergeEngine::convertPlace,
+              rdf::getPlaceList, rdf::setPlaceList);
     } else if (enrichmentBase instanceof Agent) {
-      entity = convertAndAddAgent((Agent) enrichmentBase, rdf.getAgentList());
+      entity = convertAndAddEntity((Agent) enrichmentBase, EntityMergeEngine::convertAgent,
+              rdf::getAgentList, rdf::setAgentList);
     } else if (enrichmentBase instanceof Concept) {
-      entity = convertAndAddConcept((Concept) enrichmentBase, rdf.getConceptList());
+      entity = convertAndAddEntity((Concept) enrichmentBase, EntityMergeEngine::convertConcept,
+              rdf::getConceptList, rdf::setConceptList);
     } else if (enrichmentBase instanceof Timespan) {
-      entity = convertAndAddTimespan((Timespan) enrichmentBase, rdf.getTimeSpanList());
+      entity = convertAndAddEntity((Timespan) enrichmentBase, EntityMergeEngine::convertTimeSpan,
+              rdf::getTimeSpanList, rdf::setTimeSpanList);
     } else {
       throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
     }
 
-    final String originalField = enrichmentBaseWrapper.getOriginalField();
-    // Append it to the europeana proxy if needed.
-    if (entity != null && StringUtils.isNotBlank(originalField)) {
-      RdfProxyUtils.appendToEuropeanaProxy(rdf, entity, originalField);
+    // Append it to the europeana proxy if needed, regardless of whether entity is new or existing.
+    if (!CollectionUtils.isEmpty(proxyLinkTypes)) {
+      RdfProxyUtils.appendToEuropeanaProxy(rdf, entity, proxyLinkTypes);
     }
   }
 
@@ -371,30 +385,24 @@ public class EntityMergeEngine {
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBaseWrapper> enrichmentBaseWrapperList) {
     for (EnrichmentBaseWrapper enrichmentBaseWrapper : enrichmentBaseWrapperList) {
-      mergeEntity(rdf, enrichmentBaseWrapper);
+      final Set<EnrichmentFields> proxyLinkTypes = Optional
+              .ofNullable(enrichmentBaseWrapper.getOriginalField()).filter(StringUtils::isNotBlank)
+              .map(EnrichmentFields::valueOf).map(Collections::singleton).orElse(null);
+      convertAndAddEntity(rdf, enrichmentBaseWrapper.getEnrichmentBase(), proxyLinkTypes);
     }
   }
 
   /**
-   * Merge entity in a record
+   * Merge entities in a record.
    *
-   * @param rdf The RDF to enrich
-   * @param enrichmentBaseWrapper The information to append
+   * @param rdf The RDF to enrich.
+   * @param contextualEntities The objects to append.
+   * @param proxyLinkTypes Lookup of the link types to create in the europeana proxy. The keys are
+   * the about values of the entities to add.
    */
-  private void mergeEntity(final RDF rdf, EnrichmentBaseWrapper enrichmentBaseWrapper) {
-    // Ensure that there are lists for all four types.
-    if (rdf.getAgentList() == null) {
-      rdf.setAgentList(new ArrayList<>());
-    }
-    if (rdf.getConceptList() == null) {
-      rdf.setConceptList(new ArrayList<>());
-    }
-    if (rdf.getPlaceList() == null) {
-      rdf.setPlaceList(new ArrayList<>());
-    }
-    if (rdf.getTimeSpanList() == null) {
-      rdf.setTimeSpanList(new ArrayList<>());
-    }
-    convertAndAddEntity(rdf, enrichmentBaseWrapper);
+  public void mergeEntities(RDF rdf, List<EnrichmentBase> contextualEntities,
+          Map<String, Set<EnrichmentFields>> proxyLinkTypes) {
+    contextualEntities.forEach(
+            entity -> convertAndAddEntity(rdf, entity, proxyLinkTypes.get(entity.getAbout())));
   }
 }

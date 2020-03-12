@@ -2,6 +2,8 @@ package eu.europeana.enrichment.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import eu.europeana.corelib.definitions.jibx.AboutType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType;
@@ -17,25 +19,33 @@ public final class RdfProxyUtils {
   }
 
   /**
-   * Add a field with the specified {@link AboutType} to the EuropeanaProxy.
+   * Add a link to the specified {@link AboutType} to the EuropeanaProxy.
    *
    * @param rdf the rdf to append to
    * @param about the about value to use for the field
-   * @param fieldName the name of the field to add
+   * @param linkTypes the types of the link to add in the europeana proxy.
    */
-  public static void appendToEuropeanaProxy(RDF rdf, AboutType about, String fieldName) {
+  public static void appendToEuropeanaProxy(RDF rdf, AboutType about,
+          Set<EnrichmentFields> linkTypes) {
     ProxyType europeanaProxy = getEuropeanaProxy(rdf);
-    appendToEuropeanaProxy(europeanaProxy, EnrichmentFields.valueOf(fieldName), about.getAbout());
+    for (EnrichmentFields linkType : linkTypes) {
+      appendToEuropeanaProxy(europeanaProxy, linkType, about.getAbout());
+    }
     replaceProxy(rdf, europeanaProxy);
   }
 
   private static void appendToEuropeanaProxy(ProxyType europeanaProxy,
       EnrichmentFields enrichmentField, String about) {
     //Choice might be null. That probably happens because of jibx deserialization works.
-    List<EuropeanaType.Choice> choices =
+    final List<EuropeanaType.Choice> choices =
         europeanaProxy.getChoiceList() == null ? new ArrayList<>() : europeanaProxy.getChoiceList();
-    choices.add(enrichmentField.createChoice(about));
-    europeanaProxy.setChoiceList(choices);
+    final boolean alreadyExists = choices.stream().filter(Objects::nonNull)
+            .map(enrichmentField::getResourceIfRightChoice).filter(Objects::nonNull)
+            .anyMatch(about::equals);
+    if (!alreadyExists) {
+      choices.add(enrichmentField.createChoice(about));
+      europeanaProxy.setChoiceList(choices);
+    }
   }
 
   /**

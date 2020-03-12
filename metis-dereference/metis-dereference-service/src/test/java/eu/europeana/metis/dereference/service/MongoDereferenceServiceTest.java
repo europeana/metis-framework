@@ -8,7 +8,6 @@ import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.ProcessedEntity;
@@ -47,7 +46,6 @@ class MongoDereferenceServiceTest {
   private RedisProvider redisProvider;
   private Jedis jedis;
   private CacheDao cacheDao;
-  private EnrichmentClient enrichmentClient;
   private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
   @BeforeEach
@@ -64,8 +62,7 @@ class MongoDereferenceServiceTest {
 
     RdfRetriever retriever = new RdfRetriever(entityDao);
 
-    enrichmentClient = Mockito.mock(EnrichmentClient.class);
-    service = new MongoDereferenceService(retriever, cacheDao, vocabularyDao, enrichmentClient);
+    service = new MongoDereferenceService(retriever, cacheDao, vocabularyDao);
   }
 
   @AfterEach
@@ -95,7 +92,6 @@ class MongoDereferenceServiceTest {
 
     place.setAbout("http://sws.geonames.org/my");
 
-    Mockito.when(enrichmentClient.getByUri(Mockito.anyString())).thenReturn(null);
     Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
 
     EnrichmentResultList result = service.dereference(entityId);

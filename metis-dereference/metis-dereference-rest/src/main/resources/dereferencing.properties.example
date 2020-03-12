@@ -17,4 +17,3 @@ mongo.username=
 mongo.password=
 entity.db=
 vocabulary.db=
-enrichment.url=
