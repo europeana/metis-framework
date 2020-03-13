@@ -276,8 +276,9 @@ public final class RecordRedirectsUtil {
 
   private static String generateOrOperationFromList(String queryFieldName, List<String> items) {
     final List<String> filteredItems = getFilteredItems(items);
-    return computeJoiningQuery(filteredItems, ClientUtils::escapeQueryChars,
-        Collectors.joining(" OR ", String.format("%s:(\"", queryFieldName), "\")"));
+    return computeJoiningQuery(filteredItems,
+        item -> String.format("\"%s\"", ClientUtils.escapeQueryChars(item)),
+        Collectors.joining(" OR ", String.format("%s:(", queryFieldName), ")"));
   }
 
   private static String generateQueryInDatasetSubsets(List<String> datasetIds) {
