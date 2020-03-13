@@ -10,11 +10,14 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.InputValue;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -30,6 +33,8 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 public class EnrichmentClient {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentClient.class);
 
   private final String endpoint;
   private RestTemplate template = new RestTemplate();
@@ -52,11 +57,11 @@ public class EnrichmentClient {
   public EnrichmentResultList enrich(List<InputValue> values) {
     InputValueList inList = new InputValueList();
     inList.setInputValues(values);
-
+    final String url = endpoint + ENRICHMENT_ENRICH;
     try {
-      return template
-          .postForObject(endpoint + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
+      return template.postForObject(url, inList, EnrichmentResultList.class);
     } catch (RestClientException e) {
+      LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
       throw new UnknownException("Enrichment client call failed.", e);
     }
   }
@@ -86,9 +91,14 @@ public class EnrichmentClient {
     headers.set("Content-Type", MediaType.APPLICATION_XML_VALUE);
     final HttpEntity<Void> request = new HttpEntity<>(headers);
 
-    final ResponseEntity<EnrichmentBase> response = template
-        .exchange(builder.build(true).toUri(), HttpMethod.GET,
-            request, EnrichmentBase.class);
+    final ResponseEntity<EnrichmentBase> response;
+    final URI fullUri = builder.build(true).toUri();
+    try {
+      response = template.exchange(fullUri, HttpMethod.GET,request, EnrichmentBase.class);
+    } catch (RestClientException e) {
+      LOGGER.warn("Enrichment client GET call failed: {}.", fullUri, e);
+      throw new UnknownException("Enrichment client call failed.", e);
+    }
 
     return response.getBody();
   }
@@ -100,10 +110,11 @@ public class EnrichmentClient {
    * @return the enriched information
    */
   public EnrichmentResultList getByUri(Collection<String> uriList) {
+    final String url = endpoint + ENRICHMENT_BYURI;
     try {
-      return template.postForObject(endpoint + ENRICHMENT_BYURI, new ArrayList<>(uriList),
-              EnrichmentResultList.class);
+      return template.postForObject(url, new ArrayList<>(uriList), EnrichmentResultList.class);
     } catch (RestClientException e) {
+      LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
       throw new UnknownException("Enrichment client call failed.", e);
     }
   }
@@ -115,10 +126,11 @@ public class EnrichmentClient {
    * @return the enriched information
    */
   public EnrichmentResultList getById(Collection<String> uriList) {
+    final String url = endpoint + ENRICHMENT_BYID;
     try {
-      return template.postForObject(endpoint + ENRICHMENT_BYID, new ArrayList<>(uriList),
-              EnrichmentResultList.class);
+      return template.postForObject(url, new ArrayList<>(uriList), EnrichmentResultList.class);
     } catch (RestClientException e) {
+      LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
       throw new UnknownException("Enrichment client call failed.", e);
     }
   }
