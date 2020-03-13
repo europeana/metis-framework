@@ -15,6 +15,8 @@ import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,19 +35,22 @@ class TextProcessor implements MediaProcessor {
   private static final Logger LOGGER = LoggerFactory.getLogger(TextProcessor.class);
 
   private static final String PDF_MIME_TYPE = "application/pdf";
+  private static final String PNG_MIME_TYPE = "image/png";
 
   protected static final int DISPLAY_DPI = 72;
 
   private final ThumbnailGenerator thumbnailGenerator;
+  private final PdfToImageConverter pdfToImageConverter;
 
   /**
    * Constructor.
    *
-   * @param thumbnailGenerator An object that can generate thumbnails. The calling class is
-   * responsible for closing this object.
+   * @param thumbnailGenerator An object that can generate thumbnails.
+   * @param pdfToImageConverter An object that can create an image of a PDF file.
    */
-  TextProcessor(ThumbnailGenerator thumbnailGenerator) {
+  TextProcessor(ThumbnailGenerator thumbnailGenerator, PdfToImageConverter pdfToImageConverter) {
     this.thumbnailGenerator = thumbnailGenerator;
+    this.pdfToImageConverter = pdfToImageConverter;
   }
 
   @Override
@@ -75,8 +80,13 @@ class TextProcessor implements MediaProcessor {
     // Create thumbnails in case of PDF file.
     final List<Thumbnail> thumbnails;
     if (PDF_MIME_TYPE.equals(detectedMimeType)) {
-      thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
-          detectedMimeType, resource.getContentFile()).getRight();
+      final Path pdfImage = pdfToImageConverter.convertToPdf(resource.getContentPath());
+      try {
+        thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
+                PNG_MIME_TYPE, pdfImage.toFile(), true).getRight();
+      } finally {
+        removeFile(pdfImage);
+      }
     } else {
       thumbnails = null;
     }
@@ -105,6 +115,14 @@ class TextProcessor implements MediaProcessor {
         resource.getResourceUrl(), contentSize, characteristics.containsText(),
         characteristics.getResolution(), thumbnails);
     return new ResourceExtractionResultImpl(metadata, thumbnails);
+  }
+
+  private static void removeFile(Path file) throws MediaExtractionException {
+    try {
+      Files.deleteIfExists(file);
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not delete the file " + file, e);
+    }
   }
 
   PdfCharacteristics findPdfCharacteristics(File content) throws MediaExtractionException {

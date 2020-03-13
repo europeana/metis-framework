@@ -41,7 +41,6 @@ class ThumbnailGenerator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ThumbnailGenerator.class);
 
-  private static final String PDF_MIME_TYPE = "application/pdf";
   private static final String PNG_MIME_TYPE = "image/png";
   private static final String JPEG_MIME_TYPE = "image/jpeg";
 
@@ -199,16 +198,21 @@ class ThumbnailGenerator {
    * @param url The URL of the content. Used for determining the name of the output files.
    * @param detectedMimeType The detected mime type of the content.
    * @param content The resource content for which to generate thumbnails.
+   * @param removeAlpha Whether any alpha should be removed and replaced with a white background.
    * @return The metadata of the image as gathered during processing, together with the thumbnails.
    * The list can be null or empty, but does not contain null values or thumbnails without content.
    * @throws MediaExtractionException In case a problem occurred.
    */
-  Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url,
-      String detectedMimeType, File content) throws MediaExtractionException {
+  Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url, String detectedMimeType,
+          File content, boolean removeAlpha) throws MediaExtractionException {
 
     // Sanity checking
     if (content == null) {
       throw new MediaExtractionException("File content is null");
+    }
+    if (MediaType.getMediaType(detectedMimeType) != MediaType.IMAGE) {
+      throw new MediaExtractionException(
+              "Cannot perform thumbnail generation on mime type '" + detectedMimeType + "'.");
     }
 
     // TODO JV We should change this into a whitelist of supported formats.
@@ -224,7 +228,7 @@ class ThumbnailGenerator {
     // Load the thumbnails: delete the temporary files, and the thumbnails in case of exceptions.
     final ImageMetadata image;
     try {
-      image = generateThumbnailsInternal(thumbnails, detectedMimeType, content);
+      image = generateThumbnailsInternal(thumbnails, removeAlpha, content);
     } catch (RuntimeException e) {
       closeAllThumbnailsSilently(thumbnails);
       throw new MediaExtractionException("Unexpected error during processing", e);
@@ -248,14 +252,13 @@ class ThumbnailGenerator {
   }
 
   List<String> createThumbnailGenerationCommand(List<ThumbnailWithSize> thumbnails,
-      String detectedMimeType, File content, String contentMarker) {
+      boolean removeAlpha, File content, String contentMarker) {
 
     // Compile the command
     final String commandResultFormat = contentMarker + COMMAND_RESULT_FORMAT + contentMarker + "\n";
     final List<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
             "-format", commandResultFormat, "-write", "info:"));
-    if (PDF_MIME_TYPE.equals(detectedMimeType)) {
-      // in case of text (i.e. PDFs): specify white background
+    if (removeAlpha) {
       command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
     }
     final int thumbnailCounter = thumbnails.size();
@@ -280,12 +283,12 @@ class ThumbnailGenerator {
   }
 
   private ImageMetadata generateThumbnailsInternal(List<ThumbnailWithSize> thumbnails,
-      String detectedMimeType, File content) throws MediaExtractionException {
+      boolean removeAlpha, File content) throws MediaExtractionException {
 
     // Generate the thumbnails and read image properties.
     final String contentMarker = UUID.randomUUID().toString();
     final List<String> command =
-        createThumbnailGenerationCommand(thumbnails, detectedMimeType, content, contentMarker);
+        createThumbnailGenerationCommand(thumbnails, removeAlpha, content, contentMarker);
     final String response = commandExecutor.execute(command, false,
             (message, cause) -> new MediaExtractionException(
                     "Could not analyze content and generate thumbnails: " + message, cause));
@@ -302,8 +305,7 @@ class ThumbnailGenerator {
         }
 
         // Copy the thumbnail. In case of images: don't make a thumbnail larger than the original.
-        final boolean isImage = MediaType.getMediaType(detectedMimeType) == MediaType.IMAGE;
-        final boolean shouldUseOriginal = isImage && result.getWidth() < thumbnail.getImageSize();
+        final boolean shouldUseOriginal = result.getWidth() < thumbnail.getImageSize();
         if (shouldUseOriginal) {
           copyFile(content, thumbnail);
         } else {
@@ -338,7 +340,7 @@ class ThumbnailGenerator {
     // Decide on the thumbnail file type
     final String imageMagickThumbnailTypePrefix;
     final String thumbnailMimeType;
-    if (PDF_MIME_TYPE.equals(detectedMimeType) || PNG_MIME_TYPE.equals(detectedMimeType)) {
+    if (PNG_MIME_TYPE.equals(detectedMimeType)) {
       imageMagickThumbnailTypePrefix = "png:";
       thumbnailMimeType = PNG_MIME_TYPE;
     } else {

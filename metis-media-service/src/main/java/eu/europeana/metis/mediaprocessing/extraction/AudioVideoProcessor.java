@@ -89,8 +89,9 @@ class AudioVideoProcessor implements MediaProcessor {
       throws MediaProcessorException {
 
     // Check whether ffprobe is installed.
+    final String command = "ffprobe";
     final String output;
-    output = commandExecutor.execute(Collections.singletonList("ffprobe"), true,
+    output = commandExecutor.execute(Collections.singletonList(command), true,
         (message, cause) -> new MediaProcessorException(
             "Error while looking for ffprobe tools: " + message, cause));
     if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
@@ -98,7 +99,7 @@ class AudioVideoProcessor implements MediaProcessor {
     }
 
     // So it is installed and available.
-    return "ffprobe";
+    return command;
   }
 
   private static boolean resourceHasContent(Resource resource) throws MediaExtractionException {
