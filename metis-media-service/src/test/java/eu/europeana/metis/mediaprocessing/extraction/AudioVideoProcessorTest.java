@@ -80,7 +80,7 @@ class AudioVideoProcessorTest {
 
   @BeforeEach
   void resetMocks() {
-    reset(commandExecutor);
+    reset(commandExecutor, audioVideoProcessor);
   }
 
   @Test

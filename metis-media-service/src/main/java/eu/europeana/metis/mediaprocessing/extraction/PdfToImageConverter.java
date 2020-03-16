@@ -8,6 +8,9 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Converts the first page of PDF files to PNG files.
+ */
 class PdfToImageConverter {
 
   private static String globalGhostScriptCommand;
@@ -58,7 +61,7 @@ class PdfToImageConverter {
     output = commandExecutor.execute(Arrays.asList(command, "--version"), true,
             (message, cause) -> new MediaProcessorException(
                     "Error while looking for ghostscript tools: " + message, cause));
-    if (!output.startsWith("GPL Ghostscript 9.")) {
+    if (!output.startsWith("9.")) {
       throw new MediaProcessorException("Ghostscript 9.x not found.");
     }
 
@@ -66,6 +69,14 @@ class PdfToImageConverter {
     return command;
   }
 
+  /**
+   * The main method of this class. It takes a PDF input file and converts the frist page of it to a
+   * PNG image. It saves it as a file and returns the reference to it.
+   *
+   * @param content the PDF input.
+   * @return The PNG output.
+   * @throws MediaExtractionException In case something went wrong during the conversion.
+   */
   Path convertToPdf(Path content) throws MediaExtractionException {
 
     // Sanity checking
@@ -74,12 +85,7 @@ class PdfToImageConverter {
     }
 
     // Prepare the new file
-    final Path pdfImage;
-    try {
-      pdfImage = Files.createTempFile("metis_pdf_image_", null);
-    } catch (IOException e) {
-      throw new MediaExtractionException("Could not create temporary file.", e);
-    }
+    final Path pdfImage = createPdfImageFile();
 
     // Execute the command
     final List<String> command = createPdfConversionCommand(content, pdfImage);
@@ -87,6 +93,14 @@ class PdfToImageConverter {
 
     // Return the result
     return pdfImage;
+  }
+
+  Path createPdfImageFile() throws MediaExtractionException {
+    try {
+      return Files.createTempFile("metis_pdf_image_", null);
+    } catch (IOException e) {
+      throw new MediaExtractionException("Could not create temporary file.", e);
+    }
   }
 
   List<String> createPdfConversionCommand(Path inputFile, Path outputFile) {

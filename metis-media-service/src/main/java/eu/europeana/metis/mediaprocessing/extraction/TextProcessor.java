@@ -85,7 +85,7 @@ class TextProcessor implements MediaProcessor {
         thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
                 PNG_MIME_TYPE, pdfImage.toFile(), true).getRight();
       } finally {
-        removeFile(pdfImage);
+        removePdfImageFileSilently(pdfImage);
       }
     } else {
       thumbnails = null;
@@ -117,11 +117,11 @@ class TextProcessor implements MediaProcessor {
     return new ResourceExtractionResultImpl(metadata, thumbnails);
   }
 
-  private static void removeFile(Path file) throws MediaExtractionException {
+  void removePdfImageFileSilently(Path file) {
     try {
       Files.deleteIfExists(file);
     } catch (IOException e) {
-      throw new MediaExtractionException("Could not delete the file " + file, e);
+      LOGGER.warn("Could not remove PDF image: {}", file.toAbsolutePath().toString(), e);
     }
   }
 

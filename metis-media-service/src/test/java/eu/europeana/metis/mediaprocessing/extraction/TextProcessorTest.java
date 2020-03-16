@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -39,6 +41,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -51,12 +54,14 @@ import org.junit.jupiter.api.Test;
 class TextProcessorTest {
 
   private static ThumbnailGenerator thumbnailGenerator;
+  private static PdfToImageConverter pdfToImageConverter;
   private static TextProcessor textProcessor;
 
   @BeforeAll
   static void createMocks() {
     thumbnailGenerator = mock(ThumbnailGenerator.class);
-    textProcessor = spy(new TextProcessor(thumbnailGenerator));
+    pdfToImageConverter = mock(PdfToImageConverter.class);
+    textProcessor = spy(new TextProcessor(thumbnailGenerator, pdfToImageConverter));
   }
 
   @BeforeEach
@@ -151,7 +156,9 @@ class TextProcessorTest {
 
     // Define input
     final String url = "testUrl";
-    final File content = new File("content file");
+    final Path contentPath = mock(Path.class);
+    final File contentFile = new File("content");
+    doReturn(contentFile).when(contentPath).toFile();
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
         Collections.singletonList(UrlType.IS_SHOWN_BY));
     final ResourceImpl resource = spy(
@@ -159,7 +166,7 @@ class TextProcessorTest {
     final String detectedMimeType = "application/pdf";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();
-    doReturn(content).when(resource).getContentFile();
+    doReturn(contentPath).when(resource).getContentPath();
 
     // Define thumbnails
     final ThumbnailImpl thumbnail1 = mock(ThumbnailImpl.class);
@@ -167,17 +174,24 @@ class TextProcessorTest {
     final ThumbnailImpl thumbnail2 = mock(ThumbnailImpl.class);
     doReturn("thumbnail 2").when(thumbnail1).getTargetName();
 
+    // Define converted image and mock pdf to image converter.
+    final Path pdfImagePath = mock(Path.class);
+    final File pdfImageFile = new File("PDF image");
+    doReturn(pdfImageFile).when(pdfImagePath).toFile();
+    doReturn(pdfImagePath).when(pdfToImageConverter).convertToPdf(contentPath);
+    doNothing().when(textProcessor).removePdfImageFileSilently(pdfImagePath);
+
     // Define output and mock thumbnail generator - resource type for which metadata is generated.
     final ImageMetadata imageMetadata = new ImageMetadata(123, 321, "sRGB",
         Arrays.asList("123456", "654321"));
     final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata = new ImmutablePair<>(
         imageMetadata, Arrays.asList(thumbnail1, thumbnail2));
     doReturn(thumbnailsAndMetadata).when(thumbnailGenerator)
-        .generateThumbnails(url, "application/pdf", content);
+        .generateThumbnails(url, "image/png", pdfImageFile, true);
 
     // define PDF analysis results and mock the method performing it.
     final PdfCharacteristics pdfCharacteristics = new PdfCharacteristics(true, 1);
-    doReturn(pdfCharacteristics).when(textProcessor).findPdfCharacteristics(content);
+    doReturn(pdfCharacteristics).when(textProcessor).findPdfCharacteristics(contentFile);
 
     // Call method
     final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType);
@@ -198,6 +212,18 @@ class TextProcessorTest {
 
     // Verify result thumbnails
     assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());
+
+    // Verify deletion of pdf image
+    verify(textProcessor, times(1)).removePdfImageFileSilently(pdfImagePath);
+    verify(textProcessor, times(1)).removePdfImageFileSilently(any());
+
+    // Test exception occurring in thumbnail creation
+    doThrow(MediaExtractionException.class).when(thumbnailGenerator)
+            .generateThumbnails(url, "image/png", pdfImageFile, true);
+    assertThrows(MediaExtractionException.class,
+            () -> textProcessor.extractMetadata(resource, detectedMimeType));
+    verify(textProcessor, times(2)).removePdfImageFileSilently(pdfImagePath);
+    verify(textProcessor, times(2)).removePdfImageFileSilently(any());
   }
 
   @Test

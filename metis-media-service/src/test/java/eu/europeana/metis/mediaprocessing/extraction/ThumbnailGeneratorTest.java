@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.notNull;
@@ -152,7 +153,7 @@ class ThumbnailGeneratorTest {
     // Mock the thumbnail generator
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnailFiles(eq(url), anyString());
     doReturn(command).when(thumbnailGenerator)
-        .createThumbnailGenerationCommand(same(thumbnails), notNull(), same(content), any());
+        .createThumbnailGenerationCommand(same(thumbnails), anyBoolean(), same(content), any());
     doReturn(commandResponse).when(commandExecutor).execute(eq(command), eq(false), any());
     doReturn(imageMetadata).when(thumbnailGenerator).parseCommandResponse(eq(commandResponse), any());
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
@@ -161,7 +162,7 @@ class ThumbnailGeneratorTest {
 
     // Call the method and verify the result.
     final Pair<ImageMetadata, List<Thumbnail>> result = thumbnailGenerator
-        .generateThumbnails(url, JPG_MIME_TYPE, content);
+        .generateThumbnails(url, JPG_MIME_TYPE, content, false);
     assertSame(imageMetadata, result.getLeft());
     assertEquals(Arrays.asList(thumbnail1.getThumbnail(), thumbnail2.getThumbnail()),
         result.getRight());
@@ -179,20 +180,19 @@ class ThumbnailGeneratorTest {
     verify(thumbnailGenerator, times(1)).copyFile(any(File.class), any());
     verify(thumbnailGenerator, times(1)).copyFile(content, thumbnail2);
 
-    // Check that the copy method was called twice more for text content.
-    thumbnailGenerator.generateThumbnails(url, PDF_MIME_TYPE, content);
-    verify(thumbnailGenerator, times(1)).copyFile(any(File.class), any());
-    verify(thumbnailGenerator, times(3)).copyFile(any(Path.class), any());
+    // Check non-image content
+    assertThrows(MediaExtractionException.class,
+            () -> thumbnailGenerator.generateThumbnails(url, PDF_MIME_TYPE, content, false));
 
     // Check null content
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, PDF_MIME_TYPE, null));
+            () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, null, true));
 
     // Check exception during command execution - thumbnails should be closed.
     doThrow(new MediaExtractionException("TEST", null)).when(commandExecutor)
         .execute(eq(command), eq(false), any());
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
+        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content, false));
     doReturn(commandResponse).when(commandExecutor).execute(eq(command), eq(false), any());
     verify(thumbnail1.getThumbnail(), times(1)).close();
     verify(thumbnail2.getThumbnail(), times(1)).close();
@@ -200,19 +200,19 @@ class ThumbnailGeneratorTest {
     // Check empty thumbnail - thumbnails should be closed.
     doReturn(0L).when(thumbnailGenerator).getFileSize(any());
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
+        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content, false));
     doThrow(new IOException()).when(thumbnailGenerator).getFileSize(any());
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
+        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content, false));
     doThrow(new RuntimeException()).when(thumbnailGenerator).getFileSize(any());
     assertThrows(MediaExtractionException.class,
-        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content));
+        () -> thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content, false));
     doReturn(1024L).when(thumbnailGenerator).getFileSize(any());
     verify(thumbnail1.getThumbnail(), times(4)).close();
     verify(thumbnail2.getThumbnail(), times(4)).close();
 
     // Check that all is well again.
-    thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content);
+    thumbnailGenerator.generateThumbnails(url, JPG_MIME_TYPE, content, false);
   }
 
   private static String concat(List<String> input) {
@@ -359,11 +359,11 @@ class ThumbnailGeneratorTest {
     final File file = new File("content file");
     final String contentMarker = "1234567890";
 
-    // Make call for image
+    // Make call without removing alpha
     final List<String> commandImage = thumbnailGenerator
-        .createThumbnailGenerationCommand(input, JPG_MIME_TYPE, file, contentMarker);
+        .createThumbnailGenerationCommand(input, false, file, contentMarker);
 
-    // Verify image
+    // Verify
     final List<String> expectedImage = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
         "-format", contentMarker + "\n%w\n%h\n%[colorspace]\n" + contentMarker + "\n", "-write", "info:", "(", "+clone",
         "-thumbnail", size1 + "x", "-write", prefix1 + thumbnail1.getTempFileForThumbnail().toString(), "+delete", ")",
@@ -372,11 +372,11 @@ class ThumbnailGeneratorTest {
         "-format", "\n" + contentMarker + "\n%c\n" + contentMarker, "histogram:info:");
     assertEquals(expectedImage, commandImage);
 
-    // Make call for PDF
+    // Make call with removing alpha
     final List<String> commandText = thumbnailGenerator
-        .createThumbnailGenerationCommand(input, PDF_MIME_TYPE, file, contentMarker);
+        .createThumbnailGenerationCommand(input, true, file, contentMarker);
 
-    // Verify text
+    // Verify
     final List<String> expectedText = Arrays.asList(IMAGE_MAGICK, file.getPath() + "[0]",
         "-format", contentMarker + "\n%w\n%h\n%[colorspace]\n" + contentMarker + "\n", "-write", "info:",
         "-background", "white", "-alpha", "remove", "(", "+clone",
@@ -390,7 +390,6 @@ class ThumbnailGeneratorTest {
   @Test
   void testPrepareThumbnailFiles() throws MediaExtractionException {
     testPrepareThumbnailFiles(PNG_MIME_TYPE, PNG_MIME_TYPE, "png:");
-    testPrepareThumbnailFiles(PDF_MIME_TYPE, PNG_MIME_TYPE, "png:");
     testPrepareThumbnailFiles(JPG_MIME_TYPE, JPG_MIME_TYPE, "jpeg:");
     testPrepareThumbnailFiles("other", JPG_MIME_TYPE, "jpeg:");
   }
