@@ -48,15 +48,18 @@ import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.api.external.model.WebResource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -373,7 +376,7 @@ public class EntityMergeEngine {
 
     // Append it to the europeana proxy if needed, regardless of whether entity is new or existing.
     if (!CollectionUtils.isEmpty(proxyLinkTypes)) {
-      RdfProxyUtils.appendToEuropeanaProxy(rdf, entity, proxyLinkTypes);
+      RdfProxyUtils.appendLinkToEuropeanaProxy(rdf, entity.getAbout(), proxyLinkTypes);
     }
   }
 
@@ -402,7 +405,31 @@ public class EntityMergeEngine {
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBase> contextualEntities,
           Map<String, Set<EnrichmentFields>> proxyLinkTypes) {
-    contextualEntities.forEach(
-            entity -> convertAndAddEntity(rdf, entity, proxyLinkTypes.get(entity.getAbout())));
+    for (EnrichmentBase entity : contextualEntities) {
+      final Set<String> links = getSameAsLinks(entity);
+      links.add(entity.getAbout());
+      final Set<EnrichmentFields> fields = links.stream().map(proxyLinkTypes::get).filter(Objects::nonNull)
+              .flatMap(Set::stream).collect(Collectors.toSet());
+      convertAndAddEntity(rdf, entity, fields);
+    }
+  }
+
+
+  private static Set<String> getSameAsLinks(EnrichmentBase contextualClass) {
+    final List<? extends WebResource> result;
+    if (contextualClass instanceof Agent) {
+      result = ((Agent) contextualClass).getSameAs();
+    } else if (contextualClass instanceof Concept) {
+      result= ((Concept)contextualClass).getExactMatch();
+    } else if (contextualClass instanceof Place) {
+      result = ((Place) contextualClass).getSameAs();
+    } else if (contextualClass instanceof Timespan) {
+      result = ((Timespan) contextualClass).getSameAs();
+    } else {
+      result = null;
+    }
+    return Optional.ofNullable(result).orElse(Collections.emptyList()).stream()
+            .filter(Objects::nonNull).map(WebResource::getResourceUri).filter(StringUtils::isNotBlank)
+            .collect(Collectors.toSet());
   }
 }

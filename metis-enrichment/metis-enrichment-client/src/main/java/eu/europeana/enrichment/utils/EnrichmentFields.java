@@ -108,8 +108,9 @@ public enum EnrichmentFields {
   }
 
   private Stream<? extends ResourceOrLiteralType> extractFields(ProxyType proxy) {
-    return proxy.getChoiceList().stream()
-            .filter(choiceContentHandler.choiceChecker)
+    return Optional.ofNullable(proxy.getChoiceList())
+    		.map(List::stream).orElseGet(Stream::empty)
+    		.filter(choiceContentHandler.choiceChecker)
             .map(choiceContentHandler.contentGetter)
             .filter(Objects::nonNull);
   }
