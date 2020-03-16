@@ -113,15 +113,9 @@ public final class EnrichmentUtils {
     final Map<String, Set<EnrichmentFields>> result = mergeMapInto(directReferences,
             indirectReferences);
 
-    // Clean up the result: no null values and no objects that we already have.
+    // Clean up the result: no null values. But objects we already have need to 
+    // stay: maybe they are matched using a sameAs link.
     result.remove(null);
-    final Consumer<List<? extends AboutType>> cleaner = list -> Optional.ofNullable(list)
-            .map(List::stream).orElseGet(Stream::empty).map(AboutType::getAbout)
-            .forEach(result::remove);
-    cleaner.accept(rdf.getAgentList());
-    cleaner.accept(rdf.getConceptList());
-    cleaner.accept(rdf.getPlaceList());
-    cleaner.accept(rdf.getTimeSpanList());
 
     // Done
     return result;
