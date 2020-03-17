@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to initialize the mongo collections and the {@link Datastore} connection. It also performs
@@ -29,17 +31,40 @@ import org.apache.commons.io.IOUtils;
  */
 public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
 
-  private final Datastore datastore;
+  private static final Logger LOGGER = LoggerFactory.getLogger(MorphiaDatastoreProviderImpl.class);
+  private Datastore datastore;
 
   /**
    * Constructor to initialize the mongo mappings/collections and the {@link Datastore} connection.
-   * This also initializes the {@link DatasetIdSequence} that this database uses.
+   * This also initializes the {@link DatasetIdSequence} that this database uses. This constructor
+   * is meant to be used when the database is already available.
    *
    * @param mongoClient {@link MongoClient}
    * @param databaseName the database name
    */
   public MorphiaDatastoreProviderImpl(MongoClient mongoClient, String databaseName) {
+    this(mongoClient, databaseName, false);
+  }
 
+  /**
+   * Constructor to initialize the mongo mappings/collections and the {@link Datastore} connection.
+   * This also initializes the {@link DatasetIdSequence} that this database uses. This constructor
+   * is meant to be used mostly for when the creation of the database is required.
+   *
+   * @param mongoClient {@link MongoClient}
+   * @param databaseName the database name
+   * @param createIndexes flag that initiates the database/indices
+   */
+  public MorphiaDatastoreProviderImpl(MongoClient mongoClient, String databaseName,
+      boolean createIndexes) {
+    createDatastore(mongoClient, databaseName);
+    if (createIndexes) {
+      LOGGER.info("Initializing database indices");
+      datastore.ensureIndexes();
+    }
+  }
+
+  private void createDatastore(MongoClient mongoClient, String databaseName) {
     // Register the mappings and set up the data store.
     final Morphia morphia = new Morphia();
     morphia.map(Dataset.class);
@@ -63,6 +88,7 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
     if (datasetIdSequence == null) {
       datastore.save(new DatasetIdSequence(0));
     }
+    LOGGER.info("Datastore initialized");
   }
 
   /**

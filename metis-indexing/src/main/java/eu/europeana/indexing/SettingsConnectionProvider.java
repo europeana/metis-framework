@@ -102,8 +102,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     try {
       RecordRedirectDao recordRedirectDao = null;
       if (StringUtils.isNotBlank(settings.getRecordRedirectDatabaseName())) {
-        recordRedirectDao = new RecordRedirectDao(client, settings.getRecordRedirectDatabaseName(),
-            false);
+        recordRedirectDao = new RecordRedirectDao(client, settings.getRecordRedirectDatabaseName());
       }
       return recordRedirectDao;
     } catch (RuntimeException e) {
@@ -129,8 +128,6 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   @Override
   public void close() throws IOException {
     edmMongoClient.close();
-    if (recordRedirectDao != null)
-      recordRedirectDao.close();
     mongoClient.close();
     this.solrClient.close();
   }
