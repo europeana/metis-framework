@@ -14,7 +14,9 @@ class LicenseFieldInput implements Function<License, LicenseImpl> {
   public LicenseImpl apply(License jibxLicense) {
     LicenseImpl mongoLicense = new LicenseImpl();
     mongoLicense.setAbout(jibxLicense.getAbout());
-    mongoLicense.setCcDeprecatedOn(jibxLicense.getDeprecatedOn().getDate());
+    if (jibxLicense.getDeprecatedOn() != null) {
+      mongoLicense.setCcDeprecatedOn(jibxLicense.getDeprecatedOn().getDate());
+    }
     mongoLicense.setOdrlInheritFrom(jibxLicense.getInheritFrom().getResource());
     return mongoLicense;
   }
