@@ -7,11 +7,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Converts the first page of PDF files to PNG files.
  */
 class PdfToImageConverter {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(PdfToImageConverter.class);
 
   private static String globalGhostScriptCommand;
 
@@ -88,11 +92,24 @@ class PdfToImageConverter {
     final Path pdfImage = createPdfImageFile();
 
     // Execute the command
-    final List<String> command = createPdfConversionCommand(content, pdfImage);
-    this.commandExecutor.execute(command, false, MediaExtractionException::new);
+    try {
+      final List<String> command = createPdfConversionCommand(content, pdfImage);
+      this.commandExecutor.execute(command, false, MediaExtractionException::new);
+    } catch (MediaExtractionException | RuntimeException e) {
+      removePdfImageFileSilently(pdfImage);
+      throw e;
+    }
 
     // Return the result
     return pdfImage;
+  }
+
+  void removePdfImageFileSilently(Path file) {
+    try {
+      Files.deleteIfExists(file);
+    } catch (IOException e) {
+      LOGGER.warn("Could not remove PDF image: {}", file.toAbsolutePath().toString(), e);
+    }
   }
 
   Path createPdfImageFile() throws MediaExtractionException {

@@ -105,9 +105,10 @@ class TextProcessor implements MediaProcessor {
     final long contentSize;
     try {
       contentSize = resource.getContentSize();
-    } catch (IOException e) {
+    } catch (RuntimeException | IOException e) {
+      closeAllThumbnailsSilently(thumbnails);
       throw new MediaExtractionException(
-          "Could not determine the size of the resource " + resource.getResourceUrl(), e);
+              "Could not determine the size of the resource " + resource.getResourceUrl(), e);
     }
 
     // Done
@@ -115,6 +116,18 @@ class TextProcessor implements MediaProcessor {
         resource.getResourceUrl(), contentSize, characteristics.containsText(),
         characteristics.getResolution(), thumbnails);
     return new ResourceExtractionResultImpl(metadata, thumbnails);
+  }
+
+  private static void closeAllThumbnailsSilently(List<Thumbnail> thumbnails) {
+    if (thumbnails != null) {
+      for (Thumbnail thumbnail : thumbnails) {
+        try {
+          thumbnail.close();
+        } catch (IOException e) {
+          LOGGER.warn("Could not close thumbnail: {}", thumbnail.getTargetName(), e);
+        }
+      }
+    }
   }
 
   void removePdfImageFileSilently(Path file) {

@@ -217,13 +217,23 @@ class TextProcessorTest {
     verify(textProcessor, times(1)).removePdfImageFileSilently(pdfImagePath);
     verify(textProcessor, times(1)).removePdfImageFileSilently(any());
 
-    // Test exception occurring in thumbnail creation
+    // Test exception occurring in thumbnail creation - revert and check all is well.
     doThrow(MediaExtractionException.class).when(thumbnailGenerator)
             .generateThumbnails(url, "image/png", pdfImageFile, true);
     assertThrows(MediaExtractionException.class,
             () -> textProcessor.extractMetadata(resource, detectedMimeType));
     verify(textProcessor, times(2)).removePdfImageFileSilently(pdfImagePath);
     verify(textProcessor, times(2)).removePdfImageFileSilently(any());
+    doReturn(thumbnailsAndMetadata).when(thumbnailGenerator)
+            .generateThumbnails(url, "image/png", pdfImageFile, true);
+    textProcessor.extractMetadata(resource, detectedMimeType);
+
+    // Test exception occurring in establishing content size
+    doThrow(IOException.class).when(resource).getContentSize();
+    assertThrows(MediaExtractionException.class,
+            () -> textProcessor.extractMetadata(resource, detectedMimeType));
+    verify(thumbnail1, times(1)).close();
+    verify(thumbnail2, times(1)).close();
   }
 
   @Test

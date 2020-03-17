@@ -358,7 +358,8 @@ class ThumbnailGenerator {
         result.add(
             new ThumbnailWithSize(thumbnail, thumbnailKind.size, imageMagickThumbnailTypePrefix));
       }
-    } catch (IOException e) {
+    } catch (RuntimeException | IOException e) {
+      closeAllThumbnailsSilently(result);
       throw new MediaExtractionException("Could not create temporary thumbnail files.", e);
     }
 

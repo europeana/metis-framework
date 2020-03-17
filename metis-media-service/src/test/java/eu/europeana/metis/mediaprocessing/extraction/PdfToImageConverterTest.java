@@ -3,7 +3,6 @@ package eu.europeana.metis.mediaprocessing.extraction;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -11,11 +10,12 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -124,10 +124,20 @@ public class PdfToImageConverterTest {
     assertEquals(outputFile, pdfToImageConverter.convertToPdf(inputFile));
 
     // Test for empty input
-    assertThrows(MediaExtractionException.class, ()->pdfToImageConverter.convertToPdf(null));
+    assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertToPdf(null));
 
-    // Test for problem creating the file
+    // Test for problem creating the file - revert and check all is well
     doThrow(MediaExtractionException.class).when(pdfToImageConverter).createPdfImageFile();
-    assertThrows(MediaExtractionException.class, ()->pdfToImageConverter.convertToPdf(inputFile));
+    assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertToPdf(inputFile));
+    doReturn(outputFile).when(pdfToImageConverter).createPdfImageFile();
+    assertEquals(outputFile, pdfToImageConverter.convertToPdf(inputFile));
+
+    // Test for exceptions in executing the execution
+    doNothing().when(pdfToImageConverter).removePdfImageFileSilently(any());
+    doThrow(MediaExtractionException.class).when(commandExecutor)
+            .execute(eq(command), eq(false), any());
+    assertThrows(MediaExtractionException.class, () -> pdfToImageConverter.convertToPdf(inputFile));
+    verify(pdfToImageConverter, times(1)).removePdfImageFileSilently(eq(outputFile));
+    verify(pdfToImageConverter, times(1)).removePdfImageFileSilently(any());
   }
 }
