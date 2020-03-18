@@ -93,7 +93,8 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.tika = new Tika();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
-    this.textProcessor = new TextProcessor(thumbnailGenerator);
+    this.textProcessor = new TextProcessor(thumbnailGenerator,
+            new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
   }
 
   @Override
