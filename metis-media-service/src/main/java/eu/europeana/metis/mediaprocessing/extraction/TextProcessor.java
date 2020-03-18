@@ -15,7 +15,6 @@ import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import org.slf4j.Logger;
@@ -85,7 +84,7 @@ class TextProcessor implements MediaProcessor {
         thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
                 PNG_MIME_TYPE, pdfImage.toFile(), true).getRight();
       } finally {
-        removePdfImageFileSilently(pdfImage);
+        pdfToImageConverter.removePdfImageFileSilently(pdfImage);
       }
     } else {
       thumbnails = null;
@@ -127,14 +126,6 @@ class TextProcessor implements MediaProcessor {
           LOGGER.warn("Could not close thumbnail: {}", thumbnail.getTargetName(), e);
         }
       }
-    }
-  }
-
-  void removePdfImageFileSilently(Path file) {
-    try {
-      Files.deleteIfExists(file);
-    } catch (IOException e) {
-      LOGGER.warn("Could not remove PDF image: {}", file.toAbsolutePath().toString(), e);
     }
   }
 

@@ -179,7 +179,7 @@ class TextProcessorTest {
     final File pdfImageFile = new File("PDF image");
     doReturn(pdfImageFile).when(pdfImagePath).toFile();
     doReturn(pdfImagePath).when(pdfToImageConverter).convertToPdf(contentPath);
-    doNothing().when(textProcessor).removePdfImageFileSilently(pdfImagePath);
+    doNothing().when(pdfToImageConverter).removePdfImageFileSilently(pdfImagePath);
 
     // Define output and mock thumbnail generator - resource type for which metadata is generated.
     final ImageMetadata imageMetadata = new ImageMetadata(123, 321, "sRGB",
@@ -214,16 +214,16 @@ class TextProcessorTest {
     assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());
 
     // Verify deletion of pdf image
-    verify(textProcessor, times(1)).removePdfImageFileSilently(pdfImagePath);
-    verify(textProcessor, times(1)).removePdfImageFileSilently(any());
+    verify(pdfToImageConverter, times(1)).removePdfImageFileSilently(pdfImagePath);
+    verify(pdfToImageConverter, times(1)).removePdfImageFileSilently(any());
 
     // Test exception occurring in thumbnail creation - revert and check all is well.
     doThrow(MediaExtractionException.class).when(thumbnailGenerator)
             .generateThumbnails(url, "image/png", pdfImageFile, true);
     assertThrows(MediaExtractionException.class,
             () -> textProcessor.extractMetadata(resource, detectedMimeType));
-    verify(textProcessor, times(2)).removePdfImageFileSilently(pdfImagePath);
-    verify(textProcessor, times(2)).removePdfImageFileSilently(any());
+    verify(pdfToImageConverter, times(2)).removePdfImageFileSilently(pdfImagePath);
+    verify(pdfToImageConverter, times(2)).removePdfImageFileSilently(any());
     doReturn(thumbnailsAndMetadata).when(thumbnailGenerator)
             .generateThumbnails(url, "image/png", pdfImageFile, true);
     textProcessor.extractMetadata(resource, detectedMimeType);
