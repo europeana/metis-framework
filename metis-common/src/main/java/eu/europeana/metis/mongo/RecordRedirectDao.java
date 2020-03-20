@@ -21,7 +21,7 @@ public class RecordRedirectDao {
   private static final Logger LOGGER = LoggerFactory.getLogger(RecordRedirectDao.class);
   private static final String OLD_ID = "oldId";
   private static final String NEW_ID = "newId";
-  private Datastore datastore;
+  private final Datastore datastore;
 
   /**
    * Constructor to initialize the mongo mappings/collections and the {@link Datastore} connection.
@@ -43,18 +43,19 @@ public class RecordRedirectDao {
    * @param createIndexes flag that initiates the database/indices
    */
   public RecordRedirectDao(MongoClient mongoClient, String databaseName, boolean createIndexes) {
-    createDatastore(mongoClient, databaseName);
+    datastore = createDatastore(mongoClient, databaseName);
     if (createIndexes) {
       LOGGER.info("Initializing database indices");
       datastore.ensureIndexes();
     }
   }
 
-  private void createDatastore(MongoClient mongoClient, String databaseName) {
+  private static Datastore createDatastore(MongoClient mongoClient, String databaseName) {
     Morphia morphia = new Morphia();
     morphia.map(RecordRedirect.class);
-    datastore = morphia.createDatastore(mongoClient, databaseName);
+    final Datastore datastore = morphia.createDatastore(mongoClient, databaseName);
     LOGGER.info("Datastore initialized");
+    return datastore;
   }
 
   /**
