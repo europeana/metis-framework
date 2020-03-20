@@ -9,12 +9,8 @@ import static org.mockito.Mockito.spy;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.utils.MediaType;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.EnumSet;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,52 +30,11 @@ class VideoClassifierTest {
   }
 
   /**
-   * Whether there are thumbnails and/or a large image as edm:object is handled by
-   * pre-classification: if either of these are not present, we know that the tier must be 0.
+   * This method should always return null: we always need to look at the web resources.
    */
   @Test
   void testPreClassifyEntity() {
-
-    // The entity and some web resources
-    final RdfWrapper entity = mock(RdfWrapper.class);
-    final WebResourceWrapper largeImageResource = mock(WebResourceWrapper.class);
-    doReturn(MediaType.IMAGE).when(largeImageResource).getMediaType();
-    doReturn(100_000L).when(largeImageResource).getSize();
-    final WebResourceWrapper smallImageResource = mock(WebResourceWrapper.class);
-    doReturn(MediaType.IMAGE).when(smallImageResource).getMediaType();
-    doReturn(99_000L).when(smallImageResource).getSize();
-    final WebResourceWrapper nonImageResource = mock(WebResourceWrapper.class);
-    doReturn(MediaType.VIDEO).when(nonImageResource).getMediaType();
-
-    // if there is no edm:object
-    doReturn(true).when(entity).hasThumbnails();
-    assertEquals(MediaTier.T0, classifier.preClassifyEntity(entity));
-    doReturn(false).when(entity).hasThumbnails();
-    assertEquals(MediaTier.T0, classifier.preClassifyEntity(entity));
-
-    // if there is an edm:object, but it is not an image
-    doReturn(Collections.singletonList(nonImageResource)).when(entity).getWebResourceWrappers(
-        EnumSet.of(WebResourceLinkType.OBJECT));
-    doReturn(true).when(entity).hasThumbnails();
-    assertEquals(MediaTier.T0, classifier.preClassifyEntity(entity));
-    doReturn(false).when(entity).hasThumbnails();
-    assertEquals(MediaTier.T0, classifier.preClassifyEntity(entity));
-
-    // if there is an edm:object, but it is a small image
-    doReturn(Arrays.asList(smallImageResource, nonImageResource)).when(entity)
-        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.OBJECT));
-    doReturn(true).when(entity).hasThumbnails();
-    assertEquals(MediaTier.T0, classifier.preClassifyEntity(entity));
-    doReturn(false).when(entity).hasThumbnails();
-    assertEquals(MediaTier.T0, classifier.preClassifyEntity(entity));
-
-    // if there is an edm:object, and it is a large image
-    doReturn(Arrays.asList(largeImageResource, nonImageResource)).when(entity)
-        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.OBJECT));
-    doReturn(true).when(entity).hasThumbnails();
-    assertNull(classifier.preClassifyEntity(entity));
-    doReturn(false).when(entity).hasThumbnails();
-    assertEquals(MediaTier.T0, classifier.preClassifyEntity(entity));
+    assertNull(classifier.preClassifyEntity(mock(RdfWrapper.class)));
   }
 
   /**
