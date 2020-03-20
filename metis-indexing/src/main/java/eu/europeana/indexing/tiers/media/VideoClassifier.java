@@ -2,38 +2,20 @@ package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.indexing.utils.WebResourceLinkType;
 import eu.europeana.indexing.utils.WebResourceWrapper;
 import eu.europeana.metis.utils.MediaType;
-import java.util.EnumSet;
 
 /**
  * Classifier for videos.
  */
 class VideoClassifier extends AbstractMediaClassifier {
 
-  private static final int MIN_IMAGE_RESOLUTION = 100_000;
-
   private static final int LARGE_VERTICAL_SIZE = 480;
 
   @Override
   MediaTier preClassifyEntity(RdfWrapper entity) {
 
-    // Check presence of thumbnail. If not available, tier 0.
-    if (!entity.hasThumbnails()) {
-      return MediaTier.T0;
-    }
-
-    // Check presence of image as edm:Object with sufficient resolution. If not available, tier 0.
-    final boolean hasLargeImageAsObject = entity
-        .getWebResourceWrappers(EnumSet.of(WebResourceLinkType.OBJECT)).stream()
-        .filter(resource -> resource.getMediaType() == MediaType.IMAGE)
-        .mapToLong(WebResourceWrapper::getSize).anyMatch(size -> size >= MIN_IMAGE_RESOLUTION);
-    if (!hasLargeImageAsObject) {
-      return MediaTier.T0;
-    }
-
-    // In any other case, it depends completely on the web resources.
+    // We always have to look at the web resources.
     return null;
   }
 
