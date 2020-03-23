@@ -28,11 +28,11 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionIdAndStartedDatePair;
-import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -60,7 +60,6 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginFactory;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
@@ -722,7 +721,7 @@ class TestOrchestratorService {
     final Set<WorkflowStatus> workflowStatuses = Collections.singleton(WorkflowStatus.INQUEUE);
 
     // Check for all datasets and for admin user: should query all datasets.
-    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    doReturn(AccountRole.METIS_ADMIN).when(metisUser).getAccountRole();
     doReturn(new ResultList<>(Collections.emptyList(), false)).when(workflowExecutionDao)
         .getAllWorkflowExecutions(any(), any(), any(), anyBoolean(), anyInt(), anyBoolean());
     orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses,
@@ -790,7 +789,7 @@ class TestOrchestratorService {
     final List<ExecutionDatasetPair> data = TestObjectFactory.createExecutionsWithDatasets(4);
 
     // Check for all datasets and for admin user: should query all datasets.
-    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    doReturn(AccountRole.METIS_ADMIN).when(metisUser).getAccountRole();
     when(workflowExecutionDao
         .getWorkflowExecutionsOverview(isNull(), isNull(), isNull(), isNull(), isNull(),
             eq(nextPage), eq(pageCount)))

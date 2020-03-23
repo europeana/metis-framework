@@ -49,7 +49,7 @@ public class InetAddressUtil<E extends Exception> {
 
     // Check the hosts and ports input for array length.
     final IntUnaryOperator portGetter;
-    if (hosts.length == 1) {
+    if (ports.length == 1) {
       portGetter = index -> ports[0];
     } else if (hosts.length == ports.length) {
       portGetter = index -> ports[index];

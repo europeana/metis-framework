@@ -1,8 +1,8 @@
 package eu.europeana.metis.authentication.dao;
 
 import eu.europeana.metis.authentication.user.AccountRole;
-import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.authentication.user.MetisUserRecord;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -50,20 +50,20 @@ public class PsqlMetisUserDao {
   }
 
   /**
-   * Stores a {@link MetisUser} in the database.
+   * Stores a {@link MetisUserRecord} in the database.
    *
-   * @param metisUser the {@link MetisUser} to store
+   * @param metisUser the {@link MetisUserRecord} to store
    */
-  public void createMetisUser(MetisUser metisUser) {
+  public void createMetisUser(MetisUserRecord metisUser) {
     createObjectInDB(metisUser);
   }
 
   /**
-   * Re write a {@link MetisUser} in the database.
+   * Re write a {@link MetisUserRecord} in the database.
    *
-   * @param metisUser the {@link MetisUser} to update
+   * @param metisUser the {@link MetisUserRecord} to update
    */
-  public void updateMetisUser(MetisUser metisUser) {
+  public void updateMetisUser(MetisUserRecord metisUser) {
     try (Session session = sessionFactory.openSession()) {
       Transaction tx = session.beginTransaction();
       session.update(metisUser);
@@ -72,48 +72,48 @@ public class PsqlMetisUserDao {
   }
 
   /**
-   * Retrieve a {@link MetisUser} from the database using an email.
+   * Retrieve a {@link MetisUserRecord} from the database using an email.
    *
    * @param email the email to use.
-   * @return the {@link MetisUser}
+   * @return the {@link MetisUserRecord}
    */
-  public MetisUser getMetisUserByEmail(String email) {
+  public MetisUserRecord getMetisUserByEmail(String email) {
     return getMetisUserByField(EMAIL_STRING, email);
   }
 
   /**
-   * Retrieve a {@link MetisUser} from the database using an email.
+   * Retrieve a {@link MetisUserRecord} from the database using an email.
    *
    * @param userId the userId to use.
-   * @return the {@link MetisUser}
+   * @return the {@link MetisUserRecord}
    */
-  public MetisUser getMetisUserByUserId(String userId) {
+  public MetisUserRecord getMetisUserByUserId(String userId) {
     return getMetisUserByField(USER_ID_STRING, userId);
   }
 
-  private MetisUser getMetisUserByField(String fieldName, String fieldValue) {
-    MetisUser metisUser;
+  private MetisUserRecord getMetisUserByField(String fieldName, String fieldValue) {
+    MetisUserRecord metisUser;
     try (Session session = sessionFactory.openSession()) {
 
       Query query = session
-          .createQuery(String.format("FROM MetisUser WHERE %s = :%s", fieldName, fieldName));
+          .createQuery(String.format("FROM MetisUserRecord WHERE %s = :%s", fieldName, fieldName));
       query.setParameter(fieldName, fieldValue);
       metisUser = null;
       if (!query.list().isEmpty()) {
-        metisUser = (MetisUser) query.list().get(0);
+        metisUser = (MetisUserRecord) query.list().get(0);
       }
     }
     return metisUser;
   }
 
   /**
-   * Retrieve the {@link MetisUser} from the database using an access token.
+   * Retrieve the {@link MetisUserRecord} from the database using an access token.
    *
    * @param accessToken the access token to retrieve the user
-   * @return {@link MetisUser}
+   * @return {@link MetisUserRecord}
    */
-  public MetisUser getMetisUserByAccessToken(String accessToken) {
-    MetisUser metisUser;
+  public MetisUserRecord getMetisUserByAccessToken(String accessToken) {
+    MetisUserRecord metisUser;
     try (Session session = sessionFactory.openSession()) {
       Query query = session
           .createQuery(String
@@ -126,11 +126,11 @@ public class PsqlMetisUserDao {
       metisUser = null;
       if (metisUserAccessToken != null) {
         query = session
-            .createQuery(String.format("FROM MetisUser WHERE email = :%s", EMAIL_STRING));
+            .createQuery(String.format("FROM MetisUserRecord WHERE email = :%s", EMAIL_STRING));
         query.setParameter(EMAIL_STRING, metisUserAccessToken.getEmail());
 
         if (!query.list().isEmpty()) {
-          metisUser = (MetisUser) query.list().get(0);
+          metisUser = (MetisUserRecord) query.list().get(0);
         }
       }
     }
@@ -225,9 +225,9 @@ public class PsqlMetisUserDao {
   }
 
   /**
-   * Removes a {@link MetisUser} from the database by using the user's email.
+   * Removes a {@link MetisUserRecord} from the database by using the user's email.
    *
-   * @param email to find the {@link MetisUser}
+   * @param email to find the {@link MetisUserRecord}
    */
   public void deleteMetisUser(String email) {
     try (Session session = sessionFactory.openSession()) {
@@ -240,7 +240,7 @@ public class PsqlMetisUserDao {
       LOGGER.info("Removed {} Access Token with email: {}", i, email);
 
       deleteQuery = session
-          .createQuery(String.format("DELETE FROM MetisUser WHERE email=:%s", EMAIL_STRING));
+          .createQuery(String.format("DELETE FROM MetisUserRecord WHERE email=:%s", EMAIL_STRING));
       deleteQuery.setParameter(EMAIL_STRING, email);
       i = deleteQuery.executeUpdate();
       LOGGER.info("Removed {} User with email: {}", i, email);
@@ -297,12 +297,12 @@ public class PsqlMetisUserDao {
     try (Session session = sessionFactory.openSession()) {
       Transaction tx = session.beginTransaction();
       Query updateQuery = session.createQuery(String
-          .format("UPDATE MetisUser SET account_role=:%s WHERE email=:%s", ACCESS_ROLE_STRING,
+          .format("UPDATE MetisUserRecord SET account_role=:%s WHERE email=:%s", ACCESS_ROLE_STRING,
               EMAIL_STRING));
       updateQuery.setParameter(ACCESS_ROLE_STRING, AccountRole.METIS_ADMIN.name());
       updateQuery.setParameter(EMAIL_STRING, userEmailToMakeAdmin);
       int i = updateQuery.executeUpdate();
-      LOGGER.info("Updated {} MetisUser with email: {}, made METIS_ADMIN", i, userEmailToMakeAdmin);
+      LOGGER.info("Updated {} MetisUserRecord with email: {}, made METIS_ADMIN", i, userEmailToMakeAdmin);
       commitTransaction(tx, "Could not upgrade role of user.");
     }
   }
@@ -326,16 +326,16 @@ public class PsqlMetisUserDao {
   }
 
   /**
-   * Retrieves a list of all the {@link MetisUser}s.
+   * Retrieves a list of all the {@link MetisUserRecord}s.
    *
-   * @return list of all {@link MetisUser}s
+   * @return list of all {@link MetisUserRecord}s
    */
-  public List<MetisUser> getAllMetisUsers() {
+  public List<MetisUserRecord> getAllMetisUsers() {
     try (Session session = sessionFactory.openSession()) {
       CriteriaBuilder builder = session.getCriteriaBuilder();
-      CriteriaQuery<MetisUser> criteriaQuery = builder.createQuery(MetisUser.class);
-      criteriaQuery.from(MetisUser.class);
-      Query<MetisUser> query = session.createQuery(criteriaQuery);
+      CriteriaQuery<MetisUserRecord> criteriaQuery = builder.createQuery(MetisUserRecord.class);
+      criteriaQuery.from(MetisUserRecord.class);
+      Query<MetisUserRecord> query = session.createQuery(criteriaQuery);
       return query.getResultList();
     }
   }

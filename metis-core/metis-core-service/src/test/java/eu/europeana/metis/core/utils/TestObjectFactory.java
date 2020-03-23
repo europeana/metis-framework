@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.utils;
 
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
+
 import eu.europeana.cloud.common.model.dps.ErrorDetails;
 import eu.europeana.cloud.common.model.dps.NodeStatistics;
 import eu.europeana.cloud.common.model.dps.RecordState;
@@ -249,21 +252,15 @@ public class TestObjectFactory {
    * @return the created metis user
    */
   public static MetisUser createMetisUser(String email) {
-    MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
-    metisUserAccessToken.setAccessToken("AccessToken_12345");
-    metisUserAccessToken.setTimestamp(new Date());
-
-    MetisUser metisUser = new MetisUser();
-    metisUser.setEmail(email);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    metisUser.setOrganizationId("Organization_12345");
-    metisUser.setOrganizationName("OrganizationName");
-    metisUser.setMetisUserFlag(true);
-    metisUser.setFirstName("FirstName");
-    metisUser.setLastName("LastName");
-    metisUser.setUserId("User_12345");
-    metisUser.setMetisUserAccessToken(metisUserAccessToken);
-
+    MetisUser metisUser = spy(new MetisUser());
+    doReturn(email).when(metisUser).getEmail();
+    doReturn(AccountRole.EUROPEANA_DATA_OFFICER).when(metisUser).getAccountRole();
+    doReturn("Organization_12345").when(metisUser).getOrganizationId();
+    doReturn("OrganizationName").when(metisUser).getOrganizationName();
+    doReturn(true).when(metisUser).isMetisUserFlag();
+    doReturn("FirstName").when(metisUser).getFirstName();
+    doReturn("LastName").when(metisUser).getLastName();
+    doReturn("User_12345").when(metisUser).getUserId();
     return metisUser;
   }
 
