@@ -106,7 +106,9 @@ public class XsltTransformer {
   private static Templates createTemplatesFromUrl(String xsltUrl)
       throws CacheValueSupplierException {
     final TransformerFactory transformerFactory = new TransformerFactoryImpl();
-    try (final InputStream xsltStream = new URL(xsltUrl).openStream()) {
+    // We know where the xslt files are coming from, we consider them safe.
+    try (@SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") final InputStream xsltStream = new URL(
+            xsltUrl).openStream()) {
       return transformerFactory.newTemplates(new StreamSource(xsltStream));
     } catch (IOException | TransformerConfigurationException e) {
       throw new CacheValueSupplierException(e);

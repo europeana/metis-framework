@@ -96,6 +96,8 @@ public class RdfRetriever {
       throws IOException {
 
     // Make the connection and retrieve the result.
+    // Note: we have no choice but to follow the provided URL.
+    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
     final HttpURLConnection urlConnection = (HttpURLConnection) new URL(url).openConnection();
     urlConnection.setRequestProperty("accept", "application/rdf+xml");
     final String resultString =

@@ -176,7 +176,9 @@ class AudioVideoProcessor implements MediaProcessor {
     MPD mpd;
 
     final AbstractResourceMetadata metadata;
-    try (InputStream inputStream = resource.getActualLocation().toURL().openStream()) {
+    // We know where the URL comes from: from the apache library.
+    try (@SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") InputStream inputStream = resource
+            .getActualLocation().toURL().openStream()) {
       mpd = parser.parse(inputStream);
       final Period period = mpd.getPeriods().stream().findFirst()
           .orElseThrow(() -> new MediaExtractionException("Cannot find period element in mpd"));

@@ -150,8 +150,10 @@ public class SchemaProvider {
     }
 
     final File destinationFile = new File(schemasLocation, ZIP_FILE_NAME);
-    try (InputStream urlLocation = new URL(zipLocation).openStream();
-        OutputStream fos = Files.newOutputStream(destinationFile.toPath())
+    // We know where the schema zips are located: this come from the config files.
+    try (@SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") InputStream urlLocation = new URL(
+            zipLocation).openStream();
+            OutputStream fos = Files.newOutputStream(destinationFile.toPath())
     ) {
       IOUtils.copy(urlLocation, fos);
       return destinationFile;
@@ -185,7 +187,10 @@ public class SchemaProvider {
   private void handleZipEntry(File downloadedFile, ZipFile zip, ZipEntry entry)
       throws SchemaProviderException, IOException {
     if (entry.isDirectory()) {
-      if (!new File(downloadedFile.getParent(), entry.getName()).mkdir()) {
+      // We chose were to store the downloaded files.
+      @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
+      final boolean couldCreateDir = new File(downloadedFile.getParent(), entry.getName()).mkdir();
+      if (!couldCreateDir) {
         throw new SchemaProviderException("Could not create directory");
       }
     } else {
