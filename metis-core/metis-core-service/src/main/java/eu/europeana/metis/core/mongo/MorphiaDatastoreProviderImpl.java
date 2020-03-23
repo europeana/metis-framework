@@ -84,8 +84,7 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
     datastore = morphia.createDatastore(mongoClient, databaseName);
 
     // Initialize the DatasetIdSequence if required.
-    final DatasetIdSequence datasetIdSequence = datastore.find(DatasetIdSequence.class).first();
-    if (datasetIdSequence == null) {
+    if (datastore.find(DatasetIdSequence.class).count() == 0) {
       datastore.save(new DatasetIdSequence(0));
     }
     LOGGER.info("Datastore initialized");

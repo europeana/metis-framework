@@ -62,9 +62,8 @@ class PdfToImageConverter {
     // Check whether ghostscript is installed.
     final String command = "gs";
     final String output;
-    output = commandExecutor.execute(Arrays.asList(command, "--version"), true,
-            (message, cause) -> new MediaProcessorException(
-                    "Error while looking for ghostscript tools: " + message, cause));
+    output = commandExecutor.execute(Arrays.asList(command, "--version"), true, message ->
+            new MediaProcessorException("Error while looking for ghostscript tools: " + message));
     if (!output.startsWith("9.")) {
       throw new MediaProcessorException("Ghostscript 9.x not found.");
     }
@@ -108,7 +107,7 @@ class PdfToImageConverter {
     try {
       Files.deleteIfExists(file);
     } catch (IOException e) {
-      LOGGER.warn("Could not remove PDF image: {}", file.toAbsolutePath().toString(), e);
+      LOGGER.warn("Could not remove PDF image: {}", file.toAbsolutePath(), e);
     }
   }
 
