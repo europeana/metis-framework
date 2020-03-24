@@ -4,7 +4,6 @@ import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.query.Query;
-import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.dereference.Vocabulary;
 import java.util.List;
@@ -41,54 +40,6 @@ public class VocabularyDao {
   }
 
   /**
-   * Save a vocabulary
-   *
-   * @param entity The vocabulary to save
-   * @return The ID under which the vocabulary was saved.
-   */
-  public String save(Vocabulary entity) {
-    return (String) ds.save(entity).getId();
-  }
-
-  /**
-   * Delete a vocabulary by name
-   *
-   * @param name The name of the vocabulary to delete
-   */
-  public void delete(String name) {
-    ds.delete(ds.createQuery(Vocabulary.class).filter("name", name));
-  }
-
-  /**
-   * Update the mapping of a vocabulary. It will be created if it does not exist
-   *
-   * @param entity The Vocabulary to update
-   */
-  public void update(Vocabulary entity) {
-    Query<Vocabulary> query = ds.createQuery(Vocabulary.class).filter("name", entity.getName());
-    UpdateOperations<Vocabulary> ops = ds.createUpdateOperations(Vocabulary.class);
-
-    ops.set("iterations", entity.getIterations());
-    if (entity.getRules() == null) {
-      ops.unset("rules");
-    } else {
-      ops.set("rules", entity.getRules());
-    }
-    if (entity.getTypeRules() == null) {
-      ops.unset("typeRules");
-    } else {
-      ops.set("typeRules", entity.getTypeRules());
-    }
-    if (entity.getType() != null) {
-      ops.set("type", entity.getType());
-    }
-    ops.set("uri", entity.getUri());
-    ops.set("xslt", entity.getXslt());
-    ops.set("suffix", entity.getSuffix());
-    ds.update(query, ops);
-  }
-
-  /**
    * Retrieve all the vocabularies
    *
    * @return A list of all the vocabularies
@@ -110,17 +61,7 @@ public class VocabularyDao {
     return ds.find(Vocabulary.class).filter("id", vocabularyId).first();
   }
 
-  /**
-   * Return a Vocabulary by name
-   *
-   * @param name The name to search on
-   * @return The Vocabulary with that name
-   */
-  public Vocabulary findByName(String name) {
-    return ds.find(Vocabulary.class).filter("name", name).first();
-  }
-
-  public void setDs(Datastore ds) {
-    this.ds = ds;
+  protected Datastore getDatastore() {
+    return ds;
   }
 }

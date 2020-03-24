@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
+import dev.morphia.Datastore;
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -41,7 +42,7 @@ import redis.clients.jedis.Jedis;
 class MongoDereferenceServiceTest {
 
   private MongoDereferenceService service;
-  private VocabularyDao vocabularyDao;
+  private Datastore vocabularyDaoDatastore;
   private EntityDao entityDao;
   private RedisProvider redisProvider;
   private Jedis jedis;
@@ -54,7 +55,11 @@ class MongoDereferenceServiceTest {
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
 
-    vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest");
+    VocabularyDao vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest") {
+      {
+        vocabularyDaoDatastore = this.getDatastore();
+      }
+    };
     entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
     redisProvider = Mockito.mock(RedisProvider.class);
     jedis = Mockito.mock(Jedis.class);
@@ -84,7 +89,8 @@ class MongoDereferenceServiceTest {
             StandardCharsets.UTF_8));
     geonames.setName("Geonames");
     geonames.setIterations(1);
-    String geonamesId = vocabularyDao.save(geonames);
+
+    String geonamesId = (String) vocabularyDaoDatastore.save(geonames).getId();
 
     EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
 

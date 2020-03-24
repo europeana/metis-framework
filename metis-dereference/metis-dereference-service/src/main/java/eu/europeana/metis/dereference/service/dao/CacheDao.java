@@ -50,18 +50,6 @@ public class CacheDao implements AbstractDao<ProcessedEntity> {
     }
   }
 
-  @Override
-  public void delete(String resourceId) {
-    try (Jedis jedis = redisProvider.getJedis()) {
-      jedis.del(resourceId);
-    }
-  }
-
-  @Override
-  public void update(String resourceId, ProcessedEntity entity) {
-    save(entity);
-  }
-
   /**
    * Empty the cache of processed entities
    */
