@@ -4,8 +4,6 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.cache.redis.RedisProvider;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import javax.annotation.PreDestroy;
@@ -52,14 +50,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${socks.proxy.password}")
   private String socksProxyPassword;
 
-  //Redis
-  @Value("${redis.host}")
-  private String redisHost;
-  @Value("${redis.port}")
-  private int redisPort;
-  @Value("${redis.password}")
-  private String redisPassword;
-
   //Mongo
   @Value("${mongo.hosts}")
   private String[] mongoHosts;
@@ -76,7 +66,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   private MongoProviderImpl mongoProviderEntity;
   private MongoProviderImpl mongoProviderVocabulary;
-  private RedisProvider redisProvider;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -98,10 +87,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     mongoProviderVocabulary = new MongoProviderImpl(mongoHosts, mongoPorts, vocabularyDb,
         mongoUsername,
         mongoPassword, options);
-
-    if (redisProvider == null) {
-      redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
-    }
   }
 
   @Override
@@ -123,11 +108,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   MongoClient getVocabularyMongoClient() {
     return mongoProviderVocabulary.getMongo();
-  }
-
-  @Bean
-  CacheDao getCacheDao() {
-    return new CacheDao(redisProvider);
   }
 
   @Bean

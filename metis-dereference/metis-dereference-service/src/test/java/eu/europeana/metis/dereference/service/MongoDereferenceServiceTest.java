@@ -1,52 +1,38 @@
 package eu.europeana.metis.dereference.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.metis.cache.redis.RedisProvider;
-import eu.europeana.metis.dereference.OriginalEntity;
-import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import redis.clients.jedis.Jedis;
 
-/**
- * Created by ymamakis on 12-2-16.
- */
-// TODO: 6-3-19 This test is actually requesting external resource. It should be mocked instead, disabling for now.
-@Disabled
 class MongoDereferenceServiceTest {
 
   private MongoDereferenceService service;
   private Datastore vocabularyDaoDatastore;
-  private EntityDao entityDao;
-  private RedisProvider redisProvider;
-  private Jedis jedis;
-  private CacheDao cacheDao;
   private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
   @BeforeEach
@@ -60,14 +46,11 @@ class MongoDereferenceServiceTest {
         vocabularyDaoDatastore = this.getDatastore();
       }
     };
-    entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
-    redisProvider = Mockito.mock(RedisProvider.class);
-    jedis = Mockito.mock(Jedis.class);
-    cacheDao = new CacheDao(redisProvider);
+    EntityDao entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
 
     RdfRetriever retriever = new RdfRetriever(entityDao);
 
-    service = new MongoDereferenceService(retriever, cacheDao, vocabularyDao);
+    service = spy(new MongoDereferenceService(retriever, vocabularyDao));
   }
 
   @AfterEach
@@ -79,59 +62,41 @@ class MongoDereferenceServiceTest {
   void testDereference()
       throws TransformerException, JAXBException, IOException, URISyntaxException {
 
-    Mockito.when(redisProvider.getJedis()).thenReturn(jedis);
-    final String entityId = "http://sws.geonames.org/3020251/";
-
-    Vocabulary geonames = new Vocabulary();
+    // Create vocabulary for geonames and save it.
+    final Vocabulary geonames = new Vocabulary();
     geonames.setUri("http://sws.geonames.org/");
     geonames.setXslt(
         IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl"),
             StandardCharsets.UTF_8));
     geonames.setName("Geonames");
-    geonames.setIterations(1);
+    geonames.setIterations(0);
+    vocabularyDaoDatastore.save(geonames);
 
-    String geonamesId = (String) vocabularyDaoDatastore.save(geonames).getId();
+    // Create geonames entity
+    final Place place = new Place();
+    final String entityId = "http://sws.geonames.org/3020251/";
+    place.setAbout(entityId);
 
-    EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
+    // Mock the service
+    doReturn(new ImmutablePair<>(place, geonames)).when(service).retrieveCachedEntity(entityId);
 
-    Place place = new Place();
-
-    place.setAbout("http://sws.geonames.org/my");
-
-    Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
-
-    EnrichmentResultList result = service.dereference(entityId);
-
+    // Test the method
+    final EnrichmentResultList result = service.dereference(entityId);
     assertNotNull(result);
+    assertNotNull(result.getEnrichmentBaseWrapperList());
+    assertEquals(1, result.getEnrichmentBaseWrapperList().size());
+    assertNotNull(result.getEnrichmentBaseWrapperList().get(0));
+    assertSame(place, result.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase());
+    assertNull(result.getEnrichmentBaseWrapperList().get(0).getOriginalField());
 
-    OriginalEntity entity = entityDao.get(entityId);
+    // Test null argument
+    assertThrows(IllegalArgumentException.class, ()->service.dereference(null));
 
-    assertNotNull(entity);
-    assertNotNull(entity.getXml());
-    assertNotNull(entity.getURI());
-
-    ProcessedEntity entity2 = new ProcessedEntity();
-    entity2.setResourceId(entityId);
-    entity2.setXml(serialize(place));
-    entity2.setVocabularyId(geonamesId);
-
-    Mockito.when(jedis.get(entityId)).thenReturn(new ObjectMapper().writeValueAsString(entity2));
-
-    ProcessedEntity entity1 = cacheDao.get(entityId);
-    assertNotNull(entity1);
-    assertNotNull(entity1.getResourceId());
-    assertNotNull(entity1.getXml());
-    assertNotNull(entity1.getVocabularyId());
-  }
-
-  private String serialize(EnrichmentBase base) throws JAXBException, IOException {
-    JAXBContext contextA = JAXBContext.newInstance(EnrichmentBase.class);
-
-    StringWriter writer = new StringWriter();
-    Marshaller marshaller = contextA.createMarshaller();
-    marshaller.marshal(base, writer);
-    String ret = writer.toString();
-    writer.close();
-    return ret;
+    // Test absent object
+    doReturn(null).when(service).retrieveCachedEntity(entityId);
+    final EnrichmentResultList emptyResult = service.dereference(entityId);
+    assertNotNull(emptyResult);
+    assertNotNull(emptyResult.getEnrichmentBaseWrapperList());
+    assertTrue(emptyResult.getEnrichmentBaseWrapperList().isEmpty());
   }
 }

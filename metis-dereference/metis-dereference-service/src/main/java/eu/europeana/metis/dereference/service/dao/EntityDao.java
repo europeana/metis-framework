@@ -8,7 +8,7 @@ import eu.europeana.metis.dereference.OriginalEntity;
 /**
  * DAO for original Entities (Mongo)
  */
-public class EntityDao implements AbstractDao<OriginalEntity> {
+public class EntityDao {
 
   private final Datastore ds;
 
@@ -25,12 +25,21 @@ public class EntityDao implements AbstractDao<OriginalEntity> {
 
   }
 
-  @Override
+  /**
+   * Get an Entity by URL
+   *
+   * @param resourceId The resource ID (URI) to retrieve
+   * @return A list of Entity
+   */
   public OriginalEntity get(String resourceId) {
     return ds.find(OriginalEntity.class).filter("URI", resourceId).first();
   }
 
-  @Override
+  /**
+   * Save a vocabulary or entity
+   *
+   * @param entity The vocabulary or entity to save
+   */
   public void save(OriginalEntity entity) {
     ds.save(entity);
   }

@@ -1,4 +1,4 @@
-package eu.europeana.metis.cache.redis;
+package eu.europeana.enrichment.utils;
 
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;

@@ -7,7 +7,7 @@ import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.EntityRemover;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
 import eu.europeana.enrichment.utils.EnrichmentEntityDao;
-import eu.europeana.metis.cache.redis.RedisProvider;
+import eu.europeana.enrichment.utils.RedisProvider;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

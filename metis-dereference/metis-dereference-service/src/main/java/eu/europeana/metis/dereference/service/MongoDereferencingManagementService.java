@@ -1,7 +1,6 @@
 package eu.europeana.metis.dereference.service;
 
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +13,15 @@ import org.springframework.stereotype.Component;
 public class MongoDereferencingManagementService implements DereferencingManagementService {
 
   private final VocabularyDao vocabularyDao;
-  private final CacheDao cacheDao;
 
   /**
    * Constructor.
    * 
    * @param vocabularyDao Access to the vocabularies
-   * @param cacheDao Access to the processed entity cache
    */
   @Autowired
-  public MongoDereferencingManagementService(VocabularyDao vocabularyDao, CacheDao cacheDao) {
+  public MongoDereferencingManagementService(VocabularyDao vocabularyDao) {
     this.vocabularyDao = vocabularyDao;
-    this.cacheDao = cacheDao;
   }
 
   @Override
@@ -35,6 +31,7 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
   @Override
   public void emptyCache() {
-    cacheDao.emptyCache();
+    // TODO JV Nothing to do.
+    throw new IllegalStateException();
   }
 }

@@ -10,7 +10,7 @@ import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import eu.europeana.enrichment.utils.EntityClass;
 import eu.europeana.enrichment.utils.InputValue;
-import eu.europeana.metis.cache.redis.RedisProvider;
+import eu.europeana.enrichment.utils.RedisProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;

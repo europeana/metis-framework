@@ -10,7 +10,6 @@ import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
 import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
@@ -44,21 +43,17 @@ public class MongoDereferenceService implements DereferenceService {
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
 
   private final RdfRetriever retriever;
-  private final CacheDao cacheDao;
   private final VocabularyDao vocabularyDao;
 
   /**
    * Constructor.
    *
    * @param retriever Object that retrieves entities from their source services.
-   * @param cacheDao Object that accesses the cache of processed entities.
    * @param vocabularyDao Object that accesses vocabularies.
    */
   @Autowired
-  public MongoDereferenceService(RdfRetriever retriever, CacheDao cacheDao,
-      VocabularyDao vocabularyDao) {
+  public MongoDereferenceService(RdfRetriever retriever, VocabularyDao vocabularyDao) {
     this.retriever = retriever;
-    this.cacheDao = cacheDao;
     this.vocabularyDao = vocabularyDao;
   }
 
@@ -151,11 +146,12 @@ public class MongoDereferenceService implements DereferenceService {
     return collection == null ? Stream.empty() : collection.stream();
   }
 
-  private Pair<EnrichmentBase, Vocabulary> retrieveCachedEntity(String resourceId)
+  Pair<EnrichmentBase, Vocabulary> retrieveCachedEntity(String resourceId)
       throws JAXBException, TransformerException, URISyntaxException {
 
     // Try to get the entity and its vocabulary from the cache.
-    final ProcessedEntity cachedEntity = cacheDao.get(resourceId);
+    // TODO JV retrieve from processed entity cache.
+    final ProcessedEntity cachedEntity = null;
     String entityString = null;
     Vocabulary vocabulary = null;
     if (cachedEntity != null) {
@@ -183,7 +179,7 @@ public class MongoDereferenceService implements DereferenceService {
         entityToCache.setXml(entityString);
         entityToCache.setResourceId(resourceId);
         entityToCache.setVocabularyId(vocabulary.getId());
-        cacheDao.save(entityToCache);
+        // TODO JV Save to processed entity cache.
       }
     }
 

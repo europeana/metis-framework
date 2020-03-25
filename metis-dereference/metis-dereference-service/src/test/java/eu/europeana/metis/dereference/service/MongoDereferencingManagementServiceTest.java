@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
-import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.ContextualClass;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.util.Collections;
@@ -15,8 +13,6 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import redis.clients.jedis.Jedis;
 
 /**
  * Created by ymamakis on 2/22/16.
@@ -33,9 +29,6 @@ class MongoDereferencingManagementServiceTest {
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
 
-    RedisProvider redisProvider = Mockito.mock(RedisProvider.class);
-    Jedis jedis = Mockito.mock(Jedis.class);
-    CacheDao cacheDao = new CacheDao(redisProvider);
     MongoClient mongo = new MongoClient(mongoHost, mongoPort);
 
     VocabularyDao vocDao = new VocabularyDao(mongo, "voctest") {
@@ -43,9 +36,7 @@ class MongoDereferencingManagementServiceTest {
         vocDaoDatastore = this.getDatastore();
       }
     };
-    service = new MongoDereferencingManagementService(vocDao, cacheDao);
-
-    Mockito.when(redisProvider.getJedis()).thenReturn(jedis);
+    service = new MongoDereferencingManagementService(vocDao);
   }
 
   @Test
