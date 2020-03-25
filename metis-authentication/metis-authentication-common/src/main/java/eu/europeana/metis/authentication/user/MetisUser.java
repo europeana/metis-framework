@@ -25,7 +25,7 @@ public class MetisUser {
     //Required for json serialization
   }
 
-  public MetisUser(MetisUserRecord record) {
+  public MetisUser(MetisUserModel record) {
     this.userId = record.getUserId();
     this.email = record.getEmail();
     this.firstName = record.getFirstName();

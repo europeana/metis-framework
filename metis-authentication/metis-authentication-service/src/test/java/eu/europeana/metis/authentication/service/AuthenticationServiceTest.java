@@ -18,7 +18,7 @@ import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
-import eu.europeana.metis.authentication.user.MetisUserRecord;
+import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
@@ -29,7 +29,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -73,12 +72,12 @@ class AuthenticationServiceTest {
         .thenReturn(
             (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name"));
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
-    verify(psqlMetisUserDao).createMetisUser(any(MetisUserRecord.class));
+    verify(psqlMetisUserDao).createMetisUser(any(MetisUserModel.class));
   }
 
   @Test
   void registerUserAlreadyExistsInDB() {
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setEmail(EXAMPLE_EMAIL);
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     assertThrows(UserAlreadyExistsException.class,
@@ -132,7 +131,7 @@ class AuthenticationServiceTest {
   void updateUserFromZoho() throws Exception {
     final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
 
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
         .thenReturn(zcrmRecordContactWithAccountInTheFields);
@@ -140,14 +139,14 @@ class AuthenticationServiceTest {
         .thenReturn(
             (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name"));
     authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
-    verify(psqlMetisUserDao).updateMetisUser(any(MetisUserRecord.class));
+    verify(psqlMetisUserDao).updateMetisUser(any(MetisUserModel.class));
   }
 
   @Test
   void updateUserFromZohoAnAdminStaysAdmin() throws Exception {
     final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
 
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     when(zohoAccessClient.getZcrmRecordContactByEmail(anyString()))
@@ -155,7 +154,7 @@ class AuthenticationServiceTest {
     when(zohoAccessClient.getZcrmRecordOrganizationByName(anyString()))
         .thenReturn(
             (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name"));
-    ArgumentCaptor<MetisUserRecord> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUserRecord.class);
+    ArgumentCaptor<MetisUserModel> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUserModel.class);
     authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
     verify(psqlMetisUserDao).updateMetisUser(metisUserArgumentCaptor.capture());
     assertEquals(AccountRole.METIS_ADMIN, metisUserArgumentCaptor.getValue().getAccountRole());
@@ -166,7 +165,7 @@ class AuthenticationServiceTest {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     assertThrows(NoUserFoundException.class,
         () -> authenticationService.updateUserFromZoho(EXAMPLE_EMAIL));
-    verify(psqlMetisUserDao, times(0)).updateMetisUser(any(MetisUserRecord.class));
+    verify(psqlMetisUserDao, times(0)).updateMetisUser(any(MetisUserModel.class));
   }
 
   @Test
@@ -240,7 +239,7 @@ class AuthenticationServiceTest {
 
   @Test
   void loginUser() throws Exception {
-    MetisUserRecord metisUser = registerAndCaptureMetisUser();
+    MetisUserModel metisUser = registerAndCaptureMetisUser();
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
     verify(psqlMetisUserDao).createUserAccessToken(any(MetisUserAccessToken.class));
@@ -248,7 +247,7 @@ class AuthenticationServiceTest {
 
   @Test
   void loginUserTokenExistsSoUpdateTimestamp() throws Exception {
-    MetisUserRecord metisUser = registerAndCaptureMetisUser();
+    MetisUserModel metisUser = registerAndCaptureMetisUser();
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
@@ -265,8 +264,8 @@ class AuthenticationServiceTest {
 
   @Test
   void updateUserPassword() {
-    ArgumentCaptor<MetisUserRecord> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUserRecord.class);
-    when(psqlMetisUserDao.getMetisUserByEmail(EXAMPLE_EMAIL)).thenReturn(new MetisUserRecord());
+    ArgumentCaptor<MetisUserModel> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUserModel.class);
+    when(psqlMetisUserDao.getMetisUserByEmail(EXAMPLE_EMAIL)).thenReturn(new MetisUserModel());
     authenticationService.updateUserPassword(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
     verify(psqlMetisUserDao).updateMetisUser(metisUserArgumentCaptor.capture());
     assertNotNull(metisUserArgumentCaptor.getValue().getPassword());
@@ -274,7 +273,7 @@ class AuthenticationServiceTest {
 
   @Test
   void updateUserMakeAdmin() throws Exception {
-    when(psqlMetisUserDao.getMetisUserByEmail(EXAMPLE_EMAIL)).thenReturn(new MetisUserRecord());
+    when(psqlMetisUserDao.getMetisUserByEmail(EXAMPLE_EMAIL)).thenReturn(new MetisUserModel());
     authenticationService.updateUserMakeAdmin(EXAMPLE_EMAIL);
     verify(psqlMetisUserDao).updateMetisUserToMakeAdmin(EXAMPLE_EMAIL);
   }
@@ -288,7 +287,7 @@ class AuthenticationServiceTest {
 
   @Test
   void isUserAdmin() throws Exception {
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
@@ -300,7 +299,7 @@ class AuthenticationServiceTest {
 
   @Test
   void isUserAdminFalse() throws Exception {
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
@@ -312,11 +311,11 @@ class AuthenticationServiceTest {
   @Test
   void hasPermissionToRequestUserUpdateOwnUser() throws Exception {
     final String storedMetisUserEmail = "storedEmail@example.com";
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setEmail(storedMetisUserEmail);
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
-    MetisUserRecord storedMetisUser = new MetisUserRecord();
+    MetisUserModel storedMetisUser = new MetisUserModel();
     storedMetisUser.setEmail(storedMetisUserEmail);
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
     when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmail)).thenReturn(storedMetisUser);
@@ -329,12 +328,12 @@ class AuthenticationServiceTest {
   void hasPermissionToRequestUserUpdateRequesterIsAdmin() throws Exception {
     final String storedMetisUserEmail = "storedEmail@example.com";
     final String storedMetisUserEmailToUpdate = "toUpdate@example.com";
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     metisUser.setEmail(storedMetisUserEmail);
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
-    MetisUserRecord storedMetisUser = new MetisUserRecord();
+    MetisUserModel storedMetisUser = new MetisUserModel();
     storedMetisUser.setEmail(storedMetisUserEmailToUpdate);
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
     when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmail)).thenReturn(storedMetisUser);
@@ -348,12 +347,12 @@ class AuthenticationServiceTest {
       throws Exception {
     final String storedMetisUserEmail = "storedEmail@example.com";
     final String storedMetisUserEmailToUpdate = "toUpdate@example.com";
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     metisUser.setEmail(storedMetisUserEmail);
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
-    MetisUserRecord storedMetisUser = new MetisUserRecord();
+    MetisUserModel storedMetisUser = new MetisUserModel();
     storedMetisUser.setAccountRole(AccountRole.PROVIDER_VIEWER);
     storedMetisUser.setEmail(storedMetisUserEmailToUpdate);
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
@@ -367,7 +366,7 @@ class AuthenticationServiceTest {
   @Test
   void hasPermissionToRequestUserUpdateUserToUpdateDoesNotExist() {
     final String storedMetisUserEmail = "storedEmail@example.com";
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
     when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmail)).thenReturn(null);
     assertThrows(NoUserFoundException.class, () -> authenticationService
@@ -389,7 +388,7 @@ class AuthenticationServiceTest {
   @Test
   void authenticateUser() throws Exception {
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN))
-        .thenReturn(new MetisUserRecord());
+        .thenReturn(new MetisUserModel());
     authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN);
     verify(psqlMetisUserDao).updateAccessTokenTimestampByAccessToken(EXAMPLE_ACCESS_TOKEN);
   }
@@ -404,7 +403,7 @@ class AuthenticationServiceTest {
 
   @Test
   void hasPermissionToRequestAllUsersIsAdmin() throws Exception {
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
     assertTrue(authenticationService.hasPermissionToRequestAllUsers(EXAMPLE_ACCESS_TOKEN));
@@ -412,7 +411,7 @@ class AuthenticationServiceTest {
 
   @Test
   void hasPermissionToRequestAllUsersIsEuropeanaDataOfficer() throws Exception {
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
     assertTrue(authenticationService.hasPermissionToRequestAllUsers(EXAMPLE_ACCESS_TOKEN));
@@ -420,32 +419,32 @@ class AuthenticationServiceTest {
 
   @Test
   void hasPermissionToRequestAllUsersNotPermitted() throws Exception {
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
     assertFalse(authenticationService.hasPermissionToRequestAllUsers(EXAMPLE_ACCESS_TOKEN));
   }
 
   @Test
   void getAllUsersIsAdmin() {
-    MetisUserRecord metisUser = new MetisUserRecord();
+    MetisUserModel metisUser = new MetisUserModel();
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
-    MetisUserRecord metisUserAdmin = new MetisUserRecord();
+    MetisUserModel metisUserAdmin = new MetisUserModel();
     metisUserAdmin.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     metisUserAdmin.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
-    ArrayList<MetisUserRecord> metisUsers = new ArrayList<>();
+    ArrayList<MetisUserModel> metisUsers = new ArrayList<>();
     metisUsers.add(metisUser);
     metisUsers.add(metisUserAdmin);
     when(psqlMetisUserDao.getAllMetisUsers()).thenReturn(metisUsers);
     List<MetisUser> allUsersRetrieved = authenticationService.getAllUsers();
     assertEquals(metisUsers.size(), allUsersRetrieved.size());
-    assertEquals(metisUsers.stream().map(MetisUserRecord::getEmail).collect(Collectors.toSet()),
+    assertEquals(metisUsers.stream().map(MetisUserModel::getEmail).collect(Collectors.toSet()),
             allUsersRetrieved.stream().map(MetisUser::getEmail).collect(Collectors.toSet()));
   }
 
-  private MetisUserRecord registerAndCaptureMetisUser() throws Exception {
+  private MetisUserModel registerAndCaptureMetisUser() throws Exception {
     final ZCRMRecord zcrmRecordContactWithAccountInTheFields = getZCRMRecordContactWithAccountInTheFields();
 
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
@@ -455,7 +454,7 @@ class AuthenticationServiceTest {
         .thenReturn(
             (ZCRMRecord) zcrmRecordContactWithAccountInTheFields.getFieldValue("Account_Name"));
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
-    ArgumentCaptor<MetisUserRecord> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUserRecord.class);
+    ArgumentCaptor<MetisUserModel> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUserModel.class);
     verify(psqlMetisUserDao).createMetisUser(metisUserArgumentCaptor.capture());
     return metisUserArgumentCaptor.getValue();
   }

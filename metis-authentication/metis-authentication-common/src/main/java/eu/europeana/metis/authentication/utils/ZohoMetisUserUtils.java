@@ -5,7 +5,7 @@ import static eu.europeana.metis.zoho.ZohoUtils.stringFieldSupplier;
 import com.zoho.crm.library.crud.ZCRMRecord;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.authentication.user.MetisUserRecord;
+import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.zoho.ZohoConstants;
 import java.text.ParseException;
@@ -35,12 +35,12 @@ public final class ZohoMetisUserUtils {
    * @return the metis user with its fields populated
    * @throws BadContentException if a problem occurs during parsing of the fields
    */
-  public static MetisUserRecord checkZohoFieldsAndPopulateMetisUser(ZCRMRecord zcrmRecord)
+  public static MetisUserModel checkZohoFieldsAndPopulateMetisUser(ZCRMRecord zcrmRecord)
       throws BadContentException {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
     HashMap<String, Object> zohoFields = zcrmRecord.getData();
 
-    final MetisUserRecord metisUser = new MetisUserRecord();
+    final MetisUserModel metisUser = new MetisUserModel();
 
     metisUser.setUserId(Long.toString(zcrmRecord.getEntityId()));
     metisUser.setFirstName(stringFieldSupplier(zohoFields.get(ZohoConstants.FIRST_NAME_FIELD)));

@@ -2,7 +2,7 @@ package eu.europeana.metis.authentication.rest.config;
 
 import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
-import eu.europeana.metis.authentication.user.MetisUserRecord;
+import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
 import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
@@ -98,7 +98,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Bean
   public SessionFactory getSessionFactory() {
     org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
-    configuration.addAnnotatedClass(MetisUserRecord.class);
+    configuration.addAnnotatedClass(MetisUserModel.class);
     configuration.addAnnotatedClass(MetisUserAccessToken.class);
     configuration.addAnnotatedClass(MetisZohoOAuthToken.class);
     configuration.configure();

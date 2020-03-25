@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "metis_users")
-public class MetisUserRecord {
+public class MetisUserModel {
 
   @Column(name = "user_id")
   private String userId;
@@ -60,7 +60,7 @@ public class MetisUserRecord {
   @JoinColumn(name = "email")
   private MetisUserAccessToken metisUserAccessToken;
 
-  public MetisUserRecord() {
+  public MetisUserModel() {
     //Required for json serialization
   }
 
