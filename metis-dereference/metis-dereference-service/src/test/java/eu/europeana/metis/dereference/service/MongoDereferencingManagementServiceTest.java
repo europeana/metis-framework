@@ -1,11 +1,15 @@
 package eu.europeana.metis.dereference.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import eu.europeana.metis.dereference.ContextualClass;
+import eu.europeana.metis.dereference.OriginalEntity;
+import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.util.Collections;
@@ -36,7 +40,9 @@ class MongoDereferencingManagementServiceTest {
         vocDaoDatastore = this.getDatastore();
       }
     };
-    service = new MongoDereferencingManagementService(vocDao);
+    EntityDao<OriginalEntity> originalEntityDao = mock(EntityDao.class);
+    EntityDao<ProcessedEntity> processedEntityDao = mock(EntityDao.class);
+    service = new MongoDereferencingManagementService(vocDao, originalEntityDao, processedEntityDao);
   }
 
   @Test

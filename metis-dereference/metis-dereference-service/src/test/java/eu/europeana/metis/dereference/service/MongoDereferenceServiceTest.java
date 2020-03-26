@@ -7,12 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.metis.dereference.OriginalEntity;
+import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
@@ -46,11 +49,14 @@ class MongoDereferenceServiceTest {
         vocabularyDaoDatastore = this.getDatastore();
       }
     };
-    EntityDao entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
 
+    EntityDao<OriginalEntity> entityDao = EntityDao
+            .createForOriginalEntity(new MongoClient(mongoHost, mongoPort), "voctest");
     RdfRetriever retriever = new RdfRetriever(entityDao);
 
-    service = spy(new MongoDereferenceService(retriever, vocabularyDao));
+    EntityDao<ProcessedEntity> processedEntityDao = mock(EntityDao.class);
+
+    service = spy(new MongoDereferenceService(retriever, processedEntityDao, vocabularyDao));
   }
 
   @AfterEach

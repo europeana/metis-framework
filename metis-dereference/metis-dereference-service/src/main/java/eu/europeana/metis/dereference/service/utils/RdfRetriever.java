@@ -22,14 +22,14 @@ public class RdfRetriever {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RdfRetriever.class);
 
-  private final EntityDao entityDao;
+  private final EntityDao<OriginalEntity> entityDao;
 
   /**
    * Constructor.
    * 
    * @param entityDao Object that accesses the cache of original entities.
    */
-  public RdfRetriever(EntityDao entityDao) {
+  public RdfRetriever(EntityDao<OriginalEntity> entityDao) {
     this.entityDao = entityDao;
   }
 

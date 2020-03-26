@@ -10,6 +10,7 @@ import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
 import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
@@ -43,17 +44,21 @@ public class MongoDereferenceService implements DereferenceService {
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
 
   private final RdfRetriever retriever;
+  private final EntityDao<ProcessedEntity> processedEntityDao;
   private final VocabularyDao vocabularyDao;
 
   /**
    * Constructor.
    *
    * @param retriever Object that retrieves entities from their source services.
+   * @param processedEntityDao Object managing the processed entity cache.
    * @param vocabularyDao Object that accesses vocabularies.
    */
   @Autowired
-  public MongoDereferenceService(RdfRetriever retriever, VocabularyDao vocabularyDao) {
+  public MongoDereferenceService(RdfRetriever retriever,
+          EntityDao<ProcessedEntity> processedEntityDao, VocabularyDao vocabularyDao) {
     this.retriever = retriever;
+    this.processedEntityDao = processedEntityDao;
     this.vocabularyDao = vocabularyDao;
   }
 
@@ -150,8 +155,7 @@ public class MongoDereferenceService implements DereferenceService {
       throws JAXBException, TransformerException, URISyntaxException {
 
     // Try to get the entity and its vocabulary from the cache.
-    // TODO JV retrieve from processed entity cache.
-    final ProcessedEntity cachedEntity = null;
+    final ProcessedEntity cachedEntity = processedEntityDao.get(resourceId);
     String entityString = null;
     Vocabulary vocabulary = null;
     if (cachedEntity != null) {
@@ -179,7 +183,7 @@ public class MongoDereferenceService implements DereferenceService {
         entityToCache.setXml(entityString);
         entityToCache.setResourceId(resourceId);
         entityToCache.setVocabularyId(vocabulary.getId());
-        // TODO JV Save to processed entity cache.
+        processedEntityDao.save(entityToCache);
       }
     }
 
