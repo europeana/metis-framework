@@ -14,10 +14,8 @@ import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.metis.dereference.OriginalEntity;
-import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.EntityDao;
+import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
@@ -50,13 +48,9 @@ class MongoDereferenceServiceTest {
       }
     };
 
-    EntityDao<OriginalEntity> entityDao = EntityDao
-            .createForOriginalEntity(new MongoClient(mongoHost, mongoPort), "voctest");
-    RdfRetriever retriever = new RdfRetriever(entityDao);
+    ProcessedEntityDao processedEntityDao = mock(ProcessedEntityDao.class);
 
-    EntityDao<ProcessedEntity> processedEntityDao = mock(EntityDao.class);
-
-    service = spy(new MongoDereferenceService(retriever, processedEntityDao, vocabularyDao));
+    service = spy(new MongoDereferenceService(new RdfRetriever(), processedEntityDao, vocabularyDao));
   }
 
   @AfterEach

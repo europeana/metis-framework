@@ -10,7 +10,7 @@ import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.EntityDao;
+import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
 import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
@@ -44,7 +44,7 @@ public class MongoDereferenceService implements DereferenceService {
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
 
   private final RdfRetriever retriever;
-  private final EntityDao<ProcessedEntity> processedEntityDao;
+  private final ProcessedEntityDao processedEntityDao;
   private final VocabularyDao vocabularyDao;
 
   /**
@@ -55,8 +55,8 @@ public class MongoDereferenceService implements DereferenceService {
    * @param vocabularyDao Object that accesses vocabularies.
    */
   @Autowired
-  public MongoDereferenceService(RdfRetriever retriever,
-          EntityDao<ProcessedEntity> processedEntityDao, VocabularyDao vocabularyDao) {
+  public MongoDereferenceService(RdfRetriever retriever, ProcessedEntityDao processedEntityDao,
+          VocabularyDao vocabularyDao) {
     this.retriever = retriever;
     this.processedEntityDao = processedEntityDao;
     this.vocabularyDao = vocabularyDao;

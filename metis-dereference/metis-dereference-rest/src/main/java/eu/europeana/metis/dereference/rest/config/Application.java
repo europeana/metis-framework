@@ -4,9 +4,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.dereference.OriginalEntity;
-import eu.europeana.metis.dereference.ProcessedEntity;
-import eu.europeana.metis.dereference.service.dao.EntityDao;
+import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
@@ -113,13 +111,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  EntityDao<OriginalEntity> getOriginalEntityDao() {
-    return EntityDao.createForOriginalEntity(getEntityMongoClient(), entityDb);
-  }
-
-  @Bean
-  EntityDao<ProcessedEntity> getProcessedEntityDao() {
-    return EntityDao.createForProcessedEntity(getEntityMongoClient(), entityDb);
+  ProcessedEntityDao getProcessedEntityDao() {
+    return new ProcessedEntityDao(getEntityMongoClient(), entityDb);
   }
 
   @Bean
