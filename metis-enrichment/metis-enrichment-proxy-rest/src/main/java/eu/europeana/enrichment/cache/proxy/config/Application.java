@@ -68,7 +68,10 @@ public class Application implements WebMvcConfigurer {
 
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
-    return new RedisInternalEnricher(getEntityDao(), getRedisProvider(), true);
+    final RedisInternalEnricher enricher = new RedisInternalEnricher(getEntityDao(),
+            getRedisProvider());
+    new Thread(enricher::recreateCache).start();
+    return enricher;
   }
 
   @Bean

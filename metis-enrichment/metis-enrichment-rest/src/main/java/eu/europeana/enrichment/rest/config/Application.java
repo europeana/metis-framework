@@ -4,7 +4,6 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.Enricher;
-import eu.europeana.enrichment.service.EntityRemover;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
 import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import eu.europeana.enrichment.utils.RedisProvider;
@@ -107,12 +106,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   EnrichmentEntityDao getEntityDao() {
     return new EnrichmentEntityDao(enrichmentMongo, enrichmentMongoPort);
   }
-  
-  @Bean
-  EntityRemover entityRemover() {
-    return new EntityRemover(getRedisInternalEnricher(), getEntityDao());
-  }
-  
+
   @Bean
   Converter converter() {
     return new Converter();
@@ -125,7 +119,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
-    return new RedisInternalEnricher(getEntityDao(), getRedisProvider(), false);
+    return new RedisInternalEnricher(getEntityDao(), getRedisProvider());
   }
 
   @Bean

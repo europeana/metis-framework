@@ -71,12 +71,11 @@ public final class RestEndpoints {
   public static final String CACHE_EMPTY = "/cache";
 
   /* METIS ENRICHMENT Endpoint */
-  public static final String ENRICHMENT_DELETE = "/delete";
   public static final String ENRICHMENT_BYID = "/getById";
   public static final String ENRICHMENT_BYURI = "/getByUri";
   public static final String ENRICHMENT_ENRICH = "/enrich";
 
-  /*METIS REDIRECTS Endpoint*/
+  /* METIS REDIRECTS Endpoint */
   public static final String REDIRECT_SINGLE = "/redirect/single";
   public static final String REDIRECT_BATCH = "/redirect/batch";
 

@@ -36,6 +36,21 @@ public class RedisInternalEnricher {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RedisInternalEnricher.class);
 
+  private enum Status {
+
+    STARTED("started"), FINISHED("finished"), NONE("none");
+
+    private final String statusString;
+
+    Status(String statusString) {
+      this.statusString = statusString;
+    }
+
+    public String getStatusString() {
+      return statusString;
+    }
+  }
+
   private static final String CACHE_NAME_SEPARATOR = ":";
 
   private static final String CACHED_AGENT = "agent" + CACHE_NAME_SEPARATOR;
@@ -67,37 +82,16 @@ public class RedisInternalEnricher {
 
   /**
    * Constructor with all required parameters.
-   * <p>Based on the parameter {@code populate}, the populating of redis will be enabled or not and
-   * if so it will check the {@link #CACHED_ENRICHMENT_STATUS} field value in the redis db and
-   * depending on it's status it will start populating redis with values or not.</p>
    *
    * @param entityDao the dao where the entity will be read from
    * @param provider the redis connection provider
-   * @param populate the flag to enable populating or not, if applicable
    */
-  public RedisInternalEnricher(EnrichmentEntityDao entityDao, RedisProvider provider,
-      boolean populate) {
+  public RedisInternalEnricher(EnrichmentEntityDao entityDao, RedisProvider provider) {
     this.entityDao = entityDao;
     SimpleModule sm = new SimpleModule("test", Version.unknownVersion());
     sm.addSerializer(new ObjectIdSerializer());
     OBJECT_MAPPER.registerModule(sm);
     redisProvider = provider;
-    if (populate) {
-      Jedis jedis = redisProvider.getJedis();
-      if (jedis.exists(CACHED_ENRICHMENT_STATUS)
-          && (StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "started")
-          || StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "finished"))) {
-        if (LOGGER.isInfoEnabled()) {
-          LOGGER.info("Status 'enrichmentstatus' exists with value: {}", check());
-        }
-      } else {
-        LOGGER.info(
-            "Redis status 'enrichmentstatus' does not exist or is not in a 'started' or 'finished' state.");
-        LOGGER.info("Re-populating Redis from Mongo");
-        jedis.close();
-        populate();
-      }
-    }
   }
 
   private static List<EntityType> createEntityTypeList() {
@@ -109,37 +103,32 @@ public class RedisInternalEnricher {
     return entityTypes;
   }
 
+  private Status getCurrentStatus() {
+    final Jedis jedis = redisProvider.getJedis();
+    final String statusString = jedis.get(CACHED_ENRICHMENT_STATUS);
+    jedis.close();
+    return Arrays.stream(Status.values())
+            .filter(status -> status.getStatusString().equals(statusString)).findAny()
+            .orElse(Status.NONE);
+  }
+
+  private void setCurrentStatus(Status status) {
+    final Jedis jedis = redisProvider.getJedis();
+    if (status == null || status == Status.NONE) {
+      jedis.del(CACHED_ENRICHMENT_STATUS);
+    } else {
+      jedis.set(CACHED_ENRICHMENT_STATUS, status.statusString);
+    }
+    jedis.close();
+  }
+
   /**
    * Checks the status of the operation of populating fields from Mongo to Redis
    *
    * @return the status, can be "started" or "finished"
    */
   public final String check() {
-    Jedis jedis = redisProvider.getJedis();
-    String status = jedis.get(CACHED_ENRICHMENT_STATUS);
-    jedis.close();
-    return status;
-  }
-
-  /**
-   * Restarts the population of Mongo to Redis
-   */
-  public void recreate() {
-    LOGGER.info("Recreate triggered.");
-    Jedis jedis = redisProvider.getJedis();
-    jedis.del(CACHED_ENRICHMENT_STATUS);
-    jedis.close();
-    populate();
-  }
-
-  /**
-   * Removes all information from Redis
-   */
-  public void emptyCache() {
-    LOGGER.info("Empty cache");
-    Jedis jedis = redisProvider.getJedis();
-    jedis.flushAll();
-    jedis.close();
+    return getCurrentStatus().getStatusString();
   }
 
   /**
@@ -173,23 +162,31 @@ public class RedisInternalEnricher {
     }
   }
 
-  private void populate() {
+  /**
+   * Restarts the population of Mongo to Redis
+   */
+  public void recreateCache() {
+
+    // Empty the cache.
+    LOGGER.info("Emptying cache");
+    final Jedis jedis = redisProvider.getJedis();
+    jedis.flushAll();
+    jedis.close();
+
+    // Populate the cache. This can take some time.
+    LOGGER.info("Populating cache");
     long startTime = System.currentTimeMillis();
-    setStatus("started");
+    setCurrentStatus(Status.STARTED);
     for (EntityType type : ENTITY_TYPES) {
       loadEntities(type);
     }
-    setStatus("finished");
+    setCurrentStatus(Status.FINISHED);
+
+    // Finalize: perform logging.
     int totalSeconds = (int) ((System.currentTimeMillis() - startTime) / MILLISECONDS_PER_SECOND);
     int seconds = totalSeconds % SECONDS_PER_MINUTE;
     int minutes = (totalSeconds - seconds) / SECONDS_PER_MINUTE;
     LOGGER.info("Time spent in populating Redis. minutes: {}, seconds: {}", minutes, seconds);
-  }
-
-  private void setStatus(String status) {
-    Jedis jedis = redisProvider.getJedis();
-    jedis.set(CACHED_ENRICHMENT_STATUS, status);
-    jedis.close();
   }
 
   private void loadEntities(EntityType entityType) {
