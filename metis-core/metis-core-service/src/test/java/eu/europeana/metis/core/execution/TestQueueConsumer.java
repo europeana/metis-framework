@@ -129,7 +129,7 @@ class TestQueueConsumer {
     QueueConsumer queueConsumer = new QueueConsumer(rabbitmqConsumerChannel, null,
         workflowExecutorManager, workflowExecutorManager, workflowExecutionMonitor);
     queueConsumer.handleDelivery("1", envelope, basicProperties,
-        objectId.getBytes("UTF-8"));
+        objectId.getBytes(StandardCharsets.UTF_8));
   }
 
   @Test
@@ -149,7 +149,7 @@ class TestQueueConsumer {
     QueueConsumer queueConsumer = new QueueConsumer(rabbitmqConsumerChannel, null,
         workflowExecutorManager, workflowExecutorManager, workflowExecutionMonitor);
     queueConsumer.handleDelivery("1", envelope, basicProperties,
-        objectId.getBytes("UTF-8"));
+        objectId.getBytes(StandardCharsets.UTF_8));
 
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
   }
@@ -272,9 +272,9 @@ class TestQueueConsumer {
     ObjectId objectId1 = new ObjectId(Date.from(Instant.now().minusSeconds(1)));
     ObjectId objectId2 = new ObjectId(Date.from(Instant.now()));
     ObjectId objectId3 = new ObjectId(Date.from(Instant.now().plusSeconds(1)));
-    byte[] objectIdBytes1 = objectId1.toString().getBytes("UTF-8");
-    byte[] objectIdBytes2 = objectId2.toString().getBytes("UTF-8");
-    byte[] objectIdBytes3 = objectId3.toString().getBytes("UTF-8");
+    byte[] objectIdBytes1 = objectId1.toString().getBytes(StandardCharsets.UTF_8);
+    byte[] objectIdBytes2 = objectId2.toString().getBytes(StandardCharsets.UTF_8);
+    byte[] objectIdBytes3 = objectId3.toString().getBytes(StandardCharsets.UTF_8);
     WorkflowExecution workflowExecution1 = TestObjectFactory
         .createWorkflowExecutionObject();
     WorkflowExecution workflowExecution2 = TestObjectFactory
@@ -353,9 +353,9 @@ class TestQueueConsumer {
     ObjectId objectId1 = new ObjectId(Date.from(Instant.now().minusSeconds(1)));
     ObjectId objectId2 = new ObjectId(Date.from(Instant.now()));
     ObjectId objectId3 = new ObjectId(Date.from(Instant.now().plusSeconds(1)));
-    byte[] objectIdBytes1 = objectId1.toString().getBytes("UTF-8");
-    byte[] objectIdBytes2 = objectId2.toString().getBytes("UTF-8");
-    byte[] objectIdBytes3 = objectId3.toString().getBytes("UTF-8");
+    byte[] objectIdBytes1 = objectId1.toString().getBytes(StandardCharsets.UTF_8);
+    byte[] objectIdBytes2 = objectId2.toString().getBytes(StandardCharsets.UTF_8);
+    byte[] objectIdBytes3 = objectId3.toString().getBytes(StandardCharsets.UTF_8);
     WorkflowExecution workflowExecution1 = TestObjectFactory
         .createWorkflowExecutionObject();
     WorkflowExecution workflowExecution2 = TestObjectFactory

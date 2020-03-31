@@ -8,7 +8,6 @@ import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.ProcessedEntity;
@@ -21,6 +20,7 @@ import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -46,7 +46,6 @@ class MongoDereferenceServiceTest {
   private RedisProvider redisProvider;
   private Jedis jedis;
   private CacheDao cacheDao;
-  private EnrichmentClient enrichmentClient;
   private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
 
   @BeforeEach
@@ -63,8 +62,7 @@ class MongoDereferenceServiceTest {
 
     RdfRetriever retriever = new RdfRetriever(entityDao);
 
-    enrichmentClient = Mockito.mock(EnrichmentClient.class);
-    service = new MongoDereferenceService(retriever, cacheDao, vocabularyDao, enrichmentClient);
+    service = new MongoDereferenceService(retriever, cacheDao, vocabularyDao);
   }
 
   @AfterEach
@@ -82,7 +80,8 @@ class MongoDereferenceServiceTest {
     Vocabulary geonames = new Vocabulary();
     geonames.setUri("http://sws.geonames.org/");
     geonames.setXslt(
-        IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")));
+        IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl"),
+            StandardCharsets.UTF_8));
     geonames.setName("Geonames");
     geonames.setIterations(1);
     String geonamesId = vocabularyDao.save(geonames);
@@ -93,7 +92,6 @@ class MongoDereferenceServiceTest {
 
     place.setAbout("http://sws.geonames.org/my");
 
-    Mockito.when(enrichmentClient.getByUri(Mockito.anyString())).thenReturn(null);
     Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
 
     EnrichmentResultList result = service.dereference(entityId);

@@ -14,8 +14,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-
-import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.CommandExecutor.ProcessFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -32,10 +31,10 @@ import org.junit.jupiter.api.Test;
 class CommandExecutorTest {
 
   private static final List<String> COMMAND_INPUT = Collections.singletonList("Command input");
-  private static final List<String> COMMAND_OUTPUT = Collections.singletonList("Command output");
+  private static final String COMMAND_OUTPUT = "Command output";
   private static final String ERROR_OUTPUT = "Error output";
   private static final Supplier<InputStream> COMMAND_OUTPUT_STREAM = () -> new ByteArrayInputStream(
-      String.join("\n", COMMAND_OUTPUT).getBytes(Charset.defaultCharset()));
+      COMMAND_OUTPUT.getBytes(Charset.defaultCharset()));
   private static final Supplier<InputStream> ERROR_OUTPUT_STREAM = () -> new ByteArrayInputStream(
       ERROR_OUTPUT.getBytes(Charset.defaultCharset()));
   private static final Supplier<InputStream> EMPTY_STREAM = () -> new ByteArrayInputStream(
@@ -61,14 +60,15 @@ class CommandExecutorTest {
   }
 
   @Test
-  void testRegularCommand() throws IOException, CommandExecutionException {
+  void testRegularCommand() throws IOException, MediaExtractionException {
 
     // Set up regular command
     doReturn(COMMAND_OUTPUT_STREAM.get()).when(process).getInputStream();
     doReturn(EMPTY_STREAM.get()).when(process).getErrorStream();
 
     // Perform call
-    final List<String> result = commandExecutor.executeInternal(COMMAND_INPUT, false);
+    final String result =
+        commandExecutor.executeInternal(COMMAND_INPUT, false, MediaExtractionException::new);
 
     // Verify
     verify(processFactory, times(1)).createProcess(COMMAND_INPUT, false);
@@ -77,14 +77,15 @@ class CommandExecutorTest {
   }
 
   @Test
-  void testRedirectedCommand() throws IOException, CommandExecutionException {
+  void testRedirectedCommand() throws IOException, MediaExtractionException {
 
     // Set up regular command
     doReturn(COMMAND_OUTPUT_STREAM.get()).when(process).getInputStream();
     doReturn(EMPTY_STREAM.get()).when(process).getErrorStream();
 
     // Perform call
-    final List<String> result = commandExecutor.executeInternal(COMMAND_INPUT, true);
+    final String result =
+        commandExecutor.executeInternal(COMMAND_INPUT, true, MediaExtractionException::new);
 
     // Verify
     verify(processFactory, times(1)).createProcess(COMMAND_INPUT, true);
@@ -93,19 +94,19 @@ class CommandExecutorTest {
   }
 
   @Test
-  void testCommandWithOutputAndError() throws IOException, CommandExecutionException {
+  void testCommandWithOutputAndError() throws IOException {
 
     // Set up regular command
     doReturn(COMMAND_OUTPUT_STREAM.get()).when(process).getInputStream();
     doReturn(ERROR_OUTPUT_STREAM.get()).when(process).getErrorStream();
 
     // Perform call
-    final List<String> result = commandExecutor.executeInternal(COMMAND_INPUT, false);
+    assertThrows(MediaExtractionException.class,
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, false, MediaExtractionException::new));
 
     // Verify
     verify(processFactory, times(1)).createProcess(COMMAND_INPUT, false);
     verifyNoMoreInteractions(processFactory);
-    assertEquals(COMMAND_OUTPUT, result);
   }
 
   @Test
@@ -116,7 +117,8 @@ class CommandExecutorTest {
     doReturn(ERROR_OUTPUT_STREAM.get()).when(process).getErrorStream();
 
     // Perform call
-    assertThrows(IOException.class, () -> commandExecutor.executeInternal(COMMAND_INPUT, false));
+    assertThrows(MediaExtractionException.class,
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, false, MediaExtractionException::new));
   }
 
   @Test
@@ -126,8 +128,8 @@ class CommandExecutorTest {
     doReturn(false).when(process).waitFor(eq((long) TIMEOUT), eq(TimeUnit.SECONDS));
 
     // Perform call
-    assertThrows(CommandExecutionException.class,
-        () -> commandExecutor.executeInternal(COMMAND_INPUT, true));
+    assertThrows(MediaExtractionException.class,
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, true, MediaExtractionException::new));
 
     // Verify
     verify(process, times(1)).destroyForcibly();
@@ -141,49 +143,52 @@ class CommandExecutorTest {
         .waitFor(eq((long) TIMEOUT), eq(TimeUnit.SECONDS));
 
     // Perform call
-    assertThrows(CommandExecutionException.class,
-        () -> commandExecutor.executeInternal(COMMAND_INPUT, true));
+    assertThrows(MediaExtractionException.class,
+        () -> commandExecutor.executeInternal(COMMAND_INPUT, true, MediaExtractionException::new));
 
     // Verify
     verify(process, times(1)).destroyForcibly();
   }
 
   @Test
-  void testExecuteMethodHappyFlow() throws IOException, CommandExecutionException {
+  void testExecuteMethodHappyFlow() throws IOException, MediaExtractionException {
 
     // Set up the input and the output.
     final List<String> command = Collections.singletonList("command");
-    final List<String> result = Collections.singletonList("result");
-    doReturn(result).when(commandExecutor).executeInternal(any(), anyBoolean());
+    final String result = "result";
+    doReturn(result).when(commandExecutor).executeInternal(any(), anyBoolean(), any());
 
     // Run with redirect and verify that the internal call was made.
-    assertEquals(result, commandExecutor.execute(command, true));
-    verify(commandExecutor, times(1)).executeInternal(command, true);
-    verify(commandExecutor, times(1)).executeInternal(any(), anyBoolean());
+    assertEquals(result, commandExecutor.execute(command, true, MediaExtractionException::new));
+    verify(commandExecutor, times(1)).executeInternal(eq(command), eq(true), any());
+    verify(commandExecutor, times(1)).executeInternal(any(), anyBoolean(), any());
 
     // Run without redirect and verify that the internal call was made.
-    assertEquals(result, commandExecutor.execute(command, false));
-    verify(commandExecutor, times(1)).executeInternal(command, false);
-    verify(commandExecutor, times(2)).executeInternal(any(), anyBoolean());
+    assertEquals(result, commandExecutor.execute(command, false, MediaExtractionException::new));
+    verify(commandExecutor, times(1)).executeInternal(eq(command), eq(false), any());
+    verify(commandExecutor, times(2)).executeInternal(any(), anyBoolean(), any());
   }
 
   @Test
-  void testExecuteMethodWithExceptions() throws IOException, CommandExecutionException {
+  void testExecuteMethodWithExceptions() throws IOException {
 
     // Define command
     final List<String> command = Collections.singletonList("command");
 
-    // Test CommandExecutionException
-    doThrow(CommandExecutionException.class).when(commandExecutor)
-        .executeInternal(eq(command), eq(true));
-    assertThrows(CommandExecutionException.class, () -> commandExecutor.execute(command, true));
+    // Test MediaExtractionException
+    doThrow(MediaExtractionException.class).when(commandExecutor)
+        .executeInternal(eq(command), eq(true), any());
+    assertThrows(MediaExtractionException.class,
+        () -> commandExecutor.execute(command, true, MediaExtractionException::new));
 
     // Test IOException
-    doThrow(IOException.class).when(commandExecutor).executeInternal(eq(command), eq(true));
-    assertThrows(CommandExecutionException.class, () -> commandExecutor.execute(command, true));
+    doThrow(IOException.class).when(commandExecutor).executeInternal(eq(command), eq(true), any());
+    assertThrows(MediaExtractionException.class,
+        () -> commandExecutor.execute(command, true, MediaExtractionException::new));
 
     // Test RuntimeException
-    doThrow(RuntimeException.class).when(commandExecutor).executeInternal(eq(command), eq(true));
-    assertThrows(CommandExecutionException.class, () -> commandExecutor.execute(command, true));
+    doThrow(RuntimeException.class).when(commandExecutor).executeInternal(eq(command), eq(true), any());
+    assertThrows(MediaExtractionException.class,
+        () -> commandExecutor.execute(command, true, MediaExtractionException::new));
   }
 }

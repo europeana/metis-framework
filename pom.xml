@@ -4,7 +4,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>1.7.0</version>
+  <version>1.8.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -25,7 +25,7 @@
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>v1.7.0</tag>
+    <tag>v1.8.0</tag>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
@@ -43,7 +43,7 @@
   </distributionManagement>
 
   <properties>
-    <version.ecloud>1.8.0</version.ecloud>
+    <version.ecloud>1.9.0</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
     <version.redisson>3.11.0</version.redisson>
     <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
@@ -78,6 +78,8 @@
     <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
+    <version.javax.xml.bind>2.3.1</version.javax.xml.bind>
+    <version.javax.annotation>1.3.2</version.javax.annotation>
     <version.hibernate.core>5.4.3.Final</version.hibernate.core>
     <version.postgresql>42.2.4</version.postgresql>
     <version.guava>16.0</version.guava>
@@ -108,6 +110,21 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>${version.javax.xml.bind}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>${version.javax.xml.bind}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>${version.javax.annotation}</version>
+      </dependency>
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
@@ -394,12 +411,11 @@
 
   </dependencies>
   <repositories>
-
     <!--Release repositories-->
     <repository>
-      <id>libs-release-local</id>
-      <name>libs-release-local</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
+      <id>libs-release</id>
+      <name>libs-release</name>
+      <url>http://artifactory.eanadev.org/artifactory/libs-release</url>
       <releases>
         <enabled>true</enabled>
       </releases>
@@ -408,74 +424,15 @@
       </snapshots>
     </repository>
     <repository>
-      <id>ext-release-local</id>
-      <name>ext-release-local</name>
-      <url>http://artifactory.eanadev.org/artifactory/ext-release-local</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>uim-releases-local</id>
-      <name>UIM Releases Repository</name>
-      <url>http://artifactory.eanadev.org/artifactory/uim-releases-local</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-
-    <!--Snapshot repositories-->
-    <repository>
-      <id>ext-snapshots-local</id>
-      <name>ext-snapshot-local</name>
-      <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
+      <id>libs-snapshot</id>
+      <name>libs-snapshot</name>
+      <url>http://artifactory.eanadev.org/artifactory/libs-snapshot</url>
       <releases>
         <enabled>false</enabled>
       </releases>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
-    </repository>
-    <repository>
-      <id>libs-snapshot-local</id>
-      <name>libs-snapshot-local</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>sonatype-snapshots</id>
-      <name>sonatype-snapshots</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-
-    <!--Release and snapshot repositories-->
-    <repository>
-      <id>maven2-repository.dev.java.net</id>
-      <name>Java.net Maven 2 Repository (mirror)</name>
-      <url>http://artifactory.eanadev.org/artifactory/java.net.m2</url>
-    </repository>
-
-    <!--ZohoCRM libraries-->
-    <repository>
-      <id>maven.zohodl.com</id>
-      <url>https://maven.zohodl.com</url>
     </repository>
   </repositories>
   <build>

@@ -1,12 +1,20 @@
 package eu.europeana.enrichment.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import eu.europeana.corelib.definitions.jibx.AboutType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Utility class for {@link ProxyType} operations in the {@link RDF}
@@ -17,27 +25,45 @@ public final class RdfProxyUtils {
   }
 
   /**
-   * Add a field with the specified {@link AboutType} to the EuropeanaProxy.
+   * Add a link to the specified {@link AboutType} to the EuropeanaProxy.
    *
    * @param rdf the rdf to append to
-   * @param about the about value to use for the field
-   * @param fieldName the name of the field to add
+   * @param link the about value to link
+   * @param linkTypes the types of the link to add in the europeana proxy.
    */
-  public static void appendToEuropeanaProxy(RDF rdf, AboutType about, String fieldName) {
-    ProxyType europeanaProxy = getEuropeanaProxy(rdf);
-    appendToEuropeanaProxy(europeanaProxy, EnrichmentFields.valueOf(fieldName), about.getAbout());
+  public static void appendLinkToEuropeanaProxy(RDF rdf, String link,
+          Set<EnrichmentFields> linkTypes) {
+    final Map<EnrichmentFields, Set<String>> allProxyLinksPerType = getAllProxyLinksPerType(rdf);
+    final ProxyType europeanaProxy = getEuropeanaProxy(rdf);
+    for (EnrichmentFields linkType : linkTypes) {
+      final boolean alreadyExists = Optional.ofNullable(allProxyLinksPerType.get(linkType))
+              .orElseGet(Collections::emptySet).contains(link);
+      if (!alreadyExists) {
+        final List<EuropeanaType.Choice> choices = Optional
+                .ofNullable(europeanaProxy.getChoiceList()).orElseGet(ArrayList::new);
+        choices.add(linkType.createChoice(link));
+        europeanaProxy.setChoiceList(choices);
+      }
+    }
     replaceProxy(rdf, europeanaProxy);
   }
 
-  private static void appendToEuropeanaProxy(ProxyType europeanaProxy,
-      EnrichmentFields enrichmentField, String about) {
-    //Choice might be null. That probably happens because of jibx deserialization works.
-    List<EuropeanaType.Choice> choices =
-        europeanaProxy.getChoiceList() == null ? new ArrayList<>() : europeanaProxy.getChoiceList();
-    choices.add(enrichmentField.createChoice(about));
-    europeanaProxy.setChoiceList(choices);
+  private static Map<EnrichmentFields, Set<String>> getAllProxyLinksPerType(RDF rdf) {
+    final List<EuropeanaType.Choice> allChoices = Optional.ofNullable(rdf.getProxyList())
+            .map(List::stream).orElseGet(Stream::empty).filter(Objects::nonNull)
+            .map(ProxyType::getChoiceList).filter(Objects::nonNull).flatMap(List::stream)
+            .filter(Objects::nonNull).collect(Collectors.toList());
+    final Map<EnrichmentFields, Set<String>> result = new EnumMap<>(EnrichmentFields.class);
+    for (EnrichmentFields linkType : EnrichmentFields.values()) {
+      final Set<String> links = allChoices.stream().map(linkType::getResourceIfRightChoice)
+              .filter(Objects::nonNull).collect(Collectors.toSet());
+      if (!links.isEmpty()) {
+        result.put(linkType, links);
+      }
+    }
+    return result;
   }
-
+  
   /**
    * Retrieve the Provider proxy from the proxy list in the {@link RDF}
    *

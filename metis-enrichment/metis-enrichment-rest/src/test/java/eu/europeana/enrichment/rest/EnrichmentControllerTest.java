@@ -220,7 +220,7 @@ public class EnrichmentControllerTest {
     namespaceMap.put("owl", "http://www.w3.org/2002/07/owl#");
     namespaceMap.put("xml", "http://www.w3.org/XML/1998/namespace");
     namespaceMap.put("dc", "http://purl.org/dc/elements/1.1/");
-    namespaceMap.put("rdaGr2", "http://RDVocab.info/ElementsGr2/");
+    namespaceMap.put("rdaGr2", "http://rdvocab.info/ElementsGr2/");
     return namespaceMap;
   }
 }

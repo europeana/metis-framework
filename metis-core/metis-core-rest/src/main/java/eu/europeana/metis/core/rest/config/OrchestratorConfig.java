@@ -179,9 +179,10 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public WorkflowExecutionFactory getWorkflowExecutionFactory(
-      WorkflowExecutionDao workflowExecutionDao, DatasetXsltDao datasetXsltDao) {
+      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
+      DatasetXsltDao datasetXsltDao) {
     WorkflowExecutionFactory workflowExecutionFactory =
-        new WorkflowExecutionFactory(datasetXsltDao);
+        new WorkflowExecutionFactory(datasetXsltDao, workflowExecutionDao, workflowUtils);
     workflowExecutionFactory
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
     workflowExecutionFactory

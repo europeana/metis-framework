@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.dao;
 
 import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -32,6 +31,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -93,7 +93,7 @@ public class WorkflowUtils {
    * allowed.</li>
    * </ul>
    */
-  public ExecutablePlugin validateWorkflowPlugins(Workflow workflow,
+  public PluginWithExecutionId<ExecutablePlugin> validateWorkflowPlugins(Workflow workflow,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
     // Sanity checks: workflow should have a plugin list.
@@ -274,13 +274,13 @@ public class WorkflowUtils {
    * @param pluginType the type of the new {@link ExecutablePluginType} that is to be executed.
    * @param enforcedPredecessorType If not null, overrides the predecessor type of the plugin.
    * @param datasetId the dataset ID of the new plugin's dataset.
-   * @return the {@link AbstractExecutablePlugin} that the pluginType execution will use as a
+   * @return the {@link ExecutablePlugin} that the pluginType execution will use as a
    * source. Can be null in case the given type does not require a predecessor.
    * @throws PluginExecutionNotAllowed In case a valid predecessor is required, but not found.
    */
-  public ExecutablePlugin computePredecessorPlugin(ExecutablePluginType pluginType,
-      ExecutablePluginType enforcedPredecessorType, String datasetId)
-      throws PluginExecutionNotAllowed {
+  public PluginWithExecutionId<ExecutablePlugin> computePredecessorPlugin(
+          ExecutablePluginType pluginType, ExecutablePluginType enforcedPredecessorType,
+          String datasetId) throws PluginExecutionNotAllowed {
 
     // If the plugin type does not need a predecessor (even the enforced one) we are done.
     final Set<ExecutablePluginType> defaultPredecessorTypes = getPredecessorTypes(pluginType);
@@ -293,10 +293,9 @@ public class WorkflowUtils {
         .<Set<ExecutablePluginType>>map(EnumSet::of).orElse(defaultPredecessorTypes);
 
     // Find the latest successful harvest to compare with. If none exist, throw exception.
-    final ExecutablePlugin latestHarvest = Optional
+    final PluginWithExecutionId<ExecutablePlugin> latestHarvest = Optional
         .ofNullable(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
-            HARVEST_PLUGIN_GROUP, true))
-        .map(PluginWithExecutionId::getPlugin).orElseThrow(
+            HARVEST_PLUGIN_GROUP, true)).orElseThrow(
             () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
 
     // Find the latest successful plugin of each type and filter on existence of successful records.
@@ -313,8 +312,9 @@ public class WorkflowUtils {
             Comparator.reverseOrder()));
 
     // Find the first plugin that satisfies the root check. If none found, throw exception.
-    return sortedSuccessfulPlugins.filter(plugin -> rootAncestorEquals(plugin, latestHarvest))
-        .map(PluginWithExecutionId::getPlugin).findFirst().orElseThrow(
+    final Predicate<PluginWithExecutionId<ExecutablePlugin>> rootCheck = plugin -> getRootAncestor(
+            plugin).equals(latestHarvest);
+    return sortedSuccessfulPlugins.filter(rootCheck).findFirst().orElseThrow(
             () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
   }
 
@@ -324,18 +324,21 @@ public class WorkflowUtils {
     return progress != null && progress.getProcessedRecords() > progress.getErrors();
   }
 
-  private boolean rootAncestorEquals(PluginWithExecutionId<ExecutablePlugin> plugin,
-      ExecutablePlugin targetRoot) {
-
-    // Compute the root of the plugin: either the first 
+  /**
+   * Obtains the root ancestor plugin of the given plugin. This returns the one ancestor plugin that
+   * does not itself have a predecessor.
+   *
+   * @param plugin The plugin for which to find the root ancestor.
+   * @return The root ancestor. Is not null.
+   */
+  public PluginWithExecutionId<ExecutablePlugin> getRootAncestor(
+          PluginWithExecutionId<ExecutablePlugin> plugin) {
     final WorkflowExecution execution = workflowExecutionDao.getById(plugin.getExecutionId());
     final List<Pair<ExecutablePlugin, WorkflowExecution>> evolution =
-        compileVersionEvolution(plugin.getPlugin(), execution);
-    final ExecutablePlugin foundRoot =
-        evolution.stream().map(Pair::getLeft).findFirst().orElseGet(plugin::getPlugin);
-
-    // Check that the roots are equal.
-    return foundRoot.getId().equals(targetRoot.getId());
+            compileVersionEvolution(plugin.getPlugin(), execution);
+    return evolution.stream().findFirst()
+            .map(pair -> new PluginWithExecutionId<>(pair.getRight(), pair.getLeft()))
+            .orElse(plugin);
   }
 
   /**

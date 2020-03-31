@@ -76,6 +76,7 @@ public final class RestEndpoints {
 
   /* METIS ENRICHMENT Endpoint */
   public static final String ENRICHMENT_DELETE = "/delete";
+  public static final String ENRICHMENT_BYID = "/getById";
   public static final String ENRICHMENT_BYURI = "/getByUri";
   public static final String ENRICHMENT_ENRICH = "/enrich";
 

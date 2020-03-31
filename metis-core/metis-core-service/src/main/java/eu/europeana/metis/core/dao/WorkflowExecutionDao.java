@@ -239,7 +239,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
                 .field(DATASET_ID.getFieldName()).equal(workflowExecution.getDatasetId())
-                .project("_id", true).get()) != null;
+                .project("_id", true).first()) != null;
   }
 
   /**
@@ -379,46 +379,15 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Because of the unwind, we know that the plugin we need is always the first one.
     return Optional.ofNullable(metisPluginsIterator).filter(Iterator::hasNext).map(Iterator::next)
-        .filter(execution -> !execution.getMetisPlugins().isEmpty())
-        .map(execution -> new PluginWithExecutionId<MetisPlugin>(
-            execution.getId().toString(), execution.getMetisPlugins().get(0)))
-        .orElse(null);
+            .filter(execution -> !execution.getMetisPlugins().isEmpty())
+            .map(execution -> new PluginWithExecutionId<MetisPlugin>(execution,
+                    execution.getMetisPlugins().get(0)))
+            .orElse(null);
   }
 
   private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum> set) {
     if (set == null || set.isEmpty() || set.stream().anyMatch(Objects::isNull)) {
       throw new IllegalArgumentException();
-    }
-  }
-
-  /**
-   * This object contains a pair consisting of a workflow execution ID and a plugin.
-   *
-   * @param <T> The plugin type.
-   */
-  public static class PluginWithExecutionId<T extends MetisPlugin> {
-
-    private final String executionId;
-    private final T plugin;
-
-    /**
-     * Constructor.
-     *
-     * @param executionId The execution ID.
-     * @param plugin The plugin.
-     */
-    public PluginWithExecutionId(String executionId, T plugin) {
-      super();
-      this.executionId = executionId;
-      this.plugin = plugin;
-    }
-
-    public String getExecutionId() {
-      return executionId;
-    }
-
-    public T getPlugin() {
-      return plugin;
     }
   }
 
@@ -502,38 +471,42 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate,
       int nextPage, int pageCount) {
 
-    // Prepare pagination and check that there is something to query
-    final Pagination pagination = createPagination(nextPage, pageCount, false);
-    if (pagination.getLimit() < 1) {
-      return createResultList(Collections.emptyList(), pagination);
-    }
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
 
-    // Create the aggregate pipeline
-    final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
-        .createAggregation(WorkflowExecution.class);
+      // Prepare pagination and check that there is something to query
+      final Pagination pagination = createPagination(nextPage, pageCount, false);
+      if (pagination.getLimit() < 1) {
+        return createResultList(Collections.emptyList(), pagination);
+      }
 
-    // Step 1: create query filters
-    final Query<WorkflowExecution> query = createQueryFilters(datasetIds, pluginStatuses,
-        pluginTypes, fromDate, toDate);
-    pipeline.match(query);
+      // Create the aggregate pipeline
+      final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
+              .createAggregation(WorkflowExecution.class);
 
-    // Step 2: determine status index field
-    final String statusIndexField = determineOrderingStatusIndex(pipeline);
+      // Step 1: create query filters
+      final Query<WorkflowExecution> query = createQueryFilters(datasetIds, pluginStatuses,
+              pluginTypes, fromDate, toDate);
+      pipeline.match(query);
 
-    // Step 3: Sort - first on the status index, then on the createdDate.
-    pipeline.sort(Sort.ascending(statusIndexField),
-        Sort.descending(CREATED_DATE.getFieldName()));
+      // Step 2: determine status index field
+      final String statusIndexField = determineOrderingStatusIndex(pipeline);
 
-    // Step 4: Apply pagination
-    pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
+      // Step 3: Sort - first on the status index, then on the createdDate.
+      pipeline.sort(Sort.ascending(statusIndexField),
+              Sort.descending(CREATED_DATE.getFieldName()));
 
-    // Step 5: Create join of dataset and execution to combine the data information
-    joinDatasetAndWorkflowExecution(pipeline);
+      // Step 4: Apply pagination
+      pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
 
-    // Done: execute and return result.
-    final List<ExecutionDatasetPair> result = new ArrayList<>();
-    pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
-    return createResultList(result, pagination);
+      // Step 5: Create join of dataset and execution to combine the data information
+      joinDatasetAndWorkflowExecution(pipeline);
+
+      // Done: execute and return result.
+      final List<ExecutionDatasetPair> result = new ArrayList<>();
+      pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
+      return createResultList(result, pagination);
+
+    });
   }
 
   private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,
@@ -709,7 +682,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .retryableExternalRequestConnectionReset(() ->
             morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id")
                 .equal(id)
-                .project(WORKFLOW_STATUS.getFieldName(), true).get());
+                .project(WORKFLOW_STATUS.getFieldName(), true).first());
     return workflowExecution != null
         && workflowExecution.getWorkflowStatus() == WorkflowStatus.CANCELLED;
   }
@@ -725,7 +698,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     WorkflowExecution workflowExecution = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id")
-                .equal(id).project("cancelling", true).get());
+                .equal(id).project("cancelling", true).first());
     return workflowExecution != null && workflowExecution.isCancelling();
   }
 

@@ -42,6 +42,7 @@ public enum EdmLabel {
   EUROPEANA_AGGREGATION_EDM_COUNTRY("europeana_aggregation_edm_country"), 
   EUROPEANA_AGGREGATION_EDM_LANGUAGE("europeana_aggregation_edm_language"),
   EUROPEANA_AGGREGATION_EDM_PREVIEW("europeana_aggregation_edm_preview"),
+  EDM_DATASETNAME("edm_datasetName"),
   
   // WEB RESOURCE FIELDS
   EDM_WEB_RESOURCE("edm_webResource"), 

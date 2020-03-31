@@ -1,12 +1,5 @@
 package eu.europeana.metis.data.checker.service.persistence;
 
-import java.io.IOException;
-import java.util.Date;
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -27,6 +20,13 @@ import eu.europeana.indexing.AbstractConnectionProvider;
 import eu.europeana.indexing.Indexer;
 import eu.europeana.indexing.IndexerFactory;
 import eu.europeana.indexing.exception.IndexingException;
+import java.io.IOException;
+import java.util.Date;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Record persistence DAO Created by ymamakis on 9/2/16.
@@ -41,13 +41,14 @@ public class RecordDao {
   /**
    * Constructor with required fields.
    *
-   * @param connectionProvider
+   * @param connectionProvider The connection provider for this recordDao.
    * @throws IndexingException In case of problems setting up the indexer.
    */
   @Autowired
   public RecordDao(AbstractConnectionProvider connectionProvider) throws IndexingException {
-    this(connectionProvider.getSolrClient(), connectionProvider.getMongoClient(),
-        new IndexerFactory(connectionProvider.getMongoClient(), connectionProvider.getSolrClient())
+    this(connectionProvider.getSolrClient(), connectionProvider.getEdmMongoClient(),
+        new IndexerFactory(connectionProvider.getEdmMongoClient(),
+            connectionProvider.getRecordRedirectDao(), connectionProvider.getSolrClient())
             .getIndexer());
   }
 
@@ -61,16 +62,16 @@ public class RecordDao {
    * Persist a record in mongo and solr
    *
    * @param rdf The record
-   * @param recordDate
+   * @param recordDate The date that would represent the created/updated date of a record
    * @throws IndexingException In case indexing failed.
    */
   public void createRecord(RDF rdf, Date recordDate) throws IndexingException {
-    indexer.indexRdf(rdf, recordDate, false);
+    indexer.indexRdf(rdf, recordDate, false, null, false);
   }
 
   /**
    * Commit all the changes to the databases.
-   * 
+   *
    * @throws IndexingException In case of problems with committing the changes to the Sorl server.
    */
   public void commit() throws IndexingException {
@@ -79,12 +80,13 @@ public class RecordDao {
 
   /**
    * Delete the records persisted over the last 24h
-   * 
+   *
    * @throws SolrServerException In case a problem occurred while deleting the records from the Solr
-   *         server.
-   * @throws IOException In case a problem occurred while deleting the records from the Solr server.
+   * server.
+   * @throws IOException In case a problem occurred while deleting the records from the Solr
+   * server.
    * @throws IndexingException In case a problem occurred while committing the changes to the Solr
-   *         server.
+   * server.
    */
   public void deleteRecordIdsByTimestamp()
       throws SolrServerException, IOException, IndexingException {

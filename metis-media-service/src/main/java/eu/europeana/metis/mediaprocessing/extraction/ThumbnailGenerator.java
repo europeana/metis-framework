@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
@@ -22,10 +21,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -40,7 +41,6 @@ class ThumbnailGenerator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ThumbnailGenerator.class);
 
-  private static final String PDF_MIME_TYPE = "application/pdf";
   private static final String PNG_MIME_TYPE = "image/png";
   private static final String JPEG_MIME_TYPE = "image/jpeg";
 
@@ -58,11 +58,10 @@ class ThumbnailGenerator {
     }
   }
 
-  private static final String COMMAND_RESULT_FORMAT = "%w\n%h\n%[colorspace]\n";
+  private static final String COMMAND_RESULT_FORMAT = "\n%w\n%h\n%[colorspace]\n";
   private static final int COMMAND_RESULT_WIDTH_LINE = 0;
   private static final int COMMAND_RESULT_HEIGHT_LINE = 1;
   private static final int COMMAND_RESULT_COLORSPACE_LINE = 2;
-  private static final int COMMAND_RESULT_COLORS_LINE = 3;
   private static final int COMMAND_RESULT_MAX_COLORS = 6;
 
   private static String globalMagickCommand;
@@ -143,14 +142,14 @@ class ThumbnailGenerator {
 
     // Try the 'magick' command for ImageMagick 7.
     try {
-      final List<String> lines =
-          commandExecutor.execute(Arrays.asList("magick", "-version"), true);
-      if (String.join("", lines).startsWith("Version: ImageMagick 7")) {
+      final String im7Response = commandExecutor.execute(Arrays.asList("magick", "-version"), true,
+              MediaProcessorException::new);
+      if (im7Response.startsWith("Version: ImageMagick 7")) {
         final String result = "magick";
         LOGGER.info("Found ImageMagic 7. Command: {}", result);
         return result;
       }
-    } catch (CommandExecutionException e) {
+    } catch (MediaProcessorException e) {
       LOGGER.info("Could not find ImageMagick 7 because of: {}.", e.getMessage());
       LOGGER.debug("Could not find ImageMagick 7 due to following problem.", e);
     }
@@ -160,9 +159,9 @@ class ThumbnailGenerator {
         System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win");
     List<String> paths;
     try {
-      paths =
-          commandExecutor.execute(Arrays.asList(isWindows ? "where" : "which", "convert"), true);
-    } catch (CommandExecutionException e) {
+      paths = splitByNewLine(commandExecutor.execute(Arrays.asList(
+              isWindows ? "where" : "which", "convert"), true, MediaProcessorException::new));
+    } catch (MediaProcessorException e) {
       LOGGER.warn("Could not find ImageMagick 6 due to following problem.", e);
       paths = Collections.emptyList();
     }
@@ -170,13 +169,13 @@ class ThumbnailGenerator {
     // Try the 'convert' command for ImageMagick 6: try executables to find the right one.
     for (String path : paths) {
       try {
-        final List<String> lines =
-            commandExecutor.execute(Arrays.asList(path, "-version"), true);
-        if (String.join("", lines).startsWith("Version: ImageMagick 6")) {
+        final String pathResult = commandExecutor.execute(Arrays.asList(path, "-version"), true,
+                MediaProcessorException::new);
+        if (pathResult.startsWith("Version: ImageMagick 6")) {
           LOGGER.info("Found ImageMagic 6. Command: {}", path);
           return path;
         }
-      } catch (CommandExecutionException e) {
+      } catch (MediaProcessorException e) {
         LOGGER.info("Could not find ImageMagick 6 at path {} because of: {}.", path,
             e.getMessage());
         LOGGER.debug("Could not find ImageMagick 6 at path {} due to following problem.", path, e);
@@ -187,6 +186,11 @@ class ThumbnailGenerator {
     LOGGER.error("Could not find ImageMagick 6 or 7. See previous log statements for details.");
     throw new MediaProcessorException("Could not find ImageMagick 6 or 7.");
   }
+  
+  private static List<String> splitByNewLine(String input) {
+    return Stream.of(input.split("\\R")).filter(StringUtils::isNotBlank)
+        .collect(Collectors.toList());
+  }
 
   /**
    * This is the main method of this class. It generates thumbnails for the given content.
@@ -194,16 +198,21 @@ class ThumbnailGenerator {
    * @param url The URL of the content. Used for determining the name of the output files.
    * @param detectedMimeType The detected mime type of the content.
    * @param content The resource content for which to generate thumbnails.
+   * @param removeAlpha Whether any alpha should be removed and replaced with a white background.
    * @return The metadata of the image as gathered during processing, together with the thumbnails.
    * The list can be null or empty, but does not contain null values or thumbnails without content.
    * @throws MediaExtractionException In case a problem occurred.
    */
-  Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url,
-      String detectedMimeType, File content) throws MediaExtractionException {
+  Pair<ImageMetadata, List<Thumbnail>> generateThumbnails(String url, String detectedMimeType,
+          File content, boolean removeAlpha) throws MediaExtractionException {
 
     // Sanity checking
     if (content == null) {
       throw new MediaExtractionException("File content is null");
+    }
+    if (MediaType.getMediaType(detectedMimeType) != MediaType.IMAGE) {
+      throw new MediaExtractionException(
+              "Cannot perform thumbnail generation on mime type '" + detectedMimeType + "'.");
     }
 
     // TODO JV We should change this into a whitelist of supported formats.
@@ -219,7 +228,7 @@ class ThumbnailGenerator {
     // Load the thumbnails: delete the temporary files, and the thumbnails in case of exceptions.
     final ImageMetadata image;
     try {
-      image = generateThumbnailsInternal(thumbnails, detectedMimeType, content);
+      image = generateThumbnailsInternal(thumbnails, removeAlpha, content);
     } catch (RuntimeException e) {
       closeAllThumbnailsSilently(thumbnails);
       throw new MediaExtractionException("Unexpected error during processing", e);
@@ -243,13 +252,13 @@ class ThumbnailGenerator {
   }
 
   List<String> createThumbnailGenerationCommand(List<ThumbnailWithSize> thumbnails,
-      String detectedMimeType, File content) {
+      boolean removeAlpha, File content, String contentMarker) {
 
     // Compile the command
+    final String commandResultFormat = contentMarker + COMMAND_RESULT_FORMAT + contentMarker + "\n";
     final List<String> command = new ArrayList<>(Arrays.asList(magickCmd, content.getPath() + "[0]",
-        "-format", COMMAND_RESULT_FORMAT, "-write", "info:"));
-    if (PDF_MIME_TYPE.equals(detectedMimeType)) {
-      // in case of text (i.e. PDFs): specify white background
+            "-format", commandResultFormat, "-write", "info:"));
+    if (removeAlpha) {
       command.addAll(Arrays.asList("-background", "white", "-alpha", "remove"));
     }
     final int thumbnailCounter = thumbnails.size();
@@ -267,23 +276,23 @@ class ThumbnailGenerator {
         command.add(")");
       }
     }
+    final String colorResultFormat = "\n" + contentMarker + "\n%c\n" + contentMarker;
     command.addAll(Arrays.asList("-colorspace", "sRGB", "-dither", "Riemersma", "-remap",
-        colormapFile, "-format", "\n%c", "histogram:info:"));
+            colormapFile, "-format", colorResultFormat, "histogram:info:"));
     return command;
   }
 
   private ImageMetadata generateThumbnailsInternal(List<ThumbnailWithSize> thumbnails,
-      String detectedMimeType, File content) throws MediaExtractionException {
+      boolean removeAlpha, File content) throws MediaExtractionException {
 
     // Generate the thumbnails and read image properties.
-    final List<String> response;
-    try {
-      response = commandExecutor
-          .execute(createThumbnailGenerationCommand(thumbnails, detectedMimeType, content), false);
-    } catch (CommandExecutionException e) {
-      throw new MediaExtractionException("Could not analyze content and generate thumbnails.", e);
-    }
-    final ImageMetadata result = parseCommandResponse(response);
+    final String contentMarker = UUID.randomUUID().toString();
+    final List<String> command =
+        createThumbnailGenerationCommand(thumbnails, removeAlpha, content, contentMarker);
+    final String response = commandExecutor.execute(command, false,
+            (message, cause) -> new MediaExtractionException(
+                    "Could not analyze content and generate thumbnails: " + message, cause));
+    final ImageMetadata result = parseCommandResponse(response, contentMarker);
 
     // Check the thumbnails.
     for (ThumbnailWithSize thumbnail : thumbnails) {
@@ -296,8 +305,7 @@ class ThumbnailGenerator {
         }
 
         // Copy the thumbnail. In case of images: don't make a thumbnail larger than the original.
-        final boolean isImage = MediaType.getMediaType(detectedMimeType) == MediaType.IMAGE;
-        final boolean shouldUseOriginal = isImage && result.getWidth() < thumbnail.getImageSize();
+        final boolean shouldUseOriginal = result.getWidth() < thumbnail.getImageSize();
         if (shouldUseOriginal) {
           copyFile(content, thumbnail);
         } else {
@@ -332,7 +340,7 @@ class ThumbnailGenerator {
     // Decide on the thumbnail file type
     final String imageMagickThumbnailTypePrefix;
     final String thumbnailMimeType;
-    if (PDF_MIME_TYPE.equals(detectedMimeType) || PNG_MIME_TYPE.equals(detectedMimeType)) {
+    if (PNG_MIME_TYPE.equals(detectedMimeType)) {
       imageMagickThumbnailTypePrefix = "png:";
       thumbnailMimeType = PNG_MIME_TYPE;
     } else {
@@ -350,7 +358,8 @@ class ThumbnailGenerator {
         result.add(
             new ThumbnailWithSize(thumbnail, thumbnailKind.size, imageMagickThumbnailTypePrefix));
       }
-    } catch (IOException e) {
+    } catch (RuntimeException | IOException e) {
+      closeAllThumbnailsSilently(result);
       throw new MediaExtractionException("Could not create temporary thumbnail files.", e);
     }
 
@@ -368,14 +377,36 @@ class ThumbnailGenerator {
     }
   }
 
-  ImageMetadata parseCommandResponse(List<String> response) throws MediaExtractionException {
+  ImageMetadata parseCommandResponse(String response, String contentMarker)
+      throws MediaExtractionException {
     try {
 
-      // Get the dominant colors
+      // Divide in segments and check their number.
+      final String[] segments = response.split(Pattern.quote(contentMarker), 6);
+      if (segments.length < 5) {
+        throw new MediaExtractionException(
+                "Could not extract the ImageMagick response: there are not enough content markers.");
+      }
+      if (segments.length > 5) {
+        throw new MediaExtractionException(
+                "Could not extract the ImageMagick response: there are too many content markers.");
+      }
+
+      // Check that what's returned before, between and after the pairs is empty. I.e. that the even
+      // segments are empty. If there is any unexpected content, this could be an error message.
+      final String unexpectedContent =
+              IntStream.range(0, segments.length).filter(index -> index % 2 == 0)
+                      .mapToObj(index -> segments[index]).collect(Collectors.joining("\n"));
+      if (StringUtils.isNotBlank(unexpectedContent)) {
+        throw new MediaExtractionException(
+                "Unexpected content found in ImageMagick response: " + unexpectedContent.trim());
+      }
+
+      // Get the dominant colors - sort them by frequency (' ' comes before any number).
       final Pattern pattern = Pattern.compile("#([0-9A-F]{6})");
-      final List<String> colorStrings = response.stream()
-          .skip(COMMAND_RESULT_COLORS_LINE).sorted(Collections.reverseOrder())
-          .limit(COMMAND_RESULT_MAX_COLORS).collect(Collectors.toList());
+      final List<String> colorStrings =
+              splitByNewLine(segments[3]).stream().sorted(Collections.reverseOrder())
+                      .limit(COMMAND_RESULT_MAX_COLORS).collect(Collectors.toList());
       final Supplier<Stream<Matcher>> streamMatcherSupplier = () -> colorStrings.stream()
           .map(pattern::matcher);
       if (!streamMatcherSupplier.get().allMatch(Matcher::find)) {
@@ -385,15 +416,20 @@ class ThumbnailGenerator {
           .map(matcher -> matcher.group(1)).collect(Collectors.toList());
 
       // Get width, height and color space
-      final int width = Integer.parseInt(response.get(COMMAND_RESULT_WIDTH_LINE));
-      final int height = Integer.parseInt(response.get(COMMAND_RESULT_HEIGHT_LINE));
-      final String colorSpace = response.get(COMMAND_RESULT_COLORSPACE_LINE);
+      final List<String>metadata = splitByNewLine(segments[1]);
+      final int width = Integer.parseInt(metadata.get(COMMAND_RESULT_WIDTH_LINE));
+      final int height = Integer.parseInt(metadata.get(COMMAND_RESULT_HEIGHT_LINE));
+      final String colorSpace = metadata.get(COMMAND_RESULT_COLORSPACE_LINE);
 
       // Done.
       return new ImageMetadata(width, height, colorSpace, dominantColors);
+    } catch (MediaExtractionException e) {
+      LOGGER.info("Could not parse ImageMagick response:\n" + response, e);
+      throw e;
     } catch (RuntimeException e) {
-      LOGGER.info("Could not parse ImageMagick response:\n" + StringUtils.join(response, "\n"), e);
-      throw new MediaExtractionException("File seems to be corrupted", e);
+      LOGGER.info("Could not parse ImageMagick response:\n" + response, e);
+      throw new MediaExtractionException(
+              "Could not parse ImageMagick response: file seems to be corrupted.", e);
     }
   }
 

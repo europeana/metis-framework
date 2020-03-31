@@ -1,11 +1,28 @@
 package eu.europeana.metis.dereference.service;
 
+import eu.europeana.enrichment.api.external.model.Concept;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Part;
+import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.enrichment.api.external.model.Resource;
+import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.metis.dereference.ProcessedEntity;
+import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.dao.CacheDao;
+import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.service.utils.GraphUtils;
+import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
+import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
@@ -18,22 +35,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import eu.europeana.enrichment.api.external.model.Concept;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.api.external.model.Part;
-import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
-import eu.europeana.metis.dereference.ProcessedEntity;
-import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
-import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.service.utils.GraphUtils;
-import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
-import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
 
 /**
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.
@@ -45,7 +46,6 @@ public class MongoDereferenceService implements DereferenceService {
   private final RdfRetriever retriever;
   private final CacheDao cacheDao;
   private final VocabularyDao vocabularyDao;
-  private final EnrichmentClient enrichmentClient;
 
   /**
    * Constructor.
@@ -53,15 +53,13 @@ public class MongoDereferenceService implements DereferenceService {
    * @param retriever Object that retrieves entities from their source services.
    * @param cacheDao Object that accesses the cache of processed entities.
    * @param vocabularyDao Object that accesses vocabularies.
-   * @param enrichmentClient Object that accesses the enrichment service.
    */
   @Autowired
   public MongoDereferenceService(RdfRetriever retriever, CacheDao cacheDao,
-      VocabularyDao vocabularyDao, EnrichmentClient enrichmentClient) {
+      VocabularyDao vocabularyDao) {
     this.retriever = retriever;
     this.cacheDao = cacheDao;
     this.vocabularyDao = vocabularyDao;
-    this.enrichmentClient = enrichmentClient;
   }
 
   @Override
@@ -73,19 +71,12 @@ public class MongoDereferenceService implements DereferenceService {
       throw new IllegalArgumentException("Parameter resourceId cannot be null.");
     }
 
-    // First look in the Europeana entity collection. Otherwise get it from the source.
-    final EnrichmentBase enrichedEntity = enrichmentClient.getByUri(resourceId);
-    final Collection<EnrichmentBase> resultList;
-    if (enrichedEntity == null || !resourceId.equals(enrichedEntity.getAbout())) {
-      resultList = dereferenceFromSource(resourceId);
-    } else {
-      resultList = Collections.singleton(enrichedEntity);
-    }
+    // Perform the actual dereferencing.
+    final Collection<EnrichmentBase> resultList = dereferenceResource(resourceId);
 
     // Prepare the result: empty if we didn't find an entity.
     final List<EnrichmentBaseWrapper> enrichmentBaseWrapperList = EnrichmentBaseWrapper
-        .createNullOriginalFieldEnrichmentBaseWrapperList(
-            resultList);
+        .createNullOriginalFieldEnrichmentBaseWrapperList(resultList);
     return new EnrichmentResultList(enrichmentBaseWrapperList);
   }
 
@@ -106,7 +97,7 @@ public class MongoDereferenceService implements DereferenceService {
    * @param resourceId The resource to dereference.
    * @return A collection of dereferenced resources.
    */
-  private Collection<EnrichmentBase> dereferenceFromSource(String resourceId)
+  private Collection<EnrichmentBase> dereferenceResource(String resourceId)
       throws JAXBException, TransformerException, URISyntaxException {
 
     // Get the main object to dereference. If null, we are done.
@@ -129,16 +120,17 @@ public class MongoDereferenceService implements DereferenceService {
 
     // Perform the breadth-first search to search for broader terms (if needed).
     final int iterations = resource.getRight().getIterations();
-    final Collection<EnrichmentBase> result;
+    final Map<String, EnrichmentBase> result;
     if (iterations > 0) {
       result = GraphUtils.breadthFirstSearch(resourceId, resource.getLeft(),
           resource.getRight().getIterations(), valueResolver, this::extractBroaderResources);
     } else {
-      result = Collections.singleton(resource.getLeft());
+      result = new HashMap<>();
+      result.put(resourceId, resource.getLeft());
     }
 
     // Done
-    return result;
+    return result.values();
   }
 
   private void extractBroaderResources(EnrichmentBase resource, Set<String> destination) {

@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.utils;
 
+import eu.europeana.corelib.definitions.jibx.AboutType;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
@@ -13,9 +14,11 @@ import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -30,23 +33,34 @@ public final class DereferenceUtils {
   }
 
   /**
-   * Extract values from RDF document
+   * Extract references from RDF document
    *
    * @param rdf input document
-   * @return set of values for dereferencing
+   * @return non-null set of values for dereferencing, not containing null.
    */
-  public static Set<String> extractValuesForDereferencing(RDF rdf) {
+  public static Set<String> extractReferencesForDereferencing(RDF rdf) {
+
+    // Get all the links we are interested in.
     final Set<String> result = new HashSet<>();
     extractValues(rdf.getAgentList(), item -> dereferenceAgent(item, result));
-    extractValues(rdf.getConceptList(), concept -> {
-      result.add(concept.getAbout());
-      extractValues(concept.getChoiceList(), item -> dereferenceConceptChoice(item, result));
-    });
+    extractValues(rdf.getConceptList(), item -> dereferenceConcept(item, result));
     extractValues(rdf.getPlaceList(), item -> dereferencePlace(item, result));
     extractValues(rdf.getTimeSpanList(), item -> dereferenceTimespan(item, result));
     extractValues(rdf.getWebResourceList(), item -> dereferenceWebResource(item, result));
     extractValues(Collections.singletonList(RdfProxyUtils.getProviderProxy(rdf)),
         item -> dereferenceProxy(item, result));
+
+    // Clean up the result: no null values and no objects that we already have.
+    result.remove(null);
+    final Consumer<List<? extends AboutType>> cleaner = list -> Optional.ofNullable(list)
+            .map(List::stream).orElseGet(Stream::empty).map(AboutType::getAbout)
+            .forEach(result::remove);
+    cleaner.accept(rdf.getAgentList());
+    cleaner.accept(rdf.getConceptList());
+    cleaner.accept(rdf.getPlaceList());
+    cleaner.accept(rdf.getTimeSpanList());
+
+    // Done.
     return result;
   }
 
@@ -135,14 +149,16 @@ public final class DereferenceUtils {
   }
 
   private static void dereferenceTimespan(TimeSpanType timespan, final Set<String> result) {
-    result.add(timespan.getAbout());
     convertValues(timespan.getIsPartOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
   }
 
   private static void dereferenceAgent(AgentType agent, final Set<String> result) {
-    result.add(agent.getAbout());
     convertValues(agent.getProfessionOrOccupationList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
     convertValues(agent.getIsPartOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
+  }
+
+  private static void dereferenceConcept(Concept concept, final Set<String> result) {
+    extractValues(concept.getChoiceList(), item -> dereferenceConceptChoice(item, result));
   }
 
   private static void dereferenceConceptChoice(Concept.Choice choice, final Set<String> result) {
@@ -150,7 +166,6 @@ public final class DereferenceUtils {
   }
 
   private static void dereferencePlace(PlaceType place, Set<String> result) {
-    result.add(place.getAbout());
     convertValues(place.getIsPartOfList(), RESOURCE_OR_LITERAL_EXTRACTOR, result);
   }
 

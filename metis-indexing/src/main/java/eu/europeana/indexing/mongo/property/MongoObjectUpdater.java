@@ -17,8 +17,9 @@ public interface MongoObjectUpdater<R, A> {
    * @param newEntity The new entity (to take the new values from).
    * @param ancestorInformation The ancestor information for this entity.
    * @param recordDate The date that would represent the created/updated date of a record
+   * @param recordCreationDate The date that would represent the created date if it already existed,
    * @param mongoServer The mongo server.
    * @return The updated entity.
    */
-  R update(R newEntity, A ancestorInformation, Date recordDate, MongoServer mongoServer);
+  R update(R newEntity, A ancestorInformation, Date recordDate, Date recordCreationDate, MongoServer mongoServer);
 }

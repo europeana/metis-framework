@@ -5,23 +5,25 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.List;
+import java.net.URISyntaxException;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.client5.http.protocol.RedirectLocations;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.HttpStatus;
+import org.apache.hc.core5.util.TimeValue;
+import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,16 +56,17 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    *
    * @param maxRedirectCount The maximum number of times we follow a redirect status (status 3xx).
    * @param connectTimeout The connection timeout in milliseconds.
-   * @param socketTimeout The socket timeout in milliseconds.
+   * @param responseTimeout The response timeout in milliseconds.
    * @param requestTimeout The time after which the request will be aborted (if it hasn't finished
    * by then). In milliseconds.
    */
-  AbstractHttpClient(int maxRedirectCount, int connectTimeout, int socketTimeout,
+  AbstractHttpClient(int maxRedirectCount, int connectTimeout, int responseTimeout,
       int requestTimeout) {
 
     // Set the request config settings
     final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount)
-        .setConnectTimeout(connectTimeout).setSocketTimeout(socketTimeout).build();
+            .setConnectTimeout(Timeout.ofMilliseconds(connectTimeout))
+            .setResponseTimeout(Timeout.ofMilliseconds(responseTimeout)).build();
     this.requestTimeout = requestTimeout;
 
     // Create a connection manager tuned to one thread use.
@@ -82,9 +85,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
   private void cleanConnections(PoolingHttpClientConnectionManager connectionManager) {
     try {
-      connectionManager.closeExpiredConnections();
-      connectionManager
-          .closeIdleConnections(MAX_TASK_IDLE_TIME_IN_SECONDS, TimeUnit.SECONDS);
+      connectionManager.closeExpired();
+      connectionManager.closeIdle(TimeValue.ofSeconds(MAX_TASK_IDLE_TIME_IN_SECONDS));
     } catch (RuntimeException e) {
       LOGGER.warn("Could not clean up expired and idle connections.", e);
     }
@@ -121,26 +123,31 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     try (final CloseableHttpResponse response = client.execute(httpGet, context)) {
 
       // Check response code.
-      final int status = response.getStatusLine().getStatusCode();
+      final int status = response.getCode();
       if (!httpCallIsSuccessful(status)) {
         throw new IOException("Download failed of resource " + resourceUlr + ". Status code " +
-            status + " (message: " + response.getStatusLine().getReasonPhrase() + ").");
+            status + " (message: " + response.getReasonPhrase() + ").");
       }
 
       // Obtain header information.
       final HttpEntity responseEntity = response.getEntity();
       final String mimeType = Optional.ofNullable(responseEntity).map(HttpEntity::getContentType)
-          .map(Header::getValue).orElse(null);
+              .orElse(null);
       final Long fileSize = Optional.ofNullable(responseEntity).map(HttpEntity::getContentLength)
           .filter(size -> size >= 0).orElse(null);
-      final List<URI> redirectUris = context.getRedirectLocations();
-      final URI actualUri =
-          redirectUris == null ? httpGet.getURI() : redirectUris.get(redirectUris.size() - 1);
+      final RedirectLocations redirectUris = context.getRedirectLocations();
+      final URI actualUri = (redirectUris == null || redirectUris.size() == 0) ? httpGet.getUri()
+              : redirectUris.get(redirectUris.size() - 1);
 
       // Process the result.
       final ContentRetriever content = responseEntity == null ?
           ContentRetriever.forEmptyContent() : responseEntity::getContent;
       return createResult(resourceEntry, actualUri, mimeType, fileSize, content);
+
+    } catch (URISyntaxException e) {
+
+      // Shouldn't really happen.
+      throw new IOException("An unexpected exception occurred.", e);
 
     } catch (IOException e) {
 

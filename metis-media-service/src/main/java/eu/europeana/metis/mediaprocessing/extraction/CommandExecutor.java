@@ -5,11 +5,11 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiFunction;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 
 /**
  * This class executes commands (like you would in a terminal). It imposes a maximum number of
@@ -48,7 +48,7 @@ class CommandExecutor {
     this.commandTimeout = commandTimeout;
     this.processFactory = processFactory;
   }
-  
+
   /**
    * Execute a command.
    *
@@ -56,20 +56,23 @@ class CommandExecutor {
    * @param redirectErrorStream Whether to return the contents of the error stream as part of the
    * command's output. If this is false, and there is error output but no regular output, an
    * exception will be thrown.
-   * @return The output of the command as a list of lines.
-   * @throws CommandExecutionException In case a problem occurs.
+   * @param exceptionProducer The function producing the exception that is to be thrown if something
+   * goes wrong. Should accept null values.
+   * @param <E> The type of exception thrown by this instance.
+   * @return The output of the command as a String.
+   * @throws E In case a problem occurs.
    */
-  List<String> execute(List<String> command, boolean redirectErrorStream)
-      throws CommandExecutionException {
+  <E extends Exception> String execute(List<String> command, boolean redirectErrorStream,
+      BiFunction<String, Exception, E> exceptionProducer) throws E {
     try {
-      return executeInternal(command, redirectErrorStream);
+      return executeInternal(command, redirectErrorStream, exceptionProducer);
     } catch (IOException | RuntimeException e) {
-      throw new CommandExecutionException("Problem while executing command.", e);
+      throw exceptionProducer.apply("Problem while executing command: " + e.getMessage(), e);
     }
   }
 
-  List<String> executeInternal(List<String> command, boolean redirectErrorStream)
-      throws IOException, CommandExecutionException {
+  <E extends Exception> String executeInternal(List<String> command, boolean redirectErrorStream,
+          BiFunction<String, Exception, E> exceptionProducer) throws IOException, E {
 
     // Create process and start it.
     final Process process = processFactory.createProcess(command, redirectErrorStream);
@@ -78,13 +81,13 @@ class CommandExecutor {
     try {
       if (!process.waitFor(commandTimeout, TimeUnit.SECONDS)) {
         process.destroyForcibly();
-        throw new CommandExecutionException("The process did not terminate within the timeout of " +
-            commandTimeout + " seconds. It was forcibly destroyed.");
+        throw exceptionProducer.apply("The process did not terminate within the timeout of " +
+                commandTimeout + " seconds. It was forcibly destroyed.", null);
       }
     } catch (InterruptedException e) {
       process.destroyForcibly();
       Thread.currentThread().interrupt();
-      throw new CommandExecutionException("Process was interrupted.", e);
+      throw exceptionProducer.apply("Process was interrupted.", e);
     }
 
     // Open error stream and read it.
@@ -98,25 +101,19 @@ class CommandExecutor {
       }
     }
 
-    // Read process output into lines.
-    final List<String> result;
-    try (InputStream in = process.getInputStream()) {
-      result = IOUtils.readLines(in, Charset.defaultCharset());
-    }
-
-    // If there is no regular output but there is error output, throw an exception.
+    // If there is error output, throw an exception.
     if (error != null) {
       if (LOGGER.isWarnEnabled()) {
         LOGGER.warn("Command presented with error:\nCommand: [{}]\nError: {}",
             String.join(" ", command), error);
       }
-      if (result.isEmpty()) {
-        throw new IOException("External process returned error content:\n" + error);
-      }
+      throw exceptionProducer.apply("External process returned error content:\n" + error, null);
     }
 
-    // Else return the result.
-    return result;
+    // Read process output into lines.
+    try (InputStream in = process.getInputStream()) {
+      return IOUtils.toString(in, Charset.defaultCharset());
+    }
   }
 
   /**

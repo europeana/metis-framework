@@ -5,6 +5,7 @@ import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.query.Query;
 import dev.morphia.query.UpdateOperations;
+import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.dereference.Vocabulary;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -32,7 +33,11 @@ public class VocabularyDao {
    */
   public List<Vocabulary> getByUriSearch(String searchString) {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
-    return ds.find(Vocabulary.class).filter("uri", pattern).asList();
+    final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
+    query.field("uri").equal(pattern);
+    try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
+      return cursor.toList();
+    }
   }
 
   /**
@@ -89,17 +94,20 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public List<Vocabulary> getAll() {
-    return ds.find(Vocabulary.class).asList();
+    final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
+    try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
+      return cursor.toList();
+    }
   }
 
   /**
    * Retrieve the vocabulary based on its ID.
-   * 
+   *
    * @param vocabularyId The ID of the vocabulary to retrieve.
    * @return A list of all the vocabularies
    */
   public Vocabulary get(String vocabularyId) {
-    return ds.find(Vocabulary.class).filter("id", vocabularyId).get();
+    return ds.find(Vocabulary.class).filter("id", vocabularyId).first();
   }
 
   /**
@@ -109,7 +117,7 @@ public class VocabularyDao {
    * @return The Vocabulary with that name
    */
   public Vocabulary findByName(String name) {
-    return ds.find(Vocabulary.class).filter("name", name).get();
+    return ds.find(Vocabulary.class).filter("name", name).first();
   }
 
   public void setDs(Datastore ds) {

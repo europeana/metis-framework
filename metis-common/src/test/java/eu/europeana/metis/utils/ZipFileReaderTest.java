@@ -10,6 +10,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +56,8 @@ class ZipFileReaderTest {
     // The content is equal to the name.
     final ZipFile zipFile = mock(ZipFile.class);
     doReturn(entries.stream()).when(zipFile).stream();
-    doAnswer(invocation -> IOUtils.toInputStream(((ZipEntry) invocation.getArgument(0)).getName()))
+    doAnswer(invocation -> IOUtils.toInputStream(((ZipEntry) invocation.getArgument(0)).getName(),
+        StandardCharsets.UTF_8))
         .when(zipFile).getInputStream(any());
 
     // Create reader that knows the difference between good and bad.

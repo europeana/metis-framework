@@ -110,7 +110,7 @@ class ImageProcessorTest {
     final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata = new ImmutablePair<>(
         imageMetadata, Arrays.asList(thumbnail1, thumbnail2));
     doReturn(thumbnailsAndMetadata).when(thumbnailGenerator)
-        .generateThumbnails(url, detectedMimeType, content);
+        .generateThumbnails(url, detectedMimeType, content, false);
 
     // Call method
     final ResourceExtractionResultImpl result = imageProcessor.extractMetadata(resource, detectedMimeType);

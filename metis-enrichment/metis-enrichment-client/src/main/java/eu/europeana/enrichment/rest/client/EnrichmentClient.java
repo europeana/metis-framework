@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.rest.client;
 
+import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYID;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYURI;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
 
@@ -9,14 +10,20 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.InputValue;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import javax.xml.bind.JAXBException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -27,6 +34,8 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 public class EnrichmentClient {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentClient.class);
 
   private final String endpoint;
   private RestTemplate template = new RestTemplate();
@@ -47,13 +56,18 @@ public class EnrichmentClient {
    * @return The enrichments generated for the input values
    */
   public EnrichmentResultList enrich(List<InputValue> values) {
-    InputValueList inList = new InputValueList();
+    final InputValueList inList = new InputValueList();
     inList.setInputValues(values);
-
+    final HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
+    final HttpEntity<InputValueList> request = new HttpEntity<>(inList, headers);
+    final String url = endpoint + ENRICHMENT_ENRICH;
     try {
-      return template
-          .postForObject(endpoint + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
-    } catch (RestClientException e) {
+      return TemporaryResponseConverter
+              .convert(template.exchange(url, HttpMethod.POST, request, byte[].class));
+    } catch (RestClientException | JAXBException e) {
+      LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
       throw new UnknownException("Enrichment client call failed.", e);
     }
   }
@@ -79,15 +93,61 @@ public class EnrichmentClient {
     builder = UriComponentsBuilder.fromHttpUrl(endpoint + ENRICHMENT_BYURI)
         .queryParam("uri", encodedUri);
 
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Content-Type", MediaType.APPLICATION_XML_VALUE);
+    final HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_XML);
+    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
     final HttpEntity<Void> request = new HttpEntity<>(headers);
 
-    final ResponseEntity<EnrichmentBase> response = template
-        .exchange(builder.build(true).toUri(), HttpMethod.GET,
-            request, EnrichmentBase.class);
+    final URI fullUri = builder.build(true).toUri();
+    try {
+      return TemporaryResponseConverter.convert(template.exchange(fullUri, HttpMethod.GET, request,
+              byte[].class), EnrichmentBase.class, () -> null);
+    } catch (RestClientException | JAXBException e) {
+      LOGGER.warn("Enrichment client GET call failed: {}.", fullUri, e);
+      throw new UnknownException("Enrichment client call failed.", e);
+    }
+  }
 
-    return response.getBody();
+  /**
+   * Get enrichment information based on a specified list of URIs.
+   *
+   * @param uriList the list of URIs to enrich
+   * @return the enriched information
+   */
+  public EnrichmentResultList getByUri(Collection<String> uriList) {
+    final HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
+    final HttpEntity<List<String>> request = new HttpEntity<>(new ArrayList<>(uriList), headers);
+    final String url = endpoint + ENRICHMENT_BYURI;
+    try {
+      return TemporaryResponseConverter
+              .convert(template.exchange(url, HttpMethod.POST, request, byte[].class));
+    } catch (RestClientException | JAXBException e) {
+      LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
+      throw new UnknownException("Enrichment client call failed.", e);
+    }
+  }
+
+  /**
+   * Get enrichment information based on a specified list of IDs
+   *
+   * @param uriList the list of IDs to enrich
+   * @return the enriched information
+   */
+  public EnrichmentResultList getById(Collection<String> uriList) {
+    final HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
+    final HttpEntity<List<String>> request = new HttpEntity<>(new ArrayList<>(uriList), headers);
+    final String url = endpoint + ENRICHMENT_BYID;
+    try {
+      return TemporaryResponseConverter
+              .convert(template.exchange(url, HttpMethod.POST, request, byte[].class));
+    } catch (RestClientException | JAXBException e) {
+      LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
+      throw new UnknownException("Enrichment client call failed.", e);
+    }
   }
 
   void setRestTemplate(RestTemplate template) {

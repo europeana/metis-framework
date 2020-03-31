@@ -32,7 +32,7 @@ public class EnrichmentUtilsTest {
   public void testExtractedFieldValuesForEnrichment() {
     RDF rdf = new RDF();
     ProxyType proxy = new ProxyType();
-    ArrayList<Choice> choiceList = new ArrayList<Choice>();
+    ArrayList<Choice> choiceList = new ArrayList<>();
 
     Choice choice1 = new Choice();
     Creator creator = new Creator();
@@ -136,7 +136,7 @@ public class EnrichmentUtilsTest {
 
     proxy.setChoiceList(choiceList);
 
-    ArrayList<ProxyType> proxyList = new ArrayList<ProxyType>();
+    ArrayList<ProxyType> proxyList = new ArrayList<>();
     proxyList.add(proxy);
 
     // Should be rejected
@@ -148,12 +148,12 @@ public class EnrichmentUtilsTest {
 
     rdf.setProxyList(proxyList);
 
-    List<InputValue> result = EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
+    List<InputValue> result = EnrichmentUtils.extractValuesForEnrichmentFromRDF(rdf);
 
     assertNotNull(result);
     assertEquals(10, result.size());
 
-    ArrayList<String> resultProcessed = new ArrayList<String>();
+    ArrayList<String> resultProcessed = new ArrayList<>();
     for (InputValue inputValue : result) {
       resultProcessed.add(inputValue.getValue() + "|" + inputValue.getLanguage() + "|" + inputValue
           .getOriginalField());

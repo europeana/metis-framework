@@ -22,7 +22,6 @@ import dev.morphia.Datastore;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionIdAndStartedDatePair;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
@@ -152,8 +151,7 @@ class TestWorkflowExecutionDao {
     workflowExecution.getMetisPlugins().get(0).setPluginStatus(PluginStatus.RUNNING);
     Date pluginUpdatedDate = new Date();
     if (workflowExecution.getMetisPlugins().get(0) instanceof AbstractExecutablePlugin) {
-      ((AbstractExecutablePlugin) workflowExecution.getMetisPlugins().get(0))
-          .setUpdatedDate(pluginUpdatedDate);
+      workflowExecution.getMetisPlugins().get(0).setUpdatedDate(pluginUpdatedDate);
     }
     workflowExecutionDao.updateMonitorInformation(workflowExecution);
     WorkflowExecution updatedWorkflowExecution = workflowExecutionDao.getById(objectId);
@@ -165,8 +163,7 @@ class TestWorkflowExecutionDao {
         updatedWorkflowExecution.getMetisPlugins().get(0).getPluginStatus());
     if (workflowExecution.getMetisPlugins().get(0) instanceof AbstractExecutablePlugin) {
       assertEquals(0, pluginUpdatedDate.compareTo(
-          ((AbstractExecutablePlugin) updatedWorkflowExecution.getMetisPlugins().get(0))
-              .getUpdatedDate()));
+          updatedWorkflowExecution.getMetisPlugins().get(0).getUpdatedDate()));
     }
   }
 

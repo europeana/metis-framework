@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import eu.europeana.metis.mediaprocessing.exception.CommandExecutionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.AbstractResourceMetadata;
@@ -90,18 +89,17 @@ class AudioVideoProcessor implements MediaProcessor {
       throws MediaProcessorException {
 
     // Check whether ffprobe is installed.
+    final String command = "ffprobe";
     final String output;
-    try {
-      output = String.join("", commandExecutor.execute(Collections.singletonList("ffprobe"), true));
-    } catch (CommandExecutionException e) {
-      throw new MediaProcessorException("Error while looking for ffprobe tools", e);
-    }
+    output = commandExecutor.execute(Collections.singletonList(command), true,
+        (message, cause) -> new MediaProcessorException(
+            "Error while looking for ffprobe tools: " + message, cause));
     if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
       throw new MediaProcessorException("ffprobe 2.x/3.x not found");
     }
 
     // So it is installed and available.
-    return "ffprobe";
+    return command;
   }
 
   private static boolean resourceHasContent(Resource resource) throws MediaExtractionException {
@@ -161,12 +159,9 @@ class AudioVideoProcessor implements MediaProcessor {
       metadata = parseMpdResource(resource, detectedMimeType);
     } else {
       // Execute command
-      final List<String> response;
-      try {
-        response = commandExecutor.execute(createAudioVideoAnalysisCommand(resource), false);
-      } catch (CommandExecutionException e) {
-        throw new MediaExtractionException("Problem while analyzing audio/video file.", e);
-      }
+      final String response = commandExecutor.execute(createAudioVideoAnalysisCommand(resource),
+          false, (message, cause) -> new MediaExtractionException(
+              "Problem while analyzing audio/video file: " + message, cause));
 
       // Parse command result.
       metadata = parseCommandResponse(resource, detectedMimeType, response);
@@ -228,7 +223,7 @@ class AudioVideoProcessor implements MediaProcessor {
       final FrameRate frameRate =
           videoRepresentation.getFrameRate() == null ? videoAdaptationSet.getFrameRate()
               : videoRepresentation.getFrameRate();
-      final double frameRateValue = frameRate == null ? -1 : frameRate.getNumerator();
+      final double frameRateValue = frameRate == null ? -1 : frameRate.toDouble();
       final String codecNames =
           videoRepresentation.getCodecs() == null ? videoAdaptationSet.getCodecs()
               : videoRepresentation.getCodecs();
@@ -243,13 +238,12 @@ class AudioVideoProcessor implements MediaProcessor {
     return metadata;
   }
 
-  JSONObject readCommandResponseToJson(List<String> response) {
-    final String jsonString = String.join("", response);
-    return new JSONObject(new JSONTokener(jsonString));
+  JSONObject readCommandResponseToJson(String response) {
+    return new JSONObject(new JSONTokener(response));
   }
 
   AbstractResourceMetadata parseCommandResponse(Resource resource, String detectedMimeType,
-      List<String> response) throws MediaExtractionException {
+      String response) throws MediaExtractionException {
     try {
 
       // Analyze command result
@@ -275,9 +269,7 @@ class AudioVideoProcessor implements MediaProcessor {
         final int width = findInt("width", candidates);
         final int height = findInt("height", candidates);
         final String codecName = findString("codec_name", candidates);
-        final String[] frameRateParts = findString("avg_frame_rate", candidates).split("/");
-        final double frameRate =
-            Double.parseDouble(frameRateParts[0]) / Double.parseDouble(frameRateParts[1]);
+        final double frameRate = calculateFrameRate(findString("avg_frame_rate", candidates));
         metadata = new VideoResourceMetadata(detectedMimeType, resource.getResourceUrl(),
             fileSize, duration, bitRate, width, height, codecName, frameRate);
       } else if (isAudio) {
@@ -302,6 +294,16 @@ class AudioVideoProcessor implements MediaProcessor {
       LOGGER.info("Could not parse ffprobe response:\n" + StringUtils.join(response, "\n"), e);
       throw new MediaExtractionException("File seems to be corrupted", e);
     }
+  }
+  
+  private static double calculateFrameRate(String frameRateString) {
+    final String[] frameRateParts = frameRateString.split("/");
+    final double numerator = Double.parseDouble(frameRateParts[0]);
+    final double denominator = Double.parseDouble(frameRateParts[1]);
+    if (denominator == 0.0) {
+      return numerator == 0.0 ? 0.0 : -1.0;
+    }
+    return numerator / denominator;
   }
 
   int findInt(String key, JSONObject[] candidates) {

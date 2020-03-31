@@ -6,9 +6,14 @@ import eu.europeana.corelib.definitions.jibx.Aggregation;
 import eu.europeana.corelib.definitions.jibx.CollectionName;
 import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.DatasetName;
+import eu.europeana.corelib.definitions.jibx.Description;
 import eu.europeana.corelib.definitions.jibx.EdmType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.EuropeanaProxy;
+import eu.europeana.corelib.definitions.jibx.EuropeanaType;
+import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
+import eu.europeana.corelib.definitions.jibx.Identifier;
+import eu.europeana.corelib.definitions.jibx.IsShownBy;
 import eu.europeana.corelib.definitions.jibx.License;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ProvidedCHOType;
@@ -18,8 +23,10 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.Service;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
+import eu.europeana.corelib.definitions.jibx.Title;
 import eu.europeana.corelib.definitions.jibx.Type2;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -37,9 +44,8 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * This class is a wrapper around instances of type {@link RDF}. Its responsibility is to hide the
  * RDF structure and objects needed when extracting information from the records.
- * 
- * @author jochen
  *
+ * @author jochen
  */
 public class RdfWrapper {
 
@@ -56,7 +62,7 @@ public class RdfWrapper {
 
   /**
    * This method extracts the rdf:about from the RDF object.
-   * 
+   *
    * @return The record's rdf:about (obtained from a providedCHO). Or null if none could be found.
    */
   public String getAbout() {
@@ -67,7 +73,7 @@ public class RdfWrapper {
   /**
    * This method extracts the dataset name or, if that doesn't exist, the collection name from the
    * RDF object.
-   * 
+   *
    * @return The dataset name, or the empty string if no dataset name or collection name is known.
    */
   public String getDatasetName() {
@@ -82,16 +88,46 @@ public class RdfWrapper {
 
   /**
    * This method extracts the Europeana aggregation from the RDF object.
-   * 
+   *
    * @return The Europeana aggregation in a non-null {@link Optional}.
    */
   public Optional<EuropeanaAggregationType> getEuropeanaAggregation() {
     return getPropertyStream(record.getEuropeanaAggregationList()).findFirst();
   }
 
+  public List<Identifier> getProviderProxyIdentifiers() {
+    final List<Choice> choiceList = getProviderProxiesChoices();
+    return choiceList.stream().filter(Choice::ifIdentifier).map(Choice::getIdentifier)
+        .filter(Objects::nonNull)
+        .collect(Collectors.toList());
+  }
+
+  public List<Title> getProviderProxyTitles() {
+    final List<Choice> choiceList = getProviderProxiesChoices();
+    return choiceList.stream().filter(Choice::ifTitle).map(Choice::getTitle)
+        .filter(Objects::nonNull)
+        .collect(Collectors.toList());
+  }
+
+  public List<Description> getProviderProxyDescriptions() {
+    final List<Choice> choiceList = getProviderProxiesChoices();
+    return choiceList.stream().filter(Choice::ifDescription).map(Choice::getDescription)
+        .filter(Objects::nonNull).collect(Collectors.toList());
+  }
+
+  public List<Choice> getProviderProxiesChoices() {
+    return getProviderProxies().stream().map(EuropeanaType::getChoiceList)
+        .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
+  }
+
+  public List<IsShownBy> getIsShownByList() {
+    return getAggregations().stream().map(Aggregation::getIsShownBy).filter(Objects::nonNull)
+        .collect(Collectors.toList());
+  }
+
   /**
    * This method extracts all provided CHOs from the RDF object.
-   * 
+   *
    * @return The list of provided CHOs. Is not null, but could be empty.
    */
   public List<ProvidedCHOType> getProvidedCHOs() {
@@ -124,7 +160,7 @@ public class RdfWrapper {
 
   /**
    * This method extracts all aggregations from the RDF object.
-   * 
+   *
    * @return The list of aggregations. Is not null, but could be empty.
    */
   public List<Aggregation> getAggregations() {
@@ -148,12 +184,12 @@ public class RdfWrapper {
         .collect(Collectors.toSet());
     return (types.size() == 1) ? types.iterator().next() : null;
   }
-  
+
   /**
    * Determines whether this entity has a landing page. An entity has a landing page if there is at
    * least one web resource of type 'isShownAt', representing technical metadata of some (non-empty)
    * mime type.
-   * 
+   *
    * @return Whether this entity has a landing page.
    */
   public boolean hasLandingPage() {
@@ -162,7 +198,8 @@ public class RdfWrapper {
   }
 
   /**
-   * This method extracts all web resources from the RDF object. This will filter the objects: it only returns those with a non-blank about value.
+   * This method extracts all web resources from the RDF object. This will filter the objects: it
+   * only returns those with a non-blank about value.
    *
    * @return The list of web resources. Is not null, but could be empty.
    */
@@ -192,7 +229,8 @@ public class RdfWrapper {
    * @return The list of processed web resources. Is not null, but could be empty.
    */
   public List<WebResourceWrapper> getWebResourceWrappers(Set<WebResourceLinkType> types) {
-    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(types);
+    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(
+        types);
     return getFilteredPropertyStream(record.getWebResourceList())
         .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout()))
         .map(webResource -> new WebResourceWrapper(webResource,
@@ -224,7 +262,8 @@ public class RdfWrapper {
    * @return The list of processed web resources. Is not null, but could be empty.
    */
   public List<WebResourceType> getWebResources(Set<WebResourceLinkType> types) {
-    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(types);
+    final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(
+        types);
     return getFilteredPropertyStream(record.getWebResourceList())
         .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout()))
         .collect(Collectors.toList());
@@ -251,7 +290,8 @@ public class RdfWrapper {
    * @return The map of URLs to link types. The link types will include all types with which a given
    * URL occurs, not just those those that we searched for.
    */
-  private Map<String, Set<WebResourceLinkType>> getAllLinksForTypes(Set<WebResourceLinkType> types) {
+  private Map<String, Set<WebResourceLinkType>> getAllLinksForTypes(
+      Set<WebResourceLinkType> types) {
 
     // All types with the urls that have that type. This is the complete overview.
     final Map<WebResourceLinkType, Set<String>> urlsByType = Stream.of(WebResourceLinkType.values())

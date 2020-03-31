@@ -77,23 +77,24 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe
    * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
    * @param connectTimeout The connection timeout in milliseconds for downloading resources.
-   * @param socketTimeout The socket timeout in milliseconds for downloading resources.
+   * @param responseTimeout The response timeout in milliseconds for downloading resources.
    * @param downloadTimeout The download timeout in milliseconds for downloading resources.
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
   public MediaExtractorImpl(int redirectCount, int thumbnailGenerateTimeout,
-      int audioVideoProbeTimeout, int connectTimeout, int socketTimeout, int downloadTimeout)
+      int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout)
       throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
     this.resourceDownloadClient = new ResourceDownloadClient(redirectCount,
-        this::shouldDownloadForFullProcessing, connectTimeout, socketTimeout, downloadTimeout);
-    this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, socketTimeout,
+        this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout);
+    this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, responseTimeout,
         downloadTimeout);
     this.tika = new Tika();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
-    this.textProcessor = new TextProcessor(thumbnailGenerator);
+    this.textProcessor = new TextProcessor(thumbnailGenerator,
+            new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
   }
 
   @Override
