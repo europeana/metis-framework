@@ -10,6 +10,7 @@ import eu.europeana.metis.mongo.RecordRedirect;
 import eu.europeana.metis.mongo.RecordRedirectDao;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collector;
@@ -175,8 +177,9 @@ public final class RecordRedirectsUtil {
     return document -> {
       int counter = 0;
       for (Entry<String, List<String>> entry : queryGroup.entrySet()) {
-        if (document.getFieldValues(entry.getKey()).stream().map(String.class::cast)
-            .anyMatch(entry.getValue()::contains)) {
+
+        if (Optional.ofNullable(document.getFieldValues(entry.getKey())).map(Collection::stream)
+            .orElseGet(Stream::empty).map(String.class::cast).anyMatch(entry.getValue()::contains)) {
           counter++;
         }
       }
