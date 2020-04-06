@@ -22,19 +22,4 @@ public interface AbstractDao<T> {
    */
   void save(T entity);
 
-  /**
-   * Delete a Vocabulary or Entity
-   * 
-   * @param resourceId The entity to delete
-   */
-  void delete(String resourceId);
-
-  /**
-   * Update a Vocabulary or Entity
-   * 
-   * @param resourceId The resource to update
-   * @param entity The entity to update
-   */
-  void update(String resourceId, T entity);
-
 }

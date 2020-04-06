@@ -67,11 +67,7 @@ public final class RestEndpoints {
 
   /* METIS-DEREFERENCE Endpoints*/
   public static final String DEREFERENCE = "/dereference";
-  public static final String VOCABULARY = "/vocabulary";
-  public static final String VOCABULARY_BYNAME = "/vocabulary/{name}";
   public static final String VOCABULARIES = "/vocabularies";
-  public static final String ENTITY = "/entity";
-  public static final String ENTITY_DELETE = "/entity/{uri}";
   public static final String CACHE_EMPTY = "/cache";
 
   /* METIS ENRICHMENT Endpoint */

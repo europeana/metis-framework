@@ -3,8 +3,6 @@ package eu.europeana.metis.dereference.service.dao;
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
-import dev.morphia.query.Query;
-import dev.morphia.query.UpdateOperations;
 import eu.europeana.metis.dereference.OriginalEntity;
 
 /**
@@ -37,16 +35,7 @@ public class EntityDao implements AbstractDao<OriginalEntity> {
     ds.save(entity);
   }
 
-  @Override
-  public void delete(String resourceId) {
-    ds.delete(ds.createQuery(OriginalEntity.class).filter("URI", resourceId));
-  }
-
-  @Override
-  public void update(String resourceId, OriginalEntity entity) {
-    Query<OriginalEntity> query = ds.createQuery(OriginalEntity.class).filter("URI", resourceId);
-    UpdateOperations<OriginalEntity> ops = ds.createUpdateOperations(OriginalEntity.class);
-    ops.set("xml", entity.getXml());
-    ds.update(query, ops);
+  protected Datastore getDatastore() {
+    return ds;
   }
 }
