@@ -459,7 +459,7 @@ public class AuthenticationService {
   /**
    * Retrieves all {@link MetisUser}'s from the system.
    *
-   * @return the list of all {@code MetisUserRecord}'s in the system
+   * @return the list of all {@code MetisUserModel}'s in the system
    */
   public List<MetisUser> getAllUsers() {
     return convert(psqlMetisUserDao.getAllMetisUsers());
