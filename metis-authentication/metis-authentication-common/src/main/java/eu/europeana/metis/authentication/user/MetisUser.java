@@ -20,6 +20,7 @@ public class MetisUser {
   private boolean metisUserFlag;
   private Date createdDate;
   private Date updatedDate;
+  private MetisUserAccessToken metisUserAccessToken;
 
   public MetisUser() {
     //Required for json serialization
@@ -38,6 +39,7 @@ public class MetisUser {
     this.metisUserFlag = record.isMetisUserFlag();
     this.createdDate = record.getCreatedDate();
     this.updatedDate = record.getUpdatedDate();
+    this.metisUserAccessToken = record.getMetisUserAccessToken();
   }
 
   public String getUserId() {
@@ -86,5 +88,13 @@ public class MetisUser {
 
   public Date getUpdatedDate() {
     return updatedDate == null ? null : new Date(updatedDate.getTime());
+  }
+
+  public MetisUserAccessToken getMetisUserAccessToken() {
+    return metisUserAccessToken;
+  }
+
+  public void setMetisUserAccessToken(MetisUserAccessToken metisUserAccessToken) {
+    this.metisUserAccessToken = metisUserAccessToken;
   }
 }
