@@ -36,19 +36,19 @@ class AuthorizerTest {
 
   private static MetisUser createUser(AccountRole accountRole) {
     final MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(accountRole);
+    doReturn(accountRole).when(metisUser).getAccountRole();
     return metisUser;
   }
 
   private static MetisUser createUserForDataset(AccountRole accountRole, Dataset dataset) {
     final MetisUser metisUser = createUser(accountRole);
-    metisUser.setOrganizationId(dataset.getOrganizationId());
+    doReturn(dataset.getOrganizationId()).when(metisUser).getOrganizationId();
     return metisUser;
   }
 
   private static MetisUser createUserNotForDataset(AccountRole accountRole, Dataset dataset) {
     final MetisUser metisUser = createUser(accountRole);
-    metisUser.setOrganizationId("not_" + dataset.getOrganizationId());
+    doReturn("not_" + dataset.getOrganizationId()).when(metisUser).getOrganizationId();
     return metisUser;
   }
 

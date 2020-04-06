@@ -428,7 +428,7 @@ public class EntityMergeEngine {
     } else {
       result = null;
     }
-    return Optional.ofNullable(result).orElse(Collections.emptyList()).stream()
+    return Optional.ofNullable(result).orElseGet(Collections::emptyList).stream()
             .filter(Objects::nonNull).map(WebResource::getResourceUri).filter(StringUtils::isNotBlank)
             .collect(Collectors.toSet());
   }

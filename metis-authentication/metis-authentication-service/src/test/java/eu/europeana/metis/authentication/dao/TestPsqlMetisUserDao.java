@@ -9,8 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.authentication.user.MetisUserModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +67,7 @@ class TestPsqlMetisUserDao {
   @Test
   void createMetisUser() {
     when(session.beginTransaction()).thenReturn(transaction);
-    psqlMetisUserDao.createMetisUser(new MetisUser());
+    psqlMetisUserDao.createMetisUser(new MetisUserModel());
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).persist(any(Object.class));
@@ -81,7 +81,7 @@ class TestPsqlMetisUserDao {
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
 
-    assertThrows(TransactionException.class, () -> psqlMetisUserDao.createMetisUser(new MetisUser()));
+    assertThrows(TransactionException.class, () -> psqlMetisUserDao.createMetisUser(new MetisUserModel()));
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).persist(any(Object.class));
@@ -94,7 +94,7 @@ class TestPsqlMetisUserDao {
   @Test
   void updateMetisUser() {
     when(session.beginTransaction()).thenReturn(transaction);
-    psqlMetisUserDao.updateMetisUser(new MetisUser());
+    psqlMetisUserDao.updateMetisUser(new MetisUserModel());
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).update(any(Object.class));
@@ -107,7 +107,7 @@ class TestPsqlMetisUserDao {
   void updateMetisUserThrowsExceptionOnCommit() {
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
-    assertThrows(TransactionException.class, () -> psqlMetisUserDao.updateMetisUser(new MetisUser()));
+    assertThrows(TransactionException.class, () -> psqlMetisUserDao.updateMetisUser(new MetisUserModel()));
 
     InOrder inOrder = Mockito.inOrder(session, transaction);
     inOrder.verify(session, times(1)).update(any(Object.class));
@@ -120,8 +120,8 @@ class TestPsqlMetisUserDao {
   @Test
   void getMetisUserByEmail() {
     when(session.createQuery(any(String.class))).thenReturn(query);
-    ArrayList<MetisUser> metisUsers = new ArrayList<>(1);
-    metisUsers.add(new MetisUser());
+    ArrayList<MetisUserModel> metisUsers = new ArrayList<>(1);
+    metisUsers.add(new MetisUserModel());
     when(query.list()).thenReturn(metisUsers);
 
     psqlMetisUserDao.getMetisUserByEmail("email@email.com");
@@ -143,8 +143,8 @@ class TestPsqlMetisUserDao {
     MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
     metisUserAccessToken.setEmail("email@email.com");
     metisUserAccessTokens.add(metisUserAccessToken);
-    ArrayList<MetisUser> metisUsers = new ArrayList<>(1);
-    metisUsers.add(new MetisUser());
+    ArrayList<MetisUserModel> metisUsers = new ArrayList<>(1);
+    metisUsers.add(new MetisUserModel());
     when(query.list()).thenReturn(metisUserAccessTokens).thenReturn(metisUserAccessTokens)
         .thenReturn(metisUsers).thenReturn(metisUsers);
 
@@ -318,13 +318,13 @@ class TestPsqlMetisUserDao {
   @Test
   void getAllMetisUsers() {
     final CriteriaBuilder builder = Mockito.mock(CriteriaBuilder.class);
-    final CriteriaQuery<MetisUser> criteriaQuery = Mockito.mock(CriteriaQuery.class);
-    final Query<MetisUser> query = Mockito.mock(Query.class);
-    ArrayList<MetisUser> metisUsers = new ArrayList<>(1);
-    metisUsers.add(new MetisUser());
+    final CriteriaQuery<MetisUserModel> criteriaQuery = Mockito.mock(CriteriaQuery.class);
+    final Query<MetisUserModel> query = Mockito.mock(Query.class);
+    ArrayList<MetisUserModel> metisUsers = new ArrayList<>(1);
+    metisUsers.add(new MetisUserModel());
 
     when(session.getCriteriaBuilder()).thenReturn(builder);
-    when(builder.createQuery(MetisUser.class)).thenReturn(criteriaQuery);
+    when(builder.createQuery(MetisUserModel.class)).thenReturn(criteriaQuery);
     when(session.createQuery(criteriaQuery)).thenReturn(query);
     when(query.getResultList()).thenReturn(metisUsers);
 

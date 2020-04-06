@@ -145,7 +145,7 @@ public final class EnrichmentUtils {
     } else {
       result = null;
     }
-    return Optional.ofNullable(result).orElse(Collections.emptyList()).stream()
+    return Optional.ofNullable(result).orElseGet(Collections::emptyList).stream()
             .filter(Objects::nonNull).map(ResourceType::getResource).filter(StringUtils::isNotBlank)
             .collect(Collectors.toSet());
   }

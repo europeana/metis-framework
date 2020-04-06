@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -87,10 +88,15 @@ class TestDatasetController {
     reset(authenticationClient);
   }
 
+  private static MetisUser getUserWithAccountRole(AccountRole accountRole) {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    doReturn(accountRole).when(metisUser).getAccountRole();
+    return metisUser;
+  }
+
   @Test
   void createDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -127,8 +133,7 @@ class TestDatasetController {
 
   @Test
   void createDataset_DatasetAlreadyExistsException_Returns409() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -147,8 +152,7 @@ class TestDatasetController {
 
   @Test
   void updateDataset_withValidData_Returns204() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXsltStringWrapper datasetXsltStringWrapper = new DatasetXsltStringWrapper(dataset,
         "<xslt attribute:\"value\"></xslt>");
@@ -185,8 +189,7 @@ class TestDatasetController {
 
   @Test
   void updateDataset_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXsltStringWrapper datasetXsltStringWrapper = new DatasetXsltStringWrapper(dataset,
         "<xslt attribute:\"value\"></xslt>");
@@ -208,8 +211,7 @@ class TestDatasetController {
 
   @Test
   void updateDataset_BadContentException_Returns406() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXsltStringWrapper datasetXsltStringWrapper = new DatasetXsltStringWrapper(dataset,
         "<xslt attribute:\"value\"></xslt>");
@@ -231,8 +233,7 @@ class TestDatasetController {
 
   @Test
   void deleteDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     datasetControllerMock.perform(
@@ -270,8 +271,7 @@ class TestDatasetController {
 
   @Test
   void deleteDataset_BadContentException_Returns406() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     doThrow(new BadContentException("Bad Content")).when(datasetServiceMock)
@@ -289,8 +289,7 @@ class TestDatasetController {
 
   @Test
   void getByDatasetId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -333,8 +332,7 @@ class TestDatasetController {
 
   @Test
   void getByDatasetId_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     when(datasetServiceMock
@@ -352,8 +350,7 @@ class TestDatasetController {
 
   @Test
   void getDatasetXsltByDatasetId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
@@ -382,8 +379,7 @@ class TestDatasetController {
 
   @Test
   void getDatasetXsltByDatasetId_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -403,8 +399,7 @@ class TestDatasetController {
 
   @Test
   void getDatasetXsltByDatasetId_noXsltFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -424,8 +419,7 @@ class TestDatasetController {
 
   @Test
   void getDatasetXsltByDatasetIdInvalidUser() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
@@ -490,8 +484,7 @@ class TestDatasetController {
 
   @Test
   void createDefaultXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.METIS_ADMIN);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
@@ -515,8 +508,7 @@ class TestDatasetController {
 
   @Test
   void createDefaultXslt_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
@@ -569,8 +561,7 @@ class TestDatasetController {
 
   @Test
   void transformRecordsUsingLatestDatasetXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
@@ -590,8 +581,6 @@ class TestDatasetController {
 
   @Test
   void transformRecordsUsingLatestDatasetXslt_UserUnauthorizedException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock
@@ -607,8 +596,7 @@ class TestDatasetController {
 
   @Test
   void transformRecordsUsingLatestDefaultXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
@@ -628,8 +616,6 @@ class TestDatasetController {
 
   @Test
   void transformRecordsUsingLatestDefaultXslt_UserUnauthorizedException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock
@@ -645,8 +631,7 @@ class TestDatasetController {
 
   @Test
   void getByDatasetName() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -689,8 +674,7 @@ class TestDatasetController {
 
   @Test
   void getByDatasetName_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     when(datasetServiceMock.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME))
@@ -707,8 +691,7 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByProvider() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -769,8 +752,7 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByIntermediateProvider() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -833,8 +815,7 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByDataProvider() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -895,8 +876,7 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByOrganizationId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -957,8 +937,7 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByOrganizationName() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -1097,8 +1076,7 @@ class TestDatasetController {
 
   @Test
   void getDatasetSearch() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
 

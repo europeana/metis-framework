@@ -88,7 +88,7 @@ public class ResponseListWrapper<T> {
     } else {
       this.nextPage = nextPage + pageCount;
     }
-    this.listSize = Optional.ofNullable(results).map(List::size).orElse(0);
+    this.listSize = results == null ? 0 : results.size();
     this.maxResultCountReached = maxResultCountReached;
     setResults(results);
   }
