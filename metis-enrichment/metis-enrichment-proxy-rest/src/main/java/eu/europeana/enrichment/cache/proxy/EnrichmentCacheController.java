@@ -1,17 +1,19 @@
 package eu.europeana.enrichment.cache.proxy;
 
+import eu.europeana.enrichment.service.CacheStatus;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.metis.RestEndpoints;
+import eu.europeana.enrichment.service.exception.CacheStatusException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Enrichment Cache REST endpoint.
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Api(value = "/")
 @Controller
 public class EnrichmentCacheController {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(RedisInternalEnricher.class);
 
   private final RedisInternalEnricher enricher;
 
@@ -33,14 +37,17 @@ public class EnrichmentCacheController {
   }
 
   /**
-   * Recreate the redis cache from the mongo datastore. This will take some time
+   * Check the status of the recreation of the cache
+   *
+   * @return a human readable string of the status.
    */
-  @PostMapping(value = "/recreate")
-  @ResponseStatus(value = HttpStatus.OK)
-  @ApiOperation(value = "Start recreating the cache",
-      notes = "Recreate the redis cache from the mongo datastore. This will take some time")
-  public void populate() {
-    enricher.recreate();
+  @GetMapping(value = "/check")
+  @ResponseBody
+  @ApiOperation(value = "Check the status of the process filling the cache",
+          notes = "Returns a string representation of the status.")
+  public String check() {
+    final CacheStatus status = enricher.getCurrentStatus();
+    return String.format("%s: %s", status.name(), status.getExplanation());
   }
 
   /**
@@ -48,28 +55,17 @@ public class EnrichmentCacheController {
    *
    * @return 'started' or 'finished'
    */
-  @GetMapping(value = "/check")
+  @PostMapping(value = "/trigger")
   @ResponseBody
-  @ApiOperation(value = "Check the status of the process filling the cache", notes = "return 'started' or 'finished'")
-
-  public String check() {
-    return enricher.check();
+  @ApiOperation(value = "Trigger a new process of filling the cache, to be executed upon the next deployment/restart.",
+          notes = "Returns error code if the process could not be triggered.")
+  public ResponseEntity trigger() {
+    try {
+      enricher.triggerRecreate();
+      return ResponseEntity.ok().build();
+    } catch (CacheStatusException e) {
+      LOGGER.debug("Could not trigger a cache recreate.", e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
   }
-
-  /**
-   * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis
-   * instance/cluster is used for multiple services then the cache for other services is cleared as
-   * well.
-   *
-   * @return OK
-   */
-  @DeleteMapping(value = RestEndpoints.CACHE_EMPTY)
-  @ResponseBody
-  @ApiOperation(value = "Empty the cache", notes =
-      "This will remove ALL entries in the cache (Redis). If the same redis instance/cluster "
-          + "is used for multiple services then the cache for other services is cleared as well.")
-  public void emptyCache() {
-    enricher.emptyCache();
-  }
-
 }

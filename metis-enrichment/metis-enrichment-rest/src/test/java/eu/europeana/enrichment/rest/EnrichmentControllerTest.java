@@ -2,16 +2,11 @@ package eu.europeana.enrichment.rest;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
@@ -24,7 +19,6 @@ import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.Enricher;
-import eu.europeana.enrichment.service.EntityRemover;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +27,6 @@ import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,17 +36,14 @@ public class EnrichmentControllerTest {
 
   private static MockMvc enrichmentControllerMock;
   private static Enricher enrichmerMock;
-  private static EntityRemover entityRemoverMock;
   private static Converter converterMock;
 
   @BeforeAll
   public static void setUp() {
     enrichmerMock = mock(Enricher.class);
-    entityRemoverMock = mock(EntityRemover.class);
     converterMock = mock(Converter.class);
 
-    EnrichmentController enrichmentController = new EnrichmentController(enrichmerMock,
-        entityRemoverMock, converterMock);
+    EnrichmentController enrichmentController = new EnrichmentController(enrichmerMock, converterMock);
     enrichmentControllerMock = MockMvcBuilders.standaloneSetup(enrichmentController)
         .setControllerAdvice(new RestResponseExceptionHandler())
         .build();
@@ -62,22 +52,7 @@ public class EnrichmentControllerTest {
   @AfterEach
   public void tearDown() {
     Mockito.reset(enrichmerMock);
-    Mockito.reset(entityRemoverMock);
     Mockito.reset(converterMock);
-  }
-
-  @Test
-  public void testDelete() throws Exception {
-    enrichmentControllerMock.perform(delete("/delete")
-        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-        .content("{\"uris\":[\"myUri\"]}"))
-        .andExpect(status().is(200))
-        .andExpect(content().string(""));
-
-    ArgumentCaptor<List> argumentCaptor = ArgumentCaptor.forClass(List.class);
-    verify(entityRemoverMock, times(1)).remove(argumentCaptor.capture());
-    assertEquals("myUri", argumentCaptor.getValue().get(0));
   }
 
   @Test
