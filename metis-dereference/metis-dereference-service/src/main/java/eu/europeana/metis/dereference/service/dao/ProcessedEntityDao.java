@@ -1,14 +1,19 @@
 package eu.europeana.metis.dereference.service.dao;
 
+import com.mongodb.DuplicateKeyException;
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import eu.europeana.metis.dereference.ProcessedEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * DAO for processed entities
  */
 public class ProcessedEntityDao {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(ProcessedEntityDao.class);
 
   private final Datastore ds;
 
@@ -40,7 +45,13 @@ public class ProcessedEntityDao {
    * @param entity The vocabulary or entity to save
    */
   public void save(ProcessedEntity entity) {
-    ds.save(entity);
+    try {
+      ds.save(entity);
+    } catch (DuplicateKeyException e) {
+      LOGGER.info("Attempted to save duplicate record {}, race condition expected.",
+              entity.getResourceId());
+      LOGGER.debug("Attempted to save duplicate record - exception details:", e);
+    }
   }
 
   /**
