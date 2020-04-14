@@ -135,9 +135,13 @@ public final class EnrichmentUtils {
     if (contextualClass instanceof AgentType) {
       result = ((AgentType) contextualClass).getSameAList();
     } else if (contextualClass instanceof Concept) {
-      result = ((Concept) contextualClass).getChoiceList().stream().filter(Objects::nonNull)
-              .filter(Concept.Choice::ifExactMatch).map(Concept.Choice::getExactMatch)
-              .filter(Objects::nonNull).collect(Collectors.toList());
+      result = Optional.ofNullable(((Concept) contextualClass).getChoiceList())
+              .map(List::stream).orElse(Stream.empty())
+              .filter(Objects::nonNull)
+              .filter(Concept.Choice::ifExactMatch)
+              .map(Concept.Choice::getExactMatch)
+              .filter(Objects::nonNull)
+              .collect(Collectors.toList());
     } else if (contextualClass instanceof PlaceType) {
       result = ((PlaceType) contextualClass).getSameAList();
     } else if (contextualClass instanceof TimeSpanType) {
