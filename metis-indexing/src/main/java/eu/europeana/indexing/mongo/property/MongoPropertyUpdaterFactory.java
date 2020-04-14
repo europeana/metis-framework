@@ -1,6 +1,8 @@
 package eu.europeana.indexing.mongo.property;
 
 import eu.europeana.corelib.storage.MongoServer;
+import eu.europeana.indexing.utils.TriConsumer;
+
 import java.util.Date;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -8,7 +10,6 @@ import java.util.function.Supplier;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.util.TriConsumer;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 

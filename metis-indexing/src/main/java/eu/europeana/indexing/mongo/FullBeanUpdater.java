@@ -9,10 +9,11 @@ import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
 import eu.europeana.indexing.mongo.property.RootAboutWrapper;
+import eu.europeana.indexing.utils.TriConsumer;
+
 import java.util.ArrayList;
 import java.util.Date;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.util.TriConsumer;
 
 /**
  * Field updater for instances of {@link FullBeanImpl}.
