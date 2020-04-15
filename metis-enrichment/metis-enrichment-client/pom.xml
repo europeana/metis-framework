@@ -50,16 +50,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>eu.europeana.corelib</groupId>
-          <artifactId>corelib-web</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>eu.europeana.corelib</groupId>
-          <artifactId>corelib-lookup</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

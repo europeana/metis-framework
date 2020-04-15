@@ -16,6 +16,12 @@
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
     </dependency>
+    <!-- Including the Log4j api (only) to satisfy corelib-storage. -->
+	<dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j-api</artifactId>
+	    <version>${version.log4j}</version>
+	</dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
