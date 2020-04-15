@@ -6,7 +6,6 @@ import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
-import dev.morphia.annotations.Indexed;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.json.ObjectIdSerializer;
@@ -22,14 +21,15 @@ import org.bson.types.ObjectId;
  * @since 2017-09-25
  */
 @Entity
-@Indexes({@Index(fields = {@Field("datasetId")})})
+@Indexes({
+    @Index(fields = {@Field("datasetId")}),
+    @Index(fields = {@Field("pointerDate")})})
 public class ScheduledWorkflow implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   private String datasetId;
-  @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT_FOR_SCHEDULING)
   private Date pointerDate;
   private ScheduleFrequence scheduleFrequence;

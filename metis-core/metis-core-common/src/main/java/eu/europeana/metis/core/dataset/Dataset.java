@@ -8,7 +8,6 @@ import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
-import dev.morphia.annotations.Indexed;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.CountryDeserializer;
@@ -16,8 +15,8 @@ import eu.europeana.metis.core.common.CountrySerializer;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.common.LanguageDeserializer;
 import eu.europeana.metis.core.common.LanguageSerializer;
-import eu.europeana.metis.mongo.HasMongoObjectId;
 import eu.europeana.metis.json.ObjectIdSerializer;
+import eu.europeana.metis.mongo.HasMongoObjectId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,65 +26,51 @@ import org.bson.types.ObjectId;
  * Dataset model that contains all the required fields for Dataset functionality.
  */
 @Entity
-@Indexes(@Index(fields = {@Field("organizationId"),
-    @Field("datasetName")}, options = @IndexOptions(unique = true)))
+@Indexes({
+    @Index(fields = {@Field("organizationId"),
+        @Field("datasetName")}, options = @IndexOptions(unique = true)),
+    @Index(fields = {@Field("ecloudDatasetId")}, options = @IndexOptions(unique = true)),
+    @Index(fields = {@Field("datasetId")}),
+    @Index(fields = {@Field("datasetName")}),
+    @Index(fields = {@Field("organizationId")}),
+    @Index(fields = {@Field("organizationName")}),
+    @Index(fields = {@Field("provider")}),
+    @Index(fields = {@Field("intermediateProvider")}),
+    @Index(fields = {@Field("dataProvider")}),
+    @Index(fields = {@Field("createdByUserId")})})
 public class Dataset implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
-
-  @Indexed(options = @IndexOptions(unique = true))
   private String ecloudDatasetId;
-
-  @Indexed
   private String datasetId;
-
-  @Indexed
   private String datasetName;
-
-  @Indexed
   private String organizationId;
-
-  @Indexed
   private String organizationName;
-
-  @Indexed
   private String provider;
-
-  @Indexed
   private String intermediateProvider;
-
-  @Indexed
   private String dataProvider;
-
-  @Indexed
   private String createdByUserId;
 
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date createdDate;
-
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date updatedDate;
 
   private List<String> datasetIdsToRedirectFrom = new ArrayList<>();
-
   private String replacedBy;
-
   private String replaces;
 
   @JsonSerialize(using = CountrySerializer.class)
   @JsonDeserialize(using = CountryDeserializer.class)
   private Country country;
-
   @JsonSerialize(using = LanguageSerializer.class)
   @JsonDeserialize(using = LanguageDeserializer.class)
   private Language language;
 
   private String description;
-
   private Boolean unfitForPublication;
-
   private String notes;
 
   @JsonSerialize(using = ObjectIdSerializer.class)
@@ -194,8 +179,9 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public void setDatasetIdsToRedirectFrom(List<String> datasetIdsToRedirectFrom) {
-    this.datasetIdsToRedirectFrom = datasetIdsToRedirectFrom == null ? new ArrayList<>() : new ArrayList<>(
-        datasetIdsToRedirectFrom);
+    this.datasetIdsToRedirectFrom =
+        datasetIdsToRedirectFrom == null ? new ArrayList<>() : new ArrayList<>(
+            datasetIdsToRedirectFrom);
   }
 
   public String getReplacedBy() {
