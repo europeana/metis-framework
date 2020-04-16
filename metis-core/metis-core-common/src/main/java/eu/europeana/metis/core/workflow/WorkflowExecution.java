@@ -6,7 +6,6 @@ import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
-import dev.morphia.annotations.Indexed;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -31,32 +30,38 @@ import org.bson.types.ObjectId;
  * @since 2017-05-26
  */
 @Entity
-@Indexes({@Index(fields = {@Field("datasetId")})})
+@Indexes({
+    @Index(fields = {@Field("datasetId")}),
+    @Index(fields = {@Field("workflowStatus")}),
+    @Index(fields = {@Field("ecloudDatasetId")}),
+    @Index(fields = {@Field("cancelledBy")}),
+    @Index(fields = {@Field("createdDate")}),
+    @Index(fields = {@Field("startedDate")}),
+    @Index(fields = {@Field("updatedDate")}),
+    @Index(fields = {@Field("finishedDate")}),
+    //Embedded indexes definitions should be referenced on the parent entity
+    @Index(fields = {@Field("metisPlugins.id")}),
+    @Index(fields = {@Field("metisPlugins.startedDate")}),
+    @Index(fields = {@Field("metisPlugins.updatedDate")}),
+    @Index(fields = {@Field("metisPlugins.finishedDate")})})
 public class WorkflowExecution implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   private String datasetId;
-  @Indexed
   private WorkflowStatus workflowStatus;
-  @Indexed
   private String ecloudDatasetId;
-  @Indexed
   private String cancelledBy;
   private int workflowPriority;
   private boolean cancelling;
 
-  @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date createdDate;
-  @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date startedDate;
-  @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date updatedDate;
-  @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date finishedDate;
 
