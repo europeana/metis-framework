@@ -15,6 +15,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -26,6 +27,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ServiceUnavailableException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +73,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     retriableExceptionMap.put(UnknownHostException.class, "");
     retriableExceptionMap.put(HttpServerErrorException.class, "");
     retriableExceptionMap.put(SocketTimeoutException.class, "");
+    retriableExceptionMap.put(SocketException.class, "SOCKS: Host unreachable");
+    retriableExceptionMap.put(ServiceUnavailableException.class, "");
+    retriableExceptionMap.put(NotFoundException.class, "");
     mapWithRetriableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
   }
 
