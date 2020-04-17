@@ -70,11 +70,16 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   static {
     final Map<Class<?>, String> retriableExceptionMap = new ConcurrentHashMap<>();
-    retriableExceptionMap.put(UnknownHostException.class, "");
     retriableExceptionMap.put(HttpServerErrorException.class, "");
+    //Usually when the dns resolution fails
+    retriableExceptionMap.put(UnknownHostException.class, "");
+    //Usually when the server does not respond in time
     retriableExceptionMap.put(SocketTimeoutException.class, "");
+    //Usually when the base url is not reachable
     retriableExceptionMap.put(SocketException.class, "SOCKS: Host unreachable");
+    //Usually when the container service unavailable
     retriableExceptionMap.put(ServiceUnavailableException.class, "");
+    //Usually when the endpoint in the container is not available
     retriableExceptionMap.put(NotFoundException.class, "");
     mapWithRetriableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
   }
