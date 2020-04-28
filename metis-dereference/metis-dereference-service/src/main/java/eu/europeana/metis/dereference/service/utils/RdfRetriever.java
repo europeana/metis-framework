@@ -61,8 +61,6 @@ public class RdfRetriever {
     @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
     final HttpURLConnection urlConnection = (HttpURLConnection) new URL(url).openConnection();
     urlConnection.setRequestProperty("accept", "application/rdf+xml");
-    final String resultString =
-        IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
     final int responseCode = urlConnection.getResponseCode();
     final String contentType = urlConnection.getContentType();
     
@@ -87,6 +85,8 @@ public class RdfRetriever {
     } else {
 
       // Check that we didn't receive HTML input.
+      final String resultString =
+              IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
       if (contentType != null && contentType.startsWith("text/html")) {
         result = null;
       } else if (resultString != null && resultString.contains("<html>")) {
