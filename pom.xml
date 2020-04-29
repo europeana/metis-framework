@@ -83,7 +83,6 @@
     <version.hibernate.core>5.4.14.Final</version.hibernate.core>
     <version.postgresql>42.2.12</version.postgresql>
     <version.guava>16.0</version.guava>
-    <version.gson>2.8.0</version.gson>
     <version.swagger>2.6.1</version.swagger>
     <version.swagger.annotations>1.5.10</version.swagger.annotations>
     <version.jackson>2.11.0</version.jackson>
