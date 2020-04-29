@@ -60,7 +60,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>20.0</version>
+      <version>${version.guava}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
