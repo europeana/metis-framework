@@ -103,6 +103,7 @@
     <version.com.zoho.crm.java-sdk>1.0.6</version.com.zoho.crm.java-sdk>
     <version.solr.solrj>6.6.2</version.solr.solrj>
     <version.mpd.parser>0.6</version.mpd.parser>
+    <version.zip4j>2.5.2</version.zip4j>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
