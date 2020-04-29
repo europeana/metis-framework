@@ -102,16 +102,6 @@
       <version>${version.embedded.mongo}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.apache.jclouds.api</groupId>
-      <artifactId>openstack-swift</artifactId>
-      <version>${version.openstack}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.jclouds</groupId>
-      <artifactId>jclouds-core</artifactId>
-      <version>${version.openstack}</version>
-    </dependency>
 
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

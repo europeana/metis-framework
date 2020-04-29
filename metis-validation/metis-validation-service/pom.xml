@@ -61,16 +61,6 @@
       <version>${version.saxon}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.jclouds.api</groupId>
-      <artifactId>openstack-swift</artifactId>
-      <version>${version.openstack}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.jclouds</groupId>
-      <artifactId>jclouds-core</artifactId>
-      <version>${version.openstack}</version>
-    </dependency>
-    <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>${version.gson}</version>
