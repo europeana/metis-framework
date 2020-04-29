@@ -17,11 +17,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-runtime</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
     </dependency>
@@ -55,11 +50,6 @@
           <groupId>javax.ws.rs</groupId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.mongojack</groupId>
-      <artifactId>mongojack</artifactId>
-      <version>${version.mongojack}</version>
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
@@ -127,7 +117,6 @@
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>${version.servlet.api}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -143,11 +132,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <version>${version.spring}</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
-      <version>${version.javax.ws.rs.api}</version>
     </dependency>
   </dependencies>
   <build>

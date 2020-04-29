@@ -51,15 +51,14 @@
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
     <version.maven.deploy.plugin>2.8.2</version.maven.deploy.plugin>
     <version.coveralls>4.0.0</version.coveralls>
-    <version.json.path>2.2.0</version.json.path>
+    <version.json.path>2.4.0</version.json.path>
     <version.hamcrest>1.3</version.hamcrest>
     <version.com.github.tomakehurst.wiremock>2.19.0</version.com.github.tomakehurst.wiremock>
     <version.rabbitmq>5.9.0</version.rabbitmq>
-    <version.saxon>9.7.0-3</version.saxon>
 
     <!-- These two versions are interdependent. -->
-    <version.slf4j>1.7.25</version.slf4j>
-    <version.jul.to.slf4j>1.7.26</version.jul.to.slf4j>
+    <version.slf4j>1.7.30</version.slf4j>
+    <version.jul.to.slf4j>1.7.30</version.jul.to.slf4j>
     <version.log4j>2.13.2</version.log4j>
 
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
@@ -72,9 +71,9 @@
     <version.mongojack>2.10.0</version.mongojack>
     <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.commons.io>2.6</version.commons.io>
-    <version.commons.codec>1.11</version.commons.codec>
-    <version.commons.lang3>3.7</version.commons.lang3>
-    <version.httpclient>4.5.2</version.httpclient>
+    <version.commons.lang3>3.10</version.commons.lang3>
+    <version.apache.httpclient>5.0</version.apache.httpclient>
+    <version.apache.commons-pool2>2.8.0</version.apache.commons-pool2>
     <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
@@ -86,11 +85,13 @@
     <version.swagger>2.6.1</version.swagger>
     <version.swagger.annotations>1.5.10</version.swagger.annotations>
     <version.jackson>2.11.0</version.jackson>
-    <version.powermock>1.7.1</version.powermock>
-    <version.mockito.core>2.22.0</version.mockito.core>
+    <version.xerces>2.12.0</version.xerces>
+    <version.json>20190722</version.json>
+    <version.powermock>2.0.7</version.powermock>
+    <version.mockito.core>3.3.3</version.mockito.core>
     <version.corelib>2.9.3-SNAPSHOT</version.corelib>
-    <version.servlet.api>3.1.0</version.servlet.api>
-    <version.commons-fileupload>1.3</version.commons-fileupload>
+    <version.servlet.api>4.0.1</version.servlet.api>
+    <version.commons-fileupload>1.4</version.commons-fileupload>
     <version.morphia.core>1.5.8</version.morphia.core>
     <version.xsom>20140925</version.xsom>
     <version.commonscompress>1.11</version.commonscompress>
@@ -99,11 +100,14 @@
     <version.spring.context>5.1.2.RELEASE</version.spring.context>
     <version.spring.beans>5.1.2.RELEASE</version.spring.beans>
     <version.spring.test>5.1.2.RELEASE</version.spring.test>
-    <version.saxon.he>9.8.0-11</version.saxon.he>
+    <version.saxon.he>10.0</version.saxon.he>
     <version.com.zoho.crm.java-sdk>1.0.6</version.com.zoho.crm.java-sdk>
-    <version.solr.solrj>6.6.2</version.solr.solrj>
+    <version.solr.solrj>8.5.1</version.solr.solrj>
     <version.mpd.parser>0.6</version.mpd.parser>
     <version.zip4j>2.5.2</version.zip4j>
+    <version.ibm.icu4j>67.1</version.ibm.icu4j>
+    <version.itextpdf>5.5.13.1</version.itextpdf>
+    <version.bouncycastle>1.49</version.bouncycastle>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -115,11 +119,6 @@
         <version>${version.javax.xml.bind}</version>
       </dependency>
       <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-runtime</artifactId>
-        <version>${version.javax.xml.bind}</version>
-      </dependency>
-      <dependency>
         <groupId>javax.annotation</groupId>
         <artifactId>javax.annotation-api</artifactId>
         <version>${version.javax.annotation}</version>
@@ -128,11 +127,6 @@
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>${version.commons.io}</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-codec</groupId>
-        <artifactId>commons-codec</artifactId>
-        <version>${version.commons.codec}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
