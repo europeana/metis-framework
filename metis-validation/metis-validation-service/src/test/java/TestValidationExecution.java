@@ -154,7 +154,7 @@ class TestValidationExecution {
     assertEquals("Missing record identifier for EDM record", result.getRecordId());
     assertNull(result.getNodeId());
     assertEquals(
-        "cvc-complex-type.2.4.a: Invalid content was found starting with element 'edm:WebResource'. One of '{\"http://www.europeana.eu/schemas/edm/\":ProvidedCHO}' is expected.",
+        "cvc-complex-type.2.4.a: Invalid content was found starting with element '{\"http://www.europeana.eu/schemas/edm/\":WebResource}'. One of '{\"http://www.europeana.eu/schemas/edm/\":ProvidedCHO}' is expected.",
         result.getMessage());
   }
 
