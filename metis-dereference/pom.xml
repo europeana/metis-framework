@@ -14,5 +14,6 @@
     <module>metis-dereference-common</module>
     <module>metis-dereference-service</module>
     <module>metis-dereference-rest</module>
+    <module>metis-dereference-import</module>
   </modules>
 </project>
