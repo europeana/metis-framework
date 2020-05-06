@@ -57,16 +57,6 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.mongojack</groupId>
-      <artifactId>mongojack</artifactId>
-      <version>${version.mongojack}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${version.guava}</version>
-    </dependency>
-    <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongo-java-driver</artifactId>
       <version>${version.mongo.java.driver}</version>
@@ -132,7 +122,6 @@
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>${version.servlet.api}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -148,11 +137,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <version>${version.spring}</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>javax.ws.rs-api</artifactId>
-      <version>${version.javax.ws.rs.api}</version>
     </dependency>
   </dependencies>
   <build>

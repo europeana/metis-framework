@@ -45,7 +45,7 @@ public class EmbeddedLocalhostMongo {
             .build();
 
         MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
-        mongodExecutable = runtime.prepare(new MongodConfigBuilder().version(Version.V3_5_1)
+        mongodExecutable = runtime.prepare(new MongodConfigBuilder().version(Version.V3_6_5)
             .net(new Net(DEFAULT_MONGO_HOST, mongoPort, Network.localhostIsIPv6())).build());
         mongodExecutable.start();
       } catch (IOException e) {

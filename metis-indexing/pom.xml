@@ -23,11 +23,6 @@
 	    <version>${version.log4j}</version>
 	</dependency>
     <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>${version.httpclient}</version>
-    </dependency>
-    <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongo-java-driver</artifactId>
       <version>${version.mongo.java.driver}</version>
@@ -44,23 +39,18 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpcore</artifactId>
-      <version>4.4.4</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-pool2</artifactId>
-      <version>2.6.0</version>
+      <version>${version.apache.commons-pool2}</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>20.0</version>
+      <version>${version.guava}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>

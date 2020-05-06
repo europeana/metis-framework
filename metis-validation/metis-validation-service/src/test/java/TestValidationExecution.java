@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -154,7 +154,7 @@ class TestValidationExecution {
     assertEquals("Missing record identifier for EDM record", result.getRecordId());
     assertNull(result.getNodeId());
     assertEquals(
-        "cvc-complex-type.2.4.a: Invalid content was found starting with element 'edm:WebResource'. One of '{\"http://www.europeana.eu/schemas/edm/\":ProvidedCHO}' is expected.",
+        "cvc-complex-type.2.4.a: Invalid content was found starting with element '{\"http://www.europeana.eu/schemas/edm/\":WebResource}'. One of '{\"http://www.europeana.eu/schemas/edm/\":ProvidedCHO}' is expected.",
         result.getMessage());
   }
 
