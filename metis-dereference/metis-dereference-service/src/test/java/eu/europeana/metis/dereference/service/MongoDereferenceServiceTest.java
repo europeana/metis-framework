@@ -17,7 +17,7 @@ import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.net.URISyntaxException;

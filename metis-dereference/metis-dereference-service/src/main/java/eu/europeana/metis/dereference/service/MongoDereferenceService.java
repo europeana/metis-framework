@@ -13,9 +13,10 @@ import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
-import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.dereference.IncomingRecordToEdmConverter;
+import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
+import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.Collection;
@@ -35,10 +36,12 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.
  */
+@Component
 public class MongoDereferenceService implements DereferenceService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
@@ -50,12 +53,23 @@ public class MongoDereferenceService implements DereferenceService {
   /**
    * Constructor.
    *
-   * @param retriever Object that retrieves entities from their source services.
    * @param processedEntityDao Object managing the processed entity cache.
    * @param vocabularyDao Object that accesses vocabularies.
    */
   @Autowired
-  public MongoDereferenceService(RdfRetriever retriever, ProcessedEntityDao processedEntityDao,
+  public MongoDereferenceService(ProcessedEntityDao processedEntityDao,
+          VocabularyDao vocabularyDao) {
+    this(new RdfRetriever(), processedEntityDao, vocabularyDao);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param retriever Object that retrieves entities from their source services.
+   * @param processedEntityDao Object managing the processed entity cache.
+   * @param vocabularyDao Object that accesses vocabularies.
+   */
+  MongoDereferenceService(RdfRetriever retriever, ProcessedEntityDao processedEntityDao,
           VocabularyDao vocabularyDao) {
     this.retriever = retriever;
     this.processedEntityDao = processedEntityDao;
@@ -220,8 +234,7 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     // Transform the original entity.
-    final IncomingRecordToEdmConverter converter = new IncomingRecordToEdmConverter(vocabulary);
-    final String transformedEntity = converter.convert(originalEntity, resourceId);
+    final String transformedEntity = transformEntity(vocabulary, originalEntity, resourceId);
     return new ImmutablePair<>(transformedEntity, vocabulary);
   }
 
@@ -229,10 +242,35 @@ public class MongoDereferenceService implements DereferenceService {
     if (candidates.isEmpty()) {
       return null;
     }
-    final String originalEntity = retriever.retrieve(resourceId, candidates.getCandidateSuffixes());
+    final String originalEntity = candidates.getCandidateSuffixes().stream().map(suffix -> {
+      try {
+        return retriever.retrieve(resourceId, suffix);
+      } catch (IOException e) {
+        LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
+        LOGGER.debug("Problem retrieving resource.", e);
+        return null;
+      }
+    }).filter(Objects::nonNull).findAny().orElse(null);
     if (originalEntity == null) {
       LOGGER.info("No entity XML for uri {}", resourceId);
     }
     return originalEntity;
+  }
+
+  private String transformEntity(Vocabulary vocabulary, String originalEntity, String resourceId)
+          throws TransformerException {
+    final IncomingRecordToEdmConverter converter = new IncomingRecordToEdmConverter(vocabulary);
+    final String result;
+    try {
+      result = converter.convert(originalEntity, resourceId);
+      if (result == null) {
+        LOGGER.info("Could not transform entity {} as it results is an empty XML.", resourceId);
+      }
+    } catch (TransformerException e) {
+      LOGGER.warn("Error transforming entity: {} with message: {}", resourceId, e.getMessage());
+      LOGGER.debug("Transformation issue: ", e);
+      return null;
+    }
+    return result;
   }
 }

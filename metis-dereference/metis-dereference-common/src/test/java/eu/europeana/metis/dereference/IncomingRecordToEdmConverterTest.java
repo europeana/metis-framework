@@ -1,7 +1,9 @@
-package eu.europeana.metis.dereference.service.utils;
+package eu.europeana.metis.dereference;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import eu.europeana.metis.dereference.IncomingRecordToEdmConverter;
 import org.junit.jupiter.api.Test;
 
 class IncomingRecordToEdmConverterTest {
