@@ -31,13 +31,15 @@ public class MongoClientProvider<E extends Exception> {
    */
   public MongoClient createMongoClient() throws E {
     final Builder optionsBuilder = new Builder().sslEnabled(this.properties.mongoEnableSsl());
+    optionsBuilder
+        .readPreference(this.properties.getReadPreferenceValue().getReadPreferenceSupplier().get());
     final MongoCredential mongoCredential = this.properties.getMongoCredentials();
     final MongoClient mongoClient;
     if (mongoCredential == null) {
       mongoClient = new MongoClient(properties.getMongoHosts(), optionsBuilder.build());
     } else {
       mongoClient = new MongoClient(properties.getMongoHosts(), mongoCredential,
-              optionsBuilder.build());
+          optionsBuilder.build());
     }
     return mongoClient;
   }
