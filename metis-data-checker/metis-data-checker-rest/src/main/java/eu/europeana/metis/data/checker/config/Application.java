@@ -133,7 +133,7 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
     // Set the Mongo properties
     settings.getMongoProperties().setAllProperties(mongoHosts, mongoPorts,
-            mongoAuthenticationDb, mongoUsername, mongoPassword, mongoEnableSSL);
+            mongoAuthenticationDb, mongoUsername, mongoPassword, mongoEnableSSL, null);
     settings.setMongoDatabaseName(mongoDb);
 
     // Set Solr properties

@@ -1,13 +1,16 @@
 package eu.europeana.metis.mongo;
 
 import com.mongodb.MongoCredential;
+import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.utils.InetAddressUtil;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -24,6 +27,7 @@ public class MongoProperties<E extends Exception> {
   private final List<ServerAddress> mongoHosts = new ArrayList<>();
   private MongoCredential mongoCredentials;
   private boolean mongoEnableSsl;
+  private ReadPreferenceValue readPreferenceValue;
 
   /**
    * Constructor.
@@ -45,14 +49,16 @@ public class MongoProperties<E extends Exception> {
    * @param username The username. Can be null, in which case no authentication takes place.
    * @param password The password. Can be null, in which case no authentication takes place.
    * @param enableSsl Whether to enable SSL connections.
+   * @param readPreferenceValue The read preference. Can be null, where then the default applies
    * @throws E In case either of the arrays is null, or their lengths don't match.
    */
   public void setAllProperties(String[] hosts, int[] ports, String authenticationDatabase,
-          String username, String password, boolean enableSsl) throws E {
+      String username, String password, boolean enableSsl, ReadPreferenceValue readPreferenceValue)
+      throws E {
 
     // Set the hosts.
     final List<ServerAddress> addresses = new InetAddressUtil<>(this.exceptionCreator)
-            .getMongoAddressesFromHostsAndPorts(nonNull(hosts, "hosts"), nonNull(ports, "ports"));
+        .getMongoAddressesFromHostsAndPorts(nonNull(hosts, "hosts"), nonNull(ports, "ports"));
     mongoHosts.clear();
     for (ServerAddress address : nonNull(addresses, "addresses")) {
       mongoHosts.add(nonNull(address, "address"));
@@ -60,15 +66,16 @@ public class MongoProperties<E extends Exception> {
 
     // Compile the credentials
     if (StringUtils.isBlank(authenticationDatabase) || StringUtils.isBlank(username) ||
-            StringUtils.isBlank(password)) {
+        StringUtils.isBlank(password)) {
       this.mongoCredentials = null;
     } else {
       this.mongoCredentials = MongoCredential
-              .createCredential(username, authenticationDatabase, password.toCharArray());
+          .createCredential(username, authenticationDatabase, password.toCharArray());
     }
 
     // Set the other properties
     this.mongoEnableSsl = enableSsl;
+    setReadPreferenceValue(readPreferenceValue);
   }
 
   /**
@@ -90,10 +97,10 @@ public class MongoProperties<E extends Exception> {
    * @throws E In case any of the provided values are null.
    */
   public void setMongoCredentials(String username, String password, String authenticationDatabase)
-          throws E {
+      throws E {
     this.mongoCredentials = MongoCredential.createCredential(nonNull(username, "username"),
-            nonNull(authenticationDatabase, "authenticationDatabase"),
-            nonNull(password, "password").toCharArray());
+        nonNull(authenticationDatabase, "authenticationDatabase"),
+        nonNull(password, "password").toCharArray());
   }
 
   /**
@@ -101,6 +108,17 @@ public class MongoProperties<E extends Exception> {
    */
   public void setMongoEnableSsl() {
     this.mongoEnableSsl = true;
+  }
+
+  /**
+   * Set the read preference value. Can be null, where then the default applies
+   *
+   * @param readPreferenceValue the read preference value
+   */
+  public void setReadPreferenceValue(ReadPreferenceValue readPreferenceValue) {
+    //Secondary preferred as default
+    this.readPreferenceValue = Optional.ofNullable(readPreferenceValue)
+        .orElse(ReadPreferenceValue.SECONDARY_PREFERRED);
   }
 
   private <T> T nonNull(T value, String fieldName) throws E {
@@ -139,5 +157,35 @@ public class MongoProperties<E extends Exception> {
    */
   public boolean mongoEnableSsl() {
     return mongoEnableSsl;
+  }
+
+  /**
+   * This method returns the value of the read preference
+   *
+   * @return the read preference set
+   */
+  public ReadPreferenceValue getReadPreferenceValue() {
+    return readPreferenceValue;
+  }
+
+  /**
+   * Enum for read preference values
+   */
+  public enum ReadPreferenceValue {
+    PRIMARY(ReadPreference::primary),
+    PRIMARY_PREFERRED(ReadPreference::primaryPreferred),
+    SECONDARY(ReadPreference::secondary),
+    SECONDARY_PREFERRED(ReadPreference::secondaryPreferred),
+    NEAREST(ReadPreference::nearest);
+
+    private Supplier<ReadPreference> readPreferenceSupplier;
+
+    ReadPreferenceValue(Supplier<ReadPreference> readPreferenceSupplier) {
+      this.readPreferenceSupplier = readPreferenceSupplier;
+    }
+
+    public Supplier<ReadPreference> getReadPreferenceSupplier() {
+      return readPreferenceSupplier;
+    }
   }
 }
