@@ -20,6 +20,17 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   private final boolean lenientOnMappingTestFailures;
   private final boolean lenientOnExampleRetrievalFailures;
 
+  /**
+   * Constructor.
+   *
+   * @param importer Vocabulary importer.
+   * @param lenientOnLackOfExamples Whether the the validator is lenient on vocabulary mappings
+   * without examples.
+   * @param lenientOnMappingTestFailures Whether the validator is lenient on errors and unmet
+   * expectations when applying the mapping to the example and counterexample values.
+   * @param lenientOnExampleRetrievalFailures Whether the validator is lenient on example or
+   * counterexample retrieval (download) issues.
+   */
   VocabularyCollectionValidatorImpl(VocabularyCollectionImporter importer,
           boolean lenientOnLackOfExamples, boolean lenientOnMappingTestFailures,
           boolean lenientOnExampleRetrievalFailures) {
@@ -48,27 +59,27 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     if (vocabulary.getName() == null) {
       throw new VocabularyImportException(
               String.format("No vocabulary name given in metadata at [%s].",
-                      vocabulary.getMetadataSourceLocation()));
+                      vocabulary.getReadableMetadataLocation()));
     }
     if (vocabulary.getType() == null) {
       throw new VocabularyImportException(
               String.format("No vocabulary type given in metadata at [%s].",
-                      vocabulary.getMetadataSourceLocation()));
+                      vocabulary.getReadableMetadataLocation()));
     }
     if (vocabulary.getPaths().isEmpty()) {
       throw new VocabularyImportException(
               String.format("No vocabulary path(s) given in metadata at [%s].",
-                      vocabulary.getMetadataSourceLocation()));
+                      vocabulary.getReadableMetadataLocation()));
     }
     if (vocabulary.getTransformation() == null) {
       throw new VocabularyImportException(
               String.format("No transformation given in mapping at [%s].",
-                      vocabulary.getMappingSourceLocation()));
+                      vocabulary.getReadableMappingLocation()));
     }
 
     // Check whether name is unique.
     nameDuplicationChecker
-            .checkAndRegisterName(vocabulary.getName(), vocabulary.getMetadataSourceLocation());
+            .checkAndRegisterName(vocabulary.getName(), vocabulary.getReadableMetadataLocation());
 
     // Verifying the xslt - compile it.
     final IncomingRecordToEdmConverter converter;
@@ -77,13 +88,13 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     } catch (TransformerException e) {
       throw new VocabularyImportException(
               String.format("Error in the transformation given in mapping at [%s].",
-                      vocabulary.getMappingSourceLocation()), e);
+                      vocabulary.getReadableMappingLocation()), e);
     }
 
     // Testing the examples (if there are any - otherwise issue warning).
     if (vocabulary.getExamples().isEmpty()) {
       final String message = String.format("No examples specified for metadata at [%s].",
-              vocabulary.getMetadataSourceLocation());
+              vocabulary.getReadableMetadataLocation());
       if (lenientOnLackOfExamples) {
         warningReceiver.accept(message);
       } else {
@@ -92,20 +103,20 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     }
     for (String example : vocabulary.getExamples()) {
       testExample(converter, example, vocabulary.getSuffix(), false,
-              vocabulary.getMetadataSourceLocation(), warningReceiver);
+              vocabulary.getReadableMetadataLocation(), warningReceiver);
     }
 
     // Testing the counter examples (if there are any).
     for (String example : vocabulary.getCounterExamples()) {
       testExample(converter, example, vocabulary.getSuffix(), true,
-              vocabulary.getMetadataSourceLocation(), warningReceiver);
+              vocabulary.getReadableMetadataLocation(), warningReceiver);
     }
   }
 
   private String getTestErrorMessage(String example, boolean isCounterExample,
-          String metadataSourceLocation, String sentenceContinuation, Exception exception) {
+          String readableMetadataLocation, String sentenceContinuation, Exception exception) {
     final String sentence = String.format("%s '%s' in metadata at [%s] %s.",
-            isCounterExample ? "Counterexample" : "Example", example, metadataSourceLocation,
+            isCounterExample ? "Counterexample" : "Example", example, readableMetadataLocation,
             sentenceContinuation);
     return sentence + (exception == null ? "" : " Error: " + exception.getMessage());
   }
@@ -120,16 +131,16 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   private void testExample(IncomingRecordToEdmConverter converter, String example, String suffix,
-          boolean isCounterExample, String metadataSourceLocation, Consumer<String> warningReceiver)
-          throws VocabularyImportException {
+          boolean isCounterExample, String readableMetadataLocation,
+          Consumer<String> warningReceiver) throws VocabularyImportException {
 
     // Retrieve the example - is not null.
     final String exampleContent;
     try {
       exampleContent = new RdfRetriever().retrieve(example, suffix);
     } catch (IOException e) {
-      final String message = getTestErrorMessage(example, isCounterExample, metadataSourceLocation,
-              "could not be retrieved", e);
+      final String message = getTestErrorMessage(example, isCounterExample,
+              readableMetadataLocation, "could not be retrieved", e);
       processTestError(message, lenientOnExampleRetrievalFailures, warningReceiver, e);
       return;
     }
@@ -139,20 +150,20 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     try {
       result = converter.convert(exampleContent, example);
     } catch (TransformerException e) {
-      final String message = getTestErrorMessage(example, isCounterExample, metadataSourceLocation,
-              "could not be mapped", e);
+      final String message = getTestErrorMessage(example, isCounterExample,
+              readableMetadataLocation, "could not be mapped", e);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, e);
       return;
     }
 
     // Check whether the example yielded a mapped entity or not
     if (StringUtils.isNotBlank(result) && isCounterExample) {
-      final String message = getTestErrorMessage(example, isCounterExample, metadataSourceLocation,
-              "yielded a mapped result, but is expected not to", null);
+      final String message = getTestErrorMessage(example, isCounterExample,
+              readableMetadataLocation, "yielded a mapped result, but is expected not to", null);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, null);
     } else if (StringUtils.isBlank(result) && !isCounterExample) {
-      final String message = getTestErrorMessage(example, isCounterExample, metadataSourceLocation,
-              "did not yield a mapped result, but is expected to", null);
+      final String message = getTestErrorMessage(example, isCounterExample,
+              readableMetadataLocation, "did not yield a mapped result, but is expected to", null);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, null);
     }
   }
@@ -161,15 +172,15 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
 
     private final Map<String, String> knownNames = new HashMap<>();
 
-    void checkAndRegisterName(String name, String metadataLocation) {
+    void checkAndRegisterName(String name, String readableMetadataLocation) {
       final String nameToCheck = name.trim().replaceAll("\\s", " ").toLowerCase(Locale.ENGLISH);
       if (knownNames.containsKey(nameToCheck)) {
         final String message = String.format("Duplicate name '%s' detected in metadata at [%s]:"
                         + " metadata at [%s] contains a name that is similar.", name,
-                metadataLocation, knownNames.get(nameToCheck));
+                readableMetadataLocation, knownNames.get(nameToCheck));
         throw new IllegalStateException(message);
       }
-      knownNames.put(nameToCheck, metadataLocation);
+      knownNames.put(nameToCheck, readableMetadataLocation);
     }
   }
 }

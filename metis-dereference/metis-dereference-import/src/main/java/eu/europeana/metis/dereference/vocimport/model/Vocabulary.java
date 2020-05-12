@@ -20,8 +20,8 @@ public class Vocabulary {
   private final List<String> examples;
   private final List<String> counterExamples;
   private final String transformation;
-  private final String metadataSourceLocation;
-  private final String mappingSourceLocation;
+  private final String readableMetadataLocation;
+  private final String readableMappingLocation;
 
   private Vocabulary(Builder builder) {
     this.name = builder.name;
@@ -32,8 +32,8 @@ public class Vocabulary {
     this.examples = builder.examples;
     this.counterExamples = builder.counterExamples;
     this.transformation = builder.transformation;
-    this.metadataSourceLocation = builder.metadataSourceLocation;
-    this.mappingSourceLocation = builder.mappingSourceLocation;
+    this.readableMetadataLocation = builder.readableMetadataLocation;
+    this.readableMappingLocation = builder.readableMappingLocation;
   }
 
   public String getName() {
@@ -68,12 +68,12 @@ public class Vocabulary {
     return transformation;
   }
 
-  public String getMetadataSourceLocation() {
-    return metadataSourceLocation;
+  public String getReadableMetadataLocation() {
+    return readableMetadataLocation;
   }
 
-  public String getMappingSourceLocation() {
-    return mappingSourceLocation;
+  public String getReadableMappingLocation() {
+    return readableMappingLocation;
   }
 
   public static Builder builder() {
@@ -93,8 +93,8 @@ public class Vocabulary {
     private List<String> examples;
     private List<String> counterExamples;
     private String transformation;
-    private String metadataSourceLocation;
-    private String mappingSourceLocation;
+    private String readableMetadataLocation;
+    private String readableMappingLocation;
 
     private Builder() {
     }
@@ -139,13 +139,13 @@ public class Vocabulary {
       return this;
     }
 
-    public Builder setMetadataSourceLocation(String metadataSourceLocation) {
-      this.metadataSourceLocation = metadataSourceLocation;
+    public Builder setReadableMetadataLocation(String readableMetadataLocation) {
+      this.readableMetadataLocation = readableMetadataLocation;
       return this;
     }
 
-    public Builder setMappingSourceLocation(String mappingSourceLocation) {
-      this.mappingSourceLocation = mappingSourceLocation;
+    public Builder setReadableMappingLocation(String readableMappingLocation) {
+      this.readableMappingLocation = readableMappingLocation;
       return this;
     }
 

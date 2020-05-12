@@ -89,8 +89,8 @@ final class VocabularyCollectionImporterImpl<L> implements VocabularyCollectionI
             .setExamples(metadata.getExamples())
             .setCounterExamples(metadata.getCounterExamples())
             .setTransformation(mapping)
-            .setMetadataSourceLocation(metadataLocation.toString())
-            .setMappingSourceLocation(mappingLocation.toString())
+            .setReadableMetadataLocation(metadataLocation.toString())
+            .setReadableMappingLocation(mappingLocation.toString())
             .build();
   }
 
