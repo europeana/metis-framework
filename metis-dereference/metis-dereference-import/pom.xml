@@ -11,6 +11,11 @@
     <artifactId>metis-dereference-import</artifactId>
     <dependencies>
         <dependency>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-dereference-common</artifactId>
+            <version>1.9.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
             <version>${version.jackson}</version>
@@ -23,6 +28,10 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 </project>

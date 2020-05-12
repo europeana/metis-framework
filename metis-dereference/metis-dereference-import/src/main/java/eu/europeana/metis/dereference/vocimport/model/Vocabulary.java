@@ -1,9 +1,11 @@
 package eu.europeana.metis.dereference.vocimport.model;
 
 import eu.europeana.metis.dereference.vocimport.model.VocabularyMetadata.Type;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This is an immutable class that represents one vocabulary.
@@ -18,6 +20,8 @@ public class Vocabulary {
   private final List<String> examples;
   private final List<String> counterExamples;
   private final String transformation;
+  private final String metadataSourceLocation;
+  private final String mappingSourceLocation;
 
   private Vocabulary(Builder builder) {
     this.name = builder.name;
@@ -28,6 +32,8 @@ public class Vocabulary {
     this.examples = builder.examples;
     this.counterExamples = builder.counterExamples;
     this.transformation = builder.transformation;
+    this.metadataSourceLocation = builder.metadataSourceLocation;
+    this.mappingSourceLocation = builder.mappingSourceLocation;
   }
 
   public String getName() {
@@ -62,6 +68,14 @@ public class Vocabulary {
     return transformation;
   }
 
+  public String getMetadataSourceLocation() {
+    return metadataSourceLocation;
+  }
+
+  public String getMappingSourceLocation() {
+    return mappingSourceLocation;
+  }
+
   public static Builder builder() {
     return new Builder();
   }
@@ -79,12 +93,14 @@ public class Vocabulary {
     private List<String> examples;
     private List<String> counterExamples;
     private String transformation;
+    private String metadataSourceLocation;
+    private String mappingSourceLocation;
 
     private Builder() {
     }
 
     public Builder setName(String name) {
-      this.name = name;
+      this.name = normalizeString(name);
       return this;
     }
 
@@ -94,33 +110,53 @@ public class Vocabulary {
     }
 
     public Builder setPaths(List<String> paths) {
-      this.paths = new ArrayList<>(paths);
+      this.paths = normalizeStringList(paths);
       return this;
     }
 
-    public Builder setParentIterations(int parentIterations) {
-      this.parentIterations = parentIterations;
+    public Builder setParentIterations(Integer parentIterations) {
+      this.parentIterations = Optional.ofNullable(parentIterations).orElse(0);
       return this;
     }
 
     public Builder setSuffix(String suffix) {
-      this.suffix = suffix;
+      this.suffix = normalizeString(suffix);
       return this;
     }
 
     public Builder setExamples(List<String> examples) {
-      this.examples = new ArrayList<>(examples);
+      this.examples = normalizeStringList(examples);
       return this;
     }
 
     public Builder setCounterExamples(List<String> counterExamples) {
-      this.counterExamples = new ArrayList<>(counterExamples);
+      this.counterExamples = normalizeStringList(counterExamples);
       return this;
     }
 
     public Builder setTransformation(String transformation) {
-      this.transformation = transformation;
+      this.transformation = normalizeString(transformation);
       return this;
+    }
+
+    public Builder setMetadataSourceLocation(String metadataSourceLocation) {
+      this.metadataSourceLocation = metadataSourceLocation;
+      return this;
+    }
+
+    public Builder setMappingSourceLocation(String mappingSourceLocation) {
+      this.mappingSourceLocation = mappingSourceLocation;
+      return this;
+    }
+
+    private static String normalizeString(String input) {
+      return Optional.ofNullable(input).filter(StringUtils::isNotBlank).map(String::trim)
+              .orElse(null);
+    }
+
+    private static List<String> normalizeStringList(List<String> input) {
+      return input.stream().filter(StringUtils::isNotBlank).map(String::trim)
+              .collect(Collectors.toList());
     }
 
     public Vocabulary build() {

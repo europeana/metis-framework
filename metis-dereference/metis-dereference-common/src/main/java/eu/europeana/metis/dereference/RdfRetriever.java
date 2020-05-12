@@ -20,7 +20,7 @@ public class RdfRetriever {
    * @param resourceId The remote entity to retrieve (resource IDs are in fact URIs)
    * @param suffix The suffix to append to the entity to form the remote address. Can be null.
    * @return The original entity containing a string representation of the remote entity. This
-   * method may return null.
+   * method does not return null.
    * @throws IOException In case there was an issue retrieving the resource.
    */
   public String retrieve(String resourceId, String suffix) throws IOException {
@@ -58,17 +58,19 @@ public class RdfRetriever {
       if (redirectsLeft > 0 && location != null) {
         result = retrieveFromSource(location, redirectsLeft - 1);
       } else {
-        result = null;
+        throw new IOException("Could not retrieve the entity: too many redirects.");
       }
     } else {
 
       // Check that we didn't receive HTML input.
       final String resultString =
               IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
-      if (contentType != null && contentType.startsWith("text/html")) {
-        result = null;
-      } else if (resultString != null && resultString.contains("<html>")) {
-        result = null;
+      if (resultString == null || resultString.trim().isEmpty()) {
+        throw new IOException("Could not retrieve the entity: it is empty.");
+      } else if (contentType != null && contentType.startsWith("text/html")) {
+        throw new IOException("Could not retrieve the entity: seems to be an HTML document.");
+      } else if (resultString.contains("<html>")) {
+        throw new IOException("Could not retrieve the entity: seems to be an HTML document.");
       } else {
         result = resultString;
       }
