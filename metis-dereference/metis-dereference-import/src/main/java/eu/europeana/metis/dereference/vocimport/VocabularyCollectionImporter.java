@@ -1,6 +1,7 @@
 package eu.europeana.metis.dereference.vocimport;
 
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
+import eu.europeana.metis.dereference.vocimport.model.Location;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
 
 /**
@@ -17,4 +18,8 @@ public interface VocabularyCollectionImporter {
    */
   Iterable<VocabularyLoader> importVocabularies() throws VocabularyImportException;
 
+  /**
+   * @return The location of the vocabulary directory.
+   */
+  Location getDirectoryLocation();
 }

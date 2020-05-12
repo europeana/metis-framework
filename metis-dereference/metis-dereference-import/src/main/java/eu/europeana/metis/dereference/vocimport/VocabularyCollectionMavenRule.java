@@ -82,16 +82,17 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
     }
 
     // Get the vocabulary directory file
-    final Path vocabularyDirectory = project.getBasedir().toPath().resolve(vocabularyDirectoryFile);
-    log.info("");
-    log.info("Validating vocabulary collection: " + vocabularyDirectory.toString());
+    final Path baseDirectory = project.getBasedir().toPath();
+    final Path vocabularyDirectory = baseDirectory.resolve(vocabularyDirectoryFile);
 
     // Prepare validation
     final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory()
-            .createImporter(vocabularyDirectory);
+            .createImporter(baseDirectory, vocabularyDirectory);
     final VocabularyCollectionValidatorImpl validator = new VocabularyCollectionValidatorImpl(
             importer, lenientOnLackOfExamples, lenientOnMappingTestFailures,
             lenientOnExampleRetrievalFailures);
+    log.info("");
+    log.info("Validating vocabulary collection: " + importer.getDirectoryLocation().toString());
 
     // Perform validation
     try {

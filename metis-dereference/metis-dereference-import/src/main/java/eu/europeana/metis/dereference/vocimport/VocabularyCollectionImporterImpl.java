@@ -4,6 +4,7 @@ package eu.europeana.metis.dereference.vocimport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
+import eu.europeana.metis.dereference.vocimport.model.Location;
 import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyDirectoryEntry;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
@@ -17,19 +18,12 @@ import org.apache.commons.io.IOUtils;
 
 /**
  * This is the default implementation of the vocabulary importing functionality.
- *
- * @param <L> The type of the resource identifier (location) that is used.
  */
-final class VocabularyCollectionImporterImpl<L> implements VocabularyCollectionImporter {
+final class VocabularyCollectionImporterImpl implements VocabularyCollectionImporter {
 
-  private final SourceReader<L> sourceReader;
-  private final LocationResolver<L> resolver;
-  private L directoryLocation;
+  private Location directoryLocation;
 
-  VocabularyCollectionImporterImpl(SourceReader<L> sourceReader, LocationResolver<L> resolver,
-          L directoryLocation) {
-    this.sourceReader = sourceReader;
-    this.resolver = resolver;
+  VocabularyCollectionImporterImpl(Location directoryLocation) {
     this.directoryLocation = directoryLocation;
   }
 
@@ -39,7 +33,7 @@ final class VocabularyCollectionImporterImpl<L> implements VocabularyCollectionI
     // Obtain the directory entries.
     final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
     final VocabularyDirectoryEntry[] directory;
-    try (final InputStream input = sourceReader.read(directoryLocation)) {
+    try (final InputStream input = directoryLocation.read()) {
       directory = mapper.readValue(input, VocabularyDirectoryEntry[].class);
     } catch (IOException e) {
       throw new VocabularyImportException(
@@ -49,8 +43,8 @@ final class VocabularyCollectionImporterImpl<L> implements VocabularyCollectionI
     // Compile the vocabulary loaders
     final List<VocabularyLoader> result = new ArrayList<>();
     for (VocabularyDirectoryEntry entry : directory) {
-      final L metadataLocation = resolver.resolve(directoryLocation, entry.getMetadata());
-      final L mappingLocation = resolver.resolve(directoryLocation, entry.getMapping());
+      final Location metadataLocation = directoryLocation.resolve(entry.getMetadata());
+      final Location mappingLocation = directoryLocation.resolve(entry.getMapping());
       result.add(() -> loadVocabulary(metadataLocation, mappingLocation, mapper));
     }
 
@@ -58,12 +52,12 @@ final class VocabularyCollectionImporterImpl<L> implements VocabularyCollectionI
     return result;
   }
 
-  private Vocabulary loadVocabulary(L metadataLocation, L mappingLocation, ObjectMapper mapper)
-          throws VocabularyImportException {
+  private Vocabulary loadVocabulary(Location metadataLocation, Location mappingLocation,
+          ObjectMapper mapper) throws VocabularyImportException {
 
     // Read the metadata file.
     final VocabularyMetadata metadata;
-    try (final InputStream input = sourceReader.read(metadataLocation)) {
+    try (final InputStream input = metadataLocation.read()) {
       metadata = mapper.readValue(input, VocabularyMetadata.class);
     } catch (IOException e) {
       throw new VocabularyImportException(
@@ -72,7 +66,7 @@ final class VocabularyCollectionImporterImpl<L> implements VocabularyCollectionI
 
     // Read the mapping file.
     final String mapping;
-    try (final InputStream input = sourceReader.read(mappingLocation)) {
+    try (final InputStream input = mappingLocation.read()) {
       mapping = IOUtils.toString(input, StandardCharsets.UTF_8);
     } catch (IOException e) {
       throw new VocabularyImportException(
@@ -94,43 +88,7 @@ final class VocabularyCollectionImporterImpl<L> implements VocabularyCollectionI
             .build();
   }
 
-  /**
-   * Implementations of this interface are able to read a source (identified by the given location
-   * identifier) to an input stream.
-   *
-   * @param <L> The location identifier type
-   */
-  @FunctionalInterface
-  interface SourceReader<L> {
-
-    /**
-     * Read a location to an input stream.
-     *
-     * @param source The location of the file to read.
-     * @return An input stream. The caller is responsible for closing the stream.
-     * @throws IOException In case the location could not be read.
-     */
-    InputStream read(L source) throws IOException;
-  }
-
-  /**
-   * Implementations of this interface are able to resolve a relative location (identified by a
-   * {@link String}) against another location identifier.
-   *
-   * @param <L> The location identifier type.
-   */
-  @FunctionalInterface
-  interface LocationResolver<L> {
-
-    /**
-     * Resolve a relative location against the given location. The given location can be assumed to
-     * be a file (as opposed to a path/directory) so that essentially the relative location is
-     * resolved against the parent of the given location.
-     *
-     * @param location The location against which to resolve.
-     * @param relativeLocation The relative location to resolve.
-     * @return The resolved location.
-     */
-    L resolve(L location, String relativeLocation);
+  public Location getDirectoryLocation() {
+    return directoryLocation;
   }
 }
