@@ -1,5 +1,13 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.utils.RdfWrapper;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Supplier;
@@ -8,12 +16,6 @@ import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.utils.RdfWrapper;
 
 /**
  * This class converts String representations of RDF (XML) to instances of {@link FullBeanImpl}.
@@ -65,14 +67,28 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
    * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
   public RDF convertStringToRdf(String record) throws IndexingException {
+    try (InputStream stream = IOUtils.toInputStream(record, DEFAULT_CHARSET)) {
+      return convertToRdf(stream);
+    } catch (IOException e) {
+      throw new RecordRelatedIndexingException("Could not read string value.", e);
+    }
+  }
+
+  /**
+   * Converts an input stream (XML of RDF) to an RDF object.
+   *
+   * @param record The record as an input stream. This stream is not closed.
+   * @return The RDF instance.
+   * @throws IndexingException In case there was a problem with the parsing or conversion.
+   */
+  public RDF convertToRdf(InputStream record) throws IndexingException {
 
     // Convert string to RDF
     final RDF rdf;
     final IBindingFactory rdfBindingFactory = rdfBindingFactorySupplier.get();
     try {
       final IUnmarshallingContext context = rdfBindingFactory.createUnmarshallingContext();
-      rdf = (RDF) context.unmarshalDocument(IOUtils.toInputStream(record, DEFAULT_CHARSET),
-          DEFAULT_CHARSET.name());
+      rdf = (RDF) context.unmarshalDocument(record, DEFAULT_CHARSET.name());
     } catch (JiBXException e) {
       throw new RecordRelatedIndexingException("Could not convert record to RDF.", e);
     }
@@ -80,7 +96,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
     // Sanity check - shouldn't happen
     if (rdf == null) {
       throw new RecordRelatedIndexingException(
-          "Could not convert record to RDF: null was returned.");
+              "Could not convert record to RDF: null was returned.");
     }
 
     // Done.

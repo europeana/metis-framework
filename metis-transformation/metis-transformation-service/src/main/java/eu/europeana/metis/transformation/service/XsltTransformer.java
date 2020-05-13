@@ -1,10 +1,14 @@
 package eu.europeana.metis.transformation.service;
 
 import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URL;
 import java.time.Duration;
 import javax.xml.transform.Templates;
@@ -76,24 +80,49 @@ public class XsltTransformer {
    * @throws TransformationException In case there was a problem with the transformation.
    */
   public StringWriter transform(byte[] fileContent,
-      EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
+          EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
+    final StringWriter result = new StringWriter();
+    transform(fileContent, result, europeanaGeneratedIdsMap);
+    return result;
+  }
+
+  /**
+   * Transforms a file using this instance's XSL transformation.
+   *
+   * @param fileContent The file to be transformed.
+   * @param europeanaGeneratedIdsMap all the identifiers related to europeana RDF elements
+   * @return The transformed file.
+   * @throws TransformationException In case there was a problem with the transformation.
+   */
+  public byte[] transformToBytes(byte[] fileContent,
+          EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
+    try (final ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+      try (final Writer writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
+        transform(fileContent, writer, europeanaGeneratedIdsMap);
+      }
+      return outputStream.toByteArray();
+    } catch (IOException e) {
+      throw new TransformationException(e);
+    }
+  }
+
+  public void transform(byte[] fileContent, Writer writer,
+          EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
     if (europeanaGeneratedIdsMap != null) {
       transformer.setParameter("providedCHOAboutId",
-          europeanaGeneratedIdsMap.getEuropeanaGeneratedId());
+              europeanaGeneratedIdsMap.getEuropeanaGeneratedId());
       transformer.setParameter("aggregationAboutId",
-          europeanaGeneratedIdsMap.getAggregationAboutPrefixed());
+              europeanaGeneratedIdsMap.getAggregationAboutPrefixed());
       transformer.setParameter("europeanaAggregationAboutId",
-          europeanaGeneratedIdsMap.getEuropeanaAggregationAboutPrefixed());
+              europeanaGeneratedIdsMap.getEuropeanaAggregationAboutPrefixed());
       transformer.setParameter("proxyAboutId", europeanaGeneratedIdsMap.getProxyAboutPrefixed());
       transformer.setParameter("europeanaProxyAboutId",
-          europeanaGeneratedIdsMap.getEuropeanaProxyAboutPrefixed());
+              europeanaGeneratedIdsMap.getEuropeanaProxyAboutPrefixed());
       transformer.setParameter("dcIdentifier",
-          europeanaGeneratedIdsMap.getSourceProvidedChoAbout());
+              europeanaGeneratedIdsMap.getSourceProvidedChoAbout());
     }
     try (final InputStream contentStream = new ByteArrayInputStream(fileContent)) {
-      final StringWriter result = new StringWriter();
-      transformer.transform(new StreamSource(contentStream), new StreamResult(result));
-      return result;
+      transformer.transform(new StreamSource(contentStream), new StreamResult(writer));
     } catch (TransformerException | IOException e) {
       throw new TransformationException(e);
     }

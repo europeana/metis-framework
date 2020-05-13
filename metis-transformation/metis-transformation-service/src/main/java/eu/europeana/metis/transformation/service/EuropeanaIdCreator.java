@@ -97,9 +97,7 @@ public final class EuropeanaIdCreator {
    */
   public EuropeanaGeneratedIdsMap constructEuropeanaId(RDF rdf, String datasetId)
       throws EuropeanaIdException {
-    final String rdfAbout = extractRdfAboutFromRdf(rdf);
-    String europeanaIdFromRdfAbout = constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
-    return new EuropeanaGeneratedIdsMap(rdfAbout, europeanaIdFromRdfAbout);
+    return constructEuropeanaIdInternal(extractRdfAboutFromRdf(rdf), datasetId);
   }
 
   /**
@@ -114,14 +112,30 @@ public final class EuropeanaIdCreator {
    * @throws EuropeanaIdException In case no rdf:about could be found.
    */
   public EuropeanaGeneratedIdsMap constructEuropeanaId(String rdfString, String datasetId)
-      throws EuropeanaIdException {
-    final String rdfAbout = extractRdfAboutFromRdfString(rdfString);
-    String europeanaIdFromRdfAbout = constructEuropeanaIdFromRdfAbout(rdfAbout, datasetId);
-    return new EuropeanaGeneratedIdsMap(rdfAbout, europeanaIdFromRdfAbout);
+          throws EuropeanaIdException {
+    return constructEuropeanaIdInternal(extractRdfAboutFromRdfString(rdfString), datasetId);
   }
 
-  private String constructEuropeanaIdFromRdfAbout(String rdfAbout, String datasetId) {
-    return "/" + sanitizeDatasetIdLegacy(datasetId) + "/" + sanitizeRdfAboutLegacy(rdfAbout);
+  /**
+   * This method constructs a Europeana ID for an RDF represented as a string and provides a map for
+   * the ProvidedCHO rdf:about and Europeana ID. If the rdfAbout is already a europeana identifier
+   * then there will not be a generation of the Europeana ID but a copy of the ProvidedCHO
+   * rdf:about.
+   *
+   * @param inputStream The RDF as an input stream. Is not null.
+   * @param datasetId The ID of the dataset to which this RDF belongs. Is not null.
+   * @return The Europeana ID and Provider ID in a class structure, of this RDF. Is not null.
+   * @throws EuropeanaIdException In case no rdf:about could be found.
+   */
+  public EuropeanaGeneratedIdsMap constructEuropeanaId(InputStream inputStream, String datasetId)
+          throws EuropeanaIdException {
+    return constructEuropeanaIdInternal(extractRdfAboutFromInputStream(inputStream), datasetId);
+  }
+
+  private EuropeanaGeneratedIdsMap constructEuropeanaIdInternal(String rdfAbout, String datasetId) {
+    final String europeanaId =
+            "/" + sanitizeDatasetIdLegacy(datasetId) + "/" + sanitizeRdfAboutLegacy(rdfAbout);
+    return new EuropeanaGeneratedIdsMap(rdfAbout, europeanaId);
   }
 
   /**
@@ -202,19 +216,26 @@ public final class EuropeanaIdCreator {
   }
 
   private String extractRdfAboutFromRdfString(String rdfString) throws EuropeanaIdException {
+    try (final InputStream inputStream =
+            new ByteArrayInputStream(rdfString.getBytes(StandardCharsets.UTF_8))) {
+      return extractRdfAboutFromInputStream(inputStream);
+    } catch (IOException e) {
+      throw new EuropeanaIdException(
+              "Something went wrong while extracting the provider ID from the source.", e);
+    }
+  }
+
+  private String extractRdfAboutFromInputStream(InputStream inputStream)
+          throws EuropeanaIdException {
 
     // Obtain the RDF about
     final String result;
-    try (final InputStream inputStream =
-        new ByteArrayInputStream(rdfString.getBytes(StandardCharsets.UTF_8))) {
-      result = extractRdfAboutFromInputStream(inputStream);
+    try {
+      result = extractRdfAboutFromInputStreamInternal(inputStream);
     } catch (InterruptedException e) {
       LOGGER.warn("Thread interrupted.");
       Thread.currentThread().interrupt();
       return null;
-    } catch (IOException e) {
-      throw new EuropeanaIdException(
-          "Something went wrong while extracting the provider ID from the source.", e);
     }
 
     // Check it for presence before returning it.
@@ -233,7 +254,7 @@ public final class EuropeanaIdCreator {
    * permanently.
    * TODO This is also why the loop with the attempts was added.
    */
-  private String extractRdfAboutFromInputStream(InputStream inputStream)
+  private String extractRdfAboutFromInputStreamInternal(InputStream inputStream)
       throws EuropeanaIdException, InterruptedException {
 
     // Keep track of the latest exception received.
