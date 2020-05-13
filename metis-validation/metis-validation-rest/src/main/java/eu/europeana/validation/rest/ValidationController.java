@@ -16,6 +16,7 @@ import eu.europeana.validation.service.ValidationExecutionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -109,9 +110,9 @@ public class ValidationController {
           new ValidationResultList());
     }
 
-    final List<String> records;
+    final List<ByteArrayInputStream> records;
     try {
-      records = new ZipFileReader().getRecordsFromZipFile(providedZipFile.getInputStream());
+      records = new ZipFileReader().getContentFromZipFile(providedZipFile.getInputStream());
     } catch (IOException e) {
       throw new ServerException(e);
     }
@@ -121,6 +122,7 @@ public class ValidationController {
         
     try {
       ValidationResultList list = validator.batchValidation(targetSchema, null, null, records);
+      // TODO JV Note the condition below means that list.success is ALWAYS true (or a NPE occurs). This is probably not the purpose here.
       if (list.getResultList() != null || list.getResultList().isEmpty()) {
         list.setSuccess(true);
       }

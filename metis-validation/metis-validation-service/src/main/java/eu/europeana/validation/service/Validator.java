@@ -2,16 +2,15 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.model.ValidationResult;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.xml.XMLConstants;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -25,7 +24,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -43,7 +44,7 @@ public class Validator implements Callable<ValidationResult> {
   private final String schema;
   private final String rootFileLocation;
   private final String schematronFileLocation;
-  private final String document;
+  private final InputStream document;
   private final SchemaProvider schemaProvider;
   private final ClasspathResourceResolver resolver;
 
@@ -58,13 +59,13 @@ public class Validator implements Callable<ValidationResult> {
    * @param schema schema that will be used for validation
    * @param rootFileLocation location of the schema root file
    * @param schematronFileLocation location of the schematron file
-   * @param document document that will be validated
+   * @param document document that will be validated - this will be read but not closed
    * @param schemaProvider the class that provides the schemas. Make sure it is initialized with
    * safe schema location paths.
    * @param resolver the resolver used for parsing split xsds
    */
   public Validator(String schema, String rootFileLocation, String schematronFileLocation,
-      String document, SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
+      InputStream document, SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
     this.schema = schema;
     this.rootFileLocation = rootFileLocation;
     this.schematronFileLocation = schematronFileLocation;
@@ -105,13 +106,15 @@ public class Validator implements Callable<ValidationResult> {
   private ValidationResult validate() {
     LOGGER.debug("Validation started");
     InputSource source = new InputSource();
-    source.setByteStream(new ByteArrayInputStream(document.getBytes(StandardCharsets.UTF_8)));
+    source.setByteStream(document);
+    String rdfAbout = null;
     try {
       Schema savedSchema = getSchemaByName(schema);
 
       resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), File.separator));
 
       Document doc = EDMParser.getInstance().getEdmParser().parse(source);
+      rdfAbout = getRdfAbout(doc);
       EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), resolver)
           .validate(new DOMSource(doc));
       if (StringUtils.isNotEmpty(savedSchema.getSchematronPath())) {
@@ -120,25 +123,41 @@ public class Validator implements Callable<ValidationResult> {
         DOMResult result = new DOMResult();
         transformer.transform(new DOMSource(doc), result);
         NodeList nresults = result.getNode().getFirstChild().getChildNodes();
-        final ValidationResult errorResult = checkNodeListForErrors(nresults);
+        final ValidationResult errorResult = checkNodeListForErrors(nresults, rdfAbout);
         if (errorResult != null) {
           return errorResult;
         }
       }
     } catch (IOException | SchemaProviderException | SAXException | TransformerException e) {
-      return constructValidationError(document, e);
+      return constructValidationError(rdfAbout, e);
     }
     LOGGER.debug("Validation ended");
     return constructOk();
   }
 
-  private ValidationResult checkNodeListForErrors(NodeList nresults) {
+  private String getRdfAbout(Document document) {
+    final NodeList nodes = document
+            .getElementsByTagNameNS("http://www.europeana.eu/schemas/edm/", "ProvidedCHO");
+    for (int i = 0; i < nodes.getLength(); i++) {
+      final Element element = (Element) nodes.item(i);
+      final Attr aboutAttribute = element
+              .getAttributeNodeNS("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "about");
+      final String aboutValue = Optional.ofNullable(aboutAttribute).map(Attr::getValue)
+              .map(String.class::cast).orElse(null);
+      if (aboutValue != null) {
+        return aboutValue;
+      }
+    }
+    return null;
+  }
+
+  private ValidationResult checkNodeListForErrors(NodeList nresults, String rdfAbout) {
     for (int i = 0; i < nresults.getLength(); i++) {
       Node nresult = nresults.item(i);
       if ("failed-assert".equals(nresult.getLocalName())) {
         String nodeId = nresult.getAttributes().getNamedItem(NODE_ID_ATTR) == null ? null
             : nresult.getAttributes().getNamedItem(NODE_ID_ATTR).getTextContent();
-        return constructValidationError(document,
+        return constructValidationError(rdfAbout,
             "Schematron error: " + nresult.getTextContent().trim(), nodeId);
       }
     }
@@ -163,10 +182,10 @@ public class Validator implements Callable<ValidationResult> {
     return templatesCache.get(schematronPath).newTransformer();
   }
 
-  private ValidationResult constructValidationError(String document, Exception e) {
+  private ValidationResult constructValidationError(String rdfAbout, Exception e) {
     ValidationResult res = new ValidationResult();
     res.setMessage(e.getMessage());
-    res.setRecordId(getRecordId(document));
+    res.setRecordId(rdfAbout);
     if (StringUtils.isEmpty(res.getRecordId())) {
       res.setRecordId("Missing record identifier for EDM record");
     }
@@ -175,11 +194,11 @@ public class Validator implements Callable<ValidationResult> {
     return res;
   }
 
-  private ValidationResult constructValidationError(String document, String message,
+  private ValidationResult constructValidationError(String rdfAbout, String message,
       String nodeId) {
     ValidationResult res = new ValidationResult();
     res.setMessage(message);
-    res.setRecordId(getRecordId(document));
+    res.setRecordId(rdfAbout);
     if (StringUtils.isEmpty(res.getRecordId())) {
       res.setRecordId("Missing record identifier for EDM record");
     }
@@ -191,16 +210,6 @@ public class Validator implements Callable<ValidationResult> {
 
     res.setSuccess(false);
     return res;
-  }
-
-  private String getRecordId(String document) {
-    Pattern pattern = Pattern.compile("ProvidedCHO\\s+rdf:about\\s?=\\s?\"(.+)\"\\s?>");
-    Matcher matcher = pattern.matcher(document);
-    if (matcher.find()) {
-      return matcher.group(1);
-    } else {
-      return null;
-    }
   }
 
   private ValidationResult constructOk() {

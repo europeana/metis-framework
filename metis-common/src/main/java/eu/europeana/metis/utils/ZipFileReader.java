@@ -1,5 +1,6 @@
 package eu.europeana.metis.utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,35 +39,65 @@ public class ZipFileReader {
   /**
    * This method extracts all files from a ZIP file and returns them as strings. This method only
    * considers files in the main directory. This method creates (and then removes) a temporary file.
-   * 
+   *
    * @param providedZipFile Input stream containing the zip file. This method is not responsible for
    *        closing the stream.
    * @return A list of records.
    * @throws IOException In case of problems with the temporary file or with reading the zip file.
    */
   public List<String> getRecordsFromZipFile(InputStream providedZipFile) throws IOException {
-
-    // Create temporary file.
-    final String prefix = UUID.randomUUID().toString();
-    final File tempFile = File.createTempFile(prefix, ".zip");
-    FileUtils.copyInputStreamToFile(providedZipFile, tempFile);
-    LOGGER.info("Temp file: {} created.", tempFile);
-
-    // Open temporary zip file, read it and delete it.
-    try (final ZipFile zipFile = new ZipFile(tempFile, ZipFile.OPEN_READ | ZipFile.OPEN_DELETE)) {
+    try (final ZipFile zipFile = createTempZipFile(providedZipFile)) {
       return getRecordsFromZipFile(zipFile);
     }
   }
 
+  /**
+   * This method extracts all files from a ZIP file and returns them as byte arrays. This method
+   * only considers files in the main directory. This method creates (and then removes) a temporary
+   * file.
+   *
+   * @param providedZipFile Input stream containing the zip file. This method is not responsible for
+   * closing the stream.
+   * @return A list of records.
+   * @throws IOException In case of problems with the temporary file or with reading the zip file.
+   */
+  public List<ByteArrayInputStream> getContentFromZipFile(InputStream providedZipFile)
+          throws IOException {
+    try (final ZipFile zipFile = createTempZipFile(providedZipFile)) {
+      final List<InputStream> streams = getContentFromZipFile(zipFile);
+      final List<ByteArrayInputStream> result = new ArrayList<>();
+      for (InputStream stream : streams) {
+        result.add(new ByteArrayInputStream(IOUtils.toByteArray(stream)));
+      }
+      return result;
+    }
+  }
+
+  private ZipFile createTempZipFile(InputStream content) throws IOException {
+    final String prefix = UUID.randomUUID().toString();
+    final File tempFile = File.createTempFile(prefix, ".zip");
+    FileUtils.copyInputStreamToFile(content, tempFile);
+    LOGGER.info("Temp file: {} created.", tempFile);
+    return new ZipFile(tempFile, ZipFile.OPEN_READ | ZipFile.OPEN_DELETE);
+  }
+
   List<String> getRecordsFromZipFile(ZipFile zipFile) throws IOException {
+    final List<InputStream> streams = getContentFromZipFile(zipFile);
     final List<String> result = new ArrayList<>();
+    for (InputStream stream : streams) {
+      result.add(IOUtils.toString(stream, StandardCharsets.UTF_8.name()));
+    }
+    return result;
+  }
+
+  private List<InputStream> getContentFromZipFile(ZipFile zipFile) throws IOException {
+    final List<InputStream> result = new ArrayList<>();
     final Iterator<? extends ZipEntry> entries = zipFile.stream().iterator();
     while (entries.hasNext()) {
       final ZipEntry zipEntry = entries.next();
-      if (!accept(zipEntry)) {
-        continue;
+      if (accept(zipEntry)) {
+        result.add(zipFile.getInputStream(zipEntry));
       }
-      result.add(IOUtils.toString(zipFile.getInputStream(zipEntry), StandardCharsets.UTF_8.name()));
     }
     return result;
   }
