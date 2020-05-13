@@ -3,10 +3,12 @@ package eu.europeana.indexing;
 import com.mongodb.ServerAddress;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.mongo.MongoProperties;
+import eu.europeana.metis.mongo.MongoProperties.ReadPreferenceValue;
 import eu.europeana.metis.solr.SolrProperties;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * This class contains all settings needed for indexing. These settings are not thread-safe.
@@ -19,11 +21,11 @@ public final class IndexingSettings {
   private String mongoDatabaseName;
   private String recordRedirectDatabaseName;
   private final MongoProperties<SetupRelatedIndexingException> mongoProperties = new MongoProperties<>(
-          SetupRelatedIndexingException::new);
+      SetupRelatedIndexingException::new);
 
   // Zookeeper settings
   private final SolrProperties<SetupRelatedIndexingException> solrProperties = new SolrProperties<>(
-          SetupRelatedIndexingException::new);
+      SetupRelatedIndexingException::new);
 
   /**
    * Add a Mongo host. This method must be called at least once.
@@ -47,7 +49,8 @@ public final class IndexingSettings {
 
   public void setRecordRedirectDatabaseName(String recordRedirectDatabaseName)
       throws SetupRelatedIndexingException {
-    this.recordRedirectDatabaseName = nonNull(recordRedirectDatabaseName, "recordRedirectDatabaseName");
+    this.recordRedirectDatabaseName = nonNull(recordRedirectDatabaseName,
+        "recordRedirectDatabaseName");
   }
 
   /**
@@ -71,6 +74,19 @@ public final class IndexingSettings {
   }
 
   /**
+   * Set the read preference value. Can be null, where then the default applies
+   *
+   * @param readPreferenceString the read preference value as String
+   */
+  public void setMongoReadPreference(String readPreferenceString) {
+    ReadPreferenceValue readPreferenceValue = null;
+    if (StringUtils.isNotBlank(readPreferenceString)) {
+      readPreferenceValue = ReadPreferenceValue.valueOf(readPreferenceString);
+    }
+    this.mongoProperties.setReadPreferenceValue(readPreferenceValue);
+  }
+
+  /**
    * Add a Zookeeper host. This method is optional. By default the list is empty, signifying that a
    * direct connection is to be made with Solr (i.e. not via zookeeper). Any value set through
    * {@link #setZookeeperChroot(String)} will be ignored in this case.
@@ -84,11 +100,11 @@ public final class IndexingSettings {
 
   /**
    * Set the Zookeeper chroot (which would apply to all the zookeeper hosts). See the documentation
-   * of {@link org.apache.zookeeper.ZooKeeper} constructors, for instance
-   * {@link org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}.
-   * The chroot must start with a '/' character. This method is optional: by default, there is no
-   * chroot. This method has effect only if zookeeper is to be used (i.e. if
-   * {@link #addZookeeperHost(InetSocketAddress)} is called).
+   * of {@link org.apache.zookeeper.ZooKeeper} constructors, for instance {@link
+   * org.apache.zookeeper.ZooKeeper#ZooKeeper(String, int, org.apache.zookeeper.Watcher)}. The
+   * chroot must start with a '/' character. This method is optional: by default, there is no
+   * chroot. This method has effect only if zookeeper is to be used (i.e. if {@link
+   * #addZookeeperHost(InetSocketAddress)} is called).
    *
    * @param chroot The chroot.
    * @throws SetupRelatedIndexingException If the chroot does not start with a '/'.
@@ -111,11 +127,11 @@ public final class IndexingSettings {
 
   /**
    * Set the Zookeeper connection time-out . This method is optional: by default, there is no
-   * connection time-out. This method has effect only if zookeeper is to be used (i.e. if
-   * {@link #addZookeeperHost(InetSocketAddress)} is called).
+   * connection time-out. This method has effect only if zookeeper is to be used (i.e. if {@link
+   * #addZookeeperHost(InetSocketAddress)} is called).
    *
    * @param zookeeperTimeoutInSecs The time-out (in seconds) to be applied to Zookeeper connections.
-   *        If this number is zero or negative, the default value will be applied.
+   * If this number is zero or negative, the default value will be applied.
    */
   public void setZookeeperTimeoutInSecs(int zookeeperTimeoutInSecs) {
     this.solrProperties.setZookeeperTimeoutInSecs(zookeeperTimeoutInSecs);
