@@ -1,10 +1,13 @@
 package eu.europeana.normalization.util;
 
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.xml.XMLConstants;
@@ -164,31 +167,33 @@ public final class XmlUtil {
    * @throws XmlException In case something went wrong while performing the transformation.
    */
   public static String writeDomToString(Document dom) throws XmlException {
-    return writeDomToString(dom, null);
+    final StringWriter ret = new StringWriter();
+    writeDom(dom, ret);
+    return ret.toString();
   }
 
   /**
-   * Serialize a DOM tree to an XML string.
+   * Serialize a DOM tree to an XML byte array.
    *
    * @param dom The DOM tree to convert
-   * @param outputProperties the properties for the String representation of the XML. Can be null.
    * @return A string containing the XML representation of the DOM tree.
    * @throws XmlException In case something went wrong while performing the transformation.
    */
-  private static String writeDomToString(Document dom, Properties outputProperties)
-      throws XmlException {
+  public static byte[] writeDomToByteArray(Document dom) throws XmlException {
+    final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    final Writer writer= new BufferedWriter(new OutputStreamWriter(outputStream));
+    writeDom(dom, writer);
+    return outputStream.toByteArray();
+  }
+
+  private static void writeDom(Document dom, Writer writer) throws XmlException {
     try {
-      StringWriter ret = new StringWriter();
       final TransformerFactory transformerFactory = TransformerFactory.newInstance();
       transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-      Transformer transformer = transformerFactory.newTransformer();
-      if (outputProperties != null) {
-        transformer.setOutputProperties(outputProperties);
-      }
-      DOMSource source = new DOMSource(dom);
-      StreamResult result = new StreamResult(ret);
+      final Transformer transformer = transformerFactory.newTransformer();
+      final DOMSource source = new DOMSource(dom);
+      final StreamResult result = new StreamResult(writer);
       transformer.transform(source, result);
-      return ret.toString();
     } catch (RuntimeException | TransformerException e) {
       throw new XmlException("Could not write dom to string!", e);
     }

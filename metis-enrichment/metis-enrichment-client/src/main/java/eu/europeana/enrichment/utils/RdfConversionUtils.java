@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.utils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
@@ -50,12 +51,23 @@ public final class RdfConversionUtils {
    * @throws UnsupportedEncodingException if encoding is not supported during byte serialization
    */
   public static String convertRdfToString(RDF rdf)
-      throws JiBXException, UnsupportedEncodingException {
+          throws JiBXException, UnsupportedEncodingException {
+    return new String(convertRdfToBytes(rdf), UTF8);
+  }
+
+  /**
+   * Convert an {@link RDF} to a UTF-8 encoded XML
+   *
+   * @param rdf The RDF object to convert
+   * @return An XML string representation of the RDF object
+   * @throws JiBXException if during marshalling there is a failure
+   */
+  public static byte[] convertRdfToBytes(RDF rdf) throws JiBXException {
     IMarshallingContext context = getRdfBindingFactory().createMarshallingContext();
     context.setIndent(IDENTATION_SPACE);
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     context.marshalDocument(rdf, UTF8, null, out);
-    return out.toString(UTF8);
+    return out.toByteArray();
   }
 
   /**
@@ -65,7 +77,17 @@ public final class RdfConversionUtils {
    * @throws JiBXException if during unmarshalling there is a failure
    */
   public static RDF convertStringToRdf(String xml) throws JiBXException {
-    IUnmarshallingContext context = getRdfBindingFactory().createUnmarshallingContext();
-    return (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml, StandardCharsets.UTF_8), UTF8);
+    return convertInputStreamToRdf(IOUtils.toInputStream(xml, StandardCharsets.UTF_8));
+  }
+
+  /**
+   * Convert a UTF-8 encoded XML to {@link RDF}
+   * @param inputStream The xml. The stream is not closed.
+   * @return the RDF object
+   * @throws JiBXException if during unmarshalling there is a failure
+   */
+  public static RDF convertInputStreamToRdf(InputStream inputStream) throws JiBXException {
+    final IUnmarshallingContext context = getRdfBindingFactory().createUnmarshallingContext();
+    return (RDF) context.unmarshalDocument(inputStream, UTF8);
   }
 }
