@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Helper class to retrieve a remote unmapped entity Created by ymamakis on 2/11/16.
@@ -65,11 +66,10 @@ public class RdfRetriever {
       // Check that we didn't receive HTML input.
       final String resultString =
               IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
-      if (resultString == null || resultString.trim().isEmpty()) {
+      if (StringUtils.isBlank(resultString)) {
         throw new IOException("Could not retrieve the entity: it is empty.");
-      } else if (contentType != null && contentType.startsWith("text/html")) {
-        throw new IOException("Could not retrieve the entity: seems to be an HTML document.");
-      } else if (resultString.contains("<html>")) {
+      } else if (StringUtils.startsWith(contentType, "text/html") || resultString
+              .contains("<html>")) {
         throw new IOException("Could not retrieve the entity: seems to be an HTML document.");
       } else {
         result = resultString;

@@ -32,9 +32,9 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
 
     // Obtain the directory entries.
     final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-    final VocabularyDirectoryEntry[] directory;
+    final VocabularyDirectoryEntry[] directoryEntries;
     try (final InputStream input = directoryLocation.read()) {
-      directory = mapper.readValue(input, VocabularyDirectoryEntry[].class);
+      directoryEntries = mapper.readValue(input, VocabularyDirectoryEntry[].class);
     } catch (IOException e) {
       throw new VocabularyImportException(
               "Could not read vocabulary directory at [" + directoryLocation + "].", e);
@@ -42,7 +42,7 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
 
     // Compile the vocabulary loaders
     final List<VocabularyLoader> result = new ArrayList<>();
-    for (VocabularyDirectoryEntry entry : directory) {
+    for (VocabularyDirectoryEntry entry : directoryEntries) {
       final Location metadataLocation = directoryLocation.resolve(entry.getMetadata());
       final Location mappingLocation = directoryLocation.resolve(entry.getMapping());
       result.add(() -> loadVocabulary(metadataLocation, mappingLocation, mapper));
