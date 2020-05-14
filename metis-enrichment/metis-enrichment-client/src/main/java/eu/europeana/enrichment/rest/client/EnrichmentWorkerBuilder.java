@@ -27,9 +27,8 @@ public class EnrichmentWorkerBuilder {
 
   private String dereferenceUrl = null;
   private String enrichmentUrl = null;
-  private int connectTimeout = 0;
-  private int responseTimeout = 0;
-
+  private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
+  private int responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
 
   /**
    * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
