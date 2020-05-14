@@ -18,7 +18,6 @@ import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.utils.InputValue;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.ArrayList;
@@ -34,10 +33,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-public class EnrichmentClientTest {
+class EnrichmentClientTest {
 
   @Test
-  public void testEnrich() throws RestClientException, JAXBException {
+  void testEnrich() throws RestClientException, JAXBException {
     Agent agent1 = new Agent();
     agent1.setAbout("Test Agent 1");
 
@@ -53,19 +52,14 @@ public class EnrichmentClientTest {
     EnrichmentResultList result = new EnrichmentResultList(enrichmentBaseWrapperList);
 
     final RestTemplate restTemplate = mock(RestTemplate.class);
-    final ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(marshall(result),
+    final ResponseEntity<byte[]> response = new ResponseEntity<>(marshall(result),
             HttpStatus.OK);
     doReturn(response).when(restTemplate).exchange(eq(ENRICHMENT_ENRICH), eq(HttpMethod.POST),
             any(HttpEntity.class), eq(byte[].class));
 
-    final EnrichmentClient enrichmentClient = spy(new EnrichmentClient(""));
-    enrichmentClient.setRestTemplate(restTemplate);
+    final EnrichmentClient enrichmentClient = spy(new EnrichmentClient(restTemplate, ""));
+    EnrichmentResultList res = enrichmentClient.enrich(new ArrayList<>());
 
-    List<InputValue> values = new ArrayList<InputValue>();
-    EnrichmentResultList res = enrichmentClient.enrich(values);
-
-    verify(enrichmentClient).setRestTemplate(restTemplate);
-    verify(enrichmentClient).enrich(values);
     verify(restTemplate, times(1)).exchange(eq(ENRICHMENT_ENRICH), eq(HttpMethod.POST),
             any(HttpEntity.class), eq(byte[].class));
     assertEquals(res.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase().getAbout(),
@@ -83,20 +77,19 @@ public class EnrichmentClientTest {
   }
 
   @Test
-  public void testEnrichException() {
+  void testEnrichException() {
     final RestTemplate restTemplate = mock(RestTemplate.class);
     doThrow(new UnknownException("test")).when(restTemplate).exchange(not(eq(ENRICHMENT_ENRICH)),
             eq(HttpMethod.POST), any(HttpEntity.class), eq(byte[].class));
 
-    final EnrichmentClient enrichmentClient = spy(new EnrichmentClient("http://dummy"));
-    enrichmentClient.setRestTemplate(restTemplate);
+    final EnrichmentClient enrichmentClient = spy(
+            new EnrichmentClient(restTemplate, "http://dummy"));
 
-    List<InputValue> values = new ArrayList<>();
-    assertThrows(UnknownException.class, () -> enrichmentClient.enrich(values));
+    assertThrows(UnknownException.class, () -> enrichmentClient.enrich(new ArrayList<>()));
   }
 
   @Test
-  public void testGetByUri() throws RestClientException, JAXBException {
+  void testGetByUri() throws RestClientException, JAXBException {
     Agent agent = new Agent();
     agent.setAbout("Test Agent");
 
@@ -109,13 +102,10 @@ public class EnrichmentClientTest {
             any(HttpEntity.class),
             eq(byte[].class));
 
-    final EnrichmentClient enrichmentClient = spy(new EnrichmentClient("http://dummy"));
+    final EnrichmentClient enrichmentClient = spy(
+            new EnrichmentClient(restTemplate, "http://dummy"));
 
-    enrichmentClient.setRestTemplate(restTemplate);
     EnrichmentBase res = enrichmentClient.getByUri("http://test");
-
-    verify(enrichmentClient).setRestTemplate(restTemplate);
-    verify(enrichmentClient).getByUri("http://test");
     verify(restTemplate, times(1)).exchange(any(URI.class),
             eq(HttpMethod.GET),
             any(HttpEntity.class),

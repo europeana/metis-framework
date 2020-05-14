@@ -31,9 +31,10 @@ public class DereferenceClient {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferenceClient.class);
 
   private final String hostUrl;
-  private RestTemplate restTemplate = new RestTemplate();
+  private final RestTemplate restTemplate;
 
-  public DereferenceClient(String hostUrl) {
+  DereferenceClient(RestTemplate restTemplate, String hostUrl) {
+    this.restTemplate = restTemplate;
     this.hostUrl = hostUrl;
   }
 
@@ -96,9 +97,5 @@ public class DereferenceClient {
       LOGGER.warn("URL [{}] could not be deserialized.", dereferenceUrlString, e);
       throw new UnknownException("Dereference client call failed.", e);
     }
-  }
-
-  void setRestTemplate(RestTemplate restTemplate) {
-    this.restTemplate = restTemplate;
   }
 }
