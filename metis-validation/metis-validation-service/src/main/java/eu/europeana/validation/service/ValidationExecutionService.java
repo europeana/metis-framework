@@ -80,12 +80,26 @@ public class ValidationExecutionService {
           String schematronFileLocation, final String document) {
     try (final ByteArrayInputStream inputStream = new ByteArrayInputStream(
             document.getBytes(StandardCharsets.UTF_8))) {
-      return new Validator(schema, rootFileLocation, schematronFileLocation, inputStream,
-              schemaProvider, lsResourceResolver).call();
+      return singleValidation(schema, rootFileLocation, schematronFileLocation, inputStream);
     } catch (IOException e) {
       // Shouldn't happen
       throw new IllegalStateException(e);
     }
+  }
+
+  /**
+   * Perform single service given a schema.
+   *
+   * @param schema The schema to perform service against.
+   * @param rootFileLocation location of the schema root file
+   * @param schematronFileLocation location of the schematron file
+   * @param document The document to validate against
+   * @return A service result
+   */
+  public ValidationResult singleValidation(final String schema, final String rootFileLocation,
+          String schematronFileLocation, final InputStream document) {
+    return new Validator(schema, rootFileLocation, schematronFileLocation, document,
+            schemaProvider, lsResourceResolver).call();
   }
 
   /**
