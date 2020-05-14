@@ -1,5 +1,7 @@
 package eu.europeana.normalization;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +61,10 @@ class NormalizerImpl implements Normalizer {
 
     // Perform the normalization.
     try {
-      return normalizeInternal(edmRecord);
+      final Document recordDom = XmlUtil.parseDom(new StringReader(edmRecord));
+      final NormalizationReport report = recordNormalizer.normalize(recordDom);
+      final String resultRecord = XmlUtil.writeDomToString(recordDom);
+      return NormalizationResult.createInstanceForSuccess(resultRecord, report);
     } catch (XmlException e) {
       LOGGER.warn("Parsing of xml exception", e);
       return NormalizationResult.createInstanceForError("Error parsing XML: " + e.getMessage(),
@@ -71,11 +76,23 @@ class NormalizerImpl implements Normalizer {
     }
   }
 
-  private NormalizationResult normalizeInternal(String edmRecord)
-      throws XmlException, NormalizationException {
-    final Document recordDom = XmlUtil.parseDom(new StringReader(edmRecord));
-    final NormalizationReport report = recordNormalizer.normalize(recordDom);
-    final String resultRecord = XmlUtil.writeDomToString(recordDom);
-    return NormalizationResult.createInstanceForSuccess(resultRecord, report);
+  @Override
+  public byte[] normalize(InputStream edmRecord) throws NormalizationException {
+
+    // Sanity check.
+    if (edmRecord == null) {
+      throw new IllegalArgumentException("Input is null.");
+    }
+
+    // Perform the normalization.
+    try {
+      final Document recordDom = XmlUtil.parseDom(new InputStreamReader(edmRecord));
+      recordNormalizer.normalize(recordDom);
+      return XmlUtil.writeDomToByteArray(recordDom);
+    } catch (XmlException e) {
+      throw new NormalizationException("Error parsing XML: " + e.getMessage(), e);
+    } catch (RuntimeException e) {
+      throw new NormalizationException("Unexpected problem occurred: " + e.getMessage(), e);
+    }
   }
 }

@@ -15,7 +15,7 @@ import eu.europeana.validation.service.ClasspathResourceResolver;
 import eu.europeana.validation.service.PredefinedSchemas;
 import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ValidationExecutionService;
-import eu.europeana.validation.service.ValidationServiceConfig;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -209,15 +209,17 @@ class TestValidationExecution {
 
   @Test
   void testBatchValidationSuccess()
-      throws IOException, ExecutionException, InterruptedException, ZipException {
+      throws IOException, ExecutionException, InterruptedException {
     String fileName = "src/test/resources/test";
     ZipFile file = new ZipFile("src/test/resources/test_batch.zip");
     file.extractAll(fileName);
 
     File[] files = new File(fileName).listFiles();
-    List<String> xmls = new ArrayList<>();
+    List<ByteArrayInputStream> xmls = new ArrayList<>();
     for (File input : files) {
-      xmls.add(IOUtils.toString(new FileInputStream(input), StandardCharsets.UTF_8));
+      try (FileInputStream fileInputStream = new FileInputStream(input)) {
+        xmls.add(new ByteArrayInputStream(IOUtils.toByteArray(fileInputStream)));
+      }
     }
     ValidationResultList result = validationExecutionService
         .batchValidation(EDM_INTERNAL, null, null, xmls);
@@ -229,18 +231,18 @@ class TestValidationExecution {
 
   @Test
   void testBatchValidationFailure()
-      throws IOException, ExecutionException, InterruptedException, ZipException {
+      throws IOException, ExecutionException, InterruptedException {
 
     String fileName = "src/test/resources/test_wrong";
     ZipFile file = new ZipFile("src/test/resources/test_wrong.zip");
     file.extractAll(fileName);
 
     File[] files = new File(fileName).listFiles();
-    List<String> xmls = new ArrayList<>();
+    List<ByteArrayInputStream> xmls = new ArrayList<>();
     for (File input : files) {
-      FileInputStream fileInputStream = new FileInputStream(input);
-      xmls.add(IOUtils.toString(fileInputStream, StandardCharsets.UTF_8));
-      fileInputStream.close();
+      try (FileInputStream fileInputStream = new FileInputStream(input)) {
+        xmls.add(new ByteArrayInputStream(IOUtils.toByteArray(fileInputStream)));
+      }
     }
     ValidationResultList result = validationExecutionService
         .batchValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", null, xmls);
@@ -252,16 +254,18 @@ class TestValidationExecution {
 
   @Test
   void testBatchValidationFailureWrongSchema()
-      throws IOException, ExecutionException, InterruptedException, ZipException {
+      throws IOException, ExecutionException, InterruptedException {
 
     String fileName = "src/test/resources/test";
     ZipFile file = new ZipFile("src/test/resources/test_batch.zip");
     file.extractAll(fileName);
 
     File[] files = new File(fileName).listFiles();
-    List<String> xmls = new ArrayList<>();
+    List<ByteArrayInputStream> xmls = new ArrayList<>();
     for (File input : files) {
-      xmls.add(IOUtils.toString(new FileInputStream(input), StandardCharsets.UTF_8));
+      try (FileInputStream fileInputStream = new FileInputStream(input)) {
+        xmls.add(new ByteArrayInputStream(IOUtils.toByteArray(fileInputStream)));
+      }
     }
     ValidationResultList result = validationExecutionService
         .batchValidation(EDM_EXTERNAL, "EDM.xsd", "schematron/schematron.xsl", xmls);
@@ -314,12 +318,7 @@ class TestValidationExecution {
     predefinedSchemas.add("name", "location", "root", "schematronFile");
     predefinedSchemas.add("name1", "location1", "root1", "schematronFile1");
     ValidationExecutionService validationExecutionService = new ValidationExecutionService(
-        new ValidationServiceConfig() {
-          @Override
-          public int getThreadCount() {
-            return 12;
-          }
-        }, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemas));
+            () -> 12, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemas));
     ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
     assertNotNull(es);
     SchemaProvider schemaProvider = Whitebox

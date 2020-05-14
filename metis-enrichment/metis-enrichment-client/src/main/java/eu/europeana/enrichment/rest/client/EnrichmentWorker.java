@@ -11,6 +11,7 @@ import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -84,6 +85,25 @@ public class EnrichmentWorker {
   }
 
   /**
+   * Performs dereference and enrichment on an input stream to produce a target byte array. This is
+   * a wrapper for {@link #process(RDF)}.
+   *
+   * @param inputStream The RDF to be processed as an input stream. The stream is not closed.
+   * @return The processed RDF as a byte array.
+   * @throws JiBXException In case there is a problem converting to or from RDF format.
+   * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
+   */
+  public byte[] process(final InputStream inputStream)
+          throws DereferenceOrEnrichException, JiBXException {
+    if (inputStream == null) {
+      throw new IllegalArgumentException("The input stream cannot be null.");
+    }
+    final RDF inputRdf = convertInputStreamToRdf(inputStream);
+    final RDF resultRdf = process(inputRdf, Mode.DEREFERENCE_AND_ENRICHMENT);
+    return convertRdfToBytes(resultRdf);
+  }
+
+  /**
    * Performs dereference and enrichment on an input String to produce a target String. This is a
    * wrapper for {@link #process(RDF)}.
    *
@@ -95,8 +115,7 @@ public class EnrichmentWorker {
    * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
    */
   public String process(final String inputString)
-      throws DereferenceOrEnrichException, JiBXException, UnsupportedEncodingException {
-
+          throws DereferenceOrEnrichException, JiBXException, UnsupportedEncodingException {
     if (inputString == null) {
       throw new IllegalArgumentException("Input RDF string cannot be null.");
     }
@@ -336,7 +355,15 @@ public class EnrichmentWorker {
     return RdfConversionUtils.convertRdfToString(rdf);
   }
 
+  byte[] convertRdfToBytes(RDF rdf) throws JiBXException {
+    return RdfConversionUtils.convertRdfToBytes(rdf);
+  }
+
   RDF convertStringToRdf(String xml) throws JiBXException {
     return RdfConversionUtils.convertStringToRdf(xml);
+  }
+
+  RDF convertInputStreamToRdf(InputStream xml) throws JiBXException {
+    return RdfConversionUtils.convertInputStreamToRdf(xml);
   }
 }

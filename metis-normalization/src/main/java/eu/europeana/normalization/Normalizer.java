@@ -1,5 +1,6 @@
 package eu.europeana.normalization;
 
+import java.io.InputStream;
 import java.util.List;
 import eu.europeana.normalization.model.NormalizationBatchResult;
 import eu.europeana.normalization.model.NormalizationResult;
@@ -13,9 +14,19 @@ import eu.europeana.normalization.util.NormalizationException;
 public interface Normalizer {
 
   /**
+   * This method normalizes one EDM record (which is an input stream representing an EDM XML file),
+   * reporting on the process.
+   *
+   * @param edmRecord The record to normalize.
+   * @return The normalized record, again as an EDM XML file.
+   * @throws NormalizationException In case there was a problem.
+   */
+  byte[] normalize(InputStream edmRecord) throws NormalizationException;
+
+  /**
    * This method normalizes one EDM record (which is a string representing an EDM XML file),
    * reporting on the process.
-   * 
+   *
    * @param edmRecord The record to normalize.
    * @return The normalized record, again as an EDM XML file, along with a report on the
    *         normalization.

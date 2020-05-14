@@ -55,7 +55,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @WebAppConfiguration
 class TestValidationController {
 
-  static int portForWireMock = TestApplication.portForWireMock;
+  private static int portForWireMock = TestApplication.portForWireMock;
   private static WireMockServer wireMockServer;
 
   @Autowired
@@ -90,6 +90,7 @@ class TestValidationController {
           .build();
     }
     isOneTime = false;
+    wireMockServer.resetAll();
   }
 
 
@@ -108,7 +109,6 @@ class TestValidationController {
 
   @Test
   void shouldValidateJSONRecordAgainstEDMInternal() throws Exception {
-    wireMockServer.resetAll();
     wireMockServer.stubFor(get(urlEqualTo("/schema.zip"))
         .willReturn(aResponse()
             .withStatus(200)
@@ -139,8 +139,6 @@ class TestValidationController {
 
   @Test
   void shouldValidateZipFileRecordsAgainstEDMInternal() throws Exception {
-
-    wireMockServer.resetAll();
     wireMockServer.stubFor(get(urlEqualTo("/test_schema.zip"))
         .willReturn(aResponse()
             .withStatus(200)
@@ -157,8 +155,6 @@ class TestValidationController {
 
   @Test
   void shouldValidateZipFileContainingDirectories() throws Exception {
-
-    wireMockServer.resetAll();
     wireMockServer.stubFor(get(urlEqualTo("/schema.zip"))
         .willReturn(aResponse()
             .withStatus(200)
@@ -175,8 +171,6 @@ class TestValidationController {
 
   @Test
   void TestValidationFailure() throws Exception {
-
-    wireMockServer.resetAll();
     wireMockServer.stubFor(get(urlEqualTo("/schema.zip"))
         .willReturn(aResponse()
             .withStatus(200)
