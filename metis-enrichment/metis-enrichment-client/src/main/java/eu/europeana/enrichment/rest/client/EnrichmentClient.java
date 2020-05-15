@@ -38,14 +38,16 @@ public class EnrichmentClient {
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentClient.class);
 
   private final String endpoint;
-  private RestTemplate template = new RestTemplate();
+  private final RestTemplate template;
 
   /**
    * Constructor with required endpoint prefix.
    *
-   * @param endpoint the endpoint of the rest api
+   * @param template The rest template to use.
+   * @param endpoint the endpoint of the rest api.
    */
-  public EnrichmentClient(String endpoint) {
+  EnrichmentClient(RestTemplate template, String endpoint) {
+    this.template = template;
     this.endpoint = endpoint;
   }
 
@@ -148,9 +150,5 @@ public class EnrichmentClient {
       LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
       throw new UnknownException("Enrichment client call failed.", e);
     }
-  }
-
-  void setRestTemplate(RestTemplate template) {
-    this.template = template;
   }
 }
