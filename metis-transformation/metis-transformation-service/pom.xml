@@ -27,6 +27,10 @@
           <artifactId>xml-apis</artifactId>
           <groupId>xml-apis</groupId>
         </exclusion>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
