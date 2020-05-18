@@ -11,6 +11,12 @@ import java.util.stream.Collectors;
 
 /**
  * This class determines whether a given web resource represents embeddable media.
+ * <p>The internal static collection of urls {@link #URL_MATCHING_LIST} that is used to match
+ * embeddable media, contains urls that can contain a wildcard (*). The wildcard represents any
+ * number of characters. Internally a wildcard is added to the end of each url as well. For example
+ * the following url "http://www.ina.fr/intermediate_path/video/some_suffix" will be a successful
+ * match.
+ * </p>
  */
 final class EmbeddableMedia {
 
@@ -47,9 +53,18 @@ final class EmbeddableMedia {
       "http://www.euscreen.eu/item.html"
   );
 
-  // Create patterns, update wildcards to proper format and add a wildcard at the end of each url
+  // Create pattern that will contain all special regex characters and with that
+  // we'll find those characters on other Strings to properly escape them
+  static final String ESCAPED_REGEX_SPECIAL_CHARACTERS = "<([{^\\-=$!|]})?*+.>".chars()
+      .mapToObj(c -> "\\" + (char) c).collect(Collectors.joining());
+  static final Pattern escapedCharactersPattern = Pattern
+      .compile("[" + ESCAPED_REGEX_SPECIAL_CHARACTERS + "]");
+
+  // Create patterns from the urls, escape all regex special characters,
+  // we want to use wildcards(*) so we unescape them and add a wildcard at the end of each url
   private static final Collection<Pattern> PATTERNS = URL_MATCHING_LIST.stream()
-      .map(prefix -> prefix.replace("*", ".*"))
+      .map(escapedCharactersPattern::matcher).map(matcher -> matcher.replaceAll("\\\\$0"))
+      .map(prefix -> prefix.replace("\\*", ".*"))
       .map(prefix -> prefix.concat(".*")).map(Pattern::compile)
       .collect(Collectors.toList());
 
