@@ -27,7 +27,7 @@ public class MongoProperties<E extends Exception> {
   private final List<ServerAddress> mongoHosts = new ArrayList<>();
   private MongoCredential mongoCredentials;
   private boolean mongoEnableSsl;
-  private ReadPreferenceValue readPreferenceValue;
+  private ReadPreferenceValue readPreferenceValue = ReadPreferenceValue.getDefault();
 
   /**
    * Constructor.
@@ -116,9 +116,8 @@ public class MongoProperties<E extends Exception> {
    * @param readPreferenceValue the read preference value
    */
   public void setReadPreferenceValue(ReadPreferenceValue readPreferenceValue) {
-    //Secondary preferred as default
     this.readPreferenceValue = Optional.ofNullable(readPreferenceValue)
-        .orElse(ReadPreferenceValue.SECONDARY_PREFERRED);
+        .orElse(ReadPreferenceValue.getDefault());
   }
 
   private <T> T nonNull(T value, String fieldName) throws E {
@@ -186,6 +185,11 @@ public class MongoProperties<E extends Exception> {
 
     public Supplier<ReadPreference> getReadPreferenceSupplier() {
       return readPreferenceSupplier;
+    }
+    
+    public static ReadPreferenceValue getDefault() {
+      // Secondary preferred as default
+      return ReadPreferenceValue.SECONDARY_PREFERRED;
     }
   }
 }
