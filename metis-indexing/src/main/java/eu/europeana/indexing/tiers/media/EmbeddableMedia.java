@@ -53,20 +53,21 @@ final class EmbeddableMedia {
       "http://www.euscreen.eu/item.html"
   );
 
-  // Create pattern that will contain all special regex characters and with that
-  // we'll find those characters on other Strings to properly escape them
-  static final String ESCAPED_REGEX_SPECIAL_CHARACTERS = "<([{^\\-=$!|]})?*+.>".chars()
-      .mapToObj(c -> "\\" + (char) c).collect(Collectors.joining());
-  static final Pattern escapedCharactersPattern = Pattern
-      .compile("[" + ESCAPED_REGEX_SPECIAL_CHARACTERS + "]");
-
-  // Create patterns from the urls, escape all regex special characters,
-  // we want to use wildcards(*) so we unescape them and add a wildcard at the end of each url
+  // Create patterns from the urls, quote url, wildcards are allowed in the pattern so we do not quote those
+  // and we also add a wildcard at the end of each url
   private static final Collection<Pattern> PATTERNS = URL_MATCHING_LIST.stream()
-      .map(escapedCharactersPattern::matcher).map(matcher -> matcher.replaceAll("\\\\$0"))
-      .map(prefix -> prefix.replace("\\*", ".*"))
-      .map(prefix -> prefix.concat(".*")).map(Pattern::compile)
+      .map(EmbeddableMedia::quotedRegexFromString).map(Pattern::compile)
       .collect(Collectors.toList());
+
+  // Quote the string but not asterisk(*) characters. Asterisk character get converted to the regex
+  // equivalent (.*).
+  // Add \A at the beginning of the string to match beginning of input.
+  // Add (.*) at the end of the string).
+  private static String quotedRegexFromString(String string) {
+    return Arrays.stream(string.split("\\*")).map(Pattern::quote)
+        .collect(Collectors.joining(".*", "\\A", ".*"));
+  }
+
 
   private EmbeddableMedia() {
   }
