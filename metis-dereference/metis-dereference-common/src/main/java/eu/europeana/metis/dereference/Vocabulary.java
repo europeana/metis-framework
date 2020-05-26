@@ -83,11 +83,6 @@ public class Vocabulary implements Serializable {
   @Indexed(options = @IndexOptions(unique = true))
   private String name;
 
-  /**
-   * The type of the vocabulary
-   */
-  private ContextualClass type;
-
   @XmlElement
   public Set<String> getUris() {
     return Collections.unmodifiableSet(this.uris);
@@ -147,35 +142,11 @@ public class Vocabulary implements Serializable {
   }
 
   @XmlElement
-  public ContextualClass getType() {
-    return type;
-  }
-
-  public void setType(ContextualClass type) {
-    this.type = type;
-  }
-
-  @XmlElement
   public String getId() {
     return id;
   }
 
   public void setId(String id) {
     this.id = id;
-  }
-
-  @Deprecated
-  public String getUri() {
-    return uri;
-  }
-
-  @Deprecated
-  public Set<String> getRules() {
-    return rules == null ? null : Collections.unmodifiableSet(rules);
-  }
-
-  @Deprecated
-  public Set<String> getTypeRules() {
-    return typeRules == null ? null : Collections.unmodifiableSet(typeRules);
   }
 }

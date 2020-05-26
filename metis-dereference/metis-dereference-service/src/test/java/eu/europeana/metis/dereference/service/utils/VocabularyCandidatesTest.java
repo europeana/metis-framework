@@ -83,8 +83,8 @@ class VocabularyCandidatesTest {
   void testIsEmpty() {
     final Vocabulary vocabulary = new Vocabulary();
     vocabulary.setId("vId");
-    assertTrue(new VocabularyCandidates("r1", Collections.emptyList()).isEmpty());
-    assertFalse(new VocabularyCandidates("r2", Collections.singletonList(vocabulary)).isEmpty());
+    assertTrue(new VocabularyCandidates(Collections.emptyList()).isEmpty());
+    assertFalse(new VocabularyCandidates(Collections.singletonList(vocabulary)).isEmpty());
   }
 
   @Test
@@ -104,22 +104,21 @@ class VocabularyCandidatesTest {
     vocabulary3.setSuffix(suffixA);
 
     // Try with all vocabularies
-    final Set<String> suffixes1 =
-        new VocabularyCandidates("r1", Arrays.asList(vocabulary1, vocabulary2, vocabulary3))
-            .getCandidateSuffixes();
+    final Set<String> suffixes1 = new VocabularyCandidates(
+            Arrays.asList(vocabulary1, vocabulary2, vocabulary3)).getCandidateSuffixes();
     assertEquals(2, suffixes1.size());
     assertTrue(suffixes1.contains(suffixA));
     assertTrue(suffixes1.contains(suffixB));
 
     // Try with one vocabulary
     final Set<String> suffixes2 =
-        new VocabularyCandidates("r2", Collections.singletonList(vocabulary1)).getCandidateSuffixes();
+        new VocabularyCandidates(Collections.singletonList(vocabulary1)).getCandidateSuffixes();
     assertEquals(1, suffixes2.size());
     assertTrue(suffixes2.contains(suffixA));
 
     // Try with no vocabularies
     final Set<String> suffixes3 =
-        new VocabularyCandidates("r3", Collections.emptyList()).getCandidateSuffixes();
+        new VocabularyCandidates(Collections.emptyList()).getCandidateSuffixes();
     assertTrue(suffixes3.isEmpty());
   }
 

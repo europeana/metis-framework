@@ -5,7 +5,6 @@ import static org.mockito.Mockito.mock;
 
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
-import eu.europeana.metis.dereference.ContextualClass;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
@@ -47,8 +46,7 @@ class MongoDereferencingManagementServiceTest {
     Vocabulary voc = new Vocabulary();
     voc.setIterations(0);
     voc.setName("testName");
-    voc.setUris(Collections.singleton("testUris"));
-    voc.setType(ContextualClass.AGENT);
+    voc.setUris(Collections.singleton("http://www.test.uri/"));
     voc.setXslt("testXSLT");
     vocDaoDatastore.save(voc);
     List<Vocabulary> retVoc = service.getAllVocabularies();

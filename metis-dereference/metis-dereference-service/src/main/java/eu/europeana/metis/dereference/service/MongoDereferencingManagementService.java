@@ -1,6 +1,5 @@
 package eu.europeana.metis.dereference.service;
 
-import eu.europeana.metis.dereference.ContextualClass;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
@@ -61,36 +60,12 @@ public class MongoDereferencingManagementService implements DereferencingManagem
 
   private static Vocabulary convertVocabulary(
           eu.europeana.metis.dereference.vocimport.model.Vocabulary input) {
-
-    // Find the type.
-    final ContextualClass type;
-    switch (input.getType()) {
-      case AGENT:
-        type = ContextualClass.AGENT;
-        break;
-      case CONCEPT:
-        type = ContextualClass.CONCEPT;
-        break;
-      case PLACE:
-        type = ContextualClass.PLACE;
-        break;
-      case TIMESTAMP:
-        type = ContextualClass.TIMESPAN;
-        break;
-      default:
-        throw new IllegalStateException("Unexpected type: " + input.getType().name());
-    }
-
-    // Perform the conversion
-    final Vocabulary vocabulary=new Vocabulary();
+    final Vocabulary vocabulary = new Vocabulary();
     vocabulary.setName(input.getName());
-    vocabulary.setType(type);
     vocabulary.setUris(input.getPaths());
     vocabulary.setIterations(input.getParentIterations());
     vocabulary.setSuffix(input.getSuffix());
     vocabulary.setXslt(input.getTransformation());
-
-    // Done
     return vocabulary;
   }
 }
