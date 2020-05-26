@@ -2,8 +2,9 @@ package eu.europeana.metis.dereference.service.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import eu.europeana.metis.dereference.Vocabulary;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,7 +15,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import eu.europeana.metis.dereference.Vocabulary;
 
 class VocabularyCandidatesTest {
 
@@ -25,40 +25,30 @@ class VocabularyCandidatesTest {
     // returned by the function.
     final String hostName = "dummy.com";
 
-    // Create vocabularies that should match (with and without rules)
-    final String correctPath = "complex/path1/";
-    final String correctVocUri = "http://" + hostName + "/" + correctPath;
-    final String correctUriRule = "voc1";
-    final String wrongUriRule = "voc2";
+    // Create vocabularies that should match
+    final String baseUri = "http://" + hostName + "/complex/path1/";
+    final String correctUri = baseUri + "voc1";
+    final String wrongUri = baseUri + "voc2";
     final Vocabulary correctVocabulary1 = new Vocabulary();
     correctVocabulary1.setId("c1");
-    correctVocabulary1.setUri(correctVocUri);
-    correctVocabulary1.setRules(new HashSet<>(Arrays.asList(correctUriRule, wrongUriRule)));
+    correctVocabulary1.setUris(new HashSet<>(Arrays.asList(correctUri, wrongUri)));
     final Vocabulary correctVocabulary2 = new Vocabulary();
     correctVocabulary2.setId("c2");
-    correctVocabulary2.setUri(correctVocUri);
+    correctVocabulary2.setUris(Collections.singleton(correctUri));
 
-    // Create vocabularies with the wrong path but the right rules
-    final String wrongPath = "complex/path2/";
-    final String wrongVocUri = "http://" + hostName + "/" + wrongPath;
-    final Vocabulary wrongVocabulary1 = new Vocabulary();
-    wrongVocabulary1.setId("w1");
-    wrongVocabulary1.setUri(wrongVocUri);
-
-    // Create vocabulary with the right path but the wrong rules
-    final Vocabulary wrongVocabulary2 = new Vocabulary();
-    wrongVocabulary2.setId("w2");
-    wrongVocabulary2.setUri(correctVocUri);
-    wrongVocabulary2.setRules(new HashSet<>(Arrays.asList("voc2")));
+    // Create vocabulary with the wrong path
+    final Vocabulary wrongVocabulary = new Vocabulary();
+    wrongVocabulary.setId("w1");
+    wrongVocabulary.setUris(Collections.singleton(wrongUri));
 
     // Create mock of vocabulary provider
     final Function<String, List<Vocabulary>> vocabularyProvider = new VocabularyProvider(
-        Arrays.asList(correctVocabulary1, correctVocabulary2, wrongVocabulary1, wrongVocabulary2));
+        Arrays.asList(correctVocabulary1, correctVocabulary2, wrongVocabulary));
     final Function<String, List<Vocabulary>> vocabularyProviderMock =
         Mockito.spy(vocabularyProvider);
 
     // Match and obtain list of matching vocabularies
-    final String resourceId = correctVocUri + correctUriRule + "/123456";
+    final String resourceId = correctUri + "/123456";
     final List<Vocabulary> result = VocabularyCandidates
         .findVocabulariesForUrl(resourceId, vocabularyProviderMock).getCandidates();
 
@@ -90,55 +80,11 @@ class VocabularyCandidatesTest {
   }
 
   @Test
-  void processTypeRulesTest() {
-
-    // Create vocabularies that should match (with and without rules)
-    final String correctTypeIdentifier = "#myCorrectType";
-    final String wrongTypeIdentifier = "#myWrongType";
-    final Vocabulary vocWithRightType = new Vocabulary();
-    vocWithRightType.setId("v1");
-    vocWithRightType
-        .setTypeRules(new HashSet<>(Arrays.asList(correctTypeIdentifier, wrongTypeIdentifier)));
-    final Vocabulary vocWithNoType = new Vocabulary();
-    vocWithNoType.setId("v2");
-
-    // Create vocabulary that should not match
-    final Vocabulary vocWithWrongType = new Vocabulary();
-    vocWithWrongType.setId("v3");
-    vocWithWrongType.setTypeRules(new HashSet<>(Arrays.asList(wrongTypeIdentifier)));
-
-    // Create the input
-    final String incomingDataXml = "abcd" + correctTypeIdentifier + "wxyz";
-    final String resourceId = "http://dummy.com/123456";
-
-    // Match with vocabulary with correct type
-    final VocabularyCandidates candidates1 =
-        new VocabularyCandidates(resourceId, Arrays.asList(vocWithRightType, vocWithWrongType));
-    final Vocabulary result1 = candidates1.findVocabularyForType(incomingDataXml);
-    assertEquals(vocWithRightType.getId(), result1.getId());
-    assertNull(candidates1.findVocabularyWithoutTypeRules());
-
-    // Match with vocabulary without type
-    final VocabularyCandidates candidates2 =
-        new VocabularyCandidates(resourceId, Arrays.asList(vocWithWrongType, vocWithNoType));
-    final Vocabulary result2 = candidates2.findVocabularyForType(incomingDataXml);
-    assertEquals(vocWithNoType.getId(), result2.getId());
-    assertEquals(vocWithNoType.getId(), candidates2.findVocabularyWithoutTypeRules().getId());
-
-    // Match without matching vocabularies
-    final VocabularyCandidates candidates3 =
-        new VocabularyCandidates(resourceId, Arrays.asList(vocWithWrongType));
-    final Vocabulary result3 = candidates3.findVocabularyForType(incomingDataXml);
-    assertNull(result3);
-    assertNull(candidates3.findVocabularyWithoutTypeRules());
-  }
-
-  @Test
   void testIsEmpty() {
     final Vocabulary vocabulary = new Vocabulary();
     vocabulary.setId("vId");
     assertTrue(new VocabularyCandidates("r1", Collections.emptyList()).isEmpty());
-    assertFalse(new VocabularyCandidates("r2", Arrays.asList(vocabulary)).isEmpty());
+    assertFalse(new VocabularyCandidates("r2", Collections.singletonList(vocabulary)).isEmpty());
   }
 
   @Test
@@ -167,7 +113,7 @@ class VocabularyCandidatesTest {
 
     // Try with one vocabulary
     final Set<String> suffixes2 =
-        new VocabularyCandidates("r2", Arrays.asList(vocabulary1)).getCandidateSuffixes();
+        new VocabularyCandidates("r2", Collections.singletonList(vocabulary1)).getCandidateSuffixes();
     assertEquals(1, suffixes2.size());
     assertTrue(suffixes2.contains(suffixA));
 

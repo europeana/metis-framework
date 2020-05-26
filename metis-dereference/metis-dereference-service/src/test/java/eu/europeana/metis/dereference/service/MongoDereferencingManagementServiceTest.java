@@ -47,10 +47,8 @@ class MongoDereferencingManagementServiceTest {
     Vocabulary voc = new Vocabulary();
     voc.setIterations(0);
     voc.setName("testName");
-    voc.setRules(Collections.singleton("testRules"));
+    voc.setUris(Collections.singleton("testUris"));
     voc.setType(ContextualClass.AGENT);
-    voc.setTypeRules(Collections.singleton("testTypeRules"));
-    voc.setUri("testURI");
     voc.setXslt("testXSLT");
     vocDaoDatastore.save(voc);
     List<Vocabulary> retVoc = service.getAllVocabularies();

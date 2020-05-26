@@ -13,6 +13,7 @@ import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import java.util.ArrayList;
+import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.stubbing.Answer;
@@ -57,7 +58,7 @@ class DereferencingManagementControllerTest {
     dereferencingManagementControllerMock.perform(get("/vocabularies"))
         .andExpect(status().is(200))
         .andExpect(content().string(
-            "[{\"id\":\"Dummy1\",\"uri\":null,\"suffix\":null,\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy1\",\"type\":null},{\"id\":\"Dummy2\",\"uri\":null,\"suffix\":null,\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy2\",\"type\":null}]"));
+            "[{\"id\":\"Dummy1\",\"uri\":null,\"uris\":[],\"suffix\":null,\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy1\",\"type\":null},{\"id\":\"Dummy2\",\"uri\":null,\"uris\":[],\"suffix\":null,\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy2\",\"type\":null}]"));
   }
 
   @Test
