@@ -31,7 +31,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
    * @param lenientOnExampleRetrievalFailures Whether the validator is lenient on example or
    * counterexample retrieval (download) issues.
    */
-  VocabularyCollectionValidatorImpl(VocabularyCollectionImporter importer,
+  public VocabularyCollectionValidatorImpl(VocabularyCollectionImporter importer,
           boolean lenientOnLackOfExamples, boolean lenientOnMappingTestFailures,
           boolean lenientOnExampleRetrievalFailures) {
     this.importer = importer;
@@ -43,16 +43,32 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   @Override
   public void validate(Consumer<Vocabulary> vocabularyReceiver, Consumer<String> warningReceiver)
           throws VocabularyImportException {
+    validateInternal(vocabularyReceiver, warningReceiver, true);
+  }
+
+  @Override
+  public void validateVocabularyOnly(Consumer<Vocabulary> vocabularyReceiver)
+          throws VocabularyImportException {
+    validateInternal(vocabularyReceiver, null, false);
+  }
+
+  private void validateInternal(Consumer<Vocabulary> vocabularyReceiver,
+          Consumer<String> warningReceiver, boolean validateExamples)
+          throws VocabularyImportException {
     final NameDuplicationChecker nameDuplicationChecker = new NameDuplicationChecker();
     final Iterable<VocabularyLoader> vocabularyLoaders = importer.importVocabularies();
     for (VocabularyLoader loader : vocabularyLoaders) {
       final Vocabulary vocabulary = loader.load();
-      validate(vocabulary, warningReceiver, nameDuplicationChecker);
+      final IncomingRecordToEdmConverter converter = validateVocabulary(vocabulary,
+              nameDuplicationChecker);
+      if (validateExamples) {
+        validateExamples(vocabulary, warningReceiver, converter);
+      }
       vocabularyReceiver.accept(vocabulary);
     }
   }
 
-  private void validate(Vocabulary vocabulary, Consumer<String> warningReceiver,
+  private IncomingRecordToEdmConverter validateVocabulary(Vocabulary vocabulary,
           NameDuplicationChecker nameDuplicationChecker) throws VocabularyImportException {
 
     // Check the presence of the required fields.
@@ -61,9 +77,9 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
               String.format("No vocabulary name given in metadata at [%s].",
                       vocabulary.getReadableMetadataLocation()));
     }
-    if (vocabulary.getType() == null) {
+    if (vocabulary.getTypes().isEmpty()) {
       throw new VocabularyImportException(
-              String.format("No vocabulary type given in metadata at [%s].",
+              String.format("No vocabulary type(s) given in metadata at [%s].",
                       vocabulary.getReadableMetadataLocation()));
     }
     if (vocabulary.getPaths().isEmpty()) {
@@ -82,14 +98,17 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
             .checkAndRegisterName(vocabulary.getName(), vocabulary.getReadableMetadataLocation());
 
     // Verifying the xslt - compile it.
-    final IncomingRecordToEdmConverter converter;
     try {
-      converter = new IncomingRecordToEdmConverter(vocabulary.getTransformation());
+      return new IncomingRecordToEdmConverter(vocabulary.getTransformation());
     } catch (TransformerException e) {
       throw new VocabularyImportException(
               String.format("Error in the transformation given in mapping at [%s].",
                       vocabulary.getReadableMappingLocation()), e);
     }
+  }
+
+  private void validateExamples(Vocabulary vocabulary, Consumer<String> warningReceiver,
+          IncomingRecordToEdmConverter converter) throws VocabularyImportException {
 
     // Testing the examples (if there are any - otherwise issue warning).
     if (vocabulary.getExamples().isEmpty()) {

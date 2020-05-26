@@ -22,4 +22,18 @@ public interface VocabularyCollectionValidator {
   void validate(Consumer<Vocabulary> vocabularyReceiver, Consumer<String> warningReceiver)
           throws VocabularyImportException;
 
+  /**
+   * Load the vocabularies, validate them and send them to the user via the receiver. Note that this
+   * is happening on-demand (in a lazy fashion), meaning that it is possible that the receiver has
+   * already received some vocabularies before a problem is detected and reported. This validation
+   * does not include retrieving and testing the example and counter example records. It is
+   * therefore a strict subset of the validation performed by {@link #validate(Consumer,
+   * Consumer)}.
+   *
+   * @param vocabularyReceiver The destination of the vocabularies.
+   * @throws VocabularyImportException In case loading or validation failed.
+   */
+  void validateVocabularyOnly(Consumer<Vocabulary> vocabularyReceiver)
+          throws VocabularyImportException;
+
 }

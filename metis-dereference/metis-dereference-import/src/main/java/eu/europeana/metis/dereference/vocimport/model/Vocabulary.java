@@ -1,9 +1,12 @@
 package eu.europeana.metis.dereference.vocimport.model;
 
 import eu.europeana.metis.dereference.vocimport.model.VocabularyMetadata.Type;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Vocabulary {
 
   private final String name;
-  private final Type type;
+  private final Set<Type> types;
   private final List<String> paths;
   private final int parentIterations;
   private final String suffix;
@@ -25,7 +28,7 @@ public class Vocabulary {
 
   private Vocabulary(Builder builder) {
     this.name = builder.name;
-    this.type = builder.type;
+    this.types = builder.types;
     this.paths = builder.paths;
     this.parentIterations = builder.parentIterations;
     this.suffix = builder.suffix;
@@ -40,8 +43,8 @@ public class Vocabulary {
     return name;
   }
 
-  public Type getType() {
-    return type;
+  public Set<Type> getTypes() {
+    return Collections.unmodifiableSet(types);
   }
 
   public List<String> getPaths() {
@@ -86,7 +89,7 @@ public class Vocabulary {
   public static class Builder {
 
     private String name;
-    private Type type;
+    private Set<Type> types;
     private List<String> paths;
     private int parentIterations;
     private String suffix;
@@ -104,8 +107,9 @@ public class Vocabulary {
       return this;
     }
 
-    public Builder setType(Type type) {
-      this.type = type;
+    public Builder setTypes(Collection<Type> types) {
+      this.types = EnumSet.noneOf(Type.class);
+      this.types.addAll(types);
       return this;
     }
 

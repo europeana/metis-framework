@@ -76,7 +76,7 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
     // Compile the vocabulary.
     return Vocabulary.builder()
             .setName(metadata.getName())
-            .setType(metadata.getType())
+            .setTypes(metadata.getTypes())
             .setPaths(metadata.getPaths())
             .setParentIterations(metadata.getParentIterations())
             .setSuffix(metadata.getSuffix())

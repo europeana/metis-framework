@@ -15,7 +15,7 @@ public class VocabularyMetadata {
   public enum Type {AGENT, CONCEPT, PLACE, TIMESTAMP}
 
   private String name;
-  private Type type;
+  private List<Type> types;
   private List<String> paths;
   private Integer parentIterations;
   private String suffix;
@@ -26,8 +26,9 @@ public class VocabularyMetadata {
     return name;
   }
 
-  public Type getType() {
-    return type;
+  public List<Type> getTypes() {
+    return Optional.ofNullable(types).map(Collections::unmodifiableList)
+            .orElseGet(Collections::emptyList);
   }
 
   public List<String> getPaths() {
@@ -57,8 +58,8 @@ public class VocabularyMetadata {
     this.name = name;
   }
 
-  public void setType(Type type) {
-    this.type = type;
+  public void setTypes(List<Type> types) {
+    this.types = new ArrayList<>(types);
   }
 
   public void setPaths(List<String> paths) {

@@ -12,6 +12,8 @@ import io.swagger.annotations.ApiResponses;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @Api("/")
 public class DereferencingManagementController {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingManagementController.class);
 
   private final DereferencingManagementService service;
 
@@ -78,8 +82,10 @@ public class DereferencingManagementController {
       service.loadVocabularies(new URI(directoryUrl));
       return ResponseEntity.ok().build();
     } catch (URISyntaxException e) {
+      LOGGER.warn("Could not load vocabularies", e);
       return ResponseEntity.badRequest().body(e.getMessage());
     } catch (VocabularyImportException e) {
+      LOGGER.warn("Could not load vocabularies", e);
       return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
     }
   }
