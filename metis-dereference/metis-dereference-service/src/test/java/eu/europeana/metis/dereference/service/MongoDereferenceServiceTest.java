@@ -22,6 +22,7 @@ import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
@@ -64,7 +65,7 @@ class MongoDereferenceServiceTest {
 
     // Create vocabulary for geonames and save it.
     final Vocabulary geonames = new Vocabulary();
-    geonames.setUri("http://sws.geonames.org/");
+    geonames.setUris(Collections.singleton("http://sws.geonames.org/"));
     geonames.setXslt(
         IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl"),
             StandardCharsets.UTF_8));

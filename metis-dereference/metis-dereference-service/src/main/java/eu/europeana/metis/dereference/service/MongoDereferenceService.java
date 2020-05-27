@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -174,19 +175,13 @@ public class MongoDereferenceService implements DereferenceService {
     Vocabulary vocabulary = null;
     if (cachedEntity != null) {
       entityString = cachedEntity.getXml();
-      vocabulary = cachedEntity.getVocabularyId() == null ? null
-          : vocabularyDao.get(cachedEntity.getVocabularyId());
+      vocabulary = Optional.ofNullable(cachedEntity.getVocabularyId()).map(vocabularyDao::get)
+              .orElse(null);
     }
 
-    // If we have the entity, but the vocabulary ID is no longer registered, try to get the
-    // vocabulary without resolving the resource.
+    // If not in the cache, or no vocabulary (ID) is known, we need to resolve the resource.
     final VocabularyCandidates candidates =
-        VocabularyCandidates.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
-    if (entityString != null && vocabulary == null) {
-      vocabulary = candidates.findVocabularyWithoutTypeRules();
-    }
-
-    // If not in the cache, or no vocabulary was found, we need to resolve the resource.
+            VocabularyCandidates.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
     if (entityString == null || vocabulary == null) {
       final Pair<String, Vocabulary> transformedEntity =
           retrieveTransformedEntity(resourceId, candidates);
@@ -196,7 +191,7 @@ public class MongoDereferenceService implements DereferenceService {
         final ProcessedEntity entityToCache = new ProcessedEntity();
         entityToCache.setXml(entityString);
         entityToCache.setResourceId(resourceId);
-        entityToCache.setVocabularyId(vocabulary.getId());
+        entityToCache.setVocabularyId(vocabulary == null ? null : vocabulary.getId());
         processedEntityDao.save(entityToCache);
       }
     }
@@ -227,15 +222,16 @@ public class MongoDereferenceService implements DereferenceService {
       return null;
     }
 
-    // Try to find the vocabulary.
-    final Vocabulary vocabulary = candidates.findVocabularyForType(originalEntity);
-    if (vocabulary == null) {
-      return null;
+    // Transform the original entity.
+    for (Vocabulary candidate : candidates.getCandidates()) {
+      final String transformedEntity = transformEntity(candidate, originalEntity, resourceId);
+      if (transformedEntity != null) {
+        return new ImmutablePair<>(transformedEntity, candidate);
+      }
     }
 
-    // Transform the original entity.
-    final String transformedEntity = transformEntity(vocabulary, originalEntity, resourceId);
-    return new ImmutablePair<>(transformedEntity, vocabulary);
+    // Found no suitable transformation.
+    return new ImmutablePair<>(null, null);
   }
 
   private String retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates) {

@@ -33,7 +33,7 @@ public class VocabularyDao {
   public List<Vocabulary> getByUriSearch(String searchString) {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
     final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
-    query.field("uri").equal(pattern);
+    query.field("uris").equal(pattern);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
       return cursor.toList();
     }
@@ -59,6 +59,16 @@ public class VocabularyDao {
    */
   public Vocabulary get(String vocabularyId) {
     return ds.find(Vocabulary.class).filter("id", vocabularyId).first();
+  }
+
+  /**
+   * Remove all vocabularies and replace them with the new list.
+   *
+   * @param vocabularies The new vocabularies.
+   */
+  public void replaceAll(List<Vocabulary> vocabularies) {
+    ds.delete(ds.createQuery(Vocabulary.class));
+    ds.save(vocabularies);
   }
 
   protected Datastore getDatastore() {
