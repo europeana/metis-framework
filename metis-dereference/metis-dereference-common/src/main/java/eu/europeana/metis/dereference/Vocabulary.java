@@ -90,8 +90,17 @@ public class Vocabulary implements Serializable {
 
   public void setUris(Collection<String> uris) {
     this.uris = new HashSet<>(uris);
+    inferDataForBackwardsCompatibility();
+  }
 
-    // Also take care of backwards compatibility
+  /**
+   * Set the data that is present only for backwards compatibility. Data is inferred from {@link
+   * #uris}, so this method should be called after this value is changed.
+   *
+   * @deprecated Will be removed when the data is removed.
+   */
+  @Deprecated
+  private void inferDataForBackwardsCompatibility() {
     final String sampleUrl = uris.iterator().next();
     final String server;
     try {
@@ -102,7 +111,7 @@ public class Vocabulary implements Serializable {
     }
     this.uri = server;
     this.typeRules = null;
-    this.rules = uris.stream().map(uri -> uri.substring(server.length())).collect(Collectors.toSet());
+    this.rules = uris.stream().map(link -> link.substring(server.length())).collect(Collectors.toSet());
   }
 
   @XmlElement
