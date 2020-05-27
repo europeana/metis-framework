@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -75,7 +76,7 @@ class DataCheckerControllerTest {
         .thenReturn(result);
 
     datasetControllerMock
-        .perform(fileUpload("/upload").file(fileMock).contentType(MediaType.MULTIPART_FORM_DATA)
+        .perform(multipart("/upload").file(fileMock).contentType(MediaType.MULTIPART_FORM_DATA)
             .accept(APPLICATION_JSON_UTF8).param("organizationId", "myOrg"))
         .andExpect(status().is(200)).andExpect(jsonPath("$.resultList", is((String) null)))
         .andExpect(jsonPath("$.success", is(true))).andExpect(jsonPath("$.portalUrl", is("myUri")))
@@ -94,7 +95,7 @@ class DataCheckerControllerTest {
         .thenThrow(new ZipFileException("myZipException"));
 
     datasetControllerMock
-        .perform(fileUpload("/upload").file(fileMock).contentType(MediaType.MULTIPART_FORM_DATA)
+        .perform(multipart("/upload").file(fileMock).contentType(MediaType.MULTIPART_FORM_DATA)
             .accept(APPLICATION_JSON_UTF8).param("organizationId", "myOrg"))
         .andExpect(status().is(400)).andExpect(jsonPath("$.errorMessage", is("myZipException")));
   }
@@ -109,7 +110,7 @@ class DataCheckerControllerTest {
         .thenThrow(new DataCheckerServiceException("myException"));
 
     datasetControllerMock
-        .perform(fileUpload("/upload").file(fileMock).contentType(MediaType.MULTIPART_FORM_DATA)
+        .perform(multipart("/upload").file(fileMock).contentType(MediaType.MULTIPART_FORM_DATA)
             .accept(APPLICATION_JSON_UTF8).param("organizationId", "myOrg"))
         .andExpect(status().is(500)).andExpect(jsonPath("$.errorMessage", is("myException")));
   }

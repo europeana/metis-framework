@@ -43,6 +43,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -147,7 +148,7 @@ class TestValidationController {
     MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain",
         new FileInputStream("src/test/resources/test_batch.zip"));
     mockMvc.perform(MockMvcRequestBuilders
-        .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
+        .multipart(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
         .file(file))
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andReturn();
@@ -163,7 +164,7 @@ class TestValidationController {
     MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain",
         new FileInputStream("src/test/resources/ZIP_file_with_directory.zip"));
     mockMvc.perform(MockMvcRequestBuilders
-        .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
+        .multipart(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
         .file(file))
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andReturn();
@@ -179,7 +180,7 @@ class TestValidationController {
     MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain",
         new FileInputStream("src/test/resources/test_wrong.zip"));
     MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-        .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
+        .multipart(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
         .file(file))
         .andExpect(MockMvcResultMatchers.status().is(200))
         .andReturn();
@@ -196,7 +197,7 @@ class TestValidationController {
     MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain",
         new FileInputStream("src/test/resources/test_batch.zip"));
     MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-        .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "UNDEFINED_SCHEMA")
+        .multipart(RestEndpoints.SCHEMA_BATCH_VALIDATE, "UNDEFINED_SCHEMA")
         .file(file))
         .andReturn();
     ValidationResultList validationResultList = unmarshalXMLToValidationResultSet(result);
@@ -213,7 +214,7 @@ class TestValidationController {
         "some xml".getBytes());
 
     MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-        .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
+        .multipart(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
         .file(firstFile))
         .andExpect(MockMvcResultMatchers.status().is(500))
         .andReturn();

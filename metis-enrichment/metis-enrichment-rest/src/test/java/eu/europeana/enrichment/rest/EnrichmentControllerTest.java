@@ -65,7 +65,7 @@ public class EnrichmentControllerTest {
     when(converterMock.convert(wrapper)).thenReturn(agent);
     enrichmentControllerMock.perform(get("/getByUri")
         .param("uri", "http://www.example.com")
-        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.about", is("http://www.example.com")))
         .andExpect(jsonPath("$.altLabelList[?(@.lang=='en')].value", containsInAnyOrder("labelEn")))
@@ -83,7 +83,7 @@ public class EnrichmentControllerTest {
     when(converterMock.convert(wrapper)).thenThrow(new IOException("MyException"));
     enrichmentControllerMock.perform(get("/getByUri")
         .param("uri", "http://www.example.com")
-        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().is(400))
         .andExpect(jsonPath("$.errorMessage", is("Error converting object to EnrichmentBase")));
   }
@@ -131,7 +131,7 @@ public class EnrichmentControllerTest {
     enrichmentControllerMock.perform(post("/enrich")
         .content(body)
         .accept(MediaType.APPLICATION_XML_VALUE)
-        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().is(200))
         .andExpect(xpath("metis:results/metis:enrichmentBaseWrapperList/edm:Agent/@rdf:about", namespaceMap)
             .string("http://www.example.com"))
@@ -160,8 +160,8 @@ public class EnrichmentControllerTest {
     when(converterMock.convert(anyList())).thenThrow(new IOException("myException"));
     enrichmentControllerMock.perform(post("/enrich")
         .content(body)
-        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().is(400))
         .andExpect(jsonPath("$.errorMessage", is("Error converting object.")));
   }

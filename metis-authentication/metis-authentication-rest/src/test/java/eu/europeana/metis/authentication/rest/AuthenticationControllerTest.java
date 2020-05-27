@@ -151,7 +151,7 @@ class AuthenticationControllerTest {
         .perform(
             put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(oldNewPasswordParameters)))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
     verify(authenticationService)
@@ -170,7 +170,7 @@ class AuthenticationControllerTest {
         .perform(
             put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(oldNewPasswordParameters)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
 
@@ -186,7 +186,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(oldNewPasswordParameters)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0)).updateUserPassword(anyString(), anyString());
@@ -203,7 +203,7 @@ class AuthenticationControllerTest {
         .perform(
             delete(RestEndpoints.AUTHENTICATION_DELETE)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
 
@@ -219,7 +219,7 @@ class AuthenticationControllerTest {
         .perform(
             delete(RestEndpoints.AUTHENTICATION_DELETE)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
 
@@ -237,7 +237,7 @@ class AuthenticationControllerTest {
         .perform(
             delete(RestEndpoints.AUTHENTICATION_DELETE)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
 
@@ -257,7 +257,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.OK.value()));
     verify(authenticationService).updateUserFromZoho(EXAMPLE_EMAIL);
@@ -272,7 +272,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0))
@@ -295,7 +295,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
   }
@@ -313,7 +313,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     verify(authenticationService, times(0)).updateUserFromZoho(anyString());
@@ -329,7 +329,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
     verify(authenticationService).updateUserMakeAdmin(EXAMPLE_EMAIL);
@@ -344,7 +344,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0)).isUserAdmin(anyString());
@@ -364,7 +364,7 @@ class AuthenticationControllerTest {
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
             .header(HttpHeaders.AUTHORIZATION, "")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
   }
@@ -379,7 +379,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     verify(authenticationService, times(0)).updateUserMakeAdmin(anyString());
