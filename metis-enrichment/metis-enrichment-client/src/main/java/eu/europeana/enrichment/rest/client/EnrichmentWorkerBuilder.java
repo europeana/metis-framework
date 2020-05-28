@@ -25,10 +25,17 @@ public class EnrichmentWorkerBuilder {
    */
   public static final int DEFAULT_RESPONSE_TIMEOUT = 60_000;
 
+  /**
+   * The default value of the batch size with which we query the enrichment service. It's currently
+   * set to {@value EnrichmentWorkerBuilder#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
+   */
+  public static final int DEFAULT_BATCH_SIZE_ENRICHMENT = 20;
+
   private String dereferenceUrl = null;
   private String enrichmentUrl = null;
   private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
   private int responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
+  private int batchSizeEnrichment = DEFAULT_BATCH_SIZE_ENRICHMENT;
 
   /**
    * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
@@ -83,6 +90,21 @@ public class EnrichmentWorkerBuilder {
   }
 
   /**
+   * Set the batch size with which we query the enrichment service. The default (when not calling
+   * this method) is {@value EnrichmentWorkerBuilder#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
+   *
+   * @param batchSizeEnrichment The batch size. Must be strictly positive.
+   * @return This instance, for convenience.
+   */
+  public EnrichmentWorkerBuilder setBatchSizeEnrichment(int batchSizeEnrichment) {
+    if (batchSizeEnrichment < 1) {
+      throw new IllegalArgumentException("Batch size cannot be 0 or negative.");
+    }
+    this.batchSizeEnrichment = batchSizeEnrichment;
+    return this;
+  }
+
+  /**
    * Builds an {@link EnrichmentWorker} according to the parameters that are set.
    *
    * @return An instance.
@@ -112,7 +134,8 @@ public class EnrichmentWorkerBuilder {
     // Create the enrichment client if needed
     final EnrichmentClient enrichmentClient;
     if (StringUtils.isNotBlank(enrichmentUrl)) {
-      enrichmentClient = new EnrichmentClient(new RestTemplate(requestFactory), enrichmentUrl);
+      enrichmentClient = new EnrichmentClient(new RestTemplate(requestFactory), enrichmentUrl,
+              batchSizeEnrichment);
     } else {
       enrichmentClient = null;
     }

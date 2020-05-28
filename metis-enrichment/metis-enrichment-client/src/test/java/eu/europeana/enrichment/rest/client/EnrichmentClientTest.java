@@ -57,7 +57,7 @@ class EnrichmentClientTest {
     doReturn(response).when(restTemplate).exchange(eq(ENRICHMENT_ENRICH), eq(HttpMethod.POST),
             any(HttpEntity.class), eq(byte[].class));
 
-    final EnrichmentClient enrichmentClient = spy(new EnrichmentClient(restTemplate, ""));
+    final EnrichmentClient enrichmentClient = spy(new EnrichmentClient(restTemplate, "", 20));
     EnrichmentResultList res = enrichmentClient.enrich(new ArrayList<>());
 
     verify(restTemplate, times(1)).exchange(eq(ENRICHMENT_ENRICH), eq(HttpMethod.POST),
@@ -83,7 +83,7 @@ class EnrichmentClientTest {
             eq(HttpMethod.POST), any(HttpEntity.class), eq(byte[].class));
 
     final EnrichmentClient enrichmentClient = spy(
-            new EnrichmentClient(restTemplate, "http://dummy"));
+            new EnrichmentClient(restTemplate, "http://dummy", 20));
 
     assertThrows(UnknownException.class, () -> enrichmentClient.enrich(new ArrayList<>()));
   }
@@ -103,7 +103,7 @@ class EnrichmentClientTest {
             eq(byte[].class));
 
     final EnrichmentClient enrichmentClient = spy(
-            new EnrichmentClient(restTemplate, "http://dummy"));
+            new EnrichmentClient(restTemplate, "http://dummy", 20));
 
     EnrichmentBase res = enrichmentClient.getByUri("http://test");
     verify(restTemplate, times(1)).exchange(any(URI.class),
