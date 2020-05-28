@@ -113,7 +113,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(201))
         .andExpect(content().string(""));
@@ -130,7 +130,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -149,7 +149,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -166,7 +166,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -184,7 +184,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -201,7 +201,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -220,7 +220,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -237,7 +237,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -254,7 +254,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -268,7 +268,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -285,7 +285,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -301,7 +301,7 @@ class TestOrchestratorController {
     orchestratorControllerMock.perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID,
         Integer.toString(TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.datasetId", is(workflow.getDatasetId())));
@@ -322,7 +322,7 @@ class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(201))
         .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.INQUEUE.name())));
@@ -336,7 +336,7 @@ class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -354,7 +354,7 @@ class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -372,7 +372,7 @@ class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -390,7 +390,7 @@ class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -408,7 +408,7 @@ class TestOrchestratorController {
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -424,7 +424,7 @@ class TestOrchestratorController {
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -438,7 +438,7 @@ class TestOrchestratorController {
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -455,7 +455,7 @@ class TestOrchestratorController {
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -472,7 +472,7 @@ class TestOrchestratorController {
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -492,7 +492,7 @@ class TestOrchestratorController {
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.RUNNING.name())));
@@ -516,7 +516,7 @@ class TestOrchestratorController {
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .param("pluginType", "VALIDATION_EXTERNAL")
             .content(""))
         .andExpect(status().is(200))
@@ -538,7 +538,7 @@ class TestOrchestratorController {
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .param("pluginType", "OAIPMH_HARVEST")
             .content(""))
         .andExpect(status().is(200));
@@ -563,7 +563,7 @@ class TestOrchestratorController {
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_INFORMATION,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.lastHarvestedDate",
@@ -599,7 +599,7 @@ class TestOrchestratorController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
@@ -623,7 +623,7 @@ class TestOrchestratorController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "-1")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(406));
   }
@@ -648,7 +648,7 @@ class TestOrchestratorController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
@@ -671,7 +671,7 @@ class TestOrchestratorController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "-1")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(406));
   }
@@ -700,7 +700,7 @@ class TestOrchestratorController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("nextPage", "" + nextPage)
             .param("pageCount", "" + pageCount)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(pageSize * pageCount)))
@@ -726,14 +726,14 @@ class TestOrchestratorController {
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("nextPage", "-1")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(406));
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_OVERVIEW)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("pageCount", "0")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(406));
   }
