@@ -193,7 +193,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
     final EnrichmentResultList valueEnrichmentInformation = enrichValues(valuesForEnrichment);
-    final EnrichmentResultList referenceEnrichmentInformation = enrichReferences(
+    final List<EnrichmentBaseWrapper> referenceEnrichmentInformation = enrichReferences(
             referencesForEnrichment.keySet());
 
     // Merge the acquired information into the RDF
@@ -203,11 +203,9 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       entityMergeEngine
               .mergeEntities(rdf, valueEnrichmentInformation.getEnrichmentBaseWrapperList());
     }
-    if (referenceEnrichmentInformation != null && CollectionUtils
-            .isNotEmpty(referenceEnrichmentInformation.getEnrichmentBaseWrapperList())) {
+    if (!referenceEnrichmentInformation.isEmpty()) {
       final List<EnrichmentBase> entities = referenceEnrichmentInformation
-              .getEnrichmentBaseWrapperList().stream().map(EnrichmentBaseWrapper::getEnrichmentBase)
-              .collect(Collectors.toList());
+              .stream().map(EnrichmentBaseWrapper::getEnrichmentBase).collect(Collectors.toList());
       entityMergeEngine.mergeEntities(rdf, entities, referencesForEnrichment);
     }
 
@@ -232,11 +230,12 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     }
   }
 
-  private EnrichmentResultList enrichReferences(Set<String> referencesForEnrichment)
+  private List<EnrichmentBaseWrapper> enrichReferences(Set<String> referencesForEnrichment)
           throws DereferenceOrEnrichException {
     try {
-      return CollectionUtils.isEmpty(referencesForEnrichment) ? null : ExternalRequestUtil
-              .retryableExternalRequest(() -> enrichmentClient.getByUri(referencesForEnrichment),
+      return CollectionUtils.isEmpty(referencesForEnrichment) ? Collections.emptyList()
+              : ExternalRequestUtil.retryableExternalRequest(
+                      () -> enrichmentClient.getByUri(referencesForEnrichment),
                       mapWithRetrieableExceptions, EXTERNAL_CALL_MAX_RETRIES,
                       EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
     } catch (Exception e) {
@@ -290,17 +289,14 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
   private List<EnrichmentBaseWrapper> dereferenceOwnEntities(Set<String> resourceIds)
           throws DereferenceOrEnrichException {
-    final EnrichmentResultList result;
     try {
-      result = ExternalRequestUtil.retryableExternalRequest(() ->
+      return ExternalRequestUtil.retryableExternalRequest(() ->
                       enrichmentClient.getById(resourceIds), mapWithRetrieableExceptions,
               EXTERNAL_CALL_MAX_RETRIES, EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
     } catch (Exception e) {
       throw new DereferenceOrEnrichException(
               "Exception occurred while trying to perform dereferencing.", e);
     }
-    return Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseWrapperList)
-            .orElseGet(Collections::emptyList);
   }
 
   private List<EnrichmentBaseWrapper> dereferenceExternalEntity(String resourceId)
