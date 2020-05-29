@@ -79,7 +79,7 @@ class TestDatasetDao {
     assertEquals(dataset.getDataProvider(), storedDataset.getDataProvider());
     assertEquals(dataset.getDescription(), storedDataset.getDescription());
     assertEquals(dataset.getLanguage(), storedDataset.getLanguage());
-    assertEquals(dataset.getUnfitForPublication(), storedDataset.getUnfitForPublication());
+    assertEquals(dataset.getPublicationFitness(), storedDataset.getPublicationFitness());
     assertEquals(dataset.getNotes(), storedDataset.getNotes());
     assertEquals(dataset.getReplacedBy(), storedDataset.getReplacedBy());
     assertEquals(dataset.getUpdatedDate(), storedDataset.getUpdatedDate());
@@ -97,7 +97,7 @@ class TestDatasetDao {
     assertEquals(dataset.getDataProvider(), storedDataset.getDataProvider());
     assertEquals(dataset.getDescription(), storedDataset.getDescription());
     assertEquals(dataset.getLanguage(), storedDataset.getLanguage());
-    assertEquals(dataset.getUnfitForPublication(), storedDataset.getUnfitForPublication());
+    assertEquals(dataset.getPublicationFitness(), storedDataset.getPublicationFitness());
     assertEquals(dataset.getNotes(), storedDataset.getNotes());
     assertEquals(dataset.getReplacedBy(), storedDataset.getReplacedBy());
     assertEquals(dataset.getUpdatedDate(), storedDataset.getUpdatedDate());
