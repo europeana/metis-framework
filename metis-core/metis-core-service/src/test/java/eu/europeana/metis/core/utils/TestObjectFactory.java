@@ -17,7 +17,7 @@ import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
-import eu.europeana.metis.core.dataset.PublicationFitness;
+import eu.europeana.metis.core.dataset.Dataset.PublicationFitness;
 import eu.europeana.metis.core.rest.Record;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;

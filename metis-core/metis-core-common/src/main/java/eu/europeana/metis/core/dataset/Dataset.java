@@ -40,6 +40,14 @@ import org.bson.types.ObjectId;
     @Index(fields = {@Field("createdByUserId")})})
 public class Dataset implements HasMongoObjectId {
 
+  /**
+   * Whether a dataset is fit for publication. {@link #PARTIALLY_FIT} means that some records may be
+   * unfit for publication.
+   */
+  public enum PublicationFitness {
+    FIT, PARTIALLY_FIT, UNFIT
+  }
+
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
