@@ -24,6 +24,8 @@ public class DepublishedRecord {
   public static final String ID_FIELD = "_id";
   public static final String DATASET_ID_FIELD = "datasetId";
   public static final String RECORD_ID_FIELD = "recordId";
+  public static final String DEPUBLICATION_STATE_FIELD = "depublicationState";
+  public static final String DEPUBLICATION_DATE_FIELD = "depublicationDate";
 
   public enum DepublicationState {DEPUBLISHED, NOT_DEPUBLISHED}
 

@@ -3,7 +3,10 @@ package eu.europeana.metis.core.rest;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DepublishedRecordService;
+import eu.europeana.metis.core.util.SortDirection;
+import eu.europeana.metis.core.util.DepublishedRecordSortField;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
@@ -15,11 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,6 +62,7 @@ public class DepublishedRecordController {
    * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
    * @throws GenericMetisException which can be one of:
    * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
    * <li>{@link BadContentException} if some content or the operation were invalid</li>
    * </ul>
@@ -82,6 +89,7 @@ public class DepublishedRecordController {
    * @param recordIdsFile The file containing the record IDs in separate lines.
    * @throws GenericMetisException which can be one of:
    * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
    * <li>{@link BadContentException} if some content or the operation were invalid</li>
    * </ul>
@@ -96,5 +104,60 @@ public class DepublishedRecordController {
   ) throws GenericMetisException, IOException {
     createDepublishedRecords(authorization, datasetId,
             new String(recordIdsFile.getBytes(), StandardCharsets.UTF_8));
+  }
+
+  /**
+   * Retrieve the list of depublished records for a specific dataset.
+   *
+   * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
+   * @param datasetId The ID of the dataset for which to retrieve the records.
+   * @param page The page to retrieve.
+   * @param sortFieldString The field on which to sort.
+   * @param sortDirectionString The direction in which to sort.
+   * @param searchQuery Search query for the record ID.
+   * @return A list of records.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
+   * </ul>
+   */
+  @GetMapping(value = RestEndpoints.DEPUBLISHED_RECORDS_DATASETID, produces = {
+          MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public ResponseListWrapper<DepublishedRecordView> getDepublishedRecords(
+          @RequestHeader("Authorization") String authorization,
+          @PathVariable("datasetId") String datasetId,
+          @RequestParam(value = "page", defaultValue = "0") int page,
+          @RequestParam(value = "sortField", defaultValue = "") String sortFieldString,
+          @RequestParam(value = "sortDirection", defaultValue = "") String sortDirectionString,
+          @RequestParam(value = "searchQuery", required = false) String searchQuery
+  ) throws GenericMetisException {
+
+    // Get the user
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+
+    // Get the sort field
+    final DepublishedRecordSortField sortField;
+    switch (sortFieldString.toLowerCase()) {
+      case "depublicationstatus":
+        sortField = DepublishedRecordSortField.DEPUBLICATION_STATE;
+        break;
+      case "depublicationdate":
+        sortField = DepublishedRecordSortField.DEPUBLICATION_DATE;
+        break;
+      default:
+        sortField = DepublishedRecordSortField.RECORD_ID;
+        break;
+    }
+
+    // Get the sort direction
+    final SortDirection sortDirection = sortDirectionString.equalsIgnoreCase("desc") ?
+            SortDirection.DESCENDING : SortDirection.ASCENDING;
+
+    // Perform the query
+    return depublishedRecordService.getDepublishedRecords(metisUser, datasetId, page, sortField,
+            sortDirection, searchQuery);
   }
 }

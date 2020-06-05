@@ -2,12 +2,18 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DepublishedRecordDao;
+import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.core.rest.DepublishedRecordView;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
+import eu.europeana.metis.core.util.DepublishedRecordSortField;
+import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -59,7 +65,8 @@ public class DepublishedRecordService {
     try {
       new URI(recordIdTrimmed);
     } catch (URISyntaxException e) {
-      throw new BadContentException("Invalid record ID (is not a valid URI): " + recordIdTrimmed, e);
+      throw new BadContentException("Invalid record ID (is not a valid URI): " + recordIdTrimmed,
+              e);
     }
 
     // Split in segments based on the slash - don't discard empty segments at the end.
@@ -74,7 +81,8 @@ public class DepublishedRecordService {
 
     // Check last segment: cannot contain invalid characters
     if (INVALID_CHAR_IN_RECORD_ID.matcher(lastSegment).find()) {
-      throw new BadContentException("Invalid record ID (contains invalid characters): " + lastSegment);
+      throw new BadContentException(
+              "Invalid record ID (contains invalid characters): " + lastSegment);
     }
 
     // Check penultimate segment: if it is empty, it must be because it is the start of the ID.
@@ -86,7 +94,8 @@ public class DepublishedRecordService {
     // Check penultimate segment: if it is not empty, it must be equal to the dataset ID.
     if (!penultimateSegment.isEmpty() && !penultimateSegment.equals(datasetId)) {
       throw new BadContentException(
-              "Invalid record ID (doesn't seem to belong to the correct dataset): " + recordIdTrimmed);
+              "Invalid record ID (doesn't seem to belong to the correct dataset): "
+                      + recordIdTrimmed);
     }
 
     // Return the last segment (the record ID without the dataset ID).
@@ -97,13 +106,14 @@ public class DepublishedRecordService {
    * Adds a list of depublished records to the dataset.
    *
    * @param metisUser The user performing this operation.
-   * @param datasetId The dataset ID to which the depublished records belong.
+   * @param datasetId The ID of the dataset to which the depublished records belong.
    * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
    * @return How many of the passed records were in fact added. This counter is not thread-safe: if
    * multiple threads try to add the same records, their combined counters may overrepresent the
    * number of records that were actually added.
    * @throws GenericMetisException which can be one of:
    * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
    * <li>{@link BadContentException} if some content or the operation were invalid</li>
    * </ul>
@@ -123,5 +133,38 @@ public class DepublishedRecordService {
 
     // Add the records.
     return depublishedRecordDao.createRecordsToBeDepublished(datasetId, normalizedRecordIds);
+  }
+
+  /**
+   * Retrieve the list of depublished records for a specific dataset.
+   *
+   * @param metisUser The user performing this operation. Cannot be null.
+   * @param datasetId The ID of the dataset for which to retrieve the records. Cannot be null.
+   * @param page The page to retrieve. Cannot be null.
+   * @param sortField The field on which to sort. Cannot be null.
+   * @param sortDirection The direction in which to sort. Cannot be null.
+   * @param searchQuery Search query for the record ID. Can be null.
+   * @return A list of records.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
+   * </ul>
+   */
+  public ResponseListWrapper<DepublishedRecordView> getDepublishedRecords(MetisUser metisUser,
+          String datasetId, int page, DepublishedRecordSortField sortField,
+          SortDirection sortDirection, String searchQuery) throws GenericMetisException {
+
+    // Authorize.
+    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+
+    // Get the page of records
+    final List<DepublishedRecordView> records = depublishedRecordDao
+            .getRecords(datasetId, page, sortField, sortDirection, searchQuery);
+
+    // Compile the result
+    final ResponseListWrapper<DepublishedRecordView> result = new ResponseListWrapper<>();
+    result.setResultsAndLastPage(records, depublishedRecordDao.getPageSize(), page);
+    return result;
   }
 }
