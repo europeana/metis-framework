@@ -40,16 +40,17 @@ public class WorkflowExecutorManager extends PersistenceProvider implements
    * Autowired constructor.
    *
    * @param workflowExecutionDao the DAO for accessing WorkflowExecutions
+   * @param workflowPostProcessor the workflow post processor
    * @param rabbitmqPublisherChannel the channel for publishing to RabbitMQ
    * @param rabbitmqConsumerChannel the channel for consuming from RabbitMQ
    * @param redissonClient the redisson client for distributed locks
    * @param dpsClient the Data Processing Service client from ECloud
    */
   public WorkflowExecutorManager(WorkflowExecutionDao workflowExecutionDao,
-      Channel rabbitmqPublisherChannel, Channel rabbitmqConsumerChannel,
-      RedissonClient redissonClient, DpsClient dpsClient) {
-    super(rabbitmqPublisherChannel, rabbitmqConsumerChannel, workflowExecutionDao, redissonClient,
-        dpsClient);
+          WorkflowPostProcessor workflowPostProcessor, Channel rabbitmqPublisherChannel,
+          Channel rabbitmqConsumerChannel, RedissonClient redissonClient, DpsClient dpsClient) {
+    super(rabbitmqPublisherChannel, rabbitmqConsumerChannel, workflowExecutionDao,
+            workflowPostProcessor, redissonClient, dpsClient);
   }
 
   /**

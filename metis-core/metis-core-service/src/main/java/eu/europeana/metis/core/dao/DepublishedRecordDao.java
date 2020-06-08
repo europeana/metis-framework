@@ -2,6 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
+import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.core.dataset.DepublishedRecord;
 import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationState;
@@ -180,6 +181,35 @@ public class DepublishedRecordDao {
     return result.stream().map(DepublishedRecordView::new).collect(Collectors.toList());
   }
 
+  /**
+   * This method marks all depublished records of a given dataset as not depublished (and removes
+   * the depublished date).
+   *
+   * @param datasetId The dataset for which to do this.
+   */
+  public void markAllAsNotDepublished(String datasetId){
+
+    // Create query.
+    final Query<DepublishedRecord> query = morphiaDatastoreProvider.getDatastore()
+            .createQuery(DepublishedRecord.class);
+    query.field(DepublishedRecord.DATASET_ID_FIELD).equal(datasetId);
+
+    // Define the update operations.
+    final UpdateOperations<DepublishedRecord> updateOperations = morphiaDatastoreProvider
+            .getDatastore().createUpdateOperations(DepublishedRecord.class);
+    updateOperations
+            .set(DepublishedRecord.DEPUBLICATION_STATE_FIELD, DepublicationState.NOT_DEPUBLISHED);
+    updateOperations.unset(DepublishedRecord.DEPUBLICATION_DATE_FIELD);
+
+    // Apply the operations.
+    morphiaDatastoreProvider.getDatastore().update(query, updateOperations);
+  }
+
+  /**
+   * Returns the page size imposed by this DAO.
+   *
+   * @return The page size.
+   */
   public int getPageSize() {
     return pageSize;
   }

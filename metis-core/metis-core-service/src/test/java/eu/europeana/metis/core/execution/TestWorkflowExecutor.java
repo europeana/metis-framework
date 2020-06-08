@@ -24,8 +24,8 @@ import eu.europeana.metis.core.workflow.CancelledSystemId;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
@@ -50,6 +50,7 @@ import org.springframework.web.client.HttpServerErrorException;
 class TestWorkflowExecutor {
 
   private static WorkflowExecutionDao workflowExecutionDao;
+  private static WorkflowPostProcessor workflowPostProcessor;
   private static DpsClient dpsClient;
   private static WorkflowExecutionMonitor workflowExecutionMonitor;
   private static PersistenceProvider persistenceProvider;
@@ -58,10 +59,11 @@ class TestWorkflowExecutor {
   @BeforeAll
   static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
+    workflowPostProcessor = Mockito.mock(WorkflowPostProcessor.class);
     dpsClient = Mockito.mock(DpsClient.class);
     workflowExecutionMonitor = Mockito.mock(WorkflowExecutionMonitor.class);
-    persistenceProvider =
-        new PersistenceProvider(null, null, workflowExecutionDao, null, dpsClient);
+    persistenceProvider = new PersistenceProvider(null, null, workflowExecutionDao,
+            workflowPostProcessor, null, dpsClient);
     workflowExecutionSettings = Mockito.mock(WorkflowExecutionSettings.class);
     when(workflowExecutionSettings.getPeriodOfNoProcessedRecordsChangeInMinutes()).thenReturn(10);
   }
@@ -69,6 +71,7 @@ class TestWorkflowExecutor {
   @AfterEach
   void cleanUp() {
     Mockito.reset(workflowExecutionDao);
+    Mockito.reset(workflowPostProcessor);
     Mockito.reset(workflowExecutionMonitor);
     Mockito.reset(dpsClient);
   }
