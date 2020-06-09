@@ -28,12 +28,13 @@ public class Vocabulary {
 
   private Vocabulary(Builder builder) {
     this.name = builder.name;
-    this.types = builder.types;
-    this.paths = builder.paths;
+    this.types = Optional.ofNullable(builder.types).orElseGet(Collections::emptySet);
+    this.paths = Optional.ofNullable(builder.paths).orElseGet(Collections::emptyList);
     this.parentIterations = builder.parentIterations;
     this.suffix = builder.suffix;
-    this.examples = builder.examples;
-    this.counterExamples = builder.counterExamples;
+    this.examples = Optional.ofNullable(builder.examples).orElseGet(Collections::emptyList);
+    this.counterExamples = Optional.ofNullable(builder.counterExamples)
+            .orElseGet(Collections::emptyList);
     this.transformation = builder.transformation;
     this.readableMetadataLocation = builder.readableMetadataLocation;
     this.readableMappingLocation = builder.readableMappingLocation;
