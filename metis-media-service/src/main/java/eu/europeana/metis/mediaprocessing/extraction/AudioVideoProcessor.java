@@ -91,9 +91,8 @@ class AudioVideoProcessor implements MediaProcessor {
     // Check whether ffprobe is installed.
     final String command = "ffprobe";
     final String output;
-    output = commandExecutor.execute(Collections.singletonList(command), true,
-        (message, cause) -> new MediaProcessorException(
-            "Error while looking for ffprobe tools: " + message, cause));
+    output = commandExecutor.execute(Collections.singletonList(command), true, message ->
+            new MediaProcessorException("Error while looking for ffprobe tools: " + message));
     if (!output.startsWith("ffprobe version 2") && !output.startsWith("ffprobe version 3")) {
       throw new MediaProcessorException("ffprobe 2.x/3.x not found");
     }
@@ -159,9 +158,10 @@ class AudioVideoProcessor implements MediaProcessor {
       metadata = parseMpdResource(resource, detectedMimeType);
     } else {
       // Execute command
-      final String response = commandExecutor.execute(createAudioVideoAnalysisCommand(resource),
-          false, (message, cause) -> new MediaExtractionException(
-              "Problem while analyzing audio/video file: " + message, cause));
+      final Function<String, MediaExtractionException> exceptionProducer = message ->
+              new MediaExtractionException("Problem while analyzing audio/video file: " + message);
+      final String response = commandExecutor
+              .execute(createAudioVideoAnalysisCommand(resource), false, exceptionProducer);
 
       // Parse command result.
       metadata = parseCommandResponse(resource, detectedMimeType, response);
@@ -176,7 +176,9 @@ class AudioVideoProcessor implements MediaProcessor {
     MPD mpd;
 
     final AbstractResourceMetadata metadata;
-    try (InputStream inputStream = resource.getActualLocation().toURL().openStream()) {
+    // We know where the URL comes from: from the apache library.
+    try (@SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") InputStream inputStream = resource
+            .getActualLocation().toURL().openStream()) {
       mpd = parser.parse(inputStream);
       final Period period = mpd.getPeriods().stream().findFirst()
           .orElseThrow(() -> new MediaExtractionException("Cannot find period element in mpd"));
@@ -300,8 +302,12 @@ class AudioVideoProcessor implements MediaProcessor {
     final String[] frameRateParts = frameRateString.split("/");
     final double numerator = Double.parseDouble(frameRateParts[0]);
     final double denominator = Double.parseDouble(frameRateParts[1]);
-    if (denominator == 0.0) {
-      return numerator == 0.0 ? 0.0 : -1.0;
+    @SuppressWarnings("squid:S1244") // We really want to test equality with zero.
+    final boolean zeroDenominator = denominator == 0.0;
+    if (zeroDenominator) {
+      @SuppressWarnings("squid:S1244") // We really want to test equality with zero.
+      final boolean zeroNumerator = numerator == 0.0;
+      return zeroNumerator ? 0.0 : -1.0;
     }
     return numerator / denominator;
   }

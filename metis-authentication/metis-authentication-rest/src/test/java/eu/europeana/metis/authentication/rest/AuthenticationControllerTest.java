@@ -1,11 +1,12 @@
 package eu.europeana.metis.authentication.rest;
 
 import static org.hamcrest.core.Is.is;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,14 +23,12 @@ import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.EmailParameter;
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.OldNewPasswordParameters;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.utils.TestUtils;
 import java.util.ArrayList;
-import java.util.Date;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -115,10 +114,8 @@ class AuthenticationControllerTest {
 
   @Test
   void loginUser() throws Exception {
-    MetisUser metisUser = new MetisUser();
-    metisUser.setEmail(EXAMPLE_EMAIL);
-    metisUser.setMetisUserAccessToken(
-        new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
+    MetisUser metisUser = spy(new MetisUser());
+    doReturn(EXAMPLE_EMAIL).when(metisUser).getEmail();
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
     when(authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD)).thenReturn(metisUser);
@@ -142,7 +139,8 @@ class AuthenticationControllerTest {
 
   @Test
   void updateUserPassword() throws Exception {
-    MetisUser metisUser = new MetisUser();
+    MetisUser metisUser = spy(new MetisUser());
+    doReturn(EXAMPLE_EMAIL).when(metisUser).getEmail();
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
@@ -153,13 +151,13 @@ class AuthenticationControllerTest {
         .perform(
             put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(oldNewPasswordParameters)))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
     verify(authenticationService)
-        .authenticateUser(metisUser.getEmail(), oldNewPasswordParameters.getOldPassword());
+        .authenticateUser(EXAMPLE_EMAIL, oldNewPasswordParameters.getOldPassword());
     verify(authenticationService)
-        .updateUserPassword(metisUser, oldNewPasswordParameters.getNewPassword());
+        .updateUserPassword(EXAMPLE_EMAIL, oldNewPasswordParameters.getNewPassword());
   }
 
   @Test
@@ -172,11 +170,11 @@ class AuthenticationControllerTest {
         .perform(
             put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(oldNewPasswordParameters)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
 
-    verify(authenticationService, times(0)).updateUserPassword(any(MetisUser.class), anyString());
+    verify(authenticationService, times(0)).updateUserPassword(anyString(), anyString());
   }
 
   @Test
@@ -188,10 +186,10 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_PASSD)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(oldNewPasswordParameters)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
-    verify(authenticationService, times(0)).updateUserPassword(any(MetisUser.class), anyString());
+    verify(authenticationService, times(0)).updateUserPassword(anyString(), anyString());
   }
 
   @Test
@@ -205,7 +203,7 @@ class AuthenticationControllerTest {
         .perform(
             delete(RestEndpoints.AUTHENTICATION_DELETE)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
 
@@ -221,7 +219,7 @@ class AuthenticationControllerTest {
         .perform(
             delete(RestEndpoints.AUTHENTICATION_DELETE)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
 
@@ -239,7 +237,7 @@ class AuthenticationControllerTest {
         .perform(
             delete(RestEndpoints.AUTHENTICATION_DELETE)
                 .header(HttpHeaders.AUTHORIZATION, "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
 
@@ -259,7 +257,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.OK.value()));
     verify(authenticationService).updateUserFromZoho(EXAMPLE_EMAIL);
@@ -274,7 +272,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0))
@@ -297,7 +295,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
   }
@@ -315,7 +313,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     verify(authenticationService, times(0)).updateUserFromZoho(anyString());
@@ -331,7 +329,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
     verify(authenticationService).updateUserMakeAdmin(EXAMPLE_EMAIL);
@@ -346,7 +344,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0)).isUserAdmin(anyString());
@@ -366,7 +364,7 @@ class AuthenticationControllerTest {
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
             .header(HttpHeaders.AUTHORIZATION, "")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
   }
@@ -381,7 +379,7 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN)
             .header(HttpHeaders.AUTHORIZATION, "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(emailParameter)))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     verify(authenticationService, times(0)).updateUserMakeAdmin(anyString());
@@ -389,10 +387,8 @@ class AuthenticationControllerTest {
 
   @Test
   void getUserByAccessToken() throws Exception {
-    MetisUser metisUser = new MetisUser();
-    metisUser.setEmail(EXAMPLE_EMAIL);
-    metisUser.setMetisUserAccessToken(
-        new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
+    MetisUser metisUser = spy(new MetisUser());
+    doReturn(EXAMPLE_EMAIL).when(metisUser).getEmail();
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
@@ -406,10 +402,8 @@ class AuthenticationControllerTest {
 
   @Test
   void getUserByAccessTokenBadContentException() throws Exception {
-    MetisUser metisUser = new MetisUser();
-    metisUser.setEmail(EXAMPLE_EMAIL);
-    metisUser.setMetisUserAccessToken(
-        new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
+    MetisUser metisUser = spy(new MetisUser());
+    doReturn(EXAMPLE_EMAIL).when(metisUser).getEmail();
 
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenThrow(new BadContentException(""));
@@ -423,10 +417,10 @@ class AuthenticationControllerTest {
 
   @Test
   void getAllUsers() throws Exception {
-    MetisUser metisUser0 = new MetisUser();
-    metisUser0.setEmail("0" + EXAMPLE_EMAIL);
-    MetisUser metisUser1 = new MetisUser();
-    metisUser1.setEmail("1" + EXAMPLE_EMAIL);
+    MetisUser metisUser0 = spy(new MetisUser());
+    doReturn(EXAMPLE_EMAIL).when(metisUser0).getEmail();
+    MetisUser metisUser1 = spy(new MetisUser());
+    doReturn(EXAMPLE_EMAIL).when(metisUser1).getEmail();
     ArrayList<MetisUser> metisUsers = new ArrayList<>();
     metisUsers.add(metisUser0);
     metisUsers.add(metisUser1);
@@ -435,7 +429,7 @@ class AuthenticationControllerTest {
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.hasPermissionToRequestAllUsers(EXAMPLE_ACCESS_TOKEN))
         .thenReturn(true);
-    when(authenticationService.getAllUsers(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUsers);
+    when(authenticationService.getAllUsers()).thenReturn(metisUsers);
     authenticationControllerMock
         .perform(get(RestEndpoints.AUTHENTICATION_USERS).header(HttpHeaders.AUTHORIZATION, ""))
         .andExpect(status().is(HttpStatus.OK.value()))
@@ -462,6 +456,6 @@ class AuthenticationControllerTest {
         .perform(get(RestEndpoints.AUTHENTICATION_USERS).header(HttpHeaders.AUTHORIZATION, ""))
         .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
 
-    verify(authenticationService, times(0)).getAllUsers(EXAMPLE_ACCESS_TOKEN);
+    verify(authenticationService, times(0)).getAllUsers();
   }
 }

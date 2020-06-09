@@ -4,11 +4,15 @@
   <parent>
     <artifactId>metis-data-checker</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
   </parent>
   <artifactId>metis-data-checker-rest</artifactId>
   <packaging>war</packaging>
   <dependencies>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>

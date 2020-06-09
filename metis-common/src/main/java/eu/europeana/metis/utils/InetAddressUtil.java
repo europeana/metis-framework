@@ -2,10 +2,11 @@ package eu.europeana.metis.utils;
 
 import com.mongodb.ServerAddress;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.IntUnaryOperator;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * This class provides utilities concerning internet addresses and ports.
@@ -47,19 +48,19 @@ public class InetAddressUtil<E extends Exception> {
     }
 
     // Check the hosts and ports input for array length.
-    if (hosts.length != ports.length && ports.length != 1) {
+    final IntUnaryOperator portGetter;
+    if (ports.length == 1) {
+      portGetter = index -> ports[0];
+    } else if (hosts.length == ports.length) {
+      portGetter = index -> ports[index];
+    } else {
       throw exceptionCreator.apply("The port array length does not match the host array length.");
     }
 
     // Compile the server address list
-    final List<InetSocketAddress> addresses = new ArrayList<>(hosts.length);
-    for (int i = 0; i < hosts.length; i++) {
-      final int port = hosts.length == ports.length ? ports[i] : ports[0];
-      addresses.add(new InetSocketAddress(hosts[i], port));
-    }
-
-    // Done
-    return addresses;
+    return IntStream.range(0, hosts.length)
+            .mapToObj(index -> new InetSocketAddress(hosts[index], portGetter.applyAsInt(index)))
+            .collect(Collectors.toList());
   }
 
   /**

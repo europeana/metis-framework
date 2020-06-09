@@ -4,11 +4,15 @@
   <parent>
     <artifactId>metis-enrichment</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
   </parent>
   <artifactId>metis-enrichment-common</artifactId>
 
   <dependencies>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+    </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
@@ -60,6 +64,11 @@
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
       <version>${version.swagger.annotations}</version>
+    </dependency>
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>${version.jedis}</version>
     </dependency>
   </dependencies>
 </project>

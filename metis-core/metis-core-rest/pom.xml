@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-core</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
   </parent>
   <artifactId>metis-core-rest</artifactId>
   <packaging>war</packaging>
@@ -90,9 +90,13 @@
 
     <!--Is used to remove the deployment exception in tomcat about class not found SLF4JBridgeHandler-->
     <dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>jul-to-slf4j</artifactId>
-    <version>${version.jul.to.slf4j}</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>${version.jul.to.slf4j}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
     </dependency>
 
     <dependency>

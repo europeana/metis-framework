@@ -31,6 +31,7 @@ import io.netty.util.concurrent.FastThreadLocal;
 import io.netty.util.internal.InternalThreadLocalMap;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
@@ -136,7 +137,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  RedissonClient getRedissonClient() {
+  RedissonClient getRedissonClient() throws MalformedURLException {
     Config config = new Config();
 
     SingleServerConfig singleServerConfig;
@@ -146,7 +147,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
               String.format("rediss://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
                   .getRedisPort()));
       if (propertiesHolder.isRedisEnableCustomTruststore()) {
-        singleServerConfig.setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI());
+        singleServerConfig.setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI().toURL());
         singleServerConfig.setSslTruststorePassword(propertiesHolder.getTruststorePassword());
       }
     } else {

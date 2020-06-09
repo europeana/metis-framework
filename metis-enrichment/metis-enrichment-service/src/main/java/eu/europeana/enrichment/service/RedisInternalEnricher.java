@@ -7,10 +7,11 @@ import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.service.exception.CacheStatusException;
 import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import eu.europeana.enrichment.utils.EntityClass;
 import eu.europeana.enrichment.utils.InputValue;
-import eu.europeana.metis.cache.redis.RedisProvider;
+import eu.europeana.enrichment.utils.RedisProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,37 +68,16 @@ public class RedisInternalEnricher {
 
   /**
    * Constructor with all required parameters.
-   * <p>Based on the parameter {@code populate}, the populating of redis will be enabled or not and
-   * if so it will check the {@link #CACHED_ENRICHMENT_STATUS} field value in the redis db and
-   * depending on it's status it will start populating redis with values or not.</p>
    *
    * @param entityDao the dao where the entity will be read from
    * @param provider the redis connection provider
-   * @param populate the flag to enable populating or not, if applicable
    */
-  public RedisInternalEnricher(EnrichmentEntityDao entityDao, RedisProvider provider,
-      boolean populate) {
+  public RedisInternalEnricher(EnrichmentEntityDao entityDao, RedisProvider provider) {
     this.entityDao = entityDao;
     SimpleModule sm = new SimpleModule("test", Version.unknownVersion());
     sm.addSerializer(new ObjectIdSerializer());
     OBJECT_MAPPER.registerModule(sm);
     redisProvider = provider;
-    if (populate) {
-      Jedis jedis = redisProvider.getJedis();
-      if (jedis.exists(CACHED_ENRICHMENT_STATUS)
-          && (StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "started")
-          || StringUtils.equals(jedis.get(CACHED_ENRICHMENT_STATUS), "finished"))) {
-        if (LOGGER.isInfoEnabled()) {
-          LOGGER.info("Status 'enrichmentstatus' exists with value: {}", check());
-        }
-      } else {
-        LOGGER.info(
-            "Redis status 'enrichmentstatus' does not exist or is not in a 'started' or 'finished' state.");
-        LOGGER.info("Re-populating Redis from Mongo");
-        jedis.close();
-        populate();
-      }
-    }
   }
 
   private static List<EntityType> createEntityTypeList() {
@@ -110,44 +90,52 @@ public class RedisInternalEnricher {
   }
 
   /**
-   * Checks the status of the operation of populating fields from Mongo to Redis
+   * Checks the status of the operation of populating fields from Mongo to Redis.
    *
-   * @return the status, can be "started" or "finished"
+   * @return the status.
    */
-  public final String check() {
-    Jedis jedis = redisProvider.getJedis();
-    String status = jedis.get(CACHED_ENRICHMENT_STATUS);
+  public final CacheStatus getCurrentStatus() {
+    final Jedis jedis = redisProvider.getJedis();
+    final String statusString = jedis.get(CACHED_ENRICHMENT_STATUS);
     jedis.close();
-    return status;
+    return CacheStatus.getByName(statusString);
+  }
+
+  private void setCurrentStatus(CacheStatus status) {
+    final Jedis jedis = redisProvider.getJedis();
+    if (status == null || status == CacheStatus.NONE) {
+      jedis.del(CACHED_ENRICHMENT_STATUS);
+    } else {
+      jedis.set(CACHED_ENRICHMENT_STATUS, status.name());
+    }
+    jedis.close();
+  }
+
+  private void verifyCacheReady() throws CacheStatusException {
+    final CacheStatus status = getCurrentStatus();
+    if (status != CacheStatus.FINISHED && status != CacheStatus.TRIGGERED) {
+      throw new CacheStatusException(status);
+    }
   }
 
   /**
-   * Restarts the population of Mongo to Redis
+   * Triggers a cache recreate.
+   *
+   * @throws CacheStatusException if the cache is not fully created.
    */
-  public void recreate() {
-    LOGGER.info("Recreate triggered.");
-    Jedis jedis = redisProvider.getJedis();
-    jedis.del(CACHED_ENRICHMENT_STATUS);
-    jedis.close();
-    populate();
-  }
-
-  /**
-   * Removes all information from Redis
-   */
-  public void emptyCache() {
-    LOGGER.info("Empty cache");
-    Jedis jedis = redisProvider.getJedis();
-    jedis.flushAll();
-    jedis.close();
+  public void triggerRecreate() throws CacheStatusException {
+    verifyCacheReady();
+    setCurrentStatus(CacheStatus.TRIGGERED);
   }
 
   /**
    * Remove a list of uris from redis.
    *
    * @param uris the list of uris to be removed
+   * @throws CacheStatusException if the cache is not fully created.
    */
-  public void remove(List<String> uris) {
+  public void remove(List<String> uris) throws CacheStatusException {
+    verifyCacheReady();
     Jedis jedis = redisProvider.getJedis();
     for (String str : uris) {
       jedis.del(CACHED_CONCEPT + CACHED_PARENT + str);
@@ -173,23 +161,47 @@ public class RedisInternalEnricher {
     }
   }
 
-  private void populate() {
-    long startTime = System.currentTimeMillis();
-    setStatus("started");
-    for (EntityType type : ENTITY_TYPES) {
-      loadEntities(type);
+  /**
+   * Restarts the population of Mongo to Redis except when the cache is ready and not marked for
+   * redirect.
+   */
+  public void recreateCache() {
+
+    // Verify the state
+    if (getCurrentStatus() == CacheStatus.FINISHED) {
+      LOGGER.info("Cache recreation skipped: cache does not require recreate.");
+      return;
     }
-    setStatus("finished");
+
+    // Empty the cache.
+    LOGGER.info("Emptying cache");
+    try {
+      final Jedis jedis = redisProvider.getJedis();
+      jedis.flushAll();
+      jedis.close();
+    } finally {
+      setCurrentStatus(CacheStatus.NONE);
+    }
+
+    // Populate the cache. This can take some time.
+    LOGGER.info("Populating cache");
+    long startTime = System.currentTimeMillis();
+    try {
+      setCurrentStatus(CacheStatus.STARTED);
+      for (EntityType type : ENTITY_TYPES) {
+        loadEntities(type);
+      }
+      setCurrentStatus(CacheStatus.FINISHED);
+    } catch (RuntimeException e) {
+      setCurrentStatus(CacheStatus.NONE);
+      throw e;
+    }
+
+    // Finalize: perform logging.
     int totalSeconds = (int) ((System.currentTimeMillis() - startTime) / MILLISECONDS_PER_SECOND);
     int seconds = totalSeconds % SECONDS_PER_MINUTE;
     int minutes = (totalSeconds - seconds) / SECONDS_PER_MINUTE;
     LOGGER.info("Time spent in populating Redis. minutes: {}, seconds: {}", minutes, seconds);
-  }
-
-  private void setStatus(String status) {
-    Jedis jedis = redisProvider.getJedis();
-    jedis.set(CACHED_ENRICHMENT_STATUS, status);
-    jedis.close();
   }
 
   private void loadEntities(EntityType entityType) {
@@ -256,9 +268,12 @@ public class RedisInternalEnricher {
    *
    * @param values The values to enrich
    * @return A list of enrichments
+   * @throws CacheStatusException if the cache is not fully created.
+   * @throws IOException if the cache could not be accessed.
    */
-  protected List<EntityWrapper> tag(List<InputValue> values) throws IOException {
-
+  protected List<EntityWrapper> tag(List<InputValue> values)
+          throws IOException, CacheStatusException {
+    verifyCacheReady();
     List<EntityWrapper> entities = new ArrayList<>();
     for (InputValue inputValue : values) {
       if (inputValue.getVocabularies() == null) {
@@ -358,9 +373,11 @@ public class RedisInternalEnricher {
    *
    * @param requestedId the provided id
    * @return the enrichment document corresponding to the provided id
-   * @throws IOException if something went wrong when accessing the db
+   * @throws CacheStatusException if the cache is not fully created.
+   * @throws IOException if the cache could not be accessed.
    */
-  public EntityWrapper getById(String requestedId) throws IOException {
+  public EntityWrapper getById(String requestedId) throws IOException, CacheStatusException {
+    verifyCacheReady();
 
     // Get the result providers - this is constant and does not depend on the input.
     final List<GetterByUri> getters = Arrays.asList(
@@ -379,9 +396,11 @@ public class RedisInternalEnricher {
    *
    * @param requestedUri the provided uri
    * @return the enrichment document corresponding to the provided uri
-   * @throws IOException if something went wrong when accessing the db
+   * @throws CacheStatusException if the cache is not fully created.
+   * @throws IOException if the cache could not be accessed.
    */
-  public EntityWrapper getByUri(String requestedUri) throws IOException {
+  public EntityWrapper getByUri(String requestedUri) throws IOException, CacheStatusException {
+    verifyCacheReady();
 
     // Get the result providers - this is constant and does not depend on the input.
     final List<GetterByUri> getters = Arrays.asList(

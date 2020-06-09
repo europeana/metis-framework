@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
   </parent>
   <artifactId>metis-common</artifactId>
 
@@ -45,11 +45,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
       <version>${version.spring}</version>
-    </dependency>
-    <dependency>
-      <groupId>redis.clients</groupId>
-      <artifactId>jedis</artifactId>
-      <version>${version.jedis}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>

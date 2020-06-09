@@ -2,13 +2,11 @@ package eu.europeana.enrichment.rest;
 
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.InputValueList;
-import eu.europeana.enrichment.api.external.UriList;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.exception.EnrichmentException;
 import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.Enricher;
-import eu.europeana.enrichment.service.EntityRemover;
 import eu.europeana.metis.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,16 +18,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Enrichment REST API
@@ -40,35 +35,17 @@ public class EnrichmentController {
 
   private final Converter converter;
   private final Enricher enricher;
-  private final EntityRemover remover;
 
   /**
    * Autowired constructor.
    *
    * @param enricher class that handles enrichment functionality
-   * @param remover class that removed values from mongo and redis
    * @param converter utility class for conversion between different classes
    */
   @Autowired
-  public EnrichmentController(Enricher enricher, EntityRemover remover, Converter converter) {
+  public EnrichmentController(Enricher enricher, Converter converter) {
     this.converter = converter;
     this.enricher = enricher;
-    this.remover = remover;
-  }
-
-  /**
-   * Delete uris
-   *
-   * @param values the URIs to delete
-   */
-  @ResponseStatus(value = HttpStatus.OK)
-  @DeleteMapping(value = RestEndpoints.ENRICHMENT_DELETE)
-  @ApiOperation(value = "Delete a list of URIs")
-  @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Error processing the result")
-  })
-  public void delete(@RequestBody UriList values) {
-    remover.remove(values.getUris());
   }
 
   /**

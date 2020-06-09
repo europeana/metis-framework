@@ -1,15 +1,18 @@
 package eu.europeana.metis.dereference.service;
 
-import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
-import eu.europeana.metis.dereference.service.dao.EntityDao;
+import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporter;
+import eu.europeana.metis.dereference.vocimport.VocabularyCollectionImporterFactory;
+import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidator;
+import eu.europeana.metis.dereference.vocimport.VocabularyCollectionValidatorImpl;
+import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.util.List;
 
 /**
  * Mongo implementation of the DereferencingManagementService Created by ymamakis on 2/11/16.
@@ -17,46 +20,19 @@ import java.util.List;
 @Component
 public class MongoDereferencingManagementService implements DereferencingManagementService {
 
-  private static final Logger LOGGER =
-      LoggerFactory.getLogger(MongoDereferencingManagementService.class);
   private final VocabularyDao vocabularyDao;
-  private final CacheDao cacheDao;
-  private final EntityDao entityDao;
+  private final ProcessedEntityDao processedEntityDao;
 
   /**
    * Constructor.
-   * 
+   *
    * @param vocabularyDao Access to the vocabularies
-   * @param cacheDao Access to the processed entity cache
-   * @param entityDao Access to the original entity cache
    */
   @Autowired
-  public MongoDereferencingManagementService(VocabularyDao vocabularyDao, CacheDao cacheDao,
-      EntityDao entityDao) {
+  public MongoDereferencingManagementService(VocabularyDao vocabularyDao,
+          ProcessedEntityDao processedEntityDao) {
     this.vocabularyDao = vocabularyDao;
-    this.cacheDao = cacheDao;
-    this.entityDao = entityDao;
-  }
-
-
-  @Override
-  public void saveVocabulary(Vocabulary vocabulary) {
-    vocabularyDao.save(vocabulary);
-    LOGGER.info("Saved vocabulary with name: {}", vocabulary.getName());
-  }
-
-  @Override
-  public void updateVocabulary(Vocabulary vocabulary) {
-    vocabularyDao.update(vocabulary);
-    cacheDao.emptyCache();
-    LOGGER.info("Updated vocabulary with name: {}", vocabulary.getName());
-  }
-
-  @Override
-  public void deleteVocabulary(String name) {
-    vocabularyDao.delete(name);
-    cacheDao.emptyCache();
-    LOGGER.info("Deleted vocabulary with name: {}", name);
+    this.processedEntityDao = processedEntityDao;
   }
 
   @Override
@@ -65,27 +41,33 @@ public class MongoDereferencingManagementService implements DereferencingManagem
   }
 
   @Override
-  public void removeEntity(String uri) {
-    cacheDao.delete(uri);
-    entityDao.delete(uri);
-  }
-
-  @Override
-  public void updateEntity(String uri, String xml) {
-    cacheDao.delete(uri);
-    OriginalEntity entity = new OriginalEntity();
-    entity.setURI(uri);
-    entity.setXml(xml);
-    entityDao.update(uri, entity);
-  }
-
-  @Override
-  public Vocabulary findByName(String name) {
-    return vocabularyDao.findByName(name);
-  }
-
-  @Override
   public void emptyCache() {
-    cacheDao.emptyCache();
+    this.processedEntityDao.purgeAll();
+  }
+
+  @Override
+  public void loadVocabularies(URI directoryUrl) throws VocabularyImportException {
+
+    // Import and validate the vocabularies
+    final List<Vocabulary> vocabularies = new ArrayList<>();
+    final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory()
+            .createImporter(directoryUrl);
+    final VocabularyCollectionValidator validator = new VocabularyCollectionValidatorImpl(importer,
+            true, true, true);
+    validator.validateVocabularyOnly(vocabulary -> vocabularies.add(convertVocabulary(vocabulary)));
+
+    // All vocabularies are loaded well. Now we replace the vocabularies.
+    vocabularyDao.replaceAll(vocabularies);
+  }
+
+  private static Vocabulary convertVocabulary(
+          eu.europeana.metis.dereference.vocimport.model.Vocabulary input) {
+    final Vocabulary vocabulary = new Vocabulary();
+    vocabulary.setName(input.getName());
+    vocabulary.setUris(input.getPaths());
+    vocabulary.setIterations(input.getParentIterations());
+    vocabulary.setSuffix(input.getSuffix());
+    vocabulary.setXslt(input.getTransformation());
+    return vocabulary;
   }
 }

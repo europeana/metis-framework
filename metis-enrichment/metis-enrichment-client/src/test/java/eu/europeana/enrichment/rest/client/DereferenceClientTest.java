@@ -58,13 +58,9 @@ class DereferenceClientTest {
         any(HttpEntity.class),
         eq(byte[].class));
 
-    final DereferenceClient dereferenceClient = spy(new DereferenceClient("dummyId"));
-
-    dereferenceClient.setRestTemplate(restTemplate);
+    final DereferenceClient dereferenceClient = spy(new DereferenceClient(restTemplate, "http://dummy"));
     EnrichmentResultList res = dereferenceClient.dereference("http://dummy");
 
-    verify(dereferenceClient).setRestTemplate(restTemplate);
-    verify(dereferenceClient).dereference("http://dummy");
     verify(restTemplate, times(1)).exchange(any(URI.class),
         eq(HttpMethod.GET),
         any(HttpEntity.class),

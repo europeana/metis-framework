@@ -3,25 +3,26 @@ package eu.europeana.metis.dereference.rest;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
+import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * REST controller for managing vocabularies and entities Created by gmamakis on 12-2-16.
@@ -30,63 +31,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Api("/")
 public class DereferencingManagementController {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingManagementController.class);
+
   private final DereferencingManagementService service;
 
   @Autowired
   public DereferencingManagementController(DereferencingManagementService service) {
     this.service = service;
-  }
-
-  /**
-   * Save a vocabulary
-   *
-   * @param vocabulary The vocabulary to save
-   * @return OK
-   */
-  @PostMapping(value = RestEndpoints.VOCABULARY, consumes = "application/json")
-  @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "Save a vocabulary")
-  public void saveVocabulary(@ApiParam @RequestBody Vocabulary vocabulary) {
-    service.saveVocabulary(vocabulary);
-  }
-
-  /**
-   * Update a vocabulary
-   *
-   * @param vocabulary The vocabulary to update
-   * @return OK
-   */
-  @PutMapping(value = RestEndpoints.VOCABULARY, consumes = "application/json")
-  @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "Update a vocabulary")
-  public void updateVocabulary(@ApiParam @RequestBody Vocabulary vocabulary) {
-    service.updateVocabulary(vocabulary);
-  }
-
-  /**
-   * Delete a vocabulary
-   *
-   * @param name The vocabulary to delete
-   * @return OK
-   */
-  @DeleteMapping(value = RestEndpoints.VOCABULARY_BYNAME)
-  @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "Delete a vocabulary")
-  public void deleteVocabulary(@ApiParam("name") @PathVariable("name") String name) {
-    service.deleteVocabulary(name);
-  }
-
-  /**
-   * Retrieve a vocabulary by name
-   *
-   * @param name The name of the vocabulary
-   * @return The Vocabulary with this name
-   */
-  @GetMapping(value = RestEndpoints.VOCABULARY_BYNAME, produces = "application/json")
-  @ResponseBody
-  @ApiOperation(value = "Retrieve a vocabulary by name")
-  public Vocabulary getVocabulary(@ApiParam("name") @PathVariable("name") String name) {
-    return service.findByName(name);
   }
 
   /**
@@ -102,49 +53,40 @@ public class DereferencingManagementController {
   }
 
   /**
-   * Delete an entity based on a URI
-   *
-   * @param uri The uri of the entity to delete
-   * @return OK
-   */
-  @DeleteMapping(value = RestEndpoints.ENTITY_DELETE)
-  @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "Delete an entity")
-  public void deleteEntity(@ApiParam("uri") @PathVariable("uri") String uri) {
-    try {
-      service.removeEntity(URLDecoder.decode(uri, StandardCharsets.UTF_8.name()));
-    } catch (UnsupportedEncodingException e) {
-      // This cannot really happen.
-      throw new IllegalStateException(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * Update an entity
-   *
-   * @param uri The uri of the entity
-   * @param xml The xml of the entity
-   * @return OK
-   */
-  @PutMapping(value = RestEndpoints.ENTITY)
-  @ResponseBody
-  @ApiOperation(value = "Update an entity")
-  public void updateEntity(@ApiParam("uri") @RequestParam(value = "uri") String uri,
-      @ApiParam("xml") @RequestParam(value = "xml") String xml) {
-    service.updateEntity(uri, xml);
-  }
-
-  /**
    * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis
    * instance/cluster is used for multiple services then the cache for other services is cleared as
    * well.
-   *
-   * @return OK
    */
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY)
   @ResponseBody
   @ApiOperation(value = "Empty the cache")
   public void emptyCache() {
     service.emptyCache();
+  }
+
+  /**
+   * Load the vocabularies from an online source. This does NOT purge the cache.
+   *
+   * @param directoryUrl The online location of the vocabulary directory.
+   */
+  @PostMapping(value = RestEndpoints.LOAD_VOCABULARIES)
+  @ResponseBody
+  @ApiOperation(value = "Load and replace the vocabularies listed by the given vocabulary directory. Does NOT purge the cache.")
+  @ApiResponses(value = {
+          @ApiResponse(code = 200, message = "Vocabularies loaded successfully."),
+          @ApiResponse(code = 400, message = "Bad request parameters."),
+          @ApiResponse(code = 502, message = "Problem accessing vocabulary repository.")
+  })  public ResponseEntity loadVocabularies(
+          @ApiParam("directory_url") @RequestParam("directory_url") String directoryUrl) {
+    try {
+      service.loadVocabularies(new URI(directoryUrl));
+      return ResponseEntity.ok().build();
+    } catch (URISyntaxException e) {
+      LOGGER.warn("Could not load vocabularies", e);
+      return ResponseEntity.badRequest().body(e.getMessage());
+    } catch (VocabularyImportException e) {
+      LOGGER.warn("Could not load vocabularies", e);
+      return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(e.getMessage());
+    }
   }
 }

@@ -292,7 +292,7 @@ public class ConfigurationPropertiesHolder {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
             IllegalArgumentException::new);
     mongoProperties.setAllProperties(mongoHosts, mongoPorts, mongoAuthenticationDb, mongoUsername,
-            mongoPassword, mongoEnableSSL);
+            mongoPassword, mongoEnableSSL, null);
     return mongoProperties;
   }
 

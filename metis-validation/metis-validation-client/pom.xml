@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
   </parent>
   <artifactId>metis-validation-client</artifactId>
   <dependencies>
@@ -31,6 +31,12 @@
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common</artifactId>
       <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.solr</groupId>
+          <artifactId>solr-solrj</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

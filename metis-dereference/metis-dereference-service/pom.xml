@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-dereference</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
   </parent>
   <artifactId>metis-dereference-service</artifactId>
   <dependencies>
@@ -28,9 +28,9 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>redis.clients</groupId>
-      <artifactId>jedis</artifactId>
-      <version>${version.jedis}</version>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-dereference-import</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

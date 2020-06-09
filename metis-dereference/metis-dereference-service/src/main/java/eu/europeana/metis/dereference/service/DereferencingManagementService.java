@@ -1,61 +1,33 @@
 package eu.europeana.metis.dereference.service;
 
 import eu.europeana.metis.dereference.Vocabulary;
-
+import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
+import java.net.URI;
 import java.util.List;
 
 /**
- * Interface for managing vocabularies
- * Created by ymamakis on 2/11/16.
+ * Interface for managing vocabularies Created by ymamakis on 2/11/16.
  */
 public interface DereferencingManagementService {
-    /**
-     * Save a vocabulary
-     * @param vocabulary The vocabulary to save
-     */
-    void saveVocabulary(Vocabulary vocabulary);
 
-    /**
-     * Update a vocaublary
-     * @param vocabulary The vocabulary to update
-     */
-    void updateVocabulary(Vocabulary vocabulary);
+  /**
+   * List all the vocabularies
+   *
+   * @return The mapped vocabularies
+   */
+  List<Vocabulary> getAllVocabularies();
 
-    /**
-     * Delete a vocabulary
-     * @param name The name of the vocabulary to delete
-     */
-    void deleteVocabulary(String name);
+  /**
+   * Empty the cache
+   */
+  void emptyCache();
 
-    /**
-     * List all the vocabularies
-     * @return The mapped vocabularies
-     */
-    List<Vocabulary> getAllVocabularies();
-
-    /**
-     * Remove an entity by uri
-     * @param uri The uri of the entity
-     */
-    void removeEntity(String uri);
-
-    /**
-     * Update entity by uri
-     * 
-     * @param uri The uri of the entity.
-     * @param xml The entity as XML string.
-     */
-    void updateEntity(String uri, String xml);
-
-    /**
-     * Retrieve a vocabulary by name
-     * @param name The name of the vocabulary that we are looking for.
-     * @return the Vocabulary that has that name, or null if no such vocabulary could be found.
-     */
-    Vocabulary findByName(String name);
-
-    /**
-     * Empty the cache
-     */
-    void emptyCache();
+  /**
+   * Load the vocabularies from an online source. This does NOT purge the cache.
+   *
+   * @param directoryUrl The online location of the vocabulary directory.
+   * @throws VocabularyImportException In case some issue occurred while importing the
+   * vocabularies.
+   */
+  void loadVocabularies(URI directoryUrl) throws VocabularyImportException;
 }

@@ -1,7 +1,9 @@
 package eu.europeana.enrichment.service;
 
+import eu.europeana.enrichment.service.exception.CacheStatusException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +43,12 @@ public class Enricher {
    * @throws IOException if enrichment fails
    */
   public List<EntityWrapper> tagExternal(List<InputValue> values) throws IOException {
-    return new ArrayList<>(redisEnricher.tag(values));
+    try {
+      return new ArrayList<>(redisEnricher.tag(values));
+    } catch (RuntimeException | CacheStatusException e) {
+      LOGGER.warn("Unable to retrieve entity from tag", e);
+    }
+    return Collections.emptyList();
   }
 
   /**
@@ -53,8 +60,8 @@ public class Enricher {
   public EntityWrapper getByUri(String uri) {
     try {
       return redisEnricher.getByUri(uri);
-    } catch (RuntimeException | IOException e) {
-      LOGGER.warn("Unable to retrieve entity form uri", e);
+    } catch (RuntimeException | IOException | CacheStatusException e) {
+      LOGGER.warn("Unable to retrieve entity from uri", e);
     }
     return null;
   }
@@ -68,8 +75,8 @@ public class Enricher {
   public EntityWrapper getById(String id) {
     try {
       return redisEnricher.getById(id);
-    } catch (RuntimeException | IOException e) {
-      LOGGER.warn("Unable to retrieve entity form id", e);
+    } catch (RuntimeException | IOException | CacheStatusException e) {
+      LOGGER.warn("Unable to retrieve entity from id", e);
     }
     return null;
   }

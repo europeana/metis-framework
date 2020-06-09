@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -63,16 +63,19 @@ class CommandExecutor {
    * @throws E In case a problem occurs.
    */
   <E extends Exception> String execute(List<String> command, boolean redirectErrorStream,
-      BiFunction<String, Exception, E> exceptionProducer) throws E {
+      Function<String, E> exceptionProducer) throws E {
     try {
       return executeInternal(command, redirectErrorStream, exceptionProducer);
     } catch (IOException | RuntimeException e) {
-      throw exceptionProducer.apply("Problem while executing command: " + e.getMessage(), e);
+      final E exceptionToThrow = exceptionProducer
+              .apply("Problem while executing command: " + e.getMessage());
+      exceptionToThrow.initCause(e);
+      throw exceptionToThrow;
     }
   }
 
   <E extends Exception> String executeInternal(List<String> command, boolean redirectErrorStream,
-          BiFunction<String, Exception, E> exceptionProducer) throws IOException, E {
+          Function<String, E> exceptionProducer) throws IOException, E {
 
     // Create process and start it.
     final Process process = processFactory.createProcess(command, redirectErrorStream);
@@ -82,12 +85,14 @@ class CommandExecutor {
       if (!process.waitFor(commandTimeout, TimeUnit.SECONDS)) {
         process.destroyForcibly();
         throw exceptionProducer.apply("The process did not terminate within the timeout of " +
-                commandTimeout + " seconds. It was forcibly destroyed.", null);
+                commandTimeout + " seconds. It was forcibly destroyed.");
       }
     } catch (InterruptedException e) {
       process.destroyForcibly();
       Thread.currentThread().interrupt();
-      throw exceptionProducer.apply("Process was interrupted.", e);
+      final E exceptionToThrow = exceptionProducer.apply("Process was interrupted.");
+      exceptionToThrow.initCause(e);
+      throw exceptionToThrow;
     }
 
     // Open error stream and read it.
@@ -107,7 +112,7 @@ class CommandExecutor {
         LOGGER.warn("Command presented with error:\nCommand: [{}]\nError: {}",
             String.join(" ", command), error);
       }
-      throw exceptionProducer.apply("External process returned error content:\n" + error, null);
+      throw exceptionProducer.apply("External process returned error content:\n" + error);
     }
 
     // Read process output into lines.

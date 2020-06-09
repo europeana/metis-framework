@@ -67,20 +67,16 @@ public final class RestEndpoints {
 
   /* METIS-DEREFERENCE Endpoints*/
   public static final String DEREFERENCE = "/dereference";
-  public static final String VOCABULARY = "/vocabulary";
-  public static final String VOCABULARY_BYNAME = "/vocabulary/{name}";
   public static final String VOCABULARIES = "/vocabularies";
-  public static final String ENTITY = "/entity";
-  public static final String ENTITY_DELETE = "/entity/{uri}";
   public static final String CACHE_EMPTY = "/cache";
+  public static final String LOAD_VOCABULARIES = "/load_vocabularies";
 
   /* METIS ENRICHMENT Endpoint */
-  public static final String ENRICHMENT_DELETE = "/delete";
   public static final String ENRICHMENT_BYID = "/getById";
   public static final String ENRICHMENT_BYURI = "/getByUri";
   public static final String ENRICHMENT_ENRICH = "/enrich";
 
-  /*METIS REDIRECTS Endpoint*/
+  /* METIS REDIRECTS Endpoint */
   public static final String REDIRECT_SINGLE = "/redirect/single";
   public static final String REDIRECT_BATCH = "/redirect/batch";
 

@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -87,10 +88,15 @@ class TestDatasetController {
     reset(authenticationClient);
   }
 
+  private static MetisUser getUserWithAccountRole(AccountRole accountRole) {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    doReturn(accountRole).when(metisUser).getAccountRole();
+    return metisUser;
+  }
+
   @Test
   void createDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -99,11 +105,11 @@ class TestDatasetController {
 
     datasetControllerMock.perform(post("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(dataset)))
         .andExpect(status().is(201))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.datasetName", is(TestObjectFactory.DATASETNAME)));
     verify(datasetServiceMock, times(1)).createDataset(any(MetisUser.class), any(Dataset.class));
   }
@@ -116,19 +122,18 @@ class TestDatasetController {
 
     datasetControllerMock.perform(post("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(dataset)))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
     verify(datasetServiceMock, times(0)).createDataset(any(MetisUser.class), any(Dataset.class));
   }
 
   @Test
   void createDataset_DatasetAlreadyExistsException_Returns409() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -138,8 +143,8 @@ class TestDatasetController {
 
     datasetControllerMock.perform(post("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(dataset)))
         .andExpect(status().is(409))
         .andExpect(jsonPath("$.errorMessage", is("Conflict")));
@@ -147,8 +152,7 @@ class TestDatasetController {
 
   @Test
   void updateDataset_withValidData_Returns204() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXsltStringWrapper datasetXsltStringWrapper = new DatasetXsltStringWrapper(dataset,
         "<xslt attribute:\"value\"></xslt>");
@@ -156,8 +160,8 @@ class TestDatasetController {
         .thenReturn(metisUser);
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(datasetXsltStringWrapper)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -173,8 +177,8 @@ class TestDatasetController {
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(dataset)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -185,8 +189,7 @@ class TestDatasetController {
 
   @Test
   void updateDataset_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXsltStringWrapper datasetXsltStringWrapper = new DatasetXsltStringWrapper(dataset,
         "<xslt attribute:\"value\"></xslt>");
@@ -196,8 +199,8 @@ class TestDatasetController {
         .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(datasetXsltStringWrapper)))
         .andExpect(status().is(404))
         .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
@@ -208,8 +211,7 @@ class TestDatasetController {
 
   @Test
   void updateDataset_BadContentException_Returns406() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXsltStringWrapper datasetXsltStringWrapper = new DatasetXsltStringWrapper(dataset,
         "<xslt attribute:\"value\"></xslt>");
@@ -219,8 +221,8 @@ class TestDatasetController {
         .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .accept(MediaType.APPLICATION_JSON_UTF8)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(datasetXsltStringWrapper)))
         .andExpect(status().is(406))
         .andExpect(jsonPath("$.errorMessage", is("Bad Content")));
@@ -231,15 +233,14 @@ class TestDatasetController {
 
   @Test
   void deleteDataset() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     datasetControllerMock.perform(
         delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .accept(MediaType.APPLICATION_JSON_UTF8)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -259,8 +260,8 @@ class TestDatasetController {
     datasetControllerMock.perform(
         delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .accept(MediaType.APPLICATION_JSON_UTF8)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -270,8 +271,7 @@ class TestDatasetController {
 
   @Test
   void deleteDataset_BadContentException_Returns406() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     doThrow(new BadContentException("Bad Content")).when(datasetServiceMock)
@@ -279,8 +279,8 @@ class TestDatasetController {
     datasetControllerMock.perform(
         delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .accept(MediaType.APPLICATION_JSON_UTF8)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(jsonPath("$.errorMessage", is("Bad Content")));
@@ -289,8 +289,7 @@ class TestDatasetController {
 
   @Test
   void getByDatasetId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -301,10 +300,10 @@ class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.datasetName", is(TestObjectFactory.DATASETNAME)))
         .andExpect(jsonPath("$.datasetId", is(Integer.toString(TestObjectFactory.DATASETID))));
 
@@ -321,10 +320,10 @@ class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
@@ -333,8 +332,7 @@ class TestDatasetController {
 
   @Test
   void getByDatasetId_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     when(datasetServiceMock
@@ -343,17 +341,16 @@ class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().is(404))
         .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
   }
 
   @Test
   void getDatasetXsltByDatasetId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
@@ -367,10 +364,10 @@ class TestDatasetController {
         .perform(
             get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
                 .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.xslt", is(xsltObject.getXslt())))
         .andExpect(jsonPath("$.datasetId", is(Integer.toString(TestObjectFactory.DATASETID))));
 
@@ -382,8 +379,7 @@ class TestDatasetController {
 
   @Test
   void getDatasetXsltByDatasetId_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -394,17 +390,16 @@ class TestDatasetController {
         .perform(
             get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
                 .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(404))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
   }
 
   @Test
   void getDatasetXsltByDatasetId_noXsltFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -415,17 +410,16 @@ class TestDatasetController {
         .perform(
             get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
                 .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(404))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
   }
 
   @Test
   void getDatasetXsltByDatasetIdInvalidUser() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
@@ -439,10 +433,10 @@ class TestDatasetController {
         .perform(
             get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
                 .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
@@ -478,7 +472,7 @@ class TestDatasetController {
         .thenThrow(new NoXsltFoundException("No xslt found"));
     datasetControllerMock
         .perform(get(String.format("/datasets/xslt/%s", TestObjectFactory.XSLTID))
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(404));
 
@@ -490,8 +484,7 @@ class TestDatasetController {
 
   @Test
   void createDefaultXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.METIS_ADMIN);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
@@ -508,15 +501,14 @@ class TestDatasetController {
             .contentType(MediaType.TEXT_PLAIN)
             .content(TestUtils.convertObjectToJsonBytes(xsltObject.getXslt())))
         .andExpect(status().is(201))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.xslt", is(xsltObject.getXslt())))
         .andExpect(jsonPath("$.datasetId", is(Integer.toString(TestObjectFactory.DATASETID))));
   }
 
   @Test
   void createDefaultXslt_Unauthorized() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(),
         "<xslt attribute:\"value\"></xslt>");
@@ -533,7 +525,7 @@ class TestDatasetController {
             .contentType(MediaType.TEXT_PLAIN)
             .content(TestUtils.convertObjectToJsonBytes(xsltObject.getXslt())))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
   }
 
@@ -560,7 +552,7 @@ class TestDatasetController {
     when(datasetServiceMock.getLatestDefaultXslt())
         .thenThrow(new NoXsltFoundException("No xslt found"));
     datasetControllerMock.perform(get("/datasets/xslt/default")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(404));
 
@@ -569,8 +561,7 @@ class TestDatasetController {
 
   @Test
   void transformRecordsUsingLatestDatasetXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
@@ -584,14 +575,12 @@ class TestDatasetController {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(TestUtils.convertObjectToJsonBytes(listOfRecords)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$", hasSize(5)));
   }
 
   @Test
   void transformRecordsUsingLatestDatasetXslt_UserUnauthorizedException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock
@@ -601,14 +590,13 @@ class TestDatasetController {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(TestUtils.convertObjectToJsonBytes(TestObjectFactory.createListOfRecords(5))))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
   }
 
   @Test
   void transformRecordsUsingLatestDefaultXslt() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     List<Record> listOfRecords = TestObjectFactory.createListOfRecords(5);
@@ -622,14 +610,12 @@ class TestDatasetController {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(TestUtils.convertObjectToJsonBytes(listOfRecords)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$", hasSize(5)));
   }
 
   @Test
   void transformRecordsUsingLatestDefaultXslt_UserUnauthorizedException() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock
@@ -639,14 +625,13 @@ class TestDatasetController {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .content(TestUtils.convertObjectToJsonBytes(TestObjectFactory.createListOfRecords(5))))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
   }
 
   @Test
   void getByDatasetName() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -656,10 +641,10 @@ class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.datasetName", is(TestObjectFactory.DATASETNAME)))
         .andExpect(jsonPath("$.datasetId", is(Integer.toString(TestObjectFactory.DATASETID))));
 
@@ -676,10 +661,10 @@ class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
@@ -689,8 +674,7 @@ class TestDatasetController {
 
   @Test
   void getByDatasetName_noDatasetFound_Returns404() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     when(datasetServiceMock.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME))
@@ -698,17 +682,16 @@ class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(null)))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().is(404))
         .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
   }
 
   @Test
   void getAllDatasetsByProvider() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -720,10 +703,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/provider/myProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].datasetId",
             is(Integer.toString(TestObjectFactory.DATASETID + 1))))
@@ -744,7 +727,7 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/provider/myProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -757,10 +740,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/provider/myProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
@@ -769,8 +752,7 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByIntermediateProvider() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -783,10 +765,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].datasetId",
             is(Integer.toString(TestObjectFactory.DATASETID + 1))))
@@ -808,7 +790,7 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -821,10 +803,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
@@ -833,8 +815,7 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByDataProvider() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -846,10 +827,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].datasetId",
             is(Integer.toString(TestObjectFactory.DATASETID + 1))))
@@ -870,7 +851,7 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -883,10 +864,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
@@ -895,8 +876,7 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByOrganizationId() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -908,10 +888,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].datasetId",
             is(Integer.toString(TestObjectFactory.DATASETID + 1))))
@@ -932,7 +912,7 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -945,10 +925,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
@@ -957,8 +937,7 @@ class TestDatasetController {
 
   @Test
   void getAllDatasetsByOrganizationName() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> datasetList = getDatasets();
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -970,10 +949,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].datasetId",
             is(Integer.toString(TestObjectFactory.DATASETID + 1))))
@@ -994,7 +973,7 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -1007,10 +986,10 @@ class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
 
     verify(datasetServiceMock, times(0))
@@ -1025,10 +1004,10 @@ class TestDatasetController {
 
     MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/countries")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(""))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andReturn();
 
     String resultListOfCountries = mvcResult.getResponse().getContentAsString();
     Object document = Configuration.defaultConfiguration().jsonProvider()
@@ -1048,10 +1027,10 @@ class TestDatasetController {
 
     datasetControllerMock.perform(get("/datasets/countries")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(""))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
   }
 
@@ -1064,10 +1043,10 @@ class TestDatasetController {
 
     MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/languages")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(""))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON)).andReturn();
 
     String resultListOfLanguages = mvcResult.getResponse().getContentAsString();
     Object document = Configuration.defaultConfiguration().jsonProvider()
@@ -1088,17 +1067,16 @@ class TestDatasetController {
 
     datasetControllerMock.perform(get("/datasets/languages")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(""))
         .andExpect(status().is(401))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
   }
 
   @Test
   void getDatasetSearch() throws Exception {
-    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    MetisUser metisUser = getUserWithAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
 
@@ -1110,10 +1088,10 @@ class TestDatasetController {
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("searchString", "test")
         .param("nextPage", "3")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].datasetId",
             is(Integer.toString(TestObjectFactory.DATASETID + 1))))

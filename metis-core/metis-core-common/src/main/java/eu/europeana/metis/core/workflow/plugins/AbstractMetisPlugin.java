@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import dev.morphia.annotations.Embedded;
-import dev.morphia.annotations.Indexed;
 import eu.europeana.metis.CommonStringValues;
 import java.util.Date;
 
@@ -36,19 +35,14 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
     MetisPlugin<M> {
 
   protected final PluginType pluginType;
-
-  @Indexed
   private String id;
 
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
   private String failMessage;
-  @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date startedDate;
-  @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date updatedDate;
-  @Indexed
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date finishedDate;
   private M pluginMetadata;

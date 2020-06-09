@@ -1,6 +1,7 @@
 package eu.europeana.indexing;
 
 import java.io.Closeable;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import eu.europeana.corelib.definitions.jibx.RDF;
@@ -101,6 +102,27 @@ public interface Indexer extends Closeable {
    */
   void index(List<String> records, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
       List<String> datasetIdsForRedirection, boolean performRedirects) throws IndexingException;
+
+  /**
+   * <p>
+   * This method indexes a single record, publishing it to the provided data stores.
+   * </p>
+   * <p>
+   * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
+   * not done within a transaction.
+   * </p>
+   *
+   * @param record The record to index (can be parsed to RDF).
+   * @param recordDate The date that would represent the created/updated date of a record
+   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the
+   * updated and created times from the incoming RDFs, or whether it computes its own.
+   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected
+   * @param performRedirects flag that indicates if redirect should be performed
+   * @throws IndexingException In case a problem occurred during indexing.
+   */
+  void index(InputStream record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
+          List<String> datasetIdsForRedirection, boolean performRedirects)
+          throws IndexingException;
 
   /**
    * This method will trigger a flush operation on pending changes/updates to the persistent data,

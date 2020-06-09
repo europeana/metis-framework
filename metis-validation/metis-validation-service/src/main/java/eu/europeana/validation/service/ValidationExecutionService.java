@@ -2,13 +2,21 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PreDestroy;
-import java.util.*;
-import java.util.concurrent.*;
 
 /**
  * Schema service service Created by gmamakis on 18-12-15.
@@ -69,9 +77,29 @@ public class ValidationExecutionService {
    * @return A service result
    */
   public ValidationResult singleValidation(final String schema, final String rootFileLocation,
-      String schematronFileLocation, final String document) {
-    return new Validator(schema, rootFileLocation, schematronFileLocation, document, schemaProvider,
-        lsResourceResolver).call();
+          String schematronFileLocation, final String document) {
+    try (final ByteArrayInputStream inputStream = new ByteArrayInputStream(
+            document.getBytes(StandardCharsets.UTF_8))) {
+      return singleValidation(schema, rootFileLocation, schematronFileLocation, inputStream);
+    } catch (IOException e) {
+      // Shouldn't happen
+      throw new IllegalStateException(e);
+    }
+  }
+
+  /**
+   * Perform single service given a schema.
+   *
+   * @param schema The schema to perform service against.
+   * @param rootFileLocation location of the schema root file
+   * @param schematronFileLocation location of the schematron file
+   * @param document The document to validate against
+   * @return A service result
+   */
+  public ValidationResult singleValidation(final String schema, final String rootFileLocation,
+          String schematronFileLocation, final InputStream document) {
+    return new Validator(schema, rootFileLocation, schematronFileLocation, document,
+            schemaProvider, lsResourceResolver).call();
   }
 
   /**
@@ -85,10 +113,10 @@ public class ValidationExecutionService {
    */
   public ValidationResultList batchValidation(final String schema, final String rootFileLocation,
       final String schematronFileLocation,
-      List<String> documents) throws InterruptedException, ExecutionException {
+      List<? extends InputStream> documents) throws InterruptedException, ExecutionException {
 
     ExecutorCompletionService<ValidationResult> cs = new ExecutorCompletionService<>(es);
-    for (final String document : documents) {
+    for (final InputStream document : documents) {
       cs.submit(
           new Validator(schema, rootFileLocation, schematronFileLocation, document, schemaProvider,
               lsResourceResolver));

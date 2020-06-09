@@ -10,12 +10,13 @@ import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
+import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.GraphUtils;
-import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.dereference.IncomingRecordToEdmConverter;
+import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.service.utils.VocabularyCandidates;
+import java.io.IOException;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.Collection;
@@ -24,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -35,30 +37,43 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.
  */
+@Component
 public class MongoDereferenceService implements DereferenceService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
 
   private final RdfRetriever retriever;
-  private final CacheDao cacheDao;
+  private final ProcessedEntityDao processedEntityDao;
   private final VocabularyDao vocabularyDao;
 
   /**
    * Constructor.
    *
-   * @param retriever Object that retrieves entities from their source services.
-   * @param cacheDao Object that accesses the cache of processed entities.
+   * @param processedEntityDao Object managing the processed entity cache.
    * @param vocabularyDao Object that accesses vocabularies.
    */
   @Autowired
-  public MongoDereferenceService(RdfRetriever retriever, CacheDao cacheDao,
-      VocabularyDao vocabularyDao) {
+  public MongoDereferenceService(ProcessedEntityDao processedEntityDao,
+          VocabularyDao vocabularyDao) {
+    this(new RdfRetriever(), processedEntityDao, vocabularyDao);
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param retriever Object that retrieves entities from their source services.
+   * @param processedEntityDao Object managing the processed entity cache.
+   * @param vocabularyDao Object that accesses vocabularies.
+   */
+  MongoDereferenceService(RdfRetriever retriever, ProcessedEntityDao processedEntityDao,
+          VocabularyDao vocabularyDao) {
     this.retriever = retriever;
-    this.cacheDao = cacheDao;
+    this.processedEntityDao = processedEntityDao;
     this.vocabularyDao = vocabularyDao;
   }
 
@@ -151,28 +166,22 @@ public class MongoDereferenceService implements DereferenceService {
     return collection == null ? Stream.empty() : collection.stream();
   }
 
-  private Pair<EnrichmentBase, Vocabulary> retrieveCachedEntity(String resourceId)
+  Pair<EnrichmentBase, Vocabulary> retrieveCachedEntity(String resourceId)
       throws JAXBException, TransformerException, URISyntaxException {
 
     // Try to get the entity and its vocabulary from the cache.
-    final ProcessedEntity cachedEntity = cacheDao.get(resourceId);
+    final ProcessedEntity cachedEntity = processedEntityDao.get(resourceId);
     String entityString = null;
     Vocabulary vocabulary = null;
     if (cachedEntity != null) {
       entityString = cachedEntity.getXml();
-      vocabulary = cachedEntity.getVocabularyId() == null ? null
-          : vocabularyDao.get(cachedEntity.getVocabularyId());
+      vocabulary = Optional.ofNullable(cachedEntity.getVocabularyId()).map(vocabularyDao::get)
+              .orElse(null);
     }
 
-    // If we have the entity, but the vocabulary ID is no longer registered, try to get the
-    // vocabulary without resolving the resource.
+    // If not in the cache, or no vocabulary (ID) is known, we need to resolve the resource.
     final VocabularyCandidates candidates =
-        VocabularyCandidates.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
-    if (entityString != null && vocabulary == null) {
-      vocabulary = candidates.findVocabularyWithoutTypeRules();
-    }
-
-    // If not in the cache, or no vocabulary was found, we need to resolve the resource.
+            VocabularyCandidates.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
     if (entityString == null || vocabulary == null) {
       final Pair<String, Vocabulary> transformedEntity =
           retrieveTransformedEntity(resourceId, candidates);
@@ -182,8 +191,8 @@ public class MongoDereferenceService implements DereferenceService {
         final ProcessedEntity entityToCache = new ProcessedEntity();
         entityToCache.setXml(entityString);
         entityToCache.setResourceId(resourceId);
-        entityToCache.setVocabularyId(vocabulary.getId());
-        cacheDao.save(entityToCache);
+        entityToCache.setVocabularyId(vocabulary == null ? null : vocabulary.getId());
+        processedEntityDao.save(entityToCache);
       }
     }
 
@@ -213,26 +222,51 @@ public class MongoDereferenceService implements DereferenceService {
       return null;
     }
 
-    // Try to find the vocabulary.
-    final Vocabulary vocabulary = candidates.findVocabularyForType(originalEntity);
-    if (vocabulary == null) {
-      return null;
+    // Transform the original entity.
+    for (Vocabulary candidate : candidates.getCandidates()) {
+      final String transformedEntity = transformEntity(candidate, originalEntity, resourceId);
+      if (transformedEntity != null) {
+        return new ImmutablePair<>(transformedEntity, candidate);
+      }
     }
 
-    // Transform the original entity.
-    final IncomingRecordToEdmConverter converter = new IncomingRecordToEdmConverter(vocabulary);
-    final String transformedEntity = converter.convert(originalEntity, resourceId);
-    return new ImmutablePair<>(transformedEntity, vocabulary);
+    // Found no suitable transformation.
+    return new ImmutablePair<>(null, null);
   }
 
   private String retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates) {
     if (candidates.isEmpty()) {
       return null;
     }
-    final String originalEntity = retriever.retrieve(resourceId, candidates.getCandidateSuffixes());
+    final String originalEntity = candidates.getCandidateSuffixes().stream().map(suffix -> {
+      try {
+        return retriever.retrieve(resourceId, suffix);
+      } catch (IOException e) {
+        LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
+        LOGGER.debug("Problem retrieving resource.", e);
+        return null;
+      }
+    }).filter(Objects::nonNull).findAny().orElse(null);
     if (originalEntity == null) {
       LOGGER.info("No entity XML for uri {}", resourceId);
     }
     return originalEntity;
+  }
+
+  private String transformEntity(Vocabulary vocabulary, String originalEntity, String resourceId)
+          throws TransformerException {
+    final IncomingRecordToEdmConverter converter = new IncomingRecordToEdmConverter(vocabulary);
+    final String result;
+    try {
+      result = converter.convert(originalEntity, resourceId);
+      if (result == null) {
+        LOGGER.info("Could not transform entity {} as it results is an empty XML.", resourceId);
+      }
+    } catch (TransformerException e) {
+      LOGGER.warn("Error transforming entity: {} with message: {}", resourceId, e.getMessage());
+      LOGGER.debug("Transformation issue: ", e);
+      return null;
+    }
+    return result;
   }
 }

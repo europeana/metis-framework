@@ -12,12 +12,6 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
-import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
-import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
-import eu.europeana.metis.core.workflow.plugins.ValidationInternalPlugin;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -73,19 +67,12 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
     morphia.map(WorkflowExecution.class);
     morphia.map(ScheduledWorkflow.class);
     morphia.map(AbstractMetisPlugin.class);
-    morphia.map(OaipmhHarvestPlugin.class);
-    morphia.map(HTTPHarvestPlugin.class);
-    morphia.map(EnrichmentPlugin.class);
-    morphia.map(ValidationInternalPlugin.class);
-    morphia.map(TransformationPlugin.class);
-    morphia.map(ValidationExternalPlugin.class);
     morphia.map(AbstractMetisPluginMetadata.class);
     morphia.map(DatasetXslt.class);
     datastore = morphia.createDatastore(mongoClient, databaseName);
 
     // Initialize the DatasetIdSequence if required.
-    final DatasetIdSequence datasetIdSequence = datastore.find(DatasetIdSequence.class).first();
-    if (datasetIdSequence == null) {
+    if (datastore.find(DatasetIdSequence.class).count() == 0) {
       datastore.save(new DatasetIdSequence(0));
     }
     LOGGER.info("Datastore initialized");

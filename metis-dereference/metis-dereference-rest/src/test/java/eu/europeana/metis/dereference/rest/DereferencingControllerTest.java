@@ -71,7 +71,7 @@ class DereferencingControllerTest {
 
     dereferencingControllerMock.perform(post("/dereference")
         .accept(MediaType.APPLICATION_XML_VALUE)
-        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+        .contentType(MediaType.APPLICATION_JSON)
         .content("[ \"http://www.example.com\" ]"))
         .andExpect(status().is(200))
         //  .andExpect(content().string(""))
@@ -91,8 +91,8 @@ class DereferencingControllerTest {
         .thenThrow(new TransformerException("myException"));
     dereferencingControllerMock.perform(post("/dereference")
         .content("[ \"http://www.example.com\" ]")
-        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().is(500))
         .andExpect(content().string(
             "{\"errorMessage\":\"Dereferencing failed for uri: http://www.example.com with root cause: myException\"}"));

@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
   </parent>
   <artifactId>metis-validation-rest</artifactId>
   <packaging>war</packaging>
@@ -18,6 +18,10 @@
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-runtime</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
     </dependency>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
@@ -97,16 +101,6 @@
       <artifactId>de.flapdoodle.embed.mongo</artifactId>
       <version>${version.embedded.mongo}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.jclouds.api</groupId>
-      <artifactId>openstack-swift</artifactId>
-      <version>${version.openstack}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.jclouds</groupId>
-      <artifactId>jclouds-core</artifactId>
-      <version>${version.openstack}</version>
     </dependency>
 
     <dependency>

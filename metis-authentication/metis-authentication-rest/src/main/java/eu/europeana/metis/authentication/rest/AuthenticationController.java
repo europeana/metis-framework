@@ -143,7 +143,7 @@ public class AuthenticationController {
         oldAndNewPasswordParameters
             .getOldPassword());//If no exception authentication with password succeeds
     authenticationService
-        .updateUserPassword(metisUser, oldAndNewPasswordParameters.getNewPassword());
+        .updateUserPassword(metisUser.getEmail(), oldAndNewPasswordParameters.getNewPassword());
     LOGGER.info("User with access_token: {} updated password", accessToken);
   }
 
@@ -329,6 +329,6 @@ public class AuthenticationController {
         .hasPermissionToRequestAllUsers(accessToken)) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
-    return authenticationService.getAllUsers(accessToken);
+    return authenticationService.getAllUsers();
   }
 }

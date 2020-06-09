@@ -15,6 +15,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -26,6 +27,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ServiceUnavailableException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,9 +70,17 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   static {
     final Map<Class<?>, String> retriableExceptionMap = new ConcurrentHashMap<>();
-    retriableExceptionMap.put(UnknownHostException.class, "");
     retriableExceptionMap.put(HttpServerErrorException.class, "");
+    //Usually when the dns resolution fails
+    retriableExceptionMap.put(UnknownHostException.class, "");
+    //Usually when the server does not respond in time
     retriableExceptionMap.put(SocketTimeoutException.class, "");
+    //Usually when the base url is not reachable
+    retriableExceptionMap.put(SocketException.class, "SOCKS: Host unreachable");
+    //Usually when the container service unavailable
+    retriableExceptionMap.put(ServiceUnavailableException.class, "");
+    //Usually when the endpoint in the container is not available
+    retriableExceptionMap.put(NotFoundException.class, "");
     mapWithRetriableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
   }
 

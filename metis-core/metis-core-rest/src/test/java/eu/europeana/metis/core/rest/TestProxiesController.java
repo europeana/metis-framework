@@ -87,7 +87,7 @@ class TestProxiesController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("from", Integer.toString(from))
             .param("to", Integer.toString(to))
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$[0].additionalInformations", is(IsNull.nullValue())))
@@ -107,7 +107,7 @@ class TestProxiesController {
         get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT_EXISTS,
             TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.existsExternalTaskReport", is(true)));
@@ -133,7 +133,7 @@ class TestProxiesController {
             TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("idsPerError", "10")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.id", is(TestObjectFactory.EXTERNAL_TASK_ID)))
@@ -171,7 +171,7 @@ class TestProxiesController {
         get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_STATISTICS,
             TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8).content(""))
+            .contentType(MediaType.APPLICATION_JSON).content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.taskId", is(TestObjectFactory.EXTERNAL_TASK_ID)))
         .andExpect(jsonPath("$.nodePathStatistics", hasSize(record.getNodePathStatistics().size())))
@@ -255,7 +255,7 @@ class TestProxiesController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
             .param("pluginType", PluginType.TRANSFORMATION.name())
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.records[0].ecloudId", is(record1.getEcloudId())))
@@ -292,7 +292,7 @@ class TestProxiesController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
             .param("pluginType", pluginType.name())
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
         .content("{\"ids\":[\"" + String.join("\",\"", expectedInput) + "\"]}"))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.records", hasSize(2)))
@@ -314,7 +314,7 @@ class TestProxiesController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
             .param("pluginType", pluginType.name())
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content("{\"ids\":[]}"))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.records", hasSize(0)));
@@ -323,7 +323,7 @@ class TestProxiesController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
             .param("pluginType", pluginType.name())
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content("{}"))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.records", hasSize(0)));
@@ -337,7 +337,7 @@ class TestProxiesController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
             .param("pluginType", pluginType.name())
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content("{}"))
         .andExpect(status().is(404));
 
@@ -350,7 +350,7 @@ class TestProxiesController {
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
             .param("pluginType", pluginType.name())
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content("{}"))
         .andExpect(status().is(401));
   }

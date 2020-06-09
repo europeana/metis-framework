@@ -86,7 +86,7 @@ class TestScheduleWorkflowController {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(201))
         .andExpect(content().string(""));
@@ -104,7 +104,7 @@ class TestScheduleWorkflowController {
     scheduleWorkflowControllerMock
         .perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -121,7 +121,7 @@ class TestScheduleWorkflowController {
     scheduleWorkflowControllerMock
         .perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -137,7 +137,7 @@ class TestScheduleWorkflowController {
         .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(406))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -154,7 +154,7 @@ class TestScheduleWorkflowController {
         .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -170,7 +170,7 @@ class TestScheduleWorkflowController {
         .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -186,7 +186,7 @@ class TestScheduleWorkflowController {
         .scheduleWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -204,7 +204,7 @@ class TestScheduleWorkflowController {
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.scheduleFrequence", is(ScheduleFrequence.ONCE.name())));
@@ -231,7 +231,7 @@ class TestScheduleWorkflowController {
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("nextPage", "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
@@ -255,7 +255,7 @@ class TestScheduleWorkflowController {
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .param("nextPage", "-1")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(406));
   }
@@ -269,7 +269,7 @@ class TestScheduleWorkflowController {
         .createScheduledWorkflowObject();
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -286,7 +286,7 @@ class TestScheduleWorkflowController {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory.createScheduledWorkflowObject();
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -302,7 +302,7 @@ class TestScheduleWorkflowController {
         .when(scheduleWorkflowService).updateScheduledWorkflow(any(), any());
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -319,7 +319,7 @@ class TestScheduleWorkflowController {
         .updateScheduledWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -336,7 +336,7 @@ class TestScheduleWorkflowController {
         .updateScheduledWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -353,7 +353,7 @@ class TestScheduleWorkflowController {
         .updateScheduledWorkflow(any(MetisUser.class), any(ScheduledWorkflow.class));
     scheduleWorkflowControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(406))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -368,7 +368,7 @@ class TestScheduleWorkflowController {
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -387,7 +387,7 @@ class TestScheduleWorkflowController {
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -404,7 +404,7 @@ class TestScheduleWorkflowController {
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
             Integer.toString(TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(""))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));

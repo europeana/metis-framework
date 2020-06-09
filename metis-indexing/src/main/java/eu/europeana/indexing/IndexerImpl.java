@@ -9,6 +9,7 @@ import eu.europeana.indexing.tiers.ClassifierFactory;
 import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -117,10 +118,18 @@ class IndexerImpl implements Indexer {
 
   @Override
   public void index(String record, Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection, boolean performRedirects)
-      throws IndexingException {
+      List<String> datasetIdsForRedirection, boolean performRedirects) throws IndexingException {
     index(Collections.singletonList(record), recordDate, preserveUpdateAndCreateTimesFromRdf,
         datasetIdsForRedirection, performRedirects);
+  }
+
+  @Override
+  public void index(InputStream record, Date recordDate,
+          boolean preserveUpdateAndCreateTimesFromRdf, List<String> datasetIdsForRedirection,
+          boolean performRedirects) throws IndexingException {
+    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
+    indexRdf(stringToRdfConverter.convertToRdf(record), recordDate,
+            preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection, performRedirects);
   }
 
   @Override

@@ -2,7 +2,7 @@ package eu.europeana.metis.dereference.rest.config;
 
 import eu.europeana.metis.dereference.service.MongoDereferenceService;
 import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.dereference.RdfRetriever;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;

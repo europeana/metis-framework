@@ -289,9 +289,9 @@ class ThumbnailGenerator {
     final String contentMarker = UUID.randomUUID().toString();
     final List<String> command =
         createThumbnailGenerationCommand(thumbnails, removeAlpha, content, contentMarker);
-    final String response = commandExecutor.execute(command, false,
-            (message, cause) -> new MediaExtractionException(
-                    "Could not analyze content and generate thumbnails: " + message, cause));
+    final String response = commandExecutor.execute(command, false, message ->
+            new MediaExtractionException(
+                    "Could not analyze content and generate thumbnails: " + message));
     final ImageMetadata result = parseCommandResponse(response, contentMarker);
 
     // Check the thumbnails.

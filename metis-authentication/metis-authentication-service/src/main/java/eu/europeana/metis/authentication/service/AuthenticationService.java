@@ -7,6 +7,7 @@ import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.authentication.utils.ZohoMetisUserUtils;
 import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.exception.BadContentException;
@@ -22,6 +23,9 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -73,13 +77,13 @@ public class AuthenticationService {
    */
   public void registerUser(String email, String password) throws GenericMetisException {
 
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    MetisUserModel storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser != null) {
       throw new UserAlreadyExistsException(
           String.format("User with email: %s already exists", email));
     }
 
-    MetisUser metisUser = constructMetisUserFromZoho(email);
+    MetisUserModel metisUser = constructMetisUserFromZoho(email);
     String hashedPassword = generatePasswordHashing(password);
     metisUser.setPassword(hashedPassword);
 
@@ -100,13 +104,13 @@ public class AuthenticationService {
    */
   public MetisUser updateUserFromZoho(String email)
       throws GenericMetisException {
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    MetisUserModel storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null) {
       throw new NoUserFoundException(
           String.format("User with email: %s does not exist", email));
     }
 
-    MetisUser metisUser = constructMetisUserFromZoho(email);
+    MetisUserModel metisUser = constructMetisUserFromZoho(email);
     //Keep previous information, that are not in Zoho
     metisUser.setPassword(storedMetisUser.getPassword());
     metisUser.setMetisUserAccessToken(storedMetisUser.getMetisUserAccessToken());
@@ -115,10 +119,10 @@ public class AuthenticationService {
     }
 
     psqlMetisUserDao.updateMetisUser(metisUser);
-    return metisUser;
+    return convert(metisUser);
   }
 
-  private MetisUser constructMetisUserFromZoho(String email)
+  private MetisUserModel constructMetisUserFromZoho(String email)
       throws GenericMetisException {
     //Get user from zoho
     final ZCRMRecord zcrmRecordContact = zohoAccessClient.getZcrmRecordContactByEmail(email);
@@ -127,7 +131,7 @@ public class AuthenticationService {
     }
 
     //Construct User
-    MetisUser metisUser = ZohoMetisUserUtils.checkZohoFieldsAndPopulateMetisUser(zcrmRecordContact);
+    MetisUserModel metisUser = ZohoMetisUserUtils.checkZohoFieldsAndPopulateMetisUser(zcrmRecordContact);
 
     if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {
@@ -142,7 +146,7 @@ public class AuthenticationService {
     return metisUser;
   }
 
-  private void checkMetisUserOrganizationRole(MetisUser metisUser) throws BadContentException {
+  private void checkMetisUserOrganizationRole(MetisUserModel metisUser) throws BadContentException {
     final ZCRMRecord zcrmRecordOrganization = zohoAccessClient
         .getZcrmRecordOrganizationByName(metisUser.getOrganizationName());
     if (zcrmRecordOrganization == null) {
@@ -168,7 +172,7 @@ public class AuthenticationService {
     return BCrypt.hashpw(password, BCrypt.gensalt(LOG_ROUNDS));
   }
 
-  private boolean isPasswordValid(MetisUser metisUser, String passwordToTry) {
+  private boolean isPasswordValid(MetisUserModel metisUser, String passwordToTry) {
     return BCrypt.checkpw(passwordToTry, metisUser.getPassword());
   }
 
@@ -264,31 +268,31 @@ public class AuthenticationService {
    * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
    * </ul>
    */
-  public MetisUser loginUser(String email, String password)
-      throws GenericMetisException {
-    MetisUser storedMetisUser = authenticateUser(email, password);
+  public MetisUser loginUser(String email, String password) throws GenericMetisException {
+    MetisUserModel storedMetisUser = authenticateUser(email, password);
 
     if (storedMetisUser.getMetisUserAccessToken() != null) {
       psqlMetisUserDao.updateAccessTokenTimestamp(email);
-      return storedMetisUser;
+      return convert(storedMetisUser);
     }
     MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken(email,
         generateAccessToken(), new Date());
     psqlMetisUserDao.createUserAccessToken(metisUserAccessToken);
     storedMetisUser.setMetisUserAccessToken(metisUserAccessToken);
-    return storedMetisUser;
+    return convert(storedMetisUser);
   }
 
   /**
-   * Update the {@link MetisUser} password.
+   * Update the {@link MetisUserModel} password.
    *
-   * @param metisUser the metisUser to update
+   * @param email the unique email used to login
    * @param newPassword the new password
    */
-  public void updateUserPassword(MetisUser metisUser, String newPassword) {
+  public void updateUserPassword(String email, String newPassword) {
+    MetisUserModel storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     String hashedPassword = generatePasswordHashing(newPassword);
-    metisUser.setPassword(hashedPassword);
-    psqlMetisUserDao.updateMetisUser(metisUser);
+    storedMetisUser.setPassword(hashedPassword);
+    psqlMetisUserDao.updateMetisUser(storedMetisUser);
   }
 
   /**
@@ -321,7 +325,7 @@ public class AuthenticationService {
    */
   public boolean isUserAdmin(String accessToken)
       throws GenericMetisException {
-    MetisUser storedMetisUser = authenticateUser(accessToken);
+    MetisUserModel storedMetisUser = authenticateUserInternal(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN;
   }
 
@@ -340,12 +344,12 @@ public class AuthenticationService {
   public boolean hasPermissionToRequestUserUpdate(String accessToken,
       String userEmailToUpdate)
       throws GenericMetisException {
-    MetisUser storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
+    MetisUserModel storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
     if (storedMetisUserToUpdate == null) {
       throw new NoUserFoundException(
           String.format("User with email: %s does not exist", userEmailToUpdate));
     }
-    MetisUser storedMetisUser = authenticateUser(accessToken);
+    MetisUserModel storedMetisUser = authenticateUserInternal(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || storedMetisUser.getEmail()
         .equals(storedMetisUserToUpdate.getEmail());
   }
@@ -385,9 +389,9 @@ public class AuthenticationService {
    * @return the object of the metis user in the system
    * @throws UserUnauthorizedException if user does not exist or password invalid
    */
-  public MetisUser authenticateUser(String email, String password)
+  public MetisUserModel authenticateUser(String email, String password)
       throws UserUnauthorizedException {
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    MetisUserModel storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
       throw new UserUnauthorizedException("Wrong credentials");
     }
@@ -404,9 +408,13 @@ public class AuthenticationService {
    * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
    * </ul>
    */
-  public MetisUser authenticateUser(String accessToken)
-      throws GenericMetisException {
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
+  public MetisUser authenticateUser(String accessToken) throws GenericMetisException {
+    return convert(authenticateUserInternal(accessToken));
+  }
+
+  private MetisUserModel authenticateUserInternal(String accessToken)
+          throws GenericMetisException {
+    MetisUserModel storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
     if (storedMetisUser == null) {
       throw new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
@@ -426,7 +434,7 @@ public class AuthenticationService {
    */
   public boolean hasPermissionToRequestAllUsers(String accessToken)
       throws GenericMetisException {
-    MetisUser storedMetisUser = authenticateUser(accessToken);
+    MetisUserModel storedMetisUser = authenticateUserInternal(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN
         || storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER;
   }
@@ -445,29 +453,25 @@ public class AuthenticationService {
   public MetisUser getMetisUserByUserIdOnlyWithPublicFields(String accessToken,
       String userIdToRetrieve) throws GenericMetisException {
     authenticateUser(accessToken);
-    return psqlMetisUserDao.getMetisUserByUserId(userIdToRetrieve);
+    return convert(psqlMetisUserDao.getMetisUserByUserId(userIdToRetrieve));
   }
 
   /**
    * Retrieves all {@link MetisUser}'s from the system.
-   * <p>
-   * Access tokens are not returned for a requester that is a NON-ADMIN user
-   * </p>
    *
-   * @param accessToken the access token used to authenticate the user
-   * @return the list of all {@code MetisUser}'s in the system
+   * @return the list of all {@code MetisUserModel}'s in the system
    */
-  public List<MetisUser> getAllUsers(String accessToken) {
-    List<MetisUser> allMetisUsers = psqlMetisUserDao.getAllMetisUsers();
-    MetisUser metisUserByEmail = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
-    //Remove access tokens from a request coming from a role that is not METIS_ADMIN
-    if (metisUserByEmail.getAccountRole() != AccountRole.METIS_ADMIN) {
-      for (MetisUser metisUser :
-          allMetisUsers) {
-        metisUser.setMetisUserAccessToken(null);
-      }
-    }
-    return allMetisUsers;
+  public List<MetisUser> getAllUsers() {
+    return convert(psqlMetisUserDao.getAllMetisUsers());
+  }
+
+  private static MetisUser convert(MetisUserModel record) {
+    return record == null ? null : new MetisUser(record);
+  }
+
+  private static List<MetisUser> convert(List<MetisUserModel> records) {
+    return Optional.ofNullable(records).map(List::stream).orElseGet(Stream::empty)
+            .map(MetisUser::new).collect(Collectors.toList());
   }
 }
 

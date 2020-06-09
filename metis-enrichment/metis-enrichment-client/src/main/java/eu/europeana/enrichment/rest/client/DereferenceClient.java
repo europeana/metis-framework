@@ -9,11 +9,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.xml.bind.JAXBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,55 +31,11 @@ public class DereferenceClient {
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferenceClient.class);
 
   private final String hostUrl;
-  private RestTemplate restTemplate = new RestTemplate();
+  private final RestTemplate restTemplate;
 
-  public DereferenceClient(String hostUrl) {
+  DereferenceClient(RestTemplate restTemplate, String hostUrl) {
+    this.restTemplate = restTemplate;
     this.hostUrl = hostUrl;
-  }
-
-  /**
-   * Create a vocabulary
-   *
-   * @param voc The vocabulary to persist
-   */
-  public void createVocabulary(Vocabulary voc) {
-    restTemplate.postForObject(hostUrl + RestEndpoints.VOCABULARY, voc, Void.class);
-  }
-
-  /**
-   * Update a vocabulary
-   *
-   * @param voc The vocabulary to update
-   */
-  public void updateVocabulary(Vocabulary voc) {
-    try {
-      restTemplate.put(new URI(hostUrl + RestEndpoints.VOCABULARY), voc);
-    } catch (URISyntaxException e) {
-      LOGGER.error("Exception occurred while updating vocabulary", e);
-    }
-  }
-
-  /**
-   * Delete a vocabulary
-   *
-   * @param name The vocabulary to delete
-   */
-  public void deleteVocabulary(String name) {
-    restTemplate.delete(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, Collections
-        .singletonList(name)));
-  }
-
-  /**
-   * Retrieve the vocabulary by namedereference
-   *
-   * @param name The name of the vocabulary to retrieve
-   * @return The retrieved vocabulary
-   */
-  public Vocabulary getVocabularyByName(String name) {
-    return restTemplate
-        .getForObject(hostUrl + RestEndpoints
-                .resolve(RestEndpoints.VOCABULARY_BYNAME, Collections.singletonList(name)),
-            Vocabulary.class);
   }
 
   /**
@@ -91,38 +44,7 @@ public class DereferenceClient {
    * @return The list of all vocabularies
    */
   public List<Vocabulary> getAllVocabularies() {
-    return restTemplate
-        .getForObject(hostUrl + RestEndpoints.VOCABULARIES, List.class);
-  }
-
-  /**
-   * Delete an entity by URL
-   *
-   * @param uri The url of the entity
-   */
-  public void deleteEntity(String uri) {
-    try {
-      //URLEncoder converts spaces to "+" signs.
-      // Replace any plus "+" characters to a proper space encoding "%20".
-      String encodedUri = URLEncoder.encode(uri, StandardCharsets.UTF_8.name()).replace("+", "%20");
-      restTemplate.delete(hostUrl + RestEndpoints
-          .resolve(RestEndpoints.ENTITY_DELETE, Collections.singletonList(encodedUri)));
-    } catch (UnsupportedEncodingException e) {
-      LOGGER.error("Exception occurred while deleting entity", e);
-    }
-  }
-
-  /**
-   * Update Entity by URL
-   *
-   * @param uri The url of the Entity
-   * @param xml The xml to update the entity with
-   */
-  public void updateEntity(String uri, String xml) {
-    Map<String, String> params = new HashMap<>();
-    params.put("uri", uri);
-    params.put("xml", xml);
-    restTemplate.put(hostUrl + RestEndpoints.ENTITY, params);
+    return restTemplate.getForObject(hostUrl + RestEndpoints.VOCABULARIES, List.class);
   }
 
   /**
@@ -175,9 +97,5 @@ public class DereferenceClient {
       LOGGER.warn("URL [{}] could not be deserialized.", dereferenceUrlString, e);
       throw new UnknownException("Dereference client call failed.", e);
     }
-  }
-
-  void setRestTemplate(RestTemplate restTemplate) {
-    this.restTemplate = restTemplate;
   }
 }

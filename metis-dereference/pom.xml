@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>eu.europeana.metis</groupId>
-    <version>1.8.0</version>
+    <version>1.9.0</version>
     <artifactId>metis-framework</artifactId>
   </parent>
 
@@ -14,5 +14,6 @@
     <module>metis-dereference-common</module>
     <module>metis-dereference-service</module>
     <module>metis-dereference-rest</module>
+    <module>metis-dereference-import</module>
   </modules>
 </project>
