@@ -149,14 +149,18 @@ class IndexerImpl implements Indexer {
 
   @Override
   public boolean remove(String rdfAbout) throws IndexerRelatedIndexingException {
-    return this.connectionProvider.getIndexedRecordRemover().removeRecord(rdfAbout);
+    return this.connectionProvider.getIndexedRecordAccess().removeRecord(rdfAbout);
   }
 
   @Override
   public int removeAll(String datasetId, Date maxRecordDate)
       throws IndexerRelatedIndexingException {
-    return this.connectionProvider.getIndexedRecordRemover()
-        .removeDataset(datasetId, maxRecordDate);
+    return this.connectionProvider.getIndexedRecordAccess().removeDataset(datasetId, maxRecordDate);
+  }
+
+  @Override
+  public long countRecords(String datasetId) {
+    return this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId);
   }
 
   /**

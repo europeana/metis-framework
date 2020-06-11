@@ -18,25 +18,13 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 
 /**
- * <p>
- * This class provides functionality for removing records that are already indexed from the Mongo
- * and the Solr data stores.
- * </p>
- * <p>
- * When removing entities from the Mongo database, it also removes any associated entities (i.e.
- * those entities that are always part of only one record and the removal of which can not
- * invalidate references from other records):
- * <ul>
- * <li>Aggregation</li>
- * <li>EuropeanaAggregation</li>
- * <li>ProvidedCHO</li>
- * <li>Proxy (both provider and Europeana proxies)</li>
- * </ul>
- * However, entities that are potentially shared (like web resources, places, concepts etc.) are not
- * removed.
- * </p>
+ * This class provides functionality for accessing records that are already indexed from the Mongo
+ * and the Solr data stores. Note that this class does <b>NOT</b> contain functionality for indexing
+ * records.
  */
-public class IndexedRecordRemover {
+public class IndexedRecordAccess {
+
+  private static final String ABOUT_FIELD = "about";
 
   private final EdmMongoServer mongoServer;
   private final SolrClient solrServer;
@@ -47,13 +35,37 @@ public class IndexedRecordRemover {
    * @param mongoServer The Mongo server connection.
    * @param solrServer The Solr server connection.
    */
-  IndexedRecordRemover(EdmMongoServer mongoServer, SolrClient solrServer) {
+  IndexedRecordAccess(EdmMongoServer mongoServer, SolrClient solrServer) {
     this.mongoServer = mongoServer;
     this.solrServer = solrServer;
   }
 
   /**
-   * Removes the record with the given rdf:about value.
+   * Counts the records in a given dataset. The criteria of whether a record belongs to a certain
+   * dataset is the same as that used in the method {@link #removeDataset(String, Date)}, i.e. it is
+   * based on the <code>rdf:about</code> values.
+   *
+   * @param datasetId The ID of the dataset of which to count the records. Is not null.
+   * @return The number of records encountered for the given dataset.
+   */
+  public long countRecords(String datasetId) {
+    final Query<?> query = mongoServer.getDatastore().createQuery(FullBeanImpl.class);
+    query.field(ABOUT_FIELD).startsWith(getRecordIdPrefix(datasetId));
+    return query.count();
+  }
+
+  /**
+   * Removes the record with the given rdf:about value. Also removes any associated entities (i.e.
+   * those entities that are always part of only one record and the removal of which can not
+   * invalidate references from other records):
+   * <ul>
+   * <li>Aggregation</li>
+   * <li>EuropeanaAggregation</li>
+   * <li>ProvidedCHO</li>
+   * <li>Proxy (both provider and Europeana proxies)</li>
+   * </ul>
+   * However, entities that are potentially shared (like web resources, places, concepts etc.) are
+   * not removed.
    *
    * @param rdfAbout The about value of the record to remove. Is not null.
    * @return Whether or not the record was removed.
@@ -68,7 +80,7 @@ public class IndexedRecordRemover {
 
       // Obtain the Mongo record
       final Datastore datastore = mongoServer.getDatastore();
-      final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class).field("about")
+      final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class).field(ABOUT_FIELD)
           .equal(rdfAbout).get();
 
       // Remove mongo record and dependencies
@@ -89,11 +101,13 @@ public class IndexedRecordRemover {
   }
 
   /**
-   * Removes all records that belong to a given dataset. <b>NOTE</b> that the rdf:about is used to
-   * find the dependencies, rather than the actual references in the records. While this is a
-   * reasonably safe way to go for now, eventually a more generic way along the lines of {@link
+   * <p>Removes all records that belong to a given dataset. For details on what parts of the record
+   * are removed, see the documentation of {@link #removeRecord(String)}.</p>
+   * <p><b>NOTE</b> that the rdf:about is
+   * used to find the dependencies, rather than the actual references in the records. While this is
+   * a reasonably safe way to go for now, eventually a more generic way along the lines of {@link
    * #removeRecord(String)} should be found, in which the exact composition of the rdf:about is
-   * taken out of the equation.
+   * taken out of the equation.</p>
    *
    * @param datasetId The ID of the dataset to clear. Is not null.
    * @param maxRecordDate The date that all records that have lower timestampUpdated than that date
@@ -102,7 +116,7 @@ public class IndexedRecordRemover {
    * @throws IndexerRelatedIndexingException In case something went wrong.
    */
   public int removeDataset(String datasetId, Date maxRecordDate)
-      throws IndexerRelatedIndexingException {
+          throws IndexerRelatedIndexingException {
     final int mongoCount;
     try {
       mongoCount = removeDatasetFromMongo(datasetId, maxRecordDate);
@@ -134,7 +148,7 @@ public class IndexedRecordRemover {
 
   private int removeDatasetFromMongo(String datasetId, Date maxRecordDate) {
     final Query<?> query = mongoServer.getDatastore().createQuery(FullBeanImpl.class);
-    query.field("about").startsWith(getRecordIdPrefix(datasetId));
+    query.field(ABOUT_FIELD).startsWith(getRecordIdPrefix(datasetId));
     if (maxRecordDate != null) {
       query.field("timestampUpdated").lessThan(maxRecordDate);
     }

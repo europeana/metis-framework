@@ -55,8 +55,8 @@ public interface AbstractConnectionProvider extends Closeable {
    *
    * @return A dataset remover.
    */
-  default IndexedRecordRemover getIndexedRecordRemover() {
-    return new IndexedRecordRemover(getEdmMongoClient(), getSolrClient());
+  default IndexedRecordAccess getIndexedRecordAccess() {
+    return new IndexedRecordAccess(getEdmMongoClient(), getSolrClient());
   }
 
   /**

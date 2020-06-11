@@ -198,4 +198,15 @@ public interface Indexer extends Closeable {
    * @throws IndexingException In case something went wrong.
    */
   int removeAll(String datasetId, Date maxRecordDate) throws IndexingException;
+
+  /**
+   * Counts the records in a given dataset. The criteria of whether a record belongs to a certain
+   * dataset is the same as that used in the method {@link #removeAll(String, Date)}, i.e. it is
+   * based on the <code>rdf:about</code> values.
+   *
+   * @param datasetId The ID of the dataset of which to count the records. Is not null.
+   * @return The number of records encountered for the given dataset.
+   * @throws IndexingException In case something went wrong.
+   */
+  long countRecords(String datasetId) throws IndexingException;
 }
