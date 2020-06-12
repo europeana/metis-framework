@@ -18,9 +18,10 @@ import org.slf4j.LoggerFactory;
  * dereference request. It represents the list of vocabulary candidates for a given resource before
  * the resource has been resolved, and provides further functionality for when that happens.
  * </p>
- * 
- * @author jochen
+ * In practice, there should be at most one candidate vocabulary (and if there are more, it will be
+ * noted in the logs). But this class is fully functional for multiple vocabulary candidates.
  *
+ * @author jochen
  */
 public final class VocabularyCandidates {
 
@@ -70,6 +71,10 @@ public final class VocabularyCandidates {
     // Log and done.
     if (candidates.isEmpty()) {
       LOGGER.info("No vocabularies found for uri {}", resourceId);
+    }
+    if (candidates.size() > 1 && LOGGER.isWarnEnabled()) {
+      LOGGER.warn("Multiple vocabularies found for uri {}: {}", resourceId,
+              candidates.stream().map(Vocabulary::getName).collect(Collectors.joining(", ")));
     }
     return new VocabularyCandidates(candidates);
   }

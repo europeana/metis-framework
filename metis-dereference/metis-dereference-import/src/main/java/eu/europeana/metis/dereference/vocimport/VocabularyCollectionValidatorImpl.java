@@ -5,6 +5,7 @@ import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
+import eu.europeana.metis.dereference.vocimport.utils.NonCollidingPathVocabularyTrie;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -74,12 +75,12 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   private void validateInternal(Consumer<Vocabulary> vocabularyReceiver,
           Consumer<String> warningReceiver, boolean validateExamples)
           throws VocabularyImportException {
-    final NameDuplicationChecker nameDuplicationChecker = new NameDuplicationChecker();
+    final DuplicationChecker duplicationChecker = new DuplicationChecker();
     final Iterable<VocabularyLoader> vocabularyLoaders = importer.importVocabularies();
     for (VocabularyLoader loader : vocabularyLoaders) {
       final Vocabulary vocabulary = loader.load();
       final IncomingRecordToEdmConverter converter = validateVocabulary(vocabulary,
-              nameDuplicationChecker);
+              duplicationChecker);
       if (validateExamples) {
         validateExamples(vocabulary, warningReceiver, converter);
       }
@@ -88,7 +89,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   private IncomingRecordToEdmConverter validateVocabulary(Vocabulary vocabulary,
-          NameDuplicationChecker nameDuplicationChecker) throws VocabularyImportException {
+          DuplicationChecker duplicationChecker) throws VocabularyImportException {
 
     // Check the presence of the required fields.
     if (vocabulary.getName() == null) {
@@ -112,9 +113,8 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
                       vocabulary.getReadableMappingLocation()));
     }
 
-    // Check whether name is unique.
-    nameDuplicationChecker
-            .checkAndRegisterName(vocabulary.getName(), vocabulary.getReadableMetadataLocation());
+    // Check whether name and links are unique.
+    duplicationChecker.checkAndRegister(vocabulary);
 
     // Verifying the xslt - compile it.
     try {
@@ -217,19 +217,26 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     }
   }
 
-  private static class NameDuplicationChecker {
+  private static class DuplicationChecker {
 
+    private final NonCollidingPathVocabularyTrie trie = new NonCollidingPathVocabularyTrie();
     private final Map<String, String> knownNames = new HashMap<>();
 
-    void checkAndRegisterName(String name, String readableMetadataLocation) {
-      final String nameToCheck = name.trim().replaceAll("\\s", " ").toLowerCase(Locale.ENGLISH);
+    void checkAndRegister(Vocabulary vocabulary) throws VocabularyImportException {
+
+      // Handle the link uniqueness
+      trie.insert(vocabulary);
+
+      // Handle the name uniqueness
+      final String nameToCheck = vocabulary.getName().trim().replaceAll("\\s", " ")
+              .toLowerCase(Locale.ENGLISH);
       if (knownNames.containsKey(nameToCheck)) {
         final String message = String.format("Duplicate name '%s' detected in metadata at [%s]:"
-                        + " metadata at [%s] contains a name that is similar.", name,
-                readableMetadataLocation, knownNames.get(nameToCheck));
-        throw new IllegalStateException(message);
+                        + " metadata at [%s] contains a name that is similar.", vocabulary.getName(),
+                vocabulary.getReadableMetadataLocation(), knownNames.get(nameToCheck));
+        throw new VocabularyImportException(message);
       }
-      knownNames.put(nameToCheck, readableMetadataLocation);
+      knownNames.put(nameToCheck, vocabulary.getReadableMetadataLocation());
     }
   }
 }
