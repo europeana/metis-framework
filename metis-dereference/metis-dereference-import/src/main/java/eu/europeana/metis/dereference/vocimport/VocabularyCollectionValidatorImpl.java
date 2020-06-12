@@ -5,13 +5,20 @@ import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Consumer;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
+import org.xml.sax.SAXException;
 
 public class VocabularyCollectionValidatorImpl implements VocabularyCollectionValidator {
 
@@ -19,6 +26,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   private final boolean lenientOnLackOfExamples;
   private final boolean lenientOnMappingTestFailures;
   private final boolean lenientOnExampleRetrievalFailures;
+  private final DocumentBuilder documentBuilder;
 
   /**
    * Constructor.
@@ -34,10 +42,21 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   public VocabularyCollectionValidatorImpl(VocabularyCollectionImporter importer,
           boolean lenientOnLackOfExamples, boolean lenientOnMappingTestFailures,
           boolean lenientOnExampleRetrievalFailures) {
+
+    // Set parameters
     this.importer = importer;
     this.lenientOnLackOfExamples = lenientOnLackOfExamples;
     this.lenientOnMappingTestFailures = lenientOnMappingTestFailures;
     this.lenientOnExampleRetrievalFailures = lenientOnExampleRetrievalFailures;
+
+    // Create XML builder
+    final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    factory.setNamespaceAware(true);
+    try {
+      documentBuilder = factory.newDocumentBuilder();
+    } catch (ParserConfigurationException e) {
+      throw new IllegalStateException("Problems setting up XML reader (this should not happen).", e);
+    }
   }
 
   @Override
@@ -184,6 +203,17 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
       final String message = getTestErrorMessage(example, isCounterExample,
               readableMetadataLocation, "did not yield a mapped result, but is expected to", null);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, null);
+    }
+
+    // Check whether the example yielded valid XML
+    if (StringUtils.isNotBlank(result)) {
+      try (InputStream inputStream = new ByteArrayInputStream(result.getBytes(StandardCharsets.UTF_8))) {
+        documentBuilder.parse(inputStream);
+      } catch (IOException | SAXException e) {
+        final String message = getTestErrorMessage(example, isCounterExample,
+                readableMetadataLocation, "did not yield a valid XML", e);
+        throw new VocabularyImportException(message, e);
+      }
     }
   }
 
