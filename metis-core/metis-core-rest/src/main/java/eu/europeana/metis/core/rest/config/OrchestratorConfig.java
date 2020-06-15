@@ -10,6 +10,7 @@ import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
+import eu.europeana.metis.core.dao.DepublishedRecordDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -18,6 +19,7 @@ import eu.europeana.metis.core.execution.QueueConsumer;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.WorkflowExecutionMonitor;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.core.execution.WorkflowPostProcessor;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.Authorizer;
@@ -211,14 +213,19 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
+  public WorkflowPostProcessor workflowPostProcessor(DepublishedRecordDao depublishedRecordDao) {
+    return new WorkflowPostProcessor(depublishedRecordDao);
+  }
+
+  @Bean
   public WorkflowExecutorManager getWorkflowExecutorManager(
-      WorkflowExecutionDao workflowExecutionDao,
+      WorkflowExecutionDao workflowExecutionDao, WorkflowPostProcessor workflowPostProcessor,
       @Qualifier("rabbitmqPublisherChannel") Channel rabbitmqPublisherChannel,
       @Qualifier("rabbitmqConsumerChannel") Channel rabbitmqConsumerChannel,
       RedissonClient redissonClient, DpsClient dpsClient) {
     WorkflowExecutorManager workflowExecutorManager =
-        new WorkflowExecutorManager(workflowExecutionDao, rabbitmqPublisherChannel,
-            rabbitmqConsumerChannel, redissonClient, dpsClient);
+        new WorkflowExecutorManager(workflowExecutionDao, workflowPostProcessor,
+                rabbitmqPublisherChannel, rabbitmqConsumerChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName(propertiesHolder.getRabbitmqQueueName());
     workflowExecutorManager.setMaxConcurrentThreads(propertiesHolder.getMaxConcurrentThreads());
     workflowExecutorManager

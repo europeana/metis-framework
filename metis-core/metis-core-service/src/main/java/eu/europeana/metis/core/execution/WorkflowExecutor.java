@@ -57,6 +57,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private final String workflowExecutionId;
   private final WorkflowExecutionMonitor workflowExecutionMonitor;
   private final WorkflowExecutionDao workflowExecutionDao;
+  private final WorkflowPostProcessor workflowPostProcessor;
   private final int monitorCheckIntervalInSecs;
   private final long periodOfNoProcessedRecordsChangeInSeconds;
   private final DpsClient dpsClient;
@@ -89,6 +90,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       WorkflowExecutionMonitor workflowExecutionMonitor) {
     this.workflowExecutionId = workflowExecutionId;
     this.workflowExecutionDao = persistenceProvider.getWorkflowExecutionDao();
+    this.workflowPostProcessor = persistenceProvider.getWorkflowPostProcessor();
     this.dpsClient = persistenceProvider.getDpsClient();
     this.monitorCheckIntervalInSecs = workflowExecutionSettings.getDpsMonitorCheckIntervalInSecs();
     this.periodOfNoProcessedRecordsChangeInSeconds = TimeUnit.MINUTES
@@ -172,7 +174,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     for (int i = firstPluginPositionToStart; i < workflowExecution.getMetisPlugins().size(); i++) {
       final AbstractMetisPlugin plugin = workflowExecution.getMetisPlugins().get(i);
       final Date startDateToUse = i == 0 ? workflowExecution.getStartedDate() : new Date();
-      runMetisPlugin(plugin, startDateToUse);
+      runMetisPlugin(plugin, startDateToUse, workflowExecution.getDatasetId());
       if ((workflowExecutionDao.isCancelling(workflowExecution.getId())
           && plugin.getFinishedDate() == null)
           || plugin.getPluginStatus() == PluginStatus.FAILED) {
@@ -199,8 +201,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
    * @param pluginUnchecked the plugin to run
    * @param startDateToUse The date that should be used as start date (if the plugin is not already
    * running).
+   * @param datasetId The dataset ID.
    */
-  private void runMetisPlugin(AbstractMetisPlugin pluginUnchecked, Date startDateToUse) {
+  private void runMetisPlugin(AbstractMetisPlugin pluginUnchecked, Date startDateToUse,
+          String datasetId) {
 
     // Sanity check
     if (pluginUnchecked == null) {
@@ -248,7 +252,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-    periodicCheckingLoop(sleepTime, plugin);
+    periodicCheckingLoop(sleepTime, plugin, datasetId);
   }
 
   private String getExternalTaskIdOfPreviousPlugin(
@@ -280,7 +284,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         + " that is not an executable plugin.");
   }
 
-  private void periodicCheckingLoop(long sleepTime, AbstractExecutablePlugin plugin) {
+  private void periodicCheckingLoop(long sleepTime, AbstractExecutablePlugin plugin,
+          String datasetId) {
     MonitorResult monitorResult = null;
     int consecutiveCancelOrMonitorFailures = 0;
     boolean externalCancelCallSent = false;
@@ -334,6 +339,12 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     } while (monitorResult == null || (monitorResult.getTaskState() != TaskState.DROPPED
         && monitorResult.getTaskState() != TaskState.PROCESSED));
 
+    // Perform post-processing if needed.
+    if (monitorResult.getTaskState() == TaskState.PROCESSED) {
+      this.workflowPostProcessor.performPluginPostProcessing(plugin, datasetId);
+    }
+
+    // Set the status of the task.
     preparePluginStateAndFinishedDate(plugin, monitorResult);
   }
 

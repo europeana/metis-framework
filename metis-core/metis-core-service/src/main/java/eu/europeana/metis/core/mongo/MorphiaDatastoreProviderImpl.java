@@ -7,6 +7,7 @@ import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.dataset.DatasetXslt;
+import eu.europeana.metis.core.dataset.DepublishedRecord;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -69,6 +70,7 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
     morphia.map(AbstractMetisPlugin.class);
     morphia.map(AbstractMetisPluginMetadata.class);
     morphia.map(DatasetXslt.class);
+    morphia.map(DepublishedRecord.class);
     datastore = morphia.createDatastore(mongoClient, databaseName);
 
     // Initialize the DatasetIdSequence if required.
