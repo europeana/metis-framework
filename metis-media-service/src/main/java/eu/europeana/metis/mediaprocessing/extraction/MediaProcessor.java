@@ -41,4 +41,37 @@ interface MediaProcessor {
    * @return Whether the processor needs the downloaded resource for full processing.
    */
   boolean downloadResourceForFullProcessing();
+
+  /**
+   * Purges negative values.
+   *
+   * @param value The value to examine.
+   * @return the passed value if the value is positive. Null if the value is strictly negative (or
+   * null).
+   */
+  default Integer nullIfNegative(Integer value) {
+    return (value == null || value < 0) ? null : value;
+  }
+
+  /**
+   * Purges negative values.
+   *
+   * @param value The value to examine.
+   * @return the passed value if the value is positive. Null if the value is strictly negative (or
+   * null).
+   */
+  default Long nullIfNegative(Long value) {
+    return (value == null || value < 0) ? null : value;
+  }
+
+  /**
+   * Purges negative values.
+   *
+   * @param value The value to examine.
+   * @return the passed value if the value is positive. Null if the value is strictly negative (or
+   * null).
+   */
+  default Double nullIfNegative(Double value) {
+    return (value == null || value < 0) ? null : value;
+  }
 }
