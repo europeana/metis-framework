@@ -32,6 +32,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -71,6 +73,11 @@ public class Application implements WebMvcConfigurer {
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
         .allowedOrigins(propertiesHolder.getAllowedCorsHosts());
+  }
+
+  @Bean(name = DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME)
+  public StandardServletMultipartResolver getMultipartResolver() {
+    return new StandardServletMultipartResolver();
   }
 
   @Bean
