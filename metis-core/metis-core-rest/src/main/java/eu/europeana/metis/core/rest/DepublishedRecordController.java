@@ -112,8 +112,8 @@ public class DepublishedRecordController {
    * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
    * @param datasetId The ID of the dataset for which to retrieve the records.
    * @param page The page to retrieve.
-   * @param sortFieldString The field on which to sort.
-   * @param sortDirectionString The direction in which to sort.
+   * @param sortField The field on which to sort.
+   * @param sortAscending The direction in which to sort.
    * @param searchQuery Search query for the record ID.
    * @return A list of records.
    * @throws GenericMetisException which can be one of:
@@ -130,34 +130,13 @@ public class DepublishedRecordController {
           @RequestHeader("Authorization") String authorization,
           @PathVariable("datasetId") String datasetId,
           @RequestParam(value = "page", defaultValue = "0") int page,
-          @RequestParam(value = "sortField", defaultValue = "") String sortFieldString,
-          @RequestParam(value = "sortDirection", defaultValue = "") String sortDirectionString,
+          @RequestParam(value = "sortField", required = false) DepublishedRecordSortField sortField,
+          @RequestParam(value = "sortAscending", defaultValue = "" + true) boolean sortAscending,
           @RequestParam(value = "searchQuery", required = false) String searchQuery
   ) throws GenericMetisException {
-
-    // Get the user
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-
-    // Get the sort field
-    final DepublishedRecordSortField sortField;
-    switch (sortFieldString.toLowerCase()) {
-      case "depublicationstatus":
-        sortField = DepublishedRecordSortField.DEPUBLICATION_STATE;
-        break;
-      case "depublicationdate":
-        sortField = DepublishedRecordSortField.DEPUBLICATION_DATE;
-        break;
-      default:
-        sortField = DepublishedRecordSortField.RECORD_ID;
-        break;
-    }
-
-    // Get the sort direction
-    final SortDirection sortDirection = sortDirectionString.equalsIgnoreCase("desc") ?
-            SortDirection.DESCENDING : SortDirection.ASCENDING;
-
-    // Perform the query
-    return depublishedRecordService.getDepublishedRecords(metisUser, datasetId, page, sortField,
-            sortDirection, searchQuery);
+    return depublishedRecordService.getDepublishedRecords(metisUser, datasetId, page,
+            sortField == null ? DepublishedRecordSortField.RECORD_ID : sortField,
+            sortAscending ? SortDirection.ASCENDING : SortDirection.DESCENDING, searchQuery);
   }
 }

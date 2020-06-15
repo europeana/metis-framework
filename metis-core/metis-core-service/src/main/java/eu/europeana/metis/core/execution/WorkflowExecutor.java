@@ -252,12 +252,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     // Start periodical check and wait for plugin to be done
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
-    periodicCheckingLoop(sleepTime, plugin);
-
-    // Perform post-processing if needed.
-    if (plugin.getPluginStatus() == PluginStatus.FINISHED) {
-      this.workflowPostProcessor.performPluginPostProcessing(plugin, datasetId);
-    }
+    periodicCheckingLoop(sleepTime, plugin, datasetId);
   }
 
   private String getExternalTaskIdOfPreviousPlugin(
@@ -289,7 +284,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         + " that is not an executable plugin.");
   }
 
-  private void periodicCheckingLoop(long sleepTime, AbstractExecutablePlugin plugin) {
+  private void periodicCheckingLoop(long sleepTime, AbstractExecutablePlugin plugin,
+          String datasetId) {
     MonitorResult monitorResult = null;
     int consecutiveCancelOrMonitorFailures = 0;
     boolean externalCancelCallSent = false;
@@ -343,6 +339,12 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     } while (monitorResult == null || (monitorResult.getTaskState() != TaskState.DROPPED
         && monitorResult.getTaskState() != TaskState.PROCESSED));
 
+    // Perform post-processing if needed.
+    if (monitorResult.getTaskState() == TaskState.PROCESSED) {
+      this.workflowPostProcessor.performPluginPostProcessing(plugin, datasetId);
+    }
+
+    // Set the status of the task.
     preparePluginStateAndFinishedDate(plugin, monitorResult);
   }
 

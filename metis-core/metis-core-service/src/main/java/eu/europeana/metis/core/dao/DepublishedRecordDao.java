@@ -105,7 +105,7 @@ public class DepublishedRecordDao {
     final Set<String> recordsToAdd = getNonExistingRecords(datasetId, candidateRecordIds);
 
     // Count: determine whether we are not above our maximum.
-    final long existingCount = countRecordsForDataset(datasetId);
+    final long existingCount = countDepublishedRecordsForDataset(datasetId);
     if (existingCount + recordsToAdd.size() > maximumRecordsPerDataset) {
       throw new BadContentException(
               "Can't add these records: this would violate the maximum number of records per dataset.");
@@ -134,7 +134,7 @@ public class DepublishedRecordDao {
    * @param datasetId The ID of the dataset to count for.
    * @return The number of records for the given dataset.
    */
-  long countRecordsForDataset(String datasetId) {
+  long countDepublishedRecordsForDataset(String datasetId) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().createQuery(DepublishedRecord.class)
                     .field(DepublishedRecord.DATASET_ID_FIELD).equal(datasetId).count());
@@ -150,7 +150,7 @@ public class DepublishedRecordDao {
    * @param searchQuery Search query for the record ID. Can be null.
    * @return A (possibly empty) list of depublished records.
    */
-  public List<DepublishedRecordView> getRecords(String datasetId, int page,
+  public List<DepublishedRecordView> getDepublishedRecords(String datasetId, int page,
           DepublishedRecordSortField sortField, SortDirection sortDirection, String searchQuery) {
 
     // Create query.
