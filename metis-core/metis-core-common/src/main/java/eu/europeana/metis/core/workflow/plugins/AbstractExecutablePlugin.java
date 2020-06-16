@@ -171,6 +171,15 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
   }
 
+  DpsTask createDpsTaskForDepublishPlugin(EcloudBasePluginParameters ecloudBasePluginParameters,
+      String datasetId) {
+    final DpsTask dpsTask = new DpsTask();
+    Map<String, String> parameters = new HashMap<>();
+    parameters.put("METIS_DATASET_ID", datasetId);
+    dpsTask.setParameters(parameters);
+    return dpsTask;
+  }
+
   Map<String, String> createParametersForHostConnectionLimits(
       Map<String, Integer> connectionLimitToDomains) {
     Map<String, String> parameters = new HashMap<>();

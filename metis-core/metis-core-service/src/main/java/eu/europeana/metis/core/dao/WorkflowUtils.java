@@ -34,6 +34,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import jdk.tools.jlink.resources.plugins;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.client.utils.URIBuilder;
@@ -72,6 +73,7 @@ public class WorkflowUtils {
    * <li>That the workflow is not empty and contains plugins with valid types,</li>
    * <li>That the first plugin is not link checking (except when it is the only plugin),</li>
    * <li>That no two plugins of the same type occur in the workflow,</li>
+   * <li>That if depublish is enabled no other plugins are allowed in the workflow,</li>
    * <li>That the first plugin has a valid predecessor plugin in the dataset's history (as defined by
    * {@link #getPredecessorTypes(ExecutablePluginType)}), the type of which can be overridden by the
    * enforced predecessor type, and the root plugin (i.e. harvest) of which is equal to the latest
@@ -112,6 +114,12 @@ public class WorkflowUtils {
     if (plugins.stream().map(AbstractExecutablePluginMetadata::getExecutablePluginType)
         .anyMatch(Objects::isNull)) {
       throw new BadContentException("There are plugins of which the type could not be determined.");
+    }
+
+    if (plugins.size() > 1 && plugins.stream()
+        .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
+        .anyMatch(PluginType.DEPUBLISH::equals)) {
+      throw new BadContentException("If DEPUBLISH plugin enabled, no other plugins are allowed.");
     }
 
     // Validate and normalize the harvest parameters of harvest plugins (even if not enabled)
@@ -274,13 +282,13 @@ public class WorkflowUtils {
    * @param pluginType the type of the new {@link ExecutablePluginType} that is to be executed.
    * @param enforcedPredecessorType If not null, overrides the predecessor type of the plugin.
    * @param datasetId the dataset ID of the new plugin's dataset.
-   * @return the {@link ExecutablePlugin} that the pluginType execution will use as a
-   * source. Can be null in case the given type does not require a predecessor.
+   * @return the {@link ExecutablePlugin} that the pluginType execution will use as a source. Can be
+   * null in case the given type does not require a predecessor.
    * @throws PluginExecutionNotAllowed In case a valid predecessor is required, but not found.
    */
   public PluginWithExecutionId<ExecutablePlugin> computePredecessorPlugin(
-          ExecutablePluginType pluginType, ExecutablePluginType enforcedPredecessorType,
-          String datasetId) throws PluginExecutionNotAllowed {
+      ExecutablePluginType pluginType, ExecutablePluginType enforcedPredecessorType,
+      String datasetId) throws PluginExecutionNotAllowed {
 
     // If the plugin type does not need a predecessor (even the enforced one) we are done.
     final Set<ExecutablePluginType> defaultPredecessorTypes = getPredecessorTypes(pluginType);
@@ -313,9 +321,9 @@ public class WorkflowUtils {
 
     // Find the first plugin that satisfies the root check. If none found, throw exception.
     final Predicate<PluginWithExecutionId<ExecutablePlugin>> rootCheck = plugin -> getRootAncestor(
-            plugin).equals(latestHarvest);
+        plugin).equals(latestHarvest);
     return sortedSuccessfulPlugins.filter(rootCheck).findFirst().orElseThrow(
-            () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
+        () -> new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
   }
 
   private static boolean pluginHasSuccessfulRecords(
@@ -332,13 +340,13 @@ public class WorkflowUtils {
    * @return The root ancestor. Is not null.
    */
   public PluginWithExecutionId<ExecutablePlugin> getRootAncestor(
-          PluginWithExecutionId<ExecutablePlugin> plugin) {
+      PluginWithExecutionId<ExecutablePlugin> plugin) {
     final WorkflowExecution execution = workflowExecutionDao.getById(plugin.getExecutionId());
     final List<Pair<ExecutablePlugin, WorkflowExecution>> evolution =
-            compileVersionEvolution(plugin.getPlugin(), execution);
+        compileVersionEvolution(plugin.getPlugin(), execution);
     return evolution.stream().findFirst()
-            .map(pair -> new PluginWithExecutionId<>(pair.getRight(), pair.getLeft()))
-            .orElse(plugin);
+        .map(pair -> new PluginWithExecutionId<>(pair.getRight(), pair.getLeft()))
+        .orElse(plugin);
   }
 
   /**
@@ -376,6 +384,9 @@ public class WorkflowUtils {
         break;
       case PUBLISH:
         predecessorTypes = EnumSet.of(ExecutablePluginType.PREVIEW);
+        break;
+      case DEPUBLISH:
+        predecessorTypes = EnumSet.of(ExecutablePluginType.PUBLISH);
         break;
       case LINK_CHECKING:
         predecessorTypes = ALL_EXCEPT_LINK_GROUP;

@@ -33,6 +33,8 @@ public enum PluginType {
 
   PUBLISH,
 
+  DEPUBLISH,
+
   REINDEX_TO_PREVIEW,
 
   REINDEX_TO_PUBLISH;
