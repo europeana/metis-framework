@@ -34,7 +34,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import jdk.tools.jlink.resources.plugins;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.client.utils.URIBuilder;
@@ -118,7 +117,8 @@ public class WorkflowUtils {
 
     if (plugins.size() > 1 && plugins.stream()
         .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
-        .anyMatch(PluginType.DEPUBLISH::equals)) {
+        .anyMatch(executablePluginType -> executablePluginType.toPluginType()
+            .equals(PluginType.DEPUBLISH))) {
       throw new BadContentException("If DEPUBLISH plugin enabled, no other plugins are allowed.");
     }
 
