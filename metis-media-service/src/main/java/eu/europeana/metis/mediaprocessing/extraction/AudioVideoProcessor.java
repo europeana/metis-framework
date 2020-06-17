@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -213,15 +214,11 @@ class AudioVideoProcessor implements MediaProcessor {
     // Analyze the result - get some data structures we will need.
     final Period period = mpd.getPeriods().stream().findFirst()
             .orElseThrow(() -> new MediaExtractionException("Cannot find period element in mpd"));
-    final AdaptationSet videoAdaptationSet = period.getAdaptationSets().stream().filter(adaptationSet -> {
-      boolean video = false;
-      if (adaptationSet.getMimeType() != null) {
-        video = adaptationSet.getMimeType().startsWith("video");
-      } else if (adaptationSet.getContentType() != null) {
-        video = adaptationSet.getContentType().startsWith("video");
-      }
-      return video;
-    }).findFirst().orElseThrow(() -> new MediaExtractionException(
+    final AdaptationSet videoAdaptationSet = period.getAdaptationSets().stream().filter(adaptationSet ->
+            Stream.of(adaptationSet.getMimeType(), adaptationSet.getContentType())
+                    .filter(Objects::nonNull).findFirst().map(type -> type.startsWith("video"))
+                    .orElse(false)
+    ).findFirst().orElseThrow(() -> new MediaExtractionException(
             "Cannot find video adaptation set element in mpd"));
     final Representation videoRepresentation =getRepresentationFromMpd(videoAdaptationSet);
     final Duration durationValue = mpd.getMediaPresentationDuration();
