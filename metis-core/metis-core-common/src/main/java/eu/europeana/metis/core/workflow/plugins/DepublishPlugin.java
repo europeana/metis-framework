@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.service.dps.DpsTask;
-import java.util.List;
 
 /**
  * Depublish Plugin.
@@ -29,7 +28,7 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
    * @param pluginMetadata The plugin metadata.
    */
   DepublishPlugin(DepublishPluginMetadata pluginMetadata) {
-    super(PluginType.PUBLISH, pluginMetadata);
+    super(PluginType.DEPUBLISH, pluginMetadata);
   }
 
   /**
@@ -45,6 +44,6 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
   @Override
   public DpsTask prepareDpsTask(String datasetId,
       EcloudBasePluginParameters ecloudBasePluginParameters) {
-    return createDpsTaskForDepublishPlugin(ecloudBasePluginParameters, datasetId);
+    return createDpsTaskForDepublishPlugin(datasetId);
   }
 }

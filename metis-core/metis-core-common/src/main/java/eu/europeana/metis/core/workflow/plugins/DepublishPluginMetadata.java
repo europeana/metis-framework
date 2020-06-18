@@ -1,7 +1,5 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Index to Publish Plugin Metadata.
