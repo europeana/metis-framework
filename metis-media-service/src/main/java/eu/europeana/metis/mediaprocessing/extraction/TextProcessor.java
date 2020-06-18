@@ -101,9 +101,9 @@ class TextProcessor implements MediaProcessor {
     }
 
     // Get the size of the resource
-    final long contentSize;
+    final Long contentSize;
     try {
-      contentSize = resource.getContentSize();
+      contentSize = nullIfNegative(resource.getContentSize());
     } catch (RuntimeException | IOException e) {
       closeAllThumbnailsSilently(thumbnails);
       throw new MediaExtractionException(
@@ -113,7 +113,7 @@ class TextProcessor implements MediaProcessor {
     // Done
     final TextResourceMetadata metadata = new TextResourceMetadata(detectedMimeType,
         resource.getResourceUrl(), contentSize, characteristics.containsText(),
-        characteristics.getResolution(), thumbnails);
+        nullIfNegative(characteristics.getResolution()), thumbnails);
     return new ResourceExtractionResultImpl(metadata, thumbnails);
   }
 

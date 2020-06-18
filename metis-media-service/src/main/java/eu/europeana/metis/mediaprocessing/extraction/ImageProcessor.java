@@ -59,9 +59,9 @@ class ImageProcessor implements MediaProcessor {
     }
 
     // Get the size of the resource
-    final long contentSize;
+    final Long contentSize;
     try {
-      contentSize = resource.getContentSize();
+      contentSize = nullIfNegative(resource.getContentSize());
     } catch (IOException e) {
       throw new MediaExtractionException(
           "Could not determine the size of the resource " + resource.getResourceUrl(), e);
@@ -77,9 +77,9 @@ class ImageProcessor implements MediaProcessor {
     final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
     final ColorSpaceType colorSpace = ColorSpaceMapping
         .getColorSpaceType(imageMetadata.getColorSpace());
-    resourceMetadata =
-        new ImageResourceMetadata(detectedMimeType, resource.getResourceUrl(), contentSize,
-            imageMetadata.getWidth(), imageMetadata.getHeight(), colorSpace,
+    resourceMetadata = new ImageResourceMetadata(detectedMimeType, resource.getResourceUrl(),
+            contentSize, nullIfNegative(imageMetadata.getWidth()),
+            nullIfNegative(imageMetadata.getHeight()), colorSpace,
             imageMetadata.getDominantColors(), thumbnailsAndMetadata.getRight());
 
     // Done.
