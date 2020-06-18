@@ -379,7 +379,7 @@ class AudioVideoProcessorTest {
     doReturn("1/0").when(audioVideoProcessor).findString(eq("avg_frame_rate"), eq(candidates));
     final AbstractResourceMetadata metadataWithInvalidFrameRate = audioVideoProcessor
         .parseCommandResponse(resource, detectedMimeType, commandResponse);
-    assertEquals(Double.valueOf(-1.0), ((VideoResourceMetadata) metadataWithInvalidFrameRate).getFrameRate());
+    assertNull(((VideoResourceMetadata) metadataWithInvalidFrameRate).getFrameRate());
   }
 
   @Test
