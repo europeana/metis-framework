@@ -149,7 +149,8 @@ public class OrchestratorConfig implements WebMvcConfigurer {
               String.format("rediss://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
                   .getRedisPort()));
       if (propertiesHolder.isRedisEnableCustomTruststore()) {
-        singleServerConfig.setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI().toURL());
+        singleServerConfig
+            .setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI().toURL());
         singleServerConfig.setSslTruststorePassword(propertiesHolder.getTruststorePassword());
       }
     } else {
@@ -183,9 +184,10 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public WorkflowExecutionFactory getWorkflowExecutionFactory(
       WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
-      DatasetXsltDao datasetXsltDao) {
+      DatasetXsltDao datasetXsltDao, DepublishedRecordDao depublishedRecordDao) {
     WorkflowExecutionFactory workflowExecutionFactory =
-        new WorkflowExecutionFactory(datasetXsltDao, workflowExecutionDao, workflowUtils);
+        new WorkflowExecutionFactory(datasetXsltDao, depublishedRecordDao, workflowExecutionDao,
+            workflowUtils);
     workflowExecutionFactory
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
     workflowExecutionFactory
@@ -225,7 +227,7 @@ public class OrchestratorConfig implements WebMvcConfigurer {
       RedissonClient redissonClient, DpsClient dpsClient) {
     WorkflowExecutorManager workflowExecutorManager =
         new WorkflowExecutorManager(workflowExecutionDao, workflowPostProcessor,
-                rabbitmqPublisherChannel, rabbitmqConsumerChannel, redissonClient, dpsClient);
+            rabbitmqPublisherChannel, rabbitmqConsumerChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName(propertiesHolder.getRabbitmqQueueName());
     workflowExecutorManager.setMaxConcurrentThreads(propertiesHolder.getMaxConcurrentThreads());
     workflowExecutorManager

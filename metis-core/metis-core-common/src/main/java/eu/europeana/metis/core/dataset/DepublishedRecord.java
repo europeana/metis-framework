@@ -27,7 +27,7 @@ public class DepublishedRecord {
   public static final String DEPUBLICATION_STATE_FIELD = "depublicationState";
   public static final String DEPUBLICATION_DATE_FIELD = "depublicationDate";
 
-  public enum DepublicationState {DEPUBLISHED, NOT_DEPUBLISHED}
+  public enum DepublicationState {DEPUBLISHED, NOT_DEPUBLISHED, PENDING}
 
   /**
    * The ID of the data object.

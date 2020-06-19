@@ -160,7 +160,7 @@ public class DepublishedRecordService {
 
     // Get the page of records
     final List<DepublishedRecordView> records = depublishedRecordDao
-            .getDepublishedRecords(datasetId, page, sortField, sortDirection, searchQuery);
+            .getDepublishedRecords(datasetId, page, sortField, sortDirection, null, searchQuery);
 
     // Compile the result
     final ResponseListWrapper<DepublishedRecordView> result = new ResponseListWrapper<>();
