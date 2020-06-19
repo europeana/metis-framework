@@ -5,13 +5,10 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexed;
 import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -30,16 +27,6 @@ public class Vocabulary implements Serializable {
   private String id;
 
   /**
-   * The URI of the controlled vocabulary.
-   *
-   * @deprecated Is present because it may be searched by old implementations. Should always be
-   * equal to the server (without path) so that it is always found. This field will be removed.
-   */
-  @Indexed
-  @Deprecated
-  private String uri;
-
-  /**
    * The URIs of the controlled vocabulary
    */
   @Indexed
@@ -49,23 +36,6 @@ public class Vocabulary implements Serializable {
    * The suffix of the vocabulary: needs to be added after the variable bit of the URI.
    */
   private String suffix;
-
-  /**
-   * Rules that take into account the rdf:type attribute of an rdf:Description to specify whether
-   * @deprecated Is no longer used. Should always be null. This field will be removed.
-   */
-  @Deprecated
-  private Set<String> typeRules;
-
-  /**
-   * Rules by URL
-   *
-   * @deprecated Should be equal to the URI paths. This means that together (concatenated) with the
-   * deprecated field {@link #uri} it will contain all possible URIs, as before. This field will be
-   * removed.
-   */
-  @Deprecated
-  private Set<String> rules;
 
   /**
    * The XSLT to convert an external entity to an internal entity
@@ -90,28 +60,6 @@ public class Vocabulary implements Serializable {
 
   public void setUris(Collection<String> uris) {
     this.uris = new HashSet<>(uris);
-    inferDataForBackwardsCompatibility();
-  }
-
-  /**
-   * Set the data that is present only for backwards compatibility. Data is inferred from {@link
-   * #uris}, so this method should be called after this value is changed.
-   *
-   * @deprecated Will be removed when the data is removed.
-   */
-  @Deprecated
-  private void inferDataForBackwardsCompatibility() {
-    final String sampleUrl = uris.iterator().next();
-    final String server;
-    try {
-      final URL convertedUrl = new URL(sampleUrl);
-      server = convertedUrl.getProtocol() + "://" + convertedUrl.getAuthority() + "/";
-    } catch (MalformedURLException e) {
-      throw new IllegalStateException("Shouldn't happen: problem with URL " + sampleUrl);
-    }
-    this.uri = server;
-    this.typeRules = null;
-    this.rules = uris.stream().map(link -> link.substring(server.length())).collect(Collectors.toSet());
   }
 
   @XmlElement
