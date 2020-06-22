@@ -85,7 +85,7 @@ class TestWorkflowExecutionDao {
     workflowExecutionDao.setWorkflowExecutionsPerRequest(5);
     workflowExecutionDao.setMaxServedExecutionListLength(10);
   }
-  
+
   @AfterAll
   static void destroy() {
     embeddedLocalhostMongo.stop();
@@ -302,7 +302,9 @@ class TestWorkflowExecutionDao {
         () -> workflowExecutionDao.getFirstOrLastFinishedPlugin(datasetId, setWithNull, true));
   }
 
-  private static class NonExecutableEnrichmentPlugin extends AbstractMetisPlugin<EnrichmentPluginMetadata> {
+  private static class NonExecutableEnrichmentPlugin extends
+      AbstractMetisPlugin<EnrichmentPluginMetadata> {
+
     NonExecutableEnrichmentPlugin() {
       super(PluginType.ENRICHMENT);
     }
@@ -318,24 +320,27 @@ class TestWorkflowExecutionDao {
 
     // Mock the dependent method
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
-    doReturn(new PluginWithExecutionId<MetisPlugin>("", nonExecutableEnrichment)).when(workflowExecutionDao)
+    doReturn(new PluginWithExecutionId<MetisPlugin>("", nonExecutableEnrichment))
+        .when(workflowExecutionDao)
         .getFirstOrLastFinishedPlugin(datasetId, EnumSet.of(PluginType.ENRICHMENT), false);
-    doReturn(new PluginWithExecutionId<MetisPlugin>("", executableHarvest)).when(workflowExecutionDao)
+    doReturn(new PluginWithExecutionId<MetisPlugin>("", executableHarvest))
+        .when(workflowExecutionDao)
         .getFirstOrLastFinishedPlugin(datasetId, EnumSet.of(PluginType.OAIPMH_HARVEST), false);
     doReturn(null).when(workflowExecutionDao)
         .getFirstOrLastFinishedPlugin(datasetId, EnumSet.of(PluginType.NORMALIZATION), false);
 
     // Check that the enrichment IS NOT returned by the method.
     assertNull(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
-        EnumSet.of(ExecutablePluginType.ENRICHMENT),false));
+        EnumSet.of(ExecutablePluginType.ENRICHMENT), false));
 
     // Check that the harvesting IS returned by the method.
-    assertSame(executableHarvest, workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
-        EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), false).getPlugin());
+    assertSame(executableHarvest,
+        workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
+            EnumSet.of(ExecutablePluginType.OAIPMH_HARVEST), false).getPlugin());
 
     // Check that the normalization IS NOT returned by the method.
     assertNull(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId,
-        EnumSet.of(ExecutablePluginType.NORMALIZATION),false));
+        EnumSet.of(ExecutablePluginType.NORMALIZATION), false));
   }
 
   @Test
@@ -367,7 +372,8 @@ class TestWorkflowExecutionDao {
         .getFirstOrLastFinishedPlugin(datasetId, EnumSet.of(PluginType.OAIPMH_HARVEST), false);
     doReturn(new PluginWithExecutionId<MetisPlugin>("", validPlugin)).when(workflowExecutionDao)
         .getFirstOrLastFinishedPlugin(datasetId, EnumSet.of(PluginType.TRANSFORMATION), false);
-    doReturn(new PluginWithExecutionId<MetisPlugin>("", deprecatedPlugin)).when(workflowExecutionDao)
+    doReturn(new PluginWithExecutionId<MetisPlugin>("", deprecatedPlugin))
+        .when(workflowExecutionDao)
         .getFirstOrLastFinishedPlugin(datasetId, EnumSet.of(PluginType.ENRICHMENT), false);
 
     // Try to find the default plugin
@@ -400,7 +406,7 @@ class TestWorkflowExecutionDao {
     setWithNull.add(null);
     setWithNull.add(ExecutablePluginType.OAIPMH_HARVEST);
     assertThrows(IllegalArgumentException.class, () -> workflowExecutionDao
-            .getLatestSuccessfulExecutablePlugin(datasetId, setWithNull, true));
+        .getLatestSuccessfulExecutablePlugin(datasetId, setWithNull, true));
   }
 
   @Test
@@ -411,11 +417,14 @@ class TestWorkflowExecutionDao {
         .createPlugin(new MediaProcessPluginMetadata());
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<PluginType> pluginTypes = EnumSet.of(PluginType.ENRICHMENT, PluginType.MEDIA_PROCESS);
-    doReturn(new PluginWithExecutionId<MetisPlugin>("", plugin)).when(workflowExecutionDao)
+    final PluginWithExecutionId<MetisPlugin> pluginWithExecutionId = new PluginWithExecutionId<>(
+        "", plugin);
+    doReturn(pluginWithExecutionId).when(workflowExecutionDao)
         .getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true);
 
     // Check the call
-    assertSame(plugin, workflowExecutionDao.getFirstSuccessfulPlugin(datasetId, pluginTypes));
+    assertSame(pluginWithExecutionId,
+        workflowExecutionDao.getFirstSuccessfulPlugin(datasetId, pluginTypes));
     verify(workflowExecutionDao, times(1))
         .getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true);
     verify(workflowExecutionDao, times(1))
@@ -430,11 +439,14 @@ class TestWorkflowExecutionDao {
         .createPlugin(new MediaProcessPluginMetadata());
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     final Set<PluginType> pluginTypes = EnumSet.of(PluginType.ENRICHMENT, PluginType.MEDIA_PROCESS);
-    doReturn(new PluginWithExecutionId<AbstractMetisPlugin>("", plugin)).when(workflowExecutionDao)
+    final PluginWithExecutionId<AbstractMetisPlugin> pluginWithExecutionId = new PluginWithExecutionId<>(
+        "", plugin);
+    doReturn(pluginWithExecutionId).when(workflowExecutionDao)
         .getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false);
 
     // Check the call
-    assertSame(plugin, workflowExecutionDao.getLatestSuccessfulPlugin(datasetId, pluginTypes));
+    assertSame(pluginWithExecutionId,
+        workflowExecutionDao.getLatestSuccessfulPlugin(datasetId, pluginTypes));
     verify(workflowExecutionDao, times(1))
         .getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false);
     verify(workflowExecutionDao, times(1))
@@ -516,7 +528,7 @@ class TestWorkflowExecutionDao {
       }
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
-      
+
       final boolean hasAll =
           allUserWorkflowsExecutionsCount == workflowExecutionDao.getMaxServedExecutionListLength();
       assertEquals(hasAll, result.isMaxResultCountReached());
@@ -558,7 +570,7 @@ class TestWorkflowExecutionDao {
 
     // Try with empty list
     final String datasetId = "" + TestObjectFactory.DATASETID;
-    final List<ExecutionIdAndStartedDatePair> emptyResult =  workflowExecutionDao
+    final List<ExecutionIdAndStartedDatePair> emptyResult = workflowExecutionDao
         .getAllExecutionStartDates(datasetId).getResults();
     assertNotNull(emptyResult);
     assertTrue(emptyResult.isEmpty());
@@ -687,7 +699,8 @@ class TestWorkflowExecutionDao {
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
         .map(ObjectId::toString).collect(Collectors.toList());
     assertEquals(Collections.singletonList(cancelledOldId), actualOrderWithFilterPlugin);
-    assertEquals(2, resultWithFilterPlugin.getResults().get(0).getExecution().getMetisPlugins().size());
+    assertEquals(2,
+        resultWithFilterPlugin.getResults().get(0).getExecution().getMetisPlugins().size());
 
     // Try with filtering on pluginStatuses and pluginTypes that do not exist.
     workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
@@ -697,7 +710,8 @@ class TestWorkflowExecutionDao {
             null, null, 0, 1);
     assertNotNull(resultWithFilterPluginNoItems);
     assertFalse(resultWithFilterPluginNoItems.isMaxResultCountReached());
-    final List<String> actualOrderWithFilterPluginNoItems = resultWithFilterPluginNoItems.getResults().stream()
+    final List<String> actualOrderWithFilterPluginNoItems = resultWithFilterPluginNoItems
+        .getResults().stream()
         .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
         .map(ObjectId::toString).collect(Collectors.toList());
     assertEquals(0, actualOrderWithFilterPluginNoItems.size());
@@ -734,29 +748,29 @@ class TestWorkflowExecutionDao {
         .map(ObjectId::toString).collect(Collectors.toList());
     assertEquals(expectedOrder.subList(pageSize * pageNumber, pageSize * (pageNumber + pageCount)),
         actualOrderWithPaging);
-    
+
     // Test the max limit for results get last full page
     workflowExecutionDao.setMaxServedExecutionListLength(4);
-    final ResultList<ExecutionDatasetPair> fullResultWithMaxServed=workflowExecutionDao
+    final ResultList<ExecutionDatasetPair> fullResultWithMaxServed = workflowExecutionDao
         .getWorkflowExecutionsOverview(null, null, null, null, null, 1, 1);
     assertNotNull(fullResultWithMaxServed);
     assertTrue(fullResultWithMaxServed.isMaxResultCountReached());
     assertEquals(2, fullResultWithMaxServed.getResults().size());
-    
+
     // Test the max limit for results get last partial page
     workflowExecutionDao.setMaxServedExecutionListLength(3);
-    final ResultList<ExecutionDatasetPair> partialResultWithMaxServed=workflowExecutionDao
+    final ResultList<ExecutionDatasetPair> partialResultWithMaxServed = workflowExecutionDao
         .getWorkflowExecutionsOverview(null, null, null, null, null, 1, 1);
     assertNotNull(partialResultWithMaxServed);
     assertTrue(partialResultWithMaxServed.isMaxResultCountReached());
     assertEquals(1, partialResultWithMaxServed.getResults().size());
-    
+
     // Test the max limit for results get first empty page
     workflowExecutionDao.setMaxServedExecutionListLength(2);
-    final ResultList<ExecutionDatasetPair> emptyResultWithMaxServed=workflowExecutionDao
+    final ResultList<ExecutionDatasetPair> emptyResultWithMaxServed = workflowExecutionDao
         .getWorkflowExecutionsOverview(null, null, null, null, null, 1, 1);
     assertNotNull(emptyResultWithMaxServed);
     assertTrue(emptyResultWithMaxServed.isMaxResultCountReached());
-    assertTrue(emptyResultWithMaxServed.getResults().isEmpty());  
+    assertTrue(emptyResultWithMaxServed.getResults().isEmpty());
   }
 }

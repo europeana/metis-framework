@@ -114,6 +114,7 @@ public class TestObjectFactory {
     abstractMetisPlugins.add(validationExternalPlugin);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, abstractMetisPlugins, 0);
+    workflowExecution.setId(new ObjectId());
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setCreatedDate(new Date());
 
@@ -273,7 +274,8 @@ public class TestObjectFactory {
     SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", RecordState.SUCCESS, "",
         "Sensitive Information");
     final int resourceNum = 2;
-    SubTaskInfo subTaskInfo2 = new SubTaskInfo(resourceNum, "some_resource_id1", RecordState.SUCCESS, "",
+    SubTaskInfo subTaskInfo2 = new SubTaskInfo(resourceNum, "some_resource_id1",
+        RecordState.SUCCESS, "",
         "Sensitive Information");
     ArrayList<SubTaskInfo> subTaskInfos = new ArrayList<>();
     subTaskInfos.add(subTaskInfo1);

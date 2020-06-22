@@ -215,8 +215,9 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  public WorkflowPostProcessor workflowPostProcessor(DepublishedRecordDao depublishedRecordDao) {
-    return new WorkflowPostProcessor(depublishedRecordDao);
+  public WorkflowPostProcessor workflowPostProcessor(DepublishedRecordDao depublishedRecordDao,
+      WorkflowExecutionDao workflowExecutionDao) {
+    return new WorkflowPostProcessor(depublishedRecordDao, workflowExecutionDao);
   }
 
   @Bean

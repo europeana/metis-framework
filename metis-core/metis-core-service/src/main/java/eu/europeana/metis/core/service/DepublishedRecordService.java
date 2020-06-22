@@ -40,7 +40,7 @@ public class DepublishedRecordService {
    */
   @Autowired
   public DepublishedRecordService(Authorizer authorizer,
-          DepublishedRecordDao depublishedRecordDao) {
+      DepublishedRecordDao depublishedRecordDao) {
     this.authorizer = authorizer;
     this.depublishedRecordDao = depublishedRecordDao;
   }
@@ -66,7 +66,7 @@ public class DepublishedRecordService {
       new URI(recordIdTrimmed);
     } catch (URISyntaxException e) {
       throw new BadContentException("Invalid record ID (is not a valid URI): " + recordIdTrimmed,
-              e);
+          e);
     }
 
     // Split in segments based on the slash - don't discard empty segments at the end.
@@ -82,20 +82,20 @@ public class DepublishedRecordService {
     // Check last segment: cannot contain invalid characters
     if (INVALID_CHAR_IN_RECORD_ID.matcher(lastSegment).find()) {
       throw new BadContentException(
-              "Invalid record ID (contains invalid characters): " + lastSegment);
+          "Invalid record ID (contains invalid characters): " + lastSegment);
     }
 
     // Check penultimate segment: if it is empty, it must be because it is the start of the ID.
     if (penultimateSegment.isEmpty() && segments.length > 2) {
       throw new BadContentException(
-              "Invalid record ID (dataset ID seems to be missing): " + recordIdTrimmed);
+          "Invalid record ID (dataset ID seems to be missing): " + recordIdTrimmed);
     }
 
     // Check penultimate segment: if it is not empty, it must be equal to the dataset ID.
     if (!penultimateSegment.isEmpty() && !penultimateSegment.equals(datasetId)) {
       throw new BadContentException(
-              "Invalid record ID (doesn't seem to belong to the correct dataset): "
-                      + recordIdTrimmed);
+          "Invalid record ID (doesn't seem to belong to the correct dataset): "
+              + recordIdTrimmed);
     }
 
     // Return the last segment (the record ID without the dataset ID).
@@ -119,7 +119,7 @@ public class DepublishedRecordService {
    * </ul>
    */
   public int addRecordsToBeDepublished(MetisUser metisUser, String datasetId,
-          String recordIdsInSeparateLines) throws GenericMetisException {
+      String recordIdsInSeparateLines) throws GenericMetisException {
 
     // Authorize.
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
@@ -128,7 +128,7 @@ public class DepublishedRecordService {
     final Set<String> normalizedRecordIds = new HashSet<>();
     for (String recordId : recordIdsInSeparateLines.split("\\R")) {
       Optional.ofNullable(checkAndNormalizeRecordId(datasetId, recordId))
-              .ifPresent(normalizedRecordIds::add);
+          .ifPresent(normalizedRecordIds::add);
     }
 
     // Add the records.
@@ -152,15 +152,15 @@ public class DepublishedRecordService {
    * </ul>
    */
   public ResponseListWrapper<DepublishedRecordView> getDepublishedRecords(MetisUser metisUser,
-          String datasetId, int page, DepublishedRecordSortField sortField,
-          SortDirection sortDirection, String searchQuery) throws GenericMetisException {
+      String datasetId, int page, DepublishedRecordSortField sortField,
+      SortDirection sortDirection, String searchQuery) throws GenericMetisException {
 
     // Authorize.
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
     // Get the page of records
     final List<DepublishedRecordView> records = depublishedRecordDao
-            .getDepublishedRecords(datasetId, page, sortField, sortDirection, null, searchQuery);
+        .getDepublishedRecords(datasetId, page, sortField, sortDirection, null, searchQuery);
 
     // Compile the result
     final ResponseListWrapper<DepublishedRecordView> result = new ResponseListWrapper<>();

@@ -38,6 +38,7 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
   private String id;
 
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
+  private DataStatus dataStatus;
   private String failMessage;
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date startedDate;
@@ -80,6 +81,16 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
   @Override
   public PluginType getPluginType() {
     return pluginType;
+  }
+
+  @Override
+  public DataStatus getDataStatus() {
+    return dataStatus;
+  }
+
+  @Override
+  public void setDataStatus(DataStatus dataStatus) {
+    this.dataStatus = dataStatus;
   }
 
   @Override
