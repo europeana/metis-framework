@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Set;
 public class DepublishPluginMetadata extends AbstractExecutablePluginMetadata {
 
   private static final ExecutablePluginType pluginType = ExecutablePluginType.DEPUBLISH;
-  private boolean allRecordsDepublish;
+  private boolean datasetDepublish;
   private Set<String> recordIdsToDepublish;
 
   public DepublishPluginMetadata() {
@@ -25,12 +24,12 @@ public class DepublishPluginMetadata extends AbstractExecutablePluginMetadata {
     return pluginType;
   }
 
-  public boolean isAllRecordsDepublish() {
-    return allRecordsDepublish;
+  public boolean isDatasetDepublish() {
+    return datasetDepublish;
   }
 
-  public void setAllRecordsDepublish(boolean allRecordsDepublish) {
-    this.allRecordsDepublish = allRecordsDepublish;
+  public void setDatasetDepublish(boolean datasetDepublish) {
+    this.datasetDepublish = datasetDepublish;
   }
 
   public Set<String> getRecordIdsToDepublish() {

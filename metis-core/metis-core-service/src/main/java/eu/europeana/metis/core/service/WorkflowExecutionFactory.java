@@ -7,8 +7,7 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
-import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationState;
-import eu.europeana.metis.core.rest.DepublishedRecordView;
+import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationStatus;
 import eu.europeana.metis.core.util.DepublishedRecordSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.ValidationProperties;
@@ -262,11 +261,11 @@ public class WorkflowExecutionFactory {
   private void setupDepublishPluginMetadata(Dataset dataset,
       DepublishPluginMetadata pluginMetadata) {
     DatasetXslt xsltObject;
-    if (!pluginMetadata.isAllRecordsDepublish()) {
+    if (!pluginMetadata.isDatasetDepublish()) {
       final Set<String> depublishedRecords = depublishedRecordDao
           .getAllDepublishedRecords(dataset.getDatasetId(),
               DepublishedRecordSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-              DepublicationState.NOT_DEPUBLISHED, null);
+              DepublicationStatus.PENDING_DEPUBLICATION, null);
       pluginMetadata.setRecordIdsToDepublish(depublishedRecords);
     }
   }

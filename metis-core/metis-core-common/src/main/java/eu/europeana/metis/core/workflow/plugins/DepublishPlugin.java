@@ -49,9 +49,9 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
       EcloudBasePluginParameters ecloudBasePluginParameters) {
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("METIS_DATASET_ID", datasetId);
-    extraParameters.put("ALL_RECORDS_DEPUBLISH",
-        Boolean.toString(getPluginMetadata().isAllRecordsDepublish()));
-    if (!getPluginMetadata().isAllRecordsDepublish()) {
+    extraParameters.put("DATASET_DEPUBLISH",
+        Boolean.toString(getPluginMetadata().isDatasetDepublish()));
+    if (!getPluginMetadata().isDatasetDepublish()) {
       extraParameters
           .put("RECORD_IDS_TO_DEPUBLISH", getPluginMetadata().getRecordIdsToDepublish().stream()
               .collect(Collectors.joining(",")));

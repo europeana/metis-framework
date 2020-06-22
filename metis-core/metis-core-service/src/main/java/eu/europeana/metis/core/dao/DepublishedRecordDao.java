@@ -5,7 +5,7 @@ import dev.morphia.query.Query;
 import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.core.dataset.DepublishedRecord;
-import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationState;
+import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.DepublishedRecordView;
 import eu.europeana.metis.core.rest.RequestLimits;
@@ -13,6 +13,7 @@ import eu.europeana.metis.core.util.DepublishedRecordSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -82,8 +83,8 @@ public class DepublishedRecordDao {
   /**
    * Add depublished records to persistence. This method checks whether the depublished record
    * already exists, and if so, doesn't add it again. All new records (but not the existing ones)
-   * will have the default depublication state ({@link DepublicationState#NOT_DEPUBLISHED}) and no
-   * depublication date.
+   * will have the default depublication state ({@link DepublicationStatus#PENDING_DEPUBLICATION})
+   * and no depublication date.
    *
    * @param datasetId The dataset to which the records belong.
    * @param candidateRecordIds The IDs of the records to add.
@@ -117,7 +118,7 @@ public class DepublishedRecordDao {
       final DepublishedRecord record = new DepublishedRecord();
       record.setDatasetId(datasetId);
       record.setRecordId(recordId);
-      record.setDepublicationState(DepublicationState.NOT_DEPUBLISHED);
+      record.setDepublicationStatus(DepublicationStatus.PENDING_DEPUBLICATION);
       return record;
     }).collect(Collectors.toList());
     ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
@@ -154,7 +155,7 @@ public class DepublishedRecordDao {
    */
   public List<DepublishedRecordView> getDepublishedRecords(String datasetId, int page,
       DepublishedRecordSortField sortField, SortDirection sortDirection,
-      DepublicationState depublicationState, String searchQuery) {
+      DepublicationStatus depublicationState, String searchQuery) {
     final Query<DepublishedRecord> query = prepareQueryForDepublishedRecords(datasetId, sortField,
         sortDirection, depublicationState, searchQuery);
 
@@ -184,7 +185,7 @@ public class DepublishedRecordDao {
    */
   public Set<String> getAllDepublishedRecords(String datasetId,
       DepublishedRecordSortField sortField, SortDirection sortDirection,
-      DepublicationState depublicationState, String searchQuery) {
+      DepublicationStatus depublicationState, String searchQuery) {
     final Query<DepublishedRecord> query = prepareQueryForDepublishedRecords(datasetId, sortField,
         sortDirection, depublicationState, searchQuery);
     query.project(DepublishedRecord.RECORD_ID_FIELD, true);
@@ -199,7 +200,7 @@ public class DepublishedRecordDao {
 
   private Query<DepublishedRecord> prepareQueryForDepublishedRecords(String datasetId,
       DepublishedRecordSortField sortField, SortDirection sortDirection,
-      DepublicationState depublicationState, String searchQuery) {
+      DepublicationStatus depublicationState, String searchQuery) {
     // Create query.
     final Query<DepublishedRecord> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(DepublishedRecord.class);
@@ -217,24 +218,38 @@ public class DepublishedRecordDao {
   }
 
   /**
-   * This method marks all depublished records of a given dataset as not depublished (and removes
-   * the depublished date).
+   * This method marks record ids with the provided {@link DepublicationStatus} and {@link Date}
+   * where appropriate.
+   * <p>A {@link DepublicationStatus#PENDING_DEPUBLICATION} unsets the depublication date</p>
+   * <p>A {@link DepublicationStatus#DEPUBLISHED} sets the depublication date with the one
+   * provided</p>
    *
-   * @param datasetId The dataset for which to do this.
+   * @param datasetId the dataset for which to do this
+   * @param depublicationStatus the depublication status. Null status is translated to {@link
+   * DepublicationStatus#PENDING_DEPUBLICATION}
+   * @param depublicationDate the depublication date
    */
-  public void markAllAsNotDepublished(String datasetId) {
+  public void markRecordIdsWithDepublicationStatus(String datasetId,
+      DepublicationStatus depublicationStatus, Date depublicationDate) {
 
     // Create query.
     final Query<DepublishedRecord> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(DepublishedRecord.class);
     query.field(DepublishedRecord.DATASET_ID_FIELD).equal(datasetId);
+    //Convert status if provided status is null
+    final DepublicationStatus depublicationStatusChecked =
+        depublicationStatus == null ? DepublicationStatus.PENDING_DEPUBLICATION
+            : depublicationStatus;
 
     // Define the update operations.
     final UpdateOperations<DepublishedRecord> updateOperations = morphiaDatastoreProvider
         .getDatastore().createUpdateOperations(DepublishedRecord.class);
-    updateOperations
-        .set(DepublishedRecord.DEPUBLICATION_STATE_FIELD, DepublicationState.NOT_DEPUBLISHED);
-    updateOperations.unset(DepublishedRecord.DEPUBLICATION_DATE_FIELD);
+    updateOperations.set(DepublishedRecord.DEPUBLICATION_STATE_FIELD, depublicationStatusChecked);
+    if (depublicationStatusChecked == DepublicationStatus.PENDING_DEPUBLICATION) {
+      updateOperations.unset(DepublishedRecord.DEPUBLICATION_DATE_FIELD);
+    } else {
+      updateOperations.set(DepublishedRecord.DEPUBLICATION_DATE_FIELD, depublicationDate);
+    }
 
     // Apply the operations.
     morphiaDatastoreProvider.getDatastore().update(query, updateOperations);

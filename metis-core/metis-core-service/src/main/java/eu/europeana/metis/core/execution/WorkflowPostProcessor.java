@@ -1,7 +1,9 @@
 package eu.europeana.metis.core.execution;
 
 import eu.europeana.metis.core.dao.DepublishedRecordDao;
+import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,11 +34,26 @@ public class WorkflowPostProcessor {
    */
   void performPluginPostProcessing(AbstractExecutablePlugin<?> plugin, String datasetId) {
 
-    // If it is a index to publish plugin, we need to reset all the depublished record statuses.
-    if (plugin.getPluginType() == PluginType.PUBLISH) {
-      LOGGER.info("Starting postprocessing for an index to publish in dataset {}.", datasetId);
-      depublishedRecordDao.markAllAsNotDepublished(datasetId);
-      LOGGER.info("Finished postprocessing for an index to publish in dataset {}.", datasetId);
+    final PluginType pluginType = plugin.getPluginType();
+    LOGGER.info("Starting postprocessing of plugin {} in dataset {}.", pluginType, datasetId);
+    //Reset depublish status if index to PUBLISH
+    if (pluginType == PluginType.PUBLISH) {
+      depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
+          DepublicationStatus.PENDING_DEPUBLICATION, null);
+    } else if (pluginType == PluginType.DEPUBLISH) {
+      final boolean datasetDepublish = ((DepublishPluginMetadata) plugin.getPluginMetadata())
+          .isDatasetDepublish();
+      if (datasetDepublish) {
+        //Reset depublish status if DEPUBLISH dataset
+        depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
+            DepublicationStatus.PENDING_DEPUBLICATION, null);
+      } else {
+        //Set depublish status if DEPUBLISH records
+        depublishedRecordDao
+            .markRecordIdsWithDepublicationStatus(datasetId, DepublicationStatus.DEPUBLISHED,
+                plugin.getStartedDate());
+      }
     }
+    LOGGER.info("Finished postprocessing of plugin {} in dataset {}.", pluginType, datasetId);
   }
 }
