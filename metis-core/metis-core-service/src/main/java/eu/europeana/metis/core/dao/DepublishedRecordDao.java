@@ -180,14 +180,13 @@ public class DepublishedRecordDao {
    * @param sortField The sorting field. Cannot be null.
    * @param sortDirection The sorting direction. Cannot be null.
    * @param depublicationState The depublication state of the records. Can be null.
-   * @param searchQuery Search query for the record ID. Can be null.
    * @return A (possibly empty) list of depublished records.
    */
   public Set<String> getAllDepublishedRecords(String datasetId,
       DepublishedRecordSortField sortField, SortDirection sortDirection,
-      DepublicationStatus depublicationState, String searchQuery) {
+      DepublicationStatus depublicationState) {
     final Query<DepublishedRecord> query = prepareQueryForDepublishedRecords(datasetId, sortField,
-        sortDirection, depublicationState, searchQuery);
+        sortDirection, depublicationState, null);
     query.project(DepublishedRecord.RECORD_ID_FIELD, true);
     query.project(DepublishedRecord.ID_FIELD, false);
 
@@ -225,8 +224,7 @@ public class DepublishedRecordDao {
    * provided</p>
    *
    * @param datasetId the dataset for which to do this
-   * @param depublicationStatus the depublication status. Null status is translated to {@link
-   * DepublicationStatus#PENDING_DEPUBLICATION}
+   * @param depublicationStatus the depublication status.
    * @param depublicationDate the depublication date. Can be null
    */
   public void markRecordIdsWithDepublicationStatus(String datasetId,
@@ -236,16 +234,12 @@ public class DepublishedRecordDao {
     final Query<DepublishedRecord> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(DepublishedRecord.class);
     query.field(DepublishedRecord.DATASET_ID_FIELD).equal(datasetId);
-    //Convert status if provided status is null
-    final DepublicationStatus depublicationStatusChecked =
-        depublicationStatus == null ? DepublicationStatus.PENDING_DEPUBLICATION
-            : depublicationStatus;
 
     // Define the update operations.
     final UpdateOperations<DepublishedRecord> updateOperations = morphiaDatastoreProvider
         .getDatastore().createUpdateOperations(DepublishedRecord.class);
-    updateOperations.set(DepublishedRecord.DEPUBLICATION_STATE_FIELD, depublicationStatusChecked);
-    if (depublicationStatusChecked == DepublicationStatus.PENDING_DEPUBLICATION) {
+    updateOperations.set(DepublishedRecord.DEPUBLICATION_STATE_FIELD, depublicationStatus);
+    if (depublicationStatus == DepublicationStatus.PENDING_DEPUBLICATION) {
       updateOperations.unset(DepublishedRecord.DEPUBLICATION_DATE_FIELD);
     } else {
       updateOperations.set(DepublishedRecord.DEPUBLICATION_DATE_FIELD, depublicationDate);

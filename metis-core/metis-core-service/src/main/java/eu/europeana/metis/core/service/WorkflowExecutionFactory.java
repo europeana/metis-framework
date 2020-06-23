@@ -264,7 +264,7 @@ public class WorkflowExecutionFactory {
       final Set<String> depublishedRecords = depublishedRecordDao
           .getAllDepublishedRecords(dataset.getDatasetId(),
               DepublishedRecordSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-              DepublicationStatus.PENDING_DEPUBLICATION, null);
+              DepublicationStatus.PENDING_DEPUBLICATION);
       pluginMetadata.setRecordIdsToDepublish(depublishedRecords);
     }
   }

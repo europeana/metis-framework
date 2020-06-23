@@ -87,9 +87,7 @@ public class DepublishedRecord implements HasMongoObjectId {
   }
 
   public void setDepublicationStatus(DepublicationStatus depublicationStatus) {
-    this.depublicationStatus =
-        depublicationStatus == null ? DepublicationStatus.PENDING_DEPUBLICATION
-            : depublicationStatus;
+    this.depublicationStatus = depublicationStatus;
   }
 
   public Instant getDepublicationDate() {

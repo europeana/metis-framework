@@ -3,7 +3,6 @@ package eu.europeana.metis.core.rest;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.common.JavaTimeSerialization.IsoInstantSerializer;
 import eu.europeana.metis.core.dataset.DepublishedRecord;
-import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationStatus;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import eu.europeana.metis.mongo.HasMongoObjectId;
 import java.time.Instant;
@@ -23,7 +22,8 @@ public class DepublishedRecordView implements HasMongoObjectId {
     this.id = record.getId();
     this.recordId = record.getRecordId();
     this.depublicationDate = record.getDepublicationDate();
-    this.depublicationStatus = record.getDepublicationStatus();
+    this.depublicationStatus = DepublicationStatus
+        .convertFromModelToView(record.getDepublicationStatus());
   }
 
   @Override
@@ -46,5 +46,26 @@ public class DepublishedRecordView implements HasMongoObjectId {
 
   public Instant getDepublicationDate() {
     return depublicationDate;
+  }
+
+
+  public enum DepublicationStatus {
+    DEPUBLISHED, PENDING;
+
+    private static DepublicationStatus convertFromModelToView(
+        DepublishedRecord.DepublicationStatus depublicationStatus) {
+      DepublicationStatus depublicationStatusView = null;
+      if (depublicationStatus != null) {
+        switch (depublicationStatus) {
+          case DEPUBLISHED:
+            depublicationStatusView = DepublicationStatus.DEPUBLISHED;
+            break;
+          case PENDING_DEPUBLICATION:
+          default:
+            depublicationStatusView = DepublicationStatus.PENDING;
+        }
+      }
+      return depublicationStatusView;
+    }
   }
 }
