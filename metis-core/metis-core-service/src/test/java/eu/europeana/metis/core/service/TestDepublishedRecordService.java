@@ -1,8 +1,8 @@
 package eu.europeana.metis.core.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
@@ -36,8 +36,8 @@ class TestDepublishedRecordService {
   void testCheckAndNormalizeRecordId() throws BadContentException {
 
     // Empty record IDs
-    assertTrue(service.checkAndNormalizeRecordId("dataset1", "").isEmpty());
-    assertTrue(service.checkAndNormalizeRecordId("dataset1", " ").isEmpty());
+    assertFalse(service.checkAndNormalizeRecordId("dataset1", "").isPresent());
+    assertFalse(service.checkAndNormalizeRecordId("dataset1", " ").isPresent());
 
     // Simple IDs with and without spaces
     assertEquals(Optional.of("id1"), service.checkAndNormalizeRecordId("dataset1", "id1"));
