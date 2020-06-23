@@ -84,8 +84,7 @@ public class WorkflowPostProcessor {
         }
       }
     } else { //Set depublish status if depublishing records
-      depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
-          DepublicationStatus.DEPUBLISHED, plugin.getStartedDate());
+      // TODO: 6/23/20 To be worked when record depublication with ecloud is completed
     }
   }
 }

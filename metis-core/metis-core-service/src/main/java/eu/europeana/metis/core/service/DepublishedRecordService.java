@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DepublishedRecordService {
 
-  private static final Pattern PATTERN_PER_LINE = Pattern.compile("\\R");
+  private static final Pattern LINE_SEPARATION_PATTERN = Pattern.compile("\\R");
   private final Authorizer authorizer;
   private final DepublishedRecordDao depublishedRecordDao;
 
@@ -135,7 +135,7 @@ public class DepublishedRecordService {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
 
     // Check and normalize the record IDs.
-    final String[] recordIds = PATTERN_PER_LINE.split(recordIdsInSeparateLines);
+    final String[] recordIds = LINE_SEPARATION_PATTERN.split(recordIdsInSeparateLines);
     final Set<String> normalizedRecordIds = new HashSet<>(recordIds.length);
     for (String recordId : recordIds) {
       checkAndNormalizeRecordId(datasetId, recordId).ifPresent(normalizedRecordIds::add);
@@ -170,7 +170,7 @@ public class DepublishedRecordService {
 
     // Get the page of records
     final List<DepublishedRecordView> records = depublishedRecordDao
-        .getDepublishedRecords(datasetId, page, sortField, sortDirection, null, searchQuery);
+        .getDepublishedRecords(datasetId, page, sortField, sortDirection, searchQuery);
 
     // Compile the result
     final ResponseListWrapper<DepublishedRecordView> result = new ResponseListWrapper<>();

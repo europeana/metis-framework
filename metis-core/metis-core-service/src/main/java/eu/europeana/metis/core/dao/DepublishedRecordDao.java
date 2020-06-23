@@ -150,15 +150,14 @@ public class DepublishedRecordDao {
    * @param page The page (batch) number, starting at 0. Cannot be null.
    * @param sortField The sorting field. Cannot be null.
    * @param sortDirection The sorting direction. Cannot be null.
-   * @param depublicationState The depublication state of the records. Can be null.
    * @param searchQuery Search query for the record ID. Can be null.
    * @return A (possibly empty) list of depublished records.
    */
   public List<DepublishedRecordView> getDepublishedRecords(String datasetId, int page,
       DepublishedRecordSortField sortField, SortDirection sortDirection,
-      DepublicationStatus depublicationState, String searchQuery) {
+      String searchQuery) {
     final Query<DepublishedRecord> query = prepareQueryForDepublishedRecords(datasetId, sortField,
-        sortDirection, depublicationState, searchQuery);
+        sortDirection, null, searchQuery);
 
     // Compute pagination
     final int skip = page * pageSize;
@@ -174,8 +173,8 @@ public class DepublishedRecordDao {
 
   /**
    * Get all depublished records for a given dataset.
-   * <p>This method is to be used with caution sicne it doesn't have a limit on the returned items.
-   * It is mainly used for minimize internal to the application database requests.</p>
+   * <p>This method is to be used with caution since it doesn't have a limit on the returned items.
+   * It is mainly used to minimize, internal to the application, database requests.</p>
    *
    * @param datasetId The dataset for which to retrieve the records. Cannot be null.
    * @param sortField The sorting field. Cannot be null.
