@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DepublishedRecordService {
 
+  private static final Pattern PATTERN_PER_LINE = Pattern.compile("\\R");
   private final Authorizer authorizer;
   private final DepublishedRecordDao depublishedRecordDao;
 
@@ -50,18 +51,26 @@ public class DepublishedRecordService {
    *
    * @param datasetId The dataset ID to which the depublished record belongs.
    * @param recordId The unchecked and non-normalized record ID.
-   * @return The checked and normalized record ID. Or null if the incoming ID is empty.
+   * @return The checked and normalized record ID. Or empty Optional if the incoming ID is empty.
    * @throws BadContentException In case the incoming record ID does not validate.
    */
-  String checkAndNormalizeRecordId(String datasetId, String recordId) throws BadContentException {
+  Optional<String> checkAndNormalizeRecordId(String datasetId, String recordId)
+      throws BadContentException {
 
     // Trim and check that string is not empty. We allow empty record IDs, we return null.
     final String recordIdTrimmed = recordId.trim();
+    final Optional<String> result;
     if (recordIdTrimmed.isEmpty()) {
-      return null;
+      result = Optional.empty();
+    } else {
+      result = validateNonEmptyRecordId(datasetId, recordIdTrimmed);
     }
+    return result;
+  }
 
-    // Check if it is a valid URL. This also checks for spaces.
+  private Optional<String> validateNonEmptyRecordId(String datasetId, String recordIdTrimmed)
+      throws BadContentException {
+    Optional<String> result;// Check if it is a valid URL. This also checks for spaces.
     try {
       new URI(recordIdTrimmed);
     } catch (URISyntaxException e) {
@@ -99,7 +108,8 @@ public class DepublishedRecordService {
     }
 
     // Return the last segment (the record ID without the dataset ID).
-    return lastSegment;
+    result = Optional.of(lastSegment);
+    return result;
   }
 
   /**
@@ -125,10 +135,10 @@ public class DepublishedRecordService {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
 
     // Check and normalize the record IDs.
-    final Set<String> normalizedRecordIds = new HashSet<>();
-    for (String recordId : recordIdsInSeparateLines.split("\\R")) {
-      Optional.ofNullable(checkAndNormalizeRecordId(datasetId, recordId))
-          .ifPresent(normalizedRecordIds::add);
+    final String[] recordIds = PATTERN_PER_LINE.split(recordIdsInSeparateLines);
+    final Set<String> normalizedRecordIds = new HashSet<>(recordIds.length);
+    for (String recordId : recordIds) {
+      checkAndNormalizeRecordId(datasetId, recordId).ifPresent(normalizedRecordIds::add);
     }
 
     // Add the records.

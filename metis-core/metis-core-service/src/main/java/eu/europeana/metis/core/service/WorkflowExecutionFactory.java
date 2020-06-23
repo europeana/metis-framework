@@ -260,7 +260,6 @@ public class WorkflowExecutionFactory {
 
   private void setupDepublishPluginMetadata(Dataset dataset,
       DepublishPluginMetadata pluginMetadata) {
-    DatasetXslt xsltObject;
     if (!pluginMetadata.isDatasetDepublish()) {
       final Set<String> depublishedRecords = depublishedRecordDao
           .getAllDepublishedRecords(dataset.getDatasetId(),

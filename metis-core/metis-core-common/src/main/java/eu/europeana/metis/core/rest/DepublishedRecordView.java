@@ -13,11 +13,11 @@ public class DepublishedRecordView implements HasMongoObjectId {
 
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
-  private String recordId;
-  private DepublicationStatus depublicationStatus;
+  private final String recordId;
+  private final DepublicationStatus depublicationStatus;
 
   @JsonSerialize(using = IsoInstantSerializer.class)
-  private Instant depublicationDate;
+  private final Instant depublicationDate;
 
   public DepublishedRecordView(DepublishedRecord record) {
     this.id = record.getId();

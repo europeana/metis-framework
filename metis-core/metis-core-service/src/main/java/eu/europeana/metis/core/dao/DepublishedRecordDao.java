@@ -16,9 +16,12 @@ import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -28,9 +31,7 @@ import org.springframework.stereotype.Repository;
 public class DepublishedRecordDao {
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
-
   private final long maximumRecordsPerDataset;
-
   private final int pageSize;
 
   /**
@@ -123,7 +124,7 @@ public class DepublishedRecordDao {
     }).collect(Collectors.toList());
     ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
       morphiaDatastoreProvider.getDatastore().save(objectsToAdd);
-      return null;
+      return Optional.empty();
     });
 
     // Done
@@ -136,7 +137,7 @@ public class DepublishedRecordDao {
    * @param datasetId The ID of the dataset to count for.
    * @return The number of records for the given dataset.
    */
-  long countDepublishedRecordsForDataset(String datasetId) {
+  private long countDepublishedRecordsForDataset(String datasetId) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().createQuery(DepublishedRecord.class)
             .field(DepublishedRecord.DATASET_ID_FIELD).equal(datasetId).count());
@@ -227,10 +228,10 @@ public class DepublishedRecordDao {
    * @param datasetId the dataset for which to do this
    * @param depublicationStatus the depublication status. Null status is translated to {@link
    * DepublicationStatus#PENDING_DEPUBLICATION}
-   * @param depublicationDate the depublication date
+   * @param depublicationDate the depublication date. Can be null
    */
   public void markRecordIdsWithDepublicationStatus(String datasetId,
-      DepublicationStatus depublicationStatus, Date depublicationDate) {
+      DepublicationStatus depublicationStatus, @Nullable Date depublicationDate) {
 
     // Create query.
     final Query<DepublishedRecord> query = morphiaDatastoreProvider.getDatastore()
@@ -266,7 +267,16 @@ public class DepublishedRecordDao {
 
   private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
-      try (MorphiaCursor<T> cursor = query.find(findOptions == null ? null : findOptions)) {
+      final BiFunction<Query<T>, FindOptions, MorphiaCursor<T>> queryFunction = (querySupplied, findOptionsSupplied) -> {
+        final MorphiaCursor<T> morphiaCursor;
+        if (findOptionsSupplied == null) {
+          morphiaCursor = querySupplied.find();
+        } else {
+          morphiaCursor = querySupplied.find(findOptionsSupplied);
+        }
+        return morphiaCursor;
+      };
+      try (MorphiaCursor<T> cursor = queryFunction.apply(query, findOptions)) {
         return cursor.toList();
       }
     });

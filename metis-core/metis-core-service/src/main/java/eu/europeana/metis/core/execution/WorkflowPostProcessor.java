@@ -51,36 +51,41 @@ public class WorkflowPostProcessor {
     LOGGER.info("Starting postprocessing of plugin {} in dataset {}.", pluginType, datasetId);
     //Reset depublish status if index to PUBLISH
     if (pluginType == PluginType.PUBLISH) {
-      depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
-          DepublicationStatus.PENDING_DEPUBLICATION, null);
+      publishPostProcess(datasetId);
     } else if (pluginType == PluginType.DEPUBLISH) {
-      final boolean datasetDepublish = ((DepublishPluginMetadata) plugin.getPluginMetadata())
-          .isDatasetDepublish();
-      if (datasetDepublish) {
-        //Reset depublish status of records if DEPUBLISH dataset
-        depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
-            DepublicationStatus.PENDING_DEPUBLICATION, null);
-        //Find latest PUBLISH Type Plugin and set dataStatus
-        final PluginWithExecutionId<MetisPlugin> latestSuccessfulPlugin = workflowExecutionDao
-            .getLatestSuccessfulPlugin(datasetId, OrchestratorService.PUBLISH_TYPES);
-        if (Objects.nonNull(latestSuccessfulPlugin) && Objects
-            .nonNull(latestSuccessfulPlugin.getPlugin())) {
-          final WorkflowExecution workflowExecutionToUpdate = workflowExecutionDao
-              .getById(latestSuccessfulPlugin.getExecutionId());
-          final Optional<AbstractMetisPlugin> metisPluginWithType = workflowExecutionToUpdate
-              .getMetisPluginWithType(latestSuccessfulPlugin.getPlugin().getPluginType());
-          if (metisPluginWithType.isPresent()) {
-            metisPluginWithType.get().setDataStatus(DataStatus.DELETED);
-            workflowExecutionDao.updateWorkflowPlugins(workflowExecutionToUpdate);
-          }
-        }
-      } else {
-        //Set depublish status if DEPUBLISH records
-        depublishedRecordDao
-            .markRecordIdsWithDepublicationStatus(datasetId, DepublicationStatus.DEPUBLISHED,
-                plugin.getStartedDate());
-      }
+      depublishPostProcess(plugin, datasetId);
     }
     LOGGER.info("Finished postprocessing of plugin {} in dataset {}.", pluginType, datasetId);
+  }
+
+  private void publishPostProcess(String datasetId) {
+    depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
+        DepublicationStatus.PENDING_DEPUBLICATION, null);
+  }
+
+  private void depublishPostProcess(AbstractExecutablePlugin<?> plugin, String datasetId) {
+    final boolean datasetDepublish = ((DepublishPluginMetadata) plugin.getPluginMetadata())
+        .isDatasetDepublish();
+    if (datasetDepublish) { //Reset depublish status of records if depublishing dataset
+      depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
+          DepublicationStatus.PENDING_DEPUBLICATION, null);
+      //Find latest PUBLISH Type Plugin and set dataStatus
+      final PluginWithExecutionId<MetisPlugin> latestSuccessfulPlugin = workflowExecutionDao
+          .getLatestSuccessfulPlugin(datasetId, OrchestratorService.PUBLISH_TYPES);
+      if (Objects.nonNull(latestSuccessfulPlugin) && Objects
+          .nonNull(latestSuccessfulPlugin.getPlugin())) {
+        final WorkflowExecution workflowExecutionToUpdate = workflowExecutionDao
+            .getById(latestSuccessfulPlugin.getExecutionId());
+        final Optional<AbstractMetisPlugin> metisPluginWithType = workflowExecutionToUpdate
+            .getMetisPluginWithType(latestSuccessfulPlugin.getPlugin().getPluginType());
+        if (metisPluginWithType.isPresent()) {
+          metisPluginWithType.get().setDataStatus(DataStatus.DELETED);
+          workflowExecutionDao.updateWorkflowPlugins(workflowExecutionToUpdate);
+        }
+      }
+    } else { //Set depublish status if depublishing records
+      depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
+          DepublicationStatus.DEPUBLISHED, plugin.getStartedDate());
+    }
   }
 }

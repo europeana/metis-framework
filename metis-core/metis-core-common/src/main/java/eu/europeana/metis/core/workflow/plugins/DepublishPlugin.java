@@ -3,7 +3,6 @@ package eu.europeana.metis.core.workflow.plugins;
 import eu.europeana.cloud.service.dps.DpsTask;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Depublish Plugin.
@@ -52,9 +51,8 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
     extraParameters.put("DATASET_DEPUBLISH",
         Boolean.toString(getPluginMetadata().isDatasetDepublish()));
     if (!getPluginMetadata().isDatasetDepublish()) {
-      extraParameters
-          .put("RECORD_IDS_TO_DEPUBLISH", getPluginMetadata().getRecordIdsToDepublish().stream()
-              .collect(Collectors.joining(",")));
+      extraParameters.put("RECORD_IDS_TO_DEPUBLISH",
+              String.join(",", getPluginMetadata().getRecordIdsToDepublish()));
     }
     DpsTask dpsTask = new DpsTask();
     dpsTask.setParameters(extraParameters);
