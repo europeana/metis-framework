@@ -256,8 +256,9 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  WorkflowUtils getWorkflowUtils(WorkflowExecutionDao workflowExecutionDao) {
-    return new WorkflowUtils(workflowExecutionDao);
+  WorkflowUtils getWorkflowUtils(WorkflowExecutionDao workflowExecutionDao,
+      DepublishRecordIdDao depublishRecordIdDao) {
+    return new WorkflowUtils(workflowExecutionDao, depublishRecordIdDao);
   }
 
   @Bean

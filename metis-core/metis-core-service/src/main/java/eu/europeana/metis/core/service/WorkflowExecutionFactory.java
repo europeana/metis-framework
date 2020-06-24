@@ -79,7 +79,7 @@ public class WorkflowExecutionFactory {
     for (AbstractExecutablePluginMetadata pluginMetadata : workflow.getMetisPluginsMetadata()) {
       if (pluginMetadata.isEnabled()) {
         workflowPlugins
-            .add(createWorkflowPlugin(dataset, predecessor, pluginMetadata, typesInWorkflow));
+            .add(createWorkflowExecutionPlugin(dataset, predecessor, pluginMetadata, typesInWorkflow));
         typesInWorkflow.add(pluginMetadata.getExecutablePluginType());
       }
     }
@@ -94,7 +94,7 @@ public class WorkflowExecutionFactory {
     return new WorkflowExecution(dataset, workflowPlugins, priority);
   }
 
-  private AbstractExecutablePlugin createWorkflowPlugin(Dataset dataset,
+  private AbstractExecutablePlugin createWorkflowExecutionPlugin(Dataset dataset,
       PluginWithExecutionId<ExecutablePlugin> workflowPredecessor,
       AbstractExecutablePluginMetadata pluginMetadata,
       List<ExecutablePluginType> typesInWorkflowBeforeThisPlugin) {
@@ -261,11 +261,11 @@ public class WorkflowExecutionFactory {
   private void setupDepublishPluginMetadata(Dataset dataset,
       DepublishPluginMetadata pluginMetadata) {
     if (!pluginMetadata.isDatasetDepublish()) {
-      final Set<String> depublishedRecords = depublishRecordIdDao
+      final Set<String> pendingDepublicationIds = depublishRecordIdDao
           .getAllDepublishRecordIdsWithStatus(dataset.getDatasetId(),
               DepublishedRecordSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
               DepublicationStatus.PENDING_DEPUBLICATION);
-      pluginMetadata.setRecordIdsToDepublish(depublishedRecords);
+      pluginMetadata.setRecordIdsToDepublish(pendingDepublicationIds);
     }
   }
 

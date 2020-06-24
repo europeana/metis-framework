@@ -27,7 +27,7 @@ public enum Topology {
 
   DEPUBLISH("depublisher");
 
-  private String topologyName;
+  private final String topologyName;
 
   Topology(String topologyName) {
     this.topologyName = topologyName;

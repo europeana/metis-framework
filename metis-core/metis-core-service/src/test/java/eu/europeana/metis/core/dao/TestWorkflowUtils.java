@@ -17,7 +17,10 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
+import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
+import eu.europeana.metis.core.util.DepublishedRecordSortField;
+import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -75,16 +78,18 @@ class TestWorkflowUtils {
   private static final String DATASET_ID = Integer.toString(TestObjectFactory.DATASETID);
   private static WorkflowUtils workflowUtils;
   private static WorkflowExecutionDao workflowExecutionDao;
+  private static DepublishRecordIdDao depublishRecordIdDao;
 
   @BeforeAll
   static void prepare() {
     workflowExecutionDao = mock(WorkflowExecutionDao.class);
-    workflowUtils = spy(new WorkflowUtils(workflowExecutionDao));
+    depublishRecordIdDao = mock(DepublishRecordIdDao.class);
+    workflowUtils = spy(new WorkflowUtils(workflowExecutionDao, depublishRecordIdDao));
   }
 
   @AfterEach
   void cleanUp() {
-    reset(workflowUtils, workflowExecutionDao);
+    reset(workflowUtils, workflowExecutionDao, depublishRecordIdDao);
   }
 
   @Test
@@ -309,9 +314,33 @@ class TestWorkflowUtils {
             ExecutablePluginType.LINK_CHECKING), predecessorType));
 
     // Test workflow with two plugins, one of which is depublish
-    assertThrows(BadContentException.class, () -> workflowUtils.validateWorkflowPlugins(
-        createWorkflow(ExecutablePluginType.OAIPMH_HARVEST, ExecutablePluginType.DEPUBLISH),
-        predecessorType));
+    Workflow workflowDepublishAndOai = new Workflow();
+    workflowDepublishAndOai.setDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setEnabled(true);
+    DepublishPluginMetadata depublishPluginMetadata = new DepublishPluginMetadata();
+    depublishPluginMetadata.setEnabled(true);
+    depublishPluginMetadata.setDatasetDepublish(true);
+    List<AbstractExecutablePluginMetadata> abstractMetisPluginMetadata = new ArrayList<>(2);
+    abstractMetisPluginMetadata.add(oaipmhHarvestPluginMetadata);
+    abstractMetisPluginMetadata.add(depublishPluginMetadata);
+    workflowDepublishAndOai.setMetisPluginsMetadata(abstractMetisPluginMetadata);
+    assertThrows(BadContentException.class,
+        () -> workflowUtils.validateWorkflowPlugins(workflowDepublishAndOai, null));
+
+    // Test if workflow contains record depublish that record ids exist
+    Workflow workflowDepublish = new Workflow();
+    workflowDepublish.setDatasetId(Integer.toString(TestObjectFactory.DATASETID));
+    depublishPluginMetadata.setDatasetDepublish(false);
+    abstractMetisPluginMetadata.clear();
+    abstractMetisPluginMetadata.add(depublishPluginMetadata);
+    workflowDepublish.setMetisPluginsMetadata(abstractMetisPluginMetadata);
+    when(depublishRecordIdDao
+        .getAllDepublishRecordIdsWithStatus(workflowDepublish.getDatasetId(),
+            DepublishedRecordSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+            DepublicationStatus.PENDING_DEPUBLICATION)).thenReturn(Collections.emptySet());
+    assertThrows(BadContentException.class, () -> workflowUtils
+        .validateWorkflowPlugins(workflowDepublish, null));
 
     // Test workflow starting with link checking.
     assertSame(predecessor, workflowUtils.validateWorkflowPlugins(
