@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.core.dao.DepublishedRecordDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.rest.DepublishedRecordView;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
@@ -25,11 +25,11 @@ import org.springframework.stereotype.Service;
  * is checked for user authentication.
  */
 @Service
-public class DepublishedRecordService {
+public class DepublishRecordIdService {
 
   private static final Pattern LINE_SEPARATION_PATTERN = Pattern.compile("\\R");
   private final Authorizer authorizer;
-  private final DepublishedRecordDao depublishedRecordDao;
+  private final DepublishRecordIdDao depublishRecordIdDao;
 
   private static final Pattern INVALID_CHAR_IN_RECORD_ID = Pattern.compile("[^a-zA-Z0-9_]");
 
@@ -37,13 +37,13 @@ public class DepublishedRecordService {
    * Constructor.
    *
    * @param authorizer The authorizer for checking permissions.
-   * @param depublishedRecordDao The DAO for depublished records.
+   * @param depublishRecordIdDao The DAO for depublished records.
    */
   @Autowired
-  public DepublishedRecordService(Authorizer authorizer,
-      DepublishedRecordDao depublishedRecordDao) {
+  public DepublishRecordIdService(Authorizer authorizer,
+      DepublishRecordIdDao depublishRecordIdDao) {
     this.authorizer = authorizer;
-    this.depublishedRecordDao = depublishedRecordDao;
+    this.depublishRecordIdDao = depublishRecordIdDao;
   }
 
   /**
@@ -113,7 +113,7 @@ public class DepublishedRecordService {
   }
 
   /**
-   * Adds a list of depublished records to the dataset.
+   * Adds a list of record ids to be depublished for the dataset.
    *
    * @param metisUser The user performing this operation.
    * @param datasetId The ID of the dataset to which the depublished records belong.
@@ -128,7 +128,7 @@ public class DepublishedRecordService {
    * <li>{@link BadContentException} if some content or the operation were invalid</li>
    * </ul>
    */
-  public int addRecordsToBeDepublished(MetisUser metisUser, String datasetId,
+  public int addRecordIdsToBeDepublished(MetisUser metisUser, String datasetId,
       String recordIdsInSeparateLines) throws GenericMetisException {
 
     // Authorize.
@@ -142,11 +142,12 @@ public class DepublishedRecordService {
     }
 
     // Add the records.
-    return depublishedRecordDao.createRecordsToBeDepublished(datasetId, normalizedRecordIds);
+    return depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, normalizedRecordIds);
   }
 
   /**
-   * Retrieve the list of depublished records for a specific dataset.
+   * Retrieve the list of depublish record ids for a specific dataset.
+   * <p>Ids are retrieved regardless of their status</p>
    *
    * @param metisUser The user performing this operation. Cannot be null.
    * @param datasetId The ID of the dataset for which to retrieve the records. Cannot be null.
@@ -161,7 +162,7 @@ public class DepublishedRecordService {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
    * </ul>
    */
-  public ResponseListWrapper<DepublishedRecordView> getDepublishedRecords(MetisUser metisUser,
+  public ResponseListWrapper<DepublishedRecordView> getDepublishRecordIds(MetisUser metisUser,
       String datasetId, int page, DepublishedRecordSortField sortField,
       SortDirection sortDirection, String searchQuery) throws GenericMetisException {
 
@@ -169,12 +170,12 @@ public class DepublishedRecordService {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
     // Get the page of records
-    final List<DepublishedRecordView> records = depublishedRecordDao
-        .getDepublishedRecords(datasetId, page, sortField, sortDirection, searchQuery);
+    final List<DepublishedRecordView> records = depublishRecordIdDao
+        .getDepublishRecordIds(datasetId, page, sortField, sortDirection, searchQuery);
 
     // Compile the result
     final ResponseListWrapper<DepublishedRecordView> result = new ResponseListWrapper<>();
-    result.setResultsAndLastPage(records, depublishedRecordDao.getPageSize(), page);
+    result.setResultsAndLastPage(records, depublishRecordIdDao.getPageSize(), page);
     return result;
   }
 }

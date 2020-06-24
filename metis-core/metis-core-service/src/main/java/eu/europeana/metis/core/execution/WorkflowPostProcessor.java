@@ -1,9 +1,9 @@
 package eu.europeana.metis.core.execution;
 
-import eu.europeana.metis.core.dao.DepublishedRecordDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationStatus;
+import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
@@ -24,18 +24,18 @@ public class WorkflowPostProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowPostProcessor.class);
 
-  private final DepublishedRecordDao depublishedRecordDao;
+  private final DepublishRecordIdDao depublishRecordIdDao;
   private final WorkflowExecutionDao workflowExecutionDao;
 
   /**
    * Constructor.
    *
-   * @param depublishedRecordDao The DAO for depublished records.
+   * @param depublishRecordIdDao The DAO for depublished records.
    * @param workflowExecutionDao The DAO for workflow executions.
    */
-  public WorkflowPostProcessor(DepublishedRecordDao depublishedRecordDao,
+  public WorkflowPostProcessor(DepublishRecordIdDao depublishRecordIdDao,
       WorkflowExecutionDao workflowExecutionDao) {
-    this.depublishedRecordDao = depublishedRecordDao;
+    this.depublishRecordIdDao = depublishRecordIdDao;
     this.workflowExecutionDao = workflowExecutionDao;
   }
 
@@ -59,7 +59,7 @@ public class WorkflowPostProcessor {
   }
 
   private void publishPostProcess(String datasetId) {
-    depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
+    depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId,
         DepublicationStatus.PENDING_DEPUBLICATION, null);
   }
 
@@ -67,7 +67,7 @@ public class WorkflowPostProcessor {
     final boolean datasetDepublish = ((DepublishPluginMetadata) plugin.getPluginMetadata())
         .isDatasetDepublish();
     if (datasetDepublish) { //Reset depublish status of records if depublishing dataset
-      depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
+      depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId,
           DepublicationStatus.PENDING_DEPUBLICATION, null);
       //Find latest PUBLISH Type Plugin and set dataStatus
       final PluginWithExecutionId<MetisPlugin> latestSuccessfulPlugin = workflowExecutionDao

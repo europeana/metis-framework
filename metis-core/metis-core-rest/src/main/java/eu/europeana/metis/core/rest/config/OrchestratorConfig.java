@@ -10,7 +10,7 @@ import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
-import eu.europeana.metis.core.dao.DepublishedRecordDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -184,9 +184,9 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   @Bean
   public WorkflowExecutionFactory getWorkflowExecutionFactory(
       WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
-      DatasetXsltDao datasetXsltDao, DepublishedRecordDao depublishedRecordDao) {
+      DatasetXsltDao datasetXsltDao, DepublishRecordIdDao depublishRecordIdDao) {
     WorkflowExecutionFactory workflowExecutionFactory =
-        new WorkflowExecutionFactory(datasetXsltDao, depublishedRecordDao, workflowExecutionDao,
+        new WorkflowExecutionFactory(datasetXsltDao, depublishRecordIdDao, workflowExecutionDao,
             workflowUtils);
     workflowExecutionFactory
         .setValidationExternalProperties(propertiesHolder.getValidationExternalProperties());
@@ -215,9 +215,9 @@ public class OrchestratorConfig implements WebMvcConfigurer {
   }
 
   @Bean
-  public WorkflowPostProcessor workflowPostProcessor(DepublishedRecordDao depublishedRecordDao,
+  public WorkflowPostProcessor workflowPostProcessor(DepublishRecordIdDao depublishRecordIdDao,
       WorkflowExecutionDao workflowExecutionDao) {
-    return new WorkflowPostProcessor(depublishedRecordDao, workflowExecutionDao);
+    return new WorkflowPostProcessor(depublishRecordIdDao, workflowExecutionDao);
   }
 
   @Bean

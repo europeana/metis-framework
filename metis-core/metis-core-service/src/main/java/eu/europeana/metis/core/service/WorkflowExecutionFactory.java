@@ -1,13 +1,13 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.dao.DatasetXsltDao;
-import eu.europeana.metis.core.dao.DepublishedRecordDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
-import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationStatus;
+import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.util.DepublishedRecordSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.ValidationProperties;
@@ -43,7 +43,7 @@ import org.springframework.util.CollectionUtils;
 public class WorkflowExecutionFactory {
 
   private final DatasetXsltDao datasetXsltDao;
-  private final DepublishedRecordDao depublishedRecordDao;
+  private final DepublishRecordIdDao depublishRecordIdDao;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowUtils workflowUtils;
 
@@ -60,10 +60,10 @@ public class WorkflowExecutionFactory {
    * @param workflowUtils the utilities class for workflow operations
    */
   public WorkflowExecutionFactory(DatasetXsltDao datasetXsltDao,
-      DepublishedRecordDao depublishedRecordDao, WorkflowExecutionDao workflowExecutionDao,
+      DepublishRecordIdDao depublishRecordIdDao, WorkflowExecutionDao workflowExecutionDao,
       WorkflowUtils workflowUtils) {
     this.datasetXsltDao = datasetXsltDao;
-    this.depublishedRecordDao = depublishedRecordDao;
+    this.depublishRecordIdDao = depublishRecordIdDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.workflowUtils = workflowUtils;
   }
@@ -261,8 +261,8 @@ public class WorkflowExecutionFactory {
   private void setupDepublishPluginMetadata(Dataset dataset,
       DepublishPluginMetadata pluginMetadata) {
     if (!pluginMetadata.isDatasetDepublish()) {
-      final Set<String> depublishedRecords = depublishedRecordDao
-          .getAllDepublishedRecords(dataset.getDatasetId(),
+      final Set<String> depublishedRecords = depublishRecordIdDao
+          .getAllDepublishRecordIdsWithStatus(dataset.getDatasetId(),
               DepublishedRecordSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
               DepublicationStatus.PENDING_DEPUBLICATION);
       pluginMetadata.setRecordIdsToDepublish(depublishedRecords);
