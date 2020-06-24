@@ -46,7 +46,7 @@
     <version.ecloud>1.10.0-SNAPSHOT</version.ecloud>
     <version.jedis>3.2.0</version.jedis>
     <version.redisson>3.12.5</version.redisson>
-    <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
+    <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
     <version.maven.deploy.plugin>2.8.2</version.maven.deploy.plugin>
@@ -76,7 +76,8 @@
     <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
-    <version.javax.xml.bind>2.3.1</version.javax.xml.bind>
+    <version.jaxb.api>2.3.1</version.jaxb.api>
+    <version.jaxb.runtime>2.3.2</version.jaxb.runtime>
     <version.javax.annotation>1.3.2</version.javax.annotation>
     <version.hibernate.core>5.4.14.Final</version.hibernate.core>
     <version.postgresql>42.2.12</version.postgresql>
@@ -115,12 +116,12 @@
       <dependency>
         <groupId>javax.xml.bind</groupId>
         <artifactId>jaxb-api</artifactId>
-        <version>${version.javax.xml.bind}</version>
+        <version>${version.jaxb.api}</version>
       </dependency>
       <dependency>
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-runtime</artifactId>
-        <version>${version.javax.xml.bind}</version>
+        <version>${version.jaxb.runtime}</version>
       </dependency>
       <dependency>
         <groupId>javax.annotation</groupId>
@@ -453,10 +454,7 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${version.maven.compiler.plugin}</version>
           <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-            <testSource>1.8</testSource>
-            <testTarget>1.8</testTarget>
+            <release>11</release>
           </configuration>
         </plugin>
       </plugins>
