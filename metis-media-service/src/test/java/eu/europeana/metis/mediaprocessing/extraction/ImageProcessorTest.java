@@ -113,7 +113,7 @@ class ImageProcessorTest {
         .generateThumbnails(url, detectedMimeType, content, false);
 
     // Call method
-    final ResourceExtractionResultImpl result = imageProcessor.extractMetadata(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = imageProcessor.extractMetadata(resource, detectedMimeType, true);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof ImageResourceMetadata);
@@ -138,20 +138,20 @@ class ImageProcessorTest {
     // Check for resource with no content
     doReturn(false).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> imageProcessor.extractMetadata(resource, detectedMimeType));
+        () -> imageProcessor.extractMetadata(resource, detectedMimeType, true));
     doReturn(true).when(resource).hasContent();
 
     // Check for resource with IO exception
     doThrow(new IOException()).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> imageProcessor.extractMetadata(resource, detectedMimeType));
+        () -> imageProcessor.extractMetadata(resource, detectedMimeType, true));
     doReturn(true).when(resource).hasContent();
     doThrow(new IOException()).when(resource).getContentSize();
     assertThrows(MediaExtractionException.class,
-        () -> imageProcessor.extractMetadata(resource, detectedMimeType));
+        () -> imageProcessor.extractMetadata(resource, detectedMimeType, true));
     doReturn(1234L).when(resource).getContentSize();
 
     // Check that all is well again.
-    assertNotNull(imageProcessor.extractMetadata(resource, detectedMimeType));
+    assertNotNull(imageProcessor.extractMetadata(resource, detectedMimeType, true));
   }
 }

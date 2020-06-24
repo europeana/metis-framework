@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.model.MediaExtractorInput;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 
@@ -11,22 +12,24 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
  * synchronized/locked.
  */
 public interface MediaExtractor extends
-    PoolableProcessor<RdfResourceEntry, ResourceExtractionResult, MediaExtractionException> {
+    PoolableProcessor<MediaExtractorInput, ResourceExtractionResult, MediaExtractionException> {
 
   /**
    * Perform media extraction on the given resource link.
    *
-   * @param resourceEntry The resource entry (obtained from an RDF)
+   * @param resourceEntry The resource entry (obtained from an RDF).
+   * @param mainThumbnailAvailable Whether the main thumbnail for this record is available. This may
+   * influence the decision on whether to generate a thumbnail for this resource.
    * @return A model object containing the result of the extraction and the generated thumbnails.
    * Note that this object can be null in case there is nothing to extract.
    * @throws MediaExtractionException In case of issues occurring during media extraction.
    */
-  ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry)
-      throws MediaExtractionException;
+  ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry,
+          boolean mainThumbnailAvailable) throws MediaExtractionException;
 
   @Override
-  default ResourceExtractionResult processTask(RdfResourceEntry input)
+  default ResourceExtractionResult processTask(MediaExtractorInput input)
       throws MediaExtractionException {
-    return performMediaExtraction(input);
+    return performMediaExtraction(input.getResourceEntry(), input.isMainThumbnailAvailable());
   }
 }

@@ -46,8 +46,8 @@ class ImageProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType)
-      throws MediaExtractionException {
+  public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType,
+          boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     // Sanity check
     try {

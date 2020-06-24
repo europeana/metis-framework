@@ -114,7 +114,8 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
   }
 
   private boolean hasEligiblePreviewThumbnail(String resourceUrl) {
-    return getThumbnailTargetNames(resourceUrl).stream().anyMatch(name -> name.contains("-LARGE"));
+    return getThumbnailTargetNames(resourceUrl).stream()
+            .anyMatch(name -> name.contains(ThumbnailKind.LARGE.getNameSuffix()));
   }
 
   void updateEdmPreview(String url) {

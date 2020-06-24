@@ -114,7 +114,7 @@ class TextProcessorTest {
     doReturn(1234L).when(resource).getContentSize();
 
     // Call method
-    final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType, true);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
@@ -134,21 +134,21 @@ class TextProcessorTest {
     // Check for resource with no content
     doReturn(false).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> textProcessor.extractMetadata(resource, detectedMimeType));
+        () -> textProcessor.extractMetadata(resource, detectedMimeType, true));
     doReturn(true).when(resource).hasContent();
 
     // Check for resource with IO exception
     doThrow(new IOException()).when(resource).hasContent();
     assertThrows(MediaExtractionException.class,
-        () -> textProcessor.extractMetadata(resource, detectedMimeType));
+        () -> textProcessor.extractMetadata(resource, detectedMimeType, true));
     doReturn(true).when(resource).hasContent();
     doThrow(new IOException()).when(resource).getContentSize();
     assertThrows(MediaExtractionException.class,
-        () -> textProcessor.extractMetadata(resource, detectedMimeType));
+        () -> textProcessor.extractMetadata(resource, detectedMimeType, true));
     doReturn(1234L).when(resource).getContentSize();
 
     // Check that all is well again.
-    assertNotNull(textProcessor.extractMetadata(resource, detectedMimeType));
+    assertNotNull(textProcessor.extractMetadata(resource, detectedMimeType, true));
   }
 
   @Test
@@ -194,7 +194,7 @@ class TextProcessorTest {
     doReturn(pdfCharacteristics).when(textProcessor).findPdfCharacteristics(contentFile);
 
     // Call method
-    final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType);
+    final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType, false);
 
     // Verify result metadata general properties
     assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
@@ -221,17 +221,17 @@ class TextProcessorTest {
     doThrow(MediaExtractionException.class).when(thumbnailGenerator)
             .generateThumbnails(url, "image/png", pdfImageFile, true);
     assertThrows(MediaExtractionException.class,
-            () -> textProcessor.extractMetadata(resource, detectedMimeType));
+            () -> textProcessor.extractMetadata(resource, detectedMimeType, false));
     verify(pdfToImageConverter, times(2)).removePdfImageFileSilently(pdfImagePath);
     verify(pdfToImageConverter, times(2)).removePdfImageFileSilently(any());
     doReturn(thumbnailsAndMetadata).when(thumbnailGenerator)
             .generateThumbnails(url, "image/png", pdfImageFile, true);
-    textProcessor.extractMetadata(resource, detectedMimeType);
+    textProcessor.extractMetadata(resource, detectedMimeType, false);
 
     // Test exception occurring in establishing content size
     doThrow(IOException.class).when(resource).getContentSize();
     assertThrows(MediaExtractionException.class,
-            () -> textProcessor.extractMetadata(resource, detectedMimeType));
+            () -> textProcessor.extractMetadata(resource, detectedMimeType, false));
     verify(thumbnail1, times(1)).close();
     verify(thumbnail2, times(1)).close();
   }

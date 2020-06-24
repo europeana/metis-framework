@@ -541,17 +541,17 @@ class AudioVideoProcessorTest {
 
     // Check that all is well
     final ResourceExtractionResultImpl result = audioVideoProcessor
-        .extractMetadata(resource, detectedMimeType);
+        .extractMetadata(resource, detectedMimeType, true);
     assertEquals(metadata, result.getOriginalMetadata());
     assertNull(result.getThumbnails());
 
     // In case there was a command execution issue
     doThrow(new MediaExtractionException("", null)).when(commandExecutor).execute(eq(command), eq(false), any());
     assertThrows(MediaExtractionException.class,
-        () -> audioVideoProcessor.extractMetadata(resource, detectedMimeType));
+        () -> audioVideoProcessor.extractMetadata(resource, detectedMimeType, true));
     doReturn(response).when(commandExecutor).execute(eq(command), eq(false), any());
 
     // Check that all is well again
-    assertNotNull(audioVideoProcessor.extractMetadata(resource, detectedMimeType));
+    assertNotNull(audioVideoProcessor.extractMetadata(resource, detectedMimeType, true));
   }
 }

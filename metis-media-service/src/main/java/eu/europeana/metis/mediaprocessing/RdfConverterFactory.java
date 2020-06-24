@@ -25,6 +25,6 @@ public class RdfConverterFactory {
    * @throws RdfConverterException In case the deserializer could not be instantiated.
    */
   public RdfDeserializer createRdfDeserializer() throws RdfConverterException {
-    return new RdfDeserializerWithXPath();
+    return new RdfDeserializerImpl();
   }
 }

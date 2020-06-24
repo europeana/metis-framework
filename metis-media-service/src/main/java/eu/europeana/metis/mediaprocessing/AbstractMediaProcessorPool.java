@@ -3,7 +3,7 @@ package eu.europeana.metis.mediaprocessing;
 import eu.europeana.metis.mediaprocessing.exception.LinkCheckingException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.MediaExtractorInput;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import java.io.Closeable;
 import java.time.Duration;
@@ -136,7 +136,7 @@ public abstract class AbstractMediaProcessorPool<I, O, E extends Exception, T ex
    * A {@link AbstractMediaProcessorPool} for {@link MediaExtractor} instances.
    */
   public static class MediaExtractorPool extends
-      AbstractMediaProcessorPool<RdfResourceEntry, ResourceExtractionResult, MediaExtractionException, MediaExtractor> {
+      AbstractMediaProcessorPool<MediaExtractorInput, ResourceExtractionResult, MediaExtractionException, MediaExtractor> {
 
     /**
      * Constructor.
