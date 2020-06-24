@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * This interface represents a plugin. It contains the minimum a plugin should support so that it
@@ -87,5 +88,23 @@ public interface MetisPlugin<M extends MetisPluginMetadata> {
   String getFailMessage();
 
   void setFailMessage(String failMessage);
+
+  /**
+   * @return The data status of this plugin. If null, this should be interpreted as being equal to
+   * {@link DataStatus#VALID} (due to backwards-compatibility).
+   */
+  DataStatus getDataStatus();
+
+  /**
+   * Returns the data state for the plugin taking into account the default value.
+   *
+   * @param plugin The plugin.
+   * @return The data status of the given plugin. Is not null.
+   */
+  static DataStatus getDataStatus(ExecutablePlugin plugin) {
+    return Optional.ofNullable(plugin.getDataStatus()).orElse(DataStatus.VALID);
+  }
+
+  void setDataStatus(DataStatus dataStatus);
 
 }

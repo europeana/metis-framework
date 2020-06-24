@@ -6,6 +6,7 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
+import eu.europeana.metis.mongo.HasMongoObjectId;
 import java.time.Instant;
 import org.bson.types.ObjectId;
 
@@ -15,19 +16,19 @@ import org.bson.types.ObjectId;
  */
 @Entity
 @Indexes({
-        @Index(fields = {@Field(DepublishedRecord.DATASET_ID_FIELD),
-                @Field(DepublishedRecord.RECORD_ID_FIELD)}, options = @IndexOptions(unique = true)),
-        @Index(fields = {@Field(DepublishedRecord.DATASET_ID_FIELD)}),
-        @Index(fields = {@Field(DepublishedRecord.RECORD_ID_FIELD)})})
-public class DepublishedRecord {
+    @Index(fields = {@Field(DepublishedRecord.DATASET_ID_FIELD),
+        @Field(DepublishedRecord.RECORD_ID_FIELD)}, options = @IndexOptions(unique = true)),
+    @Index(fields = {@Field(DepublishedRecord.DATASET_ID_FIELD)}),
+    @Index(fields = {@Field(DepublishedRecord.RECORD_ID_FIELD)})})
+public class DepublishedRecord implements HasMongoObjectId {
 
   public static final String ID_FIELD = "_id";
   public static final String DATASET_ID_FIELD = "datasetId";
   public static final String RECORD_ID_FIELD = "recordId";
-  public static final String DEPUBLICATION_STATE_FIELD = "depublicationState";
+  public static final String DEPUBLICATION_STATE_FIELD = "depublicationStatus";
   public static final String DEPUBLICATION_DATE_FIELD = "depublicationDate";
 
-  public enum DepublicationState {DEPUBLISHED, NOT_DEPUBLISHED}
+  public enum DepublicationStatus {DEPUBLISHED, PENDING_DEPUBLICATION}
 
   /**
    * The ID of the data object.
@@ -48,19 +49,21 @@ public class DepublishedRecord {
   /**
    * The state of the record's depublication.
    **/
-  private DepublicationState depublicationState;
+  private DepublicationStatus depublicationStatus;
 
   /**
    * The date of depublication.
    **/
   private Instant depublicationDate;
 
-  public ObjectId getId() {
-    return id;
-  }
-
+  @Override
   public void setId(ObjectId id) {
     this.id = id;
+  }
+
+  @Override
+  public ObjectId getId() {
+    return id;
   }
 
   public String getDatasetId() {
@@ -79,13 +82,12 @@ public class DepublishedRecord {
     this.recordId = recordId;
   }
 
-  public DepublicationState getDepublicationState() {
-    return depublicationState;
+  public DepublicationStatus getDepublicationStatus() {
+    return depublicationStatus;
   }
 
-  public void setDepublicationState(
-          DepublicationState depublicationState) {
-    this.depublicationState = depublicationState;
+  public void setDepublicationStatus(DepublicationStatus depublicationStatus) {
+    this.depublicationStatus = depublicationStatus;
   }
 
   public Instant getDepublicationDate() {

@@ -274,9 +274,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * values.
    * @return the first plugin found
    */
-  public MetisPlugin getFirstSuccessfulPlugin(String datasetId, Set<PluginType> pluginTypes) {
+  public PluginWithExecutionId<MetisPlugin> getFirstSuccessfulPlugin(String datasetId,
+      Set<PluginType> pluginTypes) {
     return Optional.ofNullable(getFirstOrLastFinishedPlugin(datasetId, pluginTypes, true))
-        .map(PluginWithExecutionId::getPlugin).orElse(null);
+        .orElse(null);
   }
 
   /**
@@ -288,9 +289,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * values.
    * @return the last plugin found
    */
-  public MetisPlugin getLatestSuccessfulPlugin(String datasetId, Set<PluginType> pluginTypes) {
+  public PluginWithExecutionId<MetisPlugin> getLatestSuccessfulPlugin(String datasetId,
+      Set<PluginType> pluginTypes) {
     return Optional.ofNullable(getFirstOrLastFinishedPlugin(datasetId, pluginTypes, false))
-        .map(PluginWithExecutionId::getPlugin).orElse(null);
+        .orElse(null);
   }
 
   /**
@@ -331,7 +333,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // if necessary, check for the data validity.
     final PluginWithExecutionId<ExecutablePlugin> result;
-    if (limitToValidData && ExecutablePlugin.getDataStatus(castResult) != DataStatus.VALID) {
+    if (limitToValidData && MetisPlugin.getDataStatus(castResult) != DataStatus.VALID) {
       result = null;
     } else {
       result = new PluginWithExecutionId<>(uncastResultWrapper.getExecutionId(), castResult);
@@ -379,10 +381,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Because of the unwind, we know that the plugin we need is always the first one.
     return Optional.ofNullable(metisPluginsIterator).filter(Iterator::hasNext).map(Iterator::next)
-            .filter(execution -> !execution.getMetisPlugins().isEmpty())
-            .map(execution -> new PluginWithExecutionId<MetisPlugin>(execution,
-                    execution.getMetisPlugins().get(0)))
-            .orElse(null);
+        .filter(execution -> !execution.getMetisPlugins().isEmpty())
+        .map(execution -> new PluginWithExecutionId<MetisPlugin>(execution,
+            execution.getMetisPlugins().get(0)))
+        .orElse(null);
   }
 
   private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum> set) {
@@ -481,11 +483,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
       // Create the aggregate pipeline
       final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
-              .createAggregation(WorkflowExecution.class);
+          .createAggregation(WorkflowExecution.class);
 
       // Step 1: create query filters
       final Query<WorkflowExecution> query = createQueryFilters(datasetIds, pluginStatuses,
-              pluginTypes, fromDate, toDate);
+          pluginTypes, fromDate, toDate);
       pipeline.match(query);
 
       // Step 2: determine status index field
@@ -493,7 +495,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
       // Step 3: Sort - first on the status index, then on the createdDate.
       pipeline.sort(Sort.ascending(statusIndexField),
-              Sort.descending(CREATED_DATE.getFieldName()));
+          Sort.descending(CREATED_DATE.getFieldName()));
 
       // Step 4: Apply pagination
       pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());

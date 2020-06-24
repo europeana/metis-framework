@@ -12,28 +12,18 @@ public class DepublishedRecordView implements HasMongoObjectId {
 
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
-  private String recordId;
-  private DepublicationStatus depublicationStatus;
+  private final String recordId;
+  private final DepublicationStatus depublicationStatus;
 
   @JsonSerialize(using = IsoInstantSerializer.class)
-  private Instant depublicationDate;
-
-  public enum DepublicationStatus {DEPUBLISHED, PENDING}
+  private final Instant depublicationDate;
 
   public DepublishedRecordView(DepublishedRecord record) {
     this.id = record.getId();
     this.recordId = record.getRecordId();
     this.depublicationDate = record.getDepublicationDate();
-    switch (record.getDepublicationState()) {
-      case DEPUBLISHED:
-        this.depublicationStatus = DepublicationStatus.DEPUBLISHED;
-        break;
-      case NOT_DEPUBLISHED:
-        this.depublicationStatus = DepublicationStatus.PENDING;
-        break;
-      default:
-        throw new IllegalStateException(record.getDepublicationState().name());
-    }
+    this.depublicationStatus = DepublicationStatus
+        .convertFromModelToView(record.getDepublicationStatus());
   }
 
   @Override
@@ -56,5 +46,26 @@ public class DepublishedRecordView implements HasMongoObjectId {
 
   public Instant getDepublicationDate() {
     return depublicationDate;
+  }
+
+
+  public enum DepublicationStatus {
+    DEPUBLISHED, PENDING;
+
+    private static DepublicationStatus convertFromModelToView(
+        DepublishedRecord.DepublicationStatus depublicationStatus) {
+      DepublicationStatus depublicationStatusView = null;
+      if (depublicationStatus != null) {
+        switch (depublicationStatus) {
+          case DEPUBLISHED:
+            depublicationStatusView = DepublicationStatus.DEPUBLISHED;
+            break;
+          case PENDING_DEPUBLICATION:
+          default:
+            depublicationStatusView = DepublicationStatus.PENDING;
+        }
+      }
+      return depublicationStatusView;
+    }
   }
 }

@@ -117,8 +117,8 @@ public class WorkflowUtils {
 
     if (plugins.size() > 1 && plugins.stream()
         .map(AbstractExecutablePluginMetadata::getExecutablePluginType)
-        .anyMatch(executablePluginType -> executablePluginType.toPluginType()
-            .equals(PluginType.DEPUBLISH))) {
+        .anyMatch(
+            executablePluginType -> executablePluginType.toPluginType() == PluginType.DEPUBLISH)) {
       throw new BadContentException("If DEPUBLISH plugin enabled, no other plugins are allowed.");
     }
 

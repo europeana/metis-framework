@@ -1,6 +1,8 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 
+import java.util.Set;
+
 /**
  * Index to Publish Plugin Metadata.
  *
@@ -10,6 +12,8 @@ package eu.europeana.metis.core.workflow.plugins;
 public class DepublishPluginMetadata extends AbstractExecutablePluginMetadata {
 
   private static final ExecutablePluginType pluginType = ExecutablePluginType.DEPUBLISH;
+  private boolean datasetDepublish;
+  private Set<String> recordIdsToDepublish;
 
   public DepublishPluginMetadata() {
     //Required for json serialization
@@ -18,5 +22,21 @@ public class DepublishPluginMetadata extends AbstractExecutablePluginMetadata {
   @Override
   public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
+  }
+
+  public boolean isDatasetDepublish() {
+    return datasetDepublish;
+  }
+
+  public void setDatasetDepublish(boolean datasetDepublish) {
+    this.datasetDepublish = datasetDepublish;
+  }
+
+  public Set<String> getRecordIdsToDepublish() {
+    return recordIdsToDepublish;
+  }
+
+  public void setRecordIdsToDepublish(Set<String> recordIdsToDepublish) {
+    this.recordIdsToDepublish = recordIdsToDepublish;
   }
 }

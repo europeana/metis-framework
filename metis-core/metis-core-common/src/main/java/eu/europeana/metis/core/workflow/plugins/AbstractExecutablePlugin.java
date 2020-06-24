@@ -34,7 +34,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
 
   private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
-  private DataStatus dataStatus;
 
   /**
    * Constructor with provided pluginType
@@ -73,16 +72,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   @Override
   public void setExecutionProgress(ExecutionProgress executionProgress) {
     this.executionProgress = executionProgress;
-  }
-
-  @Override
-  public DataStatus getDataStatus() {
-    return dataStatus;
-  }
-
-  @Override
-  public void setDataStatus(DataStatus dataStatus) {
-    this.dataStatus = dataStatus;
   }
 
   private Revision createOutputRevisionForExecution(String ecloudProvider, boolean published) {
@@ -169,14 +158,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     extraParameters.put("DATASET_IDS_TO_REDIRECT_FROM", String.join(",", datasetIdsToRedirectFrom));
     extraParameters.put("PERFORM_REDIRECTS", String.valueOf(performRedirects));
     return createDpsTaskForProcessPlugin(ecloudBasePluginParameters, extraParameters);
-  }
-
-  DpsTask createDpsTaskForDepublishPlugin(String datasetId) {
-    final DpsTask dpsTask = new DpsTask();
-    Map<String, String> parameters = new HashMap<>();
-    parameters.put("METIS_DATASET_ID", datasetId);
-    dpsTask.setParameters(parameters);
-    return dpsTask;
   }
 
   Map<String, String> createParametersForHostConnectionLimits(

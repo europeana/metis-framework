@@ -3,7 +3,6 @@ package eu.europeana.metis.core.workflow.plugins;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.exception.ExternalTaskException;
-import java.util.Optional;
 
 /**
  * This interface represents plugins that are executable by Metis.
@@ -35,24 +34,6 @@ public interface ExecutablePlugin<M extends ExecutablePluginMetadata> extends Me
   void setExecutionProgress(ExecutionProgress executionProgress);
 
   /**
-   * @return The data status of this plugin. If null, this should be interpreted as being equal to
-   * {@link DataStatus#VALID} (due to backwards-compatibility).
-   */
-  DataStatus getDataStatus();
-
-  /**
-   * Returns the data state for the plugin taking into account the default value.
-   *
-   * @param plugin The plugin.
-   * @return The data status of the given plugin. Is not null.
-   */
-  static DataStatus getDataStatus(ExecutablePlugin plugin) {
-    return Optional.ofNullable(plugin.getDataStatus()).orElse(DataStatus.VALID);
-  }
-
-  void setDataStatus(DataStatus dataStatus);
-
-  /**
    * It is required as an abstract method to have proper serialization on the api level.
    *
    * @return the topologyName string coming from {@link Topology}
@@ -69,7 +50,8 @@ public interface ExecutablePlugin<M extends ExecutablePluginMetadata> extends Me
    * @param ecloudBasePluginParameters the basic parameter required for each execution
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  void execute(String datasetId, DpsClient dpsClient, EcloudBasePluginParameters ecloudBasePluginParameters)
+  void execute(String datasetId, DpsClient dpsClient,
+      EcloudBasePluginParameters ecloudBasePluginParameters)
       throws ExternalTaskException;
 
   /**
