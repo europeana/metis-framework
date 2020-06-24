@@ -223,12 +223,24 @@ public class DepublishedRecordDao {
    * <p>A {@link DepublicationStatus#DEPUBLISHED} sets the depublication date with the one
    * provided</p>
    *
-   * @param datasetId the dataset for which to do this
-   * @param depublicationStatus the depublication status.
-   * @param depublicationDate the depublication date. Can be null
+   * @param datasetId the dataset for which to do this. Cannot be null
+   * @param depublicationStatus the depublication status. Cannot be null
+   * @param depublicationDate the depublication date. Can be null only if depublicationStatus is
+   * {@link DepublicationStatus#PENDING_DEPUBLICATION}
    */
   public void markRecordIdsWithDepublicationStatus(String datasetId,
       DepublicationStatus depublicationStatus, @Nullable Date depublicationDate) {
+
+    //Check correctness of parameters
+    if (Objects.isNull(depublicationStatus) || StringUtils.isBlank(datasetId)) {
+      throw new IllegalArgumentException(
+          "DepublicationStatus cannot be null and datasetId cannot be empty");
+    } else if (depublicationStatus == DepublicationStatus.DEPUBLISHED && Objects
+        .isNull(depublicationDate)) {
+      throw new IllegalArgumentException(String.format(
+          "DepublicationDate cannot be null if depublicationStatus == %s ",
+          DepublicationStatus.DEPUBLISHED.name()));
+    }
 
     // Create query.
     final Query<DepublishedRecord> query = morphiaDatastoreProvider.getDatastore()
@@ -246,7 +258,8 @@ public class DepublishedRecordDao {
     }
 
     // Apply the operations.
-    morphiaDatastoreProvider.getDatastore().update(query, updateOperations);
+    ExternalRequestUtil.retryableExternalRequestConnectionReset(
+        () -> morphiaDatastoreProvider.getDatastore().update(query, updateOperations));
   }
 
   /**
