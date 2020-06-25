@@ -1,5 +1,0 @@
-minLogLevel=INFO
-#The user email used to access Zoho
-currentUserEmail=
-domainSuffix=www.zohoapis.com
-accessType=Production

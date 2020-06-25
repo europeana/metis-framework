@@ -2,14 +2,15 @@ package eu.europeana.metis.authentication.rest.config;
 
 import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
+import eu.europeana.metis.authentication.service.AuthenticationService;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUserModel;
 import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
 import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
+import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.zoho.ZohoAccessClient;
-import eu.europeana.metis.authentication.service.AuthenticationService;
-import eu.europeana.metis.authentication.user.MetisUserAccessToken;
-import eu.europeana.metis.utils.CustomTruststoreAppender;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
@@ -49,13 +50,31 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   private String truststorePath;
   @Value("${truststore.password}")
   private String truststorePassword;
-
-  @Value("${zoho.initial.grant.token}")
-  private String zohoInitialGrantToken;
   @Value("${metis.access.token.expire.time.in.mins}")
   private int metisAccessTokenExpireTimeInMins;
   @Value("${allowed.cors.hosts}")
   private String[] allowedCorsHosts;
+
+  //Zoho configuration
+  @Value("${zoho.min.log.level}")
+  private String zohoMinLogLevel;
+  @Value("${zoho.current.user.email}")
+  private String zohoCurrentUserEmail;
+  @Value("${zoho.initial.grant.token}")
+  private String zohoInitialGrantToken;
+  @Value("${zoho.client.id}")
+  private String zohoClientId;
+  @Value("${zoho.client.secret}")
+  private String zohoClientSecret;
+  @Value("${zoho.redirect.uri}")
+  private String zohoRedirectUri;
+  @Value("${zoho.persistence.handler.class}")
+  private String zohoPersistenceHandlerClass;
+  @Value("${zoho.api.base.url}")
+  private String zohoApiBaseUrl;
+  @Value("${zoho.access.type}")
+  private String zohoAccessType;
+
 
   private SessionFactory sessionFactory;
   private AuthenticationService authenticationService;
@@ -92,7 +111,16 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Bean
   public ZohoAccessClient getZohoAccessClient() throws ZohoOAuthException {
-    return new ZohoAccessClient(zohoInitialGrantToken);
+    HashMap<String, String> zcrmConfigurations = new HashMap<>(8);
+    zcrmConfigurations.put("minLogLevel", zohoMinLogLevel);
+    zcrmConfigurations.put("currentUserEmail",zohoCurrentUserEmail);
+    zcrmConfigurations.put("client_id",zohoClientId);
+    zcrmConfigurations.put("client_secret",zohoClientSecret);
+    zcrmConfigurations.put("redirect_uri",zohoRedirectUri);
+    zcrmConfigurations.put("persistence_handler_class",zohoPersistenceHandlerClass);
+    zcrmConfigurations.put("accessType",zohoAccessType);
+    zcrmConfigurations.put("apiBaseUrl",zohoApiBaseUrl);
+    return new ZohoAccessClient(zohoInitialGrantToken, zcrmConfigurations);
   }
 
   @Bean

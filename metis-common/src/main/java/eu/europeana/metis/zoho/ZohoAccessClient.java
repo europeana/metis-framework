@@ -35,7 +35,8 @@ public class ZohoAccessClient {
    * Default constructor.
    * <p>This constructor expects that the access/refresh tokens are already present in the
    * persistence storage. If instead the generation of the tokens is required during initialization
-   * of this class then refer to the {@link #ZohoAccessClient(String)} costructor.
+   * of this class then refer to the {@link #ZohoAccessClient(String, HashMap)} (String)}
+   * costructor.
    * </p>
    */
   public ZohoAccessClient() {
@@ -54,11 +55,13 @@ public class ZohoAccessClient {
    * </p>
    *
    * @param grantToken the grant token key to be used
+   * @param zcrmConfigurations the key value map of zoho configuration
    * @throws ZohoOAuthException if initialization of {@link ZCRMRestClient} failed.
    */
-  public ZohoAccessClient(String grantToken) throws ZohoOAuthException {
+  public ZohoAccessClient(String grantToken, HashMap<String, String> zcrmConfigurations)
+      throws ZohoOAuthException {
     try {
-      ZCRMRestClient.initialize();
+      ZCRMRestClient.initialize(zcrmConfigurations);
     } catch (Exception ex) {
       LOGGER.error("ZCRMRestClient failure!");
       throw new ZohoOAuthException(ex);
