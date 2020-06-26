@@ -215,7 +215,10 @@ public class MediaExtractorImpl implements MediaExtractor {
       final RdfResourceEntry downloadInput =
           new RdfResourceEntry(resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
       try (final Resource resourceWithContent = this.resourceDownloadClient.downloadWithContent(downloadInput)) {
-        if (resourceWithContent.hasContent()) {
+        // see https://github.com/spotbugs/spotbugs/issues/756
+        @SuppressWarnings("findbugs:RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
+        final boolean resourceHasContent = resourceWithContent.hasContent();
+        if (resourceHasContent) {
           try (final InputStream inputStream = resourceWithContent.getContentStream()) {
             resource.markAsWithContent(inputStream);
           }

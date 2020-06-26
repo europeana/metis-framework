@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class VocabularyDao {
 
-  private Datastore ds;
+  private final Datastore ds;
 
   public VocabularyDao(MongoClient mongo, String db) {
     Morphia morphia = new Morphia();
@@ -35,7 +35,10 @@ public class VocabularyDao {
     final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
     query.field("uris").equal(pattern);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
-      return cursor.toList();
+      // Extract result ... see https://github.com/spotbugs/spotbugs/issues/756
+      @SuppressWarnings("findbugs:RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
+      final List<Vocabulary> result = cursor.toList();
+      return result;
     }
   }
 
@@ -47,7 +50,10 @@ public class VocabularyDao {
   public List<Vocabulary> getAll() {
     final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
-      return cursor.toList();
+      // Extract result ... see https://github.com/spotbugs/spotbugs/issues/756
+      @SuppressWarnings("findbugs:RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
+      final List<Vocabulary> result = cursor.toList();
+      return result;
     }
   }
 

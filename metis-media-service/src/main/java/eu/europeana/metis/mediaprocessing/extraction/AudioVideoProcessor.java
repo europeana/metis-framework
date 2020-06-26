@@ -217,7 +217,7 @@ class AudioVideoProcessor implements MediaProcessor {
     final AdaptationSet videoAdaptationSet = period.getAdaptationSets().stream().filter(adaptationSet ->
             Stream.of(adaptationSet.getMimeType(), adaptationSet.getContentType())
                     .filter(Objects::nonNull).findFirst().map(type -> type.startsWith("video"))
-                    .orElse(false)
+                    .orElse(Boolean.FALSE)
     ).findFirst().orElseThrow(() -> new MediaExtractionException(
             "Cannot find video adaptation set element in mpd"));
     final Representation videoRepresentation =getRepresentationFromMpd(videoAdaptationSet);

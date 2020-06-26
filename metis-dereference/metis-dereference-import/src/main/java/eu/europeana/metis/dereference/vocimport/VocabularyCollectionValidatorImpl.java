@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Consumer;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -51,9 +52,11 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     this.lenientOnExampleRetrievalFailures = lenientOnExampleRetrievalFailures;
 
     // Create XML builder
-    final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    factory.setNamespaceAware(true);
     try {
+      final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      factory.setNamespaceAware(true);
       documentBuilder = factory.newDocumentBuilder();
     } catch (ParserConfigurationException e) {
       throw new IllegalStateException("Problems setting up XML reader (this should not happen).", e);

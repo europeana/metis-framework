@@ -89,16 +89,16 @@ public class Vocabulary {
    */
   public static class Builder {
 
-    private String name;
-    private Set<Type> types;
-    private List<String> paths;
-    private int parentIterations;
-    private String suffix;
-    private List<String> examples;
-    private List<String> counterExamples;
-    private String transformation;
-    private String readableMetadataLocation;
-    private String readableMappingLocation;
+    String name;
+    Set<Type> types;
+    List<String> paths;
+    int parentIterations;
+    String suffix;
+    List<String> examples;
+    List<String> counterExamples;
+    String transformation;
+    String readableMetadataLocation;
+    String readableMappingLocation;
 
     private Builder() {
     }
