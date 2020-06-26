@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Check;
 
 /**
  * The Metis user containing all parameters.
@@ -22,37 +23,38 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "metis_users")
+@Check(constraints = "account_role IN ('METIS_ADMIN', 'EUROPEANA_DATA_OFFICER', 'PROVIDER_VIEWER')")
 public class MetisUserModel {
 
-  @Column(name = "user_id")
+  @Column(name = "user_id", columnDefinition = "varchar(100)")
   private String userId;
   @Id
-  @Column(name = "email")
+  @Column(name = "email", columnDefinition = "varchar(40)")
   private String email;
-  @Column(name = "first_name")
+  @Column(name = "first_name", columnDefinition = "varchar(40)")
   private String firstName;
-  @Column(name = "last_name")
+  @Column(name = "last_name", columnDefinition = "varchar(40)")
   private String lastName;
   @Column(name = "password")
   @JsonIgnore
   private String password;
-  @Column(name = "organization_id")
+  @Column(name = "organization_id", columnDefinition = "varchar(100)")
   private String organizationId;
-  @Column(name = "organization_name")
+  @Column(name = "organization_name", columnDefinition = "varchar(100)")
   private String organizationName;
-  @Column(name = "account_role")
+  @Column(name = "account_role", columnDefinition = "varchar(40) not null")
   @Enumerated(EnumType.STRING)
   private AccountRole accountRole;
-  @Column(name = "country")
+  @Column(name = "country", columnDefinition = "varchar(40)")
   private String country;
   @Column(name = "network_member")
   private boolean networkMember;
   @Column(name = "metis_user")
   private boolean metisUserFlag;
-  @Column(name = "created_date")
+  @Column(name = "created_date", columnDefinition = "timestamp with time zone")
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdDate;
-  @Column(name = "updated_date")
+  @Column(name = "updated_date", columnDefinition = "timestamp with time zone")
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedDate;
 

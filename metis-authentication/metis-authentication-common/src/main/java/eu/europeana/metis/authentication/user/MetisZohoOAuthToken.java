@@ -17,11 +17,11 @@ import javax.persistence.Table;
 public class MetisZohoOAuthToken {
 
   @Id
-  @Column(name = "user_identifier")
+  @Column(name = "user_identifier", columnDefinition = "varchar(100)")
   private String userIdentifier;
-  @Column(name = "access_token")
+  @Column(name = "access_token", columnDefinition = "varchar(100) not null")
   private String accessToken;
-  @Column(name = "refresh_token")
+  @Column(name = "refresh_token", columnDefinition = "varchar(100) not null")
   private String refreshToken;
   @Column(name = "expiry_time")
   private Long expiryTime;

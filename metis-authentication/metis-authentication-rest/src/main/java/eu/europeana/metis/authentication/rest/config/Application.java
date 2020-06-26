@@ -5,19 +5,18 @@ import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUserModel;
-import eu.europeana.metis.authentication.user.MetisZohoOAuthToken;
 import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.zoho.ZohoAccessClient;
 import java.util.HashMap;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -43,7 +42,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @PropertySource("classpath:authentication.properties")
 @EnableWebMvc
 @EnableScheduling
-public class Application implements WebMvcConfigurer, InitializingBean {
+public class Application implements WebMvcConfigurer {
 
   //Custom trustore
   @Value("${truststore.path}")
@@ -56,12 +55,14 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   private String[] allowedCorsHosts;
 
   //Zoho configuration
+  @Value("${zoho.initial.grant.token}")
+  private String zohoInitialGrantToken;
+  @Value("${zoho.refresh.token}")
+  private String zohoRefreshToken;
   @Value("${zoho.min.log.level}")
   private String zohoMinLogLevel;
   @Value("${zoho.current.user.email}")
   private String zohoCurrentUserEmail;
-  @Value("${zoho.initial.grant.token}")
-  private String zohoInitialGrantToken;
   @Value("${zoho.client.id}")
   private String zohoClientId;
   @Value("${zoho.client.secret}")
@@ -75,18 +76,15 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${zoho.access.type}")
   private String zohoAccessType;
 
-
   private SessionFactory sessionFactory;
   private AuthenticationService authenticationService;
 
-  /**
-   * Used for overwriting properties if cloud foundry environment is used
-   */
-  @Override
-  public void afterPropertiesSet() throws TrustStoreConfigurationException {
+  @PostConstruct
+  private void postConstruct() throws TrustStoreConfigurationException {
     if (StringUtils.isNotEmpty(truststorePath) && StringUtils.isNotEmpty(truststorePassword)) {
       CustomTruststoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
     }
+    MetisZohoOAuthPSQLHandler.initializeWithRefreshToken(zohoCurrentUserEmail, zohoRefreshToken);
   }
 
   @Override
@@ -128,7 +126,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
     configuration.addAnnotatedClass(MetisUserModel.class);
     configuration.addAnnotatedClass(MetisUserAccessToken.class);
-    configuration.addAnnotatedClass(MetisZohoOAuthToken.class);
     configuration.configure();
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
         configuration.getProperties()).build();
