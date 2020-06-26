@@ -17,6 +17,7 @@ import eu.europeana.corelib.definitions.jibx.Spatial;
 import eu.europeana.corelib.definitions.jibx.Subject;
 import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.Type;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -108,8 +109,7 @@ public enum EnrichmentFields {
   }
 
   private Stream<? extends ResourceOrLiteralType> extractFields(ProxyType proxy) {
-    return Optional.ofNullable(proxy.getChoiceList())
-    		.map(List::stream).orElseGet(Stream::empty)
+    return Optional.ofNullable(proxy.getChoiceList()).stream().flatMap(Collection::stream)
     		.filter(choiceContentHandler.choiceChecker)
             .map(choiceContentHandler.contentGetter)
             .filter(Objects::nonNull);
@@ -145,8 +145,8 @@ public enum EnrichmentFields {
   }
 
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {
-    private final Predicate<Choice> choiceChecker;
-    private final Function<Choice, T> contentGetter;
+    protected final Predicate<Choice> choiceChecker;
+    protected final Function<Choice, T> contentGetter;
     private final BiConsumer<Choice, T> contentSetter;
     private final Supplier<T> contentCreator;
 

@@ -28,7 +28,6 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   private final boolean lenientOnLackOfExamples;
   private final boolean lenientOnMappingTestFailures;
   private final boolean lenientOnExampleRetrievalFailures;
-  private final DocumentBuilder documentBuilder;
 
   /**
    * Constructor.
@@ -44,23 +43,10 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   public VocabularyCollectionValidatorImpl(VocabularyCollectionImporter importer,
           boolean lenientOnLackOfExamples, boolean lenientOnMappingTestFailures,
           boolean lenientOnExampleRetrievalFailures) {
-
-    // Set parameters
     this.importer = importer;
     this.lenientOnLackOfExamples = lenientOnLackOfExamples;
     this.lenientOnMappingTestFailures = lenientOnMappingTestFailures;
     this.lenientOnExampleRetrievalFailures = lenientOnExampleRetrievalFailures;
-
-    // Create XML builder
-    try {
-      final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-      factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-      factory.setNamespaceAware(true);
-      documentBuilder = factory.newDocumentBuilder();
-    } catch (ParserConfigurationException e) {
-      throw new IllegalStateException("Problems setting up XML reader (this should not happen).", e);
-    }
   }
 
   @Override
@@ -210,13 +196,34 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
 
     // Check whether the example yielded valid XML
     if (StringUtils.isNotBlank(result)) {
-      try (InputStream inputStream = new ByteArrayInputStream(result.getBytes(StandardCharsets.UTF_8))) {
-        documentBuilder.parse(inputStream);
+      try {
+        isValidXml(result);
       } catch (IOException | SAXException e) {
         final String message = getTestErrorMessage(example, isCounterExample,
                 readableMetadataLocation, "did not yield a valid XML", e);
         throw new VocabularyImportException(message, e);
       }
+    }
+  }
+
+  private void isValidXml(String result) throws IOException, SAXException {
+
+    // Create document builder
+    final DocumentBuilder documentBuilder;
+    try {
+      final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      factory.setNamespaceAware(true);
+      documentBuilder = factory.newDocumentBuilder();
+    } catch (ParserConfigurationException e) {
+      throw new IllegalStateException("Problems setting up XML reader (this should not happen).", e);
+    }
+
+    // Parse the input.
+    try (InputStream inputStream = new ByteArrayInputStream(
+            result.getBytes(StandardCharsets.UTF_8))) {
+      documentBuilder.parse(inputStream);
     }
   }
 

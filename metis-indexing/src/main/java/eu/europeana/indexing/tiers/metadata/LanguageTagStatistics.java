@@ -7,6 +7,7 @@ import eu.europeana.corelib.definitions.jibx.LiteralType;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -99,7 +100,7 @@ class LanguageTagStatistics {
   }
 
   private static <T> Stream<T> getStream(List<T> list) {
-    return Optional.ofNullable(list).map(List::stream).orElseGet(Stream::empty);
+    return Optional.ofNullable(list).stream().flatMap(Collection::stream);
   }
 
   private static boolean hasValidLanguage(PlaceType place) {
@@ -238,7 +239,7 @@ class LanguageTagStatistics {
         PropertyType.DCTERMS_TABLE_OF_CONTENTS),
     DCTERMS_TEMPORAL(Choice::ifTemporal, Choice::getTemporal, PropertyType.DCTERMS_TEMPORAL);
 
-    private final BiConsumer<Choice, LanguageTagStatistics> valueProcessing;
+    protected final BiConsumer<Choice, LanguageTagStatistics> valueProcessing;
 
     ProxyChoiceKind(Predicate<Choice> choiceSelection,
         Function<Choice, ResourceOrLiteralType> valueExtraction, PropertyType type) {

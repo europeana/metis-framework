@@ -122,7 +122,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     // Execute the request.
     try (final CloseableHttpResponse response = client.execute(httpGet, context)) {
 
-      // Check response code.
+      // Check response code. See https://github.com/spotbugs/spotbugs/issues/756
+      @SuppressWarnings("findbugs:RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
       final int status = response.getCode();
       if (!httpCallIsSuccessful(status)) {
         throw new IOException("Download failed of resource " + resourceUlr + ". Status code " +
