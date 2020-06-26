@@ -13,13 +13,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.xml.XMLConstants;
@@ -99,7 +99,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
           throws RdfDeserializationException {
 
     // Get the entries of the required types.
-    final Map<String, List<UrlType>> resourceEntries = getResourceEntries(record,
+    final Map<String, Set<UrlType>> resourceEntries = getResourceEntries(record,
             Collections.singleton(UrlType.URL_TYPE_FOR_MAIN_THUMBNAIL_RESOURCE));
 
     // If there is not exactly one, we return null.
@@ -123,7 +123,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Get all the resource entries.
     final Document record = deserializeToDocument(inputStream);
-    final Map<String, List<UrlType>> allResources = getResourceEntries(record,
+    final Map<String, Set<UrlType>> allResources = getResourceEntries(record,
             UrlType.URL_TYPES_FOR_MEDIA_EXTRACTION);
 
     // Find the main thumbnail resource and remove it from the result.
@@ -145,39 +145,29 @@ class RdfDeserializerImpl implements RdfDeserializer {
   @Override
   public List<String> getResourceEntriesForLinkChecking(InputStream inputStream)
       throws RdfDeserializationException {
-    return new ArrayList<>(
-            getResourceEntries(inputStream, UrlType.URL_TYPES_FOR_LINK_CHECKING).keySet());
+    return new ArrayList<>(getResourceEntries(deserializeToDocument(inputStream),
+            UrlType.URL_TYPES_FOR_LINK_CHECKING).keySet());
   }
 
   private static List<RdfResourceEntry> convertToResourceEntries(
-          Map<String, List<UrlType>> urlWithTypes) {
+          Map<String, Set<UrlType>> urlWithTypes) {
     return urlWithTypes.entrySet().stream().map(RdfDeserializerImpl::convertToResourceEntry)
             .collect(Collectors.toList());
   }
 
-  private static RdfResourceEntry convertToResourceEntry(Map.Entry<String, List<UrlType>> entry) {
+  private static RdfResourceEntry convertToResourceEntry(Map.Entry<String, Set<UrlType>> entry) {
     return new RdfResourceEntry(entry.getKey(), entry.getValue());
   }
 
-  Map<String, List<UrlType>> getResourceEntries(InputStream inputStream,
+  Map<String, Set<UrlType>> getResourceEntries(Document document,
           Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
-    return getResourceEntries(deserializeToDocument(inputStream), allowedUrlTypes);
-  }
-
-  private Map<String, List<UrlType>> getResourceEntries(Document document,
-          Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
-
-    // Go by all types and add all urls with the given type.
-    final Map<String, List<UrlType>> urls = new HashMap<>();
-    Function<String, List<UrlType>> listProd = k -> new ArrayList<>();
+    final Map<String, Set<UrlType>> urls = new HashMap<>();
     for (UrlType type : allowedUrlTypes) {
       final Set<String> urlsForType = getUrls(document, type);
       for (String url : urlsForType) {
-        urls.computeIfAbsent(url, listProd).add(type);
+        urls.computeIfAbsent(url, k -> new HashSet<>()).add(type);
       }
     }
-
-    // Done.
     return urls;
   }
 
@@ -215,8 +205,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
             .collect(Collectors.toSet());
   }
 
-  private Document deserializeToDocument(InputStream inputStream)
-          throws RdfDeserializationException {
+  private Document deserializeToDocument(InputStream inputStream) throws RdfDeserializationException {
 
     // Parse document to schema-agnostic XML document (but make parsing namespace-aware).
     try {
