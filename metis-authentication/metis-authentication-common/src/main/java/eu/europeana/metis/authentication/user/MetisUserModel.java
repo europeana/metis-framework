@@ -12,7 +12,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.Check;
 
 /**
  * The Metis user containing all parameters.
@@ -23,38 +22,37 @@ import org.hibernate.annotations.Check;
  */
 @Entity
 @Table(name = "metis_users")
-@Check(constraints = "account_role IN ('METIS_ADMIN', 'EUROPEANA_DATA_OFFICER', 'PROVIDER_VIEWER')")
 public class MetisUserModel {
 
-  @Column(name = "user_id", columnDefinition = "varchar(100)")
+  @Column(name = "user_id")
   private String userId;
   @Id
-  @Column(name = "email", columnDefinition = "varchar(40)")
+  @Column(name = "email")
   private String email;
-  @Column(name = "first_name", columnDefinition = "varchar(40)")
+  @Column(name = "first_name")
   private String firstName;
-  @Column(name = "last_name", columnDefinition = "varchar(40)")
+  @Column(name = "last_name")
   private String lastName;
   @Column(name = "password")
   @JsonIgnore
   private String password;
-  @Column(name = "organization_id", columnDefinition = "varchar(100)")
+  @Column(name = "organization_id")
   private String organizationId;
-  @Column(name = "organization_name", columnDefinition = "varchar(100)")
+  @Column(name = "organization_name")
   private String organizationName;
-  @Column(name = "account_role", columnDefinition = "varchar(40) not null")
+  @Column(name = "account_role")
   @Enumerated(EnumType.STRING)
   private AccountRole accountRole;
-  @Column(name = "country", columnDefinition = "varchar(40)")
+  @Column(name = "country")
   private String country;
   @Column(name = "network_member")
   private boolean networkMember;
   @Column(name = "metis_user")
   private boolean metisUserFlag;
-  @Column(name = "created_date", columnDefinition = "timestamp with time zone")
+  @Column(name = "created_date")
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdDate;
-  @Column(name = "updated_date", columnDefinition = "timestamp with time zone")
+  @Column(name = "updated_date")
   @Temporal(TemporalType.TIMESTAMP)
   private Date updatedDate;
 

@@ -4,15 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 /**
  * The token of a user, which related to an email of that user.
@@ -25,23 +20,15 @@ import javax.persistence.Transient;
 public class MetisUserAccessToken {
 
   @Id
-  @Column(name = "email", columnDefinition = "varchar(40)")
+  @Column(name = "email")
   @JsonIgnore
   private String email;
-  @Column(name = "access_token", columnDefinition = "varchar(255) unique not null")
+  @Column(name = "access_token")
   private String accessToken;
-  @Column(name = "timestamp", columnDefinition = "timestamp with time zone default now() not null")
+  @Column(name = "timestamp")
   @Temporal(TemporalType.TIMESTAMP)
   @JsonIgnore
   private Date timestamp;
-
-  //Only require to generate the constrain reference to the metis user, transient because we don't want the metis user to be saved when saving a token
-  @OneToOne
-  @MapsId
-  @JoinColumn(name = "email", referencedColumnName = "email", foreignKey = @ForeignKey(name = "metis_user_access_tokens_email_fkey"))
-  @Transient
-  @JsonIgnore
-  private static final MetisUserModel metisUserModel = null;
 
   public MetisUserAccessToken() {
     //Required for json serialization

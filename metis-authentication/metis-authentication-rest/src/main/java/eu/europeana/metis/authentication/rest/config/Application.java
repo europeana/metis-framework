@@ -9,12 +9,18 @@ import eu.europeana.metis.authentication.utils.MetisZohoOAuthPSQLHandler;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.zoho.ZohoAccessClient;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,11 +28,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -43,6 +51,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @EnableScheduling
 public class Application implements WebMvcConfigurer {
+
+  @Value("classpath:create_tables.sql")
+  private Resource createTablesSqlResource;
 
   //Custom trustore
   @Value("${truststore.path}")
@@ -80,10 +91,32 @@ public class Application implements WebMvcConfigurer {
   private AuthenticationService authenticationService;
 
   @PostConstruct
-  private void postConstruct() throws TrustStoreConfigurationException {
+  private void postConstruct() throws TrustStoreConfigurationException, IOException {
     if (StringUtils.isNotEmpty(truststorePath) && StringUtils.isNotEmpty(truststorePassword)) {
       CustomTruststoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
     }
+
+    //Read the sql file
+    String createTablesSql;
+    Reader reader = new InputStreamReader(createTablesSqlResource.getInputStream(),
+        StandardCharsets.UTF_8);
+    createTablesSql = FileCopyUtils.copyToString(reader);
+
+    //Execute sql and create tables if needed
+    org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
+    configuration.configure();
+    ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
+        configuration.getProperties()).build();
+    sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+    try (Session session = sessionFactory.openSession()) {
+      Transaction tx = session.beginTransaction();
+      session.createSQLQuery(createTablesSql).executeUpdate();
+      tx.commit();
+    }
+    finally {
+      sessionFactory.close();
+    }
+    //Initialize Zoho handler
     MetisZohoOAuthPSQLHandler.initializeWithRefreshToken(zohoCurrentUserEmail, zohoRefreshToken);
   }
 
@@ -111,13 +144,13 @@ public class Application implements WebMvcConfigurer {
   public ZohoAccessClient getZohoAccessClient() throws ZohoOAuthException {
     HashMap<String, String> zcrmConfigurations = new HashMap<>(8);
     zcrmConfigurations.put("minLogLevel", zohoMinLogLevel);
-    zcrmConfigurations.put("currentUserEmail",zohoCurrentUserEmail);
-    zcrmConfigurations.put("client_id",zohoClientId);
-    zcrmConfigurations.put("client_secret",zohoClientSecret);
-    zcrmConfigurations.put("redirect_uri",zohoRedirectUri);
-    zcrmConfigurations.put("persistence_handler_class",zohoPersistenceHandlerClass);
-    zcrmConfigurations.put("accessType",zohoAccessType);
-    zcrmConfigurations.put("apiBaseUrl",zohoApiBaseUrl);
+    zcrmConfigurations.put("currentUserEmail", zohoCurrentUserEmail);
+    zcrmConfigurations.put("client_id", zohoClientId);
+    zcrmConfigurations.put("client_secret", zohoClientSecret);
+    zcrmConfigurations.put("redirect_uri", zohoRedirectUri);
+    zcrmConfigurations.put("persistence_handler_class", zohoPersistenceHandlerClass);
+    zcrmConfigurations.put("accessType", zohoAccessType);
+    zcrmConfigurations.put("apiBaseUrl", zohoApiBaseUrl);
     return new ZohoAccessClient(zohoInitialGrantToken, zcrmConfigurations);
   }
 

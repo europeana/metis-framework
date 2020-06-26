@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +50,8 @@ public class AuthenticationService {
   private static final int ACCESS_TOKEN_LENGTH = 32;
   private static final Pattern TOKEN_MATCHING_PATTERN = Pattern
       .compile("^[" + ACCESS_TOKEN_CHARACTER_BASKET + "]*$");
+  public static final Supplier<BadContentException> COULD_NOT_CONVERT_EXCEPTION_SUPPLIER = () -> new BadContentException(
+      "Could not convert internal user");
   private final PsqlMetisUserDao psqlMetisUserDao;
   private final ZohoAccessClient zohoAccessClient;
 
@@ -124,7 +127,7 @@ public class AuthenticationService {
 
     psqlMetisUserDao.updateMetisUser(metisUser);
     return convert(storedMetisUser)
-        .orElseThrow(() -> new BadContentException("Could not convert internal user"));
+        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
   }
 
   private MetisUserModel constructMetisUserFromZoho(String email)
@@ -291,7 +294,7 @@ public class AuthenticationService {
       storedMetisUser.setMetisUserAccessToken(metisUserAccessToken);
     }
     return convert(storedMetisUser)
-        .orElseThrow(() -> new BadContentException("Could not convert internal user"));
+        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
   }
 
   /**
@@ -422,7 +425,7 @@ public class AuthenticationService {
    */
   public MetisUser authenticateUser(String accessToken) throws GenericMetisException {
     return convert(authenticateUserInternal(accessToken))
-        .orElseThrow(() -> new BadContentException("Could not convert internal user"));
+        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
   }
 
   private MetisUserModel authenticateUserInternal(String accessToken)
@@ -467,7 +470,7 @@ public class AuthenticationService {
       String userIdToRetrieve) throws GenericMetisException {
     authenticateUser(accessToken);
     return convert(psqlMetisUserDao.getMetisUserByUserId(userIdToRetrieve))
-        .orElseThrow(() -> new BadContentException("Could not convert internal user"));
+        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
   }
 
   /**

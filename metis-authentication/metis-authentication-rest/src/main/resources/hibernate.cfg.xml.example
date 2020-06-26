@@ -7,9 +7,6 @@
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.url">jdbc:postgresql://exampl.location.of.psql.server:port/database</property>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
-    <!--Do not use create mode because it removes all data that are previously present-->
-    <property name="hibernate.hbm2ddl.auto">update</property>
-    <property name="hibernate.jdbc.time_zone">UTC</property>
     <property name="hibernate.connection.username">username</property>
     <property name="hibernate.connection.password">password</property>
   </session-factory>
