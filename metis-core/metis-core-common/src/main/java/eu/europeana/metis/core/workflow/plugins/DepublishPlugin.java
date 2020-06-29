@@ -30,7 +30,7 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
    *
    * @param pluginMetadata The plugin metadata.
    */
-  DepublishPlugin(DepublishPluginMetadata pluginMetadata) {
+  public DepublishPlugin(DepublishPluginMetadata pluginMetadata) {
     super(PluginType.DEPUBLISH, pluginMetadata);
   }
 

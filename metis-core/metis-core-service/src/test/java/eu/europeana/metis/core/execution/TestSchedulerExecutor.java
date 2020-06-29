@@ -92,7 +92,7 @@ class TestSchedulerExecutor {
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
-    when(orchestratorService.addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), anyInt()))
+    when(orchestratorService.addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), isNull(), anyInt()))
         .thenThrow(new NoDatasetFoundException("Some Error"))
         .thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
@@ -106,7 +106,7 @@ class TestSchedulerExecutor {
     verify(scheduleWorkflowService, times(3))
         .getAllScheduledWorkflowsWithoutAuthorization(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, atMost(listSize * 4))
-        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), isNull(), anyInt());
   }
 
   @Test
@@ -144,7 +144,7 @@ class TestSchedulerExecutor {
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), anyInt()))
+        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), isNull(), anyInt()))
         .thenThrow(new NoDatasetFoundException("Some Error"))
         .thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
@@ -158,7 +158,7 @@ class TestSchedulerExecutor {
     verify(scheduleWorkflowService, times(3))
         .getAllScheduledWorkflowsWithoutAuthorization(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, times(0))
-        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), anyInt());
+        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(anyString(), isNull(), isNull(), anyInt());
   }
 
   @Test
