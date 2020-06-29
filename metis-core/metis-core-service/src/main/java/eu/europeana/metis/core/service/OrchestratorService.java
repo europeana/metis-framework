@@ -619,7 +619,7 @@ public class OrchestratorService {
     return executionInfo;
   }
 
-  private Date setPreviewInformation(DatasetExecutionInformation executionInfo,
+  private void setPreviewInformation(DatasetExecutionInformation executionInfo,
       ExecutablePlugin lastExecutablePreviewPlugin, MetisPlugin lastPreviewPlugin,
       boolean isPreviewCleaningOrRunning, Date date) {
     // Set the last preview information
@@ -634,7 +634,6 @@ public class OrchestratorService {
           lastExecutablePreviewPlugin.getExecutionProgress().getProcessedRecords()
               - lastExecutablePreviewPlugin.getExecutionProgress().getErrors());
     }
-    return date;
   }
 
   private void setPublishInformation(DatasetExecutionInformation executionInfo,

@@ -106,48 +106,29 @@ public class WorkflowUtils {
   public PluginWithExecutionId<ExecutablePlugin> validateWorkflowPlugins(Workflow workflow,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
 
-    // Sanity checks: workflow should have a plugin list.
+    // Workflow should have a plugin list.
     if (workflow.getMetisPluginsMetadata() == null) {
       throw new BadContentException("Workflow should not be empty.");
     }
 
-    // Compile the list of enabled enabledPlugins.
+    // Compile the list of enabled plugins.
     final List<AbstractExecutablePluginMetadata> enabledPlugins = workflow.getMetisPluginsMetadata()
         .stream().filter(AbstractExecutablePluginMetadata::isEnabled).collect(Collectors.toList());
 
-    // Sanity checks: workflow should not be empty and all should have a type.
+    // Workflow should not be empty and all should have a type.
     if (enabledPlugins.isEmpty()) {
       throw new BadContentException("Workflow should not be empty.");
     }
     if (enabledPlugins.stream().map(AbstractExecutablePluginMetadata::getExecutablePluginType)
         .anyMatch(Objects::isNull)) {
       throw new BadContentException(
-          "There are enabledPlugins of which the type could not be determined.");
+          "There are enabled plugins of which the type could not be determined.");
     }
 
-    // If depublish requested, make sure it's the only plugin in the workflow
-    final Optional<DepublishPluginMetadata> depublishPluginMetadata = enabledPlugins.stream()
-        .filter(plugin -> plugin.getExecutablePluginType().toPluginType() == PluginType.DEPUBLISH)
-        .map(plugin -> (DepublishPluginMetadata) plugin).findFirst();
-    if (enabledPlugins.size() > 1 && depublishPluginMetadata.isPresent()) {
-      throw new BadContentException(
-          "If DEPUBLISH plugin enabled, no other enabledPlugins are allowed.");
-    }
+    // Validate dataset/record depublication
+    validateDepublishPlugin(workflow.getDatasetId(), enabledPlugins);
 
-    // If record depublication requested, check if there are pending record ids in the db
-    if (depublishPluginMetadata.isPresent() && !depublishPluginMetadata.get()
-        .isDatasetDepublish()) {
-      final Set<String> pendingDepublicationIds = depublishRecordIdDao
-          .getAllDepublishRecordIdsWithStatus(workflow.getDatasetId(),
-              DepublishedRecordSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
-              DepublicationStatus.PENDING_DEPUBLICATION);
-      if (CollectionUtils.isEmpty(pendingDepublicationIds)) {
-        throw new BadContentException(
-            "Record depublication requested but there are no pending depublication record ids in the db");
-      }
-    }
-
-    // Validate and normalize the harvest parameters of harvest enabledPlugins (even if not enabled)
+    // Validate and normalize the harvest parameters of harvest plugins (even if not enabled)
     validateAndTrimHarvestParameters(enabledPlugins);
 
     // Check that first plugin is not link checking (except if it is the only plugin)
@@ -156,7 +137,7 @@ public class WorkflowUtils {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
 
-    // Make sure that all enabledPlugins (except the first) have a predecessor within the workflow.
+    // Make sure that all enabled plugins (except the first) have a predecessor within the workflow.
     final EnumSet<ExecutablePluginType> previousTypesInWorkflow = EnumSet
         .of(enabledPlugins.get(0).getExecutablePluginType());
     for (int i = 1; i < enabledPlugins.size(); i++) {
@@ -203,6 +184,31 @@ public class WorkflowUtils {
       if (pluginMetadata instanceof HTTPHarvestPluginMetadata) {
         final HTTPHarvestPluginMetadata httpMetadata = (HTTPHarvestPluginMetadata) pluginMetadata;
         httpMetadata.setUrl(validateUrl(httpMetadata.getUrl()).toString());
+      }
+    }
+  }
+
+  private void validateDepublishPlugin(String datasetId,
+      List<AbstractExecutablePluginMetadata> enabledPlugins) throws BadContentException {
+    // If depublish requested, make sure it's the only plugin in the workflow
+    final Optional<DepublishPluginMetadata> depublishPluginMetadata = enabledPlugins.stream()
+        .filter(plugin -> plugin.getExecutablePluginType().toPluginType() == PluginType.DEPUBLISH)
+        .map(plugin -> (DepublishPluginMetadata) plugin).findFirst();
+    if (enabledPlugins.size() > 1 && depublishPluginMetadata.isPresent()) {
+      throw new BadContentException(
+          "If DEPUBLISH plugin enabled, no other enabled plugins are allowed.");
+    }
+
+    // If record depublication requested, check if there are pending record ids in the db
+    if (depublishPluginMetadata.isPresent() && !depublishPluginMetadata.get()
+        .isDatasetDepublish()) {
+      final Set<String> pendingDepublicationIds = depublishRecordIdDao
+          .getAllDepublishRecordIdsWithStatus(datasetId,
+              DepublishedRecordSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+              DepublicationStatus.PENDING_DEPUBLICATION);
+      if (CollectionUtils.isEmpty(pendingDepublicationIds)) {
+        throw new BadContentException(
+            "Record depublication requested but there are no pending depublication record ids in the db");
       }
     }
   }
