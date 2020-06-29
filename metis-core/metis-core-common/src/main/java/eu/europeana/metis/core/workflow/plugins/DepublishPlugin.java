@@ -50,10 +50,14 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
     Map<String, String> extraParameters = new HashMap<>();
     extraParameters.put("METIS_DATASET_ID", datasetId);
     //Do set the records ids parameter only if record ids depublication enabled and there are record ids
-    if (!getPluginMetadata().isDatasetDepublish() && !CollectionUtils
-        .isEmpty(getPluginMetadata().getRecordIdsToDepublish())) {
-      extraParameters.put("RECORD_IDS_TO_DEPUBLISH",
-          String.join(",", getPluginMetadata().getRecordIdsToDepublish()));
+    if (!getPluginMetadata().isDatasetDepublish()) {
+      if (CollectionUtils.isEmpty(getPluginMetadata().getRecordIdsToDepublish())) {
+        throw new IllegalStateException(
+            "Requested record depublication but there are no records ids for depublication in the db");
+      } else {
+        extraParameters.put("RECORD_IDS_TO_DEPUBLISH",
+            String.join(",", getPluginMetadata().getRecordIdsToDepublish()));
+      }
     }
     DpsTask dpsTask = new DpsTask();
     dpsTask.setParameters(extraParameters);
