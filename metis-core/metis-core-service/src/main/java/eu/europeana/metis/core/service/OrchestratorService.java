@@ -12,6 +12,7 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
+import eu.europeana.metis.core.dataset.DatasetExecutionInformation.PublicationStatus;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
@@ -48,6 +49,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -79,6 +81,8 @@ public class OrchestratorService {
       .of(ExecutablePluginType.PREVIEW);
   public static final Set<ExecutablePluginType> EXECUTABLE_PUBLISH_TYPES = EnumSet
       .of(ExecutablePluginType.PUBLISH);
+  public static final Set<ExecutablePluginType> EXECUTABLE_DEPUBLISH_TYPES = EnumSet
+      .of(ExecutablePluginType.DEPUBLISH);
   public static final Set<PluginType> PREVIEW_TYPES = EnumSet
       .of(PluginType.PREVIEW, PluginType.REINDEX_TO_PREVIEW);
   public static final Set<PluginType> PUBLISH_TYPES = EnumSet
@@ -586,6 +590,9 @@ public class OrchestratorService {
         : latestPreviewPluginWithExecutionId.getPlugin();
     final MetisPlugin lastPublishPlugin = latestPublishPluginWithExecutionId == null ? null
         : latestPublishPluginWithExecutionId.getPlugin();
+    final ExecutablePlugin lastExecutableDepublishPlugin = Optional.ofNullable(workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_DEPUBLISH_TYPES, false))
+        .map(PluginWithExecutionId::getPlugin).orElse(null);
 
     // Obtain the relevant current executions
     final WorkflowExecution runningOrInQueueExecution = workflowExecutionDao
@@ -595,46 +602,79 @@ public class OrchestratorService {
     final boolean isPublishCleaningOrRunning = isPluginInWorkflowCleaningOrRunning(
         runningOrInQueueExecution, PUBLISH_TYPES);
 
-    // Set the last harvest information
     final DatasetExecutionInformation executionInfo = new DatasetExecutionInformation();
-    if (lastHarvestPlugin != null) {
+    // Set the last harvest information
+    if (Objects.nonNull(lastHarvestPlugin)) {
       executionInfo.setLastHarvestedDate(lastHarvestPlugin.getFinishedDate());
       executionInfo.setLastHarvestedRecords(
           lastHarvestPlugin.getExecutionProgress().getProcessedRecords() - lastHarvestPlugin
               .getExecutionProgress().getErrors());
     }
-
-    // Set the first publication information
-    executionInfo.setFirstPublishedDate(firstPublishPlugin == null ? null :
-        firstPublishPlugin.getFinishedDate());
-
-    // Set the last preview information
     final Date now = new Date();
-    if (lastPreviewPlugin != null) {
+    setPreviewInformation(executionInfo, lastExecutablePreviewPlugin, lastPreviewPlugin,
+        isPreviewCleaningOrRunning, now);
+    setPublishInformation(executionInfo, firstPublishPlugin, lastExecutablePublishPlugin,
+        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now);
+
+    return executionInfo;
+  }
+
+  private void setPreviewInformation(DatasetExecutionInformation executionInfo,
+      ExecutablePlugin lastExecutablePreviewPlugin, MetisPlugin lastPreviewPlugin,
+      boolean isPreviewCleaningOrRunning, Date date) {
+    // Set the last preview information
+    if (Objects.nonNull(lastPreviewPlugin)) {
       executionInfo.setLastPreviewDate(lastPreviewPlugin.getFinishedDate());
       executionInfo.setLastPreviewRecordsReadyForViewing(
-          !isPreviewCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPreviewPlugin, now));
+          !isPreviewCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPreviewPlugin,
+              date));
     }
-    if (lastExecutablePreviewPlugin != null) {
+    if (Objects.nonNull(lastExecutablePreviewPlugin)) {
       executionInfo.setLastPreviewRecords(
           lastExecutablePreviewPlugin.getExecutionProgress().getProcessedRecords()
               - lastExecutablePreviewPlugin.getExecutionProgress().getErrors());
     }
+  }
+
+  private void setPublishInformation(DatasetExecutionInformation executionInfo,
+      MetisPlugin firstPublishPlugin, ExecutablePlugin lastExecutablePublishPlugin,
+      MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
+      boolean isPublishCleaningOrRunning,
+      Date date) {
+    // Set the first publication information
+    executionInfo.setFirstPublishedDate(firstPublishPlugin == null ? null :
+        firstPublishPlugin.getFinishedDate());
 
     // Set the last publish information
-    if (lastPublishPlugin != null) {
+    if (Objects.nonNull(lastPublishPlugin)) {
       executionInfo.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       executionInfo.setLastPublishedRecordsReadyForViewing(
-          !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin, now));
+          !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin,
+              date));
     }
-    if (lastExecutablePublishPlugin != null) {
+    if (Objects.nonNull(lastExecutablePublishPlugin)) {
       executionInfo.setLastPublishedRecords(
           lastExecutablePublishPlugin.getExecutionProgress().getProcessedRecords()
               - lastExecutablePublishPlugin.getExecutionProgress().getErrors());
     }
 
-    // Done.
-    return executionInfo;
+    // Set the last depublish information
+    if (Objects.nonNull(lastExecutableDepublishPlugin)) {
+      executionInfo.setLastDepublishedDate(lastExecutableDepublishPlugin.getFinishedDate());
+      executionInfo.setLastDepublishedRecords(
+          lastExecutableDepublishPlugin.getExecutionProgress().getProcessedRecords()
+              - lastExecutableDepublishPlugin.getExecutionProgress().getErrors());
+    }
+
+    if (Objects.nonNull(lastExecutablePublishPlugin) && Objects
+        .nonNull(lastExecutableDepublishPlugin)) {
+      if (lastExecutablePublishPlugin.getFinishedDate()
+          .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) > 0) {
+        executionInfo.setPublicationStatus(PublicationStatus.PUBLISHED);
+      } else {
+        executionInfo.setPublicationStatus(PublicationStatus.DEPUBLISHED);
+      }
+    }
   }
 
   private boolean isPreviewOrPublishReadyForViewing(MetisPlugin plugin, Date now) {

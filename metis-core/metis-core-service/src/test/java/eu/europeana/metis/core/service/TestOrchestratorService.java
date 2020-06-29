@@ -28,7 +28,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
-import eu.europeana.metis.core.dao.DepublishedRecordDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -119,7 +119,7 @@ class TestOrchestratorService {
   private static WorkflowDao workflowDao;
   private static DatasetDao datasetDao;
   private static DatasetXsltDao datasetXsltDao;
-  private static DepublishedRecordDao depublishedRecordDao;
+  private static DepublishRecordIdDao depublishRecordIdDao;
   private static WorkflowExecutorManager workflowExecutorManager;
   private static WorkflowExecutionFactory workflowExecutionFactory;
   private static OrchestratorService orchestratorService;
@@ -133,13 +133,13 @@ class TestOrchestratorService {
     workflowDao = mock(WorkflowDao.class);
     datasetDao = mock(DatasetDao.class);
     datasetXsltDao = mock(DatasetXsltDao.class);
-    depublishedRecordDao = mock(DepublishedRecordDao.class);
+    depublishRecordIdDao = mock(DepublishRecordIdDao.class);
     workflowExecutorManager = mock(WorkflowExecutorManager.class);
     redissonClient = mock(RedissonClient.class);
     authorizer = mock(Authorizer.class);
 
     workflowExecutionFactory = spy(new WorkflowExecutionFactory(datasetXsltDao,
-        depublishedRecordDao, workflowExecutionDao, workflowUtils));
+        depublishRecordIdDao, workflowExecutionDao, workflowUtils));
     workflowExecutionFactory.setValidationExternalProperties(
         new ValidationProperties("url-ext", "schema-ext", "schematron-ext"));
     workflowExecutionFactory.setValidationInternalProperties(

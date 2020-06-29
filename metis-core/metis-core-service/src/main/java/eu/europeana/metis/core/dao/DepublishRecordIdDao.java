@@ -4,8 +4,8 @@ import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.internal.MorphiaCursor;
-import eu.europeana.metis.core.dataset.DepublishedRecord;
-import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationStatus;
+import eu.europeana.metis.core.dataset.DepublishRecordId;
+import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.DepublishedRecordView;
 import eu.europeana.metis.core.rest.RequestLimits;
@@ -25,10 +25,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 /**
- * DAO for {@link DepublishedRecord} objects.
+ * DAO for {@link DepublishRecordId} objects.
  */
 @Repository
-public class DepublishedRecordDao {
+public class DepublishRecordIdDao {
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
   private final long maximumRecordsPerDataset;
@@ -40,7 +40,7 @@ public class DepublishedRecordDao {
    * @param morphiaDatastoreProvider The datastore provider.
    * @param maximumRecordsPerDataset The maximum number of records we allow per dataset.
    */
-  public DepublishedRecordDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
+  public DepublishRecordIdDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
       long maximumRecordsPerDataset) {
     this(morphiaDatastoreProvider, maximumRecordsPerDataset,
         RequestLimits.DEPUBLISHED_RECORDS_PER_REQUEST.getLimit());
@@ -53,27 +53,27 @@ public class DepublishedRecordDao {
    * @param maximumRecordsPerDataset The maximum number of records we allow per dataset.
    * @param pageSize The page size for list requests.
    */
-  DepublishedRecordDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
+  DepublishRecordIdDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
       long maximumRecordsPerDataset, int pageSize) {
     this.morphiaDatastoreProvider = morphiaDatastoreProvider;
     this.maximumRecordsPerDataset = maximumRecordsPerDataset;
     this.pageSize = pageSize;
   }
 
-  private Set<String> getNonExistingRecords(String datasetId, Set<String> recordIds) {
+  private Set<String> getNonExistingRecordIds(String datasetId, Set<String> recordIds) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
 
       // Create query for existing records in list. Only return record IDs.
-      final Query<DepublishedRecord> query = morphiaDatastoreProvider.getDatastore()
-          .createQuery(DepublishedRecord.class);
-      query.field(DepublishedRecord.DATASET_ID_FIELD).equal(datasetId);
-      query.field(DepublishedRecord.RECORD_ID_FIELD).in(recordIds);
-      query.project(DepublishedRecord.RECORD_ID_FIELD, true);
-      query.project(DepublishedRecord.ID_FIELD, false);
+      final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
+          .createQuery(DepublishRecordId.class);
+      query.field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId);
+      query.field(DepublishRecordId.RECORD_ID_FIELD).in(recordIds);
+      query.project(DepublishRecordId.RECORD_ID_FIELD, true);
+      query.project(DepublishRecordId.ID_FIELD, false);
 
       // Execute query and find existing record IDs.
       final Set<String> existing = query.find().toList().stream()
-          .map(DepublishedRecord::getRecordId).collect(Collectors.toSet());
+          .map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
 
       // Return the other ones: the record IDs not found in the database.
       return recordIds.stream().filter(recordId -> !existing.contains(recordId))
@@ -84,7 +84,7 @@ public class DepublishedRecordDao {
   /**
    * Add depublished records to persistence. This method checks whether the depublished record
    * already exists, and if so, doesn't add it again. All new records (but not the existing ones)
-   * will have the default depublication state ({@link DepublicationStatus#PENDING_DEPUBLICATION})
+   * will have the default depublication status ({@link DepublicationStatus#PENDING_DEPUBLICATION})
    * and no depublication date.
    *
    * @param datasetId The dataset to which the records belong.
@@ -95,7 +95,7 @@ public class DepublishedRecordDao {
    * @throws BadContentException In case adding the records would violate the maximum number of
    * depublished records that each dataset can have.
    */
-  public int createRecordsToBeDepublished(String datasetId, Set<String> candidateRecordIds)
+  public int createRecordIdsToBeDepublished(String datasetId, Set<String> candidateRecordIds)
       throws BadContentException {
 
     // Check list size: if this is too large we can throw exception regardless of what's in the database.
@@ -105,22 +105,22 @@ public class DepublishedRecordDao {
     }
 
     // Get the nonexisting records: those we actually add.
-    final Set<String> recordsToAdd = getNonExistingRecords(datasetId, candidateRecordIds);
+    final Set<String> recordIdsToAdd = getNonExistingRecordIds(datasetId, candidateRecordIds);
 
     // Count: determine whether we are not above our maximum.
-    final long existingCount = countDepublishedRecordsForDataset(datasetId);
-    if (existingCount + recordsToAdd.size() > maximumRecordsPerDataset) {
+    final long existingCount = countDepublishRecordIdsForDataset(datasetId);
+    if (existingCount + recordIdsToAdd.size() > maximumRecordsPerDataset) {
       throw new BadContentException(
           "Can't add these records: this would violate the maximum number of records per dataset.");
     }
 
     // Add the records
-    final List<DepublishedRecord> objectsToAdd = recordsToAdd.stream().map(recordId -> {
-      final DepublishedRecord record = new DepublishedRecord();
-      record.setDatasetId(datasetId);
-      record.setRecordId(recordId);
-      record.setDepublicationStatus(DepublicationStatus.PENDING_DEPUBLICATION);
-      return record;
+    final List<DepublishRecordId> objectsToAdd = recordIdsToAdd.stream().map(recordId -> {
+      final DepublishRecordId depublishRecordId = new DepublishRecordId();
+      depublishRecordId.setDatasetId(datasetId);
+      depublishRecordId.setRecordId(recordId);
+      depublishRecordId.setDepublicationStatus(DepublicationStatus.PENDING_DEPUBLICATION);
+      return depublishRecordId;
     }).collect(Collectors.toList());
     ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
       morphiaDatastoreProvider.getDatastore().save(objectsToAdd);
@@ -128,7 +128,7 @@ public class DepublishedRecordDao {
     });
 
     // Done
-    return recordsToAdd.size();
+    return recordIdsToAdd.size();
   }
 
   /**
@@ -137,26 +137,27 @@ public class DepublishedRecordDao {
    * @param datasetId The ID of the dataset to count for.
    * @return The number of records for the given dataset.
    */
-  private long countDepublishedRecordsForDataset(String datasetId) {
+  private long countDepublishRecordIdsForDataset(String datasetId) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> morphiaDatastoreProvider.getDatastore().createQuery(DepublishedRecord.class)
-            .field(DepublishedRecord.DATASET_ID_FIELD).equal(datasetId).count());
+        () -> morphiaDatastoreProvider.getDatastore().createQuery(DepublishRecordId.class)
+            .field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId).count());
   }
 
   /**
-   * Get a list of depublished records for a given dataset.
+   * Get a list of depublish records for a given dataset.
+   * <p>Ids are retrieved regardless of their status</p>
    *
    * @param datasetId The dataset for which to retrieve the records. Cannot be null.
    * @param page The page (batch) number, starting at 0. Cannot be null.
    * @param sortField The sorting field. Cannot be null.
    * @param sortDirection The sorting direction. Cannot be null.
    * @param searchQuery Search query for the record ID. Can be null.
-   * @return A (possibly empty) list of depublished records.
+   * @return A (possibly empty) list of depublish record ids.
    */
-  public List<DepublishedRecordView> getDepublishedRecords(String datasetId, int page,
+  public List<DepublishedRecordView> getDepublishRecordIds(String datasetId, int page,
       DepublishedRecordSortField sortField, SortDirection sortDirection,
       String searchQuery) {
-    final Query<DepublishedRecord> query = prepareQueryForDepublishedRecords(datasetId, sortField,
+    final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, sortField,
         sortDirection, null, searchQuery);
 
     // Compute pagination
@@ -165,7 +166,7 @@ public class DepublishedRecordDao {
     final FindOptions findOptions = new FindOptions().skip(skip).limit(limit);
 
     // Execute query with correct pagination
-    final List<DepublishedRecord> result = getListOfQuery(query, findOptions);
+    final List<DepublishRecordId> result = getListOfQuery(query, findOptions);
 
     // Convert result to right object.
     return result.stream().map(DepublishedRecordView::new).collect(Collectors.toList());
@@ -174,41 +175,42 @@ public class DepublishedRecordDao {
   /**
    * Get all depublished records for a given dataset.
    * <p>This method is to be used with caution since it doesn't have a limit on the returned items.
-   * It is mainly used to minimize, internal to the application, database requests.</p>
+   * It is mainly used to minimize, internal to the application, database requests.
+   * Ids are returned based on the provided status filter parameter</p>
    *
    * @param datasetId The dataset for which to retrieve the records. Cannot be null.
    * @param sortField The sorting field. Cannot be null.
    * @param sortDirection The sorting direction. Cannot be null.
-   * @param depublicationState The depublication state of the records. Can be null.
-   * @return A (possibly empty) list of depublished records.
+   * @param depublicationStatus The depublication status of the records. Can be null.
+   * @return A (possibly empty) list of depublish record ids.
    */
-  public Set<String> getAllDepublishedRecords(String datasetId,
+  public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
       DepublishedRecordSortField sortField, SortDirection sortDirection,
-      DepublicationStatus depublicationState) {
-    final Query<DepublishedRecord> query = prepareQueryForDepublishedRecords(datasetId, sortField,
-        sortDirection, depublicationState, null);
-    query.project(DepublishedRecord.RECORD_ID_FIELD, true);
-    query.project(DepublishedRecord.ID_FIELD, false);
+      DepublicationStatus depublicationStatus) {
+    final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, sortField,
+        sortDirection, depublicationStatus, null);
+    query.project(DepublishRecordId.RECORD_ID_FIELD, true);
+    query.project(DepublishRecordId.ID_FIELD, false);
 
     // Execute query with correct pagination
-    final List<DepublishedRecord> result = getListOfQuery(query, null);
+    final List<DepublishRecordId> result = getListOfQuery(query, null);
 
     // Convert result to right object.
-    return result.stream().map(DepublishedRecord::getRecordId).collect(Collectors.toSet());
+    return result.stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
   }
 
-  private Query<DepublishedRecord> prepareQueryForDepublishedRecords(String datasetId,
+  private Query<DepublishRecordId> prepareQueryForDepublishRecordIds(String datasetId,
       DepublishedRecordSortField sortField, SortDirection sortDirection,
-      DepublicationStatus depublicationState, String searchQuery) {
+      DepublicationStatus depublicationStatus, String searchQuery) {
     // Create query.
-    final Query<DepublishedRecord> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(DepublishedRecord.class);
-    query.field(DepublishedRecord.DATASET_ID_FIELD).equal(datasetId);
-    if (Objects.nonNull(depublicationState)) {
-      query.field(DepublishedRecord.DEPUBLICATION_STATE_FIELD).equal(depublicationState);
+    final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(DepublishRecordId.class);
+    query.field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId);
+    if (Objects.nonNull(depublicationStatus)) {
+      query.field(DepublishRecordId.DEPUBLICATION_STATUS_FIELD).equal(depublicationStatus);
     }
     if (StringUtils.isNotBlank(searchQuery)) {
-      query.field(DepublishedRecord.RECORD_ID_FIELD).contains(searchQuery);
+      query.field(DepublishRecordId.RECORD_ID_FIELD).contains(searchQuery);
     }
 
     // Set ordering
@@ -243,18 +245,18 @@ public class DepublishedRecordDao {
     }
 
     // Create query.
-    final Query<DepublishedRecord> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(DepublishedRecord.class);
-    query.field(DepublishedRecord.DATASET_ID_FIELD).equal(datasetId);
+    final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(DepublishRecordId.class);
+    query.field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId);
 
     // Define the update operations.
-    final UpdateOperations<DepublishedRecord> updateOperations = morphiaDatastoreProvider
-        .getDatastore().createUpdateOperations(DepublishedRecord.class);
-    updateOperations.set(DepublishedRecord.DEPUBLICATION_STATE_FIELD, depublicationStatus);
+    final UpdateOperations<DepublishRecordId> updateOperations = morphiaDatastoreProvider
+        .getDatastore().createUpdateOperations(DepublishRecordId.class);
+    updateOperations.set(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus);
     if (depublicationStatus == DepublicationStatus.PENDING_DEPUBLICATION) {
-      updateOperations.unset(DepublishedRecord.DEPUBLICATION_DATE_FIELD);
+      updateOperations.unset(DepublishRecordId.DEPUBLICATION_DATE_FIELD);
     } else {
-      updateOperations.set(DepublishedRecord.DEPUBLICATION_DATE_FIELD, depublicationDate);
+      updateOperations.set(DepublishRecordId.DEPUBLICATION_DATE_FIELD, depublicationDate);
     }
 
     // Apply the operations.

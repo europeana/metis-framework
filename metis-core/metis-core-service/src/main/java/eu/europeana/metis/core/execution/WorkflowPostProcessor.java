@@ -1,9 +1,12 @@
 package eu.europeana.metis.core.execution;
 
-import eu.europeana.metis.core.dao.DepublishedRecordDao;
+import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dataset.DepublishedRecord.DepublicationStatus;
+import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.Dataset.PublicationFitness;
+import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
@@ -24,18 +27,20 @@ public class WorkflowPostProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowPostProcessor.class);
 
-  private final DepublishedRecordDao depublishedRecordDao;
+  private final DepublishRecordIdDao depublishRecordIdDao;
+  private final DatasetDao datasetDao;
   private final WorkflowExecutionDao workflowExecutionDao;
 
   /**
    * Constructor.
-   *
-   * @param depublishedRecordDao The DAO for depublished records.
+   *  @param depublishRecordIdDao The DAO for depublished records.
+   * @param datasetDao The DAO for datasets
    * @param workflowExecutionDao The DAO for workflow executions.
    */
-  public WorkflowPostProcessor(DepublishedRecordDao depublishedRecordDao,
-      WorkflowExecutionDao workflowExecutionDao) {
-    this.depublishedRecordDao = depublishedRecordDao;
+  public WorkflowPostProcessor(DepublishRecordIdDao depublishRecordIdDao,
+      DatasetDao datasetDao, WorkflowExecutionDao workflowExecutionDao) {
+    this.depublishRecordIdDao = depublishRecordIdDao;
+    this.datasetDao = datasetDao;
     this.workflowExecutionDao = workflowExecutionDao;
   }
 
@@ -59,7 +64,7 @@ public class WorkflowPostProcessor {
   }
 
   private void publishPostProcess(String datasetId) {
-    depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
+    depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId,
         DepublicationStatus.PENDING_DEPUBLICATION, null);
   }
 
@@ -67,7 +72,7 @@ public class WorkflowPostProcessor {
     final boolean datasetDepublish = ((DepublishPluginMetadata) plugin.getPluginMetadata())
         .isDatasetDepublish();
     if (datasetDepublish) { //Reset depublish status of records if depublishing dataset
-      depublishedRecordDao.markRecordIdsWithDepublicationStatus(datasetId,
+      depublishRecordIdDao.markRecordIdsWithDepublicationStatus(datasetId,
           DepublicationStatus.PENDING_DEPUBLICATION, null);
       //Find latest PUBLISH Type Plugin and set dataStatus
       final PluginWithExecutionId<MetisPlugin> latestSuccessfulPlugin = workflowExecutionDao
@@ -83,6 +88,9 @@ public class WorkflowPostProcessor {
           workflowExecutionDao.updateWorkflowPlugins(workflowExecutionToUpdate);
         }
       }
+      final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
+      dataset.setPublicationFitness(PublicationFitness.UNFIT);
+      datasetDao.update(dataset);
     } else { //Set depublish status if depublishing records
       // TODO: 6/23/20 To be worked when record depublication with ecloud is completed
     }

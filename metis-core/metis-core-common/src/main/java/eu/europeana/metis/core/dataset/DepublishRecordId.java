@@ -16,16 +16,16 @@ import org.bson.types.ObjectId;
  */
 @Entity
 @Indexes({
-    @Index(fields = {@Field(DepublishedRecord.DATASET_ID_FIELD),
-        @Field(DepublishedRecord.RECORD_ID_FIELD)}, options = @IndexOptions(unique = true)),
-    @Index(fields = {@Field(DepublishedRecord.DATASET_ID_FIELD)}),
-    @Index(fields = {@Field(DepublishedRecord.RECORD_ID_FIELD)})})
-public class DepublishedRecord implements HasMongoObjectId {
+    @Index(fields = {@Field(DepublishRecordId.DATASET_ID_FIELD),
+        @Field(DepublishRecordId.RECORD_ID_FIELD)}, options = @IndexOptions(unique = true)),
+    @Index(fields = {@Field(DepublishRecordId.DATASET_ID_FIELD)}),
+    @Index(fields = {@Field(DepublishRecordId.RECORD_ID_FIELD)})})
+public class DepublishRecordId implements HasMongoObjectId {
 
   public static final String ID_FIELD = "_id";
   public static final String DATASET_ID_FIELD = "datasetId";
   public static final String RECORD_ID_FIELD = "recordId";
-  public static final String DEPUBLICATION_STATE_FIELD = "depublicationStatus";
+  public static final String DEPUBLICATION_STATUS_FIELD = "depublicationStatus";
   public static final String DEPUBLICATION_DATE_FIELD = "depublicationDate";
 
   public enum DepublicationStatus {DEPUBLISHED, PENDING_DEPUBLICATION}
