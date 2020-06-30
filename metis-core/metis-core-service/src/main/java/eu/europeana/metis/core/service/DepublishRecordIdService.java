@@ -2,7 +2,6 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
-import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.rest.DepublishedRecordView;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
@@ -36,25 +35,21 @@ public class DepublishRecordIdService {
   private final Authorizer authorizer;
   private final OrchestratorService orchestratorService;
   private final DepublishRecordIdDao depublishRecordIdDao;
-  private final WorkflowUtils workflowUtils;
 
   private static final Pattern INVALID_CHAR_IN_RECORD_ID = Pattern.compile("[^a-zA-Z0-9_]");
 
   /**
    * Constructor.
-   *
-   * @param authorizer The authorizer for checking permissions.
+   *  @param authorizer The authorizer for checking permissions.
    * @param orchestratorService The orchestrator service
    * @param depublishRecordIdDao The DAO for depublished records.
-   * @param workflowUtils The workflow utilities instance.
    */
   @Autowired
   public DepublishRecordIdService(Authorizer authorizer, OrchestratorService orchestratorService,
-      DepublishRecordIdDao depublishRecordIdDao, WorkflowUtils workflowUtils) {
+      DepublishRecordIdDao depublishRecordIdDao) {
     this.authorizer = authorizer;
     this.orchestratorService = orchestratorService;
     this.depublishRecordIdDao = depublishRecordIdDao;
-    this.workflowUtils = workflowUtils;
   }
 
   /**

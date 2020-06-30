@@ -9,7 +9,6 @@ import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.rest.RequestLimits;
@@ -165,8 +164,8 @@ public class Application implements WebMvcConfigurer {
   @Bean
   public DepublishRecordIdService getDepublishedRecordService(
       DepublishRecordIdDao depublishRecordIdDao, OrchestratorService orchestratorService,
-      Authorizer authorizer, WorkflowUtils workflowUtils) {
-    return new DepublishRecordIdService(authorizer, orchestratorService, depublishRecordIdDao, workflowUtils);
+      Authorizer authorizer) {
+    return new DepublishRecordIdService(authorizer, orchestratorService, depublishRecordIdDao);
   }
 
   /**

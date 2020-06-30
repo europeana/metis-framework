@@ -8,7 +8,6 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
-import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.exception.BadContentException;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
@@ -20,7 +19,6 @@ class TestDepublishRecordIdService {
   private static DepublishRecordIdService service;
   private static OrchestratorService orchestratorService;
   private static DepublishRecordIdDao depublishRecordIdDao;
-  private static WorkflowUtils workflowUtils;
   private static Authorizer authorizer;
 
   @BeforeAll
@@ -28,9 +26,8 @@ class TestDepublishRecordIdService {
     depublishRecordIdDao = mock(DepublishRecordIdDao.class);
     authorizer = mock(Authorizer.class);
     orchestratorService = mock(OrchestratorService.class);
-    workflowUtils = mock(WorkflowUtils.class);
     service = spy(new DepublishRecordIdService(authorizer, orchestratorService,
-        depublishRecordIdDao, workflowUtils));
+        depublishRecordIdDao));
   }
 
   @AfterEach
