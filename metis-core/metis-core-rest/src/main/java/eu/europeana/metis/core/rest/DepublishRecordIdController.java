@@ -171,7 +171,7 @@ public class DepublishRecordIdController {
    * happen since ids are UUIDs</li>
    * </ul>
    */
-  @PostMapping(value = RestEndpoints.DEPUBLISH_RECORDIDS_EXECUTE_DATASETID, produces = {
+  @PostMapping(value = RestEndpoints.DEPUBLISH_EXECUTE_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public WorkflowExecution addDepublishWorkflowInQueueOfWorkflowExecutions(
@@ -181,7 +181,7 @@ public class DepublishRecordIdController {
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return depublishRecordIdService.createDepublishWorkflowExecution(metisUser, datasetId,
+    return depublishRecordIdService.createAndAddInQueueDepublishWorkflowExecution(metisUser, datasetId,
         datasetDepublish, priority);
   }
 }

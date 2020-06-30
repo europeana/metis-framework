@@ -270,7 +270,8 @@ public class OrchestratorService {
    * called from a scheduled task. </p>
    *
    * @param datasetId the dataset identifier for which the execution will take place
-   * @param workflow optional, the workflow to use instead of retrieving the saved one from the db
+   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from
+   * the db
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
    * highest
@@ -290,14 +291,16 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(
-      String datasetId, Workflow workflow, ExecutablePluginType enforcedPredecessorType, int priority)
+      String datasetId, @Nullable Workflow workflowProvided,
+      @Nullable ExecutablePluginType enforcedPredecessorType, int priority)
       throws GenericMetisException {
     final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (dataset == null) {
       throw new NoDatasetFoundException(
           String.format("No dataset found with datasetId: %s, in METIS", datasetId));
     }
-    return addWorkflowInQueueOfWorkflowExecutions(dataset, workflow, enforcedPredecessorType, priority);
+    return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
+        enforcedPredecessorType, priority);
   }
 
   /**
@@ -310,7 +313,8 @@ public class OrchestratorService {
    *
    * @param metisUser the user wishing to perform this operation
    * @param datasetId the dataset identifier for which the execution will take place
-   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from the db
+   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from
+   * the db
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
    * highest
@@ -331,14 +335,17 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUser metisUser,
-      String datasetId, @Nullable Workflow workflowProvided, @Nullable ExecutablePluginType enforcedPredecessorType, int priority)
+      String datasetId, @Nullable Workflow workflowProvided,
+      @Nullable ExecutablePluginType enforcedPredecessorType, int priority)
       throws GenericMetisException {
     final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
-    return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided, enforcedPredecessorType, priority);
+    return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
+        enforcedPredecessorType, priority);
   }
 
   private WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(Dataset dataset,
-      @Nullable Workflow workflowProvided, @Nullable ExecutablePluginType enforcedPredecessorType, int priority)
+      @Nullable Workflow workflowProvided, @Nullable ExecutablePluginType enforcedPredecessorType,
+      int priority)
       throws GenericMetisException {
 
     // Get the workflow or use the one provided.

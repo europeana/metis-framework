@@ -190,7 +190,7 @@ public class DepublishRecordIdService {
     return result;
   }
 
-  public WorkflowExecution createDepublishWorkflowExecution(MetisUser metisUser, String datasetId,
+  public WorkflowExecution createAndAddInQueueDepublishWorkflowExecution(MetisUser metisUser, String datasetId,
       boolean datasetDepublish, int priority) throws GenericMetisException {
     // Authorize.
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
@@ -202,9 +202,6 @@ public class DepublishRecordIdService {
     depublishPluginMetadata.setEnabled(true);
     depublishPluginMetadata.setDatasetDepublish(datasetDepublish);
     workflow.setMetisPluginsMetadata(Collections.singletonList(depublishPluginMetadata));
-
-    // Validate the new workflow.
-    workflowUtils.validateWorkflowPlugins(workflow, null);
 
     return orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, workflow, null, priority);
