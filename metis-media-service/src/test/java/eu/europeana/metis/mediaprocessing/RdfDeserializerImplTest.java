@@ -3,7 +3,6 @@ package eu.europeana.metis.mediaprocessing;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
 import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.util.Collections;
@@ -50,7 +49,7 @@ class RdfDeserializerImplTest {
 
   @Test
   void testGetResourceUrlsWithDifferentResources()
-          throws RdfConverterException, RdfDeserializationException, ParserConfigurationException {
+          throws RdfDeserializationException, ParserConfigurationException {
 
     // Create document with root rdf
     final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
@@ -99,7 +98,7 @@ class RdfDeserializerImplTest {
 
   @Test
   void testGetResourceUrlsWithSameResources()
-          throws RdfConverterException, RdfDeserializationException, ParserConfigurationException {
+          throws RdfDeserializationException, ParserConfigurationException {
 
     // Create document with root rdf
     final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
@@ -136,7 +135,7 @@ class RdfDeserializerImplTest {
 
   @Test
   void testGetResourceUrlsWithoutData()
-          throws RdfConverterException, RdfDeserializationException, ParserConfigurationException {
+          throws RdfDeserializationException, ParserConfigurationException {
     final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
             .newDocument();
     final Element rdf = document.createElementNS(RDF_NAMESPACE, "RDF");

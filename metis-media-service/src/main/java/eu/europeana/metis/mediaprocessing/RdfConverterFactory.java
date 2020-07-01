@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing;
 
-import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
+import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
+import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
 
 /**
  * This factory creates objects for (de)serializing RDF files.
@@ -12,9 +13,9 @@ public class RdfConverterFactory {
    * Create an RDF file serializer.
    *
    * @return An RDF file serializer.
-   * @throws RdfConverterException In case the serializer could not be instantiated.
+   * @throws RdfSerializationException In case the serializer could not be instantiated.
    */
-  public RdfSerializer createRdfSerializer() throws RdfConverterException {
+  public RdfSerializer createRdfSerializer() throws RdfSerializationException {
     return new RdfSerializerImpl();
   }
 
@@ -22,9 +23,9 @@ public class RdfConverterFactory {
    * Create an RDF file deserializer.
    *
    * @return An RDF file deserializer.
-   * @throws RdfConverterException In case the deserializer could not be instantiated.
+   * @throws RdfDeserializationException In case the deserializer could not be instantiated.
    */
-  public RdfDeserializer createRdfDeserializer() throws RdfConverterException {
+  public RdfDeserializer createRdfDeserializer() throws RdfDeserializationException {
     return new RdfDeserializerImpl();
   }
 }

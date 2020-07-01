@@ -1,7 +1,6 @@
 package eu.europeana.metis.mediaprocessing;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.mediaprocessing.exception.RdfConverterException;
 import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
@@ -45,41 +44,65 @@ import org.xml.sax.SAXException;
  */
 class RdfDeserializerImpl implements RdfDeserializer {
 
-  private final IUnmarshallingContext context;
+  private final UnmarshallingContextWrapper unmarshallingContext = new UnmarshallingContextWrapper();
 
-  private final XPathExpression getObjectExpression;
-  private final XPathExpression getHasViewExpression;
-  private final XPathExpression getIsShownAtExpression;
-  private final XPathExpression getIsShownByExpression;
+  private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
+          xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:object/@rdf:resource"));
+  private final XPathExpressionWrapper getHasViewExpression = new XPathExpressionWrapper(
+          xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource"));
+  private final XPathExpressionWrapper getIsShownAtExpression = new XPathExpressionWrapper(
+          xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownAt/@rdf:resource"));
+  private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
+          xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource"));
 
-  /**
-   * Constructor.
-   *
-   * @throws RdfConverterException In case something went wrong constructing this object.
-   */
-  RdfDeserializerImpl() throws RdfConverterException {
+  private static class XPathExpressionWrapper extends
+          ThreadSafeWrapper<XPathExpression, RdfDeserializationException> {
 
-    // Create the unmarshalling context
-    try {
-      context = RdfBindingFactoryProvider.getBindingFactory().createUnmarshallingContext();
-    } catch (JiBXException e) {
-      throw new RdfConverterException("Problem creating deserializer.", e);
+    public XPathExpressionWrapper(
+            ThrowingFunction<XPath, XPathExpression, XPathExpressionException> expressionCreator) {
+      super(() -> {
+        final XPath xPath = XPathFactory.newInstance().newXPath();
+        xPath.setNamespaceContext(new RdfNamespaceContext());
+        try {
+          return expressionCreator.apply(xPath);
+        } catch (XPathExpressionException e) {
+          throw new RdfDeserializationException("Could not initialize xpath expression.", e);
+        }
+      });
     }
 
-    // Create xpath engine and set namespace context.
-    final XPath xPath = XPathFactory.newInstance().newXPath();
-    xPath.setNamespaceContext(new RdfNamespaceContext());
+    public NodeList evaluate(Document document) throws RdfDeserializationException {
+      return process(compiledExpression -> {
+        try {
+          return (NodeList) compiledExpression.evaluate(document, XPathConstants.NODESET);
+        } catch (XPathExpressionException e) {
+          throw new RdfDeserializationException("Problem with deserializing RDF.", e);
+        }
+      });
+    }
+  }
 
-    // Create the various expressions we will need.
-    try {
-      getObjectExpression = xPath.compile("/rdf:RDF/ore:Aggregation/edm:object/@rdf:resource");
-      getHasViewExpression = xPath.compile("/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource");
-      getIsShownAtExpression = xPath
-              .compile("/rdf:RDF/ore:Aggregation/edm:isShownAt/@rdf:resource");
-      getIsShownByExpression = xPath
-              .compile("/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource");
-    } catch (XPathExpressionException e) {
-      throw new RdfConverterException("Could not initialize xpath expressions.", e);
+  private static class UnmarshallingContextWrapper extends
+          ThreadSafeWrapper<IUnmarshallingContext, RdfDeserializationException> {
+
+    public UnmarshallingContextWrapper() {
+      super(() -> {
+        try {
+          return RdfBindingFactoryProvider.getBindingFactory().createUnmarshallingContext();
+        } catch (JiBXException e) {
+          throw new RdfDeserializationException("Problem creating deserializer.", e);
+        }
+      });
+    }
+
+    public RDF deserializeToRdf(InputStream inputStream) throws RdfDeserializationException {
+      return process(context -> {
+        try {
+          return (RDF) context.unmarshalDocument(inputStream, "UTF-8");
+        } catch (JiBXException e) {
+          throw new RdfDeserializationException("Problem with deserializing record to RDF.", e);
+        }
+      });
     }
   }
 
@@ -92,23 +115,24 @@ class RdfDeserializerImpl implements RdfDeserializer {
   @Override
   public RdfResourceEntry getMainThumbnailResourceForMediaExtraction(InputStream inputStream)
           throws RdfDeserializationException {
-    return getMainThumbnailResourceForMediaExtraction(deserializeToDocument(inputStream));
+    return getMainThumbnailResourceForMediaExtraction(deserializeToDocument(inputStream))
+            .orElse(null);
   }
 
-  private RdfResourceEntry getMainThumbnailResourceForMediaExtraction(Document record)
+  private Optional<RdfResourceEntry> getMainThumbnailResourceForMediaExtraction(Document record)
           throws RdfDeserializationException {
 
     // Get the entries of the required types.
     final Map<String, Set<UrlType>> resourceEntries = getResourceEntries(record,
             Collections.singleton(UrlType.URL_TYPE_FOR_MAIN_THUMBNAIL_RESOURCE));
 
-    // If there is not exactly one, we return null.
+    // If there is not exactly one, we return an empty optional.
     if (resourceEntries.size() != 1) {
-      return null;
+      return Optional.empty();
     }
 
     // So there is exactly one. Convert and return.
-    return convertToResourceEntries(resourceEntries).get(0);
+    return Optional.of(convertToResourceEntries(resourceEntries).get(0));
   }
 
   @Override
@@ -126,11 +150,9 @@ class RdfDeserializerImpl implements RdfDeserializer {
     final Map<String, Set<UrlType>> allResources = getResourceEntries(record,
             UrlType.URL_TYPES_FOR_MEDIA_EXTRACTION);
 
-    // Find the main thumbnail resource and remove it from the result.
-    final RdfResourceEntry toExclude = getMainThumbnailResourceForMediaExtraction(record);
-    if (toExclude != null) {
-      allResources.remove(toExclude.getResourceUrl());
-    }
+    // Find the main thumbnail resource if it exists and remove it from the result.
+    getMainThumbnailResourceForMediaExtraction(record).map(RdfResourceEntry::getResourceUrl)
+            .ifPresent(allResources::remove);
 
     // Done.
     return convertToResourceEntries(allResources);
@@ -174,7 +196,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private Set<String> getUrls(Document document, UrlType type) throws RdfDeserializationException {
 
     // Determine the right expression to apply.
-    final XPathExpression expression;
+    final XPathExpressionWrapper expression;
     switch (type) {
       case OBJECT:
         expression = getObjectExpression;
@@ -192,15 +214,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
         return Collections.emptySet();
     }
 
-    // Get all matching attributes in a node list.
-    final NodeList nodes;
-    try {
-      nodes = (NodeList) expression.evaluate(document, XPathConstants.NODESET);
-    } catch (XPathExpressionException e) {
-      throw new RdfDeserializationException("Problem with deserializing RDF.", e);
-    }
-
-    // Convert the node list to a set of attribute values.
+    // Evaluate the expression and convert the node list to a set of attribute values.
+    final NodeList nodes = expression.evaluate(document);
     return IntStream.range(0, nodes.getLength()).mapToObj(nodes::item).map(Node::getNodeValue)
             .collect(Collectors.toSet());
   }
@@ -227,7 +242,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
   @Override
   public EnrichedRdf getRdfForResourceEnriching(InputStream inputStream)
           throws RdfDeserializationException {
-    return new EnrichedRdfImpl(deserializeToRdf(inputStream));
+    return new EnrichedRdfImpl(unmarshallingContext.deserializeToRdf(inputStream));
   }
 
   private static <R> R performDeserialization(byte[] input, DeserializationOperation<R> operation)
@@ -236,14 +251,6 @@ class RdfDeserializerImpl implements RdfDeserializer {
       return operation.performDeserialization(inputStream);
     } catch (IOException e) {
       throw new RdfDeserializationException("Problem with reading byte array - Shouldn't happen.", e);
-    }
-  }
-
-  private RDF deserializeToRdf(InputStream inputStream) throws RdfDeserializationException {
-    try {
-      return (RDF) context.unmarshalDocument(inputStream, "UTF-8");
-    } catch (JiBXException e) {
-      throw new RdfDeserializationException("Problem with deserializing record to RDF.", e);
     }
   }
 
