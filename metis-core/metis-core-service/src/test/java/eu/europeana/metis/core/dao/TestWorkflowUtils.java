@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
-import eu.europeana.metis.core.util.DepublishedRecordSortField;
+import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -337,7 +337,7 @@ class TestWorkflowUtils {
     workflowDepublish.setMetisPluginsMetadata(abstractMetisPluginMetadata);
     when(depublishRecordIdDao
         .getAllDepublishRecordIdsWithStatus(workflowDepublish.getDatasetId(),
-            DepublishedRecordSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+            DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
             DepublicationStatus.PENDING_DEPUBLICATION)).thenReturn(Collections.emptySet());
     assertThrows(BadContentException.class, () -> workflowUtils
         .validateWorkflowPlugins(workflowDepublish, null));

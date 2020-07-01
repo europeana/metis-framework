@@ -5,7 +5,7 @@ import eu.europeana.metis.core.dataset.DepublishRecordId;
 /**
  * Defines the sorting fields known for depublished records.
  */
-public enum DepublishedRecordSortField {
+public enum DepublishRecordIdSortField {
 
   /**
    * Sorting based on record ID.
@@ -24,7 +24,7 @@ public enum DepublishedRecordSortField {
 
   private final String databaseField;
 
-  DepublishedRecordSortField(String databaseField) {
+  DepublishRecordIdSortField(String databaseField) {
     this.databaseField = databaseField;
   }
 

@@ -6,7 +6,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DepublishRecordIdService;
 import eu.europeana.metis.core.util.SortDirection;
-import eu.europeana.metis.core.util.DepublishedRecordSortField;
+import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -129,17 +129,17 @@ public class DepublishRecordIdController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<DepublishedRecordView> getDepublishRecordIds(
+  public ResponseListWrapper<DepublishRecordIdView> getDepublishRecordIds(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "page", defaultValue = "0") int page,
-      @RequestParam(value = "sortField", required = false) DepublishedRecordSortField sortField,
+      @RequestParam(value = "sortField", required = false) DepublishRecordIdSortField sortField,
       @RequestParam(value = "sortAscending", defaultValue = "" + true) boolean sortAscending,
       @RequestParam(value = "searchQuery", required = false) String searchQuery
   ) throws GenericMetisException {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return depublishRecordIdService.getDepublishRecordIds(metisUser, datasetId, page,
-        sortField == null ? DepublishedRecordSortField.RECORD_ID : sortField,
+        sortField == null ? DepublishRecordIdSortField.RECORD_ID : sortField,
         sortAscending ? SortDirection.ASCENDING : SortDirection.DESCENDING, searchQuery);
   }
 

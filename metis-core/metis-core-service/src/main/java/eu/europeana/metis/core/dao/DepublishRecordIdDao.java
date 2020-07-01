@@ -7,9 +7,9 @@ import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.DepublishedRecordView;
+import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.core.util.DepublishedRecordSortField;
+import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
@@ -154,8 +154,8 @@ public class DepublishRecordIdDao {
    * @param searchQuery Search query for the record ID. Can be null.
    * @return A (possibly empty) list of depublish record ids.
    */
-  public List<DepublishedRecordView> getDepublishRecordIds(String datasetId, int page,
-      DepublishedRecordSortField sortField, SortDirection sortDirection,
+  public List<DepublishRecordIdView> getDepublishRecordIds(String datasetId, int page,
+      DepublishRecordIdSortField sortField, SortDirection sortDirection,
       String searchQuery) {
     final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, sortField,
         sortDirection, null, searchQuery);
@@ -169,7 +169,7 @@ public class DepublishRecordIdDao {
     final List<DepublishRecordId> result = getListOfQuery(query, findOptions);
 
     // Convert result to right object.
-    return result.stream().map(DepublishedRecordView::new).collect(Collectors.toList());
+    return result.stream().map(DepublishRecordIdView::new).collect(Collectors.toList());
   }
 
   /**
@@ -185,7 +185,7 @@ public class DepublishRecordIdDao {
    * @return A (possibly empty) list of depublish record ids.
    */
   public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
-      DepublishedRecordSortField sortField, SortDirection sortDirection,
+      DepublishRecordIdSortField sortField, SortDirection sortDirection,
       DepublicationStatus depublicationStatus) {
     final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, sortField,
         sortDirection, depublicationStatus, null);
@@ -200,7 +200,7 @@ public class DepublishRecordIdDao {
   }
 
   private Query<DepublishRecordId> prepareQueryForDepublishRecordIds(String datasetId,
-      DepublishedRecordSortField sortField, SortDirection sortDirection,
+      DepublishRecordIdSortField sortField, SortDirection sortDirection,
       DepublicationStatus depublicationStatus, String searchQuery) {
     // Create query.
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()

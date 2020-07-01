@@ -3,7 +3,7 @@ package eu.europeana.metis.core.dao;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
-import eu.europeana.metis.core.util.DepublishedRecordSortField;
+import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -204,7 +204,7 @@ public class WorkflowUtils {
         .isDatasetDepublish()) {
       final Set<String> pendingDepublicationIds = depublishRecordIdDao
           .getAllDepublishRecordIdsWithStatus(datasetId,
-              DepublishedRecordSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
+              DepublishRecordIdSortField.DEPUBLICATION_STATE, SortDirection.ASCENDING,
               DepublicationStatus.PENDING_DEPUBLICATION);
       if (CollectionUtils.isEmpty(pendingDepublicationIds)) {
         throw new BadContentException(

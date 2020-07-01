@@ -3,9 +3,9 @@ package eu.europeana.metis.core.service;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.rest.DepublishedRecordView;
+import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
-import eu.europeana.metis.core.util.DepublishedRecordSortField;
+import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -168,19 +168,19 @@ public class DepublishRecordIdService {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
    * </ul>
    */
-  public ResponseListWrapper<DepublishedRecordView> getDepublishRecordIds(MetisUser metisUser,
-      String datasetId, int page, DepublishedRecordSortField sortField,
+  public ResponseListWrapper<DepublishRecordIdView> getDepublishRecordIds(MetisUser metisUser,
+      String datasetId, int page, DepublishRecordIdSortField sortField,
       SortDirection sortDirection, String searchQuery) throws GenericMetisException {
 
     // Authorize.
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
     // Get the page of records
-    final List<DepublishedRecordView> records = depublishRecordIdDao
+    final List<DepublishRecordIdView> records = depublishRecordIdDao
         .getDepublishRecordIds(datasetId, page, sortField, sortDirection, searchQuery);
 
     // Compile the result
-    final ResponseListWrapper<DepublishedRecordView> result = new ResponseListWrapper<>();
+    final ResponseListWrapper<DepublishRecordIdView> result = new ResponseListWrapper<>();
     result.setResultsAndLastPage(records, depublishRecordIdDao.getPageSize(), page);
     return result;
   }
