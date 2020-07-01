@@ -39,6 +39,8 @@ public final class ExecutablePluginFactory {
         new PluginCreator<>(IndexToPreviewPluginMetadata.class, IndexToPreviewPlugin::new));
     creators.put(ExecutablePluginType.PUBLISH,
         new PluginCreator<>(IndexToPublishPluginMetadata.class, IndexToPublishPlugin::new));
+    creators.put(ExecutablePluginType.DEPUBLISH,
+        new PluginCreator<>(DepublishPluginMetadata.class, DepublishPlugin::new));
     pluginCreators = Collections.unmodifiableMap(creators);
   }
 

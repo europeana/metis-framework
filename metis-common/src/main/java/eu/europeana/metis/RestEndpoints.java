@@ -28,7 +28,8 @@ public final class RestEndpoints {
   public static final String DATASETS_SEARCH ="/datasets/search";
 
   // DEPUBLISHED RECORDS
-  public static final String DEPUBLISHED_RECORDS_DATASETID = "/depublished_records/{datasetId}";
+  public static final String DEPUBLISH_RECORDIDS_DATASETID = "/depublish/record_ids/{datasetId}";
+  public static final String DEPUBLISH_EXECUTE_DATASETID = "/depublish/execute/{datasetId}";
 
   //AUTHENTICATION
   public static final String AUTHENTICATION_REGISTER = "/authentication/register";

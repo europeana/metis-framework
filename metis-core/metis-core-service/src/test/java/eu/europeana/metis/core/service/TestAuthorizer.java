@@ -16,7 +16,7 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
-class AuthorizerTest {
+class TestAuthorizer {
 
   private DatasetDao datasetDao;
   private Authorizer authorizer;

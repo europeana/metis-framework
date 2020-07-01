@@ -241,7 +241,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         plugin.execute(workflowExecution.getDatasetId(), dpsClient, ecloudBasePluginParameters);
       }
     } catch (ExternalTaskException | RuntimeException e) {
-      LOGGER.warn("Execution of external task failed", e);
+      LOGGER.warn("Execution of plugin failed", e);
       pluginUnchecked.setFinishedDate(null);
       pluginUnchecked.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
       pluginUnchecked.setFailMessage(TRIGGER_ERROR_PREFIX + e.getMessage());

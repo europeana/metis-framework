@@ -4,14 +4,15 @@ import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
-import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ResultList;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
+import eu.europeana.metis.core.dataset.DatasetExecutionInformation.PublicationStatus;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
@@ -22,8 +23,8 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.rest.ExecutionHistory;
 import eu.europeana.metis.core.rest.ExecutionHistory.Execution;
 import eu.europeana.metis.core.rest.PluginsWithDataAvailability;
-import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.PluginsWithDataAvailability.PluginWithDataAvailability;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
@@ -48,6 +49,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -58,6 +60,7 @@ import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -73,15 +76,17 @@ public class OrchestratorService {
   //Use with String.format to suffix the datasetId
   private static final String EXECUTION_FOR_DATASETID_SUBMITION_LOCK = "EXECUTION_FOR_DATASETID_SUBMITION_LOCK_%s";
 
-  private static final Set<ExecutablePluginType> HARVEST_TYPES = EnumSet
+  public static final Set<ExecutablePluginType> HARVEST_TYPES = EnumSet
       .of(ExecutablePluginType.HTTP_HARVEST, ExecutablePluginType.OAIPMH_HARVEST);
-  private static final Set<ExecutablePluginType> EXECUTABLE_PREVIEW_TYPES = EnumSet
+  public static final Set<ExecutablePluginType> EXECUTABLE_PREVIEW_TYPES = EnumSet
       .of(ExecutablePluginType.PREVIEW);
-  private static final Set<ExecutablePluginType> EXECUTABLE_PUBLISH_TYPES = EnumSet
+  public static final Set<ExecutablePluginType> EXECUTABLE_PUBLISH_TYPES = EnumSet
       .of(ExecutablePluginType.PUBLISH);
-  private static final Set<PluginType> PREVIEW_TYPES = EnumSet
+  public static final Set<ExecutablePluginType> EXECUTABLE_DEPUBLISH_TYPES = EnumSet
+      .of(ExecutablePluginType.DEPUBLISH);
+  public static final Set<PluginType> PREVIEW_TYPES = EnumSet
       .of(PluginType.PREVIEW, PluginType.REINDEX_TO_PREVIEW);
-  private static final Set<PluginType> PUBLISH_TYPES = EnumSet
+  public static final Set<PluginType> PUBLISH_TYPES = EnumSet
       .of(PluginType.PUBLISH, PluginType.REINDEX_TO_PUBLISH);
 
   private final WorkflowExecutionDao workflowExecutionDao;
@@ -265,6 +270,8 @@ public class OrchestratorService {
    * called from a scheduled task. </p>
    *
    * @param datasetId the dataset identifier for which the execution will take place
+   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from
+   * the db
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
    * highest
@@ -284,14 +291,16 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(
-      String datasetId, ExecutablePluginType enforcedPredecessorType, int priority)
+      String datasetId, @Nullable Workflow workflowProvided,
+      @Nullable ExecutablePluginType enforcedPredecessorType, int priority)
       throws GenericMetisException {
     final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (dataset == null) {
       throw new NoDatasetFoundException(
           String.format("No dataset found with datasetId: %s, in METIS", datasetId));
     }
-    return addWorkflowInQueueOfWorkflowExecutions(dataset, enforcedPredecessorType, priority);
+    return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
+        enforcedPredecessorType, priority);
   }
 
   /**
@@ -304,6 +313,8 @@ public class OrchestratorService {
    *
    * @param metisUser the user wishing to perform this operation
    * @param datasetId the dataset identifier for which the execution will take place
+   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from
+   * the db
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
    * highest
@@ -324,17 +335,26 @@ public class OrchestratorService {
    * </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUser metisUser,
-      String datasetId, ExecutablePluginType enforcedPredecessorType, int priority)
+      String datasetId, @Nullable Workflow workflowProvided,
+      @Nullable ExecutablePluginType enforcedPredecessorType, int priority)
       throws GenericMetisException {
     final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
-    return addWorkflowInQueueOfWorkflowExecutions(dataset, enforcedPredecessorType, priority);
+    return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
+        enforcedPredecessorType, priority);
   }
 
   private WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(Dataset dataset,
-      ExecutablePluginType enforcedPredecessorType, int priority) throws GenericMetisException {
+      @Nullable Workflow workflowProvided, @Nullable ExecutablePluginType enforcedPredecessorType,
+      int priority)
+      throws GenericMetisException {
 
-    // Get the workflow.
-    final Workflow workflow = workflowDao.getWorkflow(dataset.getDatasetId());
+    // Get the workflow or use the one provided.
+    final Workflow workflow;
+    if (Objects.isNull(workflowProvided)) {
+      workflow = workflowDao.getWorkflow(dataset.getDatasetId());
+    } else {
+      workflow = workflowProvided;
+    }
     if (workflow == null) {
       throw new NoWorkflowFoundException(
           String.format("No workflow found with datasetId: %s, in METIS", dataset.getDatasetId()));
@@ -450,8 +470,8 @@ public class OrchestratorService {
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
     return Optional.ofNullable(
-            workflowUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
-            .map(PluginWithExecutionId::getPlugin).orElse(null);
+        workflowUtils.computePredecessorPlugin(pluginType, enforcedPredecessorType, datasetId))
+        .map(PluginWithExecutionId::getPlugin).orElse(null);
   }
 
   /**
@@ -493,7 +513,7 @@ public class OrchestratorService {
     // Find the executions.
     final ResultList<WorkflowExecution> data = workflowExecutionDao.getAllWorkflowExecutions(
         datasetIds, workflowStatuses, orderField, ascending, nextPage, false);
-    
+
     // Compile and return the result.
     final ResponseListWrapper<WorkflowExecution> result = new ResponseListWrapper<>();
     result.setResultsAndLastPage(data.getResults(), getWorkflowExecutionsPerRequest(), nextPage,
@@ -568,18 +588,27 @@ public class OrchestratorService {
     final ExecutablePlugin lastHarvestPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, HARVEST_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final MetisPlugin firstPublishPlugin = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin> firstPublishPluginWithExecutionId = workflowExecutionDao
         .getFirstSuccessfulPlugin(datasetId, PUBLISH_TYPES);
+    final MetisPlugin firstPublishPlugin = firstPublishPluginWithExecutionId == null ? null
+        : firstPublishPluginWithExecutionId.getPlugin();
     final ExecutablePlugin lastExecutablePreviewPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PREVIEW_TYPES, false)).map(
         PluginWithExecutionId::getPlugin).orElse(null);
     final ExecutablePlugin lastExecutablePublishPlugin = Optional.ofNullable(workflowExecutionDao
         .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_PUBLISH_TYPES, false))
         .map(PluginWithExecutionId::getPlugin).orElse(null);
-    final MetisPlugin lastPreviewPlugin = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin> latestPreviewPluginWithExecutionId = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PREVIEW_TYPES);
-    final MetisPlugin lastPublishPlugin = workflowExecutionDao
+    final PluginWithExecutionId<MetisPlugin> latestPublishPluginWithExecutionId = workflowExecutionDao
         .getLatestSuccessfulPlugin(datasetId, PUBLISH_TYPES);
+    final MetisPlugin lastPreviewPlugin = latestPreviewPluginWithExecutionId == null ? null
+        : latestPreviewPluginWithExecutionId.getPlugin();
+    final MetisPlugin lastPublishPlugin = latestPublishPluginWithExecutionId == null ? null
+        : latestPublishPluginWithExecutionId.getPlugin();
+    final ExecutablePlugin lastExecutableDepublishPlugin = Optional.ofNullable(workflowExecutionDao
+        .getLatestSuccessfulExecutablePlugin(datasetId, EXECUTABLE_DEPUBLISH_TYPES, false))
+        .map(PluginWithExecutionId::getPlugin).orElse(null);
 
     // Obtain the relevant current executions
     final WorkflowExecution runningOrInQueueExecution = workflowExecutionDao
@@ -589,51 +618,84 @@ public class OrchestratorService {
     final boolean isPublishCleaningOrRunning = isPluginInWorkflowCleaningOrRunning(
         runningOrInQueueExecution, PUBLISH_TYPES);
 
-    // Set the last harvest information
     final DatasetExecutionInformation executionInfo = new DatasetExecutionInformation();
-    if (lastHarvestPlugin != null) {
+    // Set the last harvest information
+    if (Objects.nonNull(lastHarvestPlugin)) {
       executionInfo.setLastHarvestedDate(lastHarvestPlugin.getFinishedDate());
       executionInfo.setLastHarvestedRecords(
           lastHarvestPlugin.getExecutionProgress().getProcessedRecords() - lastHarvestPlugin
               .getExecutionProgress().getErrors());
     }
-
-    // Set the first publication information
-    executionInfo.setFirstPublishedDate(firstPublishPlugin == null ? null :
-        firstPublishPlugin.getFinishedDate());
-
-    // Set the last preview information
     final Date now = new Date();
-    if (lastPreviewPlugin != null) {
+    setPreviewInformation(executionInfo, lastExecutablePreviewPlugin, lastPreviewPlugin,
+        isPreviewCleaningOrRunning, now);
+    setPublishInformation(executionInfo, firstPublishPlugin, lastExecutablePublishPlugin,
+        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now);
+
+    return executionInfo;
+  }
+
+  private void setPreviewInformation(DatasetExecutionInformation executionInfo,
+      ExecutablePlugin lastExecutablePreviewPlugin, MetisPlugin lastPreviewPlugin,
+      boolean isPreviewCleaningOrRunning, Date date) {
+    // Set the last preview information
+    if (Objects.nonNull(lastPreviewPlugin)) {
       executionInfo.setLastPreviewDate(lastPreviewPlugin.getFinishedDate());
       executionInfo.setLastPreviewRecordsReadyForViewing(
-          !isPreviewCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPreviewPlugin, now));
+          !isPreviewCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPreviewPlugin,
+              date));
     }
-    if (lastExecutablePreviewPlugin != null) {
+    if (Objects.nonNull(lastExecutablePreviewPlugin)) {
       executionInfo.setLastPreviewRecords(
           lastExecutablePreviewPlugin.getExecutionProgress().getProcessedRecords()
               - lastExecutablePreviewPlugin.getExecutionProgress().getErrors());
     }
+  }
+
+  private void setPublishInformation(DatasetExecutionInformation executionInfo,
+      MetisPlugin firstPublishPlugin, ExecutablePlugin lastExecutablePublishPlugin,
+      MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
+      boolean isPublishCleaningOrRunning,
+      Date date) {
+    // Set the first publication information
+    executionInfo.setFirstPublishedDate(firstPublishPlugin == null ? null :
+        firstPublishPlugin.getFinishedDate());
 
     // Set the last publish information
-    if (lastPublishPlugin != null) {
+    if (Objects.nonNull(lastPublishPlugin)) {
       executionInfo.setLastPublishedDate(lastPublishPlugin.getFinishedDate());
       executionInfo.setLastPublishedRecordsReadyForViewing(
-          !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin, now));
+          !isPublishCleaningOrRunning && isPreviewOrPublishReadyForViewing(lastPublishPlugin,
+              date));
     }
-    if (lastExecutablePublishPlugin != null) {
+    if (Objects.nonNull(lastExecutablePublishPlugin)) {
       executionInfo.setLastPublishedRecords(
           lastExecutablePublishPlugin.getExecutionProgress().getProcessedRecords()
               - lastExecutablePublishPlugin.getExecutionProgress().getErrors());
     }
 
-    // Done.
-    return executionInfo;
+    // Set the last depublish information
+    if (Objects.nonNull(lastExecutableDepublishPlugin)) {
+      executionInfo.setLastDepublishedDate(lastExecutableDepublishPlugin.getFinishedDate());
+      executionInfo.setLastDepublishedRecords(
+          lastExecutableDepublishPlugin.getExecutionProgress().getProcessedRecords()
+              - lastExecutableDepublishPlugin.getExecutionProgress().getErrors());
+    }
+
+    if (Objects.nonNull(lastExecutablePublishPlugin) && Objects
+        .nonNull(lastExecutableDepublishPlugin)) {
+      if (lastExecutablePublishPlugin.getFinishedDate()
+          .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) > 0) {
+        executionInfo.setPublicationStatus(PublicationStatus.PUBLISHED);
+      } else {
+        executionInfo.setPublicationStatus(PublicationStatus.DEPUBLISHED);
+      }
+    }
   }
 
   private boolean isPreviewOrPublishReadyForViewing(MetisPlugin plugin, Date now) {
     final boolean dataIsValid = !(plugin instanceof ExecutablePlugin)
-        || ExecutablePlugin.getDataStatus((ExecutablePlugin) plugin) == DataStatus.VALID;
+        || MetisPlugin.getDataStatus((ExecutablePlugin) plugin) == DataStatus.VALID;
     final boolean enoughTimeHasPassed = getSolrCommitPeriodInMins() <
         DateUtils.calculateDateDifference(plugin.getFinishedDate(), now, TimeUnit.MINUTES);
     return dataIsValid && enoughTimeHasPassed;

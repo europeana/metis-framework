@@ -34,7 +34,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
 
   private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
-  private DataStatus dataStatus;
 
   /**
    * Constructor with provided pluginType
@@ -73,16 +72,6 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   @Override
   public void setExecutionProgress(ExecutionProgress executionProgress) {
     this.executionProgress = executionProgress;
-  }
-
-  @Override
-  public DataStatus getDataStatus() {
-    return dataStatus;
-  }
-
-  @Override
-  public void setDataStatus(DataStatus dataStatus) {
-    this.dataStatus = dataStatus;
   }
 
   private Revision createOutputRevisionForExecution(String ecloudProvider, boolean published) {
@@ -208,8 +197,9 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     String pluginTypeName = getPluginType().name();
     LOGGER.info("Starting execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
         ecloudBasePluginParameters.getEcloudDatasetId());
+
+    DpsTask dpsTask = prepareDpsTask(datasetId, ecloudBasePluginParameters);
     try {
-      DpsTask dpsTask = prepareDpsTask(datasetId, ecloudBasePluginParameters);
       setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
       setDataStatus(DataStatus.VALID);
     } catch (DpsException | RuntimeException e) {
