@@ -61,7 +61,11 @@ class RdfDeserializerImpl implements RdfDeserializer {
     public XPathExpressionWrapper(
             ThrowingFunction<XPath, XPathExpression, XPathExpressionException> expressionCreator) {
       super(() -> {
-        final XPath xPath = XPathFactory.newInstance().newXPath();
+        final XPathFactory factory;
+        synchronized (XPathFactory.class) {
+          factory = XPathFactory.newInstance();
+        }
+        final XPath xPath = factory.newXPath();
         xPath.setNamespaceContext(new RdfNamespaceContext());
         try {
           return expressionCreator.apply(xPath);
