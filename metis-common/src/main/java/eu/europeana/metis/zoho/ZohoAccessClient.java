@@ -264,7 +264,7 @@ public class ZohoAccessClient {
             Collectors.joining(ZohoConstants.OR))).collect(Collectors.joining(ZohoConstants.OR));
   }
 
-  public static <T extends ZCRMEntity> List<T> castItemsToType(List<? extends ZCRMEntity> zcrmEntities,
+  private static <T extends ZCRMEntity> List<T> castItemsToType(List<? extends ZCRMEntity> zcrmEntities,
       Class<T> classType) {
     return zcrmEntities.stream().filter(classType::isInstance).map(classType::cast)
         .collect(Collectors.toList());

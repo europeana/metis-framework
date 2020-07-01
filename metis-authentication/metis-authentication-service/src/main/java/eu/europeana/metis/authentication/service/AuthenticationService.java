@@ -49,7 +49,7 @@ public class AuthenticationService {
   private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   private static final int ACCESS_TOKEN_LENGTH = 32;
   private static final Pattern TOKEN_MATCHING_PATTERN = Pattern
-      .compile("^[" + ACCESS_TOKEN_CHARACTER_BASKET + "]*$");
+      .compile("^[a-zA-Z0-9]*$");
   public static final Supplier<BadContentException> COULD_NOT_CONVERT_EXCEPTION_SUPPLIER = () -> new BadContentException(
       "Could not convert internal user");
   private final PsqlMetisUserDao psqlMetisUserDao;
@@ -85,7 +85,7 @@ public class AuthenticationService {
   public void registerUser(String email, String password) throws GenericMetisException {
 
     MetisUserModel storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
-    if (storedMetisUser != null) {
+    if (Objects.nonNull(storedMetisUser)) {
       throw new UserAlreadyExistsException(
           String.format("User with email: %s already exists", email));
     }
@@ -126,8 +126,7 @@ public class AuthenticationService {
     }
 
     psqlMetisUserDao.updateMetisUser(metisUser);
-    return convert(storedMetisUser)
-        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
+    return convert(storedMetisUser);
   }
 
   private MetisUserModel constructMetisUserFromZoho(String email)
@@ -293,8 +292,7 @@ public class AuthenticationService {
       psqlMetisUserDao.createUserAccessToken(metisUserAccessToken);
       storedMetisUser.setMetisUserAccessToken(metisUserAccessToken);
     }
-    return convert(storedMetisUser)
-        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
+    return convert(storedMetisUser);
   }
 
   /**
@@ -424,8 +422,7 @@ public class AuthenticationService {
    * </ul>
    */
   public MetisUser authenticateUser(String accessToken) throws GenericMetisException {
-    return convert(authenticateUserInternal(accessToken))
-        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
+    return convert(authenticateUserInternal(accessToken));
   }
 
   private MetisUserModel authenticateUserInternal(String accessToken)
@@ -469,8 +466,7 @@ public class AuthenticationService {
   public MetisUser getMetisUserByUserIdOnlyWithPublicFields(String accessToken,
       String userIdToRetrieve) throws GenericMetisException {
     authenticateUser(accessToken);
-    return convert(psqlMetisUserDao.getMetisUserByUserId(userIdToRetrieve))
-        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
+    return convert(psqlMetisUserDao.getMetisUserByUserId(userIdToRetrieve));
   }
 
   /**
@@ -482,8 +478,8 @@ public class AuthenticationService {
     return convert(psqlMetisUserDao.getAllMetisUsers());
   }
 
-  private static Optional<MetisUser> convert(MetisUserModel record) {
-    return Optional.ofNullable(record).map(MetisUser::new);
+  private static MetisUser convert(MetisUserModel record) throws BadContentException {
+    return Optional.ofNullable(record).map(MetisUser::new).orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
   }
 
   private static List<MetisUser> convert(List<MetisUserModel> records) {
