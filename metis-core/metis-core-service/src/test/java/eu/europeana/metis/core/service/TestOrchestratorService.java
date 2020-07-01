@@ -354,13 +354,14 @@ class TestOrchestratorService {
 
     // Add the workflow
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
     verify(authorizer, times(1))
         .authorizeWriteExistingDatasetById(metisUser, dataset.getDatasetId());
     verifyNoMoreInteractions(authorizer);
 
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(dataset.getDatasetId(), null,
+            null,
             0);
     verifyNoMoreInteractions(authorizer);
 
@@ -416,7 +417,7 @@ class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -438,7 +439,7 @@ class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -469,7 +470,7 @@ class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -485,7 +486,7 @@ class TestOrchestratorService {
     when(workflowUtils.validateWorkflowPlugins(workflow, null))
         .thenThrow(new PluginExecutionNotAllowed(""));
     assertThrows(PluginExecutionNotAllowed.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0));
   }
 
   @Test
@@ -504,7 +505,7 @@ class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -527,7 +528,7 @@ class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -547,7 +548,7 @@ class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0);
   }
 
   @Test
@@ -558,7 +559,7 @@ class TestOrchestratorService {
     when(authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId))
         .thenThrow(NoDatasetFoundException.class);
     assertThrows(NoDatasetFoundException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, null,null, 0));
   }
 
   @Test
@@ -566,7 +567,7 @@ class TestOrchestratorService {
     final String datasetId = Integer.toString(TestObjectFactory.DATASETID);
     when(datasetDao.getDatasetByDatasetId(datasetId)).thenReturn(null);
     assertThrows(NoDatasetFoundException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(datasetId, null, 0));
+        .addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(datasetId, null, null, 0));
   }
 
   @Test
@@ -578,7 +579,7 @@ class TestOrchestratorService {
         .thenReturn(dataset);
     when(workflowDao.getWorkflow(dataset.getDatasetId())).thenReturn(null);
     assertThrows(NoWorkflowFoundException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null,null, 0));
   }
 
   @Test
@@ -593,7 +594,7 @@ class TestOrchestratorService {
     when(workflowUtils.validateWorkflowPlugins(workflow, null))
         .thenThrow(new BadContentException(""));
     assertThrows(BadContentException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0));
   }
 
   @Test
@@ -609,7 +610,7 @@ class TestOrchestratorService {
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()))
         .thenReturn(new ObjectId().toString());
     assertThrows(WorkflowExecutionAlreadyExistsException.class, () -> orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, 0));
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, dataset.getDatasetId(), null, null, 0));
   }
 
   @Test

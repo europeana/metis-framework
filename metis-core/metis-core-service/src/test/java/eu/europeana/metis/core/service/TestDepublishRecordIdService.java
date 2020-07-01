@@ -17,19 +17,22 @@ import org.junit.jupiter.api.Test;
 class TestDepublishRecordIdService {
 
   private static DepublishRecordIdService service;
-  private static DepublishRecordIdDao dao;
+  private static OrchestratorService orchestratorService;
+  private static DepublishRecordIdDao depublishRecordIdDao;
   private static Authorizer authorizer;
 
   @BeforeAll
   static void setupMocks() {
-    dao = mock(DepublishRecordIdDao.class);
+    depublishRecordIdDao = mock(DepublishRecordIdDao.class);
     authorizer = mock(Authorizer.class);
-    service = spy(new DepublishRecordIdService(authorizer, dao));
+    orchestratorService = mock(OrchestratorService.class);
+    service = spy(new DepublishRecordIdService(authorizer, orchestratorService,
+        depublishRecordIdDao));
   }
 
   @AfterEach
   void resetMocks() {
-    reset(dao, authorizer, service);
+    reset(depublishRecordIdDao, authorizer, service);
   }
 
   @Test

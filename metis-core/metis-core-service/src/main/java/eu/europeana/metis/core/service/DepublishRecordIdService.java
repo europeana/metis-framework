@@ -7,11 +7,15 @@ import eu.europeana.metis.core.rest.DepublishedRecordView;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.util.DepublishedRecordSortField;
 import eu.europeana.metis.core.util.SortDirection;
+import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -29,20 +33,22 @@ public class DepublishRecordIdService {
 
   private static final Pattern LINE_SEPARATION_PATTERN = Pattern.compile("\\R");
   private final Authorizer authorizer;
+  private final OrchestratorService orchestratorService;
   private final DepublishRecordIdDao depublishRecordIdDao;
 
   private static final Pattern INVALID_CHAR_IN_RECORD_ID = Pattern.compile("[^a-zA-Z0-9_]");
 
   /**
    * Constructor.
-   *
-   * @param authorizer The authorizer for checking permissions.
+   *  @param authorizer The authorizer for checking permissions.
+   * @param orchestratorService The orchestrator service
    * @param depublishRecordIdDao The DAO for depublished records.
    */
   @Autowired
-  public DepublishRecordIdService(Authorizer authorizer,
+  public DepublishRecordIdService(Authorizer authorizer, OrchestratorService orchestratorService,
       DepublishRecordIdDao depublishRecordIdDao) {
     this.authorizer = authorizer;
+    this.orchestratorService = orchestratorService;
     this.depublishRecordIdDao = depublishRecordIdDao;
   }
 
@@ -177,5 +183,22 @@ public class DepublishRecordIdService {
     final ResponseListWrapper<DepublishedRecordView> result = new ResponseListWrapper<>();
     result.setResultsAndLastPage(records, depublishRecordIdDao.getPageSize(), page);
     return result;
+  }
+
+  public WorkflowExecution createAndAddInQueueDepublishWorkflowExecution(MetisUser metisUser, String datasetId,
+      boolean datasetDepublish, int priority) throws GenericMetisException {
+    // Authorize.
+    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+
+    //Prepare depublish workflow, do not save in the database. Only create workflow execution
+    final Workflow workflow = new Workflow();
+    workflow.setDatasetId(datasetId);
+    final DepublishPluginMetadata depublishPluginMetadata = new DepublishPluginMetadata();
+    depublishPluginMetadata.setEnabled(true);
+    depublishPluginMetadata.setDatasetDepublish(datasetDepublish);
+    workflow.setMetisPluginsMetadata(Collections.singletonList(depublishPluginMetadata));
+
+    return orchestratorService
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, workflow, null, priority);
   }
 }

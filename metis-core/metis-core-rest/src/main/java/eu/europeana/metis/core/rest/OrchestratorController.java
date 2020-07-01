@@ -235,7 +235,7 @@ public class OrchestratorController {
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     WorkflowExecution workflowExecution = orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, enforcedPredecessorType,
+        .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, null, enforcedPredecessorType,
             priority);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("WorkflowExecution for datasetId '{}' added to queue",

@@ -15,6 +15,7 @@ import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.Authorizer;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.DepublishRecordIdService;
+import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import java.io.IOException;
@@ -131,24 +132,24 @@ public class Application implements WebMvcConfigurer {
    */
   @Bean
   public DepublishRecordIdDao getDepublishedRecordDao(
-          MorphiaDatastoreProvider morphiaDatastoreProvider) {
+      MorphiaDatastoreProvider morphiaDatastoreProvider) {
     return new DepublishRecordIdDao(morphiaDatastoreProvider,
-            propertiesHolder.getMaxDepublishedRecordsPerDataset());
+        propertiesHolder.getMaxDepublishedRecordsPerDataset());
   }
 
-    /**
-     * Get the Service for datasets.
-     * <p>It encapsulates several DAOs and combines their functionality into methods</p>
-     *
-     * @param datasetDao the Dao instance to access the Dataset database
-     * @param datasetXsltDao the Dao instance to access the DatasetXslt database
-     * @param workflowDao the Dao instance to access the Workflow database
-     * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
-     * @param scheduledWorkflowDao the Dao instance to access the ScheduledWorkflow database
-     * @param redissonClient {@link RedissonClient}
-     * @param authorizer the authorizer for this service
-     * @return the dataset service instance instantiated
-     */
+  /**
+   * Get the Service for datasets.
+   * <p>It encapsulates several DAOs and combines their functionality into methods</p>
+   *
+   * @param datasetDao the Dao instance to access the Dataset database
+   * @param datasetXsltDao the Dao instance to access the DatasetXslt database
+   * @param workflowDao the Dao instance to access the Workflow database
+   * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
+   * @param scheduledWorkflowDao the Dao instance to access the ScheduledWorkflow database
+   * @param redissonClient {@link RedissonClient}
+   * @param authorizer the authorizer for this service
+   * @return the dataset service instance instantiated
+   */
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
       WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
@@ -162,8 +163,9 @@ public class Application implements WebMvcConfigurer {
 
   @Bean
   public DepublishRecordIdService getDepublishedRecordService(
-          DepublishRecordIdDao depublishRecordIdDao, Authorizer authorizer) {
-    return new DepublishRecordIdService(authorizer, depublishRecordIdDao);
+      DepublishRecordIdDao depublishRecordIdDao, OrchestratorService orchestratorService,
+      Authorizer authorizer) {
+    return new DepublishRecordIdService(authorizer, orchestratorService, depublishRecordIdDao);
   }
 
   /**
