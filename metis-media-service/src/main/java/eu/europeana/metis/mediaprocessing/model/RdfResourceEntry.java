@@ -1,9 +1,9 @@
 package eu.europeana.metis.mediaprocessing.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -26,7 +26,7 @@ public class RdfResourceEntry implements Serializable {
    * @param resourceUrl The URL of the resource.
    * @param urlTypes The resource URL types with which this resource is referenced.
    */
-  public RdfResourceEntry(String resourceUrl, List<UrlType> urlTypes) {
+  public RdfResourceEntry(String resourceUrl, Collection<UrlType> urlTypes) {
     this.resourceUrl = resourceUrl;
     this.urlTypes = new HashSet<>(urlTypes);
   }

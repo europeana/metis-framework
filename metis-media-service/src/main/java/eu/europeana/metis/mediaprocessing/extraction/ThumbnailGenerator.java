@@ -4,6 +4,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
+import eu.europeana.metis.mediaprocessing.model.ThumbnailKind;
 import eu.europeana.metis.utils.MediaType;
 import java.io.File;
 import java.io.IOException;
@@ -43,20 +44,6 @@ class ThumbnailGenerator {
 
   private static final String PNG_MIME_TYPE = "image/png";
   private static final String JPEG_MIME_TYPE = "image/jpeg";
-
-  private enum ThumbnailKind {
-
-    MEDIUM(200, "-MEDIUM"),
-    LARGE(400, "-LARGE");
-
-    protected final int size;
-    protected final String suffix;
-
-    ThumbnailKind(int size, String suffix) {
-      this.size = size;
-      this.suffix = suffix;
-    }
-  }
 
   private static final String COMMAND_RESULT_FORMAT = "\n%w\n%h\n%[colorspace]\n";
   private static final int COMMAND_RESULT_WIDTH_LINE = 0;
@@ -356,10 +343,10 @@ class ThumbnailGenerator {
     final List<ThumbnailWithSize> result = new ArrayList<>(ThumbnailKind.values().length);
     try {
       for (ThumbnailKind thumbnailKind : ThumbnailKind.values()) {
-        final String targetName = md5 + thumbnailKind.suffix;
+        final String targetName = md5 + thumbnailKind.getNameSuffix();
         final ThumbnailImpl thumbnail = new ThumbnailImpl(url, thumbnailMimeType, targetName);
-        result.add(
-            new ThumbnailWithSize(thumbnail, thumbnailKind.size, imageMagickThumbnailTypePrefix));
+        result.add(new ThumbnailWithSize(thumbnail, thumbnailKind.getImageSize(),
+                imageMagickThumbnailTypePrefix));
       }
     } catch (RuntimeException | IOException e) {
       closeAllThumbnailsSilently(result);

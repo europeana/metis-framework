@@ -3,6 +3,7 @@ package eu.europeana.metis.mediaprocessing;
 import eu.europeana.metis.mediaprocessing.exception.LinkCheckingException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.model.MediaExtractorInput;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import java.io.Closeable;
@@ -73,7 +74,7 @@ public abstract class AbstractMediaProcessorPool<I, O, E extends Exception, T ex
    * @throws E In case a problem occurred while processing the input.
    * @throws MediaProcessorException In case a problem occurred while obtaining processor from the pool.
    */
-  public O processTask(I input) throws MediaProcessorException, E {
+  public final O processTask(I input) throws MediaProcessorException, E {
 
     // Obtain indexer from the pool.
     final T processor;
@@ -136,7 +137,7 @@ public abstract class AbstractMediaProcessorPool<I, O, E extends Exception, T ex
    * A {@link AbstractMediaProcessorPool} for {@link MediaExtractor} instances.
    */
   public static class MediaExtractorPool extends
-      AbstractMediaProcessorPool<RdfResourceEntry, ResourceExtractionResult, MediaExtractionException, MediaExtractor> {
+      AbstractMediaProcessorPool<MediaExtractorInput, ResourceExtractionResult, MediaExtractionException, MediaExtractor> {
 
     /**
      * Constructor.
@@ -151,6 +152,24 @@ public abstract class AbstractMediaProcessorPool<I, O, E extends Exception, T ex
     MediaExtractor createProcessor(MediaProcessorFactory processorFactory)
         throws MediaProcessorException {
       return processorFactory.createMediaExtractor();
+    }
+
+    /**
+     * This method provides access to the pool. It takes one processor from the pool and processes
+     * the given input. This is a convenience method for {@link #processTask(Object)};
+     *
+     * @param resourceEntry The resource entry (obtained from an RDF).
+     * @param mainThumbnailAvailable Whether the main thumbnail for this record is available. This
+     * may
+     * @return The result of processing the given input.
+     * @throws MediaExtractionException In case a problem occurred while processing the input.
+     * @throws MediaProcessorException In case a problem occurred while obtaining processor from the
+     * pool.
+     */
+    public ResourceExtractionResult processTask(RdfResourceEntry resourceEntry,
+            boolean mainThumbnailAvailable)
+            throws MediaProcessorException, MediaExtractionException {
+      return processTask(new MediaExtractorInput(resourceEntry, mainThumbnailAvailable));
     }
   }
 

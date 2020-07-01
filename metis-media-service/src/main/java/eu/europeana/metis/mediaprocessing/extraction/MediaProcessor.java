@@ -18,11 +18,13 @@ interface MediaProcessor {
    * @param detectedMimeType The mime type that was detected for this resource (may deviate from the
    * mime type that was provided by the server and which is stored in {@link
    * Resource#getProvidedMimeType()}).
+   * @param mainThumbnailAvailable Whether the main thumbnail for this record is available. This may
+   * influence the decision on whether to generate a thumbnail for this resource.
    * @return The result of the processing.
    * @throws MediaExtractionException In case something went wrong during the extraction.
    */
-  ResourceExtractionResult extractMetadata(Resource resource, String detectedMimeType)
-      throws MediaExtractionException;
+  ResourceExtractionResult extractMetadata(Resource resource, String detectedMimeType,
+          boolean mainThumbnailAvailable) throws MediaExtractionException;
 
   /**
    * Process a resource by copying the metadata from the input without performing any extraction.

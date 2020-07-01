@@ -150,8 +150,8 @@ class AudioVideoProcessor implements MediaProcessor {
   }
 
   @Override
-  public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType)
-      throws MediaExtractionException {
+  public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType,
+          boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     AbstractResourceMetadata metadata;
     //Check if it's an mpd mimetype

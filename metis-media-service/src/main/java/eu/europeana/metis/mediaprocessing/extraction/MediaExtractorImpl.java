@@ -98,8 +98,8 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   @Override
-  public ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry)
-      throws MediaExtractionException {
+  public ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry,
+          boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     // Decide how to process it.
     final ProcessingMode mode = getMode(resourceEntry);
@@ -109,7 +109,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Download resource and then perform media extraction on it.
     try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode)) {
-      return performProcessing(resource, mode);
+      return performProcessing(resource, mode, mainThumbnailAvailable);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
           "Problem while processing " + resourceEntry.getResourceUrl(), e);
@@ -234,8 +234,8 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
   }
 
-  ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode)
-      throws MediaExtractionException {
+  ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode,
+          boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     // Sanity check - shouldn't be called for this mode.
     if (mode == ProcessingMode.NONE) {
@@ -261,7 +261,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     if (processor == null) {
       result = null;
     } else if (mode == ProcessingMode.FULL) {
-      result = processor.extractMetadata(resource, detectedMimeType);
+      result = processor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
     } else {
       result = processor.copyMetadata(resource, detectedMimeType);
     }
