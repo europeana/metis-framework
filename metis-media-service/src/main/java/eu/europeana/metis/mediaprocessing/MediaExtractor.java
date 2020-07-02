@@ -27,6 +27,21 @@ public interface MediaExtractor extends
   ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry,
           boolean mainThumbnailAvailable) throws MediaExtractionException;
 
+  /**
+   * Perform media extraction on the given resource link.
+   *
+   * @param resourceEntry The resource entry (obtained from an RDF).
+   * @return A model object containing the result of the extraction and the generated thumbnails.
+   * Note that this object can be null in case there is nothing to extract.
+   * @throws MediaExtractionException In case of issues occurring during media extraction.
+   * @deprecated Use {@link #performMediaExtraction(RdfResourceEntry, boolean)}.
+   */
+  @Deprecated(forRemoval = true)
+  default ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry)
+          throws MediaExtractionException {
+    return performMediaExtraction(resourceEntry, false);
+  }
+
   @Override
   default ResourceExtractionResult processTask(MediaExtractorInput input)
       throws MediaExtractionException {

@@ -171,6 +171,23 @@ public abstract class AbstractMediaProcessorPool<I, O, E extends Exception, T ex
             throws MediaProcessorException, MediaExtractionException {
       return processTask(new MediaExtractorInput(resourceEntry, mainThumbnailAvailable));
     }
+
+    /**
+     * This method provides access to the pool. It takes one processor from the pool and processes
+     * the given input. This is a convenience method for {@link #processTask(Object)};
+     *
+     * @param resourceEntry The resource entry (obtained from an RDF).
+     * @return The result of processing the given input.
+     * @throws MediaExtractionException In case a problem occurred while processing the input.
+     * @throws MediaProcessorException In case a problem occurred while obtaining processor from the
+     * pool.
+     * @deprecated Use {@link #processTask(RdfResourceEntry, boolean)}.
+     */
+    @Deprecated(forRemoval = true)
+    public ResourceExtractionResult processTask(RdfResourceEntry resourceEntry)
+            throws MediaProcessorException, MediaExtractionException {
+      return processTask(new MediaExtractorInput(resourceEntry, false));
+    }
   }
 
   /**

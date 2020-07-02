@@ -4,6 +4,7 @@ import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,6 +64,50 @@ public interface RdfDeserializer {
    */
   List<RdfResourceEntry> getRemainingResourcesForMediaExtraction(InputStream inputStream)
           throws RdfDeserializationException;
+
+  /**
+   * Combines the two outputs of {@link #getMainThumbnailResourceForMediaExtraction(byte[])} and
+   * {@link #getRemainingResourcesForMediaExtraction(byte[])}.
+   *
+   * @param input The RDF file.
+   * @return The list of resources.
+   * @throws RdfDeserializationException In case something goes wrong.
+   * @deprecated Use the methods separately instead.
+   */
+  @Deprecated(forRemoval = true)
+  default List<RdfResourceEntry> getResourceEntriesForMediaExtraction(byte[] input)
+          throws RdfDeserializationException {
+    final List<RdfResourceEntry> result = new ArrayList<>(
+            getRemainingResourcesForMediaExtraction(input));
+    final RdfResourceEntry mainThumbnailResource = getMainThumbnailResourceForMediaExtraction(
+            input);
+    if (mainThumbnailResource != null) {
+      result.add(mainThumbnailResource);
+    }
+    return result;
+  }
+
+  /**
+   * Combines the two outputs of {@link #getMainThumbnailResourceForMediaExtraction(InputStream)}
+   * and {@link #getRemainingResourcesForMediaExtraction(InputStream)}.
+   *
+   * @param inputStream The RDF file.
+   * @return The list of resources.
+   * @throws RdfDeserializationException In case something goes wrong.
+   * @deprecated Use the methods separately instead.
+   */
+  @Deprecated(forRemoval = true)
+  default List<RdfResourceEntry> getResourceEntriesForMediaExtraction(InputStream inputStream)
+          throws RdfDeserializationException {
+    final List<RdfResourceEntry> result = new ArrayList<>(
+            getRemainingResourcesForMediaExtraction(inputStream));
+    final RdfResourceEntry mainThumbnailResource = getMainThumbnailResourceForMediaExtraction(
+            inputStream);
+    if (mainThumbnailResource != null) {
+      result.add(mainThumbnailResource);
+    }
+    return result;
+  }
 
   /**
    * Obtain the resource entries for link checking from an RDF file.
