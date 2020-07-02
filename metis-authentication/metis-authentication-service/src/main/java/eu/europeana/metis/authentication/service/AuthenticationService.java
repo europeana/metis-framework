@@ -49,7 +49,7 @@ public class AuthenticationService {
   private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   private static final int ACCESS_TOKEN_LENGTH = 32;
   private static final Pattern TOKEN_MATCHING_PATTERN = Pattern
-      .compile("^[a-zA-Z0-9]*$");
+      .compile("^[" + ACCESS_TOKEN_CHARACTER_BASKET + "]*$");
   public static final Supplier<BadContentException> COULD_NOT_CONVERT_EXCEPTION_SUPPLIER = () -> new BadContentException(
       "Could not convert internal user");
   private final PsqlMetisUserDao psqlMetisUserDao;
@@ -479,7 +479,8 @@ public class AuthenticationService {
   }
 
   private static MetisUser convert(MetisUserModel record) throws BadContentException {
-    return Optional.ofNullable(record).map(MetisUser::new).orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
+    return Optional.ofNullable(record).map(MetisUser::new)
+        .orElseThrow(COULD_NOT_CONVERT_EXCEPTION_SUPPLIER);
   }
 
   private static List<MetisUser> convert(List<MetisUserModel> records) {

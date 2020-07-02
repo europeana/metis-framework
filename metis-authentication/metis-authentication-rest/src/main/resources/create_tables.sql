@@ -1,3 +1,8 @@
+/*
+e.g. account_role values 'METIS_ADMIN', 'EUROPEANA_DATA_OFFICER', 'PROVIDER_VIEWER'.
+The values are checked in the application.
+Creating the first admin requires a user to register through the application and then manually update the user role to METIS_ADMIN.
+*/
 CREATE TABLE IF NOT EXISTS metis_users (
  user_id VARCHAR(100),
  email VARCHAR(40) PRIMARY KEY,
@@ -6,7 +11,7 @@ CREATE TABLE IF NOT EXISTS metis_users (
  password VARCHAR(255),
  organization_id VARCHAR(100),
  organization_name VARCHAR(100),
- account_role VARCHAR(40) CHECK (account_role IN ('METIS_ADMIN', 'EUROPEANA_DATA_OFFICER', 'PROVIDER_VIEWER') ),
+ account_role VARCHAR(40),
  country VARCHAR(40),
  network_member BOOLEAN,
  metis_user BOOLEAN,

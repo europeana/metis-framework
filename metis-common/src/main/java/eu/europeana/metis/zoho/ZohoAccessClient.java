@@ -51,10 +51,10 @@ public class ZohoAccessClient {
    * @param zcrmConfigurations the key value map of zoho configuration
    * @throws ZohoOAuthException if initialization of {@link ZCRMRestClient} failed.
    */
-  public ZohoAccessClient(@Nullable String grantToken, HashMap<String, String> zcrmConfigurations)
+  public ZohoAccessClient(@Nullable String grantToken, Map<String, String> zcrmConfigurations)
       throws ZohoOAuthException {
     try {
-      ZCRMRestClient.initialize(zcrmConfigurations);
+      ZCRMRestClient.initialize(new HashMap<>(zcrmConfigurations));
     } catch (Exception ex) {
       LOGGER.error("ZCRMRestClient failure!");
       throw new ZohoOAuthException(ex);

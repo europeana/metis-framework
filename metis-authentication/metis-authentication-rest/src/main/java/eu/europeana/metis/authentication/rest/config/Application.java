@@ -15,6 +15,7 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
@@ -142,7 +143,7 @@ public class Application implements WebMvcConfigurer {
 
   @Bean
   public ZohoAccessClient getZohoAccessClient() throws ZohoOAuthException {
-    HashMap<String, String> zcrmConfigurations = new HashMap<>(8);
+    Map<String, String> zcrmConfigurations = new HashMap<>(8);
     zcrmConfigurations.put("minLogLevel", zohoMinLogLevel);
     zcrmConfigurations.put("currentUserEmail", zohoCurrentUserEmail);
     zcrmConfigurations.put("client_id", zohoClientId);
