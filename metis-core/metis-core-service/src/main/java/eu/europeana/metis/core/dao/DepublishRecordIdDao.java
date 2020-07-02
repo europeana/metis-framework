@@ -158,7 +158,7 @@ public class DepublishRecordIdDao {
         .equal(DepublicationStatus.PENDING_DEPUBLICATION);
 
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        morphiaDatastoreProvider.getDatastore().delete(query)::getN);
+        () -> morphiaDatastoreProvider.getDatastore().delete(query).getN());
   }
 
   /**
