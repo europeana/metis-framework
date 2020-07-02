@@ -101,7 +101,7 @@
     <version.spring.context>${version.spring}</version.spring.context>
     <version.spring.beans>${version.spring}</version.spring.beans>
     <version.saxon.he>10.0</version.saxon.he>
-    <version.com.zoho.crm.java-sdk>1.0.6</version.com.zoho.crm.java-sdk>
+    <version.com.zoho.crm.java-sdk>2.0.4</version.com.zoho.crm.java-sdk>
     <version.solr.solrj>8.5.1</version.solr.solrj>
     <version.mpd.parser>0.6</version.mpd.parser>
     <version.zip4j>2.5.2</version.zip4j>

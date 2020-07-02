@@ -1,6 +1,7 @@
 package eu.europeana.metis.zoho;
 
 import com.zoho.crm.library.api.response.BulkAPIResponse;
+import com.zoho.crm.library.common.ZCRMEntity;
 import com.zoho.crm.library.crud.ZCRMModule;
 import com.zoho.crm.library.crud.ZCRMRecord;
 import com.zoho.crm.library.crud.ZCRMTrashRecord;
@@ -14,9 +15,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Class that contains methods related to communication with the Zoho service.
@@ -32,18 +38,6 @@ public class ZohoAccessClient {
   private final ZCRMModule zcrmModuleAccounts;
 
   /**
-   * Default constructor.
-   * <p>This constructor expects that the access/refresh tokens are already present in the
-   * persistence storage. If instead the generation of the tokens is required during initialization
-   * of this class then refer to the {@link #ZohoAccessClient(String)} costructor.
-   * </p>
-   */
-  public ZohoAccessClient() {
-    zcrmModuleContacts = ZCRMModule.getInstance(ZohoConstants.CONTACTS_MODULE_NAME);
-    zcrmModuleAccounts = ZCRMModule.getInstance(ZohoConstants.ACCOUNTS_MODULE_NAME);
-  }
-
-  /**
    * Constructor with the grant token provided as a parameter.
    * <p>
    * It will try to initialize the connection with the Zoho service. Uses the grant token for the
@@ -53,27 +47,31 @@ public class ZohoAccessClient {
    * tokens from the persistence storage.
    * </p>
    *
-   * @param grantToken the grant token key to be used
+   * @param grantToken the grant token key to be used. Can be null
+   * @param zcrmConfigurations the key value map of zoho configuration
    * @throws ZohoOAuthException if initialization of {@link ZCRMRestClient} failed.
    */
-  public ZohoAccessClient(String grantToken) throws ZohoOAuthException {
+  public ZohoAccessClient(@Nullable String grantToken, Map<String, String> zcrmConfigurations)
+      throws ZohoOAuthException {
     try {
-      ZCRMRestClient.initialize();
+      ZCRMRestClient.initialize(new HashMap<>(zcrmConfigurations));
     } catch (Exception ex) {
       LOGGER.error("ZCRMRestClient failure!");
       throw new ZohoOAuthException(ex);
     }
-    ZohoOAuthClient cli = ZohoOAuthClient.getInstance();
-    try {
-      cli.generateAccessToken(grantToken);
-    } catch (ZohoOAuthException e) {
-      LOGGER.warn(
-          "THIS EXCEPTION IS PROBABLY NORMAL. THAT CAN HAPPEN IF THE GRANT TOKEN HAS BEEN SUCCESSFULLY USED ONCE ALREADY!"
-              + "Exception when generating access token. Grant tokens can be used only once, "
-              + "so when the access and refresh tokens are generated, the grant token becomes obsolete on subsequent deployments",
-          e);
+    //Try the grand token if available
+    if (StringUtils.isNotBlank(grantToken)) {
+      ZohoOAuthClient cli = ZohoOAuthClient.getInstance();
+      try {
+        cli.generateAccessToken(grantToken);
+      } catch (ZohoOAuthException e) {
+        LOGGER.warn(
+            "THIS EXCEPTION IS PROBABLY NORMAL. THAT CAN HAPPEN IF THE GRANT TOKEN HAS BEEN SUCCESSFULLY USED ONCE ALREADY!"
+                + "Exception when generating access token. Grant tokens can be used only once, "
+                + "so when the access and refresh tokens are generated, the grant token becomes obsolete on subsequent deployments",
+            e);
+      }
     }
-
     zcrmModuleContacts = ZCRMModule.getInstance(ZohoConstants.CONTACTS_MODULE_NAME);
     zcrmModuleAccounts = ZCRMModule.getInstance(ZohoConstants.ACCOUNTS_MODULE_NAME);
   }
@@ -85,17 +83,17 @@ public class ZohoAccessClient {
    * @return the contact corresponding to the email
    * @throws BadContentException if an exception occurred during searching
    */
-  public ZCRMRecord getZcrmRecordContactByEmail(String email) throws BadContentException {
+  public Optional<ZCRMRecord> getZcrmRecordContactByEmail(String email) throws BadContentException {
     final BulkAPIResponse bulkAPIResponseContacts;
     try {
       bulkAPIResponseContacts = zcrmModuleContacts.searchByEmail(email);
     } catch (ZCRMException e) {
       throw new BadContentException("Zoho search by email threw an exception", e);
     }
-    final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseContacts.getData();
-    return zcrmRecords.isEmpty() ? null : zcrmRecords.get(0);
+    final List<ZCRMRecord> zcrmRecords = castItemsToType(bulkAPIResponseContacts.getData(),
+        ZCRMRecord.class);
+    return zcrmRecords.stream().findFirst();
   }
-
 
   /**
    * Get a contact by using an organization email.
@@ -104,7 +102,7 @@ public class ZohoAccessClient {
    * @return the organization corresponding to the organization name
    * @throws BadContentException if an exception occurred during searching
    */
-  public ZCRMRecord getZcrmRecordOrganizationByName(String organizationName)
+  public Optional<ZCRMRecord> getZcrmRecordOrganizationByName(String organizationName)
       throws BadContentException {
     final BulkAPIResponse bulkAPIResponseAccounts;
     try {
@@ -117,8 +115,9 @@ public class ZohoAccessClient {
       throw new BadContentException(
           "Zoho search organization by organization name threw an exception", e);
     }
-    final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseAccounts.getData();
-    return zcrmRecords.isEmpty() ? null : zcrmRecords.get(0);
+    final List<ZCRMRecord> zcrmRecords = castItemsToType(bulkAPIResponseAccounts.getData(),
+        ZCRMRecord.class);
+    return zcrmRecords.stream().findFirst();
   }
 
   /**
@@ -128,7 +127,7 @@ public class ZohoAccessClient {
    * @return the organization corresponding to the organization id
    * @throws BadContentException if an exception occurred during searching
    */
-  public ZCRMRecord getZcrmRecordOrganizationById(String organizationId)
+  public Optional<ZCRMRecord> getZcrmRecordOrganizationById(String organizationId)
       throws BadContentException {
     final BulkAPIResponse bulkAPIResponseAccounts;
     try {
@@ -141,8 +140,9 @@ public class ZohoAccessClient {
       throw new BadContentException(
           "Zoho search organization by organization id threw an exception", e);
     }
-    final List<ZCRMRecord> zcrmRecords = (List<ZCRMRecord>) bulkAPIResponseAccounts.getData();
-    return zcrmRecords.isEmpty() ? null : zcrmRecords.get(0);
+    final List<ZCRMRecord> zcrmRecords = castItemsToType(bulkAPIResponseAccounts.getData(),
+        ZCRMRecord.class);
+    return zcrmRecords.stream().findFirst();
   }
 
   /**
@@ -169,7 +169,7 @@ public class ZohoAccessClient {
       throw new BadContentException("Cannot get deleted organization list from: "
           + startPage, e);
     }
-    return (List<ZCRMTrashRecord>) bulkAPIResponseDeletedRecords.getData();
+    return castItemsToType(bulkAPIResponseDeletedRecords.getData(), ZCRMTrashRecord.class);
   }
 
   /**
@@ -211,13 +211,13 @@ public class ZohoAccessClient {
     int start = ((page - 1) * pageSize) + 1;
 
     String modifiedDateString = null;
-    if (modifiedDate != null) {
+    if (Objects.nonNull(modifiedDate)) {
       modifiedDateString = ZohoConstants.ZOHO_DATE_FORMATTER.format(modifiedDate);
     }
 
     final BulkAPIResponse bulkAPIResponse;
     try {
-      if (searchCriteria == null || searchCriteria.isEmpty()) {//No searchCriteria available
+      if (CollectionUtils.isEmpty(searchCriteria)) {//No searchCriteria available
         bulkAPIResponse = zcrmModuleAccounts
             .getRecords(null, null, null, start, pageSize, modifiedDateString, null, Boolean.FALSE);
       } else {
@@ -230,7 +230,7 @@ public class ZohoAccessClient {
           "Cannot get organization list from: " + start + " rows :" + pageSize, e);
     }
 
-    return (List<ZCRMRecord>) bulkAPIResponse.getData();
+    return castItemsToType(bulkAPIResponse.getData(), ZCRMRecord.class);
   }
 
   /**
@@ -246,11 +246,11 @@ public class ZohoAccessClient {
    */
   private String createZohoCriteriaString(Map<String, String> searchCriteria,
       String criteriaOperator) {
-    if (searchCriteria == null || searchCriteria.isEmpty()) {
+    if (CollectionUtils.isEmpty(searchCriteria)) {
       searchCriteria = new HashMap<>();
     }
 
-    if (criteriaOperator == null || (!ZohoConstants.EQUALS_OPERATION.equals(criteriaOperator)
+    if (Objects.isNull(criteriaOperator) || (!ZohoConstants.EQUALS_OPERATION.equals(criteriaOperator)
         && !ZohoConstants.STARTS_WITH_OPERATION.equals(criteriaOperator))) {
       criteriaOperator = ZohoConstants.EQUALS_OPERATION;
     }
@@ -262,5 +262,11 @@ public class ZohoAccessClient {
                 .format(ZohoConstants.ZOHO_OPERATION_FORMAT_STRING, entry.getKey(),
                     finalCriteriaOperator, value.trim())).collect(
             Collectors.joining(ZohoConstants.OR))).collect(Collectors.joining(ZohoConstants.OR));
+  }
+
+  private static <T extends ZCRMEntity> List<T> castItemsToType(List<? extends ZCRMEntity> zcrmEntities,
+      Class<T> classType) {
+    return zcrmEntities.stream().filter(classType::isInstance).map(classType::cast)
+        .collect(Collectors.toList());
   }
 }
