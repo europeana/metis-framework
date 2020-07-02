@@ -71,8 +71,8 @@ public class ConfigurationPropertiesHolder {
   private String metisCoreBaseUrl;
   @Value("${metis.core.max.served.execution.list.length}")
   private int maxServedExecutionListLength;
-  @Value("${metis.core.max.depublished.records.per.dataset}")
-  private int maxDepublishedRecordsPerDataset;
+  @Value("${metis.core.max.depublish.record.ids.per.dataset}")
+  private int maxDepublishRecordIdsPerDataset;
 
   // Ecloud configuration
   @Value("${metis.use.alternative.indexing.environment}")
@@ -250,8 +250,8 @@ public class ConfigurationPropertiesHolder {
     return maxServedExecutionListLength;
   }
 
-  public int getMaxDepublishedRecordsPerDataset() {
-    return maxDepublishedRecordsPerDataset;
+  public int getMaxDepublishRecordIdsPerDataset() {
+    return maxDepublishRecordIdsPerDataset;
   }
 
   public boolean isMetisUseAlternativeIndexingEnvironment() {

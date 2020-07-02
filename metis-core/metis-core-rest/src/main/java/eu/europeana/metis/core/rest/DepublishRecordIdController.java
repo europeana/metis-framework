@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,7 +61,7 @@ public class DepublishRecordIdController {
    * body.
    *
    * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
-   * @param datasetId The dataset ID to which the depublished records belong.
+   * @param datasetId The dataset ID to which the depublish record ids belong.
    * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -72,15 +73,13 @@ public class DepublishRecordIdController {
   @PostMapping(value = RestEndpoints.DEPUBLISH_RECORDIDS_DATASETID, consumes = {
       MediaType.TEXT_PLAIN_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  public void createRecordIdsToBeDepublished(
-      @RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") String datasetId,
-      @RequestBody String recordIdsInSeparateLines
+  public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") String datasetId, @RequestBody String recordIdsInSeparateLines
   ) throws GenericMetisException {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final int added = depublishRecordIdService
         .addRecordIdsToBeDepublished(metisUser, datasetId, recordIdsInSeparateLines);
-    LOGGER.info("{} Depublished records added to dataset with datasetId: {}", added, datasetId);
+    LOGGER.info("{} Depublish record ids added to dataset with datasetId: {}", added, datasetId);
   }
 
   /**
@@ -88,7 +87,7 @@ public class DepublishRecordIdController {
    * file.
    *
    * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
-   * @param datasetId The dataset ID to which the depublished records belong.
+   * @param datasetId The dataset ID to which the depublish record ids belong.
    * @param recordIdsFile The file containing the record IDs in separate lines.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -100,13 +99,40 @@ public class DepublishRecordIdController {
   @PostMapping(value = RestEndpoints.DEPUBLISH_RECORDIDS_DATASETID, consumes = {
       MediaType.MULTIPART_FORM_DATA_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  public void createRecordIdsToBeDepublished(
-      @RequestHeader("Authorization") String authorization,
+  public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestPart("depublicationFile") MultipartFile recordIdsFile
   ) throws GenericMetisException, IOException {
     createRecordIdsToBeDepublished(authorization, datasetId,
         new String(recordIdsFile.getBytes(), StandardCharsets.UTF_8));
+  }
+
+  /**
+   * Deletes a list of record ids from the database. Only record ids that are in a {@link
+   * eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
+   * state will be removed.
+   *
+   * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
+   * @param datasetId The dataset ID to which the depublish record ids belong.
+   * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
+   * <li>{@link BadContentException} if some content or the operation were invalid</li>
+   * </ul>
+   */
+  @DeleteMapping(value = RestEndpoints.DEPUBLISH_RECORDIDS_DATASETID, consumes = {
+      MediaType.TEXT_PLAIN_VALUE})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deletePendingRecordIds(@RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") String datasetId, @RequestBody String recordIdsInSeparateLines
+  ) throws GenericMetisException {
+    final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    final int removedRecordIds = depublishRecordIdService
+        .deletePendingRecordIds(metisUser, datasetId, recordIdsInSeparateLines);
+    LOGGER.info("{} Depublish record ids removed from database with datasetId: {}",
+        removedRecordIds, datasetId);
   }
 
   /**
@@ -181,7 +207,8 @@ public class DepublishRecordIdController {
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return depublishRecordIdService.createAndAddInQueueDepublishWorkflowExecution(metisUser, datasetId,
-        datasetDepublish, priority);
+    return depublishRecordIdService
+        .createAndAddInQueueDepublishWorkflowExecution(metisUser, datasetId,
+            datasetDepublish, priority);
   }
 }

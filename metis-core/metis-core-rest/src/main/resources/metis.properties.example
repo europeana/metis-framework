@@ -77,7 +77,7 @@ metis.core.baseUrl=
 #Use this to specify the maximum execution list length that is served by 
 #Metis Core (regardless on whether the list is paginated).
 metis.core.max.served.execution.list.length=
-metis.core.max.depublished.records.per.dataset=
+metis.core.max.depublish.record.ids.per.dataset=
 #In the combination of TEST and ACCEPTANCE, TEST=false, ACCEPTANCE=true
 #For the production environment it should be false
 metis.use.alternative.indexing.environment=

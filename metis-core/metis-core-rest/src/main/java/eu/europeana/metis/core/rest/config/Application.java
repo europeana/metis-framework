@@ -134,7 +134,7 @@ public class Application implements WebMvcConfigurer {
   public DepublishRecordIdDao getDepublishedRecordDao(
       MorphiaDatastoreProvider morphiaDatastoreProvider) {
     return new DepublishRecordIdDao(morphiaDatastoreProvider,
-        propertiesHolder.getMaxDepublishedRecordsPerDataset());
+        propertiesHolder.getMaxDepublishRecordIdsPerDataset());
   }
 
   /**

@@ -31,18 +31,18 @@ import org.springframework.stereotype.Repository;
 public class DepublishRecordIdDao {
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
-  private final long maximumRecordsPerDataset;
+  private final long maxDepublishRecordIdsPerDataset;
   private final int pageSize;
 
   /**
    * Constructor.
    *
    * @param morphiaDatastoreProvider The datastore provider.
-   * @param maximumRecordsPerDataset The maximum number of records we allow per dataset.
+   * @param maxDepublishRecordIdsPerDataset The maximum number of records we allow per dataset.
    */
   public DepublishRecordIdDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
-      long maximumRecordsPerDataset) {
-    this(morphiaDatastoreProvider, maximumRecordsPerDataset,
+      long maxDepublishRecordIdsPerDataset) {
+    this(morphiaDatastoreProvider, maxDepublishRecordIdsPerDataset,
         RequestLimits.DEPUBLISHED_RECORDS_PER_REQUEST.getLimit());
   }
 
@@ -50,13 +50,13 @@ public class DepublishRecordIdDao {
    * Constructor allowing setting the page size
    *
    * @param morphiaDatastoreProvider The datastore provider.
-   * @param maximumRecordsPerDataset The maximum number of records we allow per dataset.
+   * @param maxDepublishRecordIdsPerDataset The maximum number of records we allow per dataset.
    * @param pageSize The page size for list requests.
    */
   DepublishRecordIdDao(MorphiaDatastoreProvider morphiaDatastoreProvider,
-      long maximumRecordsPerDataset, int pageSize) {
+      long maxDepublishRecordIdsPerDataset, int pageSize) {
     this.morphiaDatastoreProvider = morphiaDatastoreProvider;
-    this.maximumRecordsPerDataset = maximumRecordsPerDataset;
+    this.maxDepublishRecordIdsPerDataset = maxDepublishRecordIdsPerDataset;
     this.pageSize = pageSize;
   }
 
@@ -88,7 +88,7 @@ public class DepublishRecordIdDao {
    * and no depublication date.
    *
    * @param datasetId The dataset to which the records belong.
-   * @param candidateRecordIds The IDs of the records to add.
+   * @param candidateRecordIds The IDs of the depublish record ids to add.
    * @return How many of the passed records were in fact added. This counter is not thread-safe: if
    * multiple threads try to add the same records, their combined counters may overrepresent the
    * number of records that were actually added.
@@ -99,7 +99,7 @@ public class DepublishRecordIdDao {
       throws BadContentException {
 
     // Check list size: if this is too large we can throw exception regardless of what's in the database.
-    if (candidateRecordIds.size() > maximumRecordsPerDataset) {
+    if (candidateRecordIds.size() > maxDepublishRecordIdsPerDataset) {
       throw new BadContentException(
           "Can't add these records: this would violate the maximum number of records per dataset.");
     }
@@ -109,7 +109,7 @@ public class DepublishRecordIdDao {
 
     // Count: determine whether we are not above our maximum.
     final long existingCount = countDepublishRecordIdsForDataset(datasetId);
-    if (existingCount + recordIdsToAdd.size() > maximumRecordsPerDataset) {
+    if (existingCount + recordIdsToAdd.size() > maxDepublishRecordIdsPerDataset) {
       throw new BadContentException(
           "Can't add these records: this would violate the maximum number of records per dataset.");
     }
@@ -129,6 +129,37 @@ public class DepublishRecordIdDao {
 
     // Done
     return recordIdsToAdd.size();
+  }
+
+  /**
+   * Deletes a list of record ids from the database. Only record ids that are in a {@link
+   * DepublicationStatus#PENDING_DEPUBLICATION} state will be removed.
+   *
+   * @param datasetId The dataset to which the depublish record ids belong.
+   * @param recordIds The depublish record ids to be removed
+   * @throws BadContentException In case adding the records would violate the maximum number of
+   * depublished records that each dataset can have.
+   * @return The number or record ids that were removed.
+   */
+  public Integer deletePendingRecordIds(String datasetId, Set<String> recordIds)
+      throws BadContentException {
+
+    // Check list size: if this is too large we can throw exception regardless of what's in the database.
+    if (recordIds.size() > maxDepublishRecordIdsPerDataset) {
+      throw new BadContentException(
+          "Can't remove these records: this would violate the maximum number of records per dataset.");
+    }
+
+    final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(DepublishRecordId.class);
+    query.field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId);
+    query.field(DepublishRecordId.RECORD_ID_FIELD).in(recordIds);
+    query.field(DepublishRecordId.DEPUBLICATION_STATUS_FIELD)
+        .equal(DepublicationStatus.PENDING_DEPUBLICATION);
+
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
+      return morphiaDatastoreProvider.getDatastore().delete(query).getN();
+    });
   }
 
   /**
@@ -175,8 +206,8 @@ public class DepublishRecordIdDao {
   /**
    * Get all depublished records for a given dataset.
    * <p>This method is to be used with caution since it doesn't have a limit on the returned items.
-   * It is mainly used to minimize, internal to the application, database requests.
-   * Ids are returned based on the provided status filter parameter</p>
+   * It is mainly used to minimize, internal to the application, database requests. Ids are returned
+   * based on the provided status filter parameter</p>
    *
    * @param datasetId The dataset for which to retrieve the records. Cannot be null.
    * @param sortField The sorting field. Cannot be null.

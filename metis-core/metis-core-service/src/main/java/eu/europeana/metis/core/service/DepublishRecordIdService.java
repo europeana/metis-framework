@@ -40,7 +40,8 @@ public class DepublishRecordIdService {
 
   /**
    * Constructor.
-   *  @param authorizer The authorizer for checking permissions.
+   *
+   * @param authorizer The authorizer for checking permissions.
    * @param orchestratorService The orchestrator service
    * @param depublishRecordIdDao The DAO for depublished records.
    */
@@ -119,13 +120,15 @@ public class DepublishRecordIdService {
   }
 
   /**
-   * Adds a list of record ids to be depublished for the dataset.
+   * Deletes a list of record ids from the database. Only record ids that are in a {@link
+   * eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
+   * state will be removed.
    *
    * @param metisUser The user performing this operation.
    * @param datasetId The ID of the dataset to which the depublished records belong.
    * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
-   * @return How many of the passed records were in fact added. This counter is not thread-safe: if
-   * multiple threads try to add the same records, their combined counters may overrepresent the
+   * @return How many of the passed records were in fact removed. This counter is not thread-safe:
+   * if multiple threads try to add the same records, their combined counters may overrepresent the
    * number of records that were actually added.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -139,16 +142,48 @@ public class DepublishRecordIdService {
 
     // Authorize.
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
-
     // Check and normalize the record IDs.
+    final Set<String> normalizedRecordIds = normalizeRecordIds(datasetId, recordIdsInSeparateLines);
+
+    // Add the records.
+    return depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, normalizedRecordIds);
+  }
+
+  /**
+   * Deletes a list of record ids from the database. Only record ids that are in a {@link
+   * eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
+   * state will be removed.
+   *
+   * @param metisUser The user performing this operation.
+   * @param datasetId The ID of the dataset to which the depublish record ids belong.
+   * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
+   * <li>{@link BadContentException} if some content or the operation were invalid</li>
+   * </ul>
+   * @return The number or record ids that were removed.
+   */
+  public Integer deletePendingRecordIds(MetisUser metisUser, String datasetId,
+      String recordIdsInSeparateLines) throws GenericMetisException {
+
+    // Authorize.
+    authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+    // Check and normalize the record IDs.(Just in case)
+    final Set<String> normalizedRecordIds = normalizeRecordIds(datasetId, recordIdsInSeparateLines);
+
+    return depublishRecordIdDao.deletePendingRecordIds(datasetId, normalizedRecordIds);
+  }
+
+  private Set<String> normalizeRecordIds(String datasetId, String recordIdsInSeparateLines)
+      throws BadContentException {
     final String[] recordIds = LINE_SEPARATION_PATTERN.split(recordIdsInSeparateLines);
     final Set<String> normalizedRecordIds = new HashSet<>(recordIds.length);
     for (String recordId : recordIds) {
       checkAndNormalizeRecordId(datasetId, recordId).ifPresent(normalizedRecordIds::add);
     }
-
-    // Add the records.
-    return depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, normalizedRecordIds);
+    return normalizedRecordIds;
   }
 
   /**
@@ -185,7 +220,8 @@ public class DepublishRecordIdService {
     return result;
   }
 
-  public WorkflowExecution createAndAddInQueueDepublishWorkflowExecution(MetisUser metisUser, String datasetId,
+  public WorkflowExecution createAndAddInQueueDepublishWorkflowExecution(MetisUser metisUser,
+      String datasetId,
       boolean datasetDepublish, int priority) throws GenericMetisException {
     // Authorize.
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
