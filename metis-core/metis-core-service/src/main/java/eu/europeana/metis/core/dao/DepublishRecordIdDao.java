@@ -137,9 +137,9 @@ public class DepublishRecordIdDao {
    *
    * @param datasetId The dataset to which the depublish record ids belong.
    * @param recordIds The depublish record ids to be removed
+   * @return The number or record ids that were removed.
    * @throws BadContentException In case adding the records would violate the maximum number of
    * depublished records that each dataset can have.
-   * @return The number or record ids that were removed.
    */
   public Integer deletePendingRecordIds(String datasetId, Set<String> recordIds)
       throws BadContentException {
@@ -157,9 +157,8 @@ public class DepublishRecordIdDao {
     query.field(DepublishRecordId.DEPUBLICATION_STATUS_FIELD)
         .equal(DepublicationStatus.PENDING_DEPUBLICATION);
 
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
-      return morphiaDatastoreProvider.getDatastore().delete(query).getN();
-    });
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+        morphiaDatastoreProvider.getDatastore().delete(query)::getN);
   }
 
   /**

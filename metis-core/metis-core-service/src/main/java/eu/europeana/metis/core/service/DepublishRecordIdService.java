@@ -120,15 +120,13 @@ public class DepublishRecordIdService {
   }
 
   /**
-   * Deletes a list of record ids from the database. Only record ids that are in a {@link
-   * eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
-   * state will be removed.
+   * Adds a list of record ids to be depublished for the dataset.
    *
    * @param metisUser The user performing this operation.
    * @param datasetId The ID of the dataset to which the depublished records belong.
    * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
-   * @return How many of the passed records were in fact removed. This counter is not thread-safe:
-   * if multiple threads try to add the same records, their combined counters may overrepresent the
+   * @return How many of the passed records were in fact added. This counter is not thread-safe: if
+   * multiple threads try to add the same records, their combined counters may overrepresent the
    * number of records that were actually added.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -157,13 +155,13 @@ public class DepublishRecordIdService {
    * @param metisUser The user performing this operation.
    * @param datasetId The ID of the dataset to which the depublish record ids belong.
    * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
+   * @return The number or record ids that were removed.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
    * <li>{@link BadContentException} if some content or the operation were invalid</li>
    * </ul>
-   * @return The number or record ids that were removed.
    */
   public Integer deletePendingRecordIds(MetisUser metisUser, String datasetId,
       String recordIdsInSeparateLines) throws GenericMetisException {
