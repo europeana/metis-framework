@@ -1,18 +1,20 @@
 package eu.europeana.metis.core.rest;
 
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DepublishRecordIdService;
-import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
+import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class DepublishRecordIdController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DepublishRecordIdController.class);
+  private static final Pattern CRLF_PATTERN = Pattern
+      .compile(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX);
 
   private final DepublishRecordIdService depublishRecordIdService;
   private final AuthenticationClient authenticationClient;
@@ -79,7 +83,8 @@ public class DepublishRecordIdController {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final int added = depublishRecordIdService
         .addRecordIdsToBeDepublished(metisUser, datasetId, recordIdsInSeparateLines);
-    LOGGER.info("{} Depublish record ids added to dataset with datasetId: {}", added, datasetId);
+    LOGGER.info("{} Depublish record ids added to dataset with datasetId: {}", added,
+        CRLF_PATTERN.matcher(datasetId).replaceAll(""));
   }
 
   /**
@@ -132,7 +137,7 @@ public class DepublishRecordIdController {
     final int removedRecordIds = depublishRecordIdService
         .deletePendingRecordIds(metisUser, datasetId, recordIdsInSeparateLines);
     LOGGER.info("{} Depublish record ids removed from database with datasetId: {}",
-        removedRecordIds, datasetId);
+        removedRecordIds, CRLF_PATTERN.matcher(datasetId).replaceAll(""));
   }
 
   /**

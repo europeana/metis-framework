@@ -94,12 +94,12 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
     this.textProcessor = new TextProcessor(thumbnailGenerator,
-            new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
+        new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
   }
 
   @Override
   public ResourceExtractionResult performMediaExtraction(RdfResourceEntry resourceEntry,
-          boolean mainThumbnailAvailable) throws MediaExtractionException {
+      boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     // Decide how to process it.
     final ProcessingMode mode = getMode(resourceEntry);
@@ -112,19 +112,19 @@ public class MediaExtractorImpl implements MediaExtractor {
       return performProcessing(resource, mode, mainThumbnailAvailable);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
-          "Problem while processing " + resourceEntry.getResourceUrl(), e);
+          String.format("Problem while processing %s", resourceEntry.getResourceUrl()), e);
     }
   }
 
   private Resource downloadBasedOnProcessingMode(RdfResourceEntry resourceEntry,
       ProcessingMode mode) throws IOException {
-    
+
     // Determine the download method to use (full download vs. quick ping)
     return (mode == ProcessingMode.FULL)
         ? this.resourceDownloadClient.downloadBasedOnMimeType(resourceEntry)
         : this.resourceDownloadClient.downloadWithoutContent(resourceEntry);
   }
-  
+
   ProcessingMode getMode(RdfResourceEntry resourceEntry) {
     final ProcessingMode result;
     if (URL_TYPES_FOR_FULL_PROCESSING.stream().anyMatch(resourceEntry.getUrlTypes()::contains)) {
@@ -178,7 +178,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     if (providedMimeType != null) {
       final int separatorIndex = providedMimeType.indexOf(';');
       final String adjustedMimeType =
-              separatorIndex < 0 ? providedMimeType : providedMimeType.substring(0, separatorIndex);
+          separatorIndex < 0 ? providedMimeType : providedMimeType.substring(0, separatorIndex);
       metadata.set(Metadata.CONTENT_TYPE, adjustedMimeType);
     }
     try (final InputStream stream = TikaInputStream.get(path, metadata)) {
@@ -205,19 +205,20 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
     return processor;
   }
-  
+
   void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
       String detectedMimeType) throws MediaExtractionException, IOException {
-    
+
     // If the mime type changed and we need the content after all, we download it.
     if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
         && !shouldDownloadForFullProcessing(resource.getProvidedMimeType())) {
       final RdfResourceEntry downloadInput =
           new RdfResourceEntry(resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
-      try (final Resource resourceWithContent = this.resourceDownloadClient.downloadWithContent(downloadInput)) {
+      try (final Resource resourceWithContent = this.resourceDownloadClient
+          .downloadWithContent(downloadInput)) {
         // see https://github.com/spotbugs/spotbugs/issues/756
-        @SuppressWarnings("findbugs:RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
-        final boolean resourceHasContent = resourceWithContent.hasContent();
+        @SuppressWarnings("findbugs:RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE") final boolean resourceHasContent = resourceWithContent
+            .hasContent();
         if (resourceHasContent) {
           try (final InputStream inputStream = resourceWithContent.getContentStream()) {
             resource.markAsWithContent(inputStream);
@@ -225,7 +226,7 @@ public class MediaExtractorImpl implements MediaExtractor {
         }
       }
     }
-    
+
     // Verify that we have content when we need to.
     if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
         && !resource.hasContent()) {
@@ -235,7 +236,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode,
-          boolean mainThumbnailAvailable) throws MediaExtractionException {
+      boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     // Sanity check - shouldn't be called for this mode.
     if (mode == ProcessingMode.NONE) {
@@ -244,7 +245,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Detect and verify the mime type.
     final String detectedMimeType = detectAndVerifyMimeType(resource, mode);
-    
+
     // Verify that we have content when we need to. This can happen if the resource doesn't come
     // with the correct mime type. We correct this here.
     try {

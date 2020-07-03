@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.service;
 
+import com.google.common.collect.Sets;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
@@ -47,7 +48,6 @@ import eu.europeana.metis.utils.DateUtils;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -76,18 +76,18 @@ public class OrchestratorService {
   //Use with String.format to suffix the datasetId
   private static final String EXECUTION_FOR_DATASETID_SUBMITION_LOCK = "EXECUTION_FOR_DATASETID_SUBMITION_LOCK_%s";
 
-  public static final Set<ExecutablePluginType> HARVEST_TYPES = EnumSet
-      .of(ExecutablePluginType.HTTP_HARVEST, ExecutablePluginType.OAIPMH_HARVEST);
-  public static final Set<ExecutablePluginType> EXECUTABLE_PREVIEW_TYPES = EnumSet
-      .of(ExecutablePluginType.PREVIEW);
-  public static final Set<ExecutablePluginType> EXECUTABLE_PUBLISH_TYPES = EnumSet
-      .of(ExecutablePluginType.PUBLISH);
-  public static final Set<ExecutablePluginType> EXECUTABLE_DEPUBLISH_TYPES = EnumSet
-      .of(ExecutablePluginType.DEPUBLISH);
-  public static final Set<PluginType> PREVIEW_TYPES = EnumSet
-      .of(PluginType.PREVIEW, PluginType.REINDEX_TO_PREVIEW);
-  public static final Set<PluginType> PUBLISH_TYPES = EnumSet
-      .of(PluginType.PUBLISH, PluginType.REINDEX_TO_PUBLISH);
+  public static final Set<ExecutablePluginType> HARVEST_TYPES = Sets.immutableEnumSet(
+      ExecutablePluginType.HTTP_HARVEST, ExecutablePluginType.OAIPMH_HARVEST);
+  public static final Set<ExecutablePluginType> EXECUTABLE_PREVIEW_TYPES = Sets.immutableEnumSet(
+      ExecutablePluginType.PREVIEW);
+  public static final Set<ExecutablePluginType> EXECUTABLE_PUBLISH_TYPES = Sets.immutableEnumSet(
+      ExecutablePluginType.PUBLISH);
+  public static final Set<ExecutablePluginType> EXECUTABLE_DEPUBLISH_TYPES = Sets.immutableEnumSet(
+      ExecutablePluginType.DEPUBLISH);
+  public static final Set<PluginType> PREVIEW_TYPES = Sets.immutableEnumSet(
+      PluginType.PREVIEW, PluginType.REINDEX_TO_PREVIEW);
+  public static final Set<PluginType> PUBLISH_TYPES = Sets.immutableEnumSet(
+      PluginType.PUBLISH, PluginType.REINDEX_TO_PUBLISH);
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowUtils workflowUtils;
