@@ -116,7 +116,8 @@ public interface RdfDeserializer {
    * @return The list of resource entries that are subject to link checking.
    * @throws RdfDeserializationException In case something went wrong deserializing the RDF.
    */
-  List<String> getResourceEntriesForLinkChecking(byte[] input) throws RdfDeserializationException;
+  List<RdfResourceEntry> getResourceEntriesForLinkChecking(byte[] input)
+          throws RdfDeserializationException;
 
   /**
    * Obtain the resource entries for link checking from an RDF file.
@@ -125,7 +126,7 @@ public interface RdfDeserializer {
    * @return The list of resource entries that are subject to link checking.
    * @throws RdfDeserializationException In case something went wrong deserializing the RDF.
    */
-  List<String> getResourceEntriesForLinkChecking(InputStream inputStream)
+  List<RdfResourceEntry> getResourceEntriesForLinkChecking(InputStream inputStream)
           throws RdfDeserializationException;
 
   /**

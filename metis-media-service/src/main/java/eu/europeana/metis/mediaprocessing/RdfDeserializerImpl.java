@@ -9,7 +9,6 @@ import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -163,16 +162,16 @@ class RdfDeserializerImpl implements RdfDeserializer {
   }
 
   @Override
-  public List<String> getResourceEntriesForLinkChecking(byte[] input)
+  public List<RdfResourceEntry> getResourceEntriesForLinkChecking(byte[] input)
       throws RdfDeserializationException {
     return performDeserialization(input, this::getResourceEntriesForLinkChecking);
   }
 
   @Override
-  public List<String> getResourceEntriesForLinkChecking(InputStream inputStream)
+  public List<RdfResourceEntry> getResourceEntriesForLinkChecking(InputStream inputStream)
       throws RdfDeserializationException {
-    return new ArrayList<>(getResourceEntries(deserializeToDocument(inputStream),
-            UrlType.URL_TYPES_FOR_LINK_CHECKING).keySet());
+    return convertToResourceEntries(getResourceEntries(deserializeToDocument(inputStream),
+            UrlType.URL_TYPES_FOR_LINK_CHECKING));
   }
 
   private static List<RdfResourceEntry> convertToResourceEntries(
