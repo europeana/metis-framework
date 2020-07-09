@@ -10,6 +10,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>dev.morphia.morphia</groupId>
+      <artifactId>core</artifactId>
+      <version>${version.morphia.core}</version>
+    </dependency>
+    <dependency>
       <groupId>javax.annotation</groupId>
       <artifactId>javax.annotation-api</artifactId>
     </dependency>
@@ -55,6 +60,12 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mongodb.morphia</groupId>
+          <artifactId>morphia</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

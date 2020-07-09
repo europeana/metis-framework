@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.api.internal;
 
-import org.mongojack.Id;
+import dev.morphia.annotations.Id;
 
 public class MongoSequence {
 

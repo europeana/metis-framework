@@ -8,8 +8,8 @@ import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.service.exception.CacheStatusException;
-import eu.europeana.enrichment.utils.EnrichmentEntityDao;
 import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.EntityDao;
 import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.RedisProvider;
 import java.io.IOException;
@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
@@ -63,7 +64,7 @@ public class RedisInternalEnricher {
   private static final List<EntityType> ENTITY_TYPES = createEntityTypeList();
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
-  private final EnrichmentEntityDao entityDao;
+  private final EntityDao entityDao;
   private final RedisProvider redisProvider;
 
   /**
@@ -72,7 +73,7 @@ public class RedisInternalEnricher {
    * @param entityDao the dao where the entity will be read from
    * @param provider the redis connection provider
    */
-  public RedisInternalEnricher(EnrichmentEntityDao entityDao, RedisProvider provider) {
+  public RedisInternalEnricher(EntityDao entityDao, RedisProvider provider) {
     this.entityDao = entityDao;
     SimpleModule sm = new SimpleModule("test", Version.unknownVersion());
     sm.addSerializer(new ObjectIdSerializer());
@@ -95,20 +96,21 @@ public class RedisInternalEnricher {
    * @return the status.
    */
   public final CacheStatus getCurrentStatus() {
-    final Jedis jedis = redisProvider.getJedis();
-    final String statusString = jedis.get(CACHED_ENRICHMENT_STATUS);
-    jedis.close();
+    final String statusString;
+    try (Jedis jedis = redisProvider.getJedis()) {
+      statusString = jedis.get(CACHED_ENRICHMENT_STATUS);
+    }
     return CacheStatus.getByName(statusString);
   }
 
   private void setCurrentStatus(CacheStatus status) {
-    final Jedis jedis = redisProvider.getJedis();
-    if (status == null || status == CacheStatus.NONE) {
-      jedis.del(CACHED_ENRICHMENT_STATUS);
-    } else {
-      jedis.set(CACHED_ENRICHMENT_STATUS, status.name());
+    try (Jedis jedis = redisProvider.getJedis()) {
+      if (status == null || status == CacheStatus.NONE) {
+        jedis.del(CACHED_ENRICHMENT_STATUS);
+      } else {
+        jedis.set(CACHED_ENRICHMENT_STATUS, status.name());
+      }
     }
-    jedis.close();
   }
 
   private void verifyCacheReady() throws CacheStatusException {
@@ -136,22 +138,22 @@ public class RedisInternalEnricher {
    */
   public void remove(List<String> uris) throws CacheStatusException {
     verifyCacheReady();
-    Jedis jedis = redisProvider.getJedis();
-    for (String str : uris) {
-      jedis.del(CACHED_CONCEPT + CACHED_PARENT + str);
-      jedis.del(CACHED_AGENT + CACHED_PARENT + str);
-      jedis.del(CACHED_TIMESPAN + CACHED_PARENT + str);
-      jedis.del(CACHED_PLACE + CACHED_PARENT + str);
-      jedis.hdel(CACHED_CONCEPT + CACHED_URI, str);
-      jedis.hdel(CACHED_AGENT + CACHED_URI, str);
-      jedis.hdel(CACHED_TIMESPAN + CACHED_URI, str);
-      jedis.hdel(CACHED_PLACE + CACHED_URI, str);
-      removeKeysForEntity(jedis, str, CACHED_CONCEPT);
-      removeKeysForEntity(jedis, str, CACHED_AGENT);
-      removeKeysForEntity(jedis, str, CACHED_PLACE);
-      removeKeysForEntity(jedis, str, CACHED_TIMESPAN);
+    try (Jedis jedis = redisProvider.getJedis()) {
+      for (String str : uris) {
+        jedis.del(CACHED_CONCEPT + CACHED_PARENT + str);
+        jedis.del(CACHED_AGENT + CACHED_PARENT + str);
+        jedis.del(CACHED_TIMESPAN + CACHED_PARENT + str);
+        jedis.del(CACHED_PLACE + CACHED_PARENT + str);
+        jedis.hdel(CACHED_CONCEPT + CACHED_URI, str);
+        jedis.hdel(CACHED_AGENT + CACHED_URI, str);
+        jedis.hdel(CACHED_TIMESPAN + CACHED_URI, str);
+        jedis.hdel(CACHED_PLACE + CACHED_URI, str);
+        removeKeysForEntity(jedis, str, CACHED_CONCEPT);
+        removeKeysForEntity(jedis, str, CACHED_AGENT);
+        removeKeysForEntity(jedis, str, CACHED_PLACE);
+        removeKeysForEntity(jedis, str, CACHED_TIMESPAN);
+      }
     }
-    jedis.close();
   }
 
   private void removeKeysForEntity(Jedis jedis, String str, String cachedEntity) {
@@ -175,10 +177,8 @@ public class RedisInternalEnricher {
 
     // Empty the cache.
     LOGGER.info("Emptying cache");
-    try {
-      final Jedis jedis = redisProvider.getJedis();
+    try (Jedis jedis = redisProvider.getJedis()) {
       jedis.flushAll();
-      jedis.close();
     } finally {
       setCurrentStatus(CacheStatus.NONE);
     }
@@ -205,23 +205,24 @@ public class RedisInternalEnricher {
   }
 
   private void loadEntities(EntityType entityType) {
-    Jedis jedis = redisProvider.getJedis();
-    List<MongoTerm> terms = entityDao.getAllMongoTerms(entityType.entityClass);
-    int termCount = terms.size();
-    LOGGER.info("Found entities of type {}: {}", entityType.entityClass, termCount);
-    int i = 0;
-    for (MongoTerm term : terms) {
-      loadEntity(entityType, term, jedis);
-      i++;
-      if (i % COUNT_OF_ITEMS_COLLECTED_TO_LOG == 0) {
-        LOGGER.info("Elements added: {} out of: {}", i, termCount);
+    try (Jedis jedis = redisProvider.getJedis()) {
+      List<MongoTerm> terms = entityDao.getAllMongoTerms(entityType.entityClass);
+      int termCount = terms.size();
+      LOGGER.info("Found entities of type {}: {}", entityType.entityClass, termCount);
+      int i = 0;
+      for (MongoTerm term : terms) {
+        loadEntity(entityType, term, jedis);
+        i++;
+        if (i % COUNT_OF_ITEMS_COLLECTED_TO_LOG == 0) {
+          LOGGER.info("Elements added: {} out of: {}", i, termCount);
+        }
       }
     }
-    jedis.close();
   }
 
   private void loadEntity(EntityType entityType, MongoTerm term, Jedis jedis) {
-    MongoTermList<?> termList = entityDao.findByCode(term.getCodeUri(), entityType.entityClass);
+    MongoTermList<?> termList = entityDao
+        .findTermListByField(entityType.entityClass, EntityDao.CODE_URI_FIELD, term.getCodeUri());
     if (termList != null) {
       loadEntities(entityType, term, jedis, termList);
     }
@@ -245,10 +246,10 @@ public class RedisInternalEnricher {
       }
       jedis.hset(entityType.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
           OBJECT_MAPPER.writeValueAsString(entityWrapper));
-      List<String> parents = this.findParents(termList.getParent(), entityType.entityClass);
-      if (!parents.isEmpty()) {
+      List<String> parentCodeUris = this.findParentCodeUris(termList, entityType.entityClass);
+      if (!parentCodeUris.isEmpty()) {
         jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
-            parents.toArray(new String[]{}));
+            parentCodeUris.toArray(new String[]{}));
       }
       if (termList.getOwlSameAs() != null) {
         for (String sameAs : termList.getOwlSameAs()) {
@@ -272,7 +273,7 @@ public class RedisInternalEnricher {
    * @throws IOException if the cache could not be accessed.
    */
   protected List<EntityWrapper> tag(List<InputValue> values)
-          throws IOException, CacheStatusException {
+      throws IOException, CacheStatusException {
     verifyCacheReady();
     List<EntityWrapper> entities = new ArrayList<>();
     for (InputValue inputValue : values) {
@@ -287,20 +288,31 @@ public class RedisInternalEnricher {
     return entities;
   }
 
-  private List<String> findParents(String parent, EntityClass entityClass) {
+  private List<String> findParentCodeUris(MongoTermList termList, EntityClass entityClass) {
     List<String> parentEntities = new ArrayList<>();
-    MongoTermList<?> parents = entityDao.findByCode(parent, entityClass);
-    if (parents != null) {
-      parentEntities.add(parents.getCodeUri());
-      if (parents.getParent() != null && !parent.equals(parents.getParent())) {
-        parentEntities.addAll(this.findParents(parents.getParent(), entityClass));
-      }
-    }
 
+    MongoTermList currentMongoTermList = termList;
+    MongoTermList parentMongoTermList = null;
+    do {
+      if (Objects.nonNull(parentMongoTermList)) {
+        currentMongoTermList = parentMongoTermList;
+      }
+      if (Objects.nonNull(currentMongoTermList) && StringUtils
+          .isNotBlank(currentMongoTermList.getParent())) {
+        parentMongoTermList = entityDao.findTermListByField(entityClass, EntityDao.CODE_URI_FIELD,
+            currentMongoTermList.getParent());
+        if (Objects.nonNull(parentMongoTermList) && StringUtils
+            .isNotBlank(parentMongoTermList.getCodeUri())) {
+          parentEntities.add(parentMongoTermList.getCodeUri());
+        }
+      }
+    } while (StringUtils.isNotBlank(parentMongoTermList.getParent()) && !currentMongoTermList
+        .getCodeUri()
+        .equals(parentMongoTermList.getParent()));
     return parentEntities;
   }
 
-  private List<EntityWrapper> findEntities(String lowerCase, String field, String lang,
+  private List<EntityWrapper> findEntities(String value, String field, String lang,
       EntityClass entityClass) throws IOException {
     final String cachedEntityPrefix;
     switch (entityClass) {
@@ -319,7 +331,7 @@ public class RedisInternalEnricher {
       default:
         throw new IllegalStateException("Unknown entity class: " + entityClass.name());
     }
-    return findEntities(lowerCase, field, lang, cachedEntityPrefix);
+    return findEntities(value, field, lang, cachedEntityPrefix);
   }
 
   private List<EntityWrapper> findEntities(String value, String originalField, String lang,
@@ -329,23 +341,23 @@ public class RedisInternalEnricher {
     if (StringUtils.isEmpty(lang) || lang.length() != LANGUAGE_TAG_LENGTH) {
       lang = "def";
     }
-    Jedis jedis = redisProvider.getJedis();
-    if (!jedis.isConnected()) {
-      jedis.connect();
-    }
-    final String cacheKey =
-        cachedEntityPrefix + CACHED_ENTITY + lang + CACHE_NAME_SEPARATOR + value;
-    if (jedis.exists(cacheKey)) {
-      Set<String> urisToCheck = jedis.smembers(cacheKey);
-      for (String uri : urisToCheck) {
-        EntityWrapper entity = OBJECT_MAPPER
-            .readValue(jedis.hget(cachedEntityPrefix + CACHED_URI, uri), EntityWrapper.class);
-        entity.setOriginalField(originalField);
-        result.add(entity);
-        result.addAll(findParentEntities(cachedEntityPrefix, jedis, uri));
+    try (Jedis jedis = redisProvider.getJedis()) {
+      if (!jedis.isConnected()) {
+        jedis.connect();
+      }
+      final String cacheKey =
+          cachedEntityPrefix + CACHED_ENTITY + lang + CACHE_NAME_SEPARATOR + value;
+      if (jedis.exists(cacheKey)) {
+        Set<String> urisToCheck = jedis.smembers(cacheKey);
+        for (String uri : urisToCheck) {
+          EntityWrapper entity = OBJECT_MAPPER
+              .readValue(jedis.hget(cachedEntityPrefix + CACHED_URI, uri), EntityWrapper.class);
+          entity.setOriginalField(originalField);
+          result.add(entity);
+          result.addAll(findParentEntities(cachedEntityPrefix, jedis, uri));
+        }
       }
     }
-    jedis.close();
     return new ArrayList<>(result);
   }
 
@@ -381,10 +393,10 @@ public class RedisInternalEnricher {
 
     // Get the result providers - this is constant and does not depend on the input.
     final List<GetterByUri> getters = Arrays.asList(
-            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_AGENT),
-            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_CONCEPT),
-            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_TIMESPAN),
-            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_PLACE)
+        (uri, jedis) -> getEntityWrapperFromCodeUri(uri, jedis, CACHED_AGENT),
+        (uri, jedis) -> getEntityWrapperFromCodeUri(uri, jedis, CACHED_CONCEPT),
+        (uri, jedis) -> getEntityWrapperFromCodeUri(uri, jedis, CACHED_TIMESPAN),
+        (uri, jedis) -> getEntityWrapperFromCodeUri(uri, jedis, CACHED_PLACE)
     );
 
     // Get the first non-null result.
@@ -404,14 +416,14 @@ public class RedisInternalEnricher {
 
     // Get the result providers - this is constant and does not depend on the input.
     final List<GetterByUri> getters = Arrays.asList(
-            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_AGENT),
-            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_CONCEPT),
-            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_TIMESPAN),
-            (uri, jedis) -> getEntityWrapper(uri, jedis, CACHED_PLACE),
-            (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_AGENT),
-            (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_CONCEPT),
-            (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_TIMESPAN),
-            (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_PLACE)
+        (uri, jedis) -> getEntityWrapperFromCodeUri(uri, jedis, CACHED_AGENT),
+        (uri, jedis) -> getEntityWrapperFromCodeUri(uri, jedis, CACHED_CONCEPT),
+        (uri, jedis) -> getEntityWrapperFromCodeUri(uri, jedis, CACHED_TIMESPAN),
+        (uri, jedis) -> getEntityWrapperFromCodeUri(uri, jedis, CACHED_PLACE),
+        (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_AGENT),
+        (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_CONCEPT),
+        (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_TIMESPAN),
+        (uri, jedis) -> getEntityWrapperFromSameAs(uri, jedis, CACHED_PLACE)
     );
 
     // Get the first non-null result.
@@ -419,7 +431,7 @@ public class RedisInternalEnricher {
   }
 
   private EntityWrapper getFirstMatch(List<GetterByUri> getters, String requestedUri)
-          throws IOException {
+      throws IOException {
     try (final Jedis jedis = redisProvider.getJedis()) {
       for (GetterByUri getter : getters) {
         final EntityWrapper result = getter.getByUri(requestedUri, jedis);
@@ -438,19 +450,19 @@ public class RedisInternalEnricher {
   }
 
   private EntityWrapper getEntityWrapperFromSameAs(String uri, Jedis jedis, String cachedEntity)
-          throws IOException {
+      throws IOException {
     if (jedis.hexists(cachedEntity + CACHED_SAMEAS, uri)) {
       return OBJECT_MAPPER.readValue(jedis.hget(cachedEntity + CACHED_URI,
-              jedis.hget(cachedEntity + CACHED_SAMEAS, uri)), EntityWrapper.class);
+          jedis.hget(cachedEntity + CACHED_SAMEAS, uri)), EntityWrapper.class);
     }
     return null;
   }
 
-  private EntityWrapper getEntityWrapper(String uri, Jedis jedis, String cachedEntity)
-          throws IOException {
+  private EntityWrapper getEntityWrapperFromCodeUri(String uri, Jedis jedis, String cachedEntity)
+      throws IOException {
     if (jedis.hexists(cachedEntity + CACHED_URI, uri)) {
       return OBJECT_MAPPER
-              .readValue(jedis.hget(cachedEntity + CACHED_URI, uri), EntityWrapper.class);
+          .readValue(jedis.hget(cachedEntity + CACHED_URI, uri), EntityWrapper.class);
     }
     return null;
   }

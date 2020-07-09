@@ -99,11 +99,11 @@ public class RedisProvider {
    */
   public Jedis getJedis() {
     synchronized (this) {
-      LOGGER.info("Requesting a new jedis connection");
+      LOGGER.debug("Requesting a new jedis connection from pool");
       try {
         return pool.getResource();
       } catch (RuntimeException e) {
-        LOGGER.error("Cannot get resource from pool..", e);
+        LOGGER.error("Cannot get jedis connection from pool..", e);
         close();
         initPool(host, port, password);
         return pool.getResource();
