@@ -147,8 +147,12 @@ class TestWorkflowUtils {
   private void testComputePredecessorPlugin(ExecutablePluginMetadata metadata,
       Set<ExecutablePluginType> predecessorTypes, ExecutablePluginType enforcedPluginType)
       throws PluginExecutionNotAllowed {
-    if (!predecessorTypes.isEmpty()) {
-
+    if (predecessorTypes.isEmpty() || (predecessorTypes.contains(ExecutablePluginType.PUBLISH)
+        && metadata.getExecutablePluginType() == ExecutablePluginType.DEPUBLISH)) {
+      assertNull(workflowUtils
+          .computePredecessorPlugin(metadata.getExecutablePluginType(), enforcedPluginType,
+              DATASET_ID));
+    } else {
       // Create some objects.
       final AbstractExecutablePlugin rootPlugin = mock(AbstractExecutablePlugin.class);
       final String rootPluginId = "root plugin ID";
@@ -201,7 +205,8 @@ class TestWorkflowUtils {
       final String otherRootPluginId = "other root plugin ID";
       when(otherRootPlugin.getId()).thenReturn(otherRootPluginId);
       when(workflowUtils.compileVersionEvolution(recentPredecessorPlugin, predecessorExecution))
-          .thenReturn(Collections.singletonList(ImmutablePair.of(otherRootPlugin, rootExecution)));
+          .thenReturn(
+              Collections.singletonList(ImmutablePair.of(otherRootPlugin, rootExecution)));
       assertThrows(PluginExecutionNotAllowed.class,
           () -> workflowUtils.computePredecessorPlugin(metadata.getExecutablePluginType(),
               enforcedPluginType, DATASET_ID));
@@ -219,10 +224,6 @@ class TestWorkflowUtils {
       recentPredecessorPlugin.setExecutionProgress(null);
       assertThrows(PluginExecutionNotAllowed.class, () -> workflowUtils.computePredecessorPlugin(
           metadata.getExecutablePluginType(), enforcedPluginType, DATASET_ID));
-    } else {
-      assertNull(workflowUtils
-          .computePredecessorPlugin(metadata.getExecutablePluginType(), enforcedPluginType,
-              DATASET_ID));
     }
   }
 
@@ -363,7 +364,8 @@ class TestWorkflowUtils {
             ExecutablePluginType.LINK_CHECKING), predecessorType));
 
     // Test workflow with disabled plugins: valid before disabling, but invalid after.
-    final Workflow workflowWithDisabledPlugins = createWorkflow(ExecutablePluginType.NORMALIZATION,
+    final Workflow workflowWithDisabledPlugins = createWorkflow(
+        ExecutablePluginType.NORMALIZATION,
         ExecutablePluginType.ENRICHMENT, ExecutablePluginType.MEDIA_PROCESS);
     assertSame(predecessor, workflowUtils.validateWorkflowPlugins(workflowWithDisabledPlugins,
         predecessorType).getPlugin());
@@ -384,7 +386,8 @@ class TestWorkflowUtils {
     final Workflow workflow = new Workflow();
     workflow.setDatasetId(DATASET_ID);
     workflow.setMetisPluginsMetadata(Arrays.stream(pluginTypes).map(type -> {
-      final AbstractExecutablePluginMetadata plugin = mock(AbstractExecutablePluginMetadata.class);
+      final AbstractExecutablePluginMetadata plugin = mock(
+          AbstractExecutablePluginMetadata.class);
       when(plugin.isEnabled()).thenReturn(true);
       doReturn(type).when(plugin).getExecutablePluginType();
       return plugin;
@@ -433,7 +436,7 @@ class TestWorkflowUtils {
     workflow.setMetisPluginsMetadata(Collections.singletonList(oai));
     workflowUtils.validateWorkflowPlugins(workflow, null);
 
-    // Test output   
+    // Test output
     assertEquals(simpleUrl, oai.getUrl());
     assertNull(oai.getMetadataFormat());
     assertNull(oai.getSetSpec());
