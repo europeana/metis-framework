@@ -292,11 +292,12 @@ public class WorkflowUtils {
    * execution rules, based on the given target plugin type (using {@link
    * #getPredecessorTypes(ExecutablePluginType)}). If no predecessor is required for this type, this
    * method returns null. Null is also returned for a predecessor {@link
-   * ExecutablePluginType#PUBLISH} and pluginType {@link ExecutablePluginType#DEPUBLISH}, for which
-   * we do not need to perform all the checks since the predecessor may have been superseded by an
-   * invalid plugin execution. The enforced predecessor type provides a way to override the computed
-   * candidate types (if there are any): if provided, it is the only candidate type, meaning that
-   * any resulting predecessor plugin will be of this type.
+   * ExecutablePluginType#PUBLISH} that has at least one successful execution and pluginType {@link
+   * ExecutablePluginType#DEPUBLISH}, for which we do not need to perform all the checks since the
+   * predecessor may have been superseded by an invalid plugin execution. The enforced predecessor
+   * type provides a way to override the computed candidate types (if there are any): if provided,
+   * it is the only candidate type, meaning that any resulting predecessor plugin will be of this
+   * type.
    * </p>
    *
    * <p>
@@ -329,9 +330,19 @@ public class WorkflowUtils {
     final PluginWithExecutionId<ExecutablePlugin> predecessorPlugin;
     final Set<ExecutablePluginType> defaultPredecessorTypes = getPredecessorTypes(pluginType);
     // If the plugin type does not need a predecessor (even the enforced one) we are done.
-    // We also return if a DEPUBLISH Operation is requested
-    if (defaultPredecessorTypes.isEmpty() || (defaultPredecessorTypes
-        .contains(ExecutablePluginType.PUBLISH) && pluginType == ExecutablePluginType.DEPUBLISH)) {
+
+    if (defaultPredecessorTypes.isEmpty()) {
+      predecessorPlugin = null;
+    }
+    // We also return null if a DEPUBLISH Operation is requested and a successful PUBLISH exists
+    else if (pluginType == ExecutablePluginType.DEPUBLISH && defaultPredecessorTypes.size() == 1
+        && defaultPredecessorTypes.contains(ExecutablePluginType.PUBLISH)) {
+      //Make sure there at least one successful plugin of the predecessor
+      defaultPredecessorTypes.stream().map(Collections::singleton).map(
+          type -> workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, type, true))
+          .filter(Objects::nonNull).filter(WorkflowUtils::pluginHasSuccessfulRecords).findAny()
+          .orElseThrow(() ->
+              new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
       predecessorPlugin = null;
     } else {
 
