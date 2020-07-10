@@ -3,10 +3,15 @@ package eu.europeana.enrichment.service;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.ObjectIdSerializer;
+import eu.europeana.enrichment.api.internal.AgentTermList;
+import eu.europeana.enrichment.api.internal.ConceptTermList;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.api.internal.PlaceTermList;
+import eu.europeana.enrichment.api.internal.TimespanTermList;
 import eu.europeana.enrichment.service.exception.CacheStatusException;
 import eu.europeana.enrichment.utils.EntityClass;
 import eu.europeana.enrichment.utils.EntityDao;
@@ -83,10 +88,10 @@ public class RedisInternalEnricher {
 
   private static List<EntityType> createEntityTypeList() {
     final ArrayList<EntityType> entityTypes = new ArrayList<>();
-    entityTypes.add(new EntityType(EntityClass.AGENT, CACHED_AGENT));
-    entityTypes.add(new EntityType(EntityClass.CONCEPT, CACHED_CONCEPT));
-    entityTypes.add(new EntityType(EntityClass.PLACE, CACHED_PLACE));
-    entityTypes.add(new EntityType(EntityClass.TIMESPAN, CACHED_TIMESPAN));
+    entityTypes.add(new EntityType(EntityClass.AGENT, AgentTermList.class, CACHED_AGENT));
+    entityTypes.add(new EntityType(EntityClass.CONCEPT, ConceptTermList.class, CACHED_CONCEPT));
+    entityTypes.add(new EntityType(EntityClass.PLACE, PlaceTermList.class, CACHED_PLACE));
+    entityTypes.add(new EntityType(EntityClass.TIMESPAN, TimespanTermList.class, CACHED_TIMESPAN));
     return entityTypes;
   }
 
@@ -222,7 +227,8 @@ public class RedisInternalEnricher {
 
   private void loadEntity(EntityType entityType, MongoTerm term, Jedis jedis) {
     MongoTermList<?> termList = entityDao
-        .findTermListByField(entityType.entityClass, EntityDao.CODE_URI_FIELD, term.getCodeUri());
+        .findTermListByField(entityType.mongoTermListclass, EntityDao.CODE_URI_FIELD,
+            term.getCodeUri());
     if (termList != null) {
       loadEntities(entityType, term, jedis, termList);
     }
@@ -246,7 +252,7 @@ public class RedisInternalEnricher {
       }
       jedis.hset(entityType.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
           OBJECT_MAPPER.writeValueAsString(entityWrapper));
-      List<String> parentCodeUris = this.findParentCodeUris(termList, entityType.entityClass);
+      List<String> parentCodeUris = this.findParentCodeUris(termList, entityType);
       if (!parentCodeUris.isEmpty()) {
         jedis.sadd(entityType.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
             parentCodeUris.toArray(new String[]{}));
@@ -288,7 +294,7 @@ public class RedisInternalEnricher {
     return entities;
   }
 
-  private List<String> findParentCodeUris(MongoTermList termList, EntityClass entityClass) {
+  private List<String> findParentCodeUris(MongoTermList termList, EntityType entityType) {
     List<String> parentEntities = new ArrayList<>();
 
     MongoTermList currentMongoTermList = termList;
@@ -299,15 +305,16 @@ public class RedisInternalEnricher {
       }
       if (Objects.nonNull(currentMongoTermList) && StringUtils
           .isNotBlank(currentMongoTermList.getParent())) {
-        parentMongoTermList = entityDao.findTermListByField(entityClass, EntityDao.CODE_URI_FIELD,
-            currentMongoTermList.getParent());
+        parentMongoTermList = entityDao
+            .findTermListByField(entityType.mongoTermListclass, EntityDao.CODE_URI_FIELD,
+                currentMongoTermList.getParent());
         if (Objects.nonNull(parentMongoTermList) && StringUtils
             .isNotBlank(parentMongoTermList.getCodeUri())) {
           parentEntities.add(parentMongoTermList.getCodeUri());
         }
       }
-    } while (StringUtils.isNotBlank(parentMongoTermList.getParent()) && !currentMongoTermList
-        .getCodeUri()
+    } while (Objects.nonNull(parentMongoTermList) && StringUtils
+        .isNotBlank(parentMongoTermList.getParent()) && !currentMongoTermList.getCodeUri()
         .equals(parentMongoTermList.getParent()));
     return parentEntities;
   }
@@ -471,13 +478,15 @@ public class RedisInternalEnricher {
     return OBJECT_MAPPER;
   }
 
-  private static class EntityType {
+  private static class EntityType<T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> {
 
     protected final EntityClass entityClass;
+    protected final Class<T> mongoTermListclass;
     protected final String cachedEntityPrefix;
 
-    EntityType(EntityClass entityClass, String cachedEntityPrefix) {
+    EntityType(EntityClass entityClass, Class<T> mongoTermListclass, String cachedEntityPrefix) {
       this.entityClass = entityClass;
+      this.mongoTermListclass = mongoTermListclass;
       this.cachedEntityPrefix = cachedEntityPrefix;
     }
   }

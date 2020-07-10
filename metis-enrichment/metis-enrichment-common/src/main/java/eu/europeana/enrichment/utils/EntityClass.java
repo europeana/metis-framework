@@ -11,5 +11,5 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @JsonInclude
 public enum EntityClass {
-  CONCEPT, TIMESPAN, AGENT, PLACE, ORGANIZATION
+  CONCEPT, TIMESPAN, AGENT, PLACE, ORGANIZATION;
 }

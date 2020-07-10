@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.api.internal;
 
+import dev.morphia.annotations.Entity;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 
 /**
@@ -8,6 +9,7 @@ import eu.europeana.corelib.solr.entity.AgentImpl;
  * @author Yorgos.Mamakis@ europeana.eu
  *
  */
+@Entity("TermList")
 public class AgentTermList extends MongoTermList<AgentImpl> {
 
   @Override

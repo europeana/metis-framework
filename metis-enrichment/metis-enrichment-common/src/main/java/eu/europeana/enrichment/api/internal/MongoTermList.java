@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.api.internal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import java.util.Date;
@@ -16,8 +15,6 @@ import org.bson.types.ObjectId;
  * @param <T> AgentImpl, PlaceImpl, ConceptImpl, TimespanImpl, OrganizationImpl
  * @author Yorgos.Mamakis@ europeana.eu
  */
-
-@Entity("TermList")
 public abstract class MongoTermList<T extends AbstractEdmEntityImpl> implements DatedObject {
 
   private String parent;

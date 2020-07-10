@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.api.internal;
 
+import dev.morphia.annotations.Entity;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 
 /**
@@ -8,6 +9,7 @@ import eu.europeana.corelib.solr.entity.OrganizationImpl;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-15
  */
+@Entity("TermList")
 public class OrganizationTermList extends MongoTermList<OrganizationImpl> {
 
   @Override

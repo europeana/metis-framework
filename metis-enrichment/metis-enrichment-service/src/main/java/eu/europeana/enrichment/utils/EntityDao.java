@@ -10,8 +10,13 @@ import dev.morphia.query.Sort;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.corelib.solr.entity.ContextualClassImpl;
+import eu.europeana.enrichment.api.internal.AgentTermList;
+import eu.europeana.enrichment.api.internal.ConceptTermList;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.api.internal.OrganizationTermList;
+import eu.europeana.enrichment.api.internal.PlaceTermList;
+import eu.europeana.enrichment.api.internal.TimespanTermList;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,17 +65,21 @@ public class EntityDao {
     // Register the mappings and set up the data store.
     final Morphia morphia = new Morphia();
     morphia.map(MongoTermList.class);
-//    morphia.map(MongoTerm.class);
+
+    morphia.map(AgentTermList.class);
+    morphia.map(ConceptTermList.class);
+    morphia.map(PlaceTermList.class);
+    morphia.map(TimespanTermList.class);
+    morphia.map(OrganizationTermList.class);
     this.datastore = (AdvancedDatastore) morphia.createDatastore(this.mongoClient, databaseName);
   }
 
-  public <T extends AbstractEdmEntityImpl> MongoTermList<T> findTermListByField(
-      EntityClass entityClass, String fieldName, String fieldValue) {
+  public <T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> MongoTermList<S> findTermListByField(
+      Class<T> mongoTermListType, String fieldName, String fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> this.datastore.find(MongoTermList.class)
-            .filter(ENTITY_TYPE_FIELD, getEntityType(entityClass)).filter(fieldName, fieldValue)
-            .first());
+            () -> this.datastore.find(mongoTermListType).filter(fieldName, fieldValue).first());
   }
+
 
   private MongoTerm findMongoTermByField(String entityType, String fieldName, String fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(

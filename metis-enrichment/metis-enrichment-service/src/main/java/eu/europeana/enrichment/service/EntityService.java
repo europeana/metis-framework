@@ -3,7 +3,6 @@ package eu.europeana.enrichment.service;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.ContextualClassImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
@@ -57,8 +56,8 @@ public class EntityService implements Closeable {
     OrganizationTermList termList = organizationToOrganizationTermList(
         (OrganizationImpl) org, created, modified);
 
-    MongoTermList<ContextualClassImpl> storedOrg = entityDao
-        .findTermListByField(EntityClass.ORGANIZATION, EntityDao.CODE_URI_FIELD, org.getAbout());
+    final MongoTermList<OrganizationImpl> storedOrg = entityDao
+        .findTermListByField(OrganizationTermList.class, EntityDao.CODE_URI_FIELD, org.getAbout());
 
     // it is an update
     if (storedOrg != null) {
@@ -79,7 +78,7 @@ public class EntityService implements Closeable {
     // store term list
     final String id = entityDao.saveTermList(termList);
     final MongoTermList<OrganizationImpl> storedOrganizationMongoTermList = entityDao
-        .findTermListByField(EntityClass.ORGANIZATION, EntityDao.ID_FIELD, id);
+        .findTermListByField(OrganizationTermList.class, EntityDao.ID_FIELD, id);
     return (OrganizationTermList) storedOrganizationMongoTermList;
 
   }
@@ -103,9 +102,9 @@ public class EntityService implements Closeable {
    * @return OrganizationImpl object
    */
   public Organization getOrganizationById(String uri) {
-    MongoTermList<ContextualClassImpl> storedOrg =
-        entityDao.findTermListByField(EntityClass.ORGANIZATION, EntityDao.CODE_URI_FIELD, uri);
-    return storedOrg == null ? null : ((OrganizationImpl) storedOrg.getRepresentation());
+    MongoTermList<OrganizationImpl> storedOrg =
+        entityDao.findTermListByField(OrganizationTermList.class, EntityDao.CODE_URI_FIELD, uri);
+    return storedOrg == null ? null : storedOrg.getRepresentation();
   }
 
   /**
