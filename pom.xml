@@ -67,7 +67,6 @@
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>2.2.0</version.embedded.mongo>
     <version.mongo.java.driver>3.9.1</version.mongo.java.driver>
-    <version.mongojack>2.10.0</version.mongojack>
     <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.commons.io>2.6</version.commons.io>
     <version.commons.lang3>3.10</version.commons.lang3>

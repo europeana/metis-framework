@@ -33,10 +33,6 @@
       <version>${project.version}</version>
       <exclusions>
         <exclusion>
-          <groupId>org.mongojack</groupId>
-          <artifactId>mongojack</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>org.codehaus.jackson</groupId>
           <artifactId>jackson-xc</artifactId>
         </exclusion>
