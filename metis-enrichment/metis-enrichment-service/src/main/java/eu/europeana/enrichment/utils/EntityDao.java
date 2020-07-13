@@ -87,8 +87,7 @@ public class EntityDao {
 
   public List<MongoTerm> getAllMongoTerms(EntityType entityType) {
     Query<MongoTerm> query = this.datastore.createQuery(getTableName(entityType), MongoTerm.class);
-    final FindOptions findOptions = new FindOptions().limit(10);
-    return getListOfQuery(query, findOptions);
+    return getListOfQuery(query, null);
   }
 
   public Date getDateOfLastModifiedEntity(EntityType entityType) {
