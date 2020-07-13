@@ -147,39 +147,39 @@ class TestWorkflowUtils {
   private void testComputePredecessorPlugin(ExecutablePluginMetadata metadata,
       Set<ExecutablePluginType> predecessorTypes, ExecutablePluginType enforcedPluginType)
       throws PluginExecutionNotAllowed {
+    // Create some objects.
+    final AbstractExecutablePlugin rootPlugin = mock(AbstractExecutablePlugin.class);
+    final String rootPluginId = "root plugin ID";
+    when(rootPlugin.getId()).thenReturn(rootPluginId);
+    final WorkflowExecution rootExecution = new WorkflowExecution();
+    final ObjectId rootExecutionId = new ObjectId(new Date(1));
+    rootExecution.setId(rootExecutionId);
+    final WorkflowExecution predecessorExecution = new WorkflowExecution();
+    final ObjectId predecessorExecutionId = new ObjectId(new Date(2));
+    predecessorExecution.setId(predecessorExecutionId);
+
+    // Mock the DAO for the objects just created.
+    int counter = 1;
+    AbstractExecutablePlugin recentPredecessorPlugin = null;
+    for (ExecutablePluginType predecessorType : predecessorTypes) {
+      final AbstractExecutablePlugin predecessorPlugin = ExecutablePluginFactory
+          .createPlugin(metadata);
+      predecessorPlugin.setExecutionProgress(new ExecutionProgress());
+      predecessorPlugin.getExecutionProgress().setProcessedRecords(1);
+      predecessorPlugin.getExecutionProgress().setErrors(0);
+      predecessorPlugin.setFinishedDate(new Date(counter));
+      when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(DATASET_ID,
+          Collections.singleton(predecessorType), true)).thenReturn(
+          new PluginWithExecutionId<>(predecessorExecutionId.toString(), predecessorPlugin));
+      recentPredecessorPlugin = predecessorPlugin;
+      counter++;
+    }
     if (predecessorTypes.isEmpty() || (predecessorTypes.contains(ExecutablePluginType.PUBLISH)
         && metadata.getExecutablePluginType() == ExecutablePluginType.DEPUBLISH)) {
       assertNull(workflowUtils
           .computePredecessorPlugin(metadata.getExecutablePluginType(), enforcedPluginType,
               DATASET_ID));
     } else {
-      // Create some objects.
-      final AbstractExecutablePlugin rootPlugin = mock(AbstractExecutablePlugin.class);
-      final String rootPluginId = "root plugin ID";
-      when(rootPlugin.getId()).thenReturn(rootPluginId);
-      final WorkflowExecution rootExecution = new WorkflowExecution();
-      final ObjectId rootExecutionId = new ObjectId(new Date(1));
-      rootExecution.setId(rootExecutionId);
-      final WorkflowExecution predecessorExecution = new WorkflowExecution();
-      final ObjectId predecessorExecutionId = new ObjectId(new Date(2));
-      predecessorExecution.setId(predecessorExecutionId);
-
-      // Mock the DAO for the objects just created.
-      int counter = 1;
-      AbstractExecutablePlugin recentPredecessorPlugin = null;
-      for (ExecutablePluginType predecessorType : predecessorTypes) {
-        final AbstractExecutablePlugin predecessorPlugin = ExecutablePluginFactory
-            .createPlugin(metadata);
-        predecessorPlugin.setExecutionProgress(new ExecutionProgress());
-        predecessorPlugin.getExecutionProgress().setProcessedRecords(1);
-        predecessorPlugin.getExecutionProgress().setErrors(0);
-        predecessorPlugin.setFinishedDate(new Date(counter));
-        when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(DATASET_ID,
-            Collections.singleton(predecessorType), true)).thenReturn(
-            new PluginWithExecutionId<>(predecessorExecutionId.toString(), predecessorPlugin));
-        recentPredecessorPlugin = predecessorPlugin;
-        counter++;
-      }
       assertNotNull(recentPredecessorPlugin);
       when(workflowExecutionDao.getLatestSuccessfulExecutablePlugin(DATASET_ID,
           WorkflowUtils.getHarvestPluginGroup(), true))
