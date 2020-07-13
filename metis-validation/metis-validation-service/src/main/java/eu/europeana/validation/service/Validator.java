@@ -103,16 +103,15 @@ public class Validator implements Callable<ValidationResult> {
    */
   private ValidationResult validate() {
     LOGGER.debug("Validation started");
-    InputSource source = new InputSource();
-    source.setByteStream(document);
     try {
-      Schema savedSchema = getSchemaByName(schema);
-      final ValidationResult result = validate(source, savedSchema.getPath(),
-              savedSchema.getSchematronPath(), resolver);
-      LOGGER.debug("Validation ended");
-      return result;
+      final Schema savedSchema = getSchemaByName(schema);
+      final InputSource source = new InputSource();
+      source.setByteStream(document);
+      return validate(source, savedSchema.getPath(), savedSchema.getSchematronPath(), resolver);
     } catch (SchemaProviderException e) {
       return constructValidationError(null, e);
+    } finally {
+      LOGGER.debug("Validation ended");
     }
   }
 
