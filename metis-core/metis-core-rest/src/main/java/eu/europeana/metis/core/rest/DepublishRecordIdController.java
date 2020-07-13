@@ -205,6 +205,7 @@ public class DepublishRecordIdController {
   @PostMapping(value = RestEndpoints.DEPUBLISH_EXECUTE_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
+  @ResponseBody
   public WorkflowExecution addDepublishWorkflowInQueueOfWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
