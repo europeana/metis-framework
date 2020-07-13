@@ -262,9 +262,9 @@ public class WorkflowUtils {
 
     // If the plugin type does not need a predecessor we are done.
     final Set<ExecutablePluginType> predecessorTypes = getPredecessorTypes(pluginType);
-    if (predecessorTypes.isEmpty()
-        || pluginType == ExecutablePluginType.DEPUBLISH && predecessorTypes.size() == 1
-        && predecessorTypes.contains(ExecutablePluginType.PUBLISH)) {
+    if (predecessorTypes.isEmpty() || (pluginType == ExecutablePluginType.DEPUBLISH
+        && predecessorTypes.size() == 1 && predecessorTypes
+        .contains(ExecutablePluginType.PUBLISH))) {
       return null;
     }
 
