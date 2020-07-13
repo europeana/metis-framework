@@ -25,7 +25,7 @@ public enum Topology {
 
   INDEX("indexer"),
 
-  DEPUBLISH("depublisher");
+  DEPUBLISH("depublication");
 
   private final String topologyName;
 
