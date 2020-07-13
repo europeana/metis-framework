@@ -15,21 +15,20 @@ import org.bson.types.ObjectId;
  * @param <T> AgentImpl, PlaceImpl, ConceptImpl, TimespanImpl, OrganizationImpl
  * @author Yorgos.Mamakis@ europeana.eu
  */
-public abstract class MongoTermList<T extends AbstractEdmEntityImpl> implements DatedObject {
-
-  private String parent;
-  private String codeUri;
-  private String[] owlSameAs;
-
-  private Date created;
-  private Date modified;
+public abstract class MongoTermList<T extends AbstractEdmEntityImpl> {
 
   @Id
   @JsonProperty("_id")
   private ObjectId id;
 
-  protected T representation;
+  private String parent;
+  private String codeUri;
+  private String[] owlSameAs;
+  private Date created;
+  private Date modified;
+
   private String entityType;
+  protected T representation;
 
   public MongoTermList() {
   }
@@ -78,29 +77,25 @@ public abstract class MongoTermList<T extends AbstractEdmEntityImpl> implements 
     return owlSameAs;
   }
 
-  @SuppressWarnings("unchecked")
-  public static <T extends AbstractEdmEntityImpl, S extends T> MongoTermList<T> cast(
-      MongoTermList<S> source) {
-    return (MongoTermList<T>) source;
-  }
-
-  @Override
   public Date getModified() {
     return modified;
   }
 
-  @Override
   public void setModified(Date modified) {
     this.modified = modified;
   }
 
-  @Override
   public Date getCreated() {
     return created;
   }
 
-  @Override
   public void setCreated(Date created) {
     this.created = created;
+  }
+
+  @SuppressWarnings("unchecked")
+  public static <T extends AbstractEdmEntityImpl, S extends T> MongoTermList<T> cast(
+      MongoTermList<S> source) {
+    return (MongoTermList<T>) source;
   }
 }

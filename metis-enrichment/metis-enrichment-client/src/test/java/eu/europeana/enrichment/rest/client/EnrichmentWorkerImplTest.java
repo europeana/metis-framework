@@ -19,7 +19,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
-import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
 import java.io.UnsupportedEncodingException;
@@ -44,8 +44,8 @@ class EnrichmentWorkerImplTest {
       .forClass(List.class);
 
   private static final InputValue[] ENRICHMENT_EXTRACT_RESULT =
-      {new InputValue("orig1", "value1", "lang1", EntityClass.AGENT),
-          new InputValue(null, "value2", null, EntityClass.AGENT, EntityClass.CONCEPT),
+      {new InputValue("orig1", "value1", "lang1", EntityType.AGENT),
+          new InputValue(null, "value2", null, EntityType.AGENT, EntityType.CONCEPT),
           new InputValue("orig3", null, "lang2")};
 
   private static final String[] DEREFERENCE_EXTRACT_RESULT =

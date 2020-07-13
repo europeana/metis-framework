@@ -65,7 +65,6 @@ public class EntityDao {
     // Register the mappings and set up the data store.
     final Morphia morphia = new Morphia();
     morphia.map(MongoTermList.class);
-
     morphia.map(AgentTermList.class);
     morphia.map(ConceptTermList.class);
     morphia.map(PlaceTermList.class);
@@ -87,15 +86,15 @@ public class EntityDao {
             .first());
   }
 
-  public List<MongoTerm> getAllMongoTerms(EntityClass entityClass) {
-    Query<MongoTerm> query = this.datastore.createQuery(getTableName(entityClass), MongoTerm.class);
+  public List<MongoTerm> getAllMongoTerms(EntityType entityType) {
+    Query<MongoTerm> query = this.datastore.createQuery(getTableName(entityType), MongoTerm.class);
     final FindOptions findOptions = new FindOptions().limit(10);
     return getListOfQuery(query, findOptions);
   }
 
-  public Date getDateOfLastModifiedEntity(EntityClass entityClass) {
+  public Date getDateOfLastModifiedEntity(EntityType entityType) {
     Query<MongoTermList> query = datastore.createQuery(MongoTermList.class);
-    query.filter(ENTITY_TYPE_FIELD, getEntityType(entityClass));
+    query.filter(ENTITY_TYPE_FIELD, getEntityType(entityType));
     query.order(Sort.descending(MODIFIED_FIELD));
     final MongoTermList mongoTermList = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(query::first);
@@ -114,14 +113,14 @@ public class EntityDao {
     return datasetKey == null ? StringUtils.EMPTY : datasetKey.getId().toString();
   }
 
-  public void saveMongoTerms(List<MongoTerm> mongoTerms, EntityClass entityClass) {
+  public void saveMongoTerms(List<MongoTerm> mongoTerms, EntityType entityType) {
     ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> this.datastore.save(getTableName(entityClass), mongoTerms));
+        () -> this.datastore.save(getTableName(entityType), mongoTerms));
   }
 
-  public int storeMongoTermsFromEntity(ContextualClassImpl entity, EntityClass entityClass) {
+  public int storeMongoTermsFromEntity(ContextualClassImpl entity, EntityType entityType) {
     List<MongoTerm> mongoTerms = createListOfMongoTerms(entity);
-    saveMongoTerms(mongoTerms, entityClass);
+    saveMongoTerms(mongoTerms, entityType);
     return mongoTerms.size();
   }
 
@@ -147,14 +146,14 @@ public class EntityDao {
     List<String> removedCodeUris = new ArrayList<>();
     for (String codeUri : codeUris) {
       removedCodeUris.add(codeUri);
-      removedCodeUris.addAll(deleteEntities(getTableName(EntityClass.PLACE), PLACE_TYPE, codeUri));
+      removedCodeUris.addAll(deleteEntities(getTableName(EntityType.PLACE), PLACE_TYPE, codeUri));
       removedCodeUris
-          .addAll(deleteEntities(getTableName(EntityClass.CONCEPT), CONCEPT_TYPE, codeUri));
-      removedCodeUris.addAll(deleteEntities(getTableName(EntityClass.AGENT), AGENT_TYPE, codeUri));
+          .addAll(deleteEntities(getTableName(EntityType.CONCEPT), CONCEPT_TYPE, codeUri));
+      removedCodeUris.addAll(deleteEntities(getTableName(EntityType.AGENT), AGENT_TYPE, codeUri));
       removedCodeUris
-          .addAll(deleteEntities(getTableName(EntityClass.TIMESPAN), TIMESPAN_TYPE, codeUri));
+          .addAll(deleteEntities(getTableName(EntityType.TIMESPAN), TIMESPAN_TYPE, codeUri));
       removedCodeUris.addAll(
-          deleteEntities(getTableName(EntityClass.ORGANIZATION), ORGANIZATION_TYPE, codeUri));
+          deleteEntities(getTableName(EntityType.ORGANIZATION), ORGANIZATION_TYPE, codeUri));
     }
     return removedCodeUris;
   }
@@ -194,9 +193,9 @@ public class EntityDao {
             this.datastore.createQuery(MongoTermList.class).filter(CODE_URI_FIELD, codeUri)));
   }
 
-  private String getTableName(EntityClass entityClass) {
+  private String getTableName(EntityType entityType) {
     final String result;
-    switch (entityClass) {
+    switch (entityType) {
       case AGENT:
         result = AGENT_TABLE;
         break;
@@ -213,14 +212,14 @@ public class EntityDao {
         result = ORGANIZATION_TABLE;
         break;
       default:
-        throw new IllegalStateException("Unknown entity: " + entityClass);
+        throw new IllegalStateException("Unknown entity: " + entityType);
     }
     return result;
   }
 
-  private String getEntityType(EntityClass entityClass) {
+  private String getEntityType(EntityType entityType) {
     final String result;
-    switch (entityClass) {
+    switch (entityType) {
       case AGENT:
         result = AGENT_TYPE;
         break;
@@ -237,7 +236,7 @@ public class EntityDao {
         result = ORGANIZATION_TYPE;
         break;
       default:
-        throw new IllegalStateException("Unknown entity: " + entityClass);
+        throw new IllegalStateException("Unknown entity: " + entityType);
     }
     return result;
   }

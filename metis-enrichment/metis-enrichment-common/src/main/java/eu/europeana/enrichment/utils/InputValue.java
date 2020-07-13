@@ -1,10 +1,9 @@
 package eu.europeana.enrichment.utils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Arrays;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Enrichment input class wrapper. It defines the basics needed for enrichment as the value to be
@@ -14,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 @XmlRootElement
-@JsonInclude(Include.ALWAYS)
+@JsonInclude
 public class InputValue {
 
   private String originalField;
@@ -23,7 +22,7 @@ public class InputValue {
 
   private String language;
 
-  private List<EntityClass> vocabularies;
+  private List<EntityType> vocabularies;
 
   public InputValue() {
   }
@@ -37,7 +36,7 @@ public class InputValue {
    * @param vocabularies the vocabularies that this value represents
    */
   public InputValue(String originalField, String value, String language,
-      EntityClass... vocabularies) {
+      EntityType... vocabularies) {
     this.originalField = originalField;
     this.value = value;
     this.language = language;
@@ -60,11 +59,11 @@ public class InputValue {
     this.value = value;
   }
 
-  public List<EntityClass> getVocabularies() {
+  public List<EntityType> getVocabularies() {
     return vocabularies;
   }
 
-  public void setVocabularies(List<EntityClass> vocabularies) {
+  public void setVocabularies(List<EntityType> vocabularies) {
     this.vocabularies = vocabularies;
   }
 

@@ -36,48 +36,48 @@ import org.apache.commons.lang3.StringUtils;
 public enum EnrichmentFields {
   
   DC_CREATOR(Choice::ifCreator, Choice::getCreator, Choice::setCreator, Creator::new,
-      EntityClass.AGENT),
+      EntityType.AGENT),
 
   DC_CONTRIBUTOR(Choice::ifContributor, Choice::getContributor, Choice::setContributor,
-      Contributor::new, EntityClass.AGENT),
+      Contributor::new, EntityType.AGENT),
 
-  DC_DATE(Choice::ifDate, Choice::getDate, Choice::setDate, Date::new, EntityClass.TIMESPAN),
+  DC_DATE(Choice::ifDate, Choice::getDate, Choice::setDate, Date::new, EntityType.TIMESPAN),
 
   DCTERMS_ISSUED(Choice::ifIssued, Choice::getIssued, Choice::setIssued, Issued::new,
-      EntityClass.TIMESPAN),
+      EntityType.TIMESPAN),
 
   DCTERMS_CREATED(Choice::ifCreated, Choice::getCreated, Choice::setCreated, Created::new,
-      EntityClass.TIMESPAN),
+      EntityType.TIMESPAN),
 
   DC_COVERAGE(Choice::ifCoverage, Choice::getCoverage, Choice::setCoverage, Coverage::new,
-      EntityClass.PLACE),
+      EntityType.PLACE),
 
   DCTERMS_TEMPORAL(Choice::ifTemporal, Choice::getTemporal, Choice::setTemporal, Temporal::new,
-      EntityClass.TIMESPAN),
+      EntityType.TIMESPAN),
 
-  DC_TYPE(Choice::ifType, Choice::getType, Choice::setType, Type::new, EntityClass.CONCEPT),
+  DC_TYPE(Choice::ifType, Choice::getType, Choice::setType, Type::new, EntityType.CONCEPT),
 
   DCTERMS_SPATIAL(Choice::ifSpatial, Choice::getSpatial, Choice::setSpatial, Spatial::new,
-      EntityClass.PLACE),
+      EntityType.PLACE),
 
   DC_SUBJECT(Choice::ifSubject, Choice::getSubject, Choice::setSubject, Subject::new,
-      EntityClass.CONCEPT),
+      EntityType.CONCEPT),
 
   DCTERMS_MEDIUM(Choice::ifMedium, Choice::getMedium, Choice::setMedium, Medium::new,
-      EntityClass.CONCEPT),
+      EntityType.CONCEPT),
 
   DC_FORMAT(Choice::ifFormat, Choice::getFormat, Choice::setFormat, Format::new,
-      EntityClass.CONCEPT);
+      EntityType.CONCEPT);
 
   private final ChoiceContentHandler<?> choiceContentHandler;
-  private final EntityClass entityClass;
+  private final EntityType entityType;
 
   <T extends ResourceOrLiteralType> EnrichmentFields(Predicate<Choice> choiceChecker,
       Function<Choice, T> contentGetter, BiConsumer<Choice, T> contentSetter,
-      Supplier<T> contentCreator, EntityClass entityClass) {
+      Supplier<T> contentCreator, EntityType entityType) {
     this.choiceContentHandler =
         new ChoiceContentHandler<>(choiceChecker, contentGetter, contentSetter, contentCreator);
-    this.entityClass = entityClass;
+    this.entityType = entityType;
   }
 
   /**
@@ -117,7 +117,7 @@ public enum EnrichmentFields {
 
   private InputValue convert(ResourceOrLiteralType content) {
     final String language = content.getLang() == null ? null : content.getLang().getLang();
-    return new InputValue(this.name(), content.getString(), language, entityClass);
+    return new InputValue(this.name(), content.getString(), language, entityType);
   }
 
   /**

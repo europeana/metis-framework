@@ -84,8 +84,8 @@ public class RedisProvider {
       }
 
       //Check if connection works
-      try {
-        pool.getResource();
+      try (Jedis jedis = pool.getResource()) {
+        LOGGER.info("Jedis pool initialization successful");
       } catch (JedisConnectionException e) {
         LOGGER.error("Cannot get resource from pool..", e);
       }

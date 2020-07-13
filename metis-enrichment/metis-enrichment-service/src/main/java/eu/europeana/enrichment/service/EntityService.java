@@ -6,7 +6,7 @@ import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
-import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.EntityDao;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
@@ -72,7 +72,7 @@ public class EntityService implements Closeable {
 
     // store labels
     int countOfStoredMongoTerms = entityDao.storeMongoTermsFromEntity(
-        (OrganizationImpl) org, EntityClass.ORGANIZATION);
+        (OrganizationImpl) org, EntityType.ORGANIZATION);
     LOGGER.trace("Stored {} new mongo terms", countOfStoredMongoTerms);
 
     // store term list
@@ -169,6 +169,6 @@ public class EntityService implements Closeable {
    * @return the last modified date
    */
   public Date getLastOrganizationImportDate() {
-    return entityDao.getDateOfLastModifiedEntity(EntityClass.ORGANIZATION);
+    return entityDao.getDateOfLastModifiedEntity(EntityType.ORGANIZATION);
   }
 }
