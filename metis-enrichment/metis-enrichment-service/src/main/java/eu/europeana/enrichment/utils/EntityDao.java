@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
  */
 public class EntityDao {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(EntityDao.class);
   private final AdvancedDatastore datastore;
 
   public static final String ID_FIELD = "_id";
