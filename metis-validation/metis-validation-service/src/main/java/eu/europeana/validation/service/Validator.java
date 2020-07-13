@@ -2,16 +2,19 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.model.ValidationResult;
+import eu.europeana.validation.service.EDMParser.EDMParseSetupException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -39,7 +42,7 @@ public class Validator implements Callable<ValidationResult> {
 
   private static final String NODE_ID_ATTR = "nodeId";
   private static final Logger LOGGER = LoggerFactory.getLogger(Validator.class);
-  private static ConcurrentMap<String, Templates> templatesCache;
+  private static final ConcurrentMap<String, Templates> templatesCache = new ConcurrentHashMap<>();
 
   private final String schema;
   private final String rootFileLocation;
@@ -47,11 +50,6 @@ public class Validator implements Callable<ValidationResult> {
   private final InputStream document;
   private final SchemaProvider schemaProvider;
   private final ClasspathResourceResolver resolver;
-
-  static {
-    templatesCache = new ConcurrentHashMap<>();
-  }
-
 
   /**
    * Constructor specifying the schema to validate against and the document
@@ -107,35 +105,58 @@ public class Validator implements Callable<ValidationResult> {
     LOGGER.debug("Validation started");
     InputSource source = new InputSource();
     source.setByteStream(document);
-    String rdfAbout = null;
     try {
       Schema savedSchema = getSchemaByName(schema);
+      final ValidationResult result = validate(source, savedSchema.getPath(),
+              savedSchema.getSchematronPath(), resolver);
+      LOGGER.debug("Validation ended");
+      return result;
+    } catch (SchemaProviderException e) {
+      return constructValidationError(null, e);
+    }
+  }
 
-      resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), File.separator));
+  private static ValidationResult validate(InputSource source, String schemaPath,
+          String schematronPath, ClasspathResourceResolver resolver) {
 
-      Document doc = EDMParser.getInstance().getEdmParser().parse(source);
+    // Set up the validation.
+    resolver.setPrefix(StringUtils.substringBeforeLast(schemaPath, File.separator));
+    final DocumentBuilder edmParser;
+    final javax.xml.validation.Validator edmValidator;
+    final Transformer transformer;
+    try {
+      edmParser = EDMParser.getInstance().getEdmParser();
+      edmValidator = EDMParser.getInstance().getEdmValidator(schemaPath, resolver);
+      transformer = StringUtils.isNotEmpty(schematronPath) ? getTransformer(schematronPath) : null;
+    } catch (EDMParseSetupException | IOException | TransformerConfigurationException e) {
+      LOGGER.error("Problem setting up parsing and validation: {}", e.getMessage(), e);
+      return constructValidationError(null, e);
+    }
+
+    // Perform the validation
+    String rdfAbout = null;
+    try {
+      final Document doc = edmParser.parse(source);
       rdfAbout = getRdfAbout(doc);
-      EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), resolver)
-          .validate(new DOMSource(doc));
-      if (StringUtils.isNotEmpty(savedSchema.getSchematronPath())) {
-        Transformer transformer = getTransformer(savedSchema);
-
-        DOMResult result = new DOMResult();
+      edmValidator.validate(new DOMSource(doc));
+      if (transformer != null) {
+        final DOMResult result = new DOMResult();
         transformer.transform(new DOMSource(doc), result);
-        NodeList nresults = result.getNode().getFirstChild().getChildNodes();
+        final NodeList nresults = result.getNode().getFirstChild().getChildNodes();
         final ValidationResult errorResult = checkNodeListForErrors(nresults, rdfAbout);
         if (errorResult != null) {
           return errorResult;
         }
       }
-    } catch (IOException | SchemaProviderException | SAXException | TransformerException e) {
+    } catch (IOException | SAXException | TransformerException e) {
       return constructValidationError(rdfAbout, e);
     }
-    LOGGER.debug("Validation ended");
+
+    // Done: no errors to report.
     return constructOk();
   }
 
-  private String getRdfAbout(Document document) {
+  private static String getRdfAbout(Document document) {
     final NodeList nodes = document
             .getElementsByTagNameNS("http://www.europeana.eu/schemas/edm/", "ProvidedCHO");
     for (int i = 0; i < nodes.getLength(); i++) {
@@ -151,7 +172,7 @@ public class Validator implements Callable<ValidationResult> {
     return null;
   }
 
-  private ValidationResult checkNodeListForErrors(NodeList nresults, String rdfAbout) {
+  private static ValidationResult checkNodeListForErrors(NodeList nresults, String rdfAbout) {
     for (int i = 0; i < nresults.getLength(); i++) {
       Node nresult = nresults.item(i);
       if ("failed-assert".equals(nresult.getLocalName())) {
@@ -164,10 +185,9 @@ public class Validator implements Callable<ValidationResult> {
     return null;
   }
 
-  private Transformer getTransformer(Schema schema)
+  private static Transformer getTransformer(String schematronPath)
       throws IOException, TransformerConfigurationException {
     StringReader reader;
-    String schematronPath = schema.getSchematronPath();
 
     if (!templatesCache.containsKey(schematronPath)) {
       reader = new StringReader(
@@ -182,7 +202,7 @@ public class Validator implements Callable<ValidationResult> {
     return templatesCache.get(schematronPath).newTransformer();
   }
 
-  private ValidationResult constructValidationError(String rdfAbout, Exception e) {
+  private static ValidationResult constructValidationError(String rdfAbout, Exception e) {
     ValidationResult res = new ValidationResult();
     res.setMessage(e.getMessage());
     res.setRecordId(rdfAbout);
@@ -194,7 +214,7 @@ public class Validator implements Callable<ValidationResult> {
     return res;
   }
 
-  private ValidationResult constructValidationError(String rdfAbout, String message,
+  private static ValidationResult constructValidationError(String rdfAbout, String message,
       String nodeId) {
     ValidationResult res = new ValidationResult();
     res.setMessage(message);
@@ -202,17 +222,12 @@ public class Validator implements Callable<ValidationResult> {
     if (StringUtils.isEmpty(res.getRecordId())) {
       res.setRecordId("Missing record identifier for EDM record");
     }
-    if (nodeId == null) {
-      res.setNodeId("Missing node identifier");
-    } else {
-      res.setNodeId(nodeId);
-    }
-
+    res.setNodeId(Objects.requireNonNullElse(nodeId, "Missing node identifier"));
     res.setSuccess(false);
     return res;
   }
 
-  private ValidationResult constructOk() {
+  private static ValidationResult constructOk() {
     ValidationResult res = new ValidationResult();
 
     res.setSuccess(true);

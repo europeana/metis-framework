@@ -48,14 +48,14 @@ final class EDMParser {
    * Get an EDM Parser using DOM
    *
    * @return EDM parser.
+   * @throws EDMParseSetupException In case the parser could not be created.
    */
-  public DocumentBuilder getEdmParser() {
+  public DocumentBuilder getEdmParser() throws EDMParseSetupException {
     try {
       return PARSE_FACTORY.newDocumentBuilder();
     } catch (ParserConfigurationException e) {
-      LOGGER.error("Unable to configure parser", e);
+      throw new EDMParseSetupException("Unable to configure parser", e);
     }
-    return null;
   }
 
   /**
@@ -65,15 +65,15 @@ final class EDMParser {
    * method could become unsecure.
    * @param resolver the resolver used for the schema
    * @return JAXP schema validator.
+   * @throws EDMParseSetupException In case the validator could not be created.
    */
-  public Validator getEdmValidator(String path, LSResourceResolver resolver) {
+  public Validator getEdmValidator(String path, LSResourceResolver resolver)
+          throws EDMParseSetupException {
     try {
-      Schema schema = getSchema(path, resolver);
-      return schema.newValidator();
+      return getSchema(path, resolver).newValidator();
     } catch (SAXException | IOException e) {
-      LOGGER.error("Unable to create validator", e);
+      throw new EDMParseSetupException("Unable to create validator", e);
     }
-    return null;
   }
 
   private Schema getSchema(String path, LSResourceResolver resolver)
@@ -105,6 +105,18 @@ final class EDMParser {
         p = new EDMParser();
       }
       return p;
+    }
+  }
+
+  /**
+   * Exception indicating something went wrong setting up EDM Parsing.
+   */
+  public static class EDMParseSetupException extends Exception {
+
+    private static final long serialVersionUID = 3854029647081914787L;
+
+    EDMParseSetupException(String message, Throwable cause) {
+      super(message, cause);
     }
   }
 }
