@@ -237,7 +237,4 @@ public class Validator implements Callable<ValidationResult> {
   public ValidationResult call() {
     return validate();
   }
-
 }
-
-
