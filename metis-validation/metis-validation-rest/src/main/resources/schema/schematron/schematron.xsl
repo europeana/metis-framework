@@ -306,6 +306,13 @@
         <xsl:apply-templates/>
       </svrl:active-pattern>
       <xsl:apply-templates select="/" mode="M35"/>
+      <svrl:active-pattern>
+        <xsl:attribute name="document">
+          <xsl:value-of select="document-uri(/)"/>
+        </xsl:attribute>
+        <xsl:apply-templates/>
+      </svrl:active-pattern>
+      <xsl:apply-templates select="/" mode="M45"/>
     </svrl:schematron-output>
   </xsl:template>
 
@@ -849,4 +856,55 @@
   <xsl:template match="@*|node()" priority="-2" mode="M35">
     <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M35"/>
   </xsl:template>
+
+  <!--PATTERN -->
+
+
+  <!--RULE -->
+  <xsl:template match="rdf:RDF" priority="1000" mode="M45">
+    <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="rdf:RDF"/>
+
+    <!--ASSERT -->
+    <!-- NOTE: this check is not captured in the XSD schematron annotations. It applies only to
+         Metis validation and does not constitute an official requirement on EDM documents. -->
+    <xsl:choose>
+      <xsl:when test="count(edm:ProvidedCHO) = 1"/>
+      <xsl:otherwise>
+        <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                test="count(edm:ProvidedCHO) = 1">
+          <xsl:attribute name="location">
+            <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+          </xsl:attribute>
+          <svrl:text>
+            Within a RDF context, there must be exactly one edm:ProvidedCHO.
+          </svrl:text>
+        </svrl:failed-assert>
+      </xsl:otherwise>
+    </xsl:choose>
+
+    <!--ASSERT -->
+    <!-- NOTE: this check is not captured in the XSD schematron annotations. It applies only to
+         Metis validation and does not constitute an official requirement on EDM documents. -->
+    <xsl:choose>
+      <xsl:when test="count(ore:Aggregation) = 1"/>
+      <xsl:otherwise>
+        <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                test="count(ore:Aggregation) = 1">
+          <xsl:attribute name="location">
+            <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+          </xsl:attribute>
+          <svrl:text>
+            Within a RDF context, there must be exactly one ore:Aggregation.
+          </svrl:text>
+        </svrl:failed-assert>
+      </xsl:otherwise>
+    </xsl:choose>
+
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M45"/>
+  </xsl:template>
+  <xsl:template match="text()" priority="-1" mode="M45"/>
+  <xsl:template match="@*|node()" priority="-2" mode="M45">
+    <xsl:apply-templates select="*|comment()|processing-instruction()" mode="M45"/>
+  </xsl:template>
+
 </xsl:stylesheet>
