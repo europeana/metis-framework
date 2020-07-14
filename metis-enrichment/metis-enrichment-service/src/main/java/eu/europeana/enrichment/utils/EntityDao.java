@@ -4,7 +4,6 @@ import com.mongodb.MongoClient;
 import dev.morphia.AdvancedDatastore;
 import dev.morphia.Key;
 import dev.morphia.Morphia;
-import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.internal.MorphiaCursor;
@@ -23,10 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiFunction;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Simon Tzanakis
@@ -75,7 +71,7 @@ public class EntityDao {
   public <T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> MongoTermList<S> findTermListByField(
       Class<T> mongoTermListType, String fieldName, String fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-            () -> this.datastore.find(mongoTermListType).filter(fieldName, fieldValue).first());
+        () -> this.datastore.find(mongoTermListType).filter(fieldName, fieldValue).first());
   }
 
 
@@ -87,7 +83,7 @@ public class EntityDao {
 
   public List<MongoTerm> getAllMongoTerms(EntityType entityType) {
     Query<MongoTerm> query = this.datastore.createQuery(getTableName(entityType), MongoTerm.class);
-    return getListOfQuery(query, null);
+    return getListOfQuery(query);
   }
 
   public Date getDateOfLastModifiedEntity(EntityType entityType) {
@@ -167,7 +163,7 @@ public class EntityDao {
     final Query<MongoTermList> termListsSameAsQuery = this.datastore
         .createQuery(MongoTermList.class).filter(ENTITY_TYPE_FIELD, entityType)
         .filter(OWL_SAME_AS, codeUri);
-    final List<MongoTermList> allTermListsSameAs = getListOfQuery(termListsSameAsQuery, null);
+    final List<MongoTermList> allTermListsSameAs = getListOfQuery(termListsSameAsQuery);
     for (MongoTermList mongoTermList : allTermListsSameAs) {
       final String sameAsCodeUri = mongoTermList.getCodeUri();
       extraUrisRemoved.add(sameAsCodeUri);
@@ -239,18 +235,9 @@ public class EntityDao {
     return result;
   }
 
-  private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
+  private <T> List<T> getListOfQuery(Query<T> query) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
-      final BiFunction<Query<T>, FindOptions, MorphiaCursor<T>> queryFunction = (querySupplied, findOptionsSupplied) -> {
-        final MorphiaCursor<T> morphiaCursor;
-        if (findOptionsSupplied == null) {
-          morphiaCursor = querySupplied.find();
-        } else {
-          morphiaCursor = querySupplied.find(findOptionsSupplied);
-        }
-        return morphiaCursor;
-      };
-      try (MorphiaCursor<T> cursor = queryFunction.apply(query, findOptions)) {
+      try (MorphiaCursor<T> cursor = query.find()) {
         return cursor.toList();
       }
     });

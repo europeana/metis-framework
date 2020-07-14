@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.api.internal;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.morphia.annotations.Id;
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import java.util.Date;
@@ -18,7 +17,6 @@ import org.bson.types.ObjectId;
 public abstract class MongoTermList<T extends AbstractEdmEntityImpl> {
 
   @Id
-  @JsonProperty("_id")
   private ObjectId id;
 
   private String parent;
@@ -91,11 +89,5 @@ public abstract class MongoTermList<T extends AbstractEdmEntityImpl> {
 
   public void setCreated(Date created) {
     this.created = created;
-  }
-
-  @SuppressWarnings("unchecked")
-  public static <T extends AbstractEdmEntityImpl, S extends T> MongoTermList<T> cast(
-      MongoTermList<S> source) {
-    return (MongoTermList<T>) source;
   }
 }
