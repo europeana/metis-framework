@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
@@ -252,7 +251,7 @@ public class RedisInternalEnricher {
       }
       jedis.hset(entityInfo.cachedEntityPrefix + CACHED_URI, term.getCodeUri(),
           OBJECT_MAPPER.writeValueAsString(entityWrapper));
-      List<String> parentCodeUris = this.findParentCodeUris(termList, entityInfo);
+      Set<String> parentCodeUris = this.findParentCodeUris(termList, entityInfo);
       if (!parentCodeUris.isEmpty()) {
         jedis.sadd(entityInfo.cachedEntityPrefix + CACHED_PARENT + term.getCodeUri(),
             parentCodeUris.toArray(new String[]{}));
@@ -294,28 +293,17 @@ public class RedisInternalEnricher {
     return entities;
   }
 
-  private List<String> findParentCodeUris(MongoTermList<?> termList, EntityInfo<?, ?> entityInfo) {
-    List<String> parentEntities = new ArrayList<>();
-
+  private Set<String> findParentCodeUris(MongoTermList<?> termList, EntityInfo<?, ?> entityInfo) {
+    final Set<String> parentEntities = new HashSet<>();
     MongoTermList<?> currentMongoTermList = termList;
-    MongoTermList<?> parentMongoTermList = null;
-    do {
-      if (Objects.nonNull(parentMongoTermList)) {
-        currentMongoTermList = parentMongoTermList;
+    while (StringUtils.isNotBlank(currentMongoTermList.getParent())) {
+      currentMongoTermList = entityDao.findTermListByField(entityInfo.mongoTermListClass,
+          EntityDao.CODE_URI_FIELD, currentMongoTermList.getParent());
+      //Break when there is no other parent available or when we have already encountered the codeUri
+      if (currentMongoTermList == null || !parentEntities.add(currentMongoTermList.getCodeUri())) {
+        break;
       }
-      if (Objects.nonNull(currentMongoTermList) && StringUtils
-          .isNotBlank(currentMongoTermList.getParent())) {
-        parentMongoTermList = entityDao
-            .findTermListByField(entityInfo.mongoTermListClass, EntityDao.CODE_URI_FIELD,
-                currentMongoTermList.getParent());
-        if (Objects.nonNull(parentMongoTermList) && StringUtils
-            .isNotBlank(parentMongoTermList.getCodeUri())) {
-          parentEntities.add(parentMongoTermList.getCodeUri());
-        }
-      }
-    } while (Objects.nonNull(parentMongoTermList) && StringUtils
-        .isNotBlank(parentMongoTermList.getParent()) && !currentMongoTermList.getCodeUri()
-        .equals(parentMongoTermList.getParent()));
+    }
     return parentEntities;
   }
 
