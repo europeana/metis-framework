@@ -13,5 +13,3 @@ redis.password=
 enrichment.mongo.host=
 enrichment.mongo.database=
 enrichment.mongo.port=
-enrichment.proxy.url=
-vocabulary.path=

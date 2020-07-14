@@ -64,13 +64,10 @@ public class Application implements WebMvcConfigurer, InitializingBean {
 
   @Value("${enrichment.mongo.host}")
   private String enrichmentMongoHost;
-  @Value("${enrichment.mongoPort:27017}")
+  @Value("${enrichment.mongo.port:27017}")
   private int enrichmentMongoPort;
   @Value("${enrichment.mongo.database}")
   private String enrichmentMongoDatabase;
-
-  @Value("${enrichment.proxy.url}")
-  private String enrichmentProxyUrl;
 
   private RedisProvider redisProvider;
 
