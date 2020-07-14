@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.api.internal;
 
 
-import org.mongojack.Id;
+import dev.morphia.annotations.Id;
 
 /**
  * Basic POJO for search by label functionality. The class is comprised by the CodeURI linking all

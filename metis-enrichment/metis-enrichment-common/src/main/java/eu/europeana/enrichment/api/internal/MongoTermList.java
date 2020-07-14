@@ -1,43 +1,35 @@
 package eu.europeana.enrichment.api.internal;
 
-import java.util.Date;
-import java.util.List;
-import javax.xml.bind.annotation.XmlTransient;
-import org.bson.types.ObjectId;
-import org.mongojack.DBRef;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.morphia.annotations.Id;
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
+import java.util.Date;
+import org.bson.types.ObjectId;
 
 /**
  * Basic Class linking a number of MongoTerms. This class enables searching by CodeUri for fetching
  * all the relevant MongoTerms while it includes the parent term (skos:broader, dcterms:isPartOf),
  * the className of the entityType for deserialization and a JSON representation of the contextual
  * class
- * 
- * @author Yorgos.Mamakis@ europeana.eu
- * 
+ *
  * @param <T> AgentImpl, PlaceImpl, ConceptImpl, TimespanImpl, OrganizationImpl
+ * @author Yorgos.Mamakis@ europeana.eu
  */
+public abstract class MongoTermList<T extends AbstractEdmEntityImpl> {
 
-public abstract class MongoTermList<T extends AbstractEdmEntityImpl> implements DatedObject {
+  @Id
+  private ObjectId id;
 
   private String parent;
   private String codeUri;
   private String[] owlSameAs;
-
   private Date created;
   private Date modified;
 
-  @JsonIgnore
-  @XmlTransient
-  private List<DBRef<? extends MongoTerm, String>> terms;
-
-  @JsonProperty("_id")
-  private ObjectId id;
-
-  protected T representation;
   private String entityType;
+  protected T representation;
+
+  public MongoTermList() {
+  }
 
   public ObjectId getId() {
     return id;
@@ -53,14 +45,6 @@ public abstract class MongoTermList<T extends AbstractEdmEntityImpl> implements 
 
   public void setCodeUri(String codeUri) {
     this.codeUri = codeUri;
-  }
-
-  public List<DBRef<? extends MongoTerm, String>> getTerms() {
-    return terms;
-  }
-
-  public void setTerms(List<DBRef<? extends MongoTerm, String>> terms) {
-    this.terms = terms;
   }
 
   public String getParent() {
@@ -91,28 +75,18 @@ public abstract class MongoTermList<T extends AbstractEdmEntityImpl> implements 
     return owlSameAs;
   }
 
-  @SuppressWarnings("unchecked")
-  public static <T extends AbstractEdmEntityImpl, S extends T> MongoTermList<T> cast(
-      MongoTermList<S> source) {
-    return (MongoTermList<T>) source;
-  }
-
-  @Override
   public Date getModified() {
     return modified;
   }
 
-  @Override
   public void setModified(Date modified) {
     this.modified = modified;
   }
 
-  @Override
   public Date getCreated() {
     return created;
   }
 
-  @Override
   public void setCreated(Date created) {
     this.created = created;
   }

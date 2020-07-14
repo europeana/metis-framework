@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.api.external;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.EntityType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class EntityWrapper {
 
   @XmlElement
-  private EntityClass entityClass;
+  private EntityType entityType;
   @XmlElement
   private String originalField;
   @XmlElement
@@ -46,12 +46,12 @@ public class EntityWrapper {
     this.contextualEntity = contextualEntity;
   }
 
-  public EntityClass getEntityClass() {
-    return entityClass;
+  public EntityType getEntityType() {
+    return entityType;
   }
   
-  public void setEntityClass(EntityClass entityClass) {
-    this.entityClass = entityClass;
+  public void setEntityType(EntityType entityType) {
+    this.entityType = entityType;
   }
   
   public String getUrl() {

@@ -127,11 +127,6 @@
       <version>${version.xerces}</version>
     </dependency>
     <dependency>
-      <groupId>org.mongojack</groupId>
-      <artifactId>mongojack</artifactId>
-      <version>${version.mongojack}</version>
-    </dependency>
-    <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongo-java-driver</artifactId>
       <version>${version.mongo.java.driver}</version>
@@ -139,6 +134,12 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mongodb.morphia</groupId>
+          <artifactId>morphia</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>de.flapdoodle.embed</groupId>

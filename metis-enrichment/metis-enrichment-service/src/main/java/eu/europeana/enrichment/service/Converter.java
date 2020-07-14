@@ -57,7 +57,7 @@ public class Converter {
    */
   public EnrichmentBase convert(EntityWrapper wrapper) throws IOException {
     final EnrichmentBase result;
-    switch (wrapper.getEntityClass()) {
+    switch (wrapper.getEntityType()) {
       case AGENT:
         result = convertAgent(wrapper.getContextualEntity());
         break;

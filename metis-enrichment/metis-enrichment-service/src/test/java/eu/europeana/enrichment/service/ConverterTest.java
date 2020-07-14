@@ -15,7 +15,7 @@ import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.EntityType;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +36,7 @@ public class ConverterTest {
     impl.setOwlSameAs(new String []{"1", "2"});
     impl.setAltLabel(createAltLabels("en", new String[] {"a_en", "b_en"}));
 
-    wrapper.setEntityClass(EntityClass.AGENT);
+    wrapper.setEntityType(EntityType.AGENT);
 
     Converter converter = new Converter();
     wrapper.setContextualEntity(mapper.writeValueAsString(impl));
@@ -70,7 +70,7 @@ public class ConverterTest {
     impl.setRelated(new String []{"a", "b"});
     impl.setRelatedMatch(new String []{"1", "2"});
 
-    wrapper.setEntityClass(EntityClass.CONCEPT);
+    wrapper.setEntityType(EntityType.CONCEPT);
 
     Converter converter = new Converter();
     wrapper.setContextualEntity(mapper.writeValueAsString(impl));
@@ -93,7 +93,7 @@ public class ConverterTest {
     impl.setId(ObjectId.get());
     impl.setAbout("myAbout");
     impl.setOwlSameAs(new String []{"1", "2"});
-    wrapper.setEntityClass(EntityClass.TIMESPAN);
+    wrapper.setEntityType(EntityType.TIMESPAN);
 
     Converter converter = new Converter();
     wrapper.setContextualEntity(mapper.writeValueAsString(impl));
@@ -113,7 +113,7 @@ public class ConverterTest {
     impl.setId(ObjectId.get());
     impl.setAbout("myAbout");
     impl.setOwlSameAs(new String []{"1", "2"});
-    wrapper.setEntityClass(EntityClass.PLACE);
+    wrapper.setEntityType(EntityType.PLACE);
 
     Converter converter = new Converter();
     wrapper.setContextualEntity(mapper.writeValueAsString(impl));
@@ -133,7 +133,7 @@ public class ConverterTest {
     impl.setId(ObjectId.get());
     impl.setAbout("myAbout");
     impl.setOwlSameAs(new String []{"1", "2"});
-    wrapper.setEntityClass(EntityClass.ORGANIZATION);
+    wrapper.setEntityType(EntityType.ORGANIZATION);
 
     Converter converter = new Converter();
     wrapper.setContextualEntity(mapper.writeValueAsString(impl));

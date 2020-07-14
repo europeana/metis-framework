@@ -1,12 +1,15 @@
 package eu.europeana.enrichment.rest.config;
 
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import com.mongodb.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.enrichment.utils.EnrichmentEntityDao;
+import eu.europeana.enrichment.utils.EntityDao;
 import eu.europeana.enrichment.utils.RedisProvider;
+import eu.europeana.metis.mongo.MongoClientProvider;
+import eu.europeana.metis.mongo.MongoProperties;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,8 +32,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Spring configuration class
- * Created by ymamakis on 12-2-16.
+ * Spring configuration class Created by ymamakis on 12-2-16.
  */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.enrichment.rest",
@@ -60,13 +62,12 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${redis.password}")
   private String redisPassword;
 
-  @Value("${enrichment.mongoDb}")
-  private String enrichmentMongo;
-  @Value("${enrichment.mongoPort:27017}")
+  @Value("${enrichment.mongo.host}")
+  private String enrichmentMongoHost;
+  @Value("${enrichment.mongo.port:27017}")
   private int enrichmentMongoPort;
-
-  @Value("${enrichment.proxy.url}")
-  private String enrichmentProxyUrl;
+  @Value("${enrichment.mongo.database}")
+  private String enrichmentMongoDatabase;
 
   private RedisProvider redisProvider;
 
@@ -79,8 +80,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
 
-    if(redisProvider == null)
+    if (redisProvider == null) {
       redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
+    }
   }
 
   @Override
@@ -103,23 +105,21 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  EnrichmentEntityDao getEntityDao() {
-    return new EnrichmentEntityDao(enrichmentMongo, enrichmentMongoPort);
-  }
-
-  @Bean
   Converter converter() {
     return new Converter();
   }
 
-  @Bean
-  RedisProvider getRedisProvider() {
-      return redisProvider;
-  }
-
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
-    return new RedisInternalEnricher(getEntityDao(), getRedisProvider());
+    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
+        IllegalArgumentException::new);
+    mongoProperties
+        .setAllProperties(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort}, null,
+            null, null, false, null);
+
+    final MongoClient mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
+    final EntityDao entityDao = new EntityDao(mongoClient, enrichmentMongoDatabase);
+    return new RedisInternalEnricher(entityDao, redisProvider);
   }
 
   @Bean
@@ -147,7 +147,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   private ApiInfo apiInfo() {
-    Contact contact = new Contact("Europeana", "http:\\www.europeana.eu", "development@europeana.eu");
+    Contact contact = new Contact("Europeana", "http:\\www.europeana.eu",
+        "development@europeana.eu");
 
     return new ApiInfo(
         "Enrichment REST API",

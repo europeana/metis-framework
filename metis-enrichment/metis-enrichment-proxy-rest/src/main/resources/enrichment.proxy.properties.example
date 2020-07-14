@@ -1,4 +1,6 @@
 redis.host=
 redis.port=
 redis.password=
-enrichment.mongo=
+enrichment.mongo.host=
+enrichment.mongo.database=
+enrichment.mongo.port=

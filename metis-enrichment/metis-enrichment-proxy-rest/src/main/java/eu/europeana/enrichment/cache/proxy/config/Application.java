@@ -1,8 +1,11 @@
 package eu.europeana.enrichment.cache.proxy.config;
 
+import com.mongodb.MongoClient;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.enrichment.utils.EnrichmentEntityDao;
+import eu.europeana.enrichment.utils.EntityDao;
 import eu.europeana.enrichment.utils.RedisProvider;
+import eu.europeana.metis.mongo.MongoClientProvider;
+import eu.europeana.metis.mongo.MongoProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,10 +35,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Application implements WebMvcConfigurer {
 
-  @Value("${enrichment.mongo}")
-  private String enrichmentMongo;
-  @Value("${enrichment.mongoPort:27017}")
-  private int enrichmentPort;
+  @Value("${enrichment.mongo.host}")
+  private String enrichmentMongoHost;
+  @Value("${enrichment.mongo.port:27017}")
+  private int enrichmentMongoPort;
+  @Value("${enrichment.mongo.database:27017}")
+  private String enrichmentMongoDatabase;
   @Value("${redis.host}")
   private String redisHost;
   @Value("${redis.port}")
@@ -62,8 +67,15 @@ public class Application implements WebMvcConfigurer {
   }
 
   @Bean
-  EnrichmentEntityDao getEntityDao() {
-    return new EnrichmentEntityDao(enrichmentMongo, enrichmentPort);
+  EntityDao getEntityDao() {
+    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
+        IllegalArgumentException::new);
+    mongoProperties
+        .setAllProperties(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort}, null,
+            null, null, false, null);
+
+    final MongoClient mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
+    return new EntityDao(mongoClient, enrichmentMongoDatabase);
   }
 
   @Bean(name = "redisInternalEnricher")
