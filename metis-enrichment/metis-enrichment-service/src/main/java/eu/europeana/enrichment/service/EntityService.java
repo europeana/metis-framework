@@ -36,10 +36,7 @@ public class EntityService implements Closeable {
   private EntityDao getEntityDao(String mongoHost, int mongoPort, String mongoDatabase) {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
-    mongoProperties
-        .setAllProperties(new String[]{mongoHost}, new int[]{mongoPort}, null,
-            null, null, false, null);
-
+    mongoProperties.setMongoHosts(new String[]{mongoHost}, new int[]{mongoPort});
     final MongoClient mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
     return new EntityDao(mongoClient, mongoDatabase);
   }
