@@ -13,6 +13,7 @@ import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 /**
  * DAO for {@link DepublishRecordId} objects.
@@ -213,14 +215,49 @@ public class DepublishRecordIdDao {
    * @param sortDirection The sorting direction. Cannot be null.
    * @param depublicationStatus The depublication status of the records. Can be null.
    * @return A (possibly empty) list of depublish record ids.
+   * @throws BadContentException In case the records would violate the maximum number of
+   * depublished records that each dataset can have.
    */
   public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
-      DepublicationStatus depublicationStatus) {
+      DepublicationStatus depublicationStatus) throws BadContentException {
+    return getAllDepublishRecordIdsWithStatus(datasetId, sortField, sortDirection, depublicationStatus,
+        Collections.emptySet());
+  }
+
+
+  /**
+   * Get all depublished records for a given dataset.
+   * <p>This method is to be used with caution since it doesn't have a limit on the returned items.
+   * It is mainly used to minimize, internal to the application, database requests. Ids are returned
+   * based on the provided status filter parameter</p>
+   *
+   * @param datasetId The dataset for which to retrieve the records. Cannot be null.
+   * @param sortField The sorting field. Cannot be null.
+   * @param sortDirection The sorting direction. Cannot be null.
+   * @param depublicationStatus The depublication status of the records. Can be null.
+   * @param recordIds The record ids provided, that are to be checked upon. Can be null/empty
+   * @return A (possibly empty) list of depublish record ids.
+   * @throws BadContentException In case the records would violate the maximum number of
+   * depublished records that each dataset can have.
+   */
+  public Set<String> getAllDepublishRecordIdsWithStatus(String datasetId,
+      DepublishRecordIdSortField sortField, SortDirection sortDirection,
+      DepublicationStatus depublicationStatus, Set<String> recordIds) throws BadContentException {
+    // Check list size: if this is too large we can throw exception regardless of what's in the database.
+    if (!CollectionUtils.isEmpty(recordIds) && (recordIds.size()
+        > maxDepublishRecordIdsPerDataset)) {
+      throw new BadContentException(
+          "Can't remove these records: this would violate the maximum number of records per dataset.");
+    }
+
     final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, sortField,
         sortDirection, depublicationStatus, null);
     query.project(DepublishRecordId.RECORD_ID_FIELD, true);
     query.project(DepublishRecordId.ID_FIELD, false);
+    if (!CollectionUtils.isEmpty(recordIds)) {
+      query.field(DepublishRecordId.RECORD_ID_FIELD).in(recordIds);
+    }
 
     // Execute query with correct pagination
     final List<DepublishRecordId> result = getListOfQuery(query, null);

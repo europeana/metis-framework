@@ -185,6 +185,9 @@ public class DepublishRecordIdController {
    * @param datasetDepublish true for dataset depublication, false for record depublication
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
    * highest
+   * @param recordIdsInSeparateLines the specific pending record ids to depublish. Only record ids
+   * that are marked as {@link eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
+   * in the database will be attempted for depublication.
    * @return the WorkflowExecution object that was generated
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -210,11 +213,12 @@ public class DepublishRecordIdController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "datasetDepublish", defaultValue = "" + true) boolean datasetDepublish,
-      @RequestParam(value = "priority", defaultValue = "0") int priority)
+      @RequestParam(value = "priority", defaultValue = "0") int priority,
+      @RequestBody String recordIdsInSeparateLines)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return depublishRecordIdService
         .createAndAddInQueueDepublishWorkflowExecution(metisUser, datasetId,
-            datasetDepublish, priority);
+            datasetDepublish, priority, recordIdsInSeparateLines);
   }
 }
