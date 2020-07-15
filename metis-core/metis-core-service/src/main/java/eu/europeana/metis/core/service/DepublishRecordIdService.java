@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -218,9 +219,43 @@ public class DepublishRecordIdService {
     return result;
   }
 
+  /**
+   * Creates a workflow with one plugin {@link eu.europeana.metis.core.workflow.plugins.DepublishPlugin}.
+   * <p>The plugin will contain {@link DepublishPluginMetadata} that contain information of whether
+   * the depublication
+   * is for an entire dataset or for individual records ids. Those ids are either provided or all of
+   * the ids, previously populated, from the database will be used. Only ids in {@link
+   * eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
+   * will be attempted for depublication.</p>
+   *
+   * @param metisUser The user performing this operation. Cannot be null.
+   * @param datasetId The ID of the dataset for which to retrieve the records. Cannot be null.
+   * @param datasetDepublish true for dataset depublication, false for record depublication
+   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
+   * highest
+   * @param recordIdsInSeparateLines the specific pending record ids to depublish. Only record ids
+   * that are marked as {@link eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION}
+   * in the database will be attempted for depublication.
+   * @return the WorkflowExecution object that was generated
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link BadContentException} if the workflow is empty or no plugin enabled</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * <li>{@link eu.europeana.metis.exception.ExternalTaskException} if there was an exception when
+   * contacting the external resource(ECloud)</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed} if the execution of
+   * the first plugin was not allowed, because a valid source plugin could not be found</li>
+   * <li>{@link eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException} if a
+   * workflow execution for the generated execution identifier already exists, almost impossible to
+   * happen since ids are UUIDs</li>
+   * </ul>
+   */
   public WorkflowExecution createAndAddInQueueDepublishWorkflowExecution(MetisUser metisUser,
-      String datasetId,
-      boolean datasetDepublish, int priority) throws GenericMetisException {
+      String datasetId, boolean datasetDepublish, int priority, String recordIdsInSeparateLines)
+      throws GenericMetisException {
     // Authorize.
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
@@ -230,6 +265,12 @@ public class DepublishRecordIdService {
     final DepublishPluginMetadata depublishPluginMetadata = new DepublishPluginMetadata();
     depublishPluginMetadata.setEnabled(true);
     depublishPluginMetadata.setDatasetDepublish(datasetDepublish);
+    if (StringUtils.isNotBlank(recordIdsInSeparateLines)) {
+      // Check and normalize the record IDs.(Just in case)
+      final Set<String> normalizedRecordIds = normalizeRecordIds(datasetId,
+          recordIdsInSeparateLines);
+      depublishPluginMetadata.setRecordIdsToDepublish(normalizedRecordIds);
+    }
     workflow.setMetisPluginsMetadata(Collections.singletonList(depublishPluginMetadata));
 
     return orchestratorService
