@@ -70,10 +70,7 @@ public class Application implements WebMvcConfigurer {
   EntityDao getEntityDao() {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
-    mongoProperties
-        .setAllProperties(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort}, null,
-            null, null, false, null);
-
+    mongoProperties.setMongoHosts(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort});
     final MongoClient mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
     return new EntityDao(mongoClient, enrichmentMongoDatabase);
   }

@@ -8,7 +8,6 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +26,7 @@ public class MongoProperties<E extends Exception> {
   private final List<ServerAddress> mongoHosts = new ArrayList<>();
   private MongoCredential mongoCredentials;
   private boolean mongoEnableSsl;
-  private ReadPreferenceValue readPreferenceValue = ReadPreferenceValue.getDefault();
+  private ReadPreferenceValue readPreferenceValue;
 
   /**
    * Constructor.
@@ -48,34 +47,60 @@ public class MongoProperties<E extends Exception> {
    * case no authentication takes place.
    * @param username The username. Can be null, in which case no authentication takes place.
    * @param password The password. Can be null, in which case no authentication takes place.
+   * @throws E In case either of the arrays is null, or their lengths don't match.
+   */
+  public void setAllProperties(String[] hosts, int[] ports, String authenticationDatabase,
+          String username, String password) throws E {
+
+    // Set the hosts.
+    setMongoHosts(hosts, ports);
+
+    // Compile the credentials
+    if (StringUtils.isBlank(authenticationDatabase) || StringUtils.isBlank(username) ||
+            StringUtils.isBlank(password)) {
+      this.mongoCredentials = null;
+    } else {
+      setMongoCredentials(username, password, authenticationDatabase);
+    }
+  }
+
+  /**
+   * Setter for all properties.
+   *
+   * @param hosts The hosts. This cannot be null or empty.
+   * @param ports The ports. This cannot be null or empty. Must contain either the same number of
+   * elements as the hosts array, or exactly 1 element (which will then apply to all hosts).
+   * @param authenticationDatabase The name of the authentication database. Can be null, in which
+   * case no authentication takes place.
+   * @param username The username. Can be null, in which case no authentication takes place.
+   * @param password The password. Can be null, in which case no authentication takes place.
    * @param enableSsl Whether to enable SSL connections.
    * @param readPreferenceValue The read preference. Can be null, where then the default applies
    * @throws E In case either of the arrays is null, or their lengths don't match.
    */
   public void setAllProperties(String[] hosts, int[] ports, String authenticationDatabase,
-      String username, String password, boolean enableSsl, ReadPreferenceValue readPreferenceValue)
-      throws E {
+          String username, String password, boolean enableSsl, ReadPreferenceValue readPreferenceValue)
+          throws E {
+    setAllProperties(hosts, ports, authenticationDatabase, username, password);
+    this.mongoEnableSsl = enableSsl;
+    setReadPreferenceValue(readPreferenceValue);
+  }
 
-    // Set the hosts.
+  /**
+   * Setter for the mongo hosts.
+   *
+   * @param hosts The hosts. This cannot be null or empty.
+   * @param ports The ports. This cannot be null or empty. Must contain either the same number of
+   * elements as the hosts array, or exactly 1 element (which will then apply to all hosts).
+   * @throws E In case either of the arrays is null, or their lengths don't match.
+   */
+  public void setMongoHosts(String[] hosts, int[] ports) throws E {
     final List<ServerAddress> addresses = new InetAddressUtil<>(this.exceptionCreator)
-        .getMongoAddressesFromHostsAndPorts(nonNull(hosts, "hosts"), nonNull(ports, "ports"));
+            .getMongoAddressesFromHostsAndPorts(nonNull(hosts, "hosts"), nonNull(ports, "ports"));
     mongoHosts.clear();
     for (ServerAddress address : nonNull(addresses, "addresses")) {
       mongoHosts.add(nonNull(address, "address"));
     }
-
-    // Compile the credentials
-    if (StringUtils.isBlank(authenticationDatabase) || StringUtils.isBlank(username) ||
-        StringUtils.isBlank(password)) {
-      this.mongoCredentials = null;
-    } else {
-      this.mongoCredentials = MongoCredential
-          .createCredential(username, authenticationDatabase, password.toCharArray());
-    }
-
-    // Set the other properties
-    this.mongoEnableSsl = enableSsl;
-    setReadPreferenceValue(readPreferenceValue);
   }
 
   /**
@@ -113,11 +138,10 @@ public class MongoProperties<E extends Exception> {
   /**
    * Set the read preference value. Can be null, where then the default applies
    *
-   * @param readPreferenceValue the read preference value
+   * @param readPreferenceValue the read preference value (null for the default).
    */
   public void setReadPreferenceValue(ReadPreferenceValue readPreferenceValue) {
-    this.readPreferenceValue = Optional.ofNullable(readPreferenceValue)
-        .orElse(ReadPreferenceValue.getDefault());
+    this.readPreferenceValue = readPreferenceValue;
   }
 
   private <T> T nonNull(T value, String fieldName) throws E {
@@ -159,7 +183,7 @@ public class MongoProperties<E extends Exception> {
   }
 
   /**
-   * This method returns the value of the read preference
+   * This method returns the value of the read preference (or null for the default behavior)
    *
    * @return the read preference set
    */
@@ -177,7 +201,7 @@ public class MongoProperties<E extends Exception> {
     SECONDARY_PREFERRED(ReadPreference::secondaryPreferred),
     NEAREST(ReadPreference::nearest);
 
-    private Supplier<ReadPreference> readPreferenceSupplier;
+    private final Supplier<ReadPreference> readPreferenceSupplier;
 
     ReadPreferenceValue(Supplier<ReadPreference> readPreferenceSupplier) {
       this.readPreferenceSupplier = readPreferenceSupplier;
@@ -185,11 +209,6 @@ public class MongoProperties<E extends Exception> {
 
     public Supplier<ReadPreference> getReadPreferenceSupplier() {
       return readPreferenceSupplier;
-    }
-    
-    public static ReadPreferenceValue getDefault() {
-      // Secondary preferred as default
-      return ReadPreferenceValue.SECONDARY_PREFERRED;
     }
   }
 }
