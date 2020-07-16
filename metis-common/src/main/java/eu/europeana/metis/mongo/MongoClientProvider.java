@@ -31,6 +31,7 @@ public class MongoClientProvider<E extends Exception> {
 
   private static final ReadPreference DEFAULT_READ_PREFERENCE = ReadPreference.secondaryPreferred();
   private static final int DEFAULT_MAX_CONNECTION_IDLE_MILLIS = 30_000;
+  private static final boolean DEFAULT_RETRY_WRITES = false;
 
   private final MongoClientCreator<E> creator;
   private final String authenticationDatabase;
@@ -44,7 +45,7 @@ public class MongoClientProvider<E extends Exception> {
    * @throws E In case the connection URI is not valid.
    */
   public MongoClientProvider(String connectionUri,
-          BiFunction<String, Exception, E> exceptionCreator) throws E {
+      BiFunction<String, Exception, E> exceptionCreator) throws E {
     final Builder optionsBuilder = getDefaultOptionsBuilder();
     final MongoClientURI uri;
     try {
@@ -66,26 +67,28 @@ public class MongoClientProvider<E extends Exception> {
    */
   public MongoClientProvider(MongoProperties<E> properties) {
     final ReadPreference readPreference = Optional.ofNullable(properties.getReadPreferenceValue())
-            .map(ReadPreferenceValue::getReadPreferenceSupplier).map(Supplier::get)
-            .orElse(DEFAULT_READ_PREFERENCE);
+        .map(ReadPreferenceValue::getReadPreferenceSupplier).map(Supplier::get)
+        .orElse(DEFAULT_READ_PREFERENCE);
     final Builder optionsBuilder = getDefaultOptionsBuilder()
-            .sslEnabled(properties.mongoEnableSsl())
-            .readPreference(readPreference);
+        // TODO: 7/16/20 Remove default retry writes after upgrade to mongo server version 4.2
+        .retryWrites(DEFAULT_RETRY_WRITES)
+        .sslEnabled(properties.mongoEnableSsl())
+        .readPreference(readPreference);
     final MongoCredential mongoCredential = properties.getMongoCredentials();
     this.authenticationDatabase = Optional.ofNullable(mongoCredential)
-            .map(MongoCredential::getSource).orElse(null);
+        .map(MongoCredential::getSource).orElse(null);
     if (mongoCredential == null) {
       this.creator = () -> new MongoClient(properties.getMongoHosts(), optionsBuilder.build());
     } else {
       this.creator = () -> new MongoClient(properties.getMongoHosts(), mongoCredential,
-              optionsBuilder.build());
+          optionsBuilder.build());
     }
   }
 
   protected Builder getDefaultOptionsBuilder() {
     return new Builder()
-            .maxConnectionIdleTime(DEFAULT_MAX_CONNECTION_IDLE_MILLIS)
-            .readPreference(DEFAULT_READ_PREFERENCE);
+        .maxConnectionIdleTime(DEFAULT_MAX_CONNECTION_IDLE_MILLIS)
+        .readPreference(DEFAULT_READ_PREFERENCE);
   }
 
   /**
