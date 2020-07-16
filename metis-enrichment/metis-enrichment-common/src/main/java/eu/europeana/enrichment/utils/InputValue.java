@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonInclude
 public class InputValue {
 
+  @Deprecated
   private String originalField;
 
   private String value;

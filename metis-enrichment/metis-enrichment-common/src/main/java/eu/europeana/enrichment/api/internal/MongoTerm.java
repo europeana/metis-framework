@@ -16,7 +16,13 @@ public class MongoTerm {
   @Id
   private String id;
   private String codeUri;
+  /**
+   * This is the lower case version of the originalLabel
+   */
   private String label;
+  /**
+   * This is the label unmodified
+   */
   private String originalLabel;
   private String lang;
 

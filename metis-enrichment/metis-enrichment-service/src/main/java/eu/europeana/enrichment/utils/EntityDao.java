@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * @author Simon Tzanakis
@@ -36,7 +37,9 @@ public class EntityDao {
   private static final String ENTITY_TYPE_FIELD = "entityType";
   public static final String CODE_URI_FIELD = "codeUri";
   private static final String MODIFIED_FIELD = "modified";
-  private static final String OWL_SAME_AS = "owlSameAs";
+  public static final String OWL_SAME_AS_FIELD = "owlSameAs";
+  public static final String LABEL_FIELD = "label";
+  public static final String LANG_FIELD = "lang";
 
   //Entity types
   private static final String CONCEPT_TYPE = "ConceptImpl";
@@ -74,11 +77,29 @@ public class EntityDao {
         () -> this.datastore.find(mongoTermListType).filter(fieldName, fieldValue).first());
   }
 
+  public <T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> List<T> getAllMongoTermListsByFields(
+      Class<T> mongoTermListType, List<Pair<String, String>> fieldNameAndValues) {
+    final Query<T> query = datastore.createQuery(mongoTermListType);
+    for (Pair<String, String> fieldNameAndValue : fieldNameAndValues) {
+      query.filter(fieldNameAndValue.getKey(), fieldNameAndValue.getValue());
+    }
+    return getListOfQuery(query);
+  }
+
 
   private MongoTerm findMongoTermByField(String entityType, String fieldName, String fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> this.datastore.find(entityType, MongoTerm.class).filter(fieldName, fieldValue)
             .first());
+  }
+
+  public List<MongoTerm> getAllMongoTermsByFields(EntityType entityType,
+      List<Pair<String, String>> fieldNameAndValues) {
+    Query<MongoTerm> query = this.datastore.createQuery(getTableName(entityType), MongoTerm.class);
+    for (Pair<String, String> fieldNameAndValue : fieldNameAndValues) {
+      query.filter(fieldNameAndValue.getKey(), fieldNameAndValue.getValue());
+    }
+    return getListOfQuery(query);
   }
 
   public List<MongoTerm> getAllMongoTerms(EntityType entityType) {
@@ -162,7 +183,7 @@ public class EntityDao {
     //Find all TermLists that have owlSameAs equals with codeUri
     final Query<MongoTermList> termListsSameAsQuery = this.datastore
         .createQuery(MongoTermList.class).filter(ENTITY_TYPE_FIELD, entityType)
-        .filter(OWL_SAME_AS, codeUri);
+        .filter(OWL_SAME_AS_FIELD, codeUri);
     final List<MongoTermList> allTermListsSameAs = getListOfQuery(termListsSameAsQuery);
     for (MongoTermList mongoTermList : allTermListsSameAs) {
       final String sameAsCodeUri = mongoTermList.getCodeUri();

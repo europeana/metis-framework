@@ -18,6 +18,7 @@ public class EntityWrapper {
   @XmlElement
   private EntityType entityType;
   @XmlElement
+  @Deprecated
   private String originalField;
   @XmlElement
   private String contextualEntity;
