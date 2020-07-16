@@ -70,8 +70,6 @@ public class MongoClientProvider<E extends Exception> {
         .map(ReadPreferenceValue::getReadPreferenceSupplier).map(Supplier::get)
         .orElse(DEFAULT_READ_PREFERENCE);
     final Builder optionsBuilder = getDefaultOptionsBuilder()
-        // TODO: 7/16/20 Remove default retry writes after upgrade to mongo server version 4.2
-        .retryWrites(DEFAULT_RETRY_WRITES)
         .sslEnabled(properties.mongoEnableSsl())
         .readPreference(readPreference);
     final MongoCredential mongoCredential = properties.getMongoCredentials();
@@ -87,6 +85,8 @@ public class MongoClientProvider<E extends Exception> {
 
   protected Builder getDefaultOptionsBuilder() {
     return new Builder()
+        // TODO: 7/16/20 Remove default retry writes after upgrade to mongo server version 4.2
+        .retryWrites(DEFAULT_RETRY_WRITES)
         .maxConnectionIdleTime(DEFAULT_MAX_CONNECTION_IDLE_MILLIS)
         .readPreference(DEFAULT_READ_PREFERENCE);
   }
