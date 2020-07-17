@@ -14,9 +14,6 @@ import javax.xml.bind.annotation.XmlElements;
  */
 public class EnrichmentBaseWrapper {
 
-  @XmlElement(name = "originalField")
-  private String originalField;
-
   @XmlElements(value = {
       @XmlElement(name = "Concept", namespace = "http://www.w3.org/2004/02/skos/core#", type = Concept.class),
       @XmlElement(name = "Agent", namespace = "http://www.europeana.eu/schemas/edm/", type = Agent.class),
@@ -30,16 +27,10 @@ public class EnrichmentBaseWrapper {
   /**
    * Constructor with all fields
    *
-   * @param originalField the original field that this enrichment was generated from
    * @param enrichmentBase the enrichment information class generated
    */
-  public EnrichmentBaseWrapper(String originalField, EnrichmentBase enrichmentBase) {
-    this.originalField = originalField;
+  public EnrichmentBaseWrapper(EnrichmentBase enrichmentBase) {
     this.enrichmentBase = enrichmentBase;
-  }
-
-  public String getOriginalField() {
-    return originalField;
   }
 
   public EnrichmentBase getEnrichmentBase() {
@@ -47,8 +38,7 @@ public class EnrichmentBaseWrapper {
   }
 
   /**
-   * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentBaseWrapper} with
-   * 'null' {@link #originalField}.
+   * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentBaseWrapper}.
    * <p>This is mostly used for dereferencing.</p>
    *
    * @param resultList the collection of {@link EnrichmentBase}
@@ -56,8 +46,6 @@ public class EnrichmentBaseWrapper {
    */
   public static List<EnrichmentBaseWrapper> createNullOriginalFieldEnrichmentBaseWrapperList(
       Collection<EnrichmentBase> resultList) {
-    return resultList.stream()
-        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase)).collect(
-            Collectors.toList());
+    return resultList.stream().map(EnrichmentBaseWrapper::new).collect(Collectors.toList());
   }
 }

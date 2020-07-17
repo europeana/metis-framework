@@ -1,23 +1,21 @@
 package eu.europeana.enrichment.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
-import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import java.io.IOException;
+import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.utils.EntityType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,44 +29,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class Converter {
 
-  /**
-   * Converts a {@link List<EntityWrapper>} to an {@link EnrichmentResultList}
-   *
-   * @param wrapperList the {@link List<EntityWrapper>} to convert
-   * @return the result of the convertion
-   * @throws IOException if conversion fails
-   */
-  public EnrichmentResultList convert(List<EntityWrapper> wrapperList) throws IOException {
-    EnrichmentResultList list = new EnrichmentResultList();
+  public List<EnrichmentBase> convert(
+      List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists) {
+    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
 
-    for (EntityWrapper wrapper : wrapperList) {
-      list.getEnrichmentBaseWrapperList().add(new EnrichmentBaseWrapper(wrapper.getOriginalField(), convert(wrapper)));
+    for (MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList : mongoTermLists) {
+      enrichmentBases.add(convert(mongoTermList));
     }
-    return list;
+    return enrichmentBases;
 
   }
 
-  /**
-   * Converts an {@link EntityWrapper} to an {@link EnrichmentBase} object
-   *
-   * @param wrapper the {@link EntityWrapper} to convert
-   * @return the result of the conversion
-   * @throws IOException if conversion fails
-   */
-  public EnrichmentBase convert(EntityWrapper wrapper) throws IOException {
+  public EnrichmentBase convert(MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
     final EnrichmentBase result;
-    switch (wrapper.getEntityType()) {
+    final EntityType entityType = EntityType.entityTypeFromClassImpl(mongoTermList.getEntityType());
+    if (entityType == null) {
+      return null;
+    }
+    switch (entityType) {
       case AGENT:
-        result = convertAgent(wrapper.getContextualEntity());
+        result = convertAgent((AgentImpl) mongoTermList.getRepresentation());
         break;
       case CONCEPT:
-        result = convertConcept(wrapper.getContextualEntity());
+        result = convertConcept((ConceptImpl) mongoTermList.getRepresentation());
         break;
       case PLACE:
-        result = convertPlace(wrapper.getContextualEntity());
+        result = convertPlace((PlaceImpl) mongoTermList.getRepresentation());
         break;
       case TIMESPAN:
-        result = convertTimespan(wrapper.getContextualEntity());
+        result = convertTimespan((TimespanImpl) mongoTermList.getRepresentation());
         break;
       default:
         result = null;
@@ -77,114 +66,103 @@ public class Converter {
     return result;
   }
 
-  private Timespan convertTimespan(String contextualEntity)
-      throws IOException {
-    TimespanImpl ts = new ObjectMapper().readValue(contextualEntity,
-        TimespanImpl.class);
+  private Timespan convertTimespan(TimespanImpl timespanImpl) {
 
     Timespan output = new Timespan();
 
-    output.setAbout(ts.getAbout());
-    output.setPrefLabelList(convert(ts.getPrefLabel()));
-    output.setAltLabelList(convert(ts.getAltLabel()));
-    output.setBeginList(convert(ts.getBegin()));
-    output.setEndList(convert(ts.getEnd()));
-    output.setHasPartsList(convertPart(ts.getDctermsHasPart()));
-    output.setHiddenLabel(convert(ts.getHiddenLabel()));
-    output.setIsPartOfList(convertPart(ts.getIsPartOf()));
-    output.setNotes(convert(ts.getNote()));
-    output.setSameAs(convertToPartsList(ts.getOwlSameAs()));
+    output.setAbout(timespanImpl.getAbout());
+    output.setPrefLabelList(convert(timespanImpl.getPrefLabel()));
+    output.setAltLabelList(convert(timespanImpl.getAltLabel()));
+    output.setBeginList(convert(timespanImpl.getBegin()));
+    output.setEndList(convert(timespanImpl.getEnd()));
+    output.setHasPartsList(convertPart(timespanImpl.getDctermsHasPart()));
+    output.setHiddenLabel(convert(timespanImpl.getHiddenLabel()));
+    output.setIsPartOfList(convertPart(timespanImpl.getIsPartOf()));
+    output.setNotes(convert(timespanImpl.getNote()));
+    output.setSameAs(convertToPartsList(timespanImpl.getOwlSameAs()));
 
     return output;
   }
 
-  private Concept convertConcept(String contextualEntity)
-      throws IOException {
-    ConceptImpl concept = new ObjectMapper().readValue(contextualEntity, ConceptImpl.class);
+  private Concept convertConcept(ConceptImpl conceptImpl) {
     Concept output = new Concept();
 
-    output.setAbout(concept.getAbout());
-    output.setPrefLabelList(convert(concept.getPrefLabel()));
-    output.setAltLabelList(convert(concept.getAltLabel()));
-    output.setHiddenLabel(convert(concept.getHiddenLabel()));
-    output.setNotation(convert(concept.getNotation()));
-    output.setNotes(convert(concept.getNote()));
-    output.setBroader(convertToResourceList(concept.getBroader()));
-    output.setBroadMatch(convertToResourceList(concept.getBroadMatch()));
-    output.setCloseMatch(convertToResourceList(concept.getCloseMatch()));
-    output.setExactMatch(convertToResourceList(concept.getExactMatch()));
-    output.setInScheme(convertToResourceList(concept.getInScheme()));
-    output.setNarrower(convertToResourceList(concept.getNarrower()));
-    output.setNarrowMatch(convertToResourceList(concept.getNarrowMatch()));
-    output.setRelated(convertToResourceList(concept.getRelated()));
-    output.setRelatedMatch(convertToResourceList(concept.getRelatedMatch()));
+    output.setAbout(conceptImpl.getAbout());
+    output.setPrefLabelList(convert(conceptImpl.getPrefLabel()));
+    output.setAltLabelList(convert(conceptImpl.getAltLabel()));
+    output.setHiddenLabel(convert(conceptImpl.getHiddenLabel()));
+    output.setNotation(convert(conceptImpl.getNotation()));
+    output.setNotes(convert(conceptImpl.getNote()));
+    output.setBroader(convertToResourceList(conceptImpl.getBroader()));
+    output.setBroadMatch(convertToResourceList(conceptImpl.getBroadMatch()));
+    output.setCloseMatch(convertToResourceList(conceptImpl.getCloseMatch()));
+    output.setExactMatch(convertToResourceList(conceptImpl.getExactMatch()));
+    output.setInScheme(convertToResourceList(conceptImpl.getInScheme()));
+    output.setNarrower(convertToResourceList(conceptImpl.getNarrower()));
+    output.setNarrowMatch(convertToResourceList(conceptImpl.getNarrowMatch()));
+    output.setRelated(convertToResourceList(conceptImpl.getRelated()));
+    output.setRelatedMatch(convertToResourceList(conceptImpl.getRelatedMatch()));
 
     return output;
   }
 
 
-  private Place convertPlace(String contextualEntity)
-      throws IOException {
-    PlaceImpl place = new ObjectMapper().readValue(contextualEntity,
-        PlaceImpl.class);
+  private Place convertPlace(PlaceImpl placeImpl) {
 
     Place output = new Place();
 
-    output.setAbout(place.getAbout());
-    output.setPrefLabelList(convert(place.getPrefLabel()));
-    output.setAltLabelList(convert(place.getAltLabel()));
+    output.setAbout(placeImpl.getAbout());
+    output.setPrefLabelList(convert(placeImpl.getPrefLabel()));
+    output.setAltLabelList(convert(placeImpl.getAltLabel()));
 
-    output.setHasPartsList(convertPart(place.getDcTermsHasPart()));
-    output.setIsPartOfList(convertPart(place.getIsPartOf()));
-    output.setNotes(convert(place.getNote()));
-    output.setSameAs(convertToPartsList(place.getOwlSameAs()));
+    output.setHasPartsList(convertPart(placeImpl.getDcTermsHasPart()));
+    output.setIsPartOfList(convertPart(placeImpl.getIsPartOf()));
+    output.setNotes(convert(placeImpl.getNote()));
+    output.setSameAs(convertToPartsList(placeImpl.getOwlSameAs()));
 
-    if ((place.getLatitude() != null && place.getLatitude() != 0) &&
-        (place.getLongitude() != null && place.getLongitude() != 0)) {
-      output.setLat(place.getLatitude().toString());
-      output.setLon(place.getLongitude().toString());
+    if ((placeImpl.getLatitude() != null && placeImpl.getLatitude() != 0) &&
+        (placeImpl.getLongitude() != null && placeImpl.getLongitude() != 0)) {
+      output.setLat(placeImpl.getLatitude().toString());
+      output.setLon(placeImpl.getLongitude().toString());
     }
 
-    if (place.getAltitude() != null && place.getAltitude() != 0) {
-      output.setAlt(place.getAltitude().toString());
+    if (placeImpl.getAltitude() != null && placeImpl.getAltitude() != 0) {
+      output.setAlt(placeImpl.getAltitude().toString());
     }
     return output;
   }
 
-  private Agent convertAgent(String contextualEntity)
-      throws IOException {
-    AgentImpl agent = new ObjectMapper().readValue(contextualEntity,
-        AgentImpl.class);
+  private Agent convertAgent(AgentImpl agentImpl) {
 
     Agent output = new Agent();
 
-    output.setAbout(agent.getAbout());
-    output.setPrefLabelList(convert(agent.getPrefLabel()));
-    output.setAltLabelList(convert(agent.getAltLabel()));
-    output.setHiddenLabel(convert(agent.getHiddenLabel()));
-    output.setFoafName(convert(agent.getFoafName()));
-    output.setNotes(convert(agent.getNote()));
+    output.setAbout(agentImpl.getAbout());
+    output.setPrefLabelList(convert(agentImpl.getPrefLabel()));
+    output.setAltLabelList(convert(agentImpl.getAltLabel()));
+    output.setHiddenLabel(convert(agentImpl.getHiddenLabel()));
+    output.setFoafName(convert(agentImpl.getFoafName()));
+    output.setNotes(convert(agentImpl.getNote()));
 
-    output.setBeginList(convert(agent.getBegin()));
-    output.setEndList(convert(agent.getEnd()));
+    output.setBeginList(convert(agentImpl.getBegin()));
+    output.setEndList(convert(agentImpl.getEnd()));
 
-    output.setIdentifier(convert(agent.getDcIdentifier()));
-    output.setHasMet(convert(agent.getEdmHasMet()));
-    output.setBiographicaInformation(convert(agent.getRdaGr2BiographicalInformation()));
-    output.setPlaceOfBirth(convertResourceOrLiteral(agent.getRdaGr2PlaceOfBirth()));
-    output.setPlaceOfDeath(convertResourceOrLiteral(agent.getRdaGr2PlaceOfDeath()));
-    output.setDateOfBirth(convert(agent.getRdaGr2DateOfBirth()));
-    output.setDateOfDeath(convert(agent.getRdaGr2DateOfDeath()));
-    output.setDateOfEstablishment(convert(agent.getRdaGr2DateOfEstablishment()));
-    output.setDateOfTermination(convert(agent.getRdaGr2DateOfTermination()));
-    output.setGender(convert(agent.getRdaGr2Gender()));
+    output.setIdentifier(convert(agentImpl.getDcIdentifier()));
+    output.setHasMet(convert(agentImpl.getEdmHasMet()));
+    output.setBiographicaInformation(convert(agentImpl.getRdaGr2BiographicalInformation()));
+    output.setPlaceOfBirth(convertResourceOrLiteral(agentImpl.getRdaGr2PlaceOfBirth()));
+    output.setPlaceOfDeath(convertResourceOrLiteral(agentImpl.getRdaGr2PlaceOfDeath()));
+    output.setDateOfBirth(convert(agentImpl.getRdaGr2DateOfBirth()));
+    output.setDateOfDeath(convert(agentImpl.getRdaGr2DateOfDeath()));
+    output.setDateOfEstablishment(convert(agentImpl.getRdaGr2DateOfEstablishment()));
+    output.setDateOfTermination(convert(agentImpl.getRdaGr2DateOfTermination()));
+    output.setGender(convert(agentImpl.getRdaGr2Gender()));
 
-    output.setDate(convertResourceOrLiteral(agent.getDcDate()));
+    output.setDate(convertResourceOrLiteral(agentImpl.getDcDate()));
     output.setProfessionOrOccupation(
-        convertResourceOrLiteral(agent.getRdaGr2ProfessionOrOccupation()));
+        convertResourceOrLiteral(agentImpl.getRdaGr2ProfessionOrOccupation()));
 
-    output.setWasPresentAt(convertToResourceList(agent.getEdmWasPresentAt()));
-    output.setSameAs(convertToPartsList(agent.getOwlSameAs()));
+    output.setWasPresentAt(convertToResourceList(agentImpl.getEdmWasPresentAt()));
+    output.setSameAs(convertToPartsList(agentImpl.getOwlSameAs()));
 
     return output;
   }

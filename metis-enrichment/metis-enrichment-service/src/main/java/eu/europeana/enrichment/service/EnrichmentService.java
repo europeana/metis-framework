@@ -1,9 +1,7 @@
 package eu.europeana.enrichment.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
-import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.AgentTermList;
 import eu.europeana.enrichment.api.internal.ConceptTermList;
 import eu.europeana.enrichment.api.internal.MongoTerm;
@@ -17,7 +15,6 @@ import eu.europeana.enrichment.utils.InputValue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -45,16 +42,15 @@ public class EnrichmentService {
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentService.class);
   private static final List<EntityInfo<?, ?>> ENTITY_INFOS = createEntityTypeList();
   private static final Set<String> ALL_2CODE_LANGUAGES = all2CodeLanguages();
-  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
   private final EntityDao entityDao;
-
-  // TODO: 7/16/20 Try to eliminate EntityWrapper
+  private final Converter converter;
 
   @Autowired
-  public EnrichmentService(EntityDao entityDao) {
+  public EnrichmentService(EntityDao entityDao, Converter converter) {
     this.entityDao = entityDao;
+    this.converter = converter;
   }
 
   private static Set<String> all2CodeLanguages() {
@@ -72,11 +68,12 @@ public class EnrichmentService {
     return entityInfos;
   }
 
-  public List<EntityWrapper> findEntitiesBasedOnValues(List<InputValue> inputValues) {
+  public List<EnrichmentBase> findEntitiesBasedOnValues(List<InputValue> inputValues) {
+    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
-      List<EntityWrapper> entityWrappers = new ArrayList<>();
       for (InputValue inputValue : inputValues) {
         final List<EntityType> entityTypes = inputValue.getEntityTypes();
+        //Language has to be a valid 2 code, otherwise we do not use it
         final String language =
             ALL_2CODE_LANGUAGES.contains(inputValue.getLanguage()) ? inputValue.getLanguage()
                 : null;
@@ -86,17 +83,17 @@ public class EnrichmentService {
           continue;
         }
         for (EntityType entityType : entityTypes) {
-          entityWrappers.addAll(findEntities(entityType, value, language));
+          enrichmentBases.addAll(findEntities(entityType, value, language));
         }
       }
-      return entityWrappers;
-    } catch (RuntimeException | JsonProcessingException e) {
+    } catch (RuntimeException e) {
       LOGGER.warn("Unable to retrieve entity from tag", e);
     }
-    return Collections.emptyList();
+    return enrichmentBases;
   }
 
-  public EntityWrapper getByCodeUriOrOwlSameAs(String uri) {
+  public List<EnrichmentBase> getByCodeUriOrOwlSameAs(String uri) {
+    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
       final List<Pair<String, String>> codeUriFieldValue = new ArrayList<>();
       codeUriFieldValue.add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, uri));
@@ -104,31 +101,32 @@ public class EnrichmentService {
       codeUriFieldValue.add(new ImmutablePair<>(EntityDao.OWL_SAME_AS_FIELD, uri));
 
       //Create the list of suppliers that we'll use to find first match in order
-      final List<FailableSupplier<Set<EntityWrapper>, IOException>> getters = Arrays.asList(
-          () -> getEntitiesAndConvert(EntityType.AGENT, codeUriFieldValue),
-          () -> getEntitiesAndConvert(EntityType.CONCEPT, codeUriFieldValue),
-          () -> getEntitiesAndConvert(EntityType.TIMESPAN, codeUriFieldValue),
-          () -> getEntitiesAndConvert(EntityType.PLACE, codeUriFieldValue),
-          () -> getEntitiesAndConvert(EntityType.AGENT, owlSameAsFieldValue),
-          () -> getEntitiesAndConvert(EntityType.CONCEPT, owlSameAsFieldValue),
-          () -> getEntitiesAndConvert(EntityType.TIMESPAN, owlSameAsFieldValue),
-          () -> getEntitiesAndConvert(EntityType.PLACE, owlSameAsFieldValue)
-      );
-
-      return getFirstMatch(getters);
+      final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = Arrays
+          .asList(
+              () -> getEntitiesAndConvert(EntityType.AGENT, codeUriFieldValue),
+              () -> getEntitiesAndConvert(EntityType.CONCEPT, codeUriFieldValue),
+              () -> getEntitiesAndConvert(EntityType.TIMESPAN, codeUriFieldValue),
+              () -> getEntitiesAndConvert(EntityType.PLACE, codeUriFieldValue),
+              () -> getEntitiesAndConvert(EntityType.AGENT, owlSameAsFieldValue),
+              () -> getEntitiesAndConvert(EntityType.CONCEPT, owlSameAsFieldValue),
+              () -> getEntitiesAndConvert(EntityType.TIMESPAN, owlSameAsFieldValue),
+              () -> getEntitiesAndConvert(EntityType.PLACE, owlSameAsFieldValue)
+          );
+      enrichmentBases.add(getFirstMatch(enrichmentBaseSuppliers));
     } catch (RuntimeException | IOException e) {
       LOGGER.warn("Unable to retrieve entity from id", e);
     }
-    return null;
+    return enrichmentBases;
   }
 
-  public EntityWrapper getByCodeUri(String codeUri) {
+  public List<EnrichmentBase> getByCodeUri(String codeUri) {
+    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
       final List<Pair<String, String>> codeUriFieldValue = new ArrayList<>();
       codeUriFieldValue.add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, codeUri));
 
       //Create the list of suppliers that we'll use to find first match in order
-      final List<FailableSupplier<Set<EntityWrapper>, IOException>> entityWrapperSuppliers = Arrays
+      final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = Arrays
           .asList(
               () -> getEntitiesAndConvert(EntityType.AGENT, codeUriFieldValue),
               () -> getEntitiesAndConvert(EntityType.CONCEPT, codeUriFieldValue),
@@ -136,37 +134,35 @@ public class EnrichmentService {
               () -> getEntitiesAndConvert(EntityType.PLACE, codeUriFieldValue)
           );
 
-      return getFirstMatch(entityWrapperSuppliers);
+      enrichmentBases.add(getFirstMatch(enrichmentBaseSuppliers));
     } catch (RuntimeException | IOException e) {
       LOGGER.warn("Unable to retrieve entity from codeUri", e);
     }
-    return null;
+    return enrichmentBases;
   }
 
-  private EntityWrapper getFirstMatch(
-      List<FailableSupplier<Set<EntityWrapper>, IOException>> suppliers)
+  private EnrichmentBase getFirstMatch(
+      List<FailableSupplier<List<EnrichmentBase>, IOException>> suppliers)
       throws IOException {
-    for (FailableSupplier<Set<EntityWrapper>, IOException> supplier : suppliers) {
-      final Set<EntityWrapper> entityWrappers = supplier.get();
-      if (CollectionUtils.isNotEmpty(entityWrappers)) {
-        return entityWrappers.iterator().next();
+    for (FailableSupplier<List<EnrichmentBase>, IOException> supplier : suppliers) {
+      final List<EnrichmentBase> suppliedItem = supplier.get();
+      if (CollectionUtils.isNotEmpty(suppliedItem)) {
+        return suppliedItem.iterator().next();
       }
     }
     return null;
   }
 
-  private Set<EntityWrapper> getEntitiesAndConvert(EntityType entityType,
-      List<Pair<String, String>> fieldNamesAndValues)
-      throws JsonProcessingException {
+  private List<EnrichmentBase> getEntitiesAndConvert(EntityType entityType,
+      List<Pair<String, String>> fieldNamesAndValues) {
     final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = entityDao
         .getAllMongoTermListsByFields(getEntityMongoTermListClass(entityType).mongoTermListClass,
             fieldNamesAndValues);
-    return convertToEntityWrappers(entityType, null, mongoTermLists);
+    return converter.convert(mongoTermLists);
   }
 
-  private List<EntityWrapper> findEntities(EntityType entityType, String termLabel,
-      String termLanguage) throws JsonProcessingException {
-    Set<EntityWrapper> entityWrapperSet = new HashSet<>();
+  private List<EnrichmentBase> findEntities(EntityType entityType, String termLabel,
+      String termLanguage) {
 
     //Find all terms that match label and language
     final List<Pair<String, String>> fieldNamesAndValues = new ArrayList<>();
@@ -178,6 +174,7 @@ public class EnrichmentService {
     final List<MongoTerm> mongoTerms = entityDao
         .getAllMongoTermsByFields(entityType, fieldNamesAndValues);
 
+    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     for (MongoTerm mongoTerm : mongoTerms) {
       //Find mongoTermLists by codeUri
       fieldNamesAndValues.clear();
@@ -191,14 +188,12 @@ public class EnrichmentService {
           .stream().map(mongoTermList -> findParentEntities(entityType, mongoTermList))
           .flatMap(List::stream).collect(Collectors.toList());
 
-      //Convert to EntityWrappers
-      entityWrapperSet = convertToEntityWrappers(entityType, mongoTerm.getOriginalLabel(),
-          mongoTermLists);
-      entityWrapperSet.addAll(
-          convertToEntityWrappers(entityType, mongoTerm.getOriginalLabel(), parentMongoTermLists));
+      //Convert to EnrichmentBases
+      enrichmentBases.addAll(converter.convert(mongoTermLists));
+      enrichmentBases.addAll(converter.convert(parentMongoTermLists));
     }
 
-    return new ArrayList<>(entityWrapperSet);
+    return enrichmentBases;
   }
 
   private List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> findParentEntities(
@@ -234,22 +229,6 @@ public class EnrichmentService {
     return parentEntities;
   }
 
-  private Set<EntityWrapper> convertToEntityWrappers(EntityType entityType, String originalLabel,
-      List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists)
-      throws JsonProcessingException {
-    Set<EntityWrapper> entityWrapperSet = new HashSet<>();
-    for (MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList : mongoTermLists) {
-      EntityWrapper entityWrapper = new EntityWrapper();
-      entityWrapper.setEntityType(entityType);
-      entityWrapper.setUrl(mongoTermList.getCodeUri());
-      entityWrapper.setOriginalValue(originalLabel);
-      entityWrapper.setContextualEntity(
-          this.getObjectMapper().writeValueAsString(mongoTermList.getRepresentation()));
-      entityWrapperSet.add(entityWrapper);
-    }
-    return entityWrapperSet;
-  }
-
   private static class EntityInfo<T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> {
 
     protected final EntityType entityType;
@@ -266,9 +245,4 @@ public class EnrichmentService {
         .findFirst().orElse(null);
 
   }
-
-  private ObjectMapper getObjectMapper() {
-    return OBJECT_MAPPER;
-  }
-
 }

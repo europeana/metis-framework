@@ -97,15 +97,9 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
-//  @Bean
-//  @DependsOn("redisInternalEnricher")
-//  Enricher enricher() {
-//    return new Enricher(getRedisInternalEnricher());
-//  }
-
   @Bean
-  EnrichmentService getEnrichmentService(EntityDao entityDao) {
-    return new EnrichmentService(entityDao);
+  EnrichmentService getEnrichmentService(EntityDao entityDao, Converter converter) {
+    return new EnrichmentService(entityDao, converter);
   }
 
   @Bean
