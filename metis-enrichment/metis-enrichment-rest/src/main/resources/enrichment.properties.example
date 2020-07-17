@@ -5,11 +5,7 @@ socks.proxy.port=
 socks.proxy.username=
 socks.proxy.password=
 
-#Redis
-redis.host=
-redis.port=
-redis.password=
-
+#Mongo
 enrichment.mongo.host=
 enrichment.mongo.database=
 enrichment.mongo.port=
