@@ -5,7 +5,7 @@ import com.mongodb.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.EnrichmentService;
-import eu.europeana.enrichment.utils.EntityDao;
+import eu.europeana.enrichment.service.dao.EntityDao;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
 import org.springframework.beans.factory.InitializingBean;

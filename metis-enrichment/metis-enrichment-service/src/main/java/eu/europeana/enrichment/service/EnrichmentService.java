@@ -4,7 +4,7 @@ import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
-import eu.europeana.enrichment.utils.EntityDao;
+import eu.europeana.enrichment.service.dao.EntityDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.EntityTypeUtils;
 import eu.europeana.enrichment.utils.InputValue;

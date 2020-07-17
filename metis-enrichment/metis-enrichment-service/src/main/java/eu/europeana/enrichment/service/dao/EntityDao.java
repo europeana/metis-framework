@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.utils;
+package eu.europeana.enrichment.service.dao;
 
 import com.mongodb.MongoClient;
 import dev.morphia.AdvancedDatastore;
@@ -16,6 +16,7 @@ import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.api.internal.PlaceTermList;
 import eu.europeana.enrichment.api.internal.TimespanTermList;
+import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.ArrayList;
 import java.util.Date;

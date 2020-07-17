@@ -7,7 +7,7 @@ import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.enrichment.utils.EntityDao;
+import eu.europeana.enrichment.service.dao.EntityDao;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
 import java.io.Closeable;
