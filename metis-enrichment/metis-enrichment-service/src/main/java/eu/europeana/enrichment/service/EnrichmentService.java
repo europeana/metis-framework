@@ -22,10 +22,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.Functions.FailableSupplier;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -42,17 +44,22 @@ public class EnrichmentService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentService.class);
   private static final List<EntityInfo<?, ?>> ENTITY_INFOS = createEntityTypeList();
+  private static final Set<String> ALL_2CODE_LANGUAGES = all2CodeLanguages();
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
   private final EntityDao entityDao;
 
   // TODO: 7/16/20 Try to eliminate EntityWrapper
-  // TODO: 7/16/20 Check if everything has to be list or single values
 
   @Autowired
   public EnrichmentService(EntityDao entityDao) {
     this.entityDao = entityDao;
+  }
+
+  private static Set<String> all2CodeLanguages() {
+    return Arrays.stream(Locale.getISOLanguages()).map(Locale::new).map(Locale::toString)
+        .collect(Collectors.toCollection(TreeSet::new));
   }
 
   private static List<EntityInfo<?, ?>> createEntityTypeList() {
@@ -69,13 +76,17 @@ public class EnrichmentService {
     try {
       List<EntityWrapper> entityWrappers = new ArrayList<>();
       for (InputValue inputValue : inputValues) {
-        if (inputValue.getVocabularies() == null) {
+        final List<EntityType> entityTypes = inputValue.getEntityTypes();
+        final String language =
+            ALL_2CODE_LANGUAGES.contains(inputValue.getLanguage()) ? inputValue.getLanguage()
+                : null;
+        final String value = inputValue.getValue().toLowerCase(Locale.US);
+
+        if (CollectionUtils.isEmpty(entityTypes) || StringUtils.isBlank(value)) {
           continue;
         }
-        for (EntityType entityType : inputValue.getVocabularies()) {
-          entityWrappers
-              .addAll(findEntities(entityType, inputValue.getValue().toLowerCase(Locale.US),
-                  inputValue.getLanguage()));
+        for (EntityType entityType : entityTypes) {
+          entityWrappers.addAll(findEntities(entityType, value, language));
         }
       }
       return entityWrappers;
@@ -92,8 +103,8 @@ public class EnrichmentService {
       final List<Pair<String, String>> owlSameAsFieldValue = new ArrayList<>();
       codeUriFieldValue.add(new ImmutablePair<>(EntityDao.OWL_SAME_AS_FIELD, uri));
 
-      // Get the result providers - this is constant and does not depend on the input.
-      final List<GetterByUri> getters = Arrays.asList(
+      //Create the list of suppliers that we'll use to find first match in order
+      final List<FailableSupplier<Set<EntityWrapper>, IOException>> getters = Arrays.asList(
           () -> getEntitiesAndConvert(EntityType.AGENT, codeUriFieldValue),
           () -> getEntitiesAndConvert(EntityType.CONCEPT, codeUriFieldValue),
           () -> getEntitiesAndConvert(EntityType.TIMESPAN, codeUriFieldValue),
@@ -116,17 +127,30 @@ public class EnrichmentService {
       final List<Pair<String, String>> codeUriFieldValue = new ArrayList<>();
       codeUriFieldValue.add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, codeUri));
 
-      // Get the result providers - this is constant and does not depend on the input.
-      final List<GetterByUri> getters = Arrays.asList(
-          () -> getEntitiesAndConvert(EntityType.AGENT, codeUriFieldValue),
-          () -> getEntitiesAndConvert(EntityType.CONCEPT, codeUriFieldValue),
-          () -> getEntitiesAndConvert(EntityType.TIMESPAN, codeUriFieldValue),
-          () -> getEntitiesAndConvert(EntityType.PLACE, codeUriFieldValue)
-      );
+      //Create the list of suppliers that we'll use to find first match in order
+      final List<FailableSupplier<Set<EntityWrapper>, IOException>> entityWrapperSuppliers = Arrays
+          .asList(
+              () -> getEntitiesAndConvert(EntityType.AGENT, codeUriFieldValue),
+              () -> getEntitiesAndConvert(EntityType.CONCEPT, codeUriFieldValue),
+              () -> getEntitiesAndConvert(EntityType.TIMESPAN, codeUriFieldValue),
+              () -> getEntitiesAndConvert(EntityType.PLACE, codeUriFieldValue)
+          );
 
-      return getFirstMatch(getters);
+      return getFirstMatch(entityWrapperSuppliers);
     } catch (RuntimeException | IOException e) {
       LOGGER.warn("Unable to retrieve entity from codeUri", e);
+    }
+    return null;
+  }
+
+  private EntityWrapper getFirstMatch(
+      List<FailableSupplier<Set<EntityWrapper>, IOException>> suppliers)
+      throws IOException {
+    for (FailableSupplier<Set<EntityWrapper>, IOException> supplier : suppliers) {
+      final Set<EntityWrapper> entityWrappers = supplier.get();
+      if (CollectionUtils.isNotEmpty(entityWrappers)) {
+        return entityWrappers.iterator().next();
+      }
     }
     return null;
   }
@@ -140,28 +164,11 @@ public class EnrichmentService {
     return convertToEntityWrappers(entityType, null, mongoTermLists);
   }
 
-  private EntityWrapper getFirstMatch(List<GetterByUri> getters)
-      throws IOException {
-    for (GetterByUri getter : getters) {
-      final Set<EntityWrapper> byUri = getter.getByUri();
-      if (CollectionUtils.isNotEmpty(byUri)) {
-        return byUri.iterator().next();
-      }
-    }
-    return null;
-  }
-
-  @FunctionalInterface
-  private interface GetterByUri {
-
-    Set<EntityWrapper> getByUri() throws IOException;
-  }
-
   private List<EntityWrapper> findEntities(EntityType entityType, String termLabel,
       String termLanguage) throws JsonProcessingException {
     Set<EntityWrapper> entityWrapperSet = new HashSet<>();
 
-    //Find all terms that match language and label
+    //Find all terms that match label and language
     final List<Pair<String, String>> fieldNamesAndValues = new ArrayList<>();
     fieldNamesAndValues.add(new ImmutablePair<>(EntityDao.LABEL_FIELD, termLabel));
     //If language not defined we are searching without specifying the language
@@ -196,23 +203,19 @@ public class EnrichmentService {
 
   private List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> findParentEntities(
       EntityType entityType, MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
-    // TODO: 7/16/20 optimize query in mongo to check on an array of core uris
-    final Set<String> parentCodeUris = findParentCodeUris(entityType, mongoTermList);
-    final List<Pair<String, String>> fieldNamesAndValues = new ArrayList<>();
-    final List<MongoTermList<?>> parentMongoTermLists = new ArrayList<>();
-    for (String parentCodeUri : parentCodeUris) {
-      //For timespans, do not get entities for very broad timespans
-      if (entityType == EntityType.TIMESPAN && PATTERN_MATCHING_VERY_BROAD_TIMESPANS
-          .matcher(parentCodeUri).matches()) {
-        continue;
-      }
-      fieldNamesAndValues.clear();
-      fieldNamesAndValues.add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, parentCodeUri));
-      parentMongoTermLists.addAll(entityDao
-          .getAllMongoTermListsByFields(getEntityMongoTermListClass(entityType).mongoTermListClass,
-              fieldNamesAndValues));
+    Set<String> parentCodeUris = findParentCodeUris(entityType, mongoTermList);
+    //Do not get entities for very broad TIMESPAN
+    if (entityType == EntityType.TIMESPAN) {
+      parentCodeUris = parentCodeUris.stream()
+          .filter(parentCodeUri -> PATTERN_MATCHING_VERY_BROAD_TIMESPANS
+              .matcher(parentCodeUri).matches()).collect(Collectors.toSet());
     }
-    return parentMongoTermLists;
+
+    final List<Pair<String, List<String>>> fieldNamesAndValues = new ArrayList<>();
+    fieldNamesAndValues
+        .add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, new ArrayList<>(parentCodeUris)));
+    return entityDao.getAllMongoTermListsByFieldsInList(
+        getEntityMongoTermListClass(entityType).mongoTermListClass, fieldNamesAndValues);
   }
 
   private Set<String> findParentCodeUris(EntityType entityType,

@@ -86,6 +86,15 @@ public class EntityDao {
     return getListOfQuery(query);
   }
 
+  public <T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> List<T> getAllMongoTermListsByFieldsInList(
+      Class<T> mongoTermListType, List<Pair<String, List<String>>> fieldNameAndValues) {
+    final Query<T> query = datastore.createQuery(mongoTermListType);
+    for (Pair<String, List<String>> fieldNameAndValue : fieldNameAndValues) {
+      query.field(fieldNameAndValue.getKey()).in(fieldNameAndValue.getValue());
+    }
+    return getListOfQuery(query);
+  }
+
 
   private MongoTerm findMongoTermByField(String entityType, String fieldName, String fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(

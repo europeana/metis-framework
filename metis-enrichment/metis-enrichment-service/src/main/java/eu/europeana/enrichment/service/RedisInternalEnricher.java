@@ -282,12 +282,12 @@ public class RedisInternalEnricher {
     verifyCacheReady();
     List<EntityWrapper> entities = new ArrayList<>();
     for (InputValue inputValue : values) {
-      if (inputValue.getVocabularies() == null) {
+      if (inputValue.getEntityTypes() == null) {
         continue;
       }
-      for (EntityType voc : inputValue.getVocabularies()) {
+      for (EntityType voc : inputValue.getEntityTypes()) {
         entities.addAll(findEntities(inputValue.getValue().toLowerCase(Locale.US),
-            inputValue.getOriginalField(), inputValue.getLanguage(), voc));
+            "", inputValue.getLanguage(), voc));
       }
     }
     return entities;
