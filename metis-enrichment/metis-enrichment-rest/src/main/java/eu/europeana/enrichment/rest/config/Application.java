@@ -4,7 +4,7 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.mongodb.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.Converter;
-import eu.europeana.enrichment.service.Enricher;
+import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
 import eu.europeana.enrichment.utils.EntityDao;
 import eu.europeana.enrichment.utils.RedisProvider;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -98,10 +97,25 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
+//  @Bean
+//  @DependsOn("redisInternalEnricher")
+//  Enricher enricher() {
+//    return new Enricher(getRedisInternalEnricher());
+//  }
+
   @Bean
-  @DependsOn("redisInternalEnricher")
-  Enricher enricher() {
-    return new Enricher(getRedisInternalEnricher());
+  EnrichmentService getEnrichmentService(EntityDao entityDao) {
+    return new EnrichmentService(entityDao);
+  }
+
+  @Bean
+  EntityDao getEntityDao() {
+    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
+        IllegalArgumentException::new);
+    mongoProperties
+        .setMongoHosts(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort});
+    final MongoClient mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
+    return new EntityDao(mongoClient, enrichmentMongoDatabase);
   }
 
   @Bean
@@ -109,13 +123,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     return new Converter();
   }
 
-  @Bean(name = "redisInternalEnricher")
-  RedisInternalEnricher getRedisInternalEnricher() {
-    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
-        IllegalArgumentException::new);
-    mongoProperties.setMongoHosts(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort});
-    final MongoClient mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
-    final EntityDao entityDao = new EntityDao(mongoClient, enrichmentMongoDatabase);
+  @Bean()
+  RedisInternalEnricher getRedisInternalEnricher(EntityDao entityDao) {
     return new RedisInternalEnricher(entityDao, redisProvider);
   }
 

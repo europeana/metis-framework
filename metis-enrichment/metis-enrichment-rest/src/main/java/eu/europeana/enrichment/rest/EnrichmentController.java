@@ -6,7 +6,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.exception.EnrichmentException;
 import eu.europeana.enrichment.service.Converter;
-import eu.europeana.enrichment.service.Enricher;
+import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.metis.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,18 +34,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class EnrichmentController {
 
   private final Converter converter;
-  private final Enricher enricher;
+  private final EnrichmentService enrichmentService;
 
   /**
    * Autowired constructor.
    *
-   * @param enricher class that handles enrichment functionality
    * @param converter utility class for conversion between different classes
+   * @param enrichmentService the service that contains logic for processing entities
    */
   @Autowired
-  public EnrichmentController(Enricher enricher, Converter converter) {
+  public EnrichmentController(Converter converter, EnrichmentService enrichmentService) {
     this.converter = converter;
-    this.enricher = enricher;
+    this.enrichmentService = enrichmentService;
   }
 
   /**
@@ -60,16 +60,16 @@ public class EnrichmentController {
   @ApiOperation(value = "Retrieve an entity by rdf:about or owl:sameAs/skos:exactMatch", response = EnrichmentBase.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentBase getByUri(@ApiParam("uri") @RequestParam("uri") String uri)
+  public EnrichmentBase getByCodeUriOrOwlSameAs(@ApiParam("uri") @RequestParam("uri") String uri)
       throws EnrichmentException {
 
-    EntityWrapper wrapper = enricher.getByUri(uri);
-    if (wrapper == null) {
+    final EntityWrapper entiryWrapper = enrichmentService.getByCodeUriOrOwlSameAs(uri);
+    if (entiryWrapper == null) {
       return null;
     }
 
     try {
-      return converter.convert(wrapper);
+      return converter.convert(entiryWrapper);
     } catch (IOException e) {
       throw new EnrichmentException("Error converting object to EnrichmentBase", e);
     }
@@ -83,13 +83,15 @@ public class EnrichmentController {
    * @throws EnrichmentException if an exception occurred during enrichment
    */
   @PostMapping(value = RestEndpoints.ENRICHMENT_BYURI, consumes = MediaType.APPLICATION_JSON_VALUE,
-          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ApiOperation(value = "Retrieve entities by rdf:about or owl:sameAs/skos:exactMatch", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentResultList getByUri(@RequestBody List<String>  uriList) throws EnrichmentException {
-    final List<EntityWrapper> wrapperList = uriList.stream().map(enricher::getByUri)
-            .filter(Objects::nonNull).collect(Collectors.toList());
+  public EnrichmentResultList getByCodeUriOrOwlSameAs(@RequestBody List<String> uriList)
+      throws EnrichmentException {
+    final List<EntityWrapper> wrapperList = uriList.stream()
+        .map(enrichmentService::getByCodeUriOrOwlSameAs)
+        .filter(Objects::nonNull).collect(Collectors.toList());
     try {
       return converter.convert(wrapperList);
     } catch (IOException e) {
@@ -105,13 +107,14 @@ public class EnrichmentController {
    * @throws EnrichmentException if an exception occurred during enrichment
    */
   @PostMapping(value = RestEndpoints.ENRICHMENT_BYID, consumes = MediaType.APPLICATION_JSON_VALUE,
-          produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ApiOperation(value = "Retrieve entities by rdf:about", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentResultList getById(@RequestBody List<String>  idList) throws EnrichmentException {
-    final List<EntityWrapper> wrapperList = idList.stream().map(enricher::getById)
-            .filter(Objects::nonNull).collect(Collectors.toList());
+  public EnrichmentResultList getByCodeUri(@RequestBody List<String> idList)
+      throws EnrichmentException {
+    final List<EntityWrapper> wrapperList = idList.stream().map(enrichmentService::getByCodeUri)
+        .filter(Objects::nonNull).collect(Collectors.toList());
     try {
       return converter.convert(wrapperList);
     } catch (IOException e) {
@@ -138,7 +141,8 @@ public class EnrichmentController {
       throws EnrichmentException {
 
     try {
-      List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValues());
+      List<EntityWrapper> wrapperList = enrichmentService
+          .findEntitiesBasedOnValues(input.getInputValues());
       return converter.convert(wrapperList);
     } catch (IOException e) {
       throw new EnrichmentException("Error converting object.", e);
