@@ -4,7 +4,7 @@ import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
-import eu.europeana.enrichment.service.dao.EntityDao;
+import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.EntityTypeUtils;
 import eu.europeana.enrichment.utils.InputValue;
@@ -39,12 +39,12 @@ public class EnrichmentService {
   private static final Set<String> ALL_2CODE_LANGUAGES = all2CodeLanguages();
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
-  private final EntityDao entityDao;
+  private final EnrichmentDao enrichmentDao;
   private final Converter converter;
 
   @Autowired
-  public EnrichmentService(EntityDao entityDao, Converter converter) {
-    this.entityDao = entityDao;
+  public EnrichmentService(EnrichmentDao enrichmentDao, Converter converter) {
+    this.enrichmentDao = enrichmentDao;
     this.converter = converter;
   }
 
@@ -85,9 +85,9 @@ public class EnrichmentService {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
       final List<Pair<String, String>> codeUriFieldValue = new ArrayList<>();
-      codeUriFieldValue.add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, uri));
+      codeUriFieldValue.add(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri));
       final List<Pair<String, String>> owlSameAsFieldValue = new ArrayList<>();
-      codeUriFieldValue.add(new ImmutablePair<>(EntityDao.OWL_SAME_AS_FIELD, uri));
+      codeUriFieldValue.add(new ImmutablePair<>(EnrichmentDao.OWL_SAME_AS_FIELD, uri));
 
       //Create the list of suppliers that we'll use to find first match in order
       final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = Arrays
@@ -112,7 +112,7 @@ public class EnrichmentService {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
       final List<Pair<String, String>> codeUriFieldValue = new ArrayList<>();
-      codeUriFieldValue.add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, codeUri));
+      codeUriFieldValue.add(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, codeUri));
 
       //Create the list of suppliers that we'll use to find first match in order
       final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = Arrays
@@ -144,7 +144,7 @@ public class EnrichmentService {
 
   private List<EnrichmentBase> getEntitiesAndConvert(EntityType entityType,
       List<Pair<String, String>> fieldNamesAndValues) {
-    final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = entityDao
+    final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = enrichmentDao
         .getAllMongoTermListsByFields(
             EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
             fieldNamesAndValues);
@@ -156,12 +156,12 @@ public class EnrichmentService {
 
     //Find all terms that match label and language
     final List<Pair<String, String>> fieldNamesAndValues = new ArrayList<>();
-    fieldNamesAndValues.add(new ImmutablePair<>(EntityDao.LABEL_FIELD, termLabel));
+    fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LABEL_FIELD, termLabel));
     //If language not defined we are searching without specifying the language
     if (StringUtils.isNotBlank(termLanguage)) {
-      fieldNamesAndValues.add(new ImmutablePair<>(EntityDao.LANG_FIELD, termLanguage));
+      fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LANG_FIELD, termLanguage));
     }
-    final List<MongoTerm> mongoTerms = entityDao
+    final List<MongoTerm> mongoTerms = enrichmentDao
         .getAllMongoTermsByFields(entityType, fieldNamesAndValues);
 
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
@@ -169,8 +169,8 @@ public class EnrichmentService {
       //Find mongoTermLists by codeUri
       fieldNamesAndValues.clear();
       fieldNamesAndValues
-          .add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, mongoTerm.getCodeUri()));
-      final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = entityDao
+          .add(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, mongoTerm.getCodeUri()));
+      final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = enrichmentDao
           .getAllMongoTermListsByFields(
               EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
               fieldNamesAndValues);
@@ -199,8 +199,8 @@ public class EnrichmentService {
 
     final List<Pair<String, List<String>>> fieldNamesAndValues = new ArrayList<>();
     fieldNamesAndValues
-        .add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, new ArrayList<>(parentCodeUris)));
-    return entityDao.getAllMongoTermListsByFieldsInList(
+        .add(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, new ArrayList<>(parentCodeUris)));
+    return enrichmentDao.getAllMongoTermListsByFieldsInList(
         EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
         fieldNamesAndValues);
   }
@@ -210,10 +210,10 @@ public class EnrichmentService {
     final Set<String> parentEntities = new HashSet<>();
     MongoTermList<? extends AbstractEdmEntityImpl> currentMongoTermList = termList;
     while (StringUtils.isNotBlank(currentMongoTermList.getParent())) {
-      currentMongoTermList = entityDao
+      currentMongoTermList = enrichmentDao
           .findTermListByField(
               EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
-              EntityDao.CODE_URI_FIELD, currentMongoTermList.getParent());
+              EnrichmentDao.CODE_URI_FIELD, currentMongoTermList.getParent());
       //Break when there is no other parent available or when we have already encountered the codeUri
       if (currentMongoTermList == null || !parentEntities.add(currentMongoTermList.getCodeUri())) {
         break;

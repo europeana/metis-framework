@@ -30,7 +30,7 @@ import org.apache.commons.lang3.tuple.Pair;
  * @author Simon Tzanakis
  * @since 2020-07-07
  */
-public class EntityDao {
+public class EnrichmentDao {
 
   private final AdvancedDatastore datastore;
 
@@ -58,7 +58,7 @@ public class EntityDao {
   private final MongoClient mongoClient;
 
 
-  public EntityDao(MongoClient mongoClient, String databaseName) {
+  public EnrichmentDao(MongoClient mongoClient, String databaseName) {
     this.mongoClient = mongoClient;
 
     // Register the mappings and set up the data store.

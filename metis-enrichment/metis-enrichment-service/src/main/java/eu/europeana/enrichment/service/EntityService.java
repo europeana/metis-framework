@@ -7,7 +7,7 @@ import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.enrichment.service.dao.EntityDao;
+import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
 import java.io.Closeable;
@@ -22,28 +22,28 @@ public class EntityService implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EntityService.class);
 
-  private final EntityDao entityDao;
+  private final EnrichmentDao enrichmentDao;
 
   public EntityService(String mongoHost, int mongoPort, String mongoDatabase) {
-    this.entityDao = getEntityDao(mongoHost, mongoPort, mongoDatabase);
+    this.enrichmentDao = getEnrichmentDao(mongoHost, mongoPort, mongoDatabase);
   }
 
   public EntityService(String mongoConnectionUrl, String mongoDatabase) {
-    this.entityDao = new EntityDao(new MongoClient(new MongoClientURI(mongoConnectionUrl)),
+    this.enrichmentDao = new EnrichmentDao(new MongoClient(new MongoClientURI(mongoConnectionUrl)),
         mongoDatabase);
   }
 
-  private EntityDao getEntityDao(String mongoHost, int mongoPort, String mongoDatabase) {
+  private EnrichmentDao getEnrichmentDao(String mongoHost, int mongoPort, String mongoDatabase) {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
     mongoProperties.setMongoHosts(new String[]{mongoHost}, new int[]{mongoPort});
     final MongoClient mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
-    return new EntityDao(mongoClient, mongoDatabase);
+    return new EnrichmentDao(mongoClient, mongoDatabase);
   }
 
   @Override
   public void close() {
-    this.entityDao.close();
+    this.enrichmentDao.close();
   }
 
   public OrganizationTermList storeOrganization(Organization org,
@@ -53,8 +53,8 @@ public class EntityService implements Closeable {
     OrganizationTermList termList = organizationToOrganizationTermList(
         (OrganizationImpl) org, created, modified);
 
-    final MongoTermList<OrganizationImpl> storedOrg = entityDao
-        .findTermListByField(OrganizationTermList.class, EntityDao.CODE_URI_FIELD, org.getAbout());
+    final MongoTermList<OrganizationImpl> storedOrg = enrichmentDao
+        .findTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD, org.getAbout());
 
     // it is an update
     if (storedOrg != null) {
@@ -65,17 +65,17 @@ public class EntityService implements Closeable {
     // delete old terms (labels), also when the termList is not found to
     // will avoid problems when manually deleting the entries in the
     // database
-    entityDao.deleteMongoTerm(EntityDao.ORGANIZATION_TABLE, org.getAbout());
+    enrichmentDao.deleteMongoTerm(EnrichmentDao.ORGANIZATION_TABLE, org.getAbout());
 
     // store labels
-    int countOfStoredMongoTerms = entityDao.storeMongoTermsFromEntity(
+    int countOfStoredMongoTerms = enrichmentDao.storeMongoTermsFromEntity(
         (OrganizationImpl) org, EntityType.ORGANIZATION);
     LOGGER.trace("Stored {} new mongo terms", countOfStoredMongoTerms);
 
     // store term list
-    final String id = entityDao.saveTermList(termList);
-    final MongoTermList<OrganizationImpl> storedOrganizationMongoTermList = entityDao
-        .findTermListByField(OrganizationTermList.class, EntityDao.ID_FIELD, id);
+    final String id = enrichmentDao.saveTermList(termList);
+    final MongoTermList<OrganizationImpl> storedOrganizationMongoTermList = enrichmentDao
+        .findTermListByField(OrganizationTermList.class, EnrichmentDao.ID_FIELD, id);
     return (OrganizationTermList) storedOrganizationMongoTermList;
 
   }
@@ -100,7 +100,8 @@ public class EntityService implements Closeable {
    */
   public Organization getOrganizationById(String uri) {
     MongoTermList<OrganizationImpl> storedOrg =
-        entityDao.findTermListByField(OrganizationTermList.class, EntityDao.CODE_URI_FIELD, uri);
+        enrichmentDao
+            .findTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD, uri);
     return storedOrg == null ? null : storedOrg.getRepresentation();
   }
 
@@ -127,7 +128,7 @@ public class EntityService implements Closeable {
    * @param organizationIds The organization IDs
    */
   public void deleteOrganizations(List<String> organizationIds) {
-    entityDao.deleteAllEntitiesMatching(organizationIds);
+    enrichmentDao.deleteAllEntitiesMatching(organizationIds);
   }
 
   /**
@@ -136,8 +137,8 @@ public class EntityService implements Closeable {
    * @param organizationId The organization ID
    */
   public void deleteOrganization(String organizationId) {
-    entityDao
-        .deleteEntities(EntityDao.ORGANIZATION_TABLE, EntityDao.ORGANIZATION_TYPE, organizationId);
+    enrichmentDao
+        .deleteEntities(EnrichmentDao.ORGANIZATION_TABLE, EnrichmentDao.ORGANIZATION_TYPE, organizationId);
   }
 
   private OrganizationTermList organizationToOrganizationTermList(OrganizationImpl organization,
@@ -166,6 +167,6 @@ public class EntityService implements Closeable {
    * @return the last modified date
    */
   public Date getLastOrganizationImportDate() {
-    return entityDao.getDateOfLastModifiedEntity(EntityType.ORGANIZATION);
+    return enrichmentDao.getDateOfLastModifiedEntity(EntityType.ORGANIZATION);
   }
 }

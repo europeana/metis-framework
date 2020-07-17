@@ -5,7 +5,7 @@ import com.mongodb.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.EnrichmentService;
-import eu.europeana.enrichment.service.dao.EntityDao;
+import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
 import org.springframework.beans.factory.InitializingBean;
@@ -82,18 +82,18 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  EnrichmentService getEnrichmentService(EntityDao entityDao, Converter converter) {
-    return new EnrichmentService(entityDao, converter);
+  EnrichmentService getEnrichmentService(EnrichmentDao enrichmentDao, Converter converter) {
+    return new EnrichmentService(enrichmentDao, converter);
   }
 
   @Bean
-  EntityDao getEntityDao() {
+  EnrichmentDao getEnrichmentDao() {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
     mongoProperties
         .setMongoHosts(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort});
     final MongoClient mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
-    return new EntityDao(mongoClient, enrichmentMongoDatabase);
+    return new EnrichmentDao(mongoClient, enrichmentMongoDatabase);
   }
 
   @Bean
