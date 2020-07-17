@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonInclude
 public class InputValue {
 
-  private String originalField;
+  private String rdfFieldName;
 
   private String value;
 
@@ -30,19 +30,24 @@ public class InputValue {
   /**
    * Constructor with all possible fields provided for enrichment.
    *
+   * @param rdfFieldName the rdf field name
    * @param value the value to be enriched
    * @param language the language to use for enrichment of the value
    * @param entityTypes the vocabularies that this value represents
    */
-  public InputValue(String originalField, String value, String language, EntityType... entityTypes) {
-    this.originalField = originalField;
+  public InputValue(String rdfFieldName, String value, String language, EntityType... entityTypes) {
+    this.rdfFieldName = rdfFieldName;
     this.value = value;
     this.language = language;
     this.entityTypes = Arrays.asList(entityTypes);
   }
 
-  public String getOriginalField() {
-    return originalField;
+  public String getRdfFieldName() {
+    return rdfFieldName;
+  }
+
+  public void setRdfFieldName(String rdfFieldName) {
+    this.rdfFieldName = rdfFieldName;
   }
 
   public String getValue() {

@@ -58,7 +58,7 @@ public class EnrichmentService {
     final List<Pair<String, EnrichmentBase>> enrichmentBases = new ArrayList<>();
     try {
       for (InputValue inputValue : inputValues) {
-        final String originalField = inputValue.getOriginalField();
+        final String originalField = inputValue.getRdfFieldName();
         final List<EntityType> entityTypes = inputValue.getEntityTypes();
         //Language has to be a valid 2 code, otherwise we do not use it
         final String language =
