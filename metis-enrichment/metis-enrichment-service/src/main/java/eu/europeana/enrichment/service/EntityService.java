@@ -54,7 +54,7 @@ public class EntityService implements Closeable {
         (OrganizationImpl) org, created, modified);
 
     final MongoTermList<OrganizationImpl> storedOrg = enrichmentDao
-        .findTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD, org.getAbout());
+        .getTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD, org.getAbout());
 
     // it is an update
     if (storedOrg != null) {
@@ -68,14 +68,14 @@ public class EntityService implements Closeable {
     enrichmentDao.deleteMongoTerm(EnrichmentDao.ORGANIZATION_TABLE, org.getAbout());
 
     // store labels
-    int countOfStoredMongoTerms = enrichmentDao.storeMongoTermsFromEntity(
+    int countOfStoredMongoTerms = enrichmentDao.saveMongoTermsFromEntity(
         (OrganizationImpl) org, EntityType.ORGANIZATION);
     LOGGER.trace("Stored {} new mongo terms", countOfStoredMongoTerms);
 
     // store term list
     final String id = enrichmentDao.saveTermList(termList);
     final MongoTermList<OrganizationImpl> storedOrganizationMongoTermList = enrichmentDao
-        .findTermListByField(OrganizationTermList.class, EnrichmentDao.ID_FIELD, id);
+        .getTermListByField(OrganizationTermList.class, EnrichmentDao.ID_FIELD, id);
     return (OrganizationTermList) storedOrganizationMongoTermList;
 
   }
@@ -101,7 +101,7 @@ public class EntityService implements Closeable {
   public Organization getOrganizationById(String uri) {
     MongoTermList<OrganizationImpl> storedOrg =
         enrichmentDao
-            .findTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD, uri);
+            .getTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD, uri);
     return storedOrg == null ? null : storedOrg.getRepresentation();
   }
 

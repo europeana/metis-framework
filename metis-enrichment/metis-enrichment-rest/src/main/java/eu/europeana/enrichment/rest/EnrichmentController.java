@@ -45,7 +45,7 @@ public class EnrichmentController {
   /**
    * Get an enrichment by URI, might match owl:sameAs.
    *
-   * @param uri The URI to retrieve
+   * @param uri The URI to check for match
    * @return the structured result of the enrichment
    */
   @GetMapping(value = RestEndpoints.ENRICH_CODEURI_OR_OWLSAMEAS, produces = {
@@ -54,9 +54,9 @@ public class EnrichmentController {
   @ApiOperation(value = "Get an enrichment by URI, might match owl:sameAs", response = EnrichmentBase.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentBase getByCodeUriOrOwlSameAs(@ApiParam("uri") @RequestParam("uri") String uri) {
+  public EnrichmentBase enrichByCodeUriOrOwlSameAs(@ApiParam("uri") @RequestParam("uri") String uri) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = enrichmentService
-        .getByCodeUriOrOwlSameAs(uri).stream()
+        .enrichByCodeUriOrOwlSameAs(uri).stream()
         .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
         .collect(Collectors.toList());
     return enrichmentBaseWrappers.stream().findFirst().map(EnrichmentBaseWrapper::getEnrichmentBase)
@@ -66,7 +66,7 @@ public class EnrichmentController {
   /**
    * Get an enrichment by providing a list of URIs, might match owl:sameAs.
    *
-   * @param uriList The URI to retrieve
+   * @param uris The URIs to check for match
    * @return the structured result of the enrichment
    */
   @PostMapping(value = RestEndpoints.ENRICH_CODEURI_OR_OWLSAMEAS, consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -74,9 +74,9 @@ public class EnrichmentController {
   @ApiOperation(value = "Get an enrichment by providing a list of URIs, might match owl:sameAs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentResultList getByCodeUriOrOwlSameAs(@RequestBody List<String> uriList) {
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = uriList.stream()
-        .map(enrichmentService::getByCodeUriOrOwlSameAs).flatMap(List::stream)
+  public EnrichmentResultList enrichByCodeUriOrOwlSameAs(@RequestBody List<String> uris) {
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = uris.stream()
+        .map(enrichmentService::enrichByCodeUriOrOwlSameAs).flatMap(List::stream)
         .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
         .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
@@ -85,7 +85,7 @@ public class EnrichmentController {
   /**
    * Get an enrichment by providing a list of URIs.
    *
-   * @param idList The ID to retrieve
+   * @param uris The URIs to check for match
    * @return the structured result of the enrichment
    */
   @PostMapping(value = RestEndpoints.ENRICH_CODEURI, consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -93,9 +93,9 @@ public class EnrichmentController {
   @ApiOperation(value = "Get an enrichment by providing a list of URIs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentResultList getByCodeUri(@RequestBody List<String> idList) {
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = idList.stream()
-        .map(enrichmentService::getByCodeUri).filter(Objects::nonNull).flatMap(List::stream)
+  public EnrichmentResultList enrichByCodeUri(@RequestBody List<String> uris) {
+    final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = uris.stream()
+        .map(enrichmentService::enrichByCodeUri).filter(Objects::nonNull).flatMap(List::stream)
         .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
         .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
@@ -104,7 +104,7 @@ public class EnrichmentController {
   /**
    * Get an enrichment by providing a list of {@link InputValueList}.
    *
-   * @param input A list of values
+   * @param inputValueList a list of structured input values with parameters
    * @return the enrichment values in a wrapped structured list
    */
   @PostMapping(value = RestEndpoints.ENRICH_INPUT_VALUE_LIST, consumes = {
@@ -116,9 +116,9 @@ public class EnrichmentController {
       @ApiResponse(code = 400, message = "Error processing the result")
   })
   public EnrichmentResultList enrichByInputValueList(
-      @ApiParam("InputValueList") @RequestBody InputValueList input) {
+      @ApiParam("InputValueList") @RequestBody InputValueList inputValueList) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = enrichmentService
-        .findEntitiesBasedOnValues(input.getInputValues()).stream().filter(Objects::nonNull)
+        .enrichByInputValueList(inputValueList.getInputValues()).stream().filter(Objects::nonNull)
         .map(originalFieldEnrichmentBasePair -> new EnrichmentBaseWrapper(
             originalFieldEnrichmentBasePair.getKey(), originalFieldEnrichmentBasePair.getValue()))
         .collect(Collectors.toList());

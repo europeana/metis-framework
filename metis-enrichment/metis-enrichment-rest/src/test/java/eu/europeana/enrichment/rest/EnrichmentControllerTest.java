@@ -54,7 +54,7 @@ public class EnrichmentControllerTest {
   public void getByUri_JSON() throws Exception {
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
-    when(enrichmentServiceMock.getByCodeUriOrOwlSameAs(uri))
+    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri))
         .thenReturn(Collections.singletonList(agent));
     enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
         .param("uri", "http://www.example.com")
@@ -71,7 +71,7 @@ public class EnrichmentControllerTest {
 
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
-    when(enrichmentServiceMock.getByCodeUriOrOwlSameAs(uri))
+    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri))
         .thenReturn(Collections.singletonList(agent));
     Map<String, String> namespaceMap = getNamespaceMap();
     enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
@@ -102,7 +102,7 @@ public class EnrichmentControllerTest {
     Map<String, String> namespaceMap = getNamespaceMap();
     Agent agent = getAgent(uri);
 
-    when(enrichmentServiceMock.findEntitiesBasedOnValues(anyListOf(InputValue.class)))
+    when(enrichmentServiceMock.enrichByInputValueList(anyListOf(InputValue.class)))
         .thenReturn(Collections.singletonList(new ImmutablePair<>("DC_CONTRIBUTOR", agent)));
 
     enrichmentControllerMock.perform(post("/enrich/input_value_list")

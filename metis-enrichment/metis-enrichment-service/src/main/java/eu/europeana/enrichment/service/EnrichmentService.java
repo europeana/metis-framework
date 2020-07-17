@@ -29,6 +29,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Contains functionality for accessing entities from the enrichment database using {@link
+ * EnrichmentDao}.
+ *
  * @author Simon Tzanakis
  * @since 2020-07-16
  */
@@ -51,7 +54,13 @@ public class EnrichmentService {
         .collect(Collectors.toCollection(TreeSet::new));
   }
 
-  public List<Pair<String, EnrichmentBase>> findEntitiesBasedOnValues(
+  /**
+   * Get an enrichment by providing a list of {@link InputValue}s.
+   *
+   * @param inputValues a list of structured input values with parameters
+   * @return the enrichment values in a wrapped structured list
+   */
+  public List<Pair<String, EnrichmentBase>> enrichByInputValueList(
       List<InputValue> inputValues) {
     final List<Pair<String, EnrichmentBase>> enrichmentBases = new ArrayList<>();
     try {
@@ -79,7 +88,13 @@ public class EnrichmentService {
     return enrichmentBases;
   }
 
-  public List<EnrichmentBase> getByCodeUriOrOwlSameAs(String uri) {
+  /**
+   * Get an enrichment by providing a list of URIs, might match owl:sameAs.
+   *
+   * @param uri The URI to check for match
+   * @return the structured result of the enrichment
+   */
+  public List<EnrichmentBase> enrichByCodeUriOrOwlSameAs(String uri) {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
       final List<Pair<String, String>> codeUriFieldValue = new ArrayList<>();
@@ -106,7 +121,13 @@ public class EnrichmentService {
     return enrichmentBases;
   }
 
-  public List<EnrichmentBase> getByCodeUri(String codeUri) {
+  /**
+   * Get an enrichment by providing a list of URIs.
+   *
+   * @param codeUri The URI to check for match
+   * @return the structured result of the enrichment
+   */
+  public List<EnrichmentBase> enrichByCodeUri(String codeUri) {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
       final List<Pair<String, String>> codeUriFieldValue = new ArrayList<>();
@@ -209,7 +230,7 @@ public class EnrichmentService {
     MongoTermList<? extends AbstractEdmEntityImpl> currentMongoTermList = termList;
     while (StringUtils.isNotBlank(currentMongoTermList.getParent())) {
       currentMongoTermList = enrichmentDao
-          .findTermListByField(
+          .getTermListByField(
               EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
               EnrichmentDao.CODE_URI_FIELD, currentMongoTermList.getParent());
       //Break when there is no other parent available or when we have already encountered the codeUri
