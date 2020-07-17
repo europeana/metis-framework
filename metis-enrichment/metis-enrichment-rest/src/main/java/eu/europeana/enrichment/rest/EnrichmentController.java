@@ -43,14 +43,15 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch).
+   * Get an enrichment by URI, might match owl:sameAs.
    *
    * @param uri The URI to retrieve
    * @return the structured result of the enrichment
    */
-  @GetMapping(value = RestEndpoints.ENRICHMENT_BYURI, produces = {MediaType.APPLICATION_JSON_VALUE,
+  @GetMapping(value = RestEndpoints.ENRICH_CODEURI_OR_OWLSAMEAS, produces = {
+      MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
-  @ApiOperation(value = "Retrieve an entity by rdf:about or owl:sameAs/skos:exactMatch", response = EnrichmentBase.class)
+  @ApiOperation(value = "Get an enrichment by URI, might match owl:sameAs", response = EnrichmentBase.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentBase getByCodeUriOrOwlSameAs(@ApiParam("uri") @RequestParam("uri") String uri) {
@@ -63,14 +64,14 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch).
+   * Get an enrichment by providing a list of URIs, might match owl:sameAs.
    *
    * @param uriList The URI to retrieve
    * @return the structured result of the enrichment
    */
-  @PostMapping(value = RestEndpoints.ENRICHMENT_BYURI, consumes = MediaType.APPLICATION_JSON_VALUE,
+  @PostMapping(value = RestEndpoints.ENRICH_CODEURI_OR_OWLSAMEAS, consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ApiOperation(value = "Retrieve entities by rdf:about or owl:sameAs/skos:exactMatch", response = EnrichmentResultList.class)
+  @ApiOperation(value = "Get an enrichment by providing a list of URIs, might match owl:sameAs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList getByCodeUriOrOwlSameAs(@RequestBody List<String> uriList) {
@@ -82,14 +83,14 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by ID (rdf:about).
+   * Get an enrichment by providing a list of URIs.
    *
    * @param idList The ID to retrieve
    * @return the structured result of the enrichment
    */
-  @PostMapping(value = RestEndpoints.ENRICHMENT_BYID, consumes = MediaType.APPLICATION_JSON_VALUE,
+  @PostMapping(value = RestEndpoints.ENRICH_CODEURI, consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ApiOperation(value = "Retrieve entities by rdf:about", response = EnrichmentResultList.class)
+  @ApiOperation(value = "Get an enrichment by providing a list of URIs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList getByCodeUri(@RequestBody List<String> idList) {
@@ -101,20 +102,21 @@ public class EnrichmentController {
   }
 
   /**
-   * Enrich a number of values
+   * Get an enrichment by providing a list of {@link InputValueList}.
    *
    * @param input A list of values
    * @return the enrichment values in a wrapped structured list
    */
-  @PostMapping(value = RestEndpoints.ENRICHMENT_ENRICH, consumes = {
+  @PostMapping(value = RestEndpoints.ENRICH_INPUT_VALUE_LIST, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  @ApiOperation(value = "Enrich a series of field value pairs", response = EnrichmentResultList.class)
+  @ApiOperation(value = "Get an enrichment by providing a list of InputValueList", response = EnrichmentResultList.class)
   @ApiResponses(value = {
       @ApiResponse(code = 400, message = "Error processing the result")
   })
-  public EnrichmentResultList enrich(@ApiParam("input") @RequestBody InputValueList input) {
+  public EnrichmentResultList enrichByInputValueList(
+      @ApiParam("InputValueList") @RequestBody InputValueList input) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = enrichmentService
         .findEntitiesBasedOnValues(input.getInputValues()).stream().filter(Objects::nonNull)
         .map(originalFieldEnrichmentBasePair -> new EnrichmentBaseWrapper(
