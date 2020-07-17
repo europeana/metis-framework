@@ -11,6 +11,7 @@ import eu.europeana.enrichment.utils.InputValue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -97,23 +98,11 @@ public class EnrichmentService {
   public List<EnrichmentBase> enrichByCodeUriOrOwlSameAs(String uri) {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
-      final List<Pair<String, String>> codeUriFieldValue = new ArrayList<>();
-      codeUriFieldValue.add(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri));
-      final List<Pair<String, String>> owlSameAsFieldValue = new ArrayList<>();
-      codeUriFieldValue.add(new ImmutablePair<>(EnrichmentDao.OWL_SAME_AS_FIELD, uri));
-
       //Create the list of suppliers that we'll use to find first match in order
-      final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = Arrays
-          .asList(
-              () -> getEntitiesAndConvert(EntityType.AGENT, codeUriFieldValue),
-              () -> getEntitiesAndConvert(EntityType.CONCEPT, codeUriFieldValue),
-              () -> getEntitiesAndConvert(EntityType.TIMESPAN, codeUriFieldValue),
-              () -> getEntitiesAndConvert(EntityType.PLACE, codeUriFieldValue),
-              () -> getEntitiesAndConvert(EntityType.AGENT, owlSameAsFieldValue),
-              () -> getEntitiesAndConvert(EntityType.CONCEPT, owlSameAsFieldValue),
-              () -> getEntitiesAndConvert(EntityType.TIMESPAN, owlSameAsFieldValue),
-              () -> getEntitiesAndConvert(EntityType.PLACE, owlSameAsFieldValue)
-          );
+      final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = getEnrichmentBaseSuppliers(
+          new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri));
+      enrichmentBaseSuppliers.addAll(
+          getEnrichmentBaseSuppliers(new ImmutablePair<>(EnrichmentDao.OWL_SAME_AS_FIELD, uri)));
       enrichmentBases.add(getFirstMatch(enrichmentBaseSuppliers));
     } catch (RuntimeException | IOException e) {
       LOGGER.warn("Unable to retrieve entity from id", e);
@@ -130,23 +119,30 @@ public class EnrichmentService {
   public List<EnrichmentBase> enrichByCodeUri(String codeUri) {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
-      final List<Pair<String, String>> codeUriFieldValue = new ArrayList<>();
-      codeUriFieldValue.add(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, codeUri));
-
       //Create the list of suppliers that we'll use to find first match in order
-      final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = Arrays
-          .asList(
-              () -> getEntitiesAndConvert(EntityType.AGENT, codeUriFieldValue),
-              () -> getEntitiesAndConvert(EntityType.CONCEPT, codeUriFieldValue),
-              () -> getEntitiesAndConvert(EntityType.TIMESPAN, codeUriFieldValue),
-              () -> getEntitiesAndConvert(EntityType.PLACE, codeUriFieldValue)
-          );
+      final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = getEnrichmentBaseSuppliers(
+          new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, codeUri));
 
       enrichmentBases.add(getFirstMatch(enrichmentBaseSuppliers));
     } catch (RuntimeException | IOException e) {
       LOGGER.warn("Unable to retrieve entity from codeUri", e);
     }
     return enrichmentBases;
+  }
+
+  private List<FailableSupplier<List<EnrichmentBase>, IOException>> getEnrichmentBaseSuppliers(
+      Pair<String, String> fieldNamesAndValues) {
+    return Arrays
+        .asList(
+            () -> getEntitiesAndConvert(EntityType.AGENT,
+                Collections.singletonList(fieldNamesAndValues)),
+            () -> getEntitiesAndConvert(EntityType.CONCEPT,
+                Collections.singletonList(fieldNamesAndValues)),
+            () -> getEntitiesAndConvert(EntityType.TIMESPAN,
+                Collections.singletonList(fieldNamesAndValues)),
+            () -> getEntitiesAndConvert(EntityType.PLACE,
+                Collections.singletonList(fieldNamesAndValues))
+        );
   }
 
   private EnrichmentBase getFirstMatch(
