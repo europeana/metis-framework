@@ -2,15 +2,11 @@ package eu.europeana.enrichment.service;
 
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.internal.AgentTermList;
-import eu.europeana.enrichment.api.internal.ConceptTermList;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
-import eu.europeana.enrichment.api.internal.OrganizationTermList;
-import eu.europeana.enrichment.api.internal.PlaceTermList;
-import eu.europeana.enrichment.api.internal.TimespanTermList;
 import eu.europeana.enrichment.utils.EntityDao;
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.enrichment.utils.EntityTypeUtils;
 import eu.europeana.enrichment.utils.InputValue;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +36,6 @@ import org.springframework.stereotype.Service;
 public class EnrichmentService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentService.class);
-  private static final List<EntityInfo<?, ?>> ENTITY_INFOS = createEntityTypeList();
   private static final Set<String> ALL_2CODE_LANGUAGES = all2CodeLanguages();
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
@@ -56,16 +51,6 @@ public class EnrichmentService {
   private static Set<String> all2CodeLanguages() {
     return Arrays.stream(Locale.getISOLanguages()).map(Locale::new).map(Locale::toString)
         .collect(Collectors.toCollection(TreeSet::new));
-  }
-
-  private static List<EntityInfo<?, ?>> createEntityTypeList() {
-    final ArrayList<EntityInfo<?, ?>> entityInfos = new ArrayList<>();
-    entityInfos.add(new EntityInfo<>(EntityType.AGENT, AgentTermList.class));
-    entityInfos.add(new EntityInfo<>(EntityType.CONCEPT, ConceptTermList.class));
-    entityInfos.add(new EntityInfo<>(EntityType.PLACE, PlaceTermList.class));
-    entityInfos.add(new EntityInfo<>(EntityType.TIMESPAN, TimespanTermList.class));
-    entityInfos.add(new EntityInfo<>(EntityType.ORGANIZATION, OrganizationTermList.class));
-    return entityInfos;
   }
 
   public List<EnrichmentBase> findEntitiesBasedOnValues(List<InputValue> inputValues) {
@@ -156,7 +141,8 @@ public class EnrichmentService {
   private List<EnrichmentBase> getEntitiesAndConvert(EntityType entityType,
       List<Pair<String, String>> fieldNamesAndValues) {
     final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = entityDao
-        .getAllMongoTermListsByFields(getEntityMongoTermListClass(entityType).mongoTermListClass,
+        .getAllMongoTermListsByFields(
+            EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
             fieldNamesAndValues);
     return converter.convert(mongoTermLists);
   }
@@ -181,7 +167,8 @@ public class EnrichmentService {
       fieldNamesAndValues
           .add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, mongoTerm.getCodeUri()));
       final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = entityDao
-          .getAllMongoTermListsByFields(getEntityMongoTermListClass(entityType).mongoTermListClass,
+          .getAllMongoTermListsByFields(
+              EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
               fieldNamesAndValues);
       //Find parent mongoTermLists
       final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> parentMongoTermLists = mongoTermLists
@@ -210,7 +197,8 @@ public class EnrichmentService {
     fieldNamesAndValues
         .add(new ImmutablePair<>(EntityDao.CODE_URI_FIELD, new ArrayList<>(parentCodeUris)));
     return entityDao.getAllMongoTermListsByFieldsInList(
-        getEntityMongoTermListClass(entityType).mongoTermListClass, fieldNamesAndValues);
+        EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
+        fieldNamesAndValues);
   }
 
   private Set<String> findParentCodeUris(EntityType entityType,
@@ -219,7 +207,8 @@ public class EnrichmentService {
     MongoTermList<? extends AbstractEdmEntityImpl> currentMongoTermList = termList;
     while (StringUtils.isNotBlank(currentMongoTermList.getParent())) {
       currentMongoTermList = entityDao
-          .findTermListByField(getEntityMongoTermListClass(entityType).mongoTermListClass,
+          .findTermListByField(
+              EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
               EntityDao.CODE_URI_FIELD, currentMongoTermList.getParent());
       //Break when there is no other parent available or when we have already encountered the codeUri
       if (currentMongoTermList == null || !parentEntities.add(currentMongoTermList.getCodeUri())) {
@@ -227,22 +216,5 @@ public class EnrichmentService {
       }
     }
     return parentEntities;
-  }
-
-  private static class EntityInfo<T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> {
-
-    protected final EntityType entityType;
-    protected final Class<T> mongoTermListClass;
-
-    EntityInfo(EntityType entityType, Class<T> mongoTermListClass) {
-      this.entityType = entityType;
-      this.mongoTermListClass = mongoTermListClass;
-    }
-  }
-
-  private static EntityInfo<?, ?> getEntityMongoTermListClass(EntityType entityType) {
-    return ENTITY_INFOS.stream().filter((entityInfo) -> entityType == entityInfo.entityType)
-        .findFirst().orElse(null);
-
   }
 }

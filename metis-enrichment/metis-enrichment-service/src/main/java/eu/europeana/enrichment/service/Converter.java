@@ -16,6 +16,7 @@ import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.enrichment.utils.EntityTypeUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +43,7 @@ public class Converter {
 
   public EnrichmentBase convert(MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
     final EnrichmentBase result;
-    final EntityType entityType = EntityType.entityTypeFromClassImpl(mongoTermList.getEntityType());
+    final EntityType entityType = EntityTypeUtils.getEntityTypeFromClassImpl(mongoTermList.getEntityType());
     if (entityType == null) {
       return null;
     }
