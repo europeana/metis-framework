@@ -3,7 +3,6 @@ package eu.europeana.enrichment.rest.config;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.mongodb.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.metis.mongo.MongoClientProvider;
@@ -82,8 +81,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  EnrichmentService getEnrichmentService(EnrichmentDao enrichmentDao, Converter converter) {
-    return new EnrichmentService(enrichmentDao, converter);
+  EnrichmentService getEnrichmentService(EnrichmentDao enrichmentDao) {
+    return new EnrichmentService(enrichmentDao);
   }
 
   @Bean
@@ -94,11 +93,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         .setMongoHosts(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort});
     final MongoClient mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
     return new EnrichmentDao(mongoClient, enrichmentMongoDatabase);
-  }
-
-  @Bean
-  Converter converter() {
-    return new Converter();
   }
 
   @Bean

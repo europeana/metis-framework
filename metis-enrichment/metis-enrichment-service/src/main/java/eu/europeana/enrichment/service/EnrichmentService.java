@@ -40,12 +40,10 @@ public class EnrichmentService {
   private static final Pattern PATTERN_MATCHING_VERY_BROAD_TIMESPANS = Pattern
       .compile("http://semium.org/time/(ChronologicalPeriod$|Time$|(AD|BC)[1-9]x{3}$)");
   private final EnrichmentDao enrichmentDao;
-  private final Converter converter;
 
   @Autowired
-  public EnrichmentService(EnrichmentDao enrichmentDao, Converter converter) {
+  public EnrichmentService(EnrichmentDao enrichmentDao) {
     this.enrichmentDao = enrichmentDao;
-    this.converter = converter;
   }
 
   private static Set<String> all2CodeLanguages() {
@@ -148,7 +146,7 @@ public class EnrichmentService {
         .getAllMongoTermListsByFields(
             EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
             fieldNamesAndValues);
-    return converter.convert(mongoTermLists);
+    return Converter.convert(mongoTermLists);
   }
 
   private List<EnrichmentBase> findEntities(EntityType entityType, String termLabel,
@@ -180,8 +178,8 @@ public class EnrichmentService {
           .flatMap(List::stream).collect(Collectors.toList());
 
       //Convert to EnrichmentBases
-      enrichmentBases.addAll(converter.convert(mongoTermLists));
-      enrichmentBases.addAll(converter.convert(parentMongoTermLists));
+      enrichmentBases.addAll(Converter.convert(mongoTermLists));
+      enrichmentBases.addAll(Converter.convert(parentMongoTermLists));
     }
 
     return enrichmentBases;

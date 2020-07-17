@@ -26,36 +26,43 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 
 public class ConverterTest {
+
   @Test
   public void convertAgent() {
 
     AgentImpl agentImpl = new AgentImpl();
     agentImpl.setId(ObjectId.get());
     agentImpl.setAbout("myAbout");
-    agentImpl.setEdmWasPresentAt(new String []{"a", "b"});
-    agentImpl.setOwlSameAs(new String []{"1", "2"});
-    agentImpl.setAltLabel(createAltLabels("en", new String[] {"a_en", "b_en"}));
+    agentImpl.setEdmWasPresentAt(new String[]{"a", "b"});
+    agentImpl.setOwlSameAs(new String[]{"1", "2"});
+    agentImpl.setAltLabel(createAltLabels("en", new String[]{"a_en", "b_en"}));
 
     final MongoTermList<AgentImpl> agentTermList = new AgentTermList();
     agentTermList.setRepresentation(agentImpl);
     agentTermList.setEntityType(AgentImpl.class.getSimpleName());
 
-    Converter converter = new Converter();
-
-    Agent agent = (Agent) converter.convert(agentTermList);
+    Agent agent = (Agent) Converter.convert(agentTermList);
     assertEquals("myAbout", agent.getAbout());
-    assertEquals( "a", agent.getWasPresentAt().get(0).getResource());
-    assertEquals( "b", agent.getWasPresentAt().get(1).getResource());
-    assertEquals( "1", agent.getSameAs().get(0).getResource());
-    assertEquals( "2", agent.getSameAs().get(1).getResource());
-    assertEquals("a_en",agent.getAltLabelList().stream().filter(x->x.getValue().equals("a_en")).findFirst().get().getValue());
-    assertEquals("en",agent.getAltLabelList().stream().filter(x->x.getValue().equals("a_en")).findFirst().get().getLang());
-    assertEquals("b_en",agent.getAltLabelList().stream().filter(x->x.getValue().equals("b_en")).findFirst().get().getValue());
-    assertEquals("en",agent.getAltLabelList().stream().filter(x->x.getValue().equals("b_en")).findFirst().get().getLang());
+    assertEquals("a", agent.getWasPresentAt().get(0).getResource());
+    assertEquals("b", agent.getWasPresentAt().get(1).getResource());
+    assertEquals("1", agent.getSameAs().get(0).getResource());
+    assertEquals("2", agent.getSameAs().get(1).getResource());
+    assertEquals("a_en",
+        agent.getAltLabelList().stream().filter(x -> x.getValue().equals("a_en")).findFirst().get()
+            .getValue());
+    assertEquals("en",
+        agent.getAltLabelList().stream().filter(x -> x.getValue().equals("a_en")).findFirst().get()
+            .getLang());
+    assertEquals("b_en",
+        agent.getAltLabelList().stream().filter(x -> x.getValue().equals("b_en")).findFirst().get()
+            .getValue());
+    assertEquals("en",
+        agent.getAltLabelList().stream().filter(x -> x.getValue().equals("b_en")).findFirst().get()
+            .getLang());
   }
 
-  private Map<String,List<String>> createAltLabels(String en, String[] strings) {
-    Map<String,List<String>> map = new HashMap<>();
+  private Map<String, List<String>> createAltLabels(String en, String[] strings) {
+    Map<String, List<String>> map = new HashMap<>();
     map.put(en, Arrays.asList(strings));
     return map;
   }
@@ -65,21 +72,19 @@ public class ConverterTest {
     ConceptImpl conceptImpl = new ConceptImpl();
     conceptImpl.setId(ObjectId.get());
     conceptImpl.setAbout("myAbout");
-    conceptImpl.setRelated(new String []{"a", "b"});
-    conceptImpl.setRelatedMatch(new String []{"1", "2"});
+    conceptImpl.setRelated(new String[]{"a", "b"});
+    conceptImpl.setRelatedMatch(new String[]{"1", "2"});
 
     final MongoTermList<ConceptImpl> conceptTermList = new ConceptTermList();
     conceptTermList.setRepresentation(conceptImpl);
     conceptTermList.setEntityType(ConceptImpl.class.getSimpleName());
 
-    Converter converter = new Converter();
-
-    Concept agent = (Concept) converter.convert(conceptTermList);
+    Concept agent = (Concept) Converter.convert(conceptTermList);
     assertEquals("myAbout", agent.getAbout());
-    assertEquals( "a", agent.getRelated().get(0).getResource());
-    assertEquals( "b", agent.getRelated().get(1).getResource());
-    assertEquals( "1", agent.getRelatedMatch().get(0).getResource());
-    assertEquals( "2", agent.getRelatedMatch().get(1).getResource());
+    assertEquals("a", agent.getRelated().get(0).getResource());
+    assertEquals("b", agent.getRelated().get(1).getResource());
+    assertEquals("1", agent.getRelatedMatch().get(0).getResource());
+    assertEquals("2", agent.getRelatedMatch().get(1).getResource());
 
   }
 
@@ -88,18 +93,16 @@ public class ConverterTest {
     TimespanImpl timespanImpl = new TimespanImpl();
     timespanImpl.setId(ObjectId.get());
     timespanImpl.setAbout("myAbout");
-    timespanImpl.setOwlSameAs(new String []{"1", "2"});
+    timespanImpl.setOwlSameAs(new String[]{"1", "2"});
 
     final MongoTermList<TimespanImpl> timespanTermList = new TimespanTermList();
     timespanTermList.setRepresentation(timespanImpl);
     timespanTermList.setEntityType(TimespanImpl.class.getSimpleName());
 
-    Converter converter = new Converter();
-
-    Timespan agent = (Timespan) converter.convert(timespanTermList);
+    Timespan agent = (Timespan) Converter.convert(timespanTermList);
     assertEquals("myAbout", agent.getAbout());
-    assertEquals( "1", agent.getSameAs().get(0).getResource());
-    assertEquals( "2", agent.getSameAs().get(1).getResource());
+    assertEquals("1", agent.getSameAs().get(0).getResource());
+    assertEquals("2", agent.getSameAs().get(1).getResource());
   }
 
   @Test
@@ -107,18 +110,16 @@ public class ConverterTest {
     PlaceImpl placeImpl = new PlaceImpl();
     placeImpl.setId(ObjectId.get());
     placeImpl.setAbout("myAbout");
-    placeImpl.setOwlSameAs(new String []{"1", "2"});
+    placeImpl.setOwlSameAs(new String[]{"1", "2"});
 
     final MongoTermList<PlaceImpl> placeTermList = new PlaceTermList();
     placeTermList.setRepresentation(placeImpl);
     placeTermList.setEntityType(PlaceImpl.class.getSimpleName());
 
-    Converter converter = new Converter();
-
-    Place agent = (Place) converter.convert(placeTermList);
+    Place agent = (Place) Converter.convert(placeTermList);
     assertEquals("myAbout", agent.getAbout());
-    assertEquals( "1", agent.getSameAs().get(0).getResource());
-    assertEquals( "2", agent.getSameAs().get(1).getResource());
+    assertEquals("1", agent.getSameAs().get(0).getResource());
+    assertEquals("2", agent.getSameAs().get(1).getResource());
   }
 
   @Test
@@ -126,15 +127,13 @@ public class ConverterTest {
     final OrganizationImpl organizationImpl = new OrganizationImpl();
     organizationImpl.setId(ObjectId.get());
     organizationImpl.setAbout("myAbout");
-    organizationImpl.setOwlSameAs(new String []{"1", "2"});
+    organizationImpl.setOwlSameAs(new String[]{"1", "2"});
 
     final MongoTermList<OrganizationImpl> organizationTermList = new OrganizationTermList();
     organizationTermList.setRepresentation(organizationImpl);
     organizationTermList.setEntityType(OrganizationImpl.class.getSimpleName());
 
-    Converter converter = new Converter();
-
-    Place agent = (Place) converter.convert(organizationTermList);
+    Place agent = (Place) Converter.convert(organizationTermList);
     assertNull(agent);
   }
 }

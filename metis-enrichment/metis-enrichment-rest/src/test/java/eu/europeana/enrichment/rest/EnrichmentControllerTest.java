@@ -14,7 +14,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.rest.exception.RestResponseExceptionHandler;
-import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.utils.InputValue;
 import java.util.ArrayList;
@@ -35,12 +34,10 @@ public class EnrichmentControllerTest {
 
   private static MockMvc enrichmentControllerMock;
   private static EnrichmentService enrichmentServiceMock;
-  private static Converter converterMock;
 
   @BeforeAll
   public static void setUp() {
     enrichmentServiceMock = mock(EnrichmentService.class);
-    converterMock = mock(Converter.class);
 
     EnrichmentController enrichmentController = new EnrichmentController(enrichmentServiceMock);
     enrichmentControllerMock = MockMvcBuilders.standaloneSetup(enrichmentController)
@@ -51,7 +48,6 @@ public class EnrichmentControllerTest {
   @AfterEach
   public void tearDown() {
     Mockito.reset(enrichmentServiceMock);
-    Mockito.reset(converterMock);
   }
 
   @Test

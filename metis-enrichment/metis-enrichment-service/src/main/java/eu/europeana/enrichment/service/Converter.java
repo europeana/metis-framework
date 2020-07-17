@@ -22,15 +22,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
 
 /**
  * Contains functionality for converting from an incoming Object to a different one.
  */
-@Service
-public class Converter {
+public abstract class Converter {
 
-  public List<EnrichmentBase> convert(
+  public static List<EnrichmentBase> convert(
       List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists) {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
 
@@ -41,7 +39,7 @@ public class Converter {
 
   }
 
-  public EnrichmentBase convert(MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
+  public static EnrichmentBase convert(MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
     final EnrichmentBase result;
     final EntityType entityType = EntityTypeUtils.getEntityTypeFromClassImpl(mongoTermList.getEntityType());
     if (entityType == null) {
@@ -67,7 +65,7 @@ public class Converter {
     return result;
   }
 
-  private Timespan convertTimespan(TimespanImpl timespanImpl) {
+  private static Timespan convertTimespan(TimespanImpl timespanImpl) {
 
     Timespan output = new Timespan();
 
@@ -85,7 +83,7 @@ public class Converter {
     return output;
   }
 
-  private Concept convertConcept(ConceptImpl conceptImpl) {
+  private static Concept convertConcept(ConceptImpl conceptImpl) {
     Concept output = new Concept();
 
     output.setAbout(conceptImpl.getAbout());
@@ -108,7 +106,7 @@ public class Converter {
   }
 
 
-  private Place convertPlace(PlaceImpl placeImpl) {
+  private static Place convertPlace(PlaceImpl placeImpl) {
 
     Place output = new Place();
 
@@ -133,7 +131,7 @@ public class Converter {
     return output;
   }
 
-  private Agent convertAgent(AgentImpl agentImpl) {
+  private static Agent convertAgent(AgentImpl agentImpl) {
 
     Agent output = new Agent();
 
@@ -168,7 +166,7 @@ public class Converter {
     return output;
   }
 
-  private List<Label> convert(Map<String, List<String>> map) {
+  private static List<Label> convert(Map<String, List<String>> map) {
     List<Label> labels = new ArrayList<>();
     if (map == null) {
       return labels;
@@ -181,7 +179,7 @@ public class Converter {
     return labels;
   }
 
-  private List<Part> convertPart(Map<String, List<String>> map) {
+  private static List<Part> convertPart(Map<String, List<String>> map) {
     List<Part> parts = new ArrayList<>();
     if (map == null) {
       return parts;
@@ -192,7 +190,7 @@ public class Converter {
     return parts;
   }
 
-  private List<LabelResource> convertResourceOrLiteral(Map<String, List<String>> map) {
+  private static List<LabelResource> convertResourceOrLiteral(Map<String, List<String>> map) {
     List<LabelResource> parts = new ArrayList<>();
     if (map == null) {
       return parts;
@@ -206,21 +204,21 @@ public class Converter {
     return parts;
   }
 
-  private List<Resource> convertToResourceList(String[] resources) {
+  private static List<Resource> convertToResourceList(String[] resources) {
     if (resources == null) {
       return new ArrayList<>();
     }
     return Arrays.stream(resources).map(Resource::new).collect(Collectors.toList());
   }
 
-  private List<Part> convertToPartsList(String[] resources) {
+  private static List<Part> convertToPartsList(String[] resources) {
     if (resources == null) {
       return new ArrayList<>();
     }
     return Arrays.stream(resources).map(Part::new).collect(Collectors.toList());
   }
 
-  private boolean isUri(String str) {
+  private static boolean isUri(String str) {
     return str.startsWith("http://");
   }
 }
