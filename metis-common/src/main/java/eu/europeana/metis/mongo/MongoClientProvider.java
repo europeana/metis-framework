@@ -26,8 +26,9 @@ import java.util.function.Supplier;
  * {@value #DEFAULT_RETRY_WRITES}.
  * </li>
  * </ul>
- * These defaults can be overridden or additional (default) settings can be set by extending this
- * class and overriding {@link #getDefaultOptionsBuilder()}.
+ * These defaults can be overridden or additional (default) settings can be set upon
+ * construction. To facilitate this, this class offers access to the default settings by means of
+ * the method {@link #getDefaultOptionsBuilder()}. The use of this method is voluntary.
  *
  * @param <E> The type of exception thrown when the properties are not valid.
  */
@@ -63,32 +64,48 @@ public class MongoClientProvider<E extends Exception> {
   }
 
   /**
-   * Constructor from a {@link MongoProperties} object. The properties object can provide settings
-   * that will override the default settings.
+   * Constructor from a {@link MongoProperties} object. The caller can provide settings that will
+   * override the default settings (i.e. the default settings will not be used).
+   *
+   * @param properties The properties of the Mongo connection. Note that if the passed properties
+   * object is changed after calling this method, those changes will not be reflected when calling
+   * @param optionsBuilder The settings to be applied. The default settings will not be used. The
+   * caller can incorporate the default settings by using an options builder obtained from {@link
+   * #getDefaultOptionsBuilder()}. {@link #createMongoClient()}.
+   */
+  public MongoClientProvider(MongoProperties<E> properties, Builder optionsBuilder) {
+    final ReadPreference readPreference = Optional.ofNullable(properties.getReadPreferenceValue())
+            .map(ReadPreferenceValue::getReadPreferenceSupplier).map(Supplier::get)
+            .orElse(DEFAULT_READ_PREFERENCE);
+    optionsBuilder.sslEnabled(properties.mongoEnableSsl()).readPreference(readPreference);
+    final MongoCredential mongoCredential = properties.getMongoCredentials();
+    this.authenticationDatabase = Optional.ofNullable(mongoCredential)
+            .map(MongoCredential::getSource).orElse(null);
+    if (mongoCredential == null) {
+      this.creator = () -> new MongoClient(properties.getMongoHosts(), optionsBuilder.build());
+    } else {
+      this.creator = () -> new MongoClient(properties.getMongoHosts(), mongoCredential,
+              optionsBuilder.build());
+    }
+  }
+
+  /**
+   * Constructor from a {@link MongoProperties} object, using the default settings.
    *
    * @param properties The properties of the Mongo connection. Note that if the passed properties
    * object is changed after calling this method, those changes will not be reflected when calling
    * {@link #createMongoClient()}.
    */
   public MongoClientProvider(MongoProperties<E> properties) {
-    final ReadPreference readPreference = Optional.ofNullable(properties.getReadPreferenceValue())
-        .map(ReadPreferenceValue::getReadPreferenceSupplier).map(Supplier::get)
-        .orElse(DEFAULT_READ_PREFERENCE);
-    final Builder optionsBuilder = getDefaultOptionsBuilder()
-        .sslEnabled(properties.mongoEnableSsl())
-        .readPreference(readPreference);
-    final MongoCredential mongoCredential = properties.getMongoCredentials();
-    this.authenticationDatabase = Optional.ofNullable(mongoCredential)
-        .map(MongoCredential::getSource).orElse(null);
-    if (mongoCredential == null) {
-      this.creator = () -> new MongoClient(properties.getMongoHosts(), optionsBuilder.build());
-    } else {
-      this.creator = () -> new MongoClient(properties.getMongoHosts(), mongoCredential,
-          optionsBuilder.build());
-    }
+    this(properties, getDefaultOptionsBuilder());
   }
 
-  protected Builder getDefaultOptionsBuilder() {
+  /**
+   * This method provides access to the default settings.
+   *
+   * @return A new instance of {@link Builder} with the default settings.
+   */
+  public static Builder getDefaultOptionsBuilder() {
     return new Builder()
         // TODO: 7/16/20 Remove default retry writes after upgrade to mongo server version 4.2
         .retryWrites(DEFAULT_RETRY_WRITES)

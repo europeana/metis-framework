@@ -28,6 +28,9 @@ public class DepublishRecordId implements HasMongoObjectId {
   public static final String DEPUBLICATION_STATUS_FIELD = "depublicationStatus";
   public static final String DEPUBLICATION_DATE_FIELD = "depublicationDate";
 
+  /**
+   * The status of the record with regard to (de)publication.
+   */
   public enum DepublicationStatus {DEPUBLISHED, PENDING_DEPUBLICATION}
 
   /**

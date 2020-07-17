@@ -113,8 +113,7 @@ public class Application implements WebMvcConfigurer {
       Transaction tx = session.beginTransaction();
       session.createSQLQuery(createTablesSql).executeUpdate();
       tx.commit();
-    }
-    finally {
+    } finally {
       sessionFactory.close();
     }
     //Initialize Zoho handler
@@ -143,7 +142,7 @@ public class Application implements WebMvcConfigurer {
 
   @Bean
   public ZohoAccessClient getZohoAccessClient() throws ZohoOAuthException {
-    Map<String, String> zcrmConfigurations = new HashMap<>(8);
+    Map<String, String> zcrmConfigurations = new HashMap<>();
     zcrmConfigurations.put("minLogLevel", zohoMinLogLevel);
     zcrmConfigurations.put("currentUserEmail", zohoCurrentUserEmail);
     zcrmConfigurations.put("client_id", zohoClientId);

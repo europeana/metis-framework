@@ -83,8 +83,10 @@ public class DepublishRecordIdController {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final int added = depublishRecordIdService
         .addRecordIdsToBeDepublished(metisUser, datasetId, recordIdsInSeparateLines);
-    LOGGER.info("{} Depublish record ids added to dataset with datasetId: {}", added,
-        CRLF_PATTERN.matcher(datasetId).replaceAll(""));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("{} Depublish record ids added to dataset with datasetId: {}", added,
+              CRLF_PATTERN.matcher(datasetId).replaceAll(""));
+    }
   }
 
   /**
@@ -100,6 +102,7 @@ public class DepublishRecordIdController {
    * <li>{@link UserUnauthorizedException} if the user is unauthorized</li>
    * <li>{@link BadContentException} if some content or the operation were invalid</li>
    * </ul>
+   * @throws IOException In case something unexpected went wrong reading the request body.
    */
   @PostMapping(value = RestEndpoints.DEPUBLISH_RECORDIDS_DATASETID, consumes = {
       MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -136,8 +139,10 @@ public class DepublishRecordIdController {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final int removedRecordIds = depublishRecordIdService
         .deletePendingRecordIds(metisUser, datasetId, recordIdsInSeparateLines);
-    LOGGER.info("{} Depublish record ids removed from database with datasetId: {}",
-        removedRecordIds, CRLF_PATTERN.matcher(datasetId).replaceAll(""));
+    if (LOGGER.isInfoEnabled()) {
+      LOGGER.info("{} Depublish record ids removed from database with datasetId: {}",
+              removedRecordIds, CRLF_PATTERN.matcher(datasetId).replaceAll(""));
+    }
   }
 
   /**

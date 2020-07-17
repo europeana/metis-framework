@@ -57,6 +57,7 @@ public class WorkflowExecutionFactory {
    * Constructor with parameters required to support the {@link OrchestratorService}
    *
    * @param datasetXsltDao the Dao instance to access the dataset xslts
+   * @param depublishRecordIdDao The Dao instance to access depublish records.
    * @param workflowExecutionDao the Dao instance to access the workflow executions
    * @param workflowUtils the utilities class for workflow operations
    */

@@ -17,9 +17,9 @@ class RdfSerializerImpl implements RdfSerializer {
   private final MarshallingContextWrapper marshallingContext = new MarshallingContextWrapper();
 
   private static class MarshallingContextWrapper extends
-          ThreadSafeWrapper<IMarshallingContext, RdfSerializationException> {
+          AbstractThreadSafeWrapper<IMarshallingContext, RdfSerializationException> {
 
-    public MarshallingContextWrapper() {
+    MarshallingContextWrapper() {
       super(() -> {
         try {
           return RdfBindingFactoryProvider.getBindingFactory().createMarshallingContext();
@@ -29,7 +29,7 @@ class RdfSerializerImpl implements RdfSerializer {
       });
     }
 
-    public void serializeFromRdf(RDF rdf, OutputStream outputStream) throws RdfSerializationException {
+    void serializeFromRdf(RDF rdf, OutputStream outputStream) throws RdfSerializationException {
       process(context -> {
         try {
           context.marshalDocument(rdf, "UTF-8", null, outputStream);

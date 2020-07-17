@@ -55,9 +55,9 @@ class RdfDeserializerImpl implements RdfDeserializer {
           xPath -> xPath.compile("/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource"));
 
   private static class XPathExpressionWrapper extends
-          ThreadSafeWrapper<XPathExpression, RdfDeserializationException> {
+          AbstractThreadSafeWrapper<XPathExpression, RdfDeserializationException> {
 
-    public XPathExpressionWrapper(
+    XPathExpressionWrapper(
             ThrowingFunction<XPath, XPathExpression, XPathExpressionException> expressionCreator) {
       super(() -> {
         final XPathFactory factory;
@@ -74,7 +74,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
       });
     }
 
-    public NodeList evaluate(Document document) throws RdfDeserializationException {
+    NodeList evaluate(Document document) throws RdfDeserializationException {
       return process(compiledExpression -> {
         try {
           return (NodeList) compiledExpression.evaluate(document, XPathConstants.NODESET);
@@ -86,7 +86,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
   }
 
   private static class UnmarshallingContextWrapper extends
-          ThreadSafeWrapper<IUnmarshallingContext, RdfDeserializationException> {
+          AbstractThreadSafeWrapper<IUnmarshallingContext, RdfDeserializationException> {
 
     public UnmarshallingContextWrapper() {
       super(() -> {

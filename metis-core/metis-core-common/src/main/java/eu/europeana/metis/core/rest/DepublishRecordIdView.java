@@ -5,6 +5,9 @@ import eu.europeana.metis.core.common.JavaTimeSerialization.IsoInstantSerializer
 import eu.europeana.metis.core.dataset.DepublishRecordId;
 import java.time.Instant;
 
+/**
+ * An immutable view on the depublish record id.
+ */
 public class DepublishRecordIdView {
 
   private final String recordId;
@@ -13,6 +16,10 @@ public class DepublishRecordIdView {
   @JsonSerialize(using = IsoInstantSerializer.class)
   private final Instant depublicationDate;
 
+  /**
+   * Constructor.
+   * @param record The record to create this view for.
+   */
   public DepublishRecordIdView(DepublishRecordId record) {
     this.recordId = record.getRecordId();
     this.depublicationDate = record.getDepublicationDate();
@@ -32,7 +39,9 @@ public class DepublishRecordIdView {
     return depublicationDate;
   }
 
-
+  /**
+   * The status of this record with regards to (de)publication.
+   */
   public enum DepublicationStatus {
     DEPUBLISHED, PENDING;
 

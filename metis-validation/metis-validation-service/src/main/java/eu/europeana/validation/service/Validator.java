@@ -136,7 +136,7 @@ public class Validator implements Callable<ValidationResult> {
     String rdfAbout = null;
     try {
       // False positive. The parser has all security settings applied (see EDMParser).
-      @SuppressWarnings("findbugs:XXE_DOCUMENT")
+      @SuppressWarnings("findsecbugs:XXE_DOCUMENT")
       final Document doc = edmParser.parse(source);
       rdfAbout = getRdfAbout(doc);
       edmValidator.validate(new DOMSource(doc));

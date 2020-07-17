@@ -8,17 +8,17 @@ package eu.europeana.metis.mediaprocessing;
  * @param <T> The type of the object.
  * @param <E> The type of the exception that may be thrown during creation and/or processing.
  */
-abstract class ThreadSafeWrapper<T, E extends Exception> {
+abstract class AbstractThreadSafeWrapper<T, E extends Exception> {
 
   private final ThrowingSupplier<T, E> objectCreator;
-  private T wrappedObject = null;
+  private T wrappedObject;
 
   /**
    * Constructor.
    *
    * @param objectCreator The supplier of the object.
    */
-  protected ThreadSafeWrapper(ThrowingSupplier<T, E> objectCreator) {
+  protected AbstractThreadSafeWrapper(ThrowingSupplier<T, E> objectCreator) {
     this.objectCreator = objectCreator;
   }
 
@@ -42,12 +42,23 @@ abstract class ThreadSafeWrapper<T, E extends Exception> {
   @FunctionalInterface
   interface ThrowingSupplier<O, E extends Exception> {
 
+    /**
+     * Supply the value.
+     * @return The value.
+     * @throws E In case something went wrong supplying the value.
+     */
     O get() throws E;
   }
 
   @FunctionalInterface
   interface ThrowingFunction<I, O, E extends Exception> {
 
+    /**
+     * Apply the function on the input.
+     * @param input The input.
+     * @return The result.
+     * @throws E In case something went wrong applying the function to the input.
+     */
     O apply(I input) throws E;
   }
 }

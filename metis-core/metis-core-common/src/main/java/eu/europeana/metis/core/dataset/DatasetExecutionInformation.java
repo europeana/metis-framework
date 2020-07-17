@@ -31,6 +31,9 @@ public class DatasetExecutionInformation {
   private Date lastHarvestedDate;
   private int lastHarvestedRecords;
 
+  /**
+   * The status of the dataset with regards to (de)publication.
+   */
   public enum PublicationStatus{
     PUBLISHED, DEPUBLISHED
   }
