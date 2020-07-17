@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @JsonInclude
 public class InputValue {
 
+  private String originalField;
+
   private String value;
 
   private String language;
@@ -32,10 +34,15 @@ public class InputValue {
    * @param language the language to use for enrichment of the value
    * @param entityTypes the vocabularies that this value represents
    */
-  public InputValue(String value, String language, EntityType... entityTypes) {
+  public InputValue(String originalField, String value, String language, EntityType... entityTypes) {
+    this.originalField = originalField;
     this.value = value;
     this.language = language;
     this.entityTypes = Arrays.asList(entityTypes);
+  }
+
+  public String getOriginalField() {
+    return originalField;
   }
 
   public String getValue() {

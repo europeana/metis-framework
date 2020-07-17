@@ -53,10 +53,12 @@ public class EnrichmentService {
         .collect(Collectors.toCollection(TreeSet::new));
   }
 
-  public List<EnrichmentBase> findEntitiesBasedOnValues(List<InputValue> inputValues) {
-    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
+  public List<Pair<String, EnrichmentBase>> findEntitiesBasedOnValues(
+      List<InputValue> inputValues) {
+    final List<Pair<String, EnrichmentBase>> enrichmentBases = new ArrayList<>();
     try {
       for (InputValue inputValue : inputValues) {
+        final String originalField = inputValue.getOriginalField();
         final List<EntityType> entityTypes = inputValue.getEntityTypes();
         //Language has to be a valid 2 code, otherwise we do not use it
         final String language =
@@ -68,7 +70,9 @@ public class EnrichmentService {
           continue;
         }
         for (EntityType entityType : entityTypes) {
-          enrichmentBases.addAll(findEntities(entityType, value, language));
+          findEntities(entityType, value, language).stream()
+              .map(enrichmentBase -> new ImmutablePair<>(originalField, enrichmentBase))
+              .forEach(enrichmentBases::add);
         }
       }
     } catch (RuntimeException e) {

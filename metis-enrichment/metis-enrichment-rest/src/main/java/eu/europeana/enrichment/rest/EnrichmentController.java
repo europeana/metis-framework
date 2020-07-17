@@ -55,7 +55,8 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentBase getByCodeUriOrOwlSameAs(@ApiParam("uri") @RequestParam("uri") String uri) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = enrichmentService
-        .getByCodeUriOrOwlSameAs(uri).stream().map(EnrichmentBaseWrapper::new)
+        .getByCodeUriOrOwlSameAs(uri).stream()
+        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
         .collect(Collectors.toList());
     return enrichmentBaseWrappers.stream().findFirst().map(EnrichmentBaseWrapper::getEnrichmentBase)
         .orElse(null);
@@ -75,7 +76,8 @@ public class EnrichmentController {
   public EnrichmentResultList getByCodeUriOrOwlSameAs(@RequestBody List<String> uriList) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = uriList.stream()
         .map(enrichmentService::getByCodeUriOrOwlSameAs).flatMap(List::stream)
-        .map(EnrichmentBaseWrapper::new).collect(Collectors.toList());
+        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
+        .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }
 
@@ -93,7 +95,8 @@ public class EnrichmentController {
   public EnrichmentResultList getByCodeUri(@RequestBody List<String> idList) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = idList.stream()
         .map(enrichmentService::getByCodeUri).filter(Objects::nonNull).flatMap(List::stream)
-        .map(EnrichmentBaseWrapper::new).collect(Collectors.toList());
+        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
+        .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }
 
@@ -114,7 +117,9 @@ public class EnrichmentController {
   public EnrichmentResultList enrich(@ApiParam("input") @RequestBody InputValueList input) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = enrichmentService
         .findEntitiesBasedOnValues(input.getInputValues()).stream().filter(Objects::nonNull)
-        .map(EnrichmentBaseWrapper::new).collect(Collectors.toList());
+        .map(originalFieldEnrichmentBasePair -> new EnrichmentBaseWrapper(
+            originalFieldEnrichmentBasePair.getKey(), originalFieldEnrichmentBasePair.getValue()))
+        .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
   }
 }
