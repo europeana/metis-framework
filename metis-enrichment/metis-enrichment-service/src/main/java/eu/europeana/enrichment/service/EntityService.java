@@ -12,6 +12,7 @@ import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
 import java.io.Closeable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -54,7 +55,8 @@ public class EntityService implements Closeable {
         (OrganizationImpl) org, created, modified);
 
     final MongoTermList<OrganizationImpl> storedOrg = enrichmentDao
-        .getTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD, org.getAbout());
+        .getTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD,
+            org.getAbout());
 
     // it is an update
     if (storedOrg != null) {
@@ -65,7 +67,8 @@ public class EntityService implements Closeable {
     // delete old terms (labels), also when the termList is not found to
     // will avoid problems when manually deleting the entries in the
     // database
-    enrichmentDao.deleteMongoTerm(EnrichmentDao.ORGANIZATION_TABLE, org.getAbout());
+    enrichmentDao.deleteMongoTerms(EnrichmentDao.ORGANIZATION_TABLE,
+        Collections.singletonList(org.getAbout()));
 
     // store labels
     int countOfStoredMongoTerms = enrichmentDao.saveMongoTermsFromEntity(
@@ -128,7 +131,8 @@ public class EntityService implements Closeable {
    * @param organizationIds The organization IDs
    */
   public void deleteOrganizations(List<String> organizationIds) {
-    enrichmentDao.deleteAllEntitiesMatching(organizationIds);
+    enrichmentDao.deleteEntities(EnrichmentDao.ORGANIZATION_TABLE, EnrichmentDao.ORGANIZATION_TYPE,
+        organizationIds);
   }
 
   /**
@@ -138,7 +142,8 @@ public class EntityService implements Closeable {
    */
   public void deleteOrganization(String organizationId) {
     enrichmentDao
-        .deleteEntities(EnrichmentDao.ORGANIZATION_TABLE, EnrichmentDao.ORGANIZATION_TYPE, organizationId);
+        .deleteEntities(EnrichmentDao.ORGANIZATION_TABLE, EnrichmentDao.ORGANIZATION_TYPE,
+            Collections.singletonList(organizationId));
   }
 
   private OrganizationTermList organizationToOrganizationTermList(OrganizationImpl organization,

@@ -19,10 +19,12 @@ import eu.europeana.enrichment.api.internal.TimespanTermList;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -147,12 +149,6 @@ public class EnrichmentDao {
     return getListOfQuery(query);
   }
 
-  private MongoTerm findMongoTermByField(String entityType, String fieldName, String fieldValue) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> this.datastore.find(entityType, MongoTerm.class).filter(fieldName, fieldValue)
-            .first());
-  }
-
   /**
    * Get a list of all MongoTerms that match the criteria.
    * <p>The {@code entityType} parameter is required because it's used to access the correct
@@ -250,59 +246,33 @@ public class EnrichmentDao {
   }
 
   /**
-   * Delete entities that match the provided code uris.
-   * <p>Removes entities from all MongoTerm collections</p>
-   *
-   * @param codeUris the list of code uris
-   * @return the list of code uris that a removal was performed
-   */
-  public List<String> deleteAllEntitiesMatching(List<String> codeUris) {
-    List<String> removedCodeUris = new ArrayList<>();
-    for (String codeUri : codeUris) {
-      removedCodeUris.add(codeUri);
-      removedCodeUris.addAll(deleteEntities(getTableName(EntityType.PLACE), PLACE_TYPE, codeUri));
-      removedCodeUris
-          .addAll(deleteEntities(getTableName(EntityType.CONCEPT), CONCEPT_TYPE, codeUri));
-      removedCodeUris.addAll(deleteEntities(getTableName(EntityType.AGENT), AGENT_TYPE, codeUri));
-      removedCodeUris
-          .addAll(deleteEntities(getTableName(EntityType.TIMESPAN), TIMESPAN_TYPE, codeUri));
-      removedCodeUris.addAll(
-          deleteEntities(getTableName(EntityType.ORGANIZATION), ORGANIZATION_TYPE, codeUri));
-    }
-    return removedCodeUris;
-  }
-
-  /**
    * Delete entities that match the provided code uri.
    * <p>Removes entities from the corresponding MongoTermList using {@code entityType} and from the
    * corresponding MongoTerm collection using {@code entityTable}</p>.
    *
    * @param entityTable the entity table name
    * @param entityType the entity type string
-   * @param codeUri the code uri to match
+   * @param codeUris the code uri to match
    * @return a list of all the removed code uris except the provided one
    */
-  public List<String> deleteEntities(String entityTable, String entityType, String codeUri) {
-    List<String> extraUrisRemoved = new ArrayList<>();
+  public List<String> deleteEntities(String entityTable, String entityType, List<String> codeUris) {
     //Remove from Term List
-    deleteMongoTermList(codeUri);
+    deleteMongoTermLists(codeUris);
     //Remove from specific collection
-    deleteMongoTerm(entityTable, codeUri);
+    deleteMongoTerms(entityTable, codeUris);
 
     //Find all TermLists that have owlSameAs equals with codeUri
     final Query<MongoTermList> termListsSameAsQuery = this.datastore
         .createQuery(MongoTermList.class).filter(ENTITY_TYPE_FIELD, entityType)
-        .filter(OWL_SAME_AS_FIELD, codeUri);
+        .field(OWL_SAME_AS_FIELD).in(codeUris);
     final List<MongoTermList> allTermListsSameAs = getListOfQuery(termListsSameAsQuery);
-    for (MongoTermList mongoTermList : allTermListsSameAs) {
-      final String sameAsCodeUri = mongoTermList.getCodeUri();
-      extraUrisRemoved.add(sameAsCodeUri);
-      //Remove from Term List
-      deleteMongoTermList(codeUri);
-      //Remove from specific collection
-      deleteMongoTerm(entityTable, sameAsCodeUri);
-    }
-    return extraUrisRemoved;
+    final List<String> sameAsCodeUris = allTermListsSameAs.stream().map(MongoTermList::getCodeUri)
+        .collect(Collectors.toList());
+    //Remove from Term List
+    deleteMongoTermLists(sameAsCodeUris);
+    //Remove from specific collection
+    deleteMongoTerms(entityTable, sameAsCodeUris);
+    return sameAsCodeUris;
   }
 
   /**
@@ -311,16 +281,16 @@ public class EnrichmentDao {
    * @param entityTable the entity table name
    * @param codeUri the code uri to match
    */
-  public void deleteMongoTerm(String entityTable, String codeUri) {
-    final MongoTerm mongoTermCoreUri = findMongoTermByField(entityTable, CODE_URI_FIELD, codeUri);
-    ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> this.datastore.delete(entityTable, MongoTerm.class, mongoTermCoreUri.getId()));
+  public void deleteMongoTerms(String entityTable, List<String> codeUri) {
+    this.datastore.delete(
+        this.datastore.createQuery(entityTable, MongoTerm.class).field(CODE_URI_FIELD).in(
+            Collections.singleton(codeUri)));
   }
 
-  private void deleteMongoTermList(String codeUri) {
+  private void deleteMongoTermLists(List<String> codeUri) {
     ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> this.datastore.delete(
-            this.datastore.createQuery(MongoTermList.class).filter(CODE_URI_FIELD, codeUri)));
+            this.datastore.createQuery(MongoTermList.class).field(CODE_URI_FIELD).in(codeUri)));
   }
 
   private String getTableName(EntityType entityType) {
