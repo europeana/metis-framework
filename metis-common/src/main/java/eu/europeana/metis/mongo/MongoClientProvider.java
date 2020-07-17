@@ -7,7 +7,7 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ReadPreference;
 import eu.europeana.metis.mongo.MongoProperties.ReadPreferenceValue;
 import java.util.Optional;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -20,6 +20,10 @@ import java.util.function.Supplier;
  * <li>
  * The maximum idle time for connections (in the connection pool) is defaulted to
  * {@value #DEFAULT_MAX_CONNECTION_IDLE_MILLIS}.
+ * </li>
+ * <li>
+ * Whether writes should be retried if they fail due to a network error is defaulted to
+ * {@value #DEFAULT_RETRY_WRITES}.
  * </li>
  * </ul>
  * These defaults can be overridden or additional (default) settings can be set by extending this
@@ -44,14 +48,15 @@ public class MongoClientProvider<E extends Exception> {
    * @param exceptionCreator How to report exceptions.
    * @throws E In case the connection URI is not valid.
    */
-  public MongoClientProvider(String connectionUri,
-      BiFunction<String, Exception, E> exceptionCreator) throws E {
+  public MongoClientProvider(String connectionUri, Function<String, E> exceptionCreator) throws E {
     final Builder optionsBuilder = getDefaultOptionsBuilder();
     final MongoClientURI uri;
     try {
       uri = new MongoClientURI(connectionUri, optionsBuilder);
     } catch (RuntimeException e) {
-      throw exceptionCreator.apply("Invalid connection URL.", e);
+      final E wrappingException = exceptionCreator.apply("Invalid connection URL.");
+      wrappingException.initCause(e); // Use this to prevent false positive in SonarQube issue.
+      throw wrappingException;
     }
     this.authenticationDatabase = uri.getDatabase();
     this.creator = () -> new MongoClient(uri);
@@ -92,7 +97,7 @@ public class MongoClientProvider<E extends Exception> {
   }
 
   /**
-   * Convenience method for {@link #MongoClientProvider(String, BiFunction)}. See that constructor
+   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that constructor
    * for the details.
    *
    * @param connectionUri The connection URI.
@@ -103,7 +108,7 @@ public class MongoClientProvider<E extends Exception> {
   }
 
   /**
-   * Convenience method for {@link #MongoClientProvider(String, BiFunction)}. See that constructor
+   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that constructor
    * for the details.
    *
    * @param connectionUri The connection URI.

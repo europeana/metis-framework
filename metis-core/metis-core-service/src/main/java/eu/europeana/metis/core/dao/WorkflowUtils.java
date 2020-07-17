@@ -340,11 +340,13 @@ public class WorkflowUtils {
     else if (pluginType == ExecutablePluginType.DEPUBLISH && defaultPredecessorTypes.size() == 1
         && defaultPredecessorTypes.contains(ExecutablePluginType.PUBLISH)) {
       //Make sure there at least one successful plugin of the predecessor
-      defaultPredecessorTypes.stream().map(Collections::singleton).map(
-          type -> workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, type, true))
-          .filter(Objects::nonNull).filter(WorkflowUtils::pluginHasSuccessfulRecords).findAny()
-          .orElseThrow(() ->
-              new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
+      final boolean hasAtLeastOneSuccessfulPlugin = defaultPredecessorTypes.stream()
+              .map(Collections::singleton).map(type -> workflowExecutionDao
+                      .getLatestSuccessfulExecutablePlugin(datasetId, type, true))
+              .filter(Objects::nonNull).anyMatch(WorkflowUtils::pluginHasSuccessfulRecords);
+      if (!hasAtLeastOneSuccessfulPlugin) {
+        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+      }
       predecessorPlugin = null;
     } else {
 

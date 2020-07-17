@@ -227,6 +227,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Parse document to schema-agnostic XML document (but make parsing namespace-aware).
     try {
+      // False positive. The parser has all security settings applied (see below).
+      @SuppressWarnings("squid:S2755")
       final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
