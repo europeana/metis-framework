@@ -1,5 +1,9 @@
 package eu.europeana.enrichment.service;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performAction;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
+
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -17,6 +21,7 @@ import eu.europeana.enrichment.utils.EntityDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.RedisProvider;
+import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,7 +107,7 @@ public class RedisInternalEnricher {
   public final CacheStatus getCurrentStatus() {
     final String statusString;
     try (Jedis jedis = redisProvider.getJedis()) {
-      statusString = jedis.get(CACHED_ENRICHMENT_STATUS);
+      statusString = performFunction(jedis, j -> j.get(CACHED_ENRICHMENT_STATUS));
     }
     return CacheStatus.getByName(statusString);
   }
@@ -110,9 +115,9 @@ public class RedisInternalEnricher {
   private void setCurrentStatus(CacheStatus status) {
     try (Jedis jedis = redisProvider.getJedis()) {
       if (status == null || status == CacheStatus.NONE) {
-        jedis.del(CACHED_ENRICHMENT_STATUS);
+        performAction(jedis, j -> j.del(CACHED_ENRICHMENT_STATUS));
       } else {
-        jedis.set(CACHED_ENRICHMENT_STATUS, status.name());
+        performAction(jedis, j -> j.set(CACHED_ENRICHMENT_STATUS, status.name()));
       }
     }
   }
@@ -182,7 +187,7 @@ public class RedisInternalEnricher {
     // Empty the cache.
     LOGGER.info("Emptying cache");
     try (Jedis jedis = redisProvider.getJedis()) {
-      jedis.flushAll();
+      performAction(jedis, Jedis::flushAll);
     } finally {
       setCurrentStatus(CacheStatus.NONE);
     }
@@ -331,27 +336,36 @@ public class RedisInternalEnricher {
 
   private List<EntityWrapper> findEntities(String value, String originalField, String lang,
       String cachedEntityPrefix) throws IOException {
-    Set<EntityWrapper> result = new HashSet<>();
 
+    final String correctedLang;
     if (StringUtils.isEmpty(lang) || lang.length() != LANGUAGE_TAG_LENGTH) {
-      lang = "def";
+      correctedLang = "def";
+    } else {
+      correctedLang = lang;
     }
-    try (Jedis jedis = redisProvider.getJedis()) {
+
+    final Set<EntityWrapper> result = new HashSet<>();
+    final ThrowingConsumer<Jedis, IOException> action = jedis -> {
       if (!jedis.isConnected()) {
         jedis.connect();
       }
       final String cacheKey =
-          cachedEntityPrefix + CACHED_ENTITY + lang + CACHE_NAME_SEPARATOR + value;
+              cachedEntityPrefix + CACHED_ENTITY + correctedLang + CACHE_NAME_SEPARATOR + value;
       if (Boolean.TRUE.equals(jedis.exists(cacheKey))) {
         Set<String> urisToCheck = jedis.smembers(cacheKey);
         for (String uri : urisToCheck) {
           EntityWrapper entity = OBJECT_MAPPER
-              .readValue(jedis.hget(cachedEntityPrefix + CACHED_URI, uri), EntityWrapper.class);
+                  .readValue(jedis.hget(cachedEntityPrefix + CACHED_URI, uri),
+                          EntityWrapper.class);
           entity.setOriginalField(originalField);
           result.add(entity);
           result.addAll(findParentEntities(cachedEntityPrefix, jedis, uri));
         }
       }
+    };
+
+    try (Jedis jedis = redisProvider.getJedis()) {
+      performThrowingAction(jedis, action);
     }
     return new ArrayList<>(result);
   }
