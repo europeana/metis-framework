@@ -11,6 +11,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.PLUGIN_TYPE;
 import static eu.europeana.metis.core.common.DaoFieldNames.STARTED_DATE;
 import static eu.europeana.metis.core.common.DaoFieldNames.WORKFLOW_STATUS;
 import static eu.europeana.metis.core.common.DaoFieldNames.XSLT_ID;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
 import com.mongodb.WriteResult;
 import dev.morphia.Key;
@@ -443,7 +444,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .retryableExternalRequestConnectionReset(
             () -> {
               try (final MorphiaCursor<WorkflowExecution> cursor = query.find(findOptions)) {
-                return cursor.toList();
+                return performFunction(cursor, MorphiaCursor::toList);
               }
             });
     return createResultList(result, pagination);

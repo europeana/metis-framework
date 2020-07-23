@@ -2,6 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
 import com.mongodb.WriteResult;
 import dev.morphia.Key;
@@ -220,7 +221,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
   private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
       try (MorphiaCursor<T> cursor = query.find(findOptions)) {
-        return cursor.toList();
+        return performFunction(cursor, MorphiaCursor::toList);
       }
     });
   }

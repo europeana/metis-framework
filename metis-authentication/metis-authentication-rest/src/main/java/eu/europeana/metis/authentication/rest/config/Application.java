@@ -1,5 +1,7 @@
 package eu.europeana.metis.authentication.rest.config;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performAction;
+
 import com.zoho.oauth.common.ZohoOAuthException;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.service.AuthenticationService;
@@ -109,10 +111,12 @@ public class Application implements WebMvcConfigurer {
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
         configuration.getProperties()).build();
     sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-    try (Session session = sessionFactory.openSession()) {
-      Transaction tx = session.beginTransaction();
-      session.createSQLQuery(createTablesSql).executeUpdate();
-      tx.commit();
+    try (Session dbSession = sessionFactory.openSession()) {
+      performAction(dbSession, session -> {
+        Transaction tx = session.beginTransaction();
+        session.createSQLQuery(createTablesSql).executeUpdate();
+        tx.commit();
+      });
     } finally {
       sessionFactory.close();
     }
