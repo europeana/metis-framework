@@ -313,22 +313,21 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         return;
       } catch (ExternalTaskException e) {
         LOGGER.warn("ExternalTaskException occurred.", e);
-        if (ExternalRequestUtil
-            .doesExceptionCauseMatchAnyOfProvidedExceptions(mapWithRetriableExceptions, e)) {
-          consecutiveCancelOrMonitorFailures++;
-          LOGGER.warn(String.format(
-              "Monitoring of external task failed %s consecutive times. After exceeding %s retries, pending status will be set",
-              consecutiveCancelOrMonitorFailures, MAX_CANCEL_OR_MONITOR_FAILURES), e);
-          if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
-            //Set pending status once
-            plugin.setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
-          }
-        } else {
+        if (!ExternalRequestUtil
+                .doesExceptionCauseMatchAnyOfProvidedExceptions(mapWithRetriableExceptions, e)) {
           // Set plugin to FAILED and return immediately
           plugin.setFinishedDate(null);
           plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
           plugin.setFailMessage(MONITOR_ERROR_PREFIX + e.getMessage());
           return;
+        }
+        consecutiveCancelOrMonitorFailures++;
+        LOGGER.warn(String.format(
+                "Monitoring of external task failed %s consecutive times. After exceeding %s retries, pending status will be set",
+                consecutiveCancelOrMonitorFailures, MAX_CANCEL_OR_MONITOR_FAILURES), e);
+        if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
+          //Set pending status once
+          plugin.setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
         }
       } finally {
         Date updatedDate = new Date();
