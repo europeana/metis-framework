@@ -48,11 +48,13 @@ public final class RdfConversionUtils {
    * @param rdf The RDF object to convert
    * @return An XML string representation of the RDF object
    * @throws JiBXException if during marshalling there is a failure
-   * @throws UnsupportedEncodingException if encoding is not supported during byte serialization
    */
-  public static String convertRdfToString(RDF rdf)
-          throws JiBXException, UnsupportedEncodingException {
-    return new String(convertRdfToBytes(rdf), UTF8);
+  public static String convertRdfToString(RDF rdf) throws JiBXException {
+    try {
+      return new String(convertRdfToBytes(rdf), UTF8);
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalStateException("Unexpected exception - should not occur.", e);
+    }
   }
 
   /**

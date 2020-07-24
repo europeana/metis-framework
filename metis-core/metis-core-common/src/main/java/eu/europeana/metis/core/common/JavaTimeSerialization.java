@@ -20,7 +20,7 @@ public final class JavaTimeSerialization {
     private static final long serialVersionUID = -4172609679650500288L;
 
     public IsoInstantSerializer() {
-      super(InstantSerializer.INSTANCE, false, DateTimeFormatter.ISO_INSTANT);
+      super(InstantSerializer.INSTANCE, Boolean.FALSE, DateTimeFormatter.ISO_INSTANT);
     }
   }
 }

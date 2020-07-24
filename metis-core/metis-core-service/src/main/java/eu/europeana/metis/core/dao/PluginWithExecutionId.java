@@ -8,7 +8,7 @@ import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
  *
  * @param <T> The plugin type.
  */
-public class PluginWithExecutionId<T extends MetisPlugin> {
+public class PluginWithExecutionId<T extends MetisPlugin<?>> {
 
   private final String executionId;
   private final T plugin;
@@ -44,10 +44,10 @@ public class PluginWithExecutionId<T extends MetisPlugin> {
 
   @Override
   public boolean equals(Object otherObject) {
-    if (!(otherObject instanceof PluginWithExecutionId)) {
+    if (otherObject == null || otherObject.getClass() != this.getClass()) {
       return false;
     }
-    final PluginWithExecutionId other = (PluginWithExecutionId) otherObject;
+    final PluginWithExecutionId<?> other = (PluginWithExecutionId<?>) otherObject;
     return this.getPlugin().getId().equals(other.getPlugin().getId());
   }
 

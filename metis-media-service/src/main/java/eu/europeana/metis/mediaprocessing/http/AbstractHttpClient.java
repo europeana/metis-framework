@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -122,16 +122,19 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     timer.schedule(abortTask, requestTimeout);
 
     // Execute the request.
-    try (final CloseableHttpResponse response = client.execute(httpGet, context)) {
+    try (final CloseableHttpResponse responseObject = client.execute(httpGet, context)) {
 
-      final int status = performFunction(response, CloseableHttpResponse::getCode);
-      if (!httpCallIsSuccessful(status)) {
-        throw new IOException("Download failed of resource " + resourceUlr + ". Status code " +
-            status + " (message: " + response.getReasonPhrase() + ").");
-      }
+      // Do first analysis
+      final HttpEntity responseEntity = performThrowingFunction(responseObject, response -> {
+        final int status = response.getCode();
+        if (!httpCallIsSuccessful(status)) {
+          throw new IOException("Download failed of resource " + resourceUlr + ". Status code " +
+                  status + " (message: " + response.getReasonPhrase() + ").");
+        }
+        return response.getEntity();
+      });
 
       // Obtain header information.
-      final HttpEntity responseEntity = response.getEntity();
       final String mimeType = Optional.ofNullable(responseEntity).map(HttpEntity::getContentType)
               .orElse(null);
       final Long fileSize = Optional.ofNullable(responseEntity).map(HttpEntity::getContentLength)

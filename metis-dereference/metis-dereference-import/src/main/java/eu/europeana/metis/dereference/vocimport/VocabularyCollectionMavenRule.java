@@ -49,25 +49,25 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
   /**
    * Whether the the rule is lenient on vocabulary mappings without examples.
    */
-  private boolean lenientOnLackOfExamples = false;
+  private boolean lenientOnLackOfExamples;
 
   /**
    * Whether the rule is lenient on errors and unmet expectations when applying the mapping to the
    * example and counterexample values.
    */
-  private boolean lenientOnMappingTestFailures = false;
+  private boolean lenientOnMappingTestFailures;
 
   /**
    * Whether the rule is lenient on example or counterexample retrieval (download) issues.
    */
-  private boolean lenientOnExampleRetrievalFailures = false;
+  private boolean lenientOnExampleRetrievalFailures;
 
   /**
    * The relative path to the vocabulary directory file from the root directory of the project. This
    * value is obligatory and it is a relative path (so it should not start with a path separator
    * '/'.
    */
-  private String vocabularyDirectoryFile = null;
+  private String vocabularyDirectoryFile;
 
   @Override
   public void execute(EnforcerRuleHelper enforcerRuleHelper) throws EnforcerRuleException {

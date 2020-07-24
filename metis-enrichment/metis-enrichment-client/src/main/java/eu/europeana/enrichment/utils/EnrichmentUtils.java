@@ -31,7 +31,6 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -76,8 +75,8 @@ public final class EnrichmentUtils {
 
     // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
     // use this below to follow sameAs links).
-    final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).map(List::stream)
-            .orElseGet(Stream::empty).filter(Objects::nonNull).collect(Collectors.toList());
+    final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
+            .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
     final Map<String, Set<EnrichmentFields>> directReferences = new HashMap<>();
     for (EnrichmentFields field : EnrichmentFields.values()) {
       final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
@@ -135,8 +134,8 @@ public final class EnrichmentUtils {
     if (contextualClass instanceof AgentType) {
       result = ((AgentType) contextualClass).getSameAList();
     } else if (contextualClass instanceof Concept) {
-      result = Optional.ofNullable(((Concept) contextualClass).getChoiceList())
-              .map(List::stream).orElse(Stream.empty())
+      result = Optional.ofNullable(((Concept) contextualClass).getChoiceList()).stream()
+              .flatMap(Collection::stream)
               .filter(Objects::nonNull)
               .filter(Concept.Choice::ifExactMatch)
               .map(Concept.Choice::getExactMatch)

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -120,7 +121,7 @@ public class Vocabulary {
     }
 
     public Builder setParentIterations(Integer parentIterations) {
-      this.parentIterations = Optional.ofNullable(parentIterations).orElse(0);
+      this.parentIterations = Objects.requireNonNullElse(parentIterations, 0);
       return this;
     }
 

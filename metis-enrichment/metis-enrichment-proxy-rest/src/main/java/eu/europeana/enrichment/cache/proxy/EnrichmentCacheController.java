@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class EnrichmentCacheController {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(RedisInternalEnricher.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentCacheController.class);
 
   private final RedisInternalEnricher enricher;
 

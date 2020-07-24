@@ -12,12 +12,10 @@ import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,19 +36,13 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorkerImpl.class);
   private static final int EXTERNAL_CALL_MAX_RETRIES = 30;
   private static final int EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
-  private static final Map<Class<?>, String> mapWithRetrieableExceptions;
-
-  static {
-    final Map<Class<?>, String> retriableExceptionMap = new HashMap<>();
-    retriableExceptionMap.put(UnknownHostException.class, "");
-    retriableExceptionMap.put(HttpServerErrorException.class, "");
-    mapWithRetrieableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
-  }
+  private static final Map<Class<?>, String> mapWithRetrieableExceptions =
+          Map.of(UnknownHostException.class, "", HttpServerErrorException.class, "");
 
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
   private final EntityMergeEngine entityMergeEngine;
-  private Set<Mode> supportedModes;
+  private final Set<Mode> supportedModes;
 
   /**
    * Constructor.
@@ -116,7 +108,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       final RDF inputRdf = convertStringToRdf(inputString);
       final RDF resultRdf = process(inputRdf, mode);
       return convertRdfToString(resultRdf);
-    } catch (JiBXException | UnsupportedEncodingException e) {
+    } catch (JiBXException e) {
       throw new DereferenceOrEnrichException(
               "Something went wrong with converting to or from the RDF format.", e);
     }
@@ -176,7 +168,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   private String convertRdfToStringForLogging(final RDF rdf) {
     try {
       return convertRdfToString(rdf);
-    } catch (UnsupportedEncodingException | JiBXException e) {
+    } catch (JiBXException e) {
       LOGGER.warn("Exception occurred while rendering an RDF document as a String.", e);
       return "[COULD NOT RENDER RDF]";
     }
@@ -335,7 +327,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     return DereferenceUtils.extractReferencesForDereferencing(rdf);
   }
 
-  String convertRdfToString(RDF rdf) throws UnsupportedEncodingException, JiBXException {
+  String convertRdfToString(RDF rdf) throws JiBXException {
     return RdfConversionUtils.convertRdfToString(rdf);
   }
 
