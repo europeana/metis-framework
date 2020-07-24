@@ -8,7 +8,7 @@ import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
  *
  * @param <T> The plugin type.
  */
-public class PluginWithExecutionId<T extends MetisPlugin<?>> {
+public class PluginWithExecutionId<T extends MetisPlugin> {
 
   private final String executionId;
   private final T plugin;
