@@ -70,9 +70,9 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
   private String vocabularyDirectoryFile = null;
 
   /**
-   * No-arguments constructor, perhaps required for maven instantiation.
+   * No-arguments constructor, required for maven instantiation.
    */
-  VocabularyCollectionMavenRule() {
+  public VocabularyCollectionMavenRule() {
   }
 
   /**
