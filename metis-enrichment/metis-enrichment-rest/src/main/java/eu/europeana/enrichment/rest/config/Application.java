@@ -7,7 +7,6 @@ import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
-import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -58,8 +57,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${enrichment.mongo.database}")
   private String enrichmentMongoDatabase;
 
-  MongoClient mongoClient;
-
   /**
    * Used for overwriting properties if cloud foundry environment is used
    */
@@ -89,12 +86,16 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   @Bean
-  EnrichmentDao getEnrichmentDao() {
+  MongoClient getMongoClient() {
     final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
         IllegalArgumentException::new);
     mongoProperties
         .setMongoHosts(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort});
-    mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
+    return new MongoClientProvider<>(mongoProperties).createMongoClient();
+  }
+
+  @Bean
+  EnrichmentDao getEnrichmentDao(MongoClient mongoClient) {
     return new EnrichmentDao(mongoClient, enrichmentMongoDatabase);
   }
 
@@ -135,15 +136,5 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         "EUPL Licence v1.1",
         ""
     );
-  }
-
-  /**
-   * Closes connections to databases when the application closes.
-   */
-  @PreDestroy
-  public void close() {
-    if (mongoClient != null) {
-      mongoClient.close();
-    }
   }
 }

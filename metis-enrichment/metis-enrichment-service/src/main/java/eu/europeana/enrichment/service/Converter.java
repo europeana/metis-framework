@@ -26,7 +26,10 @@ import java.util.stream.Collectors;
 /**
  * Contains functionality for converting from an incoming Object to a different one.
  */
-public abstract class Converter {
+public final class Converter {
+
+  private Converter() {
+  }
 
   public static List<EnrichmentBase> convert(
       List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists) {
@@ -39,9 +42,11 @@ public abstract class Converter {
 
   }
 
-  public static EnrichmentBase convert(MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
+  public static EnrichmentBase convert(
+      MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
     final EnrichmentBase result;
-    final EntityType entityType = EntityTypeUtils.getEntityTypeFromClassImpl(mongoTermList.getEntityType());
+    final EntityType entityType = EntityTypeUtils
+        .getEntityTypeFromClassImpl(mongoTermList.getEntityType());
     if (entityType == null) {
       return null;
     }

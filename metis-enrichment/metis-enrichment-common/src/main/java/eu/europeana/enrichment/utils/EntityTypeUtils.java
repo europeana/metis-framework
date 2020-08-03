@@ -23,6 +23,9 @@ public class EntityTypeUtils {
 
   private static final List<EntityInfo<?, ?>> ENTITY_INFOS = createEntityTypeList();
 
+  private EntityTypeUtils() {
+  }
+
   private static List<EntityInfo<?, ?>> createEntityTypeList() {
     final ArrayList<EntityInfo<?, ?>> entityInfos = new ArrayList<>();
     entityInfos.add(new EntityInfo<>(EntityType.AGENT, AgentTermList.class, AgentImpl.class));
@@ -36,7 +39,7 @@ public class EntityTypeUtils {
   }
 
   public static EntityInfo<?, ?> getEntityMongoTermListClass(EntityType entityType) {
-    return ENTITY_INFOS.stream().filter((entityInfo) -> entityType == entityInfo.entityType)
+    return ENTITY_INFOS.stream().filter(entityInfo -> entityType == entityInfo.entityType)
         .findFirst().orElse(null);
 
   }
@@ -45,12 +48,6 @@ public class EntityTypeUtils {
     return ENTITY_INFOS.stream()
         .filter(entityInfo -> entityInfo.getEntityClassImpl().getSimpleName()
             .equalsIgnoreCase(entityClassImpl)).findFirst().map(EntityInfo::getEntityType)
-        .orElse(null);
-  }
-  public static EntityInfo<?, ?> getEntityTypeFromClassImplCLASS(String entityClassImpl) {
-    return ENTITY_INFOS.stream()
-        .filter(entityInfo -> entityInfo.getEntityClassImpl().getSimpleName()
-            .equalsIgnoreCase(entityClassImpl)).findFirst()
         .orElse(null);
   }
 
