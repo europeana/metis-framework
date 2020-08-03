@@ -12,6 +12,7 @@ import java.util.Set;
 public class DepublishPluginMetadata extends AbstractExecutablePluginMetadata {
 
   private static final ExecutablePluginType pluginType = ExecutablePluginType.DEPUBLISH;
+  private boolean useAlternativeIndexingEnvironment;
   private boolean datasetDepublish;
   private Set<String> recordIdsToDepublish;
 
@@ -22,6 +23,14 @@ public class DepublishPluginMetadata extends AbstractExecutablePluginMetadata {
   @Override
   public ExecutablePluginType getExecutablePluginType() {
     return pluginType;
+  }
+
+  public boolean isUseAlternativeIndexingEnvironment() {
+    return useAlternativeIndexingEnvironment;
+  }
+
+  public void setUseAlternativeIndexingEnvironment(boolean useAlternativeIndexingEnvironment) {
+    this.useAlternativeIndexingEnvironment = useAlternativeIndexingEnvironment;
   }
 
   public boolean isDatasetDepublish() {

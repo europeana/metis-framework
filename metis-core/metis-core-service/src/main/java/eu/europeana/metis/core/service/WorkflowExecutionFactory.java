@@ -128,6 +128,8 @@ public class WorkflowExecutionFactory {
           ExecutablePluginType.PUBLISH, typesInWorkflowBeforeThisPlugin);
       ((IndexToPublishPluginMetadata) pluginMetadata).setPerformRedirects(performRedirects);
     } else if (pluginMetadata instanceof DepublishPluginMetadata) {
+      ((DepublishPluginMetadata) pluginMetadata).setUseAlternativeIndexingEnvironment(
+          isMetisUseAlternativeIndexingEnvironment());
       setupDepublishPluginMetadata(dataset, ((DepublishPluginMetadata) pluginMetadata));
     } else if (pluginMetadata instanceof LinkCheckingPluginMetadata) {
       ((LinkCheckingPluginMetadata) pluginMetadata)
