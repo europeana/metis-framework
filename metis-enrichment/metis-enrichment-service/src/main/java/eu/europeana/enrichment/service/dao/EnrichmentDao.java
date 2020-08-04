@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.service.dao;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+
 import com.mongodb.MongoClient;
 import dev.morphia.AdvancedDatastore;
 import dev.morphia.Key;
@@ -344,7 +346,7 @@ public class EnrichmentDao {
   private <T> List<T> getListOfQuery(Query<T> query) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
       try (MorphiaCursor<T> cursor = query.find()) {
-        return cursor.toList();
+        return performFunction(cursor, MorphiaCursor::toList);
       }
     });
   }

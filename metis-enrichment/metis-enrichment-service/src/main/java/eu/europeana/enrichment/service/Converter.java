@@ -33,13 +33,7 @@ public final class Converter {
 
   public static List<EnrichmentBase> convert(
       List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists) {
-    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
-
-    for (MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList : mongoTermLists) {
-      enrichmentBases.add(convert(mongoTermList));
-    }
-    return enrichmentBases;
-
+    return mongoTermLists.stream().map(Converter::convert).collect(Collectors.toList());
   }
 
   public static EnrichmentBase convert(

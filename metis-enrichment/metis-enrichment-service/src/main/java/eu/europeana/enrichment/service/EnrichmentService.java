@@ -151,7 +151,7 @@ public class EnrichmentService {
     for (FailableSupplier<List<EnrichmentBase>, IOException> supplier : suppliers) {
       final List<EnrichmentBase> suppliedItem = supplier.get();
       if (CollectionUtils.isNotEmpty(suppliedItem)) {
-        return suppliedItem.iterator().next();
+        return suppliedItem.get(0);
       }
     }
     return null;
@@ -182,13 +182,10 @@ public class EnrichmentService {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     for (MongoTerm mongoTerm : mongoTerms) {
       //Find mongoTermLists by codeUri
-      fieldNamesAndValues.clear();
-      fieldNamesAndValues
-          .add(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, mongoTerm.getCodeUri()));
       final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = enrichmentDao
           .getAllMongoTermListsByFields(
               EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
-              fieldNamesAndValues);
+              List.of(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, mongoTerm.getCodeUri())));
       //Find parent mongoTermLists
       final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> parentMongoTermLists = mongoTermLists
           .stream().map(mongoTermList -> findParentEntities(entityType, mongoTermList))
