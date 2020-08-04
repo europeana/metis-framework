@@ -43,7 +43,7 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by URI, might match owl:sameAs.
+   * Get an enrichment providing a URI that matches a codeUri or owlSameAs.
    *
    * @param uri The URI to check for match
    * @return the structured result of the enrichment
@@ -51,10 +51,11 @@ public class EnrichmentController {
   @GetMapping(value = RestEndpoints.ENRICH_CODEURI_OR_OWLSAMEAS, produces = {
       MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
-  @ApiOperation(value = "Get an enrichment by URI, might match owl:sameAs", response = EnrichmentBase.class)
+  @ApiOperation(value = "Get an enrichment providing a URI that matches a codeUri or owlSameAs", response = EnrichmentBase.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
-  public EnrichmentBase enrichByCodeUriOrOwlSameAs(@ApiParam("uri") @RequestParam("uri") String uri) {
+  public EnrichmentBase enrichByCodeUriOrOwlSameAs(
+      @ApiParam("uri") @RequestParam("uri") String uri) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = enrichmentService
         .enrichByCodeUriOrOwlSameAs(uri).stream()
         .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
@@ -64,14 +65,14 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by providing a list of URIs, might match owl:sameAs.
+   * Get an enrichment providing a list of URIs where each of them could match a codeUri or owlSameAs.
    *
    * @param uris The URIs to check for match
    * @return the structured result of the enrichment
    */
   @PostMapping(value = RestEndpoints.ENRICH_CODEURI_OR_OWLSAMEAS, consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ApiOperation(value = "Get an enrichment by providing a list of URIs, might match owl:sameAs", response = EnrichmentResultList.class)
+  @ApiOperation(value = "Get an enrichment providing a list of URIs where each of them could match a codeUri or owlSameAs", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList enrichByCodeUriOrOwlSameAs(@RequestBody List<String> uris) {
@@ -83,14 +84,14 @@ public class EnrichmentController {
   }
 
   /**
-   * Get an enrichment by providing a list of URIs.
+   * Get an enrichment providing a list of URIs where each of them could match a codeUri.
    *
    * @param uris The URIs to check for match
    * @return the structured result of the enrichment
    */
   @PostMapping(value = RestEndpoints.ENRICH_CODEURI, consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-  @ApiOperation(value = "Get an enrichment by providing a list of URIs", response = EnrichmentResultList.class)
+  @ApiOperation(value = "Get an enrichment providing a list of URIs where each of them could match a codeUri", response = EnrichmentResultList.class)
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList enrichByCodeUri(@RequestBody List<String> uris) {
