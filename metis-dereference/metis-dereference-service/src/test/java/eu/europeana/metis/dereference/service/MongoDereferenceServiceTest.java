@@ -88,7 +88,7 @@ class MongoDereferenceServiceTest {
     assertEquals(1, result.getEnrichmentBaseWrapperList().size());
     assertNotNull(result.getEnrichmentBaseWrapperList().get(0));
     assertSame(place, result.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase());
-    assertNull(result.getEnrichmentBaseWrapperList().get(0).getOriginalField());
+    assertNull(result.getEnrichmentBaseWrapperList().get(0).getRdfFieldName());
 
     // Test null argument
     assertThrows(IllegalArgumentException.class, ()->service.dereference(null));

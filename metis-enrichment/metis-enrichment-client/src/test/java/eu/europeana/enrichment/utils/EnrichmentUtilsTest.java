@@ -156,7 +156,7 @@ public class EnrichmentUtilsTest {
     ArrayList<String> resultProcessed = new ArrayList<>();
     for (InputValue inputValue : result) {
       resultProcessed.add(inputValue.getValue() + "|" + inputValue.getLanguage() + "|" + inputValue
-          .getOriginalField());
+          .getRdfFieldName());
     }
 
     assertTrue(resultProcessed.contains("Creator|English|DC_CREATOR"));

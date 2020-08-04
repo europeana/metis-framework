@@ -1,8 +1,8 @@
 package eu.europeana.enrichment.rest.client;
 
-import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYID;
-import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYURI;
-import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
+import static eu.europeana.metis.RestEndpoints.ENRICH_CODEURI;
+import static eu.europeana.metis.RestEndpoints.ENRICH_CODEURI_OR_OWLSAMEAS;
+import static eu.europeana.metis.RestEndpoints.ENRICH_INPUT_VALUE_LIST;
 
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.InputValueList;
@@ -70,7 +70,7 @@ public class EnrichmentClient {
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
     final HttpEntity<InputValueList> request = new HttpEntity<>(inList, headers);
-    final String url = endpoint + ENRICHMENT_ENRICH;
+    final String url = endpoint + ENRICH_INPUT_VALUE_LIST;
     try {
       return TemporaryResponseConverter
               .convert(template.exchange(url, HttpMethod.POST, request, byte[].class));
@@ -98,7 +98,7 @@ public class EnrichmentClient {
     }
 
     UriComponentsBuilder builder;
-    builder = UriComponentsBuilder.fromHttpUrl(endpoint + ENRICHMENT_BYURI)
+    builder = UriComponentsBuilder.fromHttpUrl(endpoint + ENRICH_CODEURI_OR_OWLSAMEAS)
         .queryParam("uri", encodedUri);
 
     final HttpHeaders headers = new HttpHeaders();
@@ -128,7 +128,7 @@ public class EnrichmentClient {
       headers.setContentType(MediaType.APPLICATION_JSON);
       headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
       final HttpEntity<List<String>> request = new HttpEntity<>(input, headers);
-      final String url = endpoint + ENRICHMENT_BYURI;
+      final String url = endpoint + ENRICH_CODEURI_OR_OWLSAMEAS;
       try {
         return TemporaryResponseConverter
                 .convert(template.exchange(url, HttpMethod.POST, request, byte[].class));
@@ -151,7 +151,7 @@ public class EnrichmentClient {
       headers.setContentType(MediaType.APPLICATION_JSON);
       headers.setAccept(Collections.singletonList(MediaType.APPLICATION_XML));
       final HttpEntity<List<String>> request = new HttpEntity<>(input, headers);
-      final String url = endpoint + ENRICHMENT_BYID;
+      final String url = endpoint + ENRICH_CODEURI;
       try {
         return TemporaryResponseConverter
                 .convert(template.exchange(url, HttpMethod.POST, request, byte[].class));

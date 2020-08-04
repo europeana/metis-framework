@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.rest.client;
 
-import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
+import static eu.europeana.metis.RestEndpoints.ENRICH_INPUT_VALUE_LIST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.not;
@@ -54,13 +54,13 @@ class EnrichmentClientTest {
     final RestTemplate restTemplate = mock(RestTemplate.class);
     final ResponseEntity<byte[]> response = new ResponseEntity<>(marshall(result),
             HttpStatus.OK);
-    doReturn(response).when(restTemplate).exchange(eq(ENRICHMENT_ENRICH), eq(HttpMethod.POST),
+    doReturn(response).when(restTemplate).exchange(eq(ENRICH_INPUT_VALUE_LIST), eq(HttpMethod.POST),
             any(HttpEntity.class), eq(byte[].class));
 
     final EnrichmentClient enrichmentClient = spy(new EnrichmentClient(restTemplate, "", 20));
     EnrichmentResultList res = enrichmentClient.enrich(new ArrayList<>());
 
-    verify(restTemplate, times(1)).exchange(eq(ENRICHMENT_ENRICH), eq(HttpMethod.POST),
+    verify(restTemplate, times(1)).exchange(eq(ENRICH_INPUT_VALUE_LIST), eq(HttpMethod.POST),
             any(HttpEntity.class), eq(byte[].class));
     assertEquals(res.getEnrichmentBaseWrapperList().get(0).getEnrichmentBase().getAbout(),
             agent1.getAbout());
@@ -79,7 +79,8 @@ class EnrichmentClientTest {
   @Test
   void testEnrichException() {
     final RestTemplate restTemplate = mock(RestTemplate.class);
-    doThrow(new UnknownException("test")).when(restTemplate).exchange(not(eq(ENRICHMENT_ENRICH)),
+    doThrow(new UnknownException("test")).when(restTemplate).exchange(not(eq(
+        ENRICH_INPUT_VALUE_LIST)),
             eq(HttpMethod.POST), any(HttpEntity.class), eq(byte[].class));
 
     final EnrichmentClient enrichmentClient = spy(

@@ -1,21 +1,23 @@
 package eu.europeana.enrichment.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.enrichment.api.internal.AgentTermList;
+import eu.europeana.enrichment.api.internal.ConceptTermList;
+import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.api.internal.OrganizationTermList;
+import eu.europeana.enrichment.api.internal.PlaceTermList;
+import eu.europeana.enrichment.api.internal.TimespanTermList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,131 +26,114 @@ import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 
 public class ConverterTest {
+
   @Test
-  public void convertAgent() throws Exception {
-    ObjectMapper mapper = createMapper();
+  public void convertAgent() {
 
-    EntityWrapper wrapper = new EntityWrapper();
-    AgentImpl impl = new AgentImpl();
-    impl.setId(ObjectId.get());
-    impl.setAbout("myAbout");
-    impl.setEdmWasPresentAt(new String []{"a", "b"});
-    impl.setOwlSameAs(new String []{"1", "2"});
-    impl.setAltLabel(createAltLabels("en", new String[] {"a_en", "b_en"}));
+    AgentImpl agentImpl = new AgentImpl();
+    agentImpl.setId(ObjectId.get());
+    agentImpl.setAbout("myAbout");
+    agentImpl.setEdmWasPresentAt(new String[]{"a", "b"});
+    agentImpl.setOwlSameAs(new String[]{"1", "2"});
+    agentImpl.setAltLabel(createAltLabels("en", new String[]{"a_en", "b_en"}));
 
-    wrapper.setEntityType(EntityType.AGENT);
+    final MongoTermList<AgentImpl> agentTermList = new AgentTermList();
+    agentTermList.setRepresentation(agentImpl);
+    agentTermList.setEntityType(AgentImpl.class.getSimpleName());
 
-    Converter converter = new Converter();
-    wrapper.setContextualEntity(mapper.writeValueAsString(impl));
-    
-    Agent agent = (Agent) converter.convert(wrapper);
+    Agent agent = (Agent) Converter.convert(agentTermList);
     assertEquals("myAbout", agent.getAbout());
-    assertEquals( "a", agent.getWasPresentAt().get(0).getResource());
-    assertEquals( "b", agent.getWasPresentAt().get(1).getResource());
-    assertEquals( "1", agent.getSameAs().get(0).getResource());
-    assertEquals( "2", agent.getSameAs().get(1).getResource());
-    assertEquals("a_en",agent.getAltLabelList().stream().filter(x->x.getValue().equals("a_en")).findFirst().get().getValue());
-    assertEquals("en",agent.getAltLabelList().stream().filter(x->x.getValue().equals("a_en")).findFirst().get().getLang());
-    assertEquals("b_en",agent.getAltLabelList().stream().filter(x->x.getValue().equals("b_en")).findFirst().get().getValue());
-    assertEquals("en",agent.getAltLabelList().stream().filter(x->x.getValue().equals("b_en")).findFirst().get().getLang());
+    assertEquals("a", agent.getWasPresentAt().get(0).getResource());
+    assertEquals("b", agent.getWasPresentAt().get(1).getResource());
+    assertEquals("1", agent.getSameAs().get(0).getResource());
+    assertEquals("2", agent.getSameAs().get(1).getResource());
+    assertEquals("a_en",
+        agent.getAltLabelList().stream().filter(x -> x.getValue().equals("a_en")).findFirst().get()
+            .getValue());
+    assertEquals("en",
+        agent.getAltLabelList().stream().filter(x -> x.getValue().equals("a_en")).findFirst().get()
+            .getLang());
+    assertEquals("b_en",
+        agent.getAltLabelList().stream().filter(x -> x.getValue().equals("b_en")).findFirst().get()
+            .getValue());
+    assertEquals("en",
+        agent.getAltLabelList().stream().filter(x -> x.getValue().equals("b_en")).findFirst().get()
+            .getLang());
   }
 
-  private Map<String,List<String>> createAltLabels(String en, String[] strings) {
-    Map<String,List<String>> map = new HashMap<>();
+  private Map<String, List<String>> createAltLabels(String en, String[] strings) {
+    Map<String, List<String>> map = new HashMap<>();
     map.put(en, Arrays.asList(strings));
     return map;
   }
 
   @Test
-  public void convertConcept() throws Exception {
-    ObjectMapper mapper = createMapper();
+  public void convertConcept() {
+    ConceptImpl conceptImpl = new ConceptImpl();
+    conceptImpl.setId(ObjectId.get());
+    conceptImpl.setAbout("myAbout");
+    conceptImpl.setRelated(new String[]{"a", "b"});
+    conceptImpl.setRelatedMatch(new String[]{"1", "2"});
 
-    EntityWrapper wrapper = new EntityWrapper();
-    ConceptImpl impl = new ConceptImpl();
-    impl.setId(ObjectId.get());
-    impl.setAbout("myAbout");
-    impl.setRelated(new String []{"a", "b"});
-    impl.setRelatedMatch(new String []{"1", "2"});
+    final MongoTermList<ConceptImpl> conceptTermList = new ConceptTermList();
+    conceptTermList.setRepresentation(conceptImpl);
+    conceptTermList.setEntityType(ConceptImpl.class.getSimpleName());
 
-    wrapper.setEntityType(EntityType.CONCEPT);
-
-    Converter converter = new Converter();
-    wrapper.setContextualEntity(mapper.writeValueAsString(impl));
-
-    Concept agent = (Concept) converter.convert(wrapper);
+    Concept agent = (Concept) Converter.convert(conceptTermList);
     assertEquals("myAbout", agent.getAbout());
-    assertEquals( "a", agent.getRelated().get(0).getResource());
-    assertEquals( "b", agent.getRelated().get(1).getResource());
-    assertEquals( "1", agent.getRelatedMatch().get(0).getResource());
-    assertEquals( "2", agent.getRelatedMatch().get(1).getResource());
+    assertEquals("a", agent.getRelated().get(0).getResource());
+    assertEquals("b", agent.getRelated().get(1).getResource());
+    assertEquals("1", agent.getRelatedMatch().get(0).getResource());
+    assertEquals("2", agent.getRelatedMatch().get(1).getResource());
 
   }
 
   @Test
-  public void convertTimespan() throws Exception {
-    ObjectMapper mapper = createMapper();
+  public void convertTimespan() {
+    TimespanImpl timespanImpl = new TimespanImpl();
+    timespanImpl.setId(ObjectId.get());
+    timespanImpl.setAbout("myAbout");
+    timespanImpl.setOwlSameAs(new String[]{"1", "2"});
 
-    EntityWrapper wrapper = new EntityWrapper();
-    TimespanImpl impl = new TimespanImpl();
-    impl.setId(ObjectId.get());
-    impl.setAbout("myAbout");
-    impl.setOwlSameAs(new String []{"1", "2"});
-    wrapper.setEntityType(EntityType.TIMESPAN);
+    final MongoTermList<TimespanImpl> timespanTermList = new TimespanTermList();
+    timespanTermList.setRepresentation(timespanImpl);
+    timespanTermList.setEntityType(TimespanImpl.class.getSimpleName());
 
-    Converter converter = new Converter();
-    wrapper.setContextualEntity(mapper.writeValueAsString(impl));
-
-    Timespan agent = (Timespan) converter.convert(wrapper);
+    Timespan agent = (Timespan) Converter.convert(timespanTermList);
     assertEquals("myAbout", agent.getAbout());
-    assertEquals( "1", agent.getSameAs().get(0).getResource());
-    assertEquals( "2", agent.getSameAs().get(1).getResource());
+    assertEquals("1", agent.getSameAs().get(0).getResource());
+    assertEquals("2", agent.getSameAs().get(1).getResource());
   }
 
   @Test
-  public void convertPlace() throws Exception {
-    ObjectMapper mapper = createMapper();
+  public void convertPlace() {
+    PlaceImpl placeImpl = new PlaceImpl();
+    placeImpl.setId(ObjectId.get());
+    placeImpl.setAbout("myAbout");
+    placeImpl.setOwlSameAs(new String[]{"1", "2"});
 
-    EntityWrapper wrapper = new EntityWrapper();
-    PlaceImpl impl = new PlaceImpl();
-    impl.setId(ObjectId.get());
-    impl.setAbout("myAbout");
-    impl.setOwlSameAs(new String []{"1", "2"});
-    wrapper.setEntityType(EntityType.PLACE);
+    final MongoTermList<PlaceImpl> placeTermList = new PlaceTermList();
+    placeTermList.setRepresentation(placeImpl);
+    placeTermList.setEntityType(PlaceImpl.class.getSimpleName());
 
-    Converter converter = new Converter();
-    wrapper.setContextualEntity(mapper.writeValueAsString(impl));
-
-    Place agent = (Place) converter.convert(wrapper);
+    Place agent = (Place) Converter.convert(placeTermList);
     assertEquals("myAbout", agent.getAbout());
-    assertEquals( "1", agent.getSameAs().get(0).getResource());
-    assertEquals( "2", agent.getSameAs().get(1).getResource());
+    assertEquals("1", agent.getSameAs().get(0).getResource());
+    assertEquals("2", agent.getSameAs().get(1).getResource());
   }
 
   @Test
-  public void convertOtherObject_returns_null() throws Exception {
-    ObjectMapper mapper = createMapper();
+  public void convertOtherObject_returns_null() {
+    final OrganizationImpl organizationImpl = new OrganizationImpl();
+    organizationImpl.setId(ObjectId.get());
+    organizationImpl.setAbout("myAbout");
+    organizationImpl.setOwlSameAs(new String[]{"1", "2"});
 
-    EntityWrapper wrapper = new EntityWrapper();
-    PlaceImpl impl = new PlaceImpl();
-    impl.setId(ObjectId.get());
-    impl.setAbout("myAbout");
-    impl.setOwlSameAs(new String []{"1", "2"});
-    wrapper.setEntityType(EntityType.ORGANIZATION);
+    final MongoTermList<OrganizationImpl> organizationTermList = new OrganizationTermList();
+    organizationTermList.setRepresentation(organizationImpl);
+    organizationTermList.setEntityType(OrganizationImpl.class.getSimpleName());
 
-    Converter converter = new Converter();
-    wrapper.setContextualEntity(mapper.writeValueAsString(impl));
-
-    Place agent = (Place) converter.convert(wrapper);
+    Place agent = (Place) Converter.convert(organizationTermList);
     assertNull(agent);
-  }
-
-  ObjectMapper createMapper() {
-    ObjectMapper mapper = new ObjectMapper();
-    SimpleModule sm = new SimpleModule("objId",
-        Version.unknownVersion());
-    sm.addSerializer(new ObjectIdSerializer());
-    mapper.registerModule(sm);
-    return mapper;
-
   }
 }

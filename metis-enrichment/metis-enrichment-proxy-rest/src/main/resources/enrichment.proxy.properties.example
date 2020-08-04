@@ -1,6 +1,0 @@
-redis.host=
-redis.port=
-redis.password=
-enrichment.mongo.host=
-enrichment.mongo.database=
-enrichment.mongo.port=

@@ -14,8 +14,8 @@ import javax.xml.bind.annotation.XmlElements;
  */
 public class EnrichmentBaseWrapper {
 
-  @XmlElement(name = "originalField")
-  private String originalField;
+  @XmlElement(name = "rdfFieldName")
+  private String rdfFieldName;
 
   @XmlElements(value = {
       @XmlElement(name = "Concept", namespace = "http://www.w3.org/2004/02/skos/core#", type = Concept.class),
@@ -30,16 +30,16 @@ public class EnrichmentBaseWrapper {
   /**
    * Constructor with all fields
    *
-   * @param originalField the original field that this enrichment was generated from
+   * @param rdfFieldName the rdf field name
    * @param enrichmentBase the enrichment information class generated
    */
-  public EnrichmentBaseWrapper(String originalField, EnrichmentBase enrichmentBase) {
-    this.originalField = originalField;
+  public EnrichmentBaseWrapper(String rdfFieldName, EnrichmentBase enrichmentBase) {
+    this.rdfFieldName = rdfFieldName;
     this.enrichmentBase = enrichmentBase;
   }
 
-  public String getOriginalField() {
-    return originalField;
+  public String getRdfFieldName() {
+    return rdfFieldName;
   }
 
   public EnrichmentBase getEnrichmentBase() {
@@ -48,7 +48,7 @@ public class EnrichmentBaseWrapper {
 
   /**
    * Convert a collection of {@link EnrichmentBase} to a list of {@link EnrichmentBaseWrapper} with
-   * 'null' {@link #originalField}.
+   * 'null' {@link #rdfFieldName}.
    * <p>This is mostly used for dereferencing.</p>
    *
    * @param resultList the collection of {@link EnrichmentBase}

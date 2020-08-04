@@ -154,11 +154,11 @@ public class EntityMergeEngine {
 
     // placeOfBirth
     agentType.setPlaceOfBirthList(
-            ItemExtractorUtils.extractLabelResources(agent.getPlaceOfBirth(), PlaceOfBirth::new));
+        ItemExtractorUtils.extractLabelResources(agent.getPlaceOfBirth(), PlaceOfBirth::new));
 
     // placeOfDeath
     agentType.setPlaceOfDeathList(
-            ItemExtractorUtils.extractLabelResources(agent.getPlaceOfDeath(), PlaceOfDeath::new));
+        ItemExtractorUtils.extractLabelResources(agent.getPlaceOfDeath(), PlaceOfDeath::new));
 
     // dateOfBirth
     agentType.setDateOfBirth(
@@ -332,14 +332,14 @@ public class EntityMergeEngine {
   }
 
   private static <I extends EnrichmentBase, T extends AboutType> T convertAndAddEntity(
-          I inputEntity, Function<I, T> converter, Supplier<List<T>> listGetter,
-          Consumer<List<T>> listSetter) {
+      I inputEntity, Function<I, T> converter, Supplier<List<T>> listGetter,
+      Consumer<List<T>> listSetter) {
 
     // Check if Entity already exists in the list. If so, return it. We don't overwrite.
     final T existingEntity = Optional.ofNullable(listGetter.get()).map(List::stream)
-            .orElseGet(Stream::empty)
-            .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
-            .orElse(null);
+        .orElseGet(Stream::empty)
+        .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
+        .orElse(null);
     if (existingEntity != null) {
       return existingEntity;
     }
@@ -354,22 +354,22 @@ public class EntityMergeEngine {
   }
 
   private static void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
-          Set<EnrichmentFields> proxyLinkTypes) {
+      Set<EnrichmentFields> proxyLinkTypes) {
 
     // Convert the entity and add it to the RDF.
     final AboutType entity;
     if (enrichmentBase instanceof Place) {
       entity = convertAndAddEntity((Place) enrichmentBase, EntityMergeEngine::convertPlace,
-              rdf::getPlaceList, rdf::setPlaceList);
+          rdf::getPlaceList, rdf::setPlaceList);
     } else if (enrichmentBase instanceof Agent) {
       entity = convertAndAddEntity((Agent) enrichmentBase, EntityMergeEngine::convertAgent,
-              rdf::getAgentList, rdf::setAgentList);
+          rdf::getAgentList, rdf::setAgentList);
     } else if (enrichmentBase instanceof Concept) {
       entity = convertAndAddEntity((Concept) enrichmentBase, EntityMergeEngine::convertConcept,
-              rdf::getConceptList, rdf::setConceptList);
+          rdf::getConceptList, rdf::setConceptList);
     } else if (enrichmentBase instanceof Timespan) {
       entity = convertAndAddEntity((Timespan) enrichmentBase, EntityMergeEngine::convertTimeSpan,
-              rdf::getTimeSpanList, rdf::setTimeSpanList);
+          rdf::getTimeSpanList, rdf::setTimeSpanList);
     } else {
       throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
     }
@@ -389,8 +389,8 @@ public class EntityMergeEngine {
   public void mergeEntities(RDF rdf, List<EnrichmentBaseWrapper> enrichmentBaseWrapperList) {
     for (EnrichmentBaseWrapper enrichmentBaseWrapper : enrichmentBaseWrapperList) {
       final Set<EnrichmentFields> proxyLinkTypes = Optional
-              .ofNullable(enrichmentBaseWrapper.getOriginalField()).filter(StringUtils::isNotBlank)
-              .map(EnrichmentFields::valueOf).map(Collections::singleton).orElse(null);
+          .ofNullable(enrichmentBaseWrapper.getRdfFieldName()).filter(StringUtils::isNotBlank)
+          .map(EnrichmentFields::valueOf).map(Collections::singleton).orElse(null);
       convertAndAddEntity(rdf, enrichmentBaseWrapper.getEnrichmentBase(), proxyLinkTypes);
     }
   }
@@ -404,12 +404,13 @@ public class EntityMergeEngine {
    * the about values of the entities to add.
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBase> contextualEntities,
-          Map<String, Set<EnrichmentFields>> proxyLinkTypes) {
+      Map<String, Set<EnrichmentFields>> proxyLinkTypes) {
     for (EnrichmentBase entity : contextualEntities) {
       final Set<String> links = getSameAsLinks(entity);
       links.add(entity.getAbout());
-      final Set<EnrichmentFields> fields = links.stream().map(proxyLinkTypes::get).filter(Objects::nonNull)
-              .flatMap(Set::stream).collect(Collectors.toSet());
+      final Set<EnrichmentFields> fields = links.stream().map(proxyLinkTypes::get)
+          .filter(Objects::nonNull)
+          .flatMap(Set::stream).collect(Collectors.toSet());
       convertAndAddEntity(rdf, entity, fields);
     }
   }
@@ -420,7 +421,7 @@ public class EntityMergeEngine {
     if (contextualClass instanceof Agent) {
       result = ((Agent) contextualClass).getSameAs();
     } else if (contextualClass instanceof Concept) {
-      result= ((Concept)contextualClass).getExactMatch();
+      result = ((Concept) contextualClass).getExactMatch();
     } else if (contextualClass instanceof Place) {
       result = ((Place) contextualClass).getSameAs();
     } else if (contextualClass instanceof Timespan) {
@@ -429,7 +430,7 @@ public class EntityMergeEngine {
       result = null;
     }
     return Optional.ofNullable(result).orElseGet(Collections::emptyList).stream()
-            .filter(Objects::nonNull).map(WebResource::getResourceUri).filter(StringUtils::isNotBlank)
-            .collect(Collectors.toSet());
+        .filter(Objects::nonNull).map(WebResource::getResourceUri).filter(StringUtils::isNotBlank)
+        .collect(Collectors.toSet());
   }
 }

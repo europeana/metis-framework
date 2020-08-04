@@ -30,11 +30,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * Created by gmamakis on 8-3-17.
- */
 public enum EnrichmentFields {
-  
+
   DC_CREATOR(Choice::ifCreator, Choice::getCreator, Choice::setCreator, Creator::new,
       EntityType.AGENT),
 
@@ -88,9 +85,9 @@ public enum EnrichmentFields {
    */
   public final List<InputValue> extractFieldValuesForEnrichment(ProxyType proxy) {
     return extractFields(proxy)
-            .filter(content -> StringUtils.isNotEmpty(content.getString()))
-            .map(this::convert)
-            .collect(Collectors.toList());
+        .filter(content -> StringUtils.isNotEmpty(content.getString()))
+        .map(this::convert)
+        .collect(Collectors.toList());
   }
 
   /**
@@ -101,18 +98,18 @@ public enum EnrichmentFields {
    */
   public final Set<String> extractFieldLinksForEnrichment(ProxyType proxy) {
     return extractFields(proxy)
-            .map(ResourceOrLiteralType::getResource)
-            .filter(Objects::nonNull)
-            .map(Resource::getResource)
-            .filter(StringUtils::isNotBlank)
-            .collect(Collectors.toSet());
+        .map(ResourceOrLiteralType::getResource)
+        .filter(Objects::nonNull)
+        .map(Resource::getResource)
+        .filter(StringUtils::isNotBlank)
+        .collect(Collectors.toSet());
   }
 
   private Stream<? extends ResourceOrLiteralType> extractFields(ProxyType proxy) {
     return Optional.ofNullable(proxy.getChoiceList()).stream().flatMap(Collection::stream)
-    		.filter(choiceContentHandler.choiceChecker)
-            .map(choiceContentHandler.contentGetter)
-            .filter(Objects::nonNull);
+        .filter(choiceContentHandler.choiceChecker)
+        .map(choiceContentHandler.contentGetter)
+        .filter(Objects::nonNull);
   }
 
   private InputValue convert(ResourceOrLiteralType content) {
@@ -122,7 +119,7 @@ public enum EnrichmentFields {
 
   /**
    * Create a field appendable on a Europeana Proxy during enrichment for semantic linking
-   * 
+   *
    * @param about The rdf:about of the Class to append on the specified field
    * @return The full field to append
    */
@@ -140,11 +137,12 @@ public enum EnrichmentFields {
    */
   public final String getResourceIfRightChoice(Choice choice) {
     return choiceContentHandler.choiceChecker.test(choice) ? Optional
-            .of(choiceContentHandler.contentGetter.apply(choice))
-            .map(ResourceOrLiteralType::getResource).map(Resource::getResource).orElse(null) : null;
+        .of(choiceContentHandler.contentGetter.apply(choice))
+        .map(ResourceOrLiteralType::getResource).map(Resource::getResource).orElse(null) : null;
   }
 
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {
+
     final Predicate<Choice> choiceChecker;
     final Function<Choice, T> contentGetter;
     private final BiConsumer<Choice, T> contentSetter;
