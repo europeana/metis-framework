@@ -1,5 +1,8 @@
 package eu.europeana.metis.authentication.utils;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performAction;
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
+
 import com.zoho.oauth.client.ZohoPersistenceHandler;
 import com.zoho.oauth.common.ZohoOAuthException;
 import com.zoho.oauth.contract.ZohoOAuthTokens;
@@ -56,67 +59,68 @@ public class MetisZohoOAuthPSQLHandler implements ZohoPersistenceHandler {
     if (StringUtils.isNotBlank(userEmailId) && StringUtils.isNotBlank(refreshToken)) {
       final MetisZohoOAuthToken metisZohoOAuthToken = new MetisZohoOAuthToken(userEmailId,
           StringUtils.EMPTY, refreshToken, 0L);
-      try (Session session = sessionFactory.openSession()) {
-        Transaction tx = session.beginTransaction();
-
-        session.saveOrUpdate(metisZohoOAuthToken);
-        String potentialErrorMessage = "Exception while saving zoho oauth user tokens";
-        commitTransaction(tx, potentialErrorMessage);
+      try (Session dbSession = sessionFactory.openSession()) {
+        performAction(dbSession, session -> {
+          Transaction tx = session.beginTransaction();
+          session.saveOrUpdate(metisZohoOAuthToken);
+          String potentialErrorMessage = "Exception while saving zoho oauth user tokens";
+          commitTransaction(tx, potentialErrorMessage);
+        });
       }
     }
   }
 
   @Override
   public void saveOAuthData(ZohoOAuthTokens zohoOAuthTokens) throws Exception {
-
     final MetisZohoOAuthToken metisZohoOAuthToken = new MetisZohoOAuthToken(
         zohoOAuthTokens.getUserMailId(), zohoOAuthTokens.getAccessToken(),
         zohoOAuthTokens.getRefreshToken(), zohoOAuthTokens.getExpiryTime());
-    try (Session session = sessionFactory.openSession()) {
-      Transaction tx = session.beginTransaction();
-
-      session.saveOrUpdate(metisZohoOAuthToken);
-      String potentialErrorMessage = "Exception while saving zoho oauth user tokens";
-      commitTransaction(tx, potentialErrorMessage);
+    try (Session dbSession = sessionFactory.openSession()) {
+      performAction(dbSession, session -> {
+        Transaction tx = session.beginTransaction();
+        session.saveOrUpdate(metisZohoOAuthToken);
+        String potentialErrorMessage = "Exception while saving zoho oauth user tokens";
+        commitTransaction(tx, potentialErrorMessage);
+      });
     }
   }
 
   @Override
   public ZohoOAuthTokens getOAuthTokens(String userIdentifier) throws Exception {
-    MetisZohoOAuthToken metisZohoOAuthToken;
-    Transaction tx;
-    try (Session session = sessionFactory.openSession()) {
-      tx = session.beginTransaction();
-
-      Query query = session
-          .createQuery(String
-              .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
-                  USER_IDENTIFIER_STRING));
-      query.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
-      if (query.list().isEmpty()) {
-        throw new ZohoOAuthException("Given User not found in persistence.");
-      } else {
-        metisZohoOAuthToken = (MetisZohoOAuthToken) query.list().get(0);
-      }
-      String potentialErrorMessage = "Exception while retrieving zoho oauth user tokens";
-      commitTransaction(tx, potentialErrorMessage);
+    final MetisZohoOAuthToken metisZohoOAuthToken;
+    try (Session dbSession = sessionFactory.openSession()) {
+      metisZohoOAuthToken = performThrowingFunction(dbSession, session -> {
+        Transaction tx = session.beginTransaction();
+        Query<?> query = session.createQuery(String
+                        .format("FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
+                                USER_IDENTIFIER_STRING));
+        query.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
+        if (query.list().isEmpty()) {
+          throw new ZohoOAuthException("Given User not found in persistence.");
+        }
+        final MetisZohoOAuthToken token = (MetisZohoOAuthToken) query.list().get(0);
+        String potentialErrorMessage = "Exception while retrieving zoho oauth user tokens";
+        commitTransaction(tx, potentialErrorMessage);
+        return token;
+      });
     }
-
     return metisZohoOAuthToken == null ? null : metisZohoOAuthToken.convertToZohoOAuthTokens();
   }
 
   @Override
   public void deleteOAuthTokens(String userIdentifier) {
-    try (Session session = sessionFactory.openSession()) {
-      Transaction tx = session.beginTransaction();
-      Query deleteQuery = session.createQuery(
-          String.format("DELETE FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
-              USER_IDENTIFIER_STRING));
-      deleteQuery.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
-      int i = deleteQuery.executeUpdate();
-      String potentialErrorMessage = "Exception while deleting zoho oauth user tokens";
-      commitTransaction(tx, potentialErrorMessage);
-      LOGGER.info("Removed {} Metis Zoho OAuth tokens with user identifier: {}", i, userIdentifier);
+    try (Session dbSession = sessionFactory.openSession()) {
+      performAction(dbSession, session -> {
+        Transaction tx = session.beginTransaction();
+        Query<?> deleteQuery = session.createQuery(
+                String.format("DELETE FROM MetisZohoOAuthToken WHERE %s = :%s", USER_IDENTIFIER_STRING,
+                        USER_IDENTIFIER_STRING));
+        deleteQuery.setParameter(USER_IDENTIFIER_STRING, userIdentifier);
+        int i = deleteQuery.executeUpdate();
+        String potentialErrorMessage = "Exception while deleting zoho oauth user tokens";
+        commitTransaction(tx, potentialErrorMessage);
+        LOGGER.info("Removed {} Metis Zoho OAuth tokens with user identifier: {}", i, userIdentifier);
+      });
     }
   }
 

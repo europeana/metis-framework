@@ -1,5 +1,7 @@
 package eu.europeana.metis.dereference.service.dao;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
@@ -35,10 +37,7 @@ public class VocabularyDao {
     final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
     query.field("uris").equal(pattern);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
-      // Extract result ... see https://github.com/spotbugs/spotbugs/issues/756
-      @SuppressWarnings("findbugs:RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
-      final List<Vocabulary> result = cursor.toList();
-      return result;
+      return performFunction(cursor, MorphiaCursor::toList);
     }
   }
 
@@ -50,10 +49,7 @@ public class VocabularyDao {
   public List<Vocabulary> getAll() {
     final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
-      // Extract result ... see https://github.com/spotbugs/spotbugs/issues/756
-      @SuppressWarnings("findbugs:RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
-      final List<Vocabulary> result = cursor.toList();
-      return result;
+      return performFunction(cursor, MorphiaCursor::toList);
     }
   }
 

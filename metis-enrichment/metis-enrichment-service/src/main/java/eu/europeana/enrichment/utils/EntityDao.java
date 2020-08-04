@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.utils;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+
 import com.mongodb.MongoClient;
 import dev.morphia.AdvancedDatastore;
 import dev.morphia.Key;
@@ -153,7 +155,7 @@ public class EntityDao {
   }
 
   public List<String> deleteEntities(String entityTable, String entityType, String codeUri) {
-    List<String> extraUrisRemoved = new ArrayList<>();
+
     //Remove from Term List
     deleteMongoTermList(codeUri);
     //Remove from specific collection
@@ -164,11 +166,12 @@ public class EntityDao {
         .createQuery(MongoTermList.class).filter(ENTITY_TYPE_FIELD, entityType)
         .filter(OWL_SAME_AS, codeUri);
     final List<MongoTermList> allTermListsSameAs = getListOfQuery(termListsSameAsQuery);
+    final List<String> extraUrisRemoved = new ArrayList<>(allTermListsSameAs.size());
     for (MongoTermList mongoTermList : allTermListsSameAs) {
       final String sameAsCodeUri = mongoTermList.getCodeUri();
       extraUrisRemoved.add(sameAsCodeUri);
       //Remove from Term List
-      deleteMongoTermList(codeUri);
+      deleteMongoTermList(sameAsCodeUri);
       //Remove from specific collection
       deleteMongoTerm(entityTable, sameAsCodeUri);
     }
@@ -238,7 +241,7 @@ public class EntityDao {
   private <T> List<T> getListOfQuery(Query<T> query) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
       try (MorphiaCursor<T> cursor = query.find()) {
-        return cursor.toList();
+        return performFunction(cursor, MorphiaCursor::toList);
       }
     });
   }

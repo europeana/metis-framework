@@ -41,7 +41,7 @@ final class VocabularyCollectionImporterImpl implements VocabularyCollectionImpo
     }
 
     // Compile the vocabulary loaders
-    final List<VocabularyLoader> result = new ArrayList<>();
+    final List<VocabularyLoader> result = new ArrayList<>(directoryEntries.length);
     for (VocabularyDirectoryEntry entry : directoryEntries) {
       final Location metadataLocation = directoryLocation.resolve(entry.getMetadata());
       final Location mappingLocation = directoryLocation.resolve(entry.getMapping());

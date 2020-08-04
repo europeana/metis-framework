@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.dao;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.UpdateOperations;
@@ -352,7 +354,7 @@ public class DepublishRecordIdDao {
         return morphiaCursor;
       };
       try (MorphiaCursor<T> cursor = queryFunction.apply(query, findOptions)) {
-        return cursor.toList();
+        return performFunction(cursor, MorphiaCursor::toList);
       }
     });
   }

@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
+
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
@@ -10,6 +12,7 @@ import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.utils.MediaType;
+import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -214,16 +217,17 @@ public class MediaExtractorImpl implements MediaExtractor {
         && !shouldDownloadForFullProcessing(resource.getProvidedMimeType())) {
       final RdfResourceEntry downloadInput =
           new RdfResourceEntry(resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
-      try (final Resource resourceWithContent = this.resourceDownloadClient
-          .downloadWithContent(downloadInput)) {
-        // see https://github.com/spotbugs/spotbugs/issues/756
-        @SuppressWarnings("findbugs:RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE") final boolean resourceHasContent = resourceWithContent
-            .hasContent();
-        if (resourceHasContent) {
+
+      ThrowingConsumer<Resource, IOException> action = resourceWithContent -> {
+        if (resourceWithContent.hasContent()) {
           try (final InputStream inputStream = resourceWithContent.getContentStream()) {
             resource.markAsWithContent(inputStream);
           }
         }
+      };
+      try (final Resource resourceWithContent = this.resourceDownloadClient
+              .downloadWithContent(downloadInput)) {
+        performThrowingAction(resourceWithContent, action);
       }
     }
 

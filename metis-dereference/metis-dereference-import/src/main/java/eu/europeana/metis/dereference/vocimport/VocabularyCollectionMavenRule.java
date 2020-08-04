@@ -69,6 +69,34 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
    */
   private String vocabularyDirectoryFile = null;
 
+  /**
+   * No-arguments constructor, required for maven instantiation.
+   */
+  public VocabularyCollectionMavenRule() {
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param lenientOnLackOfExamples Whether the the rule is lenient on vocabulary mappings without
+   * examples.
+   * @param lenientOnMappingTestFailures Whether the rule is lenient on errors and unmet
+   * expectations when applying the mapping to the example and counterexample values.
+   * @param lenientOnExampleRetrievalFailures Whether the rule is lenient on example or
+   * counterexample retrieval (download) issues.
+   * @param vocabularyDirectoryFile The relative path to the vocabulary directory file from the root
+   * directory of the project. This value is obligatory and it is a relative path (so it should not
+   * start with a path separator.
+   */
+  public VocabularyCollectionMavenRule(boolean lenientOnLackOfExamples,
+          boolean lenientOnMappingTestFailures, boolean lenientOnExampleRetrievalFailures,
+          String vocabularyDirectoryFile) {
+    this.lenientOnLackOfExamples = lenientOnLackOfExamples;
+    this.lenientOnMappingTestFailures = lenientOnMappingTestFailures;
+    this.lenientOnExampleRetrievalFailures = lenientOnExampleRetrievalFailures;
+    this.vocabularyDirectoryFile = vocabularyDirectoryFile;
+  }
+
   @Override
   public void execute(EnforcerRuleHelper enforcerRuleHelper) throws EnforcerRuleException {
 

@@ -331,20 +331,21 @@ public class WorkflowUtils {
 
     final PluginWithExecutionId<ExecutablePlugin> predecessorPlugin;
     final Set<ExecutablePluginType> defaultPredecessorTypes = getPredecessorTypes(pluginType);
-    // If the plugin type does not need a predecessor (even the enforced one) we are done.
 
     if (defaultPredecessorTypes.isEmpty()) {
+      // If the plugin type does not need a predecessor (even the enforced one) we are done.
       predecessorPlugin = null;
-    }
-    // We also return null if a DEPUBLISH Operation is requested and a successful PUBLISH exists
-    else if (pluginType == ExecutablePluginType.DEPUBLISH && defaultPredecessorTypes.size() == 1
+    } else if (pluginType == ExecutablePluginType.DEPUBLISH && defaultPredecessorTypes.size() == 1
         && defaultPredecessorTypes.contains(ExecutablePluginType.PUBLISH)) {
-      //Make sure there at least one successful plugin of the predecessor
-      defaultPredecessorTypes.stream().map(Collections::singleton).map(
-          type -> workflowExecutionDao.getLatestSuccessfulExecutablePlugin(datasetId, type, true))
-          .filter(Objects::nonNull).filter(WorkflowUtils::pluginHasSuccessfulRecords).findAny()
-          .orElseThrow(() ->
-              new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED));
+      // We also return null if a DEPUBLISH Operation is requested and a successful PUBLISH exists
+      // However, make sure there at least one successful plugin of the predecessor
+      final boolean hasAtLeastOneSuccessfulPlugin = defaultPredecessorTypes.stream()
+              .map(Collections::singleton).map(type -> workflowExecutionDao
+                      .getLatestSuccessfulExecutablePlugin(datasetId, type, true))
+              .filter(Objects::nonNull).anyMatch(WorkflowUtils::pluginHasSuccessfulRecords);
+      if (!hasAtLeastOneSuccessfulPlugin) {
+        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
+      }
       predecessorPlugin = null;
     } else {
 

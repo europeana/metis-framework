@@ -70,7 +70,10 @@ final class EDMParser {
   public Validator getEdmValidator(String path, LSResourceResolver resolver)
           throws EDMParseSetupException {
     try {
-      return getSchema(path, resolver).newValidator();
+      // False positive. The parser has all security settings applied (see getSchema).
+      @SuppressWarnings("squid:S2755")
+      final Validator result = getSchema(path, resolver).newValidator();
+      return result;
     } catch (SAXException | IOException e) {
       throw new EDMParseSetupException("Unable to create validator", e);
     }

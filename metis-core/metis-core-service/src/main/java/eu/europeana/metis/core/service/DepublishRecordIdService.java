@@ -71,14 +71,15 @@ public class DepublishRecordIdService {
     if (recordIdTrimmed.isEmpty()) {
       result = Optional.empty();
     } else {
-      result = validateNonEmptyRecordId(datasetId, recordIdTrimmed);
+      result = Optional.of(validateNonEmptyRecordId(datasetId, recordIdTrimmed));
     }
     return result;
   }
 
-  private Optional<String> validateNonEmptyRecordId(String datasetId, String recordIdTrimmed)
-      throws BadContentException {
-    Optional<String> result;// Check if it is a valid URL. This also checks for spaces.
+  private String validateNonEmptyRecordId(String datasetId, String recordIdTrimmed)
+          throws BadContentException {
+
+    // Check if it is a valid URL. This also checks for spaces.
     try {
       new URI(recordIdTrimmed);
     } catch (URISyntaxException e) {
@@ -116,8 +117,7 @@ public class DepublishRecordIdService {
     }
 
     // Return the last segment (the record ID without the dataset ID).
-    result = Optional.of(lastSegment);
-    return result;
+    return lastSegment;
   }
 
   /**

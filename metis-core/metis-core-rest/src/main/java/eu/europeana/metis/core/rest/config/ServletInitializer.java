@@ -41,7 +41,7 @@ public class ServletInitializer extends AbstractDispatcherServletInitializer {
     // register a MultipartConfigElement.
     final File uploadDirectory = new File(System.getProperty("java.io.tmpdir"));
     final MultipartConfigElement multipartConfigElement = new MultipartConfigElement(
-            uploadDirectory.getAbsolutePath(), MAX_UPLOAD_SIZE_IN_MB, MAX_UPLOAD_SIZE_IN_MB * 2,
+            uploadDirectory.getAbsolutePath(), MAX_UPLOAD_SIZE_IN_MB, MAX_UPLOAD_SIZE_IN_MB * 2L,
             MAX_UPLOAD_SIZE_IN_MB / 2);
     registration.setMultipartConfig(multipartConfigElement);
   }

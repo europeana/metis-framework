@@ -24,10 +24,21 @@ public class EntityService implements Closeable {
 
   private final EntityDao entityDao;
 
+  /**
+   * Constructor.
+   * @param mongoHost The host to connect to.
+   * @param mongoPort The port to connect to.
+   * @param mongoDatabase The database to connect to.
+   */
   public EntityService(String mongoHost, int mongoPort, String mongoDatabase) {
     this.entityDao = getEntityDao(mongoHost, mongoPort, mongoDatabase);
   }
 
+  /**
+   * Constructor.
+   * @param mongoConnectionUrl A valid mongo connection URL.
+   * @param mongoDatabase The database to connect to.
+   */
   public EntityService(String mongoConnectionUrl, String mongoDatabase) {
     this.entityDao = new EntityDao(new MongoClient(new MongoClientURI(mongoConnectionUrl)),
         mongoDatabase);

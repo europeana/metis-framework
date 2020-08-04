@@ -65,7 +65,7 @@ public class ZipFileReader {
           throws IOException {
     try (final ZipFile zipFile = createTempZipFile(providedZipFile)) {
       final List<InputStream> streams = getContentFromZipFile(zipFile);
-      final List<ByteArrayInputStream> result = new ArrayList<>();
+      final List<ByteArrayInputStream> result = new ArrayList<>(streams.size());
       for (InputStream stream : streams) {
         result.add(new ByteArrayInputStream(IOUtils.toByteArray(stream)));
       }
@@ -83,7 +83,7 @@ public class ZipFileReader {
 
   List<String> getRecordsFromZipFile(ZipFile zipFile) throws IOException {
     final List<InputStream> streams = getContentFromZipFile(zipFile);
-    final List<String> result = new ArrayList<>();
+    final List<String> result = new ArrayList<>(streams.size());
     for (InputStream stream : streams) {
       result.add(IOUtils.toString(stream, StandardCharsets.UTF_8.name()));
     }

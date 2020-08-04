@@ -346,6 +346,8 @@ class ThumbnailGenerator {
     try {
       for (ThumbnailKind thumbnailKind : ThumbnailKind.values()) {
         final String targetName = md5 + thumbnailKind.getNameSuffix();
+        // False positive - we don't want to close the thumbnail here.
+        @SuppressWarnings("squid:S2095")
         final ThumbnailImpl thumbnail = new ThumbnailImpl(url, thumbnailMimeType, targetName);
         result.add(new ThumbnailWithSize(thumbnail, thumbnailKind.getImageSize(),
             imageMagickThumbnailTypePrefix));
