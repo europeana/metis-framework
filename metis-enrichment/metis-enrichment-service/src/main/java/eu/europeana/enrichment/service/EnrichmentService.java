@@ -71,7 +71,7 @@ public class EnrichmentService {
         //Language has to be a valid 2 code, otherwise we do not use it
         final String inputValueLanguage = inputValue.getLanguage();
         final String language =
-            inputValueLanguage != null && ALL_2CODE_LANGUAGES.contains(inputValueLanguage)
+            StringUtils.isNotBlank(inputValueLanguage) && ALL_2CODE_LANGUAGES.contains(inputValueLanguage)
                 ? inputValueLanguage : null;
         final String value = inputValue.getValue().toLowerCase(Locale.US);
 
