@@ -70,9 +70,8 @@ public class EnrichmentService {
         final List<EntityType> entityTypes = inputValue.getEntityTypes();
         //Language has to be a valid 2 code, otherwise we do not use it
         final String inputValueLanguage = inputValue.getLanguage();
-        final String language =
-            StringUtils.isNotBlank(inputValueLanguage) && ALL_2CODE_LANGUAGES.contains(inputValueLanguage)
-                ? inputValueLanguage : null;
+        final String language = (StringUtils.isNotBlank(inputValueLanguage) && ALL_2CODE_LANGUAGES
+            .contains(inputValueLanguage)) ? inputValueLanguage : null;
         final String value = inputValue.getValue().toLowerCase(Locale.US);
 
         if (CollectionUtils.isEmpty(entityTypes) || StringUtils.isBlank(value)) {
