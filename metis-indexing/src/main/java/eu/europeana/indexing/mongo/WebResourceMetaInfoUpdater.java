@@ -2,6 +2,8 @@ package eu.europeana.indexing.mongo;
 
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
+import dev.morphia.mapping.Mapper;
+import dev.morphia.query.Query;
 import eu.europeana.corelib.definitions.edm.model.metainfo.AudioMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.TextMetaInfo;
@@ -10,14 +12,11 @@ import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdaterFactory;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import org.mongodb.morphia.mapping.Mapper;
-import org.mongodb.morphia.query.Query;
 
 /**
  * Field updater for instances of {@link WebResourceMetaInfoImpl}.

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import dev.morphia.Datastore;
+import dev.morphia.query.Query;
 import eu.europeana.corelib.definitions.jibx.Alternative;
 import eu.europeana.corelib.definitions.jibx.ConformsTo;
 import eu.europeana.corelib.definitions.jibx.Contributor;
@@ -55,8 +57,6 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
 
 class ProxyFieldInputTest {
 

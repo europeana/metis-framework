@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import dev.morphia.Datastore;
+import dev.morphia.Key;
+import dev.morphia.query.Query;
 import eu.europeana.corelib.definitions.jibx.AltLabel;
 import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.LiteralType.Lang;
@@ -16,9 +19,6 @@ import eu.europeana.corelib.solr.entity.ConceptImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Key;
-import org.mongodb.morphia.query.Query;
 
 /**
  * Unit tests for Concepts field input creator

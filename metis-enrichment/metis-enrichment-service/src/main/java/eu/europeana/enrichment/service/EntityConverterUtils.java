@@ -4,8 +4,7 @@ import static eu.europeana.metis.zoho.ZohoUtils.stringFieldSupplier;
 
 import com.zoho.crm.library.crud.ZCRMRecord;
 import com.zoho.crm.library.crud.ZCRMTrashRecord;
-import eu.europeana.corelib.definitions.edm.entity.Address;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.Address;
 import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.TextProperty;
@@ -348,7 +347,7 @@ public class EntityConverterUtils {
    * @param baseOrganization The base organization. Cannot be null.
    * @param addOrganization The add organization. Cannot be null.
    */
-  public void mergeAddress(Organization baseOrganization, Organization addOrganization) {
+  public void mergeAddress(OrganizationImpl baseOrganization, OrganizationImpl addOrganization) {
 
     // If does, or the add organization has nothing to replace, we're done.
     if (addOrganization.getAddress() == null) {
@@ -357,13 +356,13 @@ public class EntityConverterUtils {
 
     // Make sure that the base address is not null
     if (baseOrganization.getAddress() == null) {
-      baseOrganization.setAddress(new AddressImpl());
+      baseOrganization.setAddress(new Address(new AddressImpl()));
     }
 
     // Copy the values from the add organization. Copy the country only if there is a value
     // (otherwise keep the base country).
-    final Address baseAddress = baseOrganization.getAddress();
-    final Address addAddress = addOrganization.getAddress();
+    final AddressImpl baseAddress = baseOrganization.getAddress().getAddressImpl();
+    final AddressImpl addAddress = addOrganization.getAddress().getAddressImpl();
 
     // TODO: enable when the issues related to locality and street address are solved in the mapping
     // baseAddress.setVcardLocality(addAddress.getVcardLocality());
@@ -385,12 +384,12 @@ public class EntityConverterUtils {
   }
 
   /**
-   * Converter for {@link ZCRMRecord} containing Zoho organization info to {@link Organization}
+   * Converter for {@link ZCRMRecord} containing Zoho organization info to {@link OrganizationImpl}
    *
    * @param zohoOrganization the Zoho Organization object to convert
    * @return the converted Organization object
    */
-  public Organization toEdmOrganization(ZCRMRecord zohoOrganization) {
+  public OrganizationImpl toEdmOrganization(ZCRMRecord zohoOrganization) {
 
     OrganizationImpl org = new OrganizationImpl();
 
@@ -449,7 +448,7 @@ public class EntityConverterUtils {
     }
 
     // address
-    Address address = new AddressImpl();
+    AddressImpl address = new AddressImpl();
     address.setAbout(org.getAbout() + "#address");
     address.setVcardStreetAddress(
         stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.STREET_FIELD)));
@@ -461,7 +460,7 @@ public class EntityConverterUtils {
         stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.ZIP_CODE_FIELD)));
     address.setVcardPostOfficeBox(
         stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.PO_BOX_FIELD)));
-    org.setAddress(address);
+    org.setAddress(new Address(address));
 
     return org;
   }

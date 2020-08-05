@@ -2,12 +2,11 @@ package eu.europeana.enrichment.service;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
-import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
+import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
 import java.io.Closeable;
@@ -58,7 +57,7 @@ public class EntityService implements Closeable {
     this.enrichmentDao.close();
   }
 
-  public OrganizationTermList storeOrganization(Organization org,
+  public OrganizationTermList storeOrganization(OrganizationImpl org,
       Date created, Date modified) {
 
     // build term list
@@ -100,7 +99,7 @@ public class EntityService implements Closeable {
    * @param org The OrganizationImpl object
    * @return list of organization roles
    */
-  public List<String> getOrganizationRoles(Organization org) {
+  public List<String> getOrganizationRoles(OrganizationImpl org) {
 
     return org.getEdmEuropeanaRole().get(Locale.ENGLISH.toString());
   }
@@ -112,7 +111,7 @@ public class EntityService implements Closeable {
    * @param uri The EDM organization uri (codeUri)
    * @return OrganizationImpl object
    */
-  public Organization getOrganizationById(String uri) {
+  public OrganizationImpl getOrganizationById(String uri) {
     MongoTermList<OrganizationImpl> storedOrg =
         enrichmentDao
             .getTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD, uri);
@@ -128,7 +127,7 @@ public class EntityService implements Closeable {
   public List<String> findExistingOrganizations(List<String> organizationIds) {
     List<String> res = new ArrayList<>();
     for (String id : organizationIds) {
-      Organization organization = getOrganizationById(id);
+      OrganizationImpl organization = getOrganizationById(id);
       if (organization != null) {
         res.add(organization.getAbout());
       }

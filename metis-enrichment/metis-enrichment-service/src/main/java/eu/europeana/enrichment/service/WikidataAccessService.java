@@ -1,5 +1,16 @@
 package eu.europeana.enrichment.service;
 
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.Address;
+import eu.europeana.corelib.solr.entity.AddressImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.model.EdmOrganization;
+import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.enrichment.api.external.model.Resource;
+import eu.europeana.enrichment.api.external.model.VcardAddress;
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
+import eu.europeana.enrichment.service.dao.WikidataAccessDao;
+import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -15,17 +26,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
-import eu.europeana.corelib.definitions.edm.entity.Address;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.AddressImpl;
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.external.model.EdmOrganization;
-import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.VcardAddress;
-import eu.europeana.enrichment.api.external.model.WikidataOrganization;
-import eu.europeana.enrichment.service.dao.WikidataAccessDao;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
 
 /**
@@ -81,7 +81,7 @@ public class WikidataAccessService {
    * @throws WikidataAccessException if an exception occurred during dereferencing of the wikidata
    * uri
    */
-  public Organization dereference(String wikidataUri) throws WikidataAccessException {
+  public OrganizationImpl dereference(String wikidataUri) throws WikidataAccessException {
 
     StringBuilder wikidataXml = null;
     WikidataOrganization wikidataOrganization;
@@ -122,7 +122,7 @@ public class WikidataAccessService {
    * @param wikidataOrganization the wikidata organization object to extract values from
    * @return the converted organization
    */
-  public Organization toOrganizationImpl(WikidataOrganization wikidataOrganization) {
+  public OrganizationImpl toOrganizationImpl(WikidataOrganization wikidataOrganization) {
 
     OrganizationImpl org = new OrganizationImpl();
 
@@ -191,18 +191,18 @@ public class WikidataAccessService {
     if (edmOrganization.getHasAddress() != null
         && edmOrganization.getHasAddress().getVcardAddressesList() != null) {
       VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddressesList().get(0);
-      Address address = new AddressImpl();
-      address.setAbout(org.getAbout() + "#address");
-      address.setVcardCountryName(vcardAddress.getCountryName());
+      AddressImpl addressImpl = new AddressImpl();
+      addressImpl.setAbout(org.getAbout() + "#address");
+      addressImpl.setVcardCountryName(vcardAddress.getCountryName());
       if(vcardAddress.getHasGeo() != null)
-        address.setVcardHasGeo(vcardAddress.getHasGeo().getResource());
+        addressImpl.setVcardHasGeo(vcardAddress.getHasGeo().getResource());
 // TODO: enable support for other address fields and locality when the issues related to
 //  the dereferencing localities, and support for multiple addresses are available
 //      address.setVcardStreetAddress(vcardAddress.getStreetAddress());
 //      address.setVcardLocality(vcardAddress.getLocality());
 //      address.setVcardPostalCode(vcardAddress.getPostalCode());
 //      address.setVcardPostOfficeBox(vcardAddress.getPostOfficeBox());
-      org.setAddress(address);
+      org.setAddress(new Address(addressImpl));
     }
 
     return org;
@@ -237,8 +237,8 @@ public class WikidataAccessService {
    * @param wikidataOrganization the wikidata object from which the wikidata values will be
    * extracted
    */
-  public void mergePropsFromWikidata(Organization zohoOrganization,
-      Organization wikidataOrganization) {
+  public void mergePropsFromWikidata(OrganizationImpl zohoOrganization,
+      OrganizationImpl wikidataOrganization) {
 
     // Merge the pref label maps. There may be some values that could not be merged, they will later
     // be added as alternative label.
@@ -305,7 +305,7 @@ public class WikidataAccessService {
    * @param wikidataOrganization
    * @return
    */
-  private String[] buildSameAs(Organization zohoOrganization, Organization wikidataOrganization) {
+  private String[] buildSameAs(OrganizationImpl zohoOrganization, OrganizationImpl wikidataOrganization) {
     
     String[] sameAs = getEntityConverterUtils().mergeStringArrays(
         zohoOrganization.getOwlSameAs(), wikidataOrganization.getOwlSameAs());
