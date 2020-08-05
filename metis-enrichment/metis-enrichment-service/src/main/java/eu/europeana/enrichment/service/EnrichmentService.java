@@ -69,9 +69,10 @@ public class EnrichmentService {
         final String originalField = inputValue.getRdfFieldName();
         final List<EntityType> entityTypes = inputValue.getEntityTypes();
         //Language has to be a valid 2 code, otherwise we do not use it
+        final String inputValueLanguage = inputValue.getLanguage();
         final String language =
-            ALL_2CODE_LANGUAGES.contains(inputValue.getLanguage()) ? inputValue.getLanguage()
-                : null;
+            inputValueLanguage != null && ALL_2CODE_LANGUAGES.contains(inputValueLanguage)
+                ? inputValueLanguage : null;
         final String value = inputValue.getValue().toLowerCase(Locale.US);
 
         if (CollectionUtils.isEmpty(entityTypes) || StringUtils.isBlank(value)) {
