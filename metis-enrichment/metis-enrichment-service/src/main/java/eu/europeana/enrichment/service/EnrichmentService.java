@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
@@ -103,7 +104,7 @@ public class EnrichmentService {
           new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri));
       enrichmentBaseSuppliers.addAll(
           getEnrichmentBaseSuppliers(new ImmutablePair<>(EnrichmentDao.OWL_SAME_AS_FIELD, uri)));
-      enrichmentBases.add(getFirstMatch(enrichmentBaseSuppliers));
+      Optional.ofNullable(getFirstMatch(enrichmentBaseSuppliers)).ifPresent(enrichmentBases::add);
     } catch (RuntimeException | IOException e) {
       LOGGER.warn("Unable to retrieve entity from id", e);
     }
@@ -122,8 +123,7 @@ public class EnrichmentService {
       //Create the list of suppliers that we'll use to find first match in order
       final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = getEnrichmentBaseSuppliers(
           new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, codeUri));
-
-      enrichmentBases.add(getFirstMatch(enrichmentBaseSuppliers));
+      Optional.ofNullable(getFirstMatch(enrichmentBaseSuppliers)).ifPresent(enrichmentBases::add);
     } catch (RuntimeException | IOException e) {
       LOGGER.warn("Unable to retrieve entity from codeUri", e);
     }
