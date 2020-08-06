@@ -39,7 +39,6 @@ public class EnrichmentDao {
 
   private final MongoClient mongoClient;
 
-
   /**
    * Parameter constructor.
    *

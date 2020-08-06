@@ -73,7 +73,7 @@ public class EnrichmentService {
           continue;
         }
         for (EntityType entityType : entityTypes) {
-          findEntities(entityType, value, language).stream()
+          findEnrichmentTerms(entityType, value, language).stream()
               .map(enrichmentBase -> new ImmutablePair<>(originalField, enrichmentBase))
               .forEach(enrichmentBases::add);
         }
@@ -93,15 +93,16 @@ public class EnrichmentService {
   public List<EnrichmentBase> enrichByCodeUriOrOwlSameAs(String uri) {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
-      //First check code codeUri, otherwise OwlSameAs
-      EnrichmentBase enrichmentBase = getEntitiesAndConvert(
-          Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri))).get(0);
-      if (CollectionUtils.isEmpty(enrichmentBases)) {
-        enrichmentBase = getEntitiesAndConvert(
-            Collections.singletonList(new ImmutablePair<>(EnrichmentDao.OWL_SAME_AS_FIELD, uri)))
-            .get(0);
+      //First check codeUri, otherwise OwlSameAs
+      List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(
+          Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri)));
+      if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
+        foundEnrichmentBases = getEnrichmentTermsAndConvert(
+            Collections.singletonList(new ImmutablePair<>(EnrichmentDao.OWL_SAME_AS_FIELD, uri)));
       }
-      enrichmentBases.add(enrichmentBase);
+      if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
+        enrichmentBases.add(foundEnrichmentBases.get(0));
+      }
     } catch (RuntimeException e) {
       LOGGER.warn("Unable to retrieve entity from id", e);
     }
@@ -117,24 +118,25 @@ public class EnrichmentService {
   public List<EnrichmentBase> enrichByCodeUri(String codeUri) {
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
     try {
-      EnrichmentBase enrichmentBase = getEntitiesAndConvert(
-          Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, codeUri)))
-          .get(0);
-      enrichmentBases.add(enrichmentBase);
+      List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(
+          Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, codeUri)));
+      if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
+        enrichmentBases.add(foundEnrichmentBases.get(0));
+      }
     } catch (RuntimeException e) {
       LOGGER.warn("Unable to retrieve entity from codeUri", e);
     }
     return enrichmentBases;
   }
 
-  private List<EnrichmentBase> getEntitiesAndConvert(
+  private List<EnrichmentBase> getEnrichmentTermsAndConvert(
       List<Pair<String, String>> fieldNamesAndValues) {
     final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
         .getAllEnrichmentTermsByFields(fieldNamesAndValues);
     return Converter.convert(enrichmentTerms);
   }
 
-  private List<EnrichmentBase> findEntities(EntityType entityType, String termLabel,
+  private List<EnrichmentBase> findEnrichmentTerms(EntityType entityType, String termLabel,
       String termLanguage) {
 
     //Find all terms that match label and language
@@ -181,7 +183,8 @@ public class EnrichmentService {
     EnrichmentTerm currentEnrichmentTerm = enrichmentTerm;
     while (StringUtils.isNotBlank(currentEnrichmentTerm.getParent())) {
       currentEnrichmentTerm = enrichmentDao
-          .getEnrichmentTermByField(EnrichmentDao.CODE_URI_FIELD, currentEnrichmentTerm.getParent());
+          .getEnrichmentTermByField(EnrichmentDao.CODE_URI_FIELD,
+              currentEnrichmentTerm.getParent());
       //Break when there is no other parent available or when we have already encountered the codeUri
       if (currentEnrichmentTerm == null || !parentEntities
           .add(currentEnrichmentTerm.getCodeUri())) {
