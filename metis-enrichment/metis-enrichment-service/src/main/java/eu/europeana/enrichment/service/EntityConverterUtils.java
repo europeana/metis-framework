@@ -4,7 +4,7 @@ import static eu.europeana.metis.zoho.ZohoUtils.stringFieldSupplier;
 
 import com.zoho.crm.library.crud.ZCRMRecord;
 import com.zoho.crm.library.crud.ZCRMTrashRecord;
-import eu.europeana.corelib.solr.entity.Address;
+import eu.europeana.corelib.definitions.edm.entity.Address;
 import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.TextProperty;
@@ -356,13 +356,13 @@ public class EntityConverterUtils {
 
     // Make sure that the base address is not null
     if (baseOrganization.getAddress() == null) {
-      baseOrganization.setAddress(new Address(new AddressImpl()));
+      baseOrganization.setAddress(new AddressImpl());
     }
 
     // Copy the values from the add organization. Copy the country only if there is a value
     // (otherwise keep the base country).
-    final AddressImpl baseAddress = baseOrganization.getAddress().getAddressImpl();
-    final AddressImpl addAddress = addOrganization.getAddress().getAddressImpl();
+    final Address baseAddress = baseOrganization.getAddress();
+    final Address addAddress = addOrganization.getAddress();
 
     // TODO: enable when the issues related to locality and street address are solved in the mapping
     // baseAddress.setVcardLocality(addAddress.getVcardLocality());
@@ -460,7 +460,7 @@ public class EntityConverterUtils {
         stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.ZIP_CODE_FIELD)));
     address.setVcardPostOfficeBox(
         stringFieldSupplier(zohoOrganizationFields.get(ZohoConstants.PO_BOX_FIELD)));
-    org.setAddress(new Address(address));
+    org.setAddress(address);
 
     return org;
   }

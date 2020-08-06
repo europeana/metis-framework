@@ -1,6 +1,5 @@
 package eu.europeana.enrichment.service;
 
-import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
@@ -14,9 +13,8 @@ import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.enrichment.utils.EntityTypeUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,30 +30,28 @@ public final class Converter {
   }
 
   public static List<EnrichmentBase> convert(
-      List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists) {
-    return mongoTermLists.stream().map(Converter::convert).collect(Collectors.toList());
+      List<EnrichmentTerm> enrichmentTerms) {
+    return enrichmentTerms.stream().map(Converter::convert).collect(Collectors.toList());
   }
 
-  public static EnrichmentBase convert(
-      MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
+  public static EnrichmentBase convert(EnrichmentTerm enrichmentTerm) {
     final EnrichmentBase result;
-    final EntityType entityType = EntityTypeUtils
-        .getEntityTypeFromClassImpl(mongoTermList.getEntityType());
+    final EntityType entityType = enrichmentTerm.getEntityType();
     if (entityType == null) {
       return null;
     }
     switch (entityType) {
       case AGENT:
-        result = convertAgent((AgentImpl) mongoTermList.getRepresentation());
+        result = convertAgent((AgentImpl) enrichmentTerm.getContextualEntity());
         break;
       case CONCEPT:
-        result = convertConcept((ConceptImpl) mongoTermList.getRepresentation());
+        result = convertConcept((ConceptImpl) enrichmentTerm.getContextualEntity());
         break;
       case PLACE:
-        result = convertPlace((PlaceImpl) mongoTermList.getRepresentation());
+        result = convertPlace((PlaceImpl) enrichmentTerm.getContextualEntity());
         break;
       case TIMESPAN:
-        result = convertTimespan((TimespanImpl) mongoTermList.getRepresentation());
+        result = convertTimespan((TimespanImpl) enrichmentTerm.getContextualEntity());
         break;
       default:
         result = null;

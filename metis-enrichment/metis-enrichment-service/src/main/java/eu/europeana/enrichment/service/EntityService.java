@@ -3,9 +3,8 @@ package eu.europeana.enrichment.service;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.internal.MongoTermList;
-import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
+import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
@@ -15,6 +14,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +26,7 @@ public class EntityService implements Closeable {
 
   /**
    * Constructor.
+   *
    * @param mongoHost The host to connect to.
    * @param mongoPort The port to connect to.
    * @param mongoDatabase The database to connect to.
@@ -36,6 +37,7 @@ public class EntityService implements Closeable {
 
   /**
    * Constructor.
+   *
    * @param mongoConnectionUrl A valid mongo connection URL.
    * @param mongoDatabase The database to connect to.
    */
@@ -57,51 +59,35 @@ public class EntityService implements Closeable {
     this.enrichmentDao.close();
   }
 
-  public OrganizationTermList storeOrganization(OrganizationImpl org,
-      Date created, Date modified) {
+  public OrganizationImpl storeOrganization(OrganizationImpl organization,
+      Date created, Date updated) {
 
-    // build term list
-    OrganizationTermList termList = organizationToOrganizationTermList(
-        (OrganizationImpl) org, created, modified);
+    final EnrichmentTerm enrichmentTerm = organizationImplToEnrichmentTerm(organization, created,
+        updated);
 
-    final MongoTermList<OrganizationImpl> storedOrg = enrichmentDao
-        .getTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD,
-            org.getAbout());
+    // TODO: 8/6/20 Use only id projection here.
+    final EnrichmentTerm storedEnrichmentTerm = enrichmentDao
+        .getEnrichmentTermByField(EnrichmentDao.CODE_URI_FIELD,
+            organization.getAbout());
 
-    // it is an update
-    if (storedOrg != null) {
-      // set database id
-      termList.setId(storedOrg.getId());
+    if (storedEnrichmentTerm != null) {
+      enrichmentTerm.setId(storedEnrichmentTerm.getId());
     }
 
-    // delete old terms (labels), also when the termList is not found to
-    // will avoid problems when manually deleting the entries in the
-    // database
-    enrichmentDao.deleteMongoTerms(EnrichmentDao.ORGANIZATION_TABLE,
-        Collections.singletonList(org.getAbout()));
-
-    // store labels
-    int countOfStoredMongoTerms = enrichmentDao.saveMongoTermsFromEntity(
-        (OrganizationImpl) org, EntityType.ORGANIZATION);
-    LOGGER.trace("Stored {} new mongo terms", countOfStoredMongoTerms);
-
-    // store term list
-    final String id = enrichmentDao.saveTermList(termList);
-    final MongoTermList<OrganizationImpl> storedOrganizationMongoTermList = enrichmentDao
-        .getTermListByField(OrganizationTermList.class, EnrichmentDao.ID_FIELD, id);
-    return (OrganizationTermList) storedOrganizationMongoTermList;
-
+    //Save term list
+    final String id = enrichmentDao.saveEnrichmentTerm(enrichmentTerm);
+    return (OrganizationImpl) enrichmentDao.getEnrichmentTermByField(EnrichmentDao.ID_FIELD, id)
+        .getContextualEntity();
   }
 
   /**
    * This method retrieves organization roles from given organization object
    *
-   * @param org The OrganizationImpl object
+   * @param organization The OrganizationImpl object
    * @return list of organization roles
    */
-  public List<String> getOrganizationRoles(OrganizationImpl org) {
-
-    return org.getEdmEuropeanaRole().get(Locale.ENGLISH.toString());
+  public List<String> getOrganizationRoles(OrganizationImpl organization) {
+    return organization.getEdmEuropeanaRole().get(Locale.ENGLISH.toString());
   }
 
 
@@ -111,11 +97,10 @@ public class EntityService implements Closeable {
    * @param uri The EDM organization uri (codeUri)
    * @return OrganizationImpl object
    */
-  public OrganizationImpl getOrganizationById(String uri) {
-    MongoTermList<OrganizationImpl> storedOrg =
-        enrichmentDao
-            .getTermListByField(OrganizationTermList.class, EnrichmentDao.CODE_URI_FIELD, uri);
-    return storedOrg == null ? null : storedOrg.getRepresentation();
+  public OrganizationImpl getOrganizationByUri(String uri) {
+    final EnrichmentTerm enrichmentTerm = enrichmentDao
+        .getEnrichmentTermByField(EnrichmentDao.CODE_URI_FIELD, uri);
+    return enrichmentTerm == null ? null : (OrganizationImpl) enrichmentTerm.getContextualEntity();
   }
 
   /**
@@ -127,7 +112,7 @@ public class EntityService implements Closeable {
   public List<String> findExistingOrganizations(List<String> organizationIds) {
     List<String> res = new ArrayList<>();
     for (String id : organizationIds) {
-      OrganizationImpl organization = getOrganizationById(id);
+      OrganizationImpl organization = getOrganizationByUri(id);
       if (organization != null) {
         res.add(organization.getAbout());
       }
@@ -141,8 +126,7 @@ public class EntityService implements Closeable {
    * @param organizationIds The organization IDs
    */
   public void deleteOrganizations(List<String> organizationIds) {
-    enrichmentDao.deleteEntities(EnrichmentDao.ORGANIZATION_TABLE, EnrichmentDao.ORGANIZATION_TYPE,
-        organizationIds);
+    enrichmentDao.deleteEnrichmentTerms(EntityType.ORGANIZATION, organizationIds);
   }
 
   /**
@@ -151,29 +135,20 @@ public class EntityService implements Closeable {
    * @param organizationId The organization ID
    */
   public void deleteOrganization(String organizationId) {
-    enrichmentDao
-        .deleteEntities(EnrichmentDao.ORGANIZATION_TABLE, EnrichmentDao.ORGANIZATION_TYPE,
-            Collections.singletonList(organizationId));
+    enrichmentDao.deleteEnrichmentTerms(EntityType.ORGANIZATION,
+        Collections.singletonList(organizationId));
   }
 
-  private OrganizationTermList organizationToOrganizationTermList(OrganizationImpl organization,
-      Date created, Date modified) {
-    OrganizationTermList termList = new OrganizationTermList();
+  private EnrichmentTerm organizationImplToEnrichmentTerm(OrganizationImpl organization,
+      Date created, Date updated) {
+    final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
+    enrichmentTerm.setCodeUri(organization.getAbout());
+    enrichmentTerm.setContextualEntity(organization);
+    enrichmentTerm.setEntityType(EntityType.ORGANIZATION);
+    enrichmentTerm.setCreated(Objects.requireNonNullElseGet(created, Date::new));
+    enrichmentTerm.setUpdated(updated);
 
-    termList.setCodeUri(organization.getAbout());
-    termList.setRepresentation(organization);
-    termList.setEntityType(OrganizationImpl.class.getSimpleName());
-
-    // enforce created not null
-    if (created == null) {
-      termList.setCreated(new Date());
-    } else {
-      termList.setCreated(created);
-    }
-
-    termList.setModified(modified);
-
-    return termList;
+    return enrichmentTerm;
   }
 
   /**
@@ -182,6 +157,6 @@ public class EntityService implements Closeable {
    * @return the last modified date
    */
   public Date getLastOrganizationImportDate() {
-    return enrichmentDao.getDateOfLastModifiedEntity(EntityType.ORGANIZATION);
+    return enrichmentDao.getDateOfLastUpdatedEnrichmentTerm(EntityType.ORGANIZATION);
   }
 }

@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.service;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.Address;
 import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.EdmOrganization;
@@ -202,7 +201,7 @@ public class WikidataAccessService {
 //      address.setVcardLocality(vcardAddress.getLocality());
 //      address.setVcardPostalCode(vcardAddress.getPostalCode());
 //      address.setVcardPostOfficeBox(vcardAddress.getPostOfficeBox());
-      org.setAddress(new Address(addressImpl));
+      org.setAddress(addressImpl);
     }
 
     return org;
