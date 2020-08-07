@@ -16,6 +16,8 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
+ * Enrichment Term containing the relative contextual object.
+ *
  * @author Simon Tzanakis
  * @since 2020-08-04
  */
@@ -51,6 +53,7 @@ public class EnrichmentTerm {
   private List<LabelInfo> labelInfos;
 
   public EnrichmentTerm() {
+    // Required for json serialization
   }
 
   public EntityType getEntityType() {

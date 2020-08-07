@@ -15,9 +15,11 @@ import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
 
 /**
  * Data Access Object for accessing enrichment entities from Mongo.
@@ -32,7 +34,7 @@ public class EnrichmentDao {
   public static final String ID_FIELD = "_id";
   public static final String ENTITY_TYPE_FIELD = "entityType";
   public static final String CODE_URI_FIELD = "codeUri";
-  private static final String MODIFIED_FIELD = "modified";
+  private static final String UPDATED_FIELD = "updated";
   public static final String OWL_SAME_AS_FIELD = "owlSameAs";
   public static final String LABEL_FIELD = "labelInfos.lowerCaseLabel";
   public static final String LANG_FIELD = "labelInfos.lang";
@@ -59,17 +61,37 @@ public class EnrichmentDao {
    *
    * @param fieldName the field name
    * @param fieldValue the field value
-   * @return the retrieved mongo term list
+   * @return the retrieved enrichment term
    */
-  public EnrichmentTerm getEnrichmentTermByField(String fieldName, String fieldValue) {
+  public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, String fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> this.datastore.find(EnrichmentTerm.class).filter(fieldName, fieldValue).first());
+        () -> Optional.ofNullable(
+            this.datastore.find(EnrichmentTerm.class).filter(fieldName, fieldValue).first()));
+  }
+
+  /**
+   * Get the enrichmentTerm {@link ObjectId} by using a provided field name and it's value.
+   * <p>Returns the first entity found</p>
+   *
+   * @param fieldName the field name
+   * @param fieldValue the field value
+   * @return the retrieved enrichment term object id if present
+   */
+  public Optional<ObjectId> getEnrichmentTermObjectIdByField(String fieldName, String fieldValue) {
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+        () -> {
+          final Optional<EnrichmentTerm> enrichmentTerm = Optional
+              .ofNullable(this.datastore.find(EnrichmentTerm.class).filter(fieldName, fieldValue)
+                  .project("_id", true).first());
+          return enrichmentTerm.map(EnrichmentTerm::getId);
+        });
   }
 
   /**
    * Get a list of enrichmentTerm by using a provided pair of field names and values.
    * <p>Convenience method to avoid needless list generation if {@link
-   * #getAllEnrichmentTermsByFieldsInList} was used.</p>
+   * #getAllEnrichmentTermsByFieldsInList} was used.
+   * Order of supplied field pairs matter on the query performance.</p>
    *
    * @param fieldNameAndValues the list of pairs with key being the fieldName and value being the
    * fieldValue
@@ -87,6 +109,7 @@ public class EnrichmentDao {
   /**
    * Get a list of enrichmentTerm by using a provided pair of field names and per field name a list
    * of values.
+   * <p>Order of supplied field pairs matter on the query performance.</p>
    *
    * @param fieldNameAndValues the list of pairs with key being the fieldName and value being a list
    * of fieldValues
@@ -111,7 +134,7 @@ public class EnrichmentDao {
   public Date getDateOfLastUpdatedEnrichmentTerm(EntityType entityType) {
     Query<EnrichmentTerm> query = datastore.createQuery(EnrichmentTerm.class);
     query.filter(ENTITY_TYPE_FIELD, entityType);
-    query.order(Sort.descending(MODIFIED_FIELD));
+    query.order(Sort.descending(UPDATED_FIELD));
     final EnrichmentTerm enrichmentTerm = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(query::first);
 
@@ -136,8 +159,9 @@ public class EnrichmentDao {
   }
 
   /**
-   * Delete entities that match the provided codeUris.
-   * <p>Removes entities from the corresponding enrichmentTerm using {@code entityType}.</p>
+   * Delete enrichmentTerms that match the provided codeUris.
+   * <p>Removes entities from the corresponding enrichmentTerm using {@code entityType}.
+   * It also removes entities that match with the provided codeUris with owlSameAs.</p>
    *
    * @param entityType the entity type string
    * @param codeUris the code uri to match
@@ -151,8 +175,8 @@ public class EnrichmentDao {
     final Query<EnrichmentTerm> enrichmentTermsSameAsQuery = this.datastore
         .createQuery(EnrichmentTerm.class).filter(ENTITY_TYPE_FIELD, entityType)
         .field(OWL_SAME_AS_FIELD).in(codeUris);
-    final List<EnrichmentTerm> enrichmentTermsSameAs = getListOfQuery(enrichmentTermsSameAsQuery);
-    final List<String> sameAsCodeUris = enrichmentTermsSameAs.stream()
+    final List<EnrichmentTerm> enrichmentTermsOwlSameAs = getListOfQuery(enrichmentTermsSameAsQuery);
+    final List<String> sameAsCodeUris = enrichmentTermsOwlSameAs.stream()
         .map(EnrichmentTerm::getCodeUri)
         .collect(Collectors.toList());
     //Remove from EnrichmentTerm

@@ -3,21 +3,24 @@ package eu.europeana.enrichment.service;
 import static eu.europeana.metis.zoho.ZohoUtils.stringFieldSupplier;
 
 import com.zoho.crm.library.crud.ZCRMRecord;
-import com.zoho.crm.library.crud.ZCRMTrashRecord;
 import eu.europeana.corelib.definitions.edm.entity.Address;
 import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
 import eu.europeana.enrichment.api.external.model.TextProperty;
 import eu.europeana.enrichment.api.external.model.WebResource;
+import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.zoho.ZohoConstants;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
@@ -56,7 +59,7 @@ public class EntityConverterUtils {
    * @param value The value.
    * @return The map, or null if the value is null.
    */
-  public Map<String, String> createMap(String key, String value) {
+  public static Map<String, String> createMap(String key, String value) {
     return value == null ? null : Collections.singletonMap(key, value);
   }
 
@@ -66,7 +69,7 @@ public class EntityConverterUtils {
    * @param value The value.
    * @return The list, or null if the value is null.
    */
-  List<String> createList(String value) {
+  static List<String> createList(String value) {
     return value == null ? Collections.emptyList() : Collections.singletonList(value);
   }
 
@@ -97,7 +100,7 @@ public class EntityConverterUtils {
    * @param textPropertyList the list of text property objects
    * @return the language map
    */
-  public Map<String, List<String>> createMapWithListsFromTextPropertyListMerging(
+  public static Map<String, List<String>> createMapWithListsFromTextPropertyListMerging(
       List<? extends TextProperty> textPropertyList) {
     return createMapWithListsFromTextPropertyList(textPropertyList, true);
   }
@@ -109,7 +112,7 @@ public class EntityConverterUtils {
    * @param textPropertyList the list of text property objects
    * @return the language map
    */
-  public Map<String, List<String>> createMapWithListsFromTextPropertyListNonMerging(
+  public static Map<String, List<String>> createMapWithListsFromTextPropertyListNonMerging(
       List<? extends TextProperty> textPropertyList) {
     return createMapWithListsFromTextPropertyList(textPropertyList, false);
   }
@@ -124,7 +127,7 @@ public class EntityConverterUtils {
    * found. If true, the lists will be merged. If false, one of the properties will be ignored.
    * @return the language map
    */
-  private Map<String, List<String>> createMapWithListsFromTextPropertyList(
+  private static Map<String, List<String>> createMapWithListsFromTextPropertyList(
       List<? extends TextProperty> textPropertyList, boolean mergeLists) {
 
     // Sanity check.
@@ -135,7 +138,7 @@ public class EntityConverterUtils {
     // Determine what to do with language collisions.
     final BinaryOperator<List<String>> mergeOperator;
     if (mergeLists) {
-      mergeOperator = this::mergeStringLists;
+      mergeOperator = EntityConverterUtils::mergeStringLists;
     } else {
       mergeOperator = (list1, list2) -> list1;
     }
@@ -153,7 +156,7 @@ public class EntityConverterUtils {
    * @param textPropertyList The list of text property objects
    * @return The language map
    */
-  public Map<String, String> createMapFromTextPropertyList(
+  public static Map<String, String> createMapFromTextPropertyList(
       List<? extends TextProperty> textPropertyList) {
     return textPropertyList == null ? null : textPropertyList.stream()
         .collect(Collectors.toMap(property -> toIsoLanguage(property.getKey()),
@@ -166,7 +169,7 @@ public class EntityConverterUtils {
    * @param resources The list of web resource objects
    * @return string array, or empty array if no resources are found.
    */
-  public String[] createStringArrayFromPartList(List<? extends WebResource> resources) {
+  public static String[] createStringArrayFromPartList(List<? extends WebResource> resources) {
     return resources == null ? new String[0]
         : resources.stream().map(WebResource::getResourceUri).toArray(String[]::new);
   }
@@ -238,7 +241,7 @@ public class EntityConverterUtils {
    * @param addMap the map containing new values to be added to the map
    * @return enriched base map
    */
-  public Map<String, List<String>> mergeMapsWithLists(Map<String, List<String>> baseMap,
+  public static Map<String, List<String>> mergeMapsWithLists(Map<String, List<String>> baseMap,
       Map<String, List<String>> addMap) {
 
     // If both maps are null, we are done.
@@ -255,7 +258,8 @@ public class EntityConverterUtils {
     // Merge the add map data.
     if (addMap != null) {
       addMap.forEach(
-          (key, value) -> result.merge(key, new ArrayList<>(value), this::mergeStringLists));
+          (key, value) -> result.merge(key, new ArrayList<>(value),
+              EntityConverterUtils::mergeStringLists));
     }
     return result.isEmpty() ? null : result;
   }
@@ -278,7 +282,7 @@ public class EntityConverterUtils {
    * null.
    * @return The new merged base map. Is not null.
    */
-  public Map<String, List<String>> mergeMapsWithSingletonLists
+  public static Map<String, List<String>> mergeMapsWithSingletonLists
   (Map<String, List<String>> baseMap,
       Map<String, List<String>> addMap, Map<String, List<String>> notMergedMap) {
 
@@ -293,7 +297,7 @@ public class EntityConverterUtils {
         final List<String> unmergedValues = entry.getValue().stream().distinct()
             .filter(value -> !result.get(key).contains(value)).collect(Collectors.toList());
         if (!unmergedValues.isEmpty()) {
-          notMergedMap.merge(key, unmergedValues, this::mergeStringLists);
+          notMergedMap.merge(key, unmergedValues, EntityConverterUtils::mergeStringLists);
         }
       } else {
         // If the base map has no singleton for the key, add it.
@@ -313,7 +317,7 @@ public class EntityConverterUtils {
    * @param addList The list of items to add, or null (which is treated as an empty list).
    * @return the list containing the sum of the two provided lists, or null if there are no items.
    */
-  public List<String> mergeStringLists(List<String> baseList, List<String> addList) {
+  public static List<String> mergeStringLists(List<String> baseList, List<String> addList) {
     final Set<String> result = new HashSet<>();
     if (baseList != null) {
       result.addAll(baseList);
@@ -332,7 +336,7 @@ public class EntityConverterUtils {
    * @param add The array of items to add, or null (which is treated as an empty array).
    * @return the resulting string array, or null if there are no items.
    */
-  public String[] mergeStringArrays(String[] base, String[] add) {
+  public static String[] mergeStringArrays(String[] base, String[] add) {
     final List<String> baseList = base == null ? Collections.emptyList() : Arrays.asList(base);
     final List<String> addList = add == null ? Collections.emptyList() : Arrays.asList(add);
     final List<String> mergedList = mergeStringLists(baseList, addList);
@@ -347,7 +351,8 @@ public class EntityConverterUtils {
    * @param baseOrganization The base organization. Cannot be null.
    * @param addOrganization The add organization. Cannot be null.
    */
-  public void mergeAddress(OrganizationImpl baseOrganization, OrganizationImpl addOrganization) {
+  public static void mergeAddress(OrganizationImpl baseOrganization,
+      OrganizationImpl addOrganization) {
 
     // If does, or the add organization has nothing to replace, we're done.
     if (addOrganization.getAddress() == null) {
@@ -364,12 +369,6 @@ public class EntityConverterUtils {
     final Address baseAddress = baseOrganization.getAddress();
     final Address addAddress = addOrganization.getAddress();
 
-    // TODO: enable when the issues related to locality and street address are solved in the mapping
-    // baseAddress.setVcardLocality(addAddress.getVcardLocality());
-    // baseAddress.setVcardPostalCode(addAddress.getVcardPostalCode());
-    // baseAddress.setVcardPostOfficeBox(addAddress.getVcardPostOfficeBox());
-    // baseAddress.setVcardStreetAddress(addAddress.getVcardStreetAddress());
-
     //update country only if not available in base
     if (StringUtils.isEmpty(baseAddress.getVcardCountryName())
         && StringUtils.isNotEmpty(addAddress.getVcardCountryName())) {
@@ -381,6 +380,28 @@ public class EntityConverterUtils {
       baseAddress.setVcardHasGeo(addAddress.getVcardHasGeo());
     }
 
+  }
+
+  public static EnrichmentTerm organizationImplToEnrichmentTerm(OrganizationImpl organization,
+      Date created, Date updated) {
+    final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
+    enrichmentTerm.setCodeUri(organization.getAbout());
+    enrichmentTerm.setContextualEntity(organization);
+    enrichmentTerm.setEntityType(EntityType.ORGANIZATION);
+    enrichmentTerm.setCreated(Objects.requireNonNullElseGet(created, Date::new));
+    enrichmentTerm.setUpdated(updated);
+
+    return enrichmentTerm;
+  }
+
+  /**
+   * This method retrieves organization roles from given organization object
+   *
+   * @param organization The OrganizationImpl object
+   * @return list of organization roles
+   */
+  public List<String> getOrganizationRoles(OrganizationImpl organization) {
+    return organization.getEdmEuropeanaRole().get(Locale.ENGLISH.toString());
   }
 
   /**
@@ -479,21 +500,5 @@ public class EntityConverterUtils {
       }
     }
     return res;
-  }
-
-  /**
-   * This method extracts organization URIs from deleted organizations.
-   *
-   * @param deletedOrganizationsList The list of deleted organizations
-   * @return ID list
-   */
-  private List<String> extractIdsFromDeletedZohoOrganizations(
-      List<ZCRMTrashRecord> deletedOrganizationsList) {
-    List<String> idList = new ArrayList<>(deletedOrganizationsList.size());
-
-    for (ZCRMTrashRecord deletedOrganization : deletedOrganizationsList) {
-      idList.add(URL_ORGANIZATION_PREFFIX + deletedOrganization.getEntityId());
-    }
-    return idList;
   }
 }

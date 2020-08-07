@@ -3,6 +3,8 @@ package eu.europeana.enrichment.api.external.model;
 import java.util.List;
 
 /**
+ * Contains the labels that come from the preLabel fields of a contextual class.
+ *
  * @author Simon Tzanakis
  * @since 2020-08-04
  */

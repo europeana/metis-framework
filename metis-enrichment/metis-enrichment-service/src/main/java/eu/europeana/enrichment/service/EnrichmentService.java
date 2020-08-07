@@ -1,16 +1,19 @@
 package eu.europeana.enrichment.service;
 
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
+import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.InputValue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
@@ -19,6 +22,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,15 +135,18 @@ public class EnrichmentService {
 
   private List<EnrichmentBase> getEnrichmentTermsAndConvert(
       List<Pair<String, String>> fieldNamesAndValues) {
-    final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
-        .getAllEnrichmentTermsByFields(fieldNamesAndValues);
+    final List<EnrichmentTerm> enrichmentTerms = getEnrichmentTerms(fieldNamesAndValues);
     return Converter.convert(enrichmentTerms);
+  }
+
+  public List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
+    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNamesAndValues);
   }
 
   private List<EnrichmentBase> findEnrichmentTerms(EntityType entityType, String termLabel,
       String termLanguage) {
 
-    //Find all terms that match label and language
+    //Find all terms that match label and language. Order of Pairs matter for the query performance.
     final List<Pair<String, String>> fieldNamesAndValues = new ArrayList<>();
     fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LABEL_FIELD, termLabel));
     //If language not defined we are searching without specifying the language
@@ -184,7 +191,7 @@ public class EnrichmentService {
     while (StringUtils.isNotBlank(currentEnrichmentTerm.getParent())) {
       currentEnrichmentTerm = enrichmentDao
           .getEnrichmentTermByField(EnrichmentDao.CODE_URI_FIELD,
-              currentEnrichmentTerm.getParent());
+              currentEnrichmentTerm.getParent()).orElse(null);
       //Break when there is no other parent available or when we have already encountered the codeUri
       if (currentEnrichmentTerm == null || !parentEntities
           .add(currentEnrichmentTerm.getCodeUri())) {
@@ -192,5 +199,90 @@ public class EnrichmentService {
       }
     }
     return parentEntities;
+  }
+
+  /* --- Organization specific methods, used by the annotations api --- */
+
+  /**
+   * Save an organization to the database
+   *
+   * @param organization the organization to save
+   * @param created the created date to be used
+   * @param updated the updated date to be used
+   * @return the saved organization
+   */
+  public OrganizationImpl saveOrganization(OrganizationImpl organization,
+      Date created, Date updated) {
+
+    final EnrichmentTerm enrichmentTerm = EntityConverterUtils
+        .organizationImplToEnrichmentTerm(organization, created,
+            updated);
+
+    final Optional<ObjectId> objectId = enrichmentDao
+        .getEnrichmentTermObjectIdByField(EnrichmentDao.CODE_URI_FIELD,
+            organization.getAbout());
+    objectId.ifPresent(enrichmentTerm::setId);
+
+    //Save term list
+    final String id = enrichmentDao.saveEnrichmentTerm(enrichmentTerm);
+    return enrichmentDao.getEnrichmentTermByField(EnrichmentDao.ID_FIELD, id)
+        .map(EnrichmentTerm::getContextualEntity).map(OrganizationImpl.class::cast)
+        .orElse(null);
+  }
+
+  /**
+   * Return the list of ids for existing organizations from database
+   *
+   * @param organizationIds The organization ids to check existence
+   * @return list of ids of existing organizations
+   */
+  public List<String> findExistingOrganizations(List<String> organizationIds) {
+    List<String> existingOrganizationIds = new ArrayList<>();
+    for (String id : organizationIds) {
+      Optional<OrganizationImpl> organization = getOrganizationByUri(id);
+      organization.ifPresent(value -> existingOrganizationIds.add(value.getAbout()));
+    }
+    return existingOrganizationIds;
+  }
+
+  /**
+   * Get an organization by uri
+   *
+   * @param uri The EDM organization uri (codeUri)
+   * @return OrganizationImpl object
+   */
+  public Optional<OrganizationImpl> getOrganizationByUri(String uri) {
+    final List<EnrichmentTerm> enrichmentTerm = getEnrichmentTerms(
+        Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri)));
+    return enrichmentTerm.stream().findFirst().map(EnrichmentTerm::getContextualEntity)
+        .map(OrganizationImpl.class::cast);
+  }
+
+  /**
+   * Delete organizations from database by given organization ids
+   *
+   * @param organizationIds The organization ids
+   */
+  public void deleteOrganizations(List<String> organizationIds) {
+    enrichmentDao.deleteEnrichmentTerms(EntityType.ORGANIZATION, organizationIds);
+  }
+
+  /**
+   * This method removes organization from database by given organization id.
+   *
+   * @param organizationId The organization id
+   */
+  public void deleteOrganization(String organizationId) {
+    deleteOrganizations(Collections.singletonList(organizationId));
+  }
+
+
+  /**
+   * Get the date of the latest updated organization.
+   *
+   * @return the date of the latest updated organization
+   */
+  public Date getDateOfLastUpdatedOrganization() {
+    return enrichmentDao.getDateOfLastUpdatedEnrichmentTerm(EntityType.ORGANIZATION);
   }
 }
