@@ -154,7 +154,7 @@ public class DepublishRecordIdController {
    * @param sortField The field on which to sort.
    * @param sortAscending The direction in which to sort.
    * @param searchQuery Search query for the record ID.
-   * @return A list of records.
+   * @return The list of records along with some other information regarding the depublication.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
@@ -165,7 +165,7 @@ public class DepublishRecordIdController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<DepublishRecordIdView> getDepublishRecordIds(
+  public DepublicationInfoView getDepublishRecordIds(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "page", defaultValue = "0") int page,
@@ -174,9 +174,11 @@ public class DepublishRecordIdController {
       @RequestParam(value = "searchQuery", required = false) String searchQuery
   ) throws GenericMetisException {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    return depublishRecordIdService.getDepublishRecordIds(metisUser, datasetId, page,
+    final var recordIds = depublishRecordIdService.getDepublishRecordIds(metisUser, datasetId, page,
         sortField == null ? DepublishRecordIdSortField.RECORD_ID : sortField,
         sortAscending ? SortDirection.ASCENDING : SortDirection.DESCENDING, searchQuery);
+    final var canDepublish = depublishRecordIdService.canTriggerDepublication(metisUser, datasetId);
+    return new DepublicationInfoView(recordIds, canDepublish);
   }
 
   /**
