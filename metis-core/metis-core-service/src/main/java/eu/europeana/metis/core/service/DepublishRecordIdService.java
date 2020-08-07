@@ -309,15 +309,20 @@ public class DepublishRecordIdService {
     // Authorize.
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
 
-    // If a workflow execution is currently in progress, we can't depublish.
+    // Compute the result.
+    final boolean result;
     if (orchestratorService.getRunningOrInQueueExecution(datasetId) != null) {
-      return false;
+      // If a workflow execution is currently in progress, we can't depublish.
+      result = false;
+    } else {
+      // If a (re-)index took place recently, or the status is not published, we can't depublish.
+      final DatasetExecutionInformation executionInformation = orchestratorService
+              .getDatasetExecutionInformation(datasetId);
+      result = executionInformation.getPublicationStatus() == PublicationStatus.PUBLISHED &&
+              executionInformation.isLastPublishedRecordsReadyForViewing();
     }
 
-    // If a (re-)index took place recently, or the status is not published, we can't depublish.
-    final DatasetExecutionInformation executionInformation = orchestratorService
-            .getDatasetExecutionInformation(datasetId);
-    return executionInformation.getPublicationStatus() == PublicationStatus.PUBLISHED &&
-            executionInformation.isLastPublishedRecordsReadyForViewing();
+    // Done
+    return result;
   }
 }

@@ -154,7 +154,7 @@ public class DepublishRecordIdController {
    * @param sortField The field on which to sort.
    * @param sortAscending The direction in which to sort.
    * @param searchQuery Search query for the record ID.
-   * @return A list of records.
+   * @return The list of records along with some other information regarding the depublication.
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoDatasetFoundException} if the dataset for datasetId was not found.</li>
