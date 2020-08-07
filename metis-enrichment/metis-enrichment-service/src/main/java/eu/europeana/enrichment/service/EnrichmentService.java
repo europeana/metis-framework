@@ -60,8 +60,7 @@ public class EnrichmentService {
    * @param inputValues a list of structured input values with parameters
    * @return the enrichment values in a wrapped structured list
    */
-  public List<Pair<String, EnrichmentBase>> enrichByInputValueList(
-      List<InputValue> inputValues) {
+  public List<Pair<String, EnrichmentBase>> enrichByInputValueList(List<InputValue> inputValues) {
     final List<Pair<String, EnrichmentBase>> enrichmentBases = new ArrayList<>();
     try {
       for (InputValue inputValue : inputValues) {
@@ -89,13 +88,12 @@ public class EnrichmentService {
   }
 
   /**
-   * Get an enrichment by providing a list of URIs, might match owl:sameAs.
+   * Get an enrichment by providing a URI, might match owl:sameAs.
    *
    * @param uri The URI to check for match
    * @return the structured result of the enrichment
    */
-  public List<EnrichmentBase> enrichByCodeUriOrOwlSameAs(String uri) {
-    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
+  public EnrichmentBase enrichByCodeUriOrOwlSameAs(String uri) {
     try {
       //First check codeUri, otherwise OwlSameAs
       List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(
@@ -105,32 +103,31 @@ public class EnrichmentService {
             Collections.singletonList(new ImmutablePair<>(EnrichmentDao.OWL_SAME_AS_FIELD, uri)));
       }
       if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
-        enrichmentBases.add(foundEnrichmentBases.get(0));
+        return foundEnrichmentBases.get(0);
       }
     } catch (RuntimeException e) {
       LOGGER.warn("Unable to retrieve entity from id", e);
     }
-    return enrichmentBases;
+    return null;
   }
 
   /**
-   * Get an enrichment by providing a list of URIs.
+   * Get an enrichment by providing a URI.
    *
    * @param codeUri The URI to check for match
    * @return the structured result of the enrichment
    */
-  public List<EnrichmentBase> enrichByCodeUri(String codeUri) {
-    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
+  public EnrichmentBase enrichByCodeUri(String codeUri) {
     try {
       List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(
           Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, codeUri)));
       if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
-        enrichmentBases.add(foundEnrichmentBases.get(0));
+        return foundEnrichmentBases.get(0);
       }
     } catch (RuntimeException e) {
       LOGGER.warn("Unable to retrieve entity from codeUri", e);
     }
-    return enrichmentBases;
+    return null;
   }
 
   private List<EnrichmentBase> getEnrichmentTermsAndConvert(

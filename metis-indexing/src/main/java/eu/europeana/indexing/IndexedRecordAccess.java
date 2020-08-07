@@ -81,7 +81,7 @@ public class IndexedRecordAccess {
       // Obtain the Mongo record
       final Datastore datastore = mongoServer.getDatastore();
       final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class).field(ABOUT_FIELD)
-          .equal(rdfAbout).get();
+          .equal(rdfAbout).first();
 
       // Remove mongo record and dependencies
       if (recordToDelete != null) {

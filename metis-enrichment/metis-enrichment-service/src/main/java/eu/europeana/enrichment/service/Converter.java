@@ -29,8 +29,7 @@ public final class Converter {
   private Converter() {
   }
 
-  public static List<EnrichmentBase> convert(
-      List<EnrichmentTerm> enrichmentTerms) {
+  public static List<EnrichmentBase> convert(List<EnrichmentTerm> enrichmentTerms) {
     return enrichmentTerms.stream().map(Converter::convert).collect(Collectors.toList());
   }
 

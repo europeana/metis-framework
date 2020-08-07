@@ -64,8 +64,7 @@ public class EnrichmentDao {
    * @return the retrieved enrichment term
    */
   public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, String fieldValue) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> Optional.ofNullable(
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> Optional.ofNullable(
             this.datastore.find(EnrichmentTerm.class).filter(fieldName, fieldValue).first()));
   }
 
@@ -78,13 +77,13 @@ public class EnrichmentDao {
    * @return the retrieved enrichment term object id if present
    */
   public Optional<ObjectId> getEnrichmentTermObjectIdByField(String fieldName, String fieldValue) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> {
-          final Optional<EnrichmentTerm> enrichmentTerm = Optional
-              .ofNullable(this.datastore.find(EnrichmentTerm.class).filter(fieldName, fieldValue)
-                  .project("_id", true).first());
-          return enrichmentTerm.map(EnrichmentTerm::getId);
-        });
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
+      final Optional<EnrichmentTerm> enrichmentTerm = Optional.ofNullable(this.datastore
+              .find(EnrichmentTerm.class)
+              .filter(fieldName, fieldValue)
+              .project("_id", true).first());
+      return enrichmentTerm.map(EnrichmentTerm::getId);
+    });
   }
 
   /**
@@ -152,8 +151,7 @@ public class EnrichmentDao {
    * @return the key of the saved item
    */
   public String saveEnrichmentTerm(EnrichmentTerm enrichmentTerm) {
-    Key<EnrichmentTerm> datasetKey = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
+    Key<EnrichmentTerm> datasetKey = ExternalRequestUtil.retryableExternalRequestConnectionReset(
             () -> this.datastore.save(enrichmentTerm));
     return datasetKey == null ? StringUtils.EMPTY : datasetKey.getId().toString();
   }
@@ -185,8 +183,7 @@ public class EnrichmentDao {
   }
 
   private void deleteEnrichmentTerm(List<String> codeUri) {
-    ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> this.datastore.delete(
+    ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> this.datastore.delete(
             this.datastore.createQuery(EnrichmentTerm.class).field(CODE_URI_FIELD).in(codeUri)));
   }
 
@@ -201,5 +198,4 @@ public class EnrichmentDao {
   public void close() {
     this.mongoClient.close();
   }
-
 }

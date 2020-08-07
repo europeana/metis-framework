@@ -41,7 +41,7 @@ public final class MongoPropertyUpdaterFactory {
     }
 
     // Obtain the current state from the database and perform preprocessing on it.
-    final T current = queryCreator.get().get();
+    final T current = queryCreator.get().first();
     if (dataPreprocessor != null) {
       dataPreprocessor.accept(current, updated, ImmutablePair.of(recordDate, recordCreationDate));
     }

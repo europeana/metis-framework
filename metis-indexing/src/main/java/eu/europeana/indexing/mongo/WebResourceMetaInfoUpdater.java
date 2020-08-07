@@ -2,7 +2,6 @@ package eu.europeana.indexing.mongo;
 
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
-import dev.morphia.mapping.Mapper;
 import dev.morphia.query.Query;
 import eu.europeana.corelib.definitions.edm.model.metainfo.AudioMetaInfo;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageMetaInfo;
@@ -39,8 +38,7 @@ public class WebResourceMetaInfoUpdater
   }
 
   private static Query<WebResourceMetaInfoImpl> createQuery(MongoServer mongoServer, String id) {
-    return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class).field(Mapper.ID_KEY)
-        .equal(id);
+    return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class).field("_id").equal(id);
   }
 
   // TODO This is code from corelib (eu.europeana.corelib.search.impl.WebMetaInfo). This should be

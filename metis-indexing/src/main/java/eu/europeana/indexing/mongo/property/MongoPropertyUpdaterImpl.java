@@ -1,6 +1,7 @@
 package eu.europeana.indexing.mongo.property;
 
 import com.mongodb.DuplicateKeyException;
+import dev.morphia.UpdateOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.UpdateOperations;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
@@ -271,11 +272,13 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   @Override
   public T applyOperations() {
     try {
-      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations, true);
+      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations,
+              new UpdateOptions().upsert(true).multi(true));
     } catch (DuplicateKeyException e) {
       LOGGER.debug("Received duplicate key exception, trying again once more.", e);
-      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations, true);
+      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations,
+              new UpdateOptions().upsert(true).multi(true));
     }
-    return queryCreator.get().get();
+    return queryCreator.get().first();
   }
 }

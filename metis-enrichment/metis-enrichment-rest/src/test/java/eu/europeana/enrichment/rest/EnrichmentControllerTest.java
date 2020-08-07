@@ -54,8 +54,7 @@ public class EnrichmentControllerTest {
   public void getByUri_JSON() throws Exception {
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
-    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri))
-        .thenReturn(Collections.singletonList(agent));
+    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri)).thenReturn(agent);
     enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
         .param("uri", "http://www.example.com")
         .accept(MediaType.APPLICATION_JSON))
@@ -71,8 +70,7 @@ public class EnrichmentControllerTest {
 
     String uri = "http://www.example.com";
     Agent agent = getAgent(uri);
-    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri))
-        .thenReturn(Collections.singletonList(agent));
+    when(enrichmentServiceMock.enrichByCodeUriOrOwlSameAs(uri)).thenReturn(agent);
     Map<String, String> namespaceMap = getNamespaceMap();
     enrichmentControllerMock.perform(get("/enrich/code_uri_or_owl_same_as")
         .param("uri", "http://www.example.com")
