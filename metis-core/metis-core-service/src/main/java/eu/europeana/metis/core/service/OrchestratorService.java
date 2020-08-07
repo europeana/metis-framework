@@ -583,6 +583,10 @@ public class OrchestratorService {
   public DatasetExecutionInformation getDatasetExecutionInformation(MetisUser metisUser,
       String datasetId) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+    return getDatasetExecutionInformation(datasetId);
+  }
+
+  DatasetExecutionInformation getDatasetExecutionInformation(String datasetId) {
 
     // Obtain the relevant parts of the execution history
     final ExecutablePlugin lastHarvestPlugin = Optional.ofNullable(workflowExecutionDao
@@ -611,8 +615,7 @@ public class OrchestratorService {
         .map(PluginWithExecutionId::getPlugin).orElse(null);
 
     // Obtain the relevant current executions
-    final WorkflowExecution runningOrInQueueExecution = workflowExecutionDao
-        .getRunningOrInQueueExecution(datasetId);
+    final WorkflowExecution runningOrInQueueExecution = getRunningOrInQueueExecution(datasetId);
     final boolean isPreviewCleaningOrRunning = isPluginInWorkflowCleaningOrRunning(
         runningOrInQueueExecution, PREVIEW_TYPES);
     final boolean isPublishCleaningOrRunning = isPluginInWorkflowCleaningOrRunning(
@@ -633,6 +636,10 @@ public class OrchestratorService {
         lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now);
 
     return executionInfo;
+  }
+
+  WorkflowExecution getRunningOrInQueueExecution(String datasetId) {
+    return workflowExecutionDao.getRunningOrInQueueExecution(datasetId);
   }
 
   private void setPreviewInformation(DatasetExecutionInformation executionInfo,

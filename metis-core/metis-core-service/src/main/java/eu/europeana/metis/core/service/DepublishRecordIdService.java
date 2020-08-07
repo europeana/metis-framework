@@ -2,6 +2,8 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DepublishRecordIdDao;
+import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
+import eu.europeana.metis.core.dataset.DatasetExecutionInformation.PublicationStatus;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
@@ -275,5 +277,47 @@ public class DepublishRecordIdService {
 
     return orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(metisUser, datasetId, workflow, null, priority);
+  }
+
+  /**
+   * Determines whether a depublication can be triggered at this point. This is the case lf:
+   * <ul>
+   *   <li>
+   *     No workflow is currently in progress, and
+   *   </li>
+   *   <li>
+   *     The dataset has the status 'published' (as opposed to 'depublished' or 'neither'), and
+   *   </li>
+   *   <li>
+   *     The records in the dataset are ready for viewing.
+   *   </li>
+   * </ul>
+   * @param metisUser The user performing this operation. Cannot be null.
+   * @param datasetId The ID of the dataset for which to retrieve the records. Cannot be null.
+   * @return Whether a depublication can be triggered.
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link eu.europeana.metis.core.exceptions.NoDatasetFoundException} if the dataset
+   * identifier provided does not exist</li>
+   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   * authenticated or authorized to perform this operation</li>
+   * </ul>
+   */
+  public boolean canTriggerDepublication(MetisUser metisUser, String datasetId)
+          throws GenericMetisException {
+
+    // Authorize.
+    authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
+
+    // If a workflow execution is currently in progress, we can't depublish.
+    if (orchestratorService.getRunningOrInQueueExecution(datasetId) != null) {
+      return false;
+    }
+
+    // If a (re-)index took place recently, or the status is not published, we can't depublish.
+    final DatasetExecutionInformation executionInformation = orchestratorService
+            .getDatasetExecutionInformation(datasetId);
+    return executionInformation.getPublicationStatus() == PublicationStatus.PUBLISHED &&
+            executionInformation.isLastPublishedRecordsReadyForViewing();
   }
 }
