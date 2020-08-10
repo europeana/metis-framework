@@ -1,17 +1,15 @@
 package eu.europeana.enrichment.service;
 
-import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.internal.MongoTerm;
-import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.enrichment.utils.EntityTypeUtils;
 import eu.europeana.enrichment.utils.InputValue;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -22,9 +20,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.Functions.FailableSupplier;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +60,7 @@ public class EnrichmentService {
    * @param inputValues a list of structured input values with parameters
    * @return the enrichment values in a wrapped structured list
    */
-  public List<Pair<String, EnrichmentBase>> enrichByInputValueList(
-      List<InputValue> inputValues) {
+  public List<Pair<String, EnrichmentBase>> enrichByInputValueList(List<InputValue> inputValues) {
     final List<Pair<String, EnrichmentBase>> enrichmentBases = new ArrayList<>();
     try {
       for (InputValue inputValue : inputValues) {
@@ -79,7 +76,7 @@ public class EnrichmentService {
           continue;
         }
         for (EntityType entityType : entityTypes) {
-          findEntities(entityType, value, language).stream()
+          findEnrichmentTerms(entityType, value, language).stream()
               .map(enrichmentBase -> new ImmutablePair<>(originalField, enrichmentBase))
               .forEach(enrichmentBases::add);
         }
@@ -91,117 +88,87 @@ public class EnrichmentService {
   }
 
   /**
-   * Get an enrichment by providing a list of URIs, might match owl:sameAs.
+   * Get an enrichment by providing a URI, might match owl:sameAs.
    *
    * @param uri The URI to check for match
    * @return the structured result of the enrichment
    */
-  public List<EnrichmentBase> enrichByCodeUriOrOwlSameAs(String uri) {
-    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
+  public EnrichmentBase enrichByCodeUriOrOwlSameAs(String uri) {
     try {
-      //Create the list of suppliers that we'll use to find first match in order
-      final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = getEnrichmentBaseSuppliers(
-          new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri));
-      enrichmentBaseSuppliers.addAll(
-          getEnrichmentBaseSuppliers(new ImmutablePair<>(EnrichmentDao.OWL_SAME_AS_FIELD, uri)));
-      Optional.ofNullable(getFirstMatch(enrichmentBaseSuppliers)).ifPresent(enrichmentBases::add);
-    } catch (RuntimeException | IOException e) {
-      LOGGER.warn("Unable to retrieve entity from id", e);
-    }
-    return enrichmentBases;
-  }
-
-  /**
-   * Get an enrichment by providing a list of URIs.
-   *
-   * @param codeUri The URI to check for match
-   * @return the structured result of the enrichment
-   */
-  public List<EnrichmentBase> enrichByCodeUri(String codeUri) {
-    final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
-    try {
-      //Create the list of suppliers that we'll use to find first match in order
-      final List<FailableSupplier<List<EnrichmentBase>, IOException>> enrichmentBaseSuppliers = getEnrichmentBaseSuppliers(
-          new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, codeUri));
-      Optional.ofNullable(getFirstMatch(enrichmentBaseSuppliers)).ifPresent(enrichmentBases::add);
-    } catch (RuntimeException | IOException e) {
-      LOGGER.warn("Unable to retrieve entity from codeUri", e);
-    }
-    return enrichmentBases;
-  }
-
-  private List<FailableSupplier<List<EnrichmentBase>, IOException>> getEnrichmentBaseSuppliers(
-      Pair<String, String> fieldNamesAndValues) {
-    return Arrays
-        .asList(
-            () -> getEntitiesAndConvert(EntityType.AGENT,
-                Collections.singletonList(fieldNamesAndValues)),
-            () -> getEntitiesAndConvert(EntityType.CONCEPT,
-                Collections.singletonList(fieldNamesAndValues)),
-            () -> getEntitiesAndConvert(EntityType.TIMESPAN,
-                Collections.singletonList(fieldNamesAndValues)),
-            () -> getEntitiesAndConvert(EntityType.PLACE,
-                Collections.singletonList(fieldNamesAndValues))
-        );
-  }
-
-  private EnrichmentBase getFirstMatch(
-      List<FailableSupplier<List<EnrichmentBase>, IOException>> suppliers)
-      throws IOException {
-    for (FailableSupplier<List<EnrichmentBase>, IOException> supplier : suppliers) {
-      final List<EnrichmentBase> suppliedItem = supplier.get();
-      if (CollectionUtils.isNotEmpty(suppliedItem)) {
-        return suppliedItem.get(0);
+      //First check codeUri, otherwise OwlSameAs
+      List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(
+          Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri)));
+      if (CollectionUtils.isEmpty(foundEnrichmentBases)) {
+        foundEnrichmentBases = getEnrichmentTermsAndConvert(
+            Collections.singletonList(new ImmutablePair<>(EnrichmentDao.OWL_SAME_AS_FIELD, uri)));
       }
+      if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
+        return foundEnrichmentBases.get(0);
+      }
+    } catch (RuntimeException e) {
+      LOGGER.warn("Unable to retrieve entity from id", e);
     }
     return null;
   }
 
-  private List<EnrichmentBase> getEntitiesAndConvert(EntityType entityType,
-      List<Pair<String, String>> fieldNamesAndValues) {
-    final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = enrichmentDao
-        .getAllMongoTermListsByFields(
-            EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
-            fieldNamesAndValues);
-    return Converter.convert(mongoTermLists);
+  /**
+   * Get an enrichment by providing a URI.
+   *
+   * @param codeUri The URI to check for match
+   * @return the structured result of the enrichment
+   */
+  public EnrichmentBase enrichByCodeUri(String codeUri) {
+    try {
+      List<EnrichmentBase> foundEnrichmentBases = getEnrichmentTermsAndConvert(
+          Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, codeUri)));
+      if (CollectionUtils.isNotEmpty(foundEnrichmentBases)) {
+        return foundEnrichmentBases.get(0);
+      }
+    } catch (RuntimeException e) {
+      LOGGER.warn("Unable to retrieve entity from codeUri", e);
+    }
+    return null;
   }
 
-  private List<EnrichmentBase> findEntities(EntityType entityType, String termLabel,
+  private List<EnrichmentBase> getEnrichmentTermsAndConvert(
+      List<Pair<String, String>> fieldNamesAndValues) {
+    final List<EnrichmentTerm> enrichmentTerms = getEnrichmentTerms(fieldNamesAndValues);
+    return Converter.convert(enrichmentTerms);
+  }
+
+  public List<EnrichmentTerm> getEnrichmentTerms(List<Pair<String, String>> fieldNamesAndValues) {
+    return enrichmentDao.getAllEnrichmentTermsByFields(fieldNamesAndValues);
+  }
+
+  private List<EnrichmentBase> findEnrichmentTerms(EntityType entityType, String termLabel,
       String termLanguage) {
 
-    //Find all terms that match label and language
+    //Find all terms that match label and language. Order of Pairs matter for the query performance.
     final List<Pair<String, String>> fieldNamesAndValues = new ArrayList<>();
     fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LABEL_FIELD, termLabel));
     //If language not defined we are searching without specifying the language
     if (StringUtils.isNotBlank(termLanguage)) {
       fieldNamesAndValues.add(new ImmutablePair<>(EnrichmentDao.LANG_FIELD, termLanguage));
     }
-    final List<MongoTerm> mongoTerms = enrichmentDao
-        .getAllMongoTermsByFields(entityType, fieldNamesAndValues);
+    fieldNamesAndValues
+        .add(new ImmutablePair<>(EnrichmentDao.ENTITY_TYPE_FIELD, entityType.name()));
+    final List<EnrichmentTerm> enrichmentTerms = enrichmentDao
+        .getAllEnrichmentTermsByFields(fieldNamesAndValues);
+    final List<EnrichmentTerm> parentEnrichmentTerms = enrichmentTerms.stream()
+        .map(enrichmentTerm -> findParentEntities(entityType, enrichmentTerm)).flatMap(List::stream)
+        .collect(Collectors.toList());
 
     final List<EnrichmentBase> enrichmentBases = new ArrayList<>();
-    for (MongoTerm mongoTerm : mongoTerms) {
-      //Find mongoTermLists by codeUri
-      final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> mongoTermLists = enrichmentDao
-          .getAllMongoTermListsByFields(
-              EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
-              List.of(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, mongoTerm.getCodeUri())));
-      //Find parent mongoTermLists
-      final List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> parentMongoTermLists = mongoTermLists
-          .stream().map(mongoTermList -> findParentEntities(entityType, mongoTermList))
-          .flatMap(List::stream).collect(Collectors.toList());
-
-      //Convert to EnrichmentBases
-      enrichmentBases.addAll(Converter.convert(mongoTermLists));
-      enrichmentBases.addAll(Converter.convert(parentMongoTermLists));
-    }
+    //Convert to EnrichmentBases
+    enrichmentBases.addAll(Converter.convert(enrichmentTerms));
+    enrichmentBases.addAll(Converter.convert(parentEnrichmentTerms));
 
     return enrichmentBases;
   }
 
-  private List<? extends MongoTermList<? extends AbstractEdmEntityImpl>> findParentEntities(
-      EntityType entityType, MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
-    Set<String> parentCodeUris = findParentCodeUris(entityType, mongoTermList);
+  private List<EnrichmentTerm> findParentEntities(
+      EntityType entityType, EnrichmentTerm enrichmentTerm) {
+    Set<String> parentCodeUris = findParentCodeUris(enrichmentTerm);
     //Do not get entities for very broad TIMESPAN
     if (entityType == EntityType.TIMESPAN) {
       parentCodeUris = parentCodeUris.stream()
@@ -212,25 +179,107 @@ public class EnrichmentService {
     final List<Pair<String, List<String>>> fieldNamesAndValues = new ArrayList<>();
     fieldNamesAndValues
         .add(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, new ArrayList<>(parentCodeUris)));
-    return enrichmentDao.getAllMongoTermListsByFieldsInList(
-        EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
-        fieldNamesAndValues);
+    return enrichmentDao.getAllEnrichmentTermsByFieldsInList(fieldNamesAndValues);
   }
 
-  private Set<String> findParentCodeUris(EntityType entityType,
-      MongoTermList<? extends AbstractEdmEntityImpl> termList) {
+  private Set<String> findParentCodeUris(EnrichmentTerm enrichmentTerm) {
     final Set<String> parentEntities = new HashSet<>();
-    MongoTermList<? extends AbstractEdmEntityImpl> currentMongoTermList = termList;
-    while (StringUtils.isNotBlank(currentMongoTermList.getParent())) {
-      currentMongoTermList = enrichmentDao
-          .getTermListByField(
-              EntityTypeUtils.getEntityMongoTermListClass(entityType).getMongoTermListClass(),
-              EnrichmentDao.CODE_URI_FIELD, currentMongoTermList.getParent());
+    EnrichmentTerm currentEnrichmentTerm = enrichmentTerm;
+    while (StringUtils.isNotBlank(currentEnrichmentTerm.getParent())) {
+      currentEnrichmentTerm = enrichmentDao
+          .getEnrichmentTermByField(EnrichmentDao.CODE_URI_FIELD,
+              currentEnrichmentTerm.getParent()).orElse(null);
       //Break when there is no other parent available or when we have already encountered the codeUri
-      if (currentMongoTermList == null || !parentEntities.add(currentMongoTermList.getCodeUri())) {
+      if (currentEnrichmentTerm == null || !parentEntities
+          .add(currentEnrichmentTerm.getCodeUri())) {
         break;
       }
     }
     return parentEntities;
+  }
+
+  /* --- Organization specific methods, used by the annotations api --- */
+
+  /**
+   * Save an organization to the database
+   *
+   * @param organization the organization to save
+   * @param created the created date to be used
+   * @param updated the updated date to be used
+   * @return the saved organization
+   */
+  public OrganizationImpl saveOrganization(OrganizationImpl organization,
+      Date created, Date updated) {
+
+    final EnrichmentTerm enrichmentTerm = EntityConverterUtils
+        .organizationImplToEnrichmentTerm(organization, created,
+            updated);
+
+    final Optional<ObjectId> objectId = enrichmentDao
+        .getEnrichmentTermObjectIdByField(EnrichmentDao.CODE_URI_FIELD,
+            organization.getAbout());
+    objectId.ifPresent(enrichmentTerm::setId);
+
+    //Save term list
+    final String id = enrichmentDao.saveEnrichmentTerm(enrichmentTerm);
+    return enrichmentDao.getEnrichmentTermByField(EnrichmentDao.ID_FIELD, id)
+        .map(EnrichmentTerm::getContextualEntity).map(OrganizationImpl.class::cast)
+        .orElse(null);
+  }
+
+  /**
+   * Return the list of ids for existing organizations from database
+   *
+   * @param organizationIds The organization ids to check existence
+   * @return list of ids of existing organizations
+   */
+  public List<String> findExistingOrganizations(List<String> organizationIds) {
+    List<String> existingOrganizationIds = new ArrayList<>();
+    for (String id : organizationIds) {
+      Optional<OrganizationImpl> organization = getOrganizationByUri(id);
+      organization.ifPresent(value -> existingOrganizationIds.add(value.getAbout()));
+    }
+    return existingOrganizationIds;
+  }
+
+  /**
+   * Get an organization by uri
+   *
+   * @param uri The EDM organization uri (codeUri)
+   * @return OrganizationImpl object
+   */
+  public Optional<OrganizationImpl> getOrganizationByUri(String uri) {
+    final List<EnrichmentTerm> enrichmentTerm = getEnrichmentTerms(
+        Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri)));
+    return enrichmentTerm.stream().findFirst().map(EnrichmentTerm::getContextualEntity)
+        .map(OrganizationImpl.class::cast);
+  }
+
+  /**
+   * Delete organizations from database by given organization ids
+   *
+   * @param organizationIds The organization ids
+   */
+  public void deleteOrganizations(List<String> organizationIds) {
+    enrichmentDao.deleteEnrichmentTerms(EntityType.ORGANIZATION, organizationIds);
+  }
+
+  /**
+   * This method removes organization from database by given organization id.
+   *
+   * @param organizationId The organization id
+   */
+  public void deleteOrganization(String organizationId) {
+    deleteOrganizations(Collections.singletonList(organizationId));
+  }
+
+
+  /**
+   * Get the date of the latest updated organization.
+   *
+   * @return the date of the latest updated organization
+   */
+  public Date getDateOfLastUpdatedOrganization() {
+    return enrichmentDao.getDateOfLastUpdatedEnrichmentTerm(EntityType.ORGANIZATION);
   }
 }

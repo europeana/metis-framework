@@ -3,66 +3,43 @@ package eu.europeana.enrichment.service.dao;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
 import com.mongodb.MongoClient;
-import dev.morphia.AdvancedDatastore;
+import dev.morphia.Datastore;
 import dev.morphia.Key;
 import dev.morphia.Morphia;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.internal.MorphiaCursor;
-import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
-import eu.europeana.corelib.solr.entity.ContextualClassImpl;
-import eu.europeana.enrichment.api.internal.AgentTermList;
-import eu.europeana.enrichment.api.internal.ConceptTermList;
-import eu.europeana.enrichment.api.internal.MongoTerm;
-import eu.europeana.enrichment.api.internal.MongoTermList;
-import eu.europeana.enrichment.api.internal.OrganizationTermList;
-import eu.europeana.enrichment.api.internal.PlaceTermList;
-import eu.europeana.enrichment.api.internal.TimespanTermList;
+import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
 
 /**
- * Data Acces Object for accessing enrichment entities from Mongo.
+ * Data Access Object for accessing enrichment entities from Mongo.
  *
  * @author Simon Tzanakis
  * @since 2020-07-07
  */
 public class EnrichmentDao {
 
-  private final AdvancedDatastore datastore;
+  private final Datastore datastore;
 
   public static final String ID_FIELD = "_id";
-  private static final String ENTITY_TYPE_FIELD = "entityType";
+  public static final String ENTITY_TYPE_FIELD = "entityType";
   public static final String CODE_URI_FIELD = "codeUri";
-  private static final String MODIFIED_FIELD = "modified";
+  private static final String UPDATED_FIELD = "updated";
   public static final String OWL_SAME_AS_FIELD = "owlSameAs";
-  public static final String LABEL_FIELD = "label";
-  public static final String LANG_FIELD = "lang";
+  public static final String LABEL_FIELD = "labelInfos.lowerCaseLabel";
+  public static final String LANG_FIELD = "labelInfos.lang";
 
-  //Entity types
-  private static final String CONCEPT_TYPE = "ConceptImpl";
-  private static final String PLACE_TYPE = "PlaceImpl";
-  private static final String AGENT_TYPE = "AgentImpl";
-  private static final String TIMESPAN_TYPE = "TimespanImpl";
-  public static final String ORGANIZATION_TYPE = "OrganizationImpl";
-
-  //Table names
-  private static final String AGENT_TABLE = "people";
-  private static final String CONCEPT_TABLE = "concept";
-  private static final String PLACE_TABLE = "place";
-  private static final String TIMESPAN_TABLE = "period";
-  public static final String ORGANIZATION_TABLE = "organization";
   private final MongoClient mongoClient;
-
 
   /**
    * Parameter constructor.
@@ -73,55 +50,55 @@ public class EnrichmentDao {
   public EnrichmentDao(MongoClient mongoClient, String databaseName) {
     this.mongoClient = mongoClient;
 
-    // Register the mappings and set up the data store.
     final Morphia morphia = new Morphia();
-    morphia.map(MongoTermList.class);
-    morphia.map(AgentTermList.class);
-    morphia.map(ConceptTermList.class);
-    morphia.map(PlaceTermList.class);
-    morphia.map(TimespanTermList.class);
-    morphia.map(OrganizationTermList.class);
-    this.datastore = (AdvancedDatastore) morphia.createDatastore(this.mongoClient, databaseName);
+    morphia.map(EnrichmentTerm.class);
+    this.datastore = morphia.createDatastore(this.mongoClient, databaseName);
   }
 
   /**
-   * Get the mongoTermList by using a provided field name and it's value.
+   * Get the enrichmentTerm by using a provided field name and it's value.
    * <p>Returns the first entity found</p>
-   * <p>The {@code mongoTermListType} class type has to be provided so that the correct retrieval
-   * from the database would occur. Those are {@link AgentTermList}, {@link ConceptTermList}, {@link
-   * PlaceTermList}, {@link TimespanTermList}, {@link OrganizationTermList}.</p>
    *
-   * @param mongoTermListType the type of mongo term list
    * @param fieldName the field name
    * @param fieldValue the field value
-   * @param <T> the subclass of {@link MongoTermList}
-   * @param <S> the subclass of {@link AbstractEdmEntityImpl} which is used from {@link T}
-   * @return the retrieved mongo term list
+   * @return the retrieved enrichment term
    */
-  public <T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> MongoTermList<S> getTermListByField(
-      Class<T> mongoTermListType, String fieldName, String fieldValue) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> this.datastore.find(mongoTermListType).filter(fieldName, fieldValue).first());
+  public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, String fieldValue) {
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> Optional.ofNullable(
+            this.datastore.find(EnrichmentTerm.class).filter(fieldName, fieldValue).first()));
   }
 
   /**
-   * Get a list of mongoTermList by using a provided pair of field names and values.
-   * <p>The {@code mongoTermListType} class type has to be provided so that the correct retrieval
-   * from the database would occur. Those are {@link AgentTermList}, {@link ConceptTermList}, {@link
-   * PlaceTermList}, {@link TimespanTermList}, {@link OrganizationTermList}.</p>
-   * <p>Convenience method to avoid needless list generation if {@link
-   * #getAllMongoTermListsByFieldsInList} was used.</p>
+   * Get the enrichmentTerm {@link ObjectId} by using a provided field name and it's value.
+   * <p>Returns the first entity found</p>
    *
-   * @param mongoTermListType the type of mongo term list
+   * @param fieldName the field name
+   * @param fieldValue the field value
+   * @return the retrieved enrichment term object id if present
+   */
+  public Optional<ObjectId> getEnrichmentTermObjectIdByField(String fieldName, String fieldValue) {
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
+      final Optional<EnrichmentTerm> enrichmentTerm = Optional.ofNullable(this.datastore
+              .find(EnrichmentTerm.class)
+              .filter(fieldName, fieldValue)
+              .project("_id", true).first());
+      return enrichmentTerm.map(EnrichmentTerm::getId);
+    });
+  }
+
+  /**
+   * Get a list of enrichmentTerm by using a provided pair of field names and values.
+   * <p>Convenience method to avoid needless list generation if {@link
+   * #getAllEnrichmentTermsByFieldsInList} was used.
+   * Order of supplied field pairs matter on the query performance.</p>
+   *
    * @param fieldNameAndValues the list of pairs with key being the fieldName and value being the
    * fieldValue
-   * @param <T> the subclass of {@link MongoTermList}
-   * @param <S> the subclass of {@link AbstractEdmEntityImpl} which is used from {@link T}
-   * @return the retrieved list of mongoTermList
+   * @return the retrieved list of enrichmentTerm
    */
-  public <T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> List<T> getAllMongoTermListsByFields(
-      Class<T> mongoTermListType, List<Pair<String, String>> fieldNameAndValues) {
-    final Query<T> query = datastore.createQuery(mongoTermListType);
+  public List<EnrichmentTerm> getAllEnrichmentTermsByFields(
+      List<Pair<String, String>> fieldNameAndValues) {
+    final Query<EnrichmentTerm> query = datastore.createQuery(EnrichmentTerm.class);
     for (Pair<String, String> fieldNameAndValue : fieldNameAndValues) {
       query.filter(fieldNameAndValue.getKey(), fieldNameAndValue.getValue());
     }
@@ -129,22 +106,17 @@ public class EnrichmentDao {
   }
 
   /**
-   * Get a list of mongoTermList by using a provided pair of field names and per field name a list
+   * Get a list of enrichmentTerm by using a provided pair of field names and per field name a list
    * of values.
-   * <p>The {@code mongoTermListType} class type has to be provided so that the correct retrieval
-   * from the database would occur. Those are {@link AgentTermList}, {@link ConceptTermList}, {@link
-   * PlaceTermList}, {@link TimespanTermList}, {@link OrganizationTermList}.</p>
+   * <p>Order of supplied field pairs matter on the query performance.</p>
    *
-   * @param mongoTermListType the type of mongo term list
    * @param fieldNameAndValues the list of pairs with key being the fieldName and value being a list
    * of fieldValues
-   * @param <T> the subclass of {@link MongoTermList}
-   * @param <S> the subclass of {@link AbstractEdmEntityImpl} which is used from {@link T}
-   * @return the retrieved list of mongoTermList
+   * @return the retrieved list of enrichmentTerm
    */
-  public <T extends MongoTermList<S>, S extends AbstractEdmEntityImpl> List<T> getAllMongoTermListsByFieldsInList(
-      Class<T> mongoTermListType, List<Pair<String, List<String>>> fieldNameAndValues) {
-    final Query<T> query = datastore.createQuery(mongoTermListType);
+  public List<EnrichmentTerm> getAllEnrichmentTermsByFieldsInList(
+      List<Pair<String, List<String>>> fieldNameAndValues) {
+    final Query<EnrichmentTerm> query = datastore.createQuery(EnrichmentTerm.class);
     for (Pair<String, List<String>> fieldNameAndValue : fieldNameAndValues) {
       query.field(fieldNameAndValue.getKey()).in(fieldNameAndValue.getValue());
     }
@@ -152,195 +124,67 @@ public class EnrichmentDao {
   }
 
   /**
-   * Get a list of all MongoTerms that match the criteria.
-   * <p>The {@code entityType} parameter is required because it's used to access the correct
-   * database collection.</p>
-   *
-   * @param entityType the entity type
-   * @param fieldNameAndValues the list of pairs with key being the fieldName and value being the
-   * fieldValue
-   * @return the retrieved list of MongoTerm
-   */
-  public List<MongoTerm> getAllMongoTermsByFields(EntityType entityType,
-      List<Pair<String, String>> fieldNameAndValues) {
-    Query<MongoTerm> query = this.datastore.createQuery(getTableName(entityType), MongoTerm.class);
-    for (Pair<String, String> fieldNameAndValue : fieldNameAndValues) {
-      query.filter(fieldNameAndValue.getKey(), fieldNameAndValue.getValue());
-    }
-    return getListOfQuery(query);
-  }
-
-  /**
-   * Get the date of the latest modified entity in {@link MongoTermList}.
+   * Get the date of the latest modified entity in {@link EnrichmentTerm}.
    * <p>The {@code entityType} parameter is used to filter the specific entities</p>
    *
    * @param entityType the entity type
    * @return the date of the latest modified entity
    */
-  public Date getDateOfLastModifiedEntity(EntityType entityType) {
-    Query<MongoTermList> query = datastore.createQuery(MongoTermList.class);
-    query.filter(ENTITY_TYPE_FIELD, getEntityType(entityType));
-    query.order(Sort.descending(MODIFIED_FIELD));
-    final MongoTermList mongoTermList = ExternalRequestUtil
+  public Date getDateOfLastUpdatedEnrichmentTerm(EntityType entityType) {
+    Query<EnrichmentTerm> query = datastore.createQuery(EnrichmentTerm.class);
+    query.filter(ENTITY_TYPE_FIELD, entityType);
+    query.order(Sort.descending(UPDATED_FIELD));
+    final EnrichmentTerm enrichmentTerm = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(query::first);
 
-    Date dateModified = null;
-    if (Objects.nonNull(mongoTermList)) {
-      dateModified = mongoTermList.getModified();
+    Date dateUpdated = null;
+    if (Objects.nonNull(enrichmentTerm)) {
+      dateUpdated = enrichmentTerm.getUpdated();
     }
-    return dateModified;
+    return dateUpdated;
   }
 
   /**
-   * Save a MongoTermList in the database
+   * Save an enrichmentTerm in the database
    *
-   * @param mongoTermList the item to save
+   * @param enrichmentTerm the item to save
    * @return the key of the saved item
    */
-  public String saveTermList(MongoTermList<? extends AbstractEdmEntityImpl> mongoTermList) {
-    Key<MongoTermList<? extends AbstractEdmEntityImpl>> datasetKey = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> this.datastore.save(mongoTermList));
+  public String saveEnrichmentTerm(EnrichmentTerm enrichmentTerm) {
+    Key<EnrichmentTerm> datasetKey = ExternalRequestUtil.retryableExternalRequestConnectionReset(
+            () -> this.datastore.save(enrichmentTerm));
     return datasetKey == null ? StringUtils.EMPTY : datasetKey.getId().toString();
   }
 
   /**
-   * Save a list of MongoTerms in the database.
-   * <p>The {@code entityType} is used to store to the correct database collection.</p>
+   * Delete enrichmentTerms that match the provided codeUris.
+   * <p>Removes entities from the corresponding enrichmentTerm using {@code entityType}.
+   * It also removes entities that match with the provided codeUris with owlSameAs.</p>
    *
-   * @param mongoTerms the list of items
-   * @param entityType the entity type
-   */
-  public void saveMongoTerms(List<MongoTerm> mongoTerms, EntityType entityType) {
-    ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> this.datastore.save(getTableName(entityType), mongoTerms));
-  }
-
-  /**
-   * Save a mongoTermls from a contextual entity.
-   *
-   * @param entity the item to save
-   * @param entityType the entity type
-   * @return the total items saved in the database
-   */
-  public int saveMongoTermsFromEntity(ContextualClassImpl entity, EntityType entityType) {
-    List<MongoTerm> mongoTerms = createListOfMongoTerms(entity);
-    saveMongoTerms(mongoTerms, entityType);
-    return mongoTerms.size();
-  }
-
-
-  private static List<MongoTerm> createListOfMongoTerms(ContextualClassImpl entity) {
-    MongoTerm mongoTerm;
-    List<MongoTerm> mongoTerms = new ArrayList<>();
-
-    for (Map.Entry<String, List<String>> prefLabel : entity.getPrefLabel().entrySet()) {
-      for (String label : prefLabel.getValue()) {
-        mongoTerm = new MongoTerm();
-        mongoTerm.setCodeUri(entity.getAbout());
-        mongoTerm.setLabel(label.toLowerCase());
-        mongoTerm.setOriginalLabel(label);
-        mongoTerm.setLang(prefLabel.getKey());
-        mongoTerms.add(mongoTerm);
-      }
-    }
-    return mongoTerms;
-  }
-
-  /**
-   * Delete entities that match the provided code uri.
-   * <p>Removes entities from the corresponding MongoTermList using {@code entityType} and from the
-   * corresponding MongoTerm collection using {@code entityTable}</p>.
-   *
-   * @param entityTable the entity table name
    * @param entityType the entity type string
    * @param codeUris the code uri to match
    * @return a list of all the removed code uris except the provided one
    */
-  public List<String> deleteEntities(String entityTable, String entityType, List<String> codeUris) {
-    //Remove from Term List
-    deleteMongoTermLists(codeUris);
-    //Remove from specific collection
-    deleteMongoTerms(entityTable, codeUris);
+  public List<String> deleteEnrichmentTerms(EntityType entityType, List<String> codeUris) {
+    //Remove from EnrichmentTerm
+    deleteEnrichmentTerm(codeUris);
 
     //Find all TermLists that have owlSameAs equals with codeUri
-    final Query<MongoTermList> termListsSameAsQuery = this.datastore
-        .createQuery(MongoTermList.class).filter(ENTITY_TYPE_FIELD, entityType)
+    final Query<EnrichmentTerm> enrichmentTermsSameAsQuery = this.datastore
+        .createQuery(EnrichmentTerm.class).filter(ENTITY_TYPE_FIELD, entityType)
         .field(OWL_SAME_AS_FIELD).in(codeUris);
-    final List<MongoTermList> allTermListsSameAs = getListOfQuery(termListsSameAsQuery);
-    final List<String> sameAsCodeUris = allTermListsSameAs.stream().map(MongoTermList::getCodeUri)
+    final List<EnrichmentTerm> enrichmentTermsOwlSameAs = getListOfQuery(enrichmentTermsSameAsQuery);
+    final List<String> sameAsCodeUris = enrichmentTermsOwlSameAs.stream()
+        .map(EnrichmentTerm::getCodeUri)
         .collect(Collectors.toList());
-    //Remove from Term List
-    deleteMongoTermLists(sameAsCodeUris);
-    //Remove from specific collection
-    deleteMongoTerms(entityTable, sameAsCodeUris);
+    //Remove from EnrichmentTerm
+    deleteEnrichmentTerm(sameAsCodeUris);
     return sameAsCodeUris;
   }
 
-  /**
-   * Delete a MongoTerm using a code uri.
-   *
-   * @param entityTable the entity table name
-   * @param codeUri the code uri to match
-   */
-  public void deleteMongoTerms(String entityTable, List<String> codeUri) {
-    this.datastore.delete(
-        this.datastore.createQuery(entityTable, MongoTerm.class).field(CODE_URI_FIELD).in(
-            Collections.singleton(codeUri)));
-  }
-
-  private void deleteMongoTermLists(List<String> codeUri) {
-    ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> this.datastore.delete(
-            this.datastore.createQuery(MongoTermList.class).field(CODE_URI_FIELD).in(codeUri)));
-  }
-
-  private String getTableName(EntityType entityType) {
-    final String result;
-    switch (entityType) {
-      case AGENT:
-        result = AGENT_TABLE;
-        break;
-      case CONCEPT:
-        result = CONCEPT_TABLE;
-        break;
-      case PLACE:
-        result = PLACE_TABLE;
-        break;
-      case TIMESPAN:
-        result = TIMESPAN_TABLE;
-        break;
-      case ORGANIZATION:
-        result = ORGANIZATION_TABLE;
-        break;
-      default:
-        throw new IllegalStateException("Unknown entity: " + entityType);
-    }
-    return result;
-  }
-
-  private String getEntityType(EntityType entityType) {
-    final String result;
-    switch (entityType) {
-      case AGENT:
-        result = AGENT_TYPE;
-        break;
-      case CONCEPT:
-        result = CONCEPT_TYPE;
-        break;
-      case PLACE:
-        result = PLACE_TYPE;
-        break;
-      case TIMESPAN:
-        result = TIMESPAN_TYPE;
-        break;
-      case ORGANIZATION:
-        result = ORGANIZATION_TYPE;
-        break;
-      default:
-        throw new IllegalStateException("Unknown entity: " + entityType);
-    }
-    return result;
+  private void deleteEnrichmentTerm(List<String> codeUri) {
+    ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> this.datastore.delete(
+            this.datastore.createQuery(EnrichmentTerm.class).field(CODE_URI_FIELD).in(codeUri)));
   }
 
   private <T> List<T> getListOfQuery(Query<T> query) {
@@ -354,5 +198,4 @@ public class EnrichmentDao {
   public void close() {
     this.mongoClient.close();
   }
-
 }

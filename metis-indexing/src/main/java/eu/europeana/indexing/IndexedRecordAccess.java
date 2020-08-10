@@ -1,5 +1,7 @@
 package eu.europeana.indexing;
 
+import dev.morphia.Datastore;
+import dev.morphia.query.Query;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
@@ -14,8 +16,6 @@ import java.util.TimeZone;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.util.ClientUtils;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
 
 /**
  * This class provides functionality for accessing records that are already indexed from the Mongo
@@ -81,7 +81,7 @@ public class IndexedRecordAccess {
       // Obtain the Mongo record
       final Datastore datastore = mongoServer.getDatastore();
       final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class).field(ABOUT_FIELD)
-          .equal(rdfAbout).get();
+          .equal(rdfAbout).first();
 
       // Remove mongo record and dependencies
       if (recordToDelete != null) {

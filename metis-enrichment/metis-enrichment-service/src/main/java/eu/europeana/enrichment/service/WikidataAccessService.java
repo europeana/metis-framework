@@ -1,5 +1,15 @@
 package eu.europeana.enrichment.service;
 
+import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.AddressImpl;
+import eu.europeana.corelib.solr.entity.OrganizationImpl;
+import eu.europeana.enrichment.api.external.model.EdmOrganization;
+import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.enrichment.api.external.model.Resource;
+import eu.europeana.enrichment.api.external.model.VcardAddress;
+import eu.europeana.enrichment.api.external.model.WikidataOrganization;
+import eu.europeana.enrichment.service.dao.WikidataAccessDao;
+import eu.europeana.enrichment.service.exception.WikidataAccessException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -15,17 +25,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
-import eu.europeana.corelib.definitions.edm.entity.Address;
-import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.AddressImpl;
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.external.model.EdmOrganization;
-import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.VcardAddress;
-import eu.europeana.enrichment.api.external.model.WikidataOrganization;
-import eu.europeana.enrichment.service.dao.WikidataAccessDao;
-import eu.europeana.enrichment.service.exception.WikidataAccessException;
 
 
 /**
@@ -39,7 +38,6 @@ public class WikidataAccessService {
   private static final Logger LOGGER = LoggerFactory.getLogger(WikidataAccessService.class);
 
   private final WikidataAccessDao wikidataAccessDao;
-  private final EntityConverterUtils entityConverterUtils = new EntityConverterUtils();
 
   /**
    * Constructor with required parameters to function
@@ -48,10 +46,6 @@ public class WikidataAccessService {
    */
   public WikidataAccessService(WikidataAccessDao wikidataAccessDao) {
     this.wikidataAccessDao = wikidataAccessDao;
-  }
-
-  public EntityConverterUtils getEntityConverterUtils() {
-    return entityConverterUtils;
   }
 
   protected WikidataAccessDao getWikidataAccessDao() {
@@ -81,7 +75,7 @@ public class WikidataAccessService {
    * @throws WikidataAccessException if an exception occurred during dereferencing of the wikidata
    * uri
    */
-  public Organization dereference(String wikidataUri) throws WikidataAccessException {
+  public OrganizationImpl dereference(String wikidataUri) throws WikidataAccessException {
 
     StringBuilder wikidataXml = null;
     WikidataOrganization wikidataOrganization;
@@ -122,7 +116,7 @@ public class WikidataAccessService {
    * @param wikidataOrganization the wikidata organization object to extract values from
    * @return the converted organization
    */
-  public Organization toOrganizationImpl(WikidataOrganization wikidataOrganization) {
+  public OrganizationImpl toOrganizationImpl(WikidataOrganization wikidataOrganization) {
 
     OrganizationImpl org = new OrganizationImpl();
 
@@ -137,7 +131,7 @@ public class WikidataAccessService {
 
     if (edmOrganization.getCountry() != null) {
       String country = edmOrganization.getCountry();
-      org.setEdmCountry(getEntityConverterUtils().createMap(Locale.ENGLISH.getLanguage(), country));
+      org.setEdmCountry(EntityConverterUtils.createMap(Locale.ENGLISH.getLanguage(), country));
     }
 
     if (edmOrganization.getHomepage() != null) {
@@ -154,15 +148,15 @@ public class WikidataAccessService {
       String depiction = edmOrganization.getDepiction().getResource();
       org.setFoafDepiction(depiction);
     }
-    
+
     if (edmOrganization.getMbox() != null) {
       String mbox = edmOrganization.getMbox();
-      org.setFoafMbox(getEntityConverterUtils().createList(mbox));
+      org.setFoafMbox(EntityConverterUtils.createList(mbox));
     }
 
     if (edmOrganization.getPhone() != null) {
       String phone = edmOrganization.getPhone();
-      org.setFoafPhone(getEntityConverterUtils().createList(phone));
+      org.setFoafPhone(EntityConverterUtils.createList(phone));
     }
 
     if (edmOrganization.getLogo() != null) {
@@ -172,37 +166,32 @@ public class WikidataAccessService {
 
     List<Label> acronymLabel = edmOrganization.getAcronyms();
     org.setEdmAcronym(
-        getEntityConverterUtils().createMapWithListsFromTextPropertyListMerging(acronymLabel));
+        EntityConverterUtils.createMapWithListsFromTextPropertyListMerging(acronymLabel));
 
     List<Resource> sameAs = edmOrganization.getSameAs();
-    org.setOwlSameAs(getEntityConverterUtils().createStringArrayFromPartList(sameAs));
+    org.setOwlSameAs(EntityConverterUtils.createStringArrayFromPartList(sameAs));
 
     List<Label> descriptions = edmOrganization.getDescriptions();
-    org.setDcDescription(getEntityConverterUtils().createMapFromTextPropertyList(descriptions));
+    org.setDcDescription(EntityConverterUtils.createMapFromTextPropertyList(descriptions));
 
     List<Label> prefLabel = edmOrganization.getPrefLabelList();
     org.setPrefLabel(
-        getEntityConverterUtils().createMapWithListsFromTextPropertyListNonMerging(prefLabel));
+        EntityConverterUtils.createMapWithListsFromTextPropertyListNonMerging(prefLabel));
 
     List<Label> altLabel = edmOrganization.getAltLabelList();
     org.setAltLabel(
-        getEntityConverterUtils().createMapWithListsFromTextPropertyListMerging(altLabel));
+        EntityConverterUtils.createMapWithListsFromTextPropertyListMerging(altLabel));
 
     if (edmOrganization.getHasAddress() != null
         && edmOrganization.getHasAddress().getVcardAddressesList() != null) {
       VcardAddress vcardAddress = edmOrganization.getHasAddress().getVcardAddressesList().get(0);
-      Address address = new AddressImpl();
-      address.setAbout(org.getAbout() + "#address");
-      address.setVcardCountryName(vcardAddress.getCountryName());
-      if(vcardAddress.getHasGeo() != null)
-        address.setVcardHasGeo(vcardAddress.getHasGeo().getResource());
-// TODO: enable support for other address fields and locality when the issues related to
-//  the dereferencing localities, and support for multiple addresses are available
-//      address.setVcardStreetAddress(vcardAddress.getStreetAddress());
-//      address.setVcardLocality(vcardAddress.getLocality());
-//      address.setVcardPostalCode(vcardAddress.getPostalCode());
-//      address.setVcardPostOfficeBox(vcardAddress.getPostOfficeBox());
-      org.setAddress(address);
+      AddressImpl addressImpl = new AddressImpl();
+      addressImpl.setAbout(org.getAbout() + "#address");
+      addressImpl.setVcardCountryName(vcardAddress.getCountryName());
+      if (vcardAddress.getHasGeo() != null) {
+        addressImpl.setVcardHasGeo(vcardAddress.getHasGeo().getResource());
+      }
+      org.setAddress(addressImpl);
     }
 
     return org;
@@ -220,7 +209,8 @@ public class WikidataAccessService {
       //create content file if needed
       final boolean wasFileCreated = contentFile.createNewFile();
       if (!wasFileCreated) {
-        LOGGER.warn("Content file existed, it will be overwritten: {}", contentFile.getAbsolutePath());
+        LOGGER.warn("Content file existed, it will be overwritten: {}",
+            contentFile.getAbsolutePath());
       }
       FileUtils.write(contentFile, xml, StandardCharsets.UTF_8.name());
     } catch (IOException e) {
@@ -237,26 +227,26 @@ public class WikidataAccessService {
    * @param wikidataOrganization the wikidata object from which the wikidata values will be
    * extracted
    */
-  public void mergePropsFromWikidata(Organization zohoOrganization,
-      Organization wikidataOrganization) {
+  public void mergePropsFromWikidata(OrganizationImpl zohoOrganization,
+      OrganizationImpl wikidataOrganization) {
 
     // Merge the pref label maps. There may be some values that could not be merged, they will later
     // be added as alternative label.
     final Map<String, List<String>> addToAltLabelMap = new HashMap<>();
     final Map<String, List<String>> newPrefLabelMap =
-        getEntityConverterUtils().mergeMapsWithSingletonLists(zohoOrganization.getPrefLabel(),
+        EntityConverterUtils.mergeMapsWithSingletonLists(zohoOrganization.getPrefLabel(),
             wikidataOrganization.getPrefLabel(), addToAltLabelMap);
     zohoOrganization.setPrefLabel(newPrefLabelMap);
 
     // merge all alternative labels (zoho, wikidata and result of previous operation).
-    Map<String, List<String>> allWikidataAltLabels = getEntityConverterUtils()
+    Map<String, List<String>> allWikidataAltLabels = EntityConverterUtils
         .mergeMapsWithLists(wikidataOrganization.getAltLabel(), addToAltLabelMap);
-    Map<String, List<String>> mergedAltLabelMap = getEntityConverterUtils()
+    Map<String, List<String>> mergedAltLabelMap = EntityConverterUtils
         .mergeMapsWithLists(allWikidataAltLabels, zohoOrganization.getAltLabel());
     zohoOrganization.setAltLabel(mergedAltLabelMap);
 
     // edm:acronym (if not available in Zoho for each language)
-    Map<String, List<String>> acronyms = getEntityConverterUtils()
+    Map<String, List<String>> acronyms = EntityConverterUtils
         .mergeMapsWithLists(zohoOrganization.getEdmAcronym(), wikidataOrganization.getEdmAcronym());
     zohoOrganization.setEdmAcronym(acronyms);
 
@@ -269,19 +259,19 @@ public class WikidataAccessService {
     if (StringUtils.isEmpty(zohoOrganization.getFoafDepiction())) {
       zohoOrganization.setFoafDepiction(wikidataOrganization.getFoafDepiction());
     }
-    
+
     // homepage (if not available in zoho)
     if (StringUtils.isEmpty(zohoOrganization.getFoafHomepage())) {
       zohoOrganization.setFoafLogo(wikidataOrganization.getFoafLogo());
     }
 
     // phone (if not duplicate)
-    List<String> phoneList = getEntityConverterUtils()
+    List<String> phoneList = EntityConverterUtils
         .mergeStringLists(zohoOrganization.getFoafPhone(), wikidataOrganization.getFoafPhone());
     zohoOrganization.setFoafPhone(phoneList);
 
     // mbox (if not duplicate)
-    List<String> mbox = getEntityConverterUtils()
+    List<String> mbox = EntityConverterUtils
         .mergeStringLists(zohoOrganization.getFoafMbox(), wikidataOrganization.getFoafMbox());
     zohoOrganization.setFoafMbox(mbox);
 
@@ -293,29 +283,27 @@ public class WikidataAccessService {
     zohoOrganization.setDcDescription(wikidataOrganization.getDcDescription());
 
     //address
-    getEntityConverterUtils().mergeAddress(zohoOrganization, wikidataOrganization);
+    EntityConverterUtils.mergeAddress(zohoOrganization, wikidataOrganization);
 
   }
 
   /**
-   * This methods builds a string array by merging all sameAs statements for the given resources.
-   * In case of wikidata redirection, the resource URI of the provided Wikidata organization is ensured to be present in the returned array  
-   * 
-   * @param zohoOrganization
-   * @param wikidataOrganization
-   * @return
+   * This methods builds a string array by merging all sameAs statements for the given resources. In
+   * case of wikidata redirection, the resource URI of the provided Wikidata organization is ensured
+   * to be present in the returned array
    */
-  private String[] buildSameAs(Organization zohoOrganization, Organization wikidataOrganization) {
-    
-    String[] sameAs = getEntityConverterUtils().mergeStringArrays(
+  private String[] buildSameAs(OrganizationImpl zohoOrganization,
+      OrganizationImpl wikidataOrganization) {
+
+    String[] sameAs = EntityConverterUtils.mergeStringArrays(
         zohoOrganization.getOwlSameAs(), wikidataOrganization.getOwlSameAs());
-    
+
     //#EA-1418 if dupplicated/redirected, wikidata resource has different URI
     String wikidataResourceUri = wikidataOrganization.getAbout();
-    if(!ArrayUtils.contains(sameAs, wikidataResourceUri)){
+    if (!ArrayUtils.contains(sameAs, wikidataResourceUri)) {
       sameAs = ArrayUtils.add(sameAs, wikidataResourceUri);
     }
-    
+
     return sameAs;
   }
 }

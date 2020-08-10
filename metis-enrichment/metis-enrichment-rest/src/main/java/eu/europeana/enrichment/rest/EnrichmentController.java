@@ -55,13 +55,8 @@ public class EnrichmentController {
   @ResponseBody
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentBase enrichByCodeUriOrOwlSameAs(
-      @ApiParam("uri") @RequestParam("uri") String uri) {
-    final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = enrichmentService
-        .enrichByCodeUriOrOwlSameAs(uri).stream()
-        .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
-        .collect(Collectors.toList());
-    return enrichmentBaseWrappers.stream().findFirst().map(EnrichmentBaseWrapper::getEnrichmentBase)
-        .orElse(null);
+          @ApiParam("uri") @RequestParam("uri") String uri) {
+    return enrichmentService.enrichByCodeUriOrOwlSameAs(uri);
   }
 
   /**
@@ -77,7 +72,7 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList enrichByCodeUriOrOwlSameAs(@RequestBody List<String> uris) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = uris.stream()
-        .map(enrichmentService::enrichByCodeUriOrOwlSameAs).flatMap(List::stream)
+        .map(enrichmentService::enrichByCodeUriOrOwlSameAs).filter(Objects::nonNull)
         .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
         .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);
@@ -96,7 +91,7 @@ public class EnrichmentController {
   @ApiResponses(value = {@ApiResponse(code = 400, message = "Error processing the result")})
   public EnrichmentResultList enrichByCodeUri(@RequestBody List<String> uris) {
     final List<EnrichmentBaseWrapper> enrichmentBaseWrappers = uris.stream()
-        .map(enrichmentService::enrichByCodeUri).filter(Objects::nonNull).flatMap(List::stream)
+        .map(enrichmentService::enrichByCodeUri).filter(Objects::nonNull)
         .map(enrichmentBase -> new EnrichmentBaseWrapper(null, enrichmentBase))
         .collect(Collectors.toList());
     return new EnrichmentResultList(enrichmentBaseWrappers);

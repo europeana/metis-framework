@@ -1,6 +1,9 @@
 package eu.europeana.indexing.mongo.property;
 
 import com.mongodb.DuplicateKeyException;
+import dev.morphia.UpdateOptions;
+import dev.morphia.query.Query;
+import dev.morphia.query.UpdateOperations;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
@@ -23,8 +26,6 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -271,11 +272,13 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   @Override
   public T applyOperations() {
     try {
-      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations, true);
+      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations,
+              new UpdateOptions().upsert(true).multi(true));
     } catch (DuplicateKeyException e) {
       LOGGER.debug("Received duplicate key exception, trying again once more.", e);
-      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations, true);
+      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations,
+              new UpdateOptions().upsert(true).multi(true));
     }
-    return queryCreator.get().get();
+    return queryCreator.get().first();
   }
 }
