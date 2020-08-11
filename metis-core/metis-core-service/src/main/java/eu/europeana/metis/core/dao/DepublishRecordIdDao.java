@@ -195,9 +195,7 @@ public class DepublishRecordIdDao {
         sortDirection, null, searchQuery);
 
     // Compute pagination
-    final int skip = page * pageSize;
-    final int limit = skip + pageSize;
-    final FindOptions findOptions = new FindOptions().skip(skip).limit(limit);
+    final FindOptions findOptions = new FindOptions().skip(page * pageSize).limit(pageSize);
 
     // Execute query with correct pagination
     final List<DepublishRecordId> result = getListOfQuery(query, findOptions);
