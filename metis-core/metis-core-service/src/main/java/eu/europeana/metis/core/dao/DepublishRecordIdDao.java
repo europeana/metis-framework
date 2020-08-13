@@ -178,6 +178,22 @@ public class DepublishRecordIdDao {
   }
 
   /**
+   * Counts how many records we have for a given dataset that have the status {@link
+   * DepublicationStatus#DEPUBLISHED}.
+   *
+   * @param datasetId The ID of the dataset to count for.
+   * @return The number of records.
+   */
+  public long countSuccessfullyDepublishedRecordIdsForDataset(String datasetId) {
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() ->
+            morphiaDatastoreProvider.getDatastore().createQuery(DepublishRecordId.class)
+                    .field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId)
+                    .field(DepublishRecordId.DEPUBLICATION_STATUS_FIELD)
+                    .equal(DepublicationStatus.DEPUBLISHED).count()
+    );
+  }
+
+  /**
    * Get a list of depublish records for a given dataset.
    * <p>Ids are retrieved regardless of their status</p>
    *

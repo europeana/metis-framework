@@ -147,7 +147,7 @@ class TestOrchestratorService {
 
     orchestratorService = spy(new OrchestratorService(workflowExecutionFactory, workflowDao,
         workflowExecutionDao, workflowUtils, datasetDao, workflowExecutorManager, redissonClient,
-        authorizer));
+        authorizer, depublishRecordIdDao));
     orchestratorService.setSolrCommitPeriodInMins(SOLR_COMMIT_PERIOD_IN_MINS);
   }
 

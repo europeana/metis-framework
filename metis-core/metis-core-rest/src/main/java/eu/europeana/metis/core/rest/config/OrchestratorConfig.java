@@ -171,12 +171,13 @@ public class OrchestratorConfig implements WebMvcConfigurer {
 
   @Bean
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
-      WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils, DatasetDao datasetDao,
-      WorkflowExecutionFactory workflowExecutionFactory,
-      WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer) {
+          WorkflowExecutionDao workflowExecutionDao, WorkflowUtils workflowUtils,
+          DatasetDao datasetDao, WorkflowExecutionFactory workflowExecutionFactory,
+          WorkflowExecutorManager workflowExecutorManager, Authorizer authorizer,
+          DepublishRecordIdDao depublishRecordIdDao) {
     OrchestratorService orchestratorService = new OrchestratorService(workflowExecutionFactory,
         workflowDao, workflowExecutionDao, workflowUtils, datasetDao, workflowExecutorManager,
-        redissonClient, authorizer);
+        redissonClient, authorizer, depublishRecordIdDao);
     orchestratorService.setSolrCommitPeriodInMins(propertiesHolder.getSolrCommitPeriodInMins());
     return orchestratorService;
   }

@@ -5,6 +5,7 @@ import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -34,6 +35,8 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.DataStatus;
+import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
+import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
@@ -97,6 +100,7 @@ public class OrchestratorService {
   private final RedissonClient redissonClient;
   private final Authorizer authorizer;
   private final WorkflowExecutionFactory workflowExecutionFactory;
+  private final DepublishRecordIdDao depublishRecordIdDao;
   private int solrCommitPeriodInMins; // Use getter and setter for this field!
 
   /**
@@ -117,7 +121,7 @@ public class OrchestratorService {
       WorkflowDao workflowDao, WorkflowExecutionDao workflowExecutionDao,
       WorkflowUtils workflowUtils, DatasetDao datasetDao,
       WorkflowExecutorManager workflowExecutorManager, RedissonClient redissonClient,
-      Authorizer authorizer) {
+      Authorizer authorizer, DepublishRecordIdDao depublishRecordIdDao) {
     this.workflowExecutionFactory = workflowExecutionFactory;
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
@@ -126,6 +130,7 @@ public class OrchestratorService {
     this.workflowExecutorManager = workflowExecutorManager;
     this.redissonClient = redissonClient;
     this.authorizer = authorizer;
+    this.depublishRecordIdDao = depublishRecordIdDao;
   }
 
   /**
@@ -633,7 +638,7 @@ public class OrchestratorService {
     setPreviewInformation(executionInfo, lastExecutablePreviewPlugin, lastPreviewPlugin,
         isPreviewCleaningOrRunning, now);
     setPublishInformation(executionInfo, firstPublishPlugin, lastExecutablePublishPlugin,
-        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now);
+        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now, datasetId);
 
     return executionInfo;
   }
@@ -662,8 +667,7 @@ public class OrchestratorService {
   private void setPublishInformation(DatasetExecutionInformation executionInfo,
       MetisPlugin firstPublishPlugin, ExecutablePlugin lastExecutablePublishPlugin,
       MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
-      boolean isPublishCleaningOrRunning,
-      Date date) {
+      boolean isPublishCleaningOrRunning, Date date, String datasetId) {
     // Set the first publication information
     executionInfo.setFirstPublishedDate(firstPublishPlugin == null ? null :
         firstPublishPlugin.getFinishedDate());
@@ -681,22 +685,45 @@ public class OrchestratorService {
               - lastExecutablePublishPlugin.getExecutionProgress().getErrors());
     }
 
-    // Set the last depublish information
-    if (Objects.nonNull(lastExecutableDepublishPlugin)) {
-      executionInfo.setLastDepublishedDate(lastExecutableDepublishPlugin.getFinishedDate());
-      executionInfo.setLastDepublishedRecords(
-          lastExecutableDepublishPlugin.getExecutionProgress().getProcessedRecords()
-              - lastExecutableDepublishPlugin.getExecutionProgress().getErrors());
+    // Determine the publication and depublication situation of the dataset
+    final boolean depublishHappenedAfterLatestPublish = lastExecutableDepublishPlugin != null &&
+            lastExecutablePublishPlugin != null &&
+            lastExecutablePublishPlugin.getFinishedDate()
+                    .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
+    /* TODO JV below we use the fact that a record depublish cannot follow a dataset depublish (so
+        we don't have to look further into the past for all depublish actions after the last
+        publish. We should make this code more robust by not assuming that here. */
+    final boolean datasetCurrentlyDepublished = depublishHappenedAfterLatestPublish
+            && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
+            && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
+            .isDatasetDepublish();
+
+    // Set the depublish status.
+    final PublicationStatus status;
+    if (datasetCurrentlyDepublished) {
+      status = PublicationStatus.DEPUBLISHED;
+    } else if (lastExecutablePublishPlugin != null) {
+      status = PublicationStatus.PUBLISHED;
+    } else {
+      status = null;
+    }
+    executionInfo.setPublicationStatus(status);
+
+    // Set the current depublished record count (all records depublished since last publish).
+    if (depublishHappenedAfterLatestPublish) {
+      final int depublishedRecordCount;
+      if (datasetCurrentlyDepublished) {
+        depublishedRecordCount = executionInfo.getLastPublishedRecords();
+      } else {
+        depublishedRecordCount = (int) depublishRecordIdDao
+                .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
+      }
+      executionInfo.setLastDepublishedRecords(depublishedRecordCount);
     }
 
-    if (Objects.nonNull(lastExecutablePublishPlugin) && Objects
-        .nonNull(lastExecutableDepublishPlugin)) {
-      if (lastExecutablePublishPlugin.getFinishedDate()
-          .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) > 0) {
-        executionInfo.setPublicationStatus(PublicationStatus.PUBLISHED);
-      } else {
-        executionInfo.setPublicationStatus(PublicationStatus.DEPUBLISHED);
-      }
+    // Set the last depublished date.
+    if (Objects.nonNull(lastExecutableDepublishPlugin)) {
+      executionInfo.setLastDepublishedDate(lastExecutableDepublishPlugin.getFinishedDate());
     }
   }
 
