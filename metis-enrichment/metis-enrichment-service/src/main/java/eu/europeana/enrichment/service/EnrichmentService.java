@@ -172,7 +172,7 @@ public class EnrichmentService {
     //Do not get entities for very broad TIMESPAN
     if (entityType == EntityType.TIMESPAN) {
       parentCodeUris = parentCodeUris.stream()
-          .filter(parentCodeUri -> PATTERN_MATCHING_VERY_BROAD_TIMESPANS
+          .filter(parentCodeUri -> !PATTERN_MATCHING_VERY_BROAD_TIMESPANS
               .matcher(parentCodeUri).matches()).collect(Collectors.toSet());
     }
 
