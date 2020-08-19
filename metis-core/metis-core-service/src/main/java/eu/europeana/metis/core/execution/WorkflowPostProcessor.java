@@ -20,6 +20,7 @@ import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -132,7 +133,7 @@ public class WorkflowPostProcessor {
                     Collectors.mapping(Pair::getRight, Collectors.toSet())));
     successfulRecords.forEach((dataset, records) ->
             depublishRecordIdDao.markRecordIdsWithDepublicationStatus(dataset, records,
-                    DepublicationStatus.DEPUBLISHED, depublishPlugin.getFinishedDate()));
+                    DepublicationStatus.DEPUBLISHED, new Date()));
 
     // Set publication fitness to PARTIALLY FIT (if not set to the more severe UNFIT).
     final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);

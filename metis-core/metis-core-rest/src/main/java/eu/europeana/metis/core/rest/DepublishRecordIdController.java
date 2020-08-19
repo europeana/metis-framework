@@ -221,7 +221,7 @@ public class DepublishRecordIdController {
       @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "datasetDepublish", defaultValue = "" + true) boolean datasetDepublish,
       @RequestParam(value = "priority", defaultValue = "0") int priority,
-      @RequestBody String recordIdsInSeparateLines)
+      @RequestBody(required = false) String recordIdsInSeparateLines)
       throws GenericMetisException {
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return depublishRecordIdService
