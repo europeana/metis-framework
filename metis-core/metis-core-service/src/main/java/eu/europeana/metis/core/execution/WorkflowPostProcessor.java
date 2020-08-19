@@ -71,7 +71,7 @@ public class WorkflowPostProcessor {
     if (pluginType == PluginType.PUBLISH) {
       publishPostProcess(datasetId);
     } else if (pluginType == PluginType.DEPUBLISH) {
-      depublishPostProcess(plugin, datasetId);
+      depublishPostProcess((DepublishPlugin) plugin, datasetId);
     }
     LOGGER.info("Finished postprocessing of plugin {} in dataset {}.", pluginType, datasetId);
   }
@@ -81,13 +81,11 @@ public class WorkflowPostProcessor {
         DepublicationStatus.PENDING_DEPUBLICATION, null);
   }
 
-  private void depublishPostProcess(AbstractExecutablePlugin<?> plugin, String datasetId)
-          throws DpsException {
-    final DepublishPlugin depublishPlugin = (DepublishPlugin) plugin;
-    if (depublishPlugin.getPluginMetadata().isDatasetDepublish()) {
+  private void depublishPostProcess(DepublishPlugin plugin, String datasetId) throws DpsException {
+    if (plugin.getPluginMetadata().isDatasetDepublish()) {
       depublishDatasetPostProcess(datasetId);
     } else {
-      depublishRecordPostProcess(depublishPlugin, datasetId);
+      depublishRecordPostProcess(plugin, datasetId);
     }
   }
 
