@@ -20,6 +20,7 @@ import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,8 @@ import org.slf4j.LoggerFactory;
 public class WorkflowPostProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowPostProcessor.class);
+
+  private static final int ECLOUD_REQUEST_BATCH_SIZE = 2;
 
   private final DepublishRecordIdDao depublishRecordIdDao;
   private final DatasetDao datasetDao;
@@ -122,8 +125,16 @@ public class WorkflowPostProcessor {
 
     // Retrieve the successfully depublished records.
     final long externalTaskId = Long.parseLong(depublishPlugin.getExternalTaskId());
-    final List<SubTaskInfo> subTasks = dpsClient
-            .getDetailedTaskReport(depublishPlugin.getTopologyName(), externalTaskId);
+    final List<SubTaskInfo> subTasks = new ArrayList<>();
+    while (true) {
+      final List<SubTaskInfo> subTasksBatch = dpsClient.getDetailedTaskReportBetweenChunks(
+              depublishPlugin.getTopologyName(), externalTaskId, subTasks.size(),
+              subTasks.size() + ECLOUD_REQUEST_BATCH_SIZE);
+      subTasks.addAll(subTasksBatch);
+      if (subTasksBatch.size() < ECLOUD_REQUEST_BATCH_SIZE) {
+        break;
+      }
+    }
 
     // Mark the records as DEPUBLISHED.
     final Map<String, Set<String>> successfulRecords = subTasks.stream()
