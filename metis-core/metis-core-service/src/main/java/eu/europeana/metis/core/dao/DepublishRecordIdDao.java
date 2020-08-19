@@ -15,8 +15,10 @@ import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -118,21 +120,25 @@ public class DepublishRecordIdDao {
           "Can't add these records: this would violate the maximum number of records per dataset.");
     }
 
-    // Add the records
+    // Add the records and we're done.
+    addRecords(recordIdsToAdd, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, null);
+    return recordIdsToAdd.size();
+  }
+
+  private void addRecords(Set<String> recordIdsToAdd, String datasetId,
+          DepublicationStatus depublicationStatus, Instant depublicationDate) {
     final List<DepublishRecordId> objectsToAdd = recordIdsToAdd.stream().map(recordId -> {
       final DepublishRecordId depublishRecordId = new DepublishRecordId();
       depublishRecordId.setDatasetId(datasetId);
       depublishRecordId.setRecordId(recordId);
-      depublishRecordId.setDepublicationStatus(DepublicationStatus.PENDING_DEPUBLICATION);
+      depublishRecordId.setDepublicationStatus(depublicationStatus);
+      depublishRecordId.setDepublicationDate(depublicationDate);
       return depublishRecordId;
     }).collect(Collectors.toList());
     ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
       morphiaDatastoreProvider.getDatastore().save(objectsToAdd);
       return Optional.empty();
     });
-
-    // Done
-    return recordIdsToAdd.size();
   }
 
   /**
@@ -309,14 +315,17 @@ public class DepublishRecordIdDao {
    * provided</p>
    *
    * @param datasetId the dataset for which to do this. Cannot be null
+   * @param recordIds the records for which to set this. Can be null or empty, in which case the
+   * operation will be performed on all records. If it is not empty, a new record will be created if
+   * a record with the given record ID is not already present.
    * @param depublicationStatus the depublication status. Cannot be null
    * @param depublicationDate the depublication date. Can be null only if depublicationStatus is
    * {@link DepublicationStatus#PENDING_DEPUBLICATION}
    */
-  public void markRecordIdsWithDepublicationStatus(String datasetId,
+  public void markRecordIdsWithDepublicationStatus(String datasetId, Set<String> recordIds,
       DepublicationStatus depublicationStatus, @Nullable Date depublicationDate) {
 
-    //Check correctness of parameters
+    // Check correctness of parameters
     if (Objects.isNull(depublicationStatus) || StringUtils.isBlank(datasetId)) {
       throw new IllegalArgumentException(
           "DepublicationStatus cannot be null and datasetId cannot be empty");
@@ -327,10 +336,34 @@ public class DepublishRecordIdDao {
           DepublicationStatus.DEPUBLISHED.name()));
     }
 
+    // If we have a specific record list, make sure that missing records are added.
+    final Set<String> recordIdsToUpdate; // null if and only if we need to update all records
+    if (recordIds == null || recordIds.isEmpty()) {
+      recordIdsToUpdate = null;
+    } else {
+
+      // Add the records that are missing.
+      final Set<String> recordIdsToAdd = getNonExistingRecordIds(datasetId, recordIds);
+      final Instant depublicationInstant = Optional.ofNullable(depublicationDate)
+              .filter(date -> depublicationStatus != DepublicationStatus.PENDING_DEPUBLICATION)
+              .map(Date::toInstant).orElse(null);
+      addRecords(recordIdsToAdd, datasetId, depublicationStatus, depublicationInstant);
+
+      // Compute the records to update - if there are none, we're done.
+      recordIdsToUpdate = new HashSet<>(recordIds);
+      recordIdsToUpdate.removeAll(recordIdsToAdd);
+      if (recordIdsToUpdate.isEmpty()) {
+        return;
+      }
+    }
+
     // Create query.
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(DepublishRecordId.class);
     query.field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId);
+    if (recordIdsToUpdate != null) {
+      query.field(DepublishRecordId.RECORD_ID_FIELD).in(recordIdsToUpdate);
+    }
 
     // Define the update operations.
     final UpdateOperations<DepublishRecordId> updateOperations = morphiaDatastoreProvider

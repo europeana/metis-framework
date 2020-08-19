@@ -7,8 +7,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * This class contains functionality concerning the parsing and composing of depublish record IDs.
@@ -17,6 +20,7 @@ public final class DepublishRecordIdUtils {
 
   private static final Pattern LINE_SEPARATION_PATTERN = Pattern.compile("\\R");
   private static final Pattern INVALID_CHAR_IN_RECORD_ID = Pattern.compile("[^a-zA-Z0-9_]");
+  private static final Pattern FULL_RECORD_ID_PATTERN = Pattern.compile("^/([^/\\s]+)/([^/\\s]+)$");
 
   private DepublishRecordIdUtils() {
   }
@@ -41,6 +45,20 @@ public final class DepublishRecordIdUtils {
    */
   public static String composeFullRecordId(String datasetId, String recordId) {
     return "/" + datasetId + "/" + recordId;
+  }
+
+  /**
+   * Decomposes a full record ID into the dataset ID and the simple record ID part.
+   *
+   * @param fullRecordId The full record ID.
+   * @return A String pair containing first the dataset ID, and second the simple record ID.
+   */
+  public static Pair<String, String> decomposeFullRecordId(String fullRecordId) {
+    final Matcher matcher = FULL_RECORD_ID_PATTERN.matcher(fullRecordId);
+    if (!matcher.find()) {
+      return null;
+    }
+    return new ImmutablePair<>(matcher.group(1), matcher.group(2));
   }
 
   /**

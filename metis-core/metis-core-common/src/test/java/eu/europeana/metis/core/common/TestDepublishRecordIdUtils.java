@@ -2,13 +2,39 @@ package eu.europeana.metis.core.common;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import eu.europeana.metis.exception.BadContentException;
 import java.util.Optional;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.jupiter.api.Test;
 
 class TestDepublishRecordIdUtils {
+
+  @Test
+  void testDecomposeFullRecordId() {
+
+    // Good input
+    assertEquals(new ImmutablePair<>("1", "A"),
+            DepublishRecordIdUtils.decomposeFullRecordId("/1/A"));
+    assertEquals(new ImmutablePair<>("123", "ABC"),
+            DepublishRecordIdUtils.decomposeFullRecordId("/123/ABC"));
+
+    // Bad input
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("//"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("/1/"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("//A"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("//1/A"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("/1//A"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("1/A"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("1A"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId(" /1/A"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("/1/A "));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("/ 1/A"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("/1 /A"));
+    assertNull(DepublishRecordIdUtils.decomposeFullRecordId("/1/ A"));
+  }
 
   @Test
   void testCheckAndNormalizeRecordId() throws BadContentException {
