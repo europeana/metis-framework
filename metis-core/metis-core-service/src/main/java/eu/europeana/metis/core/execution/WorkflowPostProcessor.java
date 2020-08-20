@@ -39,7 +39,7 @@ public class WorkflowPostProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowPostProcessor.class);
 
-  private static final int ECLOUD_REQUEST_BATCH_SIZE = 2;
+  private static final int ECLOUD_REQUEST_BATCH_SIZE = 100;
 
   private final DepublishRecordIdDao depublishRecordIdDao;
   private final DatasetDao datasetDao;
