@@ -1,6 +1,9 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -42,10 +45,11 @@ public class DepublishPluginMetadata extends AbstractExecutablePluginMetadata {
   }
 
   public Set<String> getRecordIdsToDepublish() {
-    return recordIdsToDepublish;
+    return Optional.ofNullable(recordIdsToDepublish).map(Collections::unmodifiableSet)
+            .orElseGet(Collections::emptySet);
   }
 
   public void setRecordIdsToDepublish(Set<String> recordIdsToDepublish) {
-    this.recordIdsToDepublish = recordIdsToDepublish;
+    this.recordIdsToDepublish = new HashSet<>(recordIdsToDepublish);
   }
 }

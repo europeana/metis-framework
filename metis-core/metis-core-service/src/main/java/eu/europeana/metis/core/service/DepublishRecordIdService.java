@@ -8,6 +8,7 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
+import eu.europeana.metis.core.common.DepublishRecordIdUtils;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -15,14 +16,9 @@ import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,12 +30,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class DepublishRecordIdService {
 
-  private static final Pattern LINE_SEPARATION_PATTERN = Pattern.compile("\\R");
   private final Authorizer authorizer;
   private final OrchestratorService orchestratorService;
   private final DepublishRecordIdDao depublishRecordIdDao;
-
-  private static final Pattern INVALID_CHAR_IN_RECORD_ID = Pattern.compile("[^a-zA-Z0-9_]");
 
   /**
    * Constructor.
@@ -54,72 +47,6 @@ public class DepublishRecordIdService {
     this.authorizer = authorizer;
     this.orchestratorService = orchestratorService;
     this.depublishRecordIdDao = depublishRecordIdDao;
-  }
-
-  /**
-   * This method checks/validates and normalizes incoming depublished record IDs for persistence.
-   *
-   * @param datasetId The dataset ID to which the depublished record belongs.
-   * @param recordId The unchecked and non-normalized record ID.
-   * @return The checked and normalized record ID. Or empty Optional if the incoming ID is empty.
-   * @throws BadContentException In case the incoming record ID does not validate.
-   */
-  Optional<String> checkAndNormalizeRecordId(String datasetId, String recordId)
-      throws BadContentException {
-
-    // Trim and check that string is not empty. We allow empty record IDs, we return null.
-    final String recordIdTrimmed = recordId.trim();
-    final Optional<String> result;
-    if (recordIdTrimmed.isEmpty()) {
-      result = Optional.empty();
-    } else {
-      result = Optional.of(validateNonEmptyRecordId(datasetId, recordIdTrimmed));
-    }
-    return result;
-  }
-
-  private String validateNonEmptyRecordId(String datasetId, String recordIdTrimmed)
-          throws BadContentException {
-
-    // Check if it is a valid URL. This also checks for spaces.
-    try {
-      new URI(recordIdTrimmed);
-    } catch (URISyntaxException e) {
-      throw new BadContentException("Invalid record ID (is not a valid URI): " + recordIdTrimmed,
-          e);
-    }
-
-    // Split in segments based on the slash - don't discard empty segments at the end.
-    final String[] segments = recordIdTrimmed.split("/", -1);
-    final String lastSegment = segments[segments.length - 1];
-    final String penultimateSegment = segments.length > 1 ? segments[segments.length - 2] : "";
-
-    // Check last segment: cannot be empty.
-    if (lastSegment.isEmpty()) {
-      throw new BadContentException("Invalid record ID (ends with '/'): " + recordIdTrimmed);
-    }
-
-    // Check last segment: cannot contain invalid characters
-    if (INVALID_CHAR_IN_RECORD_ID.matcher(lastSegment).find()) {
-      throw new BadContentException(
-          "Invalid record ID (contains invalid characters): " + lastSegment);
-    }
-
-    // Check penultimate segment: if it is empty, it must be because it is the start of the ID.
-    if (penultimateSegment.isEmpty() && segments.length > 2) {
-      throw new BadContentException(
-          "Invalid record ID (dataset ID seems to be missing): " + recordIdTrimmed);
-    }
-
-    // Check penultimate segment: if it is not empty, it must be equal to the dataset ID.
-    if (!penultimateSegment.isEmpty() && !penultimateSegment.equals(datasetId)) {
-      throw new BadContentException(
-          "Invalid record ID (doesn't seem to belong to the correct dataset): "
-              + recordIdTrimmed);
-    }
-
-    // Return the last segment (the record ID without the dataset ID).
-    return lastSegment;
   }
 
   /**
@@ -143,8 +70,10 @@ public class DepublishRecordIdService {
 
     // Authorize.
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
+
     // Check and normalize the record IDs.
-    final Set<String> normalizedRecordIds = normalizeRecordIds(datasetId, recordIdsInSeparateLines);
+    final Set<String> normalizedRecordIds = DepublishRecordIdUtils
+            .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
 
     // Add the records.
     return depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, normalizedRecordIds);
@@ -171,20 +100,13 @@ public class DepublishRecordIdService {
 
     // Authorize.
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
-    // Check and normalize the record IDs.(Just in case)
-    final Set<String> normalizedRecordIds = normalizeRecordIds(datasetId, recordIdsInSeparateLines);
 
+    // Check and normalize the record IDs (Just in case).
+    final Set<String> normalizedRecordIds = DepublishRecordIdUtils
+            .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
+
+    // Delete the records.
     return depublishRecordIdDao.deletePendingRecordIds(datasetId, normalizedRecordIds);
-  }
-
-  private Set<String> normalizeRecordIds(String datasetId, String recordIdsInSeparateLines)
-      throws BadContentException {
-    final String[] recordIds = LINE_SEPARATION_PATTERN.split(recordIdsInSeparateLines);
-    final Set<String> normalizedRecordIds = new HashSet<>(recordIds.length);
-    for (String recordId : recordIds) {
-      checkAndNormalizeRecordId(datasetId, recordId).ifPresent(normalizedRecordIds::add);
-    }
-    return normalizedRecordIds;
   }
 
   /**
@@ -268,9 +190,9 @@ public class DepublishRecordIdService {
     depublishPluginMetadata.setEnabled(true);
     depublishPluginMetadata.setDatasetDepublish(datasetDepublish);
     if (StringUtils.isNotBlank(recordIdsInSeparateLines)) {
-      // Check and normalize the record IDs.(Just in case)
-      final Set<String> normalizedRecordIds = normalizeRecordIds(datasetId,
-          recordIdsInSeparateLines);
+      // Check and normalize the record IDs (Just in case).
+      final Set<String> normalizedRecordIds = DepublishRecordIdUtils
+              .checkAndNormalizeRecordIds(datasetId, recordIdsInSeparateLines);
       depublishPluginMetadata.setRecordIdsToDepublish(normalizedRecordIds);
     }
     workflow.setMetisPluginsMetadata(Collections.singletonList(depublishPluginMetadata));

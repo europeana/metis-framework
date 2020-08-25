@@ -2,6 +2,7 @@ package eu.europeana.metis.core.execution;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
+import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -49,6 +50,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   private static final String EXECUTION_ERROR_PREFIX = "Execution of external task presented with an error. ";
   private static final String MONITOR_ERROR_PREFIX = "An error occurred while monitoring the external task. ";
+  private static final String POSTPROCESS_ERROR_PREFIX = "An error occurred while post-processing the external task. ";
   private static final String TRIGGER_ERROR_PREFIX = "An error occurred while triggering the external task. ";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
@@ -340,7 +342,15 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     // Perform post-processing if needed.
     if (monitorResult.getTaskState() == TaskState.PROCESSED) {
-      this.workflowPostProcessor.performPluginPostProcessing(plugin, datasetId);
+      try {
+        this.workflowPostProcessor.performPluginPostProcessing(plugin, datasetId);
+      } catch (DpsException | RuntimeException e) {
+        LOGGER.warn("Problem occurred during Metis post-processing.", e);
+        plugin.setFinishedDate(null);
+        plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+        plugin.setFailMessage(POSTPROCESS_ERROR_PREFIX + e.getMessage());
+        return;
+      }
     }
 
     // Set the status of the task.
