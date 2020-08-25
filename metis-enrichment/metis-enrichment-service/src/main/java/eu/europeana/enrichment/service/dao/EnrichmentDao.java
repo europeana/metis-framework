@@ -6,6 +6,7 @@ import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Key;
 import dev.morphia.Morphia;
+import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.experimental.filters.Filters;
@@ -82,7 +83,7 @@ public class EnrichmentDao {
       final Optional<EnrichmentTerm> enrichmentTerm = Optional.ofNullable(this.datastore
           .find(EnrichmentTerm.class)
           .filter(Filters.eq(fieldName, fieldValue))
-          .project("_id", true).first());
+          .first(new FindOptions().projection().include("_id")));
       return enrichmentTerm.map(EnrichmentTerm::getId);
     });
   }

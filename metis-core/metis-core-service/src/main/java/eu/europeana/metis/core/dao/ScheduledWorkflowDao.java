@@ -74,7 +74,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
   public ScheduledWorkflow getById(String id) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class)
-        .filter(Filters.eq("_id", new ObjectId(id));
+        .filter(Filters.eq(ID.getFieldName(), new ObjectId(id));
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 
@@ -118,7 +118,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
         () -> morphiaDatastoreProvider.getDatastore()
             .find(ScheduledWorkflow.class)
             .filter(Filters.eq(DATASET_ID.getFieldName(), scheduledWorkflow.getDatasetId()))
-            .project("_id", true).first()) != null;
+            .first(new FindOptions().projection().include(ID.getFieldName()))) != null;
   }
 
   /**
@@ -132,7 +132,8 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(ScheduledWorkflow.class)
                 .filter(
-                    Filters.eq(DATASET_ID.getFieldName(), datasetId)).project("_id", true).first());
+                    Filters.eq(DATASET_ID.getFieldName(), datasetId))
+                .first(new FindOptions().projection().include(ID.getFieldName())));
     return storedScheduledWorkflow == null ? null : storedScheduledWorkflow.getId().toString();
   }
 

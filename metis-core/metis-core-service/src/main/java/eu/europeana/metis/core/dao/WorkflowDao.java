@@ -5,6 +5,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 
 import com.mongodb.WriteResult;
 import dev.morphia.Key;
+import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -99,7 +100,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
                 .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId))
-                .project(ID.getFieldName(), true).first());
+                .first(new FindOptions().projection().include(ID.getFieldName())));
     return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }
 

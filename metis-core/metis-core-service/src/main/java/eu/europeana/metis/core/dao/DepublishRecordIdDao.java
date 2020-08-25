@@ -73,13 +73,14 @@ public class DepublishRecordIdDao {
       // Create query for existing records in list. Only return record IDs.
       final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
           .find(DepublishRecordId.class);
-      query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId);
-      query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds);
-      query.project(DepublishRecordId.RECORD_ID_FIELD, true);
-      query.project(DepublishRecordId.ID_FIELD, false);
+      query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId));
+      query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds));
 
       // Execute query and find existing record IDs.
-      final Set<String> existing = query.find().toList().stream()
+      final FindOptions findOptions = new FindOptions();
+      findOptions.projection().include(DepublishRecordId.RECORD_ID_FIELD);
+      findOptions.projection().exclude(DepublishRecordId.ID_FIELD);
+      final Set<String> existing = query.find(findOptions).toList().stream()
           .map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
 
       // Return the other ones: the record IDs not found in the database.
@@ -195,8 +196,8 @@ public class DepublishRecordIdDao {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() ->
         morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
             .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId))
-                .filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
-                    DepublicationStatus.DEPUBLISHED).count());
+            .filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
+                DepublicationStatus.DEPUBLISHED).count());
   }
 
   /**
@@ -276,14 +277,16 @@ public class DepublishRecordIdDao {
 
     final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, sortField,
         sortDirection, depublicationStatus, null);
-    query.project(DepublishRecordId.RECORD_ID_FIELD, true);
-    query.project(DepublishRecordId.ID_FIELD, false);
+    final FindOptions findOptions = new FindOptions();
+    findOptions.projection().include(DepublishRecordId.RECORD_ID_FIELD);
+    findOptions.projection().exclude(DepublishRecordId.ID_FIELD);
+
     if (!CollectionUtils.isEmpty(recordIds)) {
       query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds);
     }
 
     // Execute query with correct pagination
-    final List<DepublishRecordId> result = getListOfQuery(query, null);
+    final List<DepublishRecordId> result = getListOfQuery(query, findOptions);
 
     // Convert result to right object.
     return result.stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
