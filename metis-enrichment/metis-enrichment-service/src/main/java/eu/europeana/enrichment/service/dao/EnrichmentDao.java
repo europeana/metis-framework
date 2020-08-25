@@ -135,9 +135,9 @@ public class EnrichmentDao {
   public Date getDateOfLastUpdatedEnrichmentTerm(EntityType entityType) {
     Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
     query.filter(Filters.eq(ENTITY_TYPE_FIELD, entityType));
-    query.order(Sort.descending(UPDATED_FIELD));
     final EnrichmentTerm enrichmentTerm = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(query::first);
+        .retryableExternalRequestConnectionReset(
+            () -> query.first(new FindOptions().sort(Sort.descending(UPDATED_FIELD))));
 
     Date dateUpdated = null;
     if (Objects.nonNull(enrichmentTerm)) {

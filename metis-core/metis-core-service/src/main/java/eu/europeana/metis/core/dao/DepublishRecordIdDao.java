@@ -164,8 +164,8 @@ public class DepublishRecordIdDao {
 
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
         .find(DepublishRecordId.class);
-    query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId);
-    query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds);
+    query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId));
+    query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds));
     query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
         DepublicationStatus.PENDING_DEPUBLICATION));
 
@@ -182,7 +182,7 @@ public class DepublishRecordIdDao {
   private long countDepublishRecordIdsForDataset(String datasetId) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
-            .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId).count());
+            .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).count());
   }
 
   /**
@@ -197,7 +197,7 @@ public class DepublishRecordIdDao {
         morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
             .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId))
             .filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
-                DepublicationStatus.DEPUBLISHED).count());
+                DepublicationStatus.DEPUBLISHED)).count());
   }
 
   /**
@@ -214,11 +214,13 @@ public class DepublishRecordIdDao {
   public List<DepublishRecordIdView> getDepublishRecordIds(String datasetId, int page,
       DepublishRecordIdSortField sortField, SortDirection sortDirection,
       String searchQuery) {
-    final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, sortField,
-        sortDirection, null, searchQuery);
+    final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, null,
+        searchQuery);
 
     // Compute pagination
-    final FindOptions findOptions = new FindOptions().skip(page * pageSize).limit(pageSize);
+    final FindOptions findOptions = new FindOptions()
+        .sort(sortDirection.createSort(sortField.getDatabaseField())).skip(page * pageSize)
+        .limit(pageSize);
 
     // Execute query with correct pagination
     final List<DepublishRecordId> result = getListOfQuery(query, findOptions);
@@ -275,14 +277,15 @@ public class DepublishRecordIdDao {
           "Can't remove these records: this would violate the maximum number of records per dataset.");
     }
 
-    final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId, sortField,
-        sortDirection, depublicationStatus, null);
+    final Query<DepublishRecordId> query = prepareQueryForDepublishRecordIds(datasetId,
+        depublicationStatus, null);
     final FindOptions findOptions = new FindOptions();
     findOptions.projection().include(DepublishRecordId.RECORD_ID_FIELD);
     findOptions.projection().exclude(DepublishRecordId.ID_FIELD);
+    findOptions.sort(sortDirection.createSort(sortField.getDatabaseField()));
 
     if (!CollectionUtils.isEmpty(recordIds)) {
-      query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds);
+      query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds));
     }
 
     // Execute query with correct pagination
@@ -293,21 +296,18 @@ public class DepublishRecordIdDao {
   }
 
   private Query<DepublishRecordId> prepareQueryForDepublishRecordIds(String datasetId,
-      DepublishRecordIdSortField sortField, SortDirection sortDirection,
       DepublicationStatus depublicationStatus, String searchQuery) {
     // Create query.
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
         .find(DepublishRecordId.class);
-    query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId);
+    query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId));
     if (Objects.nonNull(depublicationStatus)) {
-      query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus);
+      query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus));
     }
     if (StringUtils.isNotBlank(searchQuery)) {
       query.field(DepublishRecordId.RECORD_ID_FIELD).contains(searchQuery);
     }
 
-    // Set ordering
-    query.order(sortDirection.createSort(sortField.getDatabaseField()));
     return query;
   }
 

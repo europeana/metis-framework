@@ -3,9 +3,7 @@ package eu.europeana.metis.core.dao;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 
-import com.mongodb.WriteResult;
 import com.mongodb.client.result.DeleteResult;
-import dev.morphia.Key;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
@@ -60,8 +58,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   @Override
   public Workflow getById(String id) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
-        .find(Workflow.class)
-        .filter(Filters.eq(ID.getFieldName(), new ObjectId(id));
+        .find(Workflow.class).filter(Filters.eq(ID.getFieldName(), new ObjectId(id)));
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 

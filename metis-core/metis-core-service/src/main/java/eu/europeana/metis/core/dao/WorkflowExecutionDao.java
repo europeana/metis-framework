@@ -24,14 +24,12 @@ import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.UpdateOperations;
-import dev.morphia.query.UpdateResults;
 import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.CancelledSystemId;
@@ -424,23 +422,24 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Set dataset ID and worflow status limitations.
     if (datasetIds != null && !datasetIds.isEmpty()) {
-      query.filter(Filters.eq(DATASET_ID.getFieldName()).in(datasetIds));
+      query.filter(Filters.in(DATASET_ID.getFieldName(), datasetIds));
     }
     if (!CollectionUtils.isEmpty(workflowStatuses)) {
-      query.filter(Filters.eq(WORKFLOW_STATUS.getFieldName()).in(workflowStatuses));
+      query.filter(Filters.in(WORKFLOW_STATUS.getFieldName(), workflowStatuses));
     }
 
     // Set ordering
+    final Sort computeSort;
     if (orderField != null) {
       if (ascending) {
-        query.order(Sort.ascending(orderField.getFieldName()));
+        computeSort = Sort.ascending(orderField.getFieldName()););
       } else {
-        query.order(Sort.descending(orderField.getFieldName()));
+        computeSort = Sort.descending(orderField.getFieldName()));
       }
     }
 
     // Execute query with correct pagination
-    final FindOptions findOptions = new FindOptions().skip(pagination.getSkip())
+    final FindOptions findOptions = new FindOptions().sort(computeSort).skip(pagination.getSkip())
         .limit(pagination.getLimit());
     final List<WorkflowExecution> result = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(

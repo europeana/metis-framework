@@ -187,7 +187,6 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     if (scheduleFrequence != null && scheduleFrequence != ScheduleFrequence.NULL) {
       query.filter(Filters.eq("scheduleFrequence", scheduleFrequence);
     }
-    query.order(Sort.ascending(ID.getFieldName()));
     final FindOptions findOptions = new FindOptions()
         .skip(nextPage * getScheduledWorkflowPerRequest())
         .limit(getScheduledWorkflowPerRequest());
@@ -212,7 +211,6 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
             Date.from(lowerBound.atZone(ZoneId.systemDefault()).toInstant()))).and(
         query.criteria("pointerDate")
             .lessThan(Date.from(upperBound.atZone(ZoneId.systemDefault()).toInstant())));
-    query.order(Sort.ascending(ID.getFieldName()));
     final FindOptions findOptions = new FindOptions()
         .skip(nextPage * getScheduledWorkflowPerRequest())
         .limit(getScheduledWorkflowPerRequest());

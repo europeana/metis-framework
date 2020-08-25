@@ -3,9 +3,8 @@ package eu.europeana.metis.core.dao;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 
-import com.mongodb.WriteResult;
 import com.mongodb.client.result.DeleteResult;
-import dev.morphia.Key;
+import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.experimental.filters.Filters;
@@ -102,8 +101,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
             .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId))
-            .order(Sort.descending("createdDate"))
-            .first());
+            .first(new FindOptions().sort(Sort.descending("createdDate"))));
   }
 
   /**
