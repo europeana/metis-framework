@@ -6,6 +6,7 @@ import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.dereference.Vocabulary;
 import java.util.List;
@@ -58,7 +59,7 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public Vocabulary get(String vocabularyId) {
-    return datastore.find(Vocabulary.class).filter("id", vocabularyId).first();
+    return datastore.find(Vocabulary.class).filter(Filters.eq("id", vocabularyId)).first();
   }
 
   /**

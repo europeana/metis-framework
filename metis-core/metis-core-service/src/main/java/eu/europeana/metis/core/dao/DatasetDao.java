@@ -13,6 +13,7 @@ import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.UpdateOperations;
+import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
@@ -108,7 +109,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public Dataset getById(String id) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
-            .filter("_id", new ObjectId(id)).first());
+            .filter(Filters.eq("_id", new ObjectId(id))).first());
   }
 
   /**
@@ -166,7 +167,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
-                .filter(DATASET_ID.getFieldName(), datasetId).first());
+                .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId)).first());
   }
 
   /**

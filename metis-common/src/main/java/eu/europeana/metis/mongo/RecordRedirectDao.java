@@ -3,6 +3,7 @@ package eu.europeana.metis.mongo;
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -91,7 +92,7 @@ public class RecordRedirectDao {
   public RecordRedirect getById(String id) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> datastore.find(RecordRedirect.class)
-            .filter("_id", new ObjectId(id)).first());
+            .filter(Filters.eq("_id", new ObjectId(id))).first());
   }
 
   /**

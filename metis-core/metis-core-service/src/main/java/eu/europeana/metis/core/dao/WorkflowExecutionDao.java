@@ -25,6 +25,7 @@ import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.UpdateResults;
+import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
@@ -121,7 +122,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .createUpdateOperations(WorkflowExecution.class);
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
-        .filter("_id", workflowExecution.getId());
+        .filter(Filters.eq("_id", workflowExecution.getId()));
     workflowExecutionUpdateOperations
         .set(METIS_PLUGINS.getFieldName(), workflowExecution.getMetisPlugins());
     UpdateResults updateResults = ExternalRequestUtil
@@ -145,7 +146,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .createUpdateOperations(WorkflowExecution.class);
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
-        .filter("_id", workflowExecution.getId());
+        .filter(Filters.eq("_id", workflowExecution.getId()));
     workflowExecutionUpdateOperations
         .set(WORKFLOW_STATUS.getFieldName(), workflowExecution.getWorkflowStatus());
     if (workflowExecution.getStartedDate() != null) {
@@ -181,7 +182,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .getDatastore().createUpdateOperations(WorkflowExecution.class);
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
-        .filter("_id", workflowExecution.getId());
+        .filter(Filters.eq("_id", workflowExecution.getId()));
     workflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
     String cancelledBy;
     if (metisUser == null || metisUser.getUserId() == null) {

@@ -4,6 +4,7 @@ import com.mongodb.DuplicateKeyException;
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,8 @@ public class ProcessedEntityDao {
    * @return The entity with the given resource ID.
    */
   public ProcessedEntity get(String resourceId) {
-    return datastore.find(ProcessedEntity.class).filter("resourceId", resourceId).first();
+    return datastore.find(ProcessedEntity.class).filter(Filters.eq("resourceId", resourceId))
+        .first();
   }
 
   /**
@@ -48,7 +50,7 @@ public class ProcessedEntityDao {
       datastore.save(entity);
     } catch (DuplicateKeyException e) {
       LOGGER.info("Attempted to save duplicate record {}, race condition expected.",
-              entity.getResourceId());
+          entity.getResourceId());
       LOGGER.debug("Attempted to save duplicate record - exception details:", e);
     }
   }

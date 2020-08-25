@@ -7,6 +7,7 @@ import com.mongodb.WriteResult;
 import dev.morphia.Key;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.utils.ExternalRequestUtil;
@@ -61,7 +62,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   public DatasetXslt getById(String id) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
-            .filter(ID.getFieldName(), new ObjectId(id)).first());
+            .filter(Filters.eq(ID.getFieldName(), new ObjectId(id))).first());
   }
 
   @Override
@@ -103,7 +104,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   DatasetXslt getLatestXsltForDatasetId(String datasetId) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
-            .filter(DATASET_ID.getFieldName(), datasetId).order(Sort.descending("createdDate"))
+            .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId)).order(Sort.descending("createdDate"))
             .first());
   }
 

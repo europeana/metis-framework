@@ -8,6 +8,7 @@ import dev.morphia.Key;
 import dev.morphia.Morphia;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
+import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
@@ -49,7 +50,8 @@ public class EnrichmentDao {
    */
   public EnrichmentDao(MongoClient mongoClient, String databaseName) {
     this.mongoClient = mongoClient;
-    this.datastore = Morphia.createDatastore((com.mongodb.client.MongoClient) this.mongoClient, databaseName);
+    this.datastore = Morphia
+        .createDatastore((com.mongodb.client.MongoClient) this.mongoClient, databaseName);
     this.datastore.getMapper().map(EnrichmentTerm.class);
   }
 
@@ -63,7 +65,8 @@ public class EnrichmentDao {
    */
   public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, String fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> Optional.ofNullable(
-            this.datastore.find(EnrichmentTerm.class).filter(fieldName, fieldValue).first()));
+        this.datastore.find(EnrichmentTerm.class).filter(Filters.eq(fieldName, fieldValue))
+            .first()));
   }
 
   /**
@@ -77,9 +80,9 @@ public class EnrichmentDao {
   public Optional<ObjectId> getEnrichmentTermObjectIdByField(String fieldName, String fieldValue) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
       final Optional<EnrichmentTerm> enrichmentTerm = Optional.ofNullable(this.datastore
-              .find(EnrichmentTerm.class)
-              .filter(fieldName, fieldValue)
-              .project("_id", true).first());
+          .find(EnrichmentTerm.class)
+          .filter(Filters.eq(fieldName, fieldValue))
+          .project("_id", true).first());
       return enrichmentTerm.map(EnrichmentTerm::getId);
     });
   }
@@ -87,8 +90,8 @@ public class EnrichmentDao {
   /**
    * Get a list of enrichmentTerm by using a provided pair of field names and values.
    * <p>Convenience method to avoid needless list generation if {@link
-   * #getAllEnrichmentTermsByFieldsInList} was used.
-   * Order of supplied field pairs matter on the query performance.</p>
+   * #getAllEnrichmentTermsByFieldsInList} was used. Order of supplied field pairs matter on the
+   * query performance.</p>
    *
    * @param fieldNameAndValues the list of pairs with key being the fieldName and value being the
    * fieldValue
@@ -98,7 +101,7 @@ public class EnrichmentDao {
       List<Pair<String, String>> fieldNameAndValues) {
     final Query<EnrichmentTerm> query = datastore.createQuery(EnrichmentTerm.class);
     for (Pair<String, String> fieldNameAndValue : fieldNameAndValues) {
-      query.filter(fieldNameAndValue.getKey(), fieldNameAndValue.getValue());
+      query.filter(Filters.eq(fieldNameAndValue.getKey(), fieldNameAndValue.getValue()));
     }
     return getListOfQuery(query);
   }
@@ -130,7 +133,7 @@ public class EnrichmentDao {
    */
   public Date getDateOfLastUpdatedEnrichmentTerm(EntityType entityType) {
     Query<EnrichmentTerm> query = datastore.createQuery(EnrichmentTerm.class);
-    query.filter(ENTITY_TYPE_FIELD, entityType);
+    query.filter(Filters.eq(ENTITY_TYPE_FIELD, entityType));
     query.order(Sort.descending(UPDATED_FIELD));
     final EnrichmentTerm enrichmentTerm = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(query::first);
@@ -149,7 +152,8 @@ public class EnrichmentDao {
    * @return the key of the saved item
    */
   public String saveEnrichmentTerm(EnrichmentTerm enrichmentTerm) {
-    EnrichmentTerm enrichmentTermSaved = ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    EnrichmentTerm enrichmentTermSaved = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(
             () -> this.datastore.save(enrichmentTerm));
     return enrichmentTermSaved == null ? StringUtils.EMPTY : enrichmentTermSaved.getId().toString();
   }
@@ -169,9 +173,10 @@ public class EnrichmentDao {
 
     //Find all TermLists that have owlSameAs equals with codeUri
     final Query<EnrichmentTerm> enrichmentTermsSameAsQuery = this.datastore
-        .createQuery(EnrichmentTerm.class).filter(ENTITY_TYPE_FIELD, entityType)
+        .createQuery(EnrichmentTerm.class).filter(Filters.eq(ENTITY_TYPE_FIELD, entityType))
         .field(OWL_SAME_AS_FIELD).in(codeUris);
-    final List<EnrichmentTerm> enrichmentTermsOwlSameAs = getListOfQuery(enrichmentTermsSameAsQuery);
+    final List<EnrichmentTerm> enrichmentTermsOwlSameAs = getListOfQuery(
+        enrichmentTermsSameAsQuery);
     final List<String> sameAsCodeUris = enrichmentTermsOwlSameAs.stream()
         .map(EnrichmentTerm::getCodeUri)
         .collect(Collectors.toList());
@@ -182,7 +187,7 @@ public class EnrichmentDao {
 
   private void deleteEnrichmentTerm(List<String> codeUri) {
     ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> this.datastore.delete(
-            this.datastore.createQuery(EnrichmentTerm.class).field(CODE_URI_FIELD).in(codeUri)));
+        this.datastore.createQuery(EnrichmentTerm.class).field(CODE_URI_FIELD).in(codeUri)));
   }
 
   private <T> List<T> getListOfQuery(Query<T> query) {
