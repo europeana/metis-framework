@@ -126,15 +126,13 @@ public class WorkflowPostProcessor {
     // Retrieve the successfully depublished records.
     final long externalTaskId = Long.parseLong(depublishPlugin.getExternalTaskId());
     final List<SubTaskInfo> subTasks = new ArrayList<>();
-    while (true) {
-      final List<SubTaskInfo> subTasksBatch = dpsClient.getDetailedTaskReportBetweenChunks(
+    List<SubTaskInfo> subTasksBatch;
+    do {
+      subTasksBatch = dpsClient.getDetailedTaskReportBetweenChunks(
               depublishPlugin.getTopologyName(), externalTaskId, subTasks.size(),
               subTasks.size() + ECLOUD_REQUEST_BATCH_SIZE);
       subTasks.addAll(subTasksBatch);
-      if (subTasksBatch.size() < ECLOUD_REQUEST_BATCH_SIZE) {
-        break;
-      }
-    }
+    } while (subTasksBatch.size() == ECLOUD_REQUEST_BATCH_SIZE);
 
     // Mark the records as DEPUBLISHED.
     final Map<String, Set<String>> successfulRecords = subTasks.stream()

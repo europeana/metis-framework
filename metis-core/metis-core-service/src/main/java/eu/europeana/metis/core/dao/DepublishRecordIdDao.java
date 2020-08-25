@@ -338,7 +338,7 @@ public class DepublishRecordIdDao {
 
     // If we have a specific record list, make sure that missing records are added.
     final Set<String> recordIdsToUpdate; // null if and only if we need to update all records
-    if (recordIds == null || recordIds.isEmpty()) {
+    if (CollectionUtils.isEmpty(recordIds)) {
       recordIdsToUpdate = null;
     } else {
 
