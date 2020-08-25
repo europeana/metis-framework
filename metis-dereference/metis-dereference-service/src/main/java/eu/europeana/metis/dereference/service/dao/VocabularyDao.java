@@ -34,7 +34,7 @@ public class VocabularyDao {
   public List<Vocabulary> getByUriSearch(String searchString) {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
     final Query<Vocabulary> query = datastore.createQuery(Vocabulary.class);
-    query.field("uris").equal(pattern);
+    query.filter(Filters.eq("uris", pattern);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
       return performFunction(cursor, MorphiaCursor::toList);
     }

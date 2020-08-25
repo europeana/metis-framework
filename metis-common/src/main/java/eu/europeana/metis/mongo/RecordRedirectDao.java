@@ -117,7 +117,7 @@ public class RecordRedirectDao {
 
   private List<RecordRedirect> getRecordRedirects(String fieldName, String identifier) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> datastore.find(RecordRedirect.class).field(fieldName).equal(identifier).find()
+        () -> datastore.find(RecordRedirect.class).filter(Filters.eq(fieldName, identifier)).find()
             .toList());
   }
 

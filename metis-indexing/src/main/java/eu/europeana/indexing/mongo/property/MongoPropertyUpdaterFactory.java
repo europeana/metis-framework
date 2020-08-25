@@ -2,6 +2,7 @@ package eu.europeana.indexing.mongo.property;
 
 import dev.morphia.query.Query;
 import dev.morphia.query.UpdateOperations;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.storage.MongoServer;
 import eu.europeana.indexing.utils.TriConsumer;
 import java.util.Date;
@@ -107,7 +108,7 @@ public final class MongoPropertyUpdaterFactory {
 
     // Find object with the same about value
     final Supplier<Query<T>> queryCreator = () -> mongoServer.getDatastore().find(objectClass)
-        .field(ABOUT_FIELD).equal(aboutGetter.apply(updated));
+        .filter(Filters.eq(ABOUT_FIELD, aboutGetter.apply(updated));
 
     // Set the about.
     final Consumer<UpdateOperations<T>> operationsPreprocessor = operations -> operations

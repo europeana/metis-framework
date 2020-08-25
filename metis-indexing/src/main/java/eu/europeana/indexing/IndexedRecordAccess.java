@@ -2,6 +2,7 @@ package eu.europeana.indexing;
 
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
@@ -80,8 +81,8 @@ public class IndexedRecordAccess {
 
       // Obtain the Mongo record
       final Datastore datastore = mongoServer.getDatastore();
-      final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class).field(ABOUT_FIELD)
-          .equal(rdfAbout).first();
+      final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class)
+          .filter(Filters.eq(ABOUT_FIELD, rdfAbout)).first();
 
       // Remove mongo record and dependencies
       if (recordToDelete != null) {
@@ -116,7 +117,7 @@ public class IndexedRecordAccess {
    * @throws IndexerRelatedIndexingException In case something went wrong.
    */
   public int removeDataset(String datasetId, Date maxRecordDate)
-          throws IndexerRelatedIndexingException {
+      throws IndexerRelatedIndexingException {
     final int mongoCount;
     try {
       mongoCount = removeDatasetFromMongo(datasetId, maxRecordDate);
@@ -133,7 +134,7 @@ public class IndexedRecordAccess {
     final StringBuilder solrQuery = new StringBuilder();
 
     final String datasetIdRegexEscaped =
-            ClientUtils.escapeQueryChars(getRecordIdPrefix(datasetId)) + "*";
+        ClientUtils.escapeQueryChars(getRecordIdPrefix(datasetId)) + "*";
     solrQuery.append(EdmLabel.EUROPEANA_ID).append(':').append(datasetIdRegexEscaped);
 
     if (maxRecordDate != null) {
@@ -150,7 +151,7 @@ public class IndexedRecordAccess {
     final Query<?> query = mongoServer.getDatastore().createQuery(FullBeanImpl.class);
     query.field(ABOUT_FIELD).startsWith(getRecordIdPrefix(datasetId));
     if (maxRecordDate != null) {
-      query.field("timestampUpdated").lessThan(maxRecordDate);
+      query.filter(Filters.lt("timestampUpdated", maxRecordDate);
     }
     return mongoServer.getDatastore().delete(query).getN();
   }

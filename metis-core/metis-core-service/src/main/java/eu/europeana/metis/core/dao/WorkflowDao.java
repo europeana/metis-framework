@@ -6,6 +6,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import com.mongodb.WriteResult;
 import dev.morphia.Key;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.utils.ExternalRequestUtil;
@@ -58,7 +59,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   public Workflow getById(String id) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
         .find(Workflow.class)
-        .field(ID.getFieldName()).equal(new ObjectId(id));
+        .filter(Filters.eq(ID.getFieldName(), new ObjectId(id));
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 
@@ -75,7 +76,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
    */
   public boolean deleteWorkflow(String datasetId) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore().createQuery(Workflow.class);
-    query.field(DATASET_ID.getFieldName()).equal(datasetId);
+    query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     WriteResult delete = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().delete(query));
@@ -97,7 +98,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     Workflow storedWorkflow = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-                .field(DATASET_ID.getFieldName()).equal(datasetId)
+                .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId))
                 .project(ID.getFieldName(), true).first());
     return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }
@@ -112,7 +113,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     return ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-                .field(DATASET_ID.getFieldName()).equal(datasetId).first());
+                .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId)).first());
   }
 }
 
