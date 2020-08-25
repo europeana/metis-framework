@@ -11,8 +11,9 @@ import dev.morphia.query.CriteriaContainer;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
-import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.experimental.updates.UpdateOperator;
+import dev.morphia.query.experimental.updates.UpdateOperators;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
@@ -320,11 +321,11 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     Query<DatasetIdSequence> updateQuery = morphiaDatastoreProvider.getDatastore()
         .find(DatasetIdSequence.class)
         .filter(Filters.eq(ID.getFieldName(), datasetIdSequence.getId()));
-    UpdateOperations<DatasetIdSequence> updateOperations = morphiaDatastoreProvider.getDatastore()
-        .createUpdateOperations(DatasetIdSequence.class)
+    final UpdateOperator updateOperator = UpdateOperators
         .set("sequence", datasetIdSequence.getSequence());
+
     ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> morphiaDatastoreProvider.getDatastore().update(updateQuery, updateOperations));
+        () -> updateQuery.update(updateOperator).execute());
     return datasetIdSequence.getSequence();
   }
 

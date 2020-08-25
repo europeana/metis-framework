@@ -40,7 +40,7 @@ public class WebResourceMetaInfoUpdater
 
   private static Query<WebResourceMetaInfoImpl> createQuery(MongoServer mongoServer, String id) {
     return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class)
-        .filter(Filters.eq("_id", id);
+        .filter(Filters.eq("_id", id));
   }
 
   // TODO This is code from corelib (eu.europeana.corelib.search.impl.WebMetaInfo). This should be

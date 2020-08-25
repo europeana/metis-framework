@@ -116,9 +116,9 @@ public class IndexedRecordAccess {
    * @return The number of records that were removed.
    * @throws IndexerRelatedIndexingException In case something went wrong.
    */
-  public int removeDataset(String datasetId, Date maxRecordDate)
+  public long removeDataset(String datasetId, Date maxRecordDate)
       throws IndexerRelatedIndexingException {
-    final int mongoCount;
+    final long mongoCount;
     try {
       mongoCount = removeDatasetFromMongo(datasetId, maxRecordDate);
       removeDatasetFromSolr(datasetId, maxRecordDate);

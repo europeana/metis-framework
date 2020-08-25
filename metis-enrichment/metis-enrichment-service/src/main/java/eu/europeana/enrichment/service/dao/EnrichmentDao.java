@@ -4,7 +4,6 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
-import dev.morphia.Key;
 import dev.morphia.Morphia;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
@@ -120,7 +119,7 @@ public class EnrichmentDao {
       List<Pair<String, List<String>>> fieldNameAndValues) {
     final Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
     for (Pair<String, List<String>> fieldNameAndValue : fieldNameAndValues) {
-      query.filter(Filters.in(fieldNameAndValue.getKey(), fieldNameAndValue.getValue());
+      query.filter(Filters.in(fieldNameAndValue.getKey(), fieldNameAndValue.getValue()));
     }
     return getListOfQuery(query);
   }
@@ -175,7 +174,7 @@ public class EnrichmentDao {
     //Find all TermLists that have owlSameAs equals with codeUri
     final Query<EnrichmentTerm> enrichmentTermsSameAsQuery = this.datastore
         .find(EnrichmentTerm.class).filter(Filters.eq(ENTITY_TYPE_FIELD, entityType))
-        .filter(Filters.in(OWL_SAME_AS_FIELD, codeUris);
+        .filter(Filters.in(OWL_SAME_AS_FIELD, codeUris));
     final List<EnrichmentTerm> enrichmentTermsOwlSameAs = getListOfQuery(
         enrichmentTermsSameAsQuery);
     final List<String> sameAsCodeUris = enrichmentTermsOwlSameAs.stream()
@@ -194,7 +193,7 @@ public class EnrichmentDao {
 
   private <T> List<T> getListOfQuery(Query<T> query) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
-      try (MorphiaCursor<T> cursor = query.find()) {
+      try (MorphiaCursor<T> cursor = query.iterator()) {
         return performFunction(cursor, MorphiaCursor::toList);
       }
     });

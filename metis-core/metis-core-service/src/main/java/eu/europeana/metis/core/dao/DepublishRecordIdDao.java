@@ -4,8 +4,9 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
-import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.experimental.updates.UpdateOperator;
+import dev.morphia.query.experimental.updates.UpdateOperators;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
@@ -17,6 +18,7 @@ import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -131,7 +133,7 @@ public class DepublishRecordIdDao {
   }
 
   private void addRecords(Set<String> recordIdsToAdd, String datasetId,
-          DepublicationStatus depublicationStatus, Instant depublicationDate) {
+      DepublicationStatus depublicationStatus, Instant depublicationDate) {
     final List<DepublishRecordId> objectsToAdd = recordIdsToAdd.stream().map(recordId -> {
       final DepublishRecordId depublishRecordId = new DepublishRecordId();
       depublishRecordId.setDatasetId(datasetId);
@@ -352,8 +354,8 @@ public class DepublishRecordIdDao {
       // Add the records that are missing.
       final Set<String> recordIdsToAdd = getNonExistingRecordIds(datasetId, recordIds);
       final Instant depublicationInstant = Optional.ofNullable(depublicationDate)
-              .filter(date -> depublicationStatus != DepublicationStatus.PENDING_DEPUBLICATION)
-              .map(Date::toInstant).orElse(null);
+          .filter(date -> depublicationStatus != DepublicationStatus.PENDING_DEPUBLICATION)
+          .map(Date::toInstant).orElse(null);
       addRecords(recordIdsToAdd, datasetId, depublicationStatus, depublicationInstant);
 
       // Compute the records to update - if there are none, we're done.
@@ -373,18 +375,20 @@ public class DepublishRecordIdDao {
     }
 
     // Define the update operations.
-    final UpdateOperations<DepublishRecordId> updateOperations = morphiaDatastoreProvider
-        .getDatastore().createUpdateOperations(DepublishRecordId.class);
-    updateOperations.set(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus);
+    final UpdateOperator firstUpdateOperator = UpdateOperators
+        .set(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus);
+    final ArrayList<UpdateOperator> extraUpdateOperators = new ArrayList<>();
     if (depublicationStatus == DepublicationStatus.PENDING_DEPUBLICATION) {
-      updateOperations.unset(DepublishRecordId.DEPUBLICATION_DATE_FIELD);
+      extraUpdateOperators.add(UpdateOperators.unset(DepublishRecordId.DEPUBLICATION_DATE_FIELD));
     } else {
-      updateOperations.set(DepublishRecordId.DEPUBLICATION_DATE_FIELD, depublicationDate);
+      extraUpdateOperators
+          .add(UpdateOperators.set(DepublishRecordId.DEPUBLICATION_DATE_FIELD, depublicationDate));
     }
 
     // Apply the operations.
     ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> morphiaDatastoreProvider.getDatastore().update(query, updateOperations));
+        () -> query.update(firstUpdateOperator, extraUpdateOperators.toArray(UpdateOperator[]::new))
+            .execute());
   }
 
   /**

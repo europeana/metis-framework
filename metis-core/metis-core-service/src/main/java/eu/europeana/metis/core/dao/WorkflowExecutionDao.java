@@ -13,8 +13,8 @@ import static eu.europeana.metis.core.common.DaoFieldNames.WORKFLOW_STATUS;
 import static eu.europeana.metis.core.common.DaoFieldNames.XSLT_ID;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
-import com.mongodb.WriteResult;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import dev.morphia.aggregation.AggregationPipeline;
 import dev.morphia.aggregation.Projection;
 import dev.morphia.query.Criteria;
@@ -23,9 +23,10 @@ import dev.morphia.query.FilterOperator;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
-import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
+import dev.morphia.query.experimental.updates.UpdateOperator;
+import dev.morphia.query.experimental.updates.UpdateOperators;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
@@ -115,21 +116,19 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param workflowExecution the WorkflowExecution to update
    */
   public void updateWorkflowPlugins(WorkflowExecution workflowExecution) {
-    UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
-        .getDatastore()
-        .createUpdateOperations(WorkflowExecution.class);
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
         .filter(Filters.eq(ID.getFieldName(), workflowExecution.getId()));
-    workflowExecutionUpdateOperations
+
+    final UpdateOperator updateOperator = UpdateOperators
         .set(METIS_PLUGINS.getFieldName(), workflowExecution.getMetisPlugins());
-    UpdateResults updateResults = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore()
-            .update(query, workflowExecutionUpdateOperations));
+
+    UpdateResult updateResult = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(() -> query.update(updateOperator).execute());
     LOGGER.debug(
         "WorkflowExecution metisPlugins for datasetId '{}' updated in Mongo. (UpdateResults: {})",
         workflowExecution.getDatasetId(),
-        updateResults == null ? 0 : updateResults.getUpdatedCount());
+        updateResult == null ? 0 : updateResult.getModifiedCount());
   }
 
   /**
@@ -139,31 +138,31 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param workflowExecution the WorkflowExecution to update
    */
   public void updateMonitorInformation(WorkflowExecution workflowExecution) {
-    UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
-        .getDatastore()
-        .createUpdateOperations(WorkflowExecution.class);
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
         .filter(Filters.eq(ID.getFieldName(), workflowExecution.getId()));
-    workflowExecutionUpdateOperations
+    final UpdateOperator firstUpdateOperator = UpdateOperators
         .set(WORKFLOW_STATUS.getFieldName(), workflowExecution.getWorkflowStatus());
+    final ArrayList<UpdateOperator> extraUpdateOperators = new ArrayList<>();
     if (workflowExecution.getStartedDate() != null) {
-      workflowExecutionUpdateOperations
-          .set("startedDate", workflowExecution.getStartedDate());
+      extraUpdateOperators
+          .add(UpdateOperators.set("startedDate", workflowExecution.getStartedDate()));
     }
     if (workflowExecution.getUpdatedDate() != null) {
-      workflowExecutionUpdateOperations
-          .set("updatedDate", workflowExecution.getUpdatedDate());
+      extraUpdateOperators
+          .add(UpdateOperators.set("updatedDate", workflowExecution.getUpdatedDate()));
     }
-    workflowExecutionUpdateOperations
-        .set(METIS_PLUGINS.getFieldName(), workflowExecution.getMetisPlugins());
-    UpdateResults updateResults = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore()
-            .update(query, workflowExecutionUpdateOperations));
+    extraUpdateOperators.add(
+        UpdateOperators.set(METIS_PLUGINS.getFieldName(), workflowExecution.getMetisPlugins()));
+    UpdateResult updateResult = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(
+            () -> query
+                .update(firstUpdateOperator, extraUpdateOperators.toArray(UpdateOperator[]::new))
+                .execute());
     LOGGER.debug(
         "WorkflowExecution monitor information for datasetId '{}' updated in Mongo. (UpdateResults: {})",
         workflowExecution.getDatasetId(),
-        updateResults == null ? 0 : updateResults.getUpdatedCount());
+        updateResult == null ? 0 : updateResult.getModifiedCount());
   }
 
   /**
@@ -176,26 +175,27 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param metisUser the user that triggered the cancellation or null if it was the system
    */
   public void setCancellingState(WorkflowExecution workflowExecution, MetisUser metisUser) {
-    UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
-        .getDatastore().createUpdateOperations(WorkflowExecution.class);
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
         .filter(Filters.eq(ID.getFieldName(), workflowExecution.getId()));
-    workflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
     String cancelledBy;
     if (metisUser == null || metisUser.getUserId() == null) {
       cancelledBy = CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name();
     } else {
       cancelledBy = metisUser.getUserId();
     }
-    workflowExecutionUpdateOperations.set("cancelledBy", cancelledBy);
-    UpdateResults updateResults = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> morphiaDatastoreProvider.getDatastore()
-            .update(query, workflowExecutionUpdateOperations));
+    final UpdateOperator firstUpdateOperator = UpdateOperators.set("cancelling", Boolean.TRUE);
+    final ArrayList<UpdateOperator> extraUpdateOperators = new ArrayList<>();
+
+    extraUpdateOperators.add(UpdateOperators.set("cancelledBy", cancelledBy));
+    UpdateResult updateResult = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(() -> query
+            .update(firstUpdateOperator, extraUpdateOperators.toArray(UpdateOperator[]::new))
+            .execute());
     LOGGER.debug(
         "WorkflowExecution cancelling for datasetId '{}' set to true in Mongo. (UpdateResults: {})",
         workflowExecution.getDatasetId(),
-        updateResults == null ? 0 : updateResults.getUpdatedCount());
+        updateResult == null ? 0 : updateResult.getModifiedCount()));
   }
 
   @Override
@@ -538,7 +538,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       elemMatchFilters.add(Filters.lt(STARTED_DATE.getFieldName(), toDate));
     }
     query.filter(
-        Filters.elemMatch(METIS_PLUGINS.getFieldName(), elemMatchFilters.toArray(new Filter[0])));
+        Filters.elemMatch(METIS_PLUGINS.getFieldName(), elemMatchFilters.toArray(Filter[]::new)));
     return query;
   }
 
@@ -760,7 +760,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     query.filter(Filters.elemMatch(METIS_PLUGINS.getFieldName(),
-        elemMatchFilters.toArray(new Filter[0])));
+        elemMatchFilters.toArray(Filter[]::new)));
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 

@@ -108,7 +108,7 @@ public final class MongoPropertyUpdaterFactory {
 
     // Find object with the same about value
     final Supplier<Query<T>> queryCreator = () -> mongoServer.getDatastore().find(objectClass)
-        .filter(Filters.eq(ABOUT_FIELD, aboutGetter.apply(updated));
+        .filter(Filters.eq(ABOUT_FIELD, aboutGetter.apply(updated)));
 
     // Set the about.
     final Consumer<UpdateOperations<T>> operationsPreprocessor = operations -> operations
