@@ -305,7 +305,7 @@ public class DepublishRecordIdDao {
       query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus));
     }
     if (StringUtils.isNotBlank(searchQuery)) {
-      query.field(DepublishRecordId.RECORD_ID_FIELD).contains(searchQuery);
+      query.filter(Filters.regex(DepublishRecordId.RECORD_ID_FIELD).pattern(searchQuery));
     }
 
     return query;
