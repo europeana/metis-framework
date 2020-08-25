@@ -64,8 +64,8 @@ class TestDatasetDao {
   @AfterEach
   void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.delete(datastore.find(Dataset.class));
-    datastore.delete(datastore.find(DatasetIdSequence.class));
+    datastore.find(Dataset.class).delete();
+    datastore.find(DatasetIdSequence.class).delete();
     Mockito.reset(ecloudDataSetServiceClient);
   }
 

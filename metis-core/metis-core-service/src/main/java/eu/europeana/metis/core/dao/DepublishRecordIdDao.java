@@ -153,7 +153,7 @@ public class DepublishRecordIdDao {
    * @throws BadContentException In case adding the records would violate the maximum number of
    * depublished records that each dataset can have.
    */
-  public Integer deletePendingRecordIds(String datasetId, Set<String> recordIds)
+  public Long deletePendingRecordIds(String datasetId, Set<String> recordIds)
       throws BadContentException {
 
     // Check list size: if this is too large we can throw exception regardless of what's in the database.
@@ -169,8 +169,8 @@ public class DepublishRecordIdDao {
     query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
         DepublicationStatus.PENDING_DEPUBLICATION));
 
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> morphiaDatastoreProvider.getDatastore().delete(query).getN());
+    return ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(() -> query.delete().getDeletedCount());
   }
 
   /**

@@ -95,7 +95,7 @@ public class DepublishRecordIdService {
    * <li>{@link BadContentException} if some content or the operation were invalid</li>
    * </ul>
    */
-  public Integer deletePendingRecordIds(MetisUser metisUser, String datasetId,
+  public Long deletePendingRecordIds(MetisUser metisUser, String datasetId,
       String recordIdsInSeparateLines) throws GenericMetisException {
 
     // Authorize.

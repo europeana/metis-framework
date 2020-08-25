@@ -187,8 +187,9 @@ public class EnrichmentDao {
   }
 
   private void deleteEnrichmentTerm(List<String> codeUri) {
-    ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> this.datastore.delete(
-        this.datastore.find(EnrichmentTerm.class).filter(Filters.in(CODE_URI_FIELD, codeUri)));
+    ExternalRequestUtil.retryableExternalRequestConnectionReset(
+        () -> this.datastore.find(EnrichmentTerm.class).filter(Filters.in(CODE_URI_FIELD, codeUri))
+            .delete());
   }
 
   private <T> List<T> getListOfQuery(Query<T> query) {

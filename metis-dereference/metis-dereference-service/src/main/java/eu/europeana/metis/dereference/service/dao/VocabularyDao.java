@@ -68,7 +68,7 @@ public class VocabularyDao {
    * @param vocabularies The new vocabularies.
    */
   public void replaceAll(List<Vocabulary> vocabularies) {
-    datastore.delete(datastore.find(Vocabulary.class));
+    datastore.find(Vocabulary.class).delete();
     datastore.save(vocabularies);
   }
 

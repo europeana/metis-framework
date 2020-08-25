@@ -94,7 +94,7 @@ class TestWorkflowExecutionDao {
   @AfterEach
   void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.delete(datastore.find(WorkflowExecution.class));
+    datastore.find(WorkflowExecution.class).delete();
     reset(workflowExecutionDao);
   }
 

@@ -6,8 +6,6 @@ import static eu.europeana.metis.core.common.DaoFieldNames.DATA_PROVIDER;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.PROVIDER;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
-
-import dev.morphia.Key;
 import dev.morphia.query.CriteriaContainer;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
@@ -122,9 +120,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public boolean delete(Dataset dataset) {
     ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
-            () -> morphiaDatastoreProvider.getDatastore().delete(
-                morphiaDatastoreProvider.getDatastore().find(Dataset.class)
-                    .filter(Filters.eq(DATASET_ID.getFieldName(), dataset.getDatasetId()))));
+            () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+                    .filter(Filters.eq(DATASET_ID.getFieldName(), dataset.getDatasetId())).delete());
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' deleted in Mongo",
         dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());

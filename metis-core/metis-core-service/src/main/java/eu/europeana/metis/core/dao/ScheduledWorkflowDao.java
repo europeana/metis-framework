@@ -5,6 +5,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
 import com.mongodb.WriteResult;
+import com.mongodb.client.result.DeleteResult;
 import dev.morphia.Key;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
@@ -147,13 +148,12 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(ScheduledWorkflow.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId);
-    WriteResult delete = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> morphiaDatastoreProvider.getDatastore().delete(query));
+    DeleteResult delete = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(query::delete);
     LOGGER.debug(
         "ScheduledWorkflow with datasetId: {} deleted from Mongo",
         datasetId);
-    return (delete == null ? 0 : delete.getN()) == 1;
+    return (delete == null ? 0 : delete.getDeletedCount()) == 1;
   }
 
   /**
@@ -166,12 +166,11 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId);
-    WriteResult delete = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> morphiaDatastoreProvider.getDatastore().delete(query));
+    DeleteResult deleteResult = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(query::delete);
     LOGGER.debug(
         "ScheduledWorkflows with datasetId: {} deleted from Mongo", datasetId);
-    return (delete == null ? 0 : delete.getN()) >= 1;
+    return (deleteResult == null ? 0 : deleteResult.getDeletedCount()) >= 1;
   }
 
   /**

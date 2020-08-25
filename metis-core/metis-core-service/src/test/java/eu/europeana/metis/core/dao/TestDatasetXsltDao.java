@@ -52,7 +52,7 @@ class TestDatasetXsltDao {
   @AfterEach
   void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.delete(datastore.find(DatasetXslt.class));
+    datastore.find(DatasetXslt.class).delete();
   }
 
   @Test

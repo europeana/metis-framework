@@ -14,6 +14,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.XSLT_ID;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
 import com.mongodb.WriteResult;
+import com.mongodb.client.result.DeleteResult;
 import dev.morphia.aggregation.AggregationPipeline;
 import dev.morphia.aggregation.Projection;
 import dev.morphia.query.Criteria;
@@ -716,11 +717,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
-    WriteResult delete = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> morphiaDatastoreProvider.getDatastore().delete(query));
+    DeleteResult deleteResult = ExternalRequestUtil
+        .retryableExternalRequestConnectionReset(query::delete);
     LOGGER.debug("WorkflowExecution with datasetId: {}, deleted from Mongo", datasetId);
-    return (delete == null ? 0 : delete.getN()) >= 1;
+    return (deleteResult == null ? 0 : deleteResult.getDeletedCount()) >= 1;
   }
 
   /**

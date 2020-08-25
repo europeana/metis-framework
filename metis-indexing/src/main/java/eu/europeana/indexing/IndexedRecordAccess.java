@@ -147,13 +147,13 @@ public class IndexedRecordAccess {
     solrServer.deleteByQuery(solrQuery.toString());
   }
 
-  private int removeDatasetFromMongo(String datasetId, Date maxRecordDate) {
+  private long removeDatasetFromMongo(String datasetId, Date maxRecordDate) {
     final Query<?> query = mongoServer.getDatastore().find(FullBeanImpl.class);
     query.field(ABOUT_FIELD).startsWith(getRecordIdPrefix(datasetId));
     if (maxRecordDate != null) {
       query.filter(Filters.lt("timestampUpdated", maxRecordDate);
     }
-    return mongoServer.getDatastore().delete(query).getN();
+    return query.delete().getDeletedCount();
   }
 
   private static String getRecordIdPrefix(String datasetId) {

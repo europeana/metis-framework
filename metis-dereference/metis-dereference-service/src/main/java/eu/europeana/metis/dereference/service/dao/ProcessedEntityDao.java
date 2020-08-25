@@ -59,6 +59,6 @@ public class ProcessedEntityDao {
    * Remove all entities.
    */
   public void purgeAll() {
-    datastore.delete(datastore.find(ProcessedEntity.class));
+    datastore.find(ProcessedEntity.class).delete();
   }
 }

@@ -85,7 +85,7 @@ public class DepublishRecordIdController {
         .addRecordIdsToBeDepublished(metisUser, datasetId, recordIdsInSeparateLines);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("{} Depublish record ids added to dataset with datasetId: {}", added,
-              CRLF_PATTERN.matcher(datasetId).replaceAll(""));
+          CRLF_PATTERN.matcher(datasetId).replaceAll(""));
     }
   }
 
@@ -137,11 +137,11 @@ public class DepublishRecordIdController {
       @PathVariable("datasetId") String datasetId, @RequestBody String recordIdsInSeparateLines
   ) throws GenericMetisException {
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    final int removedRecordIds = depublishRecordIdService
+    final Long removedRecordIds = depublishRecordIdService
         .deletePendingRecordIds(metisUser, datasetId, recordIdsInSeparateLines);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("{} Depublish record ids removed from database with datasetId: {}",
-              removedRecordIds, CRLF_PATTERN.matcher(datasetId).replaceAll(""));
+          removedRecordIds, CRLF_PATTERN.matcher(datasetId).replaceAll(""));
     }
   }
 
