@@ -51,7 +51,7 @@ public class IndexedRecordAccess {
    */
   public long countRecords(String datasetId) {
     final Query<?> query = mongoServer.getDatastore().find(FullBeanImpl.class);
-    query.field(ABOUT_FIELD).startsWith(getRecordIdPrefix(datasetId));
+    query.filter(Filters.regex(ABOUT_FIELD).pattern("^" + getRecordIdPrefix(datasetId)));
     return query.count();
   }
 
@@ -149,9 +149,9 @@ public class IndexedRecordAccess {
 
   private long removeDatasetFromMongo(String datasetId, Date maxRecordDate) {
     final Query<?> query = mongoServer.getDatastore().find(FullBeanImpl.class);
-    query.field(ABOUT_FIELD).startsWith(getRecordIdPrefix(datasetId));
+    query.filter(Filters.regex(ABOUT_FIELD).pattern("^" + getRecordIdPrefix(datasetId)));
     if (maxRecordDate != null) {
-      query.filter(Filters.lt("timestampUpdated", maxRecordDate);
+      query.filter(Filters.lt("timestampUpdated", maxRecordDate));
     }
     return query.delete().getDeletedCount();
   }

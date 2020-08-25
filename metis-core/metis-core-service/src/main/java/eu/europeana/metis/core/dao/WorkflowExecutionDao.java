@@ -202,7 +202,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   public WorkflowExecution getById(String id) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
-        .filter(Filters.eq(ID.getFieldName(), new ObjectId(id));
+        .filter(Filters.eq(ID.getFieldName(), new ObjectId(id)));
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 
