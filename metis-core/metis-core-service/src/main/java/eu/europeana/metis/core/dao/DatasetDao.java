@@ -72,13 +72,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   @Override
   public String create(Dataset dataset) {
-    Key<Dataset> datasetKey = ExternalRequestUtil
+    Dataset datasetSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().save(dataset));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' created in Mongo",
         dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
-    return datasetKey == null ? null : datasetKey.getId().toString();
+    return datasetSaved == null ? null : datasetSaved.getId().toString();
   }
 
   /**
@@ -89,13 +89,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   @Override
   public String update(Dataset dataset) {
-    Key<Dataset> datasetKey = ExternalRequestUtil
+    Dataset datasetSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().save(dataset));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' updated in Mongo",
         dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
-    return datasetKey == null ? null : datasetKey.getId().toString();
+    return datasetSaved == null ? null : datasetSaved.getId().toString();
   }
 
   /**

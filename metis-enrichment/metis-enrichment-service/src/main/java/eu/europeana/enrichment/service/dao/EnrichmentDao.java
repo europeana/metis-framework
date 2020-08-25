@@ -149,9 +149,9 @@ public class EnrichmentDao {
    * @return the key of the saved item
    */
   public String saveEnrichmentTerm(EnrichmentTerm enrichmentTerm) {
-    Key<EnrichmentTerm> datasetKey = ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    EnrichmentTerm enrichmentTermSaved = ExternalRequestUtil.retryableExternalRequestConnectionReset(
             () -> this.datastore.save(enrichmentTerm));
-    return datasetKey == null ? StringUtils.EMPTY : datasetKey.getId().toString();
+    return enrichmentTermSaved == null ? StringUtils.EMPTY : enrichmentTermSaved.getId().toString();
   }
 
   /**

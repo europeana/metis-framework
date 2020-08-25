@@ -41,20 +41,20 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
 
   @Override
   public String create(DatasetXslt datasetXslt) {
-    Key<DatasetXslt> datasetKey = ExternalRequestUtil
+    DatasetXslt datasetSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().save(datasetXslt));
     LOGGER.debug("DatasetXslt for datasetId: '{}'created in Mongo", datasetXslt.getDatasetId());
-    return datasetKey == null ? null : datasetKey.getId().toString();
+    return datasetSaved == null ? null : datasetSaved.getId().toString();
   }
 
   @Override
   public String update(DatasetXslt datasetXslt) {
-    Key<DatasetXslt> datasetKey = ExternalRequestUtil
+    DatasetXslt datasetXsltSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().save(datasetXslt));
     LOGGER.debug("DatasetXslt for datasetId: '{}' updated in Mongo", datasetXslt.getDatasetId());
-    return datasetKey == null ? null : datasetKey.getId().toString();
+    return datasetXsltSaved == null ? null : datasetXsltSaved.getId().toString();
   }
 
   @Override

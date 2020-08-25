@@ -37,21 +37,21 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   @Override
   public String create(Workflow workflow) {
-    final Key<Workflow> workflowKey = ExternalRequestUtil
+    final Workflow workflowSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' created in Mongo", workflow.getDatasetId());
-    return workflowKey == null ? null : workflowKey.getId().toString();
+    return workflowSaved == null ? null : workflowSaved.getId().toString();
   }
 
 
   @Override
   public String update(Workflow workflow) {
-    final Key<Workflow> workflowKey = ExternalRequestUtil
+    final Workflow workflowSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' updated in Mongo", workflow.getDatasetId());
-    return workflowKey == null ? null : workflowKey.getId().toString();
+    return workflowSaved == null ? null : workflowSaved.getId().toString();
   }
 
   @Override

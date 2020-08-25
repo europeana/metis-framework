@@ -2,7 +2,6 @@ package eu.europeana.metis.mongo;
 
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
-import dev.morphia.Key;
 import dev.morphia.Morphia;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.List;
@@ -65,13 +64,13 @@ public class RecordRedirectDao {
    * @return the {@link ObjectId} as String
    */
   public String createUpdate(RecordRedirect recordRedirect) {
-    Key<RecordRedirect> recordRedirectKey = ExternalRequestUtil
+    RecordRedirect recordRedirectSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> datastore.save(recordRedirect));
     LOGGER.debug(
         "RecordRedirect with oldId: '{}', newId: '{}' and timestamp: '{}' created in Mongo",
         recordRedirect.getOldId(), recordRedirect.getNewId(), recordRedirect.getTimestamp());
-    return recordRedirectKey == null ? null : recordRedirectKey.getId().toString();
+    return recordRedirectSaved == null ? null : recordRedirectSaved.getId().toString();
   }
 
   /**

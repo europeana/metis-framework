@@ -51,22 +51,22 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
 
   @Override
   public String create(ScheduledWorkflow scheduledWorkflow) {
-    Key<ScheduledWorkflow> scheduledWorkflowKey = ExternalRequestUtil
+    ScheduledWorkflow scheduledWorkflowSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
     LOGGER.debug("ScheduledWorkflow for datasetName: '{}' created in Mongo",
         scheduledWorkflow.getDatasetId());
-    return scheduledWorkflowKey == null ? null : scheduledWorkflowKey.getId().toString();
+    return scheduledWorkflowSaved == null ? null : scheduledWorkflowSaved.getId().toString();
   }
 
   @Override
   public String update(ScheduledWorkflow scheduledWorkflow) {
-    Key<ScheduledWorkflow> scheduledWorkflowKey =
+    ScheduledWorkflow scheduledWorkflowSaved =
         ExternalRequestUtil.retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
     LOGGER.debug("ScheduledWorkflow with datasetId: '{}' updated in Mongo",
         scheduledWorkflow.getDatasetId());
-    return scheduledWorkflowKey == null ? null : scheduledWorkflowKey.getId().toString();
+    return scheduledWorkflowSaved == null ? null : scheduledWorkflowSaved.getId().toString();
   }
 
   @Override

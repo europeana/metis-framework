@@ -92,22 +92,22 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   @Override
   public String create(WorkflowExecution workflowExecution) {
-    final Key<WorkflowExecution> workflowExecutionKey = ExternalRequestUtil
+    final WorkflowExecution workflowExecutionSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> morphiaDatastoreProvider.getDatastore().save(workflowExecution));
     LOGGER.debug("WorkflowExecution for datasetId '{}' created in Mongo",
         workflowExecution.getDatasetId());
-    return workflowExecutionKey == null ? null : workflowExecutionKey.getId().toString();
+    return workflowExecutionSaved == null ? null : workflowExecutionSaved.getId().toString();
   }
 
   @Override
   public String update(WorkflowExecution workflowExecution) {
-    final Key<WorkflowExecution> workflowExecutionKey = ExternalRequestUtil
+    final WorkflowExecution workflowExecutionSaved = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(() ->
             morphiaDatastoreProvider.getDatastore().save(workflowExecution));
     LOGGER.debug("WorkflowExecution for datasetId '{}' updated in Mongo",
         workflowExecution.getDatasetId());
-    return workflowExecutionKey == null ? null : workflowExecutionKey.getId().toString();
+    return workflowExecutionSaved == null ? null : workflowExecutionSaved.getId().toString();
   }
 
   /**
