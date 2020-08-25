@@ -51,9 +51,9 @@ public class RecordRedirectDao {
   }
 
   private static Datastore createDatastore(MongoClient mongoClient, String databaseName) {
-    Morphia morphia = new Morphia();
-    morphia.map(RecordRedirect.class);
-    final Datastore datastore = morphia.createDatastore(mongoClient, databaseName);
+    final Datastore datastore = Morphia
+        .createDatastore((com.mongodb.client.MongoClient) mongoClient, databaseName);
+    datastore.getMapper().map(RecordRedirect.class);
     LOGGER.info("Datastore initialized");
     return datastore;
   }

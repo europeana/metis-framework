@@ -3,6 +3,7 @@ package eu.europeana.metis.core.mongo;
 import com.mongodb.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.Mapper;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
@@ -61,17 +62,17 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
 
   private void createDatastore(MongoClient mongoClient, String databaseName) {
     // Register the mappings and set up the data store.
-    final Morphia morphia = new Morphia();
-    morphia.map(Dataset.class);
-    morphia.map(DatasetIdSequence.class);
-    morphia.map(Workflow.class);
-    morphia.map(WorkflowExecution.class);
-    morphia.map(ScheduledWorkflow.class);
-    morphia.map(AbstractMetisPlugin.class);
-    morphia.map(AbstractMetisPluginMetadata.class);
-    morphia.map(DatasetXslt.class);
-    morphia.map(DepublishRecordId.class);
-    datastore = morphia.createDatastore(mongoClient, databaseName);
+    datastore = Morphia.createDatastore((com.mongodb.client.MongoClient) mongoClient, databaseName);
+    final Mapper mapper = datastore.getMapper();
+    mapper.map(Dataset.class);
+    mapper.map(DatasetIdSequence.class);
+    mapper.map(Workflow.class);
+    mapper.map(WorkflowExecution.class);
+    mapper.map(ScheduledWorkflow.class);
+    mapper.map(AbstractMetisPlugin.class);
+    mapper.map(AbstractMetisPluginMetadata.class);
+    mapper.map(DatasetXslt.class);
+    mapper.map(DepublishRecordId.class);
 
     // Initialize the DatasetIdSequence if required.
     if (datastore.find(DatasetIdSequence.class).count() == 0) {

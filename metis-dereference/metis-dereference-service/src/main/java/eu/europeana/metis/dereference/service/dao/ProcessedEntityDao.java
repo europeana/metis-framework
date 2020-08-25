@@ -15,7 +15,7 @@ public class ProcessedEntityDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ProcessedEntityDao.class);
 
-  private final Datastore ds;
+  private final Datastore datastore;
 
   /**
    * Constructor.
@@ -24,9 +24,8 @@ public class ProcessedEntityDao {
    * @param databaseName The name of the database.
    */
   public ProcessedEntityDao(MongoClient mongo, String databaseName) {
-    final Morphia morphia = new Morphia();
-    morphia.map(ProcessedEntity.class);
-    this.ds = morphia.createDatastore(mongo, databaseName);
+    this.datastore = Morphia.createDatastore((com.mongodb.client.MongoClient) mongo, databaseName);
+    this.datastore.getMapper().map(ProcessedEntity.class);
   }
 
   /**
@@ -36,7 +35,7 @@ public class ProcessedEntityDao {
    * @return The entity with the given resource ID.
    */
   public ProcessedEntity get(String resourceId) {
-    return ds.find(ProcessedEntity.class).filter("resourceId", resourceId).first();
+    return datastore.find(ProcessedEntity.class).filter("resourceId", resourceId).first();
   }
 
   /**
@@ -46,7 +45,7 @@ public class ProcessedEntityDao {
    */
   public void save(ProcessedEntity entity) {
     try {
-      ds.save(entity);
+      datastore.save(entity);
     } catch (DuplicateKeyException e) {
       LOGGER.info("Attempted to save duplicate record {}, race condition expected.",
               entity.getResourceId());
@@ -58,6 +57,6 @@ public class ProcessedEntityDao {
    * Remove all entities.
    */
   public void purgeAll() {
-    ds.delete(ds.find(ProcessedEntity.class));
+    datastore.delete(datastore.find(ProcessedEntity.class));
   }
 }

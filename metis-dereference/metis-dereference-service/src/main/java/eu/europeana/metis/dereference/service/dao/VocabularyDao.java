@@ -17,13 +17,11 @@ import java.util.regex.Pattern;
 
 public class VocabularyDao {
 
-  private final Datastore ds;
+  private final Datastore datastore;
 
   public VocabularyDao(MongoClient mongo, String db) {
-    Morphia morphia = new Morphia();
-    morphia.map(Vocabulary.class);
-
-    ds = morphia.createDatastore(mongo, db);
+    datastore = Morphia.createDatastore((com.mongodb.client.MongoClient) mongo, db);
+    datastore.getMapper().map(Vocabulary.class);
   }
 
   /**
@@ -34,7 +32,7 @@ public class VocabularyDao {
    */
   public List<Vocabulary> getByUriSearch(String searchString) {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
-    final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
+    final Query<Vocabulary> query = datastore.createQuery(Vocabulary.class);
     query.field("uris").equal(pattern);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
       return performFunction(cursor, MorphiaCursor::toList);
@@ -47,7 +45,7 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public List<Vocabulary> getAll() {
-    final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
+    final Query<Vocabulary> query = datastore.createQuery(Vocabulary.class);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
       return performFunction(cursor, MorphiaCursor::toList);
     }
@@ -60,7 +58,7 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public Vocabulary get(String vocabularyId) {
-    return ds.find(Vocabulary.class).filter("id", vocabularyId).first();
+    return datastore.find(Vocabulary.class).filter("id", vocabularyId).first();
   }
 
   /**
@@ -69,11 +67,11 @@ public class VocabularyDao {
    * @param vocabularies The new vocabularies.
    */
   public void replaceAll(List<Vocabulary> vocabularies) {
-    ds.delete(ds.createQuery(Vocabulary.class));
-    ds.save(vocabularies);
+    datastore.delete(datastore.createQuery(Vocabulary.class));
+    datastore.save(vocabularies);
   }
 
   protected Datastore getDatastore() {
-    return ds;
+    return datastore;
   }
 }

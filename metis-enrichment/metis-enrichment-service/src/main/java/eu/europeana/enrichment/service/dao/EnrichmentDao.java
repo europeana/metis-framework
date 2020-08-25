@@ -49,10 +49,8 @@ public class EnrichmentDao {
    */
   public EnrichmentDao(MongoClient mongoClient, String databaseName) {
     this.mongoClient = mongoClient;
-
-    final Morphia morphia = new Morphia();
-    morphia.map(EnrichmentTerm.class);
-    this.datastore = morphia.createDatastore(this.mongoClient, databaseName);
+    this.datastore = Morphia.createDatastore((com.mongodb.client.MongoClient) this.mongoClient, databaseName);
+    this.datastore.getMapper().map(EnrichmentTerm.class);
   }
 
   /**
