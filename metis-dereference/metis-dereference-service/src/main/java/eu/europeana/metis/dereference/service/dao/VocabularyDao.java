@@ -33,7 +33,7 @@ public class VocabularyDao {
    */
   public List<Vocabulary> getByUriSearch(String searchString) {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
-    final Query<Vocabulary> query = datastore.createQuery(Vocabulary.class);
+    final Query<Vocabulary> query = datastore.find(Vocabulary.class);
     query.filter(Filters.eq("uris", pattern);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
       return performFunction(cursor, MorphiaCursor::toList);
@@ -46,7 +46,7 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public List<Vocabulary> getAll() {
-    final Query<Vocabulary> query = datastore.createQuery(Vocabulary.class);
+    final Query<Vocabulary> query = datastore.find(Vocabulary.class);
     try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
       return performFunction(cursor, MorphiaCursor::toList);
     }
@@ -68,7 +68,7 @@ public class VocabularyDao {
    * @param vocabularies The new vocabularies.
    */
   public void replaceAll(List<Vocabulary> vocabularies) {
-    datastore.delete(datastore.createQuery(Vocabulary.class));
+    datastore.delete(datastore.find(Vocabulary.class));
     datastore.save(vocabularies);
   }
 

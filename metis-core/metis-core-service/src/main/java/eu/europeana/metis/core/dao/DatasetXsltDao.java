@@ -69,7 +69,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   public boolean delete(DatasetXslt datasetXslt) {
     ExternalRequestUtil.retryableExternalRequestConnectionReset(
         () -> morphiaDatastoreProvider.getDatastore().delete(
-            morphiaDatastoreProvider.getDatastore().createQuery(DatasetXslt.class)
+            morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
                 .filter(Filters.eq(ID.getFieldName(), datasetXslt.getId()))));
     LOGGER.debug("DatasetXslt with objectId: '{}', datasetId: '{}'deleted in Mongo",
         datasetXslt.getId(),
@@ -84,8 +84,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
    * @return true if something was found and deleted or false
    */
   public boolean deleteAllByDatasetId(String datasetId) {
-    Query<DatasetXslt> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(DatasetXslt.class);
+    Query<DatasetXslt> query = morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     WriteResult delete = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(

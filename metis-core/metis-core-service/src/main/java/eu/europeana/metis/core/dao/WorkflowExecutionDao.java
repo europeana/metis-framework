@@ -351,7 +351,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Create the query to match a plugin satisfying the conditions.
     final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(WorkflowExecution.class);
+        .find(WorkflowExecution.class);
     final Criteria[] criteria = {
         query.criteria(DATASET_ID.getFieldName()).equal(datasetId),
         query.criteria(METIS_PLUGINS.getFieldName() + "." + PLUGIN_STATUS.getFieldName()).equal(
@@ -419,7 +419,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Create query
     final Query<WorkflowExecution> query =
-        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+        morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class);
 
     // Set dataset ID and worflow status limitations.
     if (datasetIds != null && !datasetIds.isEmpty()) {
@@ -519,7 +519,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // list of AbstractMetisPlugin objects where startedDate may not be queriable. Why this is a
     // problem, is not exactly clear.
     final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(WorkflowExecution.class).disableValidation();
+        .find(WorkflowExecution.class).disableValidation();
     if (datasetIds != null) {
       query.filter(Filters.in(DATASET_ID.getFieldName(), datasetIds));
     }
@@ -713,7 +713,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    */
   public boolean deleteAllByDatasetId(String datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(WorkflowExecution.class);
+        .find(WorkflowExecution.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     WriteResult delete = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
@@ -732,7 +732,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // TODO JV Validation is disabled because otherwise it complains that the subquery is looking in a
     // list of AbstractMetisPlugin objects that don't have the "externalTaskId" property being queried.
     final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(WorkflowExecution.class).disableValidation();
+        .find(WorkflowExecution.class).disableValidation();
     query.filter(Filters.elemMatch(METIS_PLUGINS.getFieldName(),
         Filters.eq("externalTaskId", Long.toString(externalTaskId))));
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
@@ -757,7 +757,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Create query to find workflow execution
     final Query<WorkflowExecution> query =
-        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class);
+        morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     query.filter(Filters.elemMatch(METIS_PLUGINS.getFieldName(),
         elemMatchFilters.toArray(new Filter[0])));
@@ -767,7 +767,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   public WorkflowExecution getAnyByXsltId(String xsltId) {
     // Create query to find workflow execution
     final Query<WorkflowExecution> query =
-        morphiaDatastoreProvider.getDatastore().createQuery(WorkflowExecution.class)
+        morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
             .disableValidation();
     query.disableValidation().filter(Filters.elemMatch(METIS_PLUGINS.getFieldName(),
         Filters.eq(PLUGIN_METADATA.getFieldName() + "." + XSLT_ID.getFieldName(), xsltId)));
@@ -795,7 +795,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     // Query on those that match the given dataset and that have a started date.
     final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(WorkflowExecution.class).disableValidation();
+        .find(WorkflowExecution.class).disableValidation();
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     query.filter(Filters.ne(STARTED_DATE.getFieldName(), null));
     pipeline.match(query);

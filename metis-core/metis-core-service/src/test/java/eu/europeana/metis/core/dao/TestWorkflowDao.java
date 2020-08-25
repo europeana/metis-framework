@@ -50,7 +50,7 @@ class TestWorkflowDao {
   @AfterEach
   void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.delete(datastore.createQuery(Workflow.class));
+    datastore.delete(datastore.find(Workflow.class));
   }
 
   @Test

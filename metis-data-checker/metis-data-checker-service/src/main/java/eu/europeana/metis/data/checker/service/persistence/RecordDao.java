@@ -120,6 +120,6 @@ public class RecordDao {
 
   private void clearCollectionFromMongo(Class<?> collectionType) {
     this.mongoServer.getDatastore()
-        .delete(this.mongoServer.getDatastore().createQuery(collectionType));
+        .delete(this.mongoServer.getDatastore().find(collectionType));
   }
 }

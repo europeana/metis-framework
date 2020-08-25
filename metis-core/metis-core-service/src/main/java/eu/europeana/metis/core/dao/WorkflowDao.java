@@ -75,7 +75,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
    * @return true if the workflow was found and deleted
    */
   public boolean deleteWorkflow(String datasetId) {
-    Query<Workflow> query = morphiaDatastoreProvider.getDatastore().createQuery(Workflow.class);
+    Query<Workflow> query = morphiaDatastoreProvider.getDatastore().find(Workflow.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     WriteResult delete = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(

@@ -72,7 +72,7 @@ public class DepublishRecordIdDao {
 
       // Create query for existing records in list. Only return record IDs.
       final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
-          .createQuery(DepublishRecordId.class);
+          .find(DepublishRecordId.class);
       query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId);
       query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds);
       query.project(DepublishRecordId.RECORD_ID_FIELD, true);
@@ -162,7 +162,7 @@ public class DepublishRecordIdDao {
     }
 
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(DepublishRecordId.class);
+        .find(DepublishRecordId.class);
     query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId);
     query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIds);
     query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
@@ -180,7 +180,7 @@ public class DepublishRecordIdDao {
    */
   private long countDepublishRecordIdsForDataset(String datasetId) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> morphiaDatastoreProvider.getDatastore().createQuery(DepublishRecordId.class)
+        () -> morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
             .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId).count());
   }
 
@@ -193,7 +193,7 @@ public class DepublishRecordIdDao {
    */
   public long countSuccessfullyDepublishedRecordIdsForDataset(String datasetId) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() ->
-        morphiaDatastoreProvider.getDatastore().createQuery(DepublishRecordId.class)
+        morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
             .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId))
                 .filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
                     DepublicationStatus.DEPUBLISHED).count());
@@ -294,7 +294,7 @@ public class DepublishRecordIdDao {
       DepublicationStatus depublicationStatus, String searchQuery) {
     // Create query.
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(DepublishRecordId.class);
+        .find(DepublishRecordId.class);
     query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId);
     if (Objects.nonNull(depublicationStatus)) {
       query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus);
@@ -360,7 +360,7 @@ public class DepublishRecordIdDao {
 
     // Create query.
     final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(DepublishRecordId.class);
+        .find(DepublishRecordId.class);
     query.filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId));
     if (recordIdsToUpdate != null) {
       query.filter(Filters.in(DepublishRecordId.RECORD_ID_FIELD, recordIdsToUpdate));

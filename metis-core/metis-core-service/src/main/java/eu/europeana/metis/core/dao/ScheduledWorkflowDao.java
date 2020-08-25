@@ -163,7 +163,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
    */
   public boolean deleteAllByDatasetId(String datasetId) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledWorkflow.class);
+        .find(ScheduledWorkflow.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId);
     WriteResult delete = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
@@ -183,7 +183,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
   public List<ScheduledWorkflow> getAllScheduledWorkflows(
       ScheduleFrequence scheduleFrequence, int nextPage) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledWorkflow.class);
+        .find(ScheduledWorkflow.class);
     if (scheduleFrequence != null && scheduleFrequence != ScheduleFrequence.NULL) {
       query.filter(Filters.eq("scheduleFrequence", scheduleFrequence);
     }
@@ -206,7 +206,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
       LocalDateTime lowerBound,
       LocalDateTime upperBound, int nextPage) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledWorkflow.class);
+        .find(ScheduledWorkflow.class);
     query.criteria("scheduleFrequence").equal(ScheduleFrequence.ONCE).and(
         query.criteria("pointerDate").greaterThanOrEq(
             Date.from(lowerBound.atZone(ZoneId.systemDefault()).toInstant()))).and(

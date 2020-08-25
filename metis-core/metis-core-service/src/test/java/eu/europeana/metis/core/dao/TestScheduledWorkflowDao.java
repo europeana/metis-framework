@@ -55,7 +55,7 @@ class TestScheduledWorkflowDao {
   @AfterEach
   void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.delete(datastore.createQuery(ScheduledWorkflow.class));
+    datastore.delete(datastore.find(ScheduledWorkflow.class));
   }
 
   @Test

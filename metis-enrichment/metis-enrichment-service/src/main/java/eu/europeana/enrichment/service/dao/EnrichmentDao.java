@@ -99,7 +99,7 @@ public class EnrichmentDao {
    */
   public List<EnrichmentTerm> getAllEnrichmentTermsByFields(
       List<Pair<String, String>> fieldNameAndValues) {
-    final Query<EnrichmentTerm> query = datastore.createQuery(EnrichmentTerm.class);
+    final Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
     for (Pair<String, String> fieldNameAndValue : fieldNameAndValues) {
       query.filter(Filters.eq(fieldNameAndValue.getKey(), fieldNameAndValue.getValue()));
     }
@@ -117,7 +117,7 @@ public class EnrichmentDao {
    */
   public List<EnrichmentTerm> getAllEnrichmentTermsByFieldsInList(
       List<Pair<String, List<String>>> fieldNameAndValues) {
-    final Query<EnrichmentTerm> query = datastore.createQuery(EnrichmentTerm.class);
+    final Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
     for (Pair<String, List<String>> fieldNameAndValue : fieldNameAndValues) {
       query.filter(Filters.in(fieldNameAndValue.getKey(), fieldNameAndValue.getValue());
     }
@@ -132,7 +132,7 @@ public class EnrichmentDao {
    * @return the date of the latest modified entity
    */
   public Date getDateOfLastUpdatedEnrichmentTerm(EntityType entityType) {
-    Query<EnrichmentTerm> query = datastore.createQuery(EnrichmentTerm.class);
+    Query<EnrichmentTerm> query = datastore.find(EnrichmentTerm.class);
     query.filter(Filters.eq(ENTITY_TYPE_FIELD, entityType));
     query.order(Sort.descending(UPDATED_FIELD));
     final EnrichmentTerm enrichmentTerm = ExternalRequestUtil
@@ -173,7 +173,7 @@ public class EnrichmentDao {
 
     //Find all TermLists that have owlSameAs equals with codeUri
     final Query<EnrichmentTerm> enrichmentTermsSameAsQuery = this.datastore
-        .createQuery(EnrichmentTerm.class).filter(Filters.eq(ENTITY_TYPE_FIELD, entityType))
+        .find(EnrichmentTerm.class).filter(Filters.eq(ENTITY_TYPE_FIELD, entityType))
         .filter(Filters.in(OWL_SAME_AS_FIELD, codeUris);
     final List<EnrichmentTerm> enrichmentTermsOwlSameAs = getListOfQuery(
         enrichmentTermsSameAsQuery);
@@ -187,7 +187,7 @@ public class EnrichmentDao {
 
   private void deleteEnrichmentTerm(List<String> codeUri) {
     ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> this.datastore.delete(
-        this.datastore.createQuery(EnrichmentTerm.class).filter(Filters.in(CODE_URI_FIELD, codeUri)));
+        this.datastore.find(EnrichmentTerm.class).filter(Filters.in(CODE_URI_FIELD, codeUri)));
   }
 
   private <T> List<T> getListOfQuery(Query<T> query) {
