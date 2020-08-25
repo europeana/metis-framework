@@ -80,8 +80,11 @@ public class DepublishRecordIdDao {
       final FindOptions findOptions = new FindOptions();
       findOptions.projection().include(DepublishRecordId.RECORD_ID_FIELD);
       findOptions.projection().exclude(DepublishRecordId.ID_FIELD);
-      final Set<String> existing = query.find(findOptions).toList().stream()
-          .map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
+      final Set<String> existing;
+      try (MorphiaCursor<DepublishRecordId> iterator = query.iterator(findOptions)) {
+        existing = iterator.toList().stream().map(DepublishRecordId::getRecordId)
+            .collect(Collectors.toSet());
+      }
 
       // Return the other ones: the record IDs not found in the database.
       return recordIds.stream().filter(recordId -> !existing.contains(recordId))
@@ -398,9 +401,9 @@ public class DepublishRecordIdDao {
       final BiFunction<Query<T>, FindOptions, MorphiaCursor<T>> queryFunction = (querySupplied, findOptionsSupplied) -> {
         final MorphiaCursor<T> morphiaCursor;
         if (findOptionsSupplied == null) {
-          morphiaCursor = querySupplied.find();
+          morphiaCursor = querySupplied.iterator();
         } else {
-          morphiaCursor = querySupplied.find(findOptionsSupplied);
+          morphiaCursor = querySupplied.iterator(findOptionsSupplied);
         }
         return morphiaCursor;
       };

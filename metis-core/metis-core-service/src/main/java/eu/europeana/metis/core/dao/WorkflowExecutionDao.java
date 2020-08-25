@@ -428,19 +428,19 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       query.filter(Filters.in(WORKFLOW_STATUS.getFieldName(), workflowStatuses));
     }
 
+    // Execute query with correct pagination
+    final FindOptions findOptions = new FindOptions().skip(pagination.getSkip())
+        .limit(pagination.getLimit());
+
     // Set ordering
-    final Sort computeSort;
     if (orderField != null) {
       if (ascending) {
-        computeSort = Sort.ascending(orderField.getFieldName()););
+        findOptions.sort(Sort.ascending(orderField.getFieldName()));
       } else {
-        computeSort = Sort.descending(orderField.getFieldName()));
+        findOptions.sort(Sort.descending(orderField.getFieldName()));
       }
     }
 
-    // Execute query with correct pagination
-    final FindOptions findOptions = new FindOptions().sort(computeSort).skip(pagination.getSkip())
-        .limit(pagination.getLimit());
     final List<WorkflowExecution> result = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> {
