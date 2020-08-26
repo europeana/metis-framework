@@ -27,6 +27,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
@@ -310,7 +311,8 @@ public class DepublishRecordIdDao {
       query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, depublicationStatus));
     }
     if (StringUtils.isNotBlank(searchQuery)) {
-      query.filter(Filters.regex(DepublishRecordId.RECORD_ID_FIELD).pattern(searchQuery));
+      query.filter(
+          Filters.regex(DepublishRecordId.RECORD_ID_FIELD).pattern(Pattern.compile(searchQuery)));
     }
 
     return query;

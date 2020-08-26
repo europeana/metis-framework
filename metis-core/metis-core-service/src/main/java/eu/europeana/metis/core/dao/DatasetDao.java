@@ -7,10 +7,10 @@ import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.PROVIDER;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
-import dev.morphia.query.CriteriaContainer;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
+import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperator;
 import dev.morphia.query.experimental.updates.UpdateOperators;
@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -375,51 +376,46 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> searchDatasetsBasedOnSearchString(List<String> datasetIdWords,
       List<String> words, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().find(Dataset.class);
-    final List<CriteriaContainer> criteriaContainerDatasetId = new ArrayList<>(
-        datasetIdWords.size());
-    final List<CriteriaContainer> criteriaContainerDatasetName = new ArrayList<>(words.size());
-    final List<CriteriaContainer> criteriaContainerProviderId = new ArrayList<>(words.size());
-    final List<CriteriaContainer> criteriaContainerDataProviderId = new ArrayList<>(words.size());
+    final List<Filter> datasetIdFilters = new ArrayList<>(words.size());
+    final List<Filter> datasetNameFilters = new ArrayList<>(words.size());
+    final List<Filter> providerIdFilters = new ArrayList<>(words.size());
+    final List<Filter> dataProviderIdFilters = new ArrayList<>(words.size());
 
     //Search on datsetId, only words that start with a numeric character
     for (String datasetIdWord : datasetIdWords) {
-      criteriaContainerDatasetId
-          .add(query.criteria(DATASET_ID.getFieldName()).startsWith(datasetIdWord));
+      datasetIdFilters.add(
+          Filters.regex(DATASET_ID.getFieldName()).pattern(Pattern.compile("^" + datasetIdWord)));
     }
 
     //Search on provider and dataProvider
     for (String word : words) {
-      criteriaContainerDatasetName
-          .add(query.criteria(DATASET_NAME.getFieldName()).containsIgnoreCase(word));
-      criteriaContainerProviderId
-          .add(query.criteria(PROVIDER.getFieldName()).containsIgnoreCase(word));
-      criteriaContainerDataProviderId
-          .add(query.criteria(DATA_PROVIDER.getFieldName()).containsIgnoreCase(word));
+      datasetNameFilters.add(Filters.regex(DATASET_NAME.getFieldName())
+          .pattern(Pattern.compile(word, Pattern.CASE_INSENSITIVE)));
+      providerIdFilters.add(Filters.regex(PROVIDER.getFieldName())
+          .pattern(Pattern.compile(word, Pattern.CASE_INSENSITIVE)));
+      dataProviderIdFilters.add(Filters.regex(DATA_PROVIDER.getFieldName())
+          .pattern(Pattern.compile(word, Pattern.CASE_INSENSITIVE)));
+    }
+    final List<Filter> filterGroups = new ArrayList<>();
+    if (!datasetIdFilters.isEmpty()) {
+      filterGroups.add(Filters.or(datasetIdFilters.toArray(new Filter[0])));
+    }
+    if (!datasetNameFilters.isEmpty()) {
+      filterGroups.add(Filters.or(datasetNameFilters.toArray(new Filter[0])));
+    }
+    if (!providerIdFilters.isEmpty()) {
+      filterGroups.add(Filters.or(providerIdFilters.toArray(new Filter[0])));
+    }
+    if (!dataProviderIdFilters.isEmpty()) {
+      filterGroups.add(Filters.or(dataProviderIdFilters.toArray(new Filter[0])));
     }
 
-    final List<CriteriaContainer> criteriaContainerGroups = new ArrayList<>();
-    if (!criteriaContainerDatasetId.isEmpty()) {
-      criteriaContainerGroups
-          .add(query.or(criteriaContainerDatasetId.toArray(new CriteriaContainer[0])));
-    }
-    if (!criteriaContainerDatasetName.isEmpty()) {
-      criteriaContainerGroups
-          .add(query.and(criteriaContainerDatasetName.toArray(new CriteriaContainer[0])));
-    }
-    if (!criteriaContainerProviderId.isEmpty()) {
-      criteriaContainerGroups
-          .add(query.and(criteriaContainerProviderId.toArray(new CriteriaContainer[0])));
-    }
-    if (!criteriaContainerDataProviderId.isEmpty()) {
-      criteriaContainerGroups
-          .add(query.and(criteriaContainerDataProviderId.toArray(new CriteriaContainer[0])));
+    if (!filterGroups.isEmpty()) {
+      query.filter(Filters.or(filterGroups.toArray(Filter[]::new)));
     }
 
-    if (!criteriaContainerGroups.isEmpty()) {
-      query.or(criteriaContainerGroups.toArray(new CriteriaContainer[0]));
-    }
-
-    final FindOptions findOptions = new FindOptions().sort(Sort.ascending(DATASET_ID.getFieldName()))
+    final FindOptions findOptions = new FindOptions()
+        .sort(Sort.ascending(DATASET_ID.getFieldName()))
         .skip(nextPage * getDatasetsPerRequest())
         .limit(getDatasetsPerRequest());
     return getListOfQuery(query, findOptions);
@@ -427,7 +423,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
 
   private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
-      try (MorphiaCursor<T> cursor = query.find(findOptions)) {
+      try (MorphiaCursor<T> cursor = query.iterator(findOptions)) {
         return performFunction(cursor, MorphiaCursor::toList);
       }
     });

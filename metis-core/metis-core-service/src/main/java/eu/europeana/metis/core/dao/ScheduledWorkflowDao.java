@@ -7,6 +7,7 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 import com.mongodb.client.result.DeleteResult;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -203,11 +204,14 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
       LocalDateTime upperBound, int nextPage) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class);
-    query.criteria("scheduleFrequence").equal(ScheduleFrequence.ONCE).and(
-        query.criteria("pointerDate").greaterThanOrEq(
-            Date.from(lowerBound.atZone(ZoneId.systemDefault()).toInstant()))).and(
-        query.criteria("pointerDate")
-            .lessThan(Date.from(upperBound.atZone(ZoneId.systemDefault()).toInstant())));
+    final Filter scheduleFrequenceFilter = Filters.eq("scheduleFrequence", ScheduleFrequence.ONCE);
+    final Filter pointerDateLowerBoundFilter = Filters
+        .gte("pointerDate", Date.from(lowerBound.atZone(ZoneId.systemDefault()).toInstant()));
+    final Filter pointerDateUpperBoundFilter = Filters
+        .lt("pointerDate", Date.from(upperBound.atZone(ZoneId.systemDefault()).toInstant()));
+    query.filter(Filters
+        .and(scheduleFrequenceFilter, pointerDateLowerBoundFilter, pointerDateUpperBoundFilter));
+
     final FindOptions findOptions = new FindOptions()
         .skip(nextPage * getScheduledWorkflowPerRequest())
         .limit(getScheduledWorkflowPerRequest());
