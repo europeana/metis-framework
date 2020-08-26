@@ -15,12 +15,19 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
-import dev.morphia.aggregation.AggregationPipeline;
-import dev.morphia.aggregation.Projection;
-import dev.morphia.query.FilterOperator;
+import dev.morphia.aggregation.experimental.Aggregation;
+import dev.morphia.aggregation.experimental.expressions.ArrayExpressions;
+import dev.morphia.aggregation.experimental.expressions.ComparisonExpressions;
+import dev.morphia.aggregation.experimental.expressions.ConditionalExpressions;
+import dev.morphia.aggregation.experimental.expressions.Expressions;
+import dev.morphia.aggregation.experimental.expressions.MathExpressions;
+import dev.morphia.aggregation.experimental.expressions.impls.Expression;
+import dev.morphia.aggregation.experimental.expressions.impls.MathExpression;
+import dev.morphia.aggregation.experimental.stages.Lookup;
+import dev.morphia.aggregation.experimental.stages.Sort;
+import dev.morphia.aggregation.experimental.stages.Unwind;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
-import dev.morphia.query.Sort;
 import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperator;
@@ -67,7 +74,6 @@ import org.springframework.util.CollectionUtils;
 public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutionDao.class);
-  private static final String MONGO_COND_OPERATOR = "$cond";
 
   private static final int INQUEUE_POSITION_IN_OVERVIEW = 1;
   private static final int RUNNING_POSITION_IN_OVERVIEW = 2;
@@ -353,39 +359,42 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Verify the plugin types
     verifyEnumSetIsValidAndNotEmpty(pluginTypes);
 
-    // Create the query to match a plugin satisfying the conditions.
-    final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .find(WorkflowExecution.class);
-
+    // Create the filter to match a plugin satisfying the conditions.
     final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
-    final Filter metisPluginStatusFilter = Filters
+    final Filter pluginStatusFilter = Filters
         .eq(METIS_PLUGINS.getFieldName() + "." + PLUGIN_STATUS.getFieldName(),
             PluginStatus.FINISHED);
-    query.filter(datasetIdFilter, metisPluginStatusFilter);
 
     List<Filter> pluginTypesFilters = new ArrayList<>();
     final String pluginTypeField = METIS_PLUGINS.getFieldName() + "." + PLUGIN_TYPE.getFieldName();
     for (PluginType pluginType : pluginTypes) {
       pluginTypesFilters.add(Filters.eq(pluginTypeField, pluginType));
     }
+    final Filter pluginTypeOrFilter;
+    final Filter collectedFilters;
     if (!pluginTypesFilters.isEmpty()) {
-      query.filter(Filters.or(pluginTypesFilters.toArray(Filter[]::new)));
+      pluginTypeOrFilter = Filters.or(pluginTypesFilters.toArray(Filter[]::new));
+      collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter, pluginTypeOrFilter);
+    } else {
+      collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter);
     }
 
     // Query: unwind and match again so that we know that all conditions apply to the same plugin.
-    final AggregationPipeline aggregation = morphiaDatastoreProvider.getDatastore()
-        .createAggregation(WorkflowExecution.class);
+    final Aggregation<WorkflowExecution> aggregation = morphiaDatastoreProvider.getDatastore()
+        .aggregate(WorkflowExecution.class);
+
     final String orderField =
         METIS_PLUGINS.getFieldName() + "." + FINISHED_DATE.getFieldName();
     final Iterator<WorkflowExecution> metisPluginsIterator = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> aggregation
-                .match(query)
-                .unwind(METIS_PLUGINS.getFieldName())
-                .match(query)
-                .sort(firstFinished ? Sort.ascending(orderField) : Sort.descending(orderField))
+                .match(collectedFilters)
+                .unwind(Unwind.on(METIS_PLUGINS.getFieldName()))
+                .match(collectedFilters)
+                .sort(firstFinished ? Sort.on().ascending(orderField)
+                    : Sort.on().descending(orderField))
                 .limit(1)
-                .aggregate(WorkflowExecution.class));
+                .execute(WorkflowExecution.class));
 
     // Because of the unwind, we know that the plugin we need is always the first one.
     return Optional.ofNullable(metisPluginsIterator).filter(Iterator::hasNext).map(Iterator::next)
@@ -442,9 +451,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Set ordering
     if (orderField != null) {
       if (ascending) {
-        findOptions.sort(Sort.ascending(orderField.getFieldName()));
+        findOptions.sort(dev.morphia.query.Sort.ascending(orderField.getFieldName()));
       } else {
-        findOptions.sort(Sort.descending(orderField.getFieldName()));
+        findOptions.sort(dev.morphia.query.Sort.descending(orderField.getFieldName()));
       }
     }
 
@@ -491,46 +500,36 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       }
 
       // Create the aggregate pipeline
-      final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
-          .createAggregation(WorkflowExecution.class);
+      final Aggregation<WorkflowExecution> aggregation = morphiaDatastoreProvider.getDatastore()
+          .aggregate(WorkflowExecution.class);
 
-      // Step 1: create query filters
-      final Query<WorkflowExecution> query = createQueryFilters(datasetIds, pluginStatuses,
-          pluginTypes, fromDate, toDate);
-      pipeline.match(query);
+      // Step 1: create filter to match
+      final Filter filter = createFilter(datasetIds, pluginStatuses, pluginTypes, fromDate, toDate);
+      aggregation.match(filter);
 
       // Step 2: determine status index field
-      final String statusIndexField = determineOrderingStatusIndex(pipeline);
+      final String statusIndexField = determineOrderingStatusIndex(aggregation);
 
       // Step 3: Sort - first on the status index, then on the createdDate.
-      pipeline.sort(Sort.ascending(statusIndexField),
-          Sort.descending(CREATED_DATE.getFieldName()));
+      aggregation
+          .sort(Sort.on().ascending(statusIndexField).descending(CREATED_DATE.getFieldName()));
 
       // Step 4: Apply pagination
-      pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
+      aggregation.skip(pagination.getSkip()).limit(pagination.getLimit());
 
       // Step 5: Create join of dataset and execution to combine the data information
-      joinDatasetAndWorkflowExecution(pipeline);
+      joinDatasetAndWorkflowExecution(aggregation);
 
       // Done: execute and return result.
       final List<ExecutionDatasetPair> result = new ArrayList<>();
-      pipeline.aggregate(ExecutionDatasetPair.class).forEachRemaining(result::add);
+      aggregation.execute(ExecutionDatasetPair.class).forEachRemaining(result::add);
       return createResultList(result, pagination);
 
     });
   }
 
-  private Query<WorkflowExecution> createQueryFilters(Set<String> datasetIds,
-      Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes, Date fromDate, Date toDate) {
-    // TODO JV Validation is disabled because otherwise it complains that the subquery is looking in a
-    // list of AbstractMetisPlugin objects where startedDate may not be queriable. Why this is a
-    // problem, is not exactly clear.
-    final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .find(WorkflowExecution.class).disableValidation();
-    if (datasetIds != null) {
-      query.filter(Filters.in(DATASET_ID.getFieldName(), datasetIds));
-    }
-
+  private Filter createFilter(Set<String> datasetIds, Set<PluginStatus> pluginStatuses,
+      Set<PluginType> pluginTypes, Date fromDate, Date toDate) {
     List<Filter> elemMatchFilters = new ArrayList<>();
     if (!CollectionUtils.isEmpty(pluginTypes)) {
       elemMatchFilters.add(Filters.in(PLUGIN_TYPE.getFieldName(), pluginTypes));
@@ -544,63 +543,78 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (toDate != null) {
       elemMatchFilters.add(Filters.lt(STARTED_DATE.getFieldName(), toDate));
     }
-    query.filter(
-        Filters.elemMatch(METIS_PLUGINS.getFieldName(), elemMatchFilters.toArray(Filter[]::new)));
-    return query;
+    final Filter elemMatchFilter = Filters
+        .elemMatch(METIS_PLUGINS.getFieldName(), elemMatchFilters.toArray(Filter[]::new));
+
+    final Filter collectedFilters;
+    if (datasetIds != null) {
+      final Filter datasetIdFilter = Filters.in(DATASET_ID.getFieldName(), datasetIds);
+      collectedFilters = Filters.and(elemMatchFilter, datasetIdFilter);
+    } else {
+      collectedFilters = Filters.and(elemMatchFilter);
+    }
+    return collectedFilters;
   }
 
-  private String determineOrderingStatusIndex(AggregationPipeline pipeline) {
+  private String determineOrderingStatusIndex(Aggregation aggregation) {
     // Step 1: Add specific positions when the status is INQUEUE or RUNNING.
     final String statusInQueueField = "statusInQueue";
     final String statusRunningField = "statusRunning";
-    pipeline.project(
-        Projection.projection(statusInQueueField, Projection.expression(MONGO_COND_OPERATOR,
-            Projection.expression(FilterOperator.EQUAL.val(), WorkflowStatus.INQUEUE.name(),
-                "$" + WORKFLOW_STATUS.getFieldName()), INQUEUE_POSITION_IN_OVERVIEW, 0)),
-        Projection.projection(statusRunningField, Projection.expression(MONGO_COND_OPERATOR,
-            Projection.expression(FilterOperator.EQUAL.val(), WorkflowStatus.RUNNING.name(),
-                "$" + WORKFLOW_STATUS.getFieldName()), RUNNING_POSITION_IN_OVERVIEW, 0)),
-        Projection.projection(CREATED_DATE.getFieldName()),
-        Projection.projection(DATASET_ID.getFieldName())
-    );
+    final Expression inqueueCheckExpression = ComparisonExpressions
+        .eq(Expressions.field(WORKFLOW_STATUS.getFieldName()),
+            Expressions.value(WorkflowStatus.INQUEUE.name()));
+    final Expression inqueueConditionExpression = ConditionalExpressions
+        .condition(inqueueCheckExpression, Expressions.value(INQUEUE_POSITION_IN_OVERVIEW),
+            Expressions.value(0));
+    final Expression runningCheckExpression = ComparisonExpressions
+        .eq(Expressions.field(WORKFLOW_STATUS.getFieldName()),
+            Expressions.value(WorkflowStatus.RUNNING.name()));
+    final Expression runningConditionExpression = ConditionalExpressions
+        .condition(runningCheckExpression, Expressions.value(RUNNING_POSITION_IN_OVERVIEW),
+            Expressions.value(0));
+
+    aggregation.project(dev.morphia.aggregation.experimental.stages.Projection.of()
+        .include(statusInQueueField, inqueueConditionExpression)
+        .include(statusRunningField, runningConditionExpression)
+        .include(CREATED_DATE.getFieldName())
+        .include(DATASET_ID.getFieldName()));
 
     // Step 2: Copy specific positions to final variable: use default position if no position is set.
     final String statusIndexField = "statusIndex";
-    final Projection sumExpression = Projection
-        .add("$" + statusInQueueField, "$" + statusRunningField);
-    pipeline.project(
-        Projection.projection(statusIndexField, Projection.expression(MONGO_COND_OPERATOR,
-            Projection.expression(FilterOperator.EQUAL.val(), sumExpression, 0),
-            DEFAULT_POSITION_IN_OVERVIEW, sumExpression)),
-        Projection.projection(CREATED_DATE.getFieldName()),
-        Projection.projection(DATASET_ID.getFieldName())
-    );
+
+    final MathExpression sumExpression = MathExpressions
+        .add(Expressions.field(statusInQueueField), Expressions.field(statusRunningField));
+    final Expression sumCheckExpression = ComparisonExpressions.eq(sumExpression, Expressions.value(0));
+    final Expression statusIndexExpression = ConditionalExpressions
+        .condition(sumCheckExpression, Expressions.value(DEFAULT_POSITION_IN_OVERVIEW),
+            sumCheckExpression);
+
+    aggregation.project(dev.morphia.aggregation.experimental.stages.Projection.of()
+        .include(statusIndexField, statusIndexExpression)
+        .include(CREATED_DATE.getFieldName())
+        .include(DATASET_ID.getFieldName()));
+
     return statusIndexField;
   }
 
-  private void joinDatasetAndWorkflowExecution(AggregationPipeline pipeline) {
+  private void joinDatasetAndWorkflowExecution(Aggregation pipeline) {
     // Step 1: Join with the dataset and the execution
-    // TODO: 11-12-19 getCollection is marked deprecated but there is no alternative atm. From 2.0 getCollection will return a different type
-    final String datasetCollectionName = morphiaDatastoreProvider.getDatastore()
-        .getCollection(Dataset.class).getName();
-    final String executionCollectionName = morphiaDatastoreProvider.getDatastore()
-        .getCollection(WorkflowExecution.class).getName();
     final String datasetListField = "datasetList";
     final String executionListField = "executionList";
-    pipeline.lookup(datasetCollectionName, DATASET_ID.getFieldName(), DATASET_ID.getFieldName(),
-        datasetListField);
-    pipeline.lookup(executionCollectionName, "_id", "_id", executionListField);
+    pipeline.lookup(Lookup.from(Dataset.class).localField(DATASET_ID.getFieldName())
+        .foreignField(DATASET_ID.getFieldName()).as(datasetListField));
+    pipeline.lookup(Lookup.from(WorkflowExecution.class).localField(ID.getFieldName())
+        .foreignField(ID.getFieldName()).as(executionListField));
 
     // Step 2: Keep only the first entry in the dataset and execution lists.
     final String datasetField = "dataset";
     final String executionField = "execution";
-    pipeline.project(
-        Projection.projection(datasetField,
-            Projection.expression("$arrayElemAt", "$" + datasetListField, 0)),
-        Projection.projection(executionField,
-            Projection.expression("$arrayElemAt", "$" + executionListField, 0)),
-        Projection.projection("_id").suppress()
-    );
+    dev.morphia.aggregation.experimental.stages.Projection.of()
+        .include(datasetField,
+            ArrayExpressions.elementAt(Expressions.field(datasetListField), Expressions.value(0)))
+        .include(executionField, ArrayExpressions
+            .elementAt(Expressions.field(executionListField), Expressions.value(0)))
+        .suppressId();
   }
 
   /**
@@ -797,32 +811,28 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     }
 
     // Create aggregation pipeline.
-    final AggregationPipeline pipeline = morphiaDatastoreProvider.getDatastore()
-        .createAggregation(WorkflowExecution.class);
+    final Aggregation<WorkflowExecution> pipeline = morphiaDatastoreProvider.getDatastore()
+        .aggregate(WorkflowExecution.class);
 
     // Query on those that match the given dataset and that have a started date.
-    final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .find(WorkflowExecution.class).disableValidation();
-    query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
-    query.filter(Filters.ne(STARTED_DATE.getFieldName(), null));
-    pipeline.match(query);
+    final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
+    final Filter startedDateFilter = Filters.ne(STARTED_DATE.getFieldName(), null);
+    pipeline.match(Filters.and(datasetIdFilter, startedDateFilter));
 
     // Sort the results
-    pipeline.sort(Sort.descending(STARTED_DATE.getFieldName()));
+    pipeline.sort(Sort.on().descending(STARTED_DATE.getFieldName()));
 
     // Filter out most of the fields: just the id and the started date remain.
-    pipeline.project(
-        Projection.projection("executionId", ID.getFieldName()),
-        Projection.projection(STARTED_DATE.getFieldName()),
-        Projection.projection(ID.getFieldName()).suppress()
-    );
+    dev.morphia.aggregation.experimental.stages.Projection.of()
+        .include(ID.getFieldName(), Expressions.field("executionId"))
+        .include(STARTED_DATE.getFieldName());
 
     // Set the pagination options
     pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
 
     // Done.
     final List<ExecutionIdAndStartedDatePair> result = new ArrayList<>();
-    pipeline.aggregate(ExecutionIdAndStartedDatePair.class).forEachRemaining(result::add);
+    pipeline.execute(ExecutionIdAndStartedDatePair.class).forEachRemaining(result::add);
     return createResultList(result, pagination);
   }
 
