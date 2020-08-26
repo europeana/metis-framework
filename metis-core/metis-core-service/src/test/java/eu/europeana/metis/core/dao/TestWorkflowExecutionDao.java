@@ -16,9 +16,10 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionIdAndStartedDatePair;
@@ -73,8 +74,8 @@ class TestWorkflowExecutionDao {
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
-    ServerAddress address = new ServerAddress(mongoHost, mongoPort);
-    MongoClient mongoClient = new MongoClient(address);
+    MongoClient mongoClient = MongoClients
+        .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
     provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
 
     workflowExecutionDao = spy(new WorkflowExecutionDao(provider));
@@ -94,7 +95,7 @@ class TestWorkflowExecutionDao {
   @AfterEach
   void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.find(WorkflowExecution.class).delete();
+    datastore.find(WorkflowExecution.class).delete(new DeleteOptions().multi(true));
     reset(workflowExecutionDao);
   }
 

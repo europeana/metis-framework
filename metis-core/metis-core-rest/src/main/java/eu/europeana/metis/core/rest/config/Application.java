@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.rest.config;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;

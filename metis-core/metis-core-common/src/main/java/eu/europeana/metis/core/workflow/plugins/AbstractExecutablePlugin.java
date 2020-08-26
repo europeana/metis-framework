@@ -35,6 +35,9 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
 
+  AbstractExecutablePlugin() {
+  }
+
   /**
    * Constructor with provided pluginType
    *

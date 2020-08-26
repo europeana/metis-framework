@@ -34,7 +34,7 @@ import java.util.Date;
 public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata> implements
     MetisPlugin<M> {
 
-  protected final PluginType pluginType;
+  protected PluginType pluginType;
   private String id;
 
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
@@ -47,6 +47,10 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
   @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date finishedDate;
   private M pluginMetadata;
+
+
+  protected AbstractMetisPlugin() {
+  }
 
   /**
    * Constructor with provided pluginType

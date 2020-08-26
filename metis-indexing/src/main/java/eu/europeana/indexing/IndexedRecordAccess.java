@@ -1,6 +1,7 @@
 package eu.europeana.indexing;
 
 import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
@@ -153,7 +154,7 @@ public class IndexedRecordAccess {
     if (maxRecordDate != null) {
       query.filter(Filters.lt("timestampUpdated", maxRecordDate));
     }
-    return query.delete().getDeletedCount();
+    return query.delete(new DeleteOptions().multi(true)).getDeletedCount();
   }
 
   private static String getRecordIdPrefix(String datasetId) {

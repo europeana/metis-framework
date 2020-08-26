@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+import dev.morphia.annotations.Embedded;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskState;
 
@@ -9,6 +10,7 @@ import eu.europeana.cloud.common.model.dps.TaskState;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
+@Embedded
 public class ExecutionProgress {
 
   private int expectedRecords;

@@ -1,12 +1,18 @@
 package eu.europeana.metis.mongo;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions.Builder;
+import com.mongodb.ConnectionString;
+import com.mongodb.client.MongoClient;
+import com.mongodb.MongoClientSettings.Builder;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ReadPreference;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClients;
 import eu.europeana.metis.mongo.MongoProperties.ReadPreferenceValue;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -28,7 +34,7 @@ import java.util.function.Supplier;
  * </ul>
  * These defaults can be overridden or additional (default) settings can be set upon
  * construction. To facilitate this, this class offers access to the default settings by means of
- * the method {@link #getDefaultOptionsBuilder()}. The use of this method is voluntary.
+ * the method {@link #getDefaultClientSettingsBuilder()}. The use of this method is voluntary.
  *
  * @param <E> The type of exception thrown when the properties are not valid.
  */
@@ -50,17 +56,20 @@ public class MongoClientProvider<E extends Exception> {
    * @throws E In case the connection URI is not valid.
    */
   public MongoClientProvider(String connectionUri, Function<String, E> exceptionCreator) throws E {
-    final Builder optionsBuilder = getDefaultOptionsBuilder();
-    final MongoClientURI uri;
+    final Builder clientSettingsBuilder = getDefaultClientSettingsBuilder();
+
+    final ConnectionString connectionString;
     try {
-      uri = new MongoClientURI(connectionUri, optionsBuilder);
+      connectionString = new ConnectionString(connectionUri);
     } catch (RuntimeException e) {
       final E wrappingException = exceptionCreator.apply("Invalid connection URL.");
       wrappingException.initCause(e); // Use this to prevent false positive in SonarQube issue.
       throw wrappingException;
     }
-    this.authenticationDatabase = uri.getDatabase();
-    this.creator = () -> new MongoClient(uri);
+    this.authenticationDatabase = connectionString.getDatabase();
+
+    this.creator = () -> MongoClients
+        .create(clientSettingsBuilder.applyConnectionString(connectionString).build());
   }
 
   /**
@@ -69,23 +78,35 @@ public class MongoClientProvider<E extends Exception> {
    *
    * @param properties The properties of the Mongo connection. Note that if the passed properties
    * object is changed after calling this method, those changes will not be reflected when calling
-   * @param optionsBuilder The settings to be applied. The default settings will not be used. The
-   * caller can incorporate the default settings by using an options builder obtained from {@link
-   * #getDefaultOptionsBuilder()}. {@link #createMongoClient()}.
+   * @param clientSettingsBuilder The settings to be applied. The default settings will not be used. The
+   * caller can incorporate the default settings by using an client settings builder obtained from {@link
+   * #getDefaultClientSettingsBuilder()}. {@link #createMongoClient()}.
    */
-  public MongoClientProvider(MongoProperties<E> properties, Builder optionsBuilder) {
+  public MongoClientProvider(MongoProperties<E> properties, Builder clientSettingsBuilder) {
     final ReadPreference readPreference = Optional.ofNullable(properties.getReadPreferenceValue())
-            .map(ReadPreferenceValue::getReadPreferenceSupplier).map(Supplier::get)
-            .orElse(DEFAULT_READ_PREFERENCE);
-    optionsBuilder.sslEnabled(properties.mongoEnableSsl()).readPreference(readPreference);
+        .map(ReadPreferenceValue::getReadPreferenceSupplier).map(Supplier::get)
+        .orElse(DEFAULT_READ_PREFERENCE);
+    clientSettingsBuilder.readPreference(readPreference);
+
     final MongoCredential mongoCredential = properties.getMongoCredentials();
     this.authenticationDatabase = Optional.ofNullable(mongoCredential)
-            .map(MongoCredential::getSource).orElse(null);
+        .map(MongoCredential::getSource).orElse(null);
+    clientSettingsBuilder.applyToSslSettings(builder -> builder.enabled(properties.mongoEnableSsl()));
     if (mongoCredential == null) {
-      this.creator = () -> new MongoClient(properties.getMongoHosts(), optionsBuilder.build());
+      this.creator = () -> {
+        final List<ServerAddress> mongoHosts = properties.getMongoHosts();
+        final MongoClientSettings mongoClientSettings = clientSettingsBuilder
+            .applyToClusterSettings(builder -> builder.hosts(mongoHosts)).build();
+        return MongoClients.create(mongoClientSettings);
+      };
     } else {
-      this.creator = () -> new MongoClient(properties.getMongoHosts(), mongoCredential,
-              optionsBuilder.build());
+      this.creator = () -> {
+        final List<ServerAddress> mongoHosts = properties.getMongoHosts();
+        final MongoClientSettings mongoClientSettings = clientSettingsBuilder
+            .applyToClusterSettings(builder -> builder.hosts(mongoHosts))
+            .credential(mongoCredential).build();
+        return MongoClients.create(mongoClientSettings);
+      };
     }
   }
 
@@ -97,7 +118,7 @@ public class MongoClientProvider<E extends Exception> {
    * {@link #createMongoClient()}.
    */
   public MongoClientProvider(MongoProperties<E> properties) {
-    this(properties, getDefaultOptionsBuilder());
+    this(properties, getDefaultClientSettingsBuilder());
   }
 
   /**
@@ -105,17 +126,19 @@ public class MongoClientProvider<E extends Exception> {
    *
    * @return A new instance of {@link Builder} with the default settings.
    */
-  public static Builder getDefaultOptionsBuilder() {
-    return new Builder()
+  public static Builder getDefaultClientSettingsBuilder() {
+    return MongoClientSettings.builder()
         // TODO: 7/16/20 Remove default retry writes after upgrade to mongo server version 4.2
         .retryWrites(DEFAULT_RETRY_WRITES)
-        .maxConnectionIdleTime(DEFAULT_MAX_CONNECTION_IDLE_MILLIS)
+        .applyToConnectionPoolSettings(
+            builder -> builder
+                .maxConnectionIdleTime(DEFAULT_MAX_CONNECTION_IDLE_MILLIS, TimeUnit.MILLISECONDS))
         .readPreference(DEFAULT_READ_PREFERENCE);
   }
 
   /**
-   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that constructor
-   * for the details.
+   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that constructor for
+   * the details.
    *
    * @param connectionUri The connection URI.
    * @return An instance.
@@ -125,8 +148,8 @@ public class MongoClientProvider<E extends Exception> {
   }
 
   /**
-   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that constructor
-   * for the details.
+   * Convenience method for {@link #MongoClientProvider(String, Function)}. See that constructor for
+   * the details.
    *
    * @param connectionUri The connection URI.
    * @return A supplier for {@link MongoClient} instances based on this class.

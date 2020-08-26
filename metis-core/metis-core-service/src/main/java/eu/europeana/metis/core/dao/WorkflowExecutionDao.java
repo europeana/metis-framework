@@ -24,8 +24,10 @@ import dev.morphia.aggregation.experimental.expressions.MathExpressions;
 import dev.morphia.aggregation.experimental.expressions.impls.Expression;
 import dev.morphia.aggregation.experimental.expressions.impls.MathExpression;
 import dev.morphia.aggregation.experimental.stages.Lookup;
+import dev.morphia.aggregation.experimental.stages.Projection;
 import dev.morphia.aggregation.experimental.stages.Sort;
 import dev.morphia.aggregation.experimental.stages.Unwind;
+import dev.morphia.annotations.Embedded;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filter;
@@ -524,7 +526,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       final List<ExecutionDatasetPair> result = new ArrayList<>();
       aggregation.execute(ExecutionDatasetPair.class).forEachRemaining(result::add);
       return createResultList(result, pagination);
-
     });
   }
 
@@ -556,7 +557,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return collectedFilters;
   }
 
-  private String determineOrderingStatusIndex(Aggregation aggregation) {
+  private String determineOrderingStatusIndex(Aggregation<WorkflowExecution> aggregation) {
     // Step 1: Add specific positions when the status is INQUEUE or RUNNING.
     final String statusInQueueField = "statusInQueue";
     final String statusRunningField = "statusRunning";
@@ -584,10 +585,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     final MathExpression sumExpression = MathExpressions
         .add(Expressions.field(statusInQueueField), Expressions.field(statusRunningField));
-    final Expression sumCheckExpression = ComparisonExpressions.eq(sumExpression, Expressions.value(0));
+    final Expression sumCheckExpression = ComparisonExpressions
+        .eq(sumExpression, Expressions.value(0));
     final Expression statusIndexExpression = ConditionalExpressions
         .condition(sumCheckExpression, Expressions.value(DEFAULT_POSITION_IN_OVERVIEW),
-            sumCheckExpression);
+            sumExpression);
 
     aggregation.project(dev.morphia.aggregation.experimental.stages.Projection.of()
         .include(statusIndexField, statusIndexExpression)
@@ -597,30 +599,33 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return statusIndexField;
   }
 
-  private void joinDatasetAndWorkflowExecution(Aggregation pipeline) {
+  private void joinDatasetAndWorkflowExecution(Aggregation<WorkflowExecution> aggregation) {
     // Step 1: Join with the dataset and the execution
     final String datasetListField = "datasetList";
     final String executionListField = "executionList";
-    pipeline.lookup(Lookup.from(Dataset.class).localField(DATASET_ID.getFieldName())
+    aggregation.lookup(Lookup.from(Dataset.class).localField(DATASET_ID.getFieldName())
         .foreignField(DATASET_ID.getFieldName()).as(datasetListField));
-    pipeline.lookup(Lookup.from(WorkflowExecution.class).localField(ID.getFieldName())
+    aggregation.lookup(Lookup.from(WorkflowExecution.class).localField(ID.getFieldName())
         .foreignField(ID.getFieldName()).as(executionListField));
 
     // Step 2: Keep only the first entry in the dataset and execution lists.
     final String datasetField = "dataset";
     final String executionField = "execution";
-    dev.morphia.aggregation.experimental.stages.Projection.of()
+    final Projection projection = Projection.of()
         .include(datasetField,
             ArrayExpressions.elementAt(Expressions.field(datasetListField), Expressions.value(0)))
         .include(executionField, ArrayExpressions
             .elementAt(Expressions.field(executionListField), Expressions.value(0)))
         .suppressId();
+    aggregation.project(projection);
   }
 
   /**
    * This object contains a pair consisting of a dataset and an execution. It is meant to be a
    * result of aggregate queries, so the field names cannot easily be changed.
+   * <p>Annotation {@link Embedded} required so that morphia can handle the aggregations.</p>
    */
+  @Embedded
   public static class ExecutionDatasetPair {
 
     private Dataset dataset;

@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.mongo;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.mapping.Mapper;
@@ -12,8 +12,6 @@ import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -62,15 +60,13 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
 
   private void createDatastore(MongoClient mongoClient, String databaseName) {
     // Register the mappings and set up the data store.
-    datastore = Morphia.createDatastore((com.mongodb.client.MongoClient) mongoClient, databaseName);
+    datastore = Morphia.createDatastore(mongoClient, databaseName);
     final Mapper mapper = datastore.getMapper();
     mapper.map(Dataset.class);
     mapper.map(DatasetIdSequence.class);
     mapper.map(Workflow.class);
     mapper.map(WorkflowExecution.class);
     mapper.map(ScheduledWorkflow.class);
-    mapper.map(AbstractMetisPlugin.class);
-    mapper.map(AbstractMetisPluginMetadata.class);
     mapper.map(DatasetXslt.class);
     mapper.map(DepublishRecordId.class);
 
