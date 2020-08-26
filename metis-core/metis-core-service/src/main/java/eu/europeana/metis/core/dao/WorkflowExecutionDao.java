@@ -17,8 +17,6 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import dev.morphia.aggregation.AggregationPipeline;
 import dev.morphia.aggregation.Projection;
-import dev.morphia.query.Criteria;
-import dev.morphia.query.CriteriaContainer;
 import dev.morphia.query.FilterOperator;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
@@ -195,7 +193,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     LOGGER.debug(
         "WorkflowExecution cancelling for datasetId '{}' set to true in Mongo. (UpdateResults: {})",
         workflowExecution.getDatasetId(),
-        updateResult == null ? 0 : updateResult.getModifiedCount()));
+        updateResult == null ? 0 : updateResult.getModifiedCount());
   }
 
   @Override
@@ -220,10 +218,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    */
   public WorkflowExecution getRunningOrInQueueExecution(String datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .find(WorkflowExecution.class)
-        .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
-    query.or(query.criteria(WORKFLOW_STATUS.getFieldName()).equal(WorkflowStatus.INQUEUE),
-        query.criteria(WORKFLOW_STATUS.getFieldName()).equal(WorkflowStatus.RUNNING));
+        .find(WorkflowExecution.class);
+    final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
+    final Filter workflowStatusFilter = Filters
+        .or(Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.INQUEUE),
+            Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.RUNNING));
+
+    query.filter(datasetIdFilter, workflowStatusFilter);
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 
@@ -250,9 +251,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    */
   public String existsAndNotCompleted(String datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .find(WorkflowExecution.class).filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
-    query.or(query.criteria(WORKFLOW_STATUS.getFieldName()).equal(WorkflowStatus.INQUEUE),
-        query.criteria(WORKFLOW_STATUS.getFieldName()).equal(WorkflowStatus.RUNNING));
+        .find(WorkflowExecution.class);
+
+    final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
+    final Filter workflowStatusFilter = Filters
+        .or(Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.INQUEUE),
+            Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.RUNNING));
+    query.filter(datasetIdFilter, workflowStatusFilter);
 
     final FindOptions findOptions = new FindOptions();
     findOptions.projection().include(ID.getFieldName());
@@ -351,18 +356,20 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     // Create the query to match a plugin satisfying the conditions.
     final Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class);
-    final Criteria[] criteria = {
-        query.criteria(DATASET_ID.getFieldName()).equal(datasetId),
-        query.criteria(METIS_PLUGINS.getFieldName() + "." + PLUGIN_STATUS.getFieldName()).equal(
-            PluginStatus.FINISHED)};
-    query.and(criteria);
-    final List<CriteriaContainer> criteriaContainer = new ArrayList<>(pluginTypes.size());
+
+    final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
+    final Filter metisPluginStatusFilter = Filters
+        .eq(METIS_PLUGINS.getFieldName() + "." + PLUGIN_STATUS.getFieldName(),
+            PluginStatus.FINISHED);
+    query.filter(datasetIdFilter, metisPluginStatusFilter);
+
+    List<Filter> pluginTypesFilters = new ArrayList<>();
     final String pluginTypeField = METIS_PLUGINS.getFieldName() + "." + PLUGIN_TYPE.getFieldName();
     for (PluginType pluginType : pluginTypes) {
-      criteriaContainer.add(query.criteria(pluginTypeField).equal(pluginType));
+      pluginTypesFilters.add(Filters.eq(pluginTypeField, pluginType));
     }
-    if (!criteriaContainer.isEmpty()) {
-      query.or(criteriaContainer.toArray(new CriteriaContainer[0]));
+    if (!pluginTypesFilters.isEmpty()) {
+      query.filter(Filters.or(pluginTypesFilters.toArray(Filter[]::new)));
     }
 
     // Query: unwind and match again so that we know that all conditions apply to the same plugin.
@@ -444,7 +451,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     final List<WorkflowExecution> result = ExternalRequestUtil
         .retryableExternalRequestConnectionReset(
             () -> {
-              try (final MorphiaCursor<WorkflowExecution> cursor = query.find(findOptions)) {
+              try (final MorphiaCursor<WorkflowExecution> cursor = query.iterator(findOptions)) {
                 return performFunction(cursor, MorphiaCursor::toList);
               }
             });
