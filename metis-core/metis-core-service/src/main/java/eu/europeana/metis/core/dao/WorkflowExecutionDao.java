@@ -816,35 +816,37 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     }
 
     // Create aggregation pipeline.
-    final Aggregation<WorkflowExecution> pipeline = morphiaDatastoreProvider.getDatastore()
+    final Aggregation<WorkflowExecution> aggregation = morphiaDatastoreProvider.getDatastore()
         .aggregate(WorkflowExecution.class);
 
     // Query on those that match the given dataset and that have a started date.
     final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
     final Filter startedDateFilter = Filters.ne(STARTED_DATE.getFieldName(), null);
-    pipeline.match(Filters.and(datasetIdFilter, startedDateFilter));
+    aggregation.match(Filters.and(datasetIdFilter, startedDateFilter));
 
     // Sort the results
-    pipeline.sort(Sort.on().descending(STARTED_DATE.getFieldName()));
+    aggregation.sort(Sort.on().descending(STARTED_DATE.getFieldName()));
 
     // Filter out most of the fields: just the id and the started date remain.
-    dev.morphia.aggregation.experimental.stages.Projection.of()
-        .include(ID.getFieldName(), Expressions.field("executionId"))
-        .include(STARTED_DATE.getFieldName());
+    aggregation.project(dev.morphia.aggregation.experimental.stages.Projection.of()
+        .include("executionId", Expressions.field(ID.getFieldName()))
+        .include(STARTED_DATE.getFieldName()));
 
     // Set the pagination options
-    pipeline.skip(pagination.getSkip()).limit(pagination.getLimit());
+    aggregation.skip(pagination.getSkip()).limit(pagination.getLimit());
 
     // Done.
     final List<ExecutionIdAndStartedDatePair> result = new ArrayList<>();
-    pipeline.execute(ExecutionIdAndStartedDatePair.class).forEachRemaining(result::add);
+    aggregation.execute(ExecutionIdAndStartedDatePair.class).forEachRemaining(result::add);
     return createResultList(result, pagination);
   }
 
   /**
    * This object contains a pair consisting of an execution ID and a started date. It is meant to be
    * a result of aggregate queries, so the field names cannot easily be changed.
+   * <p>Annotation {@link Embedded} required so that morphia can handle the aggregations.</p>
    */
+  @Embedded
   public static class ExecutionIdAndStartedDatePair {
 
     private ObjectId executionId;

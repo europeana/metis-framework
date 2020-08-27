@@ -1,6 +1,6 @@
 package eu.europeana.metis.mongo;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.query.experimental.filters.Filters;
@@ -117,8 +117,8 @@ public class RecordRedirectDao {
 
   private List<RecordRedirect> getRecordRedirects(String fieldName, String identifier) {
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(
-        () -> datastore.find(RecordRedirect.class).filter(Filters.eq(fieldName, identifier)).find()
-            .toList());
+        () -> datastore.find(RecordRedirect.class).filter(Filters.eq(fieldName, identifier))
+            .iterator().toList());
   }
 
   public Datastore getDatastore() {

@@ -11,10 +11,22 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-definitions</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>dev.morphia.morphia</groupId>
+          <artifactId>core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>dev.morphia.morphia</groupId>
+          <artifactId>core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- Including the Log4j api (only) to satisfy corelib-storage. -->
 	<dependency>
