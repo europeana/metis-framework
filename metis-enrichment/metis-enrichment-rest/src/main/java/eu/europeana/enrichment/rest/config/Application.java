@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.rest.config;
 
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;

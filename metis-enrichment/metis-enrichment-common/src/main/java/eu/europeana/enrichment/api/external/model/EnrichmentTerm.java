@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.api.external.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import dev.morphia.annotations.Embedded;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
@@ -47,9 +46,7 @@ public class EnrichmentTerm {
   private Date created;
   private Date updated;
   private EntityType entityType;
-  @Embedded
   private ContextualClassImpl contextualEntity;
-  @Embedded
   private List<LabelInfo> labelInfos;
 
   public EnrichmentTerm() {

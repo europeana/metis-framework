@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.definitions.jibx.Alternative;
 import eu.europeana.corelib.definitions.jibx.ConformsTo;
 import eu.europeana.corelib.definitions.jibx.Contributor;
@@ -76,8 +77,8 @@ class ProxyFieldInputTest {
 
     when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
     when(datastoreMock.find(ProxyImpl.class)).thenReturn(queryMock);
-    when(queryMock.filter("about", proxy.getAbout())).thenReturn(queryMock);
-    when(queryMock.get()).thenReturn(null);
+    when(queryMock.filter(Filters.eq("about", proxy.getAbout()))).thenReturn(queryMock);
+    when(queryMock.first()).thenReturn(null);
 
     ProxyImpl mongoProxy = new ProxyFieldInput().apply(proxy);
     mongoServerMock.getDatastore().save(mongoProxy);

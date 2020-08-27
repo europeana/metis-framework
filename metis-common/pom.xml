@@ -20,7 +20,7 @@
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-core</artifactId>
-      <version>${version.mongo.java.driver}</version>
+      <version>${version.mongodb.driver.core}</version>
     </dependency>
     <dependency>
       <groupId>dev.morphia.morphia</groupId>

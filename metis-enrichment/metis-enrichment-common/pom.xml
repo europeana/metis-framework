@@ -30,7 +30,7 @@
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-core</artifactId>
-      <version>${version.mongo.java.driver}</version>
+      <version>${version.mongodb.driver.core}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

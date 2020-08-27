@@ -10,14 +10,15 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.RdfRetriever;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -43,7 +44,10 @@ class MongoDereferenceServiceTest {
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
 
-    VocabularyDao vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest") {
+
+    MongoClient mongoClient = MongoClients
+        .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
+    VocabularyDao vocabularyDao = new VocabularyDao(mongoClient, "voctest") {
       {
         vocabularyDaoDatastore = this.getDatastore();
       }

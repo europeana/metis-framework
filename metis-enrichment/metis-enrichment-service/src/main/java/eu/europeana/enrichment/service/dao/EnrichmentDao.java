@@ -2,7 +2,7 @@ package eu.europeana.enrichment.service.dao;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.query.FindOptions;
@@ -50,8 +50,7 @@ public class EnrichmentDao {
    */
   public EnrichmentDao(MongoClient mongoClient, String databaseName) {
     this.mongoClient = mongoClient;
-    this.datastore = Morphia
-        .createDatastore((com.mongodb.client.MongoClient) this.mongoClient, databaseName);
+    this.datastore = Morphia.createDatastore(this.mongoClient, databaseName);
     this.datastore.getMapper().map(EnrichmentTerm.class);
   }
 

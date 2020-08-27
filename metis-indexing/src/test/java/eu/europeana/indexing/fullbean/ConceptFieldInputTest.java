@@ -7,8 +7,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import dev.morphia.Datastore;
-import dev.morphia.Key;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.definitions.jibx.AltLabel;
 import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.LiteralType.Lang;
@@ -40,14 +40,12 @@ class ConceptFieldInputTest {
     Datastore datastoreMock = mock(Datastore.class);
     @SuppressWarnings("unchecked")
     Query<ConceptImpl> queryMock = mock(Query.class);
-    @SuppressWarnings("unchecked")
-    Key<ConceptImpl> keyMock = mock(Key.class);
 
     when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
     when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
     when(datastoreMock.find(ConceptImpl.class)).thenReturn(queryMock);
-    when(datastoreMock.save(conceptImpl)).thenReturn(keyMock);
-    when(queryMock.filter("about", concept.getAbout())).thenReturn(queryMock);
+    when(datastoreMock.save(conceptImpl)).thenReturn(conceptImpl);
+    when(queryMock.filter(Filters.eq("about", concept.getAbout()))).thenReturn(queryMock);
 
     Concept.Choice choice = new Concept.Choice();
 

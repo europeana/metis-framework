@@ -1,7 +1,7 @@
 package eu.europeana.metis.dereference.service.dao;
 
 import com.mongodb.DuplicateKeyException;
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.query.experimental.filters.Filters;
@@ -25,7 +25,7 @@ public class ProcessedEntityDao {
    * @param databaseName The name of the database.
    */
   public ProcessedEntityDao(MongoClient mongo, String databaseName) {
-    this.datastore = Morphia.createDatastore((com.mongodb.client.MongoClient) mongo, databaseName);
+    this.datastore = Morphia.createDatastore(mongo, databaseName);
     this.datastore.getMapper().map(ProcessedEntity.class);
   }
 

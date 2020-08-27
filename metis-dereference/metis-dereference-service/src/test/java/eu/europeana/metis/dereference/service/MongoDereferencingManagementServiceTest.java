@@ -3,7 +3,8 @@ package eu.europeana.metis.dereference.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
@@ -30,9 +31,10 @@ class MongoDereferencingManagementServiceTest {
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
 
-    MongoClient mongo = new MongoClient(mongoHost, mongoPort);
+    MongoClient mongoClient = MongoClients
+        .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
 
-    VocabularyDao vocDao = new VocabularyDao(mongo, "voctest") {
+    VocabularyDao vocDao = new VocabularyDao(mongoClient, "voctest") {
       {
         vocDaoDatastore = this.getDatastore();
       }

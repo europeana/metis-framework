@@ -2,7 +2,7 @@ package eu.europeana.metis.dereference.service.dao;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import dev.morphia.query.Query;
@@ -21,7 +21,7 @@ public class VocabularyDao {
   private final Datastore datastore;
 
   public VocabularyDao(MongoClient mongo, String db) {
-    datastore = Morphia.createDatastore((com.mongodb.client.MongoClient) mongo, db);
+    datastore = Morphia.createDatastore(mongo, db);
     datastore.getMapper().map(Vocabulary.class);
   }
 
