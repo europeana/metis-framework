@@ -3,6 +3,9 @@ package eu.europeana.metis.mongo;
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.DiscriminatorFunction;
+import dev.morphia.mapping.MapperOptions;
+import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.List;
@@ -51,7 +54,10 @@ public class RecordRedirectDao {
   }
 
   private static Datastore createDatastore(MongoClient mongoClient, String databaseName) {
-    final Datastore datastore = Morphia.createDatastore(mongoClient, databaseName);
+    final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
+        .discriminator(DiscriminatorFunction.className())
+        .collectionNaming(NamingStrategy.identity()).build();
+    final Datastore datastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
     datastore.getMapper().map(RecordRedirect.class);
     LOGGER.info("Datastore initialized");
     return datastore;

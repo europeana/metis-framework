@@ -4,6 +4,9 @@ import com.mongodb.DuplicateKeyException;
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.DiscriminatorFunction;
+import dev.morphia.mapping.MapperOptions;
+import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import org.slf4j.Logger;
@@ -25,7 +28,10 @@ public class ProcessedEntityDao {
    * @param databaseName The name of the database.
    */
   public ProcessedEntityDao(MongoClient mongo, String databaseName) {
-    this.datastore = Morphia.createDatastore(mongo, databaseName);
+    final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
+        .discriminator(DiscriminatorFunction.className())
+        .collectionNaming(NamingStrategy.identity()).build();
+    this.datastore = Morphia.createDatastore(mongo, databaseName, mapperOptions);
     this.datastore.getMapper().map(ProcessedEntity.class);
   }
 

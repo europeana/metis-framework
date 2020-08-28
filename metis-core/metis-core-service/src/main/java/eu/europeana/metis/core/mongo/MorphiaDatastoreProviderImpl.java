@@ -3,7 +3,10 @@ package eu.europeana.metis.core.mongo;
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.DiscriminatorFunction;
 import dev.morphia.mapping.Mapper;
+import dev.morphia.mapping.MapperOptions;
+import dev.morphia.mapping.NamingStrategy;
 import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
@@ -60,7 +63,11 @@ public class MorphiaDatastoreProviderImpl implements MorphiaDatastoreProvider {
 
   private void createDatastore(MongoClient mongoClient, String databaseName) {
     // Register the mappings and set up the data store.
-    datastore = Morphia.createDatastore(mongoClient, databaseName);
+    // TODO: 8/28/20 The mapper options should eventually be removed but requires an update of the affected fields on all documents in the database
+    final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
+        .discriminator(DiscriminatorFunction.className())
+        .collectionNaming(NamingStrategy.identity()).build();
+    datastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
     final Mapper mapper = datastore.getMapper();
     mapper.map(Dataset.class);
     mapper.map(DatasetIdSequence.class);

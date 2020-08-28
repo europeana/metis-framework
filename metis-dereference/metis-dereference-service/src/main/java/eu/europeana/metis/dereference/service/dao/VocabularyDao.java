@@ -5,6 +5,9 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.DiscriminatorFunction;
+import dev.morphia.mapping.MapperOptions;
+import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.internal.MorphiaCursor;
@@ -21,7 +24,10 @@ public class VocabularyDao {
   private final Datastore datastore;
 
   public VocabularyDao(MongoClient mongo, String db) {
-    datastore = Morphia.createDatastore(mongo, db);
+    final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
+        .discriminator(DiscriminatorFunction.className())
+        .collectionNaming(NamingStrategy.identity()).build();
+    datastore = Morphia.createDatastore(mongo, db, mapperOptions);
     datastore.getMapper().map(Vocabulary.class);
   }
 

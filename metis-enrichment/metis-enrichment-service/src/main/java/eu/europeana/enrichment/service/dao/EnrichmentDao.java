@@ -5,6 +5,10 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.DiscriminatorFunction;
+import dev.morphia.mapping.Mapper;
+import dev.morphia.mapping.MapperOptions;
+import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
@@ -49,9 +53,13 @@ public class EnrichmentDao {
    * @param databaseName the database name
    */
   public EnrichmentDao(MongoClient mongoClient, String databaseName) {
+    final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
+        .discriminator(DiscriminatorFunction.className())
+        .collectionNaming(NamingStrategy.identity()).build();
     this.mongoClient = mongoClient;
-    this.datastore = Morphia.createDatastore(this.mongoClient, databaseName);
-    this.datastore.getMapper().map(EnrichmentTerm.class);
+    this.datastore = Morphia.createDatastore(this.mongoClient, databaseName, mapperOptions);
+    final Mapper mapper = this.datastore.getMapper();
+    mapper.map(EnrichmentTerm.class);
   }
 
   /**
