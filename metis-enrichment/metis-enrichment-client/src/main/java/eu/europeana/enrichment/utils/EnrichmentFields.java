@@ -143,8 +143,8 @@ public enum EnrichmentFields {
 
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {
 
-    final Predicate<Choice> choiceChecker;
-    final Function<Choice, T> contentGetter;
+    protected final Predicate<Choice> choiceChecker;
+    protected final Function<Choice, T> contentGetter;
     private final BiConsumer<Choice, T> contentSetter;
     private final Supplier<T> contentCreator;
 

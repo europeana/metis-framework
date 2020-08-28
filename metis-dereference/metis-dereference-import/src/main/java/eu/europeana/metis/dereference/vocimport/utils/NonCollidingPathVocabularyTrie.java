@@ -116,7 +116,7 @@ public class NonCollidingPathVocabularyTrie {
 
   private static class TrieNode {
 
-    final Map<Character, TrieNode> children = new HashMap<>();
-    Pair<Vocabulary, String> vocabularyAndPath;
+    protected final Map<Character, TrieNode> children = new HashMap<>();
+    protected Pair<Vocabulary, String> vocabularyAndPath;
   }
 }
