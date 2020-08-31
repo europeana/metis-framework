@@ -1,9 +1,5 @@
 package eu.europeana.enrichment.service;
 
-import eu.europeana.corelib.solr.entity.AgentImpl;
-import eu.europeana.corelib.solr.entity.ConceptImpl;
-import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -13,7 +9,11 @@ import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity;
 import eu.europeana.enrichment.utils.EntityType;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,16 +41,16 @@ public final class Converter {
     }
     switch (entityType) {
       case AGENT:
-        result = convertAgent((AgentImpl) enrichmentTerm.getContextualEntity());
+        result = convertAgent((AgentEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
         break;
       case CONCEPT:
-        result = convertConcept((ConceptImpl) enrichmentTerm.getContextualEntity());
+        result = convertConcept((ConceptEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
         break;
       case PLACE:
-        result = convertPlace((PlaceImpl) enrichmentTerm.getContextualEntity());
+        result = convertPlace((PlaceEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
         break;
       case TIMESPAN:
-        result = convertTimespan((TimespanImpl) enrichmentTerm.getContextualEntity());
+        result = convertTimespan((TimespanEnrichmentEntity) enrichmentTerm.getEnrichmentEntity());
         break;
       default:
         result = null;
@@ -59,103 +59,105 @@ public final class Converter {
     return result;
   }
 
-  private static Timespan convertTimespan(TimespanImpl timespanImpl) {
+  private static Timespan convertTimespan(TimespanEnrichmentEntity timespanEnrichmentEntity) {
 
     Timespan output = new Timespan();
 
-    output.setAbout(timespanImpl.getAbout());
-    output.setPrefLabelList(convert(timespanImpl.getPrefLabel()));
-    output.setAltLabelList(convert(timespanImpl.getAltLabel()));
-    output.setBeginList(convert(timespanImpl.getBegin()));
-    output.setEndList(convert(timespanImpl.getEnd()));
-    output.setHasPartsList(convertPart(timespanImpl.getDctermsHasPart()));
-    output.setHiddenLabel(convert(timespanImpl.getHiddenLabel()));
-    output.setIsPartOfList(convertPart(timespanImpl.getIsPartOf()));
-    output.setNotes(convert(timespanImpl.getNote()));
-    output.setSameAs(convertToPartsList(timespanImpl.getOwlSameAs()));
+    output.setAbout(timespanEnrichmentEntity.getAbout());
+    output.setPrefLabelList(convert(timespanEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convert(timespanEnrichmentEntity.getAltLabel()));
+    output.setBeginList(convert(timespanEnrichmentEntity.getBegin()));
+    output.setEndList(convert(timespanEnrichmentEntity.getEnd()));
+    output.setHasPartsList(convertPart(timespanEnrichmentEntity.getDctermsHasPart()));
+    output.setHiddenLabel(convert(timespanEnrichmentEntity.getHiddenLabel()));
+    output.setIsPartOfList(convertPart(timespanEnrichmentEntity.getIsPartOf()));
+    output.setNotes(convert(timespanEnrichmentEntity.getNote()));
+    output.setSameAs(convertToPartsList(timespanEnrichmentEntity.getOwlSameAs()));
 
     return output;
   }
 
-  private static Concept convertConcept(ConceptImpl conceptImpl) {
+  private static Concept convertConcept(ConceptEnrichmentEntity conceptEnrichmentEntity) {
     Concept output = new Concept();
 
-    output.setAbout(conceptImpl.getAbout());
-    output.setPrefLabelList(convert(conceptImpl.getPrefLabel()));
-    output.setAltLabelList(convert(conceptImpl.getAltLabel()));
-    output.setHiddenLabel(convert(conceptImpl.getHiddenLabel()));
-    output.setNotation(convert(conceptImpl.getNotation()));
-    output.setNotes(convert(conceptImpl.getNote()));
-    output.setBroader(convertToResourceList(conceptImpl.getBroader()));
-    output.setBroadMatch(convertToResourceList(conceptImpl.getBroadMatch()));
-    output.setCloseMatch(convertToResourceList(conceptImpl.getCloseMatch()));
-    output.setExactMatch(convertToResourceList(conceptImpl.getExactMatch()));
-    output.setInScheme(convertToResourceList(conceptImpl.getInScheme()));
-    output.setNarrower(convertToResourceList(conceptImpl.getNarrower()));
-    output.setNarrowMatch(convertToResourceList(conceptImpl.getNarrowMatch()));
-    output.setRelated(convertToResourceList(conceptImpl.getRelated()));
-    output.setRelatedMatch(convertToResourceList(conceptImpl.getRelatedMatch()));
+    output.setAbout(conceptEnrichmentEntity.getAbout());
+    output.setPrefLabelList(convert(conceptEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convert(conceptEnrichmentEntity.getAltLabel()));
+    output.setHiddenLabel(convert(conceptEnrichmentEntity.getHiddenLabel()));
+    output.setNotation(convert(conceptEnrichmentEntity.getNotation()));
+    output.setNotes(convert(conceptEnrichmentEntity.getNote()));
+    output.setBroader(convertToResourceList(conceptEnrichmentEntity.getBroader()));
+    output.setBroadMatch(convertToResourceList(conceptEnrichmentEntity.getBroadMatch()));
+    output.setCloseMatch(convertToResourceList(conceptEnrichmentEntity.getCloseMatch()));
+    output.setExactMatch(convertToResourceList(conceptEnrichmentEntity.getExactMatch()));
+    output.setInScheme(convertToResourceList(conceptEnrichmentEntity.getInScheme()));
+    output.setNarrower(convertToResourceList(conceptEnrichmentEntity.getNarrower()));
+    output.setNarrowMatch(convertToResourceList(conceptEnrichmentEntity.getNarrowMatch()));
+    output.setRelated(convertToResourceList(conceptEnrichmentEntity.getRelated()));
+    output.setRelatedMatch(convertToResourceList(conceptEnrichmentEntity.getRelatedMatch()));
 
     return output;
   }
 
 
-  private static Place convertPlace(PlaceImpl placeImpl) {
+  private static Place convertPlace(PlaceEnrichmentEntity placeEnrichmentEntity) {
 
     Place output = new Place();
 
-    output.setAbout(placeImpl.getAbout());
-    output.setPrefLabelList(convert(placeImpl.getPrefLabel()));
-    output.setAltLabelList(convert(placeImpl.getAltLabel()));
+    output.setAbout(placeEnrichmentEntity.getAbout());
+    output.setPrefLabelList(convert(placeEnrichmentEntity.getPrefLabel()));
+    output.setAltLabelList(convert(placeEnrichmentEntity.getAltLabel()));
 
-    output.setHasPartsList(convertPart(placeImpl.getDcTermsHasPart()));
-    output.setIsPartOfList(convertPart(placeImpl.getIsPartOf()));
-    output.setNotes(convert(placeImpl.getNote()));
-    output.setSameAs(convertToPartsList(placeImpl.getOwlSameAs()));
+    output.setHasPartsList(convertPart(placeEnrichmentEntity.getDcTermsHasPart()));
+    output.setIsPartOfList(convertPart(placeEnrichmentEntity.getIsPartOf()));
+    output.setNotes(convert(placeEnrichmentEntity.getNote()));
+    output.setSameAs(convertToPartsList(placeEnrichmentEntity.getOwlSameAs()));
 
-    if ((placeImpl.getLatitude() != null && placeImpl.getLatitude() != 0) &&
-        (placeImpl.getLongitude() != null && placeImpl.getLongitude() != 0)) {
-      output.setLat(placeImpl.getLatitude().toString());
-      output.setLon(placeImpl.getLongitude().toString());
+    if ((placeEnrichmentEntity.getLatitude() != null && placeEnrichmentEntity.getLatitude() != 0) &&
+        (placeEnrichmentEntity.getLongitude() != null
+            && placeEnrichmentEntity.getLongitude() != 0)) {
+      output.setLat(placeEnrichmentEntity.getLatitude().toString());
+      output.setLon(placeEnrichmentEntity.getLongitude().toString());
     }
 
-    if (placeImpl.getAltitude() != null && placeImpl.getAltitude() != 0) {
-      output.setAlt(placeImpl.getAltitude().toString());
+    if (placeEnrichmentEntity.getAltitude() != null && placeEnrichmentEntity.getAltitude() != 0) {
+      output.setAlt(placeEnrichmentEntity.getAltitude().toString());
     }
     return output;
   }
 
-  private static Agent convertAgent(AgentImpl agentImpl) {
+  private static Agent convertAgent(AgentEnrichmentEntity agentEntityEnrichment) {
 
     Agent output = new Agent();
 
-    output.setAbout(agentImpl.getAbout());
-    output.setPrefLabelList(convert(agentImpl.getPrefLabel()));
-    output.setAltLabelList(convert(agentImpl.getAltLabel()));
-    output.setHiddenLabel(convert(agentImpl.getHiddenLabel()));
-    output.setFoafName(convert(agentImpl.getFoafName()));
-    output.setNotes(convert(agentImpl.getNote()));
+    output.setAbout(agentEntityEnrichment.getAbout());
+    output.setPrefLabelList(convert(agentEntityEnrichment.getPrefLabel()));
+    output.setAltLabelList(convert(agentEntityEnrichment.getAltLabel()));
+    output.setHiddenLabel(convert(agentEntityEnrichment.getHiddenLabel()));
+    output.setFoafName(convert(agentEntityEnrichment.getFoafName()));
+    output.setNotes(convert(agentEntityEnrichment.getNote()));
 
-    output.setBeginList(convert(agentImpl.getBegin()));
-    output.setEndList(convert(agentImpl.getEnd()));
+    output.setBeginList(convert(agentEntityEnrichment.getBegin()));
+    output.setEndList(convert(agentEntityEnrichment.getEnd()));
 
-    output.setIdentifier(convert(agentImpl.getDcIdentifier()));
-    output.setHasMet(convert(agentImpl.getEdmHasMet()));
-    output.setBiographicaInformation(convert(agentImpl.getRdaGr2BiographicalInformation()));
-    output.setPlaceOfBirth(convertResourceOrLiteral(agentImpl.getRdaGr2PlaceOfBirth()));
-    output.setPlaceOfDeath(convertResourceOrLiteral(agentImpl.getRdaGr2PlaceOfDeath()));
-    output.setDateOfBirth(convert(agentImpl.getRdaGr2DateOfBirth()));
-    output.setDateOfDeath(convert(agentImpl.getRdaGr2DateOfDeath()));
-    output.setDateOfEstablishment(convert(agentImpl.getRdaGr2DateOfEstablishment()));
-    output.setDateOfTermination(convert(agentImpl.getRdaGr2DateOfTermination()));
-    output.setGender(convert(agentImpl.getRdaGr2Gender()));
+    output.setIdentifier(convert(agentEntityEnrichment.getDcIdentifier()));
+    output.setHasMet(convert(agentEntityEnrichment.getEdmHasMet()));
+    output.setBiographicaInformation(
+        convert(agentEntityEnrichment.getRdaGr2BiographicalInformation()));
+    output.setPlaceOfBirth(convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2PlaceOfBirth()));
+    output.setPlaceOfDeath(convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2PlaceOfDeath()));
+    output.setDateOfBirth(convert(agentEntityEnrichment.getRdaGr2DateOfBirth()));
+    output.setDateOfDeath(convert(agentEntityEnrichment.getRdaGr2DateOfDeath()));
+    output.setDateOfEstablishment(convert(agentEntityEnrichment.getRdaGr2DateOfEstablishment()));
+    output.setDateOfTermination(convert(agentEntityEnrichment.getRdaGr2DateOfTermination()));
+    output.setGender(convert(agentEntityEnrichment.getRdaGr2Gender()));
 
-    output.setDate(convertResourceOrLiteral(agentImpl.getDcDate()));
+    output.setDate(convertResourceOrLiteral(agentEntityEnrichment.getDcDate()));
     output.setProfessionOrOccupation(
-        convertResourceOrLiteral(agentImpl.getRdaGr2ProfessionOrOccupation()));
+        convertResourceOrLiteral(agentEntityEnrichment.getRdaGr2ProfessionOrOccupation()));
 
-    output.setWasPresentAt(convertToResourceList(agentImpl.getEdmWasPresentAt()));
-    output.setSameAs(convertToPartsList(agentImpl.getOwlSameAs()));
+    output.setWasPresentAt(convertToResourceList(agentEntityEnrichment.getEdmWasPresentAt()));
+    output.setSameAs(convertToPartsList(agentEntityEnrichment.getOwlSameAs()));
 
     return output;
   }

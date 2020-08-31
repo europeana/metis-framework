@@ -14,7 +14,7 @@ import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.internal.MorphiaCursor;
-import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.Date;
@@ -60,6 +60,7 @@ public class EnrichmentDao {
     this.datastore = Morphia.createDatastore(this.mongoClient, databaseName, mapperOptions);
     final Mapper mapper = this.datastore.getMapper();
     mapper.map(EnrichmentTerm.class);
+    this.datastore.ensureIndexes();
   }
 
   /**

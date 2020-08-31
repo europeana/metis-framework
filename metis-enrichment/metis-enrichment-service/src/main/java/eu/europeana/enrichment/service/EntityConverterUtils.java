@@ -6,9 +6,10 @@ import com.zoho.crm.library.crud.ZCRMRecord;
 import eu.europeana.corelib.definitions.edm.entity.Address;
 import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.api.external.model.TextProperty;
 import eu.europeana.enrichment.api.external.model.WebResource;
+import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.zoho.ZohoConstants;
 import java.util.ArrayList;
@@ -376,17 +377,17 @@ public class EntityConverterUtils {
     }
 
     //update hasGeo if not available in base
-    if(StringUtils.isEmpty(baseAddress.getVcardHasGeo())){
+    if (StringUtils.isEmpty(baseAddress.getVcardHasGeo())) {
       baseAddress.setVcardHasGeo(addAddress.getVcardHasGeo());
     }
 
   }
 
-  public static EnrichmentTerm organizationImplToEnrichmentTerm(OrganizationImpl organization,
-      Date created, Date updated) {
+  public static EnrichmentTerm organizationImplToEnrichmentTerm(
+      OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setCodeUri(organization.getAbout());
-    enrichmentTerm.setContextualEntity(organization);
+    enrichmentTerm.setCodeUri(organizationEnrichmentEntity.getAbout());
+    enrichmentTerm.setEnrichmentEntity(organizationEnrichmentEntity);
     enrichmentTerm.setEntityType(EntityType.ORGANIZATION);
     enrichmentTerm.setCreated(Objects.requireNonNullElseGet(created, Date::new));
     enrichmentTerm.setUpdated(updated);

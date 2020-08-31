@@ -3,22 +3,21 @@ package eu.europeana.enrichment.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import eu.europeana.corelib.solr.entity.AgentImpl;
-import eu.europeana.corelib.solr.entity.ConceptImpl;
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
-import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.enrichment.internal.model.AgentEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.ConceptEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.PlaceEnrichmentEntity;
+import eu.europeana.enrichment.internal.model.TimespanEnrichmentEntity;
 import eu.europeana.enrichment.utils.EntityType;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 
 public class ConverterTest {
@@ -26,15 +25,14 @@ public class ConverterTest {
   @Test
   public void convertAgent() {
 
-    AgentImpl agentImpl = new AgentImpl();
-    agentImpl.setId(ObjectId.get());
-    agentImpl.setAbout("myAbout");
-    agentImpl.setEdmWasPresentAt(new String[]{"a", "b"});
-    agentImpl.setOwlSameAs(new String[]{"1", "2"});
-    agentImpl.setAltLabel(createAltLabels("en", new String[]{"a_en", "b_en"}));
+    AgentEnrichmentEntity agentEntityEnrichment = new AgentEnrichmentEntity();
+    agentEntityEnrichment.setAbout("myAbout");
+    agentEntityEnrichment.setEdmWasPresentAt(new String[]{"a", "b"});
+    agentEntityEnrichment.setOwlSameAs(new String[]{"1", "2"});
+    agentEntityEnrichment.setAltLabel(createAltLabels("en", new String[]{"a_en", "b_en"}));
 
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setContextualEntity(agentImpl);
+    enrichmentTerm.setEnrichmentEntity(agentEntityEnrichment);
     enrichmentTerm.setEntityType(EntityType.AGENT);
 
     Agent agent = (Agent) Converter.convert(enrichmentTerm);
@@ -65,14 +63,13 @@ public class ConverterTest {
 
   @Test
   public void convertConcept() {
-    ConceptImpl conceptImpl = new ConceptImpl();
-    conceptImpl.setId(ObjectId.get());
-    conceptImpl.setAbout("myAbout");
-    conceptImpl.setRelated(new String[]{"a", "b"});
-    conceptImpl.setRelatedMatch(new String[]{"1", "2"});
+    ConceptEnrichmentEntity conceptEnrichmentEntity = new ConceptEnrichmentEntity();
+    conceptEnrichmentEntity.setAbout("myAbout");
+    conceptEnrichmentEntity.setRelated(new String[]{"a", "b"});
+    conceptEnrichmentEntity.setRelatedMatch(new String[]{"1", "2"});
 
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setContextualEntity(conceptImpl);
+    enrichmentTerm.setEnrichmentEntity(conceptEnrichmentEntity);
     enrichmentTerm.setEntityType(EntityType.CONCEPT);
 
     Concept agent = (Concept) Converter.convert(enrichmentTerm);
@@ -86,13 +83,12 @@ public class ConverterTest {
 
   @Test
   public void convertTimespan() {
-    TimespanImpl timespanImpl = new TimespanImpl();
-    timespanImpl.setId(ObjectId.get());
-    timespanImpl.setAbout("myAbout");
-    timespanImpl.setOwlSameAs(new String[]{"1", "2"});
+    TimespanEnrichmentEntity timespanEnrichmentEntity = new TimespanEnrichmentEntity();
+    timespanEnrichmentEntity.setAbout("myAbout");
+    timespanEnrichmentEntity.setOwlSameAs(new String[]{"1", "2"});
 
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setContextualEntity(timespanImpl);
+    enrichmentTerm.setEnrichmentEntity(timespanEnrichmentEntity);
     enrichmentTerm.setEntityType(EntityType.TIMESPAN);
 
     Timespan agent = (Timespan) Converter.convert(enrichmentTerm);
@@ -103,13 +99,12 @@ public class ConverterTest {
 
   @Test
   public void convertPlace() {
-    PlaceImpl placeImpl = new PlaceImpl();
-    placeImpl.setId(ObjectId.get());
-    placeImpl.setAbout("myAbout");
-    placeImpl.setOwlSameAs(new String[]{"1", "2"});
+    PlaceEnrichmentEntity placeEnrichmentEntity = new PlaceEnrichmentEntity();
+    placeEnrichmentEntity.setAbout("myAbout");
+    placeEnrichmentEntity.setOwlSameAs(new String[]{"1", "2"});
 
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setContextualEntity(placeImpl);
+    enrichmentTerm.setEnrichmentEntity(placeEnrichmentEntity);
     enrichmentTerm.setEntityType(EntityType.PLACE);
 
     Place agent = (Place) Converter.convert(enrichmentTerm);
@@ -120,13 +115,12 @@ public class ConverterTest {
 
   @Test
   public void convertOtherObject_returns_null() {
-    final OrganizationImpl organizationImpl = new OrganizationImpl();
-    organizationImpl.setId(ObjectId.get());
-    organizationImpl.setAbout("myAbout");
-    organizationImpl.setOwlSameAs(new String[]{"1", "2"});
+    final OrganizationEnrichmentEntity organizationEnrichmentEntity = new OrganizationEnrichmentEntity();
+    organizationEnrichmentEntity.setAbout("myAbout");
+    organizationEnrichmentEntity.setOwlSameAs(new String[]{"1", "2"});
 
     final EnrichmentTerm enrichmentTerm = new EnrichmentTerm();
-    enrichmentTerm.setContextualEntity(organizationImpl);
+    enrichmentTerm.setEnrichmentEntity(organizationEnrichmentEntity);
     enrichmentTerm.setEntityType(EntityType.ORGANIZATION);
 
     Place agent = (Place) Converter.convert(enrichmentTerm);

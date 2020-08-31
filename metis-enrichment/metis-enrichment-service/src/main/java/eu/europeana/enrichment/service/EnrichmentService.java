@@ -1,8 +1,8 @@
 package eu.europeana.enrichment.service;
 
-import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.EnrichmentTerm;
+import eu.europeana.enrichment.internal.model.OrganizationEnrichmentEntity;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.InputValue;
@@ -203,27 +203,27 @@ public class EnrichmentService {
   /**
    * Save an organization to the database
    *
-   * @param organization the organization to save
+   * @param organizationEnrichmentEntity the organization to save
    * @param created the created date to be used
    * @param updated the updated date to be used
    * @return the saved organization
    */
-  public OrganizationImpl saveOrganization(OrganizationImpl organization,
-      Date created, Date updated) {
+  public OrganizationEnrichmentEntity saveOrganization(
+      OrganizationEnrichmentEntity organizationEnrichmentEntity, Date created, Date updated) {
 
     final EnrichmentTerm enrichmentTerm = EntityConverterUtils
-        .organizationImplToEnrichmentTerm(organization, created,
+        .organizationImplToEnrichmentTerm(organizationEnrichmentEntity, created,
             updated);
 
     final Optional<ObjectId> objectId = enrichmentDao
         .getEnrichmentTermObjectIdByField(EnrichmentDao.CODE_URI_FIELD,
-            organization.getAbout());
+            organizationEnrichmentEntity.getAbout());
     objectId.ifPresent(enrichmentTerm::setId);
 
     //Save term list
     final String id = enrichmentDao.saveEnrichmentTerm(enrichmentTerm);
     return enrichmentDao.getEnrichmentTermByField(EnrichmentDao.ID_FIELD, id)
-        .map(EnrichmentTerm::getContextualEntity).map(OrganizationImpl.class::cast)
+        .map(EnrichmentTerm::getEnrichmentEntity).map(OrganizationEnrichmentEntity.class::cast)
         .orElse(null);
   }
 
@@ -236,7 +236,7 @@ public class EnrichmentService {
   public List<String> findExistingOrganizations(List<String> organizationIds) {
     List<String> existingOrganizationIds = new ArrayList<>();
     for (String id : organizationIds) {
-      Optional<OrganizationImpl> organization = getOrganizationByUri(id);
+      Optional<OrganizationEnrichmentEntity> organization = getOrganizationByUri(id);
       organization.ifPresent(value -> existingOrganizationIds.add(value.getAbout()));
     }
     return existingOrganizationIds;
@@ -248,11 +248,11 @@ public class EnrichmentService {
    * @param uri The EDM organization uri (codeUri)
    * @return OrganizationImpl object
    */
-  public Optional<OrganizationImpl> getOrganizationByUri(String uri) {
+  public Optional<OrganizationEnrichmentEntity> getOrganizationByUri(String uri) {
     final List<EnrichmentTerm> enrichmentTerm = getEnrichmentTerms(
         Collections.singletonList(new ImmutablePair<>(EnrichmentDao.CODE_URI_FIELD, uri)));
-    return enrichmentTerm.stream().findFirst().map(EnrichmentTerm::getContextualEntity)
-        .map(OrganizationImpl.class::cast);
+    return enrichmentTerm.stream().findFirst().map(EnrichmentTerm::getEnrichmentEntity)
+        .map(OrganizationEnrichmentEntity.class::cast);
   }
 
   /**
