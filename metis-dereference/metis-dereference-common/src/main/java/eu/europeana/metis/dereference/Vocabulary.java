@@ -1,9 +1,11 @@
 package eu.europeana.metis.dereference;
 
 import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
-import dev.morphia.annotations.Indexed;
+import dev.morphia.annotations.Indexes;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,7 +17,11 @@ import javax.xml.bind.annotation.XmlElement;
  * A controlled vocabulary representation Created by ymamakis on 2/11/16.
  */
 
-@Entity("Vocabulary")
+@Entity
+@Indexes({
+    @Index(fields = {@Field("uris")}),
+    @Index(fields = {@Field("name")}, options = @IndexOptions(unique = true))
+})
 public class Vocabulary implements Serializable {
 
   /**
@@ -29,7 +35,6 @@ public class Vocabulary implements Serializable {
   /**
    * The URIs of the controlled vocabulary
    */
-  @Indexed
   private Set<String> uris;
 
   /**
@@ -50,7 +55,6 @@ public class Vocabulary implements Serializable {
   /**
    * The name of the vocabulary
    */
-  @Indexed(options = @IndexOptions(unique = true))
   private String name;
 
   @XmlElement
