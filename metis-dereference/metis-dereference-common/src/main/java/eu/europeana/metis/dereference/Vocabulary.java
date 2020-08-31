@@ -1,17 +1,20 @@
 package eu.europeana.metis.dereference;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
+import org.bson.types.ObjectId;
 
 /**
  * A controlled vocabulary representation Created by ymamakis on 2/11/16.
@@ -30,7 +33,8 @@ public class Vocabulary implements Serializable {
   private static final long serialVersionUID = 2946293185967000824L;
 
   @Id
-  private String id;
+  @JsonSerialize(using = ObjectIdSerializer.class)
+  private ObjectId id;
 
   /**
    * The URIs of the controlled vocabulary
@@ -103,11 +107,11 @@ public class Vocabulary implements Serializable {
   }
 
   @XmlElement
-  public String getId() {
+  public ObjectId getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(ObjectId id) {
     this.id = id;
   }
 }

@@ -59,7 +59,7 @@ public class MongoDereferenceService implements DereferenceService {
    */
   @Autowired
   public MongoDereferenceService(ProcessedEntityDao processedEntityDao,
-          VocabularyDao vocabularyDao) {
+      VocabularyDao vocabularyDao) {
     this(new RdfRetriever(), processedEntityDao, vocabularyDao);
   }
 
@@ -71,7 +71,7 @@ public class MongoDereferenceService implements DereferenceService {
    * @param vocabularyDao Object that accesses vocabularies.
    */
   MongoDereferenceService(RdfRetriever retriever, ProcessedEntityDao processedEntityDao,
-          VocabularyDao vocabularyDao) {
+      VocabularyDao vocabularyDao) {
     this.retriever = retriever;
     this.processedEntityDao = processedEntityDao;
     this.vocabularyDao = vocabularyDao;
@@ -176,22 +176,22 @@ public class MongoDereferenceService implements DereferenceService {
     if (cachedEntity != null) {
       entityString = cachedEntity.getXml();
       vocabulary = Optional.ofNullable(cachedEntity.getVocabularyId()).map(vocabularyDao::get)
-              .orElse(null);
+          .orElse(null);
     }
 
     // If not in the cache, or no vocabulary (ID) is known, we need to resolve the resource.
     final VocabularyCandidates candidates =
-            VocabularyCandidates.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
+        VocabularyCandidates.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
     if (entityString == null || vocabulary == null) {
       final Pair<String, Vocabulary> transformedEntity =
           retrieveTransformedEntity(resourceId, candidates);
       if (transformedEntity != null) {
         entityString = transformedEntity.getLeft();
         vocabulary = transformedEntity.getRight();
-        final ProcessedEntity entityToCache = new ProcessedEntity();
+        ProcessedEntity entityToCache = cachedEntity == null ? new ProcessedEntity() : cachedEntity;
         entityToCache.setXml(entityString);
         entityToCache.setResourceId(resourceId);
-        entityToCache.setVocabularyId(vocabulary == null ? null : vocabulary.getId());
+        entityToCache.setVocabularyId(vocabulary == null ? null : vocabulary.getId().toString());
         processedEntityDao.save(entityToCache);
       }
     }
@@ -254,7 +254,7 @@ public class MongoDereferenceService implements DereferenceService {
   }
 
   private String transformEntity(Vocabulary vocabulary, String originalEntity, String resourceId)
-          throws TransformerException {
+      throws TransformerException {
     final IncomingRecordToEdmConverter converter = new IncomingRecordToEdmConverter(vocabulary);
     final String result;
     try {
