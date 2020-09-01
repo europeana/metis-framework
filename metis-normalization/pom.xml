@@ -54,5 +54,10 @@
       <artifactId>jericho-html</artifactId>
       <version>3.4</version>
     </dependency>
+      <dependency>
+          <groupId>org.apache.jena</groupId>
+          <artifactId>jena-iri</artifactId>
+          <version>3.14.0</version>
+      </dependency>
   </dependencies>
 </project>
