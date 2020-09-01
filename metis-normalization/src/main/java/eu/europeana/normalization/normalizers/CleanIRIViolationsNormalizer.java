@@ -30,7 +30,6 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
     @Override
     public RecordNormalizeAction getAsRecordNormalizer() {
         return new ValueNormalizeActionWrapper(this, RESOURCE_DATA_QUERY);
-        //TODO: Return with the wrapper ValueNormalizeActionWrapper
     }
 
     @Override
