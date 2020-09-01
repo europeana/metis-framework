@@ -3,7 +3,9 @@ package eu.europeana.indexing.mongo.property;
 import com.mongodb.DuplicateKeyException;
 import dev.morphia.UpdateOptions;
 import dev.morphia.query.Query;
-import dev.morphia.query.UpdateOperations;
+import dev.morphia.query.Update;
+import dev.morphia.query.experimental.updates.UpdateOperator;
+import dev.morphia.query.experimental.updates.UpdateOperators;
 import eu.europeana.corelib.definitions.edm.entity.AbstractEdmEntity;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
@@ -14,6 +16,7 @@ import eu.europeana.indexing.mongo.AbstractEdmEntityUpdater;
 import eu.europeana.indexing.mongo.WebResourceInformation;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -47,15 +50,16 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   private final T current;
   private final T updated;
   private final MongoServer mongoServer;
-  private final UpdateOperations<T> mongoOperations;
+  private final List<UpdateOperator> updateOperators;
   private final Supplier<Query<T>> queryCreator;
 
   MongoPropertyUpdaterImpl(T current, T updated, MongoServer mongoServer,
-      UpdateOperations<T> mongoOperations, Supplier<Query<T>> queryCreator) {
+      List<UpdateOperator> updateOperators, Supplier<Query<T>> queryCreator) {
     this.current = current;
     this.updated = updated;
     this.mongoServer = mongoServer;
-    this.mongoOperations = mongoOperations;
+    this.updateOperators = Optional.ofNullable(updateOperators).stream().flatMap(Collection::stream)
+        .collect(Collectors.toList());
     this.queryCreator = queryCreator;
   }
 
@@ -226,14 +230,14 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     if (equality.test(currentValue, updatedValue)) {
       if (updatedValue != null) {
         // If there has been no change, set only on insert (only needed if value is not null).
-        mongoOperations.setOnInsert(updateField, updatedValue);
+        updateOperators.add(UpdateOperators.setOnInsert(Map.of(updateField, updatedValue)));
       }
     } else {
       // If there has been a change, either set the value or unset it if it is null.
       if (updatedValue == null) {
-        mongoOperations.unset(updateField);
+        updateOperators.add(UpdateOperators.unset(updateField));
       } else {
-        mongoOperations.set(updateField, updatedValue);
+        updateOperators.add(UpdateOperators.set(updateField, updatedValue));
       }
     }
   }
@@ -250,7 +254,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     // If we need to remove it, do so.
     boolean markForDeletion = currentValue != null && updatedValue == null;
     if (markForDeletion) {
-      mongoOperations.unset(updateField);
+      updateOperators.add(UpdateOperators.unset(updateField));
     }
 
     // Done
@@ -271,13 +275,16 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
 
   @Override
   public T applyOperations() {
+    final UpdateOperator firstUpdateOperator = updateOperators.get(0);
+    final UpdateOperator[] extraUpdateOperators = this.updateOperators
+        .subList(1, this.updateOperators.size()).toArray(UpdateOperator[]::new);
+    final Update<T> update = queryCreator.get().update(firstUpdateOperator, extraUpdateOperators);
+    final UpdateOptions updateOptions = new UpdateOptions().upsert(true).multi(true);
     try {
-      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations,
-              new UpdateOptions().upsert(true).multi(true));
+      update.execute(updateOptions);
     } catch (DuplicateKeyException e) {
       LOGGER.debug("Received duplicate key exception, trying again once more.", e);
-      mongoServer.getDatastore().update(queryCreator.get(), mongoOperations,
-              new UpdateOptions().upsert(true).multi(true));
+      update.execute(updateOptions);
     }
     return queryCreator.get().first();
   }

@@ -34,8 +34,7 @@ public class WebResourceMetaInfoUpdater
         ancestorInformation.getRootAbout());
     final Supplier<Query<WebResourceMetaInfoImpl>> querySupplier =
         () -> createQuery(mongoServer, hashCode);
-    return MongoPropertyUpdaterFactory.createForObjectWithoutAbout(newEntity, mongoServer,
-        WebResourceMetaInfoImpl.class, querySupplier, null);
+    return MongoPropertyUpdaterFactory.createForObjectWithoutAbout(newEntity, mongoServer, querySupplier, null);
   }
 
   private static Query<WebResourceMetaInfoImpl> createQuery(MongoServer mongoServer, String id) {
