@@ -3,6 +3,8 @@ package eu.europeana.metis.solr;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.time.Duration;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.solr.client.solrj.impl.CloudSolrClient;
@@ -50,7 +52,7 @@ public class SolrClientProvider<E extends Exception> {
 
   private LBHttpSolrClient setUpHttpSolrConnection() throws E {
     final String[] solrHosts =
-            settings.getSolrHosts().stream().map(URI::toString).toArray(String[]::new);
+        settings.getSolrHosts().stream().map(URI::toString).toArray(String[]::new);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("Connecting to Solr hosts: [{}]", String.join(", ", solrHosts));
     }
@@ -61,25 +63,22 @@ public class SolrClientProvider<E extends Exception> {
 
     // Get information from settings
     final Set<String> hosts = settings.getZookeeperHosts().stream()
-            .map(SolrClientProvider::toCloudSolrClientAddressString).collect(Collectors.toSet());
+        .map(SolrClientProvider::toCloudSolrClientAddressString).collect(Collectors.toSet());
     final String chRoot = settings.getZookeeperChroot();
     final String defaultCollection = settings.getZookeeperDefaultCollection();
     final Integer connectionTimeoutInSecs = settings.getZookeeperTimeoutInSecs();
 
     // Configure connection builder
-    final CloudSolrClient.Builder builder = new CloudSolrClient.Builder();
-    builder.withZkHost(hosts);
-    if (chRoot != null) {
-      builder.withZkChroot(chRoot);
-    }
+    final CloudSolrClient.Builder builder = new CloudSolrClient.Builder(List.copyOf(hosts),
+        Optional.ofNullable(chRoot));
     builder.withLBHttpSolrClient(httpSolrClient);
 
     // Set up Zookeeper connection
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info(
-              "Connecting to Zookeeper hosts: [{}] with chRoot [{}] and default connection [{}]. Connection time-out: {}.",
-              String.join(", ", hosts), chRoot, defaultCollection,
-              connectionTimeoutInSecs == null ? "default" : (connectionTimeoutInSecs + " seconds"));
+          "Connecting to Zookeeper hosts: [{}] with chRoot [{}] and default connection [{}]. Connection time-out: {}.",
+          String.join(", ", hosts), chRoot, defaultCollection,
+          connectionTimeoutInSecs == null ? "default" : (connectionTimeoutInSecs + " seconds"));
     }
     final CloudSolrClient cloudSolrClient = builder.build();
     cloudSolrClient.setDefaultCollection(defaultCollection);
@@ -105,3 +104,4 @@ public class SolrClientProvider<E extends Exception> {
     return address.getHostString() + ":" + address.getPort();
   }
 }
+

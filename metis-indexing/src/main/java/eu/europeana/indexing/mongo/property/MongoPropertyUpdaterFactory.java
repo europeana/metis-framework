@@ -1,7 +1,6 @@
 package eu.europeana.indexing.mongo.property;
 
 import dev.morphia.query.Query;
-import dev.morphia.query.UpdateOperations;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperator;
 import dev.morphia.query.experimental.updates.UpdateOperators;
@@ -74,7 +73,7 @@ public final class MongoPropertyUpdaterFactory {
    * remain unchanged.
    * @param mongoServer The Mongo connection.
    * @param objectClass The class of the object which is used to create an instance of {@link
-   * UpdateOperations}.
+   * Query}.
    * @param aboutGetter The function that obtains the about value from the object.
    * @param preprocessor This provides the option of performing some preprocessing on the current
    * and/or the new object before applying the operations. Its three parameters are first the

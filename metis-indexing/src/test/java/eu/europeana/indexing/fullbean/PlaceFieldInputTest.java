@@ -75,10 +75,10 @@ class PlaceFieldInputTest {
     isPartOfList.add(isPartOf);
     place.setIsPartOfList(isPartOfList);
     Lat posLat = new Lat();
-    posLat.setLat(new Float("1.0"));
+    posLat.setLat(Float.valueOf("1.0"));
     place.setLat(posLat);
     _Long posLong = new _Long();
-    posLong.setLong(new Float("1.0"));
+    posLong.setLong(Float.valueOf("1.0"));
     place.setLong(posLong);
     // create mongo place
     PlaceImpl placeMongo = new PlaceFieldInput().apply(place);
