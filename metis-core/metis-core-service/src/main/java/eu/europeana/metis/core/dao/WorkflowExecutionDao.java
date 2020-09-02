@@ -51,9 +51,9 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -225,14 +225,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @return the WorkflowExecution if found
    */
   public WorkflowExecution getRunningOrInQueueExecution(String datasetId) {
-    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .find(WorkflowExecution.class);
-    final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
-    final Filter workflowStatusFilter = Filters
-        .or(Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.INQUEUE),
-            Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.RUNNING));
-
-    query.filter(datasetIdFilter, workflowStatusFilter);
+    Query<WorkflowExecution> query = runningOrInqueueQuery(datasetId);
     return ExternalRequestUtil.retryableExternalRequestConnectionReset(query::first);
   }
 
@@ -258,14 +251,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @return the identifier of the execution if found, otherwise null
    */
   public String existsAndNotCompleted(String datasetId) {
-    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .find(WorkflowExecution.class);
-
-    final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
-    final Filter workflowStatusFilter = Filters
-        .or(Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.INQUEUE),
-            Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.RUNNING));
-    query.filter(datasetIdFilter, workflowStatusFilter);
+    Query<WorkflowExecution> query = runningOrInqueueQuery(datasetId);
 
     final FindOptions findOptions = new FindOptions();
     findOptions.projection().include(ID.getFieldName());
@@ -277,6 +263,19 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       return storedWorkflowExecution.getId().toString();
     }
     return null;
+  }
+
+  private Query<WorkflowExecution> runningOrInqueueQuery(String datasetId) {
+    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .find(WorkflowExecution.class);
+
+    final Filter datasetIdFilter = Filters.eq(DATASET_ID.getFieldName(), datasetId);
+    final Filter workflowStatusFilter = Filters
+        .or(Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.INQUEUE),
+            Filters.eq(WORKFLOW_STATUS.getFieldName(), WorkflowStatus.RUNNING));
+    query.filter(datasetIdFilter, workflowStatusFilter);
+
+    return query;
   }
 
   /**
@@ -387,23 +386,20 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     final String orderField =
         METIS_PLUGINS.getFieldName() + "." + FINISHED_DATE.getFieldName();
-    final Iterator<WorkflowExecution> metisPluginsIterator = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
-            () -> aggregation
-                .match(collectedFilters)
-                .unwind(Unwind.on(METIS_PLUGINS.getFieldName()))
-                .match(collectedFilters)
-                .sort(firstFinished ? Sort.on().ascending(orderField)
-                    : Sort.on().descending(orderField))
-                .limit(1)
-                .execute(WorkflowExecution.class));
+    aggregation.match(collectedFilters)
+        .unwind(Unwind.on(METIS_PLUGINS.getFieldName()))
+        .match(collectedFilters)
+        .sort(firstFinished ? Sort.on().ascending(orderField) : Sort.on().descending(orderField))
+        .limit(1);
+
+    final List<WorkflowExecution> metisPluginsIterator = getListOfAggregation(aggregation,
+        WorkflowExecution.class);
 
     // Because of the unwind, we know that the plugin we need is always the first one.
-    return Optional.ofNullable(metisPluginsIterator).filter(Iterator::hasNext).map(Iterator::next)
+    return Optional.ofNullable(metisPluginsIterator).stream().flatMap(Collection::stream)
         .filter(execution -> !execution.getMetisPlugins().isEmpty())
         .map(execution -> new PluginWithExecutionId<MetisPlugin>(execution,
-            execution.getMetisPlugins().get(0)))
-        .orElse(null);
+            execution.getMetisPlugins().get(0))).findFirst().orElse(null);
   }
 
   private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum> set) {
@@ -523,8 +519,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       joinDatasetAndWorkflowExecution(aggregation);
 
       // Done: execute and return result.
-      final List<ExecutionDatasetPair> result = new ArrayList<>();
-      aggregation.execute(ExecutionDatasetPair.class).forEachRemaining(result::add);
+      final List<ExecutionDatasetPair> result = getListOfAggregation(aggregation,
+          ExecutionDatasetPair.class);
       return createResultList(result, pagination);
     });
   }
@@ -836,9 +832,18 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     aggregation.skip(pagination.getSkip()).limit(pagination.getLimit());
 
     // Done.
-    final List<ExecutionIdAndStartedDatePair> result = new ArrayList<>();
-    aggregation.execute(ExecutionIdAndStartedDatePair.class).forEachRemaining(result::add);
+    final List<ExecutionIdAndStartedDatePair> result = getListOfAggregation(aggregation,
+        ExecutionIdAndStartedDatePair.class);
     return createResultList(result, pagination);
+  }
+
+  private <T, R> List<R> getListOfAggregation(Aggregation<T> aggregation,
+      Class<R> resultObjectClass) {
+    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
+      try (MorphiaCursor<R> cursor = aggregation.execute(resultObjectClass)) {
+        return performFunction(cursor, MorphiaCursor::toList);
+      }
+    });
   }
 
   /**
