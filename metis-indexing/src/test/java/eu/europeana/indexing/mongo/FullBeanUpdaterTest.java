@@ -68,7 +68,7 @@ class FullBeanUpdaterTest extends MongoEntityUpdaterTest<FullBeanImpl> {
         new Date());
     testObjectPropertyUpdate(propertyUpdater, "timestampUpdated", FullBeanImpl::setTimestampUpdated,
         new Date());
-    testObjectPropertyUpdate(propertyUpdater, "type", FullBeanImpl::setType, DocType.IMAGE);
+    testObjectPropertyUpdate(propertyUpdater, "type", FullBeanImpl::setType, DocType.IMAGE.name());
     testObjectPropertyUpdate(propertyUpdater, "europeanaCompleteness",
         FullBeanImpl::setEuropeanaCompleteness, 5);
     this.<Place, Void>testReferencedEntitiesPropertyUpdate(propertyUpdater, "places",

@@ -72,7 +72,7 @@ class ProxyUpdaterTest extends MongoEntityUpdaterTest<ProxyImpl> {
     testMapPropertyUpdate(propertyUpdater, "dctermsSpatial", ProxyImpl::setDctermsSpatial);
     testMapPropertyUpdate(propertyUpdater, "dctermsTOC", ProxyImpl::setDctermsTOC);
     testMapPropertyUpdate(propertyUpdater, "dctermsTemporal", ProxyImpl::setDctermsTemporal);
-    testObjectPropertyUpdate(propertyUpdater, "edmType", ProxyImpl::setEdmType, DocType.VIDEO);
+    testObjectPropertyUpdate(propertyUpdater, "edmType", ProxyImpl::setEdmType, DocType.VIDEO.name());
     testMapPropertyUpdate(propertyUpdater, "edmCurrentLocation", ProxyImpl::setEdmCurrentLocation);
     testMapPropertyUpdate(propertyUpdater, "edmRights", ProxyImpl::setEdmRights);
     testMapPropertyUpdate(propertyUpdater, "edmHasMet", ProxyImpl::setEdmHasMet);
