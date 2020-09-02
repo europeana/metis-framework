@@ -4,11 +4,13 @@ import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.XpathQuery;
 import org.apache.jena.iri.IRI;
 import org.apache.jena.iri.IRIFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
-import org.apache.log4j.Logger;
+
 
 /**
  * This normalizer cleans, or 'escapes', media link values, replacing all IRI Violation characters
@@ -19,7 +21,7 @@ import org.apache.log4j.Logger;
 
 public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
 
-    private final static Logger LOG = Logger.getLogger(CleanIRIViolationsNormalizer.class);
+    private final static Logger LOG = LoggerFactory.getLogger(CleanIRIViolationsNormalizer.class);
 
     private static final Namespace.Element RDF_RESOURCE = Namespace.RDF.getElement("resource");
     private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("about");
