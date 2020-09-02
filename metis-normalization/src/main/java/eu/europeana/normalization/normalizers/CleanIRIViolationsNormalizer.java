@@ -8,6 +8,7 @@ import org.apache.jena.iri.IRIFactory;
 import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  * This normalizer cleans, or 'escapes', media link values, replacing all IRI Violation characters
@@ -17,6 +18,8 @@ import java.util.List;
  */
 
 public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
+
+    private final static Logger LOG = Logger.getLogger(CleanIRIViolationsNormalizer.class);
 
     private static final Namespace.Element RDF_RESOURCE = Namespace.RDF.getElement("resource");
     private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("about");
@@ -70,8 +73,8 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
             normalizedValue = iri.toURI().toString();
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            //TODO: Add LOG (debug)
-            //TODO: Return empty list
+            LOG.debug("There was some trouble normalizing the value for IRI Violation");
+            return Collections.emptyList();
         }
 
         return Collections.singletonList(new NormalizedValueWithConfidence(normalizedValue, 1));
