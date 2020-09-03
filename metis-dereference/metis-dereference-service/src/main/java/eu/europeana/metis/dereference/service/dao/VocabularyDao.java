@@ -10,6 +10,7 @@ import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.dereference.Vocabulary;
 import java.util.List;
 import java.util.regex.Pattern;
+import org.bson.types.ObjectId;
 
 /**
  * Dao for vocabularies Created by ymamakis on 2/11/16.
@@ -60,7 +61,7 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public Vocabulary get(String vocabularyId) {
-    return ds.find(Vocabulary.class).filter("id", vocabularyId).first();
+    return ds.find(Vocabulary.class).filter("_id", new ObjectId(vocabularyId)).first();
   }
 
   /**

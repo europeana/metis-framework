@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -30,15 +31,15 @@ class VocabularyCandidatesTest {
     final String correctUri = baseUri + "voc1";
     final String wrongUri = baseUri + "voc2";
     final Vocabulary correctVocabulary1 = new Vocabulary();
-    correctVocabulary1.setId("c1");
+    correctVocabulary1.setId(new ObjectId());
     correctVocabulary1.setUris(new HashSet<>(Arrays.asList(correctUri, wrongUri)));
     final Vocabulary correctVocabulary2 = new Vocabulary();
-    correctVocabulary2.setId("c2");
+    correctVocabulary2.setId(new ObjectId());
     correctVocabulary2.setUris(Collections.singleton(correctUri));
 
     // Create vocabulary with the wrong path
     final Vocabulary wrongVocabulary = new Vocabulary();
-    wrongVocabulary.setId("w1");
+    wrongVocabulary.setId(new ObjectId());
     wrongVocabulary.setUris(Collections.singleton(wrongUri));
 
     // Create mock of vocabulary provider
@@ -57,9 +58,9 @@ class VocabularyCandidatesTest {
     Mockito.verify(vocabularyProviderMock).apply(hostName);
 
     // Verify that the right vocabularies are in the result.
-    final Set<String> resultingIds =
+    final Set<ObjectId> resultingIds =
         result.stream().map(Vocabulary::getId).collect(Collectors.toSet());
-    final Set<String> expectedIds =
+    final Set<ObjectId> expectedIds =
         new HashSet<>(Arrays.asList(correctVocabulary1.getId(), correctVocabulary2.getId()));
     assertEquals(expectedIds.size(), result.size());
     assertEquals(expectedIds, resultingIds);
@@ -82,7 +83,9 @@ class VocabularyCandidatesTest {
   @Test
   void testIsEmpty() {
     final Vocabulary vocabulary = new Vocabulary();
-    vocabulary.setId("vId");
+    final ObjectId vId = new ObjectId();
+    vocabulary.setId(vId);
+
     assertTrue(new VocabularyCandidates(Collections.emptyList()).isEmpty());
     assertFalse(new VocabularyCandidates(Collections.singletonList(vocabulary)).isEmpty());
   }
@@ -94,13 +97,13 @@ class VocabularyCandidatesTest {
     final String suffixA = "sa";
     final String suffixB = "sb";
     final Vocabulary vocabulary1 = new Vocabulary();
-    vocabulary1.setId("v1");
+    vocabulary1.setId(new ObjectId());
     vocabulary1.setSuffix(suffixA);
     final Vocabulary vocabulary2 = new Vocabulary();
-    vocabulary2.setId("v2");
+    vocabulary2.setId(new ObjectId());
     vocabulary2.setSuffix(suffixB);
     final Vocabulary vocabulary3 = new Vocabulary();
-    vocabulary3.setId("v3");
+    vocabulary3.setId(new ObjectId());
     vocabulary3.setSuffix(suffixA);
 
     // Try with all vocabularies
