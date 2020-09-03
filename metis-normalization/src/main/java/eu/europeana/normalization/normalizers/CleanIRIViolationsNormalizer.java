@@ -4,11 +4,13 @@ import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.XpathQuery;
 import org.apache.jena.iri.IRI;
 import org.apache.jena.iri.IRIFactory;
+import org.apache.jena.iri.Violation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URISyntaxException;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -48,6 +50,7 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
             "/%s/%s/@%s", XpathQuery.RDF_TAG, EDM_WEB_RESOURCE, RDF_ABOUT);
 
     private final IRIFactory iriFactory;
+    private IRI iri = null;
 
     /**
      * Creates a new instance of this class.
@@ -68,7 +71,7 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
             return Collections.emptyList();
         }
 
-        IRI iri = iriFactory.create(value);
+        iri = iriFactory.create(value);
         String normalizedValue = "";
 
         try {
@@ -82,5 +85,11 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
         return Collections.singletonList(new NormalizedValueWithConfidence(normalizedValue, 1));
     }
 
+    Iterator<Violation> getViolations(){
+        if(iri != null){
+            return iri.violations(false);
+        }
+        return Collections.emptyIterator();
+    }
 
 }
