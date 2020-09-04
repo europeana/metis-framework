@@ -82,6 +82,7 @@ public class MongoClientProvider<E extends Exception> {
    * @param clientSettingsBuilder The settings to be applied. The default settings will not be used.
    * The caller can incorporate the default settings by using an client settings builder obtained
    * from {@link #getDefaultClientSettingsBuilder()}. {@link #createMongoClient()}.
+   * @throws E In case the properties are wrong
    */
   public MongoClientProvider(MongoProperties<E> properties, Builder clientSettingsBuilder)
       throws E {
@@ -98,7 +99,7 @@ public class MongoClientProvider<E extends Exception> {
         .applyToSslSettings(builder -> builder.enabled(properties.mongoEnableSsl()));
     clientSettingsBuilder.applyToClusterSettings(builder -> builder.hosts(mongoHosts));
     if (mongoCredential != null) {
-        clientSettingsBuilder.credential(mongoCredential).build();
+        clientSettingsBuilder.credential(mongoCredential);
     }
     final MongoClientSettings mongoClientSettings = clientSettingsBuilder.build();
 
