@@ -336,7 +336,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * <p>This is an exception method that uses the {@link DataSetServiceClient} to communicate with
    * the external dataset resource in ECloud</p>
    *
-   * @param dataset the Datase object to check
+   * @param dataset the Dataset object to check
    * @return the ECloud dataset identifier
    * @throws ExternalTaskException if an error occurred during the creation of the dataset
    * identifier on ECloud
@@ -376,15 +376,16 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> searchDatasetsBasedOnSearchString(List<String> datasetIdWords,
       List<String> words, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().find(Dataset.class);
-    final List<Filter> datasetIdFilters = new ArrayList<>(words.size());
+    final List<Filter> datasetIdFilters = new ArrayList<>(datasetIdWords.size());
     final List<Filter> datasetNameFilters = new ArrayList<>(words.size());
     final List<Filter> providerIdFilters = new ArrayList<>(words.size());
     final List<Filter> dataProviderIdFilters = new ArrayList<>(words.size());
 
-    //Search on datsetId, only words that start with a numeric character
+    //Search on datasetId, only words that start with a numeric character
     for (String datasetIdWord : datasetIdWords) {
       datasetIdFilters.add(
-          Filters.regex(DATASET_ID.getFieldName()).pattern(Pattern.compile("^" + datasetIdWord)));
+          Filters.regex(DATASET_ID.getFieldName())
+              .pattern(Pattern.compile("^" + Pattern.quote(datasetIdWord))));
     }
 
     //Search on provider and dataProvider
@@ -398,16 +399,16 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     }
     final List<Filter> filterGroups = new ArrayList<>();
     if (!datasetIdFilters.isEmpty()) {
-      filterGroups.add(Filters.or(datasetIdFilters.toArray(new Filter[0])));
+      filterGroups.add(Filters.or(datasetIdFilters.toArray(Filter[]::new)));
     }
     if (!datasetNameFilters.isEmpty()) {
-      filterGroups.add(Filters.or(datasetNameFilters.toArray(new Filter[0])));
+      filterGroups.add(Filters.or(datasetNameFilters.toArray(Filter[]::new)));
     }
     if (!providerIdFilters.isEmpty()) {
-      filterGroups.add(Filters.or(providerIdFilters.toArray(new Filter[0])));
+      filterGroups.add(Filters.or(providerIdFilters.toArray(Filter[]::new)));
     }
     if (!dataProviderIdFilters.isEmpty()) {
-      filterGroups.add(Filters.or(dataProviderIdFilters.toArray(new Filter[0])));
+      filterGroups.add(Filters.or(dataProviderIdFilters.toArray(Filter[]::new)));
     }
 
     if (!filterGroups.isEmpty()) {

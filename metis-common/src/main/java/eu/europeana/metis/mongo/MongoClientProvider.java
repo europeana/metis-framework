@@ -1,13 +1,13 @@
 package eu.europeana.metis.mongo;
 
 import com.mongodb.ConnectionString;
-import com.mongodb.client.MongoClient;
-import com.mongodb.MongoClientSettings.Builder;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoClientSettings.Builder;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ReadPreference;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import eu.europeana.metis.mongo.MongoProperties.ReadPreferenceValue;
 import java.util.List;
@@ -67,9 +67,10 @@ public class MongoClientProvider<E extends Exception> {
       throw wrappingException;
     }
     this.authenticationDatabase = connectionString.getDatabase();
+    clientSettingsBuilder.applyConnectionString(connectionString);
+    final MongoClientSettings mongoClientSettings = clientSettingsBuilder.build();
 
-    this.creator = () -> MongoClients
-        .create(clientSettingsBuilder.applyConnectionString(connectionString).build());
+    this.creator = () -> MongoClients.create(mongoClientSettings);
   }
 
   /**
@@ -78,36 +79,30 @@ public class MongoClientProvider<E extends Exception> {
    *
    * @param properties The properties of the Mongo connection. Note that if the passed properties
    * object is changed after calling this method, those changes will not be reflected when calling
-   * @param clientSettingsBuilder The settings to be applied. The default settings will not be used. The
-   * caller can incorporate the default settings by using an client settings builder obtained from {@link
-   * #getDefaultClientSettingsBuilder()}. {@link #createMongoClient()}.
+   * @param clientSettingsBuilder The settings to be applied. The default settings will not be used.
+   * The caller can incorporate the default settings by using an client settings builder obtained
+   * from {@link #getDefaultClientSettingsBuilder()}. {@link #createMongoClient()}.
    */
-  public MongoClientProvider(MongoProperties<E> properties, Builder clientSettingsBuilder) {
+  public MongoClientProvider(MongoProperties<E> properties, Builder clientSettingsBuilder)
+      throws E {
     final ReadPreference readPreference = Optional.ofNullable(properties.getReadPreferenceValue())
         .map(ReadPreferenceValue::getReadPreferenceSupplier).map(Supplier::get)
         .orElse(DEFAULT_READ_PREFERENCE);
     clientSettingsBuilder.readPreference(readPreference);
 
+    final List<ServerAddress> mongoHosts = properties.getMongoHosts();
     final MongoCredential mongoCredential = properties.getMongoCredentials();
     this.authenticationDatabase = Optional.ofNullable(mongoCredential)
         .map(MongoCredential::getSource).orElse(null);
-    clientSettingsBuilder.applyToSslSettings(builder -> builder.enabled(properties.mongoEnableSsl()));
-    if (mongoCredential == null) {
-      this.creator = () -> {
-        final List<ServerAddress> mongoHosts = properties.getMongoHosts();
-        final MongoClientSettings mongoClientSettings = clientSettingsBuilder
-            .applyToClusterSettings(builder -> builder.hosts(mongoHosts)).build();
-        return MongoClients.create(mongoClientSettings);
-      };
-    } else {
-      this.creator = () -> {
-        final List<ServerAddress> mongoHosts = properties.getMongoHosts();
-        final MongoClientSettings mongoClientSettings = clientSettingsBuilder
-            .applyToClusterSettings(builder -> builder.hosts(mongoHosts))
-            .credential(mongoCredential).build();
-        return MongoClients.create(mongoClientSettings);
-      };
+    clientSettingsBuilder
+        .applyToSslSettings(builder -> builder.enabled(properties.mongoEnableSsl()));
+    clientSettingsBuilder.applyToClusterSettings(builder -> builder.hosts(mongoHosts));
+    if (mongoCredential != null) {
+        clientSettingsBuilder.credential(mongoCredential).build();
     }
+    final MongoClientSettings mongoClientSettings = clientSettingsBuilder.build();
+
+    this.creator = () -> MongoClients.create(mongoClientSettings);
   }
 
   /**
@@ -117,7 +112,7 @@ public class MongoClientProvider<E extends Exception> {
    * object is changed after calling this method, those changes will not be reflected when calling
    * {@link #createMongoClient()}.
    */
-  public MongoClientProvider(MongoProperties<E> properties) {
+  public MongoClientProvider(MongoProperties<E> properties) throws E {
     this(properties, getDefaultClientSettingsBuilder());
   }
 

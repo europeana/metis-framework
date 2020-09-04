@@ -49,7 +49,12 @@ public abstract class AbstractMetisPlugin<M extends AbstractMetisPluginMetadata>
   private M pluginMetadata;
 
 
+  /**
+   * Required by (de)serialization in db.
+   * <p>It is not to be used manually</p>
+   */
   protected AbstractMetisPlugin() {
+    //Required by (de)serialization in db
   }
 
   /**

@@ -190,14 +190,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     } else {
       cancelledBy = metisUser.getUserId();
     }
-    final UpdateOperator firstUpdateOperator = UpdateOperators.set("cancelling", Boolean.TRUE);
-    final ArrayList<UpdateOperator> extraUpdateOperators = new ArrayList<>();
+    final UpdateOperator setCancellingOperator = UpdateOperators.set("cancelling", Boolean.TRUE);
+    final UpdateOperator setCancelledByOperator = UpdateOperators.set("cancelledBy", cancelledBy);
 
-    extraUpdateOperators.add(UpdateOperators.set("cancelledBy", cancelledBy));
-    UpdateResult updateResult = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(() -> query
-            .update(firstUpdateOperator, extraUpdateOperators.toArray(UpdateOperator[]::new))
-            .execute());
+    UpdateResult updateResult = ExternalRequestUtil.retryableExternalRequestConnectionReset(
+        () -> query.update(setCancellingOperator, setCancelledByOperator).execute());
     LOGGER.debug(
         "WorkflowExecution cancelling for datasetId '{}' set to true in Mongo. (UpdateResults: {})",
         workflowExecution.getDatasetId(),
@@ -371,10 +368,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     for (PluginType pluginType : pluginTypes) {
       pluginTypesFilters.add(Filters.eq(pluginTypeField, pluginType));
     }
-    final Filter pluginTypeOrFilter;
     final Filter collectedFilters;
     if (!pluginTypesFilters.isEmpty()) {
-      pluginTypeOrFilter = Filters.or(pluginTypesFilters.toArray(Filter[]::new));
+      final Filter pluginTypeOrFilter = Filters.or(pluginTypesFilters.toArray(Filter[]::new));
       collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter, pluginTypeOrFilter);
     } else {
       collectedFilters = Filters.and(datasetIdFilter, pluginStatusFilter);
@@ -417,7 +413,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * @param ascending a boolean value to request the ordering to ascending or descending
    * @param nextPage the nextPage token
    * @param ignoreMaxServedExecutionsLimit whether this method is to apply the limit on the number
-   * of executions are served. Be carefull when setting this to true.
+   * of executions are served. Be careful when setting this to true.
    * @return a list of all the WorkflowExecutions found
    */
   public ResultList<WorkflowExecution> getAllWorkflowExecutions(Set<String> datasetIds,
@@ -434,7 +430,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     final Query<WorkflowExecution> query =
         morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class);
 
-    // Set dataset ID and worflow status limitations.
+    // Set dataset ID and workflow status limitations.
     if (datasetIds != null && !datasetIds.isEmpty()) {
       query.filter(Filters.in(DATASET_ID.getFieldName(), datasetIds));
     }
@@ -544,11 +540,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .elemMatch(METIS_PLUGINS.getFieldName(), elemMatchFilters.toArray(Filter[]::new));
 
     final Filter collectedFilters;
-    if (datasetIds != null) {
+    if (CollectionUtils.isEmpty(datasetIds)) {
+      collectedFilters = elemMatchFilter;
+    } else {
       final Filter datasetIdFilter = Filters.in(DATASET_ID.getFieldName(), datasetIds);
       collectedFilters = Filters.and(elemMatchFilter, datasetIdFilter);
-    } else {
-      collectedFilters = Filters.and(elemMatchFilter);
     }
     return collectedFilters;
   }
@@ -570,7 +566,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .condition(runningCheckExpression, Expressions.value(RUNNING_POSITION_IN_OVERVIEW),
             Expressions.value(0));
 
-    aggregation.project(dev.morphia.aggregation.experimental.stages.Projection.of()
+    aggregation.project(Projection.of()
         .include(statusInQueueField, inqueueConditionExpression)
         .include(statusRunningField, runningConditionExpression)
         .include(CREATED_DATE.getFieldName())
@@ -587,7 +583,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .condition(sumCheckExpression, Expressions.value(DEFAULT_POSITION_IN_OVERVIEW),
             sumExpression);
 
-    aggregation.project(dev.morphia.aggregation.experimental.stages.Projection.of()
+    aggregation.project(Projection.of()
         .include(statusIndexField, statusIndexExpression)
         .include(CREATED_DATE.getFieldName())
         .include(DATASET_ID.getFieldName()));
