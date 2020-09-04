@@ -77,7 +77,6 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
         try {
             normalizedValue = iri.toURI().toString();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
             LOG.debug("There was some trouble normalizing the value for IRI Violation");
             return Collections.emptyList();
         }
