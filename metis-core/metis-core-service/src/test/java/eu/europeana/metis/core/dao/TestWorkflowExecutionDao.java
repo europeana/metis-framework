@@ -675,6 +675,17 @@ class TestWorkflowExecutionDao {
         .map(ObjectId::toString).collect(Collectors.toList());
     assertEquals(expectedOrder, actualOrderWithoutFilter);
 
+    // Try with empty dataset ids Set.
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
+    final ResultList<ExecutionDatasetPair> resultWithEmptyDatasetIdsSet = workflowExecutionDao
+        .getWorkflowExecutionsOverview(Collections.emptySet(), null, null, null, null, 0, 1);
+    assertNotNull(resultWithEmptyDatasetIdsSet);
+    assertFalse(resultWithEmptyDatasetIdsSet.isMaxResultCountReached());
+    final List<String> actualOrderWithEmptyDatasetIdsSet = resultWithEmptyDatasetIdsSet.getResults().stream()
+        .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
+        .map(ObjectId::toString).collect(Collectors.toList());
+    assertEquals(expectedOrder, actualOrderWithEmptyDatasetIdsSet);
+
     // Try with filtering on dataset.
     workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
     final ResultList<ExecutionDatasetPair> resultWithFilter = workflowExecutionDao
@@ -726,14 +737,6 @@ class TestWorkflowExecutionDao {
     assertNotNull(resultWithInvalidFilter);
     assertFalse(resultWithInvalidFilter.isMaxResultCountReached());
     assertTrue(resultWithInvalidFilter.getResults().isEmpty());
-
-    // Try with empty filter.
-    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
-    final ResultList<ExecutionDatasetPair> resultWithEmptyFilter = workflowExecutionDao
-        .getWorkflowExecutionsOverview(Collections.emptySet(), null, null, null, null, 0, 1);
-    assertNotNull(resultWithEmptyFilter);
-    assertFalse(resultWithEmptyFilter.isMaxResultCountReached());
-    assertTrue(resultWithEmptyFilter.getResults().isEmpty());
 
     // Try pagination
     final int pageSize = 2;
