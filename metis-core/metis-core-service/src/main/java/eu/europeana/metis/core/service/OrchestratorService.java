@@ -550,15 +550,21 @@ public class OrchestratorService {
       Date fromDate, Date toDate, int nextPage, int pageCount) throws GenericMetisException {
     authorizer.authorizeReadAllDatasets(metisUser);
     final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
-    final ResultList<ExecutionDatasetPair> data =
-        workflowExecutionDao.getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes,
-            fromDate, toDate, nextPage, pageCount);
-    final List<ExecutionAndDatasetView> views = data.getResults().stream()
+    final ResultList<ExecutionDatasetPair> resultList;
+    if (datasetIds == null || datasetIds.size() > 0) {
+      resultList = workflowExecutionDao
+          .getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes,
+              fromDate, toDate, nextPage, pageCount);
+    } else {
+      //Result should be empty if dataset set is empty
+      resultList = new ResultList<>(Collections.emptyList(), false);
+    }
+    final List<ExecutionAndDatasetView> views = resultList.getResults().stream()
         .map(result -> new ExecutionAndDatasetView(result.getExecution(), result.getDataset()))
         .collect(Collectors.toList());
     final ResponseListWrapper<ExecutionAndDatasetView> result = new ResponseListWrapper<>();
     result.setResultsAndLastPage(views, getWorkflowExecutionsPerRequest(), nextPage, pageCount,
-        data.isMaxResultCountReached());
+        resultList.isMaxResultCountReached());
     return result;
   }
 
@@ -638,7 +644,8 @@ public class OrchestratorService {
     setPreviewInformation(executionInfo, lastExecutablePreviewPlugin, lastPreviewPlugin,
         isPreviewCleaningOrRunning, now);
     setPublishInformation(executionInfo, firstPublishPlugin, lastExecutablePublishPlugin,
-        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now, datasetId);
+        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now,
+        datasetId);
 
     return executionInfo;
   }
@@ -687,16 +694,16 @@ public class OrchestratorService {
 
     // Determine the publication and depublication situation of the dataset
     final boolean depublishHappenedAfterLatestPublish = lastExecutableDepublishPlugin != null &&
-            lastExecutablePublishPlugin != null &&
-            lastExecutablePublishPlugin.getFinishedDate()
-                    .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
+        lastExecutablePublishPlugin != null &&
+        lastExecutablePublishPlugin.getFinishedDate()
+            .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
     /* TODO JV below we use the fact that a record depublish cannot follow a dataset depublish (so
         we don't have to look further into the past for all depublish actions after the last
         publish. We should make this code more robust by not assuming that here. */
     final boolean datasetCurrentlyDepublished = depublishHappenedAfterLatestPublish
-            && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
-            && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
-            .isDatasetDepublish();
+        && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
+        && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
+        .isDatasetDepublish();
 
     // Set the depublish status.
     final PublicationStatus status;
@@ -716,7 +723,7 @@ public class OrchestratorService {
         depublishedRecordCount = executionInfo.getLastPublishedRecords();
       } else {
         depublishedRecordCount = (int) depublishRecordIdDao
-                .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
+            .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
       }
       executionInfo.setLastDepublishedRecords(depublishedRecordCount);
     }
