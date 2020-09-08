@@ -9,7 +9,7 @@ import java.util.stream.StreamSupport;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class CleanIRIViolationsNormalizerTest {
+class CleanIRIViolationsNormalizerTest {
 
   private final CleanIRIViolationsNormalizer normalizer = new CleanIRIViolationsNormalizer();
   private static final String WHITESPACE_VIOLATION = "http://example.com/query?q=random word";

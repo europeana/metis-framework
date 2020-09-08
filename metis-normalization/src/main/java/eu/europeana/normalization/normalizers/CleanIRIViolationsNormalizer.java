@@ -36,13 +36,13 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction {
   private static final Namespace.Element EDM_HAS_VIEW = Namespace.EDM.getElement("hasView");
   private static final Namespace.Element EDM_WEB_RESOURCE = Namespace.EDM.getElement("WebResource");
 
-  private final XpathQuery RESOURCE_IS_SHOWN_BY_QUERY = createResourceQueries(EDM_IS_SHOWN_BY);
+  private static final XpathQuery RESOURCE_IS_SHOWN_BY_QUERY = createResourceQueries(EDM_IS_SHOWN_BY);
 
-  private final XpathQuery RESOURCE_HAS_VIEW_QUERY = createResourceQueries(EDM_HAS_VIEW);
+  private static final XpathQuery RESOURCE_HAS_VIEW_QUERY = createResourceQueries(EDM_HAS_VIEW);
 
-  private final XpathQuery RESOURCE_IS_SHOWN_AT_QUERY = createResourceQueries(EDM_IS_SHOWN_AT);
+  private static final XpathQuery RESOURCE_IS_SHOWN_AT_QUERY = createResourceQueries(EDM_IS_SHOWN_AT);
 
-  private final XpathQuery RESOURCE_OBJECT_QUERY = createResourceQueries(EDM_OBJECT);
+  private static final XpathQuery RESOURCE_OBJECT_QUERY = createResourceQueries(EDM_OBJECT);
 
   private static final XpathQuery WEB_RESOURCE_ABOUT_QUERY = new XpathQuery(
       "/%s/%s/@%s", XpathQuery.RDF_TAG, EDM_WEB_RESOURCE, RDF_ABOUT);
@@ -71,7 +71,6 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction {
         result = Collections.singletonList(new NormalizedValueWithConfidence(normalizedValue, 1));
       } catch (URISyntaxException e) {
         LOG.debug("There was some trouble normalizing the value for IRI Violation");
-        result =  Collections.emptyList();
       }
     }
     return result;
@@ -87,7 +86,7 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction {
     return (iri == null) ? Collections.emptyIterator() : iri.violations(false);
   }
 
-  private XpathQuery createResourceQueries(Namespace.Element edmValue) {
+  private static XpathQuery createResourceQueries(Namespace.Element edmValue) {
     return new XpathQuery("/%s/%s/%s/@%s", XpathQuery.RDF_TAG, ORE_AGGREGATION, edmValue,
         RDF_RESOURCE);
   }
