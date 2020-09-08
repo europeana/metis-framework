@@ -62,7 +62,7 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction {
   public List<NormalizedValueWithConfidence> normalizeValue(String value) {
     List<NormalizedValueWithConfidence> result = new ArrayList<>();
 
-    if (value != null && !StringUtils.isBlank(value)) {
+    if (!StringUtils.isBlank(value)) {
       iri = iriFactory.create(value);
       final String normalizedValue;
 
