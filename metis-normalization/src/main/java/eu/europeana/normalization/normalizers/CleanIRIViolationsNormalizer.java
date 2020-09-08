@@ -2,6 +2,7 @@ package eu.europeana.normalization.normalizers;
 
 import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.XpathQuery;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.iri.IRI;
 import org.apache.jena.iri.IRIFactory;
 import org.apache.jena.iri.Violation;
@@ -34,17 +35,13 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
   private static final Namespace.Element EDM_HAS_VIEW = Namespace.EDM.getElement("hasView");
   private static final Namespace.Element EDM_WEB_RESOURCE = Namespace.EDM.getElement("WebResource");
 
-  private static final XpathQuery RESOURCE_IS_SHOWN_BY_QUERY = new XpathQuery(
-      "/%s/%s/%s/@%s", XpathQuery.RDF_TAG, ORE_AGGREGATION, EDM_IS_SHOWN_BY, RDF_RESOURCE);
+  private final XpathQuery RESOURCE_IS_SHOWN_BY_QUERY = createResourceQueries(EDM_IS_SHOWN_BY);
 
-  private static final XpathQuery RESOURCE_HAS_VIEW_QUERY = new XpathQuery(
-      "/%s/%s/%s/@%s", XpathQuery.RDF_TAG, ORE_AGGREGATION, EDM_HAS_VIEW,  RDF_RESOURCE);
+  private final XpathQuery RESOURCE_HAS_VIEW_QUERY = createResourceQueries(EDM_HAS_VIEW);
 
-  private static final XpathQuery RESOURCE_IS_SHOWN_AT_QUERY = new XpathQuery(
-      "/%s/%s/%s/@%s", XpathQuery.RDF_TAG, ORE_AGGREGATION, EDM_IS_SHOWN_AT,  RDF_RESOURCE);
+  private final XpathQuery RESOURCE_IS_SHOWN_AT_QUERY = createResourceQueries(EDM_IS_SHOWN_AT);
 
-  private static final XpathQuery RESOURCE_OBJECT_QUERY = new XpathQuery(
-      "/%s/%s/%s/@%s", XpathQuery.RDF_TAG, ORE_AGGREGATION, EDM_OBJECT,  RDF_RESOURCE);
+  private final XpathQuery RESOURCE_OBJECT_QUERY = createResourceQueries(EDM_OBJECT);
 
   private static final XpathQuery WEB_RESOURCE_ABOUT_QUERY = new XpathQuery(
       "/%s/%s/@%s", XpathQuery.RDF_TAG, EDM_WEB_RESOURCE, RDF_ABOUT);
@@ -61,12 +58,12 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
 
   @Override
   public List<NormalizedValueWithConfidence> normalizeValue(String value) {
-    if(value == null || value.isEmpty()){
+    if(value == null || StringUtils.isBlank(value)){
       return Collections.emptyList();
     }
 
     iri = iriFactory.create(value);
-    String normalizedValue = "";
+    final String normalizedValue;
 
     try {
       normalizedValue = iri.toURI().toString();
@@ -85,6 +82,10 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
    */
   Iterator<Violation> getViolations(){
     return (iri == null) ? Collections.emptyIterator() : iri.violations(false);
+  }
+
+  private XpathQuery createResourceQueries(Namespace.Element edmValue){
+    return new XpathQuery("/%s/%s/%s/@%s", XpathQuery.RDF_TAG, ORE_AGGREGATION, edmValue, RDF_RESOURCE);
   }
 
 }
