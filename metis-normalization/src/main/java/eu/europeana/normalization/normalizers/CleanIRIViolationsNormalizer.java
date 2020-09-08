@@ -49,15 +49,9 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
   private static final XpathQuery WEB_RESOURCE_ABOUT_QUERY = new XpathQuery(
       "/%s/%s/@%s", XpathQuery.RDF_TAG, EDM_WEB_RESOURCE, RDF_ABOUT);
 
-  private final IRIFactory iriFactory;
+  private final IRIFactory iriFactory = IRIFactory.iriImplementation();
   private IRI iri = null;
 
-  /**
-   * Creates a new instance of this class.
-   */
-  public CleanIRIViolationsNormalizer() {
-    iriFactory = IRIFactory.iriImplementation();
-  }
 
   @Override
   public RecordNormalizeAction getAsRecordNormalizer() {
@@ -84,6 +78,11 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
     return Collections.singletonList(new NormalizedValueWithConfidence(normalizedValue, 1));
   }
 
+  /**
+   * This method checks the violations the previously given value to the IRIFactory contains
+   * @return An iterator that contains the violations the IRIFactory detected.
+   * It returns the violations without warnings related to each element.
+   */
   Iterator<Violation> getViolations(){
     if(iri != null){
       return iri.violations(false);
