@@ -180,18 +180,18 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     // If not in the cache, or no vocabulary (ID) is known, we need to resolve the resource.
-    final VocabularyCandidates candidates =
-            VocabularyCandidates.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
     if (entityString == null || vocabulary == null) {
+      final VocabularyCandidates candidates =
+          VocabularyCandidates.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
       final Pair<String, Vocabulary> transformedEntity =
           retrieveTransformedEntity(resourceId, candidates);
       if (transformedEntity != null) {
         entityString = transformedEntity.getLeft();
         vocabulary = transformedEntity.getRight();
-        final ProcessedEntity entityToCache = new ProcessedEntity();
+        ProcessedEntity entityToCache = (cachedEntity == null) ? new ProcessedEntity() : cachedEntity;
         entityToCache.setXml(entityString);
         entityToCache.setResourceId(resourceId);
-        entityToCache.setVocabularyId(vocabulary == null ? null : vocabulary.getId());
+        entityToCache.setVocabularyId((vocabulary == null) ? null : vocabulary.getId().toString());
         processedEntityDao.save(entityToCache);
       }
     }
