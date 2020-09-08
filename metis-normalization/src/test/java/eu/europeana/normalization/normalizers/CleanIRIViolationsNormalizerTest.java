@@ -22,68 +22,81 @@ public class CleanIRIViolationsNormalizerTest {
 
 
   @Test
-  void whitespaceViolationCleanupTest(){
+  void whitespaceViolationCleanupTest() {
     List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(WHITESPACE_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
-    assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
+    assertTrue(StreamSupport
+        .stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
         .anyMatch(violation -> violation.codeName().equals("WHITESPACE")));
     assertEquals("http://example.com/query?q=random%20word", result.get(0).getNormalizedValue());
     assertEquals(1, result.get(0).getConfidence());
   }
 
   @Test
-  void unwiseCharacterViolationCleanupTest(){
-    List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(UNWISE_CHARACTER_VIOLATION);
+  void unwiseCharacterViolationCleanupTest() {
+    List<NormalizedValueWithConfidence> result = normalizer
+        .normalizeValue(UNWISE_CHARACTER_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
-    assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
+    assertTrue(StreamSupport
+        .stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
         .anyMatch(violation -> violation.codeName().equals("UNWISE_CHARACTER")));
     assertEquals("http://example.com/query?q=random%3Cword", result.get(0).getNormalizedValue());
     assertEquals(1, result.get(0).getConfidence());
   }
 
   @Test
-  void illegalCharacterViolationReturnEmptyListTest(){
-    List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(ILLEGAL_CHARACTER_VIOLATION);
+  void illegalCharacterViolationReturnEmptyListTest() {
+    List<NormalizedValueWithConfidence> result = normalizer
+        .normalizeValue(ILLEGAL_CHARACTER_VIOLATION);
     assertEquals(Collections.emptyList(), result);
   }
 
   @Test
-  void notXMLSchemaWhitespaceViolationCleanupTest(){
-    List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(NOT_XML_SCHEMA_WHITESPACE_VIOLATION);
+  void notXMLSchemaWhitespaceViolationCleanupTest() {
+    List<NormalizedValueWithConfidence> result = normalizer
+        .normalizeValue(NOT_XML_SCHEMA_WHITESPACE_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
-    assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
+    assertTrue(StreamSupport
+        .stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
         .anyMatch(violation -> violation.codeName().equals("NOT_XML_SCHEMA_WHITESPACE")));
     assertEquals("http://example.com/query?q=random%09word", result.get(0).getNormalizedValue());
     assertEquals(1, result.get(0).getConfidence());
   }
 
   @Test
-  void doubleWhitespaceViolationCleanupTest(){
-    List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(DOUBLE_WHITESPACE_VIOLATION);
+  void doubleWhitespaceViolationCleanupTest() {
+    List<NormalizedValueWithConfidence> result = normalizer
+        .normalizeValue(DOUBLE_WHITESPACE_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
-    assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
+    assertTrue(StreamSupport
+        .stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
         .anyMatch(violation -> violation.codeName().equals("DOUBLE_WHITESPACE")));
     assertEquals("http://example.com/query?q=random%20%20word", result.get(0).getNormalizedValue());
     assertEquals(1, result.get(0).getConfidence());
   }
 
   @Test
-  void controlCharacterViolationCleanupTest(){
-    List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(CONTROL_CHARACTER_VIOLATION);
+  void controlCharacterViolationCleanupTest() {
+    List<NormalizedValueWithConfidence> result = normalizer
+        .normalizeValue(CONTROL_CHARACTER_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
-    assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
+    assertTrue(StreamSupport
+        .stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
         .anyMatch(violation -> violation.codeName().equals("CONTROL_CHARACTER")));
     assertEquals("http://example.com/query?q=random%C2%85word", result.get(0).getNormalizedValue());
     assertEquals(1, result.get(0).getConfidence());
   }
 
   @Test
-  void compatibilityCharacterViolationCleanupTest(){
-    List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(COMPATIBILITY_CHARACTER_VIOLATION);
+  void compatibilityCharacterViolationCleanupTest() {
+    List<NormalizedValueWithConfidence> result = normalizer
+        .normalizeValue(COMPATIBILITY_CHARACTER_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
-    assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
+    assertTrue(StreamSupport
+        .stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
         .anyMatch(violation -> violation.codeName().equals("COMPATIBILITY_CHARACTER")));
-    assertEquals("http://example.com/query?q=random%E0%BB%9Cword", result.get(0).getNormalizedValue());
+    assertEquals("http://example.com/query?q=random%E0%BB%9Cword",
+        result.get(0).getNormalizedValue());
     assertEquals(1, result.get(0).getConfidence());
   }
 }

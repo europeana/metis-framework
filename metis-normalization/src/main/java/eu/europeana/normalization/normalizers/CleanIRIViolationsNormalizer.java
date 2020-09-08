@@ -22,7 +22,7 @@ import java.util.List;
  * @author Joana Sousa
  */
 
-public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
+public class CleanIRIViolationsNormalizer implements ValueNormalizeAction {
 
   private static final Logger LOG = LoggerFactory.getLogger(CleanIRIViolationsNormalizer.class);
 
@@ -52,13 +52,14 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
 
   @Override
   public RecordNormalizeAction getAsRecordNormalizer() {
-    return new ValueNormalizeActionWrapper(this, RESOURCE_IS_SHOWN_BY_QUERY, RESOURCE_HAS_VIEW_QUERY,
-        RESOURCE_IS_SHOWN_AT_QUERY, RESOURCE_OBJECT_QUERY, WEB_RESOURCE_ABOUT_QUERY);
+    return new ValueNormalizeActionWrapper(this, RESOURCE_IS_SHOWN_BY_QUERY,
+        RESOURCE_HAS_VIEW_QUERY, RESOURCE_IS_SHOWN_AT_QUERY, RESOURCE_OBJECT_QUERY,
+        WEB_RESOURCE_ABOUT_QUERY);
   }
 
   @Override
   public List<NormalizedValueWithConfidence> normalizeValue(String value) {
-    if(value == null || StringUtils.isBlank(value)){
+    if (value == null || StringUtils.isBlank(value)) {
       return Collections.emptyList();
     }
 
@@ -77,15 +78,17 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
 
   /**
    * This method checks the violations the previously given value to the IRIFactory contains
-   * @return An iterator that contains the violations the IRIFactory detected.
-   * It returns the violations without any warnings related to each element.
+   *
+   * @return An iterator that contains the violations the IRIFactory detected. It returns the
+   * violations without any warnings related to each element.
    */
-  Iterator<Violation> getViolations(){
+  Iterator<Violation> getViolations() {
     return (iri == null) ? Collections.emptyIterator() : iri.violations(false);
   }
 
-  private XpathQuery createResourceQueries(Namespace.Element edmValue){
-    return new XpathQuery("/%s/%s/%s/@%s", XpathQuery.RDF_TAG, ORE_AGGREGATION, edmValue, RDF_RESOURCE);
+  private XpathQuery createResourceQueries(Namespace.Element edmValue) {
+    return new XpathQuery("/%s/%s/%s/@%s", XpathQuery.RDF_TAG, ORE_AGGREGATION, edmValue,
+        RDF_RESOURCE);
   }
 
 }
