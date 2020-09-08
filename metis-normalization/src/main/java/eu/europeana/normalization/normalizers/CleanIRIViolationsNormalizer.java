@@ -2,6 +2,7 @@ package eu.europeana.normalization.normalizers;
 
 import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.XpathQuery;
+import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.iri.IRI;
 import org.apache.jena.iri.IRIFactory;
@@ -59,21 +60,21 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction {
 
   @Override
   public List<NormalizedValueWithConfidence> normalizeValue(String value) {
-    if (value == null || StringUtils.isBlank(value)) {
-      return Collections.emptyList();
+    List<NormalizedValueWithConfidence> result = new ArrayList<>();
+
+    if (value != null && !StringUtils.isBlank(value)) {
+      iri = iriFactory.create(value);
+      final String normalizedValue;
+
+      try {
+        normalizedValue = iri.toURI().toString();
+        result = Collections.singletonList(new NormalizedValueWithConfidence(normalizedValue, 1));
+      } catch (URISyntaxException e) {
+        LOG.debug("There was some trouble normalizing the value for IRI Violation");
+        result =  Collections.emptyList();
+      }
     }
-
-    iri = iriFactory.create(value);
-    final String normalizedValue;
-
-    try {
-      normalizedValue = iri.toURI().toString();
-    } catch (URISyntaxException e) {
-      LOG.debug("There was some trouble normalizing the value for IRI Violation");
-      return Collections.emptyList();
-    }
-
-    return Collections.singletonList(new NormalizedValueWithConfidence(normalizedValue, 1));
+    return result;
   }
 
   /**
