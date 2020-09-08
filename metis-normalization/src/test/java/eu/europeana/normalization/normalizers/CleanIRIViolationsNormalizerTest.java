@@ -26,7 +26,7 @@ public class CleanIRIViolationsNormalizerTest {
     List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(WHITESPACE_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
     assertTrue(StreamSupport
-        .stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
+        .stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SIZED), false)
         .anyMatch(violation -> violation.codeName().equals("WHITESPACE")));
     assertEquals("http://example.com/query?q=random%20word", result.get(0).getNormalizedValue());
     assertEquals(1, result.get(0).getConfidence());
