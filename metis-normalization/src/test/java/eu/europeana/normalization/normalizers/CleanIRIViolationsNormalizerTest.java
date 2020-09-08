@@ -22,7 +22,7 @@ public class CleanIRIViolationsNormalizerTest {
 
 
   @Test
-  public void whitespaceViolationCleanupTest(){
+  void whitespaceViolationCleanupTest(){
     List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(WHITESPACE_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
     assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
@@ -32,7 +32,7 @@ public class CleanIRIViolationsNormalizerTest {
   }
 
   @Test
-  public void unwiseCharacterViolationCleanupTest(){
+  void unwiseCharacterViolationCleanupTest(){
     List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(UNWISE_CHARACTER_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
     assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
@@ -42,13 +42,13 @@ public class CleanIRIViolationsNormalizerTest {
   }
 
   @Test
-  public void illegalCharacterViolationReturnEmptyListTest(){
+  void illegalCharacterViolationReturnEmptyListTest(){
     List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(ILLEGAL_CHARACTER_VIOLATION);
     assertEquals(Collections.emptyList(), result);
   }
 
   @Test
-  public void notXMLSchemaWhitespaceViolationCleanupTest(){
+  void notXMLSchemaWhitespaceViolationCleanupTest(){
     List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(NOT_XML_SCHEMA_WHITESPACE_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
     assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
@@ -58,7 +58,7 @@ public class CleanIRIViolationsNormalizerTest {
   }
 
   @Test
-  public void doubleWhitespaceViolationCleanupTest(){
+  void doubleWhitespaceViolationCleanupTest(){
     List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(DOUBLE_WHITESPACE_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
     assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
@@ -68,7 +68,7 @@ public class CleanIRIViolationsNormalizerTest {
   }
 
   @Test
-  public void controlCharacterViolationCleanupTest(){
+  void controlCharacterViolationCleanupTest(){
     List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(CONTROL_CHARACTER_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
     assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
@@ -78,7 +78,7 @@ public class CleanIRIViolationsNormalizerTest {
   }
 
   @Test
-  public void compatibilityCharacterViolationCleanupTest(){
+  void compatibilityCharacterViolationCleanupTest(){
     List<NormalizedValueWithConfidence> result = normalizer.normalizeValue(COMPATIBILITY_CHARACTER_VIOLATION);
     Iterator<Violation> violations = normalizer.getViolations();
     assertTrue(StreamSupport.stream(Spliterators.spliteratorUnknownSize(violations, Spliterator.SORTED), false)
