@@ -23,7 +23,7 @@ import java.util.List;
 
 public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
 
-  private final static Logger LOG = LoggerFactory.getLogger(CleanIRIViolationsNormalizer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CleanIRIViolationsNormalizer.class);
 
   private static final Namespace.Element RDF_RESOURCE = Namespace.RDF.getElement("resource");
   private static final Namespace.Element RDF_ABOUT = Namespace.RDF.getElement("about");
