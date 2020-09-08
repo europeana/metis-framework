@@ -81,13 +81,10 @@ public class CleanIRIViolationsNormalizer implements ValueNormalizeAction{
   /**
    * This method checks the violations the previously given value to the IRIFactory contains
    * @return An iterator that contains the violations the IRIFactory detected.
-   * It returns the violations without warnings related to each element.
+   * It returns the violations without any warnings related to each element.
    */
   Iterator<Violation> getViolations(){
-    if(iri != null){
-      return iri.violations(false);
-    }
-    return Collections.emptyIterator();
+    return (iri == null) ? Collections.emptyIterator() : iri.violations(false);
   }
 
 }
