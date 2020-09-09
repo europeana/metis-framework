@@ -56,6 +56,7 @@ public class RdfRetriever {
 
       // Perform redirect
       final String location = urlConnection.getHeaderField("Location");
+      urlConnection.disconnect();
       if (redirectsLeft > 0 && location != null) {
         result = retrieveFromSource(location, redirectsLeft - 1);
       } else {
@@ -64,15 +65,13 @@ public class RdfRetriever {
     } else {
 
       // Check that we didn't receive HTML input.
-      final String resultString =
-              IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
-      if (StringUtils.isBlank(resultString)) {
+      result = IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
+      urlConnection.disconnect();
+      if (StringUtils.isBlank(result)) {
         throw new IOException("Could not retrieve the entity: it is empty.");
-      } else if (StringUtils.startsWith(contentType, "text/html") || resultString
-              .contains("<html>")) {
+      } else if (StringUtils.startsWith(contentType, "text/html") || result
+          .contains("<html>")) {
         throw new IOException("Could not retrieve the entity: seems to be an HTML document.");
-      } else {
-        result = resultString;
       }
     }
 
