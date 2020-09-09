@@ -4,14 +4,19 @@ import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -102,5 +107,30 @@ public class RestResponseExceptionHandler {
     response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
     return new StructuredExceptionWrapper(
         "Request not readable.\n" + exception.getMessage());
+  }
+
+  /**
+   * Handler for specific classes to overwrite behaviour
+   * @param exception the exception thrown
+   * @param response the response that should be updated
+   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error message for the client
+   */
+  @ExceptionHandler(value = MissingRequestHeaderException.class)
+  @ResponseBody
+  public StructuredExceptionWrapper handleMissingRequestHeaderException(Exception exception,
+      HttpServletResponse response) {
+
+    String header = ((MissingRequestHeaderException) exception).getHeaderName();
+
+    StructuredExceptionWrapper output = new StructuredExceptionWrapper(exception.getMessage());
+    response.setStatus(HttpStatus.BAD_REQUEST.value());
+
+    if(header.equalsIgnoreCase("Authorization")) {
+      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+      output = new StructuredExceptionWrapper(
+          "Authorization token is missing.");
+    }
+
+    return output;
   }
 }
