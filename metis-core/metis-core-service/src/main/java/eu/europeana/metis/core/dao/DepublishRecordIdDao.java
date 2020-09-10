@@ -67,7 +67,7 @@ public class DepublishRecordIdDao {
   }
 
   private Set<String> getNonExistingRecordIds(String datasetId, Set<String> recordIds) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
 
       // Create query for existing records in list. Only return record IDs.
       final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
@@ -135,7 +135,7 @@ public class DepublishRecordIdDao {
       depublishRecordId.setDepublicationDate(depublicationDate);
       return depublishRecordId;
     }).collect(Collectors.toList());
-    ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
+    ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
       morphiaDatastoreProvider.getDatastore().save(objectsToAdd);
       return Optional.empty();
     });
@@ -167,7 +167,7 @@ public class DepublishRecordIdDao {
     query.field(DepublishRecordId.DEPUBLICATION_STATUS_FIELD)
         .equal(DepublicationStatus.PENDING_DEPUBLICATION);
 
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().delete(query).getN());
   }
 
@@ -178,7 +178,7 @@ public class DepublishRecordIdDao {
    * @return The number of records for the given dataset.
    */
   private long countDepublishRecordIdsForDataset(String datasetId) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().createQuery(DepublishRecordId.class)
             .field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId).count());
   }
@@ -191,11 +191,11 @@ public class DepublishRecordIdDao {
    * @return The number of records.
    */
   public long countSuccessfullyDepublishedRecordIdsForDataset(String datasetId) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() ->
-            morphiaDatastoreProvider.getDatastore().createQuery(DepublishRecordId.class)
-                    .field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId)
-                    .field(DepublishRecordId.DEPUBLICATION_STATUS_FIELD)
-                    .equal(DepublicationStatus.DEPUBLISHED).count()
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() ->
+        morphiaDatastoreProvider.getDatastore().createQuery(DepublishRecordId.class)
+            .field(DepublishRecordId.DATASET_ID_FIELD).equal(datasetId)
+            .field(DepublishRecordId.DEPUBLICATION_STATUS_FIELD)
+            .equal(DepublicationStatus.DEPUBLISHED).count()
     );
   }
 
@@ -376,7 +376,7 @@ public class DepublishRecordIdDao {
     }
 
     // Apply the operations.
-    ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().update(query, updateOperations));
   }
 
@@ -390,7 +390,7 @@ public class DepublishRecordIdDao {
   }
 
   private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
       final BiFunction<Query<T>, FindOptions, MorphiaCursor<T>> queryFunction = (querySupplied, findOptionsSupplied) -> {
         final MorphiaCursor<T> morphiaCursor;
         if (findOptionsSupplied == null) {

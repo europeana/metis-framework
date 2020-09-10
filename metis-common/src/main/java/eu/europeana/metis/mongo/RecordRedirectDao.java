@@ -66,7 +66,7 @@ public class RecordRedirectDao {
    */
   public String createUpdate(RecordRedirect recordRedirect) {
     Key<RecordRedirect> recordRedirectKey = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
+        .retryableExternalRequestForNetworkExceptions(
             () -> datastore.save(recordRedirect));
     LOGGER.debug(
         "RecordRedirect with oldId: '{}', newId: '{}' and timestamp: '{}' created in Mongo",
@@ -90,7 +90,7 @@ public class RecordRedirectDao {
    * @return the record redirect object
    */
   public RecordRedirect getById(String id) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> datastore.find(RecordRedirect.class)
             .filter("_id", new ObjectId(id)).first());
   }
@@ -116,7 +116,7 @@ public class RecordRedirectDao {
   }
 
   private List<RecordRedirect> getRecordRedirects(String fieldName, String identifier) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> datastore.find(RecordRedirect.class).field(fieldName).equal(identifier).find()
             .toList());
   }

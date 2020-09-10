@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.execution;
 
+import static eu.europeana.metis.utils.ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
+
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.cloud.service.dps.exception.DpsException;
@@ -8,32 +10,24 @@ import eu.europeana.metis.core.dao.WorkflowUtils;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
-import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.EcloudBasePluginParameters;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin.MonitorResult;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.utils.ExternalRequestUtil;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.Collections;
 import java.util.Date;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.ServiceUnavailableException;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.HttpServerErrorException;
 
 /**
  * This class is a {@link Callable} class that accepts a {@link WorkflowExecution}. It starts that
@@ -68,24 +62,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private final String metisCoreBaseUrl;
 
   private WorkflowExecution workflowExecution;
-
-  private static final Map<Class<?>, String> mapWithRetriableExceptions;
-
-  static {
-    final Map<Class<?>, String> retriableExceptionMap = new ConcurrentHashMap<>();
-    retriableExceptionMap.put(HttpServerErrorException.class, "");
-    //Usually when the dns resolution fails
-    retriableExceptionMap.put(UnknownHostException.class, "");
-    //Usually when the server does not respond in time
-    retriableExceptionMap.put(SocketTimeoutException.class, "");
-    //Usually when the base url is not reachable
-    retriableExceptionMap.put(SocketException.class, "SOCKS: Host unreachable");
-    //Usually when the container service unavailable
-    retriableExceptionMap.put(ServiceUnavailableException.class, "");
-    //Usually when the endpoint in the container is not available
-    retriableExceptionMap.put(NotFoundException.class, "");
-    mapWithRetriableExceptions = Collections.unmodifiableMap(retriableExceptionMap);
-  }
 
   WorkflowExecutor(String workflowExecutionId, PersistenceProvider persistenceProvider,
       WorkflowExecutionSettings workflowExecutionSettings,
@@ -206,7 +182,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
    * @param datasetId The dataset ID.
    */
   private void runMetisPlugin(AbstractMetisPlugin pluginUnchecked, Date startDateToUse,
-          String datasetId) {
+      String datasetId) {
 
     // Sanity check
     if (pluginUnchecked == null) {
@@ -246,7 +222,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       LOGGER.warn("Execution of plugin failed", e);
       pluginUnchecked.setFinishedDate(null);
       pluginUnchecked.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-      pluginUnchecked.setFailMessage(TRIGGER_ERROR_PREFIX + e.getMessage());
+      pluginUnchecked
+          .setFailMessage(String.format("%s\nDetailed exception:%s", TRIGGER_ERROR_PREFIX,
+              ExceptionUtils.getStackTrace(e)));
       return;
     } finally {
       workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
@@ -287,7 +265,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   }
 
   private void periodicCheckingLoop(long sleepTime, AbstractExecutablePlugin plugin,
-          String datasetId) {
+      String datasetId) {
     MonitorResult monitorResult = null;
     int consecutiveCancelOrMonitorFailures = 0;
     boolean externalCancelCallSent = false;
@@ -315,18 +293,19 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         return;
       } catch (ExternalTaskException e) {
         LOGGER.warn("ExternalTaskException occurred.", e);
-        if (!ExternalRequestUtil
-                .doesExceptionCauseMatchAnyOfProvidedExceptions(mapWithRetriableExceptions, e)) {
+        if (!ExternalRequestUtil.doesExceptionCauseMatchAnyOfProvidedExceptions(
+            UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, e)) {
           // Set plugin to FAILED and return immediately
           plugin.setFinishedDate(null);
           plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-          plugin.setFailMessage(MONITOR_ERROR_PREFIX + e.getMessage());
+          plugin.setFailMessage(String.format("%s\nDetailed exception:%s", MONITOR_ERROR_PREFIX,
+              ExceptionUtils.getStackTrace(e)));
           return;
         }
         consecutiveCancelOrMonitorFailures++;
         LOGGER.warn(String.format(
-                "Monitoring of external task failed %s consecutive times. After exceeding %s retries, pending status will be set",
-                consecutiveCancelOrMonitorFailures, MAX_CANCEL_OR_MONITOR_FAILURES), e);
+            "Monitoring of external task failed %s consecutive times. After exceeding %s retries, pending status will be set",
+            consecutiveCancelOrMonitorFailures, MAX_CANCEL_OR_MONITOR_FAILURES), e);
         if (consecutiveCancelOrMonitorFailures == MAX_CANCEL_OR_MONITOR_FAILURES) {
           //Set pending status once
           plugin.setPluginStatusAndResetFailMessage(PluginStatus.PENDING);
@@ -348,7 +327,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         LOGGER.warn("Problem occurred during Metis post-processing.", e);
         plugin.setFinishedDate(null);
         plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-        plugin.setFailMessage(POSTPROCESS_ERROR_PREFIX + e.getMessage());
+        plugin.setFailMessage(String.format("%s\nDetailed exception:%s", POSTPROCESS_ERROR_PREFIX,
+            ExceptionUtils.getStackTrace(e)));
         return;
       }
     }
