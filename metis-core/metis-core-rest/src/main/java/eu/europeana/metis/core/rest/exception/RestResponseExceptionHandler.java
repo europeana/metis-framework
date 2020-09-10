@@ -33,8 +33,9 @@ public class RestResponseExceptionHandler {
    * <p>Some examples e.g. {@link NoDatasetFoundException}, {@link NoWorkflowFoundException}...</p>
    *
    * @param exception the exception thrown
-   * @param response the response that should be updated
-   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error message for the client
+   * @param response  the response that should be updated
+   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error
+   * message for the client
    */
   @ExceptionHandler(value = {GenericMetisException.class})
   @ResponseBody
@@ -50,13 +51,16 @@ public class RestResponseExceptionHandler {
 
   /**
    * Handler for specific classes to overwrite behaviour
+   *
    * @param exception the exception thrown
-   * @param response the response that should be updated
-   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error message for the client
+   * @param response  the response that should be updated
+   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error
+   * message for the client
    */
   @ExceptionHandler(HttpMessageNotReadableException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMessageNotReadable(HttpMessageNotReadableException exception,
+  public StructuredExceptionWrapper handleMessageNotReadable(
+      HttpMessageNotReadableException exception,
       HttpServletResponse response) {
     response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
     return new StructuredExceptionWrapper(
@@ -65,13 +69,16 @@ public class RestResponseExceptionHandler {
 
   /**
    * Handler for specific classes to overwrite behaviour
+   *
    * @param exception the exception thrown
-   * @param response the response that should be updated
-   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error message for the client
+   * @param response  the response that should be updated
+   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error
+   * message for the client
    */
   @ExceptionHandler(MissingServletRequestParameterException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMissingParams(MissingServletRequestParameterException exception,
+  public StructuredExceptionWrapper handleMissingParams(
+      MissingServletRequestParameterException exception,
       HttpServletResponse response) {
     response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
     return new StructuredExceptionWrapper(exception.getParameterName() + " parameter is missing");
@@ -79,13 +86,16 @@ public class RestResponseExceptionHandler {
 
   /**
    * Handler for specific classes to overwrite behaviour
+   *
    * @param exception the exception thrown
-   * @param response the response that should be updated
-   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error message for the client
+   * @param response  the response that should be updated
+   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error
+   * message for the client
    */
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMissingParams(HttpRequestMethodNotSupportedException exception,
+  public StructuredExceptionWrapper handleMissingParams(
+      HttpRequestMethodNotSupportedException exception,
       HttpServletResponse response) {
     response.setStatus(HttpStatus.METHOD_NOT_ALLOWED.value());
     return new StructuredExceptionWrapper("Method not allowed: " + exception.getMessage());
@@ -93,9 +103,11 @@ public class RestResponseExceptionHandler {
 
   /**
    * Handler for specific classes to overwrite behaviour
+   *
    * @param exception the exception thrown
-   * @param response the response that should be updated
-   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error message for the client
+   * @param response  the response that should be updated
+   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error
+   * message for the client
    */
   @ExceptionHandler(value = {IllegalStateException.class,
       MethodArgumentTypeMismatchException.class})
@@ -109,24 +121,25 @@ public class RestResponseExceptionHandler {
 
   /**
    * Handler for specific classes to overwrite behaviour
+   *
    * @param exception the exception thrown
-   * @param response the response that should be updated
-   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error message for the client
+   * @param response  the response that should be updated
+   * @return {@link StructuredExceptionWrapper} a json friendly class that contains the error
+   * message for the client
    */
   @ExceptionHandler(value = MissingRequestHeaderException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMissingRequestHeaderException(MissingRequestHeaderException exception,
+  public StructuredExceptionWrapper handleMissingRequestHeaderException(
+      MissingRequestHeaderException exception,
       HttpServletResponse response) {
 
     final StructuredExceptionWrapper output;
 
-    if(AUTHORIZATION_HEADER.equalsIgnoreCase(exception.getHeaderName())) {
+    if (AUTHORIZATION_HEADER.equalsIgnoreCase(exception.getHeaderName())) {
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
       output = new StructuredExceptionWrapper(
           "Authorization header is missing in the request.");
-    }
-
-    else {
+    } else {
       output = new StructuredExceptionWrapper(exception.getMessage());
       response.setStatus(HttpStatus.BAD_REQUEST.value());
     }
