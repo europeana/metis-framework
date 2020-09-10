@@ -73,7 +73,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public String create(Dataset dataset) {
     Key<Dataset> datasetKey = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
+        .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(dataset));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' created in Mongo",
@@ -90,7 +90,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public String update(Dataset dataset) {
     Key<Dataset> datasetKey = ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
+        .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(dataset));
     LOGGER.debug(
         "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' updated in Mongo",
@@ -106,7 +106,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   @Override
   public Dataset getById(String id) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
             .filter("_id", new ObjectId(id)).first());
   }
@@ -120,7 +120,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public boolean delete(Dataset dataset) {
     ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
+        .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().delete(
                 morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class)
                     .field(DATASET_ID.getFieldName())
@@ -150,7 +150,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @return {@link Dataset} or null
    */
   public Dataset getDatasetByDatasetName(String datasetName) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
             .field(DATASET_NAME.getFieldName())
             .equal(datasetName).first());
@@ -164,7 +164,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   public Dataset getDatasetByDatasetId(String datasetId) {
     return ExternalRequestUtil
-        .retryableExternalRequestConnectionReset(
+        .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
                 .filter(DATASET_ID.getFieldName(), datasetId).first());
   }
@@ -178,7 +178,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   public Dataset getDatasetByOrganizationIdAndDatasetName(String organizationId,
       String datasetName) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class).field("organizationId")
             .equal(organizationId).field(DATASET_NAME.getFieldName()).equal(datasetName).first());
   }
@@ -190,7 +190,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @return true if exist or false if it does not exist
    */
   boolean existsDatasetByDatasetName(String datasetName) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(Dataset.class)
             .field(DATASET_NAME.getFieldName())
             .equal(datasetName).project("_id", true).first()) != null;
@@ -330,7 +330,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     UpdateOperations<DatasetIdSequence> updateOperations = morphiaDatastoreProvider.getDatastore()
         .createUpdateOperations(DatasetIdSequence.class)
         .set("sequence", datasetIdSequence.getSequence());
-    ExternalRequestUtil.retryableExternalRequestConnectionReset(
+    ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().update(updateQuery, updateOperations));
     return datasetIdSequence.getSequence();
   }
@@ -432,7 +432,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   }
 
   private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
-    return ExternalRequestUtil.retryableExternalRequestConnectionReset(() -> {
+    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
       try (MorphiaCursor<T> cursor = query.find(findOptions)) {
         return performFunction(cursor, MorphiaCursor::toList);
       }

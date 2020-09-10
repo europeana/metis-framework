@@ -1,17 +1,23 @@
 package eu.europeana.metis.utils;
 
-import com.mongodb.MongoSecurityException;
-import com.mongodb.MongoSocketException;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
+import javax.naming.ServiceUnavailableException;
+import javax.ws.rs.NotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.ResourceAccessException;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.client.HttpServerErrorException;
 
 /**
  * A utilities class used to encapsulate methods that throw exceptions {@link RuntimeException} or
@@ -26,31 +32,46 @@ public final class ExternalRequestUtil {
   private static final int MAX_RETRIES = 10;
   private static final int SLEEP_TIMEOUT = 500;
 
+  public static final Map<Class<?>, String> UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
+
+  static {
+    final Map<Class<?>, String> retryableExceptionMap = new ConcurrentHashMap<>();
+    //Usually when a bad gateway exception occurs
+    retryableExceptionMap.put(HttpServerErrorException.class, "");
+    //Usually when the dns resolution fails
+    retryableExceptionMap.put(UnknownHostException.class, "");
+    //Usually when the server does not respond in time
+    retryableExceptionMap.put(SocketTimeoutException.class, "");
+    //Usually when the base url is not reachable
+    retryableExceptionMap.put(SocketException.class, "");
+    //Usually when the container service unavailable
+    retryableExceptionMap.put(ServiceUnavailableException.class, "");
+    //Usually when the endpoint in the container is not available
+    retryableExceptionMap.put(NotFoundException.class, "");
+    UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS = Collections.unmodifiableMap(retryableExceptionMap);
+  }
+
   private ExternalRequestUtil() {
   }
 
   /**
    * Retries a request to an external service like a database. This method is meant to be called
-   * when request throws a {@link RuntimeException} that contains a {@link SocketException} cause
-   * with message "Connection reset". This method was intentionally implemented for the above
-   * described issue that is caused in the Bluemix Cloud Foundry environment. Some examples are:
-   * <ul>
-   * <li>{@link MongoSocketException}</li> From a Mongo request
-   * <li>{@link MongoSecurityException}</li> From a Mongo request
-   * <li>{@link ResourceAccessException}</li> From an HTTP request
-   * </ul>
+   * when request throws an {@link Exception}. Default values for maximum retries {@link
+   * #MAX_RETRIES} and period between retries {@link #SLEEP_TIMEOUT} will be used.
    *
-   * @param supplier the respective supplier encapsulating the external request
+   * @param supplierThrowingException the respective supplierThrowingException encapsulating the
+   * external request
    * @return the expected object as a result of the external request
+   * @throws Exception any exception that the supplier could throw
    */
-  public static <R> R retryableExternalRequestConnectionReset(Supplier<R> supplier) {
-    return retryableExternalRequestForRuntimeExceptions(supplier,
-        getSocketExceptionConnectionReset(), -1, -1);
+  public static <R> R retryableExternalRequest(
+      SupplierThrowingException<R> supplierThrowingException) throws Exception {
+    return retryableExternalRequest(supplierThrowingException, null, -1, -1);
   }
 
   /**
    * Retries a request to an external service like a database. This method is meant to be called
-   * when request throws a {@link Exception} that contains a cause of one of the keys in the
+   * when request throws an {@link Exception} that contains a cause of one of the keys in the
    * specified Map and matches the String message provided as the value of the key, if any. If no
    * message specified, then the matching will only be checked on the type of the exception. Default
    * values for maximum retries {@link #MAX_RETRIES} and period between retries {@link
@@ -65,8 +86,7 @@ public final class ExternalRequestUtil {
    */
   public static <R> R retryableExternalRequest(
       SupplierThrowingException<R> supplierThrowingException,
-      Map<Class<?>, String> exceptionStringMap)
-      throws Exception {
+      Map<Class<?>, String> exceptionStringMap) throws Exception {
     return retryableExternalRequest(supplierThrowingException, exceptionStringMap, -1, -1);
   }
 
@@ -110,6 +130,22 @@ public final class ExternalRequestUtil {
   /**
    * Retries a request to an external service like a database. This method is meant to be called
    * when request throws a {@link RuntimeException} that contains a cause of one of the keys in the
+   * {@link #UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS} Map. Default values for maximum retries
+   * {@link * #MAX_RETRIES} and period between retries {@link #SLEEP_TIMEOUT} will be used.
+   *
+   * @param supplier the respective supplier encapsulating the external request a message to check,
+   * if any. If message is null or empty, all messages will match
+   * @return the expected object as a result of the external request
+   */
+  public static <R> R retryableExternalRequestForNetworkExceptions(Supplier<R> supplier) {
+    return retryableExternalRequestForRuntimeExceptions(supplier,
+        UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, -1,
+        -1);
+  }
+
+  /**
+   * Retries a request to an external service like a database. This method is meant to be called
+   * when request throws a {@link RuntimeException} that contains a cause of one of the keys in the
    * specified Map and matches the String message provided as the value of the key, if any. If no
    * message specified, then the matching will only be checked on the type of the exception.
    *
@@ -145,13 +181,13 @@ public final class ExternalRequestUtil {
     } while (true);
   }
 
-  private static <R> R doWhenExceptionCaught(Exception e,
-      Map<Class<?>, String> runtimeExceptionStringMap,
+  private static <R> R doWhenExceptionCaught(Exception e, Map<Class<?>, String> exceptionStringMap,
       AtomicInteger retriesCounter, int maxRetries, int periodBetweenRetriesInMillis)
       throws Exception {
     retriesCounter.incrementAndGet();
-    //Re-throw if it's not a Connection reset error or max retries exceeded.
-    final boolean causeMatches = doesExceptionCauseMatchAnyOfProvidedExceptions(runtimeExceptionStringMap, e);
+    //Check if exception matches any exception from the map that is provided
+    final boolean causeMatches = doesExceptionCauseMatchAnyOfProvidedExceptions(exceptionStringMap,
+        e);
     //Rethrow the exception if more than maxRetries occurred or the cause doesn't match any expected causes.
     if (retriesCounter.get() > maxRetries || !causeMatches) {
       throw e;
@@ -185,20 +221,24 @@ public final class ExternalRequestUtil {
    * Checks if an exception cause, matches any of the exception rules in the provided exception
    * map.
    *
-   * @param runtimeExceptionStringMap the map that contains all the type of exceptions to match with
-   * a message to check, if any. If message is null or empty, all messages will match
+   * @param exceptionStringMap the map that contains all the type of exceptions to match with a
+   * message to check, if any. If message is null or empty, any messages will match
    * @param e the exception to check the cause and try the matching
    * @return true if there is a match, otherwise false
    */
   public static boolean doesExceptionCauseMatchAnyOfProvidedExceptions(
-      Map<Class<?>, String> runtimeExceptionStringMap, Exception e) {
+      Map<Class<?>, String> exceptionStringMap, Exception e) {
     Throwable cause = getCause(e);
-    return runtimeExceptionStringMap.entrySet().stream()
-        .anyMatch(
-            entry -> entry.getKey().isInstance(cause) && (StringUtils.isBlank(entry.getValue())
-                || cause.getMessage().toLowerCase(Locale.US)
-                .contains(entry.getValue().toLowerCase(Locale.US)))
-        );
+    final Predicate<Entry<Class<?>, String>> sameInstanceAndMessageMatches = entry ->
+        entry.getKey().isInstance(cause) && (StringUtils.isBlank(entry.getValue())
+            || cause.getMessage().toLowerCase(Locale.US)
+            .contains(entry.getValue().toLowerCase(Locale.US)));
+
+    boolean foundMatch = false;
+    if (!CollectionUtils.isEmpty(exceptionStringMap)) {
+      foundMatch = exceptionStringMap.entrySet().stream().anyMatch(sameInstanceAndMessageMatches);
+    }
+    return foundMatch;
   }
 
   private static Throwable getCause(Throwable e) {
