@@ -26,6 +26,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice
 public class RestResponseExceptionHandler {
 
+  private static final String AUTHORIZATION_HEADER = "Authorization";
+
   /**
    * Handle metis {@link GenericMetisException} which is one of the many metis exceptions.
    * <p>Some examples e.g. {@link NoDatasetFoundException}, {@link NoWorkflowFoundException}...</p>
@@ -113,18 +115,20 @@ public class RestResponseExceptionHandler {
    */
   @ExceptionHandler(value = MissingRequestHeaderException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMissingRequestHeaderException(Exception exception,
+  public StructuredExceptionWrapper handleMissingRequestHeaderException(MissingRequestHeaderException exception,
       HttpServletResponse response) {
 
-    String header = ((MissingRequestHeaderException) exception).getHeaderName();
+    final StructuredExceptionWrapper output;
 
-    StructuredExceptionWrapper output = new StructuredExceptionWrapper(exception.getMessage());
-    response.setStatus(HttpStatus.BAD_REQUEST.value());
-
-    if(header.equalsIgnoreCase("Authorization")) {
+    if(AUTHORIZATION_HEADER.equalsIgnoreCase(exception.getHeaderName())) {
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
       output = new StructuredExceptionWrapper(
-          "Authorization token is missing.");
+          "Authorization header is missing in the request.");
+    }
+
+    else {
+      output = new StructuredExceptionWrapper(exception.getMessage());
+      response.setStatus(HttpStatus.BAD_REQUEST.value());
     }
 
     return output;
