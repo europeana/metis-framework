@@ -35,6 +35,7 @@ import org.bson.types.ObjectId;
     @Index(fields = {@Field("workflowStatus")}),
     @Index(fields = {@Field("ecloudDatasetId")}),
     @Index(fields = {@Field("cancelledBy")}),
+    @Index(fields = {@Field("startedBy")}),
     @Index(fields = {@Field("createdDate")}),
     @Index(fields = {@Field("startedDate")}),
     @Index(fields = {@Field("updatedDate")}),
@@ -53,6 +54,7 @@ public class WorkflowExecution implements HasMongoObjectId {
   private WorkflowStatus workflowStatus;
   private String ecloudDatasetId;
   private String cancelledBy;
+  private String startedBy;
   private int workflowPriority;
   private boolean cancelling;
 
@@ -74,9 +76,9 @@ public class WorkflowExecution implements HasMongoObjectId {
   /**
    * Constructor with all required parameters and initializes it's internal structure.
    *
-   * @param dataset the {@link Dataset} related to the execution
-   * @param metisPlugins the list of {@link AbstractMetisPlugin} including harvest plugin for
-   * execution
+   * @param dataset          the {@link Dataset} related to the execution
+   * @param metisPlugins     the list of {@link AbstractMetisPlugin} including harvest plugin for
+   *                         execution
    * @param workflowPriority the positive number of the priority of the execution
    */
   public WorkflowExecution(Dataset dataset, List<? extends AbstractMetisPlugin> metisPlugins,
@@ -179,6 +181,14 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   public void setCancelledBy(String cancelledBy) {
     this.cancelledBy = cancelledBy;
+  }
+
+  public String getStartedBy() {
+    return startedBy;
+  }
+
+  public void setStartedBy(String startedBy) {
+    this.startedBy = startedBy;
   }
 
   public String getEcloudDatasetId() {
