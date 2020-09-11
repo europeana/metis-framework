@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +47,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final String MONITOR_ERROR_PREFIX = "An error occurred while monitoring the external task. ";
   private static final String POSTPROCESS_ERROR_PREFIX = "An error occurred while post-processing the external task. ";
   private static final String TRIGGER_ERROR_PREFIX = "An error occurred while triggering the external task. ";
+  private static final String DETAILED_EXCEPTION_FORMAT = "%s%nDetailed exception:%s";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
   private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 3;
@@ -154,15 +156,14 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       final Date startDateToUse = i == 0 ? workflowExecution.getStartedDate() : new Date();
       runMetisPlugin(plugin, startDateToUse, workflowExecution.getDatasetId());
       if ((workflowExecutionDao.isCancelling(workflowExecution.getId())
-          && plugin.getFinishedDate() == null)
-          || plugin.getPluginStatus() == PluginStatus.FAILED) {
+          && plugin.getFinishedDate() == null) || plugin.getPluginStatus() == PluginStatus.FAILED) {
         break;
       }
     }
 
     // Compute the finished date
-    final AbstractMetisPlugin lastPlugin =
-        workflowExecution.getMetisPlugins().get(workflowExecution.getMetisPlugins().size() - 1);
+    final AbstractMetisPlugin lastPlugin = workflowExecution.getMetisPlugins()
+        .get(workflowExecution.getMetisPlugins().size() - 1);
     final Date finishDate;
     if (lastPlugin.getPluginStatus() == PluginStatus.FINISHED) {
       finishDate = lastPlugin.getFinishedDate();
@@ -222,9 +223,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       LOGGER.warn("Execution of plugin failed", e);
       pluginUnchecked.setFinishedDate(null);
       pluginUnchecked.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-      pluginUnchecked
-          .setFailMessage(String.format("%s\nDetailed exception:%s", TRIGGER_ERROR_PREFIX,
-              ExceptionUtils.getStackTrace(e)));
+      pluginUnchecked.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, TRIGGER_ERROR_PREFIX,
+          ExceptionUtils.getStackTrace(e)));
       return;
     } finally {
       workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
@@ -264,24 +264,18 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         + " that is not an executable plugin.");
   }
 
-  private void periodicCheckingLoop(long sleepTime, AbstractExecutablePlugin plugin,
-      String datasetId) {
+  private void periodicCheckingLoop(long sleepTime, AbstractExecutablePlugin plugin, String datasetId) {
     MonitorResult monitorResult = null;
     int consecutiveCancelOrMonitorFailures = 0;
-    boolean externalCancelCallSent = false;
+    AtomicBoolean externalCancelCallSent = new AtomicBoolean(false);
     AtomicInteger previousProcessedRecords = new AtomicInteger(0);
-    AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis = new AtomicLong(
-        System.currentTimeMillis());
+    AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis = new AtomicLong(System.currentTimeMillis());
     do {
       try {
         Thread.sleep(sleepTime);
-        if (!externalCancelCallSent && shouldPluginBeCancelled(plugin,
-            previousProcessedRecords, checkPointDateOfProcessedRecordsPeriodInMillis)) {
-          // Update workflowExecution first, to retrieve cancelling information from db
-          workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
-          plugin.cancel(dpsClient, workflowExecution.getCancelledBy());
-          externalCancelCallSent = true;
-        }
+        // Check if the task is cancelling and send the external cancelling call if needed
+        sendExternalCancelCallIfNeeded(externalCancelCallSent, plugin, previousProcessedRecords,
+            checkPointDateOfProcessedRecordsPeriodInMillis);
         monitorResult = plugin.monitor(dpsClient);
         consecutiveCancelOrMonitorFailures = 0;
         plugin.setPluginStatusAndResetFailMessage(
@@ -298,7 +292,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
           // Set plugin to FAILED and return immediately
           plugin.setFinishedDate(null);
           plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-          plugin.setFailMessage(String.format("%s\nDetailed exception:%s", MONITOR_ERROR_PREFIX,
+          plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
               ExceptionUtils.getStackTrace(e)));
           return;
         }
@@ -316,25 +310,50 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         workflowExecution.setUpdatedDate(updatedDate);
         workflowExecutionDao.updateMonitorInformation(workflowExecution);
       }
-    } while (monitorResult == null || (monitorResult.getTaskState() != TaskState.DROPPED
-        && monitorResult.getTaskState() != TaskState.PROCESSED));
+    } while (isContinueMonitor(monitorResult));
 
     // Perform post-processing if needed.
-    if (monitorResult.getTaskState() == TaskState.PROCESSED) {
-      try {
-        this.workflowPostProcessor.performPluginPostProcessing(plugin, datasetId);
-      } catch (DpsException | RuntimeException e) {
-        LOGGER.warn("Problem occurred during Metis post-processing.", e);
-        plugin.setFinishedDate(null);
-        plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-        plugin.setFailMessage(String.format("%s\nDetailed exception:%s", POSTPROCESS_ERROR_PREFIX,
-            ExceptionUtils.getStackTrace(e)));
-        return;
-      }
+    if (!applyPostProcessing(monitorResult, plugin, datasetId)) {
+      return;
     }
 
     // Set the status of the task.
     preparePluginStateAndFinishedDate(plugin, monitorResult);
+  }
+
+  private void sendExternalCancelCallIfNeeded(AtomicBoolean externalCancelCallSent,
+      AbstractExecutablePlugin plugin, AtomicInteger previousProcessedRecords,
+      AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis) throws ExternalTaskException {
+    if (!externalCancelCallSent.get() && shouldPluginBeCancelled(plugin, previousProcessedRecords,
+        checkPointDateOfProcessedRecordsPeriodInMillis)) {
+      // Update workflowExecution first, to retrieve cancelling information from db
+      workflowExecution = workflowExecutionDao.getById(workflowExecution.getId().toString());
+      plugin.cancel(dpsClient, workflowExecution.getCancelledBy());
+      externalCancelCallSent.set(true);
+    }
+  }
+
+  private boolean applyPostProcessing(MonitorResult monitorResult, AbstractExecutablePlugin plugin,
+      String datasetId) {
+    boolean processingAppliedOrNotRequired = true;
+    if (monitorResult.getTaskState() == TaskState.PROCESSED) {
+      try {
+        this.workflowPostProcessor.performPluginPostProcessing(plugin, datasetId);
+      } catch (DpsException | RuntimeException e) {
+        processingAppliedOrNotRequired = false;
+        LOGGER.warn("Problem occurred during Metis post-processing.", e);
+        plugin.setFinishedDate(null);
+        plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
+        plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, POSTPROCESS_ERROR_PREFIX,
+            ExceptionUtils.getStackTrace(e)));
+      }
+    }
+    return processingAppliedOrNotRequired;
+  }
+
+  private boolean isContinueMonitor(MonitorResult monitorResult) {
+    return monitorResult == null || (monitorResult.getTaskState() != TaskState.DROPPED
+        && monitorResult.getTaskState() != TaskState.PROCESSED);
   }
 
   private boolean shouldPluginBeCancelled(AbstractExecutablePlugin plugin,
@@ -345,17 +364,15 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         plugin.getPluginStatus() != PluginStatus.CLEANING && workflowExecutionDao
             .isCancelling(workflowExecution.getId());
     // A cleaning or a pending task should not be cancelled by exceeding the minute cap
-    final boolean notCleaningOrPending =
-        plugin.getPluginStatus() != PluginStatus.CLEANING
-            && plugin.getPluginStatus() != PluginStatus.PENDING;
-    final boolean isMinuteCapExceeded = isMinuteCapOverWithoutChangeInProcessedRecords(
-        plugin, previousProcessedRecords,
-        checkPointDateOfProcessedRecordsPeriodInMillis);
+    final boolean notCleaningOrPending = plugin.getPluginStatus() != PluginStatus.CLEANING
+        && plugin.getPluginStatus() != PluginStatus.PENDING;
+    final boolean isMinuteCapExceeded = isMinuteCapOverWithoutChangeInProcessedRecords(plugin,
+        previousProcessedRecords, checkPointDateOfProcessedRecordsPeriodInMillis);
     return (notCleaningAndCancelling || (notCleaningOrPending && isMinuteCapExceeded));
   }
 
-  private boolean isMinuteCapOverWithoutChangeInProcessedRecords(
-      AbstractExecutablePlugin<?> plugin, AtomicInteger previousProcessedRecords,
+  private boolean isMinuteCapOverWithoutChangeInProcessedRecords(AbstractExecutablePlugin<?> plugin,
+      AtomicInteger previousProcessedRecords,
       AtomicLong checkPointDateOfProcessedRecordsPeriodInMillis) {
     final int processedRecords = plugin.getExecutionProgress().getProcessedRecords();
     //If CLEANING is in progress then just reset the values to be sure and return false
@@ -368,10 +385,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       return false;
     }
 
-    final boolean isMinuteCapOverWithoutChangeInProcessedRecords =
-        TimeUnit.MILLISECONDS.toSeconds(
-            System.currentTimeMillis() - checkPointDateOfProcessedRecordsPeriodInMillis.get())
-            >= periodOfNoProcessedRecordsChangeInSeconds;
+    final boolean isMinuteCapOverWithoutChangeInProcessedRecords = TimeUnit.MILLISECONDS.toSeconds(
+        System.currentTimeMillis() - checkPointDateOfProcessedRecordsPeriodInMillis.get())
+        >= periodOfNoProcessedRecordsChangeInSeconds;
     if (isMinuteCapOverWithoutChangeInProcessedRecords) {
       //Request cancelling of the execution
       workflowExecutionDao.setCancellingState(workflowExecution, null);
