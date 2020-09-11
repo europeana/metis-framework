@@ -46,6 +46,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private static final String MONITOR_ERROR_PREFIX = "An error occurred while monitoring the external task. ";
   private static final String POSTPROCESS_ERROR_PREFIX = "An error occurred while post-processing the external task. ";
   private static final String TRIGGER_ERROR_PREFIX = "An error occurred while triggering the external task. ";
+  private static final String DETAILED_EXCEPTION_FORMAT = "%s%nDetailed exception:%s";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
   private static final int MAX_CANCEL_OR_MONITOR_FAILURES = 3;
@@ -222,9 +223,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       LOGGER.warn("Execution of plugin failed", e);
       pluginUnchecked.setFinishedDate(null);
       pluginUnchecked.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-      pluginUnchecked
-          .setFailMessage(String.format("%s\nDetailed exception:%s", TRIGGER_ERROR_PREFIX,
-              ExceptionUtils.getStackTrace(e)));
+      pluginUnchecked.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, TRIGGER_ERROR_PREFIX,
+          ExceptionUtils.getStackTrace(e)));
       return;
     } finally {
       workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
@@ -298,7 +298,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
           // Set plugin to FAILED and return immediately
           plugin.setFinishedDate(null);
           plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-          plugin.setFailMessage(String.format("%s\nDetailed exception:%s", MONITOR_ERROR_PREFIX,
+          plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, MONITOR_ERROR_PREFIX,
               ExceptionUtils.getStackTrace(e)));
           return;
         }
@@ -327,7 +327,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         LOGGER.warn("Problem occurred during Metis post-processing.", e);
         plugin.setFinishedDate(null);
         plugin.setPluginStatusAndResetFailMessage(PluginStatus.FAILED);
-        plugin.setFailMessage(String.format("%s\nDetailed exception:%s", POSTPROCESS_ERROR_PREFIX,
+        plugin.setFailMessage(String.format(DETAILED_EXCEPTION_FORMAT, POSTPROCESS_ERROR_PREFIX,
             ExceptionUtils.getStackTrace(e)));
         return;
       }
