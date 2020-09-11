@@ -26,7 +26,6 @@ class MetisUserTest {
     Assertions.assertFalse(metisUser.isMetisUserFlag());
     Assertions.assertNull(metisUser.getCreatedDate());
     Assertions.assertNull(metisUser.getUpdatedDate());
-
     Assertions.assertNull(metisUser.getMetisUserAccessToken());
   }
 
