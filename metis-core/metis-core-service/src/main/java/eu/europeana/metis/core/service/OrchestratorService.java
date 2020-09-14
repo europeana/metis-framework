@@ -305,7 +305,7 @@ public class OrchestratorService {
           String.format("No dataset found with datasetId: %s, in METIS", datasetId));
     }
     return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
-        enforcedPredecessorType, priority);
+        enforcedPredecessorType, priority, null);
   }
 
   /**
@@ -345,12 +345,12 @@ public class OrchestratorService {
       throws GenericMetisException {
     final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
     return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
-        enforcedPredecessorType, priority);
+        enforcedPredecessorType, priority, metisUser);
   }
 
   private WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(Dataset dataset,
       @Nullable Workflow workflowProvided, @Nullable ExecutablePluginType enforcedPredecessorType,
-      int priority)
+      int priority, MetisUser metisUser)
       throws GenericMetisException {
 
     // Get the workflow or use the one provided.
@@ -375,6 +375,9 @@ public class OrchestratorService {
     // Create the workflow execution (without adding it to the database).
     final WorkflowExecution workflowExecution = workflowExecutionFactory
         .createWorkflowExecution(workflow, dataset, predecessor, priority);
+
+    // Save the user that triggered the workflow
+    workflowExecutionDao.setStartedBy(workflowExecution, metisUser);
 
     // Obtain the lock.
     RLock executionDatasetIdLock = redissonClient
