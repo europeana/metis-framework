@@ -199,6 +199,34 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         updateResults == null ? 0 : updateResults.getUpdatedCount());
   }
 
+  /**
+   * Set the id of the one responsible for starting the workflow field in the database.
+   *
+   * @param workflowExecution the workflowExecution that got started
+   * @param metisUser the user that triggered the start of the workflow
+   */
+  public void setStartedBy(WorkflowExecution workflowExecution, MetisUser metisUser) {
+    UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
+        .getDatastore().createUpdateOperations(WorkflowExecution.class);
+    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .find(WorkflowExecution.class)
+        .filter("_id", workflowExecution.getId());
+    String startedBy;
+    if (metisUser == null || metisUser.getUserId() == null) {
+      startedBy = null;
+    } else {
+      startedBy = metisUser.getUserId();
+    }
+    workflowExecutionUpdateOperations.set("startedBy", startedBy);
+    UpdateResults updateResults = ExternalRequestUtil
+        .retryableExternalRequestForNetworkExceptions(() -> morphiaDatastoreProvider.getDatastore()
+            .update(query, workflowExecutionUpdateOperations));
+    LOGGER.debug(
+        "WorkflowExecution start for datasetId '{}' set to true in Mongo. (UpdateResults: {})",
+        workflowExecution.getDatasetId(),
+        updateResults == null ? 0 : updateResults.getUpdatedCount());
+  }
+
   @Override
   public WorkflowExecution getById(String id) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
