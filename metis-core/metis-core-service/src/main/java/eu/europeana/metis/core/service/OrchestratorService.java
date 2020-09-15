@@ -106,15 +106,17 @@ public class OrchestratorService {
   /**
    * Constructor with all the required parameters
    *
-   * @param workflowDao the Dao instance to access the Workflow database
-   * @param workflowExecutionDao the Dao instance to access the WorkflowExecution database
-   * @param workflowUtils The utilities class providing more functionality on top of DAOs.
-   * @param datasetDao the Dao instance to access the Dataset database
+   * @param workflowDao              the Dao instance to access the Workflow database
+   * @param workflowExecutionDao     the Dao instance to access the WorkflowExecution database
+   * @param workflowUtils            The utilities class providing more functionality on top of
+   *                                 DAOs.
+   * @param datasetDao               the Dao instance to access the Dataset database
    * @param workflowExecutionFactory the orchestratorHelper instance
-   * @param workflowExecutorManager the instance that handles the production and consumption of
-   * workflowExecutions
-   * @param redissonClient the instance of Redisson library that handles distributed locks
-   * @param authorizer the authorizer
+   * @param workflowExecutorManager  the instance that handles the production and consumption of
+   *                                 workflowExecutions
+   * @param redissonClient           the instance of Redisson library that handles distributed
+   *                                 locks
+   * @param authorizer               the authorizer
    */
   @Autowired
   public OrchestratorService(WorkflowExecutionFactory workflowExecutionFactory,
@@ -137,18 +139,19 @@ public class OrchestratorService {
    * Create a workflow using a datasetId and the {@link Workflow} that contains the requested
    * plugins. If plugins are disabled, they (their settings) are still saved.
    *
-   * @param metisUser the user wishing to perform this operation
-   * @param datasetId the identifier of the dataset for which the workflow should be created
-   * @param workflow the workflow with the plugins requested
+   * @param metisUser               the user wishing to perform this operation
+   * @param datasetId               the identifier of the dataset for which the workflow should be
+   *                                created
+   * @param workflow                the workflow with the plugins requested
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link WorkflowAlreadyExistsException} if a workflow for the dataset identifier provided
-   * already exists</li>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * <li>{@link BadContentException} if the workflow parameters have unexpected values</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link WorkflowAlreadyExistsException} if a workflow for the dataset identifier provided
+   *                               already exists</li>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               <li>{@link BadContentException} if the workflow parameters have unexpected values</li>
+   *                               </ul>
    */
   public void createWorkflow(MetisUser metisUser, String datasetId, Workflow workflow,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
@@ -175,18 +178,19 @@ public class OrchestratorService {
    * the requested plugins. If plugins are disabled, they (their settings) are still saved. Any
    * settings in plugins that are not sent in the request are removed.
    *
-   * @param metisUser the user wishing to perform this operation
-   * @param datasetId the identifier of the dataset for which the workflow should be updated
-   * @param workflow the workflow with the plugins requested
+   * @param metisUser               the user wishing to perform this operation
+   * @param datasetId               the identifier of the dataset for which the workflow should be
+   *                                updated
+   * @param workflow                the workflow with the plugins requested
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does
-   * not exist</li>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * <li>{@link BadContentException} if the workflow parameters have unexpected values</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does
+   *                               not exist</li>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               <li>{@link BadContentException} if the workflow parameters have unexpected values</li>
+   *                               </ul>
    */
   public void updateWorkflow(MetisUser metisUser, String datasetId, Workflow workflow,
       ExecutablePluginType enforcedPredecessorType) throws GenericMetisException {
@@ -216,10 +220,10 @@ public class OrchestratorService {
    * @param metisUser the user wishing to perform this operation
    * @param datasetId the dataset identifier that corresponds to the workflow to be deleted
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               </ul>
    */
   public void deleteWorkflow(MetisUser metisUser, String datasetId) throws GenericMetisException {
     authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
@@ -233,10 +237,10 @@ public class OrchestratorService {
    * @param datasetId the dataset identifier
    * @return the Workflow object
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               </ul>
    */
   public Workflow getWorkflow(MetisUser metisUser, String datasetId) throws GenericMetisException {
     authorizer.authorizeReadExistingDatasetById(metisUser, datasetId);
@@ -246,14 +250,14 @@ public class OrchestratorService {
   /**
    * Get a WorkflowExecution using an execution identifier.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUser   the user wishing to perform this operation
    * @param executionId the execution identifier
    * @return the WorkflowExecution object
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               </ul>
    */
   public WorkflowExecution getWorkflowExecutionByExecutionId(MetisUser metisUser,
       String executionId) throws GenericMetisException {
@@ -274,26 +278,26 @@ public class OrchestratorService {
    * <p> <b>Please note:</b> this method is not checked for authorization: it is only meant to be
    * called from a scheduled task. </p>
    *
-   * @param datasetId the dataset identifier for which the execution will take place
-   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from
-   * the db
+   * @param datasetId               the dataset identifier for which the execution will take place
+   * @param workflowProvided        optional, the workflow to use instead of retrieving the saved
+   *                                one from the db
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
-   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
-   * highest
+   * @param priority                the priority of the execution in case the system gets
+   *                                overloaded, 0 lowest, 10 highest
    * @return the WorkflowExecution object that was generated
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does
-   * not exist</li>
-   * <li>{@link BadContentException} if the workflow is empty or no plugin enabled</li>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link ExternalTaskException} if there was an exception when contacting the external
-   * resource(ECloud)</li>
-   * <li>{@link PluginExecutionNotAllowed} if the execution of the first plugin was not allowed,
-   * because a valid source plugin could not be found</li>
-   * <li>{@link WorkflowExecutionAlreadyExistsException} if a workflow execution for the generated
-   * execution identifier already exists, almost impossible to happen since ids are UUIDs</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does
+   *                               not exist</li>
+   *                               <li>{@link BadContentException} if the workflow is empty or no plugin enabled</li>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link ExternalTaskException} if there was an exception when contacting the external
+   *                               resource(ECloud)</li>
+   *                               <li>{@link PluginExecutionNotAllowed} if the execution of the first plugin was not allowed,
+   *                               because a valid source plugin could not be found</li>
+   *                               <li>{@link WorkflowExecutionAlreadyExistsException} if a workflow execution for the generated
+   *                               execution identifier already exists, almost impossible to happen since ids are UUIDs</li>
+   *                               </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutionsWithoutAuthorization(
       String datasetId, @Nullable Workflow workflowProvided,
@@ -316,28 +320,28 @@ public class OrchestratorService {
    * enforcedPredecessorType}, which means that the last valid plugin that is provided with that
    * parameter, will be used as the source data.
    *
-   * @param metisUser the user wishing to perform this operation
-   * @param datasetId the dataset identifier for which the execution will take place
-   * @param workflowProvided optional, the workflow to use instead of retrieving the saved one from
-   * the db
+   * @param metisUser               the user wishing to perform this operation
+   * @param datasetId               the dataset identifier for which the execution will take place
+   * @param workflowProvided        optional, the workflow to use instead of retrieving the saved
+   *                                one from the db
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
-   * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10
-   * highest
+   * @param priority                the priority of the execution in case the system gets
+   *                                overloaded, 0 lowest, 10 highest
    * @return the WorkflowExecution object that was generated
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does
-   * not exist</li>
-   * <li>{@link BadContentException} if the workflow is empty or no plugin enabled</li>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * <li>{@link ExternalTaskException} if there was an exception when contacting the external
-   * resource(ECloud)</li>
-   * <li>{@link PluginExecutionNotAllowed} if the execution of the first plugin was not allowed,
-   * because a valid source plugin could not be found</li>
-   * <li>{@link WorkflowExecutionAlreadyExistsException} if a workflow execution for the generated
-   * execution identifier already exists, almost impossible to happen since ids are UUIDs</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoWorkflowFoundException} if a workflow for the dataset identifier provided does
+   *                               not exist</li>
+   *                               <li>{@link BadContentException} if the workflow is empty or no plugin enabled</li>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               <li>{@link ExternalTaskException} if there was an exception when contacting the external
+   *                               resource(ECloud)</li>
+   *                               <li>{@link PluginExecutionNotAllowed} if the execution of the first plugin was not allowed,
+   *                               because a valid source plugin could not be found</li>
+   *                               <li>{@link WorkflowExecutionAlreadyExistsException} if a workflow execution for the generated
+   *                               execution identifier already exists, almost impossible to happen since ids are UUIDs</li>
+   *                               </ul>
    */
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(MetisUser metisUser,
       String datasetId, @Nullable Workflow workflowProvided,
@@ -413,14 +417,14 @@ public class OrchestratorService {
    * Request to cancel a workflow execution. The execution will go into a cancelling state until
    * it's properly {@link WorkflowStatus#CANCELLED} from the system
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUser   the user wishing to perform this operation
    * @param executionId the execution identifier of the execution to cancel
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoWorkflowExecutionFoundException} if no worklfowExecution could be found</li>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoWorkflowExecutionFoundException} if no worklfowExecution could be found</li>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               </ul>
    */
   public void cancelWorkflowExecution(MetisUser metisUser, String executionId)
       throws GenericMetisException {
@@ -458,20 +462,20 @@ public class OrchestratorService {
    * {@code enforcedPredecessorType} is used) and that has the latest successful harvest plugin as
    * an ancestor.
    *
-   * @param metisUser the user wishing to perform this operation
-   * @param datasetId the dataset identifier of which the executions are based on
-   * @param pluginType the pluginType to be checked for allowance of execution
+   * @param metisUser               the user wishing to perform this operation
+   * @param datasetId               the dataset identifier of which the executions are based on
+   * @param pluginType              the pluginType to be checked for allowance of execution
    * @param enforcedPredecessorType optional, the plugin type to be used as source data
    * @return the abstractMetisPlugin that the execution on {@code pluginType} will be based on. Can
    * be null if the {@code pluginType} is the first one in the total order of executions e.g. One of
    * the harvesting plugins.
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link PluginExecutionNotAllowed} if the no plugin was found so the {@code pluginType}
-   * will be based upon</li>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link PluginExecutionNotAllowed} if the no plugin was found so the {@code pluginType}
+   *                               will be based upon</li>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               </ul>
    */
   public ExecutablePlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
       MetisUser metisUser, String datasetId, ExecutablePluginType pluginType,
@@ -485,19 +489,19 @@ public class OrchestratorService {
   /**
    * Get all WorkflowExecutions paged.
    *
-   * @param metisUser the user wishing to perform this operation
-   * @param datasetId the dataset identifier filter, can be null to get all datasets
+   * @param metisUser        the user wishing to perform this operation
+   * @param datasetId        the dataset identifier filter, can be null to get all datasets
    * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
-   * @param orderField the field to be used to sort the results
-   * @param ascending a boolean value to request the ordering to ascending or descending
-   * @param nextPage the nextPage token
+   * @param orderField       the field to be used to sort the results
+   * @param ascending        a boolean value to request the ordering to ascending or descending
+   * @param nextPage         the nextPage token
    * @return A list of all the WorkflowExecutions found. If the user is not admin, the list is
    * filtered to only show those executions that are in the user's organization.
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               </ul>
    */
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser,
       String datasetId, Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField,
@@ -534,19 +538,20 @@ public class OrchestratorService {
    * overview. First the ones in queue, then those in progress and then those that are finalized.
    * They will be sorted by creation date. This method does support pagination.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUser      the user wishing to perform this operation
    * @param pluginStatuses the plugin statuses to filter. Can be null.
-   * @param pluginTypes the plugin types to filter. Can be null.
-   * @param fromDate the date from where the results should start. Can be null.
-   * @param toDate the date to where the results should end. Can be null.
-   * @param nextPage the nextPage token, the end of the list is marked with -1 on the response
-   * @param pageCount the number of pages that are requested
+   * @param pluginTypes    the plugin types to filter. Can be null.
+   * @param fromDate       the date from where the results should start. Can be null.
+   * @param toDate         the date to where the results should end. Can be null.
+   * @param nextPage       the nextPage token, the end of the list is marked with -1 on the
+   *                       response
+   * @param pageCount      the number of pages that are requested
    * @return a list of all the WorkflowExecutions together with the datasets that they belong to.
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
-   * authenticated or authorized to perform this operation</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   *                               authenticated or authorized to perform this operation</li>
+   *                               </ul>
    */
   public ResponseListWrapper<ExecutionAndDatasetView> getWorkflowExecutionsOverview(
       MetisUser metisUser, Set<PluginStatus> pluginStatuses, Set<PluginType> pluginTypes,
@@ -583,10 +588,10 @@ public class OrchestratorService {
    * @param datasetId the dataset identifier to generate the information for
    * @return the structured class containing all the execution information
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               </ul>
    */
   public DatasetExecutionInformation getDatasetExecutionInformation(MetisUser metisUser,
       String datasetId) throws GenericMetisException {
@@ -641,7 +646,8 @@ public class OrchestratorService {
     setPreviewInformation(executionInfo, lastExecutablePreviewPlugin, lastPreviewPlugin,
         isPreviewCleaningOrRunning, now);
     setPublishInformation(executionInfo, firstPublishPlugin, lastExecutablePublishPlugin,
-        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now, datasetId);
+        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now,
+        datasetId);
 
     return executionInfo;
   }
@@ -690,16 +696,16 @@ public class OrchestratorService {
 
     // Determine the publication and depublication situation of the dataset
     final boolean depublishHappenedAfterLatestPublish = lastExecutableDepublishPlugin != null &&
-            lastExecutablePublishPlugin != null &&
-            lastExecutablePublishPlugin.getFinishedDate()
-                    .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
+        lastExecutablePublishPlugin != null &&
+        lastExecutablePublishPlugin.getFinishedDate()
+            .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
     /* TODO JV below we use the fact that a record depublish cannot follow a dataset depublish (so
         we don't have to look further into the past for all depublish actions after the last
         publish. We should make this code more robust by not assuming that here. */
     final boolean datasetCurrentlyDepublished = depublishHappenedAfterLatestPublish
-            && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
-            && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
-            .isDatasetDepublish();
+        && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
+        && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
+        .isDatasetDepublish();
 
     // Set the depublish status.
     final PublicationStatus status;
@@ -719,7 +725,7 @@ public class OrchestratorService {
         depublishedRecordCount = executionInfo.getLastPublishedRecords();
       } else {
         depublishedRecordCount = (int) depublishRecordIdDao
-                .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
+            .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
       }
       executionInfo.setLastDepublishedRecords(depublishedRecordCount);
     }
@@ -754,10 +760,10 @@ public class OrchestratorService {
    * @param datasetId the dataset identifier to generate the history for
    * @return the structured class containing all the execution history, ordered by date descending.
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
-   * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link NoDatasetFoundException} if the dataset identifier provided does not exist</li>
+   *                               <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
+   *                               </ul>
    */
   public ExecutionHistory getDatasetExecutionHistory(MetisUser metisUser, String datasetId)
       throws GenericMetisException {
@@ -784,16 +790,16 @@ public class OrchestratorService {
    * Retrieve a list of plugins with data availability {@link PluginsWithDataAvailability} for a
    * given workflow execution.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUser   the user wishing to perform this operation
    * @param executionId the identifier of the execution for which to get the plugins
    * @return the structured class containing all the execution history, ordered by date descending.
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
-   * non-existing execution ID or version is provided.</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
-   * authenticated or authorized to perform this operation</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
+   *                               non-existing execution ID or version is provided.</li>
+   *                               <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   *                               authenticated or authorized to perform this operation</li>
+   *                               </ul>
    */
   public PluginsWithDataAvailability getExecutablePluginsWithDataAvailability(MetisUser metisUser,
       String executionId) throws GenericMetisException {
@@ -835,17 +841,17 @@ public class OrchestratorService {
    * Get the evolution of the records from when they were first imported until (and excluding) the
    * specified version.
    *
-   * @param metisUser the user wishing to perform this operation
+   * @param metisUser   the user wishing to perform this operation
    * @param executionId The ID of the workflow exection in which the version is created.
-   * @param pluginType The step within the workflow execution that created the version.
+   * @param pluginType  The step within the workflow execution that created the version.
    * @return The record evolution.
    * @throws GenericMetisException which can be one of:
-   * <ul>
-   * <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
-   * non-existing execution ID or version is provided.</li>
-   * <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
-   * authenticated or authorized to perform this operation</li>
-   * </ul>
+   *                               <ul>
+   *                               <li>{@link eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException} if an
+   *                               non-existing execution ID or version is provided.</li>
+   *                               <li>{@link eu.europeana.metis.exception.UserUnauthorizedException} if the user is not
+   *                               authenticated or authorized to perform this operation</li>
+   *                               </ul>
    */
   public VersionEvolution getRecordEvolutionForVersion(MetisUser metisUser,
       String executionId, PluginType pluginType) throws GenericMetisException {

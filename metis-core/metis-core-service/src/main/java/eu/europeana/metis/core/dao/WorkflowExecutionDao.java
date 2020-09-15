@@ -174,7 +174,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * executions the value of the <code>cancelledBy</code> field will remain <code>null</code></p>
    *
    * @param workflowExecution the workflowExecution to be cancelled
-   * @param metisUser the user that triggered the cancellation or null if it was the system
+   * @param metisUser         the user that triggered the cancellation or null if it was the system
    */
   public void setCancellingState(WorkflowExecution workflowExecution, MetisUser metisUser) {
     UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
@@ -200,10 +200,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   }
 
   /**
-   * Set the id of the one responsible for starting the workflow field in the database.
+   * Set the id of the one responsible for triggering the workflow field 'startedBy' in the
+   * database.
    *
    * @param workflowExecution the workflowExecution that got started
-   * @param metisUser the user that triggered the start of the workflow
+   * @param metisUser         the user that triggered the start of the workflow
    */
   public void setStartedBy(WorkflowExecution workflowExecution, MetisUser metisUser) {
     UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
@@ -298,9 +299,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * Get the first successful Plugin of a WorkflowExecution for a dataset identifier and a set of
    * plugin types
    *
-   * @param datasetId the dataset identifier
+   * @param datasetId   the dataset identifier
    * @param pluginTypes the set of plugin types to check for. Cannot be null or contain null
-   * values.
+   *                    values.
    * @return the first plugin found
    */
   public PluginWithExecutionId<MetisPlugin> getFirstSuccessfulPlugin(String datasetId,
@@ -313,9 +314,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * Get the last successful Plugin of a WorkflowExecution for a dataset identifier and a set of
    * plugin types
    *
-   * @param datasetId the dataset identifier
+   * @param datasetId   the dataset identifier
    * @param pluginTypes the set of plugin types to check for. Cannot be null or contain null
-   * values.
+   *                    values.
    * @return the last plugin found
    */
   public PluginWithExecutionId<MetisPlugin> getLatestSuccessfulPlugin(String datasetId,
@@ -328,9 +329,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * Get the last successful Plugin of a WorkflowExecution for a dataset identifier and a set of
    * plugin types
    *
-   * @param datasetId the dataset identifier
-   * @param pluginTypes the set of plugin types to check for. Cannot be null or contain null
-   * values.
+   * @param datasetId        the dataset identifier
+   * @param pluginTypes      the set of plugin types to check for. Cannot be null or contain null
+   *                         values.
    * @param limitToValidData Only return the result if it has valid data (see {@link DataStatus}).
    * @return the last plugin found
    */
@@ -425,13 +426,17 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   /**
    * Get all WorkflowExecutions paged.
    *
-   * @param datasetIds a set of dataset identifiers to filter, can be empty or null to get all
-   * @param workflowStatuses a set of workflow statuses to filter, can be empty or null
-   * @param orderField the field to be used to sort the results
-   * @param ascending a boolean value to request the ordering to ascending or descending
-   * @param nextPage the nextPage token
+   * @param datasetIds                     a set of dataset identifiers to filter, can be empty or
+   *                                       null to get all
+   * @param workflowStatuses               a set of workflow statuses to filter, can be empty or
+   *                                       null
+   * @param orderField                     the field to be used to sort the results
+   * @param ascending                      a boolean value to request the ordering to ascending or
+   *                                       descending
+   * @param nextPage                       the nextPage token
    * @param ignoreMaxServedExecutionsLimit whether this method is to apply the limit on the number
-   * of executions are served. Be carefull when setting this to true.
+   *                                       of executions are served. Be carefull when setting this
+   *                                       to true.
    * @return a list of all the WorkflowExecutions found
    */
   public ResultList<WorkflowExecution> getAllWorkflowExecutions(Set<String> datasetIds,
@@ -482,20 +487,20 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * Get an overview of all WorkflowExecutions. This returns a list of executions ordered to display
    * an overview. First the ones in queue, then those in progress and then those that are finalized.
    * They will be sorted by creation date. This method does support pagination.
-   *
+   * <p>
    * TODO when we migrate to mongo 3.4 or later, we can do this easier with new aggregation pipeline
    * stages and operators. The main improvements are 1) to try to map the root to the 'execution'
    * variable so that we don't have to look it up afterwards, and 2) to use $addFields with $switch
    * to add the statusIndex instead of having to go through creating and subtracting the two
    * temporary fields.
    *
-   * @param datasetIds a set of dataset identifiers to filter, can be empty or null to get all
+   * @param datasetIds     a set of dataset identifiers to filter, can be empty or null to get all
    * @param pluginStatuses the plugin statuses to filter. Can be null.
-   * @param pluginTypes the plugin types to filter. Can be null.
-   * @param fromDate the date from where the results should start. Can be null.
-   * @param toDate the date to where the results should end. Can be null.
-   * @param nextPage the nextPage token
-   * @param pageCount the number of pages that are requested
+   * @param pluginTypes    the plugin types to filter. Can be null.
+   * @param fromDate       the date from where the results should start. Can be null.
+   * @param toDate         the date to where the results should end. Can be null.
+   * @param nextPage       the nextPage token
+   * @param pageCount      the number of pages that are requested
    * @return a list of all the WorkflowExecutions found
    */
   public ResultList<ExecutionDatasetPair> getWorkflowExecutionsOverview(Set<String> datasetIds,
@@ -639,7 +644,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     /**
      * Constructor.
      *
-     * @param dataset The dataset.
+     * @param dataset   The dataset.
      * @param execution The execution.
      */
     public ExecutionDatasetPair(Dataset dataset, WorkflowExecution execution) {
@@ -773,8 +778,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * parameters.
    *
    * @param startedDate The started date of the subtask.
-   * @param pluginType The plugin type of the subtask.
-   * @param datasetId The dataset ID of the workflow execution.
+   * @param pluginType  The plugin type of the subtask.
+   * @param datasetId   The dataset ID of the workflow execution.
    * @return The workflow execution.
    */
   public WorkflowExecution getByTaskExecution(Date startedDate, PluginType pluginType,
@@ -946,9 +951,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     /**
      * Constructor.
      *
-     * @param results The results.
+     * @param results               The results.
      * @param maxResultCountReached Whether the maximum result count has been reached (indicating
-     * whether next pages will be served).
+     *                              whether next pages will be served).
      */
     public ResultList(List<T> results, boolean maxResultCountReached) {
       this.results = new ArrayList<>(results);
