@@ -182,9 +182,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
    * update the plugin's progress and at the end finalize the plugin's status and finished date.
    *
    * @param pluginUnchecked the plugin to run
-   * @param startDateToUse  The date that should be used as start date (if the plugin is not already
-   *                        running).
-   * @param datasetId       The dataset ID.
+   * @param startDateToUse The date that should be used as start date (if the plugin is not already
+   * running).
+   * @param datasetId The dataset ID.
    */
   private void runMetisPlugin(AbstractMetisPlugin pluginUnchecked, Date startDateToUse,
       String datasetId) {

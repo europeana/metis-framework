@@ -76,9 +76,9 @@ public class WorkflowExecution implements HasMongoObjectId {
   /**
    * Constructor with all required parameters and initializes it's internal structure.
    *
-   * @param dataset          the {@link Dataset} related to the execution
-   * @param metisPlugins     the list of {@link AbstractMetisPlugin} including harvest plugin for
-   *                         execution
+   * @param dataset the {@link Dataset} related to the execution
+   * @param metisPlugins the list of {@link AbstractMetisPlugin} including harvest plugin for
+   * execution
    * @param workflowPriority the positive number of the priority of the execution
    */
   public WorkflowExecution(Dataset dataset, List<? extends AbstractMetisPlugin> metisPlugins,
