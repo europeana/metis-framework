@@ -376,9 +376,6 @@ public class OrchestratorService {
     final WorkflowExecution workflowExecution = workflowExecutionFactory
         .createWorkflowExecution(workflow, dataset, predecessor, priority);
 
-    // Save the user that triggered the workflow
-    workflowExecutionDao.setStartedBy(workflowExecution, metisUser);
-
     // Obtain the lock.
     RLock executionDatasetIdLock = redissonClient
         .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
@@ -400,6 +397,9 @@ public class OrchestratorService {
     } finally {
       executionDatasetIdLock.unlock();
     }
+
+    // Save the user that triggered the workflow
+    workflowExecutionDao.setStartedBy(workflowExecution, metisUser);
 
     // Add the workflow execution to the queue.
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
