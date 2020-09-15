@@ -157,7 +157,6 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
     when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
-//    doNothing().when(workflowExecution).setStartedBy(anyString());
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
