@@ -32,8 +32,10 @@ import java.util.stream.Stream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +118,8 @@ public class MongoDereferenceService implements DereferenceService {
       throws JAXBException, TransformerException, URISyntaxException {
 
     // Get the main object to dereference. If null, we are done.
-    final Pair<EnrichmentBase, Vocabulary> resource = retrieveCachedEntity(resourceId);
+    final Pair<EnrichmentBase, Vocabulary> resource = computeEnrichmentBaseVocabularyPair(
+        resourceId);
     if (resource == null) {
       return Collections.emptyList();
     }
@@ -125,10 +128,11 @@ public class MongoDereferenceService implements DereferenceService {
     final Function<String, EnrichmentBase> valueResolver = key -> {
       Pair<EnrichmentBase, Vocabulary> result;
       try {
-        result = retrieveCachedEntity(key);
+        result = computeEnrichmentBaseVocabularyPair(key);
         return result == null ? null : result.getLeft();
       } catch (JAXBException | TransformerException | URISyntaxException e) {
-        LOGGER.warn("Problem occurred while dereferencing broader resource " + key + ".", e);
+        LOGGER.warn(String.format("Problem occurred while dereferencing broader resource %s.", key),
+            e);
         return null;
       }
     };
@@ -167,25 +171,21 @@ public class MongoDereferenceService implements DereferenceService {
     return collection == null ? Stream.empty() : collection.stream();
   }
 
-  Pair<EnrichmentBase, Vocabulary> retrieveCachedEntity(String resourceId)
+  Pair<EnrichmentBase, Vocabulary> computeEnrichmentBaseVocabularyPair(String resourceId)
       throws JAXBException, TransformerException, URISyntaxException {
 
     // Try to get the entity and its vocabulary from the cache.
     final ProcessedEntity cachedEntity = processedEntityDao.get(resourceId);
-    String transformedEntityXml = null;
-    Vocabulary entityVocabulary = null;
-    if (cachedEntity != null) {
-      transformedEntityXml = cachedEntity.getXml();
-      entityVocabulary = Optional.ofNullable(cachedEntity.getVocabularyId()).map(vocabularyDao::get)
-          .orElse(null);
-    }
 
-    final Pair<String, Vocabulary> entityVocabularyPair = computeEntityAndVocabulary(resourceId,
-        cachedEntity, transformedEntityXml, entityVocabulary);
+    final Pair<String, Vocabulary> entityVocabularyPair = computeEntityVocabularyPair(resourceId,
+        cachedEntity);
+    if (cachedEntity == null || didVocabularyChange(cachedEntity, entityVocabularyPair)) {
+      saveEntity(resourceId, cachedEntity, entityVocabularyPair);
+    }
 
     // Parse the entity.
     final Pair<EnrichmentBase, Vocabulary> enrichmentBaseVocabularyPair;
-    if (entityVocabularyPair == null) {
+    if (entityVocabularyPair.getLeft() == null || entityVocabularyPair.getRight() == null) {
       enrichmentBaseVocabularyPair = null;
     } else {
       enrichmentBaseVocabularyPair = convertToEnrichmentBaseVocabularyPair(
@@ -194,60 +194,77 @@ public class MongoDereferenceService implements DereferenceService {
     return enrichmentBaseVocabularyPair;
   }
 
+  private boolean didVocabularyChange(ProcessedEntity cachedEntity,
+      Pair<String, Vocabulary> entityVocabularyPair) {
+    final String cachedVocabularyId = cachedEntity.getVocabularyId();
+    final String computedVocabularyId = Optional.ofNullable(entityVocabularyPair.getRight())
+        .map(Vocabulary::getId).map(ObjectId::toString).orElse(null);
+
+    final boolean didVocabularyChange;
+    if (cachedVocabularyId != null && computedVocabularyId != null) {
+      didVocabularyChange = !cachedVocabularyId.equals(computedVocabularyId);
+    } else {
+      didVocabularyChange = cachedVocabularyId != null || computedVocabularyId != null;
+    }
+    return didVocabularyChange;
+  }
+
   /**
-   * Based on the values of {@code transformedEntityXml} and {@code entityVocabulary} compute the
-   * pair with the transformed entity and vocabulary.
+   * Computes the entity and vocabulary.
+   * <p>It will use the cache if it's still valid, otherwise it will retrieve(if applicable) the
+   * original entity and transform the result. </p>
    * <p>The possible outcomes are:
    * <ul>
-   *   <li>If the {@code entityVocabulary} is not null then simply return a pair with the
-   *   provided values. We accept that the returned entity can be null, as a result of a
-   *   previous transformation.</li>
-   *   <li>If {@code entityVocabulary} is null then retrieve the original entity and transform it
-   *   based on the vocabulary candidates from the database, and return that pair</li>
+   *   <li>Both items of the pair are null. We do not have a vocabulary candidate or we have more
+   *   than one vocabulary candidate and all have not succeed either retrieving the original
+   *   entity or transforming the retrieved entity.</li>
+   *   <li>Entity xml(Left) is null, and vocabulary(Right) is non null. We have a vocabulary
+   *   and the entity xml failed either to be retried or failed transformation.</li>
+   *   <li>Entity xml(Left) is non null, and vocabulary(Right) is non null. We have a
+   *   successful retrieval and transformation.</li>
    * </ul>
    * </p>
    *
    * @param resourceId the url of the provider entity
    * @param cachedEntity the cached entity object
-   * @param transformedEntityXml the previously transformed provider entity
-   * @param entityVocabulary the previously used vocabulary for the transformation
    * @return a pair with the computed values
    * @throws URISyntaxException if the resource identifier url is invalid
    * @throws TransformerException if an exception occurred during transformation of the original
    * entity
    */
-  private Pair<String, Vocabulary> computeEntityAndVocabulary(String resourceId,
-      ProcessedEntity cachedEntity, String transformedEntityXml, Vocabulary entityVocabulary)
-      throws URISyntaxException, TransformerException {
+  private Pair<String, Vocabulary> computeEntityVocabularyPair(String resourceId,
+      ProcessedEntity cachedEntity) throws URISyntaxException, TransformerException {
 
-    final Pair<String, Vocabulary> transformedEntityAndVocabularyPair;
-    // If the vocabulary is null then we need to find the correct one and transform the provider
-    // entity.
-    if (entityVocabulary == null) {
-      final VocabularyCandidates vocabularyCandidates = VocabularyCandidates
-          .findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
-      //If any of transformedEntityXml or entityVocabulary is null, we need to re-transform
-      transformedEntityAndVocabularyPair = retrieveEntityAndTransform(resourceId,
-          vocabularyCandidates);
-      //If we have proper results store them
-      if (transformedEntityAndVocabularyPair != null) {
-        //Save entity
-        ProcessedEntity entityToCache =
-            (cachedEntity == null) ? new ProcessedEntity() : cachedEntity;
-        entityToCache.setResourceId(resourceId);
-        entityToCache.setXml(transformedEntityAndVocabularyPair.getLeft());
-        entityToCache
-            .setVocabularyId(transformedEntityAndVocabularyPair.getRight().getId().toString());
-        processedEntityDao.save(entityToCache);
-      }
-    } else {
-      // If the vocabulary previously used is not null then we accept that the previous
-      // transformation of the provider entity did not succeed, and we have cached that result
-      transformedEntityAndVocabularyPair = new ImmutablePair<>(transformedEntityXml,
-          entityVocabulary);
+    final Pair<String, Vocabulary> transformedEntityVocabularyPair;
+
+    //Check if vocabulary actually exists
+    Vocabulary cachedVocabulary = null;
+    boolean cachedVocabularyChanged = false;
+    if (cachedEntity != null && StringUtils.isNotBlank(cachedEntity.getVocabularyId())) {
+      cachedVocabulary = vocabularyDao.get(cachedEntity.getVocabularyId());
+      cachedVocabularyChanged = cachedVocabulary == null;
     }
 
-    return transformedEntityAndVocabularyPair;
+    // If we do not have any cached entity, we need to compute it
+    if (cachedEntity == null || cachedVocabularyChanged) {
+      transformedEntityVocabularyPair = retrieveAndTransformEntity(resourceId);
+    } else {
+      // If we have something in the cache we return that instead
+      transformedEntityVocabularyPair = new ImmutablePair<>(cachedEntity.getXml(),
+          cachedVocabulary);
+    }
+
+    return transformedEntityVocabularyPair;
+  }
+
+  private void saveEntity(String resourceId, ProcessedEntity cachedEntity,
+      Pair<String, Vocabulary> transformedEntityAndVocabularyPair) {
+    //Save entity
+    ProcessedEntity entityToCache = (cachedEntity == null) ? new ProcessedEntity() : cachedEntity;
+    entityToCache.setResourceId(resourceId);
+    entityToCache.setXml(transformedEntityAndVocabularyPair.getLeft());
+    entityToCache.setVocabularyId(transformedEntityAndVocabularyPair.getRight().getId().toString());
+    processedEntityDao.save(entityToCache);
   }
 
   private Pair<EnrichmentBase, Vocabulary> convertToEnrichmentBaseVocabularyPair(String entityXml,
@@ -265,25 +282,40 @@ public class MongoDereferenceService implements DereferenceService {
     return result;
   }
 
-  private Pair<String, Vocabulary> retrieveEntityAndTransform(String resourceId,
-      VocabularyCandidates vocabularyCandidates) throws TransformerException {
+  private Pair<String, Vocabulary> retrieveAndTransformEntity(String resourceId)
+      throws TransformerException, URISyntaxException {
 
-    String originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
-    //If original entity exists, try transformation
-    ImmutablePair<String, Vocabulary> transformedEntityAndVocabularyPair = null;
-    if (originalEntity != null) {
-      // Transform the original entity.
-      for (Vocabulary vocabulary : vocabularyCandidates.getVocabularies()) {
-        final String transformedEntity = retrieveEntityAndTransform(vocabulary, originalEntity,
-            resourceId);
-        if (transformedEntity != null) {
-          transformedEntityAndVocabularyPair = new ImmutablePair<>(transformedEntity, vocabulary);
-          break;
+    final VocabularyCandidates vocabularyCandidates = VocabularyCandidates
+        .findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
+
+    String transformedEntity = null;
+    Vocabulary chosenVocabulary = null;
+    //Only if we have vocabularies we continue
+    if (!vocabularyCandidates.isEmpty()) {
+      String originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
+      //If original entity exists, try transformation
+      if (originalEntity != null) {
+        // Transform the original entity and find vocabulary if applicable.
+        for (Vocabulary vocabulary : vocabularyCandidates.getVocabularies()) {
+          transformedEntity = transformEntity(vocabulary, originalEntity, resourceId);
+          if (transformedEntity != null) {
+            chosenVocabulary = vocabulary;
+            break;
+          }
         }
       }
     }
 
-    return transformedEntityAndVocabularyPair;
+    final ImmutablePair<String, Vocabulary> entityVocabularyPair;
+    // If retrieval or transformation of entity failed and we have one vocabulary then we store that
+    if (transformedEntity == null && vocabularyCandidates.getVocabularies().size() == 1) {
+      entityVocabularyPair = new ImmutablePair<>(null,
+          vocabularyCandidates.getVocabularies().get(0));
+    } else {
+      entityVocabularyPair = new ImmutablePair<>(transformedEntity, chosenVocabulary);
+    }
+
+    return entityVocabularyPair;
   }
 
   private String retrieveOriginalEntity(String resourceId, VocabularyCandidates candidates) {
@@ -305,8 +337,8 @@ public class MongoDereferenceService implements DereferenceService {
     return originalEntity;
   }
 
-  private String retrieveEntityAndTransform(Vocabulary vocabulary, String originalEntity,
-      String resourceId) throws TransformerException {
+  private String transformEntity(Vocabulary vocabulary, String originalEntity, String resourceId)
+      throws TransformerException {
     final IncomingRecordToEdmConverter converter = new IncomingRecordToEdmConverter(vocabulary);
     final String result;
     try {
