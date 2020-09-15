@@ -31,7 +31,7 @@ import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.core.workflow.CancelledSystemId;
+import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractExecutablePlugin;
@@ -170,7 +170,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   /**
    * Set the cancelling field in the database.
    * <p>Also adds information of the user identifier that cancelled the execution or if it was by a
-   * system operation, using {@link CancelledSystemId} values as identifiers. For historical
+   * system operation, using {@link SystemId} values as identifiers. For historical
    * executions the value of the <code>cancelledBy</code> field will remain <code>null</code></p>
    *
    * @param workflowExecution the workflowExecution to be cancelled
@@ -185,7 +185,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     workflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
     String cancelledBy;
     if (metisUser == null || metisUser.getUserId() == null) {
-      cancelledBy = CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name();
+      cancelledBy = SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name();
     } else {
       cancelledBy = metisUser.getUserId();
     }

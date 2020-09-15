@@ -7,7 +7,7 @@ import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.CommonStringValues;
-import eu.europeana.metis.core.workflow.CancelledSystemId;
+import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -227,7 +227,7 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
     LOGGER.info("Cancel execution for externalTaskId: {}", getExternalTaskId());
     try {
       dpsClient.killTask(getTopologyName(), Long.parseLong(getExternalTaskId()),
-          CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelledById)
+          SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name().equals(cancelledById)
               ? "Cancelled By System" : "Cancelled By User");
     } catch (DpsException | RuntimeException e) {
       throw new ExternalTaskException("Requesting task cancellation failed", e);

@@ -30,6 +30,7 @@ import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
+import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -392,8 +393,8 @@ public class OrchestratorService {
                 storedWorkflowExecutionId));
       }
       workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-      if(metisUser == null){
-        workflowExecution.setStartedBy(null);
+      if(metisUser == null || metisUser.getUserId() == null){
+        workflowExecution.setStartedBy(SystemId.STARTED_BY_SYSTEM.name());
       }
       else {
         workflowExecution.setStartedBy(metisUser.getUserId());

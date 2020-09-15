@@ -20,7 +20,7 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.CancelledSystemId;
+import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
@@ -358,7 +358,7 @@ class TestWorkflowExecutor {
         .thenReturn(currentlyProcessingExecutionProgress)
         .thenReturn(processedExecutionProgress);
     doNothing().when(oaipmhHarvestPlugin)
-        .cancel(dpsClient, CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+        .cancel(dpsClient, SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
 
     when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
@@ -458,13 +458,13 @@ class TestWorkflowExecutor {
     WorkflowExecution workflowExecution = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecution.setId(objectId);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
-    workflowExecution.setCancelledBy(CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+    workflowExecution.setCancelledBy(SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
 
     when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(true);
     doNothing().when(oaipmhHarvestPlugin)
-        .cancel(dpsClient, CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+        .cancel(dpsClient, SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
     doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
         .when(oaipmhHarvestPlugin).monitor(dpsClient);
     when(workflowExecutionDao.getById(workflowExecution.getId().toString()))
@@ -479,7 +479,7 @@ class TestWorkflowExecutor {
     verify(workflowExecutionDao, times(1)).update(workflowExecutionArgumentCaptor.capture());
     assertEquals(WorkflowStatus.CANCELLED,
         workflowExecutionArgumentCaptor.getValue().getWorkflowStatus());
-    assertEquals(CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name(),
+    assertEquals(SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name(),
         workflowExecutionArgumentCaptor.getValue().getCancelledBy());
   }
 
@@ -499,13 +499,13 @@ class TestWorkflowExecutor {
     workflowExecution.setId(objectId);
     workflowExecution.setMetisPlugins(abstractMetisPlugins);
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    workflowExecution.setCancelledBy(CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+    workflowExecution.setCancelledBy(SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
 
     when(workflowExecutionMonitor.claimExecution(workflowExecution.getId().toString()))
         .thenReturn(workflowExecution);
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(true);
     doNothing().when(oaipmhHarvestPlugin)
-        .cancel(dpsClient, CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
+        .cancel(dpsClient, SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name());
     doReturn(new MonitorResult(currentlyProcessingExecutionProgress.getStatus(), null))
         .when(oaipmhHarvestPlugin).monitor(dpsClient);
     when(workflowExecutionDao.getById(workflowExecution.getId().toString()))
@@ -520,7 +520,7 @@ class TestWorkflowExecutor {
     verify(workflowExecutionDao, times(1)).update(workflowExecutionArgumentCaptor.capture());
     assertEquals(WorkflowStatus.CANCELLED,
         workflowExecutionArgumentCaptor.getValue().getWorkflowStatus());
-    assertEquals(CancelledSystemId.SYSTEM_MINUTE_CAP_EXPIRE.name(),
+    assertEquals(SystemId.SYSTEM_MINUTE_CAP_EXPIRE.name(),
         workflowExecutionArgumentCaptor.getValue().getCancelledBy());
   }
 }

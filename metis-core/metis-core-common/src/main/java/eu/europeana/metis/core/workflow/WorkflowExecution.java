@@ -189,12 +189,6 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   public void setStartedBy(String startedBy) {
-    if (StringUtils.isBlank(startedBy)) {
-      this.startedBy = null;
-    } else {
-      this.startedBy = startedBy;
-    }
-
     this.startedBy = startedBy;
   }
 
