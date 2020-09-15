@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -35,7 +34,6 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,9 +177,6 @@ public class MongoDereferenceService implements DereferenceService {
 
     final Pair<String, Vocabulary> entityVocabularyPair = computeEntityVocabularyPair(resourceId,
         cachedEntity);
-    if (cachedEntity == null || didVocabularyChange(cachedEntity, entityVocabularyPair)) {
-      saveEntity(resourceId, cachedEntity, entityVocabularyPair);
-    }
 
     // Parse the entity.
     final Pair<EnrichmentBase, Vocabulary> enrichmentBaseVocabularyPair;
@@ -192,21 +187,6 @@ public class MongoDereferenceService implements DereferenceService {
           entityVocabularyPair.getLeft(), entityVocabularyPair.getRight());
     }
     return enrichmentBaseVocabularyPair;
-  }
-
-  private boolean didVocabularyChange(ProcessedEntity cachedEntity,
-      Pair<String, Vocabulary> entityVocabularyPair) {
-    final String cachedVocabularyId = cachedEntity.getVocabularyId();
-    final String computedVocabularyId = Optional.ofNullable(entityVocabularyPair.getRight())
-        .map(Vocabulary::getId).map(ObjectId::toString).orElse(null);
-
-    final boolean didVocabularyChange;
-    if (cachedVocabularyId != null && computedVocabularyId != null) {
-      didVocabularyChange = !cachedVocabularyId.equals(computedVocabularyId);
-    } else {
-      didVocabularyChange = cachedVocabularyId != null || computedVocabularyId != null;
-    }
-    return didVocabularyChange;
   }
 
   /**
@@ -248,6 +228,7 @@ public class MongoDereferenceService implements DereferenceService {
     // If we do not have any cached entity, we need to compute it
     if (cachedEntity == null || cachedVocabularyChanged) {
       transformedEntityVocabularyPair = retrieveAndTransformEntity(resourceId);
+      saveEntity(resourceId, cachedEntity, transformedEntityVocabularyPair);
     } else {
       // If we have something in the cache we return that instead
       transformedEntityVocabularyPair = new ImmutablePair<>(cachedEntity.getXml(),
