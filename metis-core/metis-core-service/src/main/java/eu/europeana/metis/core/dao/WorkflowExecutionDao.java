@@ -483,7 +483,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
    * Get an overview of all WorkflowExecutions. This returns a list of executions ordered to display
    * an overview. First the ones in queue, then those in progress and then those that are finalized.
    * They will be sorted by creation date. This method does support pagination.
-   * <p>
    * TODO when we migrate to mongo 3.4 or later, we can do this easier with new aggregation pipeline
    * stages and operators. The main improvements are 1) to try to map the root to the 'execution'
    * variable so that we don't have to look it up afterwards, and 2) to use $addFields with $switch
