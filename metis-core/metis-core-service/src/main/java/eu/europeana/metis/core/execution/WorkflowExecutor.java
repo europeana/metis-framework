@@ -100,7 +100,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         workflowExecution.getId(), workflowExecution.getWorkflowPriority());
     final Date finishDate = runInqueueOrRunningStateWorkflowExecution();
 
-    //TODO: Set id of who started the workflow in workflowExecution here?
     String startedBy = workflowExecutionDao.getById(workflowExecution.getId().toString())
         .getStartedBy();
     workflowExecution.setStartedBy(startedBy);

@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
 /**
@@ -188,6 +189,12 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   public void setStartedBy(String startedBy) {
+    if (StringUtils.isBlank(startedBy)) {
+      this.startedBy = null;
+    } else {
+      this.startedBy = startedBy;
+    }
+
     this.startedBy = startedBy;
   }
 

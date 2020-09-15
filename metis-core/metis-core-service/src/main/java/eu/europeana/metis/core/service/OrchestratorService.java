@@ -369,7 +369,7 @@ public class OrchestratorService {
     final PluginWithExecutionId<ExecutablePlugin> predecessor = workflowUtils
         .validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
-    // Make sure that eCloud knows this dataset (needs to happen before we create the workflow).
+    // Make sure that eCloud knows tmetisUserhis dataset (needs to happen before we create the workflow).
     datasetDao.checkAndCreateDatasetInEcloud(dataset);
 
     // Create the workflow execution (without adding it to the database).
@@ -392,14 +392,17 @@ public class OrchestratorService {
                 storedWorkflowExecutionId));
       }
       workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+      if(metisUser == null){
+        workflowExecution.setStartedBy(null);
+      }
+      else {
+        workflowExecution.setStartedBy(metisUser.getUserId());
+      }
       workflowExecution.setCreatedDate(new Date());
       objectId = workflowExecutionDao.create(workflowExecution);
     } finally {
       executionDatasetIdLock.unlock();
     }
-
-    // Save the user that triggered the workflow
-    workflowExecutionDao.setStartedBy(workflowExecution, metisUser);
 
     // Add the workflow execution to the queue.
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
