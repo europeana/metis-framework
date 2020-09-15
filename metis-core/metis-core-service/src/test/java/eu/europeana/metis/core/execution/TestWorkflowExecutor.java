@@ -110,6 +110,8 @@ class TestWorkflowExecutor {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
+    when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
+
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
@@ -154,6 +156,8 @@ class TestWorkflowExecutor {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
+    when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
+//    doNothing().when(workflowExecution).setStartedBy(anyString());
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
@@ -201,6 +205,8 @@ class TestWorkflowExecutor {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
+    when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
+
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
@@ -249,6 +255,8 @@ class TestWorkflowExecutor {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
+    when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
+
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
@@ -302,6 +310,8 @@ class TestWorkflowExecutor {
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
 
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
+    when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
+
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
 
@@ -409,6 +419,8 @@ class TestWorkflowExecutor {
     doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
     when(workflowExecutionDao.update(workflowExecution))
         .thenReturn(workflowExecution.getId().toString());
+    when(workflowExecutionDao.getById(anyString())).thenReturn(workflowExecution);
+
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution.getId().toString(),
         persistenceProvider, workflowExecutionSettings, workflowExecutionMonitor);
