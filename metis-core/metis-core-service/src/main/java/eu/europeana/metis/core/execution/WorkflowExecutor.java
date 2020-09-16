@@ -100,10 +100,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         workflowExecution.getId(), workflowExecution.getWorkflowPriority());
     final Date finishDate = runInqueueOrRunningStateWorkflowExecution();
 
-    String startedBy = workflowExecutionDao.getById(workflowExecution.getId().toString())
-        .getStartedBy();
-    workflowExecution.setStartedBy(startedBy);
-
     // Process the results
     if (finishDate == null && workflowExecutionDao.isCancelling(workflowExecution.getId())) {
       // If the workflow was cancelled before it had the chance to finish, we cancel all remaining
