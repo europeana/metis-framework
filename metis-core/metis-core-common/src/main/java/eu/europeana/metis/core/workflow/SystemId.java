@@ -6,6 +6,6 @@ package eu.europeana.metis.core.workflow;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2019-02-06
  */
-public enum CancelledSystemId {
-  SYSTEM_MINUTE_CAP_EXPIRE
+public enum SystemId {
+  SYSTEM_MINUTE_CAP_EXPIRE, STARTED_BY_SYSTEM
 }

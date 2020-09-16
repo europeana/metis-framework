@@ -30,6 +30,7 @@ import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
+import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -305,7 +306,7 @@ public class OrchestratorService {
           String.format("No dataset found with datasetId: %s, in METIS", datasetId));
     }
     return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
-        enforcedPredecessorType, priority);
+        enforcedPredecessorType, priority, null);
   }
 
   /**
@@ -345,12 +346,12 @@ public class OrchestratorService {
       throws GenericMetisException {
     final Dataset dataset = authorizer.authorizeWriteExistingDatasetById(metisUser, datasetId);
     return addWorkflowInQueueOfWorkflowExecutions(dataset, workflowProvided,
-        enforcedPredecessorType, priority);
+        enforcedPredecessorType, priority, metisUser);
   }
 
   private WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(Dataset dataset,
       @Nullable Workflow workflowProvided, @Nullable ExecutablePluginType enforcedPredecessorType,
-      int priority)
+      int priority, MetisUser metisUser)
       throws GenericMetisException {
 
     // Get the workflow or use the one provided.
@@ -369,7 +370,7 @@ public class OrchestratorService {
     final PluginWithExecutionId<ExecutablePlugin> predecessor = workflowUtils
         .validateWorkflowPlugins(workflow, enforcedPredecessorType);
 
-    // Make sure that eCloud knows this dataset (needs to happen before we create the workflow).
+    // Make sure that eCloud knows tmetisUserhis dataset (needs to happen before we create the workflow).
     datasetDao.checkAndCreateDatasetInEcloud(dataset);
 
     // Create the workflow execution (without adding it to the database).
@@ -392,6 +393,12 @@ public class OrchestratorService {
                 storedWorkflowExecutionId));
       }
       workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+      if(metisUser == null || metisUser.getUserId() == null){
+        workflowExecution.setStartedBy(SystemId.STARTED_BY_SYSTEM.name());
+      }
+      else {
+        workflowExecution.setStartedBy(metisUser.getUserId());
+      }
       workflowExecution.setCreatedDate(new Date());
       objectId = workflowExecutionDao.create(workflowExecution);
     } finally {
@@ -638,7 +645,8 @@ public class OrchestratorService {
     setPreviewInformation(executionInfo, lastExecutablePreviewPlugin, lastPreviewPlugin,
         isPreviewCleaningOrRunning, now);
     setPublishInformation(executionInfo, firstPublishPlugin, lastExecutablePublishPlugin,
-        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now, datasetId);
+        lastPublishPlugin, lastExecutableDepublishPlugin, isPublishCleaningOrRunning, now,
+        datasetId);
 
     return executionInfo;
   }
@@ -687,16 +695,16 @@ public class OrchestratorService {
 
     // Determine the publication and depublication situation of the dataset
     final boolean depublishHappenedAfterLatestPublish = lastExecutableDepublishPlugin != null &&
-            lastExecutablePublishPlugin != null &&
-            lastExecutablePublishPlugin.getFinishedDate()
-                    .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
+        lastExecutablePublishPlugin != null &&
+        lastExecutablePublishPlugin.getFinishedDate()
+            .compareTo(lastExecutableDepublishPlugin.getFinishedDate()) < 0;
     /* TODO JV below we use the fact that a record depublish cannot follow a dataset depublish (so
         we don't have to look further into the past for all depublish actions after the last
         publish. We should make this code more robust by not assuming that here. */
     final boolean datasetCurrentlyDepublished = depublishHappenedAfterLatestPublish
-            && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
-            && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
-            .isDatasetDepublish();
+        && (lastExecutableDepublishPlugin instanceof DepublishPlugin)
+        && ((DepublishPluginMetadata) lastExecutableDepublishPlugin.getPluginMetadata())
+        .isDatasetDepublish();
 
     // Set the depublish status.
     final PublicationStatus status;
@@ -716,7 +724,7 @@ public class OrchestratorService {
         depublishedRecordCount = executionInfo.getLastPublishedRecords();
       } else {
         depublishedRecordCount = (int) depublishRecordIdDao
-                .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
+            .countSuccessfullyDepublishedRecordIdsForDataset(datasetId);
       }
       executionInfo.setLastDepublishedRecords(depublishedRecordCount);
     }

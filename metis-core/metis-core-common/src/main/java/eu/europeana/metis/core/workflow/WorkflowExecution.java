@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
 /**
@@ -35,6 +36,7 @@ import org.bson.types.ObjectId;
     @Index(fields = {@Field("workflowStatus")}),
     @Index(fields = {@Field("ecloudDatasetId")}),
     @Index(fields = {@Field("cancelledBy")}),
+    @Index(fields = {@Field("startedBy")}),
     @Index(fields = {@Field("createdDate")}),
     @Index(fields = {@Field("startedDate")}),
     @Index(fields = {@Field("updatedDate")}),
@@ -53,6 +55,7 @@ public class WorkflowExecution implements HasMongoObjectId {
   private WorkflowStatus workflowStatus;
   private String ecloudDatasetId;
   private String cancelledBy;
+  private String startedBy;
   private int workflowPriority;
   private boolean cancelling;
 
@@ -179,6 +182,14 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   public void setCancelledBy(String cancelledBy) {
     this.cancelledBy = cancelledBy;
+  }
+
+  public String getStartedBy() {
+    return startedBy;
+  }
+
+  public void setStartedBy(String startedBy) {
+    this.startedBy = startedBy;
   }
 
   public String getEcloudDatasetId() {
