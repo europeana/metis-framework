@@ -51,7 +51,7 @@ class VocabularyCandidatesTest {
     // Match and obtain list of matching vocabularies
     final String resourceId = correctUri + "/123456";
     final List<Vocabulary> result = VocabularyCandidates
-        .findVocabulariesForUrl(resourceId, vocabularyProviderMock).getCandidates();
+        .findVocabulariesForUrl(resourceId, vocabularyProviderMock).getVocabularies();
 
     // Verify that the provider was called exactly once with the right value.
     Mockito.verify(vocabularyProviderMock).apply(Mockito.anyString());
@@ -108,20 +108,20 @@ class VocabularyCandidatesTest {
 
     // Try with all vocabularies
     final Set<String> suffixes1 = new VocabularyCandidates(
-            Arrays.asList(vocabulary1, vocabulary2, vocabulary3)).getCandidateSuffixes();
+        Arrays.asList(vocabulary1, vocabulary2, vocabulary3)).getVocabulariesSuffixes();
     assertEquals(2, suffixes1.size());
     assertTrue(suffixes1.contains(suffixA));
     assertTrue(suffixes1.contains(suffixB));
 
     // Try with one vocabulary
-    final Set<String> suffixes2 =
-        new VocabularyCandidates(Collections.singletonList(vocabulary1)).getCandidateSuffixes();
+    final Set<String> suffixes2 = new VocabularyCandidates(Collections.singletonList(vocabulary1))
+        .getVocabulariesSuffixes();
     assertEquals(1, suffixes2.size());
     assertTrue(suffixes2.contains(suffixA));
 
     // Try with no vocabularies
-    final Set<String> suffixes3 =
-        new VocabularyCandidates(Collections.emptyList()).getCandidateSuffixes();
+    final Set<String> suffixes3 = new VocabularyCandidates(Collections.emptyList())
+        .getVocabulariesSuffixes();
     assertTrue(suffixes3.isEmpty());
   }
 

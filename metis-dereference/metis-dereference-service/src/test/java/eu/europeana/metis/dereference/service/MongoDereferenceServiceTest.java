@@ -79,7 +79,8 @@ class MongoDereferenceServiceTest {
     place.setAbout(entityId);
 
     // Mock the service
-    doReturn(new ImmutablePair<>(place, geonames)).when(service).retrieveCachedEntity(entityId);
+    doReturn(new ImmutablePair<>(place, geonames)).when(service)
+        .computeEnrichmentBaseVocabularyPair(entityId);
 
     // Test the method
     final EnrichmentResultList result = service.dereference(entityId);
@@ -94,7 +95,7 @@ class MongoDereferenceServiceTest {
     assertThrows(IllegalArgumentException.class, ()->service.dereference(null));
 
     // Test absent object
-    doReturn(null).when(service).retrieveCachedEntity(entityId);
+    doReturn(null).when(service).computeEnrichmentBaseVocabularyPair(entityId);
     final EnrichmentResultList emptyResult = service.dereference(entityId);
     assertNotNull(emptyResult);
     assertNotNull(emptyResult.getEnrichmentBaseWrapperList());
