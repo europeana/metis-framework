@@ -1,11 +1,16 @@
 package eu.europeana.metis.dereference;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
+//import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpStatus;
 
 /**
  * Helper class to retrieve a remote unmapped entity Created by ymamakis on 2/11/16.
@@ -13,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
 public class RdfRetriever {
 
   private static final int MAX_NUMBER_OF_REDIRECTS = 5;
+
+  private static HttpClient httpClient;
 
   /**
    * Retrieve a remote entity from a resource as a String. We try every suffix in a random order
@@ -43,20 +50,43 @@ public class RdfRetriever {
     // Make the connection and retrieve the result.
     // Note: we have no choice but to follow the provided URL.
     @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
-    final HttpURLConnection urlConnection = (HttpURLConnection) new URL(url).openConnection();
-    urlConnection.setRequestProperty("accept", "application/rdf+xml");
-    final int responseCode = urlConnection.getResponseCode();
-    final String contentType = urlConnection.getContentType();
-    
+    HttpRequest httpRequest = HttpRequest.newBuilder()
+        .GET()
+        .uri(URI.create(url))
+        .setHeader("Accept", "application/rdf+xml")
+        .build();
+//    final HttpURLConnection urlConnection = (HttpURLConnection) new URL(url).openConnection();
+//    urlConnection.setRequestProperty("accept", "application/rdf+xml");
+    HttpResponse<String> httpResponse = null;
+
+    try {
+      httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+      //TODO: Add LOG
+    }
+    final int responseCode;
+    final String contentType;
+
+    if (httpResponse != null){
+      responseCode = httpResponse.statusCode();
+      contentType = httpResponse.headers().map().get("Content-Type").get(0);//TODO: Chek if this works
+
+    }
+    else {
+      responseCode = 0;
+      contentType = StringUtils.EMPTY;
+    }
+
     // Check the response code.
     final String result;
-    if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
-        || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-        || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+    if (responseCode == HttpStatus.SC_MOVED_TEMPORARILY
+        || responseCode == HttpStatus.SC_MOVED_PERMANENTLY
+        || responseCode == HttpStatus.SC_SEE_OTHER) {
 
       // Perform redirect
-      final String location = urlConnection.getHeaderField("Location");
-      urlConnection.disconnect();
+      final String location = httpResponse.headers().map().get("Location").get(0);
+      //urlConnection.disconnect();
       if (redirectsLeft > 0 && location != null) {
         result = retrieveFromSource(location, redirectsLeft - 1);
       } else {
@@ -65,8 +95,9 @@ public class RdfRetriever {
     } else {
 
       // Check that we didn't receive HTML input.
-      result = IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
-      urlConnection.disconnect();
+      result = httpResponse.body(); //TODO: Check if it is the body what they want
+      //result = IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
+      //urlConnection.disconnect();
       if (StringUtils.isBlank(result)) {
         throw new IOException("Could not retrieve the entity: it is empty.");
       } else if (StringUtils.startsWith(contentType, "text/html") || result
