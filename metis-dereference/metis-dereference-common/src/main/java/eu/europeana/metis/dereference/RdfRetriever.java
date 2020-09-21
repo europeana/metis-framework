@@ -19,7 +19,7 @@ public class RdfRetriever {
 
   private static final int MAX_NUMBER_OF_REDIRECTS = 5;
 
-  private static HttpClient httpClient;
+  private static HttpClient httpClient = HttpClient.newBuilder().build();
 
   /**
    * Retrieve a remote entity from a resource as a String. We try every suffix in a random order
