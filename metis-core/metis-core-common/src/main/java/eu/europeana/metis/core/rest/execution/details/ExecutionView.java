@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ExecutionView {
@@ -28,7 +30,8 @@ public class ExecutionView {
   private final Date finishedDate;
   private final List<PluginView> metisPlugins;
 
-  public ExecutionView(WorkflowExecution execution) {
+  public ExecutionView(WorkflowExecution execution,
+          Predicate<AbstractMetisPlugin<?>> canDisplayRawXml) {
     this.id = execution.getId().toString();
     this.datasetId = execution.getDatasetId();
     this.workflowStatus = execution.getWorkflowStatus();
@@ -41,7 +44,8 @@ public class ExecutionView {
     this.startedDate = execution.getStartedDate();
     this.updatedDate = execution.getUpdatedDate();
     this.finishedDate = execution.getFinishedDate();
-    this.metisPlugins = execution.getMetisPlugins().stream().map(PluginView::new)
+    this.metisPlugins = execution.getMetisPlugins().stream()
+            .map(plugin -> new PluginView(plugin, canDisplayRawXml.test(plugin)))
             .collect(Collectors.toList());
   }
 

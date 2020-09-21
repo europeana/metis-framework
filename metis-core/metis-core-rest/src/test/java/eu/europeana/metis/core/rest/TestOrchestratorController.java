@@ -832,10 +832,10 @@ class TestOrchestratorController {
     // Create nonempty history
     final PluginWithDataAvailability plugin1 = new PluginWithDataAvailability();
     plugin1.setPluginType(PluginType.OAIPMH_HARVEST);
-    plugin1.setHasSuccessfulData(true);
+    plugin1.setCanDisplayRawXml(true);
     final PluginWithDataAvailability plugin2 = new PluginWithDataAvailability();
     plugin2.setPluginType(PluginType.ENRICHMENT);
-    plugin2.setHasSuccessfulData(false);
+    plugin2.setCanDisplayRawXml(false);
     final PluginsWithDataAvailability resultNonEmpty = new PluginsWithDataAvailability();
     resultNonEmpty.setPlugins(Arrays.asList(plugin1, plugin2));
 
@@ -852,12 +852,12 @@ class TestOrchestratorController {
         .andExpect(jsonPath("$.plugins", hasSize(2)))
         .andExpect(jsonPath("$.plugins[0].pluginType",
             is(plugin1.getPluginType().name())))
-        .andExpect(jsonPath("$.plugins[0].hasSuccessfulData",
-            is(plugin1.isHasSuccessfulData())))
+        .andExpect(jsonPath("$.plugins[0].canDisplayRawXml",
+            is(plugin1.isCanDisplayRawXml())))
         .andExpect(jsonPath("$.plugins[1].pluginType",
             is(plugin2.getPluginType().name())))
-        .andExpect(jsonPath("$.plugins[1].hasSuccessfulData",
-            is(plugin2.isHasSuccessfulData())));
+        .andExpect(jsonPath("$.plugins[1].canDisplayRawXml",
+            is(plugin2.isCanDisplayRawXml())));
 
     // Test happy flow with empty evolution
     final PluginsWithDataAvailability resultEmpty = new PluginsWithDataAvailability();

@@ -38,6 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import javax.persistence.criteria.Predicate;
 import org.bson.types.ObjectId;
 
 /**
@@ -136,7 +137,8 @@ public class TestObjectFactory {
    */
   public static List<ExecutionView> createListOfWorkflowExecutions(int size) {
     return createExecutionsWithDatasets(size).stream().map(ExecutionDatasetPair::getExecution)
-        .map(ExecutionView::new).collect(Collectors.toList());
+            .map(execution -> new ExecutionView(execution, plugin -> true))
+            .collect(Collectors.toList());
   }
 
   /**

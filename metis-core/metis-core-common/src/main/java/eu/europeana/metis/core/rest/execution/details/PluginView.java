@@ -25,8 +25,9 @@ public class PluginView {
   private final String externalTaskId;
   private final PluginProgressView executionProgress;
   private final String topologyName;
+  private final boolean canDisplayRawXml;
 
-  PluginView(AbstractMetisPlugin plugin) {
+  PluginView(AbstractMetisPlugin plugin, boolean canDisplayRawXml) {
     this.pluginType = plugin.getPluginType();
     this.id = plugin.getId();
     this.pluginStatus = plugin.getPluginStatus();
@@ -34,6 +35,7 @@ public class PluginView {
     this.failMessage = plugin.getFailMessage();
     this.startedDate = plugin.getStartedDate();
     this.finishedDate = plugin.getFinishedDate();
+    this.canDisplayRawXml = canDisplayRawXml;
     if (plugin instanceof AbstractExecutablePlugin) {
       this.updatedDate = ((AbstractExecutablePlugin<?>) plugin).getUpdatedDate();
       this.externalTaskId = ((AbstractExecutablePlugin<?>) plugin).getExternalTaskId();
@@ -90,5 +92,9 @@ public class PluginView {
 
   public String getTopologyName() {
     return topologyName;
+  }
+
+  public boolean isCanDisplayRawXml() {
+    return canDisplayRawXml;
   }
 }
