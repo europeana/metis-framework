@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.net.http.HttpClient;
+import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
@@ -19,7 +20,9 @@ public class RdfRetriever {
 
   private static final int MAX_NUMBER_OF_REDIRECTS = 5;
 
-  private static HttpClient httpClient = HttpClient.newBuilder().build();
+  private static HttpClient httpClient = HttpClient.newBuilder()
+      .followRedirects(Redirect.NORMAL)
+      .build();
 
   /**
    * Retrieve a remote entity from a resource as a String. We try every suffix in a random order
@@ -49,6 +52,8 @@ public class RdfRetriever {
 
     // Make the connection and retrieve the result.
     // Note: we have no choice but to follow the provided URL.
+
+    //TODO: Can thrown an exception - URI with undefined scheme
     @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
     HttpRequest httpRequest = HttpRequest.newBuilder()
         .GET()
@@ -66,16 +71,16 @@ public class RdfRetriever {
       //TODO: Add LOG
     }
     final int responseCode;
-    final String contentType;
+//    final String contentType;
 
     if (httpResponse != null){
       responseCode = httpResponse.statusCode();
-      contentType = httpResponse.headers().map().get("Content-Type").get(0);//TODO: Chek if this works
+//      contentType = httpResponse.headers().map().get("Content-Type").get(0);
 
     }
     else {
       responseCode = 0;
-      contentType = StringUtils.EMPTY;
+//      contentType = StringUtils.EMPTY;
     }
 
     // Check the response code.
@@ -93,9 +98,10 @@ public class RdfRetriever {
         throw new IOException("Could not retrieve the entity: too many redirects.");
       }
     } else {
+      String contentType = httpResponse.headers().map().get("Content-Type").get(0);
 
       // Check that we didn't receive HTML input.
-      result = httpResponse.body(); //TODO: Check if it is the body what they want
+      result = httpResponse.body();
       //result = IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
       //urlConnection.disconnect();
       if (StringUtils.isBlank(result)) {
