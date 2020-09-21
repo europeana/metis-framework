@@ -29,6 +29,7 @@ import eu.europeana.metis.core.rest.PluginsWithDataAvailability.PluginWithDataAv
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
+import eu.europeana.metis.core.rest.execution.details.ExecutionView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -503,7 +504,7 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser,
+  public ResponseListWrapper<ExecutionView> getAllWorkflowExecutions(MetisUser metisUser,
       String datasetId, Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField,
       boolean ascending, int nextPage) throws GenericMetisException {
 
@@ -527,8 +528,10 @@ public class OrchestratorService {
         datasetIds, workflowStatuses, orderField, ascending, nextPage, false);
 
     // Compile and return the result.
-    final ResponseListWrapper<WorkflowExecution> result = new ResponseListWrapper<>();
-    result.setResultsAndLastPage(data.getResults(), getWorkflowExecutionsPerRequest(), nextPage,
+    final List<ExecutionView> convertedData = data.getResults().stream().map(ExecutionView::new)
+            .collect(Collectors.toList());
+    final ResponseListWrapper<ExecutionView> result = new ResponseListWrapper<>();
+    result.setResultsAndLastPage(convertedData, getWorkflowExecutionsPerRequest(), nextPage,
         data.isMaxResultCountReached());
     return result;
   }
