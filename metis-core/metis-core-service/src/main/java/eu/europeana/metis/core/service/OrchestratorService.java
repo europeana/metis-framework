@@ -557,18 +557,38 @@ public class OrchestratorService {
       Date fromDate, Date toDate, int nextPage, int pageCount) throws GenericMetisException {
     authorizer.authorizeReadAllDatasets(metisUser);
     final Set<String> datasetIds = getDatasetIdsToFilterOn(metisUser);
-    final ResultList<ExecutionDatasetPair> data =
-        workflowExecutionDao.getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes,
-            fromDate, toDate, nextPage, pageCount);
-    final List<ExecutionAndDatasetView> views = data.getResults().stream()
+    final ResultList<ExecutionDatasetPair> resultList;
+    if (datasetIds == null || datasetIds.size() > 0) {
+      //Match results filtering using specified dataset ids or without dataset id filter if it's null
+      resultList = workflowExecutionDao
+          .getWorkflowExecutionsOverview(datasetIds, pluginStatuses, pluginTypes,
+              fromDate, toDate, nextPage, pageCount);
+    } else {
+      //Result should be empty if dataset set is empty
+      resultList = new ResultList<>(Collections.emptyList(), false);
+    }
+    final List<ExecutionAndDatasetView> views = resultList.getResults().stream()
         .map(result -> new ExecutionAndDatasetView(result.getExecution(), result.getDataset()))
         .collect(Collectors.toList());
     final ResponseListWrapper<ExecutionAndDatasetView> result = new ResponseListWrapper<>();
     result.setResultsAndLastPage(views, getWorkflowExecutionsPerRequest(), nextPage, pageCount,
-        data.isMaxResultCountReached());
+        resultList.isMaxResultCountReached());
     return result;
   }
 
+  /**
+   * Get the list of dataset ids that the provided user owns.
+   * <p>The return value can be one of the following:
+   * <ul>
+   *  <li>null when a user has role {@link AccountRole#METIS_ADMIN}, which means the user owns everything</li>
+   *  <li>Empty set if the user owns nothing</li>
+   *  <li>Non-Empty set with the dataset ids that the user owns, for users that have a role other than {@link AccountRole#METIS_ADMIN}</li>
+   * </ul>
+   * </p>
+   *
+   * @param metisUser the user to use for getting the owned dataset ids
+   * @return a set of dataset ids
+   */
   private Set<String> getDatasetIdsToFilterOn(MetisUser metisUser) {
     final Set<String> datasetIds;
     if (metisUser.getAccountRole() == AccountRole.METIS_ADMIN) {

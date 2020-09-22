@@ -3,10 +3,11 @@ package eu.europeana.metis.core.dao;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 
-import com.mongodb.WriteResult;
-import dev.morphia.Key;
+import com.mongodb.client.result.DeleteResult;
+import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.utils.ExternalRequestUtil;
@@ -41,36 +42,34 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
 
   @Override
   public String create(DatasetXslt datasetXslt) {
-    Key<DatasetXslt> datasetKey = ExternalRequestUtil
+    DatasetXslt datasetSaved = ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(datasetXslt));
     LOGGER.debug("DatasetXslt for datasetId: '{}'created in Mongo", datasetXslt.getDatasetId());
-    return datasetKey == null ? null : datasetKey.getId().toString();
+    return datasetSaved == null ? null : datasetSaved.getId().toString();
   }
 
   @Override
   public String update(DatasetXslt datasetXslt) {
-    Key<DatasetXslt> datasetKey = ExternalRequestUtil
+    DatasetXslt datasetXsltSaved = ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(datasetXslt));
     LOGGER.debug("DatasetXslt for datasetId: '{}' updated in Mongo", datasetXslt.getDatasetId());
-    return datasetKey == null ? null : datasetKey.getId().toString();
+    return datasetXsltSaved == null ? null : datasetXsltSaved.getId().toString();
   }
 
   @Override
   public DatasetXslt getById(String id) {
     return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
-            .filter(ID.getFieldName(), new ObjectId(id)).first());
+            .filter(Filters.eq(ID.getFieldName(), new ObjectId(id))).first());
   }
 
   @Override
   public boolean delete(DatasetXslt datasetXslt) {
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
-        () -> morphiaDatastoreProvider.getDatastore().delete(
-            morphiaDatastoreProvider.getDatastore().createQuery(DatasetXslt.class)
-                .field(ID.getFieldName())
-                .equal(datasetXslt.getId())));
+        () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
+            .filter(Filters.eq(ID.getFieldName(), datasetXslt.getId())).delete());
     LOGGER.debug("DatasetXslt with objectId: '{}', datasetId: '{}'deleted in Mongo",
         datasetXslt.getId(),
         datasetXslt.getDatasetId());
@@ -84,14 +83,12 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
    * @return true if something was found and deleted or false
    */
   public boolean deleteAllByDatasetId(String datasetId) {
-    Query<DatasetXslt> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(DatasetXslt.class);
-    query.field(DATASET_ID.getFieldName()).equal(datasetId);
-    WriteResult delete = ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(
-            () -> morphiaDatastoreProvider.getDatastore().delete(query));
+    Query<DatasetXslt> query = morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class);
+    query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
+    DeleteResult deleteResult = ExternalRequestUtil
+        .retryableExternalRequestForNetworkExceptions(query::delete);
     LOGGER.debug("Xslts with datasetId: {}, deleted from Mongo", datasetId);
-    return (delete == null ? 0 : delete.getN()) >= 1;
+    return (deleteResult == null ? 0 : deleteResult.getDeletedCount()) >= 1;
   }
 
   /**
@@ -103,8 +100,8 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
   DatasetXslt getLatestXsltForDatasetId(String datasetId) {
     return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
-            .filter(DATASET_ID.getFieldName(), datasetId).order(Sort.descending("createdDate"))
-            .first());
+            .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId))
+            .first(new FindOptions().sort(Sort.descending("createdDate"))));
   }
 
   /**

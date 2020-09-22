@@ -1,7 +1,9 @@
 package eu.europeana.indexing;
 
 import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
@@ -49,8 +51,8 @@ public class IndexedRecordAccess {
    * @return The number of records encountered for the given dataset.
    */
   public long countRecords(String datasetId) {
-    final Query<?> query = mongoServer.getDatastore().createQuery(FullBeanImpl.class);
-    query.field(ABOUT_FIELD).startsWith(getRecordIdPrefix(datasetId));
+    final Query<FullBeanImpl> query = mongoServer.getDatastore().find(FullBeanImpl.class);
+    query.filter(Filters.regex(ABOUT_FIELD).pattern("^" + getRecordIdPrefix(datasetId)));
     return query.count();
   }
 
@@ -80,8 +82,8 @@ public class IndexedRecordAccess {
 
       // Obtain the Mongo record
       final Datastore datastore = mongoServer.getDatastore();
-      final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class).field(ABOUT_FIELD)
-          .equal(rdfAbout).first();
+      final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class)
+          .filter(Filters.eq(ABOUT_FIELD, rdfAbout)).first();
 
       // Remove mongo record and dependencies
       if (recordToDelete != null) {
@@ -115,9 +117,9 @@ public class IndexedRecordAccess {
    * @return The number of records that were removed.
    * @throws IndexerRelatedIndexingException In case something went wrong.
    */
-  public int removeDataset(String datasetId, Date maxRecordDate)
-          throws IndexerRelatedIndexingException {
-    final int mongoCount;
+  public long removeDataset(String datasetId, Date maxRecordDate)
+      throws IndexerRelatedIndexingException {
+    final long mongoCount;
     try {
       mongoCount = removeDatasetFromMongo(datasetId, maxRecordDate);
       removeDatasetFromSolr(datasetId, maxRecordDate);
@@ -133,7 +135,7 @@ public class IndexedRecordAccess {
     final StringBuilder solrQuery = new StringBuilder();
 
     final String datasetIdRegexEscaped =
-            ClientUtils.escapeQueryChars(getRecordIdPrefix(datasetId)) + "*";
+        ClientUtils.escapeQueryChars(getRecordIdPrefix(datasetId)) + "*";
     solrQuery.append(EdmLabel.EUROPEANA_ID).append(':').append(datasetIdRegexEscaped);
 
     if (maxRecordDate != null) {
@@ -146,13 +148,13 @@ public class IndexedRecordAccess {
     solrServer.deleteByQuery(solrQuery.toString());
   }
 
-  private int removeDatasetFromMongo(String datasetId, Date maxRecordDate) {
-    final Query<?> query = mongoServer.getDatastore().createQuery(FullBeanImpl.class);
-    query.field(ABOUT_FIELD).startsWith(getRecordIdPrefix(datasetId));
+  private long removeDatasetFromMongo(String datasetId, Date maxRecordDate) {
+    final Query<FullBeanImpl> query = mongoServer.getDatastore().find(FullBeanImpl.class);
+    query.filter(Filters.regex(ABOUT_FIELD).pattern("^" + getRecordIdPrefix(datasetId)));
     if (maxRecordDate != null) {
-      query.field("timestampUpdated").lessThan(maxRecordDate);
+      query.filter(Filters.lt("timestampUpdated", maxRecordDate));
     }
-    return mongoServer.getDatastore().delete(query).getN();
+    return query.delete(new DeleteOptions().multi(true)).getDeletedCount();
   }
 
   private static String getRecordIdPrefix(String datasetId) {

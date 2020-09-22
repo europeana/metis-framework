@@ -7,8 +7,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import dev.morphia.Datastore;
-import dev.morphia.Key;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.definitions.jibx.AltLabel;
 import eu.europeana.corelib.definitions.jibx.Begin;
 import eu.europeana.corelib.definitions.jibx.End;
@@ -80,13 +80,11 @@ class TimespanFieldInputTest {
     Datastore datastoreMock = mock(Datastore.class);
     @SuppressWarnings("unchecked")
     Query<TimespanImpl> queryMock = mock(Query.class);
-    @SuppressWarnings("unchecked")
-    Key<TimespanImpl> keyMock = mock(Key.class);
 
     when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
     when(datastoreMock.find(TimespanImpl.class)).thenReturn(queryMock);
-    when(datastoreMock.save(timespanImpl)).thenReturn(keyMock);
-    when(queryMock.filter("about", timespan.getAbout())).thenReturn(queryMock);
+    when(datastoreMock.save(timespanImpl)).thenReturn(timespanImpl);
+    when(queryMock.filter(Filters.eq("about", timespan.getAbout()))).thenReturn(queryMock);
 
     TimespanImpl timespanMongo = new TimespanFieldInput().apply(timespan);
     mongoServerMock.getDatastore().save(timespanMongo);

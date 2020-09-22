@@ -139,9 +139,8 @@ public class MongoDereferenceService implements DereferenceService {
     final int iterations = resource.getRight().getIterations();
     final Map<String, EnrichmentBase> result;
     if (iterations > 0) {
-      result = GraphUtils
-          .breadthFirstSearch(resourceId, resource.getLeft(), resource.getRight().getIterations(),
-              valueResolver, this::extractBroaderResources);
+      result = GraphUtils.breadthFirstSearch(resourceId, resource.getLeft(),
+          resource.getRight().getIterations(), valueResolver, this::extractBroaderResources);
     } else {
       result = new HashMap<>();
       result.put(resourceId, resource.getLeft());

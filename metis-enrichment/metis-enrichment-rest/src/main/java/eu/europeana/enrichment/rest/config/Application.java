@@ -1,7 +1,7 @@
 package eu.europeana.enrichment.rest.config;
 
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
@@ -27,9 +27,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/**
- * Spring configuration class Created by ymamakis on 12-2-16.
- */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.enrichment.rest",
     "eu.europeana.enrichment.rest.exception"})

@@ -31,7 +31,7 @@
       <exclusions>
         <exclusion>
           <groupId>org.mongodb</groupId>
-          <artifactId>mongo-java-driver</artifactId>
+          <artifactId>mongodb-driver-core</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

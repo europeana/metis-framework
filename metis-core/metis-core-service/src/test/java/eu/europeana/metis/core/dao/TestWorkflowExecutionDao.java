@@ -16,9 +16,10 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionIdAndStartedDatePair;
@@ -73,8 +74,8 @@ class TestWorkflowExecutionDao {
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
-    ServerAddress address = new ServerAddress(mongoHost, mongoPort);
-    MongoClient mongoClient = new MongoClient(address);
+    MongoClient mongoClient = MongoClients
+        .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
     provider = new MorphiaDatastoreProviderImpl(mongoClient, "test");
 
     workflowExecutionDao = spy(new WorkflowExecutionDao(provider));
@@ -94,7 +95,7 @@ class TestWorkflowExecutionDao {
   @AfterEach
   void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.delete(datastore.createQuery(WorkflowExecution.class));
+    datastore.find(WorkflowExecution.class).delete(new DeleteOptions().multi(true));
     reset(workflowExecutionDao);
   }
 
@@ -674,6 +675,17 @@ class TestWorkflowExecutionDao {
         .map(ObjectId::toString).collect(Collectors.toList());
     assertEquals(expectedOrder, actualOrderWithoutFilter);
 
+    // Try with empty dataset ids Set.
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
+    final ResultList<ExecutionDatasetPair> resultWithEmptyDatasetIdsSet = workflowExecutionDao
+        .getWorkflowExecutionsOverview(Collections.emptySet(), null, null, null, null, 0, 1);
+    assertNotNull(resultWithEmptyDatasetIdsSet);
+    assertFalse(resultWithEmptyDatasetIdsSet.isMaxResultCountReached());
+    final List<String> actualOrderWithEmptyDatasetIdsSet = resultWithEmptyDatasetIdsSet.getResults().stream()
+        .map(ExecutionDatasetPair::getExecution).map(WorkflowExecution::getId)
+        .map(ObjectId::toString).collect(Collectors.toList());
+    assertEquals(expectedOrder, actualOrderWithEmptyDatasetIdsSet);
+
     // Try with filtering on dataset.
     workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
     final ResultList<ExecutionDatasetPair> resultWithFilter = workflowExecutionDao
@@ -725,14 +737,6 @@ class TestWorkflowExecutionDao {
     assertNotNull(resultWithInvalidFilter);
     assertFalse(resultWithInvalidFilter.isMaxResultCountReached());
     assertTrue(resultWithInvalidFilter.getResults().isEmpty());
-
-    // Try with empty filter.
-    workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());
-    final ResultList<ExecutionDatasetPair> resultWithEmptyFilter = workflowExecutionDao
-        .getWorkflowExecutionsOverview(Collections.emptySet(), null, null, null, null, 0, 1);
-    assertNotNull(resultWithEmptyFilter);
-    assertFalse(resultWithEmptyFilter.isMaxResultCountReached());
-    assertTrue(resultWithEmptyFilter.getResults().isEmpty());
 
     // Try pagination
     final int pageSize = 2;

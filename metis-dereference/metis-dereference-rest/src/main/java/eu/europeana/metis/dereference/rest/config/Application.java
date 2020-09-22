@@ -1,11 +1,11 @@
 package eu.europeana.metis.dereference.rest.config;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.mongo.MongoClientProvider;
+import eu.europeana.metis.mongo.MongoProperties;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,8 +27,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Spring configuration class
- * Created by ymamakis on 12-2-16.
+ * Spring configuration class Created by ymamakis on 12-2-16.
  */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest",
@@ -64,8 +63,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${vocabulary.db}")
   private String vocabularyDb;
 
-  private MongoProviderImpl mongoProviderEntity;
-  private MongoProviderImpl mongoProviderVocabulary;
+  private MongoClient mongoClientEntity;
+  private MongoClient mongoClientVocabulary;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -76,17 +75,16 @@ public class Application implements WebMvcConfigurer, InitializingBean {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
 
-    String[] mongoPorts = new String[mongoHosts.length];
+    int[] mongoPorts = new int[mongoHosts.length];
     for (int i = 0; i < mongoHosts.length; i++) {
-      mongoPorts[i]= Integer.toString(mongoPort);
+      mongoPorts[i] = mongoPort;
     }
-    MongoClientOptions.Builder options = MongoClientOptions.builder();
-    mongoProviderEntity = new MongoProviderImpl(mongoHosts, mongoPorts, entityDb,
-        mongoUsername,
-        mongoPassword, options);
-    mongoProviderVocabulary = new MongoProviderImpl(mongoHosts, mongoPorts, vocabularyDb,
-        mongoUsername,
-        mongoPassword, options);
+
+    final MongoProperties<IllegalArgumentException> mongoProperties = new MongoProperties<>(
+        IllegalArgumentException::new);
+    mongoProperties.setMongoHosts(mongoHosts, mongoPorts);
+    mongoClientEntity = new MongoClientProvider<>(mongoProperties).createMongoClient();
+    mongoClientVocabulary = new MongoClientProvider<>(mongoProperties).createMongoClient();
   }
 
   @Override
@@ -103,11 +101,11 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   }
 
   MongoClient getEntityMongoClient() {
-    return mongoProviderEntity.getMongo();
+    return mongoClientEntity;
   }
 
   MongoClient getVocabularyMongoClient() {
-    return mongoProviderVocabulary.getMongo();
+    return mongoClientVocabulary;
   }
 
   @Bean
@@ -141,11 +139,11 @@ public class Application implements WebMvcConfigurer, InitializingBean {
    */
   @PreDestroy
   public void close() {
-    if (mongoProviderVocabulary != null) {
-      mongoProviderVocabulary.close();
+    if (mongoClientVocabulary != null) {
+      mongoClientVocabulary.close();
     }
-    if (mongoProviderEntity != null) {
-      mongoProviderEntity.close();
+    if (mongoClientEntity != null) {
+      mongoClientEntity.close();
     }
   }
 

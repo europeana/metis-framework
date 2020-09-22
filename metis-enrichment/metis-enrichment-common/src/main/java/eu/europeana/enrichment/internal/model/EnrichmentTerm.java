@@ -1,14 +1,13 @@
-package eu.europeana.enrichment.api.external.model;
+package eu.europeana.enrichment.internal.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import dev.morphia.annotations.Embedded;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
-import eu.europeana.corelib.solr.entity.ContextualClassImpl;
+import eu.europeana.enrichment.api.external.model.LabelInfo;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
@@ -16,7 +15,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
- * Enrichment Term containing the relative contextual object.
+ * Enrichment Term containing the relative entity object.
  *
  * @author Simon Tzanakis
  * @since 2020-08-04
@@ -33,7 +32,8 @@ import org.bson.types.ObjectId;
     @Index(fields = {@Field("labelInfos.lowerCaseLabel"), @Field("labelInfos.lang"),
         @Field("entityType")}),
     @Index(fields = {@Field("created"), @Field("entityType")}),
-    @Index(fields = {@Field("updated"), @Field("entityType")})
+    @Index(fields = {@Field("updated"), @Field("entityType")}),
+    @Index(fields = {@Field("enrichmentEntity.about")}, options = @IndexOptions(unique = true))
 })
 public class EnrichmentTerm {
 
@@ -47,9 +47,7 @@ public class EnrichmentTerm {
   private Date created;
   private Date updated;
   private EntityType entityType;
-  @Embedded
-  private ContextualClassImpl contextualEntity;
-  @Embedded
+  private AbstractEnrichmentEntity enrichmentEntity;
   private List<LabelInfo> labelInfos;
 
   public EnrichmentTerm() {
@@ -64,12 +62,12 @@ public class EnrichmentTerm {
     this.entityType = entityType;
   }
 
-  public ContextualClassImpl getContextualEntity() {
-    return contextualEntity;
+  public AbstractEnrichmentEntity getEnrichmentEntity() {
+    return enrichmentEntity;
   }
 
-  public void setContextualEntity(ContextualClassImpl contextualEntity) {
-    this.contextualEntity = contextualEntity;
+  public void setEnrichmentEntity(AbstractEnrichmentEntity enrichmentEntity) {
+    this.enrichmentEntity = enrichmentEntity;
   }
 
   public List<LabelInfo> getLabelInfos() {

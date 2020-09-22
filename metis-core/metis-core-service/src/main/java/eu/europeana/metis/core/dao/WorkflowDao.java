@@ -3,9 +3,10 @@ package eu.europeana.metis.core.dao;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 
-import com.mongodb.WriteResult;
-import dev.morphia.Key;
+import com.mongodb.client.result.DeleteResult;
+import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.utils.ExternalRequestUtil;
@@ -37,28 +38,27 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   @Override
   public String create(Workflow workflow) {
-    final Key<Workflow> workflowKey = ExternalRequestUtil
+    final Workflow workflowSaved = ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' created in Mongo", workflow.getDatasetId());
-    return workflowKey == null ? null : workflowKey.getId().toString();
+    return workflowSaved == null ? null : workflowSaved.getId().toString();
   }
 
 
   @Override
   public String update(Workflow workflow) {
-    final Key<Workflow> workflowKey = ExternalRequestUtil
+    final Workflow workflowSaved = ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' updated in Mongo", workflow.getDatasetId());
-    return workflowKey == null ? null : workflowKey.getId().toString();
+    return workflowSaved == null ? null : workflowSaved.getId().toString();
   }
 
   @Override
   public Workflow getById(String id) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
-        .find(Workflow.class)
-        .field(ID.getFieldName()).equal(new ObjectId(id));
+        .find(Workflow.class).filter(Filters.eq(ID.getFieldName(), new ObjectId(id)));
     return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(query::first);
   }
 
@@ -74,13 +74,12 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
    * @return true if the workflow was found and deleted
    */
   public boolean deleteWorkflow(String datasetId) {
-    Query<Workflow> query = morphiaDatastoreProvider.getDatastore().createQuery(Workflow.class);
-    query.field(DATASET_ID.getFieldName()).equal(datasetId);
-    WriteResult delete = ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(
-            () -> morphiaDatastoreProvider.getDatastore().delete(query));
+    Query<Workflow> query = morphiaDatastoreProvider.getDatastore().find(Workflow.class);
+    query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
+    DeleteResult deleteResult = ExternalRequestUtil
+        .retryableExternalRequestForNetworkExceptions(query::delete);
     LOGGER.info("Workflow with datasetId {}, deleted from Mongo", datasetId);
-    return (delete == null ? 0 : delete.getN()) == 1;
+    return (deleteResult == null ? 0 : deleteResult.getDeletedCount()) == 1;
   }
 
   /**
@@ -97,8 +96,8 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     Workflow storedWorkflow = ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-                .field(DATASET_ID.getFieldName()).equal(datasetId)
-                .project(ID.getFieldName(), true).first());
+                .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId))
+                .first(new FindOptions().projection().include(ID.getFieldName())));
     return storedWorkflow == null ? null : storedWorkflow.getId().toString();
   }
 
@@ -112,7 +111,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     return ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().find(Workflow.class)
-                .field(DATASET_ID.getFieldName()).equal(datasetId).first());
+                .filter(Filters.eq(DATASET_ID.getFieldName(), datasetId)).first());
   }
 }
 

@@ -2,10 +2,14 @@ package eu.europeana.metis.dereference.service.dao;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.DiscriminatorFunction;
+import dev.morphia.mapping.MapperOptions;
+import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.dereference.Vocabulary;
 import java.util.List;
@@ -18,13 +22,14 @@ import org.bson.types.ObjectId;
 
 public class VocabularyDao {
 
-  private final Datastore ds;
+  private final Datastore datastore;
 
   public VocabularyDao(MongoClient mongo, String db) {
-    Morphia morphia = new Morphia();
-    morphia.map(Vocabulary.class);
-
-    ds = morphia.createDatastore(mongo, db);
+    final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
+        .discriminator(DiscriminatorFunction.className())
+        .collectionNaming(NamingStrategy.identity()).build();
+    datastore = Morphia.createDatastore(mongo, db, mapperOptions);
+    datastore.getMapper().map(Vocabulary.class);
   }
 
   /**
@@ -35,9 +40,9 @@ public class VocabularyDao {
    */
   public List<Vocabulary> getByUriSearch(String searchString) {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
-    final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
-    query.field("uris").equal(pattern);
-    try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
+    final Query<Vocabulary> query = datastore.find(Vocabulary.class);
+    query.filter(Filters.eq("uris", pattern));
+    try (final MorphiaCursor<Vocabulary> cursor = query.iterator()) {
       return performFunction(cursor, MorphiaCursor::toList);
     }
   }
@@ -48,8 +53,8 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public List<Vocabulary> getAll() {
-    final Query<Vocabulary> query = ds.createQuery(Vocabulary.class);
-    try (final MorphiaCursor<Vocabulary> cursor = query.find()) {
+    final Query<Vocabulary> query = datastore.find(Vocabulary.class);
+    try (final MorphiaCursor<Vocabulary> cursor = query.iterator()) {
       return performFunction(cursor, MorphiaCursor::toList);
     }
   }
@@ -61,7 +66,7 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public Vocabulary get(String vocabularyId) {
-    return ds.find(Vocabulary.class).filter("_id", new ObjectId(vocabularyId)).first();
+    return datastore.find(Vocabulary.class).filter(Filters.eq("_id", new ObjectId(vocabularyId))).first();
   }
 
   /**
@@ -70,11 +75,11 @@ public class VocabularyDao {
    * @param vocabularies The new vocabularies.
    */
   public void replaceAll(List<Vocabulary> vocabularies) {
-    ds.delete(ds.createQuery(Vocabulary.class));
-    ds.save(vocabularies);
+    datastore.find(Vocabulary.class).delete();
+    datastore.save(vocabularies);
   }
 
   protected Datastore getDatastore() {
-    return ds;
+    return datastore;
   }
 }

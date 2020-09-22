@@ -7,8 +7,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import dev.morphia.Datastore;
-import dev.morphia.Key;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.definitions.jibx.AltLabel;
 import eu.europeana.corelib.definitions.jibx.IsPartOf;
 import eu.europeana.corelib.definitions.jibx.Lat;
@@ -39,13 +39,11 @@ class PlaceFieldInputTest {
     Datastore datastoreMock = mock(Datastore.class);
     @SuppressWarnings("unchecked")
     Query<PlaceImpl> queryMock = mock(Query.class);
-    @SuppressWarnings("unchecked")
-    Key<PlaceImpl> keyMock = mock(Key.class);
 
     when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
     when(datastoreMock.find(PlaceImpl.class)).thenReturn(queryMock);
-    when(datastoreMock.save(placeImpl)).thenReturn(keyMock);
-    when(queryMock.filter("about", placeImpl.getAbout())).thenReturn(queryMock);
+    when(datastoreMock.save(placeImpl)).thenReturn(placeImpl);
+    when(queryMock.filter(Filters.eq("about", placeImpl.getAbout()))).thenReturn(queryMock);
 
     PlaceType place = new PlaceType();
     place.setAbout("test about");
@@ -77,10 +75,10 @@ class PlaceFieldInputTest {
     isPartOfList.add(isPartOf);
     place.setIsPartOfList(isPartOfList);
     Lat posLat = new Lat();
-    posLat.setLat(new Float("1.0"));
+    posLat.setLat(Float.valueOf("1.0"));
     place.setLat(posLat);
     _Long posLong = new _Long();
-    posLong.setLong(new Float("1.0"));
+    posLong.setLong(Float.valueOf("1.0"));
     place.setLong(posLong);
     // create mongo place
     PlaceImpl placeMongo = new PlaceFieldInput().apply(place);

@@ -1,9 +1,13 @@
 package eu.europeana.metis.dereference.service.dao;
 
 import com.mongodb.DuplicateKeyException;
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.DiscriminatorFunction;
+import dev.morphia.mapping.MapperOptions;
+import dev.morphia.mapping.NamingStrategy;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +19,7 @@ public class ProcessedEntityDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ProcessedEntityDao.class);
 
-  private final Datastore ds;
+  private final Datastore datastore;
 
   /**
    * Constructor.
@@ -24,9 +28,11 @@ public class ProcessedEntityDao {
    * @param databaseName The name of the database.
    */
   public ProcessedEntityDao(MongoClient mongo, String databaseName) {
-    final Morphia morphia = new Morphia();
-    morphia.map(ProcessedEntity.class);
-    this.ds = morphia.createDatastore(mongo, databaseName);
+    final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
+        .discriminator(DiscriminatorFunction.className())
+        .collectionNaming(NamingStrategy.identity()).build();
+    this.datastore = Morphia.createDatastore(mongo, databaseName, mapperOptions);
+    this.datastore.getMapper().map(ProcessedEntity.class);
   }
 
   /**
@@ -36,7 +42,8 @@ public class ProcessedEntityDao {
    * @return The entity with the given resource ID.
    */
   public ProcessedEntity get(String resourceId) {
-    return ds.find(ProcessedEntity.class).filter("resourceId", resourceId).first();
+    return datastore.find(ProcessedEntity.class).filter(Filters.eq("resourceId", resourceId))
+        .first();
   }
 
   /**
@@ -46,10 +53,10 @@ public class ProcessedEntityDao {
    */
   public void save(ProcessedEntity entity) {
     try {
-      ds.save(entity);
+      datastore.save(entity);
     } catch (DuplicateKeyException e) {
       LOGGER.info("Attempted to save duplicate record {}, race condition expected.",
-              entity.getResourceId());
+          entity.getResourceId());
       LOGGER.debug("Attempted to save duplicate record - exception details:", e);
     }
   }
@@ -58,6 +65,6 @@ public class ProcessedEntityDao {
    * Remove all entities.
    */
   public void purgeAll() {
-    ds.delete(ds.find(ProcessedEntity.class));
+    datastore.find(ProcessedEntity.class).delete();
   }
 }

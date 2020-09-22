@@ -22,7 +22,7 @@
     </dependency>
     <dependency>
       <groupId>dev.morphia.morphia</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>morphia-core</artifactId>
       <version>${version.morphia.core}</version>
     </dependency>
     <dependency>

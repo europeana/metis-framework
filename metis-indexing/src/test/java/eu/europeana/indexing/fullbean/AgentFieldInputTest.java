@@ -7,8 +7,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import dev.morphia.Datastore;
-import dev.morphia.Key;
 import dev.morphia.query.Query;
+import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.AltLabel;
 import eu.europeana.corelib.definitions.jibx.Begin;
@@ -42,14 +42,12 @@ class AgentFieldInputTest {
     Datastore datastoreMock = mock(Datastore.class);
     @SuppressWarnings("unchecked")
     Query<AgentImpl> queryMock = mock(Query.class);
-    @SuppressWarnings("unchecked")
-    Key<AgentImpl> keyMock = mock(Key.class);
 
     when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
     when(mongoServerMock.getDatastore()).thenReturn(datastoreMock);
     when(datastoreMock.find(AgentImpl.class)).thenReturn(queryMock);
-    when(datastoreMock.save(agentImpl)).thenReturn(keyMock);
-    when(queryMock.filter("about", agentType.getAbout())).thenReturn(queryMock);
+    when(datastoreMock.save(agentImpl)).thenReturn(agentImpl);
+    when(queryMock.filter(Filters.eq("about", agentType.getAbout()))).thenReturn(queryMock);
 
     List<AltLabel> altLabelList = new ArrayList<>();
     AltLabel altLabel = new AltLabel();

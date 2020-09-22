@@ -67,7 +67,7 @@
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>2.2.0</version.embedded.mongo>
-    <version.mongo.java.driver>3.12.6</version.mongo.java.driver>
+    <version.mongodb.driver.core>4.0.2</version.mongodb.driver.core>
     <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.commons.io>2.6</version.commons.io>
     <version.commons.lang3>3.10</version.commons.lang3>
@@ -92,7 +92,7 @@
     <version.corelib>2.10.2-SNAPSHOT</version.corelib>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.commons-fileupload>1.4</version.commons-fileupload>
-    <version.morphia.core>1.5.8</version.morphia.core>
+    <version.morphia.core>2.0.0</version.morphia.core>
     <version.xsom>20140925</version.xsom>
     <version.commonscompress>1.11</version.commonscompress>
     <version.spring.security>5.3.2.RELEASE</version.spring.security>
@@ -153,7 +153,7 @@
           </exclusion>
           <exclusion>
             <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
+            <artifactId>mongodb-driver-core</artifactId>
           </exclusion>
           <exclusion>
             <groupId>org.apache.solr</groupId>

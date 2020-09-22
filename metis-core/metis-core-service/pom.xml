@@ -44,8 +44,8 @@
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
-      <artifactId>mongo-java-driver</artifactId>
-      <version>${version.mongo.java.driver}</version>
+      <artifactId>mongodb-driver-core</artifactId>
+      <version>${version.mongodb.driver.core}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

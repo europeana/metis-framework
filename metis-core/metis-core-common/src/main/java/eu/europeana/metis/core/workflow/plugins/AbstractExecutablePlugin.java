@@ -36,6 +36,14 @@ public abstract class AbstractExecutablePlugin<M extends AbstractExecutablePlugi
   private ExecutionProgress executionProgress = new ExecutionProgress();
 
   /**
+   * Required by (de)serialization in db.
+   * <p>It is not to be used manually</p>
+   */
+  AbstractExecutablePlugin() {
+    //Required by (de)serialization in db
+  }
+
+  /**
    * Constructor with provided pluginType
    *
    * @param pluginType {@link PluginType}

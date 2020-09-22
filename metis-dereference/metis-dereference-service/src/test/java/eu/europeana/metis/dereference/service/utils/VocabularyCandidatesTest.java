@@ -85,7 +85,6 @@ class VocabularyCandidatesTest {
     final Vocabulary vocabulary = new Vocabulary();
     final ObjectId vId = new ObjectId();
     vocabulary.setId(vId);
-
     assertTrue(new VocabularyCandidates(Collections.emptyList()).isEmpty());
     assertFalse(new VocabularyCandidates(Collections.singletonList(vocabulary)).isEmpty());
   }
