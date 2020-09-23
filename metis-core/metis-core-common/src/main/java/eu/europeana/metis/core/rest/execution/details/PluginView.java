@@ -9,6 +9,10 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.Date;
 
+/**
+ * This class represents the complete information on a plugin execution needed for the execution
+ * history.
+ */
 public class PluginView {
 
   private final PluginType pluginType;

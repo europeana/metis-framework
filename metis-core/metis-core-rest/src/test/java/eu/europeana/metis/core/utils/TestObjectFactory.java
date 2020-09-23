@@ -16,7 +16,7 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao.ExecutionDatasetPair;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.Dataset.PublicationFitness;
 import eu.europeana.metis.core.rest.Record;
-import eu.europeana.metis.core.rest.execution.details.ExecutionView;
+import eu.europeana.metis.core.rest.execution.details.WorkflowExecutionView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -38,7 +38,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import javax.persistence.criteria.Predicate;
 import org.bson.types.ObjectId;
 
 /**
@@ -135,9 +134,9 @@ public class TestObjectFactory {
    * @param size the number of dummy workflow executions to create
    * @return the created list
    */
-  public static List<ExecutionView> createListOfWorkflowExecutions(int size) {
+  public static List<WorkflowExecutionView> createListOfWorkflowExecutions(int size) {
     return createExecutionsWithDatasets(size).stream().map(ExecutionDatasetPair::getExecution)
-            .map(execution -> new ExecutionView(execution, plugin -> true))
+            .map(execution -> new WorkflowExecutionView(execution, plugin -> true))
             .collect(Collectors.toList());
   }
 

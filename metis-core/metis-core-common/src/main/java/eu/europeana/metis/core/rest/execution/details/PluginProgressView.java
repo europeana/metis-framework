@@ -3,6 +3,9 @@ package eu.europeana.metis.core.rest.execution.details;
 import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 
+/**
+ * This class contains executionProgress information on a plugin's execution.
+ */
 public class PluginProgressView {
 
   private final int expectedRecords;

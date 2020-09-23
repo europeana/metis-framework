@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class ExecutionView {
+/**
+ * This class represents the full information on a workflow execution needed for the execution
+ * history.
+ */
+public class WorkflowExecutionView {
 
   private final String id;
   private final String datasetId;
@@ -30,7 +34,13 @@ public class ExecutionView {
   private final Date finishedDate;
   private final List<PluginView> metisPlugins;
 
-  public ExecutionView(WorkflowExecution execution,
+  /**
+   * Constructor.
+   *
+   * @param execution The execution for which to construct this view.
+   * @param canDisplayRawXml A predicate that can decide whether a plugin has results to display.
+   */
+  public WorkflowExecutionView(WorkflowExecution execution,
           Predicate<AbstractMetisPlugin<?>> canDisplayRawXml) {
     this.id = execution.getId().toString();
     this.datasetId = execution.getDatasetId();
