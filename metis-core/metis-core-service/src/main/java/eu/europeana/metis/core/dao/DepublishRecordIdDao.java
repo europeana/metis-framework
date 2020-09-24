@@ -3,6 +3,7 @@ package eu.europeana.metis.core.dao;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
 import dev.morphia.DeleteOptions;
+import dev.morphia.UpdateOptions;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
@@ -392,7 +393,7 @@ public class DepublishRecordIdDao {
     // Apply the operations.
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> query.update(firstUpdateOperator, extraUpdateOperators.toArray(UpdateOperator[]::new))
-            .execute());
+            .execute(new UpdateOptions().multi(true)));
   }
 
   /**
