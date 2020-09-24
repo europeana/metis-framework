@@ -4,6 +4,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 
 import com.mongodb.client.result.DeleteResult;
+import dev.morphia.DeleteOptions;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
@@ -86,7 +87,7 @@ public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
     Query<DatasetXslt> query = morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     DeleteResult deleteResult = ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(query::delete);
+        .retryableExternalRequestForNetworkExceptions(() -> query.delete(new DeleteOptions().multi(true)));
     LOGGER.debug("Xslts with datasetId: {}, deleted from Mongo", datasetId);
     return (deleteResult == null ? 0 : deleteResult.getDeletedCount()) >= 1;
   }

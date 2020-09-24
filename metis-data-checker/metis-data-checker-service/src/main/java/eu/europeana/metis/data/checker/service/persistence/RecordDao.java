@@ -1,5 +1,6 @@
 package eu.europeana.metis.data.checker.service.persistence;
 
+import dev.morphia.DeleteOptions;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -119,6 +120,6 @@ public class RecordDao {
   }
 
   private void clearCollectionFromMongo(Class<?> collectionType) {
-    this.mongoServer.getDatastore().find(collectionType).delete();
+    this.mongoServer.getDatastore().find(collectionType).delete(new DeleteOptions().multi(true));
   }
 }

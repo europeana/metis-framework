@@ -15,6 +15,7 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
+import dev.morphia.DeleteOptions;
 import dev.morphia.aggregation.experimental.Aggregation;
 import dev.morphia.aggregation.experimental.expressions.ArrayExpressions;
 import dev.morphia.aggregation.experimental.expressions.ComparisonExpressions;
@@ -734,7 +735,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .find(WorkflowExecution.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     DeleteResult deleteResult = ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(query::delete);
+        .retryableExternalRequestForNetworkExceptions(() -> query.delete(new DeleteOptions().multi(true)));
     LOGGER.debug("WorkflowExecution with datasetId: {}, deleted from Mongo", datasetId);
     return (deleteResult == null ? 0 : deleteResult.getDeletedCount()) >= 1;
   }

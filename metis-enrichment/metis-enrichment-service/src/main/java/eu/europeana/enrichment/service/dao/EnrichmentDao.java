@@ -4,6 +4,7 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
 import dev.morphia.Morphia;
 import dev.morphia.mapping.DiscriminatorFunction;
 import dev.morphia.mapping.Mapper;
@@ -177,7 +178,7 @@ public class EnrichmentDao {
    */
   public List<String> deleteEnrichmentTerms(EntityType entityType, List<String> codeUris) {
     //Remove from EnrichmentTerm
-    deleteEnrichmentTerm(codeUris);
+    deleteEnrichmentTerms(codeUris);
 
     //Find all TermLists that have owlSameAs equals with codeUri
     final Query<EnrichmentTerm> enrichmentTermsSameAsQuery = this.datastore
@@ -189,14 +190,14 @@ public class EnrichmentDao {
         .map(EnrichmentTerm::getCodeUri)
         .collect(Collectors.toList());
     //Remove from EnrichmentTerm
-    deleteEnrichmentTerm(sameAsCodeUris);
+    deleteEnrichmentTerms(sameAsCodeUris);
     return sameAsCodeUris;
   }
 
-  private void deleteEnrichmentTerm(List<String> codeUri) {
+  private void deleteEnrichmentTerms(List<String> codeUri) {
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> this.datastore.find(EnrichmentTerm.class).filter(Filters.in(CODE_URI_FIELD, codeUri))
-            .delete());
+            .delete(new DeleteOptions().multi(true)));
   }
 
   private <T> List<T> getListOfQuery(Query<T> query) {

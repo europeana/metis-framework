@@ -5,6 +5,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 
 import com.mongodb.client.result.DeleteResult;
+import dev.morphia.DeleteOptions;
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filter;
@@ -165,7 +166,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
         .find(ScheduledWorkflow.class);
     query.filter(Filters.eq(DATASET_ID.getFieldName(), datasetId));
     DeleteResult deleteResult = ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(query::delete);
+        .retryableExternalRequestForNetworkExceptions(() -> query.delete(new DeleteOptions().multi(true)));
     LOGGER.debug(
         "ScheduledWorkflows with datasetId: {} deleted from Mongo", datasetId);
     return (deleteResult == null ? 0 : deleteResult.getDeletedCount()) >= 1;
