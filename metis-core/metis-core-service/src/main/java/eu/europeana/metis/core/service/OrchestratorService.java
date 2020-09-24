@@ -29,6 +29,7 @@ import eu.europeana.metis.core.rest.PluginsWithDataAvailability.PluginWithDataAv
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.VersionEvolution;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
+import eu.europeana.metis.core.rest.execution.details.WorkflowExecutionView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.workflow.SystemId;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -39,6 +40,7 @@ import eu.europeana.metis.core.workflow.plugins.DataStatus;
 import eu.europeana.metis.core.workflow.plugins.DepublishPlugin;
 import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutablePluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ExecutablePluginType;
 import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
@@ -92,6 +94,8 @@ public class OrchestratorService {
       PluginType.PREVIEW, PluginType.REINDEX_TO_PREVIEW);
   public static final Set<PluginType> PUBLISH_TYPES = Sets.immutableEnumSet(
       PluginType.PUBLISH, PluginType.REINDEX_TO_PUBLISH);
+  public static final Set<ExecutablePluginType> NO_XML_PREVIEW_TYPES = Sets.immutableEnumSet(
+      ExecutablePluginType.LINK_CHECKING, ExecutablePluginType.DEPUBLISH  );
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowUtils workflowUtils;
@@ -503,7 +507,7 @@ public class OrchestratorService {
    * <li>{@link UserUnauthorizedException} if the user is not authorized to perform this task</li>
    * </ul>
    */
-  public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(MetisUser metisUser,
+  public ResponseListWrapper<WorkflowExecutionView> getAllWorkflowExecutions(MetisUser metisUser,
       String datasetId, Set<WorkflowStatus> workflowStatuses, DaoFieldNames orderField,
       boolean ascending, int nextPage) throws GenericMetisException {
 
@@ -527,8 +531,11 @@ public class OrchestratorService {
         datasetIds, workflowStatuses, orderField, ascending, nextPage, false);
 
     // Compile and return the result.
-    final ResponseListWrapper<WorkflowExecution> result = new ResponseListWrapper<>();
-    result.setResultsAndLastPage(data.getResults(), getWorkflowExecutionsPerRequest(), nextPage,
+    final List<WorkflowExecutionView> convertedData = data.getResults().stream()
+            .map(execution -> new WorkflowExecutionView(execution, OrchestratorService::canDisplayRawXml))
+            .collect(Collectors.toList());
+    final ResponseListWrapper<WorkflowExecutionView> result = new ResponseListWrapper<>();
+    result.setResultsAndLastPage(convertedData, getWorkflowExecutionsPerRequest(), nextPage,
         data.isMaxResultCountReached());
     return result;
   }
@@ -676,7 +683,7 @@ public class OrchestratorService {
   }
 
   private void setPreviewInformation(DatasetExecutionInformation executionInfo,
-      ExecutablePlugin lastExecutablePreviewPlugin, MetisPlugin lastPreviewPlugin,
+      ExecutablePlugin<?> lastExecutablePreviewPlugin, MetisPlugin<?> lastPreviewPlugin,
       boolean isPreviewCleaningOrRunning, Date date) {
     // Set the last preview information
     if (Objects.nonNull(lastPreviewPlugin)) {
@@ -693,8 +700,8 @@ public class OrchestratorService {
   }
 
   private void setPublishInformation(DatasetExecutionInformation executionInfo,
-      MetisPlugin firstPublishPlugin, ExecutablePlugin lastExecutablePublishPlugin,
-      MetisPlugin lastPublishPlugin, ExecutablePlugin lastExecutableDepublishPlugin,
+      MetisPlugin<?> firstPublishPlugin, ExecutablePlugin<?> lastExecutablePublishPlugin,
+      MetisPlugin<?> lastPublishPlugin, ExecutablePlugin<?> lastExecutableDepublishPlugin,
       boolean isPublishCleaningOrRunning, Date date, String datasetId) {
     // Set the first publication information
     executionInfo.setFirstPublishedDate(firstPublishPlugin == null ? null :
@@ -755,9 +762,9 @@ public class OrchestratorService {
     }
   }
 
-  private boolean isPreviewOrPublishReadyForViewing(MetisPlugin plugin, Date now) {
+  private boolean isPreviewOrPublishReadyForViewing(MetisPlugin<?> plugin, Date now) {
     final boolean dataIsValid = !(plugin instanceof ExecutablePlugin)
-        || MetisPlugin.getDataStatus((ExecutablePlugin) plugin) == DataStatus.VALID;
+        || MetisPlugin.getDataStatus((ExecutablePlugin<?>) plugin) == DataStatus.VALID;
     final boolean enoughTimeHasPassed = getSolrCommitPeriodInMins() <
         DateUtils.calculateDateDifference(plugin.getFinishedDate(), now, TimeUnit.MINUTES);
     return dataIsValid && enoughTimeHasPassed;
@@ -833,7 +840,7 @@ public class OrchestratorService {
     // Compile the result.
     final List<PluginWithDataAvailability> plugins = execution.getMetisPlugins().stream()
         .filter(plugin -> plugin instanceof ExecutablePlugin)
-        .map(plugin -> (ExecutablePlugin) plugin).map(OrchestratorService::convert)
+        .map(plugin -> (ExecutablePlugin<?>) plugin).map(OrchestratorService::convert)
         .collect(Collectors.toList());
     final PluginsWithDataAvailability result = new PluginsWithDataAvailability();
     result.setPlugins(plugins);
@@ -842,17 +849,26 @@ public class OrchestratorService {
     return result;
   }
 
-  private static PluginWithDataAvailability convert(ExecutablePlugin plugin) {
-
-    // Decide on whether the plugin has successful data available.
-    final ExecutionProgress progress = plugin.getExecutionProgress();
-    final boolean hasSuccessfulData =
-        progress != null && progress.getProcessedRecords() > progress.getErrors();
-
-    // Create the result
+  private static PluginWithDataAvailability convert(ExecutablePlugin<?> plugin) {
     final PluginWithDataAvailability result = new PluginWithDataAvailability();
-    result.setHasSuccessfulData(hasSuccessfulData);
+    result.setCanDisplayRawXml(canDisplayRawXml(plugin));
     result.setPluginType(plugin.getPluginType());
+    return result;
+  }
+
+  private static boolean canDisplayRawXml(MetisPlugin<?> plugin) {
+    final boolean result;
+    if (plugin instanceof ExecutablePlugin) {
+      final ExecutionProgress progress = ((ExecutablePlugin<?>) plugin).getExecutionProgress();
+      final boolean pluginHasBlacklistedType = Optional.of(((ExecutablePlugin<?>) plugin))
+              .map(ExecutablePlugin::getPluginMetadata)
+              .map(ExecutablePluginMetadata::getExecutablePluginType)
+              .map(NO_XML_PREVIEW_TYPES::contains).orElse(true);
+      result = !pluginHasBlacklistedType && progress != null
+              && progress.getProcessedRecords() > progress.getErrors();
+    } else {
+      result = false;
+    }
     return result;
   }
 

@@ -38,6 +38,7 @@ import eu.europeana.metis.core.rest.ExecutionHistory.Execution;
 import eu.europeana.metis.core.rest.PluginsWithDataAvailability.PluginWithDataAvailability;
 import eu.europeana.metis.core.rest.VersionEvolution.VersionEvolutionStep;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
+import eu.europeana.metis.core.rest.execution.details.WorkflowExecutionView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.utils.TestObjectFactory;
@@ -596,7 +597,7 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     int listSize = 2;
-    ResponseListWrapper<WorkflowExecution> listOfWorkflowExecutions = new ResponseListWrapper<>();
+    ResponseListWrapper<WorkflowExecutionView> listOfWorkflowExecutions = new ResponseListWrapper<>();
     listOfWorkflowExecutions.setResultsAndLastPage(
         TestObjectFactory.createListOfWorkflowExecutions(listSize + 1),
         orchestratorService.getWorkflowExecutionsPerRequest(), 0);
@@ -646,7 +647,7 @@ class TestOrchestratorController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     int listSize = 2;
-    ResponseListWrapper<WorkflowExecution> listOfWorkflowExecutions = new ResponseListWrapper<>();
+    ResponseListWrapper<WorkflowExecutionView> listOfWorkflowExecutions = new ResponseListWrapper<>();
     listOfWorkflowExecutions.setResultsAndLastPage(
         TestObjectFactory.createListOfWorkflowExecutions(listSize + 1),
         orchestratorService.getWorkflowExecutionsPerRequest(), 0);
@@ -831,10 +832,10 @@ class TestOrchestratorController {
     // Create nonempty history
     final PluginWithDataAvailability plugin1 = new PluginWithDataAvailability();
     plugin1.setPluginType(PluginType.OAIPMH_HARVEST);
-    plugin1.setHasSuccessfulData(true);
+    plugin1.setCanDisplayRawXml(true);
     final PluginWithDataAvailability plugin2 = new PluginWithDataAvailability();
     plugin2.setPluginType(PluginType.ENRICHMENT);
-    plugin2.setHasSuccessfulData(false);
+    plugin2.setCanDisplayRawXml(false);
     final PluginsWithDataAvailability resultNonEmpty = new PluginsWithDataAvailability();
     resultNonEmpty.setPlugins(Arrays.asList(plugin1, plugin2));
 
@@ -851,12 +852,12 @@ class TestOrchestratorController {
         .andExpect(jsonPath("$.plugins", hasSize(2)))
         .andExpect(jsonPath("$.plugins[0].pluginType",
             is(plugin1.getPluginType().name())))
-        .andExpect(jsonPath("$.plugins[0].hasSuccessfulData",
-            is(plugin1.isHasSuccessfulData())))
+        .andExpect(jsonPath("$.plugins[0].canDisplayRawXml",
+            is(plugin1.isCanDisplayRawXml())))
         .andExpect(jsonPath("$.plugins[1].pluginType",
             is(plugin2.getPluginType().name())))
-        .andExpect(jsonPath("$.plugins[1].hasSuccessfulData",
-            is(plugin2.isHasSuccessfulData())));
+        .andExpect(jsonPath("$.plugins[1].canDisplayRawXml",
+            is(plugin2.isCanDisplayRawXml())));
 
     // Test happy flow with empty evolution
     final PluginsWithDataAvailability resultEmpty = new PluginsWithDataAvailability();

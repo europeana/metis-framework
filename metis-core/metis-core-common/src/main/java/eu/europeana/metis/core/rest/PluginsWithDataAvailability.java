@@ -28,7 +28,7 @@ public class PluginsWithDataAvailability {
   public static class PluginWithDataAvailability {
 
     private PluginType pluginType;
-    private boolean hasSuccessfulData;
+    private boolean canDisplayRawXml;
 
     public void setPluginType(PluginType pluginType) {
       this.pluginType = pluginType;
@@ -38,12 +38,12 @@ public class PluginsWithDataAvailability {
       return pluginType;
     }
 
-    public void setHasSuccessfulData(boolean hasSuccessfulData) {
-      this.hasSuccessfulData = hasSuccessfulData;
+    public void setCanDisplayRawXml(boolean canDisplayRawXml) {
+      this.canDisplayRawXml = canDisplayRawXml;
     }
 
-    public boolean isHasSuccessfulData() {
-      return hasSuccessfulData;
+    public boolean isCanDisplayRawXml() {
+      return canDisplayRawXml;
     }
   }
 }

@@ -6,6 +6,7 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.DaoFieldNames;
 import eu.europeana.metis.core.dataset.DatasetExecutionInformation;
+import eu.europeana.metis.core.rest.execution.details.WorkflowExecutionView;
 import eu.europeana.metis.core.rest.execution.overview.ExecutionAndDatasetView;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -405,7 +406,7 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(
+  public ResponseListWrapper<WorkflowExecutionView> getAllWorkflowExecutionsByDatasetId(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
@@ -417,7 +418,7 @@ public class OrchestratorController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    final ResponseListWrapper<WorkflowExecution> result =
+    final ResponseListWrapper<WorkflowExecutionView> result =
         orchestratorService.getAllWorkflowExecutions(metisUser, datasetId, workflowStatuses,
             orderField, ascending, nextPage);
     logPaging(result, nextPage);
@@ -446,7 +447,7 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
+  public ResponseListWrapper<WorkflowExecutionView> getAllWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
       @RequestParam(value = "orderField", required = false, defaultValue = "ID") DaoFieldNames orderField,
@@ -457,7 +458,7 @@ public class OrchestratorController {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     final MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    final ResponseListWrapper<WorkflowExecution> result =
+    final ResponseListWrapper<WorkflowExecutionView> result =
         orchestratorService.getAllWorkflowExecutions(metisUser, null, workflowStatuses, orderField,
             ascending, nextPage);
     logPaging(result, nextPage);

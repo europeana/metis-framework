@@ -67,6 +67,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPreviewPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.IndexToPublishPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.MediaProcessPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.MetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
@@ -1004,6 +1005,7 @@ class TestOrchestratorService {
     // Create plugins
     final AbstractExecutablePlugin plugin1 = mock(AbstractExecutablePlugin.class);
     when(plugin1.getPluginType()).thenReturn(PluginType.OAIPMH_HARVEST);
+    when(plugin1.getPluginMetadata()).thenReturn(new HTTPHarvestPluginMetadata());
     final ExecutionProgress progress1 = new ExecutionProgress();
     progress1.setProcessedRecords(10);
     progress1.setErrors(1);
@@ -1011,11 +1013,13 @@ class TestOrchestratorService {
     final AbstractExecutablePlugin plugin2 = mock(AbstractExecutablePlugin.class);
     final ExecutionProgress progress2 = new ExecutionProgress();
     when(plugin2.getPluginType()).thenReturn(PluginType.TRANSFORMATION);
+    when(plugin2.getPluginMetadata()).thenReturn(new TransformationPluginMetadata());
     progress2.setProcessedRecords(10);
     progress2.setErrors(10);
     when(plugin2.getExecutionProgress()).thenReturn(progress2);
     final AbstractExecutablePlugin plugin3 = mock(AbstractExecutablePlugin.class);
     when(plugin3.getPluginType()).thenReturn(PluginType.MEDIA_PROCESS);
+    when(plugin2.getPluginMetadata()).thenReturn(new MediaProcessPluginMetadata());
     when(plugin3.getExecutionProgress()).thenReturn(null);
     final ReindexToPreviewPlugin plugin4 = mock(ReindexToPreviewPlugin.class);
     when(plugin4.getPluginType()).thenReturn(PluginType.REINDEX_TO_PUBLISH);
@@ -1035,11 +1039,11 @@ class TestOrchestratorService {
     assertNotNull(result.getPlugins());
     assertEquals(3, result.getPlugins().size());
     assertEquals(plugin1.getPluginType(), result.getPlugins().get(0).getPluginType());
-    assertTrue(result.getPlugins().get(0).isHasSuccessfulData());
+    assertTrue(result.getPlugins().get(0).isCanDisplayRawXml());
     assertEquals(plugin2.getPluginType(), result.getPlugins().get(1).getPluginType());
-    assertFalse(result.getPlugins().get(1).isHasSuccessfulData());
+    assertFalse(result.getPlugins().get(1).isCanDisplayRawXml());
     assertEquals(plugin3.getPluginType(), result.getPlugins().get(2).getPluginType());
-    assertFalse(result.getPlugins().get(2).isHasSuccessfulData());
+    assertFalse(result.getPlugins().get(2).isCanDisplayRawXml());
 
     // Test when the workflow execution does not exist
     doReturn(null).when(orchestratorService)
