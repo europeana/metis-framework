@@ -1,11 +1,14 @@
 package eu.europeana.metis.dereference;
 
+import eu.europeana.metis.dereference.wrappers.BodyHandlerWrapper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandler;
+import java.net.http.HttpResponse.BodyHandlers;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
@@ -61,8 +64,11 @@ public class RdfRetriever {
 
     HttpResponse<String> httpResponse = null;
 
+    BodyHandler<String> handler = BodyHandlers.ofString();
+    BodyHandlerWrapper handleWrapper = new BodyHandlerWrapper(handler);
+
     try {
-      httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+      httpResponse = httpClient.send(httpRequest, handleWrapper);
     } catch (InterruptedException e) {
       LOG.info(String.format("That was some problem sending a request to %s", url));
 
@@ -83,6 +89,7 @@ public class RdfRetriever {
 
       // Perform redirect
       final String location = httpResponse.headers().map().get("Location").get(0);
+      handleWrapper.cancel();
       if (redirectsLeft > 0 && location != null) {
         result = retrieveFromSource(location, redirectsLeft - 1);
       } else {
@@ -93,6 +100,7 @@ public class RdfRetriever {
 
       // Check that we didn't receive HTML input.
       result = httpResponse.body();
+      handleWrapper.cancel();
       if (StringUtils.isBlank(result)) {
         throw new IOException("Could not retrieve the entity: it is empty.");
       } else if (StringUtils.startsWith(contentType, "text/html") || result
