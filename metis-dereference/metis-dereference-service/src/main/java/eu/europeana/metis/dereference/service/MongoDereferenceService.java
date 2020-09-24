@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -34,6 +35,7 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +57,7 @@ public class MongoDereferenceService implements DereferenceService {
    * Constructor.
    *
    * @param processedEntityDao Object managing the processed entity cache.
-   * @param vocabularyDao Object that accesses vocabularies.
+   * @param vocabularyDao      Object that accesses vocabularies.
    */
   @Autowired
   public MongoDereferenceService(ProcessedEntityDao processedEntityDao,
@@ -66,9 +68,9 @@ public class MongoDereferenceService implements DereferenceService {
   /**
    * Constructor.
    *
-   * @param retriever Object that retrieves entities from their source services.
+   * @param retriever          Object that retrieves entities from their source services.
    * @param processedEntityDao Object managing the processed entity cache.
-   * @param vocabularyDao Object that accesses vocabularies.
+   * @param vocabularyDao      Object that accesses vocabularies.
    */
   MongoDereferenceService(RdfRetriever retriever, ProcessedEntityDao processedEntityDao,
       VocabularyDao vocabularyDao) {
@@ -204,12 +206,12 @@ public class MongoDereferenceService implements DereferenceService {
    * </ul>
    * </p>
    *
-   * @param resourceId the url of the provider entity
+   * @param resourceId   the url of the provider entity
    * @param cachedEntity the cached entity object
    * @return a pair with the computed values
-   * @throws URISyntaxException if the resource identifier url is invalid
+   * @throws URISyntaxException   if the resource identifier url is invalid
    * @throws TransformerException if an exception occurred during transformation of the original
-   * entity
+   *                              entity
    */
   private Pair<String, Vocabulary> computeEntityVocabularyPair(String resourceId,
       ProcessedEntity cachedEntity) throws URISyntaxException, TransformerException {
@@ -239,11 +241,16 @@ public class MongoDereferenceService implements DereferenceService {
 
   private void saveEntity(String resourceId, ProcessedEntity cachedEntity,
       Pair<String, Vocabulary> transformedEntityAndVocabularyPair) {
+
+    final String entityXml = transformedEntityAndVocabularyPair.getLeft();
+    final Vocabulary vocabulary = transformedEntityAndVocabularyPair.getRight();
+    final String vocabularyIdString = Optional.ofNullable(vocabulary).map(Vocabulary::getId)
+        .map(ObjectId::toString).orElse(null);
     //Save entity
     ProcessedEntity entityToCache = (cachedEntity == null) ? new ProcessedEntity() : cachedEntity;
     entityToCache.setResourceId(resourceId);
-    entityToCache.setXml(transformedEntityAndVocabularyPair.getLeft());
-    entityToCache.setVocabularyId(transformedEntityAndVocabularyPair.getRight().getId().toString());
+    entityToCache.setXml(entityXml);
+    entityToCache.setVocabularyId(vocabularyIdString);
     processedEntityDao.save(entityToCache);
   }
 
