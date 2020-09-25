@@ -24,7 +24,7 @@ public class RdfRetriever {
   private static final int MAX_NUMBER_OF_REDIRECTS = 5;
 
   private static HttpClient httpClient = HttpClient.newBuilder()
-      .followRedirects(Redirect.NORMAL)
+      .followRedirects(Redirect.NEVER)
       .build();
 
   /**
@@ -48,17 +48,17 @@ public class RdfRetriever {
     if (suffix == null) {
       throw new IllegalArgumentException("Parameter suffix cannot be null.");
     }
-    return retrieveFromSource(resourceId + suffix, MAX_NUMBER_OF_REDIRECTS);
+    return retrieveFromSource(URI.create(resourceId + suffix), MAX_NUMBER_OF_REDIRECTS);
   }
 
-  private static String retrieveFromSource(String url, int redirectsLeft) throws IOException {
+  private static String retrieveFromSource(URI url, int redirectsLeft) throws IOException {
 
     // Make the connection and retrieve the result.
     // Note: we have no choice but to follow the provided URL.
     @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
     HttpRequest httpRequest = HttpRequest.newBuilder()
         .GET()
-        .uri(URI.create(url))
+        .uri(url)
         .setHeader("Accept", "application/rdf+xml")
         .build();
 
@@ -91,7 +91,7 @@ public class RdfRetriever {
       final String location = httpResponse.headers().map().get("Location").get(0);
       handleWrapper.cancel();
       if (redirectsLeft > 0 && location != null) {
-        result = retrieveFromSource(location, redirectsLeft - 1);
+        result = retrieveFromSource(url.resolve(location), redirectsLeft - 1);
       } else {
         throw new IOException("Could not retrieve the entity: too many redirects.");
       }
