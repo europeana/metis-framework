@@ -9,7 +9,7 @@ import java.util.concurrent.Flow.Subscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class CancelableSubscriber implements BodySubscriber<String> {
+class CancelableSubscriber<T> implements BodySubscriber<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(CancelableSubscriber.class);
 
@@ -23,8 +23,8 @@ class CancelableSubscriber implements BodySubscriber<String> {
   }
 
   @Override
-  public CompletionStage<String> getBody() {
-    return subscriber.getBody();
+  public CompletionStage<T> getBody() {
+    return (CompletionStage<T>) subscriber.getBody();
   }
 
   @Override

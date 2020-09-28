@@ -8,7 +8,7 @@ import java.util.concurrent.CountDownLatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CancelableBodyWrapper implements BodyHandler<String> {
+public class CancelableBodyWrapper<T> implements BodyHandler<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(CancelableBodyWrapper.class);
 
@@ -21,7 +21,7 @@ public class CancelableBodyWrapper implements BodyHandler<String> {
   }
 
   @Override
-  public BodySubscriber<String> apply(ResponseInfo responseInfo) {
+  public BodySubscriber<T> apply(ResponseInfo responseInfo) {
     cancelableSubscriber = new CancelableSubscriber(handler.apply(responseInfo), latch);
     return cancelableSubscriber;
   }
