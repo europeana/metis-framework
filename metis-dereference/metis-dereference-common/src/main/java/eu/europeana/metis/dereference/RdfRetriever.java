@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference;
 
-import eu.europeana.metis.dereference.wrappers.BodyHandlerWrapper;
+import eu.europeana.metis.mediaprocessing.http.wrappers.CancelableBodyWrapper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -65,10 +65,10 @@ public class RdfRetriever {
     HttpResponse<String> httpResponse = null;
 
     BodyHandler<String> handler = BodyHandlers.ofString();
-    BodyHandlerWrapper handleWrapper = new BodyHandlerWrapper(handler);
+    CancelableBodyWrapper bodyWrapper = new CancelableBodyWrapper(handler);
 
     try {
-      httpResponse = httpClient.send(httpRequest, handleWrapper);
+      httpResponse = httpClient.send(httpRequest, bodyWrapper);
     } catch (InterruptedException e) {
       LOG.info(String.format("That was some problem sending a request to %s", url));
 
@@ -89,7 +89,7 @@ public class RdfRetriever {
 
       // Perform redirect
       final String location = httpResponse.headers().map().get("Location").get(0);
-      handleWrapper.cancel();
+      bodyWrapper.cancel();
       if (redirectsLeft > 0 && location != null) {
         result = retrieveFromSource(url.resolve(location), redirectsLeft - 1);
       } else {
@@ -100,7 +100,7 @@ public class RdfRetriever {
 
       // Check that we didn't receive HTML input.
       result = httpResponse.body();
-      handleWrapper.cancel();
+      bodyWrapper.cancel();
       if (StringUtils.isBlank(result)) {
         throw new IOException("Could not retrieve the entity: it is empty.");
       } else if (StringUtils.startsWith(contentType, "text/html") || result
