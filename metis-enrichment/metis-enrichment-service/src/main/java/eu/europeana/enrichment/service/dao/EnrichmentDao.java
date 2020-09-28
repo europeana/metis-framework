@@ -43,8 +43,6 @@ public class EnrichmentDao {
   public static final String LABEL_FIELD = "labelInfos.lowerCaseLabel";
   public static final String LANG_FIELD = "labelInfos.lang";
 
-  private final MongoClient mongoClient;
-
   /**
    * Parameter constructor.
    *
@@ -55,8 +53,7 @@ public class EnrichmentDao {
     final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
         .discriminator(DiscriminatorFunction.className())
         .collectionNaming(NamingStrategy.identity()).build();
-    this.mongoClient = mongoClient;
-    this.datastore = Morphia.createDatastore(this.mongoClient, databaseName, mapperOptions);
+    this.datastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
     final Mapper mapper = this.datastore.getMapper();
     mapper.map(EnrichmentTerm.class);
     this.datastore.ensureIndexes();
@@ -71,9 +68,10 @@ public class EnrichmentDao {
    * @return the retrieved enrichment term
    */
   public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, String fieldValue) {
-    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> Optional.ofNullable(
-        this.datastore.find(EnrichmentTerm.class).filter(Filters.eq(fieldName, fieldValue))
-            .first()));
+    return ExternalRequestUtil
+        .retryableExternalRequestForNetworkExceptions(() -> Optional.ofNullable(
+            this.datastore.find(EnrichmentTerm.class).filter(Filters.eq(fieldName, fieldValue))
+                .first()));
   }
 
   /**
@@ -196,9 +194,5 @@ public class EnrichmentDao {
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> this.datastore.find(EnrichmentTerm.class).filter(Filters.in(CODE_URI_FIELD, codeUri))
             .delete(new DeleteOptions().multi(true)));
-  }
-
-  public void close() {
-    this.mongoClient.close();
   }
 }

@@ -24,11 +24,17 @@ public class VocabularyDao {
 
   private final Datastore datastore;
 
-  public VocabularyDao(MongoClient mongo, String db) {
+  /**
+   * Parameter constructor.
+   *
+   * @param mongoClient the previously initialized mongo client
+   * @param databaseName the database name
+   */
+  public VocabularyDao(MongoClient mongoClient, String databaseName) {
     final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
         .discriminator(DiscriminatorFunction.className())
         .collectionNaming(NamingStrategy.identity()).build();
-    datastore = Morphia.createDatastore(mongo, db, mapperOptions);
+    datastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
     datastore.getMapper().map(Vocabulary.class);
   }
 

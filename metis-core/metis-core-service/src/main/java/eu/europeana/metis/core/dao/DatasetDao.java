@@ -285,6 +285,12 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return getListOfQueryRetryable(query, findOptions);
   }
 
+  /**
+   * Get a list of datasets to redirect from
+   *
+   * @param datasetIdToRedirectFrom the dataset ids to redirect from
+   * @return the list of dataset to redirect from
+   */
   public List<Dataset> getAllDatasetsByDatasetIdsToRedirectFrom(String datasetIdToRedirectFrom) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().find(Dataset.class);
     query.filter(Filters.eq("datasetIdsToRedirectFrom", datasetIdToRedirectFrom));

@@ -7,6 +7,7 @@ import eu.europeana.enrichment.service.EnrichmentService;
 import eu.europeana.enrichment.service.dao.EnrichmentDao;
 import eu.europeana.metis.mongo.MongoClientProvider;
 import eu.europeana.metis.mongo.MongoProperties;
+import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -54,6 +55,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Value("${enrichment.mongo.database}")
   private String enrichmentMongoDatabase;
 
+  private MongoClient mongoClient;
+
   /**
    * Used for overwriting properties if cloud foundry environment is used
    */
@@ -88,7 +91,8 @@ public class Application implements WebMvcConfigurer, InitializingBean {
         IllegalArgumentException::new);
     mongoProperties
         .setMongoHosts(new String[]{enrichmentMongoHost}, new int[]{enrichmentMongoPort});
-    return new MongoClientProvider<>(mongoProperties).createMongoClient();
+    mongoClient = new MongoClientProvider<>(mongoProperties).createMongoClient();
+    return mongoClient;
   }
 
   @Bean
@@ -107,6 +111,16 @@ public class Application implements WebMvcConfigurer, InitializingBean {
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
+  }
+
+  /**
+   * Closes any connections previous acquired.
+   */
+  @PreDestroy
+  public void close() {
+    if (mongoClient != null) {
+      mongoClient.close();
+    }
   }
 
   @Bean
