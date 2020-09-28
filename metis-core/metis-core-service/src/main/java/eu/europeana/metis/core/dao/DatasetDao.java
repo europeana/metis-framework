@@ -5,7 +5,7 @@ import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_NAME;
 import static eu.europeana.metis.core.common.DaoFieldNames.DATA_PROVIDER;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.PROVIDER;
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
 
 import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
@@ -14,7 +14,6 @@ import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperator;
 import dev.morphia.query.experimental.updates.UpdateOperators;
-import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -208,7 +207,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     query.filter(Filters.eq("provider", provider));
     final FindOptions findOptions = new FindOptions().skip(nextPage * getDatasetsPerRequest())
         .limit(getDatasetsPerRequest());
-    return getListOfQuery(query, findOptions);
+    return getListOfQueryRetryable(query, findOptions);
   }
 
   /**
@@ -224,7 +223,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     query.filter(Filters.eq("intermediateProvider", intermediateProvider));
     final FindOptions findOptions = new FindOptions().skip(nextPage * getDatasetsPerRequest())
         .limit(getDatasetsPerRequest());
-    return getListOfQuery(query, findOptions);
+    return getListOfQueryRetryable(query, findOptions);
   }
 
   /**
@@ -239,7 +238,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     query.filter(Filters.eq("dataProvider", dataProvider));
     final FindOptions findOptions = new FindOptions().skip(nextPage * getDatasetsPerRequest())
         .limit(getDatasetsPerRequest());
-    return getListOfQuery(query, findOptions);
+    return getListOfQueryRetryable(query, findOptions);
   }
 
   /**
@@ -268,7 +267,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       UnaryOperator<FindOptions> options) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().find(Dataset.class);
     query.filter(Filters.eq("organizationId", organizationId));
-    return getListOfQuery(query, options.apply(new FindOptions()));
+    return getListOfQueryRetryable(query, options.apply(new FindOptions()));
   }
 
   /**
@@ -283,13 +282,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     query.filter(Filters.eq("organizationName", organizationName));
     final FindOptions findOptions = new FindOptions().skip(nextPage * getDatasetsPerRequest())
         .limit(getDatasetsPerRequest());
-    return getListOfQuery(query, findOptions);
+    return getListOfQueryRetryable(query, findOptions);
   }
 
   public List<Dataset> getAllDatasetsByDatasetIdsToRedirectFrom(String datasetIdToRedirectFrom) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().find(Dataset.class);
     query.filter(Filters.eq("datasetIdsToRedirectFrom", datasetIdToRedirectFrom));
-    return getListOfQuery(query, new FindOptions());
+    return getListOfQueryRetryable(query, new FindOptions());
   }
 
   public int getDatasetsPerRequest() {
@@ -419,15 +418,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
         .sort(Sort.ascending(DATASET_ID.getFieldName()))
         .skip(nextPage * getDatasetsPerRequest())
         .limit(getDatasetsPerRequest());
-    return getListOfQuery(query, findOptions);
-  }
-
-  private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
-    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
-      try (MorphiaCursor<T> cursor = query.iterator(findOptions)) {
-        return performFunction(cursor, MorphiaCursor::toList);
-      }
-    });
+    return getListOfQueryRetryable(query, findOptions);
   }
 
   public void setEcloudProvider(String ecloudProvider) {

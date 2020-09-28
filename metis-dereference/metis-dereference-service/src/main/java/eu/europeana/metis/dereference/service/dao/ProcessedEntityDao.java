@@ -1,5 +1,7 @@
 package eu.europeana.metis.dereference.service.dao;
 
+import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+
 import com.mongodb.DuplicateKeyException;
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
@@ -42,8 +44,9 @@ public class ProcessedEntityDao {
    * @return The entity with the given resource ID.
    */
   public ProcessedEntity get(String resourceId) {
-    return datastore.find(ProcessedEntity.class).filter(Filters.eq("resourceId", resourceId))
-        .first();
+    return retryableExternalRequestForNetworkExceptions(
+        () -> datastore.find(ProcessedEntity.class).filter(Filters.eq("resourceId", resourceId))
+            .first());
   }
 
   /**
@@ -53,7 +56,8 @@ public class ProcessedEntityDao {
    */
   public void save(ProcessedEntity entity) {
     try {
-      datastore.save(entity);
+      retryableExternalRequestForNetworkExceptions(
+          () -> datastore.save(entity));
     } catch (DuplicateKeyException e) {
       LOGGER.info("Attempted to save duplicate record {}, race condition expected.",
           entity.getResourceId());
@@ -65,6 +69,7 @@ public class ProcessedEntityDao {
    * Remove all entities.
    */
   public void purgeAll() {
-    datastore.find(ProcessedEntity.class).delete();
+    retryableExternalRequestForNetworkExceptions(
+        () -> datastore.find(ProcessedEntity.class).delete());
   }
 }

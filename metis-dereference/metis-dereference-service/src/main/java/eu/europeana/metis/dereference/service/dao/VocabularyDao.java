@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference.service.dao;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
@@ -10,8 +10,8 @@ import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
-import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.mongo.MorphiaUtils;
 import java.util.List;
 import java.util.regex.Pattern;
 import org.bson.types.ObjectId;
@@ -42,9 +42,7 @@ public class VocabularyDao {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
     final Query<Vocabulary> query = datastore.find(Vocabulary.class);
     query.filter(Filters.eq("uris", pattern));
-    try (final MorphiaCursor<Vocabulary> cursor = query.iterator()) {
-      return performFunction(cursor, MorphiaCursor::toList);
-    }
+    return MorphiaUtils.getListOfQueryRetryable(query);
   }
 
   /**
@@ -54,9 +52,7 @@ public class VocabularyDao {
    */
   public List<Vocabulary> getAll() {
     final Query<Vocabulary> query = datastore.find(Vocabulary.class);
-    try (final MorphiaCursor<Vocabulary> cursor = query.iterator()) {
-      return performFunction(cursor, MorphiaCursor::toList);
-    }
+    return MorphiaUtils.getListOfQueryRetryable(query);
   }
 
   /**
@@ -66,7 +62,9 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public Vocabulary get(String vocabularyId) {
-    return datastore.find(Vocabulary.class).filter(Filters.eq("_id", new ObjectId(vocabularyId))).first();
+    return retryableExternalRequestForNetworkExceptions(
+        () -> datastore.find(Vocabulary.class).filter(Filters.eq("_id", new ObjectId(vocabularyId)))
+            .first());
   }
 
   /**
@@ -75,8 +73,10 @@ public class VocabularyDao {
    * @param vocabularies The new vocabularies.
    */
   public void replaceAll(List<Vocabulary> vocabularies) {
-    datastore.find(Vocabulary.class).delete();
-    datastore.save(vocabularies);
+    retryableExternalRequestForNetworkExceptions(
+        () -> datastore.find(Vocabulary.class).delete());
+    retryableExternalRequestForNetworkExceptions(
+        () -> datastore.save(vocabularies));
   }
 
   protected Datastore getDatastore() {
