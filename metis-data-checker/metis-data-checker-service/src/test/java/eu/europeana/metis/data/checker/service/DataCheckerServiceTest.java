@@ -49,7 +49,7 @@ public class DataCheckerServiceTest {
   public void test() throws DataCheckerServiceException, IOException {
     String record = IOUtils.toString(
         Thread.currentThread().getContextClassLoader().getResourceAsStream("Item_5791754.xml"),
-        StandardCharsets.UTF_8);
+        StandardCharsets.UTF_8.name());
     ValidationResult result = new ValidationResult();
     result.setSuccess(true);
     when(mockValidationClient.validateRecord("EDM-INTERNAL", record)).thenReturn(result);

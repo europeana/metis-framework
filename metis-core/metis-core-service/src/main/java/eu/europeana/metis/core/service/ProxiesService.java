@@ -441,7 +441,7 @@ public class ProxiesService {
     // Obtain the file contents belonging to this representation version.
     try {
       final InputStream inputStream = fileServiceClient.getFile(file.getContentUri().toString());
-      return new Record(ecloudId, IOUtils.toString(inputStream, StandardCharsets.UTF_8));
+      return new Record(ecloudId, IOUtils.toString(inputStream, StandardCharsets.UTF_8.name()));
     } catch (MCSException e) {
       throw new ExternalTaskException(String.format(
           "Getting record list with file content failed. externalTaskId: %s, pluginType: %s",

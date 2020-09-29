@@ -85,7 +85,7 @@ public class ZipFileReader {
     final List<InputStream> streams = getContentFromZipFile(zipFile);
     final List<String> result = new ArrayList<>(streams.size());
     for (InputStream stream : streams) {
-      result.add(IOUtils.toString(stream, StandardCharsets.UTF_8));
+      result.add(IOUtils.toString(stream, StandardCharsets.UTF_8.name()));
     }
     return result;
   }
