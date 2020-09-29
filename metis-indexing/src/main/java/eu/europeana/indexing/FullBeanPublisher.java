@@ -214,18 +214,6 @@ class FullBeanPublisher {
     } catch (Exception e) {
       throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
     }
-
-//    try {
-//      ExternalRequestUtil.retryableExternalRequest(() -> {
-//            publishToSolr(rdf, savedFullBean);
-//            return null;
-//          }, Collections.singletonMap(UnknownHostException.class, ""), PUBLISH_MAX_RETRIES,
-//          PERIOD_BETWEEN_RETRIES_IN_MILLIS);
-//    } catch (IndexingException e) {
-//      throw e;
-//    } catch (Exception e) {
-//      throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
-//    }
   }
 
   private void publishToSolr(RdfWrapper rdf, FullBeanImpl fullBean) throws IndexingException {

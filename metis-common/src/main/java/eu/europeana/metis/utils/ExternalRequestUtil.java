@@ -169,7 +169,7 @@ public final class ExternalRequestUtil {
     do {
       try {
         return supplier.get();
-      } catch (Exception e) {
+      } catch (RuntimeException e) {
         try {
           doWhenExceptionCaught(e, runtimeExceptionStringMap, retriesCounter, maxRetries,
               periodBetweenRetriesInMillis);

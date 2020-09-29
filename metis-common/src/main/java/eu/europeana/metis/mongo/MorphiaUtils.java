@@ -45,8 +45,8 @@ public final class MorphiaUtils {
    * @return the list with the {@link T} objects
    */
   public static <T> List<T> getListOfQueryRetryable(Query<T> query, FindOptions findOptions) {
+    final BiFunction<Query<T>, FindOptions, MorphiaCursor<T>> queryFunction = getMorphiaCursorFromQuery();
     return retryableExternalRequestForNetworkExceptions(() -> {
-      final BiFunction<Query<T>, FindOptions, MorphiaCursor<T>> queryFunction = getMorphiaCursorFromQuery();
       try (MorphiaCursor<T> cursor = queryFunction.apply(query, findOptions)) {
         return performFunction(cursor, MorphiaCursor::toList);
       }
@@ -81,9 +81,9 @@ public final class MorphiaUtils {
    */
   public static <T, R> List<R> getListOfAggregationRetryable(Aggregation<T> aggregation,
       Class<R> resultObjectClass, AggregationOptions aggregationOptions) {
+    final BiFunction<Aggregation<T>, AggregationOptions, MorphiaCursor<R>> aggregationFunction = getMorphiaCursorFromAggregation(
+        resultObjectClass);
     return retryableExternalRequestForNetworkExceptions(() -> {
-      final BiFunction<Aggregation<T>, AggregationOptions, MorphiaCursor<R>> aggregationFunction = getMorphiaCursorFromAggregation(
-          resultObjectClass);
       try (MorphiaCursor<R> cursor = aggregationFunction.apply(aggregation, aggregationOptions)) {
         return performFunction(cursor, MorphiaCursor::toList);
       }

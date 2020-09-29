@@ -316,8 +316,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * @return the available identifier to be used further for a creation of a {@link Dataset}
    */
   public int findNextInSequenceDatasetId() {
-    DatasetIdSequence datasetIdSequence;
-    datasetIdSequence = retryableExternalRequestForNetworkExceptions(
+    DatasetIdSequence datasetIdSequence = retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(DatasetIdSequence.class).first());
     Dataset dataset;
     do {
