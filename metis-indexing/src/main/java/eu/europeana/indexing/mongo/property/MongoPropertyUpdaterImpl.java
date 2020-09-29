@@ -199,9 +199,10 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       Function<T, List<P>> getter, Function<T, A> ancestorInfoGetter,
       MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
-    final UnaryOperator<List<P>> preprocessing = entities -> entities.stream()
+    final UnaryOperator<List<P>> preprocessing = entities -> new ArrayList<>(entities.stream()
         .map(entity -> objectUpdater.update(entity, ancestorInformation, null, null, mongoServer))
-        .collect(Collectors.toList());
+        .collect(Collectors.toMap(AbstractEdmEntity::getAbout, Function.identity(), (o1, o2) -> o2))
+        .values());
     final BiPredicate<List<P>, List<P>> equality = (w1, w2) -> listEquals(w1, w2,
         ENTITY_COMPARATOR);
     updateProperty(updateField, getter, equality, preprocessing);
