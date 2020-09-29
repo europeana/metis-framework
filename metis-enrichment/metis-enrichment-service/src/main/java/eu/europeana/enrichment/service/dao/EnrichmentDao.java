@@ -1,7 +1,5 @@
 package eu.europeana.enrichment.service.dao;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
-
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.DeleteOptions;
@@ -14,9 +12,9 @@ import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.Sort;
 import dev.morphia.query.experimental.filters.Filters;
-import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.enrichment.internal.model.EnrichmentTerm;
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.metis.mongo.MorphiaUtils;
 import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.util.Date;
 import java.util.List;
@@ -45,8 +43,6 @@ public class EnrichmentDao {
   public static final String LABEL_FIELD = "labelInfos.lowerCaseLabel";
   public static final String LANG_FIELD = "labelInfos.lang";
 
-  private final MongoClient mongoClient;
-
   /**
    * Parameter constructor.
    *
@@ -57,8 +53,7 @@ public class EnrichmentDao {
     final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
         .discriminator(DiscriminatorFunction.className())
         .collectionNaming(NamingStrategy.identity()).build();
-    this.mongoClient = mongoClient;
-    this.datastore = Morphia.createDatastore(this.mongoClient, databaseName, mapperOptions);
+    this.datastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
     final Mapper mapper = this.datastore.getMapper();
     mapper.map(EnrichmentTerm.class);
     this.datastore.ensureIndexes();
@@ -73,9 +68,10 @@ public class EnrichmentDao {
    * @return the retrieved enrichment term
    */
   public Optional<EnrichmentTerm> getEnrichmentTermByField(String fieldName, String fieldValue) {
-    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> Optional.ofNullable(
-        this.datastore.find(EnrichmentTerm.class).filter(Filters.eq(fieldName, fieldValue))
-            .first()));
+    return ExternalRequestUtil
+        .retryableExternalRequestForNetworkExceptions(() -> Optional.ofNullable(
+            this.datastore.find(EnrichmentTerm.class).filter(Filters.eq(fieldName, fieldValue))
+                .first()));
   }
 
   /**
@@ -112,7 +108,7 @@ public class EnrichmentDao {
     for (Pair<String, String> fieldNameAndValue : fieldNameAndValues) {
       query.filter(Filters.eq(fieldNameAndValue.getKey(), fieldNameAndValue.getValue()));
     }
-    return getListOfQuery(query);
+    return MorphiaUtils.getListOfQueryRetryable(query);
   }
 
   /**
@@ -130,7 +126,7 @@ public class EnrichmentDao {
     for (Pair<String, List<String>> fieldNameAndValue : fieldNameAndValues) {
       query.filter(Filters.in(fieldNameAndValue.getKey(), fieldNameAndValue.getValue()));
     }
-    return getListOfQuery(query);
+    return MorphiaUtils.getListOfQueryRetryable(query);
   }
 
   /**
@@ -184,7 +180,7 @@ public class EnrichmentDao {
     final Query<EnrichmentTerm> enrichmentTermsSameAsQuery = this.datastore
         .find(EnrichmentTerm.class).filter(Filters.eq(ENTITY_TYPE_FIELD, entityType))
         .filter(Filters.in(OWL_SAME_AS_FIELD, codeUris));
-    final List<EnrichmentTerm> enrichmentTermsOwlSameAs = getListOfQuery(
+    final List<EnrichmentTerm> enrichmentTermsOwlSameAs = MorphiaUtils.getListOfQueryRetryable(
         enrichmentTermsSameAsQuery);
     final List<String> sameAsCodeUris = enrichmentTermsOwlSameAs.stream()
         .map(EnrichmentTerm::getCodeUri)
@@ -198,17 +194,5 @@ public class EnrichmentDao {
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> this.datastore.find(EnrichmentTerm.class).filter(Filters.in(CODE_URI_FIELD, codeUri))
             .delete(new DeleteOptions().multi(true)));
-  }
-
-  private <T> List<T> getListOfQuery(Query<T> query) {
-    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
-      try (MorphiaCursor<T> cursor = query.iterator()) {
-        return performFunction(cursor, MorphiaCursor::toList);
-      }
-    });
-  }
-
-  public void close() {
-    this.mongoClient.close();
   }
 }

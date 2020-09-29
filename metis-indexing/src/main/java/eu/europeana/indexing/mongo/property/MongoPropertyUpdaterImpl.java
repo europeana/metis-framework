@@ -1,5 +1,7 @@
 package eu.europeana.indexing.mongo.property;
 
+import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+
 import com.mongodb.DuplicateKeyException;
 import dev.morphia.UpdateOptions;
 import dev.morphia.query.Query;
@@ -44,8 +46,8 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   private static final UnaryOperator<String[]> STRING_ARRAY_PREPROCESSING = array -> Stream
       .of(array).filter(StringUtils::isNotBlank).map(String::trim).toArray(String[]::new);
 
-  private static final Comparator<AbstractEdmEntity> ENTITY_COMPARATOR =
-      Comparator.comparing(AbstractEdmEntity::getAbout);
+  private static final Comparator<AbstractEdmEntity> ENTITY_COMPARATOR = Comparator
+      .comparing(AbstractEdmEntity::getAbout);
 
   private final T current;
   private final T updated;
@@ -164,16 +166,15 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   public void updateWebResources(String updateField,
       Function<T, List<? extends WebResource>> getter, RootAboutWrapper ancestorInformation,
       AbstractEdmEntityUpdater<WebResourceImpl, RootAboutWrapper> webResourceUpdater) {
-    final Function<T, List<WebResourceImpl>> castGetter =
-        getter.andThen(MongoPropertyUpdaterImpl::castWebResourceList);
+    final Function<T, List<WebResourceImpl>> castGetter = getter
+        .andThen(MongoPropertyUpdaterImpl::castWebResourceList);
     updateReferencedEntities(updateField, castGetter, entity -> ancestorInformation,
         webResourceUpdater);
   }
 
   private static List<WebResourceImpl> castWebResourceList(List<? extends WebResource> input) {
-    return input == null ? null
-        : input.stream().map(webResource -> ((WebResourceImpl) webResource))
-            .collect(Collectors.toList());
+    return input == null ? null : input.stream().map(webResource -> ((WebResourceImpl) webResource))
+        .collect(Collectors.toList());
   }
 
   @Override
@@ -181,8 +182,8 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
       Function<T, P> getter, Function<T, A> ancestorInfoGetter,
       MongoObjectUpdater<P, A> objectUpdater) {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
-    final UnaryOperator<P> preprocessing =
-        entity -> objectUpdater.update(entity, ancestorInformation, null, null, mongoServer);
+    final UnaryOperator<P> preprocessing = entity -> objectUpdater
+        .update(entity, ancestorInformation, null, null, mongoServer);
     updateProperty(updateField, getter, MongoPropertyUpdaterImpl::equals, preprocessing);
   }
 
@@ -201,8 +202,8 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     final UnaryOperator<List<P>> preprocessing = entities -> entities.stream()
         .map(entity -> objectUpdater.update(entity, ancestorInformation, null, null, mongoServer))
         .collect(Collectors.toList());
-    final BiPredicate<List<P>, List<P>> equality =
-        (w1, w2) -> listEquals(w1, w2, ENTITY_COMPARATOR);
+    final BiPredicate<List<P>, List<P>> equality = (w1, w2) -> listEquals(w1, w2,
+        ENTITY_COMPARATOR);
     updateProperty(updateField, getter, equality, preprocessing);
   }
 
@@ -281,7 +282,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     final Update<T> update = queryCreator.get().update(firstUpdateOperator, extraUpdateOperators);
     final UpdateOptions updateOptions = new UpdateOptions().upsert(true).multi(true);
     try {
-      update.execute(updateOptions);
+      retryableExternalRequestForNetworkExceptions(() -> update.execute(updateOptions));
     } catch (DuplicateKeyException e) {
       LOGGER.debug("Received duplicate key exception, trying again once more.", e);
       update.execute(updateOptions);

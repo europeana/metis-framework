@@ -2,7 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import static eu.europeana.metis.core.common.DaoFieldNames.DATASET_ID;
 import static eu.europeana.metis.core.common.DaoFieldNames.ID;
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
 
 import com.mongodb.client.result.DeleteResult;
 import dev.morphia.DeleteOptions;
@@ -10,7 +10,6 @@ import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filter;
 import dev.morphia.query.experimental.filters.Filters;
-import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
@@ -20,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +52,9 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
 
   @Override
   public String create(ScheduledWorkflow scheduledWorkflow) {
+    final ObjectId objectId = Optional.ofNullable(scheduledWorkflow.getId())
+        .orElseGet(ObjectId::new);
+    scheduledWorkflow.setId(objectId);
     ScheduledWorkflow scheduledWorkflowSaved = ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));
@@ -189,7 +192,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     final FindOptions findOptions = new FindOptions()
         .skip(nextPage * getScheduledWorkflowPerRequest())
         .limit(getScheduledWorkflowPerRequest());
-    return getListOfQuery(query, findOptions);
+    return getListOfQueryRetryable(query, findOptions);
   }
 
   /**
@@ -216,16 +219,8 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     final FindOptions findOptions = new FindOptions()
         .skip(nextPage * getScheduledWorkflowPerRequest())
         .limit(getScheduledWorkflowPerRequest());
-    return getListOfQuery(query, findOptions);
+    return getListOfQueryRetryable(query, findOptions);
 
-  }
-
-  private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
-    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
-      try (MorphiaCursor<T> cursor = query.iterator(findOptions)) {
-        return performFunction(cursor, MorphiaCursor::toList);
-      }
-    });
   }
 
   public int getScheduledWorkflowPerRequest() {

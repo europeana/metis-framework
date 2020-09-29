@@ -123,17 +123,6 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     return new PropertySourcesPlaceholderConfigurer();
   }
 
-  @Bean
-  public Docket api() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .useDefaultResponseMessages(false)
-        .select()
-        .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.regex("/.*"))
-        .build()
-        .apiInfo(apiInfo());
-  }
-
   /**
    * Closes any connections previous acquired.
    */
@@ -145,6 +134,17 @@ public class Application implements WebMvcConfigurer, InitializingBean {
     if (mongoClientEntity != null) {
       mongoClientEntity.close();
     }
+  }
+
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .useDefaultResponseMessages(false)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.regex("/.*"))
+        .build()
+        .apiInfo(apiInfo());
   }
 
   private ApiInfo apiInfo() {

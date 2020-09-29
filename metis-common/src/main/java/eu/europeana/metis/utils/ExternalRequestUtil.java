@@ -29,8 +29,8 @@ import org.springframework.web.client.HttpServerErrorException;
 public final class ExternalRequestUtil {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ExternalRequestUtil.class);
-  private static final int MAX_RETRIES = 10;
-  private static final int SLEEP_TIMEOUT = 500;
+  private static final int MAX_RETRIES = 30;
+  private static final int SLEEP_TIMEOUT = 1000;
 
   public static final Map<Class<?>, String> UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS;
 
@@ -109,8 +109,8 @@ public final class ExternalRequestUtil {
    */
   public static <R> R retryableExternalRequest(
       SupplierThrowingException<R> supplierThrowingException,
-      Map<Class<?>, String> exceptionStringMap, int maxRetries,
-      int periodBetweenRetriesInMillis) throws Exception {
+      Map<Class<?>, String> exceptionStringMap, int maxRetries, int periodBetweenRetriesInMillis)
+      throws Exception {
     maxRetries =
         maxRetries < 0 ? MAX_RETRIES : maxRetries; //If not specified, set default value of retries
     periodBetweenRetriesInMillis =
@@ -139,8 +139,7 @@ public final class ExternalRequestUtil {
    */
   public static <R> R retryableExternalRequestForNetworkExceptions(Supplier<R> supplier) {
     return retryableExternalRequestForRuntimeExceptions(supplier,
-        UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, -1,
-        -1);
+        UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS, -1, -1);
   }
 
   /**
@@ -158,8 +157,8 @@ public final class ExternalRequestUtil {
    * if set to -1, the default value will be set
    * @return the expected object as a result of the external request
    */
-  public static <R> R retryableExternalRequestForRuntimeExceptions(
-      Supplier<R> supplier, Map<Class<?>, String> runtimeExceptionStringMap, int maxRetries,
+  public static <R> R retryableExternalRequestForRuntimeExceptions(Supplier<R> supplier,
+      Map<Class<?>, String> runtimeExceptionStringMap, int maxRetries,
       int periodBetweenRetriesInMillis) {
     maxRetries =
         maxRetries < 0 ? MAX_RETRIES : maxRetries; //If not specified, set default value of retries
@@ -194,8 +193,9 @@ public final class ExternalRequestUtil {
     }
 
     if (LOGGER.isWarnEnabled()) {
-      LOGGER.warn(String.format("External request has failed! Retrying in %sms",
-          periodBetweenRetriesInMillis), e);
+      LOGGER.warn(String
+              .format("External request has failed! Retrying in %sms", periodBetweenRetriesInMillis),
+          e);
     }
     try {
       Thread.sleep(periodBetweenRetriesInMillis);
@@ -230,9 +230,8 @@ public final class ExternalRequestUtil {
       Map<Class<?>, String> exceptionStringMap, Exception e) {
     Throwable cause = getCause(e);
     final Predicate<Entry<Class<?>, String>> sameInstanceAndMessageMatches = entry ->
-        entry.getKey().isInstance(cause) && (StringUtils.isBlank(entry.getValue())
-            || cause.getMessage().toLowerCase(Locale.US)
-            .contains(entry.getValue().toLowerCase(Locale.US)));
+        entry.getKey().isInstance(cause) && (StringUtils.isBlank(entry.getValue()) || cause
+            .getMessage().toLowerCase(Locale.US).contains(entry.getValue().toLowerCase(Locale.US)));
 
     boolean foundMatch = false;
     if (!CollectionUtils.isEmpty(exceptionStringMap)) {

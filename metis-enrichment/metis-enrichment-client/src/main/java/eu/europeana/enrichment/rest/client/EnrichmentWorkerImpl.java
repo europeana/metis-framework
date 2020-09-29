@@ -1,5 +1,7 @@
 package eu.europeana.enrichment.rest.client;
 
+import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
@@ -10,9 +12,7 @@ import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
-import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.io.InputStream;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -26,7 +26,6 @@ import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
-import org.springframework.web.client.HttpServerErrorException;
 
 /**
  * This class performs the task of dereferencing and enrichment for a given RDF document.
@@ -34,10 +33,6 @@ import org.springframework.web.client.HttpServerErrorException;
 public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorkerImpl.class);
-  private static final int EXTERNAL_CALL_MAX_RETRIES = 30;
-  private static final int EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS = 1000;
-  private static final Map<Class<?>, String> mapWithRetrieableExceptions =
-          Map.of(UnknownHostException.class, "", HttpServerErrorException.class, "");
 
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
@@ -52,7 +47,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
    * @param entityMergeEngine The engine to be used for merging entities into the RDF.
    */
   EnrichmentWorkerImpl(DereferenceClient dereferenceClient, EnrichmentClient enrichmentClient,
-          EntityMergeEngine entityMergeEngine) {
+      EntityMergeEngine entityMergeEngine) {
     this.dereferenceClient = dereferenceClient;
     this.enrichmentClient = enrichmentClient;
     this.entityMergeEngine = entityMergeEngine;
@@ -80,7 +75,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
   @Override
   public byte[] process(final InputStream inputStream, Mode mode)
-          throws DereferenceOrEnrichException {
+      throws DereferenceOrEnrichException {
     if (inputStream == null) {
       throw new IllegalArgumentException("The input stream cannot be null.");
     }
@@ -90,7 +85,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       return convertRdfToBytes(resultRdf);
     } catch (JiBXException e) {
       throw new DereferenceOrEnrichException(
-              "Something went wrong with converting to or from the RDF format.", e);
+          "Something went wrong with converting to or from the RDF format.", e);
     }
   }
 
@@ -110,7 +105,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       return convertRdfToString(resultRdf);
     } catch (JiBXException e) {
       throw new DereferenceOrEnrichException(
-              "Something went wrong with converting to or from the RDF format.", e);
+          "Something went wrong with converting to or from the RDF format.", e);
     }
   }
 
@@ -131,7 +126,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     }
     if (!getSupportedModes().contains(mode)) {
       throw new IllegalArgumentException(
-              "The requested mode '" + mode.name() + "' is not supported by this instance.");
+          "The requested mode '" + mode.name() + "' is not supported by this instance.");
     }
 
     // Preparation
@@ -180,24 +175,24 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     LOGGER.debug("Extracting values and references from RDF for enrichment...");
     final List<InputValue> valuesForEnrichment = extractValuesForEnrichment(rdf);
     final Map<String, Set<EnrichmentFields>> referencesForEnrichment = extractReferencesForEnrichment(
-            rdf);
+        rdf);
 
     // Get the information with which to enrich the RDF using the extracted values and references
     LOGGER.debug("Using extracted values and references to gather enrichment information...");
     final EnrichmentResultList valueEnrichmentInformation = enrichValues(valuesForEnrichment);
     final List<EnrichmentBaseWrapper> referenceEnrichmentInformation = enrichReferences(
-            referencesForEnrichment.keySet());
+        referencesForEnrichment.keySet());
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
     if (valueEnrichmentInformation != null && CollectionUtils
-            .isNotEmpty(valueEnrichmentInformation.getEnrichmentBaseWrapperList())) {
+        .isNotEmpty(valueEnrichmentInformation.getEnrichmentBaseWrapperList())) {
       entityMergeEngine
-              .mergeEntities(rdf, valueEnrichmentInformation.getEnrichmentBaseWrapperList());
+          .mergeEntities(rdf, valueEnrichmentInformation.getEnrichmentBaseWrapperList());
     }
     if (!referenceEnrichmentInformation.isEmpty()) {
-      final List<EnrichmentBase> entities = referenceEnrichmentInformation
-              .stream().map(EnrichmentBaseWrapper::getEnrichmentBase).collect(Collectors.toList());
+      final List<EnrichmentBase> entities = referenceEnrichmentInformation.stream()
+          .map(EnrichmentBaseWrapper::getEnrichmentBase).collect(Collectors.toList());
       entityMergeEngine.mergeEntities(rdf, entities, referencesForEnrichment);
     }
 
@@ -210,29 +205,26 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   }
 
   private EnrichmentResultList enrichValues(List<InputValue> valuesForEnrichment)
-          throws DereferenceOrEnrichException {
+      throws DereferenceOrEnrichException {
     try {
-      return CollectionUtils.isEmpty(valuesForEnrichment) ? null : ExternalRequestUtil
-              .retryableExternalRequest(() -> enrichmentClient.enrich(valuesForEnrichment),
-                      mapWithRetrieableExceptions, EXTERNAL_CALL_MAX_RETRIES,
-                      EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
+      return CollectionUtils.isEmpty(valuesForEnrichment) ? null
+          : retryableExternalRequestForNetworkExceptions(
+              () -> enrichmentClient.enrich(valuesForEnrichment));
     } catch (Exception e) {
       throw new DereferenceOrEnrichException(
-              "Exception occurred while trying to perform enrichment.", e);
+          "Exception occurred while trying to perform enrichment.", e);
     }
   }
 
   private List<EnrichmentBaseWrapper> enrichReferences(Set<String> referencesForEnrichment)
-          throws DereferenceOrEnrichException {
+      throws DereferenceOrEnrichException {
     try {
       return CollectionUtils.isEmpty(referencesForEnrichment) ? Collections.emptyList()
-              : ExternalRequestUtil.retryableExternalRequest(
-                      () -> enrichmentClient.getByUri(referencesForEnrichment),
-                      mapWithRetrieableExceptions, EXTERNAL_CALL_MAX_RETRIES,
-                      EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
+          : retryableExternalRequestForNetworkExceptions(
+              () -> enrichmentClient.getByUri(referencesForEnrichment));
     } catch (Exception e) {
       throw new DereferenceOrEnrichException(
-              "Exception occurred while trying to perform enrichment.", e);
+          "Exception occurred while trying to perform enrichment.", e);
     }
   }
 
@@ -255,7 +247,7 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   }
 
   private List<EnrichmentBaseWrapper> dereferenceFields(Set<String> resourceIds)
-          throws DereferenceOrEnrichException {
+      throws DereferenceOrEnrichException {
 
     // Sanity check.
     if (resourceIds.isEmpty()) {
@@ -265,8 +257,8 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
     // First try to get them from our own entity collection database.
     final List<EnrichmentBaseWrapper> result = new ArrayList<>(dereferenceOwnEntities(resourceIds));
     final Set<String> foundOwnEntityIds = result.stream()
-            .map(EnrichmentBaseWrapper::getEnrichmentBase).map(EnrichmentBase::getAbout)
-            .collect(Collectors.toSet());
+        .map(EnrichmentBaseWrapper::getEnrichmentBase).map(EnrichmentBase::getAbout)
+        .collect(Collectors.toSet());
 
     // For the remaining ones, get them from the dereference service.
     for (String resourceId : resourceIds) {
@@ -280,39 +272,37 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   }
 
   private List<EnrichmentBaseWrapper> dereferenceOwnEntities(Set<String> resourceIds)
-          throws DereferenceOrEnrichException {
+      throws DereferenceOrEnrichException {
     try {
-      return ExternalRequestUtil.retryableExternalRequest(() ->
-                      enrichmentClient.getById(resourceIds), mapWithRetrieableExceptions,
-              EXTERNAL_CALL_MAX_RETRIES, EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
+      return retryableExternalRequestForNetworkExceptions(
+          () -> enrichmentClient.getById(resourceIds));
     } catch (Exception e) {
       throw new DereferenceOrEnrichException(
-              "Exception occurred while trying to perform dereferencing.", e);
+          "Exception occurred while trying to perform dereferencing.", e);
     }
   }
 
   private List<EnrichmentBaseWrapper> dereferenceExternalEntity(String resourceId)
-          throws DereferenceOrEnrichException {
+      throws DereferenceOrEnrichException {
 
     // Perform the dereferencing.
     EnrichmentResultList result;
     try {
       LOGGER.debug("== Processing {}", resourceId);
-      result = ExternalRequestUtil.retryableExternalRequest(() ->
-                      dereferenceClient.dereference(resourceId), mapWithRetrieableExceptions,
-              EXTERNAL_CALL_MAX_RETRIES, EXTERNAL_CALL_PERIOD_BETWEEN_RETRIES_IN_MILLIS);
+      result = retryableExternalRequestForNetworkExceptions(
+          () -> dereferenceClient.dereference(resourceId));
     } catch (BadRequest e) {
       // We are forgiving for these errors
       LOGGER.warn("ResourceId {}, failed", resourceId, e);
       result = null;
     } catch (Exception e) {
       throw new DereferenceOrEnrichException(
-              "Exception occurred while trying to perform dereferencing.", e);
+          "Exception occurred while trying to perform dereferencing.", e);
     }
 
     // Return the result.
     return Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseWrapperList)
-            .orElseGet(Collections::emptyList);
+        .orElseGet(Collections::emptyList);
   }
 
   List<InputValue> extractValuesForEnrichment(RDF rdf) {

@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.dao;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import dev.morphia.DeleteOptions;
 import dev.morphia.UpdateOptions;
@@ -9,7 +10,6 @@ import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperator;
 import dev.morphia.query.experimental.updates.UpdateOperators;
-import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -18,7 +18,6 @@ import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.utils.ExternalRequestUtil;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,10 +27,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiFunction;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
@@ -73,7 +72,7 @@ public class DepublishRecordIdDao {
   }
 
   private Set<String> getNonExistingRecordIds(String datasetId, Set<String> recordIds) {
-    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
+    return retryableExternalRequestForNetworkExceptions(() -> {
 
       // Create query for existing records in list. Only return record IDs.
       final Query<DepublishRecordId> query = morphiaDatastoreProvider.getDatastore()
@@ -86,10 +85,9 @@ public class DepublishRecordIdDao {
       findOptions.projection().include(DepublishRecordId.RECORD_ID_FIELD);
       findOptions.projection().exclude(DepublishRecordId.ID_FIELD);
       final Set<String> existing;
-      try (MorphiaCursor<DepublishRecordId> iterator = query.iterator(findOptions)) {
-        existing = iterator.toList().stream().map(DepublishRecordId::getRecordId)
-            .collect(Collectors.toSet());
-      }
+      existing = getListOfQueryRetryable(query, findOptions).stream()
+          .map(DepublishRecordId::getRecordId)
+          .collect(Collectors.toSet());
 
       // Return the other ones: the record IDs not found in the database.
       return recordIds.stream().filter(recordId -> !existing.contains(recordId))
@@ -139,13 +137,14 @@ public class DepublishRecordIdDao {
       DepublicationStatus depublicationStatus, Instant depublicationDate) {
     final List<DepublishRecordId> objectsToAdd = recordIdsToAdd.stream().map(recordId -> {
       final DepublishRecordId depublishRecordId = new DepublishRecordId();
+      depublishRecordId.setId(new ObjectId());
       depublishRecordId.setDatasetId(datasetId);
       depublishRecordId.setRecordId(recordId);
       depublishRecordId.setDepublicationStatus(depublicationStatus);
       depublishRecordId.setDepublicationDate(depublicationDate);
       return depublishRecordId;
     }).collect(Collectors.toList());
-    ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
+    retryableExternalRequestForNetworkExceptions(() -> {
       morphiaDatastoreProvider.getDatastore().save(objectsToAdd);
       return Optional.empty();
     });
@@ -177,9 +176,8 @@ public class DepublishRecordIdDao {
     query.filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
         DepublicationStatus.PENDING_DEPUBLICATION));
 
-    return ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(() -> query.delete(
-            new DeleteOptions().multi(true)).getDeletedCount());
+    return retryableExternalRequestForNetworkExceptions(
+        () -> query.delete(new DeleteOptions().multi(true)).getDeletedCount());
   }
 
   /**
@@ -189,7 +187,7 @@ public class DepublishRecordIdDao {
    * @return The number of records for the given dataset.
    */
   private long countDepublishRecordIdsForDataset(String datasetId) {
-    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
+    return retryableExternalRequestForNetworkExceptions(
         () -> morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
             .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).count());
   }
@@ -202,11 +200,11 @@ public class DepublishRecordIdDao {
    * @return The number of records.
    */
   public long countSuccessfullyDepublishedRecordIdsForDataset(String datasetId) {
-    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() ->
-        morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
-            .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId))
-            .filter(Filters.eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD,
-                DepublicationStatus.DEPUBLISHED)).count());
+    return retryableExternalRequestForNetworkExceptions(
+        () -> morphiaDatastoreProvider.getDatastore().find(DepublishRecordId.class)
+            .filter(Filters.eq(DepublishRecordId.DATASET_ID_FIELD, datasetId)).filter(Filters
+                .eq(DepublishRecordId.DEPUBLICATION_STATUS_FIELD, DepublicationStatus.DEPUBLISHED))
+            .count());
   }
 
   /**
@@ -232,7 +230,7 @@ public class DepublishRecordIdDao {
         .limit(pageSize);
 
     // Execute query with correct pagination
-    final List<DepublishRecordId> result = getListOfQuery(query, findOptions);
+    final List<DepublishRecordId> result = getListOfQueryRetryable(query, findOptions);
 
     // Convert result to right object.
     return result.stream().map(DepublishRecordIdView::new).collect(Collectors.toList());
@@ -298,7 +296,7 @@ public class DepublishRecordIdDao {
     }
 
     // Execute query with correct pagination
-    final List<DepublishRecordId> result = getListOfQuery(query, findOptions);
+    final List<DepublishRecordId> result = getListOfQueryRetryable(query, findOptions);
 
     // Convert result to right object.
     return result.stream().map(DepublishRecordId::getRecordId).collect(Collectors.toSet());
@@ -391,7 +389,7 @@ public class DepublishRecordIdDao {
     }
 
     // Apply the operations.
-    ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
+    retryableExternalRequestForNetworkExceptions(
         () -> query.update(firstUpdateOperator, extraUpdateOperators.toArray(UpdateOperator[]::new))
             .execute(new UpdateOptions().multi(true)));
   }
@@ -403,22 +401,5 @@ public class DepublishRecordIdDao {
    */
   public int getPageSize() {
     return pageSize;
-  }
-
-  private <T> List<T> getListOfQuery(Query<T> query, FindOptions findOptions) {
-    return ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(() -> {
-      final BiFunction<Query<T>, FindOptions, MorphiaCursor<T>> queryFunction = (querySupplied, findOptionsSupplied) -> {
-        final MorphiaCursor<T> morphiaCursor;
-        if (findOptionsSupplied == null) {
-          morphiaCursor = querySupplied.iterator();
-        } else {
-          morphiaCursor = querySupplied.iterator(findOptionsSupplied);
-        }
-        return morphiaCursor;
-      };
-      try (MorphiaCursor<T> cursor = queryFunction.apply(query, findOptions)) {
-        return performFunction(cursor, MorphiaCursor::toList);
-      }
-    });
   }
 }

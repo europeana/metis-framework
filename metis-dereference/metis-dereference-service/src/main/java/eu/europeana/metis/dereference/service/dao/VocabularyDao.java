@@ -1,6 +1,7 @@
 package eu.europeana.metis.dereference.service.dao;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
+import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
+import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
@@ -10,7 +11,6 @@ import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
-import dev.morphia.query.internal.MorphiaCursor;
 import eu.europeana.metis.dereference.Vocabulary;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -24,11 +24,17 @@ public class VocabularyDao {
 
   private final Datastore datastore;
 
-  public VocabularyDao(MongoClient mongo, String db) {
+  /**
+   * Parameter constructor.
+   *
+   * @param mongoClient the previously initialized mongo client
+   * @param databaseName the database name
+   */
+  public VocabularyDao(MongoClient mongoClient, String databaseName) {
     final MapperOptions mapperOptions = MapperOptions.builder().discriminatorKey("className")
         .discriminator(DiscriminatorFunction.className())
         .collectionNaming(NamingStrategy.identity()).build();
-    datastore = Morphia.createDatastore(mongo, db, mapperOptions);
+    datastore = Morphia.createDatastore(mongoClient, databaseName, mapperOptions);
     datastore.getMapper().map(Vocabulary.class);
   }
 
@@ -42,9 +48,7 @@ public class VocabularyDao {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
     final Query<Vocabulary> query = datastore.find(Vocabulary.class);
     query.filter(Filters.eq("uris", pattern));
-    try (final MorphiaCursor<Vocabulary> cursor = query.iterator()) {
-      return performFunction(cursor, MorphiaCursor::toList);
-    }
+    return getListOfQueryRetryable(query);
   }
 
   /**
@@ -54,9 +58,7 @@ public class VocabularyDao {
    */
   public List<Vocabulary> getAll() {
     final Query<Vocabulary> query = datastore.find(Vocabulary.class);
-    try (final MorphiaCursor<Vocabulary> cursor = query.iterator()) {
-      return performFunction(cursor, MorphiaCursor::toList);
-    }
+    return getListOfQueryRetryable(query);
   }
 
   /**
@@ -66,7 +68,9 @@ public class VocabularyDao {
    * @return A list of all the vocabularies
    */
   public Vocabulary get(String vocabularyId) {
-    return datastore.find(Vocabulary.class).filter(Filters.eq("_id", new ObjectId(vocabularyId))).first();
+    return retryableExternalRequestForNetworkExceptions(
+        () -> datastore.find(Vocabulary.class).filter(Filters.eq("_id", new ObjectId(vocabularyId)))
+            .first());
   }
 
   /**
@@ -75,8 +79,9 @@ public class VocabularyDao {
    * @param vocabularies The new vocabularies.
    */
   public void replaceAll(List<Vocabulary> vocabularies) {
-    datastore.find(Vocabulary.class).delete();
-    datastore.save(vocabularies);
+    retryableExternalRequestForNetworkExceptions(() -> datastore.find(Vocabulary.class).delete());
+    vocabularies.forEach(vocabulary -> vocabulary.setId(new ObjectId()));
+    retryableExternalRequestForNetworkExceptions(() -> datastore.save(vocabularies));
   }
 
   protected Datastore getDatastore() {
