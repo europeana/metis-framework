@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiPredicate;
-import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -202,8 +201,8 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     final A ancestorInformation = ancestorInfoGetter.apply(updated);
     final UnaryOperator<List<P>> preprocessing = entities -> new ArrayList<>(entities.stream()
         .map(entity -> objectUpdater.update(entity, ancestorInformation, null, null, mongoServer))
-        .collect(Collectors.toMap(AbstractEdmEntity::getAbout, Function.identity(),
-            BinaryOperator.maxBy((o1, o2) -> 1))).values());
+        .collect(Collectors.toMap(AbstractEdmEntity::getAbout, Function.identity(), (o1, o2) -> o2))
+        .values());
     final BiPredicate<List<P>, List<P>> equality = (w1, w2) -> listEquals(w1, w2,
         ENTITY_COMPARATOR);
     updateProperty(updateField, getter, equality, preprocessing);
