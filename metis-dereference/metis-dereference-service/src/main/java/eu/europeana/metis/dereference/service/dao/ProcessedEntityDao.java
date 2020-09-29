@@ -11,6 +11,8 @@ import dev.morphia.mapping.MapperOptions;
 import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.dereference.ProcessedEntity;
+import java.util.Optional;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,15 +54,17 @@ public class ProcessedEntityDao {
   /**
    * Save an entity.
    *
-   * @param entity The vocabulary or entity to save
+   * @param processedEntity The vocabulary or entity to save
    */
-  public void save(ProcessedEntity entity) {
+  public void save(ProcessedEntity processedEntity) {
     try {
-      retryableExternalRequestForNetworkExceptions(
-          () -> datastore.save(entity));
+      final ObjectId objectId = Optional.ofNullable(processedEntity.getId())
+          .orElseGet(ObjectId::new);
+      processedEntity.setId(objectId);
+      retryableExternalRequestForNetworkExceptions(() -> datastore.save(processedEntity));
     } catch (DuplicateKeyException e) {
       LOGGER.info("Attempted to save duplicate record {}, race condition expected.",
-          entity.getResourceId());
+          processedEntity.getResourceId());
       LOGGER.debug("Attempted to save duplicate record - exception details:", e);
     }
   }

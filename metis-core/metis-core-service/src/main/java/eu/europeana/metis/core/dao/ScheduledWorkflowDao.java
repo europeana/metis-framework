@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +52,9 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
 
   @Override
   public String create(ScheduledWorkflow scheduledWorkflow) {
+    final ObjectId objectId = Optional.ofNullable(scheduledWorkflow.getId())
+        .orElseGet(ObjectId::new);
+    scheduledWorkflow.setId(objectId);
     ScheduledWorkflow scheduledWorkflowSaved = ExternalRequestUtil
         .retryableExternalRequestForNetworkExceptions(
             () -> morphiaDatastoreProvider.getDatastore().save(scheduledWorkflow));

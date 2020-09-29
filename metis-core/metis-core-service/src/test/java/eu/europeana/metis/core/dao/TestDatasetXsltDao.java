@@ -13,6 +13,7 @@ import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProviderImpl;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import java.util.Date;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -96,10 +97,19 @@ class TestDatasetXsltDao {
 
   @Test
   void getLatestXsltForDatasetId() {
-    datasetXsltDao.create(datasetXslt);
-    datasetXsltDao.create(datasetXslt);
-    String xsltId3 = datasetXsltDao.create(datasetXslt);
-    DatasetXslt latestDatasetXsltForDatasetId = datasetXsltDao.getLatestXsltForDatasetId(datasetXslt.getDatasetId());
+    final Dataset dataset = TestObjectFactory.createDataset("testName");
+    final DatasetXslt datasetXslt1 = TestObjectFactory.createXslt(dataset);
+    datasetXslt1.setCreatedDate(new Date(1000));
+    final DatasetXslt datasetXslt2 = TestObjectFactory.createXslt(dataset);
+    datasetXslt2.setCreatedDate(new Date(2000));
+    final DatasetXslt datasetXslt3 = TestObjectFactory.createXslt(dataset);
+    datasetXslt3.setCreatedDate(new Date(3000));
+
+    datasetXsltDao.create(datasetXslt1);
+    datasetXsltDao.create(datasetXslt2);
+    String xsltId3 = datasetXsltDao.create(datasetXslt3);
+    DatasetXslt latestDatasetXsltForDatasetId = datasetXsltDao
+        .getLatestXsltForDatasetId(datasetXslt3.getDatasetId());
     assertEquals(xsltId3, latestDatasetXsltForDatasetId.getId().toString());
   }
 }

@@ -10,6 +10,7 @@ import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.utils.ExternalRequestUtil;
+import java.util.Optional;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,9 +39,10 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   @Override
   public String create(Workflow workflow) {
-    final Workflow workflowSaved = ExternalRequestUtil
-        .retryableExternalRequestForNetworkExceptions(
-            () -> morphiaDatastoreProvider.getDatastore().save(workflow));
+    final ObjectId objectId = Optional.ofNullable(workflow.getId()).orElseGet(ObjectId::new);
+    workflow.setId(objectId);
+    final Workflow workflowSaved = ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
+        () -> morphiaDatastoreProvider.getDatastore().save(workflow));
     LOGGER.info("Workflow for datasetId '{}' created in Mongo", workflow.getDatasetId());
     return workflowSaved == null ? null : workflowSaved.getId().toString();
   }

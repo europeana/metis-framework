@@ -1,5 +1,6 @@
 package eu.europeana.metis.dereference.service.dao;
 
+import static eu.europeana.metis.mongo.MorphiaUtils.getListOfQueryRetryable;
 import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import com.mongodb.client.MongoClient;
@@ -11,7 +12,6 @@ import dev.morphia.mapping.NamingStrategy;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.mongo.MorphiaUtils;
 import java.util.List;
 import java.util.regex.Pattern;
 import org.bson.types.ObjectId;
@@ -48,7 +48,7 @@ public class VocabularyDao {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
     final Query<Vocabulary> query = datastore.find(Vocabulary.class);
     query.filter(Filters.eq("uris", pattern));
-    return MorphiaUtils.getListOfQueryRetryable(query);
+    return getListOfQueryRetryable(query);
   }
 
   /**
@@ -58,7 +58,7 @@ public class VocabularyDao {
    */
   public List<Vocabulary> getAll() {
     final Query<Vocabulary> query = datastore.find(Vocabulary.class);
-    return MorphiaUtils.getListOfQueryRetryable(query);
+    return getListOfQueryRetryable(query);
   }
 
   /**
@@ -79,10 +79,9 @@ public class VocabularyDao {
    * @param vocabularies The new vocabularies.
    */
   public void replaceAll(List<Vocabulary> vocabularies) {
-    retryableExternalRequestForNetworkExceptions(
-        () -> datastore.find(Vocabulary.class).delete());
-    retryableExternalRequestForNetworkExceptions(
-        () -> datastore.save(vocabularies));
+    retryableExternalRequestForNetworkExceptions(() -> datastore.find(Vocabulary.class).delete());
+    vocabularies.forEach(vocabulary -> vocabulary.setId(new ObjectId()));
+    retryableExternalRequestForNetworkExceptions(() -> datastore.save(vocabularies));
   }
 
   protected Datastore getDatastore() {
