@@ -9,7 +9,11 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -30,6 +34,8 @@ public class XsltTransformer {
 
   private static final CacheWithExpirationTime<String, Templates> TEMPLATES_CACHE =
       new CacheWithExpirationTime<>();
+
+  private static HttpClient httpClient = HttpClient.newBuilder().build();
 
   private final Transformer transformer;
 
@@ -80,7 +86,7 @@ public class XsltTransformer {
    * @throws TransformationException In case there was a problem with the transformation.
    */
   public StringWriter transform(byte[] fileContent,
-          EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
+      EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
     final StringWriter result = new StringWriter();
     transform(fileContent, result, europeanaGeneratedIdsMap);
     return result;
@@ -95,7 +101,7 @@ public class XsltTransformer {
    * @throws TransformationException In case there was a problem with the transformation.
    */
   public byte[] transformToBytes(byte[] fileContent,
-          EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
+      EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
     try (final ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
       try (final Writer writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
         transform(fileContent, writer, europeanaGeneratedIdsMap);
@@ -107,19 +113,19 @@ public class XsltTransformer {
   }
 
   public void transform(byte[] fileContent, Writer writer,
-          EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
+      EuropeanaGeneratedIdsMap europeanaGeneratedIdsMap) throws TransformationException {
     if (europeanaGeneratedIdsMap != null) {
       transformer.setParameter("providedCHOAboutId",
-              europeanaGeneratedIdsMap.getEuropeanaGeneratedId());
+          europeanaGeneratedIdsMap.getEuropeanaGeneratedId());
       transformer.setParameter("aggregationAboutId",
-              europeanaGeneratedIdsMap.getAggregationAboutPrefixed());
+          europeanaGeneratedIdsMap.getAggregationAboutPrefixed());
       transformer.setParameter("europeanaAggregationAboutId",
-              europeanaGeneratedIdsMap.getEuropeanaAggregationAboutPrefixed());
+          europeanaGeneratedIdsMap.getEuropeanaAggregationAboutPrefixed());
       transformer.setParameter("proxyAboutId", europeanaGeneratedIdsMap.getProxyAboutPrefixed());
       transformer.setParameter("europeanaProxyAboutId",
-              europeanaGeneratedIdsMap.getEuropeanaProxyAboutPrefixed());
+          europeanaGeneratedIdsMap.getEuropeanaProxyAboutPrefixed());
       transformer.setParameter("dcIdentifier",
-              europeanaGeneratedIdsMap.getSourceProvidedChoAbout());
+          europeanaGeneratedIdsMap.getSourceProvidedChoAbout());
     }
     try (final InputStream contentStream = new ByteArrayInputStream(fileContent)) {
       transformer.transform(new StreamSource(contentStream), new StreamResult(writer));
@@ -132,14 +138,21 @@ public class XsltTransformer {
     return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
   }
 
-  private static Templates createTemplatesFromUrl(String xsltUrl)
+  public static Templates createTemplatesFromUrl(String xsltUrl)
       throws CacheValueSupplierException {
+
+    HttpRequest httpRequest = HttpRequest.newBuilder()
+        .GET()
+        .uri(URI.create(xsltUrl))
+        .build();
+
     final TransformerFactory transformerFactory = new TransformerFactoryImpl();
     // We know where the xslt files are coming from, we consider them safe.
-    try (@SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") final InputStream xsltStream = new URL(
-            xsltUrl).openStream()) {
+    try {
+      final InputStream xsltStream = httpClient.send(httpRequest, BodyHandlers.ofInputStream())
+          .body();
       return transformerFactory.newTemplates(new StreamSource(xsltStream));
-    } catch (IOException | TransformerConfigurationException e) {
+    } catch (IOException | TransformerConfigurationException | InterruptedException e) {
       throw new CacheValueSupplierException(e);
     }
   }
