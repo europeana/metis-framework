@@ -66,9 +66,6 @@ public class RdfRetriever {
 
     HttpResponse<String> httpResponse = null;
 
-//    BodyHandler<String> handler = BodyHandlers.ofString();
-//    CancelableBodyWrapper bodyWrapper = new CancelableBodyWrapper(handler);
-
     try {
       httpResponse = httpClient.send(httpRequest, BodyHandlers.ofString());
     } catch (InterruptedException e) {
