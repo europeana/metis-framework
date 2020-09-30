@@ -1,6 +1,10 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.jibx.LiteralType;
+import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
+import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.corelib.definitions.jibx.RightsStatements;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,9 +19,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
-import eu.europeana.corelib.definitions.jibx.LiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
 
 /**
  * Class with utility methods for converting an instance of {@link eu.europeana.corelib.definitions.jibx.RDF}
@@ -27,16 +28,18 @@ final class FieldInputUtils {
 
   private static final String DEFAULT_LANG_KEY = "def";
 
-  private static final Function<LiteralType, String> LITERAL_TYPE_KEY_GETTER = literal ->
-      Optional.ofNullable(literal.getLang()).map(LiteralType.Lang::getLang).orElse(null);
-  private static final Function<ResourceOrLiteralType, String> RESOURCE_OR_LITERAL_TYPE_KEY_GETTER = object ->
-      Optional.ofNullable(object.getLang()).map(ResourceOrLiteralType.Lang::getLang).orElse(null);
+  private static final Function<LiteralType, String> LITERAL_TYPE_KEY_GETTER = literal -> Optional
+      .ofNullable(literal.getLang()).map(LiteralType.Lang::getLang).orElse(null);
+  private static final Function<ResourceOrLiteralType, String> RESOURCE_OR_LITERAL_TYPE_KEY_GETTER = object -> Optional
+      .ofNullable(object.getLang()).map(ResourceOrLiteralType.Lang::getLang).orElse(null);
 
   private static final Function<String, List<String>> STRING_TYPE_VALUES_GETTER = Collections::singletonList;
-  private static final Function<LiteralType, List<String>> LITERAL_TYPE_VALUES_GETTER = literal ->
-      Collections.singletonList(literal.getString());
-  private static final Function<ResourceType, List<String>> RESOURCE_TYPE_VALUES_GETTER = resource ->
-      Collections.singletonList(resource.getResource());
+  private static final Function<LiteralType, List<String>> LITERAL_TYPE_VALUES_GETTER = literal -> Collections
+      .singletonList(literal.getString());
+  private static final Function<ResourceType, List<String>> RESOURCE_TYPE_VALUES_GETTER = resource -> Collections
+      .singletonList(resource.getResource());
+  private static final Function<RightsStatements, List<String>> RIGHTS_STATEMENTS_VALUES_GETTER = resource -> Collections
+      .singletonList(resource.getResource());
   private static final Function<ResourceOrLiteralType, List<String>> RESOURCE_OR_LITERAL_TYPE_VALUES_GETTER = object -> {
     final String objectString = object.getString();
     final String resourceString = Optional.ofNullable(object.getResource())
@@ -104,9 +107,19 @@ final class FieldInputUtils {
     return createResourceMapFromList(Collections.singletonList(obj));
   }
 
+  static <T extends RightsStatements> Map<String, List<String>> createRightsStatementsMapFromString(
+      T obj) {
+    return createRightsStatementsMapFromList(Collections.singletonList(obj));
+  }
+
   static <T extends ResourceType> Map<String, List<String>> createResourceMapFromList(
       List<T> list) {
     return createMapFromList(list, singleKeyGetter(), RESOURCE_TYPE_VALUES_GETTER);
+  }
+
+  static <T extends RightsStatements> Map<String, List<String>> createRightsStatementsMapFromList(
+      List<T> list) {
+    return createMapFromList(list, singleKeyGetter(), RIGHTS_STATEMENTS_VALUES_GETTER);
   }
 
   /**
