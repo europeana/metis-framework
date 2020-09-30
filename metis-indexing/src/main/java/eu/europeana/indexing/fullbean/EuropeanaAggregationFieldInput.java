@@ -1,13 +1,13 @@
 package eu.europeana.indexing.fullbean;
 
+import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
+import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
-import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
-import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 
 /**
  * Converts a {@link EuropeanaAggregationType} from an {@link eu.europeana.corelib.definitions.jibx.RDF}
@@ -43,8 +43,8 @@ final class EuropeanaAggregationFieldInput
         .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setAggregatedCHO(agCHO);
 
-    Map<String, List<String>> edmRights =
-        FieldInputUtils.createResourceMapFromString(aggregation.getRights());
+    Map<String, List<String>> edmRights = FieldInputUtils
+        .createRightsStatementsMapFromString(aggregation.getRights());
     mongoAggregation.setEdmRights(edmRights);
     String[] aggregates = FieldInputUtils.resourceListToArray(aggregation.getAggregateList());
     mongoAggregation.setAggregates(aggregates);
