@@ -1,16 +1,17 @@
 package eu.europeana.metis.dereference;
 
-import eu.europeana.metis.mediaprocessing.http.wrappers.CancelableBodyWrapper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandler;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status.Family;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpStatus;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,10 @@ public class RdfRetriever {
 
   private static final int MAX_NUMBER_OF_REDIRECTS = 5;
 
-  private static HttpClient httpClient = HttpClient.newBuilder().build();
+  private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
+  private static HttpClient httpClient = HttpClient.newBuilder()
+      .executor(EXECUTOR)
+      .build();
 
   /**
    * Retrieve a remote entity from a resource as a String. We try every suffix in a random order
@@ -62,11 +66,11 @@ public class RdfRetriever {
 
     HttpResponse<String> httpResponse = null;
 
-    BodyHandler<String> handler = BodyHandlers.ofString();
-    CancelableBodyWrapper bodyWrapper = new CancelableBodyWrapper(handler);
+//    BodyHandler<String> handler = BodyHandlers.ofString();
+//    CancelableBodyWrapper bodyWrapper = new CancelableBodyWrapper(handler);
 
     try {
-      httpResponse = httpClient.send(httpRequest, bodyWrapper);
+      httpResponse = httpClient.send(httpRequest, BodyHandlers.ofString());
     } catch (InterruptedException e) {
       LOG.info(String.format("That was some problem sending a request to %s", url));
 
@@ -81,13 +85,11 @@ public class RdfRetriever {
 
     // Check the response code.
     final String result;
-    if (responseCode == HttpStatus.SC_MOVED_TEMPORARILY
-        || responseCode == HttpStatus.SC_MOVED_PERMANENTLY
-        || responseCode == HttpStatus.SC_SEE_OTHER) {
+    if (Response.Status.Family.familyOf(responseCode) == Family.REDIRECTION) {
 
       // Perform redirect
       final String location = httpResponse.headers().map().get("Location").get(0);
-      bodyWrapper.cancel();
+      EXECUTOR.shutdownNow();
       if (redirectsLeft > 0 && location != null) {
         result = retrieveFromSource(url.resolve(location), redirectsLeft - 1);
       } else {
@@ -95,10 +97,9 @@ public class RdfRetriever {
       }
     } else {
       String contentType = httpResponse.headers().map().get("Content-Type").get(0);
-
       // Check that we didn't receive HTML input.
       result = httpResponse.body();
-      bodyWrapper.cancel();
+      EXECUTOR.shutdownNow();
       if (StringUtils.isBlank(result)) {
         throw new IOException("Could not retrieve the entity: it is empty.");
       } else if (StringUtils.startsWith(contentType, "text/html") || result
