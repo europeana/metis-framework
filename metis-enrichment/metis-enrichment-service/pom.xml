@@ -36,7 +36,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>${version.spring}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -124,7 +123,6 @@
     <dependency>
       <groupId>xerces</groupId>
       <artifactId>xercesImpl</artifactId>
-      <version>${version.xerces}</version>
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
@@ -134,12 +132,6 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.mongodb.morphia</groupId>
-          <artifactId>morphia</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>de.flapdoodle.embed</groupId>
