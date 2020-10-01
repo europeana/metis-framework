@@ -16,10 +16,12 @@ class CancelableSubscriber<T> implements BodySubscriber<T> {
   private final CountDownLatch latch;
   private final BodySubscriber<String> subscriber;
   private Subscription subscription;
+  private boolean isCancelled;
 
   CancelableSubscriber(BodySubscriber<String> subscriber, CountDownLatch latch) {
     this.subscriber = subscriber;
     this.latch = latch;
+    isCancelled = false;
   }
 
   @Override
@@ -51,7 +53,12 @@ class CancelableSubscriber<T> implements BodySubscriber<T> {
 
   public void cancel() {
     subscription.cancel();
+    isCancelled = true;
     LOG.debug("Subscription got cancelled");
+  }
+
+  public boolean isCancelled(){
+    return isCancelled;
   }
 }
 

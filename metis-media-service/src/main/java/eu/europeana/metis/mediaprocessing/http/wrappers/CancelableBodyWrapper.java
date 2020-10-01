@@ -36,4 +36,8 @@ public class CancelableBodyWrapper<T> implements BodyHandler<T> {
       }
     });
   }
+
+  public boolean isCancelled(){
+    return cancelableSubscriber.isCancelled();
+  }
 }
