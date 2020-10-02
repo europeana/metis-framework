@@ -20,6 +20,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.Response.Status.Family;
+import javax.ws.rs.core.UriBuilder;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -54,6 +56,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
   private final int requestTimeout;
   private HttpClient httpClient;
+  private HttpResponse<InputStream> httpResponse;
   private int maxNumberOfRedirects;
 
   /**
@@ -115,67 +118,59 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   public R download(I resourceEntry) throws IOException {
 
     // Set up the connection.
-    final String resourceUlr = getResourceUrl(resourceEntry);
-
-    HttpRequest httpRequest = HttpRequest.newBuilder()
-        .GET()
-        .timeout(Duration.ofMillis(requestTimeout))
-        .uri(URI.create(resourceUlr))
-        .build();
+    final URI resourceUlr = URI.create(getResourceUrl(resourceEntry));
 
     BodyHandler<InputStream> handler = BodyHandlers.ofInputStream();
-    CancelableBodyWrapper bodyWrapper = new CancelableBodyWrapper(handler);
+    CancelableBodyWrapper<InputStream> bodyWrapper = new CancelableBodyWrapper<>(handler);
 
     // Set up the abort trigger
     final TimerTask abortTask = new TimerTask() {
       @Override
       public void run() {
-        LOGGER.info("Aborting request due to time limit: {}.", resourceUlr);
+        LOGGER.info("Aborting request due to time limit: {}.", resourceUlr.getPath());
         bodyWrapper.cancel();
       }
     };
     final Timer timer = new Timer(true);
     timer.schedule(abortTask, requestTimeout);
 
-    // Execute the request.
-    HttpResponse<InputStream> httpResponse = null;
+    makeHttpRequest(resourceUlr, bodyWrapper);
     final int statusCode;
-
-    try {
-      httpResponse = httpClient.send(httpRequest, bodyWrapper);
-    } catch (InterruptedException interruptedException) {
-      interruptedException.printStackTrace();
-      //TODO: Add LOG
-    }
 
     if (httpResponse != null) {
       statusCode = httpResponse.statusCode();
     } else {
       statusCode = 0;
     }
-    //TODO: Check redirection
+    final Optional<String> redirectUris = httpResponse.headers().firstValue("Location");
+    final URI actualUri;
 
-    // Do first analysis
-    if (Status.fromStatusCode(statusCode) !=  Status.OK) {
+    // Do first check redirection and analysis
+    if(Family.familyOf(statusCode) == Family.REDIRECTION){
+      actualUri = performRedirect(statusCode, resourceUlr.resolve(redirectUris.get()),
+          maxNumberOfRedirects, bodyWrapper);
+      if(actualUri == null){
+        throw new IOException("There was some trouble retrieving the uri"); //TODO: Is IOException the best one to throw in this situation?
+      }
+    } else if (Status.fromStatusCode(statusCode) != Status.OK) {
       throw new IOException(
           "Download failed of resource " + resourceUlr + ". Status code " + statusCode);
+    } else {
+      actualUri = URI.create(redirectUris.toString());
     }
-
     // Obtain header information.
     final Optional<String> mimeType = httpResponse.headers().firstValue("Content-Type");
     final long fileSize = httpResponse.headers().firstValueAsLong("Content-Length").orElse(0);
-    final Optional<String> redirectUris = httpResponse.headers().firstValue("Location"); //TODO: url fix -> redirection related
-    final URI actualUri = URI.create(redirectUris.toString());
-    //TODO: Get latest redirect url
 
     // Process the result.
     final ContentRetriever content = httpResponse.body() == null ?
         ContentRetriever.forEmptyContent() : httpResponse::body;
-    final R result = createResult(resourceEntry, actualUri, mimeType.toString(), fileSize <= 0 ? null : fileSize,
+    final R result = createResult(resourceEntry, actualUri, mimeType.get(),
+        fileSize <= 0 ? null : fileSize,
         content);
 
     // If aborted, provide a nicer message. Otherwise, just rethrow.
-    if (bodyWrapper.isCancelled()) { //TODO: Check cancelable bodywrapper
+    if (bodyWrapper.isCancelled()) {
       throw new IOException("The request was aborted: it exceeded the time limit.");
     }
 
@@ -184,18 +179,54 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     abortTask.cancel();
 
     return result;
-}
+  }
 
-//  private void performRedirect(I resourceEntry, HttpResponse httpResponse,
-//      int redirectsLeft) { //TODO: No recursion, check loop
-//    final String location = httpResponse.headers().map().get("Location").get(0);
-//    //EXECUTOR.shutdownNow();
-//    if (redirectsLeft > 0 && location != null) {
-//      //result = retrieveFromSource(httpResponse.uri().resolve(location), redirectsLeft - 1);
-//    } else {
-//      //throw new IOException("Could not retrieve the entity: too many redirects.");
-//    }
-//  }
+  private URI performRedirect(int statusCode, URI location, int redirectsLeft,
+      CancelableBodyWrapper<InputStream> bodyWrapper)
+      throws IOException {
+
+
+    while (Status.Family.familyOf(statusCode) == Family.REDIRECTION) {
+      if (redirectsLeft > 0 && location != null) {
+        makeHttpRequest(location, bodyWrapper);
+
+        if(httpResponse != null){
+          statusCode = httpResponse.statusCode();
+          location = httpResponse.headers().map().containsKey("Location") ?
+              location.resolve(httpResponse.headers().firstValue("Location").get()) : location;
+        }
+        else {
+          statusCode = 0;
+          location = null;
+        }
+
+        redirectsLeft--;
+
+
+      } else {
+        throw new IOException("Could not retrieve the entity: too many redirects.");
+      }
+    }
+
+    return location;
+  }
+
+  private void makeHttpRequest(URI uri,
+      CancelableBodyWrapper<InputStream> bodyWrapper) {
+    HttpRequest httpRequest = HttpRequest.newBuilder()
+        .GET()
+        .timeout(Duration.ofMillis(requestTimeout))
+        .uri(uri)
+        .build();
+
+    // Execute the request.
+    try {
+      httpResponse = httpClient.send(httpRequest, bodyWrapper);
+    } catch (InterruptedException | IOException interruptedException) {
+      LOGGER.info("A problem occurred while sending a request");
+    }
+
+  }
 
   private static boolean httpCallIsSuccessful(int status) {
     return status >= HTTP_SUCCESS_MIN_INCLUSIVE && status < HTTP_SUCCESS_MAX_EXCLUSIVE;
