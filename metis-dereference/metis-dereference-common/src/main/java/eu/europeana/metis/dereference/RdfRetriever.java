@@ -85,7 +85,7 @@ public class RdfRetriever {
     if (Response.Status.Family.familyOf(responseCode) == Family.REDIRECTION) {
 
       // Perform redirect
-      final String location = httpResponse.headers().map().get("Location").get(0);
+      final String location = httpResponse.headers().firstValue("Location").get();
       EXECUTOR.shutdownNow();
       if (redirectsLeft > 0 && location != null) {
         result = retrieveFromSource(url.resolve(location), redirectsLeft - 1);
@@ -93,7 +93,7 @@ public class RdfRetriever {
         throw new IOException("Could not retrieve the entity: too many redirects.");
       }
     } else {
-      String contentType = httpResponse.headers().map().get("Content-Type").get(0);
+      String contentType = httpResponse.headers().firstValue("Content-Type").get();
       // Check that we didn't receive HTML input.
       result = httpResponse.body();
       EXECUTOR.shutdownNow();
