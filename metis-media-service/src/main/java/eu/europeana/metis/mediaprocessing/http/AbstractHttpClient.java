@@ -21,7 +21,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Response.Status.Family;
-import javax.ws.rs.core.UriBuilder;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -226,10 +225,6 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       LOGGER.info("A problem occurred while sending a request");
     }
 
-  }
-
-  private static boolean httpCallIsSuccessful(int status) {
-    return status >= HTTP_SUCCESS_MIN_INCLUSIVE && status < HTTP_SUCCESS_MAX_EXCLUSIVE;
   }
 
   /**
