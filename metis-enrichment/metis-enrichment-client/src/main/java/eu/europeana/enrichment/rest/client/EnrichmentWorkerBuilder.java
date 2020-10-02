@@ -1,8 +1,11 @@
 package eu.europeana.enrichment.rest.client;
 
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -118,15 +121,10 @@ public class EnrichmentWorkerBuilder {
               "Either dereferencing or enrichment (or both) must be enabled.");
     }
 
-    // Create the request factory
-    final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-    requestFactory.setConnectTimeout(Math.max(connectTimeout, 0));
-    requestFactory.setReadTimeout(Math.max(responseTimeout, 0));
-
     // Create the dereference client if needed
     final DereferenceClient dereferenceClient;
     if (StringUtils.isNotBlank(dereferenceUrl)) {
-      dereferenceClient = new DereferenceClient(new RestTemplate(requestFactory), dereferenceUrl);
+      dereferenceClient = new DereferenceClient(createRestTemplate(), dereferenceUrl);
     } else {
       dereferenceClient = null;
     }
@@ -134,7 +132,7 @@ public class EnrichmentWorkerBuilder {
     // Create the enrichment client if needed
     final EnrichmentClient enrichmentClient;
     if (StringUtils.isNotBlank(enrichmentUrl)) {
-      enrichmentClient = new EnrichmentClient(new RestTemplate(requestFactory), enrichmentUrl,
+      enrichmentClient = new EnrichmentClient(createRestTemplate(), enrichmentUrl,
               batchSizeEnrichment);
     } else {
       enrichmentClient = null;
@@ -142,5 +140,15 @@ public class EnrichmentWorkerBuilder {
 
     // Done.
     return new EnrichmentWorkerImpl(dereferenceClient, enrichmentClient, new EntityMergeEngine());
+  }
+
+  private RestTemplate createRestTemplate() {
+    final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+    requestFactory.setConnectTimeout(Math.max(connectTimeout, 0));
+    requestFactory.setReadTimeout(Math.max(responseTimeout, 0));
+    final RestTemplate restTemplate = new RestTemplate(requestFactory);
+    restTemplate.setMessageConverters(Arrays.asList(new Jaxb2RootElementHttpMessageConverter(),
+            new MappingJackson2HttpMessageConverter()));
+    return restTemplate;
   }
 }
