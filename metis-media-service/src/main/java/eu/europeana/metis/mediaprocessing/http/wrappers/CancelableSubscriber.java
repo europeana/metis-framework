@@ -14,11 +14,11 @@ class CancelableSubscriber<T> implements BodySubscriber<T> {
   private static final Logger LOG = LoggerFactory.getLogger(CancelableSubscriber.class);
 
   private final CountDownLatch latch;
-  private final BodySubscriber<String> subscriber;
+  private final BodySubscriber<T> subscriber;
   private Subscription subscription;
   private boolean isCancelled;
 
-  CancelableSubscriber(BodySubscriber<String> subscriber, CountDownLatch latch) {
+  CancelableSubscriber(BodySubscriber<T> subscriber, CountDownLatch latch) {
     this.subscriber = subscriber;
     this.latch = latch;
     isCancelled = false;

@@ -13,10 +13,10 @@ public class CancelableBodyWrapper<T> implements BodyHandler<T> {
   private static final Logger LOG = LoggerFactory.getLogger(CancelableBodyWrapper.class);
 
   private final CountDownLatch latch = new CountDownLatch(1);
-  private final BodyHandler<String> handler;
-  private CancelableSubscriber cancelableSubscriber;
+  private final BodyHandler<T> handler;
+  private CancelableSubscriber<T> cancelableSubscriber;
 
-  public CancelableBodyWrapper(BodyHandler<String> handler) {
+  public CancelableBodyWrapper(BodyHandler<T> handler) {
     this.handler = handler;
   }
 
