@@ -40,8 +40,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   private final int responseTimeout;
   private final int requestTimeout;
   private final HttpClient httpClient;
-  private HttpResponse<InputStream> httpResponse; // TODO make this a local variable.
-  private final int maxNumberOfRedirects;
+   private final int maxNumberOfRedirects;
 
   /**
    * Constructor.
@@ -84,15 +83,18 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     BodyHandler<InputStream> handler = BodyHandlers.ofInputStream();
     CancelableBodyWrapper<InputStream> bodyWrapper = new CancelableBodyWrapper<>(handler);
 
+    HttpResponse<InputStream> httpResponse = makeHttpRequest(resourceUlr, bodyWrapper);
+
     // Set up the abort trigger
+    HttpResponse<InputStream> finalHttpResponse = httpResponse;
     final TimerTask abortTask = new TimerTask() {
       @Override
       public void run() {
         LOGGER.info("Aborting request due to time limit: {}.", resourceUlr.getPath());
         bodyWrapper.cancel();
-        if (httpResponse.body() != null) {
+        if (finalHttpResponse.body() != null) {
           try {
-            httpResponse.body().close();
+            finalHttpResponse.body().close();
           } catch (IOException e) {
             LOGGER.warn(
                     "Something went wrong while trying to close the input stream after cancelling the http request.",
@@ -104,23 +106,24 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final Timer timer = new Timer(true);
     timer.schedule(abortTask, requestTimeout);
 
-    makeHttpRequest(resourceUlr, bodyWrapper);
     final int statusCode;
 
     if (httpResponse != null) {
       statusCode = httpResponse.statusCode();
     } else {
-      statusCode = 0; // TODO if there is no response, we should throw an exception. Otherwise null pointer exceptions will occur in the code below.
+      throw new IOException("A problem occurred when sending the request");
     }
+
     final Optional<String> redirectUris = httpResponse.headers().firstValue("Location");
     final URI actualUri;
 
     // Do first check redirection and analysis
     if(Family.familyOf(statusCode) == Family.REDIRECTION){
-      actualUri = performRedirect(statusCode, resourceUlr.resolve(redirectUris.get()),
+      httpResponse = performRedirect(statusCode, resourceUlr.resolve(redirectUris.get()),
           maxNumberOfRedirects, bodyWrapper);
+      actualUri = httpResponse.uri();
       if(actualUri == null){
-        throw new IOException("There was some trouble retrieving the uri"); //TODO: Is IOException the best one to throw in this situation?
+        throw new IOException("There was some trouble retrieving the uri");
       }
     } else if (Status.fromStatusCode(statusCode) != Status.OK) {
       throw new IOException(
@@ -159,14 +162,15 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     return result;
   }
 
-  private URI performRedirect(int statusCode, URI location, int redirectsLeft,
+  private HttpResponse<InputStream> performRedirect(int statusCode, URI location, int redirectsLeft,
       CancelableBodyWrapper<InputStream> bodyWrapper)
       throws IOException {
 
+    HttpResponse<InputStream> httpResponse = null;
 
     while (Status.Family.familyOf(statusCode) == Family.REDIRECTION) {
       if (redirectsLeft > 0 && location != null) {
-        makeHttpRequest(location, bodyWrapper);
+        httpResponse = makeHttpRequest(location, bodyWrapper);
 
         if(httpResponse != null){
           statusCode = httpResponse.statusCode();
@@ -186,11 +190,14 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       }
     }
 
-    return location;
+    return httpResponse;
   }
 
-  private void makeHttpRequest(URI uri,
+  private HttpResponse<InputStream> makeHttpRequest(URI uri,
       CancelableBodyWrapper<InputStream> bodyWrapper) {
+
+    HttpResponse<InputStream> httpResponse = null;
+
     HttpRequest httpRequest = HttpRequest.newBuilder()
         .GET()
         .timeout(Duration.ofMillis(responseTimeout))
@@ -206,6 +213,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       LOGGER.info("A problem occurred while sending a request");
     }
 
+    return httpResponse;
   }
 
   /**
