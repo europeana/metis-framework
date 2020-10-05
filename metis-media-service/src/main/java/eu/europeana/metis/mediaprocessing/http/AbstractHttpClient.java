@@ -126,6 +126,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final TimerTask abortTask = new TimerTask() {
       @Override
       public void run() {
+        System.out.println("TIMEOUT REACHED");
         LOGGER.info("Aborting request due to time limit: {}.", resourceUlr.getPath());
         bodyWrapper.cancel();
       }
@@ -155,7 +156,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       throw new IOException(
           "Download failed of resource " + resourceUlr + ". Status code " + statusCode);
     } else {
-      actualUri = URI.create(redirectUris.toString());
+      actualUri = httpResponse.uri();
     }
     // Obtain header information.
     final Optional<String> mimeType = httpResponse.headers().firstValue("Content-Type");
