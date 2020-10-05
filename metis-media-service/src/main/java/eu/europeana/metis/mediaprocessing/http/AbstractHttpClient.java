@@ -40,7 +40,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   private final int responseTimeout;
   private final int requestTimeout;
   private final HttpClient httpClient;
-   private final int maxNumberOfRedirects;
+  private final int maxNumberOfRedirects;
+  private HttpResponse<InputStream> httpResponse;
 
   /**
    * Constructor.
@@ -83,18 +84,17 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     BodyHandler<InputStream> handler = BodyHandlers.ofInputStream();
     CancelableBodyWrapper<InputStream> bodyWrapper = new CancelableBodyWrapper<>(handler);
 
-    HttpResponse<InputStream> httpResponse = makeHttpRequest(resourceUlr, bodyWrapper);
+     httpResponse = makeHttpRequest(resourceUlr, bodyWrapper);
 
     // Set up the abort trigger
-    HttpResponse<InputStream> finalHttpResponse = httpResponse;
     final TimerTask abortTask = new TimerTask() {
       @Override
       public void run() {
         LOGGER.info("Aborting request due to time limit: {}.", resourceUlr.getPath());
         bodyWrapper.cancel();
-        if (finalHttpResponse.body() != null) {
+        if (httpResponse.body() != null) {
           try {
-            finalHttpResponse.body().close();
+            httpResponse.body().close();
           } catch (IOException e) {
             LOGGER.warn(
                     "Something went wrong while trying to close the input stream after cancelling the http request.",
@@ -174,8 +174,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
         if(httpResponse != null){
           statusCode = httpResponse.statusCode();
-          location = httpResponse.headers().map().containsKey("Location") ?
-              location.resolve(httpResponse.headers().firstValue("Location").get()) : location;
+          location = httpResponse.headers().firstValue("Location").isEmpty() ?
+              location : location.resolve(httpResponse.headers().firstValue("Location").get());
         }
         else {
           statusCode = 0;
@@ -206,9 +206,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
     // Execute the request.
     try {
-      System.out.println("Start sending");
       httpResponse = httpClient.send(httpRequest, bodyWrapper);
-      System.out.println("Finish sending");
     } catch (InterruptedException | IOException interruptedException) {
       LOGGER.info("A problem occurred while sending a request");
     }

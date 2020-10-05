@@ -52,7 +52,7 @@ public class RdfRetriever {
     final ExecutorService executor = Executors.newSingleThreadExecutor();
     try {
       final HttpClient httpClient = HttpClient.newBuilder().executor(executor).build();
-      httpResponse = retrieveFromSource(httpClient, URI.create(resourceId + suffix));
+      httpResponse = httpConnection(httpClient, URI.create(resourceId + suffix));
     } finally {
       executor.shutdownNow();
     }
@@ -69,13 +69,13 @@ public class RdfRetriever {
     return result;
   }
 
-  private static HttpResponse<String> retrieveFromSource(HttpClient httpClient, URI url)
+  private static HttpResponse<String> httpConnection(HttpClient httpClient, URI url)
           throws IOException {
     URI currentUrl = url;
     for (int iteration = 0; iteration <= MAX_NUMBER_OF_REDIRECTS; iteration++) {
 
       // Connect to the URL
-      final HttpResponse<String> httpResponse = retrieveFromSourceInternal(httpClient, currentUrl);
+      final HttpResponse<String> httpResponse = sendHttpRequest(httpClient, currentUrl);
 
       // Obtain the response code
       final int responseCode;
@@ -103,7 +103,7 @@ public class RdfRetriever {
     throw new IOException("Could not retrieve the entity: too many redirects.");
   }
 
-  private static HttpResponse<String> retrieveFromSourceInternal(HttpClient httpClient, URI url)
+  private static HttpResponse<String> sendHttpRequest(HttpClient httpClient, URI url)
           throws IOException {
 
     // Make the connection request.
