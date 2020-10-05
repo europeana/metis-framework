@@ -11,7 +11,6 @@ import java.util.concurrent.Executors;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status.Family;
 import org.apache.commons.lang3.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +22,6 @@ public class RdfRetriever {
   private static final Logger LOG = LoggerFactory.getLogger(RdfRetriever.class);
 
   private static final int MAX_NUMBER_OF_REDIRECTS = 5;
-
-  private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
-  private static HttpClient httpClient = HttpClient.newBuilder()
-      .executor(EXECUTOR)
-      .build();
 
   /**
    * Retrieve a remote entity from a resource as a String. We try every suffix in a random order
@@ -44,68 +38,90 @@ public class RdfRetriever {
   }
 
   private static String retrieveFromSource(String resourceId, String suffix) throws IOException {
+
+    // Check the input
     if (resourceId == null) {
       throw new IllegalArgumentException("Parameter resourceId cannot be null.");
     }
     if (suffix == null) {
       throw new IllegalArgumentException("Parameter suffix cannot be null.");
     }
-    return retrieveFromSource(URI.create(resourceId + suffix), MAX_NUMBER_OF_REDIRECTS);
+
+    // Obtain the response.
+    final HttpResponse<String> httpResponse;
+    final ExecutorService executor = Executors.newSingleThreadExecutor();
+    try {
+      final HttpClient httpClient = HttpClient.newBuilder().executor(executor).build();
+      httpResponse = retrieveFromSource(httpClient, URI.create(resourceId + suffix));
+    } finally {
+      executor.shutdownNow();
+    }
+
+    // Analyze the response and return the result.
+    final String contentType = httpResponse.headers().firstValue("Content-Type").orElse(null);
+    final String result = httpResponse.body();
+    if (StringUtils.isBlank(result)) {
+      throw new IOException("Could not retrieve the entity: it is empty.");
+    } else if (StringUtils.startsWith(contentType, "text/html") || result
+            .contains("<html>")) {
+      throw new IOException("Could not retrieve the entity: seems to be an HTML document.");
+    }
+    return result;
   }
 
-  private static String retrieveFromSource(URI url, int redirectsLeft) throws IOException {
+  private static HttpResponse<String> retrieveFromSource(HttpClient httpClient, URI url)
+          throws IOException {
+    URI currentUrl = url;
+    for (int iteration = 0; iteration <= MAX_NUMBER_OF_REDIRECTS; iteration++) {
 
-    // Make the connection and retrieve the result.
+      // Connect to the URL
+      final HttpResponse<String> httpResponse = retrieveFromSourceInternal(httpClient, currentUrl);
+
+      // Obtain the response code
+      final int responseCode;
+      if (httpResponse != null) {
+        responseCode = httpResponse.statusCode();
+      } else {
+        throw new IllegalStateException("Unexpected error trying to connect to URL: " + currentUrl);
+      }
+
+      // If we don't need to redirect.
+      if (Response.Status.Family.familyOf(responseCode) != Family.REDIRECTION) {
+        return httpResponse;
+      }
+
+      // So we do need to redirect. Update URL and try again.
+      final String location = httpResponse.headers().firstValue("Location").orElse(null);
+      if (StringUtils.isBlank(location)) {
+        throw new IllegalStateException(
+                "Redirect received without Location header for URL: " + currentUrl);
+      }
+      currentUrl = currentUrl.resolve(location);
+    }
+
+    // We can only be here if the maximum number of redirects is reached.
+    throw new IOException("Could not retrieve the entity: too many redirects.");
+  }
+
+  private static HttpResponse<String> retrieveFromSourceInternal(HttpClient httpClient, URI url)
+          throws IOException {
+
+    // Make the connection request.
     // Note: we have no choice but to follow the provided URL.
-    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
-    HttpRequest httpRequest = HttpRequest.newBuilder()
-        .GET()
-        .uri(url)
-        .setHeader("Accept", "application/rdf+xml")
-        .build();
+    @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD") final HttpRequest httpRequest = HttpRequest
+            .newBuilder()
+            .GET()
+            .uri(url)
+            .setHeader("Accept", "application/rdf+xml")
+            .build();
 
-    HttpResponse<String> httpResponse = null;
-
+    // Send the request and obtain the response.
     try {
-      httpResponse = httpClient.send(httpRequest, BodyHandlers.ofString());
+      return httpClient.send(httpRequest, BodyHandlers.ofString());
     } catch (InterruptedException e) {
       LOG.info(String.format("That was some problem sending a request to %s", url));
-
+      Thread.currentThread().interrupt();
+      throw new IOException("Connection failed due to an interrupt.");
     }
-    final int responseCode;
-
-    if (httpResponse != null) {
-      responseCode = httpResponse.statusCode();
-    } else {
-      responseCode = 0;
-    }
-
-    // Check the response code.
-    final String result;
-    if (Response.Status.Family.familyOf(responseCode) == Family.REDIRECTION) {
-
-      // Perform redirect
-      final String location = httpResponse.headers().firstValue("Location").get();
-      EXECUTOR.shutdownNow();
-      if (redirectsLeft > 0 && location != null) {
-        result = retrieveFromSource(url.resolve(location), redirectsLeft - 1);
-      } else {
-        throw new IOException("Could not retrieve the entity: too many redirects.");
-      }
-    } else {
-      String contentType = httpResponse.headers().firstValue("Content-Type").get();
-      // Check that we didn't receive HTML input.
-      result = httpResponse.body();
-      EXECUTOR.shutdownNow();
-      if (StringUtils.isBlank(result)) {
-        throw new IOException("Could not retrieve the entity: it is empty.");
-      } else if (StringUtils.startsWith(contentType, "text/html") || result
-          .contains("<html>")) {
-        throw new IOException("Could not retrieve the entity: seems to be an HTML document.");
-      }
-    }
-
-    // Done
-    return result;
   }
 }
