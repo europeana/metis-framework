@@ -22,7 +22,7 @@ public class CancelableBodyWrapper<T> implements BodyHandler<T> {
 
   @Override
   public BodySubscriber<T> apply(ResponseInfo responseInfo) {
-    cancelableSubscriber = new CancelableSubscriber(handler.apply(responseInfo), latch);
+    cancelableSubscriber = new CancelableSubscriber<>(handler.apply(responseInfo), latch);
     return cancelableSubscriber;
   }
 

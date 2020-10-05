@@ -26,7 +26,7 @@ class CancelableSubscriber<T> implements BodySubscriber<T> {
 
   @Override
   public CompletionStage<T> getBody() {
-    return (CompletionStage<T>) subscriber.getBody();
+    return subscriber.getBody();
   }
 
   @Override

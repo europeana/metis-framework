@@ -18,16 +18,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Response.Status.Family;
-import org.apache.hc.client5.http.config.RequestConfig;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
-import org.apache.hc.core5.http.HttpStatus;
-import org.apache.hc.core5.util.TimeValue;
-import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,21 +34,14 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHttpClient.class);
 
-  private static final int HTTP_SUCCESS_MIN_INCLUSIVE = HttpStatus.SC_OK;
-  private static final int HTTP_SUCCESS_MAX_EXCLUSIVE = HttpStatus.SC_MULTIPLE_CHOICES;
-
-  private static final long CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS = 60L;
-  private static final long MAX_TASK_IDLE_TIME_IN_SECONDS = 300L;
-
-  private final PoolingHttpClientConnectionManager connectionManager;
-  private final CloseableHttpClient client;
   private final ScheduledExecutorService connectionCleaningSchedule = Executors
       .newScheduledThreadPool(1);
 
+  private final int responseTimeout;
   private final int requestTimeout;
-  private HttpClient httpClient;
-  private HttpResponse<InputStream> httpResponse;
-  private int maxNumberOfRedirects;
+  private final HttpClient httpClient;
+  private HttpResponse<InputStream> httpResponse; // TODO make this a local variable.
+  private final int maxNumberOfRedirects;
 
   /**
    * Constructor.
@@ -77,32 +62,9 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     maxNumberOfRedirects = maxRedirectCount;
 
     // Set the request config settings
-    final RequestConfig requestConfig = RequestConfig.custom().setMaxRedirects(maxRedirectCount)
-        .setConnectTimeout(Timeout.ofMilliseconds(connectTimeout))
-        .setResponseTimeout(Timeout.ofMilliseconds(responseTimeout)).build();
+    this.responseTimeout = responseTimeout;
     this.requestTimeout = requestTimeout;
 
-    // Create a connection manager tuned to one thread use.
-    connectionManager = new PoolingHttpClientConnectionManager();
-    connectionManager.setDefaultMaxPerRoute(1);
-
-    // Build the client.
-    client = HttpClients.custom().setDefaultRequestConfig(requestConfig)
-        .setConnectionManager(connectionManager).build();
-
-    // Start the cleaning thread.
-    connectionCleaningSchedule.scheduleWithFixedDelay(() -> cleanConnections(connectionManager),
-        CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS, CLEAN_TASK_CHECK_INTERVAL_IN_SECONDS,
-        TimeUnit.SECONDS);
-  }
-
-  private void cleanConnections(PoolingHttpClientConnectionManager connectionManager) {
-    try {
-      connectionManager.closeExpired();
-      connectionManager.closeIdle(TimeValue.ofSeconds(MAX_TASK_IDLE_TIME_IN_SECONDS));
-    } catch (RuntimeException e) {
-      LOGGER.warn("Could not clean up expired and idle connections.", e);
-    }
   }
 
   /**
@@ -126,9 +88,17 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     final TimerTask abortTask = new TimerTask() {
       @Override
       public void run() {
-        System.out.println("TIMEOUT REACHED");
         LOGGER.info("Aborting request due to time limit: {}.", resourceUlr.getPath());
         bodyWrapper.cancel();
+        if (httpResponse.body() != null) {
+          try {
+            httpResponse.body().close();
+          } catch (IOException e) {
+            LOGGER.warn(
+                    "Something went wrong while trying to close the input stream after cancelling the http request.",
+                    e);
+          }
+        }
       }
     };
     final Timer timer = new Timer(true);
@@ -140,7 +110,7 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     if (httpResponse != null) {
       statusCode = httpResponse.statusCode();
     } else {
-      statusCode = 0;
+      statusCode = 0; // TODO if there is no response, we should throw an exception. Otherwise null pointer exceptions will occur in the code below.
     }
     final Optional<String> redirectUris = httpResponse.headers().firstValue("Location");
     final URI actualUri;
@@ -165,11 +135,19 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     // Process the result.
     final ContentRetriever content = httpResponse.body() == null ?
         ContentRetriever.forEmptyContent() : httpResponse::body;
-    final R result = createResult(resourceEntry, actualUri, mimeType.get(),
-        fileSize <= 0 ? null : fileSize,
-        content);
+    final R result;
+    try {
+      result = createResult(resourceEntry, actualUri, mimeType.orElse(null),
+              fileSize <= 0 ? null : fileSize, content);
+    } catch (IOException | RuntimeException e) {
+      if (bodyWrapper.isCancelled()) {
+        throw new IOException("The request was aborted: it exceeded the time limit.");
+      }else{
+        throw e;
+      }
+    }
 
-    // If aborted, provide a nicer message. Otherwise, just rethrow.
+    // If aborted (and createResult did not throw an exception) throw exception anyway.
     if (bodyWrapper.isCancelled()) {
       throw new IOException("The request was aborted: it exceeded the time limit.");
     }
@@ -215,13 +193,15 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       CancelableBodyWrapper<InputStream> bodyWrapper) {
     HttpRequest httpRequest = HttpRequest.newBuilder()
         .GET()
-        .timeout(Duration.ofMillis(requestTimeout))
+        .timeout(Duration.ofMillis(responseTimeout))
         .uri(uri)
         .build();
 
     // Execute the request.
     try {
+      System.out.println("Start sending");
       httpResponse = httpClient.send(httpRequest, bodyWrapper);
+      System.out.println("Finish sending");
     } catch (InterruptedException | IOException interruptedException) {
       LOGGER.info("A problem occurred while sending a request");
     }
@@ -250,6 +230,8 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
    * @param contentRetriever Object that allows access to the resulting data. Note that if this
    * object is not used, the data is not transferred (or the transfer is cancelled). Note that this
    * stream cannot be used after this method returns, as the connection will be closed immediately.
+   * Also, the stream could be closed at any time (e.g. when the request times out), at which point
+   * an exception should be thrown.
    * @return The resulting object.
    * @throws IOException In case a connection or other IO problem occurred.
    */
@@ -259,8 +241,6 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   @Override
   public void close() throws IOException {
     connectionCleaningSchedule.shutdown();
-    connectionManager.close();
-    client.close();
   }
 
   /**
