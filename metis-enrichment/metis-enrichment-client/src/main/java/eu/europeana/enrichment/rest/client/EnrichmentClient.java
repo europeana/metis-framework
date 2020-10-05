@@ -75,7 +75,8 @@ public class EnrichmentClient {
     inList.setInputValues(values);
     final String url = endpoint + ENRICH_INPUT_VALUE_LIST;
     try {
-      return template.postForObject(endpoint + ENRICH_INPUT_VALUE_LIST, createRequest(inList), EnrichmentResultList.class);
+      return template.postForObject(endpoint + ENRICH_INPUT_VALUE_LIST, createRequest(inList),
+              EnrichmentResultList.class);
     } catch (RestClientException e) {
       LOGGER.warn("Enrichment client POST call failed: {}.", url, e);
       throw new UnknownException("Enrichment client call failed.", e);
