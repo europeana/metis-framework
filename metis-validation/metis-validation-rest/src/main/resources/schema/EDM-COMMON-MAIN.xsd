@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-  targetNamespace="http://www.europeana.eu/schemas/edm/"
-  xmlns:edm="http://www.europeana.eu/schemas/edm/"
-  xmlns:dc="http://purl.org/dc/elements/1.1/"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  xmlns:dcterms="http://purl.org/dc/terms/"
-  xmlns:ore="http://www.openarchives.org/ore/terms/"
-  elementFormDefault="qualified">
-
+    targetNamespace="http://www.europeana.eu/schemas/edm/"
+    xmlns:edm="http://www.europeana.eu/schemas/edm/" 
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dcterms="http://purl.org/dc/terms/" 
+    xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:enrichment="http://www.europeana.eu/schemas/edm/enrichment/"
+    xmlns:ore="http://www.openarchives.org/ore/terms/" 
+    xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+    elementFormDefault="qualified">
+    
     <import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="DC.xsd"/>
     <import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="SKOS.xsd"/>
     <import namespace="http://purl.org/dc/terms/" schemaLocation="DCTERMS.xsd"/>
     <import namespace="http://www.w3.org/2003/01/geo/wgs84_pos#" schemaLocation="WGS84.xsd"/>
-    <import namespace="http://rdvocab.info/ElementsGr2/" schemaLocation="RDAGR2.xsd"/>
-    <import namespace="http://xmlns.com/foaf/0.1/" schemaLocation="FOAF.xsd"/>
+    <import namespace="http://rdvocab.info/ElementsGr2/" schemaLocation="RDAGR2.xsd" />
+    <import namespace="http://xmlns.com/foaf/0.1/" schemaLocation="FOAF.xsd" />
     <import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd"/>
     <import namespace="http://www.w3.org/2002/07/owl#" schemaLocation="OWL.xsd"/>
 
@@ -73,7 +80,7 @@
                         <element ref="dc:subject"/>
                         <element ref="dc:title"/>
                         <element ref="dc:type"/>
-
+                        
                         <!-- DCTerms -->
                         <element ref="dcterms:alternative"/>
                         <element ref="dcterms:conformsTo"/>
@@ -184,7 +191,7 @@
             <enumeration value="United States of America"/>
         </restriction>
     </simpleType>
-
+    
     <simpleType name="LanguageCodes">
         <restriction base="string">
             <enumeration value="ar"/>
@@ -320,7 +327,7 @@
             </documentation>
         </annotation>
     </element>
-
+    
     <element name="currentLocation" type="rdf:ResourceOrLiteralType">
         <annotation>
             <documentation>The geographic location and/or name of the repository, building, site, or
@@ -349,42 +356,42 @@
                 www.pba-lille.fr/&lt;/edm:dataProvider&gt; </documentation>
         </annotation>
     </element>
-
-
+    
+    
     <element name="datasetName" type="rdf:LiteralType">
         <annotation>
             <documentation> The name of a dataset provided by an Organization
             to Europeana</documentation>
         </annotation>
     </element>
-
-
+    
+    
     <element name="end" type="rdf:LiteralType">
         <annotation>
             <documentation>The ending of a temporal period</documentation>
         </annotation>
     </element>
-
+    
     <element name="europeanaRole" type="rdf:ResourceOrLiteralType">
         <annotation>
             <documentation> Role of an Organization according to its relationship to Europeana
                 Example: Content Provider/Data Aggregator </documentation>
         </annotation>
     </element>
-
+    
     <element name="geographicLevel" type="rdf:ResourceOrLiteralType">
         <annotation>
             <documentation> Geographic Level of an Organization
                 Example: Regional/National/European/Worldwide </documentation>
         </annotation>
     </element>
-
+    
     <element name="type" type="edm:EdmType">
         <annotation>
             <documentation>The EDM Content Type</documentation>
         </annotation>
     </element>
-
+    
     <element name="hasMet" type="rdf:ResourceType">
         <annotation>
             <documentation> edm:hasMet relates a resource with the objects or phenomena that have
@@ -397,7 +404,7 @@
                 because it has been created at that spot. </documentation>
         </annotation>
     </element>
-
+    
     <element name="hasType" type="rdf:ResourceOrLiteralType">
         <annotation>
             <documentation>This property relates a resource with the concepts it belongs to in a
@@ -407,7 +414,7 @@
                 Painting. The type of a digital image of Mona Lisa may be JPEG. </documentation>
         </annotation>
     </element>
-
+    
     <element name="hasView" type="rdf:ResourceType">
         <annotation>
             <documentation> This property relates a ORE aggregation about a CHO with a web resource
@@ -439,7 +446,7 @@
                 (music)" which is incorporated in "Concert Recording 1973 (vinyl)". </documentation>
         </annotation>
     </element>
-
+    
     <element name="isDerivativeOf" type="rdf:ResourceType">
         <annotation>
             <documentation>This property captures a narrower notion of derivation than
@@ -452,7 +459,7 @@
             </documentation>
         </annotation>
     </element>
-
+    
     <element name="isNextInSequence" type="rdf:ResourceType">
         <annotation>
             <documentation> edm:isNextInSequence relates two resources S and R that are ordered
@@ -461,7 +468,7 @@
                 in sequence to page 33 of the same title. </documentation>
         </annotation>
     </element>
-
+    
     <element name="isRelatedTo" type="rdf:ResourceOrLiteralType">
         <annotation>
             <documentation>edm:isRelatedTo is the most general contextual property in EDM.
@@ -475,7 +482,7 @@
                 Renaissance Art. </documentation>
         </annotation>
     </element>
-
+    
     <element name="isRepresentationOf" type="rdf:ResourceType">
         <annotation>
             <documentation>This property associates an information resource to the resource (if any)
@@ -483,7 +490,7 @@
                 Lab by digitizing Mona Lisa is a representation of Mona Lisa </documentation>
         </annotation>
     </element>
-
+    
     <element name="isShownAt" type="rdf:ResourceType">
         <annotation>
             <documentation>An unambiguous URL reference to the digital object on the provider's web
@@ -496,7 +503,7 @@
             </documentation>
         </annotation>
     </element>
-
+    
     <element name="isShownBy" type="rdf:ResourceType">
         <annotation>
             <documentation> An unambiguous URL reference to the digital object on the provider's web
@@ -511,7 +518,7 @@
             </documentation>
         </annotation>
     </element>
-
+    
     <element name="isSimilarTo" type="rdf:ResourceType">
         <annotation>
             <documentation>Definition The most generic derivation property, covering also the case
@@ -523,7 +530,7 @@
             </documentation>
         </annotation>
     </element>
-
+    
     <element name="isSuccessorOf" type="rdf:ResourceType">
         <annotation>
             <documentation>This property captures the relation between the continuation of a
@@ -546,7 +553,7 @@
                 http://www.culture.gouv.fr/public/mistral/joconde_fr?ACTION=CHERCHER&amp;FIELD_1=REF&amp;VALUE_1=000PE025604</documentation>
         </annotation>
     </element>
-
+    
     <element name="language" type="edm:LanguageCodes">
         <annotation>
             <documentation>A language assigned to the resource with reference to the Provider.
@@ -560,7 +567,7 @@
                 en:English
                 es:Spanish
                 et:Estonian
-                eu:Basque
+                eu:Basque 
                 fi:Finnish
                 fr:French
                 ga:Irish
@@ -605,7 +612,7 @@
                 </documentation>
         </annotation>
     </element>
-
+    
     <element name="object" type="rdf:ResourceType">
         <annotation>
             <documentation>The URL of a thumbnail representing the digital object or, if there is no
@@ -619,26 +626,23 @@
 
     <element name="organizationScope" type="rdf:ResourceOrLiteralType">
         <annotation>
-            <documentation>Scope of an Organization
-                Example: Cross/Single/Thematic/Individual
-            </documentation>
+            <documentation> Scope of an Organization 
+                Example: Cross/Single/Thematic/Individual </documentation>
         </annotation>
     </element>
 
 
     <element name="organizationDomain" type="rdf:ResourceOrLiteralType">
         <annotation>
-            <documentation>Domain of an Organization
-                Example: Library/Archive/Museum
-            </documentation>
+            <documentation> Domain of an Organization 
+                Example: Library/Archive/Museum </documentation>
         </annotation>
     </element>
 
     <element name="organizationSector" type="rdf:ResourceOrLiteralType">
         <annotation>
-            <documentation>Sector of an Organization
-                Example: Private/Public/Goverment Department
-            </documentation>
+            <documentation> Sector of an Organization 
+                Example: Private/Public/Goverment Department </documentation>
         </annotation>
     </element>
 
@@ -678,7 +682,7 @@
         </annotation>
     </element>
 
-    <element name="rights" type="rdf:RightsStatements">
+    <element name="rights" type="rdf:ResourceType">
         <annotation>
             <documentation>Information about copyright of the digital object as specified by
                 isShownBy and isShownAt.The value in this element is a URL constructed according to

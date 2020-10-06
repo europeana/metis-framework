@@ -23,8 +23,7 @@
     </documentation>
   </annotation>
   <import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd" />
-
-  <element name="inheritFrom" type="rdf:RightsStatements">
+  <element name="inheritFrom" type="rdf:ResourceType">
+  
   </element>
-
-</schema>
+  </schema>

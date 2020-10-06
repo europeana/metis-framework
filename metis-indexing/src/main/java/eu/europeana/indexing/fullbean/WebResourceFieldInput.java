@@ -102,8 +102,8 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
         FieldInputUtils.createResourceOrLiteralMapFromList(wResourceType.getTypeList());
     webResource.setDcType(typeMap);
 
-    Map<String, List<String>> edmRightsMap = FieldInputUtils
-        .createRightsStatementsMapFromString(wResourceType.getRights());
+    Map<String, List<String>> edmRightsMap =
+        FieldInputUtils.createResourceMapFromString(wResourceType.getRights());
 
     webResource.setWebResourceEdmRights(edmRightsMap);
 

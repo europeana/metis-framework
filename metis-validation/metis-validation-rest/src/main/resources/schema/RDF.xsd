@@ -7,262 +7,180 @@
 	under the Licence is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
 	OR CONDITIONS OF ANY KIND, either express or implied. See the Licence for 
 	the specific language governing permissions and limitations under the Licence. -->
-<schema xmlns="http://www.w3.org/2001/XMLSchema"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
-  targetNamespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  elementFormDefault="qualified">
-  <annotation>
-    <documentation>
-      EDM First Implementation Schema: RDF resources and
-      literals
-    </documentation>
-  </annotation>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+	targetNamespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	elementFormDefault="qualified">
+	<annotation>
+		<documentation>
+			EDM First Implementation Schema: RDF resources and
+			literals
+		</documentation>
+	</annotation>
 
-  <import namespace="http://www.w3.org/XML/1998/namespace"
-    schemaLocation="xml.xsd"/>
+	<import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="xml.xsd" />
 
-  <element name="type" type="rdf:ResourceType">
+	<element name="type" type="rdf:ResourceType">
 
-    <annotation>
-      <documentation>
-        To indicate the type of a resource. Currently not used
-      </documentation>
-    </annotation>
-  </element>
-  <complexType name="ResourceType">
-    <annotation>
-      <appinfo>
-        <sch:pattern>
-          <sch:rule context="*">
-            <sch:assert test="not(@rdf:resource = '')">
-              Empty rdf:resource attribute is not allowed for
-              <sch:name/>
-              element.
-            </sch:assert>
-          </sch:rule>
-        </sch:pattern>
-      </appinfo>
-    </annotation>
-    <attribute ref="rdf:resource" use="required"/>
-  </complexType>
+		<annotation>
+			<documentation>
+				To indicate the type of a resource. Currently not used
+			</documentation>
+		</annotation>
+	</element>
+	<complexType name="ResourceType">
+		<annotation>
+			<appinfo>
+				<sch:pattern>
+					<sch:rule context="*">
+						<sch:assert test="not(@rdf:resource = '')">
+							Empty rdf:resource attribute is not allowed for
+							<sch:name />
+							element.
+						</sch:assert>
+					</sch:rule>
+				</sch:pattern>
+			</appinfo>
+		</annotation>
+		<attribute ref="rdf:resource" use="required" />
+	</complexType>
 
-  <complexType name="DateType">
-    <simpleContent>
-      <extension base="date">
-        <attribute ref="rdf:datatype" use="required"
-          fixed="http://www.w3.org/2001/XMLSchema#date"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-  <complexType name="LongType">
-    <simpleContent>
-      <extension base="long">
-        <attribute ref="rdf:datatype" use="required" fixed="http://www.w3.org/2001/XMLSchema#long"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-  <complexType name="IntegerType">
-    <simpleContent>
-      <extension base="long">
-        <attribute ref="rdf:datatype" use="required"
-          fixed="http://www.w3.org/2001/XMLSchema#integer"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-  <complexType name="NonNegativeIntegerType">
-    <simpleContent>
-      <extension base="nonNegativeInteger">
-        <attribute ref="rdf:datatype" use="required"
-          fixed="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-  <complexType name="DoubleType">
-    <simpleContent>
-      <extension base="double">
-        <attribute ref="rdf:datatype" use="required"
-          fixed="http://www.w3.org/2001/XMLSchema#double"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-  <complexType name="StringType">
-    <simpleContent>
-      <extension base="string">
-        <attribute ref="rdf:datatype" use="required"
-          fixed="http://www.w3.org/2001/XMLSchema#string"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-  <!-- Because of jibx incompatibility in the generation og the HexBinarytype (byte array) that leads to Marshalling issues this needs to be maintained as String
-  For as long as Jibx does not properly support it
-  -->
-  <complexType name="HexBinaryType">
-    <simpleContent>
-      <extension base="rdf:hexBinaryString">
-        <attribute ref="rdf:datatype" use="required"
-          fixed="http://www.w3.org/2001/XMLSchema#hexBinary"/>
-      </extension>
-    </simpleContent>
-  </complexType>
+	<complexType name="DateType">
+		<simpleContent>
+			<extension base="date">
+				<attribute ref="rdf:datatype" use="required"
+					fixed="http://www.w3.org/2001/XMLSchema#date" />
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="LongType">
+		<simpleContent>
+			<extension base="long">
+				<attribute ref="rdf:datatype" use="required" fixed="http://www.w3.org/2001/XMLSchema#long"/>
+			</extension>
+		</simpleContent>
+	</complexType>
+	<complexType name="IntegerType">
+        <simpleContent>
+            <extension base="long">
+                <attribute ref="rdf:datatype" use="required" fixed="http://www.w3.org/2001/XMLSchema#integer"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <complexType name="NonNegativeIntegerType">
+        <simpleContent>
+            <extension base="nonNegativeInteger">
+                <attribute ref="rdf:datatype" use="required" fixed="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <complexType name="DoubleType">
+        <simpleContent>
+            <extension base="double">
+                <attribute ref="rdf:datatype" use="required" fixed="http://www.w3.org/2001/XMLSchema#double"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <complexType name="StringType">
+        <simpleContent>
+            <extension base="string">
+                <attribute ref="rdf:datatype" use="required" fixed="http://www.w3.org/2001/XMLSchema#string"/>
+            </extension>
+        </simpleContent>
+    </complexType>
+	<!-- Because of jibx incompatibility in the generation og the HexBinarytype (byte array) that leads to Marshalling issues this needs to be maintained as String
+	For as long as Jibx does not properly support it
+	-->
+    <complexType name="HexBinaryType">
+        <simpleContent>
+            <extension base="rdf:hexBinaryString">
+                <attribute ref="rdf:datatype" use="required" fixed="http://www.w3.org/2001/XMLSchema#hexBinary"/>
+            </extension>
+        </simpleContent>
+    </complexType>
 
-  <simpleType name="hexBinaryString">
-    <restriction base="string">
-      <pattern value="[0-9A-Fa-f]{6}"/>
-    </restriction>
-  </simpleType>
-  <complexType name="AboutType">
-    <annotation>
-      <appinfo>
-        <sch:pattern>
-          <sch:rule context="*">
-            <sch:assert test="not(@rdf:about = '')">
-              Empty rdf:about attribute is not allowed for
-              <sch:name/>
-              element.
-            </sch:assert>
-          </sch:rule>
-        </sch:pattern>
-      </appinfo>
-    </annotation>
-    <attribute ref="rdf:about" use="required"/>
-  </complexType>
+	<simpleType name="hexBinaryString">
+		<restriction base="string">
+			<pattern value="[0-9A-Fa-f]{6}"/>
+		</restriction>
+	</simpleType>
+	<complexType name="AboutType">
+		<annotation>
+			<appinfo>
+				<sch:pattern>
+					<sch:rule context="*">
+						<sch:assert test="not(@rdf:about = '')">
+							Empty rdf:about attribute is not allowed for
+							<sch:name />
+							element.
+						</sch:assert>
+					</sch:rule>
+				</sch:pattern>
+			</appinfo>
+		</annotation>
+		<attribute ref="rdf:about" use="required" />
+	</complexType>
 
-  <complexType name="LiteralType">
-    <annotation>
-      <appinfo>
-        <sch:pattern>
-          <sch:rule context="*">
-            <sch:assert test="not(@xml:lang = '')">
-              Empty xml:lang attribute is not allowed for
-              <sch:name/>
-              element.
-            </sch:assert>
-          </sch:rule>
-        </sch:pattern>
-      </appinfo>
-    </annotation>
-    <simpleContent>
-      <extension base="string">
-        <attribute ref="xml:lang" use="optional"/>
-      </extension>
-    </simpleContent>
-  </complexType>
+	<complexType name="LiteralType">
+		<annotation>
+			<appinfo>
+				<sch:pattern>
+					<sch:rule context="*">
+						<sch:assert test="not(@xml:lang = '')">
+							Empty xml:lang attribute is not allowed for
+							<sch:name />
+							element.
+						</sch:assert>
+					</sch:rule>
+				</sch:pattern>
+			</appinfo>
+		</annotation>
+		<simpleContent>
+			<extension base="string">
+				<attribute ref="xml:lang" use="optional" />
+			</extension>
+		</simpleContent>
+	</complexType>
 
-  <attribute name="resource">
-    <simpleType>
-      <restriction base="anyURI"/>
-    </simpleType>
-  </attribute>
+	<attribute name="resource">
+		<simpleType>
+			<restriction base="anyURI" />
+		</simpleType>
+	</attribute>
 
-  <attribute name="about">
-    <simpleType>
-      <restriction base="anyURI"/>
-    </simpleType>
-  </attribute>
+	<attribute name="about">
+		<simpleType>
+			<restriction base="anyURI" />
+		</simpleType>
+	</attribute>
 
-  <attribute name="datatype">
-    <simpleType>
-      <restriction base="anyURI"/>
-    </simpleType>
-  </attribute>
+	<attribute name="datatype">
+		<simpleType>
+			<restriction base="anyURI" />
+		</simpleType>
+	</attribute>
 
-  <complexType name="ResourceOrLiteralType">
-    <annotation>
-      <appinfo>
-        <sch:pattern>
-          <sch:rule context="*">
-            <sch:assert test="not(@rdf:resource and text())">
-              Element
-              <sch:name/>
-              should not have both rdf:resource attribute and text value
-              populated.
-            </sch:assert>
-          </sch:rule>
-        </sch:pattern>
-      </appinfo>
-    </annotation>
-    <simpleContent>
-      <extension base="string">
-        <attribute ref="xml:lang" use="optional"/>
-        <attribute ref="rdf:resource" use="optional"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-
-  <complexType name="RightsStatements">
-    <attribute name="resource" use="required" form="qualified">
-      <simpleType>
-        <restriction base="string">
-          <!--
-          CC VERSION 1.0 LICENSES
-          <http://creativecommons.org/licenses/[PERMISSIONS]/1.0/[PORT]/>
-          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd | by-nd-nc
-          PORT: generic (no port) | fi | il | nl
-          -->
-          <pattern
-            value="http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd|by-nd-nc)/1[.]0/(fi|il|nl)?"/>
-
-          <!--
-          CC VERSION 2.0 LICENSES
-          <http://creativecommons.org/licenses/[PERMISSIONS]/2.0/[PORT]/>
-          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
-          PORT: generic (no port) | au | at | be | br | ca | cl | hr | uk | fr | de | it | jp | nl | pl | kr | es | tw
-          -->
-          <pattern
-            value="http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]0/(au|at|be|br|ca|cl|hr|uk|fr|de|it|jp|nl|pl|kr|es|tw)?"/>
-
-          <!--
-          CC VERSION 2.1 LICENSES
-          <http://creativecommons.org/licenses/[PERMISSIONS]/2.1/[PORT]/>
-          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
-          PORT: au | es | jp
-          -->
-          <pattern
-            value="http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]1/(au|es|jp)"/>
-
-          <!--
-          CC VERSION 2.5 LICENSES
-          <http://creativecommons.org/licenses/[PERMISSIONS]/2.5/[PORT]/>
-          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
-          PORT: generic (no port) | ar | au | br | bg | ca | cn | co | hr | dk | hu | in | il | it | mk | my | mt | mx | nl | pe | pl | pt | scotland | si | za | es | se | ch | tw
-          -->
-          <pattern
-            value="http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/2[.]5/(ar|au|br|bg|ca|cn|co|hr|dk|hu|in|il|it|mk|my|mt|mx|nl|pe|pl|pt|scotland|si|za|es|se|ch|tw)?"/>
-
-          <!--
-          CC VERSION 3.0 LICENSES
-          <http://creativecommons.org/licenses/[PERMISSIONS]/3.0/[PORT]/>
-          PERMISSIONS: by | by-sa | by-nd |  by-nc | by-nc-sa | by-nc-nd
-          PORT: generic (no port) | au | at | br | cl | cn | cr | hr | cz | ec | eg | ee | fr | de | gr | gt | hk | igo | ie | it | lu | nl | nz | no | ph | pl | pt | pr | ro | rs | sg | za | es | ch | tw | th | ug | us | ve | vn
-          -->
-          <pattern
-            value="http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/3[.]0/(au|at|br|cl|cn|cr|hr|cz|ec|eg|ee|fr|de|gr|gt|hk|igo|ie|it|lu|nl|nz|no|ph|pl|pt|pr|ro|rs|sg|za|es|ch|tw|th|ug|us|ve|vn)?"/>
-
-          <!--
-          CC VERSION 4.0 LICENSES
-          <http://creativecommons.org/licenses/[PERMISSIONS]/4.0/>
-          PERMISSIONS: by | by-sa | by-nd | by-nc | by-nc-sa | by-nc-nd
-          -->
-          <pattern
-            value="http[:]//creativecommons[.]org/licenses/(by|by-sa|by-nd|by-nc|by-nc-sa|by-nc-nd)/4[.]0/"/>
-
-          <!--
-          CC PUBLIC DOMAIN TOOLS
-          <http://creativecommons.org/publicdomain/[PUBLIC DOMAIN TOOL]/1.0/
-          PUBLIC DOMAIN TOOL: zero | mark
-          -->
-          <pattern value="http[:]//creativecommons[.]org/publicdomain/(zero|mark)/1[.]0/"/>
-
-          <!--
-          RIGHTSSTATEMENTS.ORG
-          <http://rightsstatements.org/vocab/[PERMISSIONS]/1.0/>
-          PERMISSIONS: NoC-NC | NoC-OKLR | InC | InC-EDU | InC-OW-EU | CNE
-          -->
-          <pattern
-            value="http[:]//rightsstatements[.]org/vocab/(NoC-NC|NoC-OKLR|InC|InC-EDU|InC-OW-EU|CNE)/1[.]0/"/>
-        </restriction>
-      </simpleType>
-    </attribute>
-  </complexType>
+	<complexType name="ResourceOrLiteralType">
+		<annotation>
+			<appinfo>
+				<sch:pattern>
+					<sch:rule context="*">
+						<sch:assert test="not(@rdf:resource and text())">
+							Element
+							<sch:name />
+							should not have both rdf:resource attribute and text value
+							populated.
+						</sch:assert>
+					</sch:rule>
+				</sch:pattern>
+			</appinfo>
+		</annotation>
+		<simpleContent>
+			<extension base="string">
+				<attribute ref="xml:lang" use="optional" />
+				<attribute ref="rdf:resource" use="optional" />
+			</extension>
+		</simpleContent>
+	</complexType>
 </schema>

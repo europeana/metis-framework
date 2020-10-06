@@ -1,9 +1,5 @@
 package eu.europeana.indexing.fullbean;
 
-import eu.europeana.corelib.definitions.jibx.Aggregation;
-import eu.europeana.corelib.definitions.jibx.ResourceType;
-import eu.europeana.corelib.solr.entity.AggregationImpl;
-import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -12,6 +8,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import eu.europeana.corelib.definitions.jibx.Aggregation;
+import eu.europeana.corelib.definitions.jibx.ResourceType;
+import eu.europeana.corelib.solr.entity.AggregationImpl;
+import eu.europeana.corelib.solr.entity.WebResourceImpl;
 
 /**
  * Converts a {@link Aggregation} from an {@link eu.europeana.corelib.definitions.jibx.RDF} to a
@@ -61,8 +61,8 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
     Map<String, List<String>> prov =
         FieldInputUtils.createResourceOrLiteralMapFromString(aggregation.getProvider());
     mongoAggregation.setEdmProvider(prov);
-    Map<String, List<String>> rights = FieldInputUtils
-        .createRightsStatementsMapFromString(aggregation.getRights());
+    Map<String, List<String>> rights =
+        FieldInputUtils.createResourceMapFromString(aggregation.getRights());
     mongoAggregation.setEdmRights(rights);
 
     if (aggregation.getUgc() == null) {
