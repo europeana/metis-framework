@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.rest.client;
+package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.metis.utils.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
@@ -6,6 +6,8 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.rest.client.dereference.DereferenceClient;
+import eu.europeana.enrichment.rest.client.exceptions.DereferenceOrEnrichException;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EnrichmentFields;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
@@ -46,7 +48,8 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
    * @param enrichmentClient The enrichment client.
    * @param entityMergeEngine The engine to be used for merging entities into the RDF.
    */
-  EnrichmentWorkerImpl(DereferenceClient dereferenceClient, EnrichmentClient enrichmentClient,
+  public EnrichmentWorkerImpl(DereferenceClient dereferenceClient,
+      EnrichmentClient enrichmentClient,
       EntityMergeEngine entityMergeEngine) {
     this.dereferenceClient = dereferenceClient;
     this.enrichmentClient = enrichmentClient;

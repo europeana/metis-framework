@@ -28,7 +28,7 @@ public final class TemporaryResponseConverter {
    * @return The converted object.
    * @throws JAXBException In case there was a conversion issue.
    */
-  static EnrichmentResultList convert(ResponseEntity<byte[]> requestResult) throws JAXBException {
+  public static EnrichmentResultList convert(ResponseEntity<byte[]> requestResult) throws JAXBException {
     return convert(requestResult, EnrichmentResultList.class, EnrichmentResultList::new);
   }
 
@@ -43,7 +43,7 @@ public final class TemporaryResponseConverter {
    * @return The converted object.
    * @throws JAXBException In case there was a conversion issue.
    */
-  static <T> T convert(ResponseEntity<byte[]> requestResult, Class<T> type,
+  public static <T> T convert(ResponseEntity<byte[]> requestResult, Class<T> type,
           Supplier<T> defaultResult) throws JAXBException {
     if (requestResult.getBody() == null) {
       return defaultResult.get();

@@ -1,6 +1,7 @@
-package eu.europeana.enrichment.rest.client;
+package eu.europeana.enrichment.rest.client.enrichment;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.enrichment.rest.client.exceptions.DereferenceOrEnrichException;
 import java.io.InputStream;
 import java.util.Set;
 

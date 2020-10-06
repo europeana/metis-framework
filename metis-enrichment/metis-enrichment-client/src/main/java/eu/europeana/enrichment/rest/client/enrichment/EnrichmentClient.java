@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.rest.client;
+package eu.europeana.enrichment.rest.client.enrichment;
 
 import static eu.europeana.metis.RestEndpoints.ENRICH_CODEURI;
 import static eu.europeana.metis.RestEndpoints.ENRICH_CODEURI_OR_OWLSAMEAS;
@@ -9,6 +9,7 @@ import eu.europeana.enrichment.api.external.InputValueList;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.rest.client.TemporaryResponseConverter;
 import eu.europeana.enrichment.utils.InputValue;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -51,7 +52,7 @@ public class EnrichmentClient {
    * @param endpoint the endpoint of the rest api.
    * @param batchSize The batch size.
    */
-  EnrichmentClient(RestTemplate template, String endpoint, int batchSize) {
+  public EnrichmentClient(RestTemplate template, String endpoint, int batchSize) {
     this.template = template;
     this.endpoint = endpoint;
     this.batchSize = batchSize;

@@ -13,6 +13,7 @@ import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.rest.client.dereference.DereferenceClient;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import java.util.ArrayList;
