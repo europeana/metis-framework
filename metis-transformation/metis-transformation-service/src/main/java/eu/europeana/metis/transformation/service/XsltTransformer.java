@@ -138,7 +138,7 @@ public class XsltTransformer {
     return TEMPLATES_CACHE.getFromCache(xsltUrl, () -> createTemplatesFromUrl(xsltUrl));
   }
 
-  public static Templates createTemplatesFromUrl(String xsltUrl)
+  private static Templates createTemplatesFromUrl(String xsltUrl)
       throws CacheValueSupplierException {
 
     HttpRequest httpRequest = HttpRequest.newBuilder()
