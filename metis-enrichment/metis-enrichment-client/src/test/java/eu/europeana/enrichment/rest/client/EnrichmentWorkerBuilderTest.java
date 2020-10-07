@@ -2,7 +2,6 @@ package eu.europeana.enrichment.rest.client;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import eu.europeana.enrichment.rest.client.enrichment.EnrichmentWorkerBuilder;
 import org.junit.jupiter.api.Test;
 
 class EnrichmentWorkerBuilderTest {

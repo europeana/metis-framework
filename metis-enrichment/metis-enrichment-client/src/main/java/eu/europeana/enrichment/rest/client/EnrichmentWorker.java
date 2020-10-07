@@ -1,7 +1,9 @@
-package eu.europeana.enrichment.rest.client.enrichment;
+package eu.europeana.enrichment.rest.client;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceOrEnrichException;
+import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import java.io.InputStream;
 import java.util.Set;
 
@@ -73,7 +75,8 @@ public interface EnrichmentWorker {
    * @return The processed RDF. Note: this may be the same object as the input object.
    * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
    */
-  RDF process(final RDF inputRdf) throws DereferenceOrEnrichException;
+  RDF process(final RDF inputRdf)
+      throws DereferenceOrEnrichException, EnrichmentException, DereferenceException;
 
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF.
@@ -83,6 +86,7 @@ public interface EnrichmentWorker {
    * @return The processed RDF. Note: this will be the same object as the input object.
    * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
    */
-  RDF process(final RDF rdf, Mode mode) throws DereferenceOrEnrichException;
+  RDF process(final RDF rdf, Mode mode)
+      throws DereferenceOrEnrichException, EnrichmentException, DereferenceException;
 
 }

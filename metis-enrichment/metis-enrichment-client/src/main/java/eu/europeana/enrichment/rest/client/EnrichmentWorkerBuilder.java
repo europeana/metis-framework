@@ -1,6 +1,7 @@
-package eu.europeana.enrichment.rest.client.enrichment;
+package eu.europeana.enrichment.rest.client;
 
 import eu.europeana.enrichment.rest.client.dereference.DereferenceClient;
+import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
