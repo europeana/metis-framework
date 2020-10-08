@@ -2,8 +2,8 @@ package eu.europeana.enrichment.rest.client;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
-import eu.europeana.enrichment.rest.client.exceptions.DereferenceOrEnrichException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
+import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
 import java.io.InputStream;
 import java.util.Set;
 
@@ -34,18 +34,24 @@ public interface EnrichmentWorker {
    *
    * @param inputStream The RDF to be processed as an input stream. The stream is not closed.
    * @return The processed RDF as a byte array.
-   * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
+   * @throws EnrichmentException In case something goes wrong with processing the RDF
+   * @throws DereferenceException In case something goes wrong with processing the RDF
+   * @throws SerializationException In case something goes wrong with processing the RDF.
    */
-  byte[] process(final InputStream inputStream) throws DereferenceOrEnrichException;
+  byte[] process(final InputStream inputStream)
+      throws EnrichmentException, DereferenceException, SerializationException;
 
   /**
    * Performs dereference and enrichment on an input stream to produce a target byte array.
    *
    * @param inputStream The RDF to be processed as an input stream. The stream is not closed.
    * @return The processed RDF as a byte array.
-   * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
+   * @throws SerializationException In case something goes wrong with processing the RDF.
+   * @throws EnrichmentException In case something goes wrong with processing the RDF.
+   * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  byte[] process(final InputStream inputStream, Mode mode) throws DereferenceOrEnrichException;
+  byte[] process(final InputStream inputStream, Mode mode)
+      throws SerializationException, EnrichmentException, DereferenceException;
 
   /**
    * Performs dereference and enrichment on an input String to produce a target String. This is a
@@ -54,18 +60,24 @@ public interface EnrichmentWorker {
    *
    * @param inputString The RDF to be processed as a String.
    * @return The processed RDF as a String.
-   * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
+   * @throws SerializationException In case something goes wrong with processing the RDF.
+   * @throws EnrichmentException In case something goes wrong with processing the RDF.
+   * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  String process(final String inputString) throws DereferenceOrEnrichException;
+  String process(final String inputString)
+      throws  EnrichmentException, DereferenceException, SerializationException;
 
   /**
    * Performs dereference and enrichment on an input String to produce a target String.
    *
    * @param inputString The RDF to be processed as a String.
    * @return The processed RDF as a String.
-   * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
+   * @throws SerializationException In case something goes wrong with processing the RDF.
+   * @throws EnrichmentException In case something goes wrong with processing the RDF.
+   * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
-  String process(final String inputString, Mode mode) throws DereferenceOrEnrichException;
+  String process(final String inputString, Mode mode)
+      throws SerializationException, EnrichmentException, DereferenceException;
 
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF. This is a wrapper
@@ -73,10 +85,11 @@ public interface EnrichmentWorker {
    *
    * @param inputRdf The RDF to be processed.
    * @return The processed RDF. Note: this may be the same object as the input object.
-   * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
+   * @throws EnrichmentException In case something goes wrong with processing the RDF.
+   * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
   RDF process(final RDF inputRdf)
-      throws DereferenceOrEnrichException, EnrichmentException, DereferenceException;
+      throws EnrichmentException, DereferenceException;
 
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF.
@@ -84,9 +97,10 @@ public interface EnrichmentWorker {
    * @param rdf The RDF to be processed.
    * @param mode The processing mode to be applied.
    * @return The processed RDF. Note: this will be the same object as the input object.
-   * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
+   * @throws EnrichmentException In case something goes wrong with processing the RDF.
+   * @throws DereferenceException In case something goes wrong with processing the RDF.
    */
   RDF process(final RDF rdf, Mode mode)
-      throws DereferenceOrEnrichException, EnrichmentException, DereferenceException;
+      throws EnrichmentException, DereferenceException;
 
 }

@@ -8,8 +8,8 @@ import eu.europeana.enrichment.rest.client.enrichment.Enricher;
 import eu.europeana.enrichment.rest.client.enrichment.EnricherImpl;
 import eu.europeana.enrichment.rest.client.enrichment.EnrichmentClient;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
-import eu.europeana.enrichment.rest.client.exceptions.DereferenceOrEnrichException;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
+import eu.europeana.enrichment.rest.client.exceptions.SerializationException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
 import java.io.InputStream;
@@ -63,13 +63,14 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
   }
 
   @Override
-  public byte[] process(InputStream inputStream) throws DereferenceOrEnrichException {
+  public byte[] process(InputStream inputStream)
+      throws EnrichmentException, DereferenceException, SerializationException {
     return process(inputStream, Mode.DEREFERENCE_AND_ENRICHMENT);
   }
 
   @Override
   public byte[] process(final InputStream inputStream, Mode mode)
-      throws DereferenceOrEnrichException {
+      throws SerializationException, EnrichmentException, DereferenceException {
     if (inputStream == null) {
       throw new IllegalArgumentException("The input stream cannot be null.");
     }
@@ -77,19 +78,27 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       final RDF inputRdf = convertInputStreamToRdf(inputStream);
       final RDF resultRdf = process(inputRdf, mode);
       return convertRdfToBytes(resultRdf);
-    } catch (JiBXException | EnrichmentException | DereferenceException e) {
-      throw new DereferenceOrEnrichException(
+    } catch (JiBXException e) {
+      throw new SerializationException(
           "Something went wrong with converting to or from the RDF format.", e);
+    } catch (EnrichmentException e){
+      throw new EnrichmentException(
+          "Something went wrong with the enrichment from the RDF file.", e);
+    } catch (DereferenceException e){
+      throw new DereferenceException(
+          "Something went wrong with the dereference from the RDF file.", e);
     }
   }
 
   @Override
-  public String process(String inputString) throws DereferenceOrEnrichException {
+  public String process(String inputString)
+      throws EnrichmentException, DereferenceException, SerializationException {
     return process(inputString, Mode.DEREFERENCE_AND_ENRICHMENT);
   }
 
   @Override
-  public String process(final String inputString, Mode mode) throws DereferenceOrEnrichException {
+  public String process(final String inputString, Mode mode)
+      throws SerializationException, EnrichmentException, DereferenceException {
     if (inputString == null) {
       throw new IllegalArgumentException("Input RDF string cannot be null.");
     }
@@ -97,9 +106,15 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
       final RDF inputRdf = convertStringToRdf(inputString);
       final RDF resultRdf = process(inputRdf, mode);
       return convertRdfToString(resultRdf);
-    } catch (JiBXException | EnrichmentException | DereferenceException e) {
-      throw new DereferenceOrEnrichException(
+    } catch (JiBXException e) {
+      throw new SerializationException(
           "Something went wrong with converting to or from the RDF format.", e);
+    } catch (EnrichmentException e){
+      throw new EnrichmentException(
+          "Something went wrong with the enrichment from the RDF file.", e);
+    } catch (DereferenceException e){
+      throw new DereferenceException(
+          "Something went wrong with the dereference from the RDF file.", e);
     }
   }
 
