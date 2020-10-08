@@ -70,7 +70,8 @@ public class EnricherImpl implements Enricher{
 
   }
 
-  private EnrichmentResultList enrichValues(List<InputValue> valuesForEnrichment)
+  @Override
+  public EnrichmentResultList enrichValues(List<InputValue> valuesForEnrichment)
       throws EnrichmentException {
     try {
       return CollectionUtils.isEmpty(valuesForEnrichment) ? null
@@ -82,7 +83,8 @@ public class EnricherImpl implements Enricher{
     }
   }
 
-  private List<EnrichmentBaseWrapper> enrichReferences(Set<String> referencesForEnrichment)
+  @Override
+  public List<EnrichmentBaseWrapper> enrichReferences(Set<String> referencesForEnrichment)
       throws EnrichmentException {
     try {
       return CollectionUtils.isEmpty(referencesForEnrichment) ? Collections.emptyList()

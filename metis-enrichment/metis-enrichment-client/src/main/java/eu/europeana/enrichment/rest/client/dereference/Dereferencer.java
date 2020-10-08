@@ -9,9 +9,12 @@ import java.util.Set;
 public interface Dereferencer {
 
   //TODO: Javadoc
-  void dereference(final RDF rdf) throws DereferenceException; // TODO: performDereference from EnrichmentWorker
+  void dereference(final RDF rdf) throws DereferenceException;
 
   //TODO: Javadoc
-  Set<String> extractReferencesForDereferencing(RDF rdf); //TODO: extractReferenceForDereference from EnrichmentWorker
+  List<EnrichmentBaseWrapper> dereferenceEntities(Set<String> resourceIds) throws DereferenceException;
+
+  //TODO: Javadoc
+  Set<String> extractReferencesForDereferencing(RDF rdf);
 
 }

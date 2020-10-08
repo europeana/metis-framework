@@ -14,12 +14,20 @@ import java.util.Set;
 public interface Enricher {
 
   //TODO: Javadoc
-  void enrichment(final RDF rdf) throws EnrichmentException; // TODO: performEnrichment from EnrichmentWorker
+  void enrichment(final RDF rdf) throws EnrichmentException;
 
   //TODO: Javadoc
-  List<InputValue> extractValuesForEnrichment(RDF rdf); //TODO: extractValuesForEnrichment from EnrichmentWorker
+  EnrichmentResultList enrichValues(List<InputValue> valuesForEnrichment)
+      throws EnrichmentException;
 
   //TODO: Javadoc
-  Map<String, Set<EnrichmentFields>> extractReferencesForEnrichment(RDF rdf); //TODO: extractReferencesForEnrichment from EnrichmentWorker
+  List<EnrichmentBaseWrapper> enrichReferences(Set<String> referencesForEnrichment)
+      throws EnrichmentException;
+
+  //TODO: Javadoc
+  List<InputValue> extractValuesForEnrichment(RDF rdf);
+
+  //TODO: Javadoc
+  Map<String, Set<EnrichmentFields>> extractReferencesForEnrichment(RDF rdf);
 
 }

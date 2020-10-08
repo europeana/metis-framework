@@ -45,7 +45,7 @@ public class DereferencerImpl implements Dereferencer{
 
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
-    final List<EnrichmentBaseWrapper> dereferenceInformation = dereferenceFields(resourceIds);
+    final List<EnrichmentBaseWrapper> dereferenceInformation = dereferenceEntities(resourceIds);
 
     // Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
@@ -56,7 +56,8 @@ public class DereferencerImpl implements Dereferencer{
 
   }
 
-  private List<EnrichmentBaseWrapper> dereferenceFields(Set<String> resourceIds)
+  @Override
+  public List<EnrichmentBaseWrapper> dereferenceEntities(Set<String> resourceIds)
       throws DereferenceException {
 
     // Sanity check.
