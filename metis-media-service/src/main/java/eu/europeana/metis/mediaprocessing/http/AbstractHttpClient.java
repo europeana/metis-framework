@@ -13,13 +13,16 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandler;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Response.Status.Family;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,18 +82,18 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
   public R download(I resourceEntry) throws IOException {
 
     // Set up the connection.
-    final URI resourceUlr = URI.create(getResourceUrl(resourceEntry));
+    final URI resourceUri = URI.create(getResourceUrl(resourceEntry));
 
     BodyHandler<InputStream> handler = BodyHandlers.ofInputStream();
     CancelableBodyWrapper<InputStream> bodyWrapper = new CancelableBodyWrapper<>(handler);
 
-     httpResponse = makeHttpRequest(resourceUlr, bodyWrapper);
+     httpResponse = makeHttpRequest(resourceUri, bodyWrapper);
 
     // Set up the abort trigger
     final TimerTask abortTask = new TimerTask() {
       @Override
       public void run() {
-        LOGGER.info("Aborting request due to time limit: {}.", resourceUlr.getPath());
+        LOGGER.info("Aborting request due to time limit: {}.", resourceUri.getPath());
         bodyWrapper.cancel();
         if (httpResponse.body() != null) {
           try {
@@ -114,33 +117,39 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       throw new IOException("A problem occurred when sending the request");
     }
 
-    final Optional<String> redirectUris = httpResponse.headers().firstValue("Location");
-    final URI actualUri;
+    final URI actualUri = httpResponse.uri();
+
+    if(actualUri == null){
+      throw new IOException("There was some trouble retrieving the uri");
+    }
+
 
     // Do first check redirection and analysis
     if(Family.familyOf(statusCode) == Family.REDIRECTION){
-      httpResponse = performRedirect(statusCode, resourceUlr.resolve(redirectUris.get()),
+      final String redirectUris = Optional.ofNullable(httpResponse.headers().firstValue(HttpHeaders.LOCATION))
+          .map(Optional::get)
+          .filter(StringUtils::isNotBlank)
+          .orElseThrow(IOException::new);
+      httpResponse = performRedirect(statusCode, resourceUri.resolve(redirectUris),
           maxNumberOfRedirects, bodyWrapper);
-      actualUri = httpResponse.uri();
-      if(actualUri == null){
-        throw new IOException("There was some trouble retrieving the uri");
-      }
     } else if (Status.fromStatusCode(statusCode) != Status.OK) {
       throw new IOException(
-          "Download failed of resource " + resourceUlr + ". Status code " + statusCode);
-    } else {
-      actualUri = httpResponse.uri();
+          String.format("Download failed of resource %s. Status code %s", resourceUri, statusCode));
     }
+
     // Obtain header information.
-    final Optional<String> mimeType = httpResponse.headers().firstValue("Content-Type");
-    final long fileSize = httpResponse.headers().firstValueAsLong("Content-Length").orElse(0);
+    final String mimeType = Optional.ofNullable(httpResponse.headers().firstValue(HttpHeaders.CONTENT_TYPE))
+        .map(Optional::get)
+        .filter(StringUtils::isNotBlank)
+        .orElse(null);
+    final long fileSize = httpResponse.headers().firstValueAsLong(HttpHeaders.CONTENT_LENGTH).orElse(0);
 
     // Process the result.
     final ContentRetriever content = httpResponse.body() == null ?
         ContentRetriever.forEmptyContent() : httpResponse::body;
     final R result;
     try {
-      result = createResult(resourceEntry, actualUri, mimeType.orElse(null),
+      result = createResult(resourceEntry, actualUri, mimeType,
               fileSize <= 0 ? null : fileSize, content);
     } catch (IOException | RuntimeException e) {
       if (bodyWrapper.isCancelled()) {
@@ -166,18 +175,17 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       CancelableBodyWrapper<InputStream> bodyWrapper)
       throws IOException {
 
-    HttpResponse<InputStream> httpResponse = null;
+    HttpResponse<InputStream> response = null;
 
     while (Status.Family.familyOf(statusCode) == Family.REDIRECTION) {
       if (redirectsLeft > 0 && location != null) {
-        httpResponse = makeHttpRequest(location, bodyWrapper);
+        response = makeHttpRequest(location, bodyWrapper);
 
-        if(httpResponse != null){
-          statusCode = httpResponse.statusCode();
-          location = httpResponse.headers().firstValue("Location").isEmpty() ?
-              location : location.resolve(httpResponse.headers().firstValue("Location").get());
-        }
-        else {
+        if (response != null) {
+          statusCode = response.statusCode();
+          location = response.headers().firstValue(HttpHeaders.LOCATION).map(location::resolve)
+              .orElse(location);
+        } else {
           statusCode = 0;
           location = null;
         }
@@ -190,7 +198,13 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
       }
     }
 
-    return httpResponse;
+    if (response != null){
+      return response;
+    }
+    else {
+      throw new IOException("There was trouble retrieving the response from the redirect request");
+    }
+
   }
 
   private HttpResponse<InputStream> makeHttpRequest(URI uri,
@@ -207,7 +221,10 @@ abstract class AbstractHttpClient<I, R> implements Closeable {
     // Execute the request.
     try {
       httpResponse = httpClient.send(httpRequest, bodyWrapper);
-    } catch (InterruptedException | IOException interruptedException) {
+    } catch (InterruptedException interruptedException) {
+      LOGGER.info("A problem occurred while sending a request");
+      Thread.currentThread().interrupt();
+    } catch(IOException e){
       LOGGER.info("A problem occurred while sending a request");
     }
 

@@ -165,7 +165,10 @@ public class SchemaProvider {
     try {
       httpResponse = httpClient.send(httpRequest, BodyHandlers.ofFile(destinationFile.toPath()));
       destinationFile = httpResponse.body().toFile();
-    } catch (IOException | InterruptedException e) {
+    } catch (IOException e) {
+      LOGGER.info(String.format("There was some trouble sending a request to %s", schemasLocation));
+    } catch (InterruptedException e){
+      Thread.currentThread().interrupt();
       LOGGER.info(String.format("There was some trouble sending a request to %s", schemasLocation));
     }
 

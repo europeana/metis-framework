@@ -35,7 +35,7 @@ public class XsltTransformer {
   private static final CacheWithExpirationTime<String, Templates> TEMPLATES_CACHE =
       new CacheWithExpirationTime<>();
 
-  private static HttpClient httpClient = HttpClient.newBuilder().build();
+  private static final HttpClient httpClient = HttpClient.newBuilder().build();
 
   private final Transformer transformer;
 
@@ -148,13 +148,16 @@ public class XsltTransformer {
 
     final TransformerFactory transformerFactory = new TransformerFactoryImpl();
     // We know where the xslt files are coming from, we consider them safe.
-    try {
-      final InputStream xsltStream = httpClient.send(httpRequest, BodyHandlers.ofInputStream())
-          .body();
+    try (final InputStream xsltStream = httpClient.send(httpRequest, BodyHandlers.ofInputStream())
+        .body()) {
       return transformerFactory.newTemplates(new StreamSource(xsltStream));
-    } catch (IOException | TransformerConfigurationException | InterruptedException e) {
+    } catch (IOException | TransformerConfigurationException e) {
+      throw new CacheValueSupplierException(e);
+    } catch (InterruptedException e){
+      Thread.currentThread().interrupt();
       throw new CacheValueSupplierException(e);
     }
+
   }
 
   /**
